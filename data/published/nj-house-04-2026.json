@@ -1,0 +1,250 @@
+{
+  "id": "nj-house-04-2026",
+  "title": "New Jersey's 4th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "New Jersey's 4th Congressional District",
+  "state": "New Jersey",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New Jersey's 4th Congressional District pits 45-year incumbent Republican Rep. Chris Smith against Democratic challenger Rachel Peace. The district, covering parts of Monmouth and Ocean Counties along the Jersey Shore, is heavily Republican with a Cook Partisan Voting Index of R+14 and about 40% of registered voters identifying as Republican. Peace, a 33-year-old single mother and small business owner, won the Democratic primary by a wide margin and is campaigning on healthcare access, Medicaid protection, and economic fairness. Smith, first elected in 1980 and the longest-serving current House member alongside Rep. Hal Rogers, is seeking a 24th term and is heavily favored to retain the seat.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in New Jersey's 4th Congressional District. The Cook Political Report rates the race as 'Solid R', indicating it is not considered competitive.",
+  "candidates": [
+    {
+      "name": "Chris Smith",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Chris Smith is the Republican incumbent representing New Jersey's 4th Congressional District, first elected in 1980 and now seeking his 24th term. He is the longest-serving current member of the House alongside Rep. Hal Rogers, known for authoring numerous laws on human trafficking, autism, veterans affairs, and human rights. Smith serves as a senior member of the Foreign Affairs Committee and chairs its Africa Subcommittee, and co-chairs the Tom Lantos Human Rights Commission and the Congressional-Executive Commission on China.",
+      "summary_sources": [
+        {
+          "url": "https://chrissmith.house.gov/biography/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Chris Smith",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483516",
+          "type": "website",
+          "title": "NJ-04 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newjerseyglobe.com/congress/rachel-peace-earns-nj-4-dem-nod-against-chris-smith/",
+          "type": "news",
+          "title": "Rachel Peace earns NJ-4 Dem nod against Chris Smith",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Chris_Smith_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1981,
+          "end_year": null,
+          "description": "Representing New Jersey's 4th Congressional District; currently in 23rd term, seeking 24th",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "New Jersey Right to Life Committee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led the state's prominent anti-abortion advocacy organization",
+          "source": null
+        },
+        {
+          "title": "Director of Institutional Sales",
+          "organization": "Family-owned sporting goods company",
+          "start_year": null,
+          "end_year": null,
+          "description": "Managed institutional sales for family business",
+          "source": null
+        },
+        {
+          "title": "Legislative Agent",
+          "organization": "New Jersey State Legislature",
+          "start_year": 1979,
+          "end_year": 1979,
+          "description": "Worked as a legislative agent/lobbyist for the state legislature",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Trenton State College (now The College of New Jersey)",
+          "degree": "B.S.",
+          "field": "Business Administration",
+          "year": 1975,
+          "source": null
+        },
+        {
+          "institution": "Worcester College",
+          "degree": null,
+          "field": "Study abroad program",
+          "year": 1974,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://chrissmith.house.gov/",
+          "title": "https://chrissmith.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/S000522",
+          "title": "https://bioguide.congress.gov/search/bio/S000522",
+          "type": "other"
+        }
+      ],
+      "website": "https://chrissmith.house.gov/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/repchrissmith/",
+        "facebook": "https://www.facebook.com/Smith4NJ/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rachel Peace",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Rachel Peace is the Democratic nominee for New Jersey's 4th Congressional District, having won the June 2, 2026 primary with 73% of the vote against John Blake. A 33-year-old single mother and small business owner from the Jersey Shore, she founded Hyperfocused Communications, a strategic communications firm serving mission-driven leaders. Peace's campaign is centered on protecting and expanding healthcare access, defending Medicaid, and addressing economic affordability for working families, driven by personal experience with the healthcare system.",
+      "summary_sources": [
+        {
+          "url": "https://whyy.org/articles/new-jersey-election-2026-primary-4th-congressional-district-winner/",
+          "type": "news",
+          "title": "Rachel Peace defeats Blake in 4th District Democratic Primary",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newjerseyglobe.com/congress/rachel-peace-earns-nj-4-dem-nod-against-chris-smith/",
+          "type": "news",
+          "title": "Rachel Peace earns NJ-4 Dem nod against Chris Smith",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.njspotlightnews.org/special-report/2026-primary-4th-congressional-district/",
+          "type": "news",
+          "title": "2026 Primary: 4th Congressional District - NJ Spotlight News",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.peace4shore.com/",
+          "type": "website",
+          "title": "Rachel Peace for Congress | A Better Way",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rachel_Peace.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "Hyperfocused Communications",
+          "start_year": null,
+          "end_year": null,
+          "description": "Small strategic communications firm serving mission-driven leaders",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Rachel_Peace",
+          "title": "https://ballotpedia.org/Rachel_Peace",
+          "type": "other"
+        },
+        {
+          "url": "https://www.peace4shore.com/",
+          "title": "https://www.peace4shore.com/",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.peace4shore.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/rachelizpeace/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:13:22.111481+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 246539,
+    "completion_tokens": 5456,
+    "total_tokens": 251995,
+    "cost_usd": 0.01802175,
+    "cost_source": "provider",
+    "estimated_usd": 0.02523,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 246539,
+        "completion_tokens": 5456
+      }
+    },
+    "duration_s": 120.6
+  }
+}

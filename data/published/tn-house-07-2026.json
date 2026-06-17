@@ -1,0 +1,540 @@
+{
+  "id": "tn-house-07-2026",
+  "title": "2026 U.S. House of Representatives election for Tennessee's 7th Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Tennessee's 7th Congressional District",
+  "state": "Tennessee",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Tennessee's 7th Congressional District will hold a general election on November 3, 2026, to elect a U.S. Representative following a mid-decade redistricting in May 2026 that redrew the state's congressional map. The incumbent, Republican Matt Van Epps, won office in a December 2025 special election following the resignation of former Rep. Mark Green, and now seeks a full term. The race carries heightened significance due to the new map, which was drawn by the Republican-controlled legislature and is being challenged in court as racially gerrymandered. The district, anchored in Middle Tennessee and including parts of Nashville and surrounding counties, is rated as Safe/Solid Republican by major nonpartisan forecasters, with voters favoring Donald Trump by over 20 points in 2024. The August 6, 2026, primaries will determine the Republican and Democratic nominees from fields of two and four candidates respectively, alongside two independents qualifying for the general election ballot.",
+  "polling": [],
+  "polling_note": "No public opinion polls for the 2026 general election in Tennessee's 7th Congressional District were found as of mid-2026. The district is rated Safe/Solid Republican by Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Matt Van Epps",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Matt Van Epps is the incumbent U.S. Representative for Tennessee's 7th Congressional District, first elected in a December 2025 special election. A West Point graduate and former Army helicopter pilot who served in the 160th Special Operations Aviation Regiment, he previously served as Tennessee Commissioner of General Services and Deputy Chief Operating Officer in Governor Bill Lee's office. He is an America First conservative who supports extending the 2017 tax cuts, completing the border wall, and a peace-through-strength foreign policy.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Matt_Van_Epps",
+          "type": "news",
+          "title": "Matt Van Epps - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vanepps.house.gov/about",
+          "type": "government",
+          "title": "About - Congressman Matt Van Epps",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Matt_Van_Epps.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Tennessee's 7th Congressional District since December 2025",
+          "source": null
+        },
+        {
+          "title": "Commissioner of General Services",
+          "organization": "Tennessee Department of General Services",
+          "start_year": 2024,
+          "end_year": 2025,
+          "description": "Appointed by Governor Bill Lee; oversaw statewide procurement, real estate, and facilities",
+          "source": null
+        },
+        {
+          "title": "Deputy Chief Operating Officer",
+          "organization": "Office of the Governor of Tennessee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Senior leadership role in state government",
+          "source": null
+        },
+        {
+          "title": "Lieutenant Colonel / Army Aviator",
+          "organization": "Tennessee Army National Guard / U.S. Army",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Served 10 years on active duty as an AH-64D Apache and MH-47G Chinook pilot with the 160th SOAR(A); deployed to Iraq and Afghanistan",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "Bachelor of Science",
+          "field": "Engineering / Aviation",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Matt_Van_Epps",
+          "title": "Ballotpedia profile",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Matt_Van_Epps",
+          "title": "Wikipedia article",
+          "type": "other"
+        }
+      ],
+      "website": "https://vanepps.house.gov/",
+      "social_media": {
+        "twitter": "https://x.com/MattForTN"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brant Hall",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Brant Hall is a Republican candidate running in the August 6, 2026, primary for Tennessee's 7th Congressional District. He is listed on the official Tennessee Secretary of State candidate list as a resident of Hendersonville with petition signatures pending review. Limited public information is available about his background and policy platform.",
+      "summary_sources": [
+        {
+          "url": "https://tennesseelookout.com/wp-content/uploads/2026/05/USHouseCandidates_2026-05-15-1.pdf",
+          "type": "government",
+          "title": "Tennessee Secretary of State - Candidates for United States House of Representatives as of May 15, 2026",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Vincent Dixie",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Vincent Dixie is a Democratic member of the Tennessee House of Representatives, representing District 54 in Nashville since 2018, and a candidate for U.S. House in Tennessee's 7th Congressional District. He previously ran in the 2025 special election Democratic primary for the same seat. His campaign priorities include affordable housing, accessible child care and healthcare, a livable minimum wage, and gun violence prevention.",
+      "summary_sources": [
+        {
+          "url": "https://www.dixie4tn.com/",
+          "type": "website",
+          "title": "Vincent Dixie for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Vincent_Dixie",
+          "type": "website",
+          "title": "Ballotpedia - Vincent Dixie",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://wapp.capitol.tn.gov/apps/LegislatorInfo/Member?district=H54",
+          "type": "government",
+          "title": "Tennessee General Assembly - Representative Vincent Dixie",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Vincent_Dixie.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Tennessee House of Representatives",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Representing District 54 (Davidson County)",
+          "source": null
+        },
+        {
+          "title": "Healthcare Professional",
+          "organization": "TriStar Skyline Medical Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in healthcare operations",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Tennessee State University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Vincent_Dixie",
+          "title": "Ballotpedia profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.dixie4tn.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Darden Copeland",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Darden Copeland is a Democratic candidate for U.S. House in Tennessee's 7th Congressional District, running in the August 6, 2026, primary. He is a Nashville businessman and entrepreneur who previously ran in the 2025 special election Democratic primary for the same seat. His campaign focuses on economic issues including healthcare costs, Medicaid expansion, and reducing prescription drug prices.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Darden_Copeland",
+          "type": "website",
+          "title": "Ballotpedia - Darden Copeland",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tba.org/?pg=LawBlog&blAction=showEntry&blogEntry=129479",
+          "type": "news",
+          "title": "Businessman Joins 7th Congressional District Primary",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder and CEO",
+          "organization": "Private business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Entrepreneur and businessman based in Nashville",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Darden_Copeland",
+          "title": "Ballotpedia profile",
+          "type": "other"
+        }
+      ],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/DardenForTN/",
+        "instagram": "https://www.instagram.com/dardenfortn/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Saletta Holloway",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Saletta Holloway is a Democratic candidate running for U.S. House in Tennessee's 7th Congressional District in the August 6, 2026, primary. She previously served on the Nashville Metro Council and is listed as a former elected official on Vincent Dixie's endorsement page. She is on the ballot per the official Tennessee Secretary of State candidate list.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Saletta_Holloway",
+          "type": "website",
+          "title": "Ballotpedia - Saletta Holloway",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tennesseelookout.com/wp-content/uploads/2026/05/USHouseCandidates_2026-05-15-1.pdf",
+          "type": "government",
+          "title": "Tennessee Secretary of State - Candidates for United States House of Representatives as of May 15, 2026",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Metro Council Member",
+          "organization": "Metropolitan Government of Nashville and Davidson County",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former Nashville Metro Council member",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Saletta_Holloway",
+          "title": "Ballotpedia profile",
+          "type": "other"
+        }
+      ],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Joshua Warren Sales",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Joshua Warren Sales is a Democratic candidate for U.S. House in Tennessee's 7th Congressional District, running in the August 6, 2026, primary. He is an AP English teacher in Davidson County, a U.S. Army veteran with an honorable discharge, and a graduate of the University of Tennessee Knoxville (summa cum laude). His campaign emphasizes a working-class agenda, rejecting corporate PAC money, and proposes a detailed legislative plan of twelve self-financing bills covering healthcare, tax fairness, housing, and campaign finance reform.",
+      "summary_sources": [
+        {
+          "url": "https://sales4congress.com/",
+          "type": "website",
+          "title": "Sales for Congress 2026",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ksgazette.com/who-is-josh-sales-pegram-resident-enters-race-for-tennessees-7th-district/",
+          "type": "news",
+          "title": "Who is Josh Sales? Pegram resident enters race for Tennessee's 7th District",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "AP English Language and Composition Teacher",
+          "organization": "Davidson County Public Schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teaches in underserved North Nashville communities",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Soldier (EOD)",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Honorably discharged; trained in Explosive Ordnance Disposal",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Tennessee Knoxville",
+          "degree": "Bachelor's Degree",
+          "field": "English",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Joshua_Sales",
+          "title": "Ballotpedia profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://sales4congress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/sales4congress/",
+        "instagram": "https://www.instagram.com/sales4congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Andrew J. Koontz",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Andrew J. Koontz is an independent candidate running for U.S. House in Tennessee's 7th Congressional District in the November 3, 2026, general election. He is listed on the official Tennessee Secretary of State candidate list as a resident of Portland, Tennessee. Limited public information is available about his background and campaign platform.",
+      "summary_sources": [
+        {
+          "url": "https://tennesseelookout.com/wp-content/uploads/2026/05/USHouseCandidates_2026-05-15-1.pdf",
+          "type": "government",
+          "title": "Tennessee Secretary of State - Candidates for United States House of Representatives as of May 15, 2026",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lowell Reynolds",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Lowell Reynolds is an independent candidate running for U.S. House in Tennessee's 7th Congressional District in the November 3, 2026, general election. He is listed on the official Tennessee Secretary of State candidate list as a resident of Nashville. Limited public information is available about his background and campaign platform.",
+      "summary_sources": [
+        {
+          "url": "https://tennesseelookout.com/wp-content/uploads/2026/05/USHouseCandidates_2026-05-15-1.pdf",
+          "type": "government",
+          "title": "Tennessee Secretary of State - Candidates for United States House of Representatives as of May 15, 2026",
+          "description": null,
+          "last_accessed": "2026-05-20T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Tennessee%27s_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:08:05.042474+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 240981,
+    "completion_tokens": 9701,
+    "total_tokens": 250682,
+    "cost_usd": 0.017789918000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.025518,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 240981,
+        "completion_tokens": 9701
+      }
+    },
+    "duration_s": 154.9
+  }
+}

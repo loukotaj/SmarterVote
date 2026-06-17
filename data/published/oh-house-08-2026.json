@@ -1,0 +1,248 @@
+{
+  "id": "oh-house-08-2026",
+  "title": "Ohio's 8th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Ohio's 8th Congressional District",
+  "state": "Ohio",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Ohio's 8th Congressional District covers parts of Butler, Darke, Preble, Hamilton, and Miami counties in the southwestern part of the state. Incumbent Republican Warren Davidson, who has held the seat since winning a 2016 special election to succeed former Speaker John Boehner, is seeking a sixth full term. He faces Democratic nominee Vanessa Enoch, a business consultant and former journalist who has been the party's standard-bearer in this district for multiple election cycles. The district has been reliably Republican for decades and is widely considered a safe Republican seat, with Davidson having won previous general elections with roughly two-thirds of the vote.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for this race. Cook Political Report rated the district as 'Solidly Republican' before the May 2026 primary.",
+  "candidates": [
+    {
+      "name": "Warren Davidson",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Warren Davidson has served as the U.S. Representative for Ohio's 8th Congressional District since June 2016, when he won a special election to succeed former House Speaker John Boehner. A U.S. Army veteran (1988\u20132000) who served in the 75th Ranger Regiment and 101st Airborne Division, he is a member of the House Freedom Caucus and serves on the House Financial Services Committee. Before entering Congress, he owned and operated a manufacturing business, Integral Manufacturing, in Troy, Ohio.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Warren_Davidson",
+          "type": "website",
+          "title": "Warren Davidson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://davidson.house.gov/about",
+          "type": "government",
+          "title": "About | Congressman Warren Davidson",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Warren_Davidson",
+          "type": "website",
+          "title": "Warren Davidson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Warren_Davidson_118th_Congress_%28cropped%29.jpg/250px-Warren_Davidson_118th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Ohio's 8th District",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Serving since June 2016; member of House Financial Services Committee and House Freedom Caucus",
+          "source": null
+        },
+        {
+          "title": "Managing Director / President",
+          "organization": "Integral Manufacturing (formerly West Troy Tool & Machine)",
+          "start_year": 2005,
+          "end_year": 2016,
+          "description": "Owned and operated manufacturing business; previously RK Metals",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Officer",
+          "organization": "United States Army",
+          "start_year": 1988,
+          "end_year": 2000,
+          "description": "Served in 75th Ranger Regiment, 101st Airborne Division, and 3rd Infantry Division; honorably discharged as an officer",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy (West Point)",
+          "degree": "Bachelor of Science",
+          "field": "American History",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.davidsonforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CongressmanWarrenDavidson/",
+        "instagram": "https://www.instagram.com/davidsonforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Vanessa Enoch",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Vanessa Enoch is a public policy expert, business leader, and former award-winning journalist running as the Democratic nominee for Ohio's 8th Congressional District. She is the CEO and President of Cultural Impact, LLC, a management and technology consulting firm specializing in workforce transformation, and holds a Ph.D. in public policy from Union Institute & University. Enoch has been the Democratic nominee in this district in multiple prior cycles, including 2018, 2020, 2022, and 2024, and has focused her campaign on economic mobility, workforce development, healthcare access, and social equity.",
+      "summary_sources": [
+        {
+          "url": "https://enochforcongress.com/bio/",
+          "type": "website",
+          "title": "Biography \u2013 Enoch for Congress",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wvxu.org/politics/2026-04-03/vanessa-enoch-madaris-grant-ohio-8th-district-democratic-primary-candidates",
+          "type": "news",
+          "title": "Meet Ohio's 8th district Democratic primary candidates | WVXU",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/ohio-us-house-district-8-results",
+          "type": "news",
+          "title": "Ohio House District 8 Primary Election Live Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CEO and President",
+          "organization": "Cultural Impact, LLC",
+          "start_year": 2000,
+          "end_year": null,
+          "description": "Management and technology consulting firm focused on workforce transformation, organizational development, and career transition services",
+          "source": null
+        },
+        {
+          "title": "College Professor and Department Chair/Dean of Students",
+          "organization": "Various academic institutions",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nearly 18 years of academic service; named Educator of the Year",
+          "source": null
+        },
+        {
+          "title": "Journalist and Reporter",
+          "organization": "Various media outlets",
+          "start_year": null,
+          "end_year": null,
+          "description": "Award-winning radio and television reporting; recognized by Ohio Society of Professional Journalists for criminal justice reporting",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Union Institute & University",
+          "degree": "Ph.D.",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Xavier University",
+          "degree": "Master of Business Administration",
+          "field": "Information Technology",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "The Ohio State University",
+          "degree": "Bachelor's",
+          "field": "Criminal Justice",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://enochforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/1DocEnoch/",
+        "instagram": "https://www.instagram.com/doc.enoch/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:18:48.771677+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 256053,
+    "completion_tokens": 5858,
+    "total_tokens": 261911,
+    "cost_usd": 0.019532114000000003,
+    "cost_source": "provider",
+    "estimated_usd": 0.026241,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 256053,
+        "completion_tokens": 5858
+      }
+    },
+    "duration_s": 132.2
+  }
+}

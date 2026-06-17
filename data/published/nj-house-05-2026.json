@@ -1,0 +1,307 @@
+{
+  "id": "nj-house-05-2026",
+  "title": "2026 U.S. House of Representatives Election for New Jersey's 5th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "New Jersey's 5th Congressional District",
+  "state": "New Jersey",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "New Jersey's 5th Congressional District covers parts of Bergen, Passaic, and Sussex counties in the northern part of the state, stretching from the New York City suburbs of Bergen County to rural areas in Sussex County. Incumbent Democrat Josh Gottheimer, first elected in 2016, is seeking a sixth term against Republican nominee Sean Kirrane and independent candidate Adam Rueda. The district has a voter registration advantage for Democrats (35% Democratic, 26% Republican, rest unaffiliated), and Cook Political Report rates the race as Solid Democratic. Gottheimer has positioned himself as a moderate, fiscally disciplined Democrat and co-chair of the bipartisan Problem Solvers Caucus, while Kirrane is a business executive running as a socially moderate, fiscally disciplined Republican focused on affordability and government reform.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of mid-2026. The Cook Political Report rates the district as Solid Democratic.",
+  "candidates": [
+    {
+      "name": "Josh Gottheimer",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Josh Gottheimer is the incumbent U.S. Representative for New Jersey's 5th Congressional District, first elected in 2016 after defeating Republican Scott Garrett. He serves on the House Permanent Select Committee on Intelligence and the House Financial Services Committee, and is the co-chair of the bipartisan Problem Solvers Caucus. Gottheimer previously worked as a speechwriter for President Bill Clinton and held executive roles at Microsoft and Ford Motor Company.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Josh_Gottheimer",
+          "type": "website",
+          "title": "Josh Gottheimer - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Josh_Gottheimer",
+          "type": "website",
+          "title": "Josh Gottheimer - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newjerseyglobe.com/congress/the-final-list-of-whos-running-for-congress-in-new-jersey-in-2026/",
+          "type": "news",
+          "title": "The final list of who's running for Congress in New Jersey in 2026 - New Jersey Globe",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Josh_Gottheimer.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Representing New Jersey's 5th Congressional District",
+          "source": null
+        },
+        {
+          "title": "General Manager, Corporate Strategy",
+          "organization": "Microsoft",
+          "start_year": 2012,
+          "end_year": 2015,
+          "description": "Worked on technology and innovation strategy",
+          "source": null
+        },
+        {
+          "title": "Director of Strategic Communications",
+          "organization": "Ford Motor Company",
+          "start_year": 2005,
+          "end_year": 2008,
+          "description": "Helped rebuild brand image",
+          "source": null
+        },
+        {
+          "title": "Speechwriter",
+          "organization": "White House / President Bill Clinton",
+          "start_year": 1998,
+          "end_year": 2001,
+          "description": "Presidential speechwriter",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2004,
+          "source": null
+        },
+        {
+          "institution": "Pembroke College, Oxford",
+          "degree": null,
+          "field": "Modern History (Ph.D. studies)",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Pennsylvania",
+          "degree": "Bachelor of Arts",
+          "field": "American History",
+          "year": 1997,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://gottheimer.house.gov/",
+          "title": "https://gottheimer.house.gov/",
+          "type": "other"
+        }
+      ],
+      "website": "https://josh4jersey.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/josh4jersey",
+        "instagram": "https://www.instagram.com/josh4jersey"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Sean Kirrane",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Sean Kirrane is a lifelong New Jerseyan, entrepreneur, and business executive running as the Republican nominee for New Jersey's 5th Congressional District. He has spent over twenty years in healthcare, finance, and technology, leading multi-billion-dollar companies and turning around failing hospitals. Kirrane describes himself as a socially moderate, fiscally disciplined Republican focused on affordability, national stability, and common-sense values.",
+      "summary_sources": [
+        {
+          "url": "https://www.seankirrane.com/about",
+          "type": "website",
+          "title": "About Sean - Sean Kirrane for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newjerseyglobe.com/congress/the-final-list-of-whos-running-for-congress-in-new-jersey-in-2026/",
+          "type": "news",
+          "title": "The final list of who's running for Congress in New Jersey in 2026 - New Jersey Globe",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-new-jersey-us-house-5-primary.html",
+          "type": "news",
+          "title": "New Jersey Fifth Congressional District Primary Election Results - NY Times",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder / Chairman",
+          "organization": "Arcadia Health Partners",
+          "start_year": null,
+          "end_year": null,
+          "description": "Healthcare focused management services organization",
+          "source": null
+        },
+        {
+          "title": "Co-Founder",
+          "organization": "Cortex-X",
+          "start_year": null,
+          "end_year": null,
+          "description": "Patent-pending AI governance platform",
+          "source": null
+        },
+        {
+          "title": "Executive / Entrepreneur",
+          "organization": "Various healthcare, finance, and technology companies",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led over $10B in capital markets transactions including IPOs, M&A, and recapitalizations",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.seankirrane.com/platform",
+          "title": "https://www.seankirrane.com/platform",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.seankirrane.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Sean-Kirrane-For-Congress-61580643457489/",
+        "instagram": "https://www.instagram.com/vote.kirrane/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Adam Rueda",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Adam Rueda is an independent candidate running for U.S. House in New Jersey's 5th Congressional District. He has a background in sales and submitted 455 petition signatures to appear on the general election ballot. Rueda positions himself as an alternative to the two major party candidates.",
+      "summary_sources": [
+        {
+          "url": "https://newjerseyglobe.com/congress/the-final-list-of-whos-running-for-congress-in-new-jersey-in-2026/",
+          "type": "news",
+          "title": "The final list of who's running for Congress in New Jersey in 2026 - New Jersey Globe",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-new-jersey-us-house-5-primary.html",
+          "type": "news",
+          "title": "New Jersey Fifth Congressional District Primary Election Results - NY Times",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Sales Professional",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in sales",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:12:53.331992+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 282821,
+    "completion_tokens": 8347,
+    "total_tokens": 291168,
+    "cost_usd": 0.019208726,
+    "cost_source": "provider",
+    "estimated_usd": 0.029352,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 282821,
+        "completion_tokens": 8347
+      }
+    },
+    "duration_s": 137.8
+  }
+}

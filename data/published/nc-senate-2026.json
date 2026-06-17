@@ -119,18 +119,21 @@
       "summary_sources": [
         {
           "url": "https://roycooper.com/about/",
-          "type": "campaign",
-          "title": "Meet Roy Cooper | Roy Cooper for North Carolina"
+          "type": "website",
+          "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://roycooper.com/make-stuff-cost-less/",
-          "type": "campaign_policy",
-          "title": "Make Stuff Cost Less | Roy Cooper for North Carolina"
+          "type": "website",
+          "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
-          "type": "reference",
-          "title": "United States Senate election in North Carolina, 2026 - Ballotpedia"
+          "type": "website",
+          "title": "United States Senate election in North Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Roy_Cooper.jpg",
@@ -162,11 +165,10 @@
       "voting_summary": "Cooper is a former North Carolina governor, not a legislator, so there is no legislative voting record to report. His comparable governing record comes from executive actions as governor, including vetoes and policy decisions during his two terms; news and advocacy coverage describe him as using the governor’s office to shape state policy rather than cast votes. Sources: https://www.theassemblync.com/politics/roy-cooper-legacy-governor-north-carolina/ , https://en.wikipedia.org/wiki/Roy_Cooper",
       "voting_source_url": "https://www.theassemblync.com/politics/roy-cooper-legacy-governor-north-carolina/",
       "links": [
-        "https://ballotpedia.org/Roy_Cooper",
         {
           "url": "https://ballotpedia.org/Roy_Cooper",
-          "title": "Roy Cooper - Ballotpedia",
-          "type": "ballotpedia"
+          "title": "https://ballotpedia.org/Roy_Cooper",
+          "type": "other"
         },
         {
           "url": "https://en.wikipedia.org/wiki/Roy_Cooper",
@@ -211,13 +213,13 @@
           "sources": [
             {
               "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "campaign_policy",
+              "type": "website",
               "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://roycooper.com/about/",
-              "type": "campaign",
+              "type": "website",
               "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -229,7 +231,7 @@
           "sources": [
             {
               "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "campaign_policy",
+              "type": "website",
               "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -241,7 +243,7 @@
           "sources": [
             {
               "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "campaign_policy",
+              "type": "website",
               "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -253,7 +255,7 @@
           "sources": [
             {
               "url": "https://governor.nc.gov/news/press-releases/2023/05/13/governor-cooper-vetoes-sb20",
-              "type": "official",
+              "type": "government",
               "title": "Governor Roy Cooper vetoes SB20",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
@@ -265,7 +267,7 @@
             },
             {
               "url": "https://www.plannedparenthoodaction.org/pressroom/in-first-endorsements-of-2026-planned-parenthood-action-fund-backs-ossoff-cooper-pappas-and-brown",
-              "type": "organization",
+              "type": "website",
               "title": "Planned Parenthood Action Fund endorses Cooper for Senate (2026)",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -277,13 +279,13 @@
           "sources": [
             {
               "url": "https://ncnewsline.com/2026/01/26/roy-cooper-backs-conditions-on-homeland-security-funding-after-minnesota-shootings/",
-              "type": "news-article",
+              "type": "website",
               "title": "Roy Cooper backs conditions on Homeland Security funding after Minnesota shootings",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://www.wral.com/news/local/senate-race-cooper-whatley-charlotte-immigration-crackdown-nov-2025/",
-              "type": "news-article",
+              "type": "website",
               "title": "As Senate race looms, Cooper and Whatley weigh-in on Charlotte immigration crackdown",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -295,7 +297,7 @@
           "sources": [
             {
               "url": "https://governor.nc.gov/news/press-releases/2023/03/24/governor-cooper-vetoes-legislation-eliminating-sheriffs-background-checks-handguns",
-              "type": "official",
+              "type": "government",
               "title": "Governor Cooper vetoes legislation eliminating sheriff's background checks on handguns",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
@@ -325,13 +327,13 @@
           "sources": [
             {
               "url": "https://www.ncae.org/about-ncae/media-center/press-releases/ncae-nea-endorse-roy-cooper-us-senate",
-              "type": "press_release",
+              "type": "government",
               "title": "NCAE, NEA Endorse Roy Cooper for U.S. Senate",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://roycooper.com/about/",
-              "type": "campaign",
+              "type": "website",
               "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -343,7 +345,7 @@
           "sources": [
             {
               "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "campaign_policy",
+              "type": "website",
               "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -355,13 +357,13 @@
           "sources": [
             {
               "url": "https://roycooper.com/",
-              "type": "campaign",
+              "type": "website",
               "title": "Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "campaign_policy",
+              "type": "website",
               "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -373,7 +375,7 @@
           "sources": [
             {
               "url": "https://roycooper.com/",
-              "type": "campaign",
+              "type": "website",
               "title": "Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -385,7 +387,7 @@
           "sources": [
             {
               "url": "https://roycooper.com/about/",
-              "type": "campaign",
+              "type": "website",
               "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
@@ -397,7 +399,9 @@
             }
           ]
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Michael Whatley",
@@ -407,18 +411,21 @@
       "summary_sources": [
         {
           "url": "https://www.michaelwhatley.com/",
-          "type": "official",
-          "title": "Home | Whatley for Senate"
+          "type": "government",
+          "title": "Home | Whatley for Senate",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://www.fec.gov/data/candidate/S6NC00415/",
-          "type": "official",
-          "title": "WHATLEY, MICHAEL - Candidate overview - FEC"
+          "type": "government",
+          "title": "WHATLEY, MICHAEL - Candidate overview - FEC",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://ballotpedia.org/Michael_Whatley",
           "type": "website",
-          "title": "Michael Whatley - Ballotpedia"
+          "title": "Michael Whatley - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Whatley_20251119_123603.jpg",
@@ -444,11 +451,10 @@
       "voting_summary": "Whatley has not held legislative office, so there is no legislative voting record to report. His public record is primarily as a party official and lobbyist/advocate, and his campaign website frames his governing approach around border security, affordability, and Trump-aligned priorities rather than prior roll-call votes. Sources: https://www.michaelwhatley.com/ , https://en.wikipedia.org/wiki/Michael_Whatley",
       "voting_source_url": "https://www.michaelwhatley.com/",
       "links": [
-        "https://ballotpedia.org/Michael_Whatley",
         {
           "url": "https://ballotpedia.org/Michael_Whatley",
-          "title": "Michael Whatley - Ballotpedia",
-          "type": "ballotpedia"
+          "title": "https://ballotpedia.org/Michael_Whatley",
+          "type": "other"
         },
         {
           "url": "https://en.wikipedia.org/wiki/Michael_Whatley",
@@ -517,19 +523,19 @@
           "sources": [
             {
               "url": "https://ncnewsline.com/briefs/dems-blast-impact-of-medicaid-cuts-on-rural-healthcare-spotlight-2026-senate-race/",
-              "type": "article",
+              "type": "website",
               "title": "Dems blast impact of Medicaid cuts on rural healthcare, spotlight 2026 Senate race",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://ncvoices.com/michael-whatley-has-repeatedly-championed-republicans-efforts-to-raise-health-care-costs-on-north-carolinians/",
-              "type": "article",
+              "type": "website",
               "title": "Michael Whatley has repeatedly championed Republicans' efforts to raise health care costs on North Carolinians",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://www.ncdp.org/media/reminder-dc-insider-michael-whatley-repeatedly-championed-policies-that-raise-health-care-costs-for-north-carolina-families/",
-              "type": "press_release",
+              "type": "government",
               "title": "Reminder: DC Insider Michael Whatley 'Repeatedly Championed' Policies That Raise Health Care Costs for North Carolina Families",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -541,7 +547,7 @@
           "sources": [
             {
               "url": "https://www.michaelwhatley.com/",
-              "type": "official_site",
+              "type": "government",
               "title": "Whatley for Senate - Home",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
@@ -577,7 +583,7 @@
             },
             {
               "url": "https://www.michaelwhatley.com/",
-              "type": "campaign",
+              "type": "website",
               "title": "Home | Whatley for Senate",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -589,13 +595,13 @@
           "sources": [
             {
               "url": "https://x.com/WhatleyNC/status/2021231886450733436",
-              "type": "social",
+              "type": "social_media",
               "title": "Michael Whatley on X: NRA endorsement and defense of Second Amendment",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://www.instagram.com/p/DUlL036DrVy/",
-              "type": "social",
+              "type": "social_media",
               "title": "Michael Whatley on Instagram: NRA endorsement and defense of Second Amendment",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -607,7 +613,7 @@
           "sources": [
             {
               "url": "https://www.michaelwhatley.com/",
-              "type": "official",
+              "type": "government",
               "title": "Home | Whatley for Senate",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -631,7 +637,7 @@
             },
             {
               "url": "https://www.ontheissues.org/social/Michael_Whatley_Abortion.htm",
-              "type": "analysis",
+              "type": "website",
               "title": "Michael Whatley on Abortion",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -649,7 +655,7 @@
             },
             {
               "url": "https://www.michaelwhatley.com/",
-              "type": "official",
+              "type": "government",
               "title": "Home | Whatley for Senate",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -685,7 +691,7 @@
           "sources": [
             {
               "url": "https://www.michaelwhatley.com/",
-              "type": "official",
+              "type": "government",
               "title": "Home | Whatley for Senate",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -697,7 +703,7 @@
           "sources": [
             {
               "url": "https://www.michaelwhatley.com/",
-              "type": "official",
+              "type": "government",
               "title": "Home | Whatley for Senate",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
@@ -715,13 +721,15 @@
           "sources": [
             {
               "url": "https://www.michaelwhatley.com/",
-              "type": "official",
+              "type": "government",
               "title": "Home | Whatley for Senate",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Brian McGinnis",
@@ -731,13 +739,15 @@
       "summary_sources": [
         {
           "url": "https://brianmcginnis.org/",
-          "type": "official",
-          "title": "Brian McGinnis"
+          "type": "government",
+          "title": "Brian McGinnis",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://ballotpedia.org/Brian_McGinnis_(North_Carolina)",
-          "type": "ballotpedia",
-          "title": "Brian McGinnis (North Carolina) - Ballotpedia"
+          "type": "website",
+          "title": "Brian McGinnis (North Carolina) - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         }
       ],
       "image_url": null,
@@ -750,7 +760,11 @@
       "voting_summary": "McGinnis has not held legislative office, so there is no legislative voting record to report. Publicly available material instead shows a campaign identity built around his service as a Marine veteran and Raleigh firefighter, with platform statements emphasizing working-class voters and opposition to corporate influence. Sources: https://brianmcginnis.org/ , https://brianmcginnis.org/platform",
       "voting_source_url": "https://brianmcginnis.org/platform",
       "links": [
-        "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+          "type": "other"
+        },
         {
           "url": "https://ballotpedia.org/Brian_McGinnis_(North_Carolina)",
           "title": "Brian McGinnis (North Carolina) - Ballotpedia",
@@ -794,7 +808,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -806,7 +820,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -818,7 +832,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -830,7 +844,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
@@ -848,7 +862,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -868,7 +882,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -880,7 +894,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -892,7 +906,7 @@
           "sources": [
             {
               "url": "https://brianmcginnis.org/platform",
-              "type": "official",
+              "type": "government",
               "title": "Brian McGinnis Platform",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -906,7 +920,9 @@
           "stance": "No public position found.",
           "confidence": "low"
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Shannon Bray",
@@ -916,18 +932,21 @@
       "summary_sources": [
         {
           "url": "https://www.shannonbray.us/",
-          "type": "official",
-          "title": "Shannon W. Bray"
+          "type": "government",
+          "title": "Shannon W. Bray",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://www.shannonbray.us/about",
-          "type": "official",
-          "title": "About - Shannon Bray"
+          "type": "government",
+          "title": "About - Shannon Bray",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://ballotpedia.org/Shannon_Bray",
-          "type": "ballotpedia",
-          "title": "Shannon Bray - Ballotpedia"
+          "type": "website",
+          "title": "Shannon Bray - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ShannonBray.jpg",
@@ -940,7 +959,11 @@
       "voting_summary": "Bray has not held legislative office, so there is no legislative voting record to report. Vote Smart indicates no executive-branch records for him, and his campaign site presents policy positions on privacy, taxes, digital assets, and government accountability instead of prior votes. Sources: https://justfacts.votesmart.org/candidate/186258/shannon-bray , https://www.shannonbray.us/",
       "voting_source_url": "https://justfacts.votesmart.org/candidate/186258/shannon-bray",
       "links": [
-        "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+          "type": "other"
+        },
         {
           "url": "https://ballotpedia.org/Shannon_Bray",
           "title": "Shannon Bray - Ballotpedia",
@@ -995,7 +1018,7 @@
             },
             {
               "url": "https://www.shannonbray.us/",
-              "type": "official",
+              "type": "government",
               "title": "Shannon W. Bray",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1007,13 +1030,13 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/issues",
-              "type": "official",
+              "type": "government",
               "title": "Political Views and Goals - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://www.shannonbray.us/_issues_economy",
-              "type": "official",
+              "type": "government",
               "title": "Economy & Taxes - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1025,7 +1048,7 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/_issues_energy",
-              "type": "official",
+              "type": "government",
               "title": "Energy & Environment - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1043,7 +1066,7 @@
             },
             {
               "url": "https://www.shannonbray.us/about",
-              "type": "official",
+              "type": "government",
               "title": "About - Shannon Bray",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1055,13 +1078,13 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/_issues_immigration",
-              "type": "official",
+              "type": "government",
               "title": "Immigration - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "ballotpedia",
+              "type": "website",
               "title": "Shannon Bray - Ballotpedia",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1073,7 +1096,7 @@
           "sources": [
             {
               "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "ballotpedia",
+              "type": "website",
               "title": "Shannon Bray - Ballotpedia",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1085,13 +1108,13 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/about",
-              "type": "official",
+              "type": "government",
               "title": "About - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "ballotpedia",
+              "type": "website",
               "title": "Shannon Bray - Ballotpedia",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1103,7 +1126,7 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/issues",
-              "type": "official",
+              "type": "government",
               "title": "Political Views and Goals - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1115,13 +1138,13 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/",
-              "type": "official",
+              "type": "government",
               "title": "Shannon W. Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://www.shannonbray.us/_issues_digital-assets",
-              "type": "official",
+              "type": "government",
               "title": "Digital Assets & Financial Freedom - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1133,13 +1156,13 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/election_security_digital_trust_national_resilience",
-              "type": "official",
+              "type": "government",
               "title": "Election Security, Digital Trust & National Resilience - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://www.shannonbray.us/_issues_election-security",
-              "type": "official",
+              "type": "government",
               "title": "Election Integrity & Technology - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1151,7 +1174,7 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/_issues_foreign-policy",
-              "type": "official",
+              "type": "government",
               "title": "Foreign Policy - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
@@ -1163,19 +1186,21 @@
           "sources": [
             {
               "url": "https://www.shannonbray.us/issues",
-              "type": "official",
+              "type": "government",
               "title": "Political Views and Goals - Shannon Bray",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             },
             {
               "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "ballotpedia",
+              "type": "website",
               "title": "Shannon Bray - Ballotpedia",
               "last_accessed": "2026-05-17T01:34:18.453871+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Shaunesi Deberry",
@@ -1186,17 +1211,20 @@
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
           "type": "website",
-          "title": "United States Senate election in North Carolina, 2026 - Ballotpedia"
+          "title": "United States Senate election in North Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://shaunesi.wixsite.com/shaunesi",
-          "type": "campaign_site",
-          "title": "The Official Website of Shaunesi"
+          "type": "website",
+          "title": "The Official Website of Shaunesi",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         },
         {
           "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
-          "type": "video",
-          "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA"
+          "type": "website",
+          "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
+          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Shaunesi_Deberry_20250716_034549.jpeg",
@@ -1209,7 +1237,11 @@
       "voting_summary": "Deberry has not held legislative office, so there is no legislative voting record to report. Publicly available material instead consists of campaign and media appearances describing her as an independent Senate candidate; no prior elected or executive office was found in the sources reviewed. Sources: https://shaunesi.wixsite.com/shaunesi , https://www.youtube.com/watch?v=GxCb5lz04FM",
       "voting_source_url": "https://shaunesi.wixsite.com/shaunesi",
       "links": [
-        "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+          "type": "other"
+        },
         {
           "url": "https://ballotpedia.org/Shaunesi_Deberry",
           "title": "Shaunesi Deberry - Ballotpedia",
@@ -1248,13 +1280,13 @@
           "sources": [
             {
               "url": "https://www.youtube.com/shorts/TijI3gwJgYw",
-              "type": "video",
+              "type": "website",
               "title": "N.C. Senate Candidate On Why Investing In Mental Wellness Is Key | RAISING AMERICA",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
-              "type": "video",
+              "type": "website",
               "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1266,7 +1298,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1278,7 +1310,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1290,13 +1322,13 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://shaunesi.wixsite.com/shaunesi/education-advocacy",
-              "type": "campaign_site",
+              "type": "website",
               "title": "Civil Rights/Education Advocacy | shaunesi",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1308,13 +1340,13 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi/education-advocacy",
-              "type": "campaign_site",
+              "type": "website",
               "title": "Civil Rights/Education Advocacy | shaunesi",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1326,7 +1358,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1338,7 +1370,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1350,7 +1382,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1362,7 +1394,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1374,7 +1406,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1386,7 +1418,7 @@
           "sources": [
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
@@ -1398,29 +1430,28 @@
           "sources": [
             {
               "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
-              "type": "video",
+              "type": "website",
               "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             },
             {
               "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "campaign_site",
+              "type": "website",
               "title": "The Official Website of Shaunesi DeBerry",
               "last_accessed": "2026-05-17T01:36:37.972663+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
-  "updated_utc": "2026-05-17T01:36:37.972663+00:00",
+  "updated_utc": "2026-06-13T23:10:18.964691+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "register_to_vote_url": "https://www.ncsbe.gov/registering/how-register",
   "how_to_vote_url": "https://www.ncsbe.gov/voting",
@@ -1533,33 +1564,20 @@
     "summary": "Validated by 3/3 reviewers with an average score of 90/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 1525997,
-    "completion_tokens": 64291,
-    "total_tokens": 1590288,
-    "estimated_usd": 0.281,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 74421,
+    "completion_tokens": 5591,
+    "total_tokens": 80012,
+    "cost_usd": 0.0045520099999999996,
+    "cost_source": "provider",
+    "estimated_usd": 0.005957,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 337897,
-        "completion_tokens": 40589
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 1060181,
-        "completion_tokens": 18275
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 46183,
-        "completion_tokens": 891
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 37551,
-        "completion_tokens": 723
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 44185,
-        "completion_tokens": 3813
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 74421,
+        "completion_tokens": 5591
       }
     },
-    "duration_s": 1304.4
+    "duration_s": 48.9
   }
 }

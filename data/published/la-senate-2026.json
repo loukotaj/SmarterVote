@@ -9,6 +9,7 @@
     {
       "pollster": "American Pulse Research & Polling",
       "date": "2026-03-25",
+      "sample_size": 455,
       "matchups": [
         {
           "candidates": [
@@ -45,8 +46,7 @@
           ]
         }
       ],
-      "source_url": "https://data.ddhq.io/polls/2026/04/02/American-Pulse-Research-&-Polling-Louisiana",
-      "sample_size": 455
+      "source_url": "https://data.ddhq.io/polls/2026/04/02/American-Pulse-Research-&-Polling-Louisiana"
     },
     {
       "pollster": "Quantus Insights",
@@ -60,9 +60,9 @@
             "Bill Cassidy"
           ],
           "percentages": [
-            34,
-            25,
-            20
+            34.0,
+            25.0,
+            20.0
           ]
         }
       ],
@@ -81,50 +81,59 @@
           "url": "https://www.cassidy.senate.gov/about/about-bill/",
           "type": "website",
           "title": "About Bill | U.S. Senator Bill Cassidy",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
           "type": "website",
           "title": "United States Senate election in Louisiana, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bill_Cassidy_official_Senate_photo.jpg",
-      "website": "https://www.billcassidy.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SenBillCassidy/",
-        "x": "https://x.com/SenBillCassidy",
-        "instagram": "https://www.instagram.com/senbillcassidy/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "United States Senator",
           "organization": "U.S. Senate",
           "start_year": 2015,
           "end_year": null,
-          "description": "Represents Louisiana in the U.S. Senate; currently seeking re-election."
+          "description": "Represents Louisiana in the U.S. Senate; currently seeking re-election.",
+          "source": null
         },
         {
           "title": "U.S. Representative, Louisiana's 6th District",
           "organization": "U.S. House of Representatives",
           "start_year": 2009,
           "end_year": 2015,
-          "description": "Served in the House before winning election to the Senate."
+          "description": "Served in the House before winning election to the Senate.",
+          "source": null
         },
         {
           "title": "Louisiana State Senator",
           "organization": "Louisiana State Senate",
           "start_year": 2006,
           "end_year": 2008,
-          "description": "Served in the Louisiana legislature before moving to Congress."
+          "description": "Served in the Louisiana legislature before moving to Congress.",
+          "source": null
         },
         {
           "title": "Physician",
           "organization": "Louisiana charity hospital system / Greater Baton Rouge Community Clinic",
           "start_year": 1990,
           "end_year": 2009,
-          "description": "Worked as a physician in Louisiana’s charity hospital system and co-founded a free clinic for uninsured patients."
+          "description": "Worked as a physician in Louisiana’s charity hospital system and co-founded a free clinic for uninsured patients.",
+          "source": null
         }
       ],
       "education": [
@@ -132,24 +141,43 @@
           "institution": "Louisiana State University",
           "degree": "Bachelor's degree",
           "field": "Unknown/unspecified",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "Louisiana State University",
           "degree": "Medical degree",
           "field": "Medicine",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
-        "https://www.cassidy.senate.gov/about/about-bill/",
-        "https://www.billcassidy.com/"
+        {
+          "url": "https://www.cassidy.senate.gov/about/about-bill/",
+          "title": "https://www.cassidy.senate.gov/about/about-bill/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.billcassidy.com/",
+          "title": "https://www.billcassidy.com/",
+          "type": "other"
+        }
       ],
-      "issues": {}
+      "website": "https://www.billcassidy.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenBillCassidy/",
+        "x": "https://x.com/SenBillCassidy",
+        "instagram": "https://www.instagram.com/senbillcassidy/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "John Fleming",
@@ -161,54 +189,64 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
           "type": "website",
           "title": "United States Senate election in Louisiana, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/John_Fleming_official_photo_%28alt_crop%29.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Louisiana State Treasurer",
           "organization": "State of Louisiana",
           "start_year": 2024,
           "end_year": null,
-          "description": "Serves as Louisiana’s state treasurer."
+          "description": "Serves as Louisiana’s state treasurer.",
+          "source": null
         },
         {
           "title": "U.S. Representative, Louisiana's 4th District",
           "organization": "U.S. House of Representatives",
           "start_year": 2009,
           "end_year": 2017,
-          "description": "Represented western Louisiana in Congress."
+          "description": "Represented western Louisiana in Congress.",
+          "source": null
         },
         {
           "title": "Coroner",
           "organization": "Webster Parish",
           "start_year": 1996,
           "end_year": 2000,
-          "description": "Served as parish coroner."
+          "description": "Served as parish coroner.",
+          "source": null
         },
         {
           "title": "Physician",
           "organization": "Private practice / medical work",
           "start_year": null,
           "end_year": null,
-          "description": "Worked as a physician before and during his political career."
+          "description": "Worked as a physician before and during his political career.",
+          "source": null
         },
         {
           "title": "Business owner",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Owned and operated businesses."
+          "description": "Owned and operated businesses.",
+          "source": null
         },
         {
           "title": "U.S. Navy officer",
           "organization": "United States Navy",
           "start_year": null,
           "end_year": null,
-          "description": "Served in the Navy."
+          "description": "Served in the Navy.",
+          "source": null
         }
       ],
       "education": [
@@ -216,23 +254,34 @@
           "institution": "University of Mississippi",
           "degree": "Bachelor's degree",
           "field": "Unknown/unspecified",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Mississippi",
           "degree": "Medical degree",
           "field": "Medicine",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
-        "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026"
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
+          "type": "other"
+        }
       ],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Julia Letlow",
@@ -244,63 +293,78 @@
           "url": "https://letlow.house.gov/about",
           "type": "government",
           "title": "Biography | Representative Julia Letlow - House.gov",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
           "type": "website",
           "title": "United States Senate election in Louisiana, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.julialetlow.com/",
           "type": "website",
           "title": "Julia Letlow for Louisiana",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JuliaLetlowLA2.png",
-      "website": "https://www.julialetlow.com/",
-      "social_media": {
-        "x": "https://x.com/jbletlow",
-        "instagram": "https://www.instagram.com/julialetlowla05/",
-        "facebook": "https://www.facebook.com/RepJuliaLetlow/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Representative, Louisiana's 5th District",
           "organization": "U.S. House of Representatives",
           "start_year": 2021,
           "end_year": null,
-          "description": "Represents Louisiana’s 5th Congressional District."
+          "description": "Represents Louisiana’s 5th Congressional District.",
+          "source": null
         },
         {
           "title": "Executive Director of External Affairs and Strategic Communications",
           "organization": "University of Louisiana Monroe",
           "start_year": 2018,
           "end_year": 2019,
-          "description": "Led external affairs and strategic communications at ULM."
+          "description": "Led external affairs and strategic communications at ULM.",
+          "source": null
         },
         {
           "title": "Director of Marketing and Communications",
           "organization": "University of Louisiana Monroe",
           "start_year": null,
           "end_year": 2018,
-          "description": "Worked in university communications and marketing."
+          "description": "Worked in university communications and marketing.",
+          "source": null
         },
         {
           "title": "Director of Education / Resident Patient Safety and Quality Improvement / Clinical Instructor",
           "organization": "Tulane University School of Medicine",
           "start_year": null,
           "end_year": null,
-          "description": "Held multiple education and administrative roles at Tulane."
+          "description": "Held multiple education and administrative roles at Tulane.",
+          "source": null
         },
         {
           "title": "Instructor and Teaching Associate",
           "organization": "University of Louisiana Monroe / Tulane University / University of South Florida",
           "start_year": null,
           "end_year": null,
-          "description": "Taught in higher education settings."
+          "description": "Taught in higher education settings.",
+          "source": null
         }
       ],
       "education": [
@@ -308,30 +372,50 @@
           "institution": "University of Louisiana Monroe",
           "degree": "Bachelor of Arts",
           "field": "Speech communication",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Louisiana Monroe",
           "degree": "Master of Arts",
           "field": "Speech communication",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of South Florida",
           "degree": "Doctorate",
           "field": "Communication",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
-        "https://letlow.house.gov/about",
-        "https://www.julialetlow.com/"
+        {
+          "url": "https://letlow.house.gov/about",
+          "title": "https://letlow.house.gov/about",
+          "type": "other"
+        },
+        {
+          "url": "https://www.julialetlow.com/",
+          "title": "https://www.julialetlow.com/",
+          "type": "other"
+        }
       ],
-      "issues": {}
+      "website": "https://www.julialetlow.com/",
+      "social_media": {
+        "x": "https://x.com/jbletlow",
+        "instagram": "https://www.instagram.com/julialetlowla05/",
+        "facebook": "https://www.facebook.com/RepJuliaLetlow/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Mark Spencer",
@@ -340,16 +424,20 @@
       "summary": "",
       "summary_sources": [],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Mark_Spencer_Official_Cabinet_Portrait%2C_September_2021_%28cropped%29.jpg/500px-Mark_Spencer_Official_Cabinet_Portrait%2C_September_2021_%28cropped%29.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Nick Albares",
@@ -358,16 +446,20 @@
       "summary": "",
       "summary_sources": [],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nick_Albares_20260222_032731.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Gary Crockett",
@@ -376,16 +468,20 @@
       "summary": "",
       "summary_sources": [],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/garycrockett.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Jamie Davis",
@@ -394,16 +490,20 @@
       "summary": "",
       "summary_sources": [],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Jamie LaBranche",
@@ -412,41 +512,51 @@
       "summary": "",
       "summary_sources": [],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jamie_LaBranche.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:59:08.347118+00:00",
+  "updated_utc": "2026-06-13T23:13:37.509575+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 195085,
-    "completion_tokens": 11325,
-    "total_tokens": 206410,
-    "estimated_usd": 0.0297,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 77523,
+    "completion_tokens": 5703,
+    "total_tokens": 83226,
+    "cost_usd": 0.00419895,
+    "cost_source": "provider",
+    "estimated_usd": 0.006157,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 86406,
-        "completion_tokens": 9979
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 108679,
-        "completion_tokens": 1346
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 77523,
+        "completion_tokens": 5703
       }
     },
-    "duration_s": 150.7
+    "duration_s": 65.5
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

@@ -1,0 +1,443 @@
+{
+  "id": "wa-house-08-2026",
+  "title": "Washington's 8th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Washington's 8th Congressional District",
+  "state": "Washington",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Washington's 8th Congressional District will determine who represents a competitive swing district covering parts of King, Pierce, Snohomish, Kittitas, Chelan, and Douglas counties \u2014 including the eastern Seattle suburbs of Issaquah and Sammamish, as well as rural central Washington communities. Incumbent Democrat Kim Schrier, a pediatrician first elected in 2018, is seeking a fifth term in a district with a Cook Partisan Voting Index of D+3, which Cook Political Report rates as 'Likely Democratic.' Under Washington's top-two primary system, four Republican challengers \u2014 Andres Valleza, Bob Hagglund, Trinh Ha, and Spencer Meline \u2014 will appear on the same August 4, 2026 primary ballot as Schrier, with the top two vote-getters advancing to the November 3 general election. The race takes place in a midterm cycle where control of the narrowly divided U.S. House could hinge on a handful of competitive districts nationwide.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polling was found for this race as of June 2026. The Cook Political Report rates the race 'Likely D' as of January 8, 2026.",
+  "candidates": [
+    {
+      "name": "Kim Schrier",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Kim Schrier is the incumbent U.S. Representative for Washington's 8th Congressional District, first elected in 2018. A pediatrician by training, she has emphasized bipartisan work on health care, prescription drug pricing, and agricultural issues during her tenure, touting passage of 18 bills signed into law by both Democratic and Republican presidents. Schrier earned her B.A. from UC Berkeley and her M.D. from UC Davis, completing her pediatric residency at Stanford University hospitals before practicing as a pediatrician for 16 years.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Kim_Schrier",
+          "type": "website",
+          "title": "Kim Schrier - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.drkimschrier.com/",
+          "type": "website",
+          "title": "Kim Schrier - Democrat for Congress in Washington's 8th District",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kpq.com/washington-8th-district-candidates/",
+          "type": "news",
+          "title": "Kim Schrier draws 8th Congressional District Challengers",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.seattletimes.com/seattle-news/politics/wa-filing-closes-u-s-house-battleground-and-gop-test-emerge/",
+          "type": "news",
+          "title": "WA filing closes, U.S. House battleground and GOP test emerge",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kim_Schrier.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Washington's 8th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Pediatrician",
+          "organization": "Private practice",
+          "start_year": 2000,
+          "end_year": 2018,
+          "description": "Practiced pediatrics for 16 years prior to running for Congress",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Berkeley",
+          "degree": "B.A.",
+          "field": null,
+          "year": 1991,
+          "source": null
+        },
+        {
+          "institution": "University of California, Davis",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": 1997,
+          "source": null
+        },
+        {
+          "institution": "Stanford University Hospitals",
+          "degree": "Residency",
+          "field": "Pediatrics",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.drkimschrier.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepKimSchrier",
+        "twitter": "https://twitter.com/RepKimSchrier"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Andres Valleza",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Andres Valleza is a Republican candidate for Washington's 8th Congressional District. Born in Sunnyside, Washington, and a graduate of Granite Falls High School, he earned a bachelor's degree from Washington State University in 2018. Valleza has worked as a public servant, parole officer, and juvenile counselor, and his campaign focuses on justice, accountability, and affordability, emphasizing public safety, fiscal responsibility, and a new generation of Republican leadership.",
+      "summary_sources": [
+        {
+          "url": "https://www.valleza4congress.com/",
+          "type": "website",
+          "title": "Valleza for Congress - Andres Valleza for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kpq.com/washington-8th-district-candidates/",
+          "type": "news",
+          "title": "Kim Schrier draws 8th Congressional District Challengers",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Andres_Valleza",
+          "type": "website",
+          "title": "Andres Valleza - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Parole Officer / Juvenile Counselor",
+          "organization": "Washington State",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in juvenile and adult correctional systems",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Washington State University",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": 2018,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.valleza4congress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/valleza4congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Bob Hagglund",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Bob Hagglund is a Republican candidate for Washington's 8th Congressional District from Granite Falls, Washington. A former data scientist with UnitedHealthcare, he has previously campaigned for statewide office including Secretary of State and Lieutenant Governor. Hagglund is a longtime Republican Party official at the state and district level and has pledged to support congressional term limits as a citizen-legislator.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Bob_Hagglund",
+          "type": "website",
+          "title": "Bob Hagglund - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kpq.com/washington-8th-district-candidates/",
+          "type": "news",
+          "title": "Kim Schrier draws 8th Congressional District Challengers",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/bob-hagglund-pledges-to-support-congressional-term-limits/",
+          "type": "news",
+          "title": "Bob Hagglund Pledges to Support Congressional Term Limits",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Data Scientist",
+          "organization": "UnitedHealthcare",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Party Official",
+          "organization": "Washington State Republican Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Longtime Republican Party official at state and district level",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "instagram": "https://www.instagram.com/bobhagglundwa/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Trinh Ha",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Trinh Ha is a Republican candidate for Washington's 8th Congressional District. Born in Vietnam, her family fled communist rule after the fall of Saigon and immigrated to the United States in 1995. She earned a Ph.D. from the University of California, Berkeley, and built a career in public service and education, most recently serving as a consultant to the Department of Veterans Affairs from 2019 to 2025, where she worked to protect veterans from fraud and expand access to education and caregiver support.",
+      "summary_sources": [
+        {
+          "url": "https://www.trinhhaforcongress.com/",
+          "type": "website",
+          "title": "Trinh Ha for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kpq.com/washington-8th-district-candidates/",
+          "type": "news",
+          "title": "Kim Schrier draws 8th Congressional District Challengers",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Trinh_Ha",
+          "type": "website",
+          "title": "Trinh Ha - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Consultant",
+          "organization": "U.S. Department of Veterans Affairs",
+          "start_year": 2019,
+          "end_year": 2025,
+          "description": "Protected veterans from fraud, expanded access to education, and strengthened caregiver support",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Berkeley",
+          "degree": "Ph.D.",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.trinhhaforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/trinhhaforcongress",
+        "instagram": "https://www.instagram.com/trinhhaforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Spencer Meline",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Spencer Meline is a Republican candidate for Washington's 8th Congressional District from Cashmere, Washington. A small business owner, husband, and father of four, he was born and raised in Washington and built his businesses from the ground up. Meline's campaign emphasizes strong small businesses, lowering the cost of living, safe communities, responsible stewardship of public lands, and smart immigration reform. He is endorsed by both the King County and Snohomish County Republican Party organizations.",
+      "summary_sources": [
+        {
+          "url": "https://www.melineforcongress.com/",
+          "type": "website",
+          "title": "Meline for Congress - District 08",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Spencer_Meline",
+          "type": "website",
+          "title": "Spencer Meline - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://voter.votewa.gov/CandidateList.aspx?e=898",
+          "type": "government",
+          "title": "PRIMARY 2026 Candidate List - VoteWA.gov",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Built multiple businesses from the ground up",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.melineforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Washington%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:52:40.779642+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 309465,
+    "completion_tokens": 7484,
+    "total_tokens": 316949,
+    "cost_usd": 0.021161474,
+    "cost_source": "provider",
+    "estimated_usd": 0.031794,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 309465,
+        "completion_tokens": 7484
+      }
+    },
+    "duration_s": 116.5
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "id": "va-house-09-2026",
+  "title": "Virginia's 9th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Virginia's 9th Congressional District",
+  "state": "Virginia",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Virginia's 9th Congressional District covers most of rural Southwest Virginia, including the New River Valley and the Virginia side of the Tri-Cities area. This is a safely Republican district (Cook PVI R+22) where incumbent Republican Rep. Morgan Griffith, first elected in 2010, is seeking re-election. Three Democrats \u2014 Douglas Crockett, Adam Murphy, and Joy Powers \u2014 are competing in the August 4, 2026 Democratic primary to challenge Griffith, while Michael Jackson is running as an independent. The district's political dynamics center on economic concerns such as the cost of living, healthcare access, and rural infrastructure, with the candidates offering contrasting visions on how to address these issues.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 Virginia's 9th Congressional District general election as of the research date.",
+  "candidates": [
+    {
+      "name": "H. Morgan Griffith",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Morgan Griffith is the incumbent U.S. Representative for Virginia's 9th Congressional District, first elected in 2010 and re-elected with 72.5% of the vote in 2024. He previously served as Majority Leader of the Virginia House of Delegates from 2000 to 2010. Griffith is a member of the House Freedom Caucus and serves on the Energy and Commerce Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Morgan_Griffith",
+          "type": "website",
+          "title": "Morgan Griffith - Wikipedia",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485476",
+          "type": "website",
+          "title": "VA-09 2026 | Cook Political Report",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Morgan_Griffith",
+          "type": "website",
+          "title": "Morgan Griffith - Ballotpedia",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/H._Morgan_Griffith_119th_Congress.jpg/250px-H._Morgan_Griffith_119th_Congress.jpg",
+      "website": "https://morgangriffithforcongress.com",
+      "social_media": {
+        "facebook": "https://www.facebook.com/morgangriffithforcongress",
+        "twitter_handle": null
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Virginia's 9th Congressional District; member of the Freedom Caucus; serves on Energy and Commerce Committee"
+        },
+        {
+          "title": "Majority Leader",
+          "organization": "Virginia House of Delegates",
+          "start_year": 2000,
+          "end_year": 2010,
+          "description": "First Republican to hold Majority Leader position in Virginia history"
+        },
+        {
+          "title": "Member, 8th District",
+          "organization": "Virginia House of Delegates",
+          "start_year": 1994,
+          "end_year": 2011,
+          "description": "Represented parts of Roanoke County and Salem"
+        },
+        {
+          "title": "Attorney (Private Practice)",
+          "organization": "Albo & Oblon LLP / Private Practice",
+          "start_year": 1983,
+          "end_year": 1994,
+          "description": "Practiced law specializing in traffic violations and DUI cases; later headed firm's Roanoke/Salem office"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Washington and Lee University School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1983
+        },
+        {
+          "institution": "Emory and Henry College",
+          "degree": "B.A.",
+          "field": "Arts",
+          "year": 1980
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://morgangriffith.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        }
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Douglas Crockett",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Douglas Crockett is a retired United Methodist pastor and attorney running for the Democratic nomination in Virginia's 9th Congressional District. A native of Wythe County, he is a graduate of Emory & Henry College and William & Mary Law School, and served churches across Virginia for more than 30 years while also practicing law. This is his first run for public office.",
+      "summary_sources": [
+        {
+          "url": "https://www.crockettnow.com/meet_douglas",
+          "type": "website",
+          "title": "Meet Douglas - Crockett for Congress",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://nrvnews.com/crockett-announces-candidacy/",
+          "type": "news",
+          "title": "Crockett Announces Candidacy - NRVNews",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Douglas_Crockett",
+          "type": "website",
+          "title": "Douglas Crockett - Ballotpedia",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.crockettnow.com",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Ordained Elder (Retired 2023)",
+          "organization": "United Methodist Church (Holston Conference)",
+          "start_year": 1985,
+          "end_year": 2023,
+          "description": "Served as United Methodist pastor for churches across Virginia, including full-time ministry for first 10 years and part-time thereafter"
+        },
+        {
+          "title": "Attorney (Retired 2025)",
+          "organization": "The Law Office of Douglas E. Crockett",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "Practiced law including legal aid, small firm, large firms, and solo practice; closed traditional practice in early 2025"
+        }
+      ],
+      "education": [
+        {
+          "institution": "William & Mary Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
+        },
+        {
+          "institution": "Emory & Henry College",
+          "degree": "B.A.",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Adam Murphy",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Adam Murphy is a progressive Democratic candidate running for the nomination in Virginia's 9th Congressional District. A software developer and first-time candidate, Murphy earned a B.S. in Software Development from Western Governors University in 2017. His campaign focuses on lowering the cost of living, Medicare for all, rebuilding Southwest Virginia's manufacturing base, and supporting small businesses and farms.",
+      "summary_sources": [
+        {
+          "url": "https://www.murphy4va.com/",
+          "type": "website",
+          "title": "Adam Murphy for Congress - Campaign Website",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://www.wsls.com/news/local/2026/01/11/adam-murphy-kicks-off-campaign-for-9th-us-house-district/",
+          "type": "news",
+          "title": "Democrat Adam Murphy kicks off campaign for Virginia's 9th US House District",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Adam_Murphy_(Virginia)",
+          "type": "website",
+          "title": "Adam Murphy (Virginia) - Ballotpedia",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.murphy4va.com",
+      "social_media": {
+        "facebook": "https://www.facebook.com/murphy4va/"
+      },
+      "career_history": [
+        {
+          "title": "Software Developer",
+          "organization": "Technology Industry",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in software development after earning degree"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Western Governors University",
+          "degree": "B.S.",
+          "field": "Software Development",
+          "year": 2017
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Joy Powers",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Joy Powers is a fourth-generation cattle farmer, small business owner, and Bedford County mother running for the Democratic nomination in Virginia's 9th Congressional District. She previously ran as the Democratic nominee for Virginia's 51st House of Delegates district in 2025. Her campaign focuses on affordability, rural healthcare, public education, and protecting Virginia's farmland and rural way of life.",
+      "summary_sources": [
+        {
+          "url": "https://www.joyforva.com/",
+          "type": "website",
+          "title": "Joy Powers for Congress - Campaign Website",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://wcyb.com/news/local/democrat-joy-powers-launches-campaign-for-virginias-9th-focusing-on-affordability",
+          "type": "news",
+          "title": "Democrat Joy Powers launches campaign for Virginia's 9th District",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Joy_Powers",
+          "type": "website",
+          "title": "Joy Powers - Ballotpedia",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.joyforva.com",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoyforVA/",
+        "instagram": "https://www.instagram.com/joyforcongress/"
+      },
+      "career_history": [
+        {
+          "title": "Cattle Farmer / Small Business Owner",
+          "organization": "Family Farm and Farm Equipment Dealership",
+          "start_year": null,
+          "end_year": null,
+          "description": "Fourth-generation cattle farmer and operator of family farm equipment dealership"
+        },
+        {
+          "title": "Democratic Nominee, 51st District",
+          "organization": "Virginia House of Delegates",
+          "start_year": 2025,
+          "end_year": 2025,
+          "description": "Ran as Democratic nominee for Virginia's 51st House of Delegates district"
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Michael Jackson",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Michael Jackson is an independent candidate running for U.S. House in Virginia's 9th Congressional District. His campaign emphasizes accessibility, with a pledge to hold monthly mobile offices in the district, and focuses on lowering costs, workforce development, and infrastructure improvements. Ballotpedia lists him as a general election candidate.",
+      "summary_sources": [
+        {
+          "url": "https://www.michaeljacksonva09.com/",
+          "type": "website",
+          "title": "Michael Jackson for U.S. House of Representatives - Campaign Website",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Michael_Jackson_(Virginia_congressional_candidate)",
+          "type": "website",
+          "title": "Michael Jackson (Virginia congressional candidate) - Ballotpedia",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        },
+        {
+          "url": "https://www.vpap.org/offices/us-representative-9/elections/",
+          "type": "website",
+          "title": "Elections: US Representative District 9 - VPAP",
+          "last_accessed": "2026-06-13T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.michaeljacksonva09.com",
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:11:20.052133+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 270481,
+    "completion_tokens": 10232,
+    "total_tokens": 280713,
+    "cost_usd": 0.021384034,
+    "cost_source": "provider",
+    "estimated_usd": 0.028513,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 270481,
+        "completion_tokens": 10232
+      }
+    },
+    "duration_s": 177.7
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "id": "oh-house-09-2026",
+  "title": "Ohio's 9th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Ohio's 9th Congressional District",
+  "state": "Ohio",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This general election race for Ohio's 9th Congressional District pits incumbent Democrat Marcy Kaptur, the longest-serving woman in congressional history, against Republican Derek Merrin and Libertarian Matthew Althaus. The district was redrawn in October 2025 to be more Republican-leaning, creating one of the most competitive House races in the country. Merrin came within 2,400 votes of defeating Kaptur in 2024 and is backed by national Republican forces seeking to flip the seat. The Cook Political Report rates this race as a toss-up, and control of the U.S. House could hinge on the outcome.",
+  "polling": [
+    {
+      "pollster": "National Republican Congressional Committee (internal)",
+      "date": "2026-05-15",
+      "sample_size": 0,
+      "matchups": [
+        {
+          "candidates": [
+            "Derek Merrin",
+            "Marcy Kaptur"
+          ],
+          "percentages": [
+            47.0,
+            43.0
+          ]
+        }
+      ],
+      "source_url": "https://www.nrcc.org/2026/05/15/nrcc-releases-battleground-polling-in-oh-09/"
+    }
+  ],
+  "polling_note": "Only one publicly available general election poll found, conducted by the NRCC (Republican internal). No independent or Democratic polling was identified. The New York Times polls page lists the race but shows no general election polls loaded as of June 2026.",
+  "candidates": [
+    {
+      "name": "Marcy Kaptur",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Marcy Kaptur is the longest-serving woman in U.S. congressional history, first elected in 1982 to represent Ohio's 9th District. She serves on the House Appropriations Committee and is Ranking Member of the Energy and Water Development Subcommittee. Kaptur has focused on economic development, veterans' issues, Great Lakes restoration, and fair trade policies throughout her career.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Marcy_Kaptur",
+          "type": "website",
+          "title": "Marcy Kaptur - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://kaptur.house.gov/about",
+          "type": "government",
+          "title": "About Marcy - Congresswoman Marcy Kaptur",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Marcy_Kaptur.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1983,
+          "end_year": null,
+          "description": "Representing Ohio's 9th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Ranking Member, Energy and Water Development Subcommittee",
+          "organization": "House Appropriations Committee",
+          "start_year": 0,
+          "end_year": null,
+          "description": "First woman to serve in this role",
+          "source": null
+        },
+        {
+          "title": "Urban Policy Advisor",
+          "organization": "Carter Administration",
+          "start_year": 1977,
+          "end_year": 1979,
+          "description": "Domestic policy advisor",
+          "source": null
+        },
+        {
+          "title": "Director of Planning",
+          "organization": "National Center for Urban Ethnic Affairs",
+          "start_year": 1975,
+          "end_year": 1977,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Urban Planner",
+          "organization": "Toledo-Lucas County Plan Commissions",
+          "start_year": 1969,
+          "end_year": 1975,
+          "description": null,
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Michigan",
+          "degree": "Master's Degree",
+          "field": "Urban Planning",
+          "year": 1974,
+          "source": null
+        },
+        {
+          "institution": "University of Wisconsin",
+          "degree": "Bachelor's Degree",
+          "field": "History",
+          "year": 1968,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://marcykaptur.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Derek Merrin",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Derek Merrin is a former Ohio state representative who served eight years in the legislature and was elected leader of the Ohio House Republican Caucus. He previously served as Mayor of Waterville at age 21. Merrin ran against Marcy Kaptur in 2024 and lost by roughly 2,400 votes, and won the 2026 Republican primary in a five-candidate field.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Derek_Merrin",
+          "type": "website",
+          "title": "Derek Merrin - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.derekmerrin.com/",
+          "type": "website",
+          "title": "Derek Merrin - Home",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Derek_Merrin.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Ohio House of Representatives",
+          "start_year": 2016,
+          "end_year": 2024,
+          "description": "Served District 47 (2016-2022) and District 42 (2023-2024); Chairman of Ways and Means Committee and Health Committee",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Merrin Property Holdings, LLC",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Real estate investments",
+          "source": null
+        },
+        {
+          "title": "Regional Liaison / Senior Performance Analyst",
+          "organization": "Ohio Auditor of State",
+          "start_year": 2012,
+          "end_year": 2015,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Waterville",
+          "start_year": 2008,
+          "end_year": 2011,
+          "description": "Elected at age 21",
+          "source": null
+        },
+        {
+          "title": "Councilman",
+          "organization": "City of Waterville",
+          "start_year": 2006,
+          "end_year": 2007,
+          "description": "Elected at age 19",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Bowling Green State University",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": 2009,
+          "source": null
+        },
+        {
+          "institution": "University of Toledo",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 2008,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.derekmerrin.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Matthew Althaus",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Matthew Althaus is the Libertarian Party nominee for Ohio's 9th Congressional District. He works as a Manufacturing Manager at NSG Group in Rossford and previously served as an Area Manager at Amazon and Operations Manager at Unique Tool and Manufacturing. Althaus has no prior political experience and won the Libertarian primary in May 2026.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Matthew_Althaus",
+          "type": "website",
+          "title": "Matthew Althaus - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://toledofreepress.com/tfp-voters-guide-2026-may-primary-9th-congressional-district/",
+          "type": "news",
+          "title": "TFP Voter's Guide 2026: May Primary, 9th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Manufacturing Manager / H/E Supervisor",
+          "organization": "NSG Group",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Rossford, Ohio",
+          "source": null
+        },
+        {
+          "title": "Area Manager",
+          "organization": "Amazon",
+          "start_year": 2020,
+          "end_year": 2026,
+          "description": "Toledo, Ohio",
+          "source": null
+        },
+        {
+          "title": "Operations Manager",
+          "organization": "Unique Tool and Manufacturing",
+          "start_year": 2015,
+          "end_year": 2020,
+          "description": "Temperance, Michigan",
+          "source": null
+        },
+        {
+          "title": "Inventory Specialist",
+          "organization": "International Laser Group",
+          "start_year": 2011,
+          "end_year": 2015,
+          "description": "San Diego, California",
+          "source": null
+        },
+        {
+          "title": "Chief Executive Officer",
+          "organization": "Smartcarts Inc.",
+          "start_year": 2010,
+          "end_year": 2011,
+          "description": "San Diego, California",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Miami University",
+          "degree": "Bachelor of Business Commerce",
+          "field": "Business",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Sinclair Community College",
+          "degree": "Associate's Degree",
+          "field": "General Business Administration and Management",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:03:39.882952+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 230321,
+    "completion_tokens": 8087,
+    "total_tokens": 238408,
+    "cost_usd": 0.015520350000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.024157,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 230321,
+        "completion_tokens": 8087
+      }
+    },
+    "duration_s": 156.4
+  }
+}

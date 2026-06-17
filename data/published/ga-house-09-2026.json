@@ -1,0 +1,283 @@
+{
+  "id": "ga-house-09-2026",
+  "title": "Georgia's 9th Congressional District general election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Georgia's 9th Congressional District",
+  "state": "Georgia",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Georgia's 9th Congressional District pits two-term Republican incumbent Andrew Clyde against Democratic nominee Caitlyn Gegen. The district covers a largely rural and exurban swath northeast of Atlanta, including Gainesville, Dahlonega, and Toccoa. Cook Political Report rated the seat as Solidly Republican ahead of the May 19 primary, making Clyde the heavy favorite. The race highlights contrasting visions on economic policy, healthcare, and the role of government, with Clyde emphasizing conservative fiscal and social values and Gegen advocating for universal healthcare, raising the minimum wage, and protecting reproductive rights.",
+  "polling": [],
+  "polling_note": "No general-election head-to-head polls were found for this race. The Cook Political Report rated the district as Solidly Republican prior to the primary. The last competitive polling in the district was during the 2020 primary cycle.",
+  "candidates": [
+    {
+      "name": "Andrew Clyde",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Andrew Clyde is a U.S. Navy combat veteran and small business owner who has represented Georgia's 9th Congressional District since January 2021. He owns Clyde Armory, a firearms business he founded in 1991, and serves on the House Appropriations and Budget Committees. Clyde is a staunch conservative known for his opposition to IRS civil asset forfeiture, his support for the Second Amendment, and his America First policy positions.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Andrew_Clyde",
+          "type": "website",
+          "title": "Andrew Clyde - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://clyde.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Andrew S. Clyde",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.clyde4congress.com/",
+          "type": "website",
+          "title": "Andrew Clyde for Congress: Home",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rep._Andrew_Clyde_official_photo.jpg/250px-Rep._Andrew_Clyde_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Georgia's 9th Congressional District; serves on House Appropriations and Budget Committees",
+          "source": null
+        },
+        {
+          "title": "Founder and Owner",
+          "organization": "Clyde Armory, Inc.",
+          "start_year": 1991,
+          "end_year": null,
+          "description": "Nationwide firearms business with two brick-and-mortar locations in Georgia",
+          "source": null
+        },
+        {
+          "title": "Naval Officer",
+          "organization": "United States Navy / Navy Reserve",
+          "start_year": 1985,
+          "end_year": 2013,
+          "description": "Served 28 years in naval aviation units and the Seabees, including three combat deployments to Kuwait and Iraq; retired at the rank of Commander",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Notre Dame",
+          "degree": null,
+          "field": "NROTC Program (commissioned as officer)",
+          "year": 1985,
+          "source": null
+        },
+        {
+          "institution": "Bethel University (Indiana)",
+          "degree": "BBA",
+          "field": "Accounting and Business Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Georgia",
+          "degree": "MBA",
+          "field": "Corporate Finance and Entrepreneurship",
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://clyde.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.clyde4congress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.clyde4congress.com/",
+      "social_media": {
+        "twitter": "https://x.com/AndrewClyde_",
+        "instagram": "https://www.instagram.com/repclyde/",
+        "facebook": "https://www.facebook.com/RepresentativeClyde/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Caitlyn Gegen",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Caitlyn Gegen is a community organizer and University of Georgia alumna (BA in International Relations, MPA) who also holds an MSc from the London School of Economics. She defeated Nick Alex in the May 19 Democratic primary to become the party's nominee in Georgia's 9th District. Her campaign focuses on protecting reproductive rights, advocating for universal healthcare, raising the federal minimum wage to $15 per hour, investing in clean energy, and breaking up corporate monopolies.",
+      "summary_sources": [
+        {
+          "url": "https://www.caitlynforgeorgia.com/",
+          "type": "website",
+          "title": "Caitlyn Gegen For Congress | Georgia's 9th District",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.redandblack.com/uganews/uga-alumna-caitlyn-gegen-enters-georgia-s-9th-congressional-district-race/article_ecb604a5-c42a-45cd-b03c-d6601220657d.html",
+          "type": "news",
+          "title": "UGA alumna Caitlyn Gegen enters Georgia's 9th Congressional District race",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://spia.uga.edu/congratulations-to-caitlyn-gegen-for-being-selected-as-public-administration-and-policys-mpa-student-of-the-month/",
+          "type": "website",
+          "title": "UGA SPIA: MPA Student of the Month - Caitlyn Gegen",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.gainesvilletimes.com/news/elections/caitlyn-gegen-wins-democratic-bid-for-us-house-9th-district/",
+          "type": "news",
+          "title": "Caitlyn Gegen wins Democratic bid for U.S. House, 9th District",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.caitlynforgeorgia.com/assets/head%20shot.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Program Director",
+          "organization": "Bluebird PAC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Grassroots PAC supporting first-time and non-traditional candidates; coordinated student staffers from multiple universities",
+          "source": null
+        },
+        {
+          "title": "Community Organizer Intern",
+          "organization": "ACLU of Kansas",
+          "start_year": null,
+          "end_year": null,
+          "description": "Interned with the 'Kansans for Smart Justice' initiative focused on criminal justice reform",
+          "source": null
+        },
+        {
+          "title": "Policy Intern",
+          "organization": "BikeAthens",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advocated for programs and policies to promote equity in transportation",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Georgia",
+          "degree": "BA",
+          "field": "International Relations",
+          "year": 2021,
+          "source": null
+        },
+        {
+          "institution": "University of Georgia",
+          "degree": "MPA",
+          "field": "Public Administration",
+          "year": 2021,
+          "source": null
+        },
+        {
+          "institution": "London School of Economics and Political Science",
+          "degree": "MSc",
+          "field": "Gender, Peace, and Security",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.caitlynforgeorgia.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.caitlynforgeorgia.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/caitlyngegen/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:54:26.195042+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 240708,
+    "completion_tokens": 6927,
+    "total_tokens": 247635,
+    "cost_usd": 0.0190665,
+    "cost_source": "provider",
+    "estimated_usd": 0.024947,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 240708,
+        "completion_tokens": 6927
+      }
+    },
+    "duration_s": 149.0
+  }
+}

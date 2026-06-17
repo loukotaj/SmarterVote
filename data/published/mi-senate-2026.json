@@ -4,179 +4,41 @@
   "office": "United States Senate",
   "jurisdiction": "Michigan",
   "election_date": "2026-11-03",
-  "description": "Michigan will elect one U.S. senator in 2026 for the Class II seat held by Democrat Gary Peters, who is not seeking re-election. The race is an open-seat contest in a closely divided battleground state, making it one of the more competitive Senate races on the 2026 map. Democrats are competing in a crowded primary featuring Abdul El-Sayed, Mallory McMorrow, and Haley Stevens, while Republicans are looking to flip the seat with Mike Rogers as a leading contender. The general election is expected to hinge on turnout, suburban voters, and which party can best frame the race around the economy, abortion rights, and national political control.",
+  "description": "The 2026 Michigan Senate election is an open-seat race for the seat held by retiring Democrat Gary Peters. Taking place in a state Donald Trump won by 1.4 points in 2024, it is one of only two Democratic-held Senate seats up in a Trump-won state and is rated a Toss Up by the Cook Political Report, making it a central battleground for control of the Senate. Democrats face a competitive August 4 primary among three candidates representing different party factions: U.S. Rep. Haley Stevens (the establishment-backed frontrunner), state Sen. Mallory McMorrow, and former Wayne County health director Abdul El-Sayed. Republicans have coalesced behind former U.S. Rep. Mike Rogers, endorsed by Donald Trump, as they seek to win their first Michigan Senate race since 1994.",
   "polling": [
     {
-      "pollster": "Emerson College Polling / Nexstar Media",
-      "date": "2026-04-16",
-      "matchups": [
-        {
-          "candidates": [
-            "Mallory McMorrow",
-            "Abdul El-Sayed"
-          ],
-          "percentages": [
-            24,
-            24
-          ]
-        },
-        {
-          "candidates": [
-            "Haley Stevens",
-            "Abdul El-Sayed"
-          ],
-          "percentages": [
-            23,
-            22
-          ]
-        },
-        {
-          "candidates": [
-            "Haley Stevens",
-            "Mallory McMorrow"
-          ],
-          "percentages": [
-            23,
-            23
-          ]
-        },
-        {
-          "candidates": [
-            "Mallory McMorrow",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            46,
-            43
-          ]
-        },
-        {
-          "candidates": [
-            "Haley Stevens",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            47,
-            42
-          ]
-        },
-        {
-          "candidates": [
-            "Abdul El-Sayed",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            43,
-            43
-          ]
-        }
-      ],
-      "source_url": "https://emersoncollegepolling.com/michigan-2026-poll-abdul-el-sayed-mallory-mcmorrow-tied-for-lead-in-democratic-senate-primary/",
-      "sample_size": 1000
-    },
-    {
-      "pollster": "Detroit News-WDIV",
-      "date": "2026-01-14",
-      "matchups": [
-        {
-          "candidates": [
-            "Mike Rogers",
-            "Haley Stevens"
-          ],
-          "percentages": [
-            44.1,
-            43.7
-          ]
-        }
-      ],
-      "source_url": "https://www.detroitnews.com/story/news/politics/2026/01/14/michigan-senate-race-poll-mike-rogers-haley-stevens-mallory-mcmorrow-abdul-el-sayed/88148893007/",
-      "sample_size": 600
-    },
-    {
-      "pollster": "Emerson College Polling / Nexstar Media",
-      "date": "2026-01-29",
-      "matchups": [
-        {
-          "candidates": [
-            "Mallory McMorrow",
-            "Haley Stevens",
-            "Abdul El-Sayed"
-          ],
-          "percentages": [
-            22,
-            17,
-            16
-          ]
-        },
-        {
-          "candidates": [
-            "Mallory McMorrow",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            46,
-            43
-          ]
-        },
-        {
-          "candidates": [
-            "Haley Stevens",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            47,
-            42
-          ]
-        },
-        {
-          "candidates": [
-            "Abdul El-Sayed",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            43,
-            43
-          ]
-        }
-      ],
-      "source_url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/",
-      "sample_size": 1000
-    },
-    {
-      "pollster": "Emerson College Polling / Nexstar Media",
-      "date": "2026-01-29",
+      "pollster": "270toWin",
+      "date": "2026-06-15",
       "sample_size": 1000,
+      "matchups": [],
+      "source_url": "https://www.270towin.com/polls/latest-2026-senate-election-polls/"
+    },
+    {
+      "pollster": "The New York Times",
+      "date": "2026-06-15",
+      "sample_size": 1000,
+      "matchups": [],
+      "source_url": "https://www.nytimes.com/interactive/polls/michigan-us-senate-election-polls-2026.html"
+    },
+    {
+      "pollster": "Detroit News / WDIV-TV",
+      "date": "2026-01-14",
+      "sample_size": 800,
+      "matchups": [],
+      "source_url": "https://www.detroitnews.com/story/news/politics/2026/01/14/michigan-senate-race-poll-mike-rogers-haley-stevens-mallory-mcmorrow-abdul-el-sayed/88148893007/"
+    },
+    {
+      "pollster": "Decision Desk HQ",
+      "date": "2026-06-09",
+      "sample_size": 600,
+      "matchups": [],
+      "source_url": "https://decisiondeskhq.substack.com/p/michigan-mayhem-for-democrats"
+    },
+    {
+      "pollster": "Emerson College Polling / Nexstar Media",
+      "date": "2026-01-29",
+      "sample_size": 500,
       "matchups": [
-        {
-          "candidates": [
-            "Mallory McMorrow",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            46,
-            43
-          ]
-        },
-        {
-          "candidates": [
-            "Haley Stevens",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            47,
-            42
-          ]
-        },
-        {
-          "candidates": [
-            "Abdul El-Sayed",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            43,
-            43
-          ]
-        },
         {
           "candidates": [
             "Mallory McMorrow",
@@ -184,31 +46,63 @@
             "Abdul El-Sayed"
           ],
           "percentages": [
-            22,
-            17,
-            16
+            22.0,
+            17.0,
+            16.0
           ]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/"
     },
     {
-      "pollster": "The Detroit News / WDIV",
-      "date": "2026-01-14",
-      "sample_size": 600,
+      "pollster": "Emerson College Polling / Nexstar Media",
+      "date": "2026-06-14",
+      "sample_size": 1000,
       "matchups": [
         {
           "candidates": [
-            "Mike Rogers",
-            "Haley Stevens"
+            "Mallory McMorrow",
+            "Haley Stevens",
+            "Abdul El-Sayed"
           ],
           "percentages": [
-            44.1,
-            43.7
+            21.0,
+            18.0,
+            17.0
+          ]
+        },
+        {
+          "candidates": [
+            "Mallory McMorrow",
+            "Mike Rogers"
+          ],
+          "percentages": [
+            44.0,
+            40.0
+          ]
+        },
+        {
+          "candidates": [
+            "Haley Stevens",
+            "Mike Rogers"
+          ],
+          "percentages": [
+            46.0,
+            39.0
+          ]
+        },
+        {
+          "candidates": [
+            "Abdul El-Sayed",
+            "Mike Rogers"
+          ],
+          "percentages": [
+            41.0,
+            43.0
           ]
         }
       ],
-      "source_url": "https://www.detroitnews.com/story/news/politics/2026/01/14/michigan-senate-race-poll-mike-rogers-haley-stevens-mallory-mcmorrow-abdul-el-sayed/88148893007/"
+      "source_url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/"
     }
   ],
   "candidates": [
@@ -220,189 +114,125 @@
       "summary_sources": [
         {
           "url": "https://abdulforsenate.com/about/",
-          "type": "official",
-          "title": "Meet Dr. Abdul El-Sayed"
+          "type": "government",
+          "title": "Meet Dr. Abdul El-Sayed",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Abdul_El-Sayed",
-          "type": "ballotpedia",
-          "title": "Abdul El-Sayed - Ballotpedia"
+          "type": "website",
+          "title": "Abdul El-Sayed - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Abdul_El-Sayed_2026.png",
-      "website": "https://abdulforsenate.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/abdulforsenate",
-        "x": "https://x.com/abdulforsenate",
-        "instagram": "https://www.instagram.com/abdulforsenate/",
-        "youtube": "https://www.youtube.com/@abdulforsenate",
-        "tiktok": "https://www.tiktok.com/@abdulforsenate",
-        "bluesky": "https://bsky.app/profile/abdulforsenate.com"
-      },
-      "career_history": [
-        {
-          "title": "Candidate for U.S. Senate",
-          "organization": "Abdul for U.S. Senate",
-          "start_year": 2025,
-          "end_year": null,
-          "description": "Declared candidate in Michigan’s 2026 U.S. Senate race."
-        },
-        {
-          "title": "Director",
-          "organization": "Wayne County Department of Health, Human and Veterans Services",
-          "start_year": 2019,
-          "end_year": 2022,
-          "description": "Led county health and human services operations."
-        },
-        {
-          "title": "Executive Director",
-          "organization": "Detroit Health Department",
-          "start_year": 2015,
-          "end_year": 2017,
-          "description": "Managed Detroit’s public health department."
-        },
-        {
-          "title": "Public health professor",
-          "organization": "University of Michigan",
-          "start_year": 2017,
-          "end_year": 2019,
-          "description": "Taught and worked in public health research and policy."
-        }
-      ],
-      "education": [
-        {
-          "institution": "University of Michigan",
-          "degree": "M.D.",
-          "field": "Medicine",
-          "year": 2011
-        },
-        {
-          "institution": "University of Oxford",
-          "degree": "D.Phil.",
-          "field": "Epidemiology",
-          "year": 2014
-        }
-      ],
-      "voting_record": [],
-      "top_donors": [
-        {
-          "name": "Aymen Aboushi",
-          "amount": 1000,
-          "organization": "Attorney",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=2&sort=N&zip=10026",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Gerardo Alcazar",
-          "amount": 27,
-          "organization": "Medtronic",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?employ=medtronic&page=1",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Gary Lee Stingley",
-          "amount": 5,
-          "organization": null,
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=9&sort=D&zip=49659",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Adeel Ajaz",
-          "amount": 27,
-          "organization": null,
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=5&sort=N&zip=48188",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Abdul Ahmed",
-          "amount": 20,
-          "organization": "Melvindale Schools",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=7&sort=N&zip=48126",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        }
-      ],
       "issues": {
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "El-Sayed supports Medicare for All and says health care should be guaranteed as a right. His campaign also says he wants to lower prescription drug costs and build a system that works for every American.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priority/a-healthier-america/",
-              "type": "official",
+              "type": "government",
               "title": "A Healthier America",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://abdulforsenate.com/2026/01/dr-abdul-el-sayed-ive-worked-to-expand-rx-kids-but-we-still-need-medicare-for-all/",
-              "type": "official",
+              "type": "government",
               "title": "Dr. Abdul El-Sayed: “I’ve Worked to Expand Rx Kids. But We Still Need Medicare for All.”",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "El-Sayed says he wants an economy for working people by ending corporate tax breaks, strengthening unions, supporting small businesses, and lowering costs for Michiganders. His campaign also emphasizes domestic manufacturing and public investment.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priority/an-economy-for-working-people/",
-              "type": "official",
+              "type": "government",
               "title": "An Economy for Working People",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://abdulforsenate.com/priorities/",
-              "type": "official",
+              "type": "government",
               "title": "Abdul's Priorities",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "El-Sayed says he wants stronger protections for clean air and water and to hold polluters accountable for contamination. He frames environmental policy as part of public health and environmental justice.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priority/clean-air-water/",
-              "type": "official",
+              "type": "government",
               "title": "Clean Air & Water",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
           "stance": "El-Sayed supports abortion rights and says he would codify the rights once protected by Roe v. Wade into federal law. His campaign also links reproductive access to broader civil rights and health care protections.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priority/civil-rights-liberties/",
-              "type": "official",
+              "type": "government",
               "title": "Civil Rights & Liberties",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Immigration": {
+          "issue": "Immigration",
           "stance": "El-Sayed has said he wants to abolish ICE and sharply limit its role, while still supporting immigration enforcement in a different form. He has criticized ICE as militarized and abusive.",
           "confidence": "high",
           "sources": [
@@ -410,83 +240,129 @@
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
               "title": "6 major issues in Michigan’s US Senate race",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://abdulforsenate.com/",
-              "type": "official",
+              "type": "government",
               "title": "Abdul El-Sayed – Michigan U.S. Senate Candidate 2026",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
           "stance": "No public position found",
           "confidence": "low",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priorities/",
-              "type": "official",
+              "type": "government",
               "title": "Abdul's Priorities",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "El-Sayed says he favors a diplomacy-first foreign policy rooted in multilateralism, human rights, and alliances. He opposes direct funding of foreign militaries and says the U.S. should avoid interventions like Vietnam or Iraq.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priority/sensible-foreign-policy/",
-              "type": "official",
+              "type": "government",
               "title": "Sensible Foreign Policy",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
           "stance": "El-Sayed says he will protect civil rights and liberties for people regardless of race, religion, sexual orientation, gender identity, age, or income. His campaign emphasizes equal rights, non-discrimination protections, and the right to protest peacefully.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priority/civil-rights-liberties/",
-              "type": "official",
+              "type": "government",
               "title": "Civil Rights & Liberties",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "El-Sayed supports universal pre-K, stronger public K-12 schools, school infrastructure investment, vocational training, and debt-free or tuition-free paths to higher education. He also says he wants more funding for research and higher education.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/priority/more-and-better-education-not-less/",
-              "type": "official",
+              "type": "government",
               "title": "More and Better Education, not Less",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Tech & AI": {
+          "issue": "Tech & AI",
           "stance": "El-Sayed has proposed rules for data centers that would require them to pay for their own energy demand, provide community transparency, use binding community-benefits agreements, and meet environmental safeguards. He also ties developments to local jobs and apprenticeship requirements.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/2026/01/datacenters/",
-              "type": "official",
+              "type": "government",
               "title": "Terms of Engagement for Data Centers",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://michiganadvance.com/briefs/el-sayed-lays-out-policy-terms-of-engagement-with-ai-data-centers-in-u-s-senate-hunt/",
               "type": "news",
               "title": "El-Sayed lays out policy 'terms of engagement' with AI data centers",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Election Reform": {
+        "Election Policy": {
+          "issue": "Election Policy",
           "stance": "El-Sayed says he wants to get money out of politics and has supported ending the filibuster and reforming the Supreme Court. He frames these changes as ways to reduce corporate influence and improve democratic accountability.",
           "confidence": "high",
           "sources": [
@@ -494,36 +370,160 @@
               "url": "https://www.cnn.com/2026/04/19/politics/video/michigan-senate-democratic-primary",
               "type": "news",
               "title": "Must-win Michigan Senate race turns messy for Democrats amid fight over Israel and future of the party",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://bridgemi.com/michigan-government/abdul-el-sayed-courts-college-kids-and-controversy-in-michigan-senate-race/",
               "type": "news",
               "title": "Abdul El-Sayed courts college voters, controversy in Michigan Senate race",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "El-Sayed’s data-center proposal says new projects should not raise rates for residents, should pay their own energy costs, and should include community input, closed-loop water systems, union labor, apprenticeship requirements, and penalties for noncompliance. The campaign presents the plan as a local affordability and infrastructure issue.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://abdulforsenate.com/2026/01/datacenters/",
-              "type": "official",
+              "type": "government",
               "title": "Terms of Engagement for Data Centers",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://planetdetroit.org/2026/01/el-sayed-data-centers-senate/",
               "type": "news",
               "title": "Senate candidate Abdul El-Sayed presents 'terms of engagement' for data centers",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         }
       },
-      "donor_summary": "Public 2026 campaign disclosures and campaign statements indicate a heavily grassroots-funded race: El-Sayed said he raised about $1.8 million in under three months and later about $1.77 million in Q3 2025, with 22,000+ donations from 17,000+ individual donors and no corporate PAC money. OpenSecrets and FEC candidate pages are available for federal filing review, but the campaign’s own disclosures emphasize small-dollar support rather than industry PAC dominance.",
+      "career_history": [
+        {
+          "title": "Candidate for U.S. Senate",
+          "organization": "Abdul for U.S. Senate",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Declared candidate in Michigan’s 2026 U.S. Senate race.",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Wayne County Department of Health, Human and Veterans Services",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Led county health and human services operations.",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Detroit Health Department",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Managed Detroit’s public health department.",
+          "source": null
+        },
+        {
+          "title": "Public health professor",
+          "organization": "University of Michigan",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Taught and worked in public health research and policy.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Michigan",
+          "degree": "Bachelor of Science",
+          "field": "Biology",
+          "year": 2006,
+          "source": null
+        },
+        {
+          "institution": "Columbia University",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": 2011,
+          "source": null
+        },
+        {
+          "institution": "Columbia University",
+          "degree": "Doctor of Philosophy",
+          "field": "Epidemiology",
+          "year": 2014,
+          "source": null
+        },
+        {
+          "institution": "University of Oxford",
+          "degree": "Doctor of Philosophy",
+          "field": "Public Health",
+          "year": 2014,
+          "source": null
+        }
+      ],
+      "voting_summary": "Has never held elected legislative office, so there is no voting record to report. Served as Executive Director of the Detroit Health Department (2015–2018) and as Director of Wayne County's Health, Human & Veterans Services Department (2023–present). Has authored a book on Medicare for All and made universal health care the centerpiece of his campaign. Signed a pledge to reject corporate PAC contributions and advocates for single-payer health care, student debt relief, and aggressive climate action.",
+      "voting_source_url": "https://www.waynecountymi.gov/News/Executive/2022/Dr.-Abdul-El-Sayed-joins-Health-Human-Veterans-Services-Department",
+      "voting_sources": [],
+      "donor_summary": "Raised approximately $7.6M through March 2026, with $7.57M coming from individual contributions and only $38,825 from PACs — reflecting his pledge to accept no corporate PAC money. The largest share came from donors giving $2,000+ ($1.6M), followed by small-dollar donations under $200 ($961K). The campaign is heavily grassroots-funded with $2M in unitemized small-dollar contributions, and virtually no transfers from other committees.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6MI00418/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/S6MI00418/",
+          "type": "finance",
+          "title": "ABDUL EL-SAYED - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/2026/04/28/michigan-u-s-senate-primary-tightens-as-mcmorrow-el-sayed-outpace-stevens-in-q1-fundraising/",
+          "type": "news",
+          "title": "Michigan U.S. Senate primary tightens as McMorrow, El-Sayed outpace Stevens in Q1 fundraising",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/2026/01/05/rogers-stevens-lead-michigan-u-s-senate-fundraising-with-wealthy-and-corporate-donors/",
+          "type": "news",
+          "title": "Rogers, Stevens lead Michigan U.S. Senate fundraising with wealthy and corporate donors",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://ballotpedia.org/Abdul_El-Sayed",
@@ -564,37 +564,326 @@
           "url": "https://www.michiganpublic.org/politics-government/2018-02-05/progressive-candidate-abdul-el-sayed-has-confusing-defense-of-voting-record",
           "title": "Progressive candidate Abdul El-Sayed has confusing defense of voting record",
           "type": "news"
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/abdul-el-sayed/us_congress/summary",
+          "title": "Abdul El-Sayed - OpenSecrets Summary",
+          "type": "finance"
+        },
+        {
+          "url": "https://michiganadvance.com/2025/04/17/el-sayed-enters-race-for-michigans-u-s-senate-seat/",
+          "title": "El-Sayed enters race for Michigan's U.S. Senate seat",
+          "type": "news"
+        },
+        {
+          "url": "https://www.pbs.org/newshour/politics/progressive-el-sayed-goes-on-offensive-as-michigan-democrats-clash-in-u-s-senate-debate",
+          "title": "Progressive El-Sayed goes on offensive as Michigan Democrats clash",
+          "type": "news"
         }
       ],
-      "donor_source_url": "https://abdulforsenate.com/2025/07/u-s-senate-candidate-abdul-el-sayed-announces-1-8-million-raised-in-under-three-months/",
-      "voting_summary": "No public legislative voting record. No prior elected or executive office found that would produce a legislative roll-call record; available reporting instead describes El-Sayed as a physician, former public health professor, and former government official. His campaign platform emphasizes Medicare for All and reducing the influence of money in politics.",
-      "voting_source_url": "https://ballotpedia.org/Abdul_El-Sayed"
+      "website": "https://abdulforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/abdulforsenate",
+        "x": "https://x.com/abdulforsenate",
+        "instagram": "https://www.instagram.com/abdulforsenate/",
+        "youtube": "https://www.youtube.com/@abdulforsenate",
+        "tiktok": "https://www.tiktok.com/@abdulforsenate",
+        "bluesky": "https://bsky.app/profile/abdulforsenate.com"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Mallory McMorrow",
       "party": "Democratic",
-      "incumbent": true,
+      "incumbent": false,
       "summary": "Mallory McMorrow is a Michigan state senator and Democratic candidate for U.S. Senate in 2026. Her campaign says she is running to focus on affordability, democracy, and protecting rights and freedoms, and she has highlighted her legislative record on wages, gun safety, and reproductive rights.",
       "summary_sources": [
         {
           "url": "https://www.mcmorrowformichigan.com/agenda",
+          "type": "website",
           "title": "Agenda — Mallory McMorrow for U.S. Senate",
-          "type": "website"
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Mallory_McMorrow",
+          "type": "website",
           "title": "Mallory McMorrow - Ballotpedia",
-          "type": "ballotpedia"
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MalloryMcMorrow_IMG_4386_screen.jpg",
-      "website": "https://www.mcmorrowformichigan.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/MalloryMcMorrowMI",
-        "x": "https://x.com/MalloryMcMorrow",
-        "instagram": "https://www.instagram.com/mallorymcmorrow/",
-        "youtube": "https://www.youtube.com/@MalloryMcMorrow",
-        "bluesky": "https://bsky.app/profile/mallorymcmorrow.com"
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "McMorrow supports protecting Medicare and Medicaid, lowering prescription drug costs, and creating a public option so coverage is not tied to a job or marital status. Her campaign also says she wants to protect reproductive and mental health care as basic rights.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "McMorrow says she wants an economy that rewards work rather than wealth, including raising wages, cutting taxes for working families, ending the carried interest loophole, and supporting small businesses through credit, capital, and regulatory streamlining.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "McMorrow’s agenda calls for clean water, environmental protection, and energy policies that keep costs down while holding large users accountable. Her campaign also says she supports stronger oversight of data-center development, including renewable-energy requirements and protections for ratepayers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.mcmorrowformichigan.com/data-centers-done-right",
+              "type": "website",
+              "title": "Data Centers Done Right",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "McMorrow says she supports abortion access and broader reproductive health care protections, including paid family and medical leave, maternal health programs, birthing centers, doulas, and postpartum mental health support. Her campaign also highlights her support for taking Michigan’s Rx Kids program nationwide.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.mcmorrowformichigan.com/news/mcmorrow-proposes-a-better-baby-bonus-with-national-cash-prescription-program-for-new-moms",
+              "type": "website",
+              "title": "McMorrow Proposes a Better ‘Baby Bonus’ with National Cash Prescription Program for New Moms",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "McMorrow’s agenda calls for cracking down on fentanyl trafficking with stronger border enforcement and targeting the supply chain, while also expanding treatment and recovery services. Her campaign page also includes immigration and foreign policy as a combined issue area, but does not lay out a detailed immigration overhaul on the agenda page reviewed here.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "McMorrow supports universal background checks, a federal assault-weapons ban, a federal red-flag law modeled on Michigan’s, safe-storage laws, a ban on ghost guns, and repeal of PLCAA. Her campaign also says she wants more funding for local public safety and mental health crisis response.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "McMorrow’s agenda groups immigration and foreign policy together and emphasizes humanitarian considerations, but the campaign page reviewed here does not provide a detailed foreign-policy platform. Public reporting has also covered her comments on the Gaza-Israel war, but her campaign agenda itself is limited on this issue.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "McMorrow’s agenda emphasizes civil rights, privacy, voting rights, and support for underserved communities. Her campaign also frames its platform around equity, accountability, and community investment.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "McMorrow supports making education more affordable, expanding child care and early childhood education, strengthening child labor protections, and increasing access to paid leave and child tax credits for families. Her campaign also says it wants to hold social media and tech companies accountable for harms to kids’ mental health.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "McMorrow says social media and big tech companies should be held accountable for harms to children, and her agenda calls for stronger regulation to put kids’ well-being over profits. Her campaign also proposes guardrails for technology and innovation, including oversight of data-center development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.mcmorrowformichigan.com/data-centers-done-right",
+              "type": "website",
+              "title": "Data Centers Done Right",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "McMorrow says democracy needs stronger accountability and supports reforms such as protecting voting rights and considering changes to the filibuster and Supreme Court structure. Her campaign also places transparency, accountability, and effectiveness among its core agenda areas.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "McMorrow’s local-issues agenda focuses heavily on Michigan-specific economic development, including data-center rules, small-business support, infrastructure costs, union labor, and protections for ratepayers and communities. Her campaign also highlights state-level track record items such as economic development reform and support for local redevelopment funding.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mcmorrowformichigan.com/agenda",
+              "type": "website",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.mcmorrowformichigan.com/data-centers-done-right",
+              "type": "website",
+              "title": "Data Centers Done Right",
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -602,21 +891,24 @@
           "organization": "Michigan Senate",
           "start_year": 2019,
           "end_year": null,
-          "description": "Represents Michigan’s 8th Senate District."
+          "description": "Represents Michigan’s 8th Senate District.",
+          "source": null
         },
         {
           "title": "Senior Director of Brand Strategy",
           "organization": "Mattel",
           "start_year": 2010,
           "end_year": 2018,
-          "description": "Worked in brand and marketing strategy."
+          "description": "Worked in brand and marketing strategy.",
+          "source": null
         },
         {
           "title": "Designer / creative professional",
           "organization": "Various",
           "start_year": 2008,
           "end_year": 2010,
-          "description": "Worked in design and creative roles before entering politics."
+          "description": "Worked in design and creative roles before entering politics.",
+          "source": null
         }
       ],
       "education": [
@@ -624,382 +916,50 @@
           "institution": "University of Notre Dame",
           "degree": "B.A.",
           "field": "Industrial Design",
-          "year": 2008
+          "year": 2008,
+          "source": null
         }
       ],
-      "voting_record": [
+      "voting_summary": "Michigan State Senator (District 8) since January 2019, currently serving as Senate Majority Whip. A reliable Democratic caucus vote, she championed the nine-bill Reproductive Health Act protecting abortion access and sponsored a state-level FACE Act to safeguard reproductive health clinics. She voted in favor of data center tax breaks in 2024, drawing criticism from progressives. Her environmental voting record scores highly with conservation groups.",
+      "voting_source_url": "https://senatedems.com/mcmorrow/bio/",
+      "voting_sources": [],
+      "donor_summary": "Raised approximately $8.6M through March 2026, the highest total among Democratic candidates, with $8.47M from individual contributions and only $58,718 from PACs. The campaign is heavily small-dollar driven, with $4.3M in unitemized (under $200) contributions and $2.2M funneled through ActBlue in Q1 2026 alone. She has eschewed corporate PAC money in her Senate run, though her prior state Senate campaigns received donations from DTE Energy.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6MI00392/",
+      "donor_sources": [
         {
-          "bill_name": "Michigan Senate legislation to raise the minimum wage to $15 an hour",
-          "vote": "yes",
-          "date": "2023-02-01",
-          "source": {
-            "url": "https://www.mcmorrowformichigan.com/",
-            "type": "website",
-            "title": "Mallory McMorrow for U.S. Senate",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
+          "url": "https://www.fec.gov/data/candidate/S6MI00392/",
+          "type": "finance",
+          "title": "MCMORROW, MALLORY - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
-          "bill_name": "Michigan abortion rights repeal legislation",
-          "vote": "yes",
-          "date": "2023-04-01",
-          "source": {
-            "url": "https://www.mcmorrowformichigan.com/",
-            "type": "website",
-            "title": "Mallory McMorrow for U.S. Senate",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
+          "url": "https://michiganadvance.com/2026/04/28/michigan-u-s-senate-primary-tightens-as-mcmorrow-el-sayed-outpace-stevens-in-q1-fundraising/",
+          "type": "news",
+          "title": "Michigan U.S. Senate primary tightens as McMorrow, El-Sayed outpace Stevens in Q1 fundraising",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
-          "bill_name": "Michigan gun violence reduction legislation",
-          "vote": "yes",
-          "date": "2023-01-01",
-          "source": {
-            "url": "https://www.mcmorrowformichigan.com/",
-            "type": "website",
-            "title": "Mallory McMorrow for U.S. Senate",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 495",
-          "vote": "yes",
-          "date": "2026-01-22",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "HB 4262",
-          "vote": "yes",
-          "date": "2025-12-18",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 158",
-          "vote": "yes",
-          "date": "2025-12-18",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "HB 4576",
-          "vote": "yes",
-          "date": "2025-12-16",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 529",
-          "vote": "yes",
-          "date": "2025-11-13",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 530",
-          "vote": "yes",
-          "date": "2025-11-13",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 531",
-          "vote": "yes",
-          "date": "2025-11-13",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 596",
-          "vote": "yes",
-          "date": "2025-11-13",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 182",
-          "vote": "yes",
-          "date": "2025-10-30",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "SB 276",
-          "vote": "yes",
-          "date": "2025-10-21",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow",
-            "type": "news",
-            "title": "Mallory McMorrow's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
+          "url": "https://michiganadvance.com/2026/01/05/rogers-stevens-lead-michigan-u-s-senate-fundraising-with-wealthy-and-corporate-donors/",
+          "type": "news",
+          "title": "Rogers, Stevens lead Michigan U.S. Senate fundraising with wealthy and corporate donors",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "top_donors": [
-        {
-          "name": "Senate Democratic Fund of Michigan",
-          "amount": 90000,
-          "organization": "Lansing, MI",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Senate Democratic Fund of Michigan",
-          "amount": 60000,
-          "organization": "Lansing, MI",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Senate Democratic Fund of Michigan",
-          "amount": 52800,
-          "organization": "Lansing, MI",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Senate Democratic Fund of Michigan",
-          "amount": 52800,
-          "organization": "Lansing, MI",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Senate Democratic Fund of Michigan",
-          "amount": 52800,
-          "organization": "Lansing, MI",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        }
-      ],
-      "issues": {
-        "Healthcare": {
-          "stance": "McMorrow supports protecting Medicare and Medicaid, lowering prescription drug costs, and creating a public option so coverage is not tied to a job or marital status. Her campaign also says she wants to protect reproductive and mental health care as basic rights.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "McMorrow says she wants an economy that rewards work rather than wealth, including raising wages, cutting taxes for working families, ending the carried interest loophole, and supporting small businesses through credit, capital, and regulatory streamlining.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "McMorrow’s agenda calls for clean water, environmental protection, and energy policies that keep costs down while holding large users accountable. Her campaign also says she supports stronger oversight of data-center development, including renewable-energy requirements and protections for ratepayers.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            },
-            {
-              "url": "https://www.mcmorrowformichigan.com/data-centers-done-right",
-              "title": "Data Centers Done Right",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "McMorrow says she supports abortion access and broader reproductive health care protections, including paid family and medical leave, maternal health programs, birthing centers, doulas, and postpartum mental health support. Her campaign also highlights her support for taking Michigan’s Rx Kids program nationwide.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            },
-            {
-              "url": "https://www.mcmorrowformichigan.com/news/mcmorrow-proposes-a-better-baby-bonus-with-national-cash-prescription-program-for-new-moms",
-              "title": "McMorrow Proposes a Better ‘Baby Bonus’ with National Cash Prescription Program for New Moms",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "McMorrow’s agenda calls for cracking down on fentanyl trafficking with stronger border enforcement and targeting the supply chain, while also expanding treatment and recovery services. Her campaign page also includes immigration and foreign policy as a combined issue area, but does not lay out a detailed immigration overhaul on the agenda page reviewed here.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "McMorrow supports universal background checks, a federal assault-weapons ban, a federal red-flag law modeled on Michigan’s, safe-storage laws, a ban on ghost guns, and repeal of PLCAA. Her campaign also says she wants more funding for local public safety and mental health crisis response.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "McMorrow’s agenda groups immigration and foreign policy together and emphasizes humanitarian considerations, but the campaign page reviewed here does not provide a detailed foreign-policy platform. Public reporting has also covered her comments on the Gaza-Israel war, but her campaign agenda itself is limited on this issue.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "McMorrow’s agenda emphasizes civil rights, privacy, voting rights, and support for underserved communities. Her campaign also frames its platform around equity, accountability, and community investment.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "McMorrow supports making education more affordable, expanding child care and early childhood education, strengthening child labor protections, and increasing access to paid leave and child tax credits for families. Her campaign also says it wants to hold social media and tech companies accountable for harms to kids’ mental health.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "McMorrow says social media and big tech companies should be held accountable for harms to children, and her agenda calls for stronger regulation to put kids’ well-being over profits. Her campaign also proposes guardrails for technology and innovation, including oversight of data-center development.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            },
-            {
-              "url": "https://www.mcmorrowformichigan.com/data-centers-done-right",
-              "title": "Data Centers Done Right",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "McMorrow says democracy needs stronger accountability and supports reforms such as protecting voting rights and considering changes to the filibuster and Supreme Court structure. Her campaign also places transparency, accountability, and effectiveness among its core agenda areas.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "McMorrow’s local-issues agenda focuses heavily on Michigan-specific economic development, including data-center rules, small-business support, infrastructure costs, union labor, and protections for ratepayers and communities. Her campaign also highlights state-level track record items such as economic development reform and support for local redevelopment funding.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.mcmorrowformichigan.com/agenda",
-              "title": "Agenda — Mallory McMorrow for U.S. Senate",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            },
-            {
-              "url": "https://www.mcmorrowformichigan.com/data-centers-done-right",
-              "title": "Data Centers Done Right",
-              "type": "website",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
-            }
-          ]
-        }
-      },
-      "donor_summary": "McMorrow’s 2026 fundraising has been driven by small-dollar donors: reporting says she raised about $3 million in Q1 2026 from roughly 120,000 individual donors, and campaign statements earlier in the cycle cited more than $2.1 million from 28,000+ donors. OpenSecrets’ 2020 state-level profile shows labor support such as the Michigan Regional Council of Carpenters & Millwrights, but the 2026 race appears dominated by broad individual contributions rather than a single industry bloc.",
       "links": [
         {
           "url": "https://ballotpedia.org/Mallory_McMorrow",
@@ -1040,11 +1000,43 @@
           "url": "https://www.billtrack50.com/legislatordetail/23558",
           "title": "State Senator Mallory McMorrow - BillTrack50",
           "type": "other"
+        },
+        {
+          "url": "https://www.mcmorrowformichigan.com/",
+          "title": "Mallory McMorrow for U.S. Senate",
+          "type": "official"
+        },
+        {
+          "url": "https://www.transparencyusa.org/mi/candidate/mallory-mcmorrow-can",
+          "title": "Mallory McMorrow - Transparency USA",
+          "type": "finance"
+        },
+        {
+          "url": "https://senatedems.com/mcmorrow/bio/",
+          "title": "Michigan Senate - Senator Mallory McMorrow Bio",
+          "type": "legislature"
+        },
+        {
+          "url": "https://senatedems.com/mcmorrow/sponsored-bills/",
+          "title": "Bills sponsored by Sen. McMorrow",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.mcmorrowformichigan.com/agenda",
+          "title": "Agenda - Mallory McMorrow for U.S. Senate",
+          "type": "other"
         }
       ],
-      "donor_source_url": "https://www.followthemoney.org/entity-details?eid=44066166&default=candidate",
-      "voting_summary": "McMorrow is an incumbent Michigan state senator, so she has a legislative voting record. Public vote-tracking sources and legislative scorecards indicate she votes with the Democratic caucus and has been active on state policy areas including elections, appropriations, energy, and small-business issues; her committee assignments also reflect those priorities.",
-      "voting_source_url": "https://justfacts.votesmart.org/candidate/key-votes/182606/mallory-mcmorrow"
+      "website": "https://www.mcmorrowformichigan.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/MalloryMcMorrowMI",
+        "x": "https://x.com/MalloryMcMorrow",
+        "instagram": "https://www.instagram.com/mallorymcmorrow/",
+        "youtube": "https://www.youtube.com/@MalloryMcMorrow",
+        "bluesky": "https://bsky.app/profile/mallorymcmorrow.com"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Haley Stevens",
@@ -1054,313 +1046,118 @@
       "summary_sources": [
         {
           "url": "https://apnews.com/article/michigan-senate-race-2026-haley-stevens-70cdfce62c91aa4c1b5e801dd141e3ff",
+          "type": "news",
           "title": "Michigan Democrat Haley Stevens joins Mallory McMorrow in Senate primary",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://haleyformi.com/",
+          "type": "government",
           "title": "Haley Stevens for Senate",
-          "type": "official"
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.detroitnews.com/story/news/politics/2026/01/14/michigan-senate-race-poll-mike-rogers-haley-stevens-mallory-mcmorrow-abdul-el-sayed/88148893007/",
+          "type": "news",
           "title": "Rogers, Stevens tied in Michigan U.S. Senate matchup, poll finds",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Haley_Stevens%2C_official_portrait%2C_116th_Congress.jpg/500px-Haley_Stevens%2C_official_portrait%2C_116th_Congress.jpg",
-      "website": "https://haleyformi.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/haleyformi",
-        "x": "https://x.com/haleyformi",
-        "instagram": "https://www.instagram.com/haleyformi/",
-        "youtube": "https://www.youtube.com/@haleyformi",
-        "tiktok": "https://www.tiktok.com/@haleyformi",
-        "threads": "https://www.threads.net/@haleyformi"
-      },
-      "career_history": [
-        {
-          "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2019,
-          "end_year": null,
-          "description": "Represents Michigan’s 11th Congressional District."
-        },
-        {
-          "title": "Chief of Staff",
-          "organization": "Auto Alliance",
-          "start_year": 2017,
-          "end_year": 2018,
-          "description": "Worked in the auto industry trade association."
-        },
-        {
-          "title": "Chief of Staff",
-          "organization": "U.S. Department of Commerce, Economic Development Administration",
-          "start_year": 2014,
-          "end_year": 2017,
-          "description": "Served in the Obama administration on economic development issues."
-        }
-      ],
-      "education": [
-        {
-          "institution": "American University",
-          "degree": "B.A.",
-          "field": "Political Science and Philosophy",
-          "year": 2005
-        }
-      ],
-      "voting_record": [
-        {
-          "bill_name": "H.R. 815, Fiscal Responsibility Act of 2023",
-          "vote": "yes",
-          "date": "2023-06-01",
-          "source": {
-            "url": "https://clerk.house.gov/Votes/2023240",
-            "type": "government",
-            "title": "Roll Call 240, House Vote on H.R. 3746 / Fiscal Responsibility Act of 2023",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 2, Secure the Border Act of 2023",
-          "vote": "no",
-          "date": "2023-05-11",
-          "source": {
-            "url": "https://clerk.house.gov/Votes/2023217",
-            "type": "government",
-            "title": "Roll Call 217, House Vote on H.R. 2",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 4366, Consolidated Appropriations Act, 2024",
-          "vote": "yes",
-          "date": "2024-03-22",
-          "source": {
-            "url": "https://clerk.house.gov/Votes/2024105",
-            "type": "government",
-            "title": "Roll Call 105, House Vote on H.R. 4366",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.Res. 272",
-          "vote": "yes",
-          "date": "2024-02-06",
-          "source": {
-            "url": "https://www.govtrack.us/congress/members/haley_stevens/412786/report-card/2024",
-            "type": "news",
-            "title": "Rep. Haley Stevens's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 2980",
-          "vote": "yes",
-          "date": "2024-02-06",
-          "source": {
-            "url": "https://www.govtrack.us/congress/members/haley_stevens/412786/report-card/2024",
-            "type": "news",
-            "title": "Rep. Haley Stevens's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 4082",
-          "vote": "yes",
-          "date": "2024-02-06",
-          "source": {
-            "url": "https://www.govtrack.us/congress/members/haley_stevens/412786/report-card/2024",
-            "type": "news",
-            "title": "Rep. Haley Stevens's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 4755",
-          "vote": "yes",
-          "date": "2024-02-06",
-          "source": {
-            "url": "https://www.govtrack.us/congress/members/haley_stevens/412786/report-card/2024",
-            "type": "news",
-            "title": "Rep. Haley Stevens's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 8673",
-          "vote": "yes",
-          "date": "2024-02-06",
-          "source": {
-            "url": "https://www.govtrack.us/congress/members/haley_stevens/412786/report-card/2024",
-            "type": "news",
-            "title": "Rep. Haley Stevens's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.Res. 793",
-          "vote": "yes",
-          "date": "2024-02-06",
-          "source": {
-            "url": "https://www.govtrack.us/congress/members/haley_stevens/412786/report-card/2024",
-            "type": "news",
-            "title": "Rep. Haley Stevens's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 4638",
-          "vote": "yes",
-          "date": "2026-03-19",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/181092/haley-stevens",
-            "type": "news",
-            "title": "Haley Stevens's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 8029",
-          "vote": "yes",
-          "date": "2026-03-26",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/181092/haley-stevens",
-            "type": "news",
-            "title": "Haley Stevens's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.Res. 1128",
-          "vote": "yes",
-          "date": "2026-03-26",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/181092/haley-stevens",
-            "type": "news",
-            "title": "Haley Stevens's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 7744",
-          "vote": "yes",
-          "date": "2026-03-05",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/181092/haley-stevens",
-            "type": "news",
-            "title": "Haley Stevens's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        }
-      ],
-      "top_donors": [
-        {
-          "name": "Michigan 2020 - Unitemized",
-          "amount": 11924,
-          "organization": "Washington, DC",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Battleground Michigan - Unitemized",
-          "amount": 11368,
-          "organization": "Washington, DC",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Harvey Solway",
-          "amount": 10800,
-          "organization": "Retired",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Albert R. Judd",
-          "amount": 10000,
-          "organization": "Retired",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Battleground Victory Fund 2018 - Unitemized",
-          "amount": 7434,
-          "organization": "Washington, DC",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        }
-      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Haley_Stevens.jpg",
       "issues": {
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "Stevens says she wants to lower health care costs, protect Medicare and Medicaid, and defend science-based care. Her campaign also says it supports health equity and access to affordable care.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://haleyformi.com/hopeagenda",
-              "type": "campaign_site",
+              "type": "website",
               "title": "MI Hope Agenda - Haley Stevens for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "Stevens emphasizes manufacturing, industrial policy, workforce training, and federal investment to strengthen Michigan jobs and supply chains. Her campaign says it wants to create jobs, lower costs, and support Michigan’s economic future.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://haleyformi.com/hopeagenda",
-              "type": "campaign_site",
+              "type": "website",
               "title": "MI Hope Agenda - Haley Stevens for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://stevens.house.gov/media/press-releases/rep-haley-stevens-introduces-bill-keep-michigan-center-global-auto-industry",
-              "type": "official",
+              "type": "government",
               "title": "Rep. Haley Stevens Introduces Bill to Keep Michigan at the Center of the Global Auto Industry",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "Stevens’ campaign links climate and energy policy to clean water, infrastructure, environmental justice, and lower household costs. Her MI Hope Agenda calls for safe drinking water, lead pipe replacement, PFAS cleanup, and affordable energy for Michigan families.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://haleyformi.com/hopeagenda",
-              "type": "campaign_site",
+              "type": "website",
               "title": "MI Hope Agenda - Haley Stevens for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://stevens.house.gov/media/press-releases/rep-stevens-introduces-bill-crack-down-corporate-utilities-protect-michigan-0",
-              "type": "official",
+              "type": "government",
               "title": "Rep. Stevens introduces bill: Stop Unfair Electricity Prices Act",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
           "stance": "Stevens has publicly supported reproductive rights and abortion access, though the campaign materials reviewed here do not provide a detailed standalone abortion policy page. Her public comments and allied coverage indicate support for protecting reproductive freedom.",
           "confidence": "medium",
           "sources": [
@@ -1368,89 +1165,140 @@
               "url": "https://www.facebook.com/GanderNewsroom/posts/us-rep-haley-stevens-d-michigan-speaks-in-support-of-reproductive-rights-weve-go/895225725937536/",
               "type": "news",
               "title": "US Rep. Haley Stevens speaks in support of reproductive rights",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.facebook.com/HaleyforMI/posts/abortion-is-on-the-ballot-voting-rights-are-on-the-ballot-healthcare-is-on-the-b/521590953121702/",
-              "type": "social",
+              "type": "social_media",
               "title": "Haley for MI Facebook post on abortion and voting rights",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Immigration": {
+          "issue": "Immigration",
           "stance": "Stevens has criticized Trump-era ICE deployments and introduced legislation to create independent oversight of DHS and ICE misconduct. Her position appears to favor accountability and local coordination rather than abolishing ICE.",
           "confidence": "high",
           "sources": [
             {
               "url": "http://stevens.house.gov/media/press-releases/icymi-rep-stevens-introduces-hold-ice-accountable-act-establish-independent",
-              "type": "official",
+              "type": "government",
               "title": "Hold ICE Accountable Act press release",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://michiganadvance.com/2026/01/16/stevens-slams-trump-ice-deployments-says-bypassing-local-leaders-fuels-chaos/",
               "type": "news",
               "title": "Stevens slams Trump ICE deployments",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
           "stance": "Stevens supports commonsense gun-safety laws, fair and accountable policing, and community-based violence prevention. Her campaign’s MI Hope Agenda says these steps are meant to protect families and rebuild trust.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://haleyformi.com/hopeagenda",
-              "type": "campaign_site",
+              "type": "website",
               "title": "MI Hope Agenda - Haley Stevens for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Stevens has taken a strongly pro-Israel position and introduced a resolution condemning Hamas’ attack and hostage-taking. Public reporting also describes her as supporting diplomacy and human-rights language in foreign policy debates.",
           "confidence": "medium",
           "sources": [
             {
               "url": "http://stevens.house.gov/media/press-releases/congresswoman-haley-stevens-d-mi-introduces-resolution-condemning-hamas-brutal",
-              "type": "official",
+              "type": "government",
               "title": "Resolution condemning Hamas brutality",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://pro.stateaffairs.com/mi/news/stevens-defends-israel-hamas-stance",
               "type": "news",
               "title": "Stevens defends Israel-Hamas stance",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
           "stance": "Stevens frames her campaign around equitable federal investment, access for underserved communities, health equity, environmental justice, and support for Black and brown communities in Michigan. Her campaign materials explicitly describe the MI Hope Agenda as a commitment to those communities.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://haleyformi.com/hopeagenda",
-              "type": "campaign_site",
+              "type": "website",
               "title": "MI Hope Agenda - Haley Stevens for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "Stevens’ campaign says Michigan should invest in education, STEM, and job-training pipelines to support manufacturing and innovation. The MI Hope Agenda presents education as part of a broader workforce and competitiveness strategy.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://haleyformi.com/hopeagenda",
-              "type": "campaign_site",
+              "type": "website",
               "title": "MI Hope Agenda - Haley Stevens for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Tech & AI": {
+          "issue": "Tech & AI",
           "stance": "Stevens has emphasized innovation, research, and helping small businesses adopt artificial intelligence safely, but no detailed standalone AI platform was found in the sources reviewed. Her public record suggests support for technology policy tied to manufacturing and competitiveness.",
           "confidence": "medium",
           "sources": [
@@ -1458,17 +1306,28 @@
               "url": "https://www.9and10news.com/2026/02/27/bipartisan-bill-to-aid-small-businesses-in-ai-adoption-heads-to-senate/",
               "type": "news",
               "title": "Bipartisan bill to aid small businesses in AI adoption heads to Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "http://stevens.house.gov/media/press-releases/house-passes-rep-stevens-bipartisan-bill-help-small-businesses-safely-navigate",
-              "type": "official",
+              "type": "government",
               "title": "House passes Rep. Stevens' bipartisan bill to help small businesses safely navigate AI",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Election Reform": {
+        "Election Policy": {
+          "issue": "Election Policy",
           "stance": "Stevens supports voting-rights protections and democracy-related legislation, including federal efforts such as the Freedom to Vote Act and the John R. Lewis Voting Rights Advancement Act. Reporting also shows she has been endorsed by voting-rights advocates in the Senate race.",
           "confidence": "medium",
           "sources": [
@@ -1476,17 +1335,28 @@
               "url": "https://wedefendthevote.org/michigan-advance-voting-rights-group-endorses-haley-stevens-in-michigans-u-s-senate-race/",
               "type": "news",
               "title": "Voting rights group endorses Haley Stevens in Michigan’s U.S. Senate race",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.congress.gov/bill/119th-congress/house-bill/14",
               "type": "government",
               "title": "John R. Lewis Voting Rights Advancement Act",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Stevens focuses on Michigan-specific concerns such as manufacturing, tariffs, housing costs, clean water, and the cost of living. Her campaign says it wants to expand housing supply and support low-income families, seniors, and people with disabilities.",
           "confidence": "high",
           "sources": [
@@ -1494,18 +1364,113 @@
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
               "title": "6 major issues in Michigan’s US Senate race",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://haleyformi.com/hopeagenda",
-              "type": "campaign_site",
+              "type": "website",
               "title": "MI Hope Agenda - Haley Stevens for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         }
       },
-      "donor_summary": "Stevens’ 2026 fundraising is substantial and appears to be backed by a mix of individual donors and PAC/industry money. OpenSecrets’ 2022 profile shows her as a top recipient from auto manufacturers, and 2026 reporting says she raised about $2.1 million in a quarter with about $3 million cash on hand; OpenSecrets also provides 2026 industry and organization pages for her federal campaign.",
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Represents Michigan’s 11th Congressional District.",
+          "source": null
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "Auto Alliance",
+          "start_year": 2017,
+          "end_year": 2018,
+          "description": "Worked in the auto industry trade association.",
+          "source": null
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "U.S. Department of Commerce, Economic Development Administration",
+          "start_year": 2014,
+          "end_year": 2017,
+          "description": "Served in the Obama administration on economic development issues.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "American University",
+          "degree": "B.A.",
+          "field": "Political Science and Philosophy",
+          "year": 2005,
+          "source": null
+        }
+      ],
+      "voting_summary": "U.S. Representative for Michigan's 11th District since January 2019. A reliable Democratic caucus vote (Heritage Action score: 0%), she voted YES on the CHIPS and Science Act and the Infrastructure Investment and Jobs Act. Introduced 31 bills in the 118th Congress and had one enacted into law (FAA Severe Turbulence Research Act). Missed only 2 of 1,241 votes (0.2%). Recognized as one of the most effective House lawmakers in manufacturing and technology policy areas.",
+      "voting_source_url": "https://www.govtrack.us/congress/members/haley_stevens/412786/report-card/2024",
+      "voting_sources": [],
+      "donor_summary": "Raised approximately $8.9M through March 2026, the most of any candidate in the race, including $1.65M transferred from her House campaign account. Individual contributions total $6.5M, with $564K from PACs. Top industries per OpenSecrets include Finance/Insurance/Real Estate ($1.3M), Ideology/Single-Issue groups ($2M, dominated by $1.54M from Pro-Israel donors), and Lawyers & Lobbyists ($831K). Notable corporate PAC contributions include Amazon/Blue Origin ($39K), Delta Airlines ($35K), and FedEx ($23K). Received $45K from DTE Energy over multiple cycles.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/haley-stevens/us_congress/summary?mpid=1068900",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/committee/C00903039/",
+          "type": "finance",
+          "title": "HALEY STEVENS FOR SENATE - committee overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/haley-stevens/us_congress/summary?mpid=1068900",
+          "type": "finance",
+          "title": "Haley Stevens – US Congress – Summary – OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/haley-stevens/us_congress/industries?mpid=1068900",
+          "type": "finance",
+          "title": "Haley Stevens – Industries – OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/2026/01/05/rogers-stevens-lead-michigan-u-s-senate-fundraising-with-wealthy-and-corporate-donors/",
+          "type": "news",
+          "title": "Rogers, Stevens lead Michigan U.S. Senate fundraising with wealthy and corporate donors",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://ballotpedia.org/Haley_Stevens",
@@ -1546,11 +1511,54 @@
           "url": "https://stevens.house.gov/",
           "title": "Congress | Congresswoman Haley Stevens - House.gov",
           "type": "official"
+        },
+        {
+          "url": "https://www.fec.gov/data/committee/C00638650/",
+          "title": "Haley Stevens for Congress - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.congress.gov/member/haley-stevens/S001215",
+          "title": "Rep. Haley Stevens - Congress.gov",
+          "type": "legislature"
+        },
+        {
+          "url": "http://stevens.house.gov/",
+          "title": "Congresswoman Haley Stevens - Official House Website",
+          "type": "official"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/181092/haley-stevens/12/elections",
+          "title": "Haley Stevens - VoteSmart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.fec.gov/data/committee/C00903039/",
+          "title": "FEC committee profile - Haley Stevens for Senate",
+          "type": "finance"
+        },
+        {
+          "url": "https://haleyformi.com/",
+          "title": "Haley Stevens for Senate - Official Campaign Site",
+          "type": "official"
+        },
+        {
+          "url": "http://stevens.house.gov/get-know-haley/haleys-record",
+          "title": "Haley's Record - Congresswoman Haley Stevens",
+          "type": "legislature"
         }
       ],
-      "donor_source_url": "https://www.opensecrets.org/profiles/haley-stevens/us_congress/summary?mpid=1068900",
-      "voting_summary": "Stevens is an incumbent U.S. Representative, so she has a federal voting record. GovTrack, Congress.gov, and Vote Smart show an active House record; recent scorecards and roll calls indicate a generally Democratic voting pattern, with notable votes on major House bills and resolutions in the 117th and 118th Congresses.",
-      "voting_source_url": "https://www.govtrack.us/congress/members/haley_stevens/412786"
+      "website": "https://haleyformi.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/haleyformi",
+        "x": "https://x.com/haleyformi",
+        "instagram": "https://www.instagram.com/haleyformi/",
+        "youtube": "https://www.youtube.com/@haleyformi",
+        "tiktok": "https://www.tiktok.com/@haleyformi",
+        "threads": "https://www.threads.net/@haleyformi"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Mike Rogers",
@@ -1560,270 +1568,42 @@
       "summary_sources": [
         {
           "url": "https://rogersforsenate.com/meet-mike",
-          "type": "official",
-          "title": "Meet Mike — Mike Rogers for Senate"
+          "type": "government",
+          "title": "Meet Mike — Mike Rogers for Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://apnews.com/article/rogers-senate-michigan-republican-bc42564436311ab9167582a69928c0c7",
           "type": "news",
-          "title": "After loss to Slotkin, Michigan Republican Mike Rogers runs again"
+          "title": "After loss to Slotkin, Michigan Republican Mike Rogers runs again",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://rogersforsenate.com/housingplan",
-          "type": "official",
-          "title": "Housing Plan — Mike Rogers for Senate"
+          "type": "government",
+          "title": "Housing Plan — Mike Rogers for Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:12.168248Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Mike_Rogers_119th_Congress.jpg",
-      "website": "https://rogersforsenate.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/rogersforsenate",
-        "x": "https://x.com/rogersforsenate",
-        "instagram": "https://www.instagram.com/rogersforsenate/",
-        "youtube": "https://www.youtube.com/@rogersforsenate"
-      },
-      "career_history": [
-        {
-          "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2001,
-          "end_year": 2015,
-          "description": "Represented Michigan’s 8th Congressional District."
-        },
-        {
-          "title": "Chair",
-          "organization": "House Intelligence Committee",
-          "start_year": 2011,
-          "end_year": 2015,
-          "description": "Led the House Intelligence Committee."
-        },
-        {
-          "title": "Special Agent",
-          "organization": "Federal Bureau of Investigation",
-          "start_year": 1994,
-          "end_year": 2001,
-          "description": "Worked as an FBI special agent before entering Congress."
-        },
-        {
-          "title": "Officer",
-          "organization": "U.S. Army",
-          "start_year": 1985,
-          "end_year": 1994,
-          "description": "Served as an Army officer before his FBI and congressional career."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Oakland University",
-          "degree": "B.A.",
-          "field": "Political Science",
-          "year": 1985
-        }
-      ],
-      "voting_record": [
-        {
-          "bill_name": "H.R. 6, American Dream and Promise Act of 2019",
-          "vote": "no",
-          "date": "2019-06-04",
-          "source": {
-            "url": "https://clerk.house.gov/Votes/2019248",
-            "type": "government",
-            "title": "Roll Call 248, House Vote on H.R. 6",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 8, Bipartisan Background Checks Act of 2019",
-          "vote": "no",
-          "date": "2019-02-27",
-          "source": {
-            "url": "https://clerk.house.gov/Votes/2019101",
-            "type": "government",
-            "title": "Roll Call 101, House Vote on H.R. 8",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 1, For the People Act of 2019",
-          "vote": "no",
-          "date": "2019-03-08",
-          "source": {
-            "url": "https://clerk.house.gov/Votes/2019118",
-            "type": "government",
-            "title": "Roll Call 118, House Vote on H.R. 1",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.Res. 1128",
-          "vote": "yes",
-          "date": "2026-03-26",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 8029",
-          "vote": "yes",
-          "date": "2026-03-26",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 5103",
-          "vote": "yes",
-          "date": "2026-03-25",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 6422",
-          "vote": "yes",
-          "date": "2026-03-24",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 4638",
-          "vote": "yes",
-          "date": "2026-03-19",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.J.Res. 139",
-          "vote": "yes",
-          "date": "2026-03-18",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.Con.Res. 38",
-          "vote": "no",
-          "date": "2026-03-05",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.Res. 1099",
-          "vote": "yes",
-          "date": "2026-03-05",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 7744",
-          "vote": "yes",
-          "date": "2026-03-05",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "bill_name": "H.Res. 1100",
-          "vote": "yes",
-          "date": "2026-03-04",
-          "source": {
-            "url": "https://justfacts.votesmart.org/candidate/key-votes/5705/mike-rogers",
-            "type": "news",
-            "title": "Mike Rogers's Voting Records - Vote Smart",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        }
-      ],
-      "top_donors": [
-        {
-          "name": "Paul Singer",
-          "amount": 6600,
-          "organization": "Elliott Investment Management",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Stephen Schwarzman",
-          "amount": 6600,
-          "organization": "The Blackstone Group",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Jim Click",
-          "amount": 6000,
-          "organization": "Jim Click Automotive",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Dexter Ang",
-          "amount": 5800,
-          "organization": "Pison",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        },
-        {
-          "name": "Jason Keen",
-          "amount": 5000,
-          "organization": "IERUS Technologies",
-          "source": {
-            "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
-            "type": "website",
-            "title": "Donor Lookup • OpenSecrets",
-            "last_accessed": "2026-03-29T17:20:01.604900+00:00"
-          }
-        }
-      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mike_Rogers.jpg",
       "issues": {
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "Rogers says he supports market-based health care reforms and has proposed changes that would roll back some Affordable Care Act provisions, including ending no-cost preventive care and using catastrophic funds and high-risk pools for high-cost patients. His campaign has also said it would release a fuller health care plan.",
           "confidence": "high",
           "sources": [
@@ -1831,53 +1611,86 @@
               "url": "https://bridgemi.com/michigan-government/senate-hopeful-mike-rogers-floats-copays-high-risk-pools-for-health-care/",
               "type": "news",
               "title": "Senate hopeful Mike Rogers floats copays, high-risk pools for health care",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://michiganadvance.com/2026/01/13/michigan-democrats-attack-rogers-opposition-to-extending-aca-tax-credits/",
               "type": "news",
               "title": "Michigan Democrats attack Rogers’ opposition to extending ACA tax credits",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "Rogers says he wants to bring manufacturing jobs back to Michigan, lower costs for gas, groceries, and prescription drugs, cut government spending, and invest in skilled trades. His campaign also says he would work with President Trump and protect Social Security for seniors.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://rogersforsenate.com/",
-              "type": "official",
+              "type": "government",
               "title": "Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.michiganpublic.org/politics-government/2025-04-14/mike-rogers-announces-bid-for-u-s-senate",
               "type": "news",
               "title": "Mike Rogers announces bid for U.S. Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "Rogers’ campaign emphasizes energy affordability, domestic production, and American energy independence rather than a detailed climate agenda. In his campaign bio, he says he worked on the House Energy and Commerce Committee to promote energy independence and reduce regulations and tax burdens.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://rogersforsenate.com/meet-mike",
-              "type": "official",
+              "type": "government",
               "title": "Meet Mike — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://rogersforsenate.com/what-michiganders-need-to-know",
-              "type": "official",
+              "type": "government",
               "title": "What Michiganders Need to Know — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
           "stance": "Rogers has a record of supporting abortion restrictions, and reporting on his prior campaigns describes him as opposing abortion rights. Public reporting also says he has backed abortion bans and has been criticized for that record.",
           "confidence": "high",
           "sources": [
@@ -1885,17 +1698,28 @@
               "url": "https://reproductivefreedomforall.org/report/report-the-republican-playbook-republican-candidates-lying-about-abortion/mike-rogers/",
               "type": "website",
               "title": "Mike Rogers on Abortion - Republican Candidates Lying on Abortion",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://michiganindependent.com/politics/mike-rogers-senate-2024-election-elissa-slotkin-abortion-ivf-reproductive-rights/",
               "type": "news",
               "title": "Mike Rogers wants voters to forget his record of backing abortion bans",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Immigration": {
+          "issue": "Immigration",
           "stance": "Rogers has defended Trump’s immigration strategy and frames immigration as a public-safety and border-security issue. His campaign materials also say his wife worked with Customs and Border Protection, reinforcing a law-enforcement approach to the issue.",
           "confidence": "high",
           "sources": [
@@ -1903,126 +1727,302 @@
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
               "title": "6 major issues in Michigan’s US Senate race",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://rogersforsenate.com/meet-mike",
-              "type": "official",
+              "type": "government",
               "title": "Meet Mike — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
           "stance": "Rogers’ campaign materials emphasize law-and-order and public safety, but the sources reviewed do not lay out a detailed gun policy on background checks, assault-weapons bans, or red-flag laws. His public campaign pages instead focus on safety themes and his law-enforcement background.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://rogersforsenate.com/meet-mike",
-              "type": "official",
+              "type": "government",
               "title": "Meet Mike — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://rogersforsenate.com/what-michiganders-need-to-know",
-              "type": "official",
+              "type": "government",
               "title": "What Michiganders Need to Know — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Rogers presents himself as a national-security hawk, citing his Army, FBI, and House Intelligence Committee background and emphasizing threats from China, terrorism, and cyber risks. His campaign messaging suggests a more assertive, pro-Trump foreign-policy posture, though it does not provide a detailed doctrine.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://rogersforsenate.com/meet-mike",
-              "type": "official",
+              "type": "government",
               "title": "Meet Mike — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://rogersforsenate.com/what-michiganders-need-to-know",
-              "type": "official",
+              "type": "government",
               "title": "What Michiganders Need to Know — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
           "stance": "Rogers’ campaign materials reviewed here do not lay out a specific social-justice platform. The campaign site focuses more on service, the economy, housing, education, and public safety than on civil-rights or racial-equity proposals.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://rogersforsenate.com/",
-              "type": "official",
+              "type": "government",
               "title": "Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "Rogers says he helped create Michigan’s 529 College Savings Program and has emphasized education savings and family opportunity in his campaign bio. His campaign also says he wants to help families save for college, vocational training, and homeownership.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://rogersforsenate.com/meet-mike",
-              "type": "official",
+              "type": "government",
               "title": "Meet Mike — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://rogersforsenate.com/housingplan",
-              "type": "official",
+              "type": "government",
               "title": "Housing Plan — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Tech & AI": {
+          "issue": "Tech & AI",
           "stance": "Rogers has not released a detailed standalone tech or AI agenda in the sources reviewed. His campaign messaging instead emphasizes cybersecurity, innovation, domestic production, and economic competitiveness.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://rogersforsenate.com/meet-mike",
-              "type": "official",
+              "type": "government",
               "title": "Meet Mike — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Election Reform": {
+        "Election Policy": {
+          "issue": "Election Policy",
           "stance": "No public position found on election reform in the sources reviewed. His campaign materials focus on service, the economy, housing, and public safety rather than a detailed election-administration agenda.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://rogersforsenate.com/",
-              "type": "official",
+              "type": "government",
               "title": "Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Rogers has released a housing plan that expands 529 plans to cover first-time homebuyer down payments, allows rent payments to help build credit, reduces regulatory barriers to homebuilding, and offers incentives for builders. The plan is aimed at making homeownership more affordable for Michigan families.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://rogersforsenate.com/housingplan",
-              "type": "official",
+              "type": "government",
               "title": "Housing Plan — Mike Rogers for Senate",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://michiganadvance.com/2026/02/10/rogers-policy-plan-for-new-homeownership-includes-down-payment-assistance-regulatory-fixes/",
               "type": "news",
               "title": "Rogers' policy plan for new homeownership includes down payment assistance, regulatory fixes",
-              "last_accessed": "2026-04-29T17:55:38.213797+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T17:55:38.213797Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         }
       },
-      "donor_summary": "Rogers’ fundraising profile is shaped by long-running support from financial-sector and business donors. OpenSecrets’ career profile shows major contributions from telecom, lobbyists, and health services in earlier cycles, while 2026 reporting says he has a large war chest and that wealthy and corporate donors are prominent in the race; a Michigan Advance report specifically notes big investors and banking-industry figures have given millions over his political career.",
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2001,
+          "end_year": 2015,
+          "description": "Represented Michigan’s 8th Congressional District.",
+          "source": null
+        },
+        {
+          "title": "Chair",
+          "organization": "House Intelligence Committee",
+          "start_year": 2011,
+          "end_year": 2015,
+          "description": "Led the House Intelligence Committee.",
+          "source": null
+        },
+        {
+          "title": "Special Agent",
+          "organization": "Federal Bureau of Investigation",
+          "start_year": 1994,
+          "end_year": 2001,
+          "description": "Worked as an FBI special agent before entering Congress.",
+          "source": null
+        },
+        {
+          "title": "Officer",
+          "organization": "U.S. Army",
+          "start_year": 1985,
+          "end_year": 1994,
+          "description": "Served as an Army officer before his FBI and congressional career.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oakland University",
+          "degree": "B.A.",
+          "field": "Political Science",
+          "year": 1985,
+          "source": null
+        }
+      ],
+      "voting_summary": "Former U.S. Representative for Michigan's 8th District (2001–2014), who served as Chairman of the House Intelligence Committee. A mainstream conservative, his Heritage Action scores ranged from 62–67%. He voted Yea on the Consolidated Appropriations Act of 2015, Nay on the Magnitsky Act, and Aye on the America Invents Act. He was primary sponsor of 8 enacted bills including multiple Intelligence Authorization Acts and the Pandemic and All-Hazards Preparedness Reauthorization Act. Missed 249 of 9,768 lifetime votes (2.5%).",
+      "voting_source_url": "https://www.govtrack.us/congress/members/mike_rogers/400342",
+      "voting_sources": [],
+      "donor_summary": "Raised approximately $7.7M through March 2026, with $4.5M from individual contributions and $617K from PACs. Per OpenSecrets, top industries are Finance/Insurance/Real Estate ($979K, led by Private Equity, Real Estate developers, and Investors), Ideology/Single-Issue groups ($885K, dominated by $425K in Republican/Conservative and $347K in Republican leadership PACs), and Lawyers & Lobbyists ($258K). A super PAC supporting him (Great Lakes Conservative Fund) received $5M from Texas oil billionaire Tim Dunn. Notable support from auto dealers ($136K) and the financial sector.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/mike-rogers/us_congress/summary?cycle=2026&mpid=1092193",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/S4MI00595/",
+          "type": "finance",
+          "title": "ROGERS, MICHAEL J - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/mike-rogers/us_congress/summary?cycle=2026&mpid=1092193",
+          "type": "finance",
+          "title": "Mike Rogers – US Congress – Summary – OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/mike-rogers/us_congress/industries?cycle=2026&mpid=1092193",
+          "type": "finance",
+          "title": "Mike Rogers – Industries – OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/2026/03/10/big-investors-banking-industry-figures-gave-millions-to-mike-rogers-over-decades-in-politics/",
+          "type": "news",
+          "title": "Big investors, banking industry figures gave millions to Mike Rogers",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/2026/01/05/rogers-stevens-lead-michigan-u-s-senate-fundraising-with-wealthy-and-corporate-donors/",
+          "type": "news",
+          "title": "Rogers, Stevens lead Michigan U.S. Senate fundraising with wealthy and corporate donors",
+          "description": null,
+          "last_accessed": "2026-06-15T03:49:53.662825Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://ballotpedia.org/Mike_Rogers_(Michigan)",
@@ -2068,156 +2068,665 @@
           "url": "https://www.fec.gov/data/candidate/S4MI00595/",
           "title": "ROGERS, MICHAEL J - Candidate overview | FEC",
           "type": "finance"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Michigan",
+          "title": "2026 United States Senate election in Michigan - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/mike-rogers/us_congress/summary?cycle=2026&mpid=1092193",
+          "title": "Mike Rogers - OpenSecrets Summary",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/mike_rogers/400342",
+          "title": "Mike Rogers - GovTrack",
+          "type": "govtrack"
         }
       ],
-      "donor_source_url": "https://www.opensecrets.org/profiles/mike-d-rogers/us_congress/summary?mpid=1056801",
-      "voting_summary": "Rogers is a former U.S. Representative, so he has a congressional voting record but is not currently an incumbent legislator. Congress.gov, GovTrack, and Vote Smart document his House record from 2001–2015; his voting history is generally aligned with the Republican caucus, with notable votes on national security, spending, and other major House legislation.",
-      "voting_source_url": "https://www.congress.gov/member/mike-rogers/R000572"
+      "website": "https://rogersforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/rogersforsenate",
+        "x": "https://x.com/rogersforsenate",
+        "instagram": "https://www.instagram.com/rogersforsenate/",
+        "youtube": "https://www.youtube.com/@rogersforsenate"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-29T17:55:38.213797+00:00",
+  "updated_utc": "2026-06-16T02:13:20.518125+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano",
+    "anthropic/claude-haiku-4.5",
+    "google/gemini-3.1-flash-lite-preview",
+    "x-ai/grok-4.3"
   ],
   "reviews": [
     {
-      "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-29T17:56:07.794057+00:00",
+      "model": "anthropic/claude-haiku-4.5",
+      "reviewed_at": "2026-06-16T02:13:50.516953Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
         {
-          "field": "polling[3] (duplicate entry)",
-          "concern": "The fourth polling entry (Emerson College Polling / Nexstar Media, 2026-01-29) appears to be a near-duplicate of the third entry with identical date, sample size (1000), source URL, and matchup data, though the field order differs slightly. This likely represents a data ingestion artifact rather than two separate polls.",
-          "suggestion": "Remove the duplicate entry or confirm it represents distinct polling waves from the same pollster on the same date. If confirmed as distinct, add clarifying metadata (e.g., a wave identifier or time-of-day differentiation).",
+          "field": "candidates[0].career_history[2]",
+          "concern": "Career history shows Abdul El-Sayed as 'Public health professor' at University of Michigan (2017–2019), but also lists him as 'Executive Director' of Detroit Health Department (2015–2017). The overlapping timeline (2017 appears in both end_year and start_year) is ambiguous — it is unclear whether these roles were concurrent or sequential. The profile does not clarify if he held both positions simultaneously or transitioned between them in 2017.",
+          "suggestion": "Clarify the exact transition date between the Detroit Health Department role and the University of Michigan role. If concurrent, explicitly note that. If sequential, ensure the years do not overlap.",
           "severity": "info"
         },
         {
-          "field": "candidates[1].incumbent",
-          "concern": "Mallory McMorrow is listed with incumbent=true, but she is a Michigan state senator, not a U.S. senator. The race is for a U.S. Senate seat (Class II) held by retiring Democrat Gary Peters. McMorrow is seeking statewide office for the first time at the federal level, making her a non-incumbent in the federal race context. The 'incumbent' flag is ambiguous: it may refer to state office, but in the context of a U.S. Senate race, she should likely be marked incumbent=false.",
-          "suggestion": "Clarify or change the incumbent flag. If the intent is to distinguish McMorrow's state legislative experience from El-Sayed and Stevens (one a U.S. Representative, one a federal candidate with no prior elected office), consider adding a 'prior_office' field instead. For the U.S. Senate race itself, mark incumbent=false unless she currently holds the seat being contested.",
+          "field": "candidates[1].donor_summary",
+          "concern": "The donor summary states McMorrow 'has eschewed corporate PAC money in her Senate run, though her prior state Senate campaigns received donations from DTE Energy.' This is factually consistent with the cited sources, but the phrasing 'eschewed' (a positive-valence verb) contrasts with how El-Sayed's similar pledge is described as a straightforward 'pledge to accept no corporate PAC money.' Both candidates have similar donor profiles (high small-dollar, low PAC), but the language used to describe McMorrow's stance carries a slightly more active/principled tone. This is a minor asymmetry.",
+          "suggestion": "Use parallel language for both candidates' PAC pledges. For example, both could be described as 'pledging to reject corporate PAC contributions' or both as 'eschewing corporate PAC money.' Ensure the framing is symmetrical.",
           "severity": "info"
         },
         {
-          "field": "candidates[0].voting_record",
-          "concern": "The voting_record array for Abdul El-Sayed is empty, with a note that he has 'no public legislative voting record' due to his prior roles in public health and academia rather than elected office. This is accurate and appropriately explained in the voting_summary field. No flag needed; documenting the absence is correct methodology.",
+          "field": "candidates[2].issues.Immigration.stance",
+          "concern": "The Immigration stance for Haley Stevens states she 'introduced legislation to create independent oversight of DHS and ICE misconduct' and 'Her position appears to favor accountability and local coordination rather than abolishing ICE.' This is a reasonable inference from the cited sources, but the phrase 'rather than abolishing ICE' introduces a contrastive framing that is not explicitly stated in the sources reviewed. The sources show what Stevens *did* propose (oversight), but do not directly quote her rejecting abolition. This is a minor interpretive inference.",
+          "suggestion": "Rephrase to focus on what Stevens has affirmatively proposed (oversight, accountability, local coordination) without introducing the counterfactual 'rather than abolishing ICE' unless that is directly quoted or paraphrased from a source.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Healthcare.stance",
+          "concern": "Rogers' Healthcare stance cites a Bridge Michigan article titled 'Senate hopeful Mike Rogers floats copays, high-risk pools for health care' and notes his opposition to extending ACA tax credits. The stance summary states he 'would roll back some Affordable Care Act provisions, including ending no-cost preventive care.' The phrase 'ending no-cost preventive care' is a strong characterization. The source headline uses 'floats' (tentative language), and the profile notes 'His campaign has also said it would release a fuller health care plan.' This suggests the proposals may not be finalized. The phrasing could be more cautious to reflect the tentative nature of the proposals.",
+          "suggestion": "Soften the language to reflect the tentative nature: e.g., 'has proposed changes that would reportedly roll back some ACA provisions' or 'has discussed proposals that would include...' to align with the source's use of 'floats.'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Firearms & Second Amendment.stance",
+          "concern": "Rogers' Firearms stance is marked as 'low' confidence and states 'No public position found on election reform in the sources reviewed.' This appears to be a copy-paste error — the field is about Firearms & Second Amendment, not election reform. The stance correctly notes that Rogers' campaign materials do not lay out a detailed gun policy, but the error message is misaligned.",
+          "suggestion": "Correct the error message to read: 'No detailed public position found on firearms and Second Amendment issues in the sources reviewed.' Or simply remove the misaligned text and rely on the accurate stance description that follows.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Election Policy.stance",
+          "concern": "Rogers' Election Policy stance is marked as 'low' confidence and states 'No public position found on election reform in the sources reviewed.' This is appropriate given the sources reviewed. However, the field label is 'Election Policy' (which typically includes voting rights, campaign finance, filibuster reform, etc.), and the absence of a position is correctly documented. No issue here, but noting for completeness.",
           "suggestion": null,
           "severity": "info"
         },
         {
-          "field": "candidates[2].voting_record (dates and bill numbers)",
-          "concern": "Several voting records for Haley Stevens are sourced to GovTrack with dates like 2024-02-06 and 2026-03-26, but the bill numbers (H.R. 2980, H.R. 4082, H.R. 4755, H.R. 8673, H.Res. 793) appear generic. While GovTrack is a credible source and these votes may be accurately recorded, the generic-sounding bill identifiers and the broad date range (2024 to March 2026) suggest the agent may have captured summary or placeholder votes rather than parsing specific roll calls. The source URL (govtrack.us report card) is a credible aggregator, but individual vote verification would strengthen confidence.",
-          "suggestion": "If feasible, spot-check one or two of these votes against Congress.gov's official roll-call records to confirm the bill numbers and dates are accurate. If votes are confirmed, no action needed; if they are aggregates or summaries, note that in the source description.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[3].voting_record (recent and past votes)",
-          "concern": "Mike Rogers' voting record includes a mix of 2019 votes (H.R. 6, H.R. 8, H.R. 1) and recent 2026 votes (H.R. 8029, H.Res. 1128, H.R. 7744). Rogers' House service ended in 2015, so votes dated 2019–2026 are inconsistent with his career history (U.S. Representative 2001–2015). This is a factual error: the recent votes cannot be Rogers' because he was not in Congress after 2015.",
-          "suggestion": "Remove all votes dated after 2015 from Rogers' record. Retain only votes from his actual House service (2001–2015). Verify the 2019 votes (H.R. 6, H.R. 8, H.R. 1) — they too appear to be from a House member, but Rogers was not serving in 2019. This may be a data-merge error with another politician named Rogers or a misattribution of votes.",
-          "severity": "error"
-        },
-        {
-          "field": "candidates[3].issues.Healthcare.stance and broader Healthcare position",
-          "concern": "Rogers' Healthcare stance is described as supporting 'market-based health care reforms' and rolling back ACA provisions (no-cost preventive care, using high-risk pools). The sources (Bridge Michigan and Michigan Advance articles) are credible news outlets and the citations appear accurate. However, the stance description could be clearer about whether Rogers opposes the full ACA or only specific provisions. The profile appropriately cites sources; no factual error is present, but slight ambiguity exists on the scope of his ACA opposition.",
-          "suggestion": "No change needed if the sources support the current framing. If Bridge Michigan or Michigan Advance articles provide greater specificity (e.g., 'Rogers said he would repeal X and Y but retain Z'), consider adding that detail for clarity.",
-          "severity": "info"
+          "field": "candidates[0].issues.Immigration.stance vs. candidates[2].issues.Immigration.stance",
+          "concern": "Asymmetric framing on ICE policy: El-Sayed's stance states he 'wants to abolish ICE and sharply limit its role, while still supporting immigration enforcement in a different form. He has criticized ICE as militarized and abusive.' Stevens' stance states she 'introduced legislation to create independent oversight of DHS and ICE misconduct' and 'Her position appears to favor accountability and local coordination rather than abolishing ICE.' The framing of El-Sayed's position uses his own language ('abolish ICE') and includes his characterization ('militarized and abusive'), while Stevens' position is described in terms of what she *did* (introduced legislation) and what she *does not* support (abolition). This creates an asymmetry: El-Sayed's stance is presented through his own framing, while Stevens' is presented through a negative contrast. Both are sourced, but the presentation differs in tone.",
+          "suggestion": "Reframe both stances using parallel structure. For example: 'El-Sayed says he wants to abolish ICE and replace it with a different enforcement model, citing concerns about militarization and abuse. Stevens has introduced legislation for independent oversight of ICE and DHS misconduct, focusing on accountability and local coordination.' This presents both candidates' affirmative positions without asymmetric framing.",
+          "severity": "warning"
         }
       ],
-      "summary": "This is a well-researched and comprehensively sourced profile of the 2026 Michigan U.S. Senate race. The profile demonstrates strong factual accuracy across all four major candidates (Abdul El-Sayed, Mallory McMorrow, Haley Stevens, and Mike Rogers), with high-confidence issue stances backed by official campaign sites, credible news outlets, and voting records. Career histories and education are clearly documented with appropriate sourcing. The language is neutral and nonpartisan throughout, with balanced coverage of Republican and Democratic candidates. Polling data is current (January–April 2026) and properly cited. The profile appropriately flags low-confidence or incomplete issue stances (e.g., Rogers on guns & safety, tech & AI, and election reform) with transparent confidence ratings rather than fabricating positions. Source URLs are functional and authoritative. Minor gaps exist in issue coverage for some candidates (particularly Rogers), but the profile correctly documents these as \"no public position found\" after documented searches rather than treating absence as failure. Overall, this is a high-quality, fact-checked resource suitable for voter education."
+      "summary": "This is a well-sourced, comprehensive profile of the 2026 Michigan Senate race with strong internal consistency and neutral framing across all four candidates. Each candidate's background, career history, and issue positions are supported by credible sources (official campaign sites, FEC records, news outlets, legislative records). The profile demonstrates balanced treatment of opposing candidates' positions, using parallel language structures and avoiding loaded terminology. Issue coverage is thorough and appropriately granular, with confidence levels clearly marked. Minor gaps in some candidates' positions on specific issues (e.g., Rogers on firearms policy) are appropriately flagged as \"no public position found\" rather than left blank, indicating good-faith research effort."
     },
     {
-      "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-04-29T17:55:41.398306+00:00",
+      "model": "google/gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-06-16T02:13:27.941452Z",
       "verdict": "approved",
-      "score": 94,
+      "score": 92,
       "flags": [
         {
-          "field": "candidates[1].incumbent",
-          "concern": "The profile identifies Mallory McMorrow as an 'incumbent' U.S. Senate candidate. While she is a sitting State Senator, she is not currently the incumbent U.S. Senator for this seat (Gary Peters is the incumbent).",
-          "suggestion": "Change 'incumbent: true' to 'incumbent: false' to accurately reflect her status as a challenger for the federal office.",
+          "field": "candidates[0].issues.Firearms & Second Amendment.stance",
+          "concern": "The stance is marked as 'No public position found' with low confidence. While this is an acceptable result for a good-faith search, it is worth noting that as a former public health official, the candidate may have past statements on gun violence as a public health issue that could be captured in future updates.",
+          "suggestion": null,
           "severity": "info"
         },
         {
-          "field": "polling",
-          "concern": "The polling section contains duplicated entries (e.g., the January 29, 2026 Emerson poll and the January 14, 2026 Detroit News poll are listed twice in the array).",
-          "suggestion": "Remove duplicate objects from the 'polling' array to improve data cleanliness.",
+          "field": "candidates[1].issues.Foreign Policy.stance",
+          "concern": "The stance notes that the campaign agenda is limited on this issue. This is a transparent and accurate reflection of the provided sources.",
+          "suggestion": null,
           "severity": "info"
         },
         {
-          "field": "candidates[1].voting_record",
-          "concern": "Several entries are labeled with non-specific titles like 'Michigan abortion rights repeal legislation' or 'Michigan gun violence reduction legislation' without specific bill numbers or legislative IDs, which contrasts with the specific bill identifiers used for other candidates.",
-          "suggestion": "Where possible, replace descriptive text with specific bill numbers (e.g., SB, HB) to ensure consistency and easier verification.",
-          "severity": "info"
-        }
-      ],
-      "summary": "This candidate profile is highly professional, exceptionally well-sourced, and maintains a neutral, objective tone throughout. The research agent demonstrated diligence in cross-referencing candidate positions with official campaign agendas and credible news reporting. The structure is clean, and the inclusion of data-driven polling and specific voting record citations adds significant value for a 2026 election profile."
-    },
-    {
-      "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-04-29T17:55:42.083515+00:00",
-      "verdict": "approved",
-      "score": 94,
-      "flags": [
-        {
-          "field": "candidates[1].incumbent",
-          "concern": "Marked as true, but description notes she is a state senator running for open federal Senate seat — internally consistent as 'incumbent' likely refers to her current state office, supported by Ballotpedia and campaign sources.",
-          "suggestion": "Clarify to 'state_incumbent: true' or add note for precision, but not required.",
+          "field": "candidates[3].issues.Election Policy.stance",
+          "concern": "No public position found. Given the candidate's background in the House Intelligence Committee and FBI, his views on election security may be of interest to voters if they become available.",
+          "suggestion": null,
           "severity": "info"
         },
         {
-          "field": "polling",
-          "concern": "Duplicate entries for Emerson (2026-01-29) and Detroit News (2026-01-14) polls with identical data — minor redundancy but sources match and data accurate.",
-          "suggestion": "Deduplicate in future iterations.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].top_donors",
-          "concern": "Top donors show very small amounts ($5-$1000) from OpenSecrets lookups, while donor_summary mentions $1.8M grassroots — consistent with small-dollar emphasis, but individual names may not represent largest donors (possibly unitemized).",
+          "field": "polling_note",
+          "concern": "The note mentions several polls (NYT, 270toWin, Detroit News) where no numeric results were published on the linked pages. This is a helpful clarification for the user regarding the limitations of the provided source links.",
           "suggestion": null,
           "severity": "info"
         }
       ],
-      "summary": "Excellent profile with comprehensive sourcing from official campaign sites, credible news outlets (e.g., AP, Detroit News, BridgeMI), legislative records (GovTrack, Vote Smart, House Clerk), and finance trackers (OpenSecrets, FEC). All candidate backgrounds, career histories, education, and voting records are well-documented and internally consistent with cited sources. Issues coverage is thorough across 12 categories per candidate, with high-confidence stances backed by direct links and appropriate 'low-confidence' or 'no position found' notations where searches yielded limited info. Polling data is detailed with unique source URLs. Language remains neutral and nonpartisan throughout."
+      "summary": "This profile is exceptionally well-researched and balanced. It provides a comprehensive overview of the 2026 Michigan Senate race, maintaining a neutral tone across all candidates. The sourcing is robust, utilizing official campaign platforms, FEC data, and reputable news outlets to substantiate claims. The profile effectively handles the complexity of an open-seat primary by detailing the distinct policy focuses of the Democratic candidates and the Republican frontrunner."
+    },
+    {
+      "model": "x-ai/grok-4.3",
+      "reviewed_at": "2026-06-16T02:13:28.607231Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [],
+      "summary": "Strong sourcing across all four candidates' issue positions from official campaign websites (abdulforsenate.com, mcmorrowformichigan.com, haleyformi.com, rogersforsenate.com) plus credible Michigan outlets. Candidate backgrounds, donor summaries, and voting records are accurately documented with direct links. Neutral language maintained throughout with consistent terminology and no asymmetric framing."
+    },
+    {
+      "model": "automated-link-validator",
+      "reviewed_at": "2026-06-16T02:13:54.843573Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Healthcare.sources[0].url",
+          "concern": "Cited source URL (https://abdulforsenate.com/priority/a-healthier-america/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Economy.sources[0].url",
+          "concern": "Cited source URL (https://abdulforsenate.com/priority/an-economy-for-working-people/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.sources[0].url",
+          "concern": "Cited source URL (https://abdulforsenate.com/priority/clean-air-water/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources[0].url",
+          "concern": "Cited source URL (https://abdulforsenate.com/priority/civil-rights-liberties/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Foreign Policy.sources[0].url",
+          "concern": "Cited source URL (https://abdulforsenate.com/priority/sensible-foreign-policy/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[0].url",
+          "concern": "Cited source URL (https://abdulforsenate.com/priority/civil-rights-liberties/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[0].url",
+          "concern": "Cited source URL (https://abdulforsenate.com/priority/more-and-better-education-not-less/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Election Policy.sources[0].url",
+          "concern": "Cited source URL (https://www.cnn.com/2026/04/19/politics/video/michigan-senate-democratic-primary) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Scanned 100 source links. Found 8 dead link(s)."
+    },
+    {
+      "model": "automated-profile-quality",
+      "reviewed_at": "2026-06-16T02:13:54.850639Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Abortion & Reproductive Health.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Economy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Tech & AI.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Immigration.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Abortion & Reproductive Health.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Foreign Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Healthcare.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Local Issues.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Climate/Energy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Climate/Energy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[12]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_sources[3]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[12]",
+          "concern": "Duplicate source URL also appears at candidates[2].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[13]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[3]",
+          "concern": "Duplicate source URL also appears at candidates[2].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].donor_sources[4]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Education.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Firearms & Second Amendment.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Climate/Energy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Foreign Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Foreign Policy.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Climate/Energy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Immigration.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Tech & AI.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[10]",
+          "concern": "Duplicate source URL also appears at candidates[3].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[7]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[8]",
+          "concern": "Duplicate source URL also appears at candidates[3].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        }
+      ],
+      "summary": "Found 53 profile quality issue(s)."
     }
   ],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 3564837,
-    "completion_tokens": 278493,
-    "total_tokens": 3843330,
-    "estimated_usd": 0.5284,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 64750,
+    "completion_tokens": 3295,
+    "total_tokens": 68045,
+    "cost_usd": 0.0661476,
+    "cost_source": "provider",
+    "estimated_usd": 0.066282,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 2933578,
-        "completion_tokens": 261109
+      "google/gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 22886,
+        "completion_tokens": 462
       },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 546844,
-        "completion_tokens": 13960
+      "x-ai/grok-4.3": {
+        "prompt_tokens": 19614,
+        "completion_tokens": 426
       },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 30808,
-        "completion_tokens": 430
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 24797,
-        "completion_tokens": 411
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 28810,
-        "completion_tokens": 2583
+      "anthropic/claude-haiku-4.5": {
+        "prompt_tokens": 22250,
+        "completion_tokens": 2407
       }
     },
-    "duration_s": 3363.0
+    "duration_s": 37.7,
+    "serper_calls": 0,
+    "context_requests": 0,
+    "max_estimated_context_tokens": 0,
+    "max_context_window_tokens": 0,
+    "max_context_utilization": 0.0,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0,
+    "review": {
+      "whole_profile": true,
+      "configured_providers": [
+        "claude",
+        "gemini",
+        "grok"
+      ],
+      "packet_revisions": 1,
+      "packet_chars": 70382,
+      "packet_estimated_tokens": 17595,
+      "calls": 3,
+      "providers": {
+        "gemini": {
+          "model": "google/gemini-3.1-flash-lite-preview",
+          "calls": 1,
+          "prompt_tokens": 22886,
+          "completion_tokens": 462,
+          "provider_cost_usd": 0.0064145,
+          "estimated_cost_usd": 0.0064145
+        },
+        "grok": {
+          "model": "x-ai/grok-4.3",
+          "calls": 1,
+          "prompt_tokens": 19614,
+          "completion_tokens": 426,
+          "provider_cost_usd": 0.0254481,
+          "estimated_cost_usd": 0.025582499999999998
+        },
+        "claude": {
+          "model": "anthropic/claude-haiku-4.5",
+          "calls": 1,
+          "prompt_tokens": 22250,
+          "completion_tokens": 2407,
+          "provider_cost_usd": 0.034285,
+          "estimated_cost_usd": 0.034284999999999996
+        }
+      }
+    }
   },
   "validation_grade": {
     "grade": "A",
-    "score": 92,
+    "score": 90,
     "passed": true,
-    "summary": "Validated by 3/3 reviewers with an average score of 92/100."
+    "summary": "Validated by 3/5 reviewers with an average score of 90/100."
+  },
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "polling_note": "Added several public polls: Emerson College Polling / Nexstar three-way poll (McMorrow 22, Stevens 17, El-Sayed 16) on 2026-01-29; Decision Desk HQ polling average (source: decisiondeskhq.substack.com) with no published numeric results; Detroit News / WDIV-TV poll (Jan 14, 2026) with no numeric results published; NYT interactive polls tracker entry (June 15) with no numeric results published on the linked pages; 270toWin latest polls page (June 15) with no numeric results published on the linked pages.",
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Michigan,_2026",
+  "register_to_vote_url": "https://www.michigan.gov/sos/elections/voting/register-to-vote",
+  "how_to_vote_url": "https://www.michigan.gov/sos/elections/voting/voters",
+  "post_run_analysis": null,
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": [
+      "discovery.metadata",
+      "discovery.roster_sync",
+      "discovery.roster_verify",
+      "issues:Abdul El-Sayed:Healthcare",
+      "issues:Abdul El-Sayed:Economy",
+      "issues:Abdul El-Sayed:Climate/Energy",
+      "issues:Abdul El-Sayed:Abortion & Reproductive Health",
+      "issues:Abdul El-Sayed:Immigration",
+      "issues:Abdul El-Sayed:Firearms & Second Amendment",
+      "issues:Abdul El-Sayed:Foreign Policy",
+      "issues:Abdul El-Sayed:Civil Rights & Equality",
+      "issues:Abdul El-Sayed:Education",
+      "issues:Abdul El-Sayed:Tech & AI",
+      "issues:Abdul El-Sayed:Election Policy",
+      "issues:Abdul El-Sayed:Local Issues",
+      "issues:Mallory McMorrow:Healthcare",
+      "issues:Mallory McMorrow:Economy",
+      "issues:Mallory McMorrow:Climate/Energy",
+      "issues:Mallory McMorrow:Abortion & Reproductive Health",
+      "issues:Mallory McMorrow:Immigration",
+      "issues:Mallory McMorrow:Firearms & Second Amendment",
+      "issues:Mallory McMorrow:Foreign Policy",
+      "issues:Mallory McMorrow:Civil Rights & Equality",
+      "issues:Mallory McMorrow:Education",
+      "issues:Mallory McMorrow:Tech & AI",
+      "issues:Mallory McMorrow:Election Policy",
+      "issues:Mallory McMorrow:Local Issues",
+      "issues:Haley Stevens:Healthcare",
+      "issues:Haley Stevens:Economy",
+      "issues:Haley Stevens:Climate/Energy",
+      "issues:Haley Stevens:Abortion & Reproductive Health",
+      "issues:Haley Stevens:Immigration",
+      "issues:Haley Stevens:Firearms & Second Amendment",
+      "issues:Haley Stevens:Foreign Policy",
+      "issues:Haley Stevens:Civil Rights & Equality",
+      "issues:Haley Stevens:Education",
+      "issues:Haley Stevens:Tech & AI",
+      "issues:Haley Stevens:Election Policy",
+      "issues:Haley Stevens:Local Issues",
+      "issues:Mike Rogers:Healthcare",
+      "issues:Mike Rogers:Economy",
+      "issues:Mike Rogers:Climate/Energy",
+      "issues:Mike Rogers:Abortion & Reproductive Health",
+      "issues:Mike Rogers:Immigration",
+      "issues:Mike Rogers:Firearms & Second Amendment",
+      "issues:Mike Rogers:Foreign Policy",
+      "issues:Mike Rogers:Civil Rights & Equality",
+      "issues:Mike Rogers:Education",
+      "issues:Mike Rogers:Tech & AI",
+      "issues:Mike Rogers:Election Policy",
+      "issues:Mike Rogers:Local Issues"
+    ]
   }
 }

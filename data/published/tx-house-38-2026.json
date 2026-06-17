@@ -1,0 +1,312 @@
+{
+  "id": "tx-house-38-2026",
+  "title": "Texas's 38th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 38th Congressional District",
+  "state": "Texas",
+  "district": "38th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "An open-seat race in Texas's 38th Congressional District, which covers western and northwestern Harris County including the Houston suburbs of Cypress, Tomball, Jersey Village, and parts of the city's wealthier neighborhoods such as River Oaks. The seat became open after incumbent Republican Wesley Hunt ran unsuccessfully for U.S. Senate. The district was redrawn in a controversial mid-decade redistricting process that was briefly blocked by a federal court before the U.S. Supreme Court allowed it. Rated 'Solid R' by the Cook Political Report, the district was designed as a Republican stronghold when created after the 2020 Census, but Democrat Melissa McDonough is appealing to moderate voters with a 'purple' message emphasizing checks and balances, while Republican nominee Jon Bonck runs as a Trump-endorsed conservative focused on border security, religious liberty, and fiscal issues.",
+  "polling": [],
+  "polling_note": "No district-specific general election polls were found for this race as of June 2026. A University of Houston Hobby School poll from February 2026 surveyed the Republican primary field but not the general election matchup.",
+  "candidates": [
+    {
+      "name": "Jon Bonck",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jon Bonck is a mortgage banker and real estate broker from Houston who won the Republican nomination in a May 2026 runoff after leading a 10-candidate primary field. Endorsed by President Donald Trump and Senator Ted Cruz, Bonck campaigns as a Christian conservative focused on border security, religious liberty, and cutting government spending. He serves as a deacon and Bible study teacher at Second Baptist Church.",
+      "summary_sources": [
+        {
+          "url": "https://www.texastribune.org/2026/05/26/texas-19th-38th-congressional-district-republican-primary-runoff/",
+          "type": "news",
+          "title": "Tom Sell, Jon Bonck win GOP primary runoffs in TX-19 and TX-38",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.houstonpublicmedia.org/articles/news/politics/election-2026/2026/05/26/552743/election-results-tx-38-republican-primary-runoff-harris-county/",
+          "type": "news",
+          "title": "Jon Bonck declares victory after early voting in GOP runoff for 38th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.clubforgrowth.org/candidates/jon-bonck/",
+          "type": "website",
+          "title": "Jon Bonck \u2013 Club for Growth",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jon_Bonck.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mortgage Loan Officer / Mortgage Broker",
+          "organization": "Bonck and Baker Mortgage Group",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over two decades of experience in real estate and mortgage lending, helping families achieve homeownership.",
+          "source": null
+        },
+        {
+          "title": "Deacon and Bible Study Teacher",
+          "organization": "Second Baptist Church, Houston",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a deacon and leads Bible study at one of Houston's largest churches.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Louisiana State University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.jonbonck.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Melissa McDonough",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Melissa McDonough is a realtor and small business owner from Tomball who won the Democratic nomination outright with 51.6% of the vote in the March 2026 primary. She has nearly 30 years of experience as a REALTOR and 20 years as a real estate brokerage owner/manager, and has lobbied Congress for consumer protection and healthcare on behalf of the National Association of Realtors. Her campaign focuses on restoring congressional checks and balances, affordable healthcare, and effective border management.",
+      "summary_sources": [
+        {
+          "url": "https://melissaforcongress.com/about-melissa/",
+          "type": "website",
+          "title": "About Melissa McDonough",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.houstonchronicle.com/opinion/endorsements/article/mcdonough-democratic-primary-38th-congressional-21352898.php",
+          "type": "news",
+          "title": "For TX-38, Democrats should stick with Melissa McDonough",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.houstonpublicmedia.org/articles/news/politics/election-2026/2026/05/26/552743/election-results-tx-38-republican-primary-runoff-harris-county/",
+          "type": "news",
+          "title": "Jon Bonck declares victory after early voting in GOP runoff for 38th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://melissaforcongress.com/wp-content/uploads/2024/05/melissa-headshot-shadow.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "REALTOR / Brokerage Owner-Manager",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nearly 30 years as a REALTOR and 20 years as a real estate brokerage owner/manager with over 45 agents.",
+          "source": null
+        },
+        {
+          "title": "Presiding Judge / Election Worker",
+          "organization": "Harris County Elections",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as presiding judge at one of the highest-attended polling locations, and on the Signature Verification Committee, Early Voting Ballot Board, and Central Count.",
+          "source": null
+        },
+        {
+          "title": "Volunteer Lobbyist",
+          "organization": "National Association of Realtors",
+          "start_year": null,
+          "end_year": null,
+          "description": "Lobbied Congress for consumer protection and healthcare issues.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://melissaforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Alex McMenemy",
+      "party": "Green",
+      "incumbent": false,
+      "summary": "Alex McMenemy is the Green Party candidate running for U.S. House in Texas' 38th Congressional District. He is on the ballot for the November 2026 general election. McMenemy describes himself as an ecosocialist and anti-corruption advocate.",
+      "summary_sources": [
+        {
+          "url": "https://www.houstonpublicmedia.org/articles/news/politics/election-2026/2026/05/26/552743/election-results-tx-38-republican-primary-runoff-harris-county/",
+          "type": "news",
+          "title": "Jon Bonck declares victory after early voting in GOP runoff for 38th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Alex_McMenemy",
+          "type": "website",
+          "title": "Alex McMenemy \u2013 Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "William Taggart",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "William Taggart (also known as Butch) is an Independent candidate running for U.S. House in Texas' 38th Congressional District. He is an engineer and author of 'Fixing America \u2013 An Engineer's Solution to our Social, Cultural, and Political Problems,' and campaigns as a moderate independent focused on healthcare, housing, energy costs, and tax reform.",
+      "summary_sources": [
+        {
+          "url": "https://williamtaggart.org/",
+          "type": "website",
+          "title": "William M. Taggart IV for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/William_Taggart",
+          "type": "website",
+          "title": "William Taggart \u2013 Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Engineer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional background in engineering.",
+          "source": null
+        },
+        {
+          "title": "Author",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Author of 'Fixing America \u2013 An Engineer's Solution to our Social, Cultural, and Political Problems.'",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://williamtaggart.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_38th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:52:14.400633+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 367219,
+    "completion_tokens": 7216,
+    "total_tokens": 374435,
+    "cost_usd": 0.022176197999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.037402,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 367219,
+        "completion_tokens": 7216
+      }
+    },
+    "duration_s": 132.7
+  }
+}

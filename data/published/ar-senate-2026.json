@@ -1342,9 +1342,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Arkansas,_2026",
-  "updated_utc": "2026-06-13T18:57:28.159645+00:00",
+  "updated_utc": "2026-06-13T20:49:40.330295+00:00",
   "generator": [
-    "openai/gpt-5.4-mini",
+    "nvidia/nemotron-3-super-120b-a12b",
     "openai/gpt-5-nano"
   ],
   "register_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
@@ -1429,21 +1429,21 @@
     "summary": "Validated by 4/4 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "openai/gpt-5.4-mini",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
     "model_profile": "economy",
-    "prompt_tokens": 42761,
-    "completion_tokens": 7440,
-    "total_tokens": 50201,
-    "cost_usd": 0.004198209999999999,
+    "prompt_tokens": 50218,
+    "completion_tokens": 5875,
+    "total_tokens": 56093,
+    "cost_usd": 0.00397386,
     "cost_source": "provider",
-    "estimated_usd": 0.005114,
+    "estimated_usd": 0.004861,
     "model_breakdown": {
       "openai/gpt-5-nano": {
-        "prompt_tokens": 42761,
-        "completion_tokens": 7440
+        "prompt_tokens": 50218,
+        "completion_tokens": 5875
       }
     },
-    "duration_s": 46.3
+    "duration_s": 55.6
   },
   "post_run_analysis": null
 }

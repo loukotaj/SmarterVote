@@ -1,0 +1,204 @@
+{
+  "id": "tx-house-37-2026",
+  "title": "Texas's 37th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 37th Congressional District",
+  "state": "Texas",
+  "district": "37th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Texas's 37th Congressional District, based in Austin, was reshaped by mid-decade redistricting that drew Democratic incumbents Lloyd Doggett and Greg Casar into the same seat. Doggett opted to retire rather than face a divisive primary, clearing the path for Casar to become the Democratic nominee. The district remains heavily Democratic \u2014 rated Solid D by the Cook Political Report \u2014 making the general election a contest between progressive Democrat Greg Casar and Republican nominee Lauren B. Pe\u00f1a, a trafficking survivor and conservative activist. The race tests whether national political trends or the district's deep-blue lean will determine the outcome in a newly configured Austin-based seat.",
+  "polling": [],
+  "polling_note": "No district-specific public opinion polls were found for this race. Cook Political Report rates the seat as 'Solid D,' indicating a strong Democratic lean.",
+  "candidates": [
+    {
+      "name": "Greg Casar",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Greg Casar is the U.S. Representative for Texas's 35th Congressional District, first elected in 2022, and is running for the newly redrawn 37th District. A former Austin City Council member and labor organizer, he chairs the Congressional Progressive Caucus and has focused on workers' rights, climate action, and immigration reform. He won the Democratic primary on March 3, 2026, defeating challenger Esther Fleharty with over 80% of the vote.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Greg_Casar",
+          "type": "website",
+          "title": "Greg Casar - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-37-primary.html",
+          "type": "news",
+          "title": "Texas 37th Congressional District Primary Election Results 2026 - The New York Times",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kut.org/politics/2025-08-25/austin-tx-congressman-greg-casar-campaign-u-s-house-of-representatives-district-37-lloyd-doggett-redistricting-map",
+          "type": "news",
+          "title": "Austin Congressman Casar announces campaign for District 37 - KUT",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Greg_Casar.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives - Texas's 35th District",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serving since January 2023; elected Chair of the Congressional Progressive Caucus in 2024.",
+          "source": null
+        },
+        {
+          "title": "Austin City Council Member",
+          "organization": "City of Austin",
+          "start_year": 2015,
+          "end_year": 2022,
+          "description": "Represented District 4; authored paid sick days ordinance and other labor protections.",
+          "source": null
+        },
+        {
+          "title": "Labor Organizer",
+          "organization": "Various construction sites in Austin",
+          "start_year": 2012,
+          "end_year": 2015,
+          "description": "Organized construction workers for better wages, union rights, and water breaks.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Virginia",
+          "degree": "B.A.",
+          "field": "Political and Social Thought",
+          "year": 2011,
+          "source": null
+        },
+        {
+          "institution": "Strake Jesuit College Preparatory",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 2007,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://casar.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lauren B. Pe\u00f1a",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Lauren B. Pe\u00f1a is the Republican nominee for Texas's 37th Congressional District, having won the May 26, 2026, primary runoff against Ge'Nell Gary with 58.2% of the vote. She is a human trafficking survivor, mother of six, and political newcomer who describes herself as a constitutional conservative. Her campaign focuses on combating human trafficking, border security, and making Austin affordable, and she has proposed the SAFE NIGHTS Act and SODA Act as signature legislative priorities.",
+      "summary_sources": [
+        {
+          "url": "https://www.lauren4congress.com/",
+          "type": "website",
+          "title": "Lauren B. Pe\u00f1a for Congress | Texas CD-37",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-37-runoff.html",
+          "type": "news",
+          "title": "Texas 37th Congressional District Runoff Election Results - The New York Times",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kvue.com/video/news/state/lauren-pena-republican-nominee-for-texas-congressional-district-37-against-greg-casar-former/269-bb9bf5bf-58a9-4b67-b300-3c14daf4da5b",
+          "type": "news",
+          "title": "Lauren Pe\u00f1a wins Republican nomination for Texas's 37th Congressional District - KVUE",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663450394445/eJZB37iKkSNMMYskJx43m9/lauren_hero_cutout_250c4571.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Territory Manager",
+          "organization": "Boston Scientific",
+          "start_year": null,
+          "end_year": null,
+          "description": "Medical device sales professional.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.lauren4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_37th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:30:13.507586+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 260954,
+    "completion_tokens": 8529,
+    "total_tokens": 269483,
+    "cost_usd": 0.017450872,
+    "cost_source": "provider",
+    "estimated_usd": 0.027245,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 260954,
+        "completion_tokens": 8529
+      }
+    },
+    "duration_s": 145.1
+  }
+}

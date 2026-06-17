@@ -1,0 +1,257 @@
+{
+  "id": "il-house-09-2026",
+  "title": "Illinois's 9th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Illinois's 9th Congressional District",
+  "state": "Illinois",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Illinois's 9th Congressional District is an open-seat race following the retirement of longtime Democratic incumbent Jan Schakowsky, who represented the district for 14 terms. The district covers parts of Chicago's North Side and northern suburbs including Evanston, Skokie, and Arlington Heights, and is rated as a safely Democratic seat by major election forecasters. The Democratic primary was a competitive 16-candidate field won by Evanston Mayor and former state legislator Daniel Biss. Biss will face Republican nominee John Elleson, a pastor who previously ran for the seat in 2018, and independent candidate Delila Barrera, a behavioral technician and activist, in the November general election.",
+  "polling": [],
+  "polling_note": "No general election polling was found for this race; only Democratic primary polls (conducted by Global Strategy Group and Lester & Associates in late 2025) were available, which are not applicable to the general election.",
+  "candidates": [
+    {
+      "name": "Daniel K. Biss",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Daniel Biss is the mayor of Evanston, Illinois, and the Democratic nominee for Illinois's 9th Congressional District. A former mathematician and University of Chicago professor, he previously served in the Illinois House of Representatives and Illinois Senate, and was a candidate for governor in 2018. Biss won a competitive 16-candidate Democratic primary in March 2026 to succeed retiring incumbent Jan Schakowsky.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Daniel_Biss",
+          "type": "website",
+          "title": "Daniel Biss - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Daniel_Biss",
+          "type": "website",
+          "title": "Daniel Biss - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.npr.org/2026/03/17/nx-s1-5751169/illinois-primary-ninth-district-daniel-biss-kat-abughazaleh",
+          "type": "news",
+          "title": "Daniel Biss wins Democratic primary for closely-watched Illinois House seat",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Biss_2026.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Evanston, Illinois",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "22nd Mayor of Evanston, assumed office May 10, 2021",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Illinois Senate, 9th District",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Represented the 9th Senate district",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Illinois House of Representatives, 17th District",
+          "start_year": 2011,
+          "end_year": 2013,
+          "description": "Represented the 17th House district",
+          "source": null
+        },
+        {
+          "title": "Assistant Professor of Mathematics",
+          "organization": "University of Chicago",
+          "start_year": 2002,
+          "end_year": 2008,
+          "description": "Taught mathematics before pursuing politics full-time",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "BA",
+          "field": "Mathematics",
+          "year": 1998,
+          "source": null
+        },
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "PhD",
+          "field": "Mathematics",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.danielbiss.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Elleson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Elleson is a pastor at Lakewood Chapel in Arlington Heights and the Republican nominee for Illinois's 9th Congressional District. He previously ran as the Republican nominee for the same seat in 2018, losing to incumbent Jan Schakowsky. Elleson won the Republican primary in March 2026 and campaigns on a platform of fiscal responsibility, bipartisan immigration reform, and community service.",
+      "summary_sources": [
+        {
+          "url": "https://evanstonroundtable.com/govpack_profiles/candidate-profile-john-elleson/",
+          "type": "news",
+          "title": "Candidate profile: John Elleson - Evanston RoundTable",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://news.wttw.com/elections/voters-guide/2026-primary/john-elleson",
+          "type": "news",
+          "title": "John Elleson | 2026 Primary Election - WTTW",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/John_Elleson",
+          "type": "website",
+          "title": "John Elleson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/John_Elleson.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Pastor",
+          "organization": "Lakewood Chapel, Arlington Heights",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Chicagoland pastor for approximately 40 years",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://johnelleson.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Delila Barrera",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Delila Barrera is an independent candidate running for Illinois's 9th Congressional District. She is described as a behavioral technician and activist. Barrera is one of three candidates appearing on the general election ballot alongside Democrat Daniel Biss and Republican John Elleson.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Delila_Barrera",
+          "type": "website",
+          "title": "Delila Barrera - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Illinois - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:24:18.365199+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 286586,
+    "completion_tokens": 6200,
+    "total_tokens": 292786,
+    "cost_usd": 0.017898900000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.029301,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 286586,
+        "completion_tokens": 6200
+      }
+    },
+    "duration_s": 123.8
+  }
+}

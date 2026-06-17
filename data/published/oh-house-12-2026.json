@@ -1,0 +1,265 @@
+{
+  "id": "oh-house-12-2026",
+  "title": "Ohio's 12th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Ohio's 12th Congressional District",
+  "state": "Ohio",
+  "district": "12th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Ohio's 12th Congressional District pits incumbent Republican U.S. Representative Troy Balderson against Democratic challenger Jerrad Christian. The district covers a large swath of central and eastern Ohio, including Zanesville, Newark, and parts of Fairfield, Licking, Muskingum, Knox, Coshocton, Guernsey, Morgan, Perry, Delaware, Holmes, Tuscarawas, and Athens counties. Ohio redrew its congressional maps in October 2025, but the 12th District remains a reliably Republican seat rated as 'Solid R' by the Cook Political Report. Balderson, a three-generation auto dealer and former state legislator, is seeking his fifth full term, while Christian, a Navy veteran and software engineer, is running on a grassroots, people-first platform after winning a three-way Democratic primary.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the Ohio's 12th Congressional District general election as of June 2026. The district is rated 'Solid R' by the Cook Political Report.",
+  "candidates": [
+    {
+      "name": "Troy Balderson",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Troy Balderson is the incumbent U.S. Representative for Ohio's 12th Congressional District, first elected in a 2018 special election. A lifelong Ohioan and former auto dealer, he serves on the House Energy and Commerce Committee and chairs the House Energy Action Team. He is a principled conservative focused on energy independence, rural health care access, and workforce development.",
+      "summary_sources": [
+        {
+          "url": "https://balderson.house.gov/about/",
+          "type": "government",
+          "title": "About Troy | U.S. Congressman Troy Balderson",
+          "description": null,
+          "last_accessed": "2026-06-12T22:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Troy_Balderson",
+          "type": "news",
+          "title": "Troy Balderson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T22:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483836",
+          "type": "news",
+          "title": "OH-12 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T22:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Troy_Balderson%2C_official_portrait%2C_116th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Representing Ohio's 12th Congressional District; serves on House Energy and Commerce Committee; chairs House Energy Action Team",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Ohio Senate",
+          "start_year": 2011,
+          "end_year": 2018,
+          "description": "Represented the 20th Senate District; chaired Senate Energy and Natural Resources Committee",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Ohio House of Representatives",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Represented the 94th House District; served on House Finance Committee",
+          "source": null
+        },
+        {
+          "title": "Vice President / General Manager",
+          "organization": "Balderson Motor Sales",
+          "start_year": 1987,
+          "end_year": 2008,
+          "description": "Third-generation family auto dealership; worked as mechanic and later managed operations",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Zanesville High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1980,
+          "source": null
+        },
+        {
+          "institution": "Muskingum College (now Muskingum University)",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Ohio State University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.baldersonforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepTroyBalderson/",
+        "twitter": "https://x.com/RepBalderson",
+        "instagram": "https://www.instagram.com/repbalderson/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jerrad Christian",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jerrad Christian is a U.S. Navy veteran and software engineer who grew up in poverty in Appalachian Ohio. He served as a flight deck fueler during Operation Iraqi Freedom and Operation Enduring Freedom before transitioning to a meteorologist and oceanographer role. He is running a grassroots campaign focused on universal healthcare, raising the minimum wage, public school funding reform, and reducing corporate influence in politics.",
+      "summary_sources": [
+        {
+          "url": "https://www.christianforohio.com/about",
+          "type": "website",
+          "title": "About | Christian for OH-12",
+          "description": null,
+          "last_accessed": "2026-06-12T22:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.dispatch.com/story/news/politics/elections/congressional/2026/05/05/ohio-democrats-battle-in-primary-to-face-balderson-in-november-see-results/89879634007/",
+          "type": "news",
+          "title": "Ex-Navy meteorologist wins 12th congressional district Dem primary",
+          "description": null,
+          "last_accessed": "2026-06-12T22:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thereportingproject.org/meet-the-candidates-three-democrats-vie-for-12th-district-house-seat/",
+          "type": "news",
+          "title": "Meet the candidates: Three Democrats vie for 12th district house seat",
+          "description": null,
+          "last_accessed": "2026-06-12T22:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Software Engineer",
+          "organization": "Various technology companies",
+          "start_year": null,
+          "end_year": null,
+          "description": "Transitioned to software engineering after attending tech school; currently works as a software engineer",
+          "source": null
+        },
+        {
+          "title": "Meteorologist / Oceanographer",
+          "organization": "United States Navy",
+          "start_year": 2002,
+          "end_year": 2007,
+          "description": "Served five years; first two as a flight deck fueler on an aircraft carrier during Operations Iraqi Freedom and Enduring Freedom; final three years as a meteorologist and oceanographer",
+          "source": null
+        },
+        {
+          "title": "Outdoor Education Teacher",
+          "organization": "Non-profit organization",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught children team building, science, survival, and history",
+          "source": null
+        },
+        {
+          "title": "Janitor",
+          "organization": "Factory",
+          "start_year": null,
+          "end_year": null,
+          "description": "Took a janitorial position to support his family after deciding not to relocate",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Ohio University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Tech School (Software Engineering)",
+          "degree": null,
+          "field": "Software Engineering",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.christianforohio.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/christianforohio/",
+        "instagram": "https://www.instagram.com/jerrad.christian/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio's_12th_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T22:43:38.873434+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 237868,
+    "completion_tokens": 6275,
+    "total_tokens": 244143,
+    "cost_usd": 0.016004644,
+    "cost_source": "provider",
+    "estimated_usd": 0.024541,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 237868,
+        "completion_tokens": 6275
+      }
+    },
+    "duration_s": 131.3
+  }
+}

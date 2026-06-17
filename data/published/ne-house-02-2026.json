@@ -1,0 +1,287 @@
+{
+  "id": "ne-house-02-2026",
+  "title": "Nebraska's 2nd Congressional District election, 2026 (open seat)",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Nebraska's 2nd Congressional District",
+  "state": "Nebraska",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "An open-seat race for Nebraska's 2nd Congressional District after Republican incumbent Don Bacon announced he would not seek re-election in June 2025. The Omaha-based district, known as the 'blue dot' for voting Democratic in the last two presidential elections while electing a Republican House member, is one of the most competitive House seats in the country and a key Democratic target for flipping control of the U.S. House. The Democratic primary was won by Denise Powell, co-founder of Women Who Run Nebraska, while Republican Brinker Harding, an Omaha city councilman, ran unopposed for his party's nomination. The general election will also feature Libertarian Eric Michael Foreman, with the race rated as Lean Democratic by the Cook Political Report as of mid-2026.",
+  "polling": [],
+  "polling_note": "No public general election polls were found for the Harding-Powell matchup as of June 2026. The New York Times maintains a polling tracker for this race but no independent polls with published margins have been reported yet.",
+  "candidates": [
+    {
+      "name": "Denise Powell",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Denise Powell is a small business owner and co-founder of Women Who Run Nebraska, a political action committee that supports women running for local office. She won the Democratic primary on May 12, 2026, defeating state senator John Cavanaugh in a closely contested race. Her campaign focuses on lowering costs, protecting health care and public schools, defending reproductive rights, and cleaning up corruption in Washington.",
+      "summary_sources": [
+        {
+          "url": "https://nebraskaexaminer.com/voter-guides/contests/2026-primary-u-s-house-district-2/",
+          "type": "news",
+          "title": "U.S. House, 2nd Congressional District | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.npr.org/2026/05/13/g-s1-121987/denise-powell-democrat-wins-nebraska-second-congressional-district",
+          "type": "news",
+          "title": "Denise Powell wins Democratic primary for Nebraska's 2nd congressional district",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ballotready.org/people/denise-powell",
+          "type": "website",
+          "title": "Denise Powell | BallotReady",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://nebraskaexaminer.com/wp-content/uploads/2026/04/powell-congress2-election26-CROPPED-768x1024.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Co-Founder",
+          "organization": "Women Who Run Nebraska",
+          "start_year": 2017,
+          "end_year": 2025,
+          "description": "Political action committee supporting women candidates for local office in Nebraska.",
+          "source": null
+        },
+        {
+          "title": "Partner",
+          "organization": "Alley Poyner Macchietto Architecture",
+          "start_year": 2015,
+          "end_year": 2021,
+          "description": "Architecture firm partnership.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Miami",
+          "degree": "Bachelor's",
+          "field": "Communications",
+          "year": 2000,
+          "source": null
+        },
+        {
+          "institution": "Westminster Christian School",
+          "degree": "High School Diploma",
+          "field": "",
+          "year": 1996,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://deniseforcongress.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DeniseForCongress/",
+        "twitter": "https://x.com/deniseforcongress",
+        "instagram": "https://www.instagram.com/deniseforcongress/",
+        "linkedin": "https://www.linkedin.com/in/denisepowell402"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brinker Harding",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Brinker Harding is an Omaha City Council member representing District 6 since 2017 and a commercial real estate broker. He ran unopposed for the Republican nomination and was endorsed by President Donald Trump. His campaign emphasizes restoring America's founding principles, public safety, economic growth through public-private partnerships, and bringing Omaha's balanced-budget approach to Washington.",
+      "summary_sources": [
+        {
+          "url": "https://nebraskaexaminer.com/voter-guides/contests/2026-primary-u-s-house-district-2/",
+          "type": "news",
+          "title": "U.S. House, 2nd Congressional District | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.brinkerharding.com/about",
+          "type": "website",
+          "title": "About Brinker - Brinker Harding for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Nebraska",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Brinker_Harding.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Omaha City Council Member, District 6",
+          "organization": "City of Omaha",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Represented Omaha's 6th District; served as Council Vice President.",
+          "source": null
+        },
+        {
+          "title": "Senior Vice President",
+          "organization": "Colliers International",
+          "start_year": null,
+          "end_year": null,
+          "description": "Commercial real estate brokerage and development.",
+          "source": null
+        },
+        {
+          "title": "Chief of Staff and Director of Economic Development",
+          "organization": "Office of Mayor Hal Daub",
+          "start_year": 1995,
+          "end_year": 2000,
+          "description": "Led economic development initiatives and public-private partnerships.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Nebraska-Omaha",
+          "degree": "Attended",
+          "field": "College of Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Buckley School of Public Speaking and Affairs",
+          "degree": "Certificate",
+          "field": "Public Speaking and Policy Making",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.brinkerharding.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/brinkerhardingNE02/",
+        "twitter": "https://x.com/BrinkerHarding",
+        "instagram": "https://www.instagram.com/brinkerharding/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eric Michael Foreman",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Eric Michael Foreman is a Libertarian candidate for Nebraska's 2nd Congressional District. He works in property management and maintenance and is a high school graduate with additional education in culinary arts, trade skills, and applied sciences. He advanced from the Libertarian primary unopposed.",
+      "summary_sources": [
+        {
+          "url": "https://nebraskaexaminer.com/voter-guides/contests/2026-primary-u-s-house-district-2/",
+          "type": "news",
+          "title": "U.S. House, 2nd Congressional District | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://nebraskaexaminer.com/wp-content/uploads/2026/04/foreman-congress2-election26-CROPPED.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Property Management and Maintenance Worker",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "High School",
+          "degree": "High School Diploma",
+          "field": "",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Nebraska%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:03:52.581378+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 250070,
+    "completion_tokens": 7082,
+    "total_tokens": 257152,
+    "cost_usd": 0.015950868,
+    "cost_source": "provider",
+    "estimated_usd": 0.025895,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 250070,
+        "completion_tokens": 7082
+      }
+    },
+    "duration_s": 132.1
+  }
+}

@@ -15,23 +15,366 @@
       "summary_sources": [
         {
           "url": "https://www.cbs2iowa.com/news/local/rob-sand-proposes-shake-up-to-iowas-elections-in-new-policy-agenda",
+          "type": "news",
           "title": "Rob Sand proposes shake up to Iowa's elections in new policy agenda",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:11:34.757441Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.iowapublicradio.org/political-news/2026-03-10/iowa-governor-candidates-rob-sand-randy-feenstra-2026-primary-ballot",
+          "type": "news",
           "title": "Here's who's running for governor of Iowa in 2026",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:11:34.757441Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/78/Rob-Sand.jpg",
-      "website": "https://robsand.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/robsandia",
-        "x": "https://x.com/robsandia",
-        "instagram": "https://www.instagram.com/robsandia",
-        "youtube": "https://www.youtube.com/@robsandia",
-        "tiktok": "https://www.tiktok.com/@robsandia"
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Sand says Iowa’s privatized Medicaid system is harming access and payment for care, and he has called for better support for telehealth, more rural health care infrastructure, and expanded loan forgiveness to keep doctors in Iowa.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://robsand.com/news/day-three-of-one-year-one-iowa-tour-rob-sand-discusses-rural-health-care-crisis/",
+              "type": "website",
+              "title": "Day Three of “One Year, One Iowa” Tour: Rob Sand Discusses Rural Health Care Crisis",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://iowacapitaldispatch.com/2025/11/05/rural-health-care-providers-tell-sand-about-residency-needs-abortion-ban-impacts/",
+              "type": "news",
+              "title": "Rural health care providers tell Sand about residency needs, abortion ban impacts",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Sand’s campaign focuses on lowering costs, improving government efficiency, and growing the economy. He argues Iowa needs a new direction and says better oversight can reduce waste and make the state more attractive to workers and families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://robsand.com/priorities",
+              "type": "website",
+              "title": "Rob's Priorities - Rob Sand for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
+              "type": "news",
+              "title": "Iowa Democrat Rob Sand launches campaign for governor",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Sand has not publicly detailed a specific climate or energy agenda in the sources reviewed. His campaign messaging has centered more on costs, accountability, and governance than on a formal energy platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://iowacapitaldispatch.com/2025/05/12/iowa-auditor-rob-sand-launches-2026-campaign-for-governor/",
+              "type": "news",
+              "title": "Iowa Auditor Rob Sand launches 2026 campaign for governor",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.desmoinesregister.com/story/news/politics/2025/05/12/iowa-democrat-rob-sand-enters-governor-race-in-2026-heres-why/83456815007/",
+              "type": "news",
+              "title": "Democrat Rob Sand announces 2026 bid for Iowa governor, pitching 'new direction' for state",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Sand says reproductive freedom should be left to a woman, her doctor, her family, and her faith rather than the government. He has also said that as governor he would use whatever tools he has to protect Iowans’ reproductive rights.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/robsandia/videos/iowa-press-reproductive-freedom/1291412292999718/",
+              "type": "social_media",
+              "title": "Reproductive Freedom - Rob Sand for Iowa - Facebook",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.facebook.com/robsandia/posts/as-governor-ill-use-whatever-tools-i-have-to-protect-iowans-reproductive-rights/1258602849390354/",
+              "type": "social_media",
+              "title": "As Governor, I'll use whatever tools I have to protect Iowans reproductive rights",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Sand has not been found to have a public, candidate-specific immigration proposal in the sources reviewed. Available campaign materials focus on Iowa state issues such as education, health care, and costs.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://robsand.com/priorities",
+              "type": "website",
+              "title": "Rob Sand's Priorities for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.desmoinesregister.com/story/news/politics/2025/05/12/iowa-democrat-rob-sand-enters-governor-race-in-2026-heres-why/83456815007/",
+              "type": "news",
+              "title": "Democrat Rob Sand is running for Iowa governor in 2026. Here's why",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "Sand has not publicly laid out a detailed gun policy in the sources reviewed. Reporting on his campaign has focused on accountability, education, health care, and costs rather than firearms legislation.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://robsand.com/priorities",
+              "type": "website",
+              "title": "Rob's Priorities - Rob Sand for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
+              "type": "news",
+              "title": "Iowa Democrat Rob Sand launches campaign for governor",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Sand has not publicly detailed a foreign policy agenda in the sources reviewed. His campaign materials and interviews focus on Iowa state issues rather than international affairs.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://robsand.com/priorities",
+              "type": "website",
+              "title": "Rob's Priorities - Rob Sand for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://siouxcountyradio.com/local-news/road-to-iowa-governor-2026-rob-sand-outlines-priorities/",
+              "type": "news",
+              "title": "Road to Iowa Governor 2026: Rob Sand Outlines Priorities",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Sand has emphasized independent oversight, public accountability, and a campaign message aimed at voters across party lines. In the sources reviewed, he has not released a detailed social-justice platform beyond those broader themes.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://robsand.com/",
+              "type": "website",
+              "title": "Rob Sand for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
+              "type": "news",
+              "title": "Iowa Democrat Rob Sand launches campaign for governor",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Sand says he wants to strengthen public education, including universal all-day pre-K, and he has criticized Iowa’s private school voucher program for diverting resources from public schools. He also says he would seek more oversight of voucher spending.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://robsand.com/priorities",
+              "type": "website",
+              "title": "Rob's Priorities - Rob Sand for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
+              "type": "news",
+              "title": "Iowa Democrat Rob Sand launches campaign for governor",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Sand has not publicly detailed a specific technology or artificial intelligence agenda in the sources reviewed. Available coverage of his campaign has focused on accountability, costs, and bipartisan governance.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://iowacapitaldispatch.com/2025/05/12/iowa-auditor-rob-sand-launches-2026-campaign-for-governor/",
+              "type": "news",
+              "title": "Iowa Auditor Rob Sand launches 2026 campaign for governor",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.desmoinesregister.com/story/news/politics/2025/05/12/iowa-democrat-rob-sand-enters-governor-race-in-2026-heres-why/83456815007/",
+              "type": "news",
+              "title": "Democrat Rob Sand announces 2026 bid for Iowa governor, pitching 'new direction' for state",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Sand says Iowa should replace party primaries with a public primary open to all eligible voters, advance the top four candidates to the general election regardless of party, and use approval voting in the general election.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://robsand.com/priorities",
+              "type": "website",
+              "title": "Rob's Priorities - Rob Sand for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Sand has emphasized local accountability and local government involvement in fraud oversight, and he says he wants to reverse a 2023 law that he argues limits his office’s access to state information and court documents. He has also highlighted property-tax and cost issues in campaign messaging.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://cbs2iowa.com/news/local/2026-legislative-preview-auditor-sand-lays-out-policy-priorities-ahead-of-session",
+              "type": "news",
+              "title": "2026 legislative preview: Auditor Sand lays out policy priorities ahead of session",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://robsand.com/priorities",
+              "type": "website",
+              "title": "Rob's Priorities - Rob Sand for Iowa",
+              "description": null,
+              "last_accessed": "2026-03-29T18:56:14.959370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -40,7 +383,7 @@
           "start_year": 2019,
           "end_year": null,
           "description": "Statewide elected auditor responsible for oversight and audits of state and local government.",
-          "source_url": "https://www.auditor.iowa.gov/about-us"
+          "source": null
         },
         {
           "title": "Public corruption and major financial crimes prosecutor",
@@ -48,7 +391,7 @@
           "start_year": null,
           "end_year": 2018,
           "description": "Prosecuted public corruption and financial crimes cases before entering statewide office.",
-          "source_url": "https://robsand.com/about"
+          "source": null
         },
         {
           "title": "Campaign staffer",
@@ -56,7 +399,7 @@
           "start_year": 2006,
           "end_year": 2006,
           "description": "Worked on Iowa political campaigns early in his career.",
-          "source_url": "https://robsand.com/about"
+          "source": null
         },
         {
           "title": "Staff assistant",
@@ -64,7 +407,7 @@
           "start_year": null,
           "end_year": null,
           "description": "Worked in Sen. Tom Harkin’s Washington office during one college semester.",
-          "source_url": "https://robsand.com/about"
+          "source": null
         }
       ],
       "education": [
@@ -73,618 +416,33 @@
           "degree": "Bachelor's degree",
           "field": "Political science",
           "year": 2005,
-          "source_url": "https://robsand.com/about"
+          "source": null
         },
         {
           "institution": "University of Iowa College of Law",
           "degree": "Juris Doctor",
           "field": "Law",
           "year": 2010,
-          "source_url": "https://robsand.com/about"
+          "source": null
         }
       ],
-      "voting_record": [],
-      "top_donors": [
-        {
-          "name": "Organization unavailable for these records",
-          "amount": 304510,
-          "organization": null,
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/rob-sand/contributors?cycle=2023&id=16144069",
-            "type": "website",
-            "title": "Rob Sand Top Contributors",
-            "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-          }
-        },
-        {
-          "name": "Canal Partners Media",
-          "amount": 14908,
-          "organization": "Canal Partners Media",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/rob-sand/contributors?cycle=2023&id=16144069",
-            "type": "website",
-            "title": "Rob Sand Top Contributors",
-            "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-          }
-        },
-        {
-          "name": "Iowa Democratic Party",
-          "amount": 5000,
-          "organization": "Iowa Democratic Party",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/rob-sand/contributors?cycle=2023&id=16144069",
-            "type": "website",
-            "title": "Rob Sand Top Contributors",
-            "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-          }
-        },
-        {
-          "name": "Brotherhood Of Locomotive Engineers & Trainmen / Blet",
-          "amount": 500,
-          "organization": "Brotherhood Of Locomotive Engineers & Trainmen / Blet",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/rob-sand/contributors?cycle=2023&id=16144069",
-            "type": "website",
-            "title": "Rob Sand Top Contributors",
-            "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-          }
-        },
-        {
-          "name": "Livingston Dimarzio Llp",
-          "amount": 250,
-          "organization": "Livingston Dimarzio Llp",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/rob-sand/contributors?cycle=2023&id=16144069",
-            "type": "website",
-            "title": "Rob Sand Top Contributors",
-            "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-          }
-        }
-      ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Sand says Iowa’s privatized Medicaid system is harming access and payment for care, and he has called for better support for telehealth, more rural health care infrastructure, and expanded loan forgiveness to keep doctors in Iowa.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://robsand.com/news/day-three-of-one-year-one-iowa-tour-rob-sand-discusses-rural-health-care-crisis/",
-              "type": "website",
-              "title": "Day Three of “One Year, One Iowa” Tour: Rob Sand Discusses Rural Health Care Crisis",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://iowacapitaldispatch.com/2025/11/05/rural-health-care-providers-tell-sand-about-residency-needs-abortion-ban-impacts/",
-              "type": "news",
-              "title": "Rural health care providers tell Sand about residency needs, abortion ban impacts",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Sand’s campaign focuses on lowering costs, improving government efficiency, and growing the economy. He argues Iowa needs a new direction and says better oversight can reduce waste and make the state more attractive to workers and families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://robsand.com/priorities",
-              "type": "website",
-              "title": "Rob's Priorities - Rob Sand for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
-              "type": "news",
-              "title": "Iowa Democrat Rob Sand launches campaign for governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Sand has not publicly detailed a specific climate or energy agenda in the sources reviewed. His campaign messaging has centered more on costs, accountability, and governance than on a formal energy platform.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://iowacapitaldispatch.com/2025/05/12/iowa-auditor-rob-sand-launches-2026-campaign-for-governor/",
-              "type": "news",
-              "title": "Iowa Auditor Rob Sand launches 2026 campaign for governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.desmoinesregister.com/story/news/politics/2025/05/12/iowa-democrat-rob-sand-enters-governor-race-in-2026-heres-why/83456815007/",
-              "type": "news",
-              "title": "Democrat Rob Sand announces 2026 bid for Iowa governor, pitching 'new direction' for state",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Sand says reproductive freedom should be left to a woman, her doctor, her family, and her faith rather than the government. He has also said that as governor he would use whatever tools he has to protect Iowans’ reproductive rights.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.facebook.com/robsandia/videos/iowa-press-reproductive-freedom/1291412292999718/",
-              "type": "social_media",
-              "title": "Reproductive Freedom - Rob Sand for Iowa - Facebook",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.facebook.com/robsandia/posts/as-governor-ill-use-whatever-tools-i-have-to-protect-iowans-reproductive-rights/1258602849390354/",
-              "type": "social_media",
-              "title": "As Governor, I'll use whatever tools I have to protect Iowans reproductive rights",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Sand has not been found to have a public, candidate-specific immigration proposal in the sources reviewed. Available campaign materials focus on Iowa state issues such as education, health care, and costs.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://robsand.com/priorities",
-              "type": "website",
-              "title": "Rob Sand's Priorities for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.desmoinesregister.com/story/news/politics/2025/05/12/iowa-democrat-rob-sand-enters-governor-race-in-2026-heres-why/83456815007/",
-              "type": "news",
-              "title": "Democrat Rob Sand is running for Iowa governor in 2026. Here's why",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Sand has not publicly laid out a detailed gun policy in the sources reviewed. Reporting on his campaign has focused on accountability, education, health care, and costs rather than firearms legislation.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://robsand.com/priorities",
-              "type": "website",
-              "title": "Rob's Priorities - Rob Sand for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
-              "type": "news",
-              "title": "Iowa Democrat Rob Sand launches campaign for governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Sand has not publicly detailed a foreign policy agenda in the sources reviewed. His campaign materials and interviews focus on Iowa state issues rather than international affairs.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://robsand.com/priorities",
-              "type": "website",
-              "title": "Rob's Priorities - Rob Sand for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://siouxcountyradio.com/local-news/road-to-iowa-governor-2026-rob-sand-outlines-priorities/",
-              "type": "news",
-              "title": "Road to Iowa Governor 2026: Rob Sand Outlines Priorities",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Sand has emphasized independent oversight, public accountability, and a campaign message aimed at voters across party lines. In the sources reviewed, he has not released a detailed social-justice platform beyond those broader themes.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://robsand.com/",
-              "type": "website",
-              "title": "Rob Sand for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
-              "type": "news",
-              "title": "Iowa Democrat Rob Sand launches campaign for governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Sand says he wants to strengthen public education, including universal all-day pre-K, and he has criticized Iowa’s private school voucher program for diverting resources from public schools. He also says he would seek more oversight of voucher spending.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://robsand.com/priorities",
-              "type": "website",
-              "title": "Rob's Priorities - Rob Sand for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.kcci.com/article/iowa-democrat-rob-sand-launches-campaign-for-governor/64731955",
-              "type": "news",
-              "title": "Iowa Democrat Rob Sand launches campaign for governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Sand has not publicly detailed a specific technology or artificial intelligence agenda in the sources reviewed. Available coverage of his campaign has focused on accountability, costs, and bipartisan governance.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://iowacapitaldispatch.com/2025/05/12/iowa-auditor-rob-sand-launches-2026-campaign-for-governor/",
-              "type": "news",
-              "title": "Iowa Auditor Rob Sand launches 2026 campaign for governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.desmoinesregister.com/story/news/politics/2025/05/12/iowa-democrat-rob-sand-enters-governor-race-in-2026-heres-why/83456815007/",
-              "type": "news",
-              "title": "Democrat Rob Sand announces 2026 bid for Iowa governor, pitching 'new direction' for state",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Sand says Iowa should replace party primaries with a public primary open to all eligible voters, advance the top four candidates to the general election regardless of party, and use approval voting in the general election.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://robsand.com/priorities",
-              "type": "website",
-              "title": "Rob's Priorities - Rob Sand for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Sand has emphasized local accountability and local government involvement in fraud oversight, and he says he wants to reverse a 2023 law that he argues limits his office’s access to state information and court documents. He has also highlighted property-tax and cost issues in campaign messaging.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://cbs2iowa.com/news/local/2026-legislative-preview-auditor-sand-lays-out-policy-priorities-ahead-of-session",
-              "type": "news",
-              "title": "2026 legislative preview: Auditor Sand lays out policy priorities ahead of session",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://robsand.com/priorities",
-              "type": "website",
-              "title": "Rob's Priorities - Rob Sand for Iowa",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        }
-      },
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
       "donor_summary": null,
-      "links": []
-    },
-    {
-      "name": "Adam Steen",
-      "party": "Republican Party",
-      "incumbent": false,
-      "summary": "Adam Steen is a former Iowa Department of Administrative Services director and Republican candidate for governor in 2026. In February 2026, he received an endorsement from Bob Vander Plaats of The Family Leader and has emphasized his grassroots campaign style and business and state-agency management experience.",
-      "summary_sources": [
-        {
-          "url": "https://www.radioiowa.com/2026/02/06/endorsements-in-iowa-gops-2026-race-for-governor/",
-          "title": "Endorsements in Iowa GOP’s 2026 race for governor",
-          "type": "news"
-        },
-        {
-          "url": "https://www.iowapublicradio.org/political-news/2026-03-10/iowa-governor-candidates-rob-sand-randy-feenstra-2026-primary-ballot",
-          "title": "Here's who's running for governor of Iowa in 2026",
-          "type": "news"
-        }
-      ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Jackie_Sandler_Adam_Sandler_Jay_Kelly-36_%283x4%29.jpg/500px-Jackie_Sandler_Adam_Sandler_Jay_Kelly-36_%283x4%29.jpg",
-      "website": "https://adamsteen.com/",
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://robsand.com/",
       "social_media": {
-        "facebook": "https://www.facebook.com/adamsteenforgovernor/",
-        "x": "https://x.com/adamsteen",
-        "instagram": "https://www.instagram.com/adamsteenforgovernor/"
+        "facebook": "https://www.facebook.com/robsandia",
+        "x": "https://x.com/robsandia",
+        "instagram": "https://www.instagram.com/robsandia",
+        "youtube": "https://www.youtube.com/@robsandia",
+        "tiktok": "https://www.tiktok.com/@robsandia"
       },
-      "career_history": [
-        {
-          "title": "Director of Administrative Services",
-          "organization": "State of Iowa",
-          "start_year": null,
-          "end_year": null,
-          "description": "Led Iowa’s administrative services operations under Governor Reynolds.",
-          "source_url": "https://iowacapitaldispatch.com/briefs/former-iowa-agency-director-adam-steen-files-for-2026-gubernatorial-primary/"
-        },
-        {
-          "title": "Business builder",
-          "organization": "Private sector",
-          "start_year": null,
-          "end_year": null,
-          "description": "Campaign materials describe him as a businessman and former baseball player.",
-          "source_url": "https://adamsteen.com/"
-        }
-      ],
-      "education": [],
-      "voting_record": [],
-      "top_donors": [],
-      "issues": {
-        "Healthcare": {
-          "stance": "Steen says healthcare access is a major issue and that Iowa should work toward becoming a leader in healthcare. In public remarks, he has also emphasized “medical freedom,” but the available reporting does not provide a detailed policy plan beyond that broad framing.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://siouxcountyradio.com/local-news/road-to-iowa-governor-2026-adam-steen-outlines-priorities/",
-              "type": "news",
-              "title": "Road to Iowa Governor 2026: Adam Steen Outlines Priorities",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.facebook.com/adamsteenforgovernor/videos/we-need-absolute-medical-freedom/894807603286298/",
-              "type": "social_media",
-              "title": "We need absolute medical freedom. | Adam Steen",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Steen says he supports low taxes, limited government, and cutting waste in state government. He frames his economic approach around making government run more efficiently and reducing spending and bureaucracy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Home - Adam Steen for Governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://iowacapitaldispatch.com/briefs/former-iowa-agency-director-adam-steen-files-for-2026-gubernatorial-primary/",
-              "type": "news",
-              "title": "Former Iowa agency director Adam Steen files for 2026 gubernatorial primary",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Steen’s publicly reported energy-related position centers on opposing the use of eminent domain for private development, especially carbon-capture pipelines. He has said private property should not be taken for private development, indicating skepticism toward pipeline projects that rely on eminent domain.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.desmoinesregister.com/story/news/politics/elections/2026/01/30/steen-says-eminent-domain-action-needed-for-iowa/88404284007/",
-              "type": "news",
-              "title": "Steen says eminent domain action needed for GOP to win governor's race",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://kiwaradio.com/news/road-to-iowa-governor-2026-adam-steen-outlines-priorities/",
-              "type": "news",
-              "title": "Road to Iowa Governor 2026: Adam Steen Outlines Priorities",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Steen says he wants Iowa to be the most pro-life state in the country and said he would like to see a “life at conception” bill passed. At a candidate debate, he said life begins at conception, which aligns him with a position favoring major abortion restrictions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.iowapublicradio.org/political-news/2026-01-28/republican-candidates-iowa-governor-mom-for-liberty-debate",
-              "type": "news",
-              "title": "4 GOP candidates for Iowa governor talk abortion and education at primary debate",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Adam Steen for Governor: Home",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Steen has not been found to have a public, candidate-specific immigration proposal in the sources reviewed. His campaign materials and interviews emphasize conservative governance, property rights, and cultural issues.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Adam Steen for Governor: Home",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.kcci.com/article/adam-steen-pitches-business-background-conservative-views-run-iowa-governor/70636401",
-              "type": "news",
-              "title": "Iowa governor's race: Adam Steen pitches business background and conservative views in run for Iowa governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Steen has not publicly released a detailed gun policy in the sources reviewed. His campaign messaging has focused more on faith, families, local control, and conservative governance than on firearms legislation.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Adam Steen for Governor: Home",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.thegazette.com/news/elections/steen-launches-99-strong-tour-in-marion-with-focus-on-faith-families-and-local-control/article_161e8bde-729d-5c36-b0a9-9b410cb49c31.html",
-              "type": "news",
-              "title": "Steen launches ‘99 Strong’ tour in Marion with focus on faith, families and local control",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Steen has not publicly detailed a foreign policy agenda in the sources reviewed. Available coverage centers on Iowa-focused issues such as eminent domain, property taxes, and cultural conservatism.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Adam Steen for Governor: Home",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://kiwaradio.com/news/road-to-iowa-governor-2026-adam-steen-outlines-priorities/",
-              "type": "news",
-              "title": "Road to Iowa Governor 2026: Adam Steen Outlines Priorities",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Steen’s campaign has emphasized conservative cultural positions, including parental rights, faith, and opposition to what he describes as ideological overreach in schools and government. The sources reviewed do not show a detailed social-justice policy platform beyond those themes.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Home - Adam Steen for Governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.thegazette.com/news/elections/steen-launches-99-strong-tour-in-marion-with-focus-on-faith-families-and-local-control/article_161e8bde-729d-5c36-b0a9-9b410cb49c31.html",
-              "type": "news",
-              "title": "Steen launches ‘99 Strong’ tour in Marion with focus on faith, families and local control",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Steen says public education spending needs more scrutiny and that schools should focus more on basics like math and reading. He supports Education Savings Accounts and non-public schools, and he has criticized what he sees as excessive DEI emphasis in schools.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.yahoo.com/news/articles/governor-hopeful-steen-says-public-113325382.html",
-              "type": "news",
-              "title": "Governor hopeful Steen says public education money needs more scrutiny",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Home - Adam Steen for Governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Steen has not been found to have a detailed, formal AI policy in the sources reviewed. In a campaign social-media post, he said he is concerned that young people are being lost to technology rather than guided by it.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.facebook.com/adamsteenforgovernor/videos/we-are-losing-the-next-generation-to-technology-rather-than-winning-them-to-the-/3107460566308912/",
-              "type": "social_media",
-              "title": "We are losing the next generation to technology rather than winning ...",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.yahoo.com/news/articles/meet-gop-candidate-iowa-governor-173115187.html",
-              "type": "news",
-              "title": "Meet GOP candidate for Iowa governor, Adam Steen",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Steen’s campaign materials and reported remarks do not show a detailed election-reform agenda. The clearest related position found is his broader emphasis on conservative governance and opposition to bureaucratic overreach, not a specific proposal on election rules or ballot access.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Home - Adam Steen for Governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.thegazette.com/news/elections/steen-launches-99-strong-tour-in-marion-with-focus-on-faith-families-and-local-control/article_161e8bde-729d-5c36-b0a9-9b410cb49c31.html",
-              "type": "news",
-              "title": "Steen launches ‘99 Strong’ tour in Marion with focus on faith, families and local control",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Steen says he wants to champion local control, property rights, and property-tax reform. He has also said he opposes eminent domain for private gain, including for hazardous liquid pipelines, and has tied his campaign to local schools, parental rights, and community values.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.thegazette.com/news/elections/steen-launches-99-strong-tour-in-marion-with-focus-on-faith-families-and-local-control/article_161e8bde-729d-5c36-b0a9-9b410cb49c31.html",
-              "type": "news",
-              "title": "Steen launches ‘99 Strong’ tour in Marion with focus on faith, families and local control",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://www.desmoinesregister.com/story/news/politics/elections/2026/01/30/steen-says-eminent-domain-action-needed-for-iowa/88404284007/",
-              "type": "news",
-              "title": "Steen says eminent domain action needed for GOP to win governor's race",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            },
-            {
-              "url": "https://adamsteen.com/",
-              "type": "website",
-              "title": "Home - Adam Steen for Governor",
-              "last_accessed": "2026-03-29T18:56:14.959370+00:00"
-            }
-          ]
-        }
-      },
-      "donor_summary": null,
-      "links": []
-    },
-    {
-      "name": "Eddie Andrews",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "Eddie Andrews is a Republican state representative from Johnston and a candidate for governor in 2026. He has emphasized his legislative record, repeated wins in a Democratic-leaning district, and a campaign strategy that relies on grassroots outreach rather than large fundraising totals.",
-      "summary_sources": [
-        {
-          "url": "https://www.radioiowa.com/2026/02/06/endorsements-in-iowa-gops-2026-race-for-governor/",
-          "title": "Endorsements in Iowa GOP’s 2026 race for governor",
-          "type": "news"
-        },
-        {
-          "url": "https://www.iowapublicradio.org/political-news/2026-03-10/iowa-governor-candidates-rob-sand-randy-feenstra-2026-primary-ballot",
-          "title": "Here's who's running for governor of Iowa in 2026",
-          "type": "news"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Eddie-Andrews.jpg",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Randy Feenstra",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "Randy Feenstra is the Republican U.S. representative for Iowa’s 4th Congressional District and a candidate for governor in 2026. In early 2026, he launched a major advertising campaign, reported raising more than $4.3 million, and sought President Donald Trump’s endorsement while presenting himself as the frontrunner in the GOP field.",
-      "summary_sources": [
-        {
-          "url": "https://www.radioiowa.com/2026/02/06/endorsements-in-iowa-gops-2026-race-for-governor/",
-          "title": "Endorsements in Iowa GOP’s 2026 race for governor",
-          "type": "news"
-        },
-        {
-          "url": "https://www.iowapublicradio.org/political-news/2026-03-10/iowa-governor-candidates-rob-sand-randy-feenstra-2026-primary-ballot",
-          "title": "Here's who's running for governor of Iowa in 2026",
-          "type": "news"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Randy_Feenstra.jpg",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Zach Lahn",
@@ -694,67 +452,77 @@
       "summary_sources": [
         {
           "url": "https://www.radioiowa.com/2026/02/06/endorsements-in-iowa-gops-2026-race-for-governor/",
+          "type": "news",
           "title": "Endorsements in Iowa GOP’s 2026 race for governor",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:11:34.757441Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.iowapublicradio.org/political-news/2026-03-10/iowa-governor-candidates-rob-sand-randy-feenstra-2026-primary-ballot",
+          "type": "news",
           "title": "Here's who's running for governor of Iowa in 2026",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:11:34.757441Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Zach_Lahn_20260224_023356.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
-      "name": "Brad Sherman",
-      "party": "Republican",
+      "name": "Nicholas Gluba",
+      "party": "Libertarian",
       "incumbent": false,
-      "summary": "Brad Sherman is a former Iowa state representative, pastor, and real estate developer running as a Republican for governor in 2026. He has campaigned as a grassroots candidate, said he has visited all 99 Iowa counties, and has highlighted his varied work experience as a contrast with better-funded rivals.",
-      "summary_sources": [
-        {
-          "url": "https://www.radioiowa.com/2026/02/06/endorsements-in-iowa-gops-2026-race-for-governor/",
-          "title": "Endorsements in Iowa GOP’s 2026 race for governor",
-          "type": "news"
-        },
-        {
-          "url": "https://www.iowapublicradio.org/political-news/2026-03-10/iowa-governor-candidates-rob-sand-randy-feenstra-2026-primary-ballot",
-          "title": "Here's who's running for governor of Iowa in 2026",
-          "type": "news"
-        }
-      ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Brad_Sherman_portrait_%28118th_Congress%29.jpg",
-      "website": null,
-      "social_media": {},
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T16:51:37.630406+00:00",
+  "updated_utc": "2026-06-13T23:13:31.043249+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-03-29T18:56:38.589951+00:00",
+      "reviewed_at": "2026-03-29T18:56:38.589951Z",
       "verdict": "needs_revision",
+      "score": null,
       "flags": [
         {
           "field": "candidates[1].image_url",
@@ -845,8 +613,9 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-03-29T18:56:18.097775+00:00",
+      "reviewed_at": "2026-03-29T18:56:18.097775Z",
       "verdict": "flagged",
+      "score": null,
       "flags": [
         {
           "field": "candidates[1].image_url",
@@ -883,8 +652,9 @@
     },
     {
       "model": "grok-3-mini",
-      "reviewed_at": "2026-03-29T18:56:34.632528+00:00",
+      "reviewed_at": "2026-03-29T18:56:34.632528Z",
       "verdict": "approved",
+      "score": null,
       "flags": [
         {
           "field": "polling",
@@ -922,22 +692,32 @@
   ],
   "polling_note": "No polls published after 2026-04-01 were found in the available sources during this update.",
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 163013,
-    "completion_tokens": 12327,
-    "total_tokens": 175340,
-    "estimated_usd": 0.0261,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 73748,
+    "completion_tokens": 14118,
+    "total_tokens": 87866,
+    "cost_usd": 0.008097268,
+    "cost_source": "provider",
+    "estimated_usd": 0.009955,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 73571,
-        "completion_tokens": 10234
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 58353,
+        "completion_tokens": 13539
       },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 89442,
-        "completion_tokens": 2093
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 15395,
+        "completion_tokens": 579
       }
     },
-    "duration_s": 162.1
+    "duration_s": 116.4
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

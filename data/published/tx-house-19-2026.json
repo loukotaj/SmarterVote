@@ -1,0 +1,249 @@
+{
+  "id": "tx-house-19-2026",
+  "title": "Texas's 19th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 19th Congressional District",
+  "state": "Texas",
+  "district": "19th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This is an open-seat race for Texas's 19th Congressional District, a sprawling West Texas district anchored by Lubbock and Abilene. Incumbent Republican Rep. Jodey Arrington, who served since 2017 and chaired the House Budget Committee, announced his retirement in November 2025, triggering a competitive Republican primary. Republican nominee Tom Sell, an agriculture policy expert and former congressional aide, defeated conservative activist Abraham Enriquez in a May 26, 2026 runoff, while Democrat Kyle Rable, a PhD candidate and U.S. Army Reserve officer, secured the Democratic nomination. The district is heavily Republican \u2014 Donald Trump won it by 52 points in 2024 \u2014 making Sell the strong favorite in the general election.",
+  "polling": [],
+  "polling_note": "No specific general-election polls for Texas's 19th Congressional District were found as of June 2026.",
+  "candidates": [
+    {
+      "name": "Tom Sell",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Tom Sell is a fifth-generation West Texan, small business owner, and Republican nominee for Texas's 19th Congressional District. He co-founded the agriculture lobbying firm Combest, Sell & Associates, served as deputy chief of staff on the U.S. House Agriculture Committee for Rep. Larry Combest, and later served as Director of Intergovernmental Affairs at the USDA under President George W. Bush. Sell holds a BS in Agribusiness and a law degree from Texas Tech University and has emphasized conservative values, agriculture policy, and border security in his campaign.",
+      "summary_sources": [
+        {
+          "url": "https://www.selltexastrue.com/about",
+          "type": "website",
+          "title": "About | Conservative Tom Sell for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.depts.ttu.edu/aaec/people/alumni/TS_2022.php",
+          "type": "website",
+          "title": "Tom Sell | People | AAEC - Texas Tech University",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.texastribune.org/2026/05/26/texas-19th-38th-congressional-district-republican-primary-runoff/",
+          "type": "news",
+          "title": "Tom Sell, Jon Bonck win GOP primary runoffs in TX-19 and TX-38",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Co-founder and Managing Partner",
+          "organization": "Combest, Sell & Associates",
+          "start_year": 2004,
+          "end_year": null,
+          "description": "Agriculture and environmental lobbying firm based in Lubbock, Texas.",
+          "source": null
+        },
+        {
+          "title": "Director of Intergovernmental Affairs",
+          "organization": "U.S. Department of Agriculture",
+          "start_year": 2001,
+          "end_year": 2004,
+          "description": "Served under President George W. Bush administration.",
+          "source": null
+        },
+        {
+          "title": "Deputy Chief of Staff",
+          "organization": "U.S. House Committee on Agriculture",
+          "start_year": 1997,
+          "end_year": 2001,
+          "description": "Chief aide to Chairman Larry Combest; helped draft the 2002 Farm Bill and Crop Insurance Reform Act of 2000.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Texas Tech University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Texas Tech University",
+          "degree": "Bachelor of Science",
+          "field": "Agribusiness",
+          "year": 1995,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.selltexastrue.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SellForTexas19",
+        "twitter": "https://x.com/SellForTexas19",
+        "instagram": "https://www.instagram.com/sellfortexas19/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kyle Rable",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Kyle Rable is a PhD candidate in History at Texas Tech University, a U.S. Army Reserve Captain, and the Democratic nominee for Texas's 19th Congressional District. A former Secretary of the Lubbock County Democratic Party and a member of the Communications Workers of America Local 6186, Rable has centered his campaign on workers' rights, rural community revitalization, and protecting Medicaid, Medicare, and Social Security. He earned his undergraduate degree from the University of Toledo and a Master's from Bowling Green State University before moving to Lubbock for doctoral studies.",
+      "summary_sources": [
+        {
+          "url": "https://www.rableforwesttexas.com/about",
+          "type": "website",
+          "title": "About Kyle Rable \u2014 Kyle Rable Democrat For Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lubbockonline.com/story/news/politics/elections/2026/05/28/tom-sell-to-face-kyle-rable-in-november-election-for-u-s-house-19/90282550007/",
+          "type": "news",
+          "title": "Tom Sell to face Kyle Rable in November election for U.S. House 19",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kcbd.com/2025/05/12/kyle-rable-announces-challenge-us-house-district-19-seat/",
+          "type": "news",
+          "title": "Kyle Rable announces challenge for U.S. House District 19 seat",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Captain",
+          "organization": "United States Army Reserves",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a U.S. Army Reserve officer.",
+          "source": null
+        },
+        {
+          "title": "Secretary",
+          "organization": "Lubbock County Democratic Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former secretary of the county party organization.",
+          "source": null
+        },
+        {
+          "title": "Union Member",
+          "organization": "Communications Workers of America Local 6186",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advocated in Austin against SB17 and SB18 during the 2023 legislative session.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Texas Tech University",
+          "degree": "PhD Candidate",
+          "field": "History",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Bowling Green State University",
+          "degree": "Master's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Toledo",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.rableforwesttexas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/rableforwesttexas",
+        "instagram": "https://www.instagram.com/rableforwesttexas/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_19th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:54:32.428518+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 227213,
+    "completion_tokens": 6474,
+    "total_tokens": 233687,
+    "cost_usd": 0.01622749,
+    "cost_source": "provider",
+    "estimated_usd": 0.023536,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 227213,
+        "completion_tokens": 6474
+      }
+    },
+    "duration_s": 110.9
+  }
+}

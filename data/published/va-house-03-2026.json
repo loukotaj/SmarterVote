@@ -1,0 +1,305 @@
+{
+  "id": "va-house-03-2026",
+  "title": "Virginia's 3rd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Virginia's 3rd Congressional District",
+  "state": "Virginia",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The election for Virginia's 3rd Congressional District will be held on November 3, 2026, with the primary set for August 4, 2026. The district encompasses inner Hampton Roads, including parts of Hampton, Norfolk, and Newport News. Incumbent Democrat Bobby Scott, first elected in 1992 and re-elected with approximately 70% of the vote in 2024, is seeking another term. The district is rated Safe/Solid Democratic by major nonpartisan election forecasters, making Scott the heavy favorite. Primary challengers did not emerge on the Democratic side, while the Republican nominee is Edwin Rivera, a U.S. Army veteran and former police officer. Libertarian Hailey Dollar and independent James Taylor are also on the general election ballot.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found specifically for the Virginia's 3rd Congressional District race in 2026. The district is considered safely Democratic by nonpartisan forecasters.",
+  "candidates": [
+    {
+      "name": "Robert C. \"Bobby\" Scott",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Congressman Bobby Scott has represented Virginia's 3rd Congressional District since 1993 and is the dean of the Virginia congressional delegation. He serves as the Ranking Member on the House Committee on Education and Workforce and previously chaired that committee from 2019 to 2023. Scott was the first African-American elected to Congress from Virginia since Reconstruction and the first American with Filipino ancestry to serve as a voting member of Congress.",
+      "summary_sources": [
+        {
+          "url": "http://bobbyscott.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography - Congressman Bobby Scott",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Bobby_Scott_(Virginia)",
+          "type": "website",
+          "title": "Bobby Scott (Virginia) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bobby_Scott.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 1993,
+          "end_year": null,
+          "description": "Representing Virginia's 3rd Congressional District; Ranking Member of Committee on Education and Workforce",
+          "source": null
+        },
+        {
+          "title": "Virginia State Senator",
+          "organization": "Senate of Virginia",
+          "start_year": 1983,
+          "end_year": 1993,
+          "description": "Represented parts of Hampton Roads in the Virginia Senate",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Virginia House of Delegates",
+          "start_year": 1978,
+          "end_year": 1983,
+          "description": "Served in the Virginia House of Delegates before election to the state Senate",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 1973,
+          "end_year": 1991,
+          "description": "Practiced law in Newport News; founded the Peninsula Legal Aid Center",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard College",
+          "degree": "B.A.",
+          "field": "Government",
+          "year": 1969,
+          "source": null
+        },
+        {
+          "institution": "Boston College Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1973,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://bobbyscott.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/bobbyscottforcongress/",
+        "twitter": "https://x.com/BobbyScott"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Edwin Rivera",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Edwin Rivera is the presumptive Republican nominee for U.S. House in Virginia's 3rd Congressional District. He is a U.S. Army veteran who served multiple combat tours in the Middle East and is a disabled veteran, and previously worked as a police officer in Puerto Rico. Rivera's campaign emphasizes conservative values, public safety, education reform, Second Amendment rights, and support for veterans.",
+      "summary_sources": [
+        {
+          "url": "https://edwinriveraforcongress.com/",
+          "type": "website",
+          "title": "Edwin Rivera for Congress - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Virginia",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Virginia - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Edwin_Rivera.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Army Veteran",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served multiple combat tours in the Middle East; honorably discharged as a disabled veteran",
+          "source": null
+        },
+        {
+          "title": "Police Officer",
+          "organization": "Police Department (Puerto Rico)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a police officer in Puerto Rico before joining the U.S. Army",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://edwinriveraforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/61589251036067/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Hailey Dollar",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Hailey Dollar is the Libertarian Party nominee for U.S. House in Virginia's 3rd Congressional District. She is a U.S. Army veteran who served as a combat medic in Iraq and is a survivor of human trafficking. Her campaign emphasizes limited government, lower taxes, individual liberty, and Second Amendment rights. She previously ran as a Republican for Virginia House of Delegates District 70 in 2025.",
+      "summary_sources": [
+        {
+          "url": "https://dollarforva.com/",
+          "type": "website",
+          "title": "Hailey Dollar for Congress - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G26/VA",
+          "type": "website",
+          "title": "Virginia 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Combat Medic",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a combat medic during deployment to Iraq",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://dollarforva.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/agirllosttotheworldandfoundintheartofwar/",
+        "instagram": "https://www.instagram.com/dollarforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "James L. \"Zeb\" Taylor",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "James \"Zeb\" Taylor is an independent candidate running for U.S. House in Virginia's 3rd Congressional District. He has filed candidate paperwork with the Federal Election Commission and is listed on Ballotpedia and The Green Papers as a general election candidate. Limited biographical information is publicly available.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/James_Taylor_(Virginia)",
+          "type": "website",
+          "title": "James Taylor (Virginia) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G26/VA",
+          "type": "website",
+          "title": "Virginia 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:42:54.931446+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 219684,
+    "completion_tokens": 12082,
+    "total_tokens": 231766,
+    "cost_usd": 0.016139536,
+    "cost_source": "provider",
+    "estimated_usd": 0.023897,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 219684,
+        "completion_tokens": 12082
+      }
+    },
+    "duration_s": 178.4
+  }
+}

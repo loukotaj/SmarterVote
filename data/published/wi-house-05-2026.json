@@ -1,0 +1,334 @@
+{
+  "id": "wi-house-05-2026",
+  "title": "2026 U.S. House of Representatives election for Wisconsin's 5th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Wisconsin's 5th Congressional District",
+  "state": "Wisconsin",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Wisconsin's 5th Congressional District will decide who represents Milwaukee's northern and western suburbs, including Waukesha, West Bend, Brookfield, and Mequon. Incumbent Republican Rep. Scott Fitzgerald, first elected in 2020, is seeking a fourth term in this safely Republican district (Cook PVI: R+14). Two Democrats, paramedic Ben Steinhoff (the 2024 nominee) and product developer Andrew Beck, are competing in the August 11 primary to challenge Fitzgerald. The primary has not yet concluded, so both Democratic contenders are listed as primary candidates.",
+  "candidates": [
+    {
+      "name": "Scott Fitzgerald",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Scott Fitzgerald is the incumbent U.S. Representative for Wisconsin's 5th Congressional District, first elected in 2020. He previously served in the Wisconsin State Senate for 26 years, including as Majority Leader and Minority Leader, and is a retired U.S. Army Reserve Lieutenant Colonel and former newspaper publisher.",
+      "summary_sources": [
+        {
+          "url": "http://fitzgerald.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Scott Fitzgerald",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scott_Fitzgerald_(politician)",
+          "type": "news",
+          "title": "Scott Fitzgerald (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Scott_Fitzgerald_Official_Portrait.jpg/250px-Scott_Fitzgerald_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Wisconsin's 5th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Majority Leader",
+          "organization": "Wisconsin State Senate",
+          "start_year": 2013,
+          "end_year": 2021,
+          "description": "Led Senate Republican caucus",
+          "source": null
+        },
+        {
+          "title": "Majority Leader",
+          "organization": "Wisconsin State Senate",
+          "start_year": 2011,
+          "end_year": 2012,
+          "description": "Led Senate Republican caucus",
+          "source": null
+        },
+        {
+          "title": "Minority Leader",
+          "organization": "Wisconsin State Senate",
+          "start_year": 2012,
+          "end_year": 2013,
+          "description": "Led Senate Republican caucus",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Wisconsin State Senate",
+          "start_year": 1995,
+          "end_year": 2021,
+          "description": "Represented the 13th Senate District",
+          "source": null
+        },
+        {
+          "title": "Newspaper Publisher",
+          "organization": "Dodge County Independent News / Watertown Daily Times",
+          "start_year": 1990,
+          "end_year": null,
+          "description": "Purchased and operated local newspaper, later remained as associate publisher",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin\u2013Oshkosh",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": 1985,
+          "source": null
+        },
+        {
+          "institution": "United States Army Command and General Staff College",
+          "degree": null,
+          "field": "Military Education",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://scottfitzgeraldforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Andrew Beck",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Andrew 'Andy' Beck is a Democratic candidate for Wisconsin's 5th Congressional District, running on a platform of lowering costs, creating jobs, and improving healthcare. A product developer and business professional with experience in hospitality, manufacturing, and healthcare, Beck previously ran as a write-in candidate in 2024. He favors compromise and bipartisanship, highlighting proposals for technical school training programs and affordable housing.",
+      "summary_sources": [
+        {
+          "url": "https://www.gmtoday.com/daily_news/news/andy-beck-congressional-bid-2026/article_3c5b25c4-1547-5f5f-b893-917f40d0863f.html",
+          "type": "news",
+          "title": "Andy Beck plans to flip Wisconsin's 5th District in 2026 - GMToday.com",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.beckforcongress.com/",
+          "type": "website",
+          "title": "Beck for Congress | Take Action Now",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Andrew_Beck",
+          "type": "website",
+          "title": "Andrew Beck - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Andrew_Beck.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Product Developer / Business Professional",
+          "organization": "Various (Hospitality, Manufacturing, Healthcare)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in multiple private-sector industries including hospitality, manufacturing, and healthcare, including at GE Healthcare",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin System",
+          "degree": "Bachelor's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Wisconsin System",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Wisconsin System",
+          "degree": "Certificate",
+          "field": "Healthcare",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.beckforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ben Steinhoff",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Ben Steinhoff is a Democratic candidate for Wisconsin's 5th Congressional District, running for the second consecutive cycle after being the 2024 Democratic nominee. He is a paramedic and volunteer firefighter with 12 years of experience as a first responder, including work with UW Med Flight and a children's hospital. Steinhoff emphasizes his non-politician background and positions himself as a working-class advocate focused on healthcare access and public service.",
+      "summary_sources": [
+        {
+          "url": "https://www.wisconsinforben.com/about-me",
+          "type": "website",
+          "title": "About Me \u2014 Ben Steinhoff | Wisconsin Congress Candidate | District 5",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wuwm.com/government-politics/2024-10-22/wisconsin-5th-congressional-district-fitzgerald-steinhoff-election-nov",
+          "type": "news",
+          "title": "Wisconsin's 5th Congressional District: Fitzgerald vs. Steinhoff",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Paramedic",
+          "organization": "University of Wisconsin Med Flight and Emergency Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Provided emergency medical services as a paramedic",
+          "source": null
+        },
+        {
+          "title": "Paramedic",
+          "organization": "Children's Hospital (Operating Room)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in pediatric operating room setting",
+          "source": null
+        },
+        {
+          "title": "Volunteer Firefighter/Paramedic",
+          "organization": "Cities of Monona & Lake Mills, Wisconsin",
+          "start_year": null,
+          "end_year": null,
+          "description": "Volunteer first responder service",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin System",
+          "degree": "Degree in Paramedicine",
+          "field": "Paramedicine",
+          "year": 2016,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.wisconsinforben.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:17:54.436979+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 280249,
+    "completion_tokens": 6682,
+    "total_tokens": 286931,
+    "cost_usd": 0.042640345999999996,
+    "cost_source": "provider",
+    "estimated_usd": 0.042774,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 280249,
+        "completion_tokens": 6682
+      }
+    },
+    "duration_s": 202.1,
+    "serper_calls": 14,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 50925,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0486,
+    "context_deduplicated_results": 42,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  }
+}

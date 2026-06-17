@@ -1,0 +1,460 @@
+{
+  "id": "mo-house-05-2026",
+  "title": "2026 U.S. House of Representatives election in Missouri's 5th Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Missouri's 5th Congressional District",
+  "state": "Missouri",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Missouri's 5th Congressional District race has been dramatically reshaped by a Republican-drawn congressional map that was upheld by the Missouri Supreme Court in May 2026, extending the district from Kansas City eastward to rural Osage and Maries counties. The seat has been held since 2005 by Democrat Emanuel Cleaver, a former Kansas City mayor, who faces six Republican primary challengers and a Libertarian candidate. The new map makes the district more competitive for Republicans, though Cleaver has expressed confidence in his reelection bid and a citizens' referendum to overturn the map may appear on the November ballot. The Republican primary on August 4, 2026, will determine who challenges Cleaver in the general election.",
+  "polling": [],
+  "polling_note": "No recent public opinion polls were found for this race. The Cook Political Report has not yet rated the 2026 MO-05 race, and no independent polling firms have released surveys for this district. Polling may appear closer to the August primary or November general election.",
+  "candidates": [
+    {
+      "name": "Emanuel Cleaver II",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Emanuel Cleaver II has represented Missouri's 5th Congressional District since 2005 and previously served as mayor of Kansas City from 1991 to 1999. He is a Methodist minister and was a member of the Kansas City City Council. Cleaver has built a reputation as a moderate Democrat focused on housing, community development, and bipartisan cooperation. He faces a challenging reelection race after Missouri's new congressional map redrew the district to include more rural and conservative areas.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Emanuel_Cleaver",
+          "type": "government",
+          "title": "Emanuel Cleaver - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://www.kcur.org/politics-elections-and-government/2026-05-14/missouris-new-congressional-map-is-set-whos-running-for-kansas-citys-5th-district",
+          "type": "news",
+          "title": "Missouri's new congressional map is moving forward. Who's running for Kansas City's 5th District?",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Emanuel_Cleaver.jpg",
+      "website": "https://www.cleaver4congress.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Representing Missouri's 5th Congressional District"
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Kansas City, Missouri",
+          "start_year": 1991,
+          "end_year": 1999,
+          "description": "First African American mayor of Kansas City"
+        },
+        {
+          "title": "City Council Member",
+          "organization": "Kansas City City Council",
+          "start_year": 1979,
+          "end_year": 1991,
+          "description": "At-large council member"
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Missouri\u2013Kansas City",
+          "degree": "Bachelor of Arts",
+          "field": "Sociology",
+          "year": 1972
+        },
+        {
+          "institution": "Saint Paul School of Theology",
+          "degree": "Master of Divinity",
+          "field": "Theology",
+          "year": 1975
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Brad Patty",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Brad Patty is a retired U.S. Army Master Sergeant with 25 years of military service, running for Congress in Missouri's 5th District. He is from Fayette, Missouri, and holds an MBA. Patty's campaign focuses on cutting taxes, reducing federal spending, and fiscal discipline. He is one of six Republican primary candidates seeking to challenge incumbent Democrat Emanuel Cleaver.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brad_Patty",
+          "type": "government",
+          "title": "Brad Patty - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://www.fayettenewspapers.com/stories/fayette-resident-files-for-us-house,182984",
+          "type": "news",
+          "title": "Fayette resident files for US House",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://bradpatty.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Master Sergeant (Retired)",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "25-year military career"
+        }
+      ],
+      "education": [
+        {
+          "institution": null,
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Brett Hueffmeier",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Brett Hueffmeier is an attorney and former aide to U.S. Senators Kit Bond and John Ashcroft, running for Congress in Missouri's 5th District. Born and raised in the district, he earned his law degree from Saint Louis University and has worked as a professor of business ethics and law. His campaign priorities include affordable housing, rural healthcare, and America First trade and economic policies.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brett_Hueffmeier",
+          "type": "government",
+          "title": "Brett Hueffmeier - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://brettformissouri.com/",
+          "type": "website",
+          "title": "Brett For Missouri \u2014 Official Campaign Site",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://brettformissouri.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Attorney / Professor of Business Ethics and Law",
+          "organization": "Various universities in China",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught business ethics and law; served as dean of educational programs in China"
+        },
+        {
+          "title": "Staff Aide",
+          "organization": "Office of U.S. Senators Kit Bond and John Ashcroft",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked for former Missouri senators"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Saint Louis University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Taylor Burks",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Taylor Burks is a U.S. Navy lieutenant commander and former Boone County Clerk who served as Boone County's first Republican county clerk. A fifth-generation Missourian and Navy veteran with three combat zone deployments, Burks has also served as director of the Missouri Division of Labor Standards and as president of Rost, Incorporated. His campaign emphasizes limited government, fiscal responsibility, and conservative values.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Taylor_Burks",
+          "type": "government",
+          "title": "Taylor Burks - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://themissouritimes.com/taylor-burks-launches-bid-for-missouris-5th-congressional-district/",
+          "type": "news",
+          "title": "Taylor Burks Launches Bid for Missouri's 5th Congressional District",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Taylor_Burks.png",
+      "website": "https://burksforcongress.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Lieutenant Commander",
+          "organization": "United States Navy / Navy Reserves",
+          "start_year": null,
+          "end_year": null,
+          "description": "19 years of service, three combat zone deployments, roles including chief of operations and director of logistics"
+        },
+        {
+          "title": "President and General Manager",
+          "organization": "Rost, Incorporated",
+          "start_year": null,
+          "end_year": null,
+          "description": "Oversaw 250+ employees across seven subsidiaries"
+        },
+        {
+          "title": "Boone County Clerk",
+          "organization": "Boone County, Missouri",
+          "start_year": null,
+          "end_year": null,
+          "description": "First Republican Boone County Clerk; administered elections"
+        },
+        {
+          "title": "Director",
+          "organization": "Missouri Division of Labor Standards",
+          "start_year": null,
+          "end_year": null,
+          "description": "Oversaw labor policy implementation and compliance"
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Missouri",
+          "degree": "Bachelor of Science",
+          "field": "Justice Systems",
+          "year": 2008
+        },
+        {
+          "institution": "University of Oklahoma",
+          "degree": "Master of Arts",
+          "field": "Administrative Leadership",
+          "year": null
+        },
+        {
+          "institution": "Washington University in St. Louis",
+          "degree": "Master of Accounting",
+          "field": "Accounting",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Rick Brattin",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Rick Brattin is a Missouri State Senator representing District 31 and a U.S. Marine Corps veteran, running for Congress in the state's 5th District. A former Cass County auditor and Missouri House member, Brattin is a self-described staunch conservative who has raised over $100,000 in individual donations. He entered the race in February 2026, positioning himself as a proven conservative leader.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Rick_Brattin",
+          "type": "government",
+          "title": "Rick Brattin - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://themissouritimes.com/brattin-enters-race-for-missouris-5th-congressional-district/",
+          "type": "news",
+          "title": "Brattin Enters Race for Missouri's 5th Congressional District",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rick_Brattin",
+          "type": "news",
+          "title": "Rick Brattin - Wikipedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rick_Brattin.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Missouri Senate, District 31",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Elected in 2020"
+        },
+        {
+          "title": "State Representative",
+          "organization": "Missouri House of Representatives",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served four terms"
+        },
+        {
+          "title": "Auditor",
+          "organization": "Cass County, Missouri",
+          "start_year": null,
+          "end_year": null,
+          "description": "County auditor"
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Micah Beebe",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Micah Beebe is a Kansas City native and real estate professional running for Congress in Missouri's 5th District. He has over 13 years of experience in multifamily real estate transactions and describes himself as a conservative, Christian, pro-life candidate. Beebe is married with five children, including three adopted from the foster care system, and his campaign focuses on cutting taxes, securing the border, and supporting Missouri agriculture.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Micah_Beebe",
+          "type": "government",
+          "title": "Micah Beebe - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://www.beebeforcongress.com/",
+          "type": "website",
+          "title": "Micah Beebe for Congress | Missouri 5th Congressional District 2026",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.beebeforcongress.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Real Estate Professional",
+          "organization": "The Hern Group",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over 13 years in multifamily real estate investment and transactions"
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Berton A. Knox",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Berton A. Knox is a Republican candidate running for U.S. House in Missouri's 5th Congressional District. He filed for the race in March 2026 and is on the ballot in the August 4 Republican primary. Knox has previously run for office in Missouri's 5th District.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Berton_Knox",
+          "type": "government",
+          "title": "Berton Knox - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://s1.sos.mo.gov/candidatesonweb/displaycandidatesplacement.aspx",
+          "type": "government",
+          "title": "Certified Candidate List - Missouri Secretary of State",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Randall Langkraehr",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Randall 'Randy' Langkraehr is a Libertarian Party candidate running for U.S. House in Missouri's 5th Congressional District. He filed for the race in March 2026 and is on the ballot for the August 4 primary election. Langkraehr is from Warrensburg, Missouri.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Randy_Langkraehr",
+          "type": "government",
+          "title": "Randy Langkraehr - Ballotpedia",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        },
+        {
+          "url": "https://s1.sos.mo.gov/candidatesonweb/displaycandidatesplacement.aspx",
+          "type": "government",
+          "title": "Certified Candidate List - Missouri Secretary of State",
+          "last_accessed": "2026-06-12T23:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Missouri%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:55:27.983309+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 274681,
+    "completion_tokens": 8869,
+    "total_tokens": 283550,
+    "cost_usd": 0.018253733999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.028657,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 274681,
+        "completion_tokens": 8869
+      }
+    },
+    "duration_s": 130.6
+  }
+}

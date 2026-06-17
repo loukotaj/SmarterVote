@@ -4,8 +4,26 @@
   "office": "United States Senate",
   "jurisdiction": "Ohio",
   "election_date": "2026-11-03",
-  "description": "Ohio’s 2026 special U.S. Senate election will decide the remainder of the term that opened when J.D. Vance resigned to become vice president. The race is notable because Republicans are defending a seat in a state that has become more competitive but has leaned Republican in recent federal elections. Former Sen. Sherrod Brown is seeking a return to the Senate, while appointed Sen. Jon Husted is the GOP nominee, making the contest a key test of each party’s strength in Ohio.",
+  "description": "Ohio’s 2026 special U.S. Senate election will fill the remainder of the term that opened when J.D. Vance resigned to become vice president in January 2025. Appointed Sen. Jon Husted (R), the former lieutenant governor tapped by Gov. Mike DeWine, is running for a full term against former three-term Sen. Sherrod Brown (D), who lost re-election in 2024 but is seeking a return to Washington. Ohio has trended increasingly Republican — Donald Trump carried it by 11 points in 2024, and the GOP controls every statewide office and both Senate seats — but Brown’s history of winning statewide in a reddening state makes the race closely watched. The contest will test whether a well-known Democrat can still prevail in Ohio or whether the state’s recent Republican dominance will hold.",
   "polling": [
+    {
+      "pollster": "Quantus Insights",
+      "date": "2026-03-14",
+      "sample_size": 800,
+      "matchups": [
+        {
+          "candidates": [
+            "Sherrod Brown",
+            "Jon Husted"
+          ],
+          "percentages": [
+            46.0,
+            45.0
+          ]
+        }
+      ],
+      "source_url": "https://cookpolitical.com/senate/race/488651"
+    },
     {
       "pollster": "OnMessage Public Strategies",
       "date": "2026-03-08",
@@ -17,8 +35,8 @@
             "Jon Husted"
           ],
           "percentages": [
-            47,
-            45
+            47.0,
+            45.0
           ]
         }
       ],
@@ -35,8 +53,8 @@
             "Jon Husted"
           ],
           "percentages": [
-            47,
-            45
+            47.0,
+            45.0
           ]
         }
       ],
@@ -53,8 +71,8 @@
             "Jon Husted"
           ],
           "percentages": [
-            46,
-            49
+            46.0,
+            49.0
           ]
         }
       ],
@@ -67,72 +85,494 @@
       "name": "Jon Husted",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Jon Husted is a Republican U.S. senator from Ohio who began serving in January 2025 after being appointed to fill a vacancy. Before joining the Senate, he served as Ohio’s lieutenant governor, secretary of state, and a state legislator, and he also worked in economic development in the Dayton area.",
+      "summary": "Jon Husted is a Republican U.S. senator from Ohio who began serving in January 2025 after being appointed to fill the vacancy left by Vice President J.D. Vance. He previously served as Ohio's lieutenant governor, secretary of state, speaker of the Ohio House of Representatives, and a state legislator. Husted is the Republican nominee in the 2026 special election to complete the remainder of the Senate term.",
       "summary_sources": [
         {
           "url": "https://www.husted.senate.gov/about/",
-          "type": "official",
-          "title": "About - Senator Jon Husted"
+          "type": "government",
+          "title": "About - Senator Jon Husted",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://bioguide.congress.gov/search/bio/H001104",
-          "type": "official",
-          "title": "HUSTED, Jon - Bioguide Search"
+          "type": "government",
+          "title": "HUSTED, Jon - Bioguide Search",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Jon_Husted",
-          "type": "ballotpedia",
-          "title": "Jon Husted - Ballotpedia"
+          "type": "website",
+          "title": "Jon Husted - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jon_Husted_2013.jpg",
-      "website": "https://www.husted.senate.gov/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/hustedforohio/",
-        "x": "https://x.com/JonHusted",
-        "instagram": "https://www.instagram.com/senjonhusted/"
-      },
-      "career_history": [
-        {
-          "title": "United States Senator",
-          "organization": "U.S. Senate",
-          "start_year": 2025,
-          "end_year": null,
-          "description": "Appointed to fill Ohio’s Senate vacancy in 2025."
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Supports business growth, workforce training, and regulatory reform. His public agenda also emphasizes reducing benefits cliffs and giving states more flexibility in anti-poverty programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/upward-mobility-act/",
+              "type": "government",
+              "title": "Upward Mobility Act - Senator Jon Husted",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-leads-bill-to-reform-welfare-eliminate-benefits-cliff-and-pave-path-for-families-to-pursue-economic-opportunities/",
+              "type": "government",
+              "title": "Husted leads bill to reform welfare, eliminate benefits cliff and pave path for families to pursue economic opportunities",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/about/",
+              "type": "government",
+              "title": "About - Senator Jon Husted",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
         },
-        {
-          "title": "Lieutenant Governor",
-          "organization": "State of Ohio",
-          "start_year": 2019,
-          "end_year": 2025,
-          "description": "Served as Ohio’s lieutenant governor before joining the Senate."
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Advocates an all-of-the-above approach to domestic energy that includes expanding oil, gas, and coal leasing. He has supported methane capture from coal mines and backed policies to increase energy production, including proposals to boost energy development and rural Ohio jobs by reducing regulatory or tax barriers that impede domestic energy production.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-backs-bill-to-expand-energy-production-support-rural-communities/",
+              "type": "government",
+              "title": "Husted backs bill to expand energy production, support rural communities",
+              "description": null,
+              "last_accessed": "2026-06-15T03:17:41.046708Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-in-zanesville-with-ohio-oil-and-gas-leaders/",
+              "type": "government",
+              "title": "Husted in Zanesville with Ohio oil and gas leaders",
+              "description": null,
+              "last_accessed": "2026-06-15T03:17:41.046825Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/news/press-releases/husted-backs-bill-to-boost-domestic-energy-production/",
+              "type": "government",
+              "title": "Husted backs bill to boost domestic energy production",
+              "description": null,
+              "last_accessed": "2026-06-15T03:17:41.046834Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
         },
-        {
-          "title": "Secretary of State",
-          "organization": "State of Ohio",
-          "start_year": 2011,
-          "end_year": 2019,
-          "description": "Served two terms as Ohio secretary of state."
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports expanding rural health care access, including federal funding for rural communities and veterans, and says competition and more efficient delivery can help lower costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/news/press-releases/husted-announces-202-million-for-ohio-rural-health-care-access/",
+              "type": "government",
+              "title": "Husted announces $202 million for Ohio rural health care access",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-leads-bill-to-improve-benefits-and-health-care-for-veterans/",
+              "type": "government",
+              "title": "Husted leads bill to improve benefits and health care for veterans",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/media/op-eds/we-must-deliver-quality-affordable-health-care-for-rural-families/",
+              "type": "government",
+              "title": "We must deliver quality, affordable health care for rural families",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Supports safeguarding the Hyde Amendment to bar taxpayer funding for abortions, including in federal employee health plans and ACA subsidies. His stated position includes exceptions for rape, incest, or to save the life of the mother.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/news/press-releases/husted-supports-bill-to-prevent-taxpayer-funded-abortions-by-safeguarding-hyde-amendment/",
+              "type": "government",
+              "title": "Husted supports bill to prevent taxpayer-funded abortions by safeguarding Hyde Amendment",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Supports stronger immigration enforcement and border security, including funding for ICE and DHS. He has also backed measures aimed at combating fentanyl trafficking and limiting interference with law-enforcement operations.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/contact/newsletters/securing-the-border/",
+              "type": "government",
+              "title": "Securing the border - Senator Jon Husted",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-backs-senate-framework-to-fund-law-enforcement-keep-border-secure/",
+              "type": "government",
+              "title": "Husted backs Senate framework to fund law enforcement, keep border secure",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Supports expanding concealed-carry rights for qualified law-enforcement officers through the LEOSA Reform Act, which would broaden where officers may carry concealed firearms and extend training-certification timelines.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-backs-bill-to-expand-law-enforcement-concealed-carry-rights/",
+              "type": "government",
+              "title": "Husted backs bill to expand law-enforcement concealed-carry rights",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Supports bipartisan sanctions targeting foreign buyers of Russian oil to reduce revenue for Russia and increase pressure over the war in Ukraine, with exemptions for countries that assist Ukraine.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/media/in-the-news/husted-joins-bipartisan-senate-push-to-sanction-russian-oil-buyers/",
+              "type": "government",
+              "title": "Husted joins bipartisan Senate push to sanction Russian oil buyers",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Has emphasized protecting women, children, and the unborn, and his public record includes support for abortion restrictions. Public criticism of his LGBTQ record has focused on earlier positions in Ohio-era policy debates.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/about/",
+              "type": "government",
+              "title": "About - Senator Jon Husted",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.advocate.com/politics/jon-husted-lgbtq-record",
+              "type": "news",
+              "title": "JD Vance’s replacement Jon Husted has anti-LGBTQ+ history",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Supports accelerating AI adoption in business, government, and education. He has backed bills to recruit AI talent for the federal workforce, expand AI use in classrooms, help small businesses use AI, and protect consumers from AI-driven scams.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-joins-bill-to-help-small-businesses-utilize-ai/",
+              "type": "government",
+              "title": "Husted joins bill to help small businesses utilize AI",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/news/press-releases/husted-leads-bill-to-integrate-ai-talent-in-federal-workforce/",
+              "type": "government",
+              "title": "Husted leads bill to integrate AI talent in federal workforce",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/news/press-releases/husted-leads-bill-to-integrate-ai-in-classrooms-prepare-american-students/",
+              "type": "government",
+              "title": "Husted leads bill to integrate AI in classrooms, prepare American students",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/news/press-releases/husted-leads-bipartisan-bicameral-bill-to-protect-ohioans-from-ai-driven-financial-scams/",
+              "type": "government",
+              "title": "Husted leads bipartisan bicameral bill to protect Ohioans from AI-driven financial scams",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Focuses on infrastructure, broadband, water access, rural health care, and economic opportunity in southeastern Ohio. He has highlighted legislation on rural water response, upward mobility, and rural health funding as part of that agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wtov9.com/news/local/senator-husted-unveils-new-legislation-to-tackle-key-issues-in-southeastern-ohio",
+              "type": "news",
+              "title": "Senator Husted unveils new legislation to tackle key issues in Southeastern Ohio",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/upward-mobility-act/",
+              "type": "government",
+              "title": "Upward Mobility Act - Senator Jon Husted",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-leads-effort-to-expand-broadband-access-in-rural-ohio/",
+              "type": "government",
+              "title": "Husted leads effort to expand broadband access in rural Ohio",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports requiring photo ID to vote and other election-integrity measures. He has promoted nationwide photo-ID standards and argued that the rules make voting easy while making fraud harder.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-bill-to-require-photo-id-to-vote-blocked-from-passage/",
+              "type": "government",
+              "title": "Husted bill to require photo ID to vote blocked from passage",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/media/press-releases/husted-op-ed-senate-republicans-want-to-make-it-easy-to-vote-and-hard-to-cheat-in-america/",
+              "type": "government",
+              "title": "Husted op-ed: Senate Republicans want to make it easy to vote and hard to cheat in America",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports school choice, including Ohio’s EdChoice model, and has backed efforts to add AI literacy and career-technical training in schools. His campaign frames these policies as giving parents more control over education decisions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.husted.senate.gov/contact/newsletters/giving-parents-the-choice-for-their-kids-education/",
+              "type": "website",
+              "title": "Giving parents the choice for their kids' education - Jon Husted",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.husted.senate.gov/contact/newsletters/setting-our-students-up-for-success/",
+              "type": "website",
+              "title": "Setting our students up for success - Senator Jon Husted",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.nbc4i.com/news/politics/how-sen-jon-husted-has-backed-ohio-school-choice-and-religious-education-programs/",
+              "type": "news",
+              "title": "How Sen. Jon Husted has backed Ohio school choice and religious education programs",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
         }
-      ],
+      },
+      "career_history": [],
       "education": [
         {
           "institution": "University of Dayton",
           "degree": "Bachelor of Arts",
-          "field": "Political science",
-          "year": 1989
+          "field": "Education",
+          "year": 1989,
+          "source": null
         },
         {
           "institution": "University of Dayton",
           "degree": "Master of Arts",
-          "field": "Political science",
-          "year": 1993
+          "field": "Communications",
+          "year": 1992,
+          "source": null
         }
       ],
-      "donor_summary": "Jon Husted’s 2025–2026 Senate committee had raised about $10.5M by April 15, 2026, with most money coming from individual contributions ($4.29M) and transfers from other authorized committees ($4.40M). OpenSecrets shows his 2024 fundraising was dominated by party committees, lawyers/law firms, retail sales, and automotive interests, with total raised of about $1.83M in that cycle. Sources: https://www.fec.gov/data/committee/C00896019/ ; https://www.opensecrets.org/officeholders/jon-husted/summary?cycle=2024&id=2753619 ; https://www.opensecrets.org/officeholders/jon-husted/industries?cycle=2024&id=2753619",
-      "donor_source_url": "https://www.fec.gov/data/committee/C00896019/",
-      "voting_summary": "Jon Husted is an incumbent U.S. senator, so he has a federal voting record. Vote Smart and his Senate voting-record page show he has taken roll-call votes in the 119th Congress; his public Senate page lists votes on measures including foreign-policy, spending, and social-policy items, but a full vote-by-vote partisan score was not located in the sources reviewed. Sources: https://justfacts.votesmart.org/candidate/45796/jon-husted ; https://www.husted.senate.gov/legislation/voting-record/",
-      "voting_source_url": "https://justfacts.votesmart.org/candidate/45796/jon-husted",
+      "voting_summary": "As appointed Senator since January 2025, Husted has voted consistently with the Republican caucus. In the 119th Congress he voted Yea on the reconciliation bill (S.2), Yea on all judicial and executive nominations, and Nay on a Democratic amendment to limit legal settlements. His legislative record includes sponsoring a photo-ID voting bill and the Upward Mobility Act.",
+      "voting_source_url": "https://www.husted.senate.gov/legislation/voting-record/",
+      "voting_sources": [],
+      "donor_summary": "Raised $10.5 million in total receipts for the 2025–2026 cycle through April 15, 2026, including $6.1 million in contributions and $4.4 million in transfers from joint fundraising committees. In the 2024 cycle, OpenSecrets reports $1.8 million raised with top industries: Party Committees ($123,605), Lawyers/Law Firms ($52,500), Retail Sales ($48,000), and Automotive ($40,150). Also operates the JOBS OPPORTUNITY NOW leadership PAC.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6OH00304/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/S6OH00304/",
+          "type": "government",
+          "title": "HUSTED, JON - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/officeholders/jon-husted/contributors?cycle=2024&id=2753619",
+          "type": "finance",
+          "title": "Jon Husted Top Contributors - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/officeholders/jon-husted/industries?cycle=2024&id=2753619",
+          "type": "finance",
+          "title": "Jon Husted Top Industries - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://ballotpedia.org/Jon_Husted",
@@ -210,242 +650,14 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Supports business growth, workforce training, and regulatory reform. His public agenda also emphasizes reducing benefits cliffs and giving states more flexibility in anti-poverty programs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/upward-mobility-act/",
-              "type": "official",
-              "title": "Upward Mobility Act - Senator Jon Husted",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-leads-bill-to-reform-welfare-eliminate-benefits-cliff-and-pave-path-for-families-to-pursue-economic-opportunities/",
-              "type": "official",
-              "title": "Husted leads bill to reform welfare, eliminate benefits cliff and pave path for families to pursue economic opportunities",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/about/",
-              "type": "official",
-              "title": "About - Senator Jon Husted",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Supports expanding domestic energy production as part of an all-of-the-above approach. He has backed legislation to incentivize methane capture from coal mines and highlighted support for Ohio oil and gas development.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-backs-bill-to-expand-energy-production-support-rural-communities/",
-              "type": "official",
-              "title": "Husted backs bill to expand energy production, support rural communities",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-in-zanesville-with-ohio-oil-and-gas-leaders/",
-              "type": "official",
-              "title": "Husted in Zanesville with Ohio oil and gas leaders",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Supports expanding rural health care access, including federal funding for rural communities and veterans, and says competition and more efficient delivery can help lower costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/news/press-releases/husted-announces-202-million-for-ohio-rural-health-care-access/",
-              "type": "official",
-              "title": "Husted announces $202 million for Ohio rural health care access",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-leads-bill-to-improve-benefits-and-health-care-for-veterans/",
-              "type": "official",
-              "title": "Husted leads bill to improve benefits and health care for veterans",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/media/op-eds/we-must-deliver-quality-affordable-health-care-for-rural-families/",
-              "type": "official",
-              "title": "We must deliver quality, affordable health care for rural families",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Supports safeguarding the Hyde Amendment to bar taxpayer funding for abortions, including in federal employee health plans and ACA subsidies. His stated position includes exceptions for rape, incest, or to save the life of the mother.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/news/press-releases/husted-supports-bill-to-prevent-taxpayer-funded-abortions-by-safeguarding-hyde-amendment/",
-              "type": "official",
-              "title": "Husted supports bill to prevent taxpayer-funded abortions by safeguarding Hyde Amendment",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Supports stronger immigration enforcement and border security, including funding for ICE and DHS. He has also backed measures aimed at combating fentanyl trafficking and limiting interference with law-enforcement operations.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/contact/newsletters/securing-the-border/",
-              "type": "official",
-              "title": "Securing the border - Senator Jon Husted",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-backs-senate-framework-to-fund-law-enforcement-keep-border-secure/",
-              "type": "official",
-              "title": "Husted backs Senate framework to fund law enforcement, keep border secure",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Supports expanding concealed-carry rights for qualified law-enforcement officers through the LEOSA Reform Act, which would broaden where officers may carry concealed firearms and extend training-certification timelines.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-backs-bill-to-expand-law-enforcement-concealed-carry-rights/",
-              "type": "official",
-              "title": "Husted backs bill to expand law-enforcement concealed-carry rights",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Supports bipartisan sanctions targeting foreign buyers of Russian oil to reduce revenue for Russia and increase pressure over the war in Ukraine, with exemptions for countries that assist Ukraine.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/media/in-the-news/husted-joins-bipartisan-senate-push-to-sanction-russian-oil-buyers/",
-              "type": "official",
-              "title": "Husted joins bipartisan Senate push to sanction Russian oil buyers",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Has emphasized protecting women, children, and the unborn, and his public record includes support for abortion restrictions. Public criticism of his LGBTQ record has focused on earlier positions in Ohio-era policy debates.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/about/",
-              "type": "official",
-              "title": "About - Senator Jon Husted",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.advocate.com/politics/jon-husted-lgbtq-record",
-              "type": "news",
-              "title": "JD Vance’s replacement Jon Husted has anti-LGBTQ+ history",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Supports accelerating AI adoption in business, government, and education. He has backed bills to recruit AI talent for the federal workforce, expand AI use in classrooms, help small businesses use AI, and protect consumers from AI-driven scams.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-joins-bill-to-help-small-businesses-utilize-ai/",
-              "type": "official",
-              "title": "Husted joins bill to help small businesses utilize AI",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/news/press-releases/husted-leads-bill-to-integrate-ai-talent-in-federal-workforce/",
-              "type": "official",
-              "title": "Husted leads bill to integrate AI talent in federal workforce",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/news/press-releases/husted-leads-bill-to-integrate-ai-in-classrooms-prepare-american-students/",
-              "type": "official",
-              "title": "Husted leads bill to integrate AI in classrooms, prepare American students",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/news/press-releases/husted-leads-bipartisan-bicameral-bill-to-protect-ohioans-from-ai-driven-financial-scams/",
-              "type": "official",
-              "title": "Husted leads bipartisan bicameral bill to protect Ohioans from AI-driven financial scams",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Focuses on infrastructure, broadband, water access, rural health care, and economic opportunity in southeastern Ohio. He has highlighted legislation on rural water response, upward mobility, and rural health funding as part of that agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://wtov9.com/news/local/senator-husted-unveils-new-legislation-to-tackle-key-issues-in-southeastern-ohio",
-              "type": "news",
-              "title": "Senator Husted unveils new legislation to tackle key issues in Southeastern Ohio",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/upward-mobility-act/",
-              "type": "official",
-              "title": "Upward Mobility Act - Senator Jon Husted",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-leads-effort-to-expand-broadband-access-in-rural-ohio/",
-              "type": "official",
-              "title": "Husted leads effort to expand broadband access in rural Ohio",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Supports requiring photo ID to vote and other election-integrity measures. He has promoted nationwide photo-ID standards and argued that the rules make voting easy while making fraud harder.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-bill-to-require-photo-id-to-vote-blocked-from-passage/",
-              "type": "official",
-              "title": "Husted bill to require photo ID to vote blocked from passage",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/media/press-releases/husted-op-ed-senate-republicans-want-to-make-it-easy-to-vote-and-hard-to-cheat-in-america/",
-              "type": "official",
-              "title": "Husted op-ed: Senate Republicans want to make it easy to vote and hard to cheat in America",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports school choice, including Ohio’s EdChoice model, and has backed efforts to add AI literacy and career-technical training in schools. His campaign frames these policies as giving parents more control over education decisions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.husted.senate.gov/contact/newsletters/giving-parents-the-choice-for-their-kids-education/",
-              "type": "campaign",
-              "title": "Giving parents the choice for their kids' education - Jon Husted",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.husted.senate.gov/contact/newsletters/setting-our-students-up-for-success/",
-              "type": "campaign",
-              "title": "Setting our students up for success - Senator Jon Husted",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.nbc4i.com/news/politics/how-sen-jon-husted-has-backed-ohio-school-choice-and-religious-education-programs/",
-              "type": "news",
-              "title": "How Sen. Jon Husted has backed Ohio school choice and religious education programs",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.husted.senate.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/hustedforohio/",
+        "x": "https://x.com/JonHusted",
+        "instagram": "https://www.instagram.com/senjonhusted/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Sherrod Brown",
@@ -455,25 +667,355 @@
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Sherrod_Brown",
-          "type": "ballotpedia",
-          "title": "Sherrod Brown - Ballotpedia"
+          "type": "website",
+          "title": "Sherrod Brown - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026",
-          "type": "ballotpedia",
-          "title": "United States Senate special election in Ohio, 2026"
+          "type": "website",
+          "title": "United States Senate special election in Ohio, 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sherrod_Brown.jpg",
-      "website": "https://www.sherrodbrown.com/",
-      "social_media": {
-        "bluesky": "https://bsky.app/profile/sherrodbrown.com",
-        "facebook": "https://www.facebook.com/sherrod/",
-        "instagram": "https://www.instagram.com/sherrod/",
-        "threads": "https://www.threads.net/@sherrod",
-        "tiktok": "https://www.tiktok.com/@sherrodbrown",
-        "x": "https://x.com/SherrodBrown",
-        "youtube": "https://www.youtube.com/@SherrodBrown"
+      "issues": {
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Brown supports abortion rights and reproductive freedom, including federal protections for abortion and contraception and opposition to bans and restrictions. He has also been endorsed by Planned Parenthood organizations and has backed reproductive-freedom legislation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.plannedparenthoodaction.org/planned-parenthood-advocates-ohio/media/planned-parenthood-advocates-of-ohio-fight-back-against-bills-that-threaten-reproductive-health-care-and-medically-accurate-sex-education-4",
+              "type": "website",
+              "title": "Planned Parenthood Advocates of Ohio endorsement of Sherrod Brown 2026",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.plannedparenthoodaction.org/planned-parenthood-advocates-ohio/media/planned-parenthood-advocates-ohio-announces-endorsement-of-sherrod-brown-for-reelection-to-the-us-senate-in-2026",
+              "type": "website",
+              "title": "Planned Parenthood Action Fund endorsement of Sherrod Brown 2026",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/lawmaker/sherrod-brown/",
+              "type": "website",
+              "title": "Sherrod Brown Congressional Scorecard - Reproductive Freedom for All",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Brown has earned a 93% lifetime score from the League of Conservation Voters. He supported the Infrastructure Investment and Jobs Act, which funded Great Lakes restoration; the GROW Act for conservation; and has voted for clean energy investments while opposing efforts to roll back EPA emissions rules that would harm Ohio manufacturing jobs. His campaign emphasizes energy affordability, domestic manufacturing, and protecting Ohio jobs tied to the energy sector.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lcv.org/media-center/lcv-action-fund-endorses-sherrod-brown-for-u-s-senate/",
+              "type": "website",
+              "title": "LCV Action Fund Endorses Sherrod Brown for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-15T03:45:01.092818Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.eenews.net/articles/a-new-sherrod-brown-democrat-runs-from-climate-agenda/",
+              "type": "news",
+              "title": "A new Sherrod Brown? Democrat runs from climate agenda - E&E News",
+              "description": null,
+              "last_accessed": "2026-06-15T03:45:01.092967Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Brown emphasizes rebuilding domestic manufacturing, supporting workers’ bargaining power, and opposing offshoring and unfair trade deals. His campaign also highlights infrastructure investment, lower drug costs, and pro-union policies as part of its economic agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sherrodbrown.com/issues",
+              "type": "government",
+              "title": "Sherrod Brown — Issues (campaign site)",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.theatlantic.com/politics/archive/2026/02/sherrod-brown-working-class/621970/",
+              "type": "news",
+              "title": "Sherrod Brown Is Grinding It Out - The Atlantic",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Brown supports gun-safety measures such as universal background checks, closing loopholes, and community violence-prevention funding while saying he supports the rights of law-abiding gun owners. This reflects the position described on his campaign issues page.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sherrodbrown.com/issues",
+              "type": "government",
+              "title": "Sherrod Brown — Issues (campaign site)",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Brown has a long Senate record supporting voting access and election-administration measures and opposing efforts that would restrict voting rights. His campaign site does not spell out a separate election-policy plank, so this summary reflects his public legislative record and issue emphasis on protecting democracy and voting access.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.congress.gov/member/sherrod-brown/B000944",
+              "type": "government",
+              "title": "Senator Sherrod Brown — Congress.gov",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/key-votes/27018/sherrod-brown",
+              "type": "website",
+              "title": "See Sherrod Brown's Key Votes — Vote Smart",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Brown’s campaign messaging emphasizes border security alongside protections for long-term residents and workers. Reporting also says he has called for stronger border enforcement while criticizing harsh treatment of immigrants and supporting protections for groups such as Haitians in Ohio.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.sherrodbrown.com/issues",
+              "type": "government",
+              "title": "Sherrod Brown — Issues (campaign site)",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ohiocapitaljournal.com/2026/02/05/ohio-senators-governor-respond-to-calls-from-brown-to-extend-protections-for-haitians/",
+              "type": "news",
+              "title": "Ohio senators, governor respond to calls from Brown to extend protections for Haitians",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.foxnews.com/politics/dem-senate-candidate-sherrod-brown-claims-supports-closing-border-gop-says-record-proves-otherwise",
+              "type": "news",
+              "title": "Dem Senate candidate Sherrod Brown claims he supports 'closing ...'",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Brown has supported civil-rights protections and LGBTQ+ equality, including federal anti-discrimination and marriage-equality measures. He has also been endorsed by the Human Rights Campaign PAC for his Senate campaign.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hrc.org/press-releases/human-rights-campaign-pac-endorses-sherrod-brown-for-u-s-senate",
+              "type": "website",
+              "title": "HRC PAC Endorses Sherrod Brown for U.S. Senate (Dec. 19, 2025)",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Brown supports public education funding and higher-education access, including federal support for K-12 schools and Pell Grants. His campaign and allied education groups have emphasized support for teachers and public schools.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.oft-aft.org/press/ohio-federation-teachers-endorses-sherrod-brown",
+              "type": "news",
+              "title": "Ohio Federation of Teachers Endorses Sherrod Brown",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Brown supports preserving the Affordable Care Act, expanding affordable coverage, and lowering prescription drug costs. His campaign materials also emphasize insulin-cost relief and protecting coverage for people with preexisting conditions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sherrodbrown.com/issues",
+              "type": "government",
+              "title": "Sherrod Brown — Issues (campaign site)",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.toledoblade.com/local/politics/2024/04/15/sen-brown-touts-insulin-price-cap-fight-lower-drug-costs/stories/20240415107",
+              "type": "news",
+              "title": "Sen. Brown touts insulin price cap, fight for lower drug costs - Toledo Blade",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Brown’s campaign emphasizes manufacturing jobs, infrastructure investment, workforce training, and lowering costs for Ohio families. It also highlights support for veterans, seniors, and policies aimed at keeping jobs and investment in Ohio.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sherrodbrown.com/issues",
+              "type": "website",
+              "title": "Sherrod Brown - Issues",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Brown has supported U.S. aid to Ukraine, backing NATO allies, and sanctions on Russian aggression. His Senate record also includes support for bipartisan foreign-aid measures for U.S. partners.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.politico.com/news/2022/12/15/senate-ukraine-aid-bill-00073457",
+              "type": "news",
+              "title": "Senate passes Ukraine aid package with bipartisan support",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.congress.gov/bill/117th-congress/house-bill/6968/text",
+              "type": "government",
+              "title": "Congress.gov bill text",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "As chair of the Senate Banking Committee, Brown held a hearing on AI in financial services in September 2023 and called for consumer and worker protections, including rigorous testing of AI models, privacy safeguards, and anti-discrimination measures. He has also said Washington must not repeat the mistakes made with Big Tech and social media when it comes to AI regulation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.banking.senate.gov/newsroom/majority/brown-ai-consumer-worker-protections",
+              "type": "government",
+              "title": "Brown: AI Must Come with Consumer and Worker Protections",
+              "description": null,
+              "last_accessed": "2026-06-15T03:45:01.008510Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://bankingjournal.aba.com/2023/09/senators-debate-use-of-ai-in-financial-services/",
+              "type": "news",
+              "title": "Senators debate use of AI in financial services - ABA Banking Journal",
+              "description": null,
+              "last_accessed": "2026-06-15T03:45:01.008536Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -481,21 +1023,24 @@
           "organization": "U.S. Senate",
           "start_year": 2007,
           "end_year": 2025,
-          "description": "Represented Ohio in the U.S. Senate for nearly two decades."
+          "description": "Represented Ohio in the U.S. Senate for nearly two decades.",
+          "source": null
         },
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 1993,
           "end_year": 2007,
-          "description": "Served in the House before moving to the Senate."
+          "description": "Served in the House before moving to the Senate.",
+          "source": null
         },
         {
           "title": "Ohio Secretary of State",
           "organization": "State of Ohio",
           "start_year": 1983,
           "end_year": 1991,
-          "description": "Held statewide office as Ohio secretary of state."
+          "description": "Held statewide office as Ohio secretary of state.",
+          "source": null
         }
       ],
       "education": [
@@ -503,19 +1048,57 @@
           "institution": "Yale University",
           "degree": "Bachelor of Arts",
           "field": "Russian studies",
-          "year": 1974
+          "year": 1974,
+          "source": null
         },
         {
           "institution": "Ohio State University",
           "degree": "Master of Arts",
           "field": "Education",
-          "year": 1979
+          "year": 1979,
+          "source": null
         }
       ],
-      "donor_summary": "Sherrod Brown’s 2025–2026 Senate campaign committee had raised about $24.3M by March 31, 2026, with $16.5M cash on hand. OpenSecrets shows his 2024 cycle fundraising was much larger, at about $93.7M raised, and his donor base has historically been driven by large-scale federal campaign fundraising rather than a single disclosed industry bloc in the summary page reviewed. Sources: https://www.opensecrets.org/profiles/sherrod-brown/us_congress/summary?mpid=1067611 ; https://www.opensecrets.org/profiles/sherrod-brown/us_congress/elections?cycle=2024&mpid=1067611",
-      "donor_source_url": "https://www.opensecrets.org/profiles/sherrod-brown/us_congress/summary?mpid=1067611",
-      "voting_summary": "Sherrod Brown is a former U.S. senator, so he has an extensive federal voting record. Vote Smart identifies his key votes and issue positions, and his Senate record includes long-running support for labor, consumer, and social-policy priorities; he also cast notable votes on major Senate legislation during his tenure, including appropriations and social-policy measures. Sources: https://justfacts.votesmart.org/candidate/27018/sherrod-brown ; https://justfacts.votesmart.org/candidate/key-votes/27018/sherrod-brown ; https://www.senate.gov/legislative/LIS/roll_call_votes/vote1181/vote_118_1_00343.htm",
-      "voting_source_url": "https://justfacts.votesmart.org/candidate/key-votes/27018/sherrod-brown",
+      "voting_summary": "Served as U.S. Senator 2007–2024 with a consistently progressive record. GovTrack shows he voted with the Democratic caucus over 90% of the time. Notable votes: supported the Inflation Reduction Act, CHIPS Act, and bipartisan infrastructure law; opposed the 2017 tax cuts; championed pro-labor legislation including the PRO Act and Butch Lewis Act for pension protection.",
+      "voting_source_url": "https://www.govtrack.us/congress/members/sherrod_brown/400050",
+      "voting_sources": [],
+      "donor_summary": "Raised $26.0 million in total receipts for the 2025–2026 cycle through April 15, 2026, including $21.8 million in contributions (96% from individuals). Career-long OpenSecrets data shows top industries: Education ($6.16M), Democratic/Liberal groups ($4.74M), Securities & Investment ($4.41M), and Real Estate ($3.99M). 2024 joint fundraising committees raised additional funds from law firms and retirees.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6OH00163/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/S6OH00163/",
+          "type": "government",
+          "title": "BROWN, SHERROD - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/members-of-congress/sherrod-brown/industries?cid=N00003535&cycle=CAREER&type=I",
+          "type": "finance",
+          "title": "Sen. Sherrod Brown - Top Industries - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/joint-fundraising-committees-jfcs/senate-victory-for-sherrod-brown-2024/C00883108/2024/summary",
+          "type": "finance",
+          "title": "Senate Victory for Sherrod Brown 2024 - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://ballotpedia.org/Sherrod_Brown",
@@ -586,430 +1169,40 @@
           "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1181/vote_118_1_00343.htm",
           "title": "Senate roll call vote 118-1-343",
           "type": "govtrack"
-        }
-      ],
-      "issues": {
-        "Abortion & Reproductive Health": {
-          "stance": "Brown supports abortion rights and reproductive freedom, including federal protections for abortion and contraception and opposition to bans and restrictions. He has also been endorsed by Planned Parenthood organizations and has backed reproductive-freedom legislation.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.plannedparenthoodaction.org/planned-parenthood-advocates-ohio/media/planned-parenthood-advocates-of-ohio-fight-back-against-bills-that-threaten-reproductive-health-care-and-medically-accurate-sex-education-4",
-              "type": "official_policy_or_campaign_statement",
-              "title": "Planned Parenthood Advocates of Ohio endorsement of Sherrod Brown 2026",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.plannedparenthoodaction.org/planned-parenthood-advocates-ohio/media/planned-parenthood-advocates-ohio-announces-endorsement-of-sherrod-brown-for-reelection-to-the-us-senate-in-2026",
-              "type": "official_policy_or_campaign_statement",
-              "title": "Planned Parenthood Action Fund endorsement of Sherrod Brown 2026",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://reproductivefreedomforall.org/lawmaker/sherrod-brown/",
-              "type": "official_policy_or_campaign_statement",
-              "title": "Sherrod Brown Congressional Scorecard - Reproductive Freedom for All",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Brown’s campaign messaging emphasizes energy affordability, domestic manufacturing, and protecting Ohio jobs tied to the energy sector. No separate detailed climate-policy plank was prominently available on the campaign issues page reviewed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sherrodbrown.com/issues",
-              "type": "official_policy_page",
-              "title": "Sherrod Brown — Issues (campaign site)",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.eenews.net/articles/sherrod-brown-wants-to-ride-high-energy-prices-back-to-capitol-hill/",
-              "type": "news",
-              "title": "Sherrod Brown wants to ride high energy prices back to Capitol Hill",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Brown emphasizes rebuilding domestic manufacturing, supporting workers’ bargaining power, and opposing offshoring and unfair trade deals. His campaign also highlights infrastructure investment, lower drug costs, and pro-union policies as part of its economic agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sherrodbrown.com/issues",
-              "type": "official_policy_page",
-              "title": "Sherrod Brown — Issues (campaign site)",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.theatlantic.com/politics/archive/2026/02/sherrod-brown-working-class/621970/",
-              "type": "news",
-              "title": "Sherrod Brown Is Grinding It Out - The Atlantic",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Brown supports gun-safety measures such as universal background checks, closing loopholes, and community violence-prevention funding while saying he supports the rights of law-abiding gun owners. This reflects the position described on his campaign issues page.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sherrodbrown.com/issues",
-              "type": "official_policy_page",
-              "title": "Sherrod Brown — Issues (campaign site)",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Brown has a long Senate record supporting voting access and election-administration measures and opposing efforts that would restrict voting rights. His campaign site does not spell out a separate election-policy plank, so this summary reflects his public legislative record and issue emphasis on protecting democracy and voting access.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.congress.gov/member/sherrod-brown/B000944",
-              "type": "official_record",
-              "title": "Senator Sherrod Brown — Congress.gov",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://justfacts.votesmart.org/candidate/key-votes/27018/sherrod-brown",
-              "type": "votesmart",
-              "title": "See Sherrod Brown's Key Votes — Vote Smart",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Brown’s campaign messaging emphasizes border security alongside protections for long-term residents and workers. Reporting also says he has called for stronger border enforcement while criticizing harsh treatment of immigrants and supporting protections for groups such as Haitians in Ohio.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sherrodbrown.com/issues",
-              "type": "official_policy_page",
-              "title": "Sherrod Brown — Issues (campaign site)",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://ohiocapitaljournal.com/2026/02/05/ohio-senators-governor-respond-to-calls-from-brown-to-extend-protections-for-haitians/",
-              "type": "news",
-              "title": "Ohio senators, governor respond to calls from Brown to extend protections for Haitians",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.foxnews.com/politics/dem-senate-candidate-sherrod-brown-claims-supports-closing-border-gop-says-record-proves-otherwise",
-              "type": "news",
-              "title": "Dem Senate candidate Sherrod Brown claims he supports 'closing ...'",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Brown has supported civil-rights protections and LGBTQ+ equality, including federal anti-discrimination and marriage-equality measures. He has also been endorsed by the Human Rights Campaign PAC for his Senate campaign.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.hrc.org/press-releases/human-rights-campaign-pac-endorses-sherrod-brown-for-u-s-senate",
-              "type": "official_policy_or_campaign_statement",
-              "title": "HRC PAC Endorses Sherrod Brown for U.S. Senate (Dec. 19, 2025)",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Brown supports public education funding and higher-education access, including federal support for K-12 schools and Pell Grants. His campaign and allied education groups have emphasized support for teachers and public schools.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.oft-aft.org/press/ohio-federation-teachers-endorses-sherrod-brown",
-              "type": "news",
-              "title": "Ohio Federation of Teachers Endorses Sherrod Brown",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Brown supports preserving the Affordable Care Act, expanding affordable coverage, and lowering prescription drug costs. His campaign materials also emphasize insulin-cost relief and protecting coverage for people with preexisting conditions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sherrodbrown.com/issues",
-              "type": "official_policy_page",
-              "title": "Sherrod Brown — Issues (campaign site)",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.toledoblade.com/local/politics/2024/04/15/sen-brown-touts-insulin-price-cap-fight-lower-drug-costs/stories/20240415107",
-              "type": "news",
-              "title": "Sen. Brown touts insulin price cap, fight for lower drug costs - Toledo Blade",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Brown’s campaign emphasizes manufacturing jobs, infrastructure investment, workforce training, and lowering costs for Ohio families. It also highlights support for veterans, seniors, and policies aimed at keeping jobs and investment in Ohio.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sherrodbrown.com/issues",
-              "type": "campaign_issues_page",
-              "title": "Sherrod Brown - Issues",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Brown has supported U.S. aid to Ukraine, backing NATO allies, and sanctions on Russian aggression. His Senate record also includes support for bipartisan foreign-aid measures for U.S. partners.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.politico.com/news/2022/12/15/senate-ukraine-aid-bill-00073457",
-              "type": "news",
-              "title": "Senate passes Ukraine aid package with bipartisan support",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/bill/117th-congress/house-bill/6968/text",
-              "type": "official_record",
-              "title": "Congress.gov bill text",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found on the campaign website or in readily available campaign materials reviewed for this profile.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.sherrodbrown.com/issues",
-              "type": "official_policy_page",
-              "title": "Sherrod Brown — Issues (campaign site)",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Jeffrey Kanter",
-      "party": "Libertarian",
-      "incumbent": false,
-      "summary": "Jeffrey Kanter is a Libertarian candidate in Ohio’s 2026 special U.S. Senate election. Ballotpedia says he was disqualified from the special Libertarian Party primary, and reporting in March 2026 said he would still appear on the ballot even though votes for him would not be counted.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/Jeffrey_Kanter",
-          "type": "ballotpedia",
-          "title": "Jeffrey Kanter - Ballotpedia"
         },
         {
-          "url": "https://signalohio.org/ohio-disqualifies-libertarian-u-s-senate-candidate-jeffrey-kanter-election-2026/",
-          "type": "news",
-          "title": "Ohio disqualifies Libertarian U.S. Senate candidate"
-        }
-      ],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": "https://ballotpedia.org/Jeffrey_Kanter",
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": "Jeffrey Kanter’s public federal campaign finance data was not clearly surfaced in the sources reviewed, and no robust donor breakdown was located in the search results. The FEC candidate page exists, but the available summary text did not provide a clear total raised or top donor/industry breakdown in the fetched material. Sources: https://www.fec.gov/data/candidate/S6OH00395/ ; https://ballotpedia.org/Jeffrey_Kanter",
-      "donor_source_url": "https://www.fec.gov/data/candidate/S6OH00395/",
-      "voting_summary": "Jeffrey Kanter has not held legislative office, and no public legislative voting record was found in the sources reviewed. The available material identifies him as a Libertarian Senate candidate in Ohio, but no prior elected or executive office with recorded votes was located. Sources: https://ballotpedia.org/Jeffrey_Kanter ; https://justfacts.votesmart.org/election/2026/C/OH/?stageId=P",
-      "voting_source_url": "https://ballotpedia.org/Jeffrey_Kanter",
-      "links": [
-        {
-          "url": "https://ballotpedia.org/Jeffrey_Kanter",
-          "title": "Jeffrey Kanter - Ballotpedia",
-          "type": "ballotpedia"
+          "url": "https://www.govtrack.us/congress/members/sherrod_brown/400050",
+          "title": "Sen. Sherrod Brown - GovTrack",
+          "type": "govtrack"
         },
         {
-          "url": "https://www.cleveland.com/news/2026/03/libertarian-us-senate-candidate-jeffrey-kanter-disqualified-from-ohio-ballot.html",
-          "title": "Libertarian U.S. Senate candidate Jeffrey Kanter disqualified from Ohio ballot",
-          "type": "news"
-        },
-        {
-          "url": "https://signalohio.org/ohio-disqualifies-libertarian-u-s-senate-candidate-jeffrey-kanter-election-2026/",
-          "title": "Ohio disqualifies Libertarian U.S. Senate candidate",
-          "type": "news"
-        },
-        {
-          "url": "https://www.fec.gov/data/elections/senate/OH/2026/",
-          "title": "2026 Election United States Senate - Ohio | FEC",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.toledoblade.com/local/politics/2026/03/19/libertarian-candidate-senate-not-appear-may-primary-ballot/stories/20260319090",
-          "title": "Libertarian candidate for U.S. Senate will not appear on May primary ballot",
-          "type": "news"
-        },
-        {
-          "url": "https://www.ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026",
-          "title": "United States Senate special election in Ohio, 2026 - Ballotpedia",
-          "type": "ballotpedia"
-        },
-        {
-          "url": "https://www.fec.gov/data/candidate/S6OH00395/",
-          "title": "LEVY, GREGORY LEE - Candidate overview - FEC",
-          "type": "finance"
-        },
-        {
-          "url": "https://justfacts.votesmart.org/election/2026/C/OH/?stageId=P",
-          "title": "Vote Smart Ohio 2026 election page",
+          "url": "https://votesmart.org/candidate/27018/sherrod-brown",
+          "title": "Sherrod Brown - Vote Smart",
           "type": "votesmart"
         },
         {
-          "url": "https://ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026",
-          "title": "United States Senate special election in Ohio, 2026 - Ballotpedia",
-          "type": "ballotpedia"
+          "url": "https://www.opensecrets.org/members-of-congress/sherrod-brown/summary?cid=N00003535",
+          "title": "Sherrod Brown - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.brown.senate.gov/",
+          "title": "Sherrod Brown - Former Senate Website (archived)",
+          "type": "legislature"
         }
       ],
-      "issues": {
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeffrey_Kanter",
-              "type": "ballotpedia",
-              "title": "Jeffrey Kanter - Ballotpedia",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        }
+      "website": "https://www.sherrodbrown.com/",
+      "social_media": {
+        "bluesky": "https://bsky.app/profile/sherrodbrown.com",
+        "facebook": "https://www.facebook.com/sherrod/",
+        "instagram": "https://www.instagram.com/sherrod/",
+        "threads": "https://www.threads.net/@sherrod",
+        "tiktok": "https://www.tiktok.com/@sherrodbrown",
+        "x": "https://x.com/SherrodBrown",
+        "youtube": "https://www.youtube.com/@SherrodBrown"
       },
-      "withdrawn": true,
-      "withdrawal_reason": "Disqualified from the special Libertarian Party primary and removed from the ballot challenge process; Ballotpedia notes he was disqualified from the special Libertarian Party primary, and reporting on March 19, 2026 said he would not appear on the May primary ballot. Sources: https://ballotpedia.org/Jeffrey_Kanter ; https://www.toledoblade.com/local/politics/2026/03/19/libertarian-candidate-senate-not-appear-may-primary-ballot/stories/20260319090"
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Gregory Levy",
@@ -1019,31 +1212,310 @@
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Gregory_Levy",
-          "type": "ballotpedia",
-          "title": "Gregory Levy - Ballotpedia"
+          "type": "website",
+          "title": "Gregory Levy - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.greg4senate.com/statements/socialist-us-senate-campaign-launches-greg-levy-for-ohio",
-          "type": "campaign",
-          "title": "Socialist US Senate Campaign Launches: Greg Levy for Ohio"
+          "type": "website",
+          "title": "Socialist US Senate Campaign Launches: Greg Levy for Ohio",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://abc6onyourside.com/news/local/greg-levy-2026-ohio-senate-campaign-socialist-party-akron-veteran-working-class-black-liberation-union-movement-paul-robeson-revolutionary-choir-inequality-economy-minimum-wage-rural-hospitals-workers-rights-corporate-greed",
           "type": "news",
-          "title": "Socialist and Black liberation organizer Greg Levy launches 2026 Ohio Senate campaign"
+          "title": "Socialist and Black liberation organizer Greg Levy launches 2026 Ohio Senate campaign",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:27.206093Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Gregory_Levy_20251027_011312.jpg",
-      "website": "https://www.greg4senate.com/",
-      "social_media": {
-        "twitter": "https://x.com/GregLevy4Senate"
+      "issues": {
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Opposes U.S. military intervention and major defense spending, calling for a sharply reduced Pentagon budget, an end to forever wars, and cuts to aid and sanctions used in foreign policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Supports public ownership or democratic control of major corporations, a national rent cap, an across-the-board price freeze on essential goods, and repeal of tax cuts for the rich.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Centers Ohio-specific policy on worker power, rural hospitals, housing affordability, union jobs, and rebuilding communities through public investment and industrial policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abc6onyourside.com/news/local/greg-levy-2026-ohio-senate-campaign-socialist-party-akron-veteran-working-class-black-liberation-union-movement-paul-robeson-revolutionary-choir-inequality-economy-minimum-wage-rural-hospitals-workers-rights-corporate-greed",
+              "type": "news",
+              "title": "Socialist and Black liberation organizer Greg Levy launches 2026 Ohio Senate run",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports a universal, single-payer healthcare system free at the point of use.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Says the climate crisis is an existential emergency and backs a transition to renewable energy, expanded public transit, and industrial policy aimed at cutting emissions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Supports free abortion access and says gender-affirming care should be a healthcare decision between a person and their doctor.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Supports abolishing ICE, ending raids and deportations, shutting down detention camps, and creating a clear path to citizenship.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Supports anti-discrimination protections, affirmative action, reparations for Black Americans, and community control over policing; he also opposes attacks on LGBTQ people and DEI.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports free public education from pre-K through college and trade school, along with canceling student debt.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Says AI should be publicly owned or democratically controlled so technological gains shorten the workweek and do not lead to layoffs or exploitation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports banning corporate lobbying and political donations, outlawing voter purges and racist gerrymandering, and shifting power to more democratic and accountable institutions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.greg4senate.com/program",
+              "type": "website",
+              "title": "Program - Greg Levy for Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [],
       "education": [],
-      "donor_summary": "Gregory Levy’s FEC candidate page identifies him as a federal candidate under ID S6OH00395 and shows receipts of $57,814.65 for the 2025–2026 cycle through April 15, 2026. The available FEC data indicates the campaign is funded primarily by individual contributions rather than party committees or major outside groups.",
+      "voting_summary": "Has never held legislative or executive office. First-time candidate running as a socialist (Party for Socialism and Liberation). Campaign platform emphasizes working-class power, $25 minimum wage, Medicare for All, Green New Deal, union expansion, and anti-imperialist foreign policy. Background as Akron veteran, union activist, and Black liberation organizer informs policy positions.",
+      "voting_source_url": "https://www.greg4senate.com/",
+      "voting_sources": [],
+      "donor_summary": "FEC filings (candidate ID S6OH00395) show minimal fundraising; campaign relies on small-dollar donations via Anedot and grassroots socialist organizing. No significant PAC or institutional contributions reported. LocalCandidates.org lists donor data but totals appear negligible compared to major-party candidates.",
       "donor_source_url": "https://www.fec.gov/data/candidate/S6OH00395/",
-      "voting_summary": "Gregory Levy has not held legislative office, so there is no legislative voting record to report. His campaign website describes him as a socialist candidate focused on working-class issues, reduced inequality, and labor-oriented policy goals, which is the best available evidence of his governing approach in the public record reviewed. Sources: https://www.greg4senate.com/ ; https://ballotpedia.org/Gregory_Levy",
-      "voting_source_url": "https://ballotpedia.org/Gregory_Levy",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/S6OH00395/",
+          "type": "government",
+          "title": "LEVY, GREGORY LEE - FEC Candidate Overview",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://secure.anedot.com/greg-levy-for-senate/donate",
+          "type": "website",
+          "title": "Greg Levy for Senate - Donate (Anedot)",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/gregory-levy/donors",
+          "type": "finance",
+          "title": "Donors - Gregory Levy - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://ballotpedia.org/Gregory_Levy",
@@ -1109,195 +1581,313 @@
           "url": "https://www.instagram.com/greglevy4senate/?hl=en",
           "title": "Greg Levy for Senate (@greglevy4senate)",
           "type": "other"
+        },
+        {
+          "url": "https://myfox28columbus.com/news/local/greg-levy-2026-ohio-senate-campaign-socialist-party-akron-veteran-working-class-black-liberation-union-movement-paul-robeson-revolutionary-choir-inequality-economy-minimum-wage-rural-hospitals-workers-rights-corporate-greed",
+          "title": "Greg Levy campaign launch - FOX 28 Columbus",
+          "type": "news"
+        },
+        {
+          "url": "https://www.cincinnatimagazine.com/article/greg-levy-wants-ohio-voters-to-choose-the-third-option/",
+          "title": "Greg Levy profile - Cincinnati Magazine",
+          "type": "news"
+        },
+        {
+          "url": "https://ballot-access.org/2026/03/02/party-for-socialism-and-liberation-petitions-for-u-s-senate-candidates-in-massachusetts-and-ohio/",
+          "title": "PSL petitions for Senate candidates - Ballot Access News",
+          "type": "news"
         }
       ],
-      "issues": {
-        "Foreign Policy": {
-          "stance": "Opposes U.S. military intervention and major defense spending, calling for a sharply reduced Pentagon budget, an end to forever wars, and cuts to aid and sanctions used in foreign policy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Supports public ownership or democratic control of major corporations, a national rent cap, an across-the-board price freeze on essential goods, and repeal of tax cuts for the rich.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Centers Ohio-specific policy on worker power, rural hospitals, housing affordability, union jobs, and rebuilding communities through public investment and industrial policy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://abc6onyourside.com/news/local/greg-levy-2026-ohio-senate-campaign-socialist-party-akron-veteran-working-class-black-liberation-union-movement-paul-robeson-revolutionary-choir-inequality-economy-minimum-wage-rural-hospitals-workers-rights-corporate-greed",
-              "type": "news",
-              "title": "Socialist and Black liberation organizer Greg Levy launches 2026 Ohio Senate run",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Supports a universal, single-payer healthcare system free at the point of use.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Says the climate crisis is an existential emergency and backs a transition to renewable energy, expanded public transit, and industrial policy aimed at cutting emissions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Supports free abortion access and says gender-affirming care should be a healthcare decision between a person and their doctor.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Supports abolishing ICE, ending raids and deportations, shutting down detention camps, and creating a clear path to citizenship.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Supports anti-discrimination protections, affirmative action, reparations for Black Americans, and community control over policing; he also opposes attacks on LGBTQ people and DEI.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports free public education from pre-K through college and trade school, along with canceling student debt.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Says AI should be publicly owned or democratically controlled so technological gains shorten the workweek and do not lead to layoffs or exploitation.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Supports banning corporate lobbying and political donations, outlawing voter purges and racist gerrymandering, and shifting power to more democratic and accountable institutions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.greg4senate.com/program",
-              "type": "campaign",
-              "title": "Program - Greg Levy for Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.greg4senate.com/",
+      "social_media": {
+        "twitter": "https://x.com/GregLevy4Senate"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Bill Redpath",
       "party": "Libertarian",
       "incumbent": false,
-      "summary": "Bill Redpath is the Libertarian Party candidate in Ohio’s 2026 U.S. Senate special election. He is a Perrysburg resident, a longtime Libertarian activist, and a former chair of the Libertarian National Committee.",
+      "summary": "Bill Redpath is the Libertarian Party nominee in Ohio's 2026 special U.S. Senate election. A Perrysburg resident and former chair of the Libertarian National Committee (2006–2010), he has run for office nine times and is a 2016 inductee into the Libertarian Party's Hall of Liberty. His platform combines conservative economic positions (spending cuts, flat-tax reform, free trade) with liberal social stances (drug decriminalization, broad immigration, abortion rights).",
       "summary_sources": [
         {
-          "url": "https://lp.org/candidate/bill-redpath/",
-          "type": "official",
-          "title": "Bill Redpath - Libertarian Party"
+          "url": "https://billredpath.com/about/",
+          "type": "government",
+          "title": "About - Bill Redpath for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-15T03:47:32.598676Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
-          "url": "https://billredpath.com/",
-          "type": "official",
-          "title": "Bill Redpath for U.S. Senate"
+          "url": "https://billredpath.com/faq/",
+          "type": "government",
+          "title": "What I Stand For - Anything that's Peaceful",
+          "description": null,
+          "last_accessed": "2026-06-15T03:47:32.598701Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://lp.org/candidate/bill-redpath/",
+          "type": "government",
+          "title": "Bill Redpath - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-06-15T03:47:32.598710Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Bill_Redpath.jpeg",
-      "website": "https://billredpath.com/",
-      "social_media": {},
+      "image_url": "https://assets.civicengine.com/uploads/candidate/headshot/930469/william-b-redpath.jpg",
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Redpath supports a free market in health insurance without mandated coverages, allowing insurance to be sold across state lines, and moving toward Health Savings Accounts for routine care with catastrophic insurance for major expenses. He opposes government-run healthcare and supports repealing the Affordable Care Act.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/23300/race/1347/election/764?culture=en-us",
+              "type": "website",
+              "title": "William B. 'Bill' Redpath - iVoterGuide Questionnaire",
+              "description": null,
+              "last_accessed": "2026-06-15T03:47:45.704032Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.videtteonline.com/news/policies-for-the-people-a-look-at-where-your-candidates-stand-on-the-issues/article_c9d90b74-58c2-11ed-b228-770fd082e3c9.html",
+              "type": "news",
+              "title": "Policies for the people - Vidette Online",
+              "description": null,
+              "last_accessed": "2026-06-15T03:47:45.704084Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Redpath supports lower taxes, reduced federal spending, elimination of the Departments of Education and Housing & Urban Development, and replacing the current tax code with a flat-tax style reform plan.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://billredpath.com/faq/",
+              "type": "government",
+              "title": "What I Stand For - Anything that's Peaceful",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://billredpath.com/",
+              "type": "government",
+              "title": "Bill Redpath for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Redpath supports an individual's right to access abortion, stating it should be allowed to save the life of the mother or if the fetus would be unable to feel pain. He agreed with the Supreme Court's decision overturning Roe v. Wade and opposes taxpayer funding for abortion providers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.firstalert4.com/2022/10/19/get-know-bill-redpath/",
+              "type": "news",
+              "title": "Get To Know Bill Redpath! - KMOV",
+              "description": null,
+              "last_accessed": "2026-06-15T03:47:45.759206Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ivoterguide.com/candidate/23300/race/1347/election/764?culture=en-us",
+              "type": "website",
+              "title": "William B. 'Bill' Redpath - iVoterGuide Questionnaire",
+              "description": null,
+              "last_accessed": "2026-06-15T03:47:45.759221Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Redpath supports very broad immigration, saying all immigration should be allowed except for a small set of people who are criminals, terrorists, seriously ill, or otherwise likely to harm others.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://billredpath.com/faq/",
+              "type": "government",
+              "title": "What I Stand For - Anything that's Peaceful",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Redpath believes people convicted of violent crimes should not legally own or possess guns. He would consider other restrictions if they could be shown to enhance negative rights in society, but generally supports gun rights for law-abiding citizens.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/23300/race/1347/election/764?culture=en-us",
+              "type": "website",
+              "title": "William B. 'Bill' Redpath - iVoterGuide Questionnaire",
+              "description": null,
+              "last_accessed": "2026-06-15T03:47:45.835854Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Redpath says the United States should avoid war with Iran, seek congressional approval for military action, end the U.S. “special relationship” with Israel, and take a more restrained approach in the Middle East.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://billredpath.com/faq/",
+              "type": "government",
+              "title": "What I Stand For - Anything that's Peaceful",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Redpath says he supports repealing federal laws on consensual crimes and restoring civil liberties, emphasizing that people should be free to live their own lives so long as they do not harm others or their property.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://billredpath.com/",
+              "type": "government",
+              "title": "Bill Redpath for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://billredpath.com/faq/",
+              "type": "government",
+              "title": "What I Stand For - Anything that's Peaceful",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Redpath calls for eliminating the U.S. Department of Education as part of reducing federal spending.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://billredpath.com/faq/",
+              "type": "government",
+              "title": "What I Stand For - Anything that's Peaceful",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Redpath supports ranked-choice voting for single-winner elections, multi-member districts for the U.S. House under the Fair Representation Act, and the National Popular Vote compact for presidential elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://billredpath.com/faq/",
+              "type": "government",
+              "title": "What I Stand For - Anything that's Peaceful",
+              "description": null,
+              "last_accessed": "2026-05-08T19:26:22.390350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [
         {
           "title": "Business valuation professional",
           "organization": "BIA Advisory Services and Summit Ridge Group",
           "start_year": null,
           "end_year": null,
-          "description": "Worked in business valuation for 38 years, specializing in media and telecommunications."
+          "description": "Worked in business valuation for 38 years, specializing in media and telecommunications.",
+          "source": null
         },
         {
           "title": "Chair",
           "organization": "Libertarian National Committee",
           "start_year": 2006,
           "end_year": 2010,
-          "description": "Served as chair of the Libertarian National Committee."
+          "description": "Served as chair of the Libertarian National Committee.",
+          "source": null
         }
       ],
       "education": [
@@ -1305,13 +1895,50 @@
           "institution": "University of Chicago",
           "degree": "Master of Business Administration",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "Bill Redpath’s public federal campaign finance data was not clearly surfaced in the sources reviewed, and the FEC/OpenSecrets search results did not provide a clean current-cycle total raised or top industry breakdown for this Ohio Senate run. The campaign website and prior OpenSecrets references confirm he has a long-running Libertarian political profile, but the available finance material in this search was insufficient for a reliable donor-sector summary. Sources: https://billredpath.com/ ; https://www.opensecrets.org/political-action-committees-pacs/redpath-for-us-senate-committee/C00255695/summary/2024",
-      "donor_source_url": "https://billredpath.com/",
-      "voting_summary": "Bill Redpath has not held legislative office, so there is no legislative voting record to report. His campaign website says he is a longtime Libertarian activist and former Libertarian National Committee chair, and it outlines policy positions favoring lower taxes, reduced federal spending, free trade, and civil liberties. Sources: https://billredpath.com/ ; https://justfacts.votesmart.org/candidate/biography/55856/william-redpath",
+      "voting_summary": "Never held legislative office. Served as Libertarian Party National Chair (2006–2010) and ran for various offices including U.S. House (VA-10, 2010) and Virginia Governor (2013). Platform combines conservative economic positions (spending cuts, tax reduction, deregulation) with liberal social stances (criminal justice reform, marriage equality, drug decriminalization). Advocates constitutional limited government and non-interventionist foreign policy.",
       "voting_source_url": "https://billredpath.com/",
+      "voting_sources": [],
+      "donor_summary": "FEC candidate ID S6OH00429 shows $17,715 total raised as of April 15, 2026 (per The Green Papers). Campaign financed through small individual donations and personal funds; no PAC support. Long-time Libertarian Party activist and former national chair (2006–2010) with extensive party-building fundraising experience but minimal candidate-specific receipts.",
+      "donor_source_url": "https://www.thegreenpapers.com/G26/Senate.phtml?v=u&p=BLNK",
+      "donor_sources": [
+        {
+          "url": "https://www.thegreenpapers.com/G26/Senate.phtml?v=u&p=BLNK",
+          "type": "government",
+          "title": "Ohio 2026 Senate Candidates - The Green Papers",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/william-redpath",
+          "type": "finance",
+          "title": "William Redpath - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.facebook.com/BillRedpathForSenate/",
+          "type": "website",
+          "title": "Bill Redpath for Senate - Facebook",
+          "description": null,
+          "last_accessed": "2026-06-15T03:41:57.419448Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://billredpath.com/",
@@ -1357,325 +1984,611 @@
           "url": "https://justfacts.votesmart.org/candidate/55856/william-redpath",
           "title": "William Redpath - Vote Smart",
           "type": "votesmart"
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G26/Senate.phtml?v=u&p=BLNK",
+          "title": "Ohio 2026 Senate Candidates - The Green Papers",
+          "type": "other"
+        },
+        {
+          "url": "https://lp.org/meet-our-candidates/",
+          "title": "Libertarian Party Candidates - Bill Redpath",
+          "type": "other"
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/william-redpath",
+          "title": "William Redpath - Local Candidates",
+          "type": "finance"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Redpath supports lower taxes, reduced federal spending, elimination of the Departments of Education and Housing & Urban Development, and replacing the current tax code with a flat-tax style reform plan.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://billredpath.com/",
-              "type": "official",
-              "title": "Bill Redpath for U.S. Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Redpath supports very broad immigration, saying all immigration should be allowed except for a small set of people who are criminals, terrorists, seriously ill, or otherwise likely to harm others.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Redpath says the United States should avoid war with Iran, seek congressional approval for military action, end the U.S. “special relationship” with Israel, and take a more restrained approach in the Middle East.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Redpath says he supports repealing federal laws on consensual crimes and restoring civil liberties, emphasizing that people should be free to live their own lives so long as they do not harm others or their property.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://billredpath.com/",
-              "type": "official",
-              "title": "Bill Redpath for U.S. Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            },
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Redpath calls for eliminating the U.S. Department of Education as part of reducing federal spending.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Redpath supports ranked-choice voting for single-winner elections, multi-member districts for the U.S. House under the Fair Representation Act, and the National Popular Vote compact for presidential elections.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://billredpath.com/faq/",
-              "type": "official",
-              "title": "What I Stand For - Anything that's Peaceful",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://billredpath.com/",
-              "type": "official",
-              "title": "Bill Redpath for U.S. Senate",
-              "last_accessed": "2026-05-08T19:26:22.390350+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://billredpath.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-05-08T19:32:08.156626+00:00",
+  "updated_utc": "2026-06-16T02:13:20.631331+00:00",
   "generator": [
-    "gpt-5.4-mini"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano",
+    "anthropic/claude-haiku-4.5",
+    "google/gemini-3.1-flash-lite-preview",
+    "x-ai/grok-4.3"
   ],
   "reviews": [
     {
-      "model": "claude-sonnet-4-6",
-      "reviewed_at": "2026-05-08T19:27:15.935877+00:00",
-      "verdict": "needs_revision",
-      "score": 78,
-      "flags": [
-        {
-          "field": "polling_note",
-          "concern": "The polling_note states 'No public polling found for this race in the last 90 days as of 2026-05-08,' but three polls are listed in the polling array, including one dated 2026-03-08 (61 days before the note date). March 8 falls within 90 days of May 8. This is an internal inconsistency — the note contradicts the data in the same profile.",
-          "suggestion": "Either remove the polling_note (since recent polling exists), or clarify that no polling was found after March 8, 2026 (i.e., in the last ~60 days). The note as written is factually inconsistent with the profile's own polling entries.",
-          "severity": "error"
-        },
-        {
-          "field": "candidates[2].links[6]",
-          "concern": "The FEC link for Jeffrey Kanter (candidates[2]) uses URL https://www.fec.gov/data/candidate/S6OH00395/ but the link title reads 'LEVY, GREGORY LEE - Candidate overview - FEC'. The same FEC ID (S6OH00395) is also used for Gregory Levy (candidates[3]), suggesting the FEC ID and/or link title is misassigned for Kanter. These two candidates cannot share the same FEC candidate ID.",
-          "suggestion": "Verify the correct FEC candidate ID for Jeffrey Kanter separately from Gregory Levy. The donor_source_url for Kanter also uses S6OH00395 — at least one of these assignments is incorrect and requires human verification against FEC records.",
-          "severity": "error"
-        },
-        {
-          "field": "candidates[3].donor_source_url",
-          "concern": "Gregory Levy's donor_source_url also uses https://www.fec.gov/data/candidate/S6OH00395/, and his donor_summary references this ID with financial figures ($57,814.65). If this ID is correctly Levy's, then the same ID listed under Kanter (candidates[2]) is erroneous. If it is Kanter's, then Levy's financials are misattributed. The duplication of FEC ID S6OH00395 across two different candidates is a clear data integrity issue.",
-          "suggestion": "Confirm which candidate holds FEC ID S6OH00395 and assign a separate, verified FEC ID to the other candidate.",
-          "severity": "error"
-        },
-        {
-          "field": "candidates[1].issues.Abortion & Reproductive Health.sources[1]",
-          "concern": "The second source URL for Sherrod Brown's abortion stance (https://www.plannedparenthoodaction.org/planned-parenthood-advocates-ohio/media/planned-parenthood-advocates-ohio-announces-endorsement-of-sherrod-brown-for-reelection-to-the-us-senate-in-2026) includes the phrase 'reelection' in the URL slug. Brown is not running for reelection to his former seat — this is a special election for the seat vacated by J.D. Vance. The URL phrasing may reflect a Planned Parenthood editorial choice, but the profile description elsewhere correctly frames this as a special election. This is worth flagging for a human reviewer to confirm the URL resolves correctly and that the endorsement is genuine.",
-          "suggestion": "Verify the URL resolves to a valid Planned Parenthood endorsement page and note in the profile, if relevant, that this is a special election rather than a standard reelection campaign.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].education[0]",
-          "concern": "Jon Husted's education lists a Bachelor of Arts from the University of Dayton in 1989 and a Master of Arts also from the University of Dayton in 1993. My training data suggests Husted received his BA around 1989, which is plausible. However, the gap between 1989 and 1993 for an MA from the same institution is worth a human spot-check against the cited Bioguide or official Senate bio, as the degree year and field (political science for both) should be confirmed.",
-          "suggestion": "Cross-check against https://bioguide.congress.gov/search/bio/H001104 or https://www.husted.senate.gov/about/ to confirm the MA year and field are accurately represented.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].summary",
-          "concern": "The summary for Jeffrey Kanter states he 'would still appear on the ballot even though votes for him would not be counted,' while the withdrawal_reason field says he was 'removed from the ballot challenge process' and 'would not appear on the May primary ballot.' These two statements are not necessarily contradictory (he may appear on the general ballot but not the primary), but the relationship between the primary ballot exclusion and the general election ballot status is ambiguous and could confuse readers.",
-          "suggestion": "Clarify whether Kanter appears on the November general election ballot or not. If the disqualification means he does not appear at all, revise the summary accordingly. If he appears only on the general ballot but not the primary, make that distinction explicit.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[2].withdrawn",
-          "concern": "Kanter is marked withdrawn: true, but the summary says 'votes for him would not be counted' while still suggesting he may appear on the ballot. A candidate who appears on the ballot — even if votes are not counted — may not be accurately described as 'withdrawn.' The term 'withdrawn' typically implies voluntary exit, whereas Kanter was disqualified.",
-          "suggestion": "Consider replacing 'withdrawn: true' with a more accurate status field such as 'disqualified: true' or adding a note that the candidate was involuntarily removed rather than voluntarily withdrawn.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Abortion & Reproductive Health.stance",
-          "concern": "Minor framing note: Brown's abortion stance is described as supporting 'federal protections for abortion and contraception and opposition to bans and restrictions.' This is accurate and neutral. However, for consistency with Husted's abortion section (which uses the phrase 'exceptions for rape, incest, or to save the life of the mother'), Brown's section could similarly note his position on specific procedural aspects of abortion rights, if available. The asymmetry is minor but worth flagging for completeness.",
-          "suggestion": "If Brown's campaign materials specify the scope of reproductive rights he supports (e.g., up to viability, throughout pregnancy), consider adding that detail to match the specificity offered for Husted.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].donor_summary",
-          "concern": "The donor_summary references '2024 cycle fundraising was much larger, at about $93.7M raised.' This figure likely refers to Brown's 2024 regular Senate re-election campaign (which he lost to Bernie Moreno), not the current 2026 special election. The profile appropriately separates 2024 and 2025-2026 cycle data, but readers could potentially misread the $93.7M as relevant to the current race. The OpenSecrets URL for the 2024 data should be confirmed to ensure it refers to the correct cycle.",
-          "suggestion": "Add a parenthetical clarification that the $93.7M figure is from Brown's 2024 regular Senate re-election campaign, not the current 2026 special election.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].issues.Climate/Energy.stance",
-          "concern": "Husted's climate stance mentions 'incentivize methane capture from coal mines' as part of an 'all-of-the-above' energy approach. The framing is accurate and neutral, but the profile does not mention any position on climate change itself (mitigation, emissions targets, etc.), only energy production. This is not a bias issue but a completeness gap — his Senate page sources are cited and may not have additional climate-specific content.",
-          "suggestion": "If Husted has taken any public position on climate science or emissions policy (separate from energy production), consider adding it. If not, the current framing with 'high' confidence based on available sources is acceptable.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[4].issues.Healthcare.stance",
-          "concern": "Bill Redpath's healthcare stance is listed as 'No public position found' with low confidence, citing his campaign FAQ page. Given that Redpath is a longtime Libertarian activist with a campaign FAQ, it is plausible that his general Libertarian philosophy implies a market-based healthcare position, but the profile appropriately declines to infer from ideology. This is acceptable under the missing data policy.",
-          "suggestion": "No change required — the 'no public position found' approach is correct here. Human reviewer may wish to spot-check https://billredpath.com/faq/ to confirm healthcare is not addressed.",
-          "severity": "info"
-        },
-        {
-          "field": "description",
-          "concern": "The race description says Ohio 'has become more competitive but has leaned Republican in recent federal elections.' This is a reasonable characterization but slightly editorializes about Ohio's political trajectory. 'Has become more competitive' implies a directional trend that could be contested depending on the time frame examined.",
-          "suggestion": "Consider replacing with a neutral factual statement, e.g., 'Ohio has voted Republican in recent presidential and Senate elections, though the state has seen competitive statewide races.'",
-          "severity": "info"
-        }
-      ],
-      "summary": "This profile is broadly well-researched, with strong sourcing from official Senate pages, FEC data, Ballotpedia, and credible news outlets across most candidates. Issue stances for Husted and Levy are particularly well-documented with high-confidence citations from primary sources. However, several issues require attention: a potentially mislabeled FEC link for Kanter, an internal inconsistency in the polling_note vs. actual polling data, a description of Sherrod Brown's party label as 'reelection' when this is technically a special election for a different seat, minor asymmetric framing between candidates, and a factual concern about Husted's education timeline that should be verified."
-    },
-    {
-      "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-08T19:26:24.765378+00:00",
+      "model": "anthropic/claude-haiku-4.5",
+      "reviewed_at": "2026-06-16T02:13:51.885708Z",
       "verdict": "approved",
-      "score": 96,
+      "score": 87,
       "flags": [
         {
-          "field": "candidates[1].issues.Tech & AI.stance",
-          "concern": "The profile states no public position was found, which is accurate based on the provided sources; however, given the broad scope of this election, this is a notable, albeit acceptable, gap.",
-          "suggestion": null,
+          "field": "candidates[1].issues.Climate/Energy.stance",
+          "concern": "The stance summary cites an E&E News article titled 'A new Sherrod Brown? Democrat runs from climate agenda,' which carries a loaded framing suggesting Brown is retreating from climate commitments. While the source is cited, the stance description itself is neutral and balanced (mentioning his 93% LCV score, infrastructure support, and job-protection rationale). However, the inclusion of a source with a critical headline without explicit context that this is a critical framing could be misread as endorsing that framing. The actual stance text is fair.",
+          "suggestion": "Consider adding a brief note that the E&E News article presents a critical perspective, or rely more heavily on the LCV endorsement and Brown's own campaign messaging to lead the summary. Alternatively, this is acceptable as-is since the stance itself remains neutral.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.stance",
+          "concern": "The stance summary states 'Public criticism of his LGBTQ record has focused on earlier positions in Ohio-era policy debates' and cites an Advocate.com article titled 'JD Vance's replacement Jon Husted has anti-LGBTQ+ history.' This is sourced, but the phrasing 'anti-LGBTQ+ history' in the source title is a critical characterization. The stance itself remains factually neutral (describing his record without endorsing the criticism), so this is acceptable, but the reliance on a single advocacy-outlet source for a civil-rights stance (vs. multiple sources for other issues) is noted.",
+          "suggestion": "If additional sources on Husted's LGBTQ record are available (e.g., legislative votes, official statements), consider adding them for balance. Current sourcing is acceptable but thinner than other issues.",
           "severity": "info"
         },
         {
           "field": "candidates[2].donor_summary",
-          "concern": "The donor summary for Jeffrey Kanter notes that federal campaign finance data was not clearly surfaced; given his status as a disqualified candidate, this is acceptable, but could be clarified by stating that no active committee is currently filing standard reports.",
-          "suggestion": "Clarify that the candidate's disqualification likely impacts the availability of standard FEC reporting metrics.",
+          "concern": "Gregory Levy's donor summary states 'No significant PAC or institutional contributions reported' and notes that 'totals appear negligible compared to major-party candidates.' This is accurate and appropriately contextualizes his grassroots fundraising model. No concern here; flagged only to note this is well-handled.",
+          "suggestion": null,
           "severity": "info"
         },
         {
-          "field": "candidates[3].donor_summary",
-          "concern": "The summary notes difficulty in surfacing finance data for Bill Redpath. While the FEC links are provided, a concise summary of his current financial standing would improve completeness.",
-          "suggestion": "If data is unavailable due to the scale of the campaign, explicitly state that the campaign does not meet the threshold for extensive FEC reporting.",
-          "severity": "info"
-        }
-      ],
-      "summary": "This is an exceptionally high-quality and thorough research profile. The agent has successfully synthesized a complex political landscape with clear, neutral language and robust sourcing from official records, campaign sites, and reliable journalistic outlets. The candidate backgrounds are well-documented, and the consistent handling of 'no public position found' for certain issues demonstrates good-faith research integrity."
-    },
-    {
-      "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-08T19:26:27.427902+00:00",
-      "verdict": "approved",
-      "score": 96,
-      "flags": [
-        {
-          "field": "polling[0].date, polling[1].date, polling[2].date",
-          "concern": "Polls dated 2026-03-08, 2026-02-22, and 2025-12-08 — cannot independently verify from training data as these are future dates relative to my last update; source URL should be confirmed by human reviewer.",
-          "suggestion": "Human spot-check Ballotpedia page for poll accuracy.",
+          "field": "candidates[3].issues.Abortion & Reproductive Health.stance",
+          "concern": "Bill Redpath's stance states he 'agreed with the Supreme Court's decision overturning Roe v. Wade and opposes taxpayer funding for abortion providers.' The source cited is an iVoterGuide questionnaire. This is a factual statement of his position, but the phrasing 'agreed with' is slightly more active/positive than a neutral 'supports' or 'backs.' However, this is a minor stylistic point and the stance is fundamentally neutral. No error flagged.",
+          "suggestion": null,
           "severity": "info"
         },
         {
-          "field": "candidates[2].donor_source_url",
-          "concern": "FEC URL https://www.fec.gov/data/candidate/S6OH00395/ is cited for Jeffrey Kanter but links page title says 'LEVY, GREGORY LEE' — possible FEC ID mismatch or reuse; donor summary for Kanter notes no clear data found.",
-          "suggestion": "Verify FEC candidate IDs match names.",
+          "field": "candidates[0].summary",
+          "concern": "The summary states Husted 'began serving in January 2025 after being appointed to fill the vacancy left by Vice President J.D. Vance.' This is accurate per the sources cited. However, the summary does not mention that he is the 'incumbent' in the 2026 special election (though the profile correctly marks incumbent=true). This is a minor omission but worth noting for completeness.",
+          "suggestion": "Consider adding 'as the incumbent' or similar language to the summary to make his current status explicit, though the profile data structure already captures this.",
           "severity": "info"
         },
         {
-          "field": "candidates[3].donor_source_url",
-          "concern": "FEC URL https://www.fec.gov/data/candidate/S6OH00395/ correctly matches Gregory Levy per links, but same ID flagged in Kanter section — confirm no overlap.",
+          "field": "candidates[1].career_history",
+          "concern": "Sherrod Brown's career_history shows he served as 'Ohio Secretary of State' from 1983–1991. My training data indicates Brown served as Ohio Secretary of State from 1983 to 1991, which matches the profile. However, the profile also states he 'Represented Ohio in the U.S. Senate for nearly two decades' (2007–2025), which is 18 years — accurate. No error detected; this is consistent with public records.",
+          "suggestion": null,
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].voting_summary",
+          "concern": "The voting_summary for Jon Husted states 'In the 119th Congress he voted Yea on the reconciliation bill (S.2), Yea on all judicial and executive nominations, and Nay on a Democratic amendment to limit legal settlements.' These are specific votes. The source cited is his voting record page (https://www.husted.senate.gov/legislation/voting-record/), which is his official Senate site. I cannot independently verify these specific votes from my training data (Husted was appointed in January 2025, after my knowledge cutoff for detailed voting records), but the source is authoritative. No error flagged; this is appropriately sourced.",
+          "suggestion": null,
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].voting_summary",
+          "concern": "The voting_summary for Sherrod Brown states he 'voted with the Democratic caucus over 90% of the time' and lists specific votes (Inflation Reduction Act, CHIPS Act, bipartisan infrastructure law, opposition to 2017 tax cuts, PRO Act, Butch Lewis Act). These are well-documented legislative positions. The source is GovTrack, which is authoritative. No error detected.",
           "suggestion": null,
           "severity": "info"
         }
       ],
-      "summary": "Excellent profile with comprehensive sourcing from official campaign sites, FEC, Congress.gov, Ballotpedia, and credible news outlets across all candidates and issues. Stances are neutrally phrased, consistently backed by cited sources, and appropriately flag 'no public position found' for minor candidates with good-faith searches. Backgrounds, polling, and finance data are detailed and internally consistent with provided URLs. Minor info-level notes on future-dated polls and FEC mismatches do not detract from overall quality."
+      "summary": "This is a well-sourced, comprehensive profile of Ohio's 2026 special Senate election with four candidates. Strengths: (1) All four candidates have detailed issue positions backed by credible sources (official campaign sites, FEC filings, news outlets, advocacy endorsements). (2) Career histories are documented and internally consistent. (3) Donor summaries are grounded in FEC and OpenSecrets data with specific dollar amounts and cycles. (4) Language is predominantly neutral across all candidates, with consistent framing of opposing positions (e.g., Husted's 'all-of-the-above energy' vs. Brown's 'clean energy investments' are both described factually without loaded adjectives). (5) The profile correctly distinguishes between high-confidence stances (backed by multiple sources) and lower-confidence gaps (e.g., Redpath and Levy on climate/tech, marked as 'no public position found'). Minor areas for improvement noted in flags below, but none rise to the level of factual error or systematic bias."
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-06-16T02:13:28.225816Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[0].career_history",
+          "concern": "The career history field for Jon Husted is empty, despite the summary mentioning his extensive background as Lieutenant Governor, Secretary of State, and Speaker of the Ohio House.",
+          "suggestion": "Populate the career_history array with the roles mentioned in the summary to ensure consistency.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].career_history[2]",
+          "concern": "The career history entry for Sherrod Brown lists 'Ohio Secretary of State' from 1983-1991. My training data suggests he served as Ohio Secretary of State during this period, but the description says 'Held statewide office as Ohio secretary of state' while the title field is 'Ohio Secretary of State'. This is accurate, but the organization field says 'State of Ohio'—this is correct, but ensure the dates align with official records.",
+          "suggestion": null,
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Firearms & Second Amendment.stance",
+          "concern": "The stance is marked as 'No public position found'. Given the candidate's socialist platform, this is acceptable, but a search of the candidate's social media or specific party platform might yield a general stance on self-defense or gun control.",
+          "suggestion": "If no further information is found, the current 'No public position found' is appropriate and does not penalize the score.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is exceptionally well-researched and balanced. It provides comprehensive, high-confidence sourcing for all candidates, including detailed issue stances and financial summaries. The tone is neutral and consistent across all candidates, successfully avoiding asymmetric framing. The inclusion of both major-party candidates and third-party contenders provides a thorough overview of the 2026 Ohio special election landscape."
+    },
+    {
+      "model": "x-ai/grok-4.3",
+      "reviewed_at": "2026-06-16T02:13:28.845246Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [],
+      "summary": "Strong sourcing across all candidates and 12 issues with high-confidence citations from official campaign sites, FEC/OpenSecrets, Ballotpedia, GovTrack, and credible news outlets. Candidate backgrounds, donor summaries, and voting records are internally consistent with the cited sources. Language is neutral and framing is balanced across opposing candidates with no asymmetric or value-laden terminology."
+    },
+    {
+      "model": "automated-link-validator",
+      "reviewed_at": "2026-06-16T02:14:02.477177Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[1].issues.Abortion & Reproductive Health.sources[1].url",
+          "concern": "Cited source URL (https://www.plannedparenthoodaction.org/planned-parenthood-advocates-ohio/media/planned-parenthood-advocates-ohio-announces-endorsement-of-sherrod-brown-for-reelection-to-the-us-senate-in-2026) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Economy.sources[1].url",
+          "concern": "Cited source URL (https://www.theatlantic.com/politics/archive/2026/02/sherrod-brown-working-class/621970/) returned a dead link: HTTP error 404.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Scanned 99 source links. Found 2 dead link(s)."
+    },
+    {
+      "model": "automated-profile-quality",
+      "reviewed_at": "2026-06-16T02:14:02.484615Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Economy.sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Local Issues.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[3]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[9]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Healthcare.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[6]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Election Policy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[7]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Election Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[8]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Abortion & Reproductive Health.sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[9]",
+          "concern": "Duplicate source URL also appears at candidates[0].links[10].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].summary_sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].links[10].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Abortion & Reproductive Health.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Tech & AI.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[3]",
+          "concern": "Duplicate source URL also appears at candidates[0].links[10].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[6]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Foreign Policy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[8]",
+          "concern": "Duplicate source URL also appears at candidates[2].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Abortion & Reproductive Health.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Economy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Civil Rights & Equality.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Foreign Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[3].issues.Economy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[11]",
+          "concern": "Duplicate source URL also appears at candidates[3].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[3]",
+          "concern": "Duplicate source URL also appears at candidates[3].donor_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[7]",
+          "concern": "Duplicate source URL also appears at candidates[3].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[9]",
+          "concern": "Duplicate source URL also appears at candidates[3].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Climate/Energy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Tech & AI.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Local Issues.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Found 51 profile quality issue(s)."
     }
   ],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 0,
-    "completion_tokens": 0,
-    "total_tokens": 0,
-    "estimated_usd": 0.0,
-    "model_breakdown": {},
-    "duration_s": 0.6
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 60867,
+    "completion_tokens": 3382,
+    "total_tokens": 64249,
+    "cost_usd": 0.06357185,
+    "cost_source": "provider",
+    "estimated_usd": 0.063706,
+    "model_breakdown": {
+      "google/gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 21550,
+        "completion_tokens": 462
+      },
+      "x-ai/grok-4.3": {
+        "prompt_tokens": 18325,
+        "completion_tokens": 349
+      },
+      "anthropic/claude-haiku-4.5": {
+        "prompt_tokens": 20992,
+        "completion_tokens": 2571
+      }
+    },
+    "duration_s": 45.3,
+    "serper_calls": 0,
+    "context_requests": 0,
+    "max_estimated_context_tokens": 0,
+    "max_context_window_tokens": 0,
+    "max_context_utilization": 0.0,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0,
+    "review": {
+      "whole_profile": true,
+      "configured_providers": [
+        "claude",
+        "gemini",
+        "grok"
+      ],
+      "packet_revisions": 1,
+      "packet_chars": 64910,
+      "packet_estimated_tokens": 16227,
+      "calls": 3,
+      "providers": {
+        "gemini": {
+          "model": "google/gemini-3.1-flash-lite-preview",
+          "calls": 1,
+          "prompt_tokens": 21550,
+          "completion_tokens": 462,
+          "provider_cost_usd": 0.0060805,
+          "estimated_cost_usd": 0.0060805
+        },
+        "grok": {
+          "model": "x-ai/grok-4.3",
+          "calls": 1,
+          "prompt_tokens": 18325,
+          "completion_tokens": 349,
+          "provider_cost_usd": 0.02364435,
+          "estimated_cost_usd": 0.02377875
+        },
+        "claude": {
+          "model": "anthropic/claude-haiku-4.5",
+          "calls": 1,
+          "prompt_tokens": 20992,
+          "completion_tokens": 2571,
+          "provider_cost_usd": 0.033847,
+          "estimated_cost_usd": 0.033847
+        }
+      }
+    }
   },
   "validation_grade": {
     "grade": "A",
     "score": 90,
     "passed": true,
-    "summary": "Validated by 2/3 reviewers with an average score of 90/100."
+    "summary": "Validated by 3/5 reviewers with an average score of 90/100."
   },
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026",
   "register_to_vote_url": "https://www.ohiosos.gov/elections/register-to-vote",
-  "how_to_vote_url": "https://www.ohiosos.gov/elections/voting-options"
+  "how_to_vote_url": "https://www.ohiosos.gov/elections",
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "post_run_analysis": null,
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": [
+      "discovery.metadata",
+      "discovery.roster_sync",
+      "discovery.roster_verify",
+      "issues:Jon Husted:Abortion & Reproductive Health",
+      "issues:Jon Husted:Climate/Energy",
+      "issues:Jon Husted:Economy",
+      "issues:Jon Husted:Firearms & Second Amendment",
+      "issues:Jon Husted:Healthcare",
+      "issues:Jon Husted:Immigration",
+      "issues:Jon Husted:Foreign Policy",
+      "issues:Jon Husted:Civil Rights & Equality",
+      "issues:Jon Husted:Education",
+      "issues:Jon Husted:Tech & AI",
+      "issues:Jon Husted:Election Policy",
+      "issues:Jon Husted:Local Issues",
+      "issues:Sherrod Brown:Healthcare",
+      "issues:Sherrod Brown:Economy",
+      "issues:Sherrod Brown:Climate/Energy",
+      "issues:Sherrod Brown:Abortion & Reproductive Health",
+      "issues:Sherrod Brown:Immigration",
+      "issues:Sherrod Brown:Firearms & Second Amendment",
+      "issues:Sherrod Brown:Foreign Policy",
+      "issues:Sherrod Brown:Civil Rights & Equality",
+      "issues:Sherrod Brown:Education",
+      "issues:Sherrod Brown:Tech & AI",
+      "issues:Sherrod Brown:Election Policy",
+      "issues:Sherrod Brown:Local Issues",
+      "issues:Gregory Levy:Healthcare",
+      "issues:Gregory Levy:Economy",
+      "issues:Gregory Levy:Climate/Energy",
+      "issues:Gregory Levy:Abortion & Reproductive Health",
+      "issues:Gregory Levy:Immigration",
+      "issues:Gregory Levy:Firearms & Second Amendment",
+      "issues:Gregory Levy:Foreign Policy",
+      "issues:Gregory Levy:Civil Rights & Equality",
+      "issues:Gregory Levy:Education",
+      "issues:Gregory Levy:Tech & AI",
+      "issues:Gregory Levy:Election Policy",
+      "issues:Gregory Levy:Local Issues",
+      "issues:Bill Redpath:Healthcare",
+      "issues:Bill Redpath:Economy",
+      "issues:Bill Redpath:Climate/Energy",
+      "issues:Bill Redpath:Abortion & Reproductive Health",
+      "issues:Bill Redpath:Immigration",
+      "issues:Bill Redpath:Firearms & Second Amendment",
+      "issues:Bill Redpath:Foreign Policy",
+      "issues:Bill Redpath:Civil Rights & Equality",
+      "issues:Bill Redpath:Education",
+      "issues:Bill Redpath:Tech & AI",
+      "issues:Bill Redpath:Election Policy",
+      "issues:Bill Redpath:Local Issues"
+    ]
+  }
 }

@@ -1,780 +1,680 @@
 {
   "id": "ut-senate-2026",
-  "title": "2026 United States Senate election in Utah",
-  "office": "United States Senate",
+  "title": "2026 Utah State Senate Elections",
+  "office": "Utah State Senator",
   "jurisdiction": "Utah",
   "state": "Utah",
   "district": null,
   "election_date": "2026-11-03",
-  "description": "This race is for Utah\u2019s seat in the United States Senate, a six-year federal office representing the entire state. The seat matters because the Senate helps shape federal legislation, confirmations, and oversight. Utah is a strongly Republican state, so the GOP primary and candidate positioning are likely to be more consequential than the general election. Key contrasts will likely center on ideology, alignment with national Republicans, and whether any challenger can broaden appeal in a deep-red state.",
-  "polling": [],
-  "polling_note": "No public polling found for this race as of 2026-04-11.",
+  "description": "Fifteen of the 29 seats in the Utah State Senate are up for election on November 3, 2026. Republicans currently hold a 22-6 supermajority with one Forward Party member. The election will determine control of the chamber for the 67th Legislature convening in January 2027. Key races include open seats in Districts 5 and 6 due to Republican retirements, and competitive primaries in several districts. The chamber is rated Safe Republican by forecasters.",
   "candidates": [
     {
-      "name": "John Curtis",
+      "name": "J. Stuart Adams",
       "party": "Republican",
       "incumbent": true,
-      "summary": "John Curtis is the junior U.S. senator from Utah and previously served in the U.S. House representing Utah\u2019s 3rd Congressional District. Before Congress, he served as mayor of Provo and worked in business; his campaign and Senate materials emphasize Utah-focused priorities such as energy, public lands, local control, and U.S.-China policy.",
+      "summary": "J. Stuart Adams has served as President of the Utah State Senate since 2019 and represents District 7 in Salt Lake County. He was first elected to the Senate in 2010 after serving in the Utah House of Representatives. Adams is an attorney and business owner who has focused on economic development, education funding, and water policy during his legislative career.",
       "summary_sources": [
         {
-          "url": "https://www.curtis.senate.gov/about/",
+          "url": "https://en.wikipedia.org/wiki/J._Stuart_Adams",
+          "type": "website",
+          "title": "J. Stuart Adams - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
           "type": "government",
-          "title": "About - Senator John Curtis"
-        },
-        {
-          "url": "https://www.johncurtis.org/",
-          "type": "website",
-          "title": "John Curtis"
-        },
-        {
-          "url": "https://ballotpedia.org/John_Curtis_(Utah)",
-          "type": "website",
-          "title": "John Curtis (Utah) - Ballotpedia"
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnCurtis.jpg",
-      "website": "https://www.johncurtis.org/",
-      "social_media": {},
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Utah_Senate_President_Stuart_Adams_-_2022_%28cropped%29.jpg/120px-Utah_Senate_President_Stuart_Adams_-_2022_%28cropped%29.jpg",
+      "issues": {},
       "career_history": [
         {
-          "title": "United States Senator",
-          "organization": "United States Senate",
-          "start_year": 2025,
+          "title": "President of the Utah State Senate",
+          "organization": "Utah State Legislature",
+          "start_year": 2019,
           "end_year": null,
-          "description": "Represents Utah in the U.S. Senate."
+          "description": "Leads the Senate and sets legislative priorities",
+          "source": null
         },
         {
-          "title": "Member of Congress",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2017,
-          "end_year": 2025,
-          "description": "Represented Utah's 3rd Congressional District."
+          "title": "State Senator, District 7",
+          "organization": "Utah State Legislature",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Represents Salt Lake County",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Utah House of Representatives",
+          "start_year": 2002,
+          "end_year": 2010,
+          "description": "Served in the Utah House before moving to the Senate",
+          "source": null
         }
       ],
-      "education": [],
-      "donor_summary": "Raised approximately $5.63M for his 2023\u20132024 campaign committee, with donations led by securities & investment ($520,670), oil & gas ($263,238), real estate ($254,373), and pharmaceuticals/health products ($232,566). Top disclosed contributors included No Labels Problem Solvers ($181,450), AIPAC ($88,400), Sunrun ($59,700), Keller Investment Properties ($59,500), and Vivint Smart Home ($59,400).",
-      "donor_source_url": "https://www.opensecrets.org/members-of-congress/john-curtis/summary?cid=N00041221",
-      "voting_summary": "John Curtis is an incumbent U.S. senator and has a public congressional voting record. In the Senate\u2019s 2025\u20132026 session, he voted with the Republican caucus on major procedural and policy votes, including supporting cloture on a voter photo-ID amendment and voting to proceed on appropriations and other Senate business; his Senate voting page shows these roll calls and his votes.",
-      "voting_source_url": "https://www.curtis.senate.gov/voting-record/",
-      "links": [
+      "education": [
         {
-          "url": "https://ballotpedia.org/John_Curtis_(Utah)",
-          "title": "John Curtis (Utah) - Ballotpedia",
-          "type": "ballotpedia"
+          "institution": "Brigham Young University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1995,
+          "source": null
         },
         {
-          "url": "https://en.wikipedia.org/wiki/John_Curtis",
-          "title": "John Curtis - Wikipedia",
-          "type": "wiki"
-        },
-        {
-          "url": "https://www.opensecrets.org/members-of-congress/john-curtis/summary?cid=N00041221",
-          "title": "Rep. John Curtis - Campaign Finance Summary - OpenSecrets",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.fec.gov/data/candidate/S4UT00282/",
-          "title": "CURTIS, JOHN - Candidate overview - FEC",
-          "type": "finance"
-        },
-        {
-          "url": "https://justfacts.votesmart.org/candidate/123390/john-curtis",
-          "title": "John Curtis - Vote Smart",
-          "type": "votesmart"
-        },
-        {
-          "url": "https://www.curtis.senate.gov/",
-          "title": "Senator John Curtis: Home",
-          "type": "official"
-        },
-        {
-          "url": "https://www.curtis.senate.gov/voting-record/",
-          "title": "Senator Curtis' voting record",
-          "type": "legislature"
-        },
-        {
-          "url": "https://www.congress.gov/member/john-curtis/C001114",
-          "title": "Senator John R. Curtis - Congress.gov",
-          "type": "govtrack"
-        },
-        {
-          "url": "https://ballotpedia.org/John_Curtis",
-          "title": "John Curtis - Ballotpedia",
-          "type": "ballotpedia"
+          "institution": "Brigham Young University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1992,
+          "source": null
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "John Curtis supports lowering health-care costs, including bipartisan bills to reduce the costs of medications and medical devices and to strengthen the rural health-care workforce. He also backs Medicaid reforms that slow spending growth without cutting current beneficiaries.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.curtis.senate.gov/press-releases/curtis-rosen-introduce-bipartisan-bill-to-lower-costs-of-medications-medical-devices/",
-              "type": "government",
-              "title": "Curtis, Rosen Introduce Bipartisan Bill to Lower Costs of Medications and Medical Devices",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.king.senate.gov/newsroom/press-releases/king-curtis-introduce-bipartisan-legislation-to-attract-the-next-generation-of-rural-health-care-workers",
-              "type": "government",
-              "title": "King, Curtis Introduce Bipartisan Legislation to Attract the Next Generation of Rural Health Care Workers",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.curtis.senate.gov/press-releases/medicaid-and-the-promise-of-compassionate-reform/",
-              "type": "government",
-              "title": "Medicaid and the Promise of Compassionate Reform",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "John Curtis says he supports tax relief, regulatory reform, and energy policies intended to lower costs and strengthen Utah\u2019s economy. His campaign also ties economic growth to domestic energy production, fiscal restraint, and support for business and innovation.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.johncurtis.org/values-priorities/",
-              "type": "campaign policy page",
-              "title": "What You Can Expect from Me as Your Senator",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "John Curtis supports an all-of-the-above energy strategy, including fossil fuels and renewables, while prioritizing affordability, reliability, and cleaner outcomes. His campaign also says he will expand domestic oil and gas production and modernize permitting to support energy independence and energy dominance.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.johncurtis.org/values-priorities/",
-              "type": "campaign policy page",
-              "title": "What You Can Expect from Me as Your Senator",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "John Curtis describes himself as pro-life and says he supports abortion restrictions. Public reporting and his voting record show support for anti-abortion legislation, including the Born-Alive Abortion Survivors Protection Act.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/bill/119th-congress/senate-bill/6",
-              "type": "legislation",
-              "title": "Born-Alive Abortion Survivors Protection Act (S.6)",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://justfacts.votesmart.org/candidate/123390/john-curtis?categoryId=2&type=V,S,R,E,F,P",
-              "type": "voting-record",
-              "title": "Vote Smart: Abortion policy - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "John Curtis says the border should be secured and cartels stopped, while also reforming the immigration system and treating migrants humanely. His campaign frames immigration as a rule-of-law issue that should be addressed alongside border security.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.curtis.senate.gov/press-releases/opinion-pioneer-values-at-the-border-compassion-meets-the-rule-of-law/",
-              "type": "op-ed",
-              "title": "OPINION: Pioneer Values at the Border: Compassion Meets the Rule of Law",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Education": {
-          "stance": "John Curtis supports local control of education and says decisions should be made by states and local communities rather than the federal government. His campaign materials frame education policy as part of a broader push to return authority to local leaders.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/values-priorities/",
-              "type": "campaign policy page",
-              "title": "What You Can Expect from Me as Your Senator",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "John Curtis supports U.S. leadership in emerging technologies and has backed targeted safeguards for AI and related technologies. His Senate materials and campaign messaging emphasize innovation, transparency, and consumer protections rather than broad restrictions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.curtis.senate.gov/press-releases/curtis-pushes-utah-as-future-home-of-more-advanced-technologies/",
-              "type": "official press release",
-              "title": "Curtis pushes Utah as future home of more advanced technologies",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.curtis.senate.gov/press-releases/curtis-kelly-introduce-algorithm-accountability-act/",
-              "type": "official press release",
-              "title": "Curtis & Kelly introduce Algorithm Accountability Act",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "John Curtis has opposed sweeping federal changes to state election practices and has said Utah\u2019s mail-in voting system should not be upended by national reforms. His voting record also shows support for voter-ID requirements and other election-integrity measures.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.deseret.com/politics/2026/03/19/mike-lee-continue-fight-save-act/",
-              "type": "news",
-              "title": "Deseret News - Sen. John Curtis expresses concerns with proposal to restrict mail-in voting nationwide",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.curtis.senate.gov/voting-record/",
-              "type": "official-record",
-              "title": "Senator Curtis' voting record",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "John Curtis emphasizes Utah-specific priorities including public lands, land access for farmers and ranchers, border impacts, and domestic energy production. His campaign says he has transferred more federal land to Utah than anyone else in state history and will continue to oppose federal overreach.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.johncurtis.org/values-priorities/",
-              "type": "campaign policy page",
-              "title": "What You Can Expect from Me as Your Senator",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "John Curtis describes himself as pro-Second Amendment and has emphasized support for lawful gun ownership. Public campaign materials do not lay out a detailed gun-safety agenda, but his messaging aligns with protecting gun rights while supporting law enforcement and sportsmen.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.curtis.senate.gov/press-releases/curtis-highlights-utahs-national-security-role-during-northern-utah-visit/",
-              "type": "press release",
-              "title": "Curtis Highlights Utah's National Security Role During Northern Utah Visit",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "John Curtis emphasizes a hawkish posture toward China, saying he will stand up to the Chinese Communist Party and protect American workers and strategic interests. He also highlights Taiwan cooperation and broader U.S. global leadership in Senate and campaign materials.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johncurtis.org/issues",
-              "type": "campaign page",
-              "title": "Issues - John Curtis",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.curtis.senate.gov/",
-              "type": "government",
-              "title": "Senator John Curtis - Senate.gov",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.usglc.org/newsroom/senator-john-curtis-headlines-major-forum-in-salt-lake-city-to-highlight-how-u-s-global-leadership-is-a-win-for-utah/",
-              "type": "news",
-              "title": "Senator John Curtis Headlines Major Forum in Salt Lake City",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        }
-      }
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://stuartadams.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
-      "name": "Mike Lee",
+      "name": "Daniel McCay",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Mike Lee is the senior United States senator from Utah, first elected in 2010 and serving since 2011. His campaign and Senate biography describe him as a conservative Republican focused on limited government, constitutional issues, and Utah priorities.",
+      "summary": "Daniel McCay represents District 18 covering parts of Salt Lake and Utah Counties. First elected in 2018, he serves as Senate Majority Whip. McCay is an attorney who has sponsored legislation on religious liberty, election integrity, and government transparency.",
       "summary_sources": [
         {
-          "url": "https://www.lee.senate.gov/about-mike",
+          "url": "https://en.wikipedia.org/wiki/Daniel_McCay",
+          "type": "website",
+          "title": "Daniel McCay - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
           "type": "government",
-          "title": "About Mike - Mike Lee US Senator for Utah"
-        },
-        {
-          "url": "https://leeforsenate.com/",
-          "type": "website",
-          "title": "Mike Lee for Senate"
-        },
-        {
-          "url": "https://ballotpedia.org/Mike_Lee_(U.S._Senate,_Utah)",
-          "type": "website",
-          "title": "Mike Lee (U.S. Senate, Utah) - Ballotpedia"
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mike_Lee%2C_official_portrait.jpg/500px-Mike_Lee%2C_official_portrait.jpg",
-      "website": "https://leeforsenate.com/",
-      "social_media": {},
+      "image_url": null,
+      "issues": {},
       "career_history": [
         {
-          "title": "United States Senator",
-          "organization": "United States Senate",
-          "start_year": 2011,
+          "title": "State Senator, District 18",
+          "organization": "Utah State Legislature",
+          "start_year": 2018,
           "end_year": null,
-          "description": "Represents Utah in the U.S. Senate."
+          "description": "Represents Salt Lake and Utah Counties; serves as Senate Majority Whip",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private Practice",
+          "start_year": 2008,
+          "end_year": null,
+          "description": "Practices law in Utah",
+          "source": null
         }
       ],
-      "education": [],
-      "donor_summary": "Raised approximately $16.53M for his 2019\u20132024 campaign committee and leadership PAC combined, with donations dominated by retired donors, Republican/conservative donors, securities & investment, real estate, and leadership PAC money. Top disclosed contributors included Club for Growth ($193,345), Senate Conservatives Fund ($172,612), the National Republican Senatorial Committee ($51,200), Microsoft ($48,070), and Blackstone Group ($43,000).",
-      "donor_source_url": "https://www.opensecrets.org/members-of-congress/mike-lee/summary?cid=N00031696",
-      "voting_summary": "Mike Lee is an incumbent U.S. senator and has a long public congressional voting record. In the 2025\u20132026 session, he voted with the Republican caucus on major procedural and policy votes, including supporting cloture on a voter photo-ID amendment, opposing a motion related to clean electricity tax credits, and opposing a motion to remove U.S. forces from hostilities with Iran; his Senate and Vote Smart records document these votes.",
-      "voting_source_url": "https://www.congress.gov/member/mike-lee/L000577",
-      "links": [
+      "education": [
         {
-          "url": "https://ballotpedia.org/Mike_Lee_(U.S._Senate,_Utah)",
-          "title": "Mike Lee (U.S. Senate, Utah) - Ballotpedia",
-          "type": "ballotpedia"
+          "institution": "Brigham Young University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2008,
+          "source": null
         },
         {
-          "url": "https://en.wikipedia.org/wiki/Mike_Lee",
-          "title": "Mike Lee - Wikipedia",
-          "type": "wiki"
-        },
-        {
-          "url": "https://www.opensecrets.org/members-of-congress/mike-lee/summary?cid=N00031696",
-          "title": "Sen. Mike Lee - Campaign Finance Summary - OpenSecrets",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.fec.gov/data/candidate/S0UT00165/",
-          "title": "LEE, MIKE - Candidate overview - FEC",
-          "type": "finance"
-        },
-        {
-          "url": "https://justfacts.votesmart.org/candidate/66395/mike-lee",
-          "title": "Mike Lee - Vote Smart",
-          "type": "votesmart"
-        },
-        {
-          "url": "https://www.lee.senate.gov/",
-          "title": "Mike Lee US Senator for Utah",
-          "type": "official"
-        },
-        {
-          "url": "https://www.congress.gov/member/mike-lee/L000577",
-          "title": "Senator Mike Lee - Congress.gov",
-          "type": "govtrack"
-        },
-        {
-          "url": "https://www.lee.senate.gov/about-mike",
-          "title": "About Mike - Mike Lee US Senator for Utah",
-          "type": "legislature"
+          "institution": "Brigham Young University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2005,
+          "source": null
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Mike Lee supports a consumer-directed health care model and opposes the federal Obamacare framework. His Senate materials say health policy should be more market-driven, with expanded health savings options and less federal intrusion.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/healthcare",
-              "type": "official",
-              "title": "Healthcare - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://danielmccay.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kirk Cullimore Jr.",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Kirk Cullimore Jr. represents District 19 in Salt Lake County. First elected in 2018, he is an attorney who has focused on legal reform, business regulation, and public safety legislation. He serves on the Judiciary and Law Enforcement committees.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kirk_Cullimore_Jr.",
+          "type": "website",
+          "title": "Kirk Cullimore Jr. - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
-        "Economy": {
-          "stance": "Mike Lee promotes tax cuts, a simpler tax code, reduced federal spending, and a balanced-budget amendment. His Senate materials describe his economic agenda as pro-growth and aimed at limiting government debt and regulatory burdens.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/promoting-prosperity",
-              "type": "official",
-              "title": "Promoting Prosperity - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/pro-growth-pro-family-tax-reform",
-              "type": "official",
-              "title": "Pro-Growth, Pro-Family Tax Reform - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Mike Lee supports expanding domestic energy production, permitting reform, and reduced federal climate regulation. His Senate materials also emphasize public lands and energy development in Utah.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/issue-lands",
-              "type": "official",
-              "title": "Public Lands - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/technology",
-              "type": "official",
-              "title": "Technology - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/promoting-prosperity",
-              "type": "official",
-              "title": "Promoting Prosperity - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Lee advocates nationwide permitless carry and preemption of state gun-restriction laws to protect the Second Amendment rights of law-abiding citizens. He frames the Second Amendment as a right to carry firearms without government permission.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/2026/3/lee-introduces-national-constitutional-carry-act",
-              "type": "official",
-              "title": "Lee Introduces National Constitutional Carry Act - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/protect-2a",
-              "type": "official",
-              "title": "Protecting the Second Amendment - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Mike Lee favors a restraint-based foreign policy and says Congress should reassert its constitutional role in military and foreign policy decisions. He has also emphasized scrutiny of foreign aid and support for Israel\u2019s right to defend itself.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/NationalSecurity",
-              "type": "official",
-              "title": "National Security - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2025/4/lee-returns-from",
-              "type": "official",
-              "title": "Lee Returns from Congressional Delegation to Denmark, Estonia, and Finland",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2017/4/america-first-diplomacy",
-              "type": "official",
-              "title": "America First Diplomacy - Mike Lee",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Mike Lee supports criminal-justice and civil-liberties reforms, including sentencing reform, surveillance reform, and asset-forfeiture changes. His Senate materials frame these efforts as balancing public safety with due-process protections.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/justice-reform",
-              "type": "official",
-              "title": "Justice Reform - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2026/3/lee-introduces-bipartisan-government-surveillance-reform-act",
-              "type": "official",
-              "title": "Lee Introduces Bipartisan Government Surveillance Reform Act",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Mike Lee supports school choice, parental control, and broader education options in K-12 and higher education. His Senate pages say reforms should give families more options and improve transparency and accountability.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/education",
-              "type": "official",
-              "title": "Education - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/k-12-education-reform",
-              "type": "official",
-              "title": "K-12 Education Reform - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/higher-education-reform-and-college-opportunity",
-              "type": "official",
-              "title": "Higher Education Reform - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Mike Lee favors a limited federal role in technology policy and says regulation should stay within constitutional bounds. He has also backed privacy and surveillance-reform measures and antitrust-related oversight.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/technology",
-              "type": "official",
-              "title": "Technology - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2026/3/lee-introduces-bipartisan-government-surveillance-reform-act",
-              "type": "official",
-              "title": "Lee Introduces Bipartisan Government Surveillance Reform Act",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/committee-assignments",
-              "type": "official",
-              "title": "Committee Assignments - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Mike Lee opposes abortion and describes himself as pro-life. His Senate materials emphasize protecting unborn life and supporting legislation to restrict abortion access.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/protecting-life",
-              "type": "official",
-              "title": "Protecting Life - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2026/3/lee-sounds-alarm-on-pro-abortion-united-nations-nominee",
-              "type": "official",
-              "title": "Lee Sounds Alarm on Pro-Abortion United Nations Nominee",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Mike Lee supports stricter immigration enforcement and tighter asylum rules, and has backed legislation aimed at reducing illegal immigration and limiting benefits for some noncitizens. He has also supported some high-skilled immigration reforms.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/2023/3/sen-lee-introduces-bill-to-protect-vulnerable-immigrants",
-              "type": "official",
-              "title": "Sen. Lee Introduces Bill to Protect Vulnerable Immigrants",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2024/12/lee-secures-passage-of-three-bills-in-major-win-for-utah",
-              "type": "official",
-              "title": "Lee Secures Passage of Three Bills in Major Win for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2019/9/fairness-for-high-skilled-immigrants-act",
-              "type": "official",
-              "title": "Fairness for High-Skilled Immigrants Act - Mike Lee",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Mike Lee supports election-related changes such as requiring proof of U.S. citizenship to register to vote and requiring photo identification for voting. He has also argued for structural reforms to Congress and federal agencies, including limits on executive power.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/services/files/7C0C9BE4-8C98-4046-B19B-F1732EA84509",
-              "type": "official",
-              "title": "SAVE AMERICA ACT PDF",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/2017/3/the-time-for-regulatory-reform-in-congress",
-              "type": "official",
-              "title": "The Time for Regulatory Reform in Congress - Mike Lee",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Mike Lee\u2019s Senate materials emphasize Utah-specific constituent services, public lands, and local economic concerns. He says he works on federal assistance for Utahns and has highlighted public lands and rural-community impacts as major Utah issues.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lee.senate.gov/federal-assistance",
-              "type": "official",
-              "title": "Assistance with Federal Agencies - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/issue-lands",
-              "type": "official",
-              "title": "Public Lands - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            },
-            {
-              "url": "https://www.lee.senate.gov/utah-first?page=7",
-              "type": "official",
-              "title": "Utah First - Mike Lee US Senator for Utah",
-              "last_accessed": "2026-04-11T04:28:19.206841+00:00"
-            }
-          ]
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
+          "type": "government",
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
-      }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator, District 19",
+          "organization": "Utah State Legislature",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Represents Salt Lake County",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Cullimore Law",
+          "start_year": 2006,
+          "end_year": null,
+          "description": "Practices civil litigation and business law",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Utah",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2006,
+          "source": null
+        },
+        {
+          "institution": "Brigham Young University",
+          "degree": "Bachelor of Arts",
+          "field": "Spanish",
+          "year": 2003,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://kirkcullimore.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ronald M. Winterton",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Ronald Winterton represents District 20, a large rural district covering Daggett, Duchesne, Summit, Uintah, and Wasatch Counties. First elected in 2018, he is a rancher and businessman who focuses on natural resources, water rights, and rural economic development.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ronald_Winterton",
+          "type": "website",
+          "title": "Ronald Winterton - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
+          "type": "government",
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator, District 20",
+          "organization": "Utah State Legislature",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Represents five rural counties in eastern Utah",
+          "source": null
+        },
+        {
+          "title": "Rancher/Business Owner",
+          "organization": "Winterton Ranches",
+          "start_year": 1980,
+          "end_year": null,
+          "description": "Family ranching operation in Uintah County",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Utah State University",
+          "degree": "Bachelor of Science",
+          "field": "Animal Science",
+          "year": 1978,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jen Plumb",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jen Plumb represents District 9 in Salt Lake County. First elected in 2022, she is a pediatrician who advocates for healthcare access, education funding, and child welfare policies. She serves on the Health and Human Services and Education committees.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jen_Plumb",
+          "type": "website",
+          "title": "Jen Plumb - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
+          "type": "government",
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator, District 9",
+          "organization": "Utah State Legislature",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Represents Salt Lake County; pediatrician",
+          "source": null
+        },
+        {
+          "title": "Pediatrician",
+          "organization": "University of Utah Health",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Practices pediatric medicine",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Utah School of Medicine",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "University of Utah",
+          "degree": "Bachelor of Science",
+          "field": "Biology",
+          "year": 2001,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jenplumb.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Karen Kwan",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Karen Kwan represents District 12 in Salt Lake County. First elected in 2022, she is a professor of psychology at Salt Lake Community College. Kwan focuses on mental health policy, education, and criminal justice reform. She is the first Chinese American to serve in the Utah Legislature.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Karen_Kwan_(politician)",
+          "type": "website",
+          "title": "Karen Kwan (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
+          "type": "government",
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator, District 12",
+          "organization": "Utah State Legislature",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Represents Salt Lake County",
+          "source": null
+        },
+        {
+          "title": "Professor of Psychology",
+          "organization": "Salt Lake Community College",
+          "start_year": 2000,
+          "end_year": null,
+          "description": "Teaches psychology and behavioral science",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Utah",
+          "degree": "Doctor of Philosophy",
+          "field": "Psychology",
+          "year": 1999,
+          "source": null
+        },
+        {
+          "institution": "University of Utah",
+          "degree": "Master of Science",
+          "field": "Psychology",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "University of Utah",
+          "degree": "Bachelor of Science",
+          "field": "Psychology",
+          "year": 1993,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://karenkwan.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Claudia Bigler",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Claudia Bigler is the Democratic candidate for District 1, which covers Box Elder, Cache, and Tooele Counties. She is challenging incumbent Republican Scott Sandall in a heavily Republican district (R+54.8 in the 2024 presidential election). Bigler is a community organizer and former educator.",
+      "summary_sources": [
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
+          "type": "government",
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Utah_Senate_election",
+          "type": "website",
+          "title": "2026 Utah Senate election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Community Organizer",
+          "organization": "Various nonprofits",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Works on civic engagement and community issues in northern Utah",
+          "source": null
+        },
+        {
+          "title": "Educator",
+          "organization": "Cache County School District",
+          "start_year": 2005,
+          "end_year": 2015,
+          "description": "Taught in public schools",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Utah State University",
+          "degree": "Master of Education",
+          "field": "Education",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "Utah State University",
+          "degree": "Bachelor of Arts",
+          "field": "English",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mackenzie Miller",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mackenzie Miller is the Democratic candidate for District 11, which covers parts of Salt Lake and Tooele Counties. She is challenging Forward Party incumbent Emily Buss and Republican Brooks Benson in a district that voted Republican by 34.9 points in the 2024 presidential election. Miller is a public policy advocate.",
+      "summary_sources": [
+        {
+          "url": "https://vote.utah.gov/2026-candidate-filings/",
+          "type": "government",
+          "title": "2026 Candidate Filings - Utah Voter Information",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Utah_Senate_election",
+          "type": "website",
+          "title": "2026 Utah Senate election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Public Policy Advocate",
+          "organization": "Nonprofit sector",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Works on healthcare access and social services policy",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Utah",
+          "degree": "Master of Public Policy",
+          "field": "Public Policy",
+          "year": 2018,
+          "source": null
+        },
+        {
+          "institution": "Brigham Young University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2015,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-11T04:28:19.206841+00:00",
+  "updated_utc": "2026-06-16T01:13:22.999759+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
-  "reviews": [
-    {
-      "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-11T04:28:41.397472+00:00",
-      "verdict": "approved",
-      "score": 88,
-      "flags": [
-        {
-          "field": "candidates[1].issues.Immigration.stance",
-          "concern": "The stance cites an official Senate press release from 2023 about protecting vulnerable immigrants, which may imply a more expansionist position than the summary statement suggests. The summary emphasizes 'stricter immigration enforcement and tighter asylum rules' but the sourced press release from 2026-04-11 appears to present a bill to 'protect vulnerable immigrants' \u2014 the framing could be misleading about the bill's actual content without inspection of the source URL.",
-          "suggestion": "Human reviewer should inspect https://www.lee.senate.gov/2023/3/sen-lee-introduces-bill-to-protect-vulnerable-immigrants to confirm the bill's actual provisions align with the 'stricter enforcement' framing, or revise the stance description for accuracy.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].donor_summary",
-          "concern": "The donor summary references a '2023\u20132024 campaign committee' but John Curtis is described as having become a U.S. Senator in 2025 (per career_history). If he was elected to Senate in 2024 and took office in 2025, the timing of this fundraising period may warrant clarification: was this money raised while he was in the House, or does it include early Senate campaign funds?",
-          "suggestion": "Clarify whether the $5.63M was raised during House service (2023\u20132024) or if it includes early 2024 Senate campaign activity. This is a minor chronological note for human verification but does not appear to be a factual error.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].issues.Election Reform.stance",
-          "concern": "The Deseret News source URL references 'Save Act' in the title but the cite is labeled as referring to Curtis's concerns about 'restricting mail-in voting nationwide.' The URL itself (https://www.deseret.com/politics/2026/03/19/mike-lee-continue-fight-save-act/) appears to refer to Mike Lee, not John Curtis, based on the path structure. This may be a source mismatch.",
-          "suggestion": "Human reviewer should access the Deseret News URL to confirm it correctly documents John Curtis's position on mail-in voting and the SAVE Act, or replace with a more direct citation.",
-          "severity": "info"
-        }
-      ],
-      "summary": "This profile demonstrates strong sourcing and internal consistency across both incumbent candidates. Career histories are accurate and well-documented, with appropriate citations to official Senate and campaign websites. Issue stances are presented in neutral language with high-confidence sourcing across healthcare, economy, energy, foreign policy, and other key domains. Both candidates' positions are well-grounded in official Senate materials, press releases, and credible legislative records (Congress.gov, Vote Smart). The profile appropriately flags one low-confidence stance (John Curtis on Social Justice) after good-faith search effort. Generator metadata is correctly recorded as internal API model names."
-    },
-    {
-      "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-11T04:29:04.063680+00:00",
-      "verdict": "approved",
-      "score": 96,
-      "flags": [
-        {
-          "field": "id",
-          "concern": "My training data indicates that Utah's two Senate seats (Class I and Class III) are not scheduled for regular election in 2026. However, the profile cites multiple sources dated 2026 (e.g., Deseret News, March 2026) and press releases from the same year.",
-          "suggestion": "A human reviewer should confirm if this profile is intended for a hypothetical/future scenario or if it refers to a special election not present in my training data.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates",
-          "concern": "Both John R. Curtis and Mike Lee are marked as 'incumbent: true'. While both are sitting U.S. Senators for Utah, they hold different seats (Class I and Class III respectively).",
-          "suggestion": "In a standard single-seat election, only one candidate is typically the incumbent for that specific office. Verify if this profile is a composite of both sitting senators rather than a reflection of a single contested seat.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].social_media",
-          "concern": "The social media object is empty for a high-profile sitting Senator.",
-          "suggestion": "Add official X (Twitter), Facebook, or Instagram links for Senator Curtis, as these are typically part of a complete research profile.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].issues.Reproductive Rights.sources[1].url",
-          "concern": "The URL refers to a bill in the '119th Congress' (S.6), which would chronologically align with the 2025-2026 period mentioned in the profile.",
-          "suggestion": "Human reviewer should confirm the source URL is live, as the 119th Congress starts in January 2025.",
-          "severity": "info"
-        }
-      ],
-      "summary": "This is an exceptionally detailed and internally consistent research profile. It correctly identifies the complex career histories of both candidates (e.g., John Curtis\u2019s transition from Provo Mayor to the U.S. House to the Senate) and provides high-quality, nuanced issue stances. The stances on 'Tech & AI' for both candidates and Curtis's 'Election Reform' position regarding Utah\u2019s mail-in system show a deep level of research into state-specific and modern policy nuances. Sourcing is robust, utilizing official government domains and campaign sites effectively."
-    },
-    {
-      "model": "grok-3-mini",
-      "reviewed_at": "2026-04-11T04:28:33.602217+00:00",
-      "verdict": "approved",
-      "score": 95,
-      "flags": [],
-      "summary": "This profile excels in delivering a comprehensive and balanced overview of the 2026 Utah Senate race, with strong sourcing from official campaign sites, government records, and reputable outlets like Ballotpedia and OpenSecrets, ensuring high-confidence stances on key issues for both candidates. The internal consistency is evident in how positions align with cited sources, and the language maintains a neutral tone throughout, while clearly documenting gaps like the absence of public positions on certain issues."
-    }
-  ],
-  "validation_grade": {
-    "grade": "A",
-    "score": 93,
-    "passed": true,
-    "summary": "Validated by 3/3 reviewers with an average score of 93/100."
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 1628593,
-    "completion_tokens": 153262,
-    "total_tokens": 1781855,
-    "estimated_usd": 0.2565,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 303835,
+    "completion_tokens": 15586,
+    "total_tokens": 319421,
+    "cost_usd": 0.078409864,
+    "cost_source": "provider",
+    "estimated_usd": 0.079241,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 326483,
-        "completion_tokens": 8663
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 260942,
+        "completion_tokens": 9437
       },
-      "gpt-5-nano": {
-        "prompt_tokens": 1270324,
-        "completion_tokens": 142551
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 9436,
-        "completion_tokens": 115
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 10798,
-        "completion_tokens": 1332
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 11552,
-        "completion_tokens": 601
+      "nvidia/nemotron-3-ultra-550b-a55b": {
+        "prompt_tokens": 42893,
+        "completion_tokens": 6149
       }
     },
-    "duration_s": 1401.7
+    "duration_s": 269.6,
+    "serper_calls": 15,
+    "context_requests": 15,
+    "max_estimated_context_tokens": 52985,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0505,
+    "context_deduplicated_results": 56,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 2,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
   }
 }

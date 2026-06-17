@@ -1,0 +1,308 @@
+{
+  "id": "fl-house-15-2026",
+  "title": "Florida's 15th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Florida's 15th Congressional District",
+  "state": "Florida",
+  "district": "15th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The election for Florida's 15th Congressional District will be held on November 3, 2026, with a primary on August 18, 2026. Incumbent Republican Rep. Laurel Lee is seeking re-election in a district that covers parts of Hillsborough, Pasco, and Polk counties in the Tampa Bay area. The district was redrawn under a new congressional map passed in April 2026 that is expected to favor Republicans, and Cook Political Report rates the race as 'Solid R.' Democratic primary candidates include Jose Engell, Christopher Irizarry, and Robert People, who are vying to challenge Lee in the general election.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026. The Cook Political Report rates the race as 'Solid R,' indicating a strong Republican lean.",
+  "candidates": [
+    {
+      "name": "Laurel Lee",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Laurel Lee is the incumbent U.S. Representative for Florida's 15th Congressional District, first elected in 2022 and re-elected in 2024. She previously served as Florida Secretary of State (2019\u20132022) and as a circuit court judge in Hillsborough County (2013\u20132019). She is running for re-election in the 2026 cycle and faces no announced Republican primary challenger.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Laurel_Lee",
+          "type": "website",
+          "title": "Laurel Lee - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Laurel_Lee",
+          "type": "website",
+          "title": "Laurel Lee - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/482586",
+          "type": "news",
+          "title": "FL-15 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Laurel_Lee_118thCong.jpeg/250px-Laurel_Lee_118thCong.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Florida's 15th Congressional District; serves on Energy and Commerce, Judiciary, and House Administration committees",
+          "source": null
+        },
+        {
+          "title": "Secretary of State",
+          "organization": "State of Florida",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Appointed by Governor Ron DeSantis; oversaw elections, corporate registrations, and cultural affairs",
+          "source": null
+        },
+        {
+          "title": "Circuit Judge",
+          "organization": "Thirteenth Judicial Circuit Court of Florida",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Appointed by Governor Rick Scott; presided over civil, appellate, and domestic relations cases",
+          "source": null
+        },
+        {
+          "title": "Assistant U.S. Attorney",
+          "organization": "U.S. Department of Justice, Middle District of Florida",
+          "start_year": null,
+          "end_year": null,
+          "description": "Federal prosecutor; coordinated task force on sexual exploitation of children",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Florida Levin College of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://votelaurel.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jose Engell",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jose Engell (Democratic Party) is running for election to the U.S. House to represent Florida's 15th Congressional District in the 2026 Democratic primary. He filed his candidacy in May 2025 and is described as a Generation Z candidate from Tampa. As of early 2026, Engell had reported no financial activity to the FEC.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jose_Engell",
+          "type": "website",
+          "title": "Jose Engell - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/777898-darren-mcauley-cranks-up-cash-lead-among-democrats-challenging-laurel-lee/",
+          "type": "news",
+          "title": "Darren McAuley cranks up cash lead among Democrats challenging Laurel Lee - Florida Politics",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christopher Irizarry",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Christopher Irizarry is a Democratic candidate running for U.S. House in Florida's 15th Congressional District. He is a U.S. Army veteran and retired CIA officer from Pasco County. Irizarry initially filed to run in the 12th district but shifted to the 15th district after redistricting in April 2026.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Christopher_Irizarry",
+          "type": "website",
+          "title": "Christopher Irizarry - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/796034-redistricting-shuffle-chris-irizarry-shifts-congressional-bid-from-cd-12-to-cd-15/",
+          "type": "news",
+          "title": "Redistricting shuffle: Chris Irizarry shifts congressional bid from CD 12 to CD 15 - Florida Politics",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CIA Officer",
+          "organization": "Central Intelligence Agency",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired CIA officer",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Veteran",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as an Army veteran",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Robert People",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Robert People is a Democratic candidate running for U.S. House in Florida's 15th Congressional District. He is a retired U.S. Army veteran who declared his candidacy in February 2025. As of early 2026, People had raised under $9,000 in campaign funds according to FEC filings.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Robert_People_(Florida)",
+          "type": "website",
+          "title": "Robert People (Florida) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/748618-darren-mcauley-flies-into-race-to-challenge-laurel-lee-in-cd-15/",
+          "type": "news",
+          "title": "Darren McAuley flies into race to challenge Laurel Lee in CD 15 - Florida Politics",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Army Veteran",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired U.S. Army veteran",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_15th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:13:20.075730+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 274070,
+    "completion_tokens": 9060,
+    "total_tokens": 283130,
+    "cost_usd": 0.020727291999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.028635,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 274070,
+        "completion_tokens": 9060
+      }
+    },
+    "duration_s": 149.5
+  }
+}

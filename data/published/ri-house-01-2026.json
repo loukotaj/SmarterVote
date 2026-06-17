@@ -1,0 +1,270 @@
+{
+  "id": "ri-house-01-2026",
+  "title": "2026 United States House of Representatives Election in Rhode Island's 1st Congressional District",
+  "office": "U.S. Representative",
+  "jurisdiction": "Rhode Island's 1st Congressional District",
+  "state": "Rhode Island",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Rhode Island's 1st Congressional District will elect a U.S. Representative on November 3, 2026. The district, which covers the eastern portion of the state including Providence, Pawtucket, and East Providence, is heavily Democratic (D+78.8 by 2024 presidential results). Incumbent Democrat Gabe Amo, who won a 2023 special election and a full term in 2024, is seeking re-election. Republican Kellie Keenan and Independent Wilfred Curioso have filed to challenge him. The race is considered safe for Democrats, but the primary and general election will test whether Republican messaging on costs and government efficiency can gain traction in a deep-blue district.",
+  "candidates": [
+    {
+      "name": "Gabe Amo",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Gabe Amo is the incumbent U.S. Representative for Rhode Island's 1st Congressional District, first elected in a November 2023 special election and re-elected to a full term in 2024. A Pawtucket native and son of Ghanaian and Liberian immigrants, he previously served as a Special Assistant to President Biden and Deputy Director of the White House Office of Intergovernmental Affairs. Amo emphasizes his experience in federal government and focus on economic opportunity, healthcare access, and climate resilience for Rhode Island.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Gabe_Amo",
+          "type": "website",
+          "title": "Gabe Amo - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.gabeamo.com/about-the-campaign/",
+          "type": "website",
+          "title": "About the Campaign - Gabe Amo",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Gabe_Amo",
+          "type": "website",
+          "title": "Gabe Amo - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Gabe_Amo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Rhode Island's 1st Congressional District",
+          "source": null
+        },
+        {
+          "title": "Special Assistant to the President",
+          "organization": "White House",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Deputy Director of the White House Office of Intergovernmental Affairs",
+          "source": null
+        },
+        {
+          "title": "Director of Public Engagement",
+          "organization": "Rhode Island Governor's Office",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Served under Governor Gina Raimondo",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Wheaton College",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "University of Oxford",
+          "degree": "Master of Public Policy",
+          "field": "Public Policy",
+          "year": 2012,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.gabeamo.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kellie Keenan",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Kellie Keenan is a Republican candidate for Rhode Island's 1st Congressional District. Her campaign emphasizes lowering costs for working families, cutting government waste and bureaucracy, increasing transparency, and focusing on practical policy solutions over partisan politics. She has a background in public administration and positions herself as a 'common sense candidate' focused on Rhode Island-first priorities including infrastructure, energy costs, housing affordability, and small business support.",
+      "summary_sources": [
+        {
+          "url": "https://www.kelliekeenanforcongressri.com/",
+          "type": "website",
+          "title": "Kellie Keenan for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.facebook.com/people/Kellie-Keenan-for-Congress-1st-District-RI/61570968059150/",
+          "type": "website",
+          "title": "Kellie Keenan for Congress 1st District RI - Facebook",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Kellie_Keenan",
+          "type": "website",
+          "title": "Kellie Keenan - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Public Administration Professional",
+          "organization": "Various",
+          "start_year": null,
+          "end_year": null,
+          "description": "Career experience in public administration per Ballotpedia",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.kelliekeenanforcongressri.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Wilfred Curioso",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Wilfred Curioso is an Independent candidate who filed a statement of candidacy with the FEC on April 24, 2025, for Rhode Island's 1st Congressional District. He is listed as a challenger with no prior federal office experience. Limited public information is available about his background, platform, or campaign organization.",
+      "summary_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/H6RI01146/",
+          "type": "government",
+          "title": "CURIOSO, WILFRED MR - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/elections/2026-us-house-of-representatives-ri-1/general",
+          "type": "website",
+          "title": "2026 US House (RI) District 1 General Election - Local Candidates",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:23:20.851845+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 215203,
+    "completion_tokens": 5839,
+    "total_tokens": 221042,
+    "cost_usd": 0.055148854000000004,
+    "cost_source": "provider",
+    "estimated_usd": 0.056299,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 189769,
+        "completion_tokens": 3304
+      },
+      "nvidia/nemotron-3-ultra-550b-a55b": {
+        "prompt_tokens": 25434,
+        "completion_tokens": 2535
+      }
+    },
+    "duration_s": 127.6,
+    "serper_calls": 18,
+    "context_requests": 15,
+    "max_estimated_context_tokens": 32591,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0311,
+    "context_deduplicated_results": 84,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 3,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  }
+}

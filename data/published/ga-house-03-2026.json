@@ -1,0 +1,258 @@
+{
+  "id": "ga-house-03-2026",
+  "title": "Georgia's 3rd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Georgia's 3rd Congressional District",
+  "state": "Georgia",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Georgia's 3rd Congressional District pits first-term Republican incumbent Brian Jack against Democratic nominee Maura Keller. The district covers 15 counties in west-central Georgia, including parts of the Atlanta suburbs and rural communities. Jack, a former White House Political Director under President Trump, won the seat in 2024 with 66.3% of the vote after the retirement of longtime Rep. Drew Ferguson. Keller, a retired U.S. Army lieutenant colonel and former VA health worker, defeated George Melville Johnson in the May 19 Democratic primary and is running on a platform of affordability, healthcare access, and veterans' issues in a district rated Solidly Republican by nonpartisan analysts.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in Georgia's 3rd Congressional District. The Cook Political Report rated the race as 'Solidly Republican' prior to the primary.",
+  "candidates": [
+    {
+      "name": "Brian Jack",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Incumbent U.S. Representative Brian Jack is seeking re-election to a second term representing Georgia's 3rd Congressional District. A longtime Trump administration aide who served as White House Political Director from 2019 to 2021, Jack won the open seat in 2024 with 66.3% of the vote after running unopposed in the 2026 Republican primary. He emphasizes border security, tax cuts, energy independence, and conservative judicial appointments.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Brian_Jack",
+          "type": "news",
+          "title": "Brian Jack - Wikipedia",
+          "last_accessed": "2026-06-10T00:00:00Z"
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-georgia-us-house-3-primary.html",
+          "type": "news",
+          "title": "Georgia Third Congressional District Primary Election Results - The New York Times",
+          "last_accessed": "2026-06-10T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Brian_Jack",
+          "type": "website",
+          "title": "Brian Jack - Ballotpedia",
+          "last_accessed": "2026-06-10T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Jack_Brian_119th_Congress_(cropped).jpg",
+      "website": "https://brianjack.com",
+      "social_media": {
+        "twitter": "https://x.com/briantjack",
+        "facebook": "https://www.facebook.com/RepBrianJack/",
+        "instagram": "https://www.instagram.com/brianjackforcongress",
+        "truth_social": "https://truthsocial.com/@brianjack"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Georgia's 3rd Congressional District."
+        },
+        {
+          "title": "White House Political Director",
+          "organization": "White House",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Appointed by President Donald Trump; later promoted to Assistant to the President."
+        },
+        {
+          "title": "Deputy White House Political Director / Special Assistant to the President",
+          "organization": "White House",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Served in the first Trump administration."
+        },
+        {
+          "title": "National Delegate Director",
+          "organization": "Donald Trump 2016 Presidential Campaign",
+          "start_year": 2016,
+          "end_year": 2016,
+          "description": "Led efforts to secure delegate endorsements and combat the Never Trump movement."
+        },
+        {
+          "title": "Political Analyst",
+          "organization": "American Israel Public Affairs Committee (AIPAC)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Liaised with candidates for Congress."
+        },
+        {
+          "title": "Staff",
+          "organization": "Republican National Committee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked at the RNC before joining the 2016 presidential campaign."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Pepperdine University",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 2010
+        },
+        {
+          "institution": "Woodward Academy",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 2006
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "http://jack.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Brian_Jack",
+          "title": "Wikipedia",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Brian_Jack",
+          "title": "Ballotpedia",
+          "type": "other"
+        },
+        {
+          "url": "https://www.congress.gov/member/brian-jack/J000311",
+          "title": "Congress.gov",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "border_security": "Supports securing the border and ending illegal immigration.",
+        "economy": "Advocates for fixing the economy, cutting taxes, and unleashing American energy.",
+        "crime": "Supports stopping crime and ending the weaponization of justice.",
+        "technology": "Supports leading in digital innovation, including cryptocurrency."
+      }
+    },
+    {
+      "name": "Maura Keller",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Maura Keller is the Democratic nominee for Georgia's 3rd Congressional District. A retired U.S. Army lieutenant colonel with 26 years of service and a former VA health worker, Keller defeated George Melville Johnson in the May 19, 2026 Democratic primary with 60.8% of the vote. Her campaign focuses on affordability, healthcare access, veterans' advocacy, and rural issues. Keller previously ran as the Democratic nominee for this seat in 2024, losing to Brian Jack.",
+      "summary_sources": [
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-georgia-us-house-3-primary.html",
+          "type": "news",
+          "title": "Georgia Third Congressional District Primary Election Results - The New York Times",
+          "last_accessed": "2026-06-10T00:00:00Z"
+        },
+        {
+          "url": "https://maurakeller.com/",
+          "type": "website",
+          "title": "Maura Keller for Congress",
+          "last_accessed": "2026-06-10T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Maura_Keller",
+          "type": "website",
+          "title": "Maura Keller - Ballotpedia",
+          "last_accessed": "2026-06-10T00:00:00Z"
+        },
+        {
+          "url": "https://www.times-herald.com/news/keller-emphasizes-service-affordability-in-bid-for-georgia-s-3rd-district/article_fe8686cc-d76a-46d7-baac-ca2a48ddf60b.html",
+          "type": "news",
+          "title": "Keller emphasizes service, affordability in bid for Georgia's 3rd District - The Newnan Times-Herald",
+          "last_accessed": "2026-06-10T00:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Maura_Keller.jpg",
+      "website": "https://maurakeller.com",
+      "social_media": {
+        "facebook": "https://www.facebook.com/MauraKellerforGeorgia/"
+      },
+      "career_history": [
+        {
+          "title": "Lieutenant Colonel (Retired)",
+          "organization": "United States Army",
+          "start_year": 1978,
+          "end_year": 2004,
+          "description": "Enlisted as a Military Policewoman, became an officer, served 26 years. Received the General Douglas MacArthur Leadership Award."
+        },
+        {
+          "title": "Government Contractor",
+          "organization": "U.S. Department of Defense",
+          "start_year": 2004,
+          "end_year": null,
+          "description": "Worked on projects with the Office of the Chief of the Army Reserve and the Office of the Under Secretary of Defense for Personnel and Readiness."
+        },
+        {
+          "title": "Nuclear Medicine Technologist",
+          "organization": "Atlanta Veterans Affairs Healthcare System",
+          "start_year": null,
+          "end_year": null,
+          "description": "Provided healthcare services to veterans at the Atlanta VA hospital."
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Army",
+          "degree": "Officer Commissioning",
+          "field": "Military Leadership",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Maura_Keller",
+          "title": "Ballotpedia",
+          "type": "other"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4GA03100/",
+          "title": "FEC Candidate Profile",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "affordability": "Supports raising the minimum wage, advocating for higher-paying jobs, and fixing Social Security.",
+        "agriculture": "Supports Right to Repair laws and standing with local farmers and ranchers.",
+        "healthcare": "Advocates for expanding healthcare access, especially in rural areas facing hospital closures.",
+        "veterans_affairs": "Committed to supporting veteran care and benefits programs based on 26 years of military service and VA work."
+      }
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:47:06.916246+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 265584,
+    "completion_tokens": 6348,
+    "total_tokens": 271932,
+    "cost_usd": 0.016039440000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.027271,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 265584,
+        "completion_tokens": 6348
+      }
+    },
+    "duration_s": 119.4
+  }
+}

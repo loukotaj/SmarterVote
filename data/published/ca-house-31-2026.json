@@ -1,0 +1,221 @@
+{
+  "id": "ca-house-31-2026",
+  "title": "California's 31st Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 31st Congressional District",
+  "state": "California",
+  "district": "31st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for California's 31st Congressional District pits incumbent Democrat Gil Cisneros against Republican Eric Ching in a general election scheduled for November 3, 2026. The district covers parts of Los Angeles and San Bernardino counties, including the San Gabriel Valley cities of Azusa, West Covina, Covina, and parts of Pomona and Chino. Cisneros, a former Navy officer and Under Secretary of Defense, won the June 2026 primary with 61% of the vote, while Ching, a Walnut City Council member and entrepreneur, advanced with 24%. The Cook Political Report rates this race as Solid Democratic, making Cisneros the strong favorite as he seeks a second consecutive term in a district where registered Democrats outnumber Republicans 44% to 26%.",
+  "polling": [],
+  "polling_note": "No general-election polls were found for this race as of June 2026. The Cook Political Report rated the district as 'Solid D' on February 6, 2025.",
+  "candidates": [
+    {
+      "name": "Gil Cisneros",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Gil Cisneros is the Democratic incumbent U.S. Representative for California's 31st congressional district, first elected in 2024 after previously serving one term representing the 39th district (2019-2021). A former Navy supply officer who served for 11 years, Cisneros won a $266 million Mega Millions lottery jackpot in 2010 and became a philanthropist focused on education scholarships. He also served as Under Secretary of Defense for Personnel and Readiness in the Biden administration from 2021 to 2023 before returning to Congress.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Gil_Cisneros",
+          "type": "website",
+          "title": "Gil Cisneros - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Gil_Cisneros",
+          "type": "website",
+          "title": "Gil Cisneros - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Gil_Cisneros_119th_Congress_2.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 31st District",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Incumbent representing CA-31",
+          "source": null
+        },
+        {
+          "title": "Under Secretary of Defense for Personnel and Readiness",
+          "organization": "U.S. Department of Defense",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Senior Pentagon role under President Biden",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 39th District",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Represented CA-39; defeated for reelection in 2020",
+          "source": null
+        },
+        {
+          "title": "Supply Officer",
+          "organization": "United States Navy",
+          "start_year": 1994,
+          "end_year": 2004,
+          "description": "Served as a naval supply officer, attained rank of Lieutenant Commander",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Brown University",
+          "degree": "Master of Arts",
+          "field": "Urban Education Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Regis University",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "George Washington University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.gilonthehill.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eric Ching",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Eric Ching is the Republican candidate for California's 31st congressional district and has served on the Walnut City Council since 2012, including a term as mayor from 2016 to 2017. An immigrant from Taiwan who moved to the United States in 1982, he has managed an information technology firm for more than 30 years and previously ran for Congress in California's 38th district in 2022 and 2024, losing both general elections. Ching advocates for border security, lower taxes, and public safety, and advances to the November general election after finishing second in the June 2026 primary.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Eric_Ching",
+          "type": "website",
+          "title": "Eric Ching - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ericchingforcongress.com/about.html",
+          "type": "website",
+          "title": "About - Eric Ching for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Eric_Ching.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "City Council Member",
+          "organization": "City of Walnut, California",
+          "start_year": 2012,
+          "end_year": null,
+          "description": "Elected 2012, re-elected 2016 and 2020",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Walnut, California",
+          "start_year": 2016,
+          "end_year": 2017,
+          "description": "Served as mayor of Walnut",
+          "source": null
+        },
+        {
+          "title": "Mayor Pro Tem",
+          "organization": "City of Walnut, California",
+          "start_year": 2014,
+          "end_year": 2014,
+          "description": "Served as Mayor Pro Tem",
+          "source": null
+        },
+        {
+          "title": "Entrepreneur / IT Manager",
+          "organization": "Telecommunications Firm",
+          "start_year": null,
+          "end_year": null,
+          "description": "Managed a large information technology firm for over 30 years",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ericchingforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_31st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:31:28.459670+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 274392,
+    "completion_tokens": 7045,
+    "total_tokens": 281437,
+    "cost_usd": 0.020803204,
+    "cost_source": "provider",
+    "estimated_usd": 0.028271,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 274392,
+        "completion_tokens": 7045
+      }
+    },
+    "duration_s": 137.8
+  }
+}

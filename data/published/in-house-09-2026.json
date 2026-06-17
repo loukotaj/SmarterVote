@@ -1,0 +1,295 @@
+{
+  "id": "in-house-09-2026",
+  "title": "2026 U.S. House of Representatives election in Indiana's 9th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Indiana's 9th Congressional District",
+  "state": "Indiana",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Indiana's 9th Congressional District stretches across south-central and southeastern Indiana, encompassing 18 counties including Monroe (Bloomington), Clark, Floyd, and Lawrence. Incumbent Republican Representative Erin Houchin, first elected in 2022 and serving as Secretary of the House Republican Conference, is running for a third term. She faces Democratic nominee Brad Meyer, a Purdue-trained engineer and former manufacturing leader who won a four-way primary on May 5, 2026, and Libertarian nominee Tonya Hudson, a real estate broker and perennial candidate. The district has leaned Republican in recent cycles \u2014 Houchin won with nearly 65% of the vote in 2024 \u2014 but Democrats see an opportunity to flip the seat in the midterm environment.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of the research date.",
+  "candidates": [
+    {
+      "name": "Erin Houchin",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Erin Houchin is the incumbent U.S. Representative for Indiana's 9th District, first elected in 2022 after serving in the Indiana State Senate from 2014 to 2022. She serves on the House Committees on Education and Workforce, Financial Services, and Rules, and was elected Secretary of the House Republican Conference in November 2024. Her campaign emphasizes border security, cutting government spending, protecting the unborn, standing with Israel, and supporting conservative values and the Second Amendment.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Erin_Houchin",
+          "type": "website",
+          "title": "Erin Houchin - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-26T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.erinhouchin.com/",
+          "type": "website",
+          "title": "Erin Houchin for Congress",
+          "description": null,
+          "last_accessed": "2026-05-26T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Rep._Erin_Houchin_official_photo%2C_118th_Congress.jpg/250px-Rep._Erin_Houchin_official_photo%2C_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Indiana's 9th Congressional District; serves on Education and Workforce, Financial Services, and Rules Committees; elected Secretary of House Republican Conference in 2024",
+          "source": null
+        },
+        {
+          "title": "Secretary of the House Republican Conference",
+          "organization": "House Republican Conference",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Sixth-highest ranking post in the House Republican Conference",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Indiana State Senate",
+          "start_year": 2014,
+          "end_year": 2022,
+          "description": "Represented the 47th district; resigned in February 2022 to focus on congressional campaign",
+          "source": null
+        },
+        {
+          "title": "Field Manager",
+          "organization": "Senator Dan Coats",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as field manager for U.S. Senator Dan Coats",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Indiana University Bloomington",
+          "degree": "Bachelor of Arts",
+          "field": "Psychology",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "George Washington University",
+          "degree": "Master of Arts",
+          "field": "Political Management",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.erinhouchin.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/erinhouchinindiana/",
+        "instagram": "https://www.instagram.com/rephouchin/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brad Meyer",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brad Meyer is a seventh-generation Hoosier, Purdue-trained engineer, and the Democratic nominee for Indiana's 9th Congressional District. He spent 25 years in local manufacturing and six years as a civilian engineer at Crane Naval Sea Systems Command before retiring to run for Congress. His campaign focuses on universal nonprofit healthcare, expanding overtime protections, ending political gridlock, defending the Constitution, and protecting public education and the environment.",
+      "summary_sources": [
+        {
+          "url": "https://www.ipm.org/news/2026-05-05/brad-meyer-wins-democratic-primary-in-9th-congressional-district",
+          "type": "news",
+          "title": "Brad Meyer wins Democratic primary in 9th Congressional District",
+          "description": null,
+          "last_accessed": "2026-05-26T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://indianacapitalchronicle.com/voter-guides/contests/congressional-district-9-democrat/",
+          "type": "news",
+          "title": "Congressional District 9 - Democrat | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-05-26T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.chamberbloomington.org/district-9-congressional-candidates-2026.html",
+          "type": "website",
+          "title": "District 9 Congressional Candidates Primary Election: May 5th, 2026",
+          "description": null,
+          "last_accessed": "2026-05-26T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://indianacapitalchronicle.com/wp-content/uploads/2026/04/Meyer.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Civilian Engineer",
+          "organization": "Crane Naval Sea Systems Command",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a civilian engineer for the U.S. Navy",
+          "source": null
+        },
+        {
+          "title": "Manufacturing Leader",
+          "organization": "Local Manufacturing Industry",
+          "start_year": null,
+          "end_year": null,
+          "description": "Spent 25 years working in manufacturing in Indiana",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Purdue University",
+          "degree": "Bachelor's Degree",
+          "field": "Electronics Engineering",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Purdue University",
+          "degree": "Master's Degree",
+          "field": "Engineering",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://bradmeyer.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/bradmeyerforindiana/",
+        "instagram": "https://www.instagram.com/bradmeyerforindiana/",
+        "bluesky": "https://bsky.app/profile/bradmeyer4congress.bsky.social"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tonya Hudson",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Tonya Hudson is a Libertarian candidate for Indiana's 9th Congressional District and a real estate broker of 21 years. She has run for Congress as a Libertarian in 2020 and 2022, and was Donald Rainwater's running mate for Lieutenant Governor in the 2024 Indiana gubernatorial election. Her campaign platform, branded 'Roll It Back,' calls for abolishing the IRS and replacing it with a FAIR/consumption tax, a balanced budget amendment, cutting regulatory red tape for small businesses, and protecting Second Amendment rights.",
+      "summary_sources": [
+        {
+          "url": "https://lp.org/candidate/tonya-l-hudson/",
+          "type": "website",
+          "title": "Tonya L Hudson - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-05-26T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tonyaforcongress.com/",
+          "type": "website",
+          "title": "Tonya Hudson For Congress",
+          "description": null,
+          "last_accessed": "2026-05-26T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://b3870750.smushcdn.com/3870750/wp-content/uploads/TH-headshot.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Real Estate Broker",
+          "organization": "Self-employed",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Real estate broker for 21 years",
+          "source": null
+        },
+        {
+          "title": "Candidate for Lieutenant Governor",
+          "organization": "Rainwater/Hudson Campaign",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Running mate of Libertarian gubernatorial candidate Donald Rainwater",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://tonyaforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/tonya.millis/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:19:59.681336+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 246449,
+    "completion_tokens": 6487,
+    "total_tokens": 252936,
+    "cost_usd": 0.019093597999999996,
+    "cost_source": "provider",
+    "estimated_usd": 0.025423,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 246449,
+        "completion_tokens": 6487
+      }
+    },
+    "duration_s": 118.3
+  }
+}

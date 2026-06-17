@@ -1,0 +1,474 @@
+{
+  "id": "id-house-02-2026",
+  "title": "Idaho's 2nd Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Idaho's 2nd Congressional District",
+  "state": "Idaho",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Idaho's 2nd Congressional District pits 14-term Republican incumbent Mike Simpson against Democratic nominee Elinor Gilbreath, along with Libertarian, independent, and Constitution Party candidates. Simpson, first elected in 1998, chairs the House Interior and Environment Appropriations Subcommittee and has fended off primary challengers with 63.3% of the vote in the May 19 Republican primary. The district, rated R+13, covers eastern Idaho and northern Boise, and Simpson has won general elections by wide margins for decades. Gilbreath, a Ketchum lawyer and mediator, ran unopposed in the general Democratic primary after Julie Wiley withdrew, and is campaigning on restoring constitutional balance, protecting public lands, and lowering costs for Idaho families.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for this race as of the research date. Major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate the district as 'Solid Republican' or 'Safe Republican.'",
+  "candidates": [
+    {
+      "name": "Mike Simpson",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Simpson is the incumbent Republican U.S. Representative for Idaho's 2nd Congressional District, first elected in 1998 and now seeking a 15th term. He chairs the House Interior and Environment Appropriations Subcommittee and is a former Speaker of the Idaho House of Representatives, with a career spanning over 40 years in elected office. Simpson describes himself as a pragmatic conservative focused on affordability, energy independence, and farm workforce reform, and he has raised over $900,000 for his 2026 campaign.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mike_Simpson",
+          "type": "website",
+          "title": "Mike Simpson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://idahocapitalsun.com/2026/05/06/two-gop-challengers-will-face-longtime-incumbent-u-s-rep-mike-simpson-in-may-election/",
+          "type": "news",
+          "title": "Two GOP challengers will face longtime incumbent U.S. Rep. Mike Simpson in May election",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://simpson.house.gov/biography/",
+          "type": "government",
+          "title": "Meet Mike | U.S. Congressman Mike Simpson",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Mike_simpson_official_portrait.jpg/250px-Mike_simpson_official_portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 1999,
+          "end_year": null,
+          "description": "Representing Idaho's 2nd Congressional District; chairs the Interior and Environment Appropriations Subcommittee",
+          "source": null
+        },
+        {
+          "title": "Speaker of the Idaho House of Representatives",
+          "organization": "Idaho House of Representatives",
+          "start_year": 1992,
+          "end_year": 1998,
+          "description": "Presided over the Idaho House as its 38th Speaker",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Idaho House of Representatives",
+          "start_year": 1984,
+          "end_year": 1998,
+          "description": "Represented District 26B and later District 31B",
+          "source": null
+        },
+        {
+          "title": "Dentist",
+          "organization": "Private Practice, Blackfoot, Idaho",
+          "start_year": 1977,
+          "end_year": 1998,
+          "description": "Practiced dentistry in Blackfoot prior to election to Congress",
+          "source": null
+        },
+        {
+          "title": "City Council Member",
+          "organization": "Blackfoot City Council",
+          "start_year": 1980,
+          "end_year": 1984,
+          "description": "Served on the Blackfoot City Council",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Washington University in St. Louis",
+          "degree": "DMD",
+          "field": "Dentistry",
+          "year": 1977,
+          "source": null
+        },
+        {
+          "institution": "Utah State University",
+          "degree": "BS",
+          "field": "Biology / Pre-Dentistry",
+          "year": 1972,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://simpsonforcongress.com/",
+      "social_media": {
+        "twitter": "https://twitter.com/CongMikeSimpson",
+        "facebook": "https://www.facebook.com/mikesimpsonforidaho/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Elinor Gilbreath",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Elinor 'Ellie' Gilbreath is a lawyer, mediator, and the Democratic nominee for Idaho's 2nd Congressional District. A Ketchum resident of 23 years, she has spent over two decades working with businesses, civic leaders, nonprofits, schools, and communities on conflict resolution and complex decision-making. She defeated Julie Wiley in the May 19 Democratic primary with 72.5% of the vote and is campaigning on restoring constitutional checks and balances, protecting Idaho's public lands and water, lowering costs for families, and keeping public lands in public hands.",
+      "summary_sources": [
+        {
+          "url": "https://ellieforidaho.com/",
+          "type": "website",
+          "title": "Ellie Gilbreath for US Congress Idaho District 2",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://idahocapitalsun.com/2026/02/27/whos-running-to-represent-idaho-in-congress-in-the-2026-election-incumbents-face-challengers/",
+          "type": "news",
+          "title": "Who's running to represent Idaho in Congress in the 2026 election? Incumbents face challengers.",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Idaho",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Idaho",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Lawyer and Mediator",
+          "organization": "Self-employed / Various firms",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over 20 years working with businesses, civic leaders, nonprofits, schools, and communities on navigating conflict and high-stakes decisions",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ellieforidaho.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/ellieforidaho/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Will Johanson",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Will Johanson is the Libertarian Party nominee for Idaho's 2nd Congressional District. He is an engineer and U.S. military veteran running on a platform of individual liberty, limited government, and free markets. Johanson advanced from the Libertarian primary and will appear on the November general election ballot.",
+      "summary_sources": [
+        {
+          "url": "https://www.johansonforidaho.com/",
+          "type": "website",
+          "title": "Will Johanson for Idaho",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Idaho",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Idaho",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://idahocapitalsun.com/2026/02/27/whos-running-to-represent-idaho-in-congress-in-the-2026-election-incumbents-face-challengers/",
+          "type": "news",
+          "title": "Who's running to represent Idaho in Congress in the 2026 election? Incumbents face challengers.",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Engineer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional engineer",
+          "source": null
+        },
+        {
+          "title": "Veteran",
+          "organization": "United States Armed Forces",
+          "start_year": null,
+          "end_year": null,
+          "description": "U.S. military veteran",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.johansonforidaho.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Emre Houser",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Emre Houser is an independent candidate for Idaho's 2nd Congressional District. He is a father, U.S. military veteran, and small business owner based in Boise, running as an independent beholden only to voters rather than party leadership. He advanced automatically to the general election as an unopposed independent candidate.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Emre_Houser",
+          "type": "website",
+          "title": "Emre Houser - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://idahocapitalsun.com/2026/02/27/whos-running-to-represent-idaho-in-congress-in-the-2026-election-incumbents-face-challengers/",
+          "type": "news",
+          "title": "Who's running to represent Idaho in Congress in the 2026 election? Incumbents face challengers.",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business owner in Boise, Idaho",
+          "source": null
+        },
+        {
+          "title": "Veteran",
+          "organization": "United States Armed Forces",
+          "start_year": null,
+          "end_year": null,
+          "description": "U.S. military veteran",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/houserforidaho/",
+        "instagram": "https://www.instagram.com/p/DW4Y0j-lLFS/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tripp Hutchinson",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Tripp Charles Hutchinson is an independent candidate and Ketchum city councilman running for Idaho's 2nd Congressional District. He is running on a platform focused on lowering the cost of living and advancing local interests. Hutchinson advanced automatically to the general election ballot as an unopposed independent candidate.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Tripp_Hutchinson",
+          "type": "website",
+          "title": "Tripp Hutchinson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://idahocapitalsun.com/2026/02/27/whos-running-to-represent-idaho-in-congress-in-the-2026-election-incumbents-face-challengers/",
+          "type": "news",
+          "title": "Who's running to represent Idaho in Congress in the 2026 election? Incumbents face challengers.",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "City Council Member",
+          "organization": "Ketchum City Council",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serving on the Ketchum City Council",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Colorado Boulder",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "instagram": "https://www.instagram.com/trippchutchinson/",
+        "facebook": "https://www.facebook.com/profile.php?id=61586649001259",
+        "linkedin": "https://www.linkedin.com/in/tripp-charles-hutchinson-515168138"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "C. Sierra - ID Law - Idaho Lorax",
+      "party": "Constitution",
+      "incumbent": false,
+      "summary": "C. Sierra, also known as ID Law or Idaho Lorax, is the Constitution Party candidate for Idaho's 2nd Congressional District. A perennial candidate, Sierra advanced from the Constitution Party primary and will appear on the November general election ballot.",
+      "summary_sources": [
+        {
+          "url": "https://idahocapitalsun.com/2026/02/27/whos-running-to-represent-idaho-in-congress-in-the-2026-election-incumbents-face-challengers/",
+          "type": "news",
+          "title": "Who's running to represent Idaho in Congress in the 2026 election? Incumbents face challengers.",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.idahostatesman.com/news/politics-government/election/voter-guide/article315590488.html",
+          "type": "news",
+          "title": "Who's running for Idaho's spots in Congress in the primary? Hear from the candidates",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Idaho%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:42:38.357238+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 189955,
+    "completion_tokens": 8651,
+    "total_tokens": 198606,
+    "cost_usd": 0.014570386000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.020311,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 189955,
+        "completion_tokens": 8651
+      }
+    },
+    "duration_s": 174.8
+  }
+}

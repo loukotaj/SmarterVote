@@ -1,0 +1,317 @@
+{
+  "id": "ga-house-14-2026",
+  "title": "Georgia's 14th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Georgia's 14th Congressional District",
+  "state": "Georgia",
+  "district": "14th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This is the regularly scheduled general election for Georgia's 14th Congressional District. The seat became vacant in January 2026 when Republican Rep. Marjorie Taylor Greene resigned, and Republican Clay Fuller won the subsequent special election runoff in April 2026 to serve the remainder of the term. Fuller now seeks a full term and won the May 2026 Republican primary, while Democrat Shawn Harris, a retired U.S. Army brigadier general and cattle farmer, won the Democratic primary for a rematch. The district, covering 10 counties in northwestern Georgia from the Atlanta suburbs to the Tennessee border, is considered a safe Republican seat, but Harris has run competitive campaigns focused on kitchen-table issues and bipartisan cooperation.",
+  "polling": [],
+  "polling_note": "No public opinion polls for the November 2026 general election in Georgia's 14th Congressional District were found as of this writing. Available polling data relates only to the March\u2013April 2026 special election.",
+  "candidates": [
+    {
+      "name": "Clayton Fuller",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Clayton 'Clay' Fuller is the incumbent U.S. Representative for Georgia's 14th Congressional District, having won the April 2026 special runoff to replace Marjorie Taylor Greene. He previously served as the District Attorney for the Lookout Mountain Judicial Circuit and is a lieutenant colonel in the Georgia Air National Guard. A former White House Fellow in the first Trump administration, Fuller aligns closely with President Trump and focuses on conservative fiscal policy, border security, and supporting the district's economic interests.",
+      "summary_sources": [
+        {
+          "url": "https://fuller.house.gov/about",
+          "type": "government",
+          "title": "About | Congressman Clay Fuller",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newschannel9.com/news/local/clay-fuller-wins-republican-nomination-for-us-house-in-georgias-14th",
+          "type": "news",
+          "title": "Clay Fuller wins Republican nomination for US House in Georgia's 14th",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Georgia%27s_14th_Congressional_District_election,_2026",
+          "type": "website",
+          "title": "Georgia's 14th Congressional District election, 2026 - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Clay_Fuller_official_congressional_photograph_119th_congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Serving Georgia's 14th Congressional District; sworn in April 14, 2026 after winning the special election runoff.",
+          "source": null
+        },
+        {
+          "title": "District Attorney",
+          "organization": "Lookout Mountain Judicial Circuit",
+          "start_year": 2020,
+          "end_year": 2026,
+          "description": "Top prosecutor for a four-county circuit in northwestern Georgia.",
+          "source": null
+        },
+        {
+          "title": "Assistant District Attorney",
+          "organization": "Lookout Mountain Judicial Circuit",
+          "start_year": null,
+          "end_year": 2020,
+          "description": "Career prosecutor before becoming District Attorney.",
+          "source": null
+        },
+        {
+          "title": "White House Fellow",
+          "organization": "White House",
+          "start_year": 2018,
+          "end_year": 2019,
+          "description": "Served in the first Trump administration as a White House Fellow.",
+          "source": null
+        },
+        {
+          "title": "Judge Advocate",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a military prosecutor in the Air Force JAG Corps.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy",
+          "degree": "Bachelor of Science",
+          "field": "Engineering",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Georgia School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://fuller.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://clayfullerforgeorgia.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://clayfullerforgeorgia.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepClayFuller"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Shawn Harris",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Shawn Harris is a retired U.S. Army brigadier general, cattle farmer, and the Democratic nominee for Georgia's 14th Congressional District. A graduate of Tuskegee University, he served 34 years in the Army and Army National Guard, including deployments to Iraq and Afghanistan. He describes himself as a 'dirt-road Democrat' focused on bipartisan solutions to kitchen-table issues such as rising costs, healthcare, and support for rural communities and veterans.",
+      "summary_sources": [
+        {
+          "url": "https://www.shawnforgeorgia.com/meet-the-candidate/",
+          "type": "website",
+          "title": "Meet Shawn - Shawn Harris for Georgia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nationalguard.mil/portals/31/Features/ngbgomo/bio/3/3351.html",
+          "type": "government",
+          "title": "Brigadier General SHAWN A. HARRIS - National Guard Biography",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Shawn_Harris_(Georgia)",
+          "type": "website",
+          "title": "Shawn Harris (Georgia) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Shawn_Harris.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Democratic Nominee for U.S. House",
+          "organization": "Georgia's 14th Congressional District",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Won the Democratic primary on May 19, 2026; also ran in the 2024 general election and the 2026 special election for this seat.",
+          "source": null
+        },
+        {
+          "title": "Brigadier General (Retired)",
+          "organization": "United States Army / Army National Guard",
+          "start_year": 1993,
+          "end_year": 2024,
+          "description": "34-year military career including deployments to Iraq and Afghanistan; commanded at battalion and brigade levels.",
+          "source": null
+        },
+        {
+          "title": "Cattle Farmer",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operates a cattle farm in northwest Georgia.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Tuskegee University",
+          "degree": "Bachelor of Science",
+          "field": "Agribusiness Education",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Grand Valley State University",
+          "degree": "Master of Science",
+          "field": "Educational Leadership",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.shawnforgeorgia.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.shawnforgeorgia.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/shawnforgeorgia"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rob Ruszkowski",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Rob Ruszkowski is an independent candidate running for U.S. House in Georgia's 14th Congressional District. Also known as 'Rush,' he was listed as a candidate on the general election ballot per Ballotpedia. Detailed biographical information about his background and platform was limited at the time of this profile.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Rob_Ruszkowski",
+          "type": "website",
+          "title": "Rob Ruszkowski - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Georgia%27s_14th_congressional_district_special_election",
+          "type": "website",
+          "title": "2026 Georgia's 14th congressional district special election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_14th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:29:32.964155+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 212074,
+    "completion_tokens": 6936,
+    "total_tokens": 219010,
+    "cost_usd": 0.014824435999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.022143,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 212074,
+        "completion_tokens": 6936
+      }
+    },
+    "duration_s": 154.5
+  }
+}

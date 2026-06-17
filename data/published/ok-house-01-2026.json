@@ -1,0 +1,124 @@
+{
+  "id": "ok-house-01-2026",
+  "title": "2026 U.S. House Election for Oklahoma's 1st Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Oklahoma's 1st Congressional District",
+  "state": "Oklahoma",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Oklahoma's 1st Congressional District is an open seat covering Tulsa and Wagoner counties and parts of Creek, Rogers, and Washington counties. Incumbent Republican Kevin Hern opted not to seek re-election, instead running for the U.S. Senate, leaving this heavily Republican district (Cook PVI: R+14) without an incumbent for the first time since 2018. The Democratic nominee is Tulsa Public Schools board member John Croisant, who was uncontested in his party's primary, while a record field of 12 Republicans is competing in the June 16, 2026 primary, with a potential August 25 runoff if no candidate exceeds 50%. The general election on November 3, 2026 is rated Solid Republican by most nonpartisan forecasters.",
+  "polling": [],
+  "polling_note": "No opinion polls were found for this specific race as of late May 2026.",
+  "candidates": [
+    {
+      "name": "John Croisant",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "John Croisant is a Tulsa Public Schools board member, former teacher, and small business owner running as the Democratic nominee for Oklahoma's 1st Congressional District. He has served as the elected representative for Tulsa school board District 5 and previously taught at Edison Preparatory School. Croisant also owns and operates an insurance agency. His campaign emphasizes lowering costs for working families, investing in public education, supporting law enforcement, and building a strong local economy.",
+      "summary_sources": [
+        {
+          "url": "https://www.croisantforcongress.com/",
+          "type": "website",
+          "title": "Croisant for Congress \u2014 Home",
+          "description": null,
+          "last_accessed": "2026-06-02T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.publicradiotulsa.org/local-regional/2025-02-13/tps-board-member-to-run-for-congress-warns-against-spreading-oklahomas-education-policies",
+          "type": "news",
+          "title": "TPS board member to run for Congress, warns against spreading Oklahoma's education policies",
+          "description": null,
+          "last_accessed": "2026-06-02T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Oklahoma",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Oklahoma",
+          "description": null,
+          "last_accessed": "2026-06-02T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "School Board Member, District 5",
+          "organization": "Tulsa Public Schools",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Elected representative for midtown Tulsa school board district.",
+          "source": null
+        },
+        {
+          "title": "Teacher",
+          "organization": "Edison Preparatory School",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former teacher at Tulsa's Edison Preparatory School.",
+          "source": null
+        },
+        {
+          "title": "Exclusive Agent / Personal Financial Representative",
+          "organization": "Insurance agency (self-employed)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns and operates a local insurance agency.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.croisantforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Oklahoma%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:57:09.863932+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 292662,
+    "completion_tokens": 10729,
+    "total_tokens": 303391,
+    "cost_usd": 0.02459368,
+    "cost_source": "provider",
+    "estimated_usd": 0.030784,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 292662,
+        "completion_tokens": 10729
+      }
+    },
+    "duration_s": 150.4
+  }
+}

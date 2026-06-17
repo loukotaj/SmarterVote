@@ -1,0 +1,233 @@
+{
+  "id": "il-house-15-2026",
+  "title": "Illinois's 15th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Illinois's 15th Congressional District",
+  "state": "Illinois",
+  "district": "15th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Illinois's 15th Congressional District pits three-term Republican incumbent Mary Miller against Democratic challenger Jennifer Todd. The district spans central and southeastern Illinois across 35 counties, from the Mississippi River to the Indiana border, and is heavily Republican-leaning with a Cook Partisan Voting Index of R+20. Miller, a member of the House Freedom Caucus, easily won the March 17 Republican primary with 73.6% of the vote, while Todd, a registered nurse and first-time candidate, won the Democratic primary with 45.8% in a four-way race. Key issues include rural healthcare access, Community Project Funding (earmarks), infrastructure investment, and the contrasting policy visions of a far-right incumbent versus a progressive challenger focused on working-class issues.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to the IL-15 general election race were found. The district is rated 'Solid R' by the Cook Political Report and similar outlets, reflecting its strong Republican lean.",
+  "candidates": [
+    {
+      "name": "Mary Miller",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mary Miller is the incumbent U.S. Representative for Illinois's 15th Congressional District, first elected in 2020. A farmer and former business manager, she is a member of the House Freedom Caucus and serves on the Agriculture, Education and Workforce, and House Administration committees. Miller has been described as a far-right conservative and strong supporter of Donald Trump, winning her 2026 primary with 73.6% of the vote against two Republican challengers.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mary_Miller_(politician)",
+          "type": "news",
+          "title": "Mary Miller (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T16:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/illinois-us-house-district-15-results",
+          "type": "news",
+          "title": "Illinois House District 15 Primary Election Live Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-06-13T16:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-illinois-us-house-15-primary.html",
+          "type": "news",
+          "title": "Illinois 15th Congressional District Primary 2026: Live Election Results - The New York Times",
+          "description": null,
+          "last_accessed": "2026-06-13T16:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mary_Miller.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Illinois's 15th Congressional District; serves on Agriculture, Education and Workforce, and House Administration committees",
+          "source": null
+        },
+        {
+          "title": "Farmer and Business Manager",
+          "organization": "Miller Family Farm",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns and operates a family farm with her husband",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Eastern Illinois University",
+          "degree": "Bachelor of Science",
+          "field": "Business Management",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://marymillerforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jennifer Todd",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jennifer Todd is a registered nurse and first-time candidate for public office who won the Democratic nomination for Illinois's 15th Congressional District in March 2026. A second-generation nurse, single mother, and daughter of a veteran, she holds nursing degrees from Kaskaskia College and Southern Illinois University and has worked in ICU, hospice, school nursing, and healthcare insurance appeals. Todd campaigned on expanding healthcare access, protecting Medicare and Medicaid, securing Community Project Funding for the district, and supporting public education and family farms.",
+      "summary_sources": [
+        {
+          "url": "https://www.jentodd2026.us/about",
+          "type": "website",
+          "title": "About \u2014 Jen Todd for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T16:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.stlpr.org/government-politics-issues/2026-04-10/democrat-unseat-republican-conservative-illinois-district",
+          "type": "news",
+          "title": "Democrat Jennifer Todd hopes to beat Mary Miller in Illinois' 15th - STLPR",
+          "description": null,
+          "last_accessed": "2026-06-13T16:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/illinois-us-house-district-15-results",
+          "type": "news",
+          "title": "Illinois House District 15 Primary Election Live Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-06-13T16:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://news.wttw.com/elections/voters-guide/2026-primary/jennifer-todd",
+          "type": "news",
+          "title": "Jennifer Todd | 2026 Primary Election - WTTW",
+          "description": null,
+          "last_accessed": "2026-06-13T16:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Registered Nurse",
+          "organization": "Various Healthcare Facilities",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in ICU, hospice care, medical-surgical units, neurology, and as a school nurse; also worked in insurance appeals and legal medical record review",
+          "source": null
+        },
+        {
+          "title": "Democratic Nominee for U.S. House",
+          "organization": "Todd for Congress Campaign",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Won Democratic primary on March 17, 2026, for Illinois's 15th Congressional District",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Southern Illinois University Edwardsville",
+          "degree": "Bachelor of Science",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Southern Illinois University Carbondale",
+          "degree": "Bachelor of Science",
+          "field": "Health Care Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Kaskaskia College",
+          "degree": "Associate of Science",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.jentodd2026.us/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/jentoddforcongress",
+        "instagram": "https://www.instagram.com/jentodd2026/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_15th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:56:28.736725+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 298043,
+    "completion_tokens": 5930,
+    "total_tokens": 303973,
+    "cost_usd": 0.022263486,
+    "cost_source": "provider",
+    "estimated_usd": 0.03037,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 298043,
+        "completion_tokens": 5930
+      }
+    },
+    "duration_s": 119.0
+  }
+}

@@ -9,6 +9,7 @@
     {
       "pollster": "UNH Survey Center",
       "date": "2026-01-21",
+      "sample_size": 2053,
       "matchups": [
         {
           "candidates": [
@@ -16,8 +17,8 @@
             "John E. Sununu"
           ],
           "percentages": [
-            50,
-            45
+            50.0,
+            45.0
           ]
         },
         {
@@ -26,8 +27,8 @@
             "Scott Brown"
           ],
           "percentages": [
-            52,
-            42
+            52.0,
+            42.0
           ]
         },
         {
@@ -36,8 +37,8 @@
             "Scott Brown"
           ],
           "percentages": [
-            48,
-            25
+            48.0,
+            25.0
           ]
         },
         {
@@ -46,17 +47,17 @@
             "Karishma Manzur"
           ],
           "percentages": [
-            65,
-            11
+            65.0,
+            11.0
           ]
         }
       ],
-      "source_url": "https://scholars.unh.edu/survey_center_polls/922/",
-      "sample_size": 2053
+      "source_url": "https://scholars.unh.edu/survey_center_polls/922/"
     },
     {
       "pollster": "Saint Anselm College Survey Center",
       "date": "2026-03-18",
+      "sample_size": 1491,
       "matchups": [
         {
           "candidates": [
@@ -64,8 +65,8 @@
             "John E. Sununu"
           ],
           "percentages": [
-            46,
-            43
+            46.0,
+            43.0
           ]
         },
         {
@@ -74,8 +75,8 @@
             "Scott Brown"
           ],
           "percentages": [
-            47,
-            38
+            47.0,
+            38.0
           ]
         },
         {
@@ -84,17 +85,17 @@
             "Scott Brown"
           ],
           "percentages": [
-            49,
-            28
+            49.0,
+            28.0
           ]
         }
       ],
-      "source_url": "https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858",
-      "sample_size": 1491
+      "source_url": "https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858"
     },
     {
       "pollster": "Emerson College Polling",
       "date": "2026-03-26",
+      "sample_size": 1000,
       "matchups": [
         {
           "candidates": [
@@ -102,8 +103,8 @@
             "John E. Sununu"
           ],
           "percentages": [
-            45,
-            44
+            45.0,
+            44.0
           ]
         },
         {
@@ -112,8 +113,8 @@
             "Scott Brown"
           ],
           "percentages": [
-            48,
-            39
+            48.0,
+            39.0
           ]
         },
         {
@@ -122,13 +123,12 @@
             "Scott Brown"
           ],
           "percentages": [
-            48,
-            19
+            48.0,
+            19.0
           ]
         }
       ],
-      "source_url": "https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/",
-      "sample_size": 1000
+      "source_url": "https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/"
     },
     {
       "pollster": "University of New Hampshire Survey Center",
@@ -159,125 +159,30 @@
         {
           "url": "https://chrispappas.org/2026/04/chris-pappas-for-senate-highlights-plan-to-lower-child-care-costs-for-granite-state-families/",
           "type": "news",
-          "title": "Chris Pappas for Senate Highlights Plan to Lower Child Care Costs for Granite State Families"
+          "title": "Chris Pappas for Senate Highlights Plan to Lower Child Care Costs for Granite State Families",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://scholars.unh.edu/survey_center_polls/922/",
-          "type": "poll",
-          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor"
+          "type": "website",
+          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://chrispappas.org/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/pappasfornh/",
-        "instagram": "https://www.instagram.com/pappasfornh/",
-        "youtube": "https://www.youtube.com/channel/UCOMLLJGmSQXBDHufSt5am-w/videos"
-      },
-      "career_history": [
-        {
-          "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives, New Hampshire's 1st Congressional District",
-          "start_year": 2019,
-          "end_year": null,
-          "description": "Represents eastern New Hampshire in Congress."
-        },
-        {
-          "title": "Executive Councilor",
-          "organization": "New Hampshire Executive Council, District 4",
-          "start_year": 2013,
-          "end_year": 2019,
-          "description": "Served on the five-member state executive council."
-        },
-        {
-          "title": "Business owner",
-          "organization": "The Puritan Backroom / family business",
-          "start_year": null,
-          "end_year": null,
-          "description": "Worked in and helped run the family restaurant business in Manchester."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Harvard University",
-          "degree": "Bachelor of Arts",
-          "field": "Government",
-          "year": 2002
-        }
-      ],
-      "voting_record": [
-        {
-          "bill_name": "H.R. 82 Social Security Fairness Act",
-          "bill_description": "Eliminated certain Social Security benefit reductions for public-sector retirees.",
-          "vote": "yes",
-          "date": "2024-11-12",
-          "source": {
-            "url": "https://clerk.house.gov/Votes/2024490",
-            "type": "government",
-            "title": "Roll Call 490 - House Clerk",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        }
-      ],
-      "top_donors": [
-        {
-          "name": "American Israel Public Affairs Cmte",
-          "amount": 380690,
-          "organization": "PAC",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
-            "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "AmeriPAC: The Fund for a Greater America",
-          "amount": 92835,
-          "organization": "PAC",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
-            "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "State of New Hampshire",
-          "amount": 86871,
-          "organization": "Government",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
-            "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "University of New Hampshire",
-          "amount": 77904,
-          "organization": "University",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
-            "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "End Citizens United",
-          "amount": 54526,
-          "organization": "PAC",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
-            "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        }
-      ],
       "issues": {
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "Chris Pappas supports extending and restoring ACA premium tax credits, and backing a public option with stronger accountability for insurers and drugmakers to lower costs. He also backs capping insulin at $35 per month, enabling Medicare to negotiate drug prices, expanding telehealth, and opposing Medicaid cuts.",
           "confidence": "high",
           "sources": [
@@ -285,24 +190,39 @@
               "url": "https://chrispappas.org/2026/02/chris-pappas-for-senates-tax-cuts-and-lower-costs-blueprint-spotlights-efforts-to-make-health-care-affordable/",
               "type": "website",
               "title": "Chris Pappas for Senate’s Tax Cuts and Lower Costs Blueprint Spotlights Efforts to Make Health Care Affordable",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://chrispappas.org/2026/03/on-the-anniversary-of-the-affordable-care-act-pappas-highlights-efforts-to-combat-rising-health-care-costs/",
               "type": "website",
               "title": "On the Anniversary of the Affordable Care Act, Pappas Highlights Efforts to Combat Rising Health Care Costs",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.thedartmouth.com/article/2026/04/u-s-rep-chris-pappas-emphasizes-housing-health-care-and-energy-costs-in-senate-bid",
               "type": "website",
               "title": "U.S. Rep. Chris Pappas emphasizes housing, health care and energy costs in Senate bid",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Healthcare"
+          ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "Pappas says he is focused on lowering costs for working families and small businesses, including food, energy, and drug costs. His campaign also says he supports cracking down on corporate and AI-driven price gouging and protecting nutrition assistance.",
           "confidence": "high",
           "sources": [
@@ -310,24 +230,39 @@
               "url": "https://chrispappas.org/about/",
               "type": "website",
               "title": "Meet Chris | Chris Pappas for Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://chrispappas.org/2026/03/icymi-manchester-ink-link-pappas-talks-about-food-prices-at-downtown-discussion/",
               "type": "website",
               "title": "ICYMI: Manchester Ink Link — Pappas Talks About Food Prices at Downtown Discussion",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.nhpr.org/nh-news/2025-04-03/pappas-launches-campaign-for-u-s-senate",
               "type": "news",
               "title": "Pappas launches campaign for U.S. Senate | New Hampshire Public Radio",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Economy"
+          ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "Pappas says he is committed to combating climate change, promoting clean energy, and protecting natural resources. He supports maintaining clean energy incentives and tax credits and opposes rolling back environmental protections.",
           "confidence": "high",
           "sources": [
@@ -335,37 +270,57 @@
               "url": "https://pappas.house.gov/issues/energy-environment",
               "type": "government",
               "title": "Energy & Environment | Congressman Chris Pappas - House.gov",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Climate/Energy"
+          ]
         },
         "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
           "stance": "Chris Pappas supports codifying abortion rights and safeguarding access to reproductive health care. He backed the Women’s Health Protection Act and introduced or supported measures to reaffirm the right to travel across state lines for abortion care and to protect access to IVF, and has advocated for maintaining funding for Planned Parenthood health centers.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://chrispappas.org/priority/reproductive-freedom/",
-              "type": "campaign_policy",
+              "type": "website",
               "title": "Reproductive Freedom - Chris Pappas for Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.plannedparenthoodaction.org/planned-parenthood-new-hampshire-action-fund/press-releases/planned-parenthood-action-fund-announces-endorsement-of-reproductive-rights-champion-congressman-chris-pappas-for-senate-in-2026",
-              "type": "press_release",
+              "type": "government",
               "title": "Planned Parenthood New Hampshire Action Fund endorses Chris Pappas for Senate in 2026",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://chrispappas.org/2025/12/icymi-reproductive-freedom-for-all-endorses-chris-pappas-for-u-s-senate/",
-              "type": "endorsement",
+              "type": "website",
               "title": "ICYMI: Reproductive Freedom for All Endorses Chris Pappas for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Abortion & Reproductive Health"
+          ]
         },
         "Immigration": {
+          "issue": "Immigration",
           "stance": "Pappas has called for congressional oversight of ICE and for preserving local control over immigration-related decisions. He has also said some ICE funding should be redirected to local law enforcement.",
           "confidence": "high",
           "sources": [
@@ -373,24 +328,39 @@
               "url": "https://chrispappas.org/2026/01/icymi-congressman-chris-pappas-joins-raging-moderates-podcast-to-discuss-key-issues-and-senate-campaign/",
               "type": "website",
               "title": "ICYMI: Congressman Chris Pappas Joins Raging Moderates Podcast to Discuss Key Issues and Senate Campaign",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://pappas.house.gov/media/press-releases/pappas-calls-on-congressional-leaders-to-protect-local-control-for-communities-like-merrimack-in-dhs-funding-negotiations",
               "type": "government",
               "title": "Pappas Calls on Congressional Leaders to Protect Local Control for Communities like Merrimack in DHS Funding Negotiations",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.wmur.com/article/chris-pappas-targets-ice-funds-closeup-01182026/70041790",
               "type": "news",
               "title": "Chris Pappas targets ICE funds, calls for refocus | CloseUp - WMUR",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Immigration"
+          ]
         },
         "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
           "stance": "Pappas supports universal background checks, closing loopholes such as the Charleston loophole and bump-stock loophole, and safe-storage measures like Ethan’s Law.",
           "confidence": "high",
           "sources": [
@@ -398,24 +368,39 @@
               "url": "https://pappas.house.gov/media/press-releases/pappas-backs-three-gun-violence-prevention-bills",
               "type": "website",
               "title": "Pappas Backs Three Gun Violence Prevention Bills",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://giffords.org/candidates/chris-pappas/",
               "type": "website",
               "title": "Chris Pappas | GIFFORDS",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.citizenscount.org/candidate/christopher-pappas/history",
               "type": "website",
               "title": "Christopher Pappas - profile history | Citizens Count",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Firearms & Second Amendment"
+          ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Pappas says U.S. foreign policy should be values-driven, emphasizing alliances, democracy, and human rights. He has also criticized open-ended military commitments and said the U.S. should use power carefully.",
           "confidence": "high",
           "sources": [
@@ -423,18 +408,28 @@
               "url": "https://chrispappas.org/2026/01/roundup-chris-pappas-for-senate-continues-to-build-broad-coalition-of-key-endorsements/",
               "type": "website",
               "title": "ROUNDUP: Chris Pappas for Senate Continues to Build Broad Coalition of Key Endorsements",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://chrispappas.org/2026/01/icymi-congressman-chris-pappas-joins-raging-moderates-podcast-to-discuss-key-issues-and-senate-campaign/",
               "type": "website",
               "title": "ICYMI: Congressman Chris Pappas Joins Raging Moderates Podcast to Discuss Key Issues and Senate Campaign",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Foreign Policy"
+          ]
         },
         "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
           "stance": "Pappas has backed police accountability reforms, including the George Floyd Justice in Policing Act, and supports LGBTQ+ equality. He has also opposed legislation he described as harmful and discriminatory toward transgender students.",
           "confidence": "high",
           "sources": [
@@ -442,24 +437,39 @@
               "url": "https://pappas.house.gov/media/press-releases/congressman-pappas-statement-passage-george-floyd-justice-policing-act",
               "type": "website",
               "title": "Congressman Pappas Statement on Passage of the George Floyd Justice in Policing Act",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://pappas.house.gov/media/press-releases/pappas-statement-executive-orders-advancing-lgbq+equality",
               "type": "website",
               "title": "Pappas Statement on Executive Orders Advancing LGBTQ+ Equality",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://pappas.house.gov/issues/lgbtq-and-equality?page=1",
               "type": "website",
               "title": "LGBTQ and Equality | Congressman Chris Pappas",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Civil Rights & Equality"
+          ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "Education: Chris Pappas emphasizes investing in public schools and making higher education affordable. He supports expanding Pell Grants, making community college and public universities tuition-free, increasing protections for student borrowers, funding career training and apprenticeships, restoring federal education funds to New Hampshire, and expanding VA education benefits for in‑demand fields, while safeguarding public education from federal cuts.",
           "confidence": "high",
           "sources": [
@@ -467,18 +477,28 @@
               "url": "https://chrispappas.org/priority/education/",
               "type": "website",
               "title": "Education | Chris Pappas for Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://pappas.house.gov/issues/education",
               "type": "website",
               "title": "Education - Congressman Chris Pappas | House.gov",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Education"
+          ]
         },
         "Tech & AI": {
+          "issue": "Tech & AI",
           "stance": "Pappas has engaged on AI-related policy through Congress, including legislation addressing deepfakes and other digital harms. His emphasis appears to be on regulating harmful uses of AI and protecting consumers.",
           "confidence": "medium",
           "sources": [
@@ -486,24 +506,39 @@
               "url": "https://live.house.gov/?date=2024-06-12",
               "type": "government",
               "title": "All bills - live.house.gov, U.S. House of Representatives",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://docs.house.gov/meetings/IF/IF00/20230323/115519/HHRG-118-IF00-20230323-SD030.pdf",
               "type": "government",
               "title": "[PDF] Committee on Energy and Commerce Hearing entitled “TikTok”",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://buchanan.house.gov/2024/7/buchanan-introduces-two-bills-to-protect-our-nation-s-children-from-modern-threats",
               "type": "government",
               "title": "Buchanan Introduces Two Bills to Protect Our Nation's Children from Modern Threats",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Tech & AI"
+          ]
         },
         "Election Policy": {
+          "issue": "Election Policy",
           "stance": "Pappas’s public campaign materials reviewed here do not lay out a specific election-reform agenda. Available sources emphasize broader governance and constituent-service priorities rather than a detailed election-reform proposal.",
           "confidence": "low",
           "sources": [
@@ -511,18 +546,28 @@
               "url": "https://chrispappas.org/",
               "type": "website",
               "title": "Chris Pappas for Senate | Official Campaign Website",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://pappas.house.gov/issues",
               "type": "government",
               "title": "Issues | Congressman Chris Pappas",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Election Policy"
+          ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Pappas presents himself as focused on New Hampshire-specific concerns, especially infrastructure, affordability, health care, and the opioid crisis. His House issues page says he is fighting for federal investment in New Hampshire’s roads, bridges, and waterways and highlights Medicaid expansion and local public-health needs.",
           "confidence": "high",
           "sources": [
@@ -530,20 +575,77 @@
               "url": "https://pappas.house.gov/issues",
               "type": "government",
               "title": "Issues | Congressman Chris Pappas",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://chrispappas.org/2026/02/roundup-pete-buttigieg-campaigns-with-chris-pappas-highlights-stakes-of-must-win-2026-nh-senate-race/",
               "type": "website",
               "title": "ROUNDUP: Pete Buttigieg Campaigns with Chris Pappas Highlights Stakes of Must-Win 2026 NH Senate Race",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
+              "description": null,
+              "last_accessed": "2026-03-29T18:34:19.464490Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Local Issues"
+          ]
         }
       },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, New Hampshire's 1st Congressional District",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Represents eastern New Hampshire in Congress.",
+          "source": null
+        },
+        {
+          "title": "Executive Councilor",
+          "organization": "New Hampshire Executive Council, District 4",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Served on the five-member state executive council.",
+          "source": null
+        },
+        {
+          "title": "Business owner",
+          "organization": "The Puritan Backroom / family business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in and helped run the family restaurant business in Manchester.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "Bachelor of Arts",
+          "field": "Government",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
       "donor_summary": null,
-      "links": []
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://chrispappas.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/pappasfornh/",
+        "instagram": "https://www.instagram.com/pappasfornh/",
+        "youtube": "https://www.youtube.com/channel/UCOMLLJGmSQXBDHufSt5am-w/videos"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Scott Brown",
@@ -553,35 +655,38 @@
       "summary_sources": [
         {
           "url": "https://scholars.unh.edu/survey_center_polls/922/",
-          "type": "poll",
-          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor"
+          "type": "website",
+          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
       "issues": {
         "Immigration": {
+          "issue": "Immigration",
           "stance": "To be updated based on new sources",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.ontheissues.org/international/Scott_Brown_Immigration.htm",
-              "type": "analysis",
+              "type": "website",
               "title": "Scott Brown on Immigration - OnTheIssues.org",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Immigration"
+          ]
         },
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "Scott Brown has vowed to support repealing the Affordable Care Act (ACA). He has not publicly committed to an ACA replacement plan.",
           "confidence": "high",
           "sources": [
@@ -589,24 +694,39 @@
               "url": "https://www.nashuatelegraph.com/news/2026/03/24/nh-dems-slam-brown-and-sununu-on-healthcare/",
               "type": "news",
               "title": "NH Dems slam Brown and Sununu on healthcare",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.cabinet.com/news/cabinet-news/2026/03/24/nh-dems-slam-brown-and-sununu-on-healthcare/",
               "type": "news",
               "title": "NH Dems slam Brown and Sununu on healthcare",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.dscc.org/article/john-e-sununu-and-scott-brown-backed-health-care-crisis-sends-costs-soaring-for-new-hampshire-families/",
               "type": "news",
               "title": "John E. Sununu and Scott Brown-Backed Health Care Crisis Sends Costs Soaring for New Hampshire Families",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Healthcare"
+          ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Brown states that Iran has destabilized the Middle East and supports taking targeted military action against Iran's nuclear facilities when necessary, while arguing that prolonged wars should require a formal declaration of war by Congress rather than open-ended engagement.",
           "confidence": "high",
           "sources": [
@@ -614,18 +734,28 @@
               "url": "https://www.thedartmouth.com/article/2026/04/former-massachusetts-senator-scott-brown-pitches-independence-experience-in-senate-comeback-bid",
               "type": "news",
               "title": "Former Massachusetts senator Scott Brown pitches independence, experience in Senate comeback bid - The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.cnn.com/2026/04/14/politics/video/inside-politics-scott-brown-senate-campaign-new-hampshire-midterms",
-              "type": "video-news",
+              "type": "website",
               "title": "Why onetime MA Sen. Scott Brown thinks he’s the Republican to flip New Hampshire’s open Senate seat - CNN",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Foreign Policy"
+          ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Brown has signaled a local-issues focus in New Hampshire, emphasizing veterans’ services (VA staffing and benefits) and child care access as priority concerns for the state, and advocates targeted federal action to address these needs rather than embracing broad new programs.",
           "confidence": "high",
           "sources": [
@@ -633,24 +763,39 @@
               "url": "https://ledgertranscript.com/2026/04/06/veterans-concerns-scott-brown-nh/",
               "type": "news",
               "title": "Veterans voice concerns to Senate candidate Scott Brown",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://newhampshirebulletin.com/2026/04/10/as-new-hampshires-us-senate-race-ramps-up-candidates-outline-positions-on-improving-child-care/",
               "type": "news",
               "title": "As New Hampshire's US Senate race ramps up, candidates outline positions on improving child care",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://scottbrown.com/former-massachusetts-senator-scott-brown-pitches-independence-experience-in-senate-comeback-bid/",
-              "type": "campaign",
+              "type": "website",
               "title": "Former Massachusetts senator Scott Brown pitches independence, experience in Senate comeback bid",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Local Issues"
+          ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "Brown emphasizes affordability as the core of his economic agenda for New Hampshire, calling for lower energy costs and housing costs through expanded energy supply (notably natural gas access and nuclear energy at Seabrook) and streamlined housing development via regulatory reform and public-private partnerships; he frames policy as bipartisan and state-local-federal coordination to relieve the cost of living for working families.",
           "confidence": "high",
           "sources": [
@@ -658,70 +803,123 @@
               "url": "https://www.thedartmouth.com/article/2026/04/former-massachusetts-sen-scott-brown-pitches-independence-experience-in-senate-comeback-bid",
               "type": "news",
               "title": "Former Massachusetts senator Scott Brown pitches independence, experience in Senate comeback bid - The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://newhampshirebulletin.com/2026/04/10/as-new-hampshires-us-senate-race-ramps-up-candidates-outline-positions-on-improving-child-care/",
               "type": "news",
               "title": "As New Hampshire’s US Senate race ramps up, candidates outline positions on improving child care - New Hampshire Bulletin",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Economy"
+          ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "Scott Brown has emphasized making energy affordable for Granite Staters, focusing on reducing energy costs and opposing rate increases, while supporting a pro‑growth energy policy that includes domestic energy production and streamlined permitting to lower prices.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.nhpr.org/nh-news/2025-06-25/scott-brown-says-hes-running-for-u-s-senate-for-a-better-america",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "type": "website",
+              "title": null,
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Climate/Energy"
+          ]
         },
         "Tech & AI": {
+          "issue": "Tech & AI",
           "stance": "Scott Brown supports serious federal guardrails on AI to protect workers from displacement and emphasizes expanding community college and trade-school training to prepare Americans for AI-enabled energy and infrastructure jobs; he rejects a 'Wild West' approach to AI.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://x.com/SenScottBrown/status/2054607284223750291",
-              "type": "social",
+              "type": "social_media",
               "title": "Scott P. Brown on X: The future of AI is already here",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.facebook.com/ScottBrownNH/videos/the-future-of-ai-is-already-here-and-it-is-our-responsibility-to-make-sure-its-b/1261369529314239/",
-              "type": "video",
+              "type": "social_media",
               "title": "Scott Brown on AI – video post",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Tech & AI"
+          ]
         },
         "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
           "stance": "Based on recent reporting, Scott Brown has engaged with gun-rights groups and has shown interest in campus carry policy discussions in New Hampshire. While earlier coverage suggested he supported federal gun restrictions at times, his 2026 campaign appearances include meetings with gun-rights supporters, indicating a focus on Second Amendment rights and nuanced gun-safety policy rather than sweeping changes; no comprehensive statewide platform has been published as of now.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.wmur.com/article/why-brown-s-meeting-with-gun-owners-was-a-big-deal/5190539",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "type": "website",
+              "title": null,
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Firearms & Second Amendment"
+          ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "Brown supports making early education and child care more affordable by leveraging existing federal and state resources and advancing a collaborative approach among local, state, and federal governments and families to address childcare challenges.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://newhampshirebulletin.com/2026/04/10/as-new-hampshires-us-senate-race-ramps-up-candidates-outline-positions-on-improving-child-care/",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "type": "website",
+              "title": null,
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Education"
+          ]
         }
-      }
+      },
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "John E. Sununu",
@@ -731,29 +929,262 @@
       "summary_sources": [
         {
           "url": "https://www.sununusenator.com/about",
-          "type": "campaign",
-          "title": "About | John Sununu for U.S. Senate"
+          "type": "website",
+          "title": "About | John Sununu for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://scholars.unh.edu/survey_center_polls/922/",
-          "type": "poll",
-          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor"
+          "type": "website",
+          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://bioguide.congress.gov/search/bio/S001078",
-          "type": "official biography",
-          "title": "SUNUNU, John E. - Bioguide Search"
+          "type": "government",
+          "title": "SUNUNU, John E. - Bioguide Search",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/2d1ee27058dab074de7ae6b2d7e94d6f.jpg",
-      "website": "https://www.sununusenator.com/",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Sununu says his campaign will be focused on jobs, affordability, lower taxes, and reducing federal spending and debt. He has also said he will oppose middle-class tax hikes and work to lower inflation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sununusenator.com/post/john-e-sununu-announces-run-for-u-s-senate-bringing-the-new-hampshire-way-back-to-washington",
+              "type": "website",
+              "title": "John E. Sununu Announces Run for U.S. Senate: Bringing the New Hampshire Way Back to Washington",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.sununusenator.com/about",
+              "type": "website",
+              "title": "About | John Sununu for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Sununu says he is focused on affordability for Granite Staters, including housing, healthcare, and energy costs. His campaign also highlights New Hampshire independence, practical problem-solving, and a preference for local decision-making over Washington control.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sununusenator.com/about",
+              "type": "website",
+              "title": "About | John Sununu for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.sununusenator.com/post/john-e-sununu-announces-run-for-u-s-senate-bringing-the-new-hampshire-way-back-to-washington",
+              "type": "website",
+              "title": "John E. Sununu Announces Run for U.S. Senate: Bringing the New Hampshire Way Back to Washington",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "Sununu says he supports the Constitutional Concealed Carry Reciprocity Act, which would recognize concealed-carry permits across state lines. He frames the issue as protecting the rights of law-abiding gun owners from a patchwork of state rules.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.nrsc.org/press-releases/john-sununu-op-ed-why-i-support-the-constitutional-concealed-carry-reciprocity-act-2026-04-17/",
+              "type": "website",
+              "title": "John Sununu Op-Ed: Why I support the Constitutional Concealed Carry Reciprocity Act",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Sununu says he wants to protect Medicare and keep promises to seniors while also tackling healthcare costs. His campaign says he will focus on lowering healthcare costs and improving affordability rather than pursuing benefit cuts.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sununusenator.com/post/john-e-sununu-announces-run-for-u-s-senate-bringing-the-new-hampshire-way-back-to-washington",
+              "type": "website",
+              "title": "John E. Sununu Announces Run for U.S. Senate: Bringing the New Hampshire Way Back to Washington",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.sununusenator.com/about",
+              "type": "website",
+              "title": "About | John Sununu for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Sununu has said he wants to hear from New Hampshire voters before taking positions on Gaza and other foreign-policy questions, describing the Middle East as too complex for soundbites. That suggests a cautious, consultative approach rather than a detailed public policy platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.wmur.com/article/closeup-john-e-sununu-gaza/66006608",
+              "type": "news",
+              "title": "John E. Sununu seeks voter input on Gaza | CloseUp",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found on climate policy. His campaign says he wants to lower energy costs and make life more affordable, but it does not lay out a detailed climate agenda on the materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.sununusenator.com/about",
+              "type": "website",
+              "title": "About | John Sununu for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found in the campaign materials reviewed. I did not find a current, detailed statement from Sununu on abortion or reproductive-health policy.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found in the campaign materials reviewed. I did not find a current, detailed statement from Sununu on immigration policy.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Sununu's campaign says he co-sponsored legislation restoring protections for Americans with disabilities and supported bipartisan mental-health reforms. The materials reviewed also say he has defended privacy rights and opposed government surveillance, but I did not find a broader current civil-rights platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.sununusenator.com/about",
+              "type": "website",
+              "title": "About | John Sununu for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Sununu's campaign says he has taught at St. Anselm College and has emphasized local control and practical problem-solving in his public remarks. I did not find a detailed current education-policy agenda in the materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.sununusenator.com/about",
+              "type": "website",
+              "title": "About | John Sununu for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Sununu's campaign emphasizes his background in high tech and says he wants to hold Big Tech accountable and defend Americans' privacy from surveillance. I did not find a detailed current AI policy proposal in the materials reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.sununusenator.com/about",
+              "type": "website",
+              "title": "About | John Sununu for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "No public position found in the campaign materials reviewed on election administration, voting rules, or election security. I did not find a current detailed election-policy platform from Sununu.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/John_E._Sununu",
@@ -776,158 +1207,10 @@
           "type": "votesmart"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Sununu says his campaign will be focused on jobs, affordability, lower taxes, and reducing federal spending and debt. He has also said he will oppose middle-class tax hikes and work to lower inflation.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/post/john-e-sununu-announces-run-for-u-s-senate-bringing-the-new-hampshire-way-back-to-washington",
-              "type": "campaign",
-              "title": "John E. Sununu Announces Run for U.S. Senate: Bringing the New Hampshire Way Back to Washington",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "campaign",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Economy"
-        },
-        "Local Issues": {
-          "stance": "Sununu says he is focused on affordability for Granite Staters, including housing, healthcare, and energy costs. His campaign also highlights New Hampshire independence, practical problem-solving, and a preference for local decision-making over Washington control.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "campaign",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.sununusenator.com/post/john-e-sununu-announces-run-for-u-s-senate-bringing-the-new-hampshire-way-back-to-washington",
-              "type": "campaign",
-              "title": "John E. Sununu Announces Run for U.S. Senate: Bringing the New Hampshire Way Back to Washington",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Local Issues"
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Sununu says he supports the Constitutional Concealed Carry Reciprocity Act, which would recognize concealed-carry permits across state lines. He frames the issue as protecting the rights of law-abiding gun owners from a patchwork of state rules.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.nrsc.org/press-releases/john-sununu-op-ed-why-i-support-the-constitutional-concealed-carry-reciprocity-act-2026-04-17/",
-              "type": "campaign policy",
-              "title": "John Sununu Op-Ed: Why I support the Constitutional Concealed Carry Reciprocity Act",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Firearms & Second Amendment"
-        },
-        "Healthcare": {
-          "stance": "Sununu says he wants to protect Medicare and keep promises to seniors while also tackling healthcare costs. His campaign says he will focus on lowering healthcare costs and improving affordability rather than pursuing benefit cuts.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/post/john-e-sununu-announces-run-for-u-s-senate-bringing-the-new-hampshire-way-back-to-washington",
-              "type": "campaign",
-              "title": "John E. Sununu Announces Run for U.S. Senate: Bringing the New Hampshire Way Back to Washington",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "campaign",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Healthcare"
-        },
-        "Foreign Policy": {
-          "stance": "Sununu has said he wants to hear from New Hampshire voters before taking positions on Gaza and other foreign-policy questions, describing the Middle East as too complex for soundbites. That suggests a cautious, consultative approach rather than a detailed public policy platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.wmur.com/article/closeup-john-e-sununu-gaza/66006608",
-              "type": "news",
-              "title": "John E. Sununu seeks voter input on Gaza | CloseUp",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Foreign Policy"
-        },
-        "Climate/Energy": {
-          "stance": "No public position found on climate policy. His campaign says he wants to lower energy costs and make life more affordable, but it does not lay out a detailed climate agenda on the materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "campaign",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Climate/Energy"
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found in the campaign materials reviewed. I did not find a current, detailed statement from Sununu on abortion or reproductive-health policy.",
-          "confidence": "low",
-          "issue": "Abortion & Reproductive Health"
-        },
-        "Immigration": {
-          "stance": "No public position found in the campaign materials reviewed. I did not find a current, detailed statement from Sununu on immigration policy.",
-          "confidence": "low",
-          "issue": "Immigration"
-        },
-        "Civil Rights & Equality": {
-          "stance": "Sununu's campaign says he co-sponsored legislation restoring protections for Americans with disabilities and supported bipartisan mental-health reforms. The materials reviewed also say he has defended privacy rights and opposed government surveillance, but I did not find a broader current civil-rights platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "campaign",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Civil Rights & Equality"
-        },
-        "Education": {
-          "stance": "Sununu's campaign says he has taught at St. Anselm College and has emphasized local control and practical problem-solving in his public remarks. I did not find a detailed current education-policy agenda in the materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "campaign",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Education"
-        },
-        "Tech & AI": {
-          "stance": "Sununu's campaign emphasizes his background in high tech and says he wants to hold Big Tech accountable and defend Americans' privacy from surveillance. I did not find a detailed current AI policy proposal in the materials reviewed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "campaign",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Tech & AI"
-        },
-        "Election Policy": {
-          "stance": "No public position found in the campaign materials reviewed on election administration, voting rules, or election security. I did not find a current detailed election-policy platform from Sununu.",
-          "confidence": "low",
-          "issue": "Election Policy"
-        }
-      }
+      "website": "https://www.sununusenator.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Charlie Hough",
@@ -936,95 +1219,129 @@
       "summary": "",
       "summary_sources": [],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
       "issues": {
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "Charlie Hough supports affordable, high-quality health care for hard-working Americans who contribute to the system, and opposes universal government-run healthcare. He also advocates reining in prescription drug prices to prevent price gouging and to align U.S. prices more closely with international benchmarks.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://hough4senate.com/",
-              "type": "campaign",
+              "type": "website",
               "title": "Charlie Hough for U.S. Senate – Campaign Home",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Healthcare"
+          ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "Supports a pro-growth, progressive tax approach: no cap on the Social Security payroll tax and an additional 5% federal income tax on income over $1 million, while keeping taxes low for working families overall.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://hough4senate.com/",
-              "type": "campaign",
+              "type": "website",
               "title": "Charlie Hough for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Economy"
+          ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "Charlie Hough supports increasing domestic energy production and using American energy sources to drive affordability and national security, while prioritizing responsible environmental practices. He emphasizes energy independence and market-based solutions rather than top-down mandates.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://hough4senate.com/",
-              "type": "campaign_site",
+              "type": "website",
               "title": "Charlie Hough for U.S. Senate | Fresh Ideas for New Hampshire",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Climate/Energy"
+          ]
         },
         "Immigration": {
+          "issue": "Immigration",
           "stance": "Charlie Hough prioritizes border security as a core policy objective and supports strengthening immigration controls as part of national security. He lists Border Security among his key priorities on the campaign site.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://hough4senate.com/",
-              "type": "campaign",
+              "type": "website",
               "title": "Charlie Hough for U.S. Senate - Core themes including Border Security",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Immigration"
+          ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Supports a 'Diplomacy Through Strength' foreign policy that prioritizes national security and deterrence through a capable defense, while pursuing pragmatic diplomacy; also emphasizes border security and domestic energy production as components of national security.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://hough4senate.com/",
-              "type": "campaign_site",
+              "type": "website",
               "title": "Charlie Hough campaign homepage",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Foreign Policy"
+          ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Local Issues: Charlie Hough supports affordable, high-quality health care for Granite State workers and families, advocates for pro-growth tax policies to protect working families (including no cap on Social Security payroll tax and a 5% federal tax on income over $1 million), and backs expanding domestic energy production to keep New Hampshire energy affordable.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://hough4senate.com/",
-              "type": "campaign website",
+              "type": "website",
               "title": "Charlie Hough for U.S. Senate | Fresh Ideas for New Hampshire",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Local Issues"
+          ]
         }
-      }
+      },
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Tejasinha Sivalingam",
@@ -1034,24 +1351,254 @@
       "summary_sources": [
         {
           "url": "https://www.fec.gov/data/candidate/S6NH00133/",
-          "type": "official",
-          "title": "FEC candidate profile"
+          "type": "government",
+          "title": "FEC candidate profile",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-          "type": "profile",
-          "title": "Citizens Count profile history"
+          "type": "website",
+          "title": "Citizens Count profile history",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/tsivalingam.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "He has opposed broad-based income and sales taxes in New Hampshire, opposed capital gains and cigarette tax increases, and supported lower business taxes and budget cuts tied to new spending.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "He has opposed extending New Hampshire's renewable portfolio standard and supported the Keystone XL pipeline. In Citizens Count responses, he also said states should diversify energy sources while continuing to support fossil fuels.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "He has said abortion should be permitted only under extenuating circumstances, that it should be allowed only when a mother's life is in jeopardy, and that the federal government should stay out of abortion policy and let states decide.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "He has supported increased public access to police misconduct reports and opposed federal bans on teaching so-called 'divisive concepts,' saying education should be a state issue.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "He has said education should be a state issue and opposed federal efforts to ban funding for schools that teach 'divisive concepts.'",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "He has supported term limits for elected officials, including a 'serve two, take two' approach for U.S. senators and representatives, and has backed restrictions on emergency powers that would require legislative review.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "He has said he was undecided on expanded commuter rail in New Hampshire and supported increased public access to police misconduct reports.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
+              "type": "website",
+              "title": "Citizens Count profile history",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.fec.gov/data/candidate/S6NH00133/",
@@ -1064,164 +1611,10 @@
           "type": "other"
         }
       ],
-      "issues": {
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Foreign Policy"
-        },
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Healthcare"
-        },
-        "Economy": {
-          "stance": "He has opposed broad-based income and sales taxes in New Hampshire, opposed capital gains and cigarette tax increases, and supported lower business taxes and budget cuts tied to new spending.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Economy"
-        },
-        "Climate/Energy": {
-          "stance": "He has opposed extending New Hampshire's renewable portfolio standard and supported the Keystone XL pipeline. In Citizens Count responses, he also said states should diversify energy sources while continuing to support fossil fuels.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Climate/Energy"
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "He has said abortion should be permitted only under extenuating circumstances, that it should be allowed only when a mother's life is in jeopardy, and that the federal government should stay out of abortion policy and let states decide.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Abortion & Reproductive Health"
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Immigration"
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Firearms & Second Amendment"
-        },
-        "Civil Rights & Equality": {
-          "stance": "He has supported increased public access to police misconduct reports and opposed federal bans on teaching so-called 'divisive concepts,' saying education should be a state issue.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Civil Rights & Equality"
-        },
-        "Education": {
-          "stance": "He has said education should be a state issue and opposed federal efforts to ban funding for schools that teach 'divisive concepts.'",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Education"
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Tech & AI"
-        },
-        "Election Policy": {
-          "stance": "He has supported term limits for elected officials, including a 'serve two, take two' approach for U.S. senators and representatives, and has backed restrictions on emergency powers that would require legislative review.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Election Policy"
-        },
-        "Local Issues": {
-          "stance": "He has said he was undecided on expanded commuter rail in New Hampshire and supported increased public access to police misconduct reports.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.citizenscount.org/candidate/tejasinha-sivalingam/history",
-              "type": "profile",
-              "title": "Citizens Count profile history",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Local Issues"
-        }
-      }
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Karishma Manzur",
@@ -1231,138 +1624,217 @@
       "summary_sources": [
         {
           "url": "https://scholars.unh.edu/survey_center_polls/922/",
-          "type": "poll",
-          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor"
+          "type": "website",
+          "title": "Sununu, Pappas Frontrunners in 2026 NH Senate Race; Ayotte Favored for Re-Election as Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Karishma_Manzur_20260104_015303.jpeg",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
       "issues": {
         "Economy": {
+          "issue": "Economy",
           "stance": "Karishma Manzur advocates for a bottom-up, pro-worker economy that raises wages, strengthens unions, and reduces the influence of money in politics. Her economic plan includes passing the PRO Act, raising the federal minimum wage to a living wage, expanding job training and apprenticeships, and overturning Citizens United to restore campaign finance transparency.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.karishmaforsenate.com/our-priorities",
-              "type": "official_policy_page",
+              "type": "government",
               "title": "Our Priorities - Karishma for Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Economy"
+          ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Karishma Manzur advocates a diplomacy-first, restraint-based foreign policy that ends 'blank checks' for war and increases congressional oversight of military action. She supports reducing U.S. involvement in overseas conflicts and prioritizing diplomacy, human rights, and peaceful, lawful solutions over broad military spending.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.karishmaforsenate.com/press-release/peace-action",
-              "type": "campaign",
+              "type": "website",
               "title": "Peace Action Endorses Karishma Manzur for U.S. Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.laconiadailysun.com/news/elections/manzur-running-for-senate-to-serve-constituents-not-donors/article_a9929760-fbd6-4da7-b712-905f9aa95641.html",
               "type": "news",
               "title": "Manzur running for Senate to serve constituents, not donors",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.karishmaforsenate.com/our-priorities",
-              "type": "campaign",
+              "type": "website",
               "title": "Our Priorities",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Foreign Policy"
+          ]
         },
         "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
           "stance": "Civil Rights & Equality: Karishma Manzur positions civil rights and equality as central to her policy agenda, emphasizing defending constitutional rights, expanding democratic participation, and opposing discriminatory practices; she advocates for reducing the influence of money in politics to ensure government serves all Granite Staters.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.karishmaforsenate.com/",
-              "type": "campaign_website",
+              "type": "website",
               "title": "Karishma Manzur for Senate – Official Campaign Website",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Civil Rights & Equality"
+          ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "Karishma Manzur advocates for universal, high-quality public education funded by federal and state partners—from pre-K through K-12, community colleges, and public universities—along with universal childcare to support families. She supports expanding apprenticeships and job-training, maintaining inclusive education policies, expanding the Child Tax Credit, and opposing federal school voucher programs.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.karishmaforsenate.com/press-release/kkarishma-manzur-launches-education-platform",
-              "type": "campaign press release",
+              "type": "website",
               "title": "Karishma Manzur launches education platform",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.karishmaforsenate.com/our-priorities",
-              "type": "campaign policy page",
+              "type": "website",
               "title": "Our Priorities - Karishma for Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.newhampshirebulletin.com/2026/04/10/as-new-hampshires-us-senate-race-ramps-up-candidates-outline-positions-on-improving-child-care/",
-              "type": "news article",
+              "type": "website",
               "title": "As New Hampshire's US Senate race ramps up, candidates outline positions on improving child care",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Education"
+          ]
         },
         "Election Policy": {
+          "issue": "Election Policy",
           "stance": "Karishma Manzur supports sweeping democracy reform to curb money in politics, including overturning Citizens United, banning corporate PACs, dark money, and super PACs, and restoring public financing for campaigns. She also advocates stronger ethics rules, including banning stock trading by Members of Congress and a five-year cooling-off period before lobbying.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.karishmaforsenate.com/our-priorities",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "type": "website",
+              "title": null,
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.thedartmouth.com/article/2026/02/menna-democratic-senate-candidate-karishma-manzur-says-housing-universal-health-care-are-top-policy-priorities",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "type": "website",
+              "title": null,
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Election Policy"
+          ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Karishma Manzur will tackle New Hampshire's local affordability crisis by expanding federal housing funding (HUD/Section 8), promoting union-built, energy-efficient housing, and restricting private equity in housing to stabilize rents. She also supports universal, affordable child care by expanding federal subsidies so families pay no more than 7% of income on care, and strengthening the Child Tax Credit to reduce the cost of living.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.karishmaforsenate.com/our-priorities",
-              "type": "campaign",
+              "type": "website",
               "title": "Our Priorities - Karishma for Senate",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://newhampshirebulletin.com/2026/04/10/as-new-hampshires-us-senate-race-ramps-up-candidates-outline-positions-on-improving-child-care/",
               "type": "news",
               "title": "As New Hampshire’s US Senate race ramps up, candidates outline positions on improving child care - NH Bulletin",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.thedartmouth.com/article/2026/02/menna-democratic-senate-candidate-karishma-manzur-says-housing-universal-health-care-are-top-policy-priorities",
               "type": "news",
               "title": "‘I’ve lived these issues’: Democratic Senate candidate Karishma Manzur says housing, universal health care are top policy priorities - The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
-          ],
-          "issue": "Local Issues"
+          ]
         }
-      }
+      },
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Jared Sullivan",
@@ -1373,28 +1845,271 @@
         {
           "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
           "type": "news",
-          "title": "The Dartmouth"
+          "title": "The Dartmouth",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.laconiadailysun.com/news/elections/sullivan-running-for-senate-to-restore-election-integrity/article_24a5df40-6a76-4c49-8b98-02ff81c3f824.html",
           "type": "news",
-          "title": "Laconia Daily Sun"
+          "title": "Laconia Daily Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.ballotpedia.org/Jared_Sullivan",
-          "type": "ballotpedia",
-          "title": "Ballotpedia"
+          "type": "website",
+          "title": "Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:48.240523Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jared-Sullivan.PNG",
-      "website": "https://www.jaredfornh.com/",
-      "social_media": {},
+      "issues": {
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Sullivan’s campaign site lists environment as a priority, but the public material reviewed here does not provide a detailed energy platform. Based on available sources, his public position is that environmental policy is part of his campaign agenda, but specific proposals on energy production, regulation, or climate targets were not clearly stated.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.jaredfornh.com/",
+              "type": "government",
+              "title": "Jared for NH",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Sullivan says immigration enforcement should include accountability and due-process protections, and he has said ICE abuses have eroded trust in the agency. He supports comprehensive immigration reform and has said simply abolishing an agency without reform does not solve the underlying problems.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
+              "type": "news",
+              "title": "The Dartmouth",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.laconiadailysun.com/news/elections/sullivan-running-for-senate-to-restore-election-integrity/article_24a5df40-6a76-4c49-8b98-02ff81c3f824.html",
+              "type": "news",
+              "title": "Laconia Daily Sun",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Sullivan ties civil-rights concerns to due-process protections, especially in immigration enforcement, and says government should respect constitutional rights. He also supports democratic reforms such as ranked-choice voting and open primaries to make government more representative.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
+              "type": "news",
+              "title": "The Dartmouth",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.laconiadailysun.com/news/elections/sullivan-running-for-senate-to-restore-election-integrity/article_24a5df40-6a76-4c49-8b98-02ff81c3f824.html",
+              "type": "news",
+              "title": "Laconia Daily Sun",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Sullivan supports campaign finance reform, independent redistricting, ranked-choice voting, and open primaries. He has said he wants to reduce the influence of money in politics and overturn Citizens United.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.laconiadailysun.com/news/elections/sullivan-running-for-senate-to-restore-election-integrity/article_24a5df40-6a76-4c49-8b98-02ff81c3f824.html",
+              "type": "news",
+              "title": "Laconia Daily Sun",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
+              "type": "news",
+              "title": "The Dartmouth",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Sullivan says he wants to move toward health care for all, fully fund the Affordable Care Act in the near term, and ultimately build a more comprehensive system that guarantees coverage. He has said his own medical emergency underscored the risk of being uninsured.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
+              "type": "news",
+              "title": "The Dartmouth",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Sullivan emphasizes affordability, especially housing costs, and says federal investment should help reduce construction costs, expand the trades workforce, and support local infrastructure that can spur development. He frames these steps as part of a broader effort to make everyday costs more manageable for working families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wmur.com/article/democratic-candidate-senate-sullivan-housing/71077044",
+              "type": "news",
+              "title": "WMUR",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
+              "type": "news",
+              "title": "The Dartmouth",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found in the sources reviewed here.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found in the sources reviewed here.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Sullivan’s campaign site lists Israel & Gaza among his issue areas, but the sources reviewed here do not provide a detailed foreign policy platform. No broader public position was clearly stated in the materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.jaredfornh.com/",
+              "type": "government",
+              "title": "Jared for NH",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "No public position found in the sources reviewed here.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found in the sources reviewed here.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Sullivan has centered his campaign on housing affordability in New Hampshire, saying the state needs more homes, a larger construction workforce, and local infrastructure investment to reduce costs. He has also said the issue affects workers, teachers, and hospital staff who struggle to find housing near their jobs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wmur.com/article/democratic-candidate-senate-sullivan-housing/71077044",
+              "type": "news",
+              "title": "WMUR",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
+              "type": "news",
+              "title": "The Dartmouth",
+              "description": null,
+              "last_accessed": "2026-05-15T01:52:27.853121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.jaredfornh.com/",
@@ -1417,176 +2132,21 @@
           "type": "votesmart"
         }
       ],
-      "issues": {
-        "Climate/Energy": {
-          "stance": "Sullivan’s campaign site lists environment as a priority, but the public material reviewed here does not provide a detailed energy platform. Based on available sources, his public position is that environmental policy is part of his campaign agenda, but specific proposals on energy production, regulation, or climate targets were not clearly stated.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.jaredfornh.com/",
-              "type": "official",
-              "title": "Jared for NH",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Climate/Energy"
-        },
-        "Immigration": {
-          "stance": "Sullivan says immigration enforcement should include accountability and due-process protections, and he has said ICE abuses have eroded trust in the agency. He supports comprehensive immigration reform and has said simply abolishing an agency without reform does not solve the underlying problems.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
-              "type": "news",
-              "title": "The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.laconiadailysun.com/news/elections/sullivan-running-for-senate-to-restore-election-integrity/article_24a5df40-6a76-4c49-8b98-02ff81c3f824.html",
-              "type": "news",
-              "title": "Laconia Daily Sun",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Immigration"
-        },
-        "Civil Rights & Equality": {
-          "stance": "Sullivan ties civil-rights concerns to due-process protections, especially in immigration enforcement, and says government should respect constitutional rights. He also supports democratic reforms such as ranked-choice voting and open primaries to make government more representative.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
-              "type": "news",
-              "title": "The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.laconiadailysun.com/news/elections/sullivan-running-for-senate-to-restore-election-integrity/article_24a5df40-6a76-4c49-8b98-02ff81c3f824.html",
-              "type": "news",
-              "title": "Laconia Daily Sun",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Civil Rights & Equality"
-        },
-        "Election Policy": {
-          "stance": "Sullivan supports campaign finance reform, independent redistricting, ranked-choice voting, and open primaries. He has said he wants to reduce the influence of money in politics and overturn Citizens United.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.laconiadailysun.com/news/elections/sullivan-running-for-senate-to-restore-election-integrity/article_24a5df40-6a76-4c49-8b98-02ff81c3f824.html",
-              "type": "news",
-              "title": "Laconia Daily Sun",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
-              "type": "news",
-              "title": "The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Election Policy"
-        },
-        "Healthcare": {
-          "stance": "Sullivan says he wants to move toward health care for all, fully fund the Affordable Care Act in the near term, and ultimately build a more comprehensive system that guarantees coverage. He has said his own medical emergency underscored the risk of being uninsured.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
-              "type": "news",
-              "title": "The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Healthcare"
-        },
-        "Economy": {
-          "stance": "Sullivan emphasizes affordability, especially housing costs, and says federal investment should help reduce construction costs, expand the trades workforce, and support local infrastructure that can spur development. He frames these steps as part of a broader effort to make everyday costs more manageable for working families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.wmur.com/article/democratic-candidate-senate-sullivan-housing/71077044",
-              "type": "news",
-              "title": "WMUR",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
-              "type": "news",
-              "title": "The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Economy"
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found in the sources reviewed here.",
-          "confidence": "low",
-          "issue": "Abortion & Reproductive Health"
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found in the sources reviewed here.",
-          "confidence": "low",
-          "issue": "Firearms & Second Amendment"
-        },
-        "Foreign Policy": {
-          "stance": "Sullivan’s campaign site lists Israel & Gaza among his issue areas, but the sources reviewed here do not provide a detailed foreign policy platform. No broader public position was clearly stated in the materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.jaredfornh.com/",
-              "type": "official",
-              "title": "Jared for NH",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Foreign Policy"
-        },
-        "Education": {
-          "stance": "No public position found in the sources reviewed here.",
-          "confidence": "low",
-          "issue": "Education"
-        },
-        "Tech & AI": {
-          "stance": "No public position found in the sources reviewed here.",
-          "confidence": "low",
-          "issue": "Tech & AI"
-        },
-        "Local Issues": {
-          "stance": "Sullivan has centered his campaign on housing affordability in New Hampshire, saying the state needs more homes, a larger construction workforce, and local infrastructure investment to reduce costs. He has also said the issue affects workers, teachers, and hospital staff who struggle to find housing near their jobs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.wmur.com/article/democratic-candidate-senate-sullivan-housing/71077044",
-              "type": "news",
-              "title": "WMUR",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            },
-            {
-              "url": "https://www.thedartmouth.com/article/2026/03/new-hampshire-democrat-jared-sullivan-says-restoring-trust-and-fixing-housing-must-guide-the-open-u-s-senate-race",
-              "type": "news",
-              "title": "The Dartmouth",
-              "last_accessed": "2026-05-15T01:52:27.853121+00:00"
-            }
-          ],
-          "issue": "Local Issues"
-        }
-      }
+      "website": "https://www.jaredfornh.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-05-15T01:57:01.362288+00:00",
+  "updated_utc": "2026-06-13T23:14:58.472276+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-15T01:52:51.204961+00:00",
+      "reviewed_at": "2026-05-15T01:52:51.204961Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -1637,7 +2197,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-15T01:52:30.289800+00:00",
+      "reviewed_at": "2026-05-15T01:52:30.289800Z",
       "verdict": "approved",
       "score": 92,
       "flags": [
@@ -1664,7 +2224,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-15T01:52:33.676464+00:00",
+      "reviewed_at": "2026-05-15T01:52:33.676464Z",
       "verdict": "approved",
       "score": 94,
       "flags": [
@@ -1692,34 +2252,21 @@
   ],
   "polling_note": "Recent publicly available polling found in this update includes the UNH Survey Center's Jan. 21, 2026 Granite State Poll. No post-2026-04-01 public polls were identified in the sources reviewed for this update.",
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 1996129,
-    "completion_tokens": 150980,
-    "total_tokens": 2147109,
-    "estimated_usd": 0.3024,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 165896,
+    "completion_tokens": 7096,
+    "total_tokens": 172992,
+    "cost_usd": 0.007417999999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.011133,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 1606692,
-        "completion_tokens": 140438
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 318756,
-        "completion_tokens": 7796
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 25584,
-        "completion_tokens": 398
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 20781,
-        "completion_tokens": 379
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 24316,
-        "completion_tokens": 1969
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 165896,
+        "completion_tokens": 7096
       }
     },
-    "duration_s": 2254.2
+    "duration_s": 70.3
   },
   "validation_grade": {
     "grade": "A",
@@ -1727,5 +2274,11 @@
     "passed": true,
     "summary": "Validated by 3/3 reviewers with an average score of 91/100."
   },
-  "schema_version": "0.3"
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

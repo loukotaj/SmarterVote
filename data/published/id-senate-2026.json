@@ -18,65 +18,75 @@
           "url": "https://www.risch.senate.gov/about/about-jim/",
           "type": "website",
           "title": "About Jim - Senator James Risch",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
           "type": "website",
           "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jim_Risch.jpg",
-      "website": "https://senatorrisch.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SenatorJimRisch/",
-        "x": "https://x.com/SenatorRisch",
-        "instagram": "https://www.instagram.com/senatorrisch/",
-        "youtube": "https://www.youtube.com/@SenatorRisch"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Senator",
           "organization": "United States Senate",
           "start_year": 2009,
           "end_year": null,
-          "description": "Represents Idaho in the Senate; currently serves as chair of the Senate Foreign Relations Committee."
+          "description": "Represents Idaho in the Senate; currently serves as chair of the Senate Foreign Relations Committee.",
+          "source": null
         },
         {
           "title": "Governor",
           "organization": "State of Idaho",
           "start_year": 2006,
           "end_year": 2009,
-          "description": "Served as Idaho governor after previously holding other statewide and legislative offices."
+          "description": "Served as Idaho governor after previously holding other statewide and legislative offices.",
+          "source": null
         },
         {
           "title": "Lieutenant Governor",
           "organization": "State of Idaho",
           "start_year": 2003,
           "end_year": 2006,
-          "description": "Served two terms as Idaho lieutenant governor."
+          "description": "Served two terms as Idaho lieutenant governor.",
+          "source": null
         },
         {
           "title": "President Pro Tempore / Majority Leader",
           "organization": "Idaho State Senate",
           "start_year": 1981,
           "end_year": 1988,
-          "description": "Served in the Idaho Senate and was elected by peers as Republican Majority Leader and President Pro Tempore."
+          "description": "Served in the Idaho Senate and was elected by peers as Republican Majority Leader and President Pro Tempore.",
+          "source": null
         },
         {
           "title": "Ada County Prosecuting Attorney",
           "organization": "Ada County, Idaho",
           "start_year": 1970,
           "end_year": 1978,
-          "description": "Served two terms as Ada County prosecuting attorney."
+          "description": "Served two terms as Ada County prosecuting attorney.",
+          "source": null
         },
         {
           "title": "Rancher and lawyer",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Has worked as a rancher, small business owner, and senior partner at a law firm."
+          "description": "Has worked as a rancher, small business owner, and senior partner at a law firm.",
+          "source": null
         }
       ],
       "education": [
@@ -84,21 +94,33 @@
           "institution": "University of Idaho",
           "degree": "Bachelor's degree",
           "field": "Forestry",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Idaho",
           "degree": "Juris Doctor",
           "field": "Law",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://senatorrisch.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorJimRisch/",
+        "x": "https://x.com/SenatorRisch",
+        "instagram": "https://www.instagram.com/senatorrisch/",
+        "youtube": "https://www.youtube.com/@SenatorRisch"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Joe Evans",
@@ -110,37 +132,52 @@
           "url": "https://joeevansforidaho.com/about/",
           "type": "website",
           "title": "About - Joe Evans",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://joeevansforidaho.com/",
           "type": "website",
           "title": "Joe Evans – for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://joeevansforidaho.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/joeforidaho/",
-        "instagram": "https://www.instagram.com/cupojoewithjoe/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Army veteran",
           "organization": "United States Army",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography identifies him as a veteran."
+          "description": "Campaign biography identifies him as a veteran.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://joeevansforidaho.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/joeforidaho/",
+        "instagram": "https://www.instagram.com/cupojoewithjoe/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Denny LaVe",
@@ -152,20 +189,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
           "type": "website",
           "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Denny_LaVe_20260303_013311.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Josh Roy",
@@ -177,41 +223,51 @@
           "url": "https://joshroyforidaho.com/",
           "type": "website",
           "title": "Josh Roy for Idaho | U.S. Senate 2026",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Josh_Roy",
           "type": "website",
           "title": "Josh Roy - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Josh_Roy_20260103_055702.png",
-      "website": "https://joshroyforidaho.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/JoshRoyforIdaho/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Operations assistant superintendent",
           "organization": "Clearwater Paper",
           "start_year": 2018,
           "end_year": null,
-          "description": "Works in heavy industry in Idaho, according to his campaign website."
+          "description": "Works in heavy industry in Idaho, according to his campaign website.",
+          "source": null
         },
         {
           "title": "Engineer / maintenance and operations roles",
           "organization": "Weyerhaeuser and other pulp and paper operations",
           "start_year": 2004,
           "end_year": 2018,
-          "description": "Campaign biography says he spent about 20 years in heavy industry, including engineering and operations roles."
+          "description": "Campaign biography says he spent about 20 years in heavy industry, including engineering and operations roles.",
+          "source": null
         },
         {
           "title": "Volunteer in juvenile detention",
           "organization": "Juvenile detention program",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign website says he has 11 years of volunteering experience in juvenile detention."
+          "description": "Campaign website says he has 11 years of volunteering experience in juvenile detention.",
+          "source": null
         }
       ],
       "education": [
@@ -219,21 +275,30 @@
           "institution": "University of Idaho",
           "degree": "Bachelor's degree",
           "field": "Mechanical Engineering",
-          "year": 2004
+          "year": 2004,
+          "source": null
         },
         {
           "institution": "Washington State University",
           "degree": "MBA",
           "field": "Business Administration",
-          "year": 2025
+          "year": 2025,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://joshroyforidaho.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoshRoyforIdaho/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Matt Loesby",
@@ -245,20 +310,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
           "type": "website",
           "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MattLoesby2024.jpeg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Nickolas Bonds",
@@ -270,20 +344,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
           "type": "website",
           "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nickolas_Bonds_20260311_061451.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Brad Moore",
@@ -295,28 +378,42 @@
           "url": "https://ballotpedia.org/Brad_Moore",
           "type": "website",
           "title": "Brad Moore - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
           "type": "website",
           "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
       "website": null,
       "social_media": {
         "linkedin": "https://www.linkedin.com/"
       },
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "David Roth",
@@ -328,166 +425,92 @@
           "url": "https://rothforidaho.org/",
           "type": "website",
           "title": "David Roth for Idaho: Home",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/David_Roth",
           "type": "website",
           "title": "David Roth - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DavidRoth.jpg",
-      "website": "https://rothforidaho.org/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/rothforIdaho/",
-        "instagram": "https://www.instagram.com/rothforidaho/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Idaho Democratic Party chair",
           "organization": "Idaho Democratic Party",
           "start_year": null,
           "end_year": null,
-          "description": "Ballotpedia and campaign materials identify him as a party leader."
+          "description": "Ballotpedia and campaign materials identify him as a party leader.",
+          "source": null
         },
         {
           "title": "Nonprofit leader",
           "organization": "Nonprofit sector",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign materials describe him as a nonprofit leader."
+          "description": "Campaign materials describe him as a nonprofit leader.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Todd Achilles",
-      "party": "Independent",
-      "incumbent": false,
-      "summary": "Todd Achilles is an independent candidate in Idaho’s 2026 U.S. Senate race. His campaign says he is a former Army tank commander and armor officer who later worked in the tech sector and now teaches public policy, and he frames his run as an alternative to the two-party system.",
-      "summary_sources": [
-        {
-          "url": "https://www.achillesforidaho.com/meet-todd",
-          "type": "website",
-          "title": "Meet Todd | Empower Idahoans Today — Todd Achilles for Idaho",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
-          "type": "website",
-          "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ToddAchilles.jpg",
-      "website": "https://www.achillesforidaho.com/",
+      "website": "https://rothforidaho.org/",
       "social_media": {
-        "facebook": "https://www.facebook.com/achilles4idaho/",
-        "instagram": "https://www.instagram.com/achilles4idaho/"
+        "facebook": "https://www.facebook.com/rothforIdaho/",
+        "instagram": "https://www.instagram.com/rothforidaho/"
       },
-      "career_history": [
-        {
-          "title": "Public policy instructor",
-          "organization": "Unspecified / campaign biography",
-          "start_year": null,
-          "end_year": null,
-          "description": "Campaign biography says he currently teaches public policy."
-        },
-        {
-          "title": "Advocate for veterans",
-          "organization": "Veterans advocacy",
-          "start_year": null,
-          "end_year": null,
-          "description": "Campaign biography says he advocates for veterans."
-        },
-        {
-          "title": "Tech sector leader",
-          "organization": "T-Mobile, Hewlett-Packard, and startups",
-          "start_year": null,
-          "end_year": null,
-          "description": "Campaign biography says he spent over 20 years in the tech sector leading teams."
-        },
-        {
-          "title": "U.S. Army tank commander and armor officer",
-          "organization": "United States Army",
-          "start_year": null,
-          "end_year": null,
-          "description": "Campaign biography says he served in the Army in armored leadership roles."
-        }
-      ],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Natalie Fleming",
-      "party": "Independent",
-      "incumbent": false,
-      "summary": "Natalie Fleming is an independent candidate in Idaho’s 2026 U.S. Senate race. The sources reviewed confirm her candidacy and campaign presence, but they did not provide enough reliable biographical detail to summarize her career or education with confidence.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/Natalie_Fleming_(Idaho)",
-          "type": "website",
-          "title": "Natalie Fleming (Idaho) - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://nataliefleming.info/about-natalie-m-fleming/",
-          "type": "website",
-          "title": "About Natalie M Fleming",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": null,
-      "website": "https://nataliefleming.info/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/nataliemfleming/",
-        "facebook": "https://www.facebook.com/hashtag/flemingforsenate/"
-      },
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T18:12:05.953665+00:00",
+  "updated_utc": "2026-06-13T23:12:29.639454+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 266537,
-    "completion_tokens": 12055,
-    "total_tokens": 278592,
-    "estimated_usd": 0.035,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 51816,
+    "completion_tokens": 2556,
+    "total_tokens": 54372,
+    "cost_usd": 0.00213288,
+    "cost_source": "provider",
+    "estimated_usd": 0.003613,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 204567,
-        "completion_tokens": 9756
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 61970,
-        "completion_tokens": 2299
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 51816,
+        "completion_tokens": 2556
       }
     },
-    "duration_s": 134.4
+    "duration_s": 34.5
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

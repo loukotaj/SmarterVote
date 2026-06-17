@@ -1,0 +1,222 @@
+{
+  "id": "ca-house-26-2026",
+  "title": "California's 26th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 26th Congressional District",
+  "state": "California",
+  "district": "26th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 26th Congressional District, covering most of Ventura County and extending into northern Los Angeles County, is an open seat for the first time in more than a decade after incumbent Democrat Julia Brownley announced her retirement. The general election will feature Democrat Jacqui Irwin, a California State Assemblymember and former Thousand Oaks mayor, facing Republican Sam Gallucci, a pastor, nonprofit founder, and former business executive. Under California's top-two primary system, Irwin placed first and Gallucci second in the June 2 primary, advancing past seven other candidates. Cook Political Report rates the district as Solid Democratic, but the race reflects broader midterm dynamics including voter concerns over the cost of living, healthcare, immigration, and wildfire resilience.",
+  "polling": [],
+  "polling_note": "No independent general-election head-to-head polls were found for this race as of June 2026. Cook Political Report rates the district as 'Solid D' based on the Cook Partisan Voting Index (D+9) and historical voting patterns.",
+  "candidates": [
+    {
+      "name": "Jacqui Irwin",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Jacqui Irwin is a California State Assemblymember representing the 42nd Assembly District since 2014, and a former Thousand Oaks City Council member and two-term mayor. Before entering public service, she worked as an engineer at Johns Hopkins University Applied Physics Lab and Teledyne Systems, and holds a BS in Systems Engineering from UC San Diego, where she was an All-American swimmer. In the Assembly, she has chaired the Military and Veterans Affairs Committee and the Revenue and Taxation Committee, and currently chairs the Joint Committee on Climate Change Policies.",
+      "summary_sources": [
+        {
+          "url": "https://irwin.asmdc.org/biography",
+          "type": "government",
+          "title": "Biography | Assemblymember Jacqui Irwin",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jacqui_Irwin",
+          "type": "website",
+          "title": "Jacqui Irwin - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jacqui_Irwin.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Member, California State Assembly",
+          "organization": "California State Assembly",
+          "start_year": 2014,
+          "end_year": null,
+          "description": "Represented the 42nd Assembly District; chaired Military and Veterans Affairs Committee (2014-2021), Revenue and Taxation Committee (2022-2025), and Joint Committee on Climate Change Policies.",
+          "source": null
+        },
+        {
+          "title": "Mayor and City Councilmember",
+          "organization": "City of Thousand Oaks",
+          "start_year": 2004,
+          "end_year": 2014,
+          "description": "Served on the Thousand Oaks City Council and two terms as mayor.",
+          "source": null
+        },
+        {
+          "title": "Engineer",
+          "organization": "Johns Hopkins University Applied Physics Lab",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an engineer. Also employed at Teledyne Systems prior to public service.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, San Diego",
+          "degree": "Bachelor of Science",
+          "field": "Systems Engineering",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jacquiirwin.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Sam Gallucci",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Sam Gallucci is a Republican candidate, pastor, nonprofit founder, and former business executive. He served as senior pastor at Embrace Church in Oxnard and founded The Kingdom Center, which provides emergency shelter and transitional housing for at-risk women and children, and Treasured Harvest, which supplies food and resources to farm workers. Earlier in his career, he worked at IBM and rose to Executive Vice President and General Manager at PeopleSoft. He holds an associate's degree from Grossmont College and a bachelor's degree from San Diego State University.",
+      "summary_sources": [
+        {
+          "url": "https://samgallucci.com/newsroom",
+          "type": "website",
+          "title": "Sam Gallucci for Congress - Newsroom",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vcstar.com/story/news/politics/elections/2026/05/10/candidates-26th-congressional-district-race/89962300007/",
+          "type": "news",
+          "title": "Meet the 9 candidates in 26th Congressional District race",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Senior Pastor",
+          "organization": "Embrace Church, Oxnard",
+          "start_year": 2007,
+          "end_year": null,
+          "description": "Lead pastor at Embrace! Church in Oxnard.",
+          "source": null
+        },
+        {
+          "title": "Founder and CEO",
+          "organization": "The Kingdom Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit providing emergency shelter and transitional living assistance for at-risk women and children.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "Treasured Harvest",
+          "start_year": 2014,
+          "end_year": null,
+          "description": "Nonprofit providing food and resources to farm workers and their families.",
+          "source": null
+        },
+        {
+          "title": "Executive Vice President and General Manager",
+          "organization": "PeopleSoft",
+          "start_year": null,
+          "end_year": null,
+          "description": "Executive at the CRM software company.",
+          "source": null
+        },
+        {
+          "title": "Executive",
+          "organization": "IBM",
+          "start_year": 1981,
+          "end_year": null,
+          "description": "Began career at IBM after college.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "San Diego State University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Grossmont College",
+          "degree": "Associate's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://samgallucci.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_26th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:47:45.114229+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 216088,
+    "completion_tokens": 7061,
+    "total_tokens": 223149,
+    "cost_usd": 0.016051012000000003,
+    "cost_source": "provider",
+    "estimated_usd": 0.022561,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 216088,
+        "completion_tokens": 7061
+      }
+    },
+    "duration_s": 139.5
+  }
+}

@@ -1,0 +1,408 @@
+{
+  "id": "ct-house-01-2026",
+  "title": "Connecticut's 1st Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Connecticut's 1st Congressional District",
+  "state": "Connecticut",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Connecticut's 1st Congressional District features a competitive Democratic primary between 14-term incumbent John Larson, former Hartford mayor Luke Bronin, state Representative Jillian Gilchrest, and three other candidates. At the May 2026 Democratic convention, Bronin received 51.2% of the vote in an upset over the longtime incumbent, though Larson and Gilchrest also qualified for the August 11 primary ballot. The general election is rated Solid/Safe Democratic by major forecasters, reflecting the district's strong Democratic lean. Republican nominee Dr. Amy Chai, a physician and mental health advocate, is running on a platform focused on transparency, urban revitalization, and prevention-focused policy.",
+  "polling": [],
+  "polling_note": "No opinion polls specifically for this race were found as of mid-2026. The district is rated Solid/Safe Democratic by major election forecasters.",
+  "candidates": [
+    {
+      "name": "John Larson",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "John Larson is the 14-term incumbent U.S. Representative for Connecticut's 1st Congressional District, first elected in 1998. He previously served in the Connecticut State Senate from 1986 to 1998 and on the East Hartford Town Council. Larson has focused on infrastructure, health care reform, and constituent services, and has been endorsed by AIPAC.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/05/26/connecticut-democrats-head-to-august-primary-in-1st-congressional-district-after-convention-produces-rare-incumbent-upset/",
+          "type": "news",
+          "title": "Connecticut Democrats head to August primary in 1st Congressional District after convention produces rare incumbent upset",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Connecticut",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Connecticut",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1999,
+          "end_year": null,
+          "description": "Representing Connecticut's 1st Congressional District"
+        },
+        {
+          "title": "State Senator",
+          "organization": "Connecticut State Senate",
+          "start_year": 1986,
+          "end_year": 1998,
+          "description": "Represented district in state senate"
+        },
+        {
+          "title": "Town Council Member",
+          "organization": "East Hartford Town Council",
+          "start_year": 1979,
+          "end_year": 1983,
+          "description": "Served on local town council"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Manchester Community College",
+          "degree": "Associate",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Luke Bronin",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Luke Bronin is a former mayor of Hartford (2016-2024), an attorney, and a U.S. Navy Reserve veteran. He previously served in senior positions in the Obama administration and as counsel to Connecticut Governor Dannel Malloy. Bronin won the Democratic convention endorsement in May 2026 with 51.2% of the vote, and has been endorsed by VoteVets.org.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/05/26/connecticut-democrats-head-to-august-primary-in-1st-congressional-district-after-convention-produces-rare-incumbent-upset/",
+          "type": "news",
+          "title": "Connecticut Democrats head to August primary in 1st Congressional District after convention produces rare incumbent upset",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Connecticut",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Connecticut",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Luke_Bronin.jpeg",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Hartford",
+          "start_year": 2016,
+          "end_year": 2024,
+          "description": "Two-term mayor of Connecticut's capital city"
+        },
+        {
+          "title": "Senior Advisor",
+          "organization": "Obama Administration / U.S. Department of the Treasury",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in senior federal government positions"
+        },
+        {
+          "title": "Counsel",
+          "organization": "Office of Connecticut Governor Dannel Malloy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as counsel to the governor"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale Law School",
+          "degree": "JD",
+          "field": "Law",
+          "year": null
+        },
+        {
+          "institution": "Yale University",
+          "degree": "BA",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jillian Gilchrest",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jillian Gilchrest is a Connecticut State Representative for the 18th district, first elected in 2018 after defeating a 23-year incumbent in a Democratic primary. She previously worked as a social worker and nonprofit executive. Gilchrest has focused on health care costs, Medicaid protection, and coalition-building, and has been endorsed by the Connecticut branch of Indivisible.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/05/26/connecticut-democrats-head-to-august-primary-in-1st-congressional-district-after-convention-produces-rare-incumbent-upset/",
+          "type": "news",
+          "title": "Connecticut Democrats head to August primary in 1st Congressional District after convention produces rare incumbent upset",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        },
+        {
+          "url": "https://www.housedems.ct.gov/Gilchrest/Biography",
+          "type": "government",
+          "title": "Biography - Connecticut House Democrats",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Connecticut House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing the 18th district (West Hartford)"
+        },
+        {
+          "title": "Social Worker / Nonprofit Executive",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a social worker and in nonprofit leadership prior to elected office"
+        }
+      ],
+      "education": [
+        {
+          "institution": null,
+          "degree": "MSW",
+          "field": "Social Work",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Ruth Fortune",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Ruth Fortune is an at-large member of the Hartford Board of Education and an attorney at Wiggin and Dana LLP. She came to the United States from Haiti as a young undocumented immigrant. Fortune earned her BBA cum laude from Baruch College and her JD from the University of Connecticut School of Law, and focuses her legal practice on estate planning and elder law.",
+      "summary_sources": [
+        {
+          "url": "https://ctmirror.org/2025/07/03/john-larson-challenger-ruth-fortune/",
+          "type": "news",
+          "title": "Hartford board of ed member to challenge John Larson in primary",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        },
+        {
+          "url": "https://www.ruthfortuneforcongress.com/",
+          "type": "website",
+          "title": "Ruth Fortune For Congress",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.ruthfortuneforcongress.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Board Member",
+          "organization": "Hartford Board of Education",
+          "start_year": null,
+          "end_year": null,
+          "description": "Mayoral appointee serving as at-large member"
+        },
+        {
+          "title": "Attorney",
+          "organization": "Wiggin and Dana LLP",
+          "start_year": null,
+          "end_year": null,
+          "description": "Estate planning and elder law practice"
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Connecticut School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null
+        },
+        {
+          "institution": "Baruch College",
+          "degree": "BBA",
+          "field": "Business Administration",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Mark Stewart Greenstein",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mark Stewart Greenstein is a Democratic candidate running in the primary for Connecticut's 1st Congressional District. He has previously run for various political offices, including President of the United States. His platform includes eliminating the personal income tax and reducing government intervention in the economy.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/05/26/connecticut-democrats-head-to-august-primary-in-1st-congressional-district-after-convention-produces-rare-incumbent-upset/",
+          "type": "news",
+          "title": "Connecticut Democrats head to August primary in 1st Congressional District after convention produces rare incumbent upset",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Mark_Stewart_Greenstein",
+          "type": "website",
+          "title": "Mark Stewart Greenstein - Ballotpedia",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Tom McCormick",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tom McCormick is a Democratic primary candidate for Connecticut's 1st Congressional District. He has worked in real estate, teaching, and as a contractor. McCormick previously ran for the same seat as a Green Party candidate in 2020, and advocates for Economic Democracy, universal healthcare, and reducing income and wealth disparities.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/05/26/connecticut-democrats-head-to-august-primary-in-1st-congressional-district-after-convention-produces-rare-incumbent-upset/",
+          "type": "news",
+          "title": "Connecticut Democrats head to August primary in 1st Congressional District after convention produces rare incumbent upset",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        },
+        {
+          "url": "https://patch.com/connecticut/westhartford/candidate-profile-tom-mccormick-first-congressional-district",
+          "type": "news",
+          "title": "Candidate Profile: Tom McCormick First Congressional District",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Real Estate / Contractor / Teacher",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in real estate (5 years), teaching (7 years), and as a contractor (20 years)"
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Amy Chai",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Dr. Amy Chai is a physician and mental health advocate running as the presumptive Republican nominee for Connecticut's 1st Congressional District. She is the first female physician to run for Congress in Connecticut, and her platform focuses on 'radical transparency,' economic empowerment, and prevention-oriented policy. Chai has proposed a 'Pact for Prosperity' federal-local initiative aimed at transforming Hartford into a national model for urban revitalization.",
+      "summary_sources": [
+        {
+          "url": "https://www.bristolpress.com/news/republican-chai-to-run-for-congress-in-ct-s-first-district/article_871445c5-af68-4e49-9747-93be61846d53.html",
+          "type": "news",
+          "title": "Republican Chai to run for Congress in CT's first district",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Connecticut",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Connecticut",
+          "last_accessed": "2026-06-10T12:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Amy_Chai.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Physician",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Medical doctor and mental health advocate"
+        }
+      ],
+      "education": [
+        {
+          "institution": null,
+          "degree": "MD",
+          "field": "Medicine",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Connecticut%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:10:46.484509+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 274527,
+    "completion_tokens": 11275,
+    "total_tokens": 285802,
+    "cost_usd": 0.020826826,
+    "cost_source": "provider",
+    "estimated_usd": 0.029114,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 274527,
+        "completion_tokens": 11275
+      }
+    },
+    "duration_s": 150.1
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "id": "nm-house-01-2026",
+  "title": "2026 U.S. House election for New Mexico's 1st Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New Mexico's 1st Congressional District",
+  "state": "New Mexico",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for New Mexico's 1st Congressional District pits Democratic incumbent Rep. Melanie Stansbury against Republican nominee Ndidiamaka 'Didi' Okpareke. The district covers central New Mexico, including most of Albuquerque and eastern Bernalillo County, along with Torrance, Guadalupe, De Baca, and Lincoln counties. Stansbury, first elected in a 2021 special election, won re-election in 2024 with 56.4% of the vote, and the race is rated 'Solid D' by nonpartisan forecasters. Okpareke, a pharmacist and small business owner, is campaigning on healthcare access, fiscal responsibility, and economic development.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polling was found for the NM-01 general election contest at this time.",
+  "candidates": [
+    {
+      "name": "Melanie Ann Stansbury",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Incumbent U.S. Representative for New Mexico's 1st Congressional District since 2021. A former state representative and science policy professional, Stansbury serves on the House Natural Resources Committee and has focused her career on water security, public lands conservation, and economic development. She holds a B.A. from Saint Mary's College of California and an M.S. in Development Sociology from Cornell University.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Melanie_Stansbury",
+          "type": "website",
+          "title": "Melanie Stansbury - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-24T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Melanie_Stansbury",
+          "type": "website",
+          "title": "Melanie Stansbury - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-24T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Melanie_Stansbury.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing New Mexico's 1st Congressional District; serves on the Natural Resources Committee",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "New Mexico House of Representatives",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Represented House District 28; first woman to hold the seat",
+          "source": null
+        },
+        {
+          "title": "Staff Member",
+          "organization": "U.S. Senate Committee on Energy and Natural Resources",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Advisor on energy and natural resources policy",
+          "source": null
+        },
+        {
+          "title": "Staff Member",
+          "organization": "White House Office of Management and Budget",
+          "start_year": 2011,
+          "end_year": 2015,
+          "description": "Worked on land and water issues",
+          "source": null
+        },
+        {
+          "title": "Science Educator",
+          "organization": "New Mexico Museum of Natural History and Science",
+          "start_year": 2002,
+          "end_year": 2004,
+          "description": "Educated students across New Mexico on natural science",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Cornell University",
+          "degree": "Master of Science",
+          "field": "Development Sociology",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Saint Mary's College of California",
+          "degree": "Bachelor of Arts",
+          "field": "Human Ecology and Natural Science",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.melaniefornewmexico.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/Melanie4NM",
+        "instagram": "https://www.instagram.com/melanieinthe505/",
+        "twitter": "https://x.com/Rep_Stansbury"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ndidiamaka 'Didi' Okpareke",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Republican nominee for New Mexico's 1st Congressional District and a first-generation Nigerian-American. Okpareke is a pharmacist and business owner who founded Olive Tree Compounding Pharmacy in Rio Rancho. She campaigns on improving healthcare access, reducing federal spending, and fostering economic development to address poverty and crime in New Mexico.",
+      "summary_sources": [
+        {
+          "url": "https://nmpoliticalreport.com/2025/07/25/rio-rancho-pharmacist-running-for-house/",
+          "type": "news",
+          "title": "Rio Rancho pharmacist running for House - NM Political Report",
+          "description": null,
+          "last_accessed": "2026-06-24T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_New_Mexico",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in New Mexico",
+          "description": null,
+          "last_accessed": "2026-06-24T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.didiforcongress.com/",
+          "type": "website",
+          "title": "Didi Okpareke for Congress",
+          "description": null,
+          "last_accessed": "2026-06-24T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner and Pharmacist",
+          "organization": "Olive Tree Compounding Pharmacy",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Founded and operates a compounding pharmacy in Rio Rancho, New Mexico",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of New Mexico College of Pharmacy",
+          "degree": "Doctor of Pharmacy (PharmD)",
+          "field": "Pharmacy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.didiforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DidiForCongress",
+        "instagram": "https://www.instagram.com/didiforcongress/",
+        "twitter": "https://x.com/DidiForCongress"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Mexico%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:28:22.611025+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 307729,
+    "completion_tokens": 6390,
+    "total_tokens": 314119,
+    "cost_usd": 0.019668698,
+    "cost_source": "provider",
+    "estimated_usd": 0.03141,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 307729,
+        "completion_tokens": 6390
+      }
+    },
+    "duration_s": 138.0
+  }
+}

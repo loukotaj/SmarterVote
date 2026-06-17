@@ -1,0 +1,408 @@
+{
+  "id": "ma-house-04-2026",
+  "title": "Massachusetts's 4th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Massachusetts's 4th Congressional District",
+  "state": "Massachusetts",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Massachusetts's 4th Congressional District will determine who represents a district that stretches from the Boston suburbs of Newton and Brookline south through Attleboro to Fall River. Incumbent Democratic U.S. Rep. Jake Auchincloss, first elected in 2020, faces a competitive Democratic primary challenge from AI researcher Jason Poulos, who is running on a platform of Medicare for All, universal basic income, and reducing corporate influence in politics. On the Republican side, physicist and entrepreneur Tom Stalcup is running on a platform focused on lowering prescription drug prices and reducing U.S. military intervention abroad. Independent candidate Steve Chasse is also in the race. The Democratic primary will be held September 1, 2026, and the general election is November 3, 2026.",
+  "candidates": [
+    {
+      "name": "Jake Auchincloss",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jake Auchincloss is the incumbent U.S. Representative for Massachusetts's 4th Congressional District, first elected in 2020 and currently serving his third term. He is a former U.S. Marine Corps infantry officer who commanded troops in Afghanistan and special operations in Panama, and he served on the Newton City Council from 2015 to 2021. He serves on the House Committee on Energy and Commerce and has focused on healthcare affordability, clean energy, gun violence prevention, and building a strong middle class.",
+      "summary_sources": [
+        {
+          "url": "https://auchincloss.house.gov/about",
+          "type": "government",
+          "title": "About - U.S. Congressman Jake Auchincloss",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://simple.wikipedia.org/wiki/Jake_Auchincloss",
+          "type": "website",
+          "title": "Jake Auchincloss - Simple English Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jake_Auchincloss",
+          "type": "website",
+          "title": "Jake Auchincloss - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Rep._Jake_Auchincloss_218th_Congress_Portrait.jpg/800px-Rep._Jake_Auchincloss_218th_Congress_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Massachusetts's 4th Congressional District; serves on House Committee on Energy and Commerce",
+          "source": null
+        },
+        {
+          "title": "City Councilor",
+          "organization": "City of Newton, Massachusetts",
+          "start_year": 2015,
+          "end_year": 2021,
+          "description": "Three-term city councilor",
+          "source": null
+        },
+        {
+          "title": "Marine Corps Officer (Major)",
+          "organization": "United States Marine Corps / Marine Corps Reserve",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Commanded infantry in Afghanistan and special operations in Panama; currently serves as a major in the reserves",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "BA",
+          "field": "Economics",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "Massachusetts Institute of Technology (MIT Sloan)",
+          "degree": "MBA",
+          "field": "Finance",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.jakeforma.com/",
+          "title": "Campaign website",
+          "type": "other"
+        }
+      ],
+      "website": "https://auchincloss.house.gov/",
+      "social_media": {
+        "twitter": "https://twitter.com/RepAuchincloss",
+        "facebook": "https://www.facebook.com/RepAuchincloss/",
+        "instagram": "https://www.instagram.com/repauchincloss/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jason Poulos",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jason Poulos is an AI researcher and policy analyst challenging incumbent Jake Auchincloss in the Democratic primary. He holds a PhD in Political Science with a Designated Emphasis in Computational Science and Engineering from UC Berkeley and has conducted postdoctoral research at Harvard Medical School and Brigham and Women's Hospital. His campaign focuses on AI-related worker displacement, Medicare for All, universal basic income, corporate taxes on automation, and reducing the influence of corporate money and political action committees in politics.",
+      "summary_sources": [
+        {
+          "url": "https://poulos.house/",
+          "type": "website",
+          "title": "Poulos for Massachusetts - Campaign website",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.figcitynews.com/2026/05/jason-poulos-challenges-auchincloss-in-ma-4-primary-warns-ai-is-displacing-workers/",
+          "type": "news",
+          "title": "Jason Poulos challenges Auchincloss in MA-4 primary, warns AI is displacing workers",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.newtonbeacon.org/a-youth-revolt-jason-poulos-and-the-fight-for-the-4th-congressional-district/",
+          "type": "news",
+          "title": "'A Youth Revolt': Jason Poulos and the fight for the 4th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Postdoctoral Fellow in Machine Learning",
+          "organization": "Brigham and Women's Hospital / Harvard Medical School",
+          "start_year": 2023,
+          "end_year": 2024,
+          "description": "Division of Endocrinology",
+          "source": null
+        },
+        {
+          "title": "Postdoctoral Fellow in Data Science",
+          "organization": "Harvard Medical School, Department of Health Care Policy",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "",
+          "source": null
+        },
+        {
+          "title": "Postdoctoral Associate in Statistics",
+          "organization": "SAMSI (Statistical and Applied Mathematical Sciences Institute)",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Causal Inference and Deep Learning programs",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Berkeley",
+          "degree": "PhD",
+          "field": "Political Science (Computational Science and Engineering)",
+          "year": 2019,
+          "source": null
+        },
+        {
+          "institution": "University of Massachusetts Amherst",
+          "degree": "BA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://www.poulos.ai/",
+          "title": "Personal academic website",
+          "type": "other"
+        }
+      ],
+      "website": "https://poulos.house/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/jasonvpoulos/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tom Stalcup",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Tom Stalcup is a physicist, entrepreneur, and Republican candidate for Massachusetts's 4th Congressional District. He is president of an electronics company that designs and manufactures environmental monitoring systems used worldwide, and he previously conducted research at the National High Magnetic Field Laboratory. He is running on a platform of lowering prescription drug prices by taking on pharmaceutical companies, reducing U.S. military intervention abroad, and putting evidence-based solutions ahead of partisan politics.",
+      "summary_sources": [
+        {
+          "url": "https://tomstalcup.com/about/",
+          "type": "website",
+          "title": "About Me \u2013 Stalcup for congress",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://brookline.news/two-progressives-and-a-brookline-republican-will-try-to-unseat-auchincloss-in-4th-district-race/",
+          "type": "news",
+          "title": "Two progressives and a Brookline Republican will try to unseat Auchincloss in 4th District race",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Thomas_Stalcup",
+          "type": "website",
+          "title": "Thomas Stalcup - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "President",
+          "organization": "Upward Innovations Inc.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Electronics company designing and manufacturing environmental monitoring systems",
+          "source": null
+        },
+        {
+          "title": "Researcher",
+          "organization": "National High Magnetic Field Laboratory",
+          "start_year": null,
+          "end_year": 2000,
+          "description": "Studied complex materials under extreme conditions; earned PhD in physics",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "National High Magnetic Field Laboratory / Florida State University",
+          "degree": "PhD",
+          "field": "Physics",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://tomstalcup.com/",
+      "social_media": {
+        "twitter": "https://twitter.com/Stalcupforcongress",
+        "instagram": "https://www.instagram.com/tomstalcup/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Steve Chasse",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Steve Chasse is an independent candidate running for U.S. House to represent Massachusetts's 4th Congressional District in the 2026 general election. He is a primary therapist specializing in recovery and substance use disorder treatment. Ballotpedia lists him as a declared candidate for the general election.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Steve_Chasse",
+          "type": "website",
+          "title": "Steve Chasse - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.linkedin.com/in/steve-chasse-9b38237",
+          "type": "website",
+          "title": "Steve Chasse - LinkedIn",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Primary Therapist",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Specializing in recovery and substance use disorder treatment",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:13:11.223720+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 325849,
+    "completion_tokens": 10361,
+    "total_tokens": 336210,
+    "cost_usd": 0.05299711,
+    "cost_source": "provider",
+    "estimated_usd": 0.054964,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 325849,
+        "completion_tokens": 10361
+      }
+    },
+    "duration_s": 257.4,
+    "serper_calls": 21,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 71278,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.068,
+    "context_deduplicated_results": 78,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

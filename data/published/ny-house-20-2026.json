@@ -1,0 +1,250 @@
+{
+  "id": "ny-house-20-2026",
+  "title": "2026 U.S. House of Representatives election in New York's 20th Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 20th Congressional District",
+  "state": "New York",
+  "district": "20th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "New York's 20th Congressional District covers the Capital Region including Albany, Schenectady, Saratoga Springs, Troy, and Amsterdam. Incumbent Democrat Paul Tonko, first elected in 2008, is seeking re-election to a tenth term. He faces Republican challenger Ralph Ambrosio, a former New York State Trooper and assistant attorney general. The district is rated 'Solid D' by the Cook Political Report and has been reliably Democratic in recent cycles. The general election will take place on November 3, 2026, following primary elections on June 23, 2026.",
+  "polling": [],
+  "polling_note": "No recent public opinion polls were found for this specific race. The Cook Political Report rates the district as 'Solid D' as of February 6, 2025.",
+  "candidates": [
+    {
+      "name": "Paul Tonko",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Paul Tonko is the incumbent U.S. Representative for New York's 20th Congressional District, first elected in 2008. He previously served in the New York State Assembly for 24 years and led the New York State Energy Research and Development Authority. Tonko is the ranking member of the House Energy and Commerce Subcommittee on Environment and is considered a progressive voice on energy and environmental policy.",
+      "summary_sources": [
+        {
+          "url": "https://tonko.house.gov/biography/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Paul Tonko",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Paul_Tonko",
+          "type": "news",
+          "title": "Paul Tonko - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Paul_Tonko",
+          "type": "website",
+          "title": "Paul Tonko - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Paul_Tonko.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Representing New York's 21st district (2009-2013) and 20th district (2013-present). Ranking Member of Energy and Commerce Subcommittee on Environment.",
+          "source": null
+        },
+        {
+          "title": "President and CEO",
+          "organization": "New York State Energy Research and Development Authority (NYSERDA)",
+          "start_year": 2007,
+          "end_year": 2008,
+          "description": "Appointed to lead the state energy agency.",
+          "source": null
+        },
+        {
+          "title": "Member, New York State Assembly",
+          "organization": "New York State Assembly, 105th District",
+          "start_year": 1983,
+          "end_year": 2007,
+          "description": "Served 24 years; chaired the Energy Committee and sponsored Timothy's Law on mental health parity.",
+          "source": null
+        },
+        {
+          "title": "Member and Chairman",
+          "organization": "Montgomery County Board of Supervisors",
+          "start_year": 1976,
+          "end_year": 1983,
+          "description": "Served as board chairman from 1981 to 1983.",
+          "source": null
+        },
+        {
+          "title": "Engineer",
+          "organization": "New York Public Service Commission",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an engineer before entering elected office.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Clarkson University",
+          "degree": "Bachelor of Science",
+          "field": "Mechanical and Industrial Engineering",
+          "year": 1971,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://paultonko.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ralph Ambrosio",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ralph Ambrosio is a Republican candidate challenging incumbent Paul Tonko for New York's 20th Congressional District. He is a retired New York State Trooper who also served as assistant counsel for the State Police, as an assistant district attorney, and as an assistant attorney general. Ambrosio previously ran for Albany County District Attorney in 2024 and is a U.S. Navy veteran.",
+      "summary_sources": [
+        {
+          "url": "https://www.timesunion.com/capitol/article/state-police-vet-ambrosio-take-tonko-ny-20-race-22224537.php",
+          "type": "news",
+          "title": "State police vet Ambrosio to take on Tonko in NY-20 race",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://cbs6albany.com/news/local/republican-ralph-ambrosio-announces-plans-to-challenge-paul-tonko-in-ny-20",
+          "type": "news",
+          "title": "Republican Ralph Ambrosio announces plans to challenge Tonko in NY-20",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Ralph_Ambrosio",
+          "type": "website",
+          "title": "Ralph Ambrosio - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nygop.org/nygop-chair-ed-cox-endorses-ralph-ambrosio-in-ny-20/",
+          "type": "news",
+          "title": "NYGOP Chair Ed Cox Endorses Ralph Ambrosio in NY-20",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Assistant Attorney General / Assistant Counsel",
+          "organization": "New York State Police",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as assistant general counsel for the New York State Police.",
+          "source": null
+        },
+        {
+          "title": "Assistant District Attorney",
+          "organization": "Albany County District Attorney's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as an assistant district attorney.",
+          "source": null
+        },
+        {
+          "title": "New York State Trooper",
+          "organization": "New York State Police",
+          "start_year": 1977,
+          "end_year": 2010,
+          "description": "Served as a state trooper from 1977 to 1989 and again from 1999 to 2010.",
+          "source": null
+        },
+        {
+          "title": "U.S. Navy Service Member",
+          "organization": "United States Navy",
+          "start_year": 1970,
+          "end_year": 1976,
+          "description": "Served in the U.S. Navy.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://www.ambrosioforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/ralphambrosioforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_20th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:36:26.919834+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 185674,
+    "completion_tokens": 6088,
+    "total_tokens": 191762,
+    "cost_usd": 0.012540276,
+    "cost_source": "provider",
+    "estimated_usd": 0.019389,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 185674,
+        "completion_tokens": 6088
+      }
+    },
+    "duration_s": 132.3
+  }
+}

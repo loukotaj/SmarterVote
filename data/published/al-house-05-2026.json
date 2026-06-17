@@ -1,0 +1,246 @@
+{
+  "id": "al-house-05-2026",
+  "title": "Alabama's 5th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Alabama's 5th Congressional District",
+  "state": "Alabama",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Alabama's 5th Congressional District will be held on November 3, 2026, with incumbent Republican Rep. Dale Strong seeking a third term. The district, anchored by Huntsville and Redstone Arsenal, has a Cook Partisan Voting Index of R+15 and is rated Solid Republican. The Democratic primary produced a runoff between businessman Andrew Sneed and educator Candice Duvieilh scheduled for June 16, 2026, to determine who will challenge Strong. Key issues in the race include federal investment in North Alabama's aerospace and defense sectors, as well as broader national debates on economic policy and healthcare.",
+  "polling": [],
+  "polling_note": "No general-election opinion polls were found for this race. The Cook Political Report rates the district Solid Republican, suggesting limited polling investment.",
+  "candidates": [
+    {
+      "name": "Dale Strong",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Incumbent U.S. Representative for Alabama's 5th Congressional District, first elected in 2022. Prior to Congress, Strong served as chairman of the Madison County Commission for over a decade. A former firefighter and emergency responder, he emphasizes his commitment to supporting Redstone Arsenal, the Tennessee Valley defense community, and conservative fiscal policy.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Alabama%27s_5th_Congressional_District",
+          "type": "government",
+          "title": "Alabama's 5th Congressional District - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/481736",
+          "type": "news",
+          "title": "AL-05 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Alabama",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Alabama",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Strong%20AL-05.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Alabama's 5th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Chairman",
+          "organization": "Madison County Commission",
+          "start_year": 2012,
+          "end_year": 2022,
+          "description": "Presided over county commission and managed county operations",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Andrew Sneed",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Small businessman and Democratic candidate who led the May 19 primary with 42% of the vote, advancing to the June 16 runoff. Sneed has emphasized grassroots organizing, affordable healthcare, and economic opportunity in North Alabama. He has received endorsements from the Alabama Democratic Conference and pledges to represent every voice in the district.",
+      "summary_sources": [
+        {
+          "url": "https://www.alreporter.com/2026/05/21/andrew-sneed-candice-duvieilh-set-for-5th-congressional-district-runoff/",
+          "type": "news",
+          "title": "Andrew Sneed, Candice Duvieilh set for 5th Congressional District runoff",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Andrew_Sneed",
+          "type": "government",
+          "title": "Andrew Sneed - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/alabama-us-house-district-5-results",
+          "type": "news",
+          "title": "Alabama House District 5 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Businessman and entrepreneur",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Candice Duvieilh",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Educator and Democratic candidate who finished second in the May 19 primary with 35.6% of the vote, advancing to the June 16 runoff against Andrew Sneed. Duvieilh has focused her campaign on affordability, healthcare access, and public education. She previously faced questions about her voting record and residency during the campaign.",
+      "summary_sources": [
+        {
+          "url": "https://www.alreporter.com/2026/05/21/andrew-sneed-candice-duvieilh-set-for-5th-congressional-district-runoff/",
+          "type": "news",
+          "title": "Andrew Sneed, Candice Duvieilh set for 5th Congressional District runoff",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Alabama%27s_5th_Congressional_District_election,_2026_(June_16_Democratic_primary_runoff)",
+          "type": "government",
+          "title": "Alabama's 5th Congressional District election, 2026 (June 16 Democratic primary runoff)",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/alabama-us-house-district-5-results",
+          "type": "news",
+          "title": "Alabama House District 5 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Educator",
+          "organization": "Public school system",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teacher in North Alabama",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:46:14.696140+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 166739,
+    "completion_tokens": 5604,
+    "total_tokens": 172343,
+    "cost_usd": 0.012287062,
+    "cost_source": "provider",
+    "estimated_usd": 0.017439,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 166739,
+        "completion_tokens": 5604
+      }
+    },
+    "duration_s": 107.3
+  }
+}

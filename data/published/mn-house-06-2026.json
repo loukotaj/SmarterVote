@@ -1,0 +1,380 @@
+{
+  "id": "mn-house-06-2026",
+  "title": "Minnesota's 6th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Minnesota's 6th Congressional District",
+  "state": "Minnesota",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Minnesota's 6th Congressional District will determine who represents a largely suburban and exurban district stretching from the northern Twin Cities suburbs through central Minnesota, including parts of Anoka, Benton, Carver, Sherburne, Stearns, Wright, and Hennepin counties. Incumbent Republican Tom Emmer, the House Majority Whip first elected in 2014, faces a contested Republican primary against challengers Chris Corey and Mike Foley, while the Democratic-Farmer-Labor Party has endorsed Doug Chapin, a nationally recognized election administration expert. The district has been reliably Republican for over two decades, with the Cook Political Report rating it as Solid Republican for 2026, but Democrats see potential gains given shifting suburban dynamics. Key issues in the race include congressional reform, economic affordability, health care, and the direction of the Republican Party's internal divisions.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to the 2026 general election matchup in Minnesota's 6th Congressional District were found as of the research date. The primary election is scheduled for August 11, 2026.",
+  "candidates": [
+    {
+      "name": "Tom Emmer",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Tom Emmer is the incumbent U.S. Representative for Minnesota's 6th Congressional District, serving since 2015, and current House Majority Whip. He previously served in the Minnesota House of Representatives from 2005 to 2011 and was the Republican nominee for governor in 2010. Emmer is an attorney and former lobbyist who has held leadership roles in the House Republican conference, including chairing the National Republican Congressional Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tom_Emmer",
+          "type": "news",
+          "title": "Tom Emmer - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Tom_Emmer",
+          "type": "news",
+          "title": "Tom Emmer - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.majoritywhip.gov/about/",
+          "type": "government",
+          "title": "About Majority Whip Tom Emmer",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tom_Emmer.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing Minnesota's 6th Congressional District; serving as House Majority Whip since 2023",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Minnesota House of Representatives",
+          "start_year": 2005,
+          "end_year": 2011,
+          "description": "Represented District 19B",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Boston College",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1983,
+          "source": null
+        },
+        {
+          "institution": "William Mitchell College of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1988,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://emmer.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Doug Chapin",
+      "party": "Democratic-Farmer-Labor",
+      "incumbent": false,
+      "summary": "Doug Chapin is the DFL-endorsed candidate for Minnesota's 6th Congressional District, a nationally recognized expert on democracy and elections. He has worked as an attorney in Congress, directed election initiatives at The Pew Charitable Trusts, and founded the Certificate in Election Administration program at the University of Minnesota's Humphrey School of Public Affairs. Chapin and his partner own Sweater Vest Strategies, a policy research and advocacy firm, and he hosts the nonpartisan discussion series Civics Anonymous.",
+      "summary_sources": [
+        {
+          "url": "https://www.chapinforcongress.com/",
+          "type": "website",
+          "title": "Doug Chapin for Congress: Home",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://cd6dfl.com/candidate",
+          "type": "website",
+          "title": "Candidates | Join the Campaign\u2014Make a Difference - CD6 DFL",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.delanoheraldjournal.com/articles/delanoheraldjournal/hanover-man-enters-race-for-congress-challenging-emmer/",
+          "type": "news",
+          "title": "Doug Chapin enters race for 6th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founding Partner",
+          "organization": "Sweater Vest Strategies",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Policy research and advocacy firm based in Minnesota",
+          "source": null
+        },
+        {
+          "title": "Director of Election Initiatives",
+          "organization": "The Pew Charitable Trusts",
+          "start_year": 2010,
+          "end_year": 2020,
+          "description": "Led election reform projects at the Pew Center on the States",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "United States Congress",
+          "start_year": 1995,
+          "end_year": 2000,
+          "description": "Served as an attorney in Congress",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Minnesota",
+          "degree": "Certificate Program Director",
+          "field": "Election Administration",
+          "year": 2015,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.chapinforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Foley",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mike Foley is a Marine Corps veteran and chemical engineer from Elk River who is challenging incumbent Tom Emmer in the Republican primary. He cites frustration with career politicians and a lack of accountability as motivation for his campaign, advocating for term limits, congressional stock trading restrictions, and government reform. Foley has emphasized his outsider status and military service as distinguishing factors from the incumbent.",
+      "summary_sources": [
+        {
+          "url": "https://www.mikefoleyforcongress.com/",
+          "type": "website",
+          "title": "Mike Foley for Congress",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sctimes.com/story/news/politics/elections/2026/02/22/republican-mike-foley-hopes-to-unseat-u-s-rep-tom-emmer-in-minnesota/88740923007/",
+          "type": "news",
+          "title": "Meet the Republican who is running against Emmer for U.S. House",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.delanoheraldjournal.com/articles/delanoheraldjournal/mike-foley-challenges-tom-emmer-in-republican-primary/",
+          "type": "news",
+          "title": "Mike Foley challenges Tom Emmer in Republican primary",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Chemical Engineer",
+          "organization": "Private Industry",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Worked as a chemical engineer leading technical teams",
+          "source": null
+        },
+        {
+          "title": "Marine",
+          "organization": "United States Marine Corps",
+          "start_year": 2002,
+          "end_year": 2008,
+          "description": "Served as a Marine, including combat deployment",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Minnesota",
+          "degree": "Bachelor of Science",
+          "field": "Chemical Engineering",
+          "year": 2010,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mikefoleyforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Corey",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chris Corey is a Republican candidate running in the primary for Minnesota's 6th Congressional District, challenging incumbent Tom Emmer. He also ran in the 2024 Republican primary for the same seat, positioning himself as a conservative alternative to the incumbent. Detailed biographical information about Corey is limited in public sources.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chris_Corey",
+          "type": "news",
+          "title": "Chris Corey - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.mprnews.org/us-house-district-6",
+          "type": "news",
+          "title": "U.S. House: District 6 - MPR News",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Austin Winkelman",
+      "party": "Unaffiliated",
+      "incumbent": false,
+      "summary": "Austin Winkelman is running as an unaffiliated candidate for Minnesota's 6th Congressional District. He appears on Ballotpedia as a general election candidate. Limited additional biographical information is publicly available.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Austin_Winkelman",
+          "type": "news",
+          "title": "Austin Winkelman - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-23T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:07:08.853067+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 216988,
+    "completion_tokens": 7572,
+    "total_tokens": 224560,
+    "cost_usd": 0.01616948,
+    "cost_source": "provider",
+    "estimated_usd": 0.022749,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 216988,
+        "completion_tokens": 7572
+      }
+    },
+    "duration_s": 132.5
+  }
+}

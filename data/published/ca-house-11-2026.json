@@ -1,0 +1,297 @@
+{
+  "id": "ca-house-11-2026",
+  "title": "California's 11th Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 11th Congressional District",
+  "state": "California",
+  "district": "11th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 11th Congressional District, encompassing most of San Francisco, is open for the first time in nearly 40 years as Speaker Emerita Nancy Pelosi retires. In a June 2, 2026 top-two primary, State Senator Scott Wiener and San Francisco Supervisor Connie Chan, both Democrats, advanced to the November 3 general election. The race represents a generational shift for San Francisco's congressional representation, with both candidates offering progressive but distinct visions on housing, public safety, and federal policy. Rated Safe/Solid Democratic by major election forecasters, the general election will determine Pelosi's successor in this heavily Democratic district.",
+  "polling": [],
+  "polling_note": "No general election polls were found as of June 2026; the primary concluded on June 2, 2026, and general election polling has not yet been released. A San Francisco Chronicle poll conducted April 28\u2013May 3, 2026 surveyed likely primary voters, not the general electorate.",
+  "candidates": [
+    {
+      "name": "Scott Wiener",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Scott Wiener is a California State Senator (District 11) first elected in 2016, representing San Francisco and parts of San Mateo County. Before the Senate, he served on the San Francisco Board of Supervisors (2011\u20132016) and worked as a deputy city attorney and in private practice. He has authored over 100 state laws focusing on housing affordability, transportation, LGBTQ+ rights, mental health, and climate action, and is chair of the Senate Elections Committee.",
+      "summary_sources": [
+        {
+          "url": "https://sd11.senate.ca.gov/biography",
+          "type": "government",
+          "title": "Biography | Senator Scott Wiener",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scott_Wiener",
+          "type": "website",
+          "title": "Scott Wiener - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.scottwiener.com/",
+          "type": "website",
+          "title": "Scott Wiener for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Scott_Wiener_Official_Biography_Portrait.jpg/250px-Scott_Wiener_Official_Biography_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "California State Senator",
+          "organization": "California State Senate, District 11",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Represents San Francisco and parts of San Mateo County. Chair of Senate Elections Committee; authored over 100 laws on housing, transportation, LGBTQ+ rights, mental health, and climate.",
+          "source": null
+        },
+        {
+          "title": "Member, San Francisco Board of Supervisors",
+          "organization": "City and County of San Francisco",
+          "start_year": 2011,
+          "end_year": 2016,
+          "description": "Represented District 8 (Castro, Noe Valley, Glen Park). Authored laws on paid parental leave, housing, transit funding, and pedestrian safety.",
+          "source": null
+        },
+        {
+          "title": "Deputy City Attorney",
+          "organization": "San Francisco City Attorney's Office",
+          "start_year": 2002,
+          "end_year": 2010,
+          "description": "Practiced civil litigation on behalf of the City and County of San Francisco.",
+          "source": null
+        },
+        {
+          "title": "Litigation Attorney",
+          "organization": "Heller Ehrman White & McAuliffe",
+          "start_year": 1997,
+          "end_year": 2002,
+          "description": "Private practice litigation attorney in San Francisco.",
+          "source": null
+        },
+        {
+          "title": "Law Clerk",
+          "organization": "New Jersey Supreme Court (Justice Alan B. Handler)",
+          "start_year": 1995,
+          "end_year": 1996,
+          "description": "Clerked for Justice Alan B. Handler after law school.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "Duke University",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 1992,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://sd11.senate.ca.gov/biography",
+          "title": "https://sd11.senate.ca.gov/biography",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scott_Wiener",
+          "title": "https://en.wikipedia.org/wiki/Scott_Wiener",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.scottwiener.com/",
+      "social_media": {
+        "twitter": "https://x.com/Scott_Wiener",
+        "instagram": "https://www.instagram.com/scott_wiener/",
+        "facebook": "https://www.facebook.com/ScottWiener2/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Connie Chan",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Connie Chan is a San Francisco Supervisor representing District 1 (Richmond District) since January 2021, and chairs the Board of Supervisors Budget Committee. She previously served as a legislative aide to then-District Attorney Kamala Harris and Supervisors Sophie Maxwell and Aaron Peskin. If elected, she would be the first Asian American to represent San Francisco in the U.S. House.",
+      "summary_sources": [
+        {
+          "url": "https://www.conniechansf.com/about",
+          "type": "website",
+          "title": "Meet Connie | Connie Chan for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Connie_Chan_(politician)",
+          "type": "website",
+          "title": "Connie Chan (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sf.gov/profile--connie-chan",
+          "type": "government",
+          "title": "Connie Chan | SF.gov",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Connie_Chan%2C_2025.jpg/250px-Connie_Chan%2C_2025.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Member, San Francisco Board of Supervisors",
+          "organization": "City and County of San Francisco, District 1",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents the Richmond, Lone Mountain, Sea Cliff, and Presidio Terrace neighborhoods. Chair of the Budget Committee since February 2023.",
+          "source": null
+        },
+        {
+          "title": "Legislative Aide",
+          "organization": "Office of then-District Attorney Kamala Harris",
+          "start_year": 2006,
+          "end_year": 2010,
+          "description": "Public safety and communications aide, liaison to the Asian American and Pacific Islander community.",
+          "source": null
+        },
+        {
+          "title": "Legislative Aide",
+          "organization": "Office of Supervisor Sophie Maxwell",
+          "start_year": 2006,
+          "end_year": 2007,
+          "description": "Worked to shut down the Potrero Power Plant.",
+          "source": null
+        },
+        {
+          "title": "Legislative Aide",
+          "organization": "Office of Supervisor Aaron Peskin",
+          "start_year": null,
+          "end_year": null,
+          "description": "Policy and legislative support.",
+          "source": null
+        },
+        {
+          "title": "Spokesperson / Administrator",
+          "organization": "San Francisco Recreation & Parks Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked to promote and protect public spaces.",
+          "source": null
+        },
+        {
+          "title": "Spokesperson / Administrator",
+          "organization": "City College of San Francisco",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on advancing higher education policies and public access.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Davis",
+          "degree": "Bachelor of Arts",
+          "field": "Religious Studies and Classical Chinese",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.sf.gov/profile--connie-chan",
+          "title": "https://www.sf.gov/profile--connie-chan",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Connie_Chan_(politician)",
+          "title": "https://en.wikipedia.org/wiki/Connie_Chan_(politician)",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.conniechansf.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/connie_chan_sf/",
+        "facebook": "https://www.facebook.com/conniechansanfrancisco/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_11th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:18:20.693655+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 206735,
+    "completion_tokens": 6952,
+    "total_tokens": 213687,
+    "cost_usd": 0.014144605999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.021623,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 206735,
+        "completion_tokens": 6952
+      }
+    },
+    "duration_s": 112.1
+  }
+}

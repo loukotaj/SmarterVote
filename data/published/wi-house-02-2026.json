@@ -1,0 +1,207 @@
+{
+  "id": "wi-house-02-2026",
+  "title": "Wisconsin's 2nd Congressional District general election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Wisconsin's 2nd Congressional District",
+  "state": "Wisconsin",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Wisconsin's 2nd Congressional District will be held on November 3, 2026, to elect the U.S. House member for a district covering much of southern Wisconsin, including Madison, Monroe, Dodgeville, and Baraboo. Incumbent Democrat Mark Pocan, first elected in 2012, is seeking re-election and faces a Democratic primary challenge from Douglas Alexander. Notably, no Republican candidate filed to run in this heavily Democratic-leaning district, meaning the Democratic primary winner will be unopposed in the general election. The district has not been competitive since 2000, with recent Republican nominees receiving around 30% of the vote.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to Wisconsin's 2nd Congressional District in 2026 were found. The district is rated Safe/Solid D by all major nonpartisan forecasters.",
+  "candidates": [
+    {
+      "name": "Mark Pocan",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Mark Pocan is the incumbent U.S. Representative for Wisconsin's 2nd Congressional District, first elected in 2012. He previously served 14 years in the Wisconsin State Assembly and is a co-chair of the Congressional LGBTQ+ Equality Caucus. Pocan is running for re-election on a platform focused on labor rights, healthcare access, and progressive economic policies.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mark_Pocan",
+          "type": "website",
+          "title": "Mark Pocan - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://pocan.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography - Congressman Mark Pocan",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wkow.com/news/election/june-surprise-no-republican-files-to-run-against-pocan-in-2nd-congressional-district/article_82441bd2-071e-471e-a92d-fea36949021e.html",
+          "type": "news",
+          "title": "June surprise: No Republican files to run against Pocan in 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Mark_Pocan%2C_official_portrait%2C_115th_Congress_%28cropped%29.jpg/440px-Mark_Pocan%2C_official_portrait%2C_115th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing Wisconsin's 2nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Wisconsin State Assembly",
+          "start_year": 1999,
+          "end_year": 2013,
+          "description": "Represented the 78th Assembly District",
+          "source": null
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": "Pocan Printing",
+          "start_year": 1989,
+          "end_year": null,
+          "description": "Co-owner of a printing business",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin-Madison",
+          "degree": "Bachelor's degree",
+          "field": "Journalism",
+          "year": 1986,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://bioguide.congress.gov/search/bio/P000607",
+          "title": "Congressional Biography",
+          "type": "other"
+        }
+      ],
+      "website": "https://pocan.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/repmarkpocan",
+        "twitter": "https://twitter.com/repmarkpocan",
+        "instagram": "https://www.instagram.com/repmarkpocan"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Douglas Alexander",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Douglas Alexander is a Democratic candidate challenging incumbent Mark Pocan in the August 11, 2026 primary for Wisconsin's 2nd Congressional District. A former teacher and Madison native, Alexander is running primarily on a platform of congressional term limits, advocating for a constitutional amendment limiting House members to three terms and Senators to two terms. He has run for this seat previously as an independent in 2022.",
+      "summary_sources": [
+        {
+          "url": "https://www.wkow.com/news/election/june-surprise-no-republican-files-to-run-against-pocan-in-2nd-congressional-district/article_82441bd2-071e-471e-a92d-fea36949021e.html",
+          "type": "news",
+          "title": "June surprise: No Republican files to run against Pocan in 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Wisconsin - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.alexanderforhope.com/",
+          "type": "website",
+          "title": "Alexander for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Teacher",
+          "organization": "Various schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former teacher (specific dates not publicly available)",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.alexanderforhope.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:56:36.586826+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 211745,
+    "completion_tokens": 8384,
+    "total_tokens": 220129,
+    "cost_usd": 0.012240546000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.022394,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 211745,
+        "completion_tokens": 8384
+      }
+    },
+    "duration_s": 123.5
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "id": "in-house-02-2026",
+  "title": "Indiana's 2nd Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Indiana's 2nd Congressional District",
+  "state": "Indiana",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Indiana's 2nd Congressional District general election pits Republican incumbent Rudy Yakym against Democratic nominee Jamee Decio. The district covers northern Indiana, including Elkhart, South Bend, and parts of 11 counties. Yakym, first elected in a 2022 special election following the death of Rep. Jackie Walorski, is seeking a second full term on a platform of conservative fiscal policies and federal bureaucracy reduction. Decio, an attorney and former screenwriter, is campaigning on affordability, healthcare access, and opposition to current immigration enforcement policies. The race offers voters a clear contrast on federal spending, immigration, and the role of government.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the Indiana's 2nd Congressional District general election as of mid-2026.",
+  "candidates": [
+    {
+      "name": "Rudy Yakym",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Rudy Yakym is the Republican incumbent representing Indiana's 2nd Congressional District, first elected in a 2022 special election and re-elected in 2024. He serves on the House Ways and Means Committee and focuses on pro-growth fiscal policies, reducing federal bureaucracy, and supporting conservative values. Yakym holds a business finance degree from Indiana University South Bend and an Executive MBA from the University of Notre Dame, and previously worked in the private sector as Director of Growth Initiatives at Kem Krest.",
+      "summary_sources": [
+        {
+          "url": "https://yakym.house.gov/about",
+          "type": "government",
+          "title": "About Congressman Rudy Yakym",
+          "description": null,
+          "last_accessed": "2026-05-21T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Indiana",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Indiana",
+          "description": null,
+          "last_accessed": "2026-05-21T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wfyi.org/statewide/2026-04-21/two-democrats-are-vying-to-challenge-republican-rudy-yakym-to-represent-michiana-in-indianas-2nd-congressional-district",
+          "type": "news",
+          "title": "Two Democrats are vying to challenge Republican Rudy Yakym",
+          "description": null,
+          "last_accessed": "2026-05-21T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Rep._Rudy_Yakym_official_photo%2C_118th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Representing Indiana's 2nd Congressional District; serves on House Ways and Means Committee",
+          "source": null
+        },
+        {
+          "title": "Director of Growth Initiatives",
+          "organization": "Kem Krest",
+          "start_year": null,
+          "end_year": 2022,
+          "description": "Led supply chain streamlining and economic development initiatives",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Indiana Judicial Nominating Commission",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Appointed by Governor Mike Pence",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Executive MBA",
+          "field": "Business Administration",
+          "year": 2019,
+          "source": null
+        },
+        {
+          "institution": "Indiana University South Bend",
+          "degree": "B.S.",
+          "field": "Business Finance",
+          "year": 2011,
+          "source": null
+        },
+        {
+          "institution": "Indiana University South Bend",
+          "degree": "A.S.",
+          "field": "General Studies",
+          "year": 2009,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://yakym.house.gov",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.congress.gov/member/rudy-yakym/Y000067",
+          "title": "Congress.gov Profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://rudyforindiana.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepRudyYakym",
+        "instagram": "https://www.instagram.com/rudyforindiana/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jamee Decio",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jamee Decio is the Democratic nominee for Indiana's 2nd Congressional District, having won the May 5, 2026 primary. She is an Elkhart native, attorney, and former legislative aide who was among the first women admitted to the University of Notre Dame and later earned her law degree from Notre Dame Law School. Decio previously worked as an Elkhart County deputy prosecutor and in private practice before becoming a screenwriter and member of the Writers Guild of America. Her campaign focuses on affordability, strengthening local industry, and protecting democratic institutions.",
+      "summary_sources": [
+        {
+          "url": "https://indianacapitalchronicle.com/voter-guides/contests/congressional-district-2-democrat/",
+          "type": "news",
+          "title": "Congressional District 2 - Democrat | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-05-21T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wfyi.org/statewide/2026-04-21/two-democrats-are-vying-to-challenge-republican-rudy-yakym-to-represent-michiana-in-indianas-2nd-congressional-district",
+          "type": "news",
+          "title": "Two Democrats are vying to challenge Republican Rudy Yakym",
+          "description": null,
+          "last_accessed": "2026-05-21T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wndu.com/2026/05/06/jamee-decio-wins-democratic-nomination-indianas-2nd-congressional-district/",
+          "type": "news",
+          "title": "Jamee Decio wins Democratic nomination for Indiana's 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2026-05-21T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://indianacapitalchronicle.com/wp-content/uploads/2026/03/JD25_Jamee-4-683x1024.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Screenwriter / Member",
+          "organization": "Writers Guild of America",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a screenwriter in Los Angeles",
+          "source": null
+        },
+        {
+          "title": "Attorney (Private Practice)",
+          "organization": "Private Law Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law in private practice",
+          "source": null
+        },
+        {
+          "title": "Deputy Prosecutor",
+          "organization": "Elkhart County",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a deputy prosecutor in Elkhart County",
+          "source": null
+        },
+        {
+          "title": "Legislative Aide",
+          "organization": "Indiana State Legislature",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former legislative aide",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Notre Dame",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Notre Dame",
+          "degree": "B.A.",
+          "field": "American History",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://decioforcongress.com",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://decioforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DecioForCongress",
+        "instagram": "https://www.instagram.com/decioforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:44:05.635490+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 185701,
+    "completion_tokens": 5594,
+    "total_tokens": 191295,
+    "cost_usd": 0.013993618,
+    "cost_source": "provider",
+    "estimated_usd": 0.019295,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 185701,
+        "completion_tokens": 5594
+      }
+    },
+    "duration_s": 123.2
+  }
+}

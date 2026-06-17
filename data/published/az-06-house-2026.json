@@ -19,35 +19,407 @@
         {
           "url": "https://ballotpedia.org/Trevor_Dickerson",
           "type": "website",
-          "title": "Trevor Dickerson - Ballotpedia"
+          "title": "Trevor Dickerson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.199382Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Arizona%27s_6th_Congressional_District_election,_2026",
           "type": "website",
-          "title": "Arizona's 6th Congressional District election, 2026 - Ballotpedia"
+          "title": "Arizona's 6th Congressional District election, 2026 - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.199382Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
           "type": "government",
-          "title": "FEC candidate overview"
+          "title": "FEC candidate overview",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.199382Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.trevordickerson.com/",
-          "type": "official",
-          "title": "Trevor Dickerson's Complex Simplicity"
+          "type": "government",
+          "title": "Trevor Dickerson's Complex Simplicity",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.199382Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {
-        "facebook": "https://www.facebook.com/trevordickerson/"
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Supports legal immigration and law enforcement. In a public Facebook post, Dickerson said he supports “the vast majority of law enforcement officers and legal immigration” and believes people should come here through the appropriate legal process.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/trevordickerson/posts/i-want-to-start-by-saying-i-support-the-vast-majority-of-law-enforcement-officer/10229010460877643/",
+              "type": "social_media",
+              "title": "Facebook post on law enforcement and legal immigration",
+              "description": null,
+              "last_accessed": "2026-04-07T09:11:17.189082Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:11:17.189082Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Trevor_Dickerson",
+              "type": "website",
+              "title": "Trevor Dickerson - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+              "type": "government",
+              "title": "FEC candidate overview",
+              "description": null,
+              "last_accessed": "2026-04-07T09:10:30.297377Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [],
       "education": [],
-      "donor_summary": "Trevor Dickerson\u2019s 2026 House campaign is a small early-stage operation. FEC records for the 2026 election cycle show $19,352.18 in total receipts through 9/30/2025, including $4,722.72 in individual contributions and $14,629.06 in candidate loans, with no party committee or PAC money reported in the summary.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H6AZ06115/",
       "voting_summary": "Trevor Dickerson is a non-incumbent challenger and has no public legislative voting record. FEC records identify him as a challenger for Arizona House District 6 in the 2026 election cycle, and no prior legislative office or executive office record was found in the searches conducted.",
       "voting_source_url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+      "voting_sources": [],
+      "donor_summary": "Trevor Dickerson’s 2026 House campaign is a small early-stage operation. FEC records for the 2026 election cycle show $19,352.18 in total receipts through 9/30/2025, including $4,722.72 in individual contributions and $14,629.06 in candidate loans, with no party committee or PAC money reported in the summary.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6AZ06115/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
@@ -85,238 +457,23 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Supports legal immigration and law enforcement. In a public Facebook post, Dickerson said he supports \u201cthe vast majority of law enforcement officers and legal immigration\u201d and believes people should come here through the appropriate legal process.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.facebook.com/trevordickerson/posts/i-want-to-start-by-saying-i-support-the-vast-majority-of-law-enforcement-officer/10229010460877643/",
-              "type": "social",
-              "title": "Facebook post on law enforcement and legal immigration",
-              "last_accessed": "2026-04-07T09:11:17.189082+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:11:17.189082+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Trevor_Dickerson",
-              "type": "website",
-              "title": "Trevor Dickerson - Ballotpedia",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/H6AZ06115/",
-              "type": "government",
-              "title": "FEC candidate overview",
-              "last_accessed": "2026-04-07T09:10:30.297377+00:00"
-            }
-          ]
-        }
-      }
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/trevordickerson/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-07T09:11:17.189082+00:00",
+  "updated_utc": "2026-06-13T20:49:53.702125+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-07T09:11:25.842636+00:00",
+      "reviewed_at": "2026-04-07T09:11:25.842636Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -339,11 +496,11 @@
           "severity": "info"
         }
       ],
-      "summary": "This profile demonstrates strong research methodology and transparency about data limitations. The agent conducted thorough searches across multiple authoritative sources (FEC, Ballotpedia, Facebook, official campaign site) and explicitly documented the absence of public positions on 11 of 12 policy issues\u2014a sign of honest reporting rather than fabrication. The one sourced stance (Immigration) is backed by a direct Facebook post URL. Financial data from FEC records is current (through 9/30/2025) and specific. The race description is accurate and balanced, presenting both the incumbent and challenger without partisan framing. The profile's transparency about Trevor Dickerson's low public profile (limited biographical information, early-stage campaign operation, no prior legislative record) is appropriate for a lesser-known independent candidate. No internal contradictions, bias, or unsupported claims were detected. Minor gaps (missing website URL despite identifying a campaign site, empty career_history and education arrays) reflect genuine data scarcity rather than research failure."
+      "summary": "This profile demonstrates strong research methodology and transparency about data limitations. The agent conducted thorough searches across multiple authoritative sources (FEC, Ballotpedia, Facebook, official campaign site) and explicitly documented the absence of public positions on 11 of 12 policy issues—a sign of honest reporting rather than fabrication. The one sourced stance (Immigration) is backed by a direct Facebook post URL. Financial data from FEC records is current (through 9/30/2025) and specific. The race description is accurate and balanced, presenting both the incumbent and challenger without partisan framing. The profile's transparency about Trevor Dickerson's low public profile (limited biographical information, early-stage campaign operation, no prior legislative record) is appropriate for a lesser-known independent candidate. No internal contradictions, bias, or unsupported claims were detected. Minor gaps (missing website URL despite identifying a campaign site, empty career_history and education arrays) reflect genuine data scarcity rather than research failure."
     },
     {
       "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-07T09:11:30.615183+00:00",
+      "reviewed_at": "2026-04-07T09:11:30.615183Z",
       "verdict": "approved",
       "score": 95,
       "flags": [
@@ -370,7 +527,7 @@
     },
     {
       "model": "grok-3-mini",
-      "reviewed_at": "2026-04-07T09:11:29.687311+00:00",
+      "reviewed_at": "2026-04-07T09:11:29.687311Z",
       "verdict": "approved",
       "score": 95,
       "flags": [
@@ -391,33 +548,25 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 828392,
-    "completion_tokens": 70105,
-    "total_tokens": 898497,
-    "estimated_usd": 0.1448,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 69993,
+    "completion_tokens": 6002,
+    "total_tokens": 75995,
+    "cost_usd": 0.00412637,
+    "cost_source": "provider",
+    "estimated_usd": 0.0059,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 373140,
-        "completion_tokens": 5935
-      },
-      "gpt-5-nano": {
-        "prompt_tokens": 424508,
-        "completion_tokens": 61568
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 10553,
-        "completion_tokens": 1353
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 9106,
-        "completion_tokens": 319
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 11085,
-        "completion_tokens": 930
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 69993,
+        "completion_tokens": 6002
       }
     },
-    "duration_s": 758.8
-  }
+    "duration_s": 65.6
+  },
+  "schema_version": "0.3",
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

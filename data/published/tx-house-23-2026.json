@@ -1,0 +1,258 @@
+{
+  "id": "tx-house-23-2026",
+  "title": "Texas's 23rd Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 23rd Congressional District",
+  "state": "Texas",
+  "district": "23rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Texas's 23rd Congressional District pits Republican nominee Brandon Herrera against Democratic nominee Katy Padilla Stout. The seat became open after incumbent Rep. Tony Gonzales (R) dropped his re-election bid and resigned amid an affair scandal, clearing the way for Herrera, a conservative gun-rights YouTuber and firearms manufacturer who had finished first in the March 3 primary. Democrats see an opening with Herrera's controversial online history, while the sprawling border district spanning from San Antonio to El Paso has become more Republican after redistricting. The race has drawn national attention as a potential pickup opportunity for Democrats in a district that voted for Trump by about 15 points in 2024.",
+  "polling": [
+    {
+      "pollster": "House Majority PAC",
+      "date": "2026-03-12",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Katy Padilla Stout",
+            "Brandon Herrera"
+          ],
+          "percentages": [
+            40.0,
+            42.0
+          ]
+        }
+      ],
+      "source_url": "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-tx-23-is-in-play-for-democrats"
+    }
+  ],
+  "polling_note": "Only one partisan poll has been released for the general election matchup as of mid-June 2026. The House Majority PAC (Democratic super PAC) poll shows a tight race with 18% undecided. No nonpartisan or independent polls have been published yet.",
+  "candidates": [
+    {
+      "name": "Brandon Herrera",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Brandon Herrera, also known as 'The AK Guy,' is a firearms manufacturer and social media personality with over 4 million YouTube subscribers. He became the Republican nominee for Texas's 23rd Congressional District after finishing first in the March 3 primary and then seeing incumbent Tony Gonzales drop out of the runoff amid a scandal. Herrera ran unsuccessfully against Gonzales in 2024, losing by less than 400 votes in a runoff. He is a strong Second Amendment advocate, has been endorsed by Donald Trump, and describes himself as libertarian-leaning with ties to right-wing populist figures.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Brandon_Herrera",
+          "type": "website",
+          "title": "Brandon Herrera - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.texastribune.org/2026/03/11/brandon-herrera-trump-endorsement-republican-primary-texas-23rd-district-congress/",
+          "type": "news",
+          "title": "Brandon Herrera gets Trump endorsement for 23rd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.texastribune.org/2026/03/05/tony-gonzales-drops-out-republican-primary-texas-23rd-district-congress/",
+          "type": "news",
+          "title": "Rep. Tony Gonzales drops reelection bid amid pressure over affair scandal",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Brandon_Herrera_2025.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder and Firearms Manufacturer",
+          "organization": "The AK Guy Inc.",
+          "start_year": 2014,
+          "end_year": null,
+          "description": "Founded a firearms manufacturing business centered on AK-style rifles; developed the AK-50 rifle chambered in .50 BMG.",
+          "source": null
+        },
+        {
+          "title": "YouTube Creator",
+          "organization": "YouTube",
+          "start_year": 2014,
+          "end_year": null,
+          "description": "Runs a YouTube channel with 4.23 million subscribers featuring firearms testing, historical weapon demonstrations, and commentary on gun policy and politics.",
+          "source": null
+        },
+        {
+          "title": "Republican Primary Candidate for U.S. House (TX-23)",
+          "organization": "Herrera for Congress",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Ran for Congress in 2024, losing to incumbent Tony Gonzales in a runoff; ran again in 2026 and became the nominee after Gonzales dropped out.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Campbell University",
+          "degree": "Attended",
+          "field": "Pre-law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://brandonherreraforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Katy Padilla Stout",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Katy Padilla Stout is a San Antonio attorney, former public school teacher, and child welfare advocate who won the Democratic nomination with 52% of the vote in a four-way primary on March 3, 2026. She serves on the Bexar County Child Welfare Board and has spent a decade representing children in the foster care system. Her campaign focuses on affordability, health care access, universal pre-K, paid parental leave, and immigration reform. She is endorsed by EMILY's List, CHC BOLD PAC, the Texas AFL-CIO, and the San Antonio Express-News.",
+      "summary_sources": [
+        {
+          "url": "https://sanantonioreport.org/profile/katy-padilla-stout-2026-candidate-for-texas-23rd-congressional-district/",
+          "type": "news",
+          "title": "Katy Padilla Stout | 2026 candidate for Texas' 23rd Congressional District - San Antonio Report",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sanantonioreport.org/katy-padilla-stout-texas-23rd-congressional-district-democrat-nominee/",
+          "type": "news",
+          "title": "Democrats turn to Katy Padilla Stout in Texas' 23rd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tpr.org/government-politics/2026-03-12/democrat-katy-padilla-stout-sees-opening-in-texas-23rd-congressional-district-after-gop-shake-up",
+          "type": "news",
+          "title": "Democrat Katy Padilla Stout sees opening in Texas' 23rd Congressional District after GOP shake-up",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.katyforcongress.com/",
+          "type": "website",
+          "title": "Katy Padilla Stout for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney representing children in foster care",
+          "organization": "Family legal practice",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Represents children in the foster care system; conducts home visits across San Antonio and eight surrounding counties.",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Bexar County Child Welfare Board",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Appointed to the board by County Judge Peter Sakai; advises on child welfare policy.",
+          "source": null
+        },
+        {
+          "title": "Elementary School Teacher",
+          "organization": "Northside Independent School District",
+          "start_year": 2007,
+          "end_year": 2013,
+          "description": "Taught ESL, special education, and gifted and talented education to primary students; worked with refugee students.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "South Texas College of Law Houston",
+          "degree": "JD",
+          "field": "Law",
+          "year": 2013,
+          "source": null
+        },
+        {
+          "institution": "University of Texas at Austin",
+          "degree": "BS",
+          "field": "Education",
+          "year": 2007,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.katyforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_23rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:12:50.406604+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 309509,
+    "completion_tokens": 6699,
+    "total_tokens": 316208,
+    "cost_usd": 0.022389718000000003,
+    "cost_source": "provider",
+    "estimated_usd": 0.031645,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 309509,
+        "completion_tokens": 6699
+      }
+    },
+    "duration_s": 122.9
+  }
+}

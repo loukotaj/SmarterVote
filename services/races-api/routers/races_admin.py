@@ -471,7 +471,7 @@ def _clear_public_race_cache(request: Request) -> None:
 async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
     """List all race records from Firestore (admin view with catalog metadata)."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("races").limit(500).stream()
+    docs = db.collection("races").limit(10000).stream()
     races = []
     for d in docs:
         plain = firestore_helpers._doc_to_plain(d)
@@ -513,7 +513,7 @@ async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
 async def list_draft_races() -> Dict[str, Any]:
     """List all draft race summaries from the Firestore race catalog."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("races").limit(500).stream()
+    docs = db.collection("races").limit(1000).stream()
     races = []
     for doc in docs:
         data = firestore_helpers._doc_to_plain(doc)
@@ -529,7 +529,7 @@ async def list_draft_races() -> Dict[str, Any]:
 async def recheck_all_race_statuses() -> Dict[str, Any]:
     """Re-derive status for all race records and hydrate missing catalog metadata from storage."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("races").limit(500).stream()
+    docs = db.collection("races").limit(1000).stream()
     races: list[Dict[str, Any]] = []
     updated = 0
     seen_race_ids: set[str] = set()

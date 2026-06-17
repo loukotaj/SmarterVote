@@ -1,0 +1,244 @@
+{
+  "id": "tx-house-17-2026",
+  "title": "Texas's 17th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 17th Congressional District",
+  "state": "Texas",
+  "district": "17th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The race for Texas's 17th Congressional District pits incumbent Republican Pete Sessions against Democratic nominee Casey Shepard in a general election on November 3, 2026. The district, which covers Central Texas including Waco, Temple, and parts of Williamson County, was redrawn under a new map signed into law in August 2025 that is expected to net Republicans additional seats statewide. Sessions, a former House Rules Committee chairman who previously represented a Dallas-based district before returning to Congress from the Waco-area seat in 2020, was unopposed in the Republican primary. Shepard, a Waco indigent defense attorney, won a competitive three-way Democratic primary and subsequent runoff against Milah Flores on May 26, 2026. The Cook Political Report rates the race as 'Solid R,' reflecting the district's strong Republican lean under the new map.",
+  "polling": [],
+  "polling_note": "No public opinion polling was found for this specific general election race as of June 2026.",
+  "candidates": [
+    {
+      "name": "Pete Sessions",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Pete Sessions is the incumbent U.S. Representative for Texas's 17th Congressional District, first elected to this seat in 2020 after previously serving Congress from 1997 to 2019 representing Dallas-area districts. He chaired the House Rules Committee from 2013 to 2019 and served as chair of the National Republican Congressional Committee from 2009 to 2012. A native of Waco, Sessions worked for Southwestern Bell for 16 years before entering politics.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Pete_Sessions",
+          "type": "website",
+          "title": "Pete Sessions - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sessions.house.gov/about",
+          "type": "government",
+          "title": "About - United States Congressman Pete Sessions",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485301",
+          "type": "website",
+          "title": "TX-17 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Pete_Sessions.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Texas's 17th Congressional District",
+          "source": null
+        },
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1997,
+          "end_year": 2019,
+          "description": "Represented Texas's 5th (1997-2003) and 32nd (2003-2019) Congressional Districts",
+          "source": null
+        },
+        {
+          "title": "Chairman, House Committee on Rules",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Presided over the House Rules Committee",
+          "source": null
+        },
+        {
+          "title": "Chairman, National Republican Congressional Committee",
+          "organization": "NRCC",
+          "start_year": 2009,
+          "end_year": 2013,
+          "description": "Led NRCC during 2010 wave election that netted 63 seats",
+          "source": null
+        },
+        {
+          "title": "District Manager",
+          "organization": "Southwestern Bell Telephone Company",
+          "start_year": 1978,
+          "end_year": 1994,
+          "description": "16-year career in marketing and management",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Southwestern University",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": 1978,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://sessions.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.petesessions.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/sessionsforcongress/",
+        "instagram": "https://www.instagram.com/congressmanpetesessions/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Casey Shepard",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Casey Shepard is the Democratic nominee for U.S. House in Texas's 17th Congressional District. A seventh-generation Texan and Waco-based attorney, Shepard has focused his legal career on indigent criminal defense since 2011, representing clients without financial resources. He won the Democratic nomination through a competitive primary and runoff, and his campaign emphasizes food access, health care, affordable housing, and fighting executive overreach.",
+      "summary_sources": [
+        {
+          "url": "https://caseyshepardforcongress.com/meet-casey",
+          "type": "website",
+          "title": "Meet Casey - Casey Shepard for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://natlawreview.com/press-releases/waco-attorney-casey-shepard-enters-democratic-primary-texas-17th-district",
+          "type": "news",
+          "title": "Waco Attorney Casey Shepard Enters Democratic Primary for Texas' 17th District",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-17-runoff.html",
+          "type": "news",
+          "title": "Texas 17th Congressional District Runoff Election Results - NYT",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.texasbar.com/AM/Template.cfm?template=/Customsource/MemberDirectory/MemberDirectoryDetail.cfm&ContactID=317932",
+          "type": "website",
+          "title": "Casey Lee Shepard - State Bar of Texas",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney (Indigent Criminal Defense)",
+          "organization": "Private Practice, Waco, Texas",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Focuses on representing low-income clients in criminal proceedings",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Davis, School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://caseyshepardforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/profile.php?id=61574666393710",
+        "instagram": "https://www.instagram.com/casey_shepard_for_congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_17th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:51:56.405625+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 275093,
+    "completion_tokens": 7075,
+    "total_tokens": 282168,
+    "cost_usd": 0.01610543,
+    "cost_source": "provider",
+    "estimated_usd": 0.028346,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 275093,
+        "completion_tokens": 7075
+      }
+    },
+    "duration_s": 137.5
+  }
+}

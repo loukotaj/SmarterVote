@@ -1,0 +1,229 @@
+{
+  "id": "hi-house-02-2026",
+  "title": "Hawaii's 2nd Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Hawaii's 2nd Congressional District",
+  "state": "Hawaii",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Hawaii's 2nd Congressional District will be held on November 3, 2026. Incumbent Democrat Jill Tokuda, first elected in 2022, is seeking a third term representing a district that covers rural and suburban Oahu as well as all of Hawaii's neighbor islands (Hawaii, Maui, Kauai, and Molokai). Tokuda faces a challenge from Republican state Senator Brenton Awa, the Minority Leader of the Hawaii Senate, in a district rated Safe/Solid Democratic by all major forecasters (Cook PVI: D+12). Major issues include recovery from the 2023 Maui wildfires, housing affordability, and economic diversification.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in Hawaii's 2nd Congressional District as of mid-2026. The race is rated 'Solid D' / 'Safe D' by Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Jill Tokuda",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jill Tokuda is the incumbent U.S. Representative for Hawaii's 2nd Congressional District, first elected in 2022 and re-elected in 2024 with 66.5% of the vote. She previously served in the Hawaii State Senate from 2006 to 2018, where she chaired the Ways and Means Committee, and was the executive director of the Nisei Veterans Memorial Center on Maui. Tokuda serves on the House Agriculture and Armed Services Committees and has focused on recovery from the 2023 Maui wildfires, supporting working families, and protecting the environment.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jill_Tokuda",
+          "type": "news",
+          "title": "Jill Tokuda - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tokuda.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography - U.S. House Representative Jill Tokuda",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jill_Tokuda",
+          "type": "website",
+          "title": "Jill Tokuda - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Rep._Jill_Tokuda_official_photo%2C_118th_Congress_%281%29.jpg/400px-Rep._Jill_Tokuda_official_photo%2C_118th_Congress_%281%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Hawaii's 2nd Congressional District. Serves on Agriculture and Armed Services Committees.",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Nisei Veterans Memorial Center",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Led the Maui-based center honoring Nisei veterans.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Hawaii State Senate",
+          "start_year": 2006,
+          "end_year": 2018,
+          "description": "Represented the 24th district. Served as Majority Whip and chaired the Ways and Means Committee.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "George Washington University",
+          "degree": "Bachelor of Arts",
+          "field": "International Relations",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.tokudaforhawaii.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brenton Awa",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Brenton Awa is a Hawaii State Senator representing District 23 (Kaneohe to Mokuleia) and serves as the Senate Minority Leader, a position he has held since 2024. A former television news anchor and reporter for KITV, Awa was first elected to the state Senate in 2022 after an upset victory over an eight-year incumbent. He has gained attention for casting over 1,000 'no' votes in his first two legislative sessions and for his advocacy of policies to restrict foreign ownership of land in Hawaii. Awa is challenging incumbent Democrat Jill Tokuda for the 2nd Congressional District seat.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Brenton_Awa",
+          "type": "news",
+          "title": "Brenton Awa - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Brenton_Awa",
+          "type": "website",
+          "title": "Brenton Awa - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.hawaiipublicradio.org/local-news/2025-10-27/brenton-awa-republican-congress-seat-rep-tokuda",
+          "type": "news",
+          "title": "Republican State Sen. Brenton Awa to run for U.S. Rep. Jill Tokuda's seat",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Senator_Awa_Visits_Marine_Corps_Base_Hawaii_%288%29_%28cropped%29.jpg/400px-Senator_Awa_Visits_Marine_Corps_Base_Hawaii_%288%29_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Minority Leader",
+          "organization": "Hawaii State Senate",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Leader of the Republican minority in the Hawaii Senate.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Hawaii State Senate",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Representing District 23 (Kaneohe, Kahaluu, Laie, Kahuku, Mokuleia).",
+          "source": null
+        },
+        {
+          "title": "Evening News Anchor / Reporter",
+          "organization": "KITV (ABC Affiliate)",
+          "start_year": 2015,
+          "end_year": 2021,
+          "description": "Worked as a reporter and later as morning and evening news anchor. Was fired in July 2021.",
+          "source": null
+        },
+        {
+          "title": "Video Journalist / Associate Producer",
+          "organization": "KGMB/KHNL",
+          "start_year": 2009,
+          "end_year": 2015,
+          "description": "Started as an intern and rose to video journalist.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Clarion University of Pennsylvania",
+          "degree": "Bachelor of Arts",
+          "field": "Speech Communication and Leadership",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votebrentonawa.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Hawaii%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:05:05.704762+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 250574,
+    "completion_tokens": 7274,
+    "total_tokens": 257848,
+    "cost_usd": 0.016796676,
+    "cost_source": "provider",
+    "estimated_usd": 0.025982,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 250574,
+        "completion_tokens": 7274
+      }
+    },
+    "duration_s": 126.3
+  }
+}

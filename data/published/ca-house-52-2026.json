@@ -1,0 +1,183 @@
+{
+  "id": "ca-house-52-2026",
+  "title": "California's 52nd Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 52nd Congressional District",
+  "state": "California",
+  "district": "52nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for California's 52nd Congressional District pits incumbent Democrat Juan Vargas against Republican challenger Jeff Belle. The district covers the South Bay region of San Diego County, including National City, Chula Vista, and Imperial Beach, and has a Cook Partisan Voting Index of D+13. Vargas has held the seat since 2013 and is heavily favored in this Solid D rated race, though Belle is campaigning on issues of affordability, immigration reform, and the Tijuana River sewage crisis. The June 2 top-two primary saw Vargas win 56.9% and Belle 33.5%, with a third candidate eliminated.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of June 2026. The Cook Political Report rates the race as Solid Democratic.",
+  "candidates": [
+    {
+      "name": "Juan Vargas",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Juan Vargas has represented California's 52nd Congressional District (previously the 51st) since 2013. He previously served in the California State Senate, California State Assembly, and on the San Diego City Council, and holds a JD from Harvard Law School. Vargas is a Democrat focused on border issues, immigration, and constituent services for the South Bay region.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Juan_Vargas",
+          "type": "website",
+          "title": "Juan Vargas - Wikipedia",
+          "last_accessed": "2026-06-13T18:00:00Z"
+        },
+        {
+          "url": "http://vargas.house.gov/about/about-juan",
+          "type": "government",
+          "title": "About Juan | Representative Juan Vargas",
+          "last_accessed": "2026-06-13T18:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Juan_Vargas_official_photo.jpg/250px-Juan_Vargas_official_photo.jpg",
+      "website": "https://www.votevargas.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing California's 51st (2013-2023) and 52nd (2023-present) congressional districts"
+        },
+        {
+          "title": "State Senator",
+          "organization": "California State Senate",
+          "start_year": 2010,
+          "end_year": 2013,
+          "description": "Represented the 40th district"
+        },
+        {
+          "title": "State Assemblymember",
+          "organization": "California State Assembly",
+          "start_year": 2000,
+          "end_year": 2006,
+          "description": "Represented the 79th district"
+        },
+        {
+          "title": "City Councilmember",
+          "organization": "San Diego City Council",
+          "start_year": 1993,
+          "end_year": 2000,
+          "description": "Represented the 8th district"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "JD",
+          "field": "Law",
+          "year": 1991
+        },
+        {
+          "institution": "Fordham University",
+          "degree": "MA",
+          "field": "Humanities",
+          "year": 1987
+        },
+        {
+          "institution": "University of San Diego",
+          "degree": "BA",
+          "field": null,
+          "year": 1983
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jeff Belle",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jeff Belle is a Republican financial professional and U.S. Navy veteran running for Congress in California's 52nd District. He has a background in public service including roles on local transit and emergency medical advisory boards, and describes himself as a private equity CEO. Belle's campaign focuses on affordability, immigration reform, the Tijuana River sewage crisis, and reducing the cost of living for South Bay residents.",
+      "summary_sources": [
+        {
+          "url": "https://www.belleforcongress.com/",
+          "type": "website",
+          "title": "Jeff Belle for Congress \u2013 CD 52",
+          "last_accessed": "2026-06-13T18:00:00Z"
+        },
+        {
+          "url": "https://www.sandiegouniontribune.com/2026/05/07/qa-meet-jeff-belle-candidate-for-californias-52nd-congressional-district/",
+          "type": "news",
+          "title": "Q&A: Meet Jeff Belle, candidate for California's 52nd Congressional District",
+          "last_accessed": "2026-06-13T18:00:00Z"
+        }
+      ],
+      "image_url": "https://vibe.filesafe.space/1777176457512626988/attachments/0b8578bd-560a-4071-af01-0b73cc1decd5.jpg",
+      "website": "https://www.belleforcongress.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Private Equity CEO",
+          "organization": "Private equity firm (Biotech, AgTech, BioPharma)",
+          "start_year": null,
+          "end_year": null,
+          "description": "CEO involved in venture capital and private equity deals"
+        },
+        {
+          "title": "Former Elected Official / Board Member",
+          "organization": "Various local boards (transit authority, emergency medical advisory)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on county transit authority and emergency medical advisor boards"
+        },
+        {
+          "title": "U.S. Navy Veteran",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Navy veteran"
+        }
+      ],
+      "education": [
+        {
+          "institution": null,
+          "degree": "MPA",
+          "field": "Public Administration",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_52nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:14:50.208153+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 192492,
+    "completion_tokens": 4613,
+    "total_tokens": 197105,
+    "cost_usd": 0.013288748,
+    "cost_source": "provider",
+    "estimated_usd": 0.019768,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 192492,
+        "completion_tokens": 4613
+      }
+    },
+    "duration_s": 110.6
+  }
+}

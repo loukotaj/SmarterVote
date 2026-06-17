@@ -1,0 +1,384 @@
+{
+  "id": "nc-house-01-2026",
+  "title": "North Carolina's 1st Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "North Carolina's 1st Congressional District",
+  "state": "North Carolina",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for North Carolina's 1st Congressional District is a rematch between Democratic incumbent Don Davis and Republican challenger Laurie Buckhout, who narrowly lost to Davis by about 1.5 points in 2024. The district was redrawn in October 2025 by the Republican-controlled General Assembly, making it more competitive for Republicans, and the Cook Political Report rates it as 'Lean Republican.' Davis, a moderate Democrat and former Air Force officer, is seeking a third term, while Buckhout, a retired Army colonel who served as acting Assistant Secretary of Defense for Cyber Policy under President Trump, has been endorsed by Donald Trump and is backed by national Republican groups. Libertarian candidate Tom Bailey is also on the ballot, having run as a third-party candidate in previous cycles.",
+  "polling": [
+    {
+      "pollster": "co/efficient for the National Republican Congressional Committee (NRCC)",
+      "date": "2026-04-29",
+      "sample_size": 842,
+      "matchups": [
+        {
+          "candidates": [
+            "Laurie Buckhout",
+            "Don Davis"
+          ],
+          "percentages": [
+            41.0,
+            41.0
+          ]
+        }
+      ],
+      "source_url": "https://www.nrcc.org/wp-content/uploads/2026/05/NRCC-NC-01-Survey-Memo-1.pdf"
+    }
+  ],
+  "polling_note": "Only one public 2026 general election poll was identified: an NRCC internal poll showing a tied race. No independent or nonpartisan general election polls were found for the 2026 cycle as of mid-2026.",
+  "candidates": [
+    {
+      "name": "Don Davis",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Don Davis is the Democratic incumbent representing North Carolina's 1st Congressional District, first elected in 2022. A moderate Democrat and former U.S. Air Force captain, he previously served in the North Carolina Senate and as mayor of Snow Hill. Davis is running for re-election on a platform of lowering costs, creating jobs, and delivering for eastern North Carolina.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Don_Davis_(North_Carolina_politician)",
+          "type": "website",
+          "title": "Don Davis (North Carolina politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/D000230",
+          "type": "government",
+          "title": "DAVIS, Don - Biographical Directory of the U.S. Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://votedondavis.com/",
+          "type": "website",
+          "title": "Don Davis - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Portrait_of_Congressman_Don_Davis.jpg/250px-Portrait_of_Congressman_Don_Davis.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing North Carolina's 1st Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "North Carolina Senate",
+          "start_year": 2013,
+          "end_year": 2023,
+          "description": "Represented the 5th district",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "North Carolina Senate",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Represented the 5th district",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "Town of Snow Hill, North Carolina",
+          "start_year": 2001,
+          "end_year": 2008,
+          "description": "Mayor of Snow Hill",
+          "source": null
+        },
+        {
+          "title": "Captain / Air Force Officer",
+          "organization": "United States Air Force",
+          "start_year": 1994,
+          "end_year": 2001,
+          "description": "Served as an Air Force officer, including coordinating Air Force One operations at Joint Base Andrews",
+          "source": null
+        },
+        {
+          "title": "Assistant Professor of Aerospace Studies",
+          "organization": "East Carolina University Air Force ROTC",
+          "start_year": 1998,
+          "end_year": 2001,
+          "description": "Taught military history, leadership, and national affairs",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "East Carolina University",
+          "degree": "Doctor of Education (EdD)",
+          "field": "Education",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "East Carolina University",
+          "degree": "Master of Arts (MA)",
+          "field": "Sociology",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Central Michigan University",
+          "degree": "Master of Science (MS)",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "United States Air Force Academy",
+          "degree": "Bachelor of Science (BS)",
+          "field": null,
+          "year": 1994,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://votedondavis.com/",
+      "social_media": {
+        "twitter": "https://x.com/DonDavisNC",
+        "facebook": "https://www.facebook.com/DonDavisNC/",
+        "instagram": "https://www.instagram.com/repdondavis/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Laurie Buckhout",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Laurie Buckhout is a retired U.S. Army colonel and the Republican nominee for North Carolina's 1st Congressional District. She served as acting Assistant Secretary of Defense for Cyber Policy in the Trump administration in 2025 and previously ran as the Republican nominee in 2024, narrowly losing to Don Davis. Buckhout emphasizes her military background, conservative values, and commitment to lowering costs and strengthening national security.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Laurie_Buckhout",
+          "type": "website",
+          "title": "Laurie Buckhout - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lauriebuckhoutforcongress.com/about",
+          "type": "website",
+          "title": "About - Laurie Buckhout For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wunc.org/politics/2026-03-03/laurie-buckhout-wins-gop-congressional-primary-rep-don-davis",
+          "type": "news",
+          "title": "Laurie Buckhout wins GOP Congressional primary to set up rematch against U.S. Rep. Don Davis",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Laurie_Buckhout.jpg/250px-Laurie_Buckhout.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Acting Assistant Secretary of Defense for Cyber Policy",
+          "organization": "U.S. Department of Defense",
+          "start_year": 2025,
+          "end_year": 2025,
+          "description": "Served in the second Trump administration from March to September 2025",
+          "source": null
+        },
+        {
+          "title": "Founder and CEO",
+          "organization": "Corvus Consulting / The Corvus Group",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Strategic consulting firm specializing in electronic warfare and cyberspace operations",
+          "source": null
+        },
+        {
+          "title": "Colonel / Army Officer",
+          "organization": "United States Army",
+          "start_year": 1984,
+          "end_year": 2010,
+          "description": "26-year military career; served in the Gulf War and Iraq War; commanded an 800-person battalion task force in Iraq",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Webster University",
+          "degree": "Master of Science (MS)",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Army University (School of Advanced Military Studies)",
+          "degree": "Master of Military Art and Science (MMAS)",
+          "field": "Military Studies",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "James Madison University",
+          "degree": "Bachelor of Science (BS)",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.lauriebuckhoutforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tom Bailey",
+      "party": "Libertarian Party",
+      "incumbent": false,
+      "summary": "Tom Bailey is the Libertarian Party candidate for North Carolina's 1st Congressional District. A retired roofing contractor and Vietnam War veteran, he previously served on the Guilford County Board of Adjustments and was the Libertarian nominee for U.S. Senate in 2004. Bailey advocates for limited government and free-market principles as a standard-bearer for the Libertarian Party.",
+      "summary_sources": [
+        {
+          "url": "https://www.northcarolinahealthnews.org/govpack_profiles/tom-bailey/",
+          "type": "news",
+          "title": "Tom Bailey - North Carolina Health News",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wavy.com/news/politics/candidates/candidate-profile-thomas-bailey-u-s-house-of-representatives-nc-district-1/",
+          "type": "news",
+          "title": "Candidate Profile: Thomas Bailey (U.S. House of Representatives, NC District 1)",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H8NC13075/",
+          "type": "government",
+          "title": "BAILEY, TOM - FEC Candidate Overview",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Retired Roofing Contractor",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a roofing contractor before retirement",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Guilford County Board of Adjustments",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on local board of adjustments",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "N.C. Institute of Political Leadership",
+          "degree": "Fellow",
+          "field": "Political Leadership",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:27:12.526152+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 293667,
+    "completion_tokens": 7703,
+    "total_tokens": 301370,
+    "cost_usd": 0.022371842000000003,
+    "cost_source": "provider",
+    "estimated_usd": 0.030289,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 293667,
+        "completion_tokens": 7703
+      }
+    },
+    "duration_s": 223.0
+  }
+}

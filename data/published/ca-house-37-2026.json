@@ -1,0 +1,243 @@
+{
+  "id": "ca-house-37-2026",
+  "title": "California's 37th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 37th Congressional District",
+  "state": "California",
+  "district": "37th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 37th Congressional District, covering portions of Los Angeles County including South Los Angeles, Culver City, Baldwin Hills, and View Park, will hold a general election on November 3, 2026. The top-two primary held June 2, 2026 narrowed a nine-candidate field to two Democrats: incumbent Sydney Kamlager-Dove and challenger Samantha Mota. The district is overwhelmingly Democratic, with over 62% of registered voters identifying as Democrats, making the general election a contest between two candidates of the same party. This is a safe Democratic seat; Kamlager-Dove has held the seat since 2023 after succeeding Karen Bass.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race. The district is considered safely Democratic (Cook PVI: D+34), and no competitive general election polling has been conducted.",
+  "candidates": [
+    {
+      "name": "Sydney Kamlager-Dove",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Sydney Kamlager-Dove is the incumbent U.S. Representative for California's 37th Congressional District, first elected in 2022. She previously served in the California State Senate (30th District, 2021-2022) and California State Assembly (54th District, 2018-2021), and was a trustee on the Los Angeles Community College District Board. Her legislative priorities have focused on racial equity, criminal justice reform, arts funding, and universal healthcare.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Sydney_Kamlager-Dove",
+          "type": "website",
+          "title": "Sydney Kamlager-Dove - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sydneykamlager.com/about-sydney/",
+          "type": "website",
+          "title": "About Sydney - Sydney Kamlager-Dove for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/K000400",
+          "type": "government",
+          "title": "KAMLAGER-DOVE, Sydney - Biographical Directory of the U.S. Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Sydney_Kamlager-Dove_118th-2.jpeg/250px-Sydney_Kamlager-Dove_118th-2.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives \u2014 California's 37th District",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Incumbent representing CA-37; serves on multiple committees",
+          "source": null
+        },
+        {
+          "title": "California State Senator",
+          "organization": "California State Senate \u2014 30th District",
+          "start_year": 2021,
+          "end_year": 2022,
+          "description": "Appointed and then elected to fill vacancy; served until election to Congress",
+          "source": null
+        },
+        {
+          "title": "California State Assemblymember",
+          "organization": "California State Assembly \u2014 54th District",
+          "start_year": 2018,
+          "end_year": 2021,
+          "description": "Won special election and subsequently re-elected; focused on racial equity and criminal justice reform",
+          "source": null
+        },
+        {
+          "title": "Trustee",
+          "organization": "Los Angeles Community College District Board",
+          "start_year": 2015,
+          "end_year": 2018,
+          "description": "Elected to Seat 3; fought for affordable higher education and access for underserved communities",
+          "source": null
+        },
+        {
+          "title": "District Director",
+          "organization": "Office of California State Senator Holly Mitchell",
+          "start_year": 2010,
+          "end_year": 2015,
+          "description": "Managed district operations; later became Assemblymember for the same district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Carnegie Mellon University \u2014 Heinz College",
+          "degree": "Master of Arts",
+          "field": "Arts Management and Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Southern California",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Compton College",
+          "degree": "Attended",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://sydneykamlager.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Samantha Mota",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Samantha Mota (born September 1998) is a community advocate and first-time congressional candidate who advanced to the general election as the second-place finisher in the June 2, 2026 top-two primary. She previously served as a Santa Monica Public Safety Reform and Oversight Commissioner and ran for Santa Monica City Council in 2022. Mota's campaign emphasizes working-class representation, defunding ICE, universal healthcare, tuition-free public college, and term limits for Congress.",
+      "summary_sources": [
+        {
+          "url": "https://www.motaforcongress.com/about",
+          "type": "website",
+          "title": "About Samantha Mota for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ocregister.com/2026/05/05/samantha-mota-ca-37-candidate-2026-primary-election-questionnaire/",
+          "type": "news",
+          "title": "Samantha Mota, CA-37 candidate, 2026 primary election questionnaire",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/california-us-house-district-37-results",
+          "type": "news",
+          "title": "California House District 37 Primary Election Live Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Commissioner",
+          "organization": "Santa Monica Public Safety Reform and Oversight Commission",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Appointed to review and propose law enforcement reforms and policies",
+          "source": null
+        },
+        {
+          "title": "Community Advocate / Activist",
+          "organization": "Climate Action Santa Monica",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Grassroots organizing focused on urban agriculture, climate action, and food justice",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Santa Monica College",
+          "degree": "Attended",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.motaforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_37th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:36:49.115913+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 231244,
+    "completion_tokens": 5804,
+    "total_tokens": 237048,
+    "cost_usd": 0.017389768,
+    "cost_source": "provider",
+    "estimated_usd": 0.023799,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 231244,
+        "completion_tokens": 5804
+      }
+    },
+    "duration_s": 103.8
+  }
+}

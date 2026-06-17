@@ -1,0 +1,255 @@
+{
+  "id": "oh-house-02-2026",
+  "title": "Ohio's 2nd Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Ohio's 2nd Congressional District",
+  "state": "Ohio",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Ohio's 2nd Congressional District is being contested in the 2026 general election following the May 5 primary. Incumbent Republican Rep. David Taylor, first elected in 2024, faces Democratic nominee Jen Mazzuckelli. The district was redrawn in October 2025 under Ohio's mid-decade redistricting and covers a large swath of southern Ohio from Clermont County east to the West Virginia border, including Appalachian counties. The district is heavily Republican according to the Cook Partisan Voting Index, making this a race where the incumbent is strongly favored.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the OH-02 general election as of the research date. The district is considered safely Republican, and polling in this race has been minimal.",
+  "candidates": [
+    {
+      "name": "David J. Taylor",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "David J. Taylor is the incumbent U.S. Representative for Ohio's 2nd Congressional District, first elected in 2024. A former assistant prosecutor in Clermont County and president of his family's concrete business, Taylor serves on the House Transportation and Infrastructure and Agriculture Committees and co-chairs the Congressional Rural Broadband Caucus. Taylor has emphasized conservative values, rural infrastructure, broadband expansion, and supporting agriculture during his first term.",
+      "summary_sources": [
+        {
+          "url": "http://taylor.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Dave Taylor",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/David_Taylor_(Ohio)",
+          "type": "website",
+          "title": "David Taylor (Ohio) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.mariettatimes.com/news/2026/05/incumbent-taylor-faces-mariettas-carr-in-gop-congressional-primary/",
+          "type": "news",
+          "title": "Incumbent Taylor faces Marietta's Carr in GOP Congressional primary",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/14/Rep._Dave_Taylor_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Ohio's 2nd Congressional District; serves on Transportation and Infrastructure Committee, Agriculture Committee, and co-chairs Congressional Rural Broadband Caucus",
+          "source": null
+        },
+        {
+          "title": "President",
+          "organization": "Family Concrete Business",
+          "start_year": 1999,
+          "end_year": 2024,
+          "description": "Managed family-owned concrete company employing two dozen Ohioans",
+          "source": null
+        },
+        {
+          "title": "Assistant Prosecutor",
+          "organization": "Clermont County Prosecutor's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Prosecuted criminal cases involving drugs and violence",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Dayton School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Miami University",
+          "degree": "Bachelor's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.congress.gov/member/david-taylor/T000490",
+          "title": "Congress.gov Profile",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/David_Taylor_(Ohio)",
+          "title": "Ballotpedia Profile",
+          "type": "other"
+        }
+      ],
+      "website": "http://taylor.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepDaveTaylor/",
+        "instagram": "https://www.instagram.com/repdavetaylor/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jen Mazzuckelli",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Jen Mazzuckelli is the Democratic nominee for Ohio's 2nd Congressional District, having won the May 5, 2026 primary against Todd Wilson. She is a former high school English teacher and single mother from Clermont County who previously ran for county commissioner in 2024. Mazzuckelli has emphasized her background as a 'regular person' who has experienced housing and food insecurity, and she advocates for getting money out of politics, affordable housing, and mental health resources.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jen_Mazzuckelli",
+          "type": "website",
+          "title": "Jen Mazzuckelli - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wvxu.org/politics/2026-04-03/democratic-candidates-ohio-2nd-district-jennifer-mazzuckelli-todd-wilson",
+          "type": "news",
+          "title": "Meet Ohio's 2nd District Democratic primary candidates",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.mariettatimes.com/news/2026/05/mazzuckelli-wilson-seek-democratic-nomination-in-ohios-2nd-house-district/",
+          "type": "news",
+          "title": "Mazzuckelli, Wilson seek Democratic nomination in Ohio's 2nd House District",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jen_Mazzuckelli.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "High School English Teacher",
+          "organization": "Drop-out Recovery Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught at a drop-out recovery high school with limited funding",
+          "source": null
+        },
+        {
+          "title": "Democratic Candidate for County Commissioner",
+          "organization": "Clermont County",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Ran for Clermont County Commissioner; received just over 30% of the vote",
+          "source": null
+        },
+        {
+          "title": "Various Roles",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked as a server, human resource assistant, daycare worker, and at a domestic violence shelter",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Miami University",
+          "degree": "Master of Arts in Teaching",
+          "field": "Secondary Education",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Illinois College",
+          "degree": "Bachelor of Arts",
+          "field": "English / Creative Writing",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Jen_Mazzuckelli",
+          "title": "Ballotpedia Profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.jen4oh2.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:38:21.569454+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 245244,
+    "completion_tokens": 5888,
+    "total_tokens": 251132,
+    "cost_usd": 0.015233911999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.025188,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 245244,
+        "completion_tokens": 5888
+      }
+    },
+    "duration_s": 99.2
+  }
+}

@@ -1,0 +1,325 @@
+{
+  "id": "ms-house-02-2026",
+  "title": "Mississippi's 2nd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Mississippi's 2nd Congressional District",
+  "state": "Mississippi",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This race will determine the U.S. Representative for Mississippi's 2nd Congressional District, a predominantly rural and African American-majority district spanning the Mississippi Delta, including most of Jackson, Greenville, Natchez, and Vicksburg. Incumbent Democrat Bennie Thompson, first elected in 1993 and ranking member of the House Homeland Security Committee, faces Republican nominee Ron Eller, a physician assistant and retired Army captain whom Thompson defeated 62%-38% in 2024, and Independent candidate Bennie Foster, an educator and community organizer. The primary elections were held March 10, 2026, with Thompson winning the Democratic primary with 86.4% and Eller narrowly defeating Kevin Wilson with about 51% in the Republican primary. The district has a Cook Partisan Voting Index of D+11 and is rated \"Solid D\" by the Cook Political Report, though Eller's third consecutive challenge signals continued Republican investment.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in Mississippi's 2nd Congressional District. The Cook Political Report rates this race as 'Solid D' based on the district's D+11 Partisan Voting Index.",
+  "candidates": [
+    {
+      "name": "Bennie Thompson",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Bennie Thompson is the incumbent U.S. Representative for Mississippi's 2nd Congressional District, first elected in a special election in 1993. He serves as Ranking Member of the House Committee on Homeland Security and previously chaired the Select Committee to Investigate the January 6th Attack on the U.S. Capitol. Thompson, a veteran of the civil rights movement who worked as a field organizer for Fannie Lou Hamer's 1964 congressional campaign, focuses on civil rights, healthcare access, HBCU funding, and rural development.",
+      "summary_sources": [
+        {
+          "url": "http://benniethompson.house.gov/about",
+          "type": "government",
+          "title": "About - Congressman Bennie Thompson",
+          "description": null,
+          "last_accessed": "2026-06-12T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Bennie_Thompson",
+          "type": "website",
+          "title": "Bennie Thompson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bennie_Thompson.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 1993,
+          "end_year": null,
+          "description": "Representing Mississippi's 2nd Congressional District; Ranking Member of House Homeland Security Committee; chaired January 6 Select Committee",
+          "source": null
+        },
+        {
+          "title": "Chairman, House Homeland Security Committee",
+          "organization": "United States House of Representatives",
+          "start_year": 2007,
+          "end_year": 2011,
+          "description": "Also served as Chairman from 2019 to 2023",
+          "source": null
+        },
+        {
+          "title": "County Supervisor",
+          "organization": "Hinds County, Mississippi",
+          "start_year": 1980,
+          "end_year": 1993,
+          "description": "Served on Hinds County Board of Supervisors",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "Bolton, Mississippi",
+          "start_year": 1973,
+          "end_year": 1980,
+          "description": "Led efforts to improve infrastructure and housing",
+          "source": null
+        },
+        {
+          "title": "Alderman",
+          "organization": "Bolton, Mississippi",
+          "start_year": 1969,
+          "end_year": 1972,
+          "description": "Local government service",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Jackson State University",
+          "degree": "Master of Science",
+          "field": "Educational Administration",
+          "year": 1972,
+          "source": null
+        },
+        {
+          "institution": "Tougaloo College",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1968,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://benniethompson.house.gov/",
+      "social_media": {
+        "twitter": "https://x.com/BennieGThompson",
+        "facebook": "https://www.facebook.com/CongressmanBennieGThompson/",
+        "instagram": "https://www.instagram.com/benniegthompson/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ron Eller",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ron Eller is the Republican nominee for Mississippi's 2nd Congressional District, making his third consecutive bid for the seat. He is a cardiothoracic physician assistant at St. Dominic Hospital in Jackson and a retired U.S. Army Captain who served 20 years on active duty. Eller also owns manufacturing businesses and previously served as director at large of the Mississippi Academy of Physician Assistants.",
+      "summary_sources": [
+        {
+          "url": "https://www.voteroneller.com/",
+          "type": "website",
+          "title": "Ron Eller for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Ron_Eller",
+          "type": "website",
+          "title": "Ron Eller - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.mississippifreepress.org/ron-eller-2024-republican-candidate-for-mississippis-2nd-congressional-district-the-mfp-interview/",
+          "type": "news",
+          "title": "U.S. House Candidate Ron Eller: The MFP Interview",
+          "description": null,
+          "last_accessed": "2026-06-12T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ron_Eller.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Cardiothoracic Physician Assistant",
+          "organization": "St. Dominic Hospital, Jackson, MS",
+          "start_year": null,
+          "end_year": null,
+          "description": "Healthcare provider in cardiothoracic surgery",
+          "source": null
+        },
+        {
+          "title": "Business Owner",
+          "organization": "Manufacturing businesses",
+          "start_year": null,
+          "end_year": null,
+          "description": "Entrepreneur who started several manufacturing businesses",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Captain (Retired)",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "20 years of active duty military service",
+          "source": null
+        },
+        {
+          "title": "Director at Large",
+          "organization": "Mississippi Academy of Physician Assistants",
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional leadership role",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Nebraska Medical Center",
+          "degree": "Master of Physician Assistant Studies",
+          "field": "Cardiovascular Surgery",
+          "year": 1998,
+          "source": null
+        },
+        {
+          "institution": "University of Nebraska Medical Center",
+          "degree": "Bachelor of Science",
+          "field": "Physician Assistant",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.voteroneller.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Bennie Foster",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Bennie Foster is an Independent candidate running for Mississippi's 2nd Congressional District. He is a lifelong Jackson native with a Master's Degree in Education and over 38 years of experience in education administration, mentorship, and community development. Foster leads the 'ReIMAGINE Mississippi' campaign, traveling through all 28 counties of the district to deliver resources and advocate for economic empowerment, infrastructure investment, and government transparency.",
+      "summary_sources": [
+        {
+          "url": "https://www.mississippifreepress.org/us-house-candidate-questionnaire-bennie-foster-independent/",
+          "type": "news",
+          "title": "US House Candidate Questionnaire: Bennie Foster, Independent",
+          "description": null,
+          "last_accessed": "2026-06-12T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6MS02188/",
+          "type": "government",
+          "title": "FOSTER, BENNIE - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-12T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder/Leader",
+          "organization": "ReIMAGINE Mississippi Campaign",
+          "start_year": null,
+          "end_year": null,
+          "description": "Community outreach and resource delivery across Mississippi's 2nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Educator and Administrator",
+          "organization": "Education sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over 38 years in education administration, mentorship, and business/emotional support system development",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Unknown institution",
+          "degree": "Master's Degree",
+          "field": "Education",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/BennieFosterJr/",
+        "instagram": "https://www.instagram.com/p/DS787iSjTve/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Mississippi%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:35:21.912350+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 262353,
+    "completion_tokens": 6379,
+    "total_tokens": 268732,
+    "cost_usd": 0.015748846,
+    "cost_source": "provider",
+    "estimated_usd": 0.026961,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 262353,
+        "completion_tokens": 6379
+      }
+    },
+    "duration_s": 115.4
+  }
+}

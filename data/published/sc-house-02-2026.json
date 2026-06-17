@@ -1,0 +1,294 @@
+{
+  "id": "sc-house-02-2026",
+  "title": "South Carolina's 2nd Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "South Carolina's 2nd Congressional District",
+  "state": "South Carolina",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This race is for South Carolina's 2nd Congressional District, which covers Lexington County and portions of Richland, Aiken, Barnwell, and Orangeburg counties. Incumbent Republican Rep. Joe Wilson, first elected in 2001, is seeking re-election after winning the Republican primary with 74.2% of the vote. The Democratic primary advanced to a June 23 runoff between David Robinson II, a disabled wartime combat veteran, and Zyon Khalifa, with the winner becoming the Democratic nominee. Dayna Alane Smith of the Workers Party is also on the general election ballot. The district is rated as 'Solid Republican' by the Cook Political Report, making Wilson the heavy favorite in November.",
+  "polling": [],
+  "polling_note": "No general election opinion polls were found for this race as of late June 2026. The primary election was held on June 9, 2026, and the Democratic primary runoff is scheduled for June 23, 2026.",
+  "candidates": [
+    {
+      "name": "Joe Wilson",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Joe Wilson has represented South Carolina's 2nd Congressional District since 2001. He is a conservative Republican known for his military service in the Army Reserve and Army National Guard, and for his work on national security and veterans' issues. Wilson won his 2026 primary with over 74% of the vote against two challengers.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Joe_Wilson",
+          "type": "government",
+          "title": "Joe Wilson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-south-carolina-us-house-2-primary.html",
+          "type": "news",
+          "title": "South Carolina Second Congressional District Primary 2026",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thestate.com/news/politics-government/article316062251.html",
+          "type": "news",
+          "title": "U.S. Reps Jim Clyburn, Joe Wilson win 2026 South Carolina primary elections",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2001,
+          "end_year": null,
+          "description": "Representing South Carolina's 2nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "South Carolina State Senate",
+          "start_year": 1985,
+          "end_year": 2001,
+          "description": "Represented the 23rd Senate district",
+          "source": null
+        },
+        {
+          "title": "Military Officer",
+          "organization": "U.S. Army Reserve / Army National Guard",
+          "start_year": 1972,
+          "end_year": 2003,
+          "description": "Served 31 years, retired as a colonel; deployed to Operation Iraqi Freedom and Operation Enduring Freedom",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Washington and Lee University",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": 1969,
+          "source": null
+        },
+        {
+          "institution": "University of South Carolina School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": 1972,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://joewilson.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dayna Alane Smith",
+      "party": "Workers Party",
+      "incumbent": false,
+      "summary": "Dayna Alane Smith is the Workers Party candidate for South Carolina's 2nd Congressional District in the 2026 general election. Smith is running as a third-party candidate challenging incumbent Rep. Joe Wilson.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Dayna_Alane_Smith",
+          "type": "government",
+          "title": "Dayna Alane Smith - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/South_Carolina%27s_2nd_Congressional_District_election,_2026",
+          "type": "government",
+          "title": "South Carolina's 2nd Congressional District election, 2026",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "David Robinson II",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "David Robinson II is a Democratic candidate for South Carolina's 2nd Congressional District who advanced to the June 23, 2026 primary runoff. He is a disabled wartime combat veteran who describes himself as a constitutionalist focused on uniting communities, strengthening the economy, modernizing infrastructure, and defending democracy. His campaign website emphasizes job creation, workforce development, rural revitalization, and veteran support.",
+      "summary_sources": [
+        {
+          "url": "https://davidrobinsonforcongress.com/",
+          "type": "website",
+          "title": "David Robinson II For Congress",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/David_Robinson_II_(South_Carolina)",
+          "type": "government",
+          "title": "David Robinson II (South Carolina) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-south-carolina-us-house-2-primary.html",
+          "type": "news",
+          "title": "South Carolina Second Congressional District Primary 2026",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Military Veteran",
+          "organization": "United States Armed Forces",
+          "start_year": null,
+          "end_year": null,
+          "description": "Disabled wartime combat veteran",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://davidrobinsonforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Zyon Khalifa",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Zyon Khalifa is a Democratic candidate for South Carolina's 2nd Congressional District who advanced to the June 23, 2026 primary runoff against David Robinson II. Khalifa is seeking the Democratic nomination to challenge incumbent Rep. Joe Wilson in the general election.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Zyon_Khalifa",
+          "type": "government",
+          "title": "Zyon Khalifa - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-south-carolina-us-house-2-primary.html",
+          "type": "news",
+          "title": "South Carolina Second Congressional District Primary 2026",
+          "description": null,
+          "last_accessed": "2026-06-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/South_Carolina%27s_2nd_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T22:15:40.528770+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 174367,
+    "completion_tokens": 8393,
+    "total_tokens": 182760,
+    "cost_usd": 0.012463042,
+    "cost_source": "provider",
+    "estimated_usd": 0.018733,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 174367,
+        "completion_tokens": 8393
+      }
+    },
+    "duration_s": 214.2
+  }
+}

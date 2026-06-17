@@ -1,0 +1,205 @@
+{
+  "id": "in-house-01-2026",
+  "title": "Indiana's 1st Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Indiana's 1st Congressional District",
+  "state": "Indiana",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Indiana's 1st Congressional District features incumbent Democrat Frank Mrvan facing Republican challenger Barb Regnitz. The district covers Lake and Porter counties and parts of LaPorte County in northwest Indiana, part of the Chicago metropolitan area. Mrvan has held the seat since 2021 and is seeking a fourth term, while Regnitz, a Porter County commissioner, won the Republican nomination in the May 5 primary. The race is considered competitive \u2014 the Cook Political Report rates it 'Likely Democratic' \u2014 and is viewed as one of Indiana's most closely watched congressional contests given the district's shifting political dynamics.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026.",
+  "candidates": [
+    {
+      "name": "Frank Mrvan",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Frank J. Mrvan is the incumbent U.S. Representative for Indiana's 1st Congressional District, first elected in 2020. He previously served as North Township Trustee for 15 years and serves on the House Appropriations Committee and as Vice Chairman of the Congressional Steel Caucus. His campaign emphasizes growing the northwest Indiana economy, protecting reproductive health care, supporting organized labor, and securing the border.",
+      "summary_sources": [
+        {
+          "url": "http://mrvan.house.gov/about",
+          "type": "government",
+          "title": "Biography | Representative Frank Mrvan",
+          "description": null,
+          "last_accessed": "2026-06-09T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Frank_Mrvan",
+          "type": "website",
+          "title": "Frank Mrvan - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Frank_Mrvan.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Indiana's 1st Congressional District",
+          "source": null
+        },
+        {
+          "title": "North Township Trustee",
+          "organization": "North Township, Lake County, Indiana",
+          "start_year": 2005,
+          "end_year": 2021,
+          "description": "Oversaw township assistance and services",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Ball State University",
+          "degree": "Bachelor of Arts",
+          "field": "Unknown",
+          "year": 1992,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://mrvan.house.gov/",
+          "title": "http://mrvan.house.gov/",
+          "type": "other"
+        }
+      ],
+      "website": "https://mrvanforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepMrvan",
+        "facebook": "https://www.facebook.com/RepMrvan",
+        "instagram": "https://www.instagram.com/repmrvan/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Barb Regnitz",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Barb Regnitz is a Porter County Commissioner and the Republican nominee for Indiana's 1st Congressional District. Her career includes work as a software engineer and project manager at United Airlines and later as a financial advisor and Certified Financial Planner. Elected Porter County Commissioner in 2022, her campaign platform focuses on border security, fiscal responsibility, election integrity, and education reform.",
+      "summary_sources": [
+        {
+          "url": "https://barbregnitzforcongress.com/",
+          "type": "website",
+          "title": "Barb Regnitz for Congress",
+          "description": null,
+          "last_accessed": "2026-06-09T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://indianacapitalchronicle.com/voter-guides/contests/congressional-district-1-republican/",
+          "type": "news",
+          "title": "Congressional District 1 - Republican | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-09T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://barbregnitzforcongress.com/assets/F472EE5C-F272-4098-9785-A72EC20D7751_1761497894057-D8T9XV-k.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Porter County Commissioner",
+          "organization": "Porter County, Indiana",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "County commissioner representing District 2 (Center District)",
+          "source": null
+        },
+        {
+          "title": "Software Engineer / Project Manager",
+          "organization": "United Airlines",
+          "start_year": null,
+          "end_year": null,
+          "description": "Technology career prior to public service",
+          "source": null
+        },
+        {
+          "title": "Financial Advisor / Certified Financial Planner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Helped families plan for financial future",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Purdue University",
+          "degree": "Bachelor's",
+          "field": "Mathematics and German",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://barbregnitzforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/BarbRegnitz",
+        "facebook": "https://www.facebook.com/p/Barb-Regnitz-Porter-County-Commissioner-100076333926937/",
+        "instagram": "https://www.instagram.com/barbregnitzforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:56:43.555673+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 211709,
+    "completion_tokens": 5659,
+    "total_tokens": 217368,
+    "cost_usd": 0.013589894,
+    "cost_source": "provider",
+    "estimated_usd": 0.021857,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 211709,
+        "completion_tokens": 5659
+      }
+    },
+    "duration_s": 129.3
+  }
+}

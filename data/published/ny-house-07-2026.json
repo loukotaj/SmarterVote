@@ -1,0 +1,456 @@
+{
+  "id": "ny-house-07-2026",
+  "title": "New York's 7th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 7th Congressional District",
+  "state": "New York",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "New York's 7th Congressional District, covering parts of western Queens and north Brooklyn (including Long Island City, Greenpoint, and Williamsburg), is holding an open-seat election following the retirement of 16-term Democratic incumbent Nydia Vel\u00e1zquez. The Democratic primary, scheduled for June 23, 2026, is a competitive four-way contest between Brooklyn Borough President Antonio Reynoso, Assembly Member Claire Valdez, City Council Member Julie Won, and public defender Vichal Kumar. The winner will be heavily favored in the general election in this solidly Democratic district, which has long been a progressive stronghold. The Republican candidate, community activist Melvin Rivera, advanced unopposed from the Republican primary.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling/PIX11/The Hill",
+      "date": "2026-05-21",
+      "sample_size": 350,
+      "matchups": [
+        {
+          "candidates": [
+            "Claire Valdez",
+            "Antonio Reynoso",
+            "Julie Won",
+            "Vichal Kumar"
+          ],
+          "percentages": [
+            23.0,
+            21.0,
+            13.0,
+            1.0
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/new-york-city-2026-congressional-polling-ny-07-ny-10-ny-12/"
+    }
+  ],
+  "polling_note": "The May 2026 Emerson College poll found 43% of likely Democratic primary voters undecided.",
+  "candidates": [
+    {
+      "name": "Antonio Reynoso",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Antonio Reynoso is the Brooklyn Borough President and a former New York City Council Member representing District 34. The son of Dominican immigrants, he was born and raised in Williamsburg and has emphasized affordable housing, maternal health, and environmental justice in his tenure. He has secured endorsements from the New York Working Families Party, 32BJ SEIU, and outgoing Congresswoman Nydia Vel\u00e1zquez.",
+      "summary_sources": [
+        {
+          "url": "https://www.brooklynbp.nyc.gov/about-bkbpreynoso/",
+          "type": "government",
+          "title": "Meet Brooklyn Borough President Antonio Reynoso",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.reynosoforcongress.com/about",
+          "type": "website",
+          "title": "About Antonio \u2014 Antonio Reynoso 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
+          "type": "news",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Brooklyn Borough President",
+          "organization": "Office of the Brooklyn Borough President",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "20th Borough President of Brooklyn. First Latino to hold the office.",
+          "source": null
+        },
+        {
+          "title": "New York City Council Member",
+          "organization": "New York City Council",
+          "start_year": 2014,
+          "end_year": 2021,
+          "description": "Represented District 34 (Williamsburg, Bushwick, Ridgewood). Chaired Sanitation & Solid Waste Management Committee.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Le Moyne College",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2006,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.reynosoforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/BKBPReynoso",
+        "instagram": "https://www.instagram.com/reynoso.brooklyn/",
+        "facebook": "https://www.facebook.com/BKBPReynoso/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Claire Valdez",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Claire Valdez is a New York State Assembly Member representing the 37th District in Queens, a position she has held since January 2025. A member of the Democratic Socialists of America and a former union organizer with the United Auto Workers, she previously worked at Columbia University. Valdez has been endorsed by Senator Bernie Sanders, Mayor Zohran Mamdani, and NYC-DSA, and leads in recent polling.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Claire_Valdez",
+          "type": "government",
+          "title": "Claire Valdez - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://clairevaldezforcongress.com/",
+          "type": "website",
+          "title": "Claire Valdez for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
+          "type": "news",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Queens_Bus_Network_Redesign_Claire_Valdez_%28cropped%29.jpg/250px-Queens_Bus_Network_Redesign_Claire_Valdez_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Member of the New York State Assembly",
+          "organization": "New York State Assembly",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Represents the 37th Assembly District in Queens.",
+          "source": null
+        },
+        {
+          "title": "Program Assistant / Union Organizer",
+          "organization": "Columbia University / UAW Local 2110",
+          "start_year": null,
+          "end_year": 2024,
+          "description": "Worked as a program assistant in the visual arts program and organized clerical workers.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://clairevaldezforcongress.com/",
+      "social_media": {
+        "youtube": "https://www.youtube.com/@ClaireforQueens"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Julie Won",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Julie Won is a New York City Council Member representing the 26th District in western Queens (Long Island City, Sunnyside, Astoria, Woodside), serving since 2022. She is the first woman, first immigrant, and first Korean American to represent the district. A former technology consultant at IBM, Won has focused on affordable housing, universal internet access, and government transparency.",
+      "summary_sources": [
+        {
+          "url": "https://council.nyc.gov/julie-won/",
+          "type": "government",
+          "title": "Biography - Julie Won - NYC Council",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.juliewon.com/",
+          "type": "website",
+          "title": "Julie Won for Congress | NY-7",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
+          "type": "news",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Julie_Won.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "New York City Council Member",
+          "organization": "New York City Council",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Represents District 26 in western Queens.",
+          "source": null
+        },
+        {
+          "title": "Advisor / Technology Consultant",
+          "organization": "IBM",
+          "start_year": null,
+          "end_year": 2021,
+          "description": "Advised federal government on technology modernization.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Syracuse University - Maxwell School",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.juliewon.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/cmjuliewon/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Vichal Kumar",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Vichal Kumar is a public defender and Managing Attorney of the Civil Defense Practice at the Neighborhood Defender Service in New York, where he has worked since 2015. He previously worked at The Bronx Defenders and as a commercial litigation associate. Kumar is running his first political campaign on a platform of dismantling ICE, universal healthcare, and workers' rights.",
+      "summary_sources": [
+        {
+          "url": "https://neighborhooddefender.org/about/team/vichal-kumar-2/",
+          "type": "website",
+          "title": "Vichal Kumar, Managing Attorney, Civil Defense Practice",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.bkreader.com/featured-news/meet-your-candidate-vichal-kumar-for-ny-7-12394337",
+          "type": "news",
+          "title": "Meet Your Candidate: Vichal Kumar For NY-7",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
+          "type": "news",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Managing Attorney, Civil Defense Practice",
+          "organization": "Neighborhood Defender Service",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Supervises 13+ attorneys and advocates representing clients in immigration, housing, employment, and benefits matters.",
+          "source": null
+        },
+        {
+          "title": "Staff Attorney / Supervising Attorney",
+          "organization": "The Bronx Defenders",
+          "start_year": null,
+          "end_year": 2015,
+          "description": "Represented clients in administrative forums on housing, benefits, and employment.",
+          "source": null
+        },
+        {
+          "title": "Commercial Litigation Associate",
+          "organization": "Cullen & Dykman, LLP",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Maurice A. Deane School of Law, Hofstra University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "instagram": "https://www.instagram.com/kumar4ny/",
+        "twitter": "https://x.com/kumar4ny",
+        "linkedin": "https://www.linkedin.com/in/vichalk"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Melvin Rivera",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Melvin Rivera is a community activist and tenant organizer from Bushwick, Brooklyn, who advanced from the Republican primary without appearing on the ballot. He has spent more than 30 years as a tenant organizer, advocating for rent-stabilized tenants, homeowners facing predatory speculation, and families displaced by Hurricane Maria. His campaign focuses on public safety, housing reform, and economic opportunity.",
+      "summary_sources": [
+        {
+          "url": "https://www.melvinforcongress.com/",
+          "type": "website",
+          "title": "Melvin for Congress | Home",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Melvin_Rivera_(New_York)",
+          "type": "website",
+          "title": "Melvin Rivera (New York) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Community Activist / Tenant Organizer",
+          "organization": "Self Employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over 30 years of community organizing focused on housing, tenant rights, and advocacy for working families.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.melvinforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:57:54.940567+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 318599,
+    "completion_tokens": 8152,
+    "total_tokens": 326751,
+    "cost_usd": 0.024463886,
+    "cost_source": "provider",
+    "estimated_usd": 0.03282,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 318599,
+        "completion_tokens": 8152
+      }
+    },
+    "duration_s": 167.7
+  }
+}

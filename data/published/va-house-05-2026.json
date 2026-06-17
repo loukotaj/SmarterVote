@@ -1,0 +1,551 @@
+{
+  "id": "va-house-05-2026",
+  "title": "Virginia's 5th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Virginia's 5th Congressional District",
+  "state": "Virginia",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Virginia's 5th Congressional District will determine who represents the district covering much of rural Southside Virginia including Charlottesville, Danville, and Lynchburg. Incumbent Republican John McGuire, first elected in 2024 after defeating then-incumbent Bob Good in a competitive primary, faces a Republican primary challenge from Marine Corps veteran and real estate business owner Melanie Lucero. On the Democratic side, former U.S. Representative Tom Perriello (2009\u20132011) is seeking a comeback and faces family physician Suzanne Krzyzanowski and writer and commentator Rob Tracinski in the August 4 primary. The race takes place under Virginia's current congressional map after a state Supreme Court ruling blocked a redistricting amendment, and the district is rated as leaning Republican by nonpartisan analysts.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polls were found for this race as of June 2026.",
+  "candidates": [
+    {
+      "name": "John McGuire",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "John McGuire is the incumbent U.S. Representative for Virginia's 5th Congressional District, first elected in 2024 after defeating incumbent Bob Good in a hotly contested primary. A former U.S. Navy SEAL and business owner, McGuire previously served in the Virginia Senate (2024\u20132025) and Virginia House of Delegates (2018\u20132024). His campaign focuses on tax cuts, affordability, and his work on the Wintergreen Emergency Egress Act and the American Dream Act.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/John_McGuire_(Virginia_politician)",
+          "type": "website",
+          "title": "John McGuire (Virginia politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.29news.com/2026/05/12/heres-where-race-virginias-5th-congressional-district-stands/",
+          "type": "news",
+          "title": "Here's where the race for Virginia's 5th Congressional District stands",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/John_McGuire_119th_Congress.jpg/480px-John_McGuire_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Virginia's 5th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Virginia Senate",
+          "start_year": 2024,
+          "end_year": 2025,
+          "description": "Represented the 10th district",
+          "source": null
+        },
+        {
+          "title": "State Delegate",
+          "organization": "Virginia House of Delegates",
+          "start_year": 2018,
+          "end_year": 2024,
+          "description": "Represented the 56th district",
+          "source": null
+        },
+        {
+          "title": "Founder / Owner",
+          "organization": "SEAL Team Physical Training",
+          "start_year": null,
+          "end_year": null,
+          "description": "Physical training business",
+          "source": null
+        },
+        {
+          "title": "U.S. Navy SEAL",
+          "organization": "United States Navy",
+          "start_year": 1988,
+          "end_year": 1998,
+          "description": "Served as a Navy SEAL",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northwest Florida State College",
+          "degree": "Attended",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mcguireva.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepJohnMcGuire",
+        "facebook": "https://www.facebook.com/RepJohnMcGuire/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Melanie Lucero",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Melanie Lucero is a real estate business owner and U.S. Marine Corps veteran running for the Republican nomination to challenge or succeed incumbent John McGuire. She served as a Marine Corps intelligence analyst and says she is running to improve constituent services and address affordability. Lucero has not previously held elected office and emphasizes her background as a newcomer to politics.",
+      "summary_sources": [
+        {
+          "url": "https://www.melanielucero.com/",
+          "type": "website",
+          "title": "Melanie Lucero for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.29news.com/2026/05/12/heres-where-race-virginias-5th-congressional-district-stands/",
+          "type": "news",
+          "title": "Here's where the race for Virginia's 5th Congressional District stands",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Real Estate Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Real estate business",
+          "source": null
+        },
+        {
+          "title": "Intelligence Analyst",
+          "organization": "United States Marine Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Marine Corps intelligence analyst",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.melanielucero.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/melanieluceroforcongress/",
+        "facebook": "https://www.facebook.com/melanievlucero/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tom Perriello",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tom Perriello is a former U.S. Representative for Virginia's 5th Congressional District (2009\u20132011) and a former U.S. Special Envoy for Sudan (2024\u20132025) under President Joe Biden. A Yale-educated attorney and diplomat, Perriello also ran for governor of Virginia in 2017. He is running on a platform of economic relief for working families and criticizing incumbent John McGuire's voting record.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tom_Perriello",
+          "type": "website",
+          "title": "Tom Perriello - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tomperriello.com/",
+          "type": "website",
+          "title": "Tom Perriello for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Official_portrait_of_Thomas_Perriello%2C_U.S._Special_Envoy_for_Sudan.jpg/480px-Official_portrait_of_Thomas_Perriello%2C_U.S._Special_Envoy_for_Sudan.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Special Envoy for Sudan",
+          "organization": "U.S. State Department",
+          "start_year": 2024,
+          "end_year": 2025,
+          "description": "Appointed by President Joe Biden",
+          "source": null
+        },
+        {
+          "title": "Executive Director for U.S. Programs",
+          "organization": "Open Society Foundations",
+          "start_year": null,
+          "end_year": 2023,
+          "description": "Led U.S. programs",
+          "source": null
+        },
+        {
+          "title": "U.S. Special Envoy for the African Great Lakes",
+          "organization": "U.S. State Department",
+          "start_year": 2015,
+          "end_year": 2016,
+          "description": "Appointed by President Barack Obama",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Represented Virginia's 5th Congressional District",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale University",
+          "degree": "JD",
+          "field": "Law",
+          "year": 2001,
+          "source": null
+        },
+        {
+          "institution": "Yale University",
+          "degree": "BA",
+          "field": null,
+          "year": 1996,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.tomperriello.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/TomPerriello/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Suzanne Krzyzanowski",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Suzanne Krzyzanowski, known as 'Dr. K,' is a family physician in Lynchburg with over 20 years of experience practicing 'old time' family medicine including delivering babies and Medicare wellness exams. She is running for the Democratic nomination motivated by her belief that patients and doctors are increasingly battling the health care system. Krzyzanowski emphasizes practical problem-solving and health care accessibility in her campaign.",
+      "summary_sources": [
+        {
+          "url": "https://drkforcongress.com/",
+          "type": "website",
+          "title": "Dr. K for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpm.org/elections/2025-12-15/va-congress-house-5th-cd-john-mcguire-charlottesville-danville-lynchburg",
+          "type": "news",
+          "title": "Who's running in Virginia's 5th Congressional District in 2026?",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Family Physician",
+          "organization": "Private practice / Centra Health",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced family medicine including obstetrics in Central Virginia for over 20 years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Medical School",
+          "degree": "MD",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://drkforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/drkforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rob Tracinski",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Rob Tracinski is a writer, commentator, and political activist who was formerly associated with the Tea Party movement before shifting his affiliation to the Democratic Party. He is the author of 'Dictator From Day One: How Donald Trump Is Overthrowing the Constitution and How to Fight Back' and studied philosophy at the University of Chicago. Tracinski's campaign focuses on restoring congressional authority as a check on presidential power and constitutional issues.",
+      "summary_sources": [
+        {
+          "url": "https://www.29news.com/2026/05/21/former-tea-party-figure-launches-democratic-run-congress-virginias-5th-district/",
+          "type": "news",
+          "title": "Former Tea Party figure launches Democratic run for Congress in Virginia's 5th District",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tracinskiforcongress.substack.com/",
+          "type": "website",
+          "title": "Tracinski For Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Writer and Commentator",
+          "organization": "The Tracinski Letter / The UnPopulist",
+          "start_year": null,
+          "end_year": null,
+          "description": "Political commentary and writing",
+          "source": null
+        },
+        {
+          "title": "Senior Fellow",
+          "organization": "The Atlas Society",
+          "start_year": null,
+          "end_year": null,
+          "description": "Think tank focused on Objectivist philosophy",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Chicago",
+          "degree": "Attended",
+          "field": "Philosophy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://tracinskiforcongress.substack.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/robert.tracinski/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Cooke Harvey",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Cooke Harvey is an independent candidate for Virginia's 5th Congressional District who is not accepting campaign donations and is on the ballot solely through mandatory petition signatures. Very little additional biographical information has been publicly available about Harvey's background or platform beyond his status as an independent candidate in the general election.",
+      "summary_sources": [
+        {
+          "url": "https://www.vpap.org/offices/us-representative-5/elections/",
+          "type": "website",
+          "title": "Elections: US Representative District 5 - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Cooke_Harvey",
+          "type": "website",
+          "title": "Cooke Harvey - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Register",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Chris Register is an independent candidate for Virginia's 5th Congressional District. A graduate of Georgetown University Law Center, Register served in the Peace Corps and worked at law firms in Washington, D.C. and Texas before leaving legal practice in 2014 to cycle across America for the 'Conversations with US' project. He describes his campaign as focused on listening to constituents across the district.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chris_Register",
+          "type": "website",
+          "title": "Chris Register - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpm.org/elections/2025-12-15/va-congress-house-5th-cd-john-mcguire-charlottesville-danville-lynchburg",
+          "type": "news",
+          "title": "Who's running in Virginia's 5th Congressional District in 2026?",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chris_Register.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Law firms in Washington, D.C. and Texas",
+          "start_year": null,
+          "end_year": 2014,
+          "description": "Practiced law before leaving to cycle across America",
+          "source": null
+        },
+        {
+          "title": "Peace Corps Volunteer",
+          "organization": "Peace Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Peace Corps volunteer",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:16:32.875428+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 285836,
+    "completion_tokens": 12972,
+    "total_tokens": 298808,
+    "cost_usd": 0.022177864000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.030554,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 285836,
+        "completion_tokens": 12972
+      }
+    },
+    "duration_s": 190.2
+  }
+}

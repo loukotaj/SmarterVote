@@ -1,0 +1,330 @@
+{
+  "id": "ny-house-15-2026",
+  "title": "2026 U.S. House election for New York's 15th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "New York's 15th Congressional District",
+  "state": "New York",
+  "district": "15th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New York's 15th Congressional District, based in the South Bronx, features a competitive Democratic primary between incumbent Rep. Ritchie Torres (D) and challengers Michael Blake and Jose Vega, with the primary scheduled for June 23, 2026. Torres, first elected in 2020, has drawn criticism from the left over his staunch support for Israel and centrist pivots, while Blake and Vega are running on platforms emphasizing affordability, cost of living, and a more progressive foreign policy. The Republican nominee is Stylo A. Sapaskis, who advanced without a primary, and independent Andre Easton is also on the general election ballot. The district is heavily Democratic (Cook PVI: D+27), so the Democratic primary is effectively the decisive contest, though the general election will be held on November 3, 2026.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 NY-15 general election as of the research date.",
+  "candidates": [
+    {
+      "name": "Ritchie Torres",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Ritchie Torres is the incumbent U.S. Representative for New York's 15th Congressional District, first elected in 2020. He previously served on the New York City Council from 2014 to 2021 and is known for his focus on affordable housing, public health, and infrastructure, as well as his outspoken defense of Israel, which has made him a target of progressive criticism in the 2026 primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ritchie_Torres",
+          "type": "government",
+          "title": "Ritchie Torres - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483646",
+          "type": "news",
+          "title": "NY-15 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Torres_0.png?itok=ONwQbPOO",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing New York's 15th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "New York City Council",
+          "start_year": 2014,
+          "end_year": 2021,
+          "description": "Represented the 15th Council District in the Bronx",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "New York University",
+          "degree": "Attended",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Herbert H. Lehman High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 2006,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ritchietorres.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michael Blake",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Michael Blake is a former New York State Assemblymember (2015\u20132021) and former Vice Chair of the Democratic National Committee. He is the CEO of Atlas Strategy Group and the Kairos Democracy Project, and previously worked as a staffer for President Barack Obama. Blake is challenging Torres from the left, emphasizing affordability, cost of living, and a more progressive stance on Israel and Gaza.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Michael_Blake",
+          "type": "government",
+          "title": "Michael Blake - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://news.ballotpedia.org/2026/04/20/incumbent-ritchie-torres-d-michael-blake-d-and-four-other-candidates-are-running-in-the-democratic-primary-for-new-yorks-15th-congressional-district-on-june-23-2026/",
+          "type": "news",
+          "title": "Ballotpedia News - April 20, 2026",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CEO",
+          "organization": "Atlas Strategy Group",
+          "start_year": null,
+          "end_year": null,
+          "description": "Consulting firm",
+          "source": null
+        },
+        {
+          "title": "CEO",
+          "organization": "Kairos Democracy Project",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit organization",
+          "source": null
+        },
+        {
+          "title": "Vice Chair",
+          "organization": "Democratic National Committee",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Served during the Trump administration",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "New York State Assembly",
+          "start_year": 2015,
+          "end_year": 2021,
+          "description": "Represented the 79th Assembly District",
+          "source": null
+        },
+        {
+          "title": "Staffer",
+          "organization": "Office of President Barack Obama",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a staffer for the 44th President",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jose Vega",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jose Vega is a Democratic activist and candidate challenging Rep. Ritchie Torres in the 2026 primary. He is running on a platform focused on progressive issues including affordable housing, healthcare, and a more critical stance on U.S. foreign policy regarding Israel. Vega announced his campaign in November 2025 and is also on the ballot under the 'Speak The Truth Party' line.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jose_Vega",
+          "type": "government",
+          "title": "Jose Vega - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.norwoodnews.org/jose-vega-challenges-rep-ritchie-torres-in-new-yorks-15th-congressional-district/",
+          "type": "news",
+          "title": "Jose Vega Challenges Rep. Ritchie Torres in New York's 15th Congressional District",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Stylo A. Sapaskis",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Stylo A. Sapaskis is the Republican nominee for New York's 15th Congressional District in 2026, having advanced to the general election without appearing on a primary ballot after the Republican primary was canceled. He is running in a heavily Democratic district where the general election is considered safely Democratic by major forecasters.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Stylo_Sapaskis",
+          "type": "government",
+          "title": "Stylo Sapaskis - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/New_York%27s_15th_Congressional_District_election,_2026_(June_23_Republican_primary)",
+          "type": "government",
+          "title": "New York's 15th Congressional District election, 2026 (June 23 Republican primary)",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Andre Easton",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Andre Easton is an independent candidate running for election to the U.S. House to represent New York's 15th Congressional District. He declared his candidacy for the general election and is listed on Ballotpedia as a declared independent candidate for this race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Andre_Easton",
+          "type": "government",
+          "title": "Andre Easton - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-04-28T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_15th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:10:43.516203+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 273481,
+    "completion_tokens": 9820,
+    "total_tokens": 283301,
+    "cost_usd": 0.016225890000000003,
+    "cost_source": "provider",
+    "estimated_usd": 0.028726,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 273481,
+        "completion_tokens": 9820
+      }
+    },
+    "duration_s": 156.0
+  }
+}

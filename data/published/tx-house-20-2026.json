@@ -1,0 +1,222 @@
+{
+  "id": "tx-house-20-2026",
+  "title": "Texas's 20th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 20th Congressional District (San Antonio and Bexar County)",
+  "state": "Texas",
+  "district": "20th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Texas's 20th Congressional District pits seven-term Democratic incumbent Joaquin Castro against Republican nominee Edgardo Baez. After redistricting, the seat now covers more of downtown San Antonio and remains the city's only reliably Democratic congressional district (Cook PVI: D+16). Castro, a senior member of the House Intelligence and Foreign Affairs Committees, has represented the district since 2013, while Baez, a U.S. Army veteran and first-time candidate, is challenging on a platform of economic development, public safety, and opposition to socialism. The March primary saw Castro defeat two little-known Democratic challengers with 88% of the vote, while Baez advanced from the Republican primary to set up the November contest.",
+  "candidates": [
+    {
+      "name": "Joaquin Castro",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Joaquin Castro is a seven-term U.S. Representative for Texas's 20th Congressional District, first elected in 2012. He serves on the House Foreign Affairs Committee and the House Permanent Select Committee on Intelligence, and was previously recognized by the Center for Effective Lawmaking as the most effective Democratic House member in the 118th Congress. Before Congress, he served five terms in the Texas House of Representatives for District 125 and worked as a private attorney.",
+      "summary_sources": [
+        {
+          "url": "https://castro.house.gov/about",
+          "type": "government",
+          "title": "Biography | Meet Joaquin | U.S. Congressman Joaquin Castro",
+          "last_accessed": "2026-06-20T00:00:00Z"
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485316",
+          "type": "news",
+          "title": "TX-20 2026 | Cook Political Report",
+          "last_accessed": "2026-06-20T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Joaquin_Castro",
+          "type": "website",
+          "title": "Joaquin Castro - Ballotpedia",
+          "last_accessed": "2026-06-20T00:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joaquin_Castro.jpg",
+      "website": "https://castro.house.gov/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives \u2014 Texas's 20th Congressional District",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing San Antonio and Bexar County; serves on House Foreign Affairs and House Intelligence committees."
+        },
+        {
+          "title": "State Representative",
+          "organization": "Texas House of Representatives \u2014 District 125",
+          "start_year": 2002,
+          "end_year": 2012,
+          "description": "Served five terms; held roles as Vice Chairman of the Higher Education Committee and Democratic Floor Leader."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private Law Practice",
+          "start_year": 2000,
+          "end_year": 2002,
+          "description": "Practiced law in San Antonio after graduating from Harvard Law School."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2000
+        },
+        {
+          "institution": "Stanford University",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 1996
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Edgardo Baez",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Edgardo Baez is a U.S. Army veteran, retired medical professional, criminal defense attorney, and published author making his first run for public office as the Republican nominee for Texas's 20th Congressional District. His career includes service as a combat medic, airborne paratrooper, and drill sergeant in the Army, followed by work as an ICU nurse and over 20 years as a criminal defense lawyer in San Antonio. Baez campaigns on a platform of economic development, public safety, education reform, border security, and opposition to socialism, and has pledged to support term limits on Congress.",
+      "summary_sources": [
+        {
+          "url": "https://sanantonioreport.org/profile/edgardo-baez-2026-candidate-for-texas-20th-congressional-district/",
+          "type": "news",
+          "title": "Edgardo Baez | 2026 candidate for Texas' 20th Congressional District - San Antonio Report",
+          "last_accessed": "2026-06-20T00:00:00Z"
+        },
+        {
+          "url": "https://www.drbaezforcongress.com/",
+          "type": "website",
+          "title": "Dr. B\u00e1ez For Congress | 20th Congressional District of Texas",
+          "last_accessed": "2026-06-20T00:00:00Z"
+        },
+        {
+          "url": "https://www.ksat.com/vote-2026/2026/03/03/election-results-texas-20th-congressional-district-race-in-march-2026-primary/",
+          "type": "news",
+          "title": "Election results: Texas' 20th Congressional District race in March 2026 primary - KSAT",
+          "last_accessed": "2026-06-20T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.drbaezforcongress.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Criminal Defense Attorney / Founder",
+          "organization": "The Law Office of Dr. E. R. Baez PC",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Full-time criminal defense practice in San Antonio handling criminal law, DWI, and white collar crime cases."
+        },
+        {
+          "title": "Intensive Care Unit Nurse",
+          "organization": "Medical Facility",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as an ICU nurse prior to legal career."
+        },
+        {
+          "title": "U.S. Army \u2014 Combat Medic, Airborne Paratrooper, Drill Sergeant",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in multiple roles including combat medic, airborne paratrooper, and drill sergeant."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Law School",
+          "degree": "Doctorate in Law (J.D.)",
+          "field": "Law",
+          "year": null
+        },
+        {
+          "institution": null,
+          "degree": "Ph.D.",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": null,
+          "degree": "Master of Theology",
+          "field": "Theology",
+          "year": null
+        },
+        {
+          "institution": null,
+          "degree": "Bachelor in Business",
+          "field": "Business",
+          "year": null
+        },
+        {
+          "institution": null,
+          "degree": "Associate of Arts",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-06-16T01:19:59.424774+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 221448,
+    "completion_tokens": 8704,
+    "total_tokens": 230152,
+    "cost_usd": 0.041920271999999995,
+    "cost_source": "provider",
+    "estimated_usd": 0.043408,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 221448,
+        "completion_tokens": 8704
+      }
+    },
+    "duration_s": 180.5,
+    "serper_calls": 20,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 47273,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0451,
+    "context_deduplicated_results": 66,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

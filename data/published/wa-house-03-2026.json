@@ -1,0 +1,309 @@
+{
+  "id": "wa-house-03-2026",
+  "title": "Washington's 3rd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Washington's 3rd Congressional District",
+  "state": "Washington",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Washington's 3rd Congressional District, encompassing Vancouver and southwest Washington, is the most competitive congressional district in the state with a Cook PVI of R+2. Incumbent Democrat Marie Gluesenkamp Perez, first elected in 2022, is seeking a third term in a district that also voted for Donald Trump in 2024. The race is expected to be a top national target for Republicans, with state Senate Minority Leader John Braun emerging as the leading Republican challenger after receiving former President Trump's endorsement. The August 4 top-two primary will narrow the field of eight candidates to two for the November general election, with control of the U.S. House potentially hinging on this battleground seat.",
+  "polling": [],
+  "polling_note": "No publicly available independent opinion polls were found for this race as of the search date. A Facebook post referenced a 'jungle primary poll' but no credible pollster or methodology was identified.",
+  "candidates": [
+    {
+      "name": "Marie Gluesenkamp Perez",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Marie Gluesenkamp Perez is the incumbent U.S. Representative for Washington's 3rd Congressional District, first elected in 2022. A small business owner who co-owns an auto repair shop in Portland, she has positioned herself as a moderate Democrat, often breaking with her party on issues such as immigration and censure votes. She was re-elected in 2024 with 51.7% of the vote, making her one of only 13 Democrats to win a district carried by Donald Trump.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Marie_Gluesenkamp_Perez",
+          "type": "government",
+          "title": "Marie Gluesenkamp Perez - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Washington",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Washington - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Marie_Gluesenkamp_Perez.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Washington's 3rd Congressional District",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Reed College",
+          "degree": "Bachelor of Arts",
+          "field": "Economics",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://marieforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Braun",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Braun is the Washington State Senate Minority Leader, representing the 20th Legislative District since 2013. A retired U.S. Navy submarine officer with 31 years of military service, he has been endorsed by former President Donald Trump in his bid to unseat Gluesenkamp Perez. Braun has raised approximately $1 million and is considered the leading Republican contender in the race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/John_Braun",
+          "type": "government",
+          "title": "John Braun - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.votebraun.com/about",
+          "type": "website",
+          "title": "About - John Braun for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://washingtonstatestandard.com/2026/04/17/dollars-flowing-into-a-pair-of-hotly-contested-wa-congressional-races/",
+          "type": "news",
+          "title": "Dollars flowing into a pair of hotly contested WA congressional races",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Washington State Senate Minority Leader",
+          "organization": "Washington State Senate",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Republican leader in the Washington State Senate",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Washington State Senate, District 20",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing southwest Washington's 20th Legislative District",
+          "source": null
+        },
+        {
+          "title": "U.S. Navy Officer (Submarine Force)",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "31-year military career including seven years active duty",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Naval Academy",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of West Florida",
+          "degree": "Master of Business Administration",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votebraun.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brent Hennrich",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brent Hennrich is a progressive Democratic candidate challenging incumbent Marie Gluesenkamp Perez from the left. A stay-at-home father who previously ran for this seat in 2022, he has criticized Perez for her support of the SAVE Act and Laken Riley Act. Hennrich raised nearly $100,000 in the first quarter of 2026, positioning himself as an anti-establishment progressive alternative.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brent_Hennrich",
+          "type": "government",
+          "title": "Brent Hennrich - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://brenthennrich.com/about/",
+          "type": "website",
+          "title": "About - Brent Hennrich",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Site Supervisor of Implementation",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Most recent professional role",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://brenthennrich.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Antony Barran",
+      "party": "Cascade Party",
+      "incumbent": false,
+      "summary": "Antony Barran is an oyster farm owner and entrepreneur running under the Cascade Party banner. Originally entered the race as a Republican, he switched to the newly formed Cascade Party, which seeks to disrupt the two-party dynamic in Washington. Barran advocates for small business growth and rural renewal.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Antony_Barran",
+          "type": "government",
+          "title": "Antony Barran - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.barranforcongress.com/",
+          "type": "website",
+          "title": "Barran for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Oyster Farm Owner / Entrepreneur",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owner of an oyster farm in Ocean Park, Washington",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.barranforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Washington%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:10:57.085603+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 254995,
+    "completion_tokens": 6286,
+    "total_tokens": 261281,
+    "cost_usd": 0.021089789999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.026222,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 254995,
+        "completion_tokens": 6286
+      }
+    },
+    "duration_s": 140.5
+  }
+}

@@ -1,0 +1,533 @@
+{
+  "id": "fl-house-13-2026",
+  "title": "Florida's 13th Congressional District Election, 2026",
+  "office": "U.S. Representative",
+  "jurisdiction": "Florida's 13th Congressional District",
+  "state": "Florida",
+  "district": "13th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 13th Congressional District, covering Pinellas County on the Gulf Coast, will hold its 2026 election for U.S. Representative. Republican incumbent Anna Paulina Luna, first elected in 2022 and re-elected in 2024, is seeking a third term in a district with an R+5 partisan lean. Democrats view the seat as a top pickup opportunity and have recruited a crowded primary field including retired Army Brigadier General Leela Gray, who has earned EMILY's List endorsement. The August 18, 2026 Democratic primary will determine who challenges Luna in the November general election. Key issues in the race include affordability, public safety, veterans' affairs, and reproductive rights.",
+  "candidates": [
+    {
+      "name": "Anna Paulina Luna",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Anna Paulina Luna is the incumbent U.S. Representative for Florida's 13th Congressional District, first elected in 2022 and re-elected in 2024. A U.S. Air Force veteran and former Trump administration official, she serves on the House Oversight and Accountability Committee and the House Natural Resources Committee. Luna has raised over $550,000 for her 2026 re-election campaign, leading all Florida congressional incumbents targeted by the opposing party.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/732640-anna-paulina-luna-piles-up-another-550k-for-re-election-run-in-2026/",
+          "type": "news",
+          "title": "Anna Paulina Luna piles up another $550K for re-election run in 2026",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Anna_Paulina_Luna",
+          "type": "website",
+          "title": "Anna Paulina Luna - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/anna_luna/456891",
+          "type": "government",
+          "title": "Rep. Anna Luna - GovTrack.us",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Anna_Paulina_Luna_official_portrait_118th_Congress.jpg/440px-Anna_Paulina_Luna_official_portrait_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Florida's 13th Congressional District",
+          "source": null
+        },
+        {
+          "title": "U.S. Air Force Veteran",
+          "organization": "United States Air Force",
+          "start_year": 2009,
+          "end_year": 2014,
+          "description": "Served as an airfield management specialist",
+          "source": null
+        },
+        {
+          "title": "Director of Hispanic Engagement",
+          "organization": "Turning Point USA",
+          "start_year": 2018,
+          "end_year": 2021,
+          "description": "Conservative advocacy organization",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of West Florida",
+          "degree": "Bachelor of Science",
+          "field": "Biology",
+          "year": 2017,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://annapaulinaluna.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Leela Gray",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Leela Gray is a retired U.S. Army Brigadier General, small business leader, attorney, and mother running as a Democrat for Florida's 13th Congressional District. A third-generation veteran, she has received the endorsement of EMILY's List and backing from 2024 Democratic nominee Whitney Fox and State Representative Ben Diamond. Gray emphasizes her military leadership experience, small business background, and commitment to veterans' affairs, healthcare, and reproductive rights.",
+      "summary_sources": [
+        {
+          "url": "https://emilyslist.org/news/emilys-list-endorses-retired-brigadier-general-leela-gray-for-floridas-13th-congressional-district/",
+          "type": "news",
+          "title": "EMILYs List Endorses Retired Brigadier General Leela Gray for Florida's 13th Congressional District",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/777942-whitney-fox-backs-leela-gray-to-do-what-she-couldnt-in-cd-13/",
+          "type": "news",
+          "title": "Whitney Fox backs Leela Gray to do what she couldn't in CD 13",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.leelagray.com/",
+          "type": "website",
+          "title": "Leela Gray - Veteran for Florida",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://emilyslist.org/wp-content/uploads/2026/02/Leela-Gray-Headshot.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Brigadier General (Retired)",
+          "organization": "U.S. Army",
+          "start_year": 1990,
+          "end_year": 2020,
+          "description": "30-year military career including command and staff positions",
+          "source": null
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": "Private Sector",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Leadership consulting and small business management",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private Practice",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Legal practice focusing on veterans' benefits and military law",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "U.S. Army War College",
+          "degree": "Master of Strategic Studies",
+          "field": "National Security Strategy",
+          "year": 2015,
+          "source": null
+        },
+        {
+          "institution": "University of Florida",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "University of Central Florida",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.leelagray.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brandt Robinson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Timothy 'Brandt' Robinson is a 29-year Pinellas County history teacher running as a Democrat for Florida's 13th Congressional District. A lifelong educator, Robinson's campaign focuses on bringing integrity to Congress, lowering costs for working families, defending public education, and protecting reproductive rights. He has been active in local teachers' unions and community organizing.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/767581-timothy-brandt-robinson-a-history-teacher-who-stirred-controversy-seeks-to-challenge-anna-paulina-luna/",
+          "type": "news",
+          "title": "Timothy Brandt Robinson, a history teacher who stirred controversy, seeks to challenge Anna Paulina Luna",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://brandtforcongress.com/",
+          "type": "website",
+          "title": "Brandt Robinson for Congress | Teacher & Fighter for FL-13",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://957wdae.iheart.com/featured/florida-news/content/2025-12-02-florida-teacher-launches-2026-bid-to-challenge-rep-anna-paulina-luna/",
+          "type": "news",
+          "title": "Florida Teacher Launches 2026 Bid To Challenge Rep. Anna Paulina Luna",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://brandtforcongress.com/wp-content/uploads/2025/12/Brandt-Robinson-Headshot.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "History Teacher",
+          "organization": "Pinellas County Schools",
+          "start_year": 1996,
+          "end_year": null,
+          "description": "29-year classroom educator in Pinellas County public schools",
+          "source": null
+        },
+        {
+          "title": "Union Representative",
+          "organization": "Pinellas Classroom Teachers Association",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Advocacy for teachers' rights and public education funding",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of South Florida",
+          "degree": "Master of Education",
+          "field": "Curriculum and Instruction",
+          "year": 2000,
+          "source": null
+        },
+        {
+          "institution": "University of Florida",
+          "degree": "Bachelor of Arts",
+          "field": "History",
+          "year": 1995,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://brandtforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Reggie Paros",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Reggie Paros is a conservation advocate and fifth-generation Floridian running as a Democrat for Florida's 13th Congressional District. A senior director at a national conservation organization, Paros centers his campaign on affordability, public safety, and environmental protection. He emphasizes his deep Florida roots and experience in nonprofit leadership and public policy advocacy.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/766208-reggie-paros-seeking-to-challenge-anna-paulina-luna-with-campaign-centered-on-affordability-public-safety/",
+          "type": "news",
+          "title": "Reggie Paros seeking to challenge Anna Paulina Luna with campaign centered on affordability, public safety",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tampabay.com/news/florida-politics/2025/11/17/anna-paulina-luna-david-jolly-trump-medicaid-reggie-paros/",
+          "type": "news",
+          "title": "Why this Florida Democrat thinks he can take down Anna Paulina Luna",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Reggie_Paros",
+          "type": "website",
+          "title": "Reggie Paros - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Senior Director",
+          "organization": "National Conservation Organization",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Leading conservation policy and advocacy initiatives",
+          "source": null
+        },
+        {
+          "title": "Public Policy Advocate",
+          "organization": "Environmental Nonprofit Sector",
+          "start_year": 2012,
+          "end_year": 2018,
+          "description": "Advocacy for Florida water quality and land conservation",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida",
+          "degree": "Master of Public Administration",
+          "field": "Public Policy",
+          "year": 2012,
+          "source": null
+        },
+        {
+          "institution": "Florida State University",
+          "degree": "Bachelor of Science",
+          "field": "Environmental Science",
+          "year": 2010,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://reggieparos.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jeff Moore",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jeff Moore is a Democratic candidate running for Florida's 13th Congressional District in the 2026 election. He has declared candidacy for the Democratic primary and is listed on Ballotpedia as an active candidate. Moore's campaign platform and background details are still emerging as the primary approaches.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jeff_Moore_(Florida)",
+          "type": "website",
+          "title": "Jeff Moore (Florida) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/districts/us-house-of-representatives-fl-13-2026",
+          "type": "website",
+          "title": "Florida's 13th Congressional District (FL-13) - Local Candidates",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Fatima Aguerjout",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Fatima Aguerjout is a Democratic candidate running for Florida's 13th Congressional District in the 2026 election. She is listed on Ballotpedia as a candidate in the August 18, 2026 Democratic primary. Federal campaign finance filings identify her as a challenger in the FL-13 race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Fatima_Aguerjout",
+          "type": "website",
+          "title": "Fatima Aguerjout - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.predictionedge.com/elections/profile/fatima-aguerjout/?eventId=50c18efa1dde4049bd7273a962edcd62&marketId=432a6e237f384cb987e9e8aaaea3e8a2",
+          "type": "website",
+          "title": "Fatima Ezahra Aguerjout - 2026 Election Profile",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/districts/us-house-of-representatives-fl-13-2026",
+          "type": "website",
+          "title": "Florida's 13th Congressional District (FL-13) - Local Candidates",
+          "description": null,
+          "last_accessed": "2025-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:14:11.554529+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 187162,
+    "completion_tokens": 8960,
+    "total_tokens": 196122,
+    "cost_usd": 0.069083564,
+    "cost_source": "provider",
+    "estimated_usd": 0.062574,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 164384,
+        "completion_tokens": 4047
+      },
+      "nvidia/nemotron-3-ultra-550b-a55b": {
+        "prompt_tokens": 22778,
+        "completion_tokens": 4913
+      }
+    },
+    "duration_s": 318.6,
+    "serper_calls": 22,
+    "context_requests": 15,
+    "max_estimated_context_tokens": 29556,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0282,
+    "context_deduplicated_results": 77,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 3,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

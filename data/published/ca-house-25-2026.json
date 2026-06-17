@@ -1,0 +1,264 @@
+{
+  "id": "ca-house-25-2026",
+  "title": "California's 25th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 25th Congressional District",
+  "state": "California",
+  "district": "25th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for California's 25th Congressional District pits seven-term Democratic incumbent Raul Ruiz against Republican challenger Joe Males. The district, which has a Cook Partisan Voting Index of D+3, includes Imperial County and parts of Riverside and San Bernardino counties, encompassing desert communities such as Hemet, Indio, El Centro, and the Coachella Valley. Ruiz, an emergency physician and the first Latino to earn three graduate degrees from Harvard University, has held the seat since 2013 and serves on the House Energy and Commerce Committee. Males, a U.S. Marine Corps veteran and Hemet City Council member, is running on a platform of reducing gas taxes, rolling back regulations, and strengthening border enforcement. Cook Political Report rates the race as 'Likely Democratic,' though the district swung dramatically toward Donald Trump in 2024, making it a potentially competitive general election contest.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race. Cook Political Report rates the race as 'Likely Democratic' as of January 15, 2026.",
+  "candidates": [
+    {
+      "name": "Raul Ruiz",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Raul Ruiz is the incumbent U.S. Representative for California's 25th Congressional District, first elected in 2012. An emergency physician and Harvard-trained public health expert, he serves on the House Energy and Commerce Committee and focuses on healthcare affordability, immigration reform, and veterans' issues.",
+      "summary_sources": [
+        {
+          "url": "https://ruiz.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography - Congressman Raul Ruiz",
+          "description": null,
+          "last_accessed": "2026-06-12T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Raul_Ruiz_(politician)",
+          "type": "website",
+          "title": "Raul Ruiz (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Raul_Ruiz",
+          "type": "website",
+          "title": "Raul Ruiz - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Raul_Ruiz_%28D-CA%29_118th_Congress_1.jpg/250px-Raul_Ruiz_%28D-CA%29_118th_Congress_1.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Serving California's 36th district (2013-2023) and 25th district (2023-present). Member of the House Energy and Commerce Committee.",
+          "source": null
+        },
+        {
+          "title": "Senior Associate Dean",
+          "organization": "University of California, Riverside School of Medicine",
+          "start_year": 2011,
+          "end_year": 2012,
+          "description": "Helped establish the new medical school and oversaw pre-medical mentorship programs.",
+          "source": null
+        },
+        {
+          "title": "Emergency Physician",
+          "organization": "Eisenhower Medical Center",
+          "start_year": 2006,
+          "end_year": 2012,
+          "description": "Practiced emergency medicine at the nonprofit hospital in Rancho Mirage, California.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Medical School",
+          "degree": "MD",
+          "field": "Medicine",
+          "year": 2001,
+          "source": null
+        },
+        {
+          "institution": "Harvard Kennedy School of Government",
+          "degree": "MPP",
+          "field": "Public Policy",
+          "year": 2001,
+          "source": null
+        },
+        {
+          "institution": "Harvard School of Public Health",
+          "degree": "MPH",
+          "field": "Public Health",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "University of California, Los Angeles",
+          "degree": "BS",
+          "field": "Biology",
+          "year": 1994,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ruiz.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://drraulruiz.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://drraulruiz.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepRaulRuizMD",
+        "twitter": "https://twitter.com/RepRaulRuizMD",
+        "instagram": "https://www.instagram.com/repraulruizmd/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Joe Males",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Joe Males is a Republican candidate running for U.S. House in California's 25th Congressional District. A U.S. Marine Corps veteran and small business owner, he currently serves as a Hemet City Council member and Mayor Pro Tem, and is campaigning on reducing government regulations, lowering gas taxes, and strengthening border security.",
+      "summary_sources": [
+        {
+          "url": "https://joemalesforca.com/",
+          "type": "website",
+          "title": "Joe Males for U.S. Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.hemetca.gov/1011/Mayor-Pro-Tem-Joe-Males-District-4",
+          "type": "government",
+          "title": "Mayor Pro Tem Joe Males (District 4) - Hemet, CA",
+          "description": null,
+          "last_accessed": "2026-06-12T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Joe_Males_(California)",
+          "type": "website",
+          "title": "Joe Males (California) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://joemalesforca.com/wp-content/uploads/2025/04/Adobe-Express-file-5-e1744046921739-847x1024.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor Pro Tem / City Council Member",
+          "organization": "City of Hemet, California",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Elected to Hemet City Council District 4; serves as Mayor Pro Tem. Focuses on public safety, infrastructure, and business growth.",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "JM Consulting",
+          "start_year": 1996,
+          "end_year": null,
+          "description": "Founded and operates a computer networking services company.",
+          "source": null
+        },
+        {
+          "title": "Sergeant",
+          "organization": "United States Marine Corps",
+          "start_year": 1990,
+          "end_year": 1996,
+          "description": "Honorably discharged as a Sergeant. Served overseas in the Philippines and Guam.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://joemalesforca.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.hemetca.gov/1011/Mayor-Pro-Tem-Joe-Males-District-4",
+          "title": "City of Hemet Official Page",
+          "type": "other"
+        }
+      ],
+      "website": "https://joemalesforca.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoeMalesforCA",
+        "twitter": "https://x.com/JoeMalesforCA",
+        "instagram": "https://www.instagram.com/joemalesforca/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_25th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:50:07.424562+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 237868,
+    "completion_tokens": 6226,
+    "total_tokens": 244094,
+    "cost_usd": 0.013479072,
+    "cost_source": "provider",
+    "estimated_usd": 0.024531,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 237868,
+        "completion_tokens": 6226
+      }
+    },
+    "duration_s": 118.0
+  }
+}

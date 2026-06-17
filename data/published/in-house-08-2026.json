@@ -1,0 +1,348 @@
+{
+  "id": "in-house-08-2026",
+  "title": "Indiana's 8th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Indiana's 8th Congressional District",
+  "state": "Indiana",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Indiana's 8th Congressional District covers southwestern Indiana, including Evansville and Terre Haute. Incumbent Republican Rep. Mark Messmer is seeking a second term after winning the open seat in 2024 following the retirement of longtime Rep. Larry Bucshon (R). Messmer, a former Indiana Senate Majority Leader and small business owner, has focused his campaign on tax cuts, deregulation, and job creation. He faces Democratic nominee Mary Allen, an Evansville City Councilor and Army Reserve veteran, and independent candidate James Burke. The Cook Political Report rates the race as Solidly Republican, reflecting the district's conservative lean, though Democrats have expressed increased enthusiasm in 2026.",
+  "polling": [],
+  "polling_note": "No public opinion polls found for this race as of June 2026. Cook Political Report rates the race as 'Solidly Republican.'",
+  "candidates": [
+    {
+      "name": "Mark Messmer",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mark Messmer is the incumbent U.S. Representative for Indiana's 8th Congressional District, first elected in 2024. He previously served in the Indiana Senate as Majority Leader and in the Indiana House of Representatives, and is a small business owner who co-founded Messmer Mechanical. Messmer sits on the House Agriculture, Armed Services, and Education & Workforce committees and has positioned himself as a conservative focused on tax relief, reducing federal regulation, and economic development in southwestern Indiana.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mark_Messmer",
+          "type": "government",
+          "title": "Mark Messmer - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://messmer.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Mark Messmer",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483076",
+          "type": "news",
+          "title": "IN-08 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Rep._Mark_Messmer_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Indiana's 8th District",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Incumbent since January 2025; serves on Agriculture, Armed Services, and Education & Workforce committees.",
+          "source": null
+        },
+        {
+          "title": "Majority Leader",
+          "organization": "Indiana State Senate",
+          "start_year": 2018,
+          "end_year": 2022,
+          "description": "Led the Republican majority in the Indiana Senate.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Indiana State Senate, 48th District",
+          "start_year": 2014,
+          "end_year": 2024,
+          "description": "Resigned in September 2024 to focus on congressional campaign.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Indiana House of Representatives, 63rd District",
+          "start_year": 2008,
+          "end_year": 2014,
+          "description": "Served three terms.",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Messmer Mechanical",
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business owner in mechanical contracting.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Purdue University",
+          "degree": "Bachelor of Science",
+          "field": "Engineering (undisclosed specific field)",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://messmer.house.gov",
+          "title": "https://messmer.house.gov",
+          "type": "other"
+        },
+        {
+          "url": "https://bioguide.congress.gov/scripts/biodisplay.pl?index=M001233",
+          "title": "https://bioguide.congress.gov/scripts/biodisplay.pl?index=M001233",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.markmessmer.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CongressmanMessmer"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mary Allen",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mary Allen is an at-large member and vice president of the Evansville City Council and the Democratic nominee for Indiana's 8th Congressional District. She is a small business owner, Army Reserve veteran, and former occupational therapist who co-owns Virginia Street Properties and operates a sustainability-focused store. Allen has centered her campaign on affordability, protecting Medicaid and rural hospitals, raising wages, expanding affordable housing, and reducing the influence of corporate money in politics.",
+      "summary_sources": [
+        {
+          "url": "https://www.maryallenforcongress.com/meetmary",
+          "type": "website",
+          "title": "Meet Mary \u2014 Mary Allen for Congress",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://marginallyforevansville.com/about-mary",
+          "type": "website",
+          "title": "About Mary | Mary for Evansville",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-indiana-us-house-8-primary.html",
+          "type": "news",
+          "title": "Indiana Eighth Congressional District Primary Election Results - The New York Times",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://indianacapitalchronicle.com/voter-guides/contests/congressional-district-8-democrat/",
+          "type": "news",
+          "title": "Congressional District 8 - Democrat | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wfyi.org/statewide/2026-04-17/four-democrats-compete-for-the-chance-to-challenge-rep-mark-messmer-in-indianas-8th-congressional-district",
+          "type": "news",
+          "title": "Four Democrats compete for the chance to challenge Rep. Mark Messmer in Indiana's 8th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "At-Large City Councilor",
+          "organization": "Evansville City Council",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as at-large member and vice president; chairs the Finance Committee.",
+          "source": null
+        },
+        {
+          "title": "Co-Owner",
+          "organization": "Virginia Street Properties",
+          "start_year": null,
+          "end_year": null,
+          "description": "Property company co-owned with husband.",
+          "source": null
+        },
+        {
+          "title": "Owner/Founder",
+          "organization": "Sixth and Zero",
+          "start_year": null,
+          "end_year": null,
+          "description": "Sustainability-focused retail store.",
+          "source": null
+        },
+        {
+          "title": "Occupational Therapist",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked for 15 years as an occupational therapist.",
+          "source": null
+        },
+        {
+          "title": "Veteran",
+          "organization": "U.S. Army Reserve",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Army Reserve.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.maryallenforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/Mary-Allen-for-Congress-61578949239875",
+        "instagram": "https://www.instagram.com/mary4evv"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "James Burke",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "James Burke is an independent candidate running for Indiana's 8th Congressional District. He is listed on Ballotpedia and by Politics1 as a candidate in the general election, with Politics1 identifying his occupation as a carpenter. Further biographical details are limited, and no official campaign website or social media presence has been publicly identified.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/James_Burke_(Indiana)",
+          "type": "government",
+          "title": "James Burke (Indiana) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://politics1.com/in.htm",
+          "type": "news",
+          "title": "Indiana Politics: Elections, Candidates & Officeholders - Politics1",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://indianacitizen.org/8th-district-race-four-democrats-vie-to-unseat-republican-u-s-rep-messmer/",
+          "type": "news",
+          "title": "8th DISTRICT RACE: Four Democrats vie to unseat Republican U.S. Rep. Messmer",
+          "description": null,
+          "last_accessed": "2026-06-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Carpenter",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Occupation listed by Politics1.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:38:45.645535+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 222429,
+    "completion_tokens": 7649,
+    "total_tokens": 230078,
+    "cost_usd": 0.014910686,
+    "cost_source": "provider",
+    "estimated_usd": 0.023297,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 222429,
+        "completion_tokens": 7649
+      }
+    },
+    "duration_s": 123.0
+  }
+}

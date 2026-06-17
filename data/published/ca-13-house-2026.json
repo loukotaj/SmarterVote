@@ -33,22 +33,25 @@
       "name": "Adam Gray",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Adam Gray is the U.S. representative for California\u2019s 13th Congressional District and is seeking re-election in 2026. Before returning to Congress, he served in the California State Assembly from 2012 to 2022 and previously worked in state legislative staff roles and as a business owner.",
+      "summary": "Adam Gray is the U.S. representative for California’s 13th Congressional District and is seeking re-election in 2026. Before returning to Congress, he served in the California State Assembly from 2012 to 2022 and previously worked in state legislative staff roles and as a business owner.",
       "summary_sources": [
         {
           "url": "https://bioguide.congress.gov/scripts/biodisplay.pl?index=G000605",
           "type": "government",
-          "title": "Bioguide Search"
+          "title": "Bioguide Search",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         },
         {
           "url": "https://www.congress.gov/member/adam-gray/G000605",
           "type": "government",
-          "title": "Adam Gray | Congress.gov"
+          "title": "Adam Gray | Congress.gov",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         },
         {
           "url": "https://www.adamgrayforcongress.com/about",
           "type": "website",
-          "title": "About \u2014 Adam Gray for Congress"
+          "title": "About — Adam Gray for Congress",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Adam_Gray%2C_official_portrait_%28119th_Congress%29.jpg/500px-Adam_Gray%2C_official_portrait_%28119th_Congress%29.jpg",
@@ -78,7 +81,7 @@
           "year": 2000
         }
       ],
-      "donor_summary": "Raised approximately $6.34M in the 2023\u20132024 cycle, with the largest industry support coming from retired donors ($816,602), Democratic/liberal groups ($673,117), securities & investment interests ($495,898), leadership PACs ($330,767), and lawyers/law firms ($297,573). Top disclosed contributors included AmeriPAC: The Fund for a Greater America ($49,400), Swing Left ($46,075), Digidems PAC ($45,400), Google Inc. ($38,551), and E&J Gallo Winery ($36,300).",
+      "donor_summary": "Raised approximately $6.34M in the 2023–2024 cycle, with the largest industry support coming from retired donors ($816,602), Democratic/liberal groups ($673,117), securities & investment interests ($495,898), leadership PACs ($330,767), and lawyers/law firms ($297,573). Top disclosed contributors included AmeriPAC: The Fund for a Greater America ($49,400), Swing Left ($46,075), Digidems PAC ($45,400), Google Inc. ($38,551), and E&J Gallo Winery ($36,300).",
       "donor_source_url": "https://www.opensecrets.org/members-of-congress/adam-gray/summary?cid=N00050061&cycle=2024",
       "voting_summary": "GovTrack shows Adam Gray has served in the U.S. House since Jan. 3, 2025. His profile lists recent key votes on legislation including the Deporting Fraudsters Act of 2026, the Law-Enforcement Innovate to De-Escalate Act, and the Undersea Cable Protection Act of 2025, and it reports that from Jan. 2025 to Mar. 2026 he missed 26 of 470 roll call votes (5.5%).",
       "voting_source_url": "https://www.govtrack.us/congress/members/adam_gray/456975",
@@ -132,34 +135,36 @@
             {
               "url": "https://www.adamgrayforcongress.com/about",
               "type": "website",
-              "title": "About \u2014 Adam Gray for Congress",
+              "title": "About — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://gray.house.gov/issues/health",
-              "type": "official",
+              "type": "government",
               "title": "Health | Congressman Adam Gray",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
-          "stance": "Gray\u2019s economic message focuses on lowering food, housing, and utility costs, supporting agriculture and job creation, and reducing red tape for infrastructure projects. His campaign also says he has backed efforts to limit costly tariffs that raise prices for families and farmers.",
+          "stance": "Gray’s economic message focuses on lowering food, housing, and utility costs, supporting agriculture and job creation, and reducing red tape for infrastructure projects. His campaign also says he has backed efforts to limit costly tariffs that raise prices for families and farmers.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.adamgrayforcongress.com/about",
               "type": "website",
-              "title": "About \u2014 Adam Gray for Congress",
+              "title": "About — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.adamgrayforcongress.com/issues",
               "type": "website",
-              "title": "Issues \u2014 Adam Gray for Congress",
+              "title": "Issues — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "Gray emphasizes water infrastructure, drought resilience, and utility affordability as part of his climate and energy agenda. His campaign and House office highlight investments in water storage, canal repairs, groundwater projects, and permitting reforms for infrastructure projects.",
@@ -168,34 +173,36 @@
             {
               "url": "https://www.adamgrayforcongress.com/issues",
               "type": "website",
-              "title": "Issues \u2014 Adam Gray for Congress",
+              "title": "Issues — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://gray.house.gov/media/press-releases/gray-celebrates-california-water-infrastructure-investments-calls-more",
-              "type": "official",
+              "type": "government",
               "title": "Gray Celebrates California Water Infrastructure Investments, Calls for More Resources",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
-          "stance": "Gray is pro-choice and has said he supports a woman\u2019s right to choose and opposes federal abortion restrictions. He has also said abortion decisions should be made by patients and doctors, not politicians.",
+        "Abortion & Reproductive Health": {
+          "stance": "Gray is pro-choice and has said he supports a woman’s right to choose and opposes federal abortion restrictions. He has also said abortion decisions should be made by patients and doctors, not politicians.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.latimes.com/politics/story/2022-10-13/2022-california-midterm-election-gray-duarte-abortion-economy-environment",
-              "type": "article",
+              "type": "website",
               "title": "Los Angeles Times: On abortion, Gray and Duarte discuss issues in CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.sacbee.com/news/politics-government/election/california-elections/article292574779.html",
-              "type": "article",
+              "type": "website",
               "title": "Sacramento Bee: CA-13 candidates on abortion",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "Gray supports comprehensive immigration reform that includes legal status for some undocumented immigrants, border security infrastructure, and changes to visa and asylum systems. He has also said ICE raids are causing fear in the Valley and that there are ways to fix the immigration system without those raids.",
@@ -203,35 +210,37 @@
           "sources": [
             {
               "url": "https://gray.house.gov/media/press-releases/congressman-gray-joins-bipartisan-group-lawmakers-re-introduce-comprehensive-immigration-reform-bill",
-              "type": "official",
+              "type": "government",
               "title": "Congressman Gray Joins Bipartisan Group of Lawmakers to Re-Introduce Comprehensive Immigration Reform Bill",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://gray.house.gov/issues/district?page=3",
-              "type": "official",
+              "type": "government",
               "title": "In the District | Congressman Adam Gray",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "No public position found on a specific gun policy in the campaign materials reviewed. His campaign and House office emphasize public safety generally, but they do not publish a detailed gun-control or gun-rights platform on the pages reviewed.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.adamgrayforcongress.com/issues",
               "type": "website",
-              "title": "Issues \u2014 Adam Gray for Congress",
+              "title": "Issues — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.adamgrayforcongress.com/platform",
               "type": "website",
-              "title": "Platform \u2014 Adam Gray for Congress",
+              "title": "Platform — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "Gray has said he would not vote to support military action in Iran and favors diplomacy and non-military options first. His office also issued a statement on the Iran war powers resolution.",
@@ -245,47 +254,50 @@
             },
             {
               "url": "https://gray.house.gov/media/press-releases/gray-statement-iran-war-powers-resolution",
-              "type": "official",
+              "type": "government",
               "title": "Gray Statement on Iran War Powers Resolution",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "Gray has not published a standalone social justice platform on the campaign pages reviewed. His public messaging instead focuses on lowering costs, expanding health care access, improving water and infrastructure, and bipartisan problem-solving.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://www.adamgrayforcongress.com/issues",
               "type": "website",
-              "title": "Issues \u2014 Adam Gray for Congress",
+              "title": "Issues — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.adamgrayforcongress.com/priorities",
               "type": "website",
-              "title": "Priorities \u2014 Adam Gray for Congress",
+              "title": "Priorities — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
-          "stance": "Gray\u2019s public materials emphasize education as part of his Central Valley agenda, including support for local schools, workforce training, and medical education in the Valley. His House office has highlighted funding for Head Start and Early Head Start programs and his support for expanding medical education opportunities.",
+          "stance": "Gray’s public materials emphasize education as part of his Central Valley agenda, including support for local schools, workforce training, and medical education in the Valley. His House office has highlighted funding for Head Start and Early Head Start programs and his support for expanding medical education opportunities.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://gray.house.gov/issues/education",
-              "type": "official",
+              "type": "government",
               "title": "Education | Congressman Adam Gray",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://gray.house.gov/media/in-the-news/costa-gray-push-fund-new-medical-schools-valley",
-              "type": "official",
+              "type": "government",
               "title": "Costa, Gray push to fund new medical schools in the Valley",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Tech & AI": {
           "stance": "No public position found on a standalone Tech & AI policy in the campaign materials reviewed. His office has highlighted agricultural technology and workforce development, but no detailed AI-specific platform was found.",
@@ -294,54 +306,59 @@
             {
               "url": "https://www.adamgrayforcongress.com/issues",
               "type": "website",
-              "title": "Issues \u2014 Adam Gray for Congress",
+              "title": "Issues — Adam Gray for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://gray.house.gov/media/in-the-news/merced-college-breaks-ground-21-million-center-geared-toward-tomorrows",
-              "type": "official",
-              "title": "Merced College breaks ground on $21 million center geared toward tomorrow\u2019s agriculture jobs",
+              "type": "government",
+              "title": "Merced College breaks ground on $21 million center geared toward tomorrow’s agriculture jobs",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "Gray says he supports protecting voting rights and has opposed anti-voter legislation. His office said he voted against a bill he described as anti-voter, and his public materials emphasize fair and accessible elections.",
           "confidence": "high",
           "sources": [
             {
               "url": "http://gray.house.gov/media/press-releases/congressman-gray-statement-voting-against-anti-voter-bill-would-bar",
-              "type": "official",
+              "type": "government",
               "title": "Congressman Gray Statement on Voting Against Anti-Voter Bill",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.govtrack.us/congress/members/adam_gray/456975",
-              "type": "govtrack",
+              "type": "government",
               "title": "Rep. Adam Gray [D-CA13, 2025-2026] - GovTrack",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
-          "stance": "Gray\u2019s local focus is Central Valley water policy. He has backed more water storage, canal repairs, groundwater projects, and streamlined permitting, and his office says he introduced legislation to expand California water infrastructure and protect reliable deliveries for farmers and communities.",
+          "stance": "Gray’s local focus is Central Valley water policy. He has backed more water storage, canal repairs, groundwater projects, and streamlined permitting, and his office says he introduced legislation to expand California water infrastructure and protect reliable deliveries for farmers and communities.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://gray.house.gov/media/press-releases/rep-gray-introduces-legislation-expand-california-water-infrastructure",
-              "type": "official",
+              "type": "government",
               "title": "Rep. Gray Introduces Legislation to Expand California Water Infrastructure",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.govinfo.gov/app/details/BILLS-119hr6641ih",
-              "type": "legislation",
+              "type": "government",
               "title": "H.R. 6641 - Central Valley Water Solution Act",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Daniel Garibay Rodriguez",
@@ -351,18 +368,21 @@
       "summary_sources": [
         {
           "url": "https://www.daniel2026.com/",
-          "type": "official campaign site",
-          "title": "Daniel Garibay Rodriguez for Congress | CA-13"
+          "type": "website",
+          "title": "Daniel Garibay Rodriguez for Congress | CA-13",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         },
         {
           "url": "https://www.daniel2026.com/platform",
-          "type": "official campaign site",
-          "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform"
+          "type": "website",
+          "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         },
         {
           "url": "https://www.countyofmerced.com/DocumentCenter/View/48056/Candidate-List",
           "type": "government",
-          "title": "Contest/Candidate Proof List - Merced County"
+          "title": "Contest/Candidate Proof List - Merced County",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         }
       ],
       "image_url": null,
@@ -378,7 +398,7 @@
         }
       ],
       "education": [],
-      "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-07. The FEC committee page exists for Daniel Garibay Rodriguez for Congress, but it currently shows no processed receipts or donor totals for the 2025\u20132026 period.",
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-07. The FEC committee page exists for Daniel Garibay Rodriguez for Congress, but it currently shows no processed receipts or donor totals for the 2025–2026 period.",
       "donor_source_url": "https://www.fec.gov/data/committee/C00942474/",
       "voting_summary": "Has not held legislative office. Public materials found for his campaign describe him as a Central Valley community leader and behavioral health services manager, but no public legislative voting record or prior elected/executive office was found.",
       "voting_source_url": "https://www.daniel2026.com/",
@@ -421,11 +441,12 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "Supports equitable wages, strong benefits, and safer working conditions for workers in the Central Valley. His campaign frames these as part of building an economy that allows families to live with dignity.",
@@ -433,11 +454,12 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "No public position found.",
@@ -445,41 +467,43 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.daniel2026.com/issues",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Issues - Daniel Garibay Rodriguez for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.daniel2026.com/issues",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Issues - Daniel Garibay Rodriguez for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "Supports due process and basic rights for all community members regardless of background. His campaign says people should be able to work, go to school, and access health care without fear.",
@@ -487,41 +511,44 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.daniel2026.com/",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.daniel2026.com/issues",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Issues - Daniel Garibay Rodriguez for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "Frames social justice around dignity, due process, and basic rights for all community members. His campaign also emphasizes mental health care, equitable wages, and safer working conditions.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "No public position found.",
@@ -529,11 +556,12 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Tech & AI": {
           "stance": "No public position found.",
@@ -541,29 +569,31 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.daniel2026.com/issues",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Issues - Daniel Garibay Rodriguez for Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
           "stance": "Focuses on Central Valley concerns, especially access to mental health and health care, equitable wages, and safer working conditions. His campaign also emphasizes due process and basic rights as part of keeping local communities strong and stable.",
@@ -571,17 +601,18 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.daniel2026.com/",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         },
         "Foreign Policy": {
           "stance": "No public position found.",
@@ -589,19 +620,22 @@
           "sources": [
             {
               "url": "https://www.daniel2026.com/",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.daniel2026.com/platform",
-              "type": "official campaign site",
+              "type": "website",
               "title": "Daniel Garibay Rodriguez for Congress | CA-13 Platform",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Vin Kruttiventi",
@@ -611,18 +645,21 @@
       "summary_sources": [
         {
           "url": "https://www.vin4congress.com/about-vin",
-          "type": "official",
-          "title": "About Vin \u2014 Vin Kruttiventi For Congress CA-13"
+          "type": "government",
+          "title": "About Vin — Vin Kruttiventi For Congress CA-13",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         },
         {
           "url": "https://www.vin4congress.com/priorities",
-          "type": "official",
-          "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13"
+          "type": "government",
+          "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         },
         {
           "url": "https://ballotpedia.org/Vin_Kruttiventi",
-          "type": "ballotpedia",
-          "title": "Vin Kruttiventi - Ballotpedia"
+          "type": "website",
+          "title": "Vin Kruttiventi - Ballotpedia",
+          "last_accessed": "2026-06-13T23:11:53.204962+00:00"
         }
       ],
       "image_url": null,
@@ -648,7 +685,7 @@
           "year": null
         }
       ],
-      "donor_summary": "Raised approximately $587,845.58 in the 2025\u20132026 cycle, with a large share coming from candidate self-financing ($333,664.86) and individual contributions ($244,180.72). The FEC summary does not yet show meaningful PAC or industry concentration; the campaign\u2019s disclosed funding is dominated by the candidate\u2019s own money and smaller individual donations.",
+      "donor_summary": "Raised approximately $587,845.58 in the 2025–2026 cycle, with a large share coming from candidate self-financing ($333,664.86) and individual contributions ($244,180.72). The FEC summary does not yet show meaningful PAC or industry concentration; the campaign’s disclosed funding is dominated by the candidate’s own money and smaller individual donations.",
       "donor_source_url": "https://www.fec.gov/data/committee/C00839944/",
       "voting_summary": "Has not held legislative office. Publicly available materials describe him as an entrepreneur and community leader; no public legislative voting record or prior elected/executive office was found. His campaign website emphasizes small business, energy independence, border security, and education priorities.",
       "voting_source_url": "https://www.vin4congress.com/",
@@ -685,7 +722,7 @@
         },
         {
           "url": "https://www.vin4congress.com/about-vin",
-          "title": "About Vin \u2014 Vin Kruttiventi For Congress CA-13",
+          "title": "About Vin — Vin Kruttiventi For Congress CA-13",
           "type": "official"
         },
         {
@@ -711,11 +748,12 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "He says he would uplift small businesses by reducing regulations, increasing access to capital, and providing growth resources. He also supports lowering taxes on the middle class, cutting wasteful government spending, reducing the national debt, and balancing the budget.",
@@ -723,11 +761,12 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "He says he supports maintaining energy independence and investing in America-first energy resilience. His campaign materials do not lay out a detailed climate policy beyond that framing.",
@@ -735,29 +774,31 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "No public position found in the campaign materials reviewed.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.vin4congress.com/about-vin",
-              "type": "official",
-              "title": "About Vin \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "About Vin — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "He supports securing the southern border by enforcing immigration laws and creating a realistic, accessible, and legal pathway to citizenship.",
@@ -765,23 +806,25 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "He says he will fight to expand gun rights and oppose assault-rifle bans, magazine-capacity restrictions, and gun-free zones.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "He says the United States should protect American interests at home and abroad by maintaining the strongest military in the world. His campaign materials do not provide a more detailed foreign-policy agenda.",
@@ -789,23 +832,25 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "He says he rejects DEI-style identity-based policies and favors meritocracy, arguing that opportunities should be earned through ability and effort.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://www.facebook.com/vin4congress/posts/i-stand-with-meritocracy-and-reject-deica13-vin4congress/877245712025903/",
-              "type": "social",
+              "type": "social_media",
               "title": "I stand with Meritocracy, and reject DEI. #CA13 #Vin4Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Tech & AI": {
           "stance": "He presents himself as a technology entrepreneur and says he founded several startups and runs a global business and technology consulting firm. His campaign materials emphasize job creation and skill-building, but do not provide a detailed AI policy.",
@@ -813,35 +858,37 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/about-vin",
-              "type": "official",
-              "title": "About Vin \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "About Vin — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://www.linkedin.com/in/kruttiventi",
-              "type": "other",
+              "type": "website",
               "title": "Vin Kruttiventi - CEO at A5 - LinkedIn",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "He supports congressional term limits and says Congress should be a place of service rather than a career destination.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             },
             {
               "url": "https://termlimits.com/vin-kruttiventi-pledges-to-support-term-limits-on-congress/",
-              "type": "other",
+              "type": "website",
               "title": "Vin Kruttiventi Pledges to Support Term Limits on Congress",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
           "stance": "His local priorities include protecting California water for farmers, supporting small businesses, and promoting energy independence as part of local resilience.",
@@ -849,11 +896,12 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         },
         "Education": {
           "stance": "He says every child should have a first-class education regardless of background or zip code.",
@@ -861,22 +909,42 @@
           "sources": [
             {
               "url": "https://www.vin4congress.com/priorities",
-              "type": "official",
-              "title": "Vin's Priorities \u2014 Vin Kruttiventi For Congress CA-13",
+              "type": "government",
+              "title": "Vin's Priorities — Vin Kruttiventi For Congress CA-13",
               "last_accessed": "2026-04-07T10:17:41.884924+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
+    },
+    {
+      "name": "Kevin Lincoln II",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {},
+      "donor_sources": [],
+      "voting_sources": []
     }
   ],
-  "updated_utc": "2026-04-07T10:20:35.320828+00:00",
+  "updated_utc": "2026-06-13T23:13:22.511806+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
@@ -979,33 +1047,25 @@
     "summary": "Validated by 3/3 reviewers with an average score of 93/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 3172882,
-    "completion_tokens": 231647,
-    "total_tokens": 3404529,
-    "estimated_usd": 0.5187,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 100144,
+    "completion_tokens": 7756,
+    "total_tokens": 107900,
+    "cost_usd": 0.008547756,
+    "cost_source": "provider",
+    "estimated_usd": 0.010584,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 1057424,
-        "completion_tokens": 14304
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 44958,
+        "completion_tokens": 6901
       },
-      "gpt-5-nano": {
-        "prompt_tokens": 2002784,
-        "completion_tokens": 209724
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 33238,
-        "completion_tokens": 324
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 38631,
-        "completion_tokens": 5372
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 40805,
-        "completion_tokens": 1923
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 55186,
+        "completion_tokens": 855
       }
     },
-    "duration_s": 2419.5
-  }
+    "duration_s": 89.4
+  },
+  "schema_version": "0.3"
 }

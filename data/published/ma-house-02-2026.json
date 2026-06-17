@@ -1,0 +1,150 @@
+{
+  "id": "ma-house-02-2026",
+  "title": "Massachusetts's 2nd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Massachusetts's 2nd Congressional District",
+  "state": "Massachusetts",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Massachusetts's 2nd Congressional District will be held on November 3, 2026. The district encompasses central Massachusetts including Worcester, Northampton, and surrounding communities. Incumbent Democrat Jim McGovern, first elected in 1996 and the ranking member of the House Rules Committee, is seeking re-election. No Republican candidates filed for the primary ballot, and the race is rated 'Solid D' by nonpartisan forecasters, reflecting the district's heavily Democratic lean (D+13 Cook PVI).",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026. The district is considered safely Democratic by all major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball).",
+  "candidates": [
+    {
+      "name": "James P. McGovern",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Jim McGovern has represented Massachusetts's 2nd Congressional District in the U.S. House of Representatives since 1997. He serves as the ranking member of the House Rules Committee and is a progressive stalwart known for his work on anti-poverty initiatives, food security, and campaign finance reform. McGovern announced his re-election campaign in May 2026, stating he remains energized to fight for his constituents in Worcester and central Massachusetts.",
+      "summary_sources": [
+        {
+          "url": "https://spectrumnews1.com/ma/worcester/news/2026/05/06/jim-mcgovern-congress-massachusetts-house-of-representatives",
+          "type": "news",
+          "title": "McGovern announces run for another term in Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483241",
+          "type": "news",
+          "title": "MA-02 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Jim_McGovern_(American_politician)",
+          "type": "website",
+          "title": "Jim McGovern (American politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sec.state.ma.us/divisions/elections/research-and-statistics/dem-state-primary-candidates2026.htm",
+          "type": "government",
+          "title": "2026 Democratic State Primary Candidates",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Jim_McGovern%2C_official_portrait%2C_116th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1997,
+          "end_year": null,
+          "description": "Representing Massachusetts's 2nd (formerly 3rd) Congressional District. Ranking Member of the House Rules Committee.",
+          "source": null
+        },
+        {
+          "title": "Staff Member",
+          "organization": "Office of Rep. Joe Moakley",
+          "start_year": 1982,
+          "end_year": 1996,
+          "description": "Worked as a staff member for U.S. Representative Joe Moakley before being elected to succeed him.",
+          "source": null
+        },
+        {
+          "title": "Presidential Campaign Staff",
+          "organization": "George McGovern for President",
+          "start_year": 1984,
+          "end_year": 1984,
+          "description": "Worked on the presidential campaign of Senator George McGovern.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "American University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1981,
+          "source": null
+        },
+        {
+          "institution": "American University",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": 1984,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mcgovern.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:52:22.911903+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 228017,
+    "completion_tokens": 5111,
+    "total_tokens": 233128,
+    "cost_usd": 0.014910942,
+    "cost_source": "provider",
+    "estimated_usd": 0.023347,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 228017,
+        "completion_tokens": 5111
+      }
+    },
+    "duration_s": 130.2
+  }
+}

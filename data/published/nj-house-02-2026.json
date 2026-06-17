@@ -1,0 +1,287 @@
+{
+  "id": "nj-house-02-2026",
+  "title": "New Jersey's 2nd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "New Jersey's 2nd Congressional District",
+  "state": "New Jersey",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New Jersey's 2nd Congressional District pits four-term Republican incumbent Jeff Van Drew against Democratic nominee Zack Mullock, the two-term mayor of Cape May. The district covers Atlantic, Cape May, Cumberland, and Salem counties, plus parts of Gloucester and Ocean counties, and has a slight Republican voter registration edge. Van Drew, who was originally elected as a Democrat in 2018 before switching parties in 2019, is running on a platform of energy independence, border security, and deregulation. Mullock, who won a competitive four-way Democratic primary on June 2, 2026, is campaigning on affordability, healthcare access, and coastal resilience, with Democrats viewing this as their best opportunity in years to flip the seat amid low approval ratings for President Donald Trump, a key Van Drew ally.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found specifically matching the Van Drew vs. Mullock general election matchup in New Jersey's 2nd Congressional District for 2026. A reference to a Democratic group conducting internal polling in NJ-02 was identified but no specific numbers were publicly available.",
+  "candidates": [
+    {
+      "name": "Jeff Van Drew",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Jeff Van Drew is the four-term Republican incumbent representing New Jersey's 2nd Congressional District. First elected as a Democrat in 2018, he switched to the Republican Party in December 2019 and has since become a strong ally of President Donald Trump. Van Drew previously served three terms in the New Jersey General Assembly and four terms in the New Jersey State Senate, and practiced dentistry for 30 years before entering politics. His campaign focuses on energy independence, border security, reducing federal regulation, and what he describes as delivering results for South Jersey, including funding for coastal protection and infrastructure.",
+      "summary_sources": [
+        {
+          "url": "https://whyy.org/articles/new-jersey-election-2026-primary-democrats/",
+          "type": "news",
+          "title": "New Jersey election 2026: These 4 Democrats are competing to unseat Jeff Van Drew in Congress",
+          "description": null,
+          "last_accessed": "2026-06-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jeff_Van_Drew",
+          "type": "government",
+          "title": "Jeff Van Drew - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_New_Jersey",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in New Jersey - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Representative_Jeff_Van_Drew_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing New Jersey's 2nd Congressional District; serves on House Judiciary Committee and Transportation and Infrastructure Committee",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "New Jersey State Senate",
+          "start_year": 2008,
+          "end_year": 2019,
+          "description": "Represented the 1st legislative district",
+          "source": null
+        },
+        {
+          "title": "Member of the General Assembly",
+          "organization": "New Jersey General Assembly",
+          "start_year": 2002,
+          "end_year": 2008,
+          "description": "Represented the 1st legislative district",
+          "source": null
+        },
+        {
+          "title": "Dentist / Owner",
+          "organization": "Private Dental Practice",
+          "start_year": 1984,
+          "end_year": 2014,
+          "description": "Owned and operated a dentistry practice in South Jersey for approximately 30 years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Fairleigh Dickinson University",
+          "degree": "D.M.D.",
+          "field": "Dentistry",
+          "year": 1978,
+          "source": null
+        },
+        {
+          "institution": "Rutgers University",
+          "degree": "B.S.",
+          "field": "Biology",
+          "year": 1975,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": "https://www.fec.gov/data/candidate/H8NJ02166/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/H8NJ02166/",
+          "type": "government",
+          "title": "FEC Candidate Profile - JEFF VAN DREW",
+          "description": null,
+          "last_accessed": "2026-06-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://vandrew.house.gov/",
+          "title": "Official U.S. House website",
+          "type": "other"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/V000133",
+          "title": "Biographical Directory of the U.S. Congress",
+          "type": "other"
+        }
+      ],
+      "website": "https://vandrewforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/Congressman_JVD",
+        "instagram": "https://www.instagram.com/jeffvandrew/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Zack Mullock",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Zack Mullock is the Democratic nominee for New Jersey's 2nd Congressional District and the two-term Mayor of Cape May, a position he has held since 2021. Born and raised in South Jersey, Mullock holds a BA from Mount Saint Mary's University and an MBA in Finance from Saint Joseph's University, and previously worked as a PGA golf professional and managed historic properties in Cape May. His campaign emphasizes affordability, healthcare access, coastal resilience, and small-business growth, highlighting his record of not raising taxes as mayor while delivering infrastructure improvements, a new firehouse and library, and increased public safety staffing.",
+      "summary_sources": [
+        {
+          "url": "https://mullockforcongress.com/",
+          "type": "website",
+          "title": "Zack Mullock for Congress | A Voice for South Jersey",
+          "description": null,
+          "last_accessed": "2026-06-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://whyy.org/articles/new-jersey-election-2026-primary-2nd-congressional-district/",
+          "type": "news",
+          "title": "Zack Mullock wins New Jersey's Democratic primary for 2nd Congressional District. He'll face Van Drew in November",
+          "description": null,
+          "last_accessed": "2026-06-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.capemaycity.com/MayorZacharyMullock",
+          "type": "government",
+          "title": "City of Cape May - Mayor Zachary Mullock",
+          "description": null,
+          "last_accessed": "2026-06-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://whyy.org/wp-content/uploads/2026/04/Zack-Mullock-Headshot.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Cape May, New Jersey",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Two-term mayor; oversaw construction of a new firehouse and library, hired police and firefighters, improved infrastructure and parks, and maintained no tax increases",
+          "source": null
+        },
+        {
+          "title": "Construction Manager",
+          "organization": "Harriet Tubman Museum",
+          "start_year": null,
+          "end_year": null,
+          "description": "Managed restoration and project management for the Harriet Tubman Museum in Cape May",
+          "source": null
+        },
+        {
+          "title": "PGA Golf Professional / Manager",
+          "organization": "Cape May National Golf Club",
+          "start_year": 2010,
+          "end_year": 2014,
+          "description": "Vice President of Cape May National Golf Club; managed championship-level golf course operations",
+          "source": null
+        },
+        {
+          "title": "Historic Property Manager",
+          "organization": "Chalfonte Hotel / Various Properties",
+          "start_year": null,
+          "end_year": null,
+          "description": "Restoration and management of the historic Chalfonte Hotel and other key historic properties in Cape May",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Saint Joseph's University",
+          "degree": "MBA",
+          "field": "Finance",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Mount Saint Mary's University",
+          "degree": "BA",
+          "field": "Business / Liberal Arts",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.capemaycity.com/MayorZacharyMullock",
+          "title": "City of Cape May - Mayor's Office",
+          "type": "other"
+        }
+      ],
+      "website": "https://mullockforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/ZMullock",
+        "instagram": "https://www.instagram.com/zmullock",
+        "facebook": "https://www.facebook.com/MullockforCongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_2nd_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T22:03:47.479458+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 295589,
+    "completion_tokens": 6098,
+    "total_tokens": 301687,
+    "cost_usd": 0.020688113999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.030163,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 295589,
+        "completion_tokens": 6098
+      }
+    },
+    "duration_s": 161.2
+  }
+}

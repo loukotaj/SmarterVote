@@ -1,0 +1,544 @@
+{
+  "id": "fl-house-25-2026",
+  "title": "2026 U.S. House of Representatives election for Florida's 25th Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Florida's 25th Congressional District",
+  "state": "Florida",
+  "district": "25th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 25th Congressional District was significantly redrawn under a new map passed by the Republican-dominated legislature and signed by Governor Ron DeSantis in May 2026, shifting the district from one that narrowly backed Kamala Harris in 2024 to one that Donald Trump won by about 9 points. The seat is open after incumbent Democrat Jared Moskowitz, who previously represented the 23rd District, decided to run in the new 25th, which stretches along Florida's Atlantic coast from Boca Raton to Miami Beach. Both the Cook Political Report and Sabato's Crystal Ball rate the newly configured CD-25 as a toss-up, making it one of the most competitive House races in the country in 2026. The Democratic and Republican primaries are scheduled for August 18, 2026, with a crowded GOP field including multiple candidates who followed Moskowitz into the newly drawn district.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 race in Florida's 25th Congressional District as of mid-2026. The race is rated as a toss-up by Cook Political Report and Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Jared Moskowitz",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jared Moskowitz is a Democratic U.S. Representative who currently serves Florida's 23rd Congressional District and is seeking election in the newly redrawn 25th District. A former Florida House member and director of the Florida Division of Emergency Management under Governor Ron DeSantis, Moskowitz has built a reputation as a bipartisan problem-solver and strong voice against antisemitism. He closed the first quarter of 2026 with approximately $1.22 million in cash on hand.",
+      "summary_sources": [
+        {
+          "url": "https://floridaphoenix.com/briefs/jared-moskowitz-will-now-run-in-floridas-25th-congressional-district/",
+          "type": "news",
+          "title": "Jared Moskowitz will now run in Florida's 25th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/798747-delivering-results-jared-moskowitz-officially-launches-re-election-campaign-in-new-cd-25/",
+          "type": "news",
+          "title": "'Delivering results': Jared Moskowitz officially launches re-election campaign in new CD 25",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jared_Moskowitz",
+          "type": "government",
+          "title": "Jared Moskowitz - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jared_Moskowitz.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives, Florida's 23rd District",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serving as U.S. Representative for Florida's 23rd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Florida Division of Emergency Management",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Appointed by Governor Ron DeSantis; led state's COVID-19 response and Hurricane Michael recovery",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Florida House of Representatives",
+          "start_year": 2012,
+          "end_year": 2019,
+          "description": "Represented Parkland area in the Florida House",
+          "source": null
+        },
+        {
+          "title": "Commissioner",
+          "organization": "Broward County Commission",
+          "start_year": 2021,
+          "end_year": 2022,
+          "description": "Appointed by Governor Ron DeSantis to fill a vacancy",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Central Florida",
+          "degree": "Bachelor's",
+          "field": "Political Science",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Nova Southeastern University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2010,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jaredforflorida.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Oliver Larkin",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Oliver Larkin is a Democratic candidate and member of the Democratic Socialists of America challenging incumbent Jared Moskowitz in the Democratic primary for Florida's 25th Congressional District. Larkin previously challenged Moskowitz in the old 23rd District before following him to the newly drawn 25th after redistricting. He announced his campaign via social media, stating that he grew up in the district and currently lives there.",
+      "summary_sources": [
+        {
+          "url": "https://www.wlrn.org/government-politics/2026-05-15/larkin-follows-moskowitz-to-fl-25-sets-up-democratic-primary-showdown",
+          "type": "news",
+          "title": "Larkin follows Moskowitz to FL-25, sets up Democratic primary showdown",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridaphoenix.com/briefs/jared-moskowitz-will-now-run-in-floridas-25th-congressional-district/",
+          "type": "news",
+          "title": "Jared Moskowitz will now run in Florida's 25th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/798747-delivering-results-jared-moskowitz-officially-launches-re-election-campaign-in-new-cd-25/",
+          "type": "news",
+          "title": "'Delivering results': Jared Moskowitz officially launches re-election campaign in new CD 25",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Daniel Franzese",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Daniel Franzese is a Republican candidate for Florida's 25th Congressional District and was the 2024 Republican nominee in Florida's 22nd District. He holds an MBA from the Wharton School and is a businessman who campaigned on affordability, secure borders, and constitutional conservatism. Franzese entered the race for the newly redrawn CD-25 after the 2026 redistricting map was approved.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/795568-dan-franzese-running-for-revised-u-s-house-district-25-in-south-florida/",
+          "type": "news",
+          "title": "Dan Franzese running for revised U.S. House District 25 in South Florida",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.danforusa.com/",
+          "type": "website",
+          "title": "Dan Franzese for Congress FL-25",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Dan_Franzese",
+          "type": "government",
+          "title": "Dan Franzese - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Republican Nominee",
+          "organization": "U.S. House, Florida's 22nd District",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Republican nominee in the 2024 general election for FL-22",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Pennsylvania (Wharton School)",
+          "degree": "MBA",
+          "field": "Business",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.danforusa.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "George Moraitis",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "George R. Moraitis Jr. is a Republican candidate and former member of the Florida House of Representatives, where he represented the 93rd District from 2012 to 2020. A small business owner and attorney, Moraitis has emphasized his bipartisan record and legislative experience in his campaign for Congress. He previously ran for the old 23rd District before the new map moved him into the 25th.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/George_Moraitis",
+          "type": "government",
+          "title": "George Moraitis - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/George_Moraitis",
+          "type": "website",
+          "title": "George Moraitis - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/724188-george-moraitis-announced-campaign-against-jared-moskowitz-in-cd-23/",
+          "type": "news",
+          "title": "George Moraitis announces campaign against Jared Moskowitz in CD 23",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/George_Moraitis.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Florida House of Representatives, 93rd District",
+          "start_year": 2012,
+          "end_year": 2020,
+          "description": "Served four terms in the Florida House",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Florida Levin College of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Scott Singer",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Scott Singer is a Republican candidate and former Mayor of Boca Raton, serving from 2018 to 2026. An America First Republican, Singer has campaigned on conservative principles and received endorsements from Florida Attorney General James Uthmeier and other state GOP figures. He pivoted his campaign from the old 23rd District to the newly drawn 25th after the redistricting map was approved.",
+      "summary_sources": [
+        {
+          "url": "https://www.scottsingerusa.com/",
+          "type": "website",
+          "title": "Scott Singer for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/793919-redistricting-shuffle-scott-singer-pivots-campaign-to-cd-25-after-new-congressional-map-passes/",
+          "type": "news",
+          "title": "Redistricting shuffle: Scott Singer pivots campaign to CD 25 after new congressional map passes",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Scott_Singer",
+          "type": "government",
+          "title": "Scott Singer - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.foxnews.com/politics/florida-gop-candidate-reveals-amazing-fundraising-haul-key-trump-moves-suggest-midterm-optimism",
+          "type": "news",
+          "title": "Scott Singer enters redrawn Florida district with strong fundraising lead",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Boca Raton",
+          "start_year": 2018,
+          "end_year": 2026,
+          "description": "Served as Mayor of Boca Raton",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.scottsingerusa.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Raven Harrison",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Raven Harrison is a Republican candidate for Florida's 25th Congressional District who describes herself as a patriot dedicated to God, family, and country. She previously ran in Florida's 23rd District before following the newly drawn map into CD-25. Harrison's campaign emphasizes support for the Trump agenda and conservative values.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Raven_Harrison_(Florida)",
+          "type": "government",
+          "title": "Raven Harrison (Florida) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ravenharrisonforcongress.com/about-raven-harrison",
+          "type": "website",
+          "title": "Raven Harrison for Congress - About",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/798747-delivering-results-jared-moskowitz-officially-launches-re-election-campaign-in-new-cd-25/",
+          "type": "news",
+          "title": "'Delivering results': Jared Moskowitz officially launches re-election campaign in new CD 25",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.ravenharrisonforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Claudia Villatoro",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Claudia Villatoro is a Republican candidate for Florida's 25th Congressional District. She originally launched a bid to challenge Democratic U.S. Representative Debbie Wasserman Schultz before the redistricting map placed her in the newly drawn CD-25. Villatoro is listed as a qualified candidate with the Florida Division of Elections for the 2026 general election for U.S. House District 25.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Claudia_Villatoro",
+          "type": "government",
+          "title": "Claudia Villatoro - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/763596-its-time-to-clean-up-congress-claudia-villatoro-launches-bid-to-unseat-debbie-wasserman-schultz/",
+          "type": "news",
+          "title": "'It's time to clean up Congress': Claudia Villatoro launches bid to unseat Debbie Wasserman Schultz",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89423",
+          "type": "government",
+          "title": "Candidate Tracking - Florida Division of Elections",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_25th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:45:06.660844+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 280015,
+    "completion_tokens": 9332,
+    "total_tokens": 289347,
+    "cost_usd": 0.019945486,
+    "cost_source": "provider",
+    "estimated_usd": 0.029271,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 280015,
+        "completion_tokens": 9332
+      }
+    },
+    "duration_s": 122.1
+  }
+}

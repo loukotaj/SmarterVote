@@ -6,87 +6,517 @@
   "state": "Oregon",
   "district": "5th Congressional District",
   "election_date": "2026-11-03",
-  "description": "This race is for Oregon\u2019s 5th Congressional District seat in the U.S. House of Representatives. The district includes Portland suburbs and Bend, and Cook Political Report currently rates it Likely Democratic. Incumbent Democrat Janelle Bynum is running for reelection, and Ballotpedia notes that additional general-election candidates may be added after the primary. Public race information currently shows Bynum and Libertarian challenger Joseph Lehman, while the Republican field remains undefined in the sources reviewed.",
+  "description": "This race is for Oregon’s 5th Congressional District seat in the U.S. House of Representatives. The district includes Portland suburbs and Bend, and Cook Political Report currently rates it Likely Democratic. Incumbent Democrat Janelle Bynum is running for reelection, and Ballotpedia notes that additional general-election candidates may be added after the primary. Public race information currently shows Bynum and Libertarian challenger Joseph Lehman, while the Republican field remains undefined in the sources reviewed.",
   "polling": [
     {
       "pollster": "Cook Political Report",
       "date": "2026-02-17",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Janelle Bynum",
-            "Unnamed Republican challenger"
-          ],
-          "percentages": null
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.cookpolitical.com/house/race/483901"
     },
     {
       "pollster": "Inside Elections / NPI",
       "date": "2024-09-26",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Janelle Bynum",
-            "Lori Chavez-DeRemer"
-          ],
-          "percentages": null
-        }
-      ],
+      "matchups": [],
       "source_url": "http://www.insideelections.com/news/article/oregon-5-poll-chavez-deremer-bynum"
     }
   ],
-  "polling_note": "Cook Political Report\u2019s 2026-02-17 page is a race rating page, not matchup polling. No public head-to-head polling with percentages was found for this race as of 2026-04-07. A September 2024 poll involving Janelle Bynum and Lori Chavez-DeRemer is historical context from the prior cycle, not current 2026 polling.",
+  "polling_note": "Cook Political Report’s 2026-02-17 page is a race rating page, not matchup polling. No public head-to-head polling with percentages was found for this race as of 2026-04-07. A September 2024 poll involving Janelle Bynum and Lori Chavez-DeRemer is historical context from the prior cycle, not current 2026 polling.",
   "candidates": [
     {
       "name": "Janelle Bynum",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Janelle Bynum is the U.S. representative for Oregon\u2019s 5th Congressional District and a Democrat. Before Congress, she served in the Oregon House of Representatives and has described herself as a business owner, engineer, and mother of four.",
+      "summary": "Janelle Bynum is the U.S. representative for Oregon’s 5th Congressional District and a Democrat. Before Congress, she served in the Oregon House of Representatives and has described herself as a business owner, engineer, and mother of four.",
       "summary_sources": [
         {
           "url": "https://www.janellebynum.com/meet-janelle",
           "type": "website",
-          "title": "Meet Janelle"
+          "title": "Meet Janelle",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:53.962105Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Janelle_Bynum",
           "type": "website",
-          "title": "Janelle Bynum - Ballotpedia"
+          "title": "Janelle Bynum - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:53.962105Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.congress.gov/member/janelle-bynum/B001326",
-          "type": "official",
-          "title": "Janelle S. Bynum | Congress.gov"
+          "type": "government",
+          "title": "Janelle S. Bynum | Congress.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:53.962105Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Janelle_Bynum%2C_official_portrait_%28119th_Congress%29.jpg/500px-Janelle_Bynum%2C_official_portrait_%28119th_Congress%29.jpg",
-      "website": "https://www.janellebynum.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "She supports protecting Medicare and expanding Medicaid, extending ACA subsidies, and lowering prescription drug costs to reduce health-care spending and improve access; she opposes policy proposals that would cut Medicaid or reduce access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues/lowering-the-cost-of-health-care",
+              "type": "website",
+              "title": "Lowering the Cost of Health Care - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.janellebynum.com/issues",
+              "type": "website",
+              "title": "Issues - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://bynum.house.gov/issues/healthcare",
+              "type": "government",
+              "title": "Healthcare - Representative Janelle Bynum (House.gov)",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://bynum.house.gov/media/press-releases/rep-bynum-unveils-affordability-agenda-lower-costs",
+              "type": "government",
+              "title": "Rep. Bynum Unveils Affordability Agenda to Lower Costs",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Supports taking climate action by making Oregon the clean energy hub and expanding that work at the federal level to reduce the carbon footprint and create good-paying union jobs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues/taking-climate-action",
+              "type": "website",
+              "title": "TAKING CLIMATE ACTION - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Supports protecting reproductive rights and abortion access; advocates codifying Roe v. Wade at the federal level and opposing a national abortion ban.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues/protecting-our-rights-and-freedoms",
+              "type": "government",
+              "title": "PROTECTING OUR RIGHTS AND FREEDOMS – Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.opb.org/article/2024/06/24/anniversary-dobbs-decision-oregon-congressional-candidates-deremer-bynum-abortion/",
+              "type": "website",
+              "title": "On anniversary of Dobbs decision, Oregon congressional candidates chime in on abortion — OPB",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://dccc.org/janelle-bynum-defends-reproductive-rights-as-lori-chavez-deremer-lies-about-anti-abortion-record/",
+              "type": "website",
+              "title": "Janelle Bynum Defends Reproductive Rights As Lori Chavez-DeRemer Lies About Anti-Abortion Record",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/lawmaker/janelle-bynum/",
+              "type": "website",
+              "title": "Janelle Bynum – Reproductive Freedom For All scorecard",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found on a comprehensive foreign policy platform. Her public materials emphasize domestic priorities, and the available record here shows only limited foreign-policy-adjacent votes and statements rather than a detailed doctrine.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues",
+              "type": "website",
+              "title": "Issues - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.congress.gov/member/janelle-bynum/B001326",
+              "type": "government",
+              "title": "Janelle S. Bynum | Congress.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Bynum says she supports protecting civil rights and freedoms, including reproductive freedom and LGBTQ+ rights, and she ties those goals to broader efforts to expand access to housing, health care, and education.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues",
+              "type": "website",
+              "title": "Issues - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://wedefendthevote.org/endorsement/janelle-bynum-2/",
+              "type": "website",
+              "title": "Janelle Bynum - Defend The Vote",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Bynum says she opposes measures she believes would disenfranchise voters and supports expanding access to voting. She voted against H.R. 22, the SAVE Act, and said she offered an amendment to reduce burdensome documentation requirements.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://bynum.house.gov/media/press-releases/congresswoman-bynum-rejects-bill-disenfranchise-voters",
+              "type": "government",
+              "title": "Congresswoman Bynum Rejects Bill to Disenfranchise Voters",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://bynum.house.gov/about/votes-and-legislation",
+              "type": "government",
+              "title": "Votes and Legislation - Representative Janelle Bynum",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.govtrack.us/congress/members/janelle_bynum/457016",
+              "type": "government",
+              "title": "Rep. Janelle Bynum - GovTrack.us",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Bynum’s local agenda emphasizes housing affordability, ending homelessness, climate action, supporting the economy, lowering health-care costs, protecting rights and freedoms, and improving education. She says she has worked on measures to prevent homelessness, increase shelter capacity, and expand mental health services.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues",
+              "type": "website",
+              "title": "Issues - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.janellebynum.com/issues/ending-homelessness",
+              "type": "website",
+              "title": "Ending Homelessness - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.janellebynum.com/issues/supporting-our-economy",
+              "type": "website",
+              "title": "Supporting Our Economy - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Bynum says she wants to support small businesses, create good jobs close to home, lower the cost of living, and expand the workforce in the tech industry. She also highlights her work on the Oregon CHIPS Act and her role on state economic-development and small-business committees.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues/supporting-our-economy",
+              "type": "website",
+              "title": "Supporting Our Economy - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://bynum.house.gov/issues/k-30",
+              "type": "government",
+              "title": "K-30 | Representative Janelle Bynum - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found on a comprehensive immigration platform. Her public statements and House press releases show attention to DHS and ICE actions in Oregon, including criticism of federal enforcement tactics, but not a detailed immigration policy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "http://bynum.house.gov/media/press-releases/bynum-demands-homeland-security-withdraw-its-federal-agents-portland-after",
+              "type": "government",
+              "title": "Bynum Demands Homeland Security Withdraw its Federal Agents from Portland After",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://bynum.house.gov/media/press-releases/congresswoman-bynum-demands-answers-ice-amid-alarming-reports-targeted-raids",
+              "type": "government",
+              "title": "Congresswoman Bynum Demands Answers from ICE Amid Alarming Reports of Targeted Raids",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://bynum.house.gov/media/press-releases/congresswoman-bynum-votes-against-dhs-funding-bill",
+              "type": "government",
+              "title": "Congresswoman Bynum Votes Against DHS Funding Bill",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found on a comprehensive guns policy platform. Available public materials reviewed here did not surface a detailed gun-safety agenda, though she has received gun-safety-related endorsements and has spoken generally about protecting families and communities.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://giffords.org/candidates/janelle-bynum/",
+              "type": "news",
+              "title": "Janelle Bynum - Giffords.org",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://wedefendthevote.org/endorsement/janelle-bynum-2/",
+              "type": "website",
+              "title": "Janelle Bynum - Defend The Vote",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Bynum says education policy should increase teacher pay, reduce class sizes, and improve school resources and facilities. She has also highlighted support for young Oregonians through her K-30 agenda and related education-focused work.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues/improving-access-to-education",
+              "type": "website",
+              "title": "Improving Access to Education - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://bynum.house.gov/issues/k-30",
+              "type": "government",
+              "title": "K-30 | Representative Janelle Bynum - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://bynum.house.gov/issues/education",
+              "type": "government",
+              "title": "Education - Representative Janelle Bynum | House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found on a comprehensive tech or AI platform. Her public economy and education materials mention expanding the tech workforce and supporting semiconductors, but they do not set out a detailed AI policy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.janellebynum.com/issues/supporting-our-economy",
+              "type": "website",
+              "title": "Supporting Our Economy - Janelle Bynum for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://bynum.house.gov/issues/k-30",
+              "type": "government",
+              "title": "K-30 | Representative Janelle Bynum - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 2025,
           "end_year": null,
-          "description": "Represents Oregon\u2019s 5th Congressional District."
+          "description": "Represents Oregon’s 5th Congressional District.",
+          "source": null
         },
         {
           "title": "State Representative",
           "organization": "Oregon House of Representatives",
           "start_year": 2017,
           "end_year": 2025,
-          "description": "Served in the Oregon legislature before election to Congress."
+          "description": "Served in the Oregon legislature before election to Congress.",
+          "source": null
         },
         {
           "title": "Engineer and small-business owner",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign and biography materials describe her as an engineer and business owner."
+          "description": "Campaign and biography materials describe her as an engineer and business owner.",
+          "source": null
         }
       ],
       "education": [
@@ -94,24 +524,30 @@
           "institution": "Oregon State University",
           "degree": "Bachelor's degree",
           "field": "Electrical engineering",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "Janelle Bynum\u2019s federal campaign has raised about $2.28M in the 2025\u20132026 cycle, with OpenSecrets showing the largest industry categories as retired donors ($979,540), Democratic/liberal groups ($521,208), leadership PACs ($353,926), lawyers/law firms ($279,068), and education ($277,801). Her top disclosed contributor was EMILY\u2019s List at $103,508, and the FEC reports $1.24M in individual contributions plus $711,912 from other committees; OpenSecrets\u2019 broader 2023\u20132024 profile shows $7.43M raised and top industry support from retired, Democratic/liberal, leadership PACs, lawyers/law firms, and education.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H4OR05304/",
       "voting_summary": "Bynum is an incumbent U.S. Representative, so she has a federal voting record. GovTrack shows she has voted with her party on recent key votes and missed 1 of 470 roll call votes from Jan. 2025 to Mar. 2026; notable recorded votes include yea votes on H.R. 6500 (AGOA Extension Act), H.R. 2483 (SUPPORT for Patients and Communities Reauthorization Act of 2025), and H.J.Res. 20.",
       "voting_source_url": "https://www.govtrack.us/congress/members/janelle_bynum/457016",
+      "voting_sources": [],
+      "donor_summary": "Janelle Bynum’s federal campaign has raised about $2.28M in the 2025–2026 cycle, with OpenSecrets showing the largest industry categories as retired donors ($979,540), Democratic/liberal groups ($521,208), leadership PACs ($353,926), lawyers/law firms ($279,068), and education ($277,801). Her top disclosed contributor was EMILY’s List at $103,508, and the FEC reports $1.24M in individual contributions plus $711,912 from other committees; OpenSecrets’ broader 2023–2024 profile shows $7.43M raised and top industry support from retired, Democratic/liberal, leadership PACs, lawyers/law firms, and education.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H4OR05304/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.janellebynum.com/",
-          "type": "campaign"
+          "title": "https://www.janellebynum.com/",
+          "type": "other"
         },
         {
           "url": "http://bynum.house.gov/",
-          "type": "government"
+          "title": "http://bynum.house.gov/",
+          "type": "other"
         },
         {
           "url": "https://ballotpedia.org/Janelle_Bynum",
+          "title": "https://ballotpedia.org/Janelle_Bynum",
           "type": "ballotpedia"
         },
         {
@@ -150,324 +586,296 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "She supports protecting Medicare and expanding Medicaid, extending ACA subsidies, and lowering prescription drug costs to reduce health-care spending and improve access; she opposes policy proposals that would cut Medicaid or reduce access.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues/lowering-the-cost-of-health-care",
-              "type": "campaign",
-              "title": "Lowering the Cost of Health Care - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://www.janellebynum.com/issues",
-              "type": "campaign",
-              "title": "Issues - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://bynum.house.gov/issues/healthcare",
-              "type": "official",
-              "title": "Healthcare - Representative Janelle Bynum (House.gov)",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://bynum.house.gov/media/press-releases/rep-bynum-unveils-affordability-agenda-lower-costs",
-              "type": "official",
-              "title": "Rep. Bynum Unveils Affordability Agenda to Lower Costs",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Supports taking climate action by making Oregon the clean energy hub and expanding that work at the federal level to reduce the carbon footprint and create good-paying union jobs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues/taking-climate-action",
-              "type": "official campaign policy page",
-              "title": "TAKING CLIMATE ACTION - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Supports protecting reproductive rights and abortion access; advocates codifying Roe v. Wade at the federal level and opposing a national abortion ban.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues/protecting-our-rights-and-freedoms",
-              "type": "official policy page",
-              "title": "PROTECTING OUR RIGHTS AND FREEDOMS \u2013 Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://www.opb.org/article/2024/06/24/anniversary-dobbs-decision-oregon-congressional-candidates-deremer-bynum-abortion/",
-              "type": "news article",
-              "title": "On anniversary of Dobbs decision, Oregon congressional candidates chime in on abortion \u2014 OPB",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://dccc.org/janelle-bynum-defends-reproductive-rights-as-lori-chavez-deremer-lies-about-anti-abortion-record/",
-              "type": "news article",
-              "title": "Janelle Bynum Defends Reproductive Rights As Lori Chavez-DeRemer Lies About Anti-Abortion Record",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://reproductivefreedomforall.org/lawmaker/janelle-bynum/",
-              "type": "scorecard/endorsement",
-              "title": "Janelle Bynum \u2013 Reproductive Freedom For All scorecard",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found on a comprehensive foreign policy platform. Her public materials emphasize domestic priorities, and the available record here shows only limited foreign-policy-adjacent votes and statements rather than a detailed doctrine.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues",
-              "type": "campaign",
-              "title": "Issues - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/member/janelle-bynum/B001326",
-              "type": "official",
-              "title": "Janelle S. Bynum | Congress.gov",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Bynum says she supports protecting civil rights and freedoms, including reproductive freedom and LGBTQ+ rights, and she ties those goals to broader efforts to expand access to housing, health care, and education.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues",
-              "type": "campaign",
-              "title": "Issues - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://wedefendthevote.org/endorsement/janelle-bynum-2/",
-              "type": "endorsement",
-              "title": "Janelle Bynum - Defend The Vote",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Bynum says she opposes measures she believes would disenfranchise voters and supports expanding access to voting. She voted against H.R. 22, the SAVE Act, and said she offered an amendment to reduce burdensome documentation requirements.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://bynum.house.gov/media/press-releases/congresswoman-bynum-rejects-bill-disenfranchise-voters",
-              "type": "official",
-              "title": "Congresswoman Bynum Rejects Bill to Disenfranchise Voters",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://bynum.house.gov/about/votes-and-legislation",
-              "type": "official",
-              "title": "Votes and Legislation - Representative Janelle Bynum",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://www.govtrack.us/congress/members/janelle_bynum/457016",
-              "type": "govtrack",
-              "title": "Rep. Janelle Bynum - GovTrack.us",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Bynum\u2019s local agenda emphasizes housing affordability, ending homelessness, climate action, supporting the economy, lowering health-care costs, protecting rights and freedoms, and improving education. She says she has worked on measures to prevent homelessness, increase shelter capacity, and expand mental health services.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues",
-              "type": "campaign",
-              "title": "Issues - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://www.janellebynum.com/issues/ending-homelessness",
-              "type": "campaign",
-              "title": "Ending Homelessness - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://www.janellebynum.com/issues/supporting-our-economy",
-              "type": "campaign",
-              "title": "Supporting Our Economy - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Bynum says she wants to support small businesses, create good jobs close to home, lower the cost of living, and expand the workforce in the tech industry. She also highlights her work on the Oregon CHIPS Act and her role on state economic-development and small-business committees.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues/supporting-our-economy",
-              "type": "campaign",
-              "title": "Supporting Our Economy - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "http://bynum.house.gov/issues/k-30",
-              "type": "official",
-              "title": "K-30 | Representative Janelle Bynum - House.gov",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found on a comprehensive immigration platform. Her public statements and House press releases show attention to DHS and ICE actions in Oregon, including criticism of federal enforcement tactics, but not a detailed immigration policy agenda.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "http://bynum.house.gov/media/press-releases/bynum-demands-homeland-security-withdraw-its-federal-agents-portland-after",
-              "type": "official",
-              "title": "Bynum Demands Homeland Security Withdraw its Federal Agents from Portland After",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "http://bynum.house.gov/media/press-releases/congresswoman-bynum-demands-answers-ice-amid-alarming-reports-targeted-raids",
-              "type": "official",
-              "title": "Congresswoman Bynum Demands Answers from ICE Amid Alarming Reports of Targeted Raids",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://bynum.house.gov/media/press-releases/congresswoman-bynum-votes-against-dhs-funding-bill",
-              "type": "official",
-              "title": "Congresswoman Bynum Votes Against DHS Funding Bill",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found on a comprehensive guns policy platform. Available public materials reviewed here did not surface a detailed gun-safety agenda, though she has received gun-safety-related endorsements and has spoken generally about protecting families and communities.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://giffords.org/candidates/janelle-bynum/",
-              "type": "news",
-              "title": "Janelle Bynum - Giffords.org",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://wedefendthevote.org/endorsement/janelle-bynum-2/",
-              "type": "endorsement",
-              "title": "Janelle Bynum - Defend The Vote",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Bynum says education policy should increase teacher pay, reduce class sizes, and improve school resources and facilities. She has also highlighted support for young Oregonians through her K-30 agenda and related education-focused work.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues/improving-access-to-education",
-              "type": "campaign",
-              "title": "Improving Access to Education - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "http://bynum.house.gov/issues/k-30",
-              "type": "official",
-              "title": "K-30 | Representative Janelle Bynum - House.gov",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "http://bynum.house.gov/issues/education",
-              "type": "official",
-              "title": "Education - Representative Janelle Bynum | House.gov",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found on a comprehensive tech or AI platform. Her public economy and education materials mention expanding the tech workforce and supporting semiconductors, but they do not set out a detailed AI policy.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.janellebynum.com/issues/supporting-our-economy",
-              "type": "campaign",
-              "title": "Supporting Our Economy - Janelle Bynum for Congress",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "http://bynum.house.gov/issues/k-30",
-              "type": "official",
-              "title": "K-30 | Representative Janelle Bynum - House.gov",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.janellebynum.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Joseph Lehman",
       "party": "Libertarian",
       "incumbent": false,
-      "summary": "Joseph Lehman is a Libertarian candidate for Oregon\u2019s 5th Congressional District. His campaign says he is a blue-collar worker, husband, and father of three who is running on themes of transparency, accountability, and limited government.",
+      "summary": "Joseph Lehman is a Libertarian candidate for Oregon’s 5th Congressional District. His campaign says he is a blue-collar worker, husband, and father of three who is running on themes of transparency, accountability, and limited government.",
       "summary_sources": [
         {
           "url": "https://www.lehmanforcongress.com/",
-          "type": "campaign website",
-          "title": "Joseph Lehman For Congress: Home"
+          "type": "website",
+          "title": "Joseph Lehman For Congress: Home",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:53.962105Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://lp.org/candidate/joseph-lehman/",
-          "type": "party website",
-          "title": "Joseph Lehman - Libertarian Party"
+          "type": "website",
+          "title": "Joseph Lehman - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:53.962105Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Joseph_Lehman_(Oregon)",
-          "type": "reference",
-          "title": "Joseph Lehman (Oregon) - Ballotpedia"
+          "type": "website",
+          "title": "Joseph Lehman (Oregon) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:53.962105Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://www.lehmanforcongress.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Supports a free-market health insurance system that lets Americans shop across state lines, removes federal barriers to nationwide insurer offerings, and creates a voluntary interstate licensing option to increase competition and lower costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lehmanforcongress.com/issues",
+              "type": "website",
+              "title": "Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Proposes major tax reductions, including gradually winding down the federal income tax toward a flat 1% rate, eliminating the federal estate tax, and prohibiting property taxes on owner-occupied housing.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Supports limiting abortion after a point in pregnancy that he says should recognize fetal human life, while also saying no level of government should dictate an individual's personal medical decisions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "Strongly supports Second Amendment rights, opposes state restrictions on firearm types and magazine capacity, and says gun violence should be addressed through mental health care and school safety measures such as trained teachers and resource officers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Advocates a non-interventionist foreign policy, strict congressional control over war powers, an end to unauthorized military actions, and bringing troops home from conflicts that do not directly protect American lives or liberty.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Supports ending qualified immunity, ending the war on drugs, reforming mandatory minimums, and eliminating civil asset forfeiture; he frames these positions as limiting government overreach and improving accountability.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Supports school safety measures, including allowing properly trained and willing teachers to carry concealed firearms and placing well-trained resource officers in schools; no broader K-12 or higher-education policy was found on his campaign site.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Supports removing party affiliations from ballots and official candidate information platforms, and also backs term limits, upper age limits for federal office, natural-born citizenship requirements for federal candidates, and ending congressional pay during government shutdowns.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "His campaign emphasizes accountability and limited government, including border enforcement, major tax cuts, ending qualified immunity, criminal justice reform, and political reforms such as term limits and removing party labels from ballots.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Supports strong border security and a clear, enforceable immigration system, along with internal identification and verification reforms intended to protect constitutional rights and reduce wrongful detention or deportation of U.S. citizens.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lehmanforcongress.com/",
+              "type": "website",
+              "title": "Joseph Lehman For Congress: Home",
+              "description": null,
+              "last_accessed": "2026-04-07T06:37:56.358115Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Candidate for U.S. House",
           "organization": "Oregon's 5th Congressional District",
           "start_year": 2026,
           "end_year": null,
-          "description": "Running as the Libertarian nominee/candidate for the district."
+          "description": "Running as the Libertarian nominee/candidate for the district.",
+          "source": null
         },
         {
           "title": "Blue-collar worker",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign materials describe him as a working-class Oregonian."
+          "description": "Campaign materials describe him as a working-class Oregonian.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-07. I found an official campaign website and Ballotpedia entry, but no usable OpenSecrets or FEC candidate finance page for Joseph Lehman in the available public search results.",
-      "donor_source_url": "https://www.lehmanforcongress.com/",
       "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed; the available evidence is his campaign website and issue statements, which describe positions on immigration, taxes, qualified immunity, foreign policy, abortion, guns, and criminal justice rather than recorded votes.",
       "voting_source_url": "https://www.lehmanforcongress.com/",
+      "voting_sources": [],
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-07. I found an official campaign website and Ballotpedia entry, but no usable OpenSecrets or FEC candidate finance page for Joseph Lehman in the available public search results.",
+      "donor_source_url": "https://www.lehmanforcongress.com/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.lehmanforcongress.com/",
-          "type": "campaign"
+          "title": "https://www.lehmanforcongress.com/",
+          "type": "other"
         },
         {
           "url": "https://lp.org/candidate/joseph-lehman/",
-          "type": "party"
+          "title": "https://lp.org/candidate/joseph-lehman/",
+          "type": "other"
         },
         {
           "url": "https://ballotpedia.org/Joseph_Lehman_(Oregon)",
+          "title": "https://ballotpedia.org/Joseph_Lehman_(Oregon)",
           "type": "ballotpedia"
         },
         {
@@ -491,156 +899,65 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Supports a free-market health insurance system that lets Americans shop across state lines, removes federal barriers to nationwide insurer offerings, and creates a voluntary interstate licensing option to increase competition and lower costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            },
-            {
-              "url": "https://www.lehmanforcongress.com/issues",
-              "type": "campaign issue page",
-              "title": "Issues",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Proposes major tax reductions, including gradually winding down the federal income tax toward a flat 1% rate, eliminating the federal estate tax, and prohibiting property taxes on owner-occupied housing.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Reproductive Rights": {
-          "stance": "Supports limiting abortion after a point in pregnancy that he says should recognize fetal human life, while also saying no level of government should dictate an individual's personal medical decisions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Strongly supports Second Amendment rights, opposes state restrictions on firearm types and magazine capacity, and says gun violence should be addressed through mental health care and school safety measures such as trained teachers and resource officers.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Advocates a non-interventionist foreign policy, strict congressional control over war powers, an end to unauthorized military actions, and bringing troops home from conflicts that do not directly protect American lives or liberty.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Supports ending qualified immunity, ending the war on drugs, reforming mandatory minimums, and eliminating civil asset forfeiture; he frames these positions as limiting government overreach and improving accountability.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports school safety measures, including allowing properly trained and willing teachers to carry concealed firearms and placing well-trained resource officers in schools; no broader K-12 or higher-education policy was found on his campaign site.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Election Reform": {
-          "stance": "Supports removing party affiliations from ballots and official candidate information platforms, and also backs term limits, upper age limits for federal office, natural-born citizenship requirements for federal candidates, and ending congressional pay during government shutdowns.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "His campaign emphasizes accountability and limited government, including border enforcement, major tax cuts, ending qualified immunity, criminal justice reform, and political reforms such as term limits and removing party labels from ballots.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Supports strong border security and a clear, enforceable immigration system, along with internal identification and verification reforms intended to protect constitutional rights and reduce wrongful detention or deportation of U.S. citizens.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lehmanforcongress.com/",
-              "type": "campaign website",
-              "title": "Joseph Lehman For Congress: Home",
-              "last_accessed": "2026-04-07T06:37:56.358115+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.lehmanforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Patti Adair",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jonathan Lockwood",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-07T06:39:06.874223+00:00",
+  "updated_utc": "2026-06-13T20:51:29.776412+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-07T06:39:29.492685+00:00",
+      "reviewed_at": "2026-04-07T06:39:29.492685Z",
       "verdict": "approved",
       "score": 88,
       "flags": [
@@ -664,7 +981,7 @@
         },
         {
           "field": "candidates[1].career_history",
-          "concern": "Joseph Lehman's career_history lists only his current candidacy and generic 'blue-collar worker' description. No prior employer, job titles, years of service, or business ownership are specified. This is sparse but not inaccurate \u2014 the profile reflects only what the campaign website states. The summary correctly identifies him as a 'blue-collar worker, husband, and father of three,' consistent with his campaign materials.",
+          "concern": "Joseph Lehman's career_history lists only his current candidacy and generic 'blue-collar worker' description. No prior employer, job titles, years of service, or business ownership are specified. This is sparse but not inaccurate — the profile reflects only what the campaign website states. The summary correctly identifies him as a 'blue-collar worker, husband, and father of three,' consistent with his campaign materials.",
           "suggestion": "No correction needed; the profile accurately reflects the limited biographical detail Lehman has published. Absence of detail is not a quality failure if the source genuinely contains little information.",
           "severity": "info"
         },
@@ -679,7 +996,7 @@
     },
     {
       "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-07T06:39:21.138860+00:00",
+      "reviewed_at": "2026-04-07T06:39:21.138860Z",
       "verdict": "approved",
       "score": 98,
       "flags": [
@@ -700,7 +1017,7 @@
     },
     {
       "model": "grok-3-mini",
-      "reviewed_at": "2026-04-07T06:39:15.152497+00:00",
+      "reviewed_at": "2026-04-07T06:39:15.152497Z",
       "verdict": "approved",
       "score": 95,
       "flags": [],
@@ -714,33 +1031,29 @@
     "summary": "Validated by 3/3 reviewers with an average score of 94/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 1775492,
-    "completion_tokens": 150013,
-    "total_tokens": 1925505,
-    "estimated_usd": 0.2987,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 92023,
+    "completion_tokens": 9036,
+    "total_tokens": 101059,
+    "cost_usd": 0.00797161,
+    "cost_source": "provider",
+    "estimated_usd": 0.009308,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 565375,
-        "completion_tokens": 9564
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 64896,
+        "completion_tokens": 8890
       },
-      "gpt-5-nano": {
-        "prompt_tokens": 1150945,
-        "completion_tokens": 135530
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 21210,
-        "completion_tokens": 953
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 17528,
-        "completion_tokens": 328
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 20434,
-        "completion_tokens": 3638
+      "nvidia/nemotron-3-super-120b-a12b": {
+        "prompt_tokens": 27127,
+        "completion_tokens": 146
       }
     },
-    "duration_s": 1754.4
-  }
+    "duration_s": 96.0
+  },
+  "schema_version": "0.3",
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

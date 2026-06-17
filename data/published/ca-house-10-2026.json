@@ -1,0 +1,213 @@
+{
+  "id": "ca-house-10-2026",
+  "title": "California's 10th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 10th Congressional District",
+  "state": "California",
+  "district": "10th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for California's 10th congressional district pits incumbent Democratic U.S. Representative Mark DeSaulnier against Republican small-business owner Jeff Frese. The district covers most of Contra Costa County and a portion of Alameda County in the East Bay. DeSaulnier, first elected in 2014 and a former state senator and assemblymember, is seeking another term on a platform of lowering healthcare and housing costs and protecting Social Security and Medicare. Frese, who advanced by finishing second in the June 2 top-two primary with 12.9% of the vote, is campaigning on affordability, cutting federal regulations, and election integrity. The Cook Political Report rated the general election race as Solidly Democratic before the primary.",
+  "polling": [],
+  "polling_note": "No general election opinion polls were found for this race as of June 2026. The Cook Political Report rated the race as Solidly Democratic before the primary.",
+  "candidates": [
+    {
+      "name": "Mark DeSaulnier",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Mark DeSaulnier is the incumbent U.S. Representative for California's 10th congressional district, first elected in 2014. He previously served in the California State Senate (2008\u20132015), the California State Assembly (2006\u20132008), and as a Contra Costa County Supervisor (1994\u20132006). He sits on the House Ethics, Education and Workforce, and Transportation and Infrastructure committees, and his legislative priorities include lowering healthcare and housing costs, protecting Social Security and Medicare, and investing in infrastructure.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mark_DeSaulnier",
+          "type": "website",
+          "title": "Mark DeSaulnier - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://desaulnierforcongress.com/",
+          "type": "website",
+          "title": "Mark DeSaulnier For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://desaulnier.house.gov/about",
+          "type": "government",
+          "title": "Biography | Congressman Mark Desaulnier",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Mark_DeSaulnier-1.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing California's 10th (formerly 11th) congressional district; Ranking Member of the House Ethics Committee.",
+          "source": null
+        },
+        {
+          "title": "California State Senator",
+          "organization": "California State Senate",
+          "start_year": 2008,
+          "end_year": 2015,
+          "description": "Represented the 7th Senate district.",
+          "source": null
+        },
+        {
+          "title": "California State Assemblymember",
+          "organization": "California State Assembly",
+          "start_year": 2006,
+          "end_year": 2008,
+          "description": "Represented the 11th Assembly district.",
+          "source": null
+        },
+        {
+          "title": "County Supervisor",
+          "organization": "Contra Costa County Board of Supervisors",
+          "start_year": 1994,
+          "end_year": 2006,
+          "description": "Appointed in 1994; later elected and reelected.",
+          "source": null
+        },
+        {
+          "title": "Concord City Councilmember",
+          "organization": "City of Concord, California",
+          "start_year": 1991,
+          "end_year": 1994,
+          "description": "Served as mayor in 1993.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "College of the Holy Cross",
+          "degree": "Bachelor of Arts",
+          "field": "History",
+          "year": 1974,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://desaulnierforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jeff Frese",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jeff Frese is a Republican candidate and small-business owner from Moraga, California, running for U.S. House in California's 10th congressional district. He advanced to the general election by placing second in the June 2, 2026 top-two primary. His campaign focuses on making California more affordable by cutting federal red tape, reducing wildfire risk through improved forest management, securing elections with voter ID and paper ballots, and implementing term limits for Congress.",
+      "summary_sources": [
+        {
+          "url": "https://freseforcongress.com/",
+          "type": "website",
+          "title": "Frese For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.independentnews.com/news/regional_and_ca/meet-the-candidates-vying-for-californias-10th-congressional-district/article_f0a596db-2a14-4607-bee5-4e7654499443.html",
+          "type": "news",
+          "title": "Meet the Candidates Vying for California's 10th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-10-primary.html",
+          "type": "news",
+          "title": "California 10th Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Described as a small business owner from Moraga, California.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://freseforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_10th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:38:58.341465+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 280852,
+    "completion_tokens": 5017,
+    "total_tokens": 285869,
+    "cost_usd": 0.021967307999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.028507,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 280852,
+        "completion_tokens": 5017
+      }
+    },
+    "duration_s": 100.9
+  }
+}

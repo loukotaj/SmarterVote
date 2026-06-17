@@ -1,0 +1,238 @@
+{
+  "id": "az-house-09-2026",
+  "title": "2026 U.S. House of Representatives Election in Arizona's 9th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Arizona's 9th Congressional District",
+  "state": "Arizona",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Arizona's 9th Congressional District covers western Arizona, including all of La Paz County, most of Mohave and Yuma Counties, and western portions of Maricopa County. With a Cook Partisan Voting Index of R+15, it is the most Republican district in Arizona. Incumbent Republican Paul Gosar is seeking his ninth term in Congress. Democrat Danielle Sterbinsky, a Navy veteran and academic counselor, is challenging him. The Cook Political Report rates the race as 'Solid R' and the primary elections are scheduled for July 21, 2026.",
+  "candidates": [
+    {
+      "name": "Paul Gosar",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Paul Gosar is the incumbent U.S. Representative for Arizona's 9th Congressional District, first elected in 2010. A former dentist who owned his own practice in Flagstaff for 25 years, he is known as a staunch fiscal and social conservative who focuses on border security, cutting government spending, and opposing what he calls 'woke ideology'. He was censured by the House in 2021 for posting an animated video depicting violence against fellow lawmakers, but was later reinstated to committee assignments when Republicans regained the majority.",
+      "summary_sources": [
+        {
+          "url": "https://gosar.house.gov/biography/",
+          "type": "government",
+          "title": "About | Congressman Paul Gosar D.D.S",
+          "last_accessed": "2026-06-21T00:00:00Z"
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/481796",
+          "type": "news",
+          "title": "AZ-09 2026 | Cook Political Report",
+          "last_accessed": "2026-06-21T00:00:00Z"
+        },
+        {
+          "url": "https://www.yourvalley.net/paradise-valley-independent/stories/congressional-district-9-race-going-to-general-election,675171",
+          "type": "news",
+          "title": "Gosar, Democrat to battle in general election for CD9",
+          "last_accessed": "2026-06-21T00:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Paul_Gosar.jpg",
+      "website": "https://gosar.house.gov",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepGosar",
+        "twitter": "https://x.com/RepGosar"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Arizona's 1st, 4th, and now 9th congressional districts. Serves on House Natural Resources Committee and House Oversight and Government Reform Committee."
+        },
+        {
+          "title": "Dentist / Small Business Owner",
+          "organization": "Private dental practice",
+          "start_year": 1985,
+          "end_year": 2010,
+          "description": "Owned and operated a dental practice in Flagstaff, Arizona for 25 years. Named Arizona Dental Association Dentist of the Year in 2001."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Creighton University",
+          "degree": "Doctor of Dental Surgery (D.D.S.)",
+          "field": "Dentistry",
+          "year": 1985
+        },
+        {
+          "institution": "Creighton University",
+          "degree": "Bachelor of Science (B.S.)",
+          "field": "Biology / Pre-Dentistry",
+          "year": 1981
+        },
+        {
+          "institution": "Pinedale High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1977
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://bioguide.congress.gov/search/bio/G000565",
+          "title": "https://bioguide.congress.gov/search/bio/G000565",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Paul_Gosar",
+          "title": "https://ballotpedia.org/Paul_Gosar",
+          "type": "other"
+        }
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Danielle Sterbinsky",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Danielle 'Dani' Sterbinsky is a Democratic candidate challenging incumbent Paul Gosar for Arizona's 9th Congressional District seat. A U.S. Navy veteran who served as an Operations Specialist on the USS Bainbridge, she holds a bachelor's degree from the University of Hawaii and a master's degree in industrial organizational psychology from Grand Canyon University. She works as an academic counselor at Grand Canyon University and has served on the Surprise Personnel Appeals Board, campaigning on affordability, housing stability, healthcare access, and fully funding public schools.",
+      "summary_sources": [
+        {
+          "url": "https://www.sterbinskyforcongress.com/",
+          "type": "website",
+          "title": "Dani for Congress - Official Campaign Website",
+          "last_accessed": "2026-06-21T00:00:00Z"
+        },
+        {
+          "url": "https://www.yourvalley.net/paradise-valley-independent/stories/congressional-district-9-race-going-to-general-election,675171",
+          "type": "news",
+          "title": "Gosar, Democrat to battle in general election for CD9",
+          "last_accessed": "2026-06-21T00:00:00Z"
+        },
+        {
+          "url": "https://www.ballotready.org/people/danielle-dani-sterbinsky",
+          "type": "website",
+          "title": "Danielle \"Dani\" Sterbinsky | BallotReady",
+          "last_accessed": "2026-06-21T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.sterbinskyforcongress.com",
+      "social_media": {
+        "facebook": "https://www.facebook.com/daniforcongress",
+        "instagram": "https://www.instagram.com/sterbinsky_for_congress/"
+      },
+      "career_history": [
+        {
+          "title": "Academic Counselor",
+          "organization": "Grand Canyon University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as an academic counselor at the university."
+        },
+        {
+          "title": "Operations Specialist",
+          "organization": "U.S. Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Petty Officer on the USS Bainbridge (a destroyer) in the Mediterranean Sea."
+        },
+        {
+          "title": "Board Member",
+          "organization": "Surprise Personnel Appeals Board",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a volunteer ensuring transparent and just personnel decisions."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Grand Canyon University",
+          "degree": "Master of Science (M.S.)",
+          "field": "Industrial Organizational Psychology",
+          "year": null
+        },
+        {
+          "institution": "University of Hawaii",
+          "degree": "Bachelor of Arts (B.A.)",
+          "field": "Social Sciences",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Danielle_Sterbinsky",
+          "title": "https://ballotpedia.org/Danielle_Sterbinsky",
+          "type": "other"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6AZ09085/",
+          "title": "https://www.fec.gov/data/candidate/H6AZ09085/",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "economy": "Support small businesses and local entrepreneurs.",
+        "education": "Fully fund public schools; increase teacher pay and classroom support.",
+        "healthcare": "Lower prescription drug costs; expand mental health and preventive care; offer a public option.",
+        "housing": "Help first-time and first-generation homebuyers; provide rental assistance; stop corporate speculation.",
+        "infrastructure": "Expand broadband access; invest in rural infrastructure and development grants.",
+        "social_services": "Make childcare affordable so parents can work or train."
+      }
+    }
+  ],
+  "updated_utc": "2026-06-16T01:12:01.593526+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 254379,
+    "completion_tokens": 5560,
+    "total_tokens": 259939,
+    "cost_usd": 0.037060438,
+    "cost_source": "provider",
+    "estimated_usd": 0.038019,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 254379,
+        "completion_tokens": 5560
+      }
+    },
+    "duration_s": 188.8,
+    "serper_calls": 12,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 45384,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0433,
+    "context_deduplicated_results": 42,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

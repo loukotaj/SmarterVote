@@ -1,0 +1,294 @@
+{
+  "id": "il-house-06-2026",
+  "title": "Illinois's 6th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Illinois's 6th Congressional District",
+  "state": "Illinois",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Illinois's 6th Congressional District pits incumbent Democrat Sean Casten against Republican nominee Niki Conforti in a rematch of their 2024 contest. The district encompasses Chicago's southwestern suburbs including Downers Grove, Wheaton, Lisle, Orland Park, and parts of Chicago proper, with a Cook Partisan Voting Index of D+3. The March 17, 2026 primaries are complete, with Casten defeating Joseph Ruzevich and Conforti defeating Skylar Duensing. Nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) all rate this seat as Solid/Safe Democratic heading into the general election.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for the Casten-Conforti general election matchup in IL-06 for 2026. The Cook Political Report rates the race as 'Solid D' and prediction markets (Polymarket) indicated approximately a 94% probability of a Democratic victory as of June 2026.",
+  "candidates": [
+    {
+      "name": "Sean Casten",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Sean Casten is the incumbent U.S. Representative for Illinois's 6th Congressional District, first elected in 2018. A scientist and clean-energy entrepreneur, he co-founded Recycled Energy Development and previously served as president and CEO of Turbosteam Corporation. In Congress, he sits on the House Financial Services Committee and the Joint Economic Committee, and his legislative priorities include climate change and clean energy policy.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Sean_Casten",
+          "type": "government",
+          "title": "Sean Casten - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://casten.house.gov/about",
+          "type": "government",
+          "title": "About The Congressman - Sean Casten - House.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Sean_Casten",
+          "type": "website",
+          "title": "Sean Casten - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sean_Casten.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Illinois's 6th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Co-Founder and CEO",
+          "organization": "Recycled Energy Development",
+          "start_year": 2007,
+          "end_year": 2016,
+          "description": "Clean energy company focused on recycling wasted energy",
+          "source": null
+        },
+        {
+          "title": "President and CEO",
+          "organization": "Turbosteam Corporation",
+          "start_year": 2000,
+          "end_year": 2007,
+          "description": "Energy recycling technology company",
+          "source": null
+        },
+        {
+          "title": "Consultant",
+          "organization": "Arthur D. Little",
+          "start_year": 1998,
+          "end_year": 2000,
+          "description": "Chemical engineering and fuel chain analysis",
+          "source": null
+        },
+        {
+          "title": "Scientist",
+          "organization": "Tufts University School of Medicine",
+          "start_year": 1993,
+          "end_year": 1995,
+          "description": "Research scientist",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Dartmouth College (Thayer School of Engineering)",
+          "degree": "Master of Engineering Management",
+          "field": "Engineering Management",
+          "year": 1998,
+          "source": null
+        },
+        {
+          "institution": "Dartmouth College (Thayer School of Engineering)",
+          "degree": "Master of Science",
+          "field": "Biochemical Engineering",
+          "year": 1998,
+          "source": null
+        },
+        {
+          "institution": "Middlebury College",
+          "degree": "Bachelor of Arts",
+          "field": "Molecular Biology and Biochemistry",
+          "year": 1993,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://casten.house.gov",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.castenforcongress.com",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.castenforcongress.com/",
+      "social_media": {
+        "twitter": "https://twitter.com/RepSeanCasten",
+        "facebook": "https://www.facebook.com/RepSeanCasten"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Niki Conforti",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Niki Conforti is a Republican businesswoman and energy consultant running for U.S. House in Illinois's 6th Congressional District. She holds a BA in Economics from the University of Chicago and an MBA in Healthcare Administration from George Washington University. Conforti has worked as an energy consultant and previously spent 12 years in healthcare administration at large health systems, and also owned a staffing business.",
+      "summary_sources": [
+        {
+          "url": "https://conforti4congress.com/meet-niki/",
+          "type": "website",
+          "title": "Meet Niki - Niki Conforti Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Niki_Conforti",
+          "type": "website",
+          "title": "Niki Conforti - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://chicago.suntimes.com/elections/2026/candidate-questionnaires/niki-conforti-illinois-primary-6th-congressional-district",
+          "type": "news",
+          "title": "Niki Conforti, Republican candidate for Illinois 6th Congressional District - Chicago Sun-Times",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Niki_Conforti.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Energy Consultant",
+          "organization": "Self-employed",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Helping large national accounts become more energy efficient",
+          "source": null
+        },
+        {
+          "title": "Healthcare Administration",
+          "organization": "Large Health Systems",
+          "start_year": 2005,
+          "end_year": 2017,
+          "description": "12 years working in healthcare administration, writing corporate policy",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Staffing Business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owned and operated a staffing business",
+          "source": null
+        },
+        {
+          "title": "Precinct Committeeman",
+          "organization": "Republican Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Elected precinct committeeman",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "George Washington University",
+          "degree": "Master of Business Administration",
+          "field": "Healthcare Administration",
+          "year": 2012,
+          "source": null
+        },
+        {
+          "institution": "University of Chicago",
+          "degree": "Bachelor of Arts",
+          "field": "Economics",
+          "year": 1987,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://conforti4congress.com",
+          "title": "Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://conforti4congress.com/issues/",
+          "title": "Issues Page",
+          "type": "other"
+        }
+      ],
+      "website": "https://conforti4congress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/WinWithConforti",
+        "instagram": "https://www.instagram.com/niki_conforti"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:16:57.560832+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 293993,
+    "completion_tokens": 7034,
+    "total_tokens": 301027,
+    "cost_usd": 0.020545434,
+    "cost_source": "provider",
+    "estimated_usd": 0.03019,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 293993,
+        "completion_tokens": 7034
+      }
+    },
+    "duration_s": 126.8
+  }
+}

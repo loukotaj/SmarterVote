@@ -18,56 +18,70 @@
           "url": "https://www.marshall.senate.gov/about/",
           "type": "website",
           "title": "About Doc - Senator Roger Marshall",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kansansformarshall.com/",
           "type": "website",
           "title": "Kansans for Marshall: Dr. Roger Marshall for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
           "type": "news",
           "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RogerMarshall.jpg",
-      "website": "https://www.marshall.senate.gov/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/RogerMarshallMD/",
-        "instagram": "https://www.instagram.com/senrogermarshall/",
-        "x": "https://x.com/RogerMarshallMD"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Senator",
           "organization": "United States Senate",
           "start_year": 2021,
           "end_year": null,
-          "description": "Represents Kansas in the U.S. Senate."
+          "description": "Represents Kansas in the U.S. Senate.",
+          "source": null
         },
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 2017,
           "end_year": 2021,
-          "description": "Represented Kansas's 1st Congressional District."
+          "description": "Represented Kansas's 1st Congressional District.",
+          "source": null
         },
         {
           "title": "Physician (OB-GYN)",
           "organization": "Private practice",
           "start_year": null,
           "end_year": 2017,
-          "description": "Worked as an obstetrician-gynecologist before entering Congress."
+          "description": "Worked as an obstetrician-gynecologist before entering Congress.",
+          "source": null
         },
         {
           "title": "U.S. Army Reserve officer",
           "organization": "U.S. Army Reserve",
           "start_year": null,
           "end_year": null,
-          "description": "Served in the Army Reserve for seven years."
+          "description": "Served in the Army Reserve for seven years.",
+          "source": null
         }
       ],
       "education": [
@@ -75,21 +89,32 @@
           "institution": "University of Kansas",
           "degree": "M.D.",
           "field": "Medicine",
-          "year": 1987
+          "year": 1987,
+          "source": null
         },
         {
           "institution": "University of Kansas",
           "degree": "B.S.",
           "field": "Biochemistry",
-          "year": 1983
+          "year": 1983,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.marshall.senate.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RogerMarshallMD/",
+        "instagram": "https://www.instagram.com/senrogermarshall/",
+        "x": "https://x.com/RogerMarshallMD"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Christy Davis",
@@ -101,64 +126,87 @@
           "url": "https://www.christydavisforkansas.com/",
           "type": "website",
           "title": "HOME | Christy Davis for Kansas",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
           "type": "news",
           "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://kansasreflector.com/2025/08/18/democratic-u-s-senate-candidate-eager-to-broaden-kansas-voice-in-d-c-politics/",
           "type": "news",
           "title": "Democratic U.S. Senate candidate eager to broaden Kansas voice in D.C. politics",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Christy2026Davis.png",
-      "website": "https://www.christydavisforkansas.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/christydavisforkansas/",
-        "instagram": "https://www.instagram.com/cdavis4kansas/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Kansas director",
           "organization": "USDA Rural Development",
           "start_year": null,
           "end_year": null,
-          "description": "Served in the Biden administration overseeing rural development in Kansas."
+          "description": "Served in the Biden administration overseeing rural development in Kansas.",
+          "source": null
         },
         {
           "title": "Board member",
           "organization": "Chase County Chamber of Commerce",
           "start_year": null,
           "end_year": null,
-          "description": "Served on the chamber board."
+          "description": "Served on the chamber board.",
+          "source": null
         },
         {
           "title": "Leader",
           "organization": "Symphony in the Flint Hills",
           "start_year": null,
           "end_year": null,
-          "description": "Led the regional arts and conservation organization."
+          "description": "Led the regional arts and conservation organization.",
+          "source": null
         },
         {
           "title": "Candidate for U.S. House",
           "organization": "Kansas's 1st Congressional District",
           "start_year": 2020,
           "end_year": 2020,
-          "description": "Ran unsuccessfully for Congress in 2020."
+          "description": "Ran unsuccessfully for Congress in 2020.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.christydavisforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/christydavisforkansas/",
+        "instagram": "https://www.instagram.com/cdavis4kansas/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Erik Murray",
@@ -170,50 +218,71 @@
           "url": "https://erikforkansas.com/",
           "type": "website",
           "title": "Erik Murray for Kansas",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://erikforkansas.com/meet-erik/",
           "type": "website",
           "title": "Meet Erik - Erik Murray for Kansas",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
           "type": "news",
           "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Erik_Murray_20260331_051614.jpeg",
-      "website": "https://erikforkansas.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/erik.murray.820582/",
-        "instagram": "https://www.instagram.com/erikforkansas/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Commercial real estate developer",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Works in commercial real estate and redevelopment."
+          "description": "Works in commercial real estate and redevelopment.",
+          "source": null
         },
         {
           "title": "Lead developer",
           "organization": "Indian Springs redevelopment project",
           "start_year": 2025,
           "end_year": null,
-          "description": "His firm was selected to help lead redevelopment of the former Indian Springs mall site in Kansas City, Kansas."
+          "description": "His firm was selected to help lead redevelopment of the former Indian Springs mall site in Kansas City, Kansas.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://erikforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/erik.murray.820582/",
+        "instagram": "https://www.instagram.com/erikforkansas/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Anne Parelkar",
@@ -225,34 +294,46 @@
           "url": "https://www.anneforkansas.com/",
           "type": "website",
           "title": "Anne Parelkar for Senate | Get Involved Today",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.anneforkansas.com/about",
           "type": "website",
           "title": "About | Learn More, Get Involved Today — Anne Parelkar for Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://kansasreflector.com/2025/08/25/democratic-immigration-lawyer-wants-to-fix-broken-system-with-run-for-u-s-senate-in-kansas/",
           "type": "news",
           "title": "Democratic immigration lawyer wants to fix broken system with run for U.S. Senate in Kansas",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Anne_Parelkar_20251012_042603.jpg",
-      "website": "https://www.anneforkansas.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/AnneForKansas/",
-        "instagram": "https://www.instagram.com/AnneForKansas/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Immigration attorney",
           "organization": "Private practice",
           "start_year": null,
           "end_year": null,
-          "description": "Practices immigration law."
+          "description": "Practices immigration law.",
+          "source": null
         }
       ],
       "education": [
@@ -260,15 +341,24 @@
           "institution": "Lyon College",
           "degree": "B.A.",
           "field": "History",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.anneforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AnneForKansas/",
+        "instagram": "https://www.instagram.com/AnneForKansas/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Patrick Schmidt",
@@ -280,57 +370,79 @@
           "url": "https://patrickforkansas.com/",
           "type": "website",
           "title": "Patrick Schmidt for US Senate – Patrick Schmidt is a former U.S. Navy Intelligence Officer running to represent Kansas in the U.S. Senate.",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kslegislature.gov/li/b2025_26/members/sen_schmidt_patrick_1/",
           "type": "government",
           "title": "Senator Patrick Schmidt | Legislators | Kansas State Legislature",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.cjonline.com/story/news/politics/elections/congressional/2026/02/04/topeka-democrat-patrick-schmidt-joins-senate-race-vs-roger-marshall/88507396007/",
           "type": "news",
           "title": "Topeka Democrat Patrick Schmidt joins Senate race vs. Roger Marshall",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Patrick-Schmidt.PNG",
-      "website": "https://patrickforkansas.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/patrickforkansas/",
-        "instagram": "https://www.instagram.com/patrickforks/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Kansas state senator",
           "organization": "Kansas Senate",
           "start_year": 2025,
           "end_year": null,
-          "description": "Represents District 19 in the Kansas Senate."
+          "description": "Represents District 19 in the Kansas Senate.",
+          "source": null
         },
         {
           "title": "U.S. Navy intelligence officer",
           "organization": "U.S. Navy",
           "start_year": null,
           "end_year": null,
-          "description": "Served as a Navy intelligence officer before entering politics."
+          "description": "Served as a Navy intelligence officer before entering politics.",
+          "source": null
         },
         {
           "title": "Candidate for U.S. House",
           "organization": "Kansas's 2nd Congressional District",
           "start_year": 2022,
           "end_year": 2022,
-          "description": "Ran unsuccessfully for Congress in 2022."
+          "description": "Ran unsuccessfully for Congress in 2022.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://patrickforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/patrickforkansas/",
+        "instagram": "https://www.instagram.com/patrickforks/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Michael Soetaert",
@@ -342,34 +454,49 @@
           "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
           "type": "news",
           "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Michael_Soetaert",
           "type": "website",
           "title": "Michael Soetaert - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Soetaert_2025.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "City council member",
           "organization": "City of Wellington",
           "start_year": null,
           "end_year": null,
-          "description": "Served on the Wellington city council."
+          "description": "Served on the Wellington city council.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Sandy Spidel Neumann",
@@ -381,51 +508,40 @@
           "url": "https://ballotpedia.org/Sandy_Spidel_Neumann",
           "type": "website",
           "title": "Sandy Spidel Neumann - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
           "type": "news",
           "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sandy_Spidel_Neumann_20260318_105918.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Noah Taylor",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Noah Taylor is listed by Ballotpedia as a Democratic primary candidate in the Kansas U.S. Senate race. Publicly available reporting and campaign information were limited in the sources reviewed, so only basic candidate status could be confirmed.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Kansas,_2026",
-          "type": "website",
-          "title": "United States Senate election in Kansas, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
       "website": null,
       "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Chase LaPorte",
@@ -437,45 +553,61 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Kansas,_2026",
           "type": "website",
           "title": "United States Senate election in Kansas, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ChaseLaPorte.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T18:02:58.565884+00:00",
+  "updated_utc": "2026-06-13T23:12:08.885239+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 224687,
-    "completion_tokens": 4110,
-    "total_tokens": 228797,
-    "estimated_usd": 0.0288,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 56844,
+    "completion_tokens": 9797,
+    "total_tokens": 66641,
+    "cost_usd": 0.005643560000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.006761,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 133091,
-        "completion_tokens": 3706
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 91596,
-        "completion_tokens": 404
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 56844,
+        "completion_tokens": 9797
       }
     },
-    "duration_s": 78.2
+    "duration_s": 83.8
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

@@ -1,0 +1,160 @@
+{
+  "id": "ia-house-04-2026",
+  "title": "Iowa's 4th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Iowa's 4th Congressional District",
+  "state": "Iowa",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Iowa's 4th Congressional District will determine who represents the northwestern and north-central part of the state in the U.S. House. The district has been represented by Republican Randy Feenstra since 2021, who is running for re-election. The race is expected to be competitive, with Democrats fielding a candidate to challenge Feenstra in a district that has leaned Republican in recent cycles. Key issues include agricultural policy, economic development, and healthcare access.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of the search date.",
+  "candidates": [
+    {
+      "name": "Randy Feenstra",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Randy Feenstra is the incumbent U.S. Representative for Iowa's 4th Congressional District, first elected in 2020. He previously served as an Iowa State Senator and is known for his conservative stance on fiscal issues, agriculture, and trade. Feenstra is seeking re-election in 2026.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Randy_Feenstra",
+          "type": "government",
+          "title": "Randy Feenstra - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-04-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Randy_Feenstra_117th_Congress.jpg/220px-Randy_Feenstra_117th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Iowa's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Iowa State Senate",
+          "start_year": 2009,
+          "end_year": 2021,
+          "description": "Represented District 2",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Dordt University",
+          "degree": "Bachelor of Arts",
+          "field": "Business Administration",
+          "year": 1988,
+          "source": null
+        },
+        {
+          "institution": "University of Iowa",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": 1992,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://randyfeenstra.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ryan Melton",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Ryan Melton is a Democratic candidate running for Iowa's 4th Congressional District in 2026. He is a former congressional aide and has worked in public policy. Melton is focusing on healthcare, education, and economic opportunity in his campaign.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ryan_Melton",
+          "type": "government",
+          "title": "Ryan Melton - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-04-08T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Congressional Aide",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2018,
+          "end_year": 2020,
+          "description": "Worked for a member of Congress",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Northern Iowa",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2015,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Iowa%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:44:07.479210+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 242997,
+    "completion_tokens": 4928,
+    "total_tokens": 247925,
+    "cost_usd": 0.014424188000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.02478,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 242997,
+        "completion_tokens": 4928
+      }
+    },
+    "duration_s": 147.9
+  }
+}

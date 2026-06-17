@@ -15,15 +15,15 @@
   "office": "Governor of Arkansas",
   "jurisdiction": "Arkansas",
   "election_date": "2026-11-03",
-  "description": "The 2026 Arkansas gubernatorial election will determine who governs Arkansas, with incumbent Republican Sarah Huckabee Sanders seeking a second term and Democrats and third-party candidates looking to make the race competitive. The contest is likely to focus on Sanders' record in office, opposing policy visions on public administration and state priorities, and whether Arkansas voters continue to favor the Republican Party in statewide races. The race also serves as an early test of voter sentiment on the economy, education, and the direction of state government.",
+  "description": "2026 Arkansas gubernatorial election featuring Republican incumbent Sarah Huckabee Sanders, Democrat Fred Love, and Libertarian Colt Shelby.",
   "polling": [],
   "candidates": [
     {
       "name": "Sarah Huckabee Sanders",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Sarah Huckabee Sanders is the 47th governor of Arkansas and the first woman to hold the office. She took office in January 2023 after serving as White House press secretary under President Donald Trump, and she is seeking re-election in 2026.",
-      "image_url": "https://governor.arkansas.gov/wp-content/uploads/Governor-Headshot-1.jpg",
+      "summary": "Sarah Huckabee Sanders is the Republican governor of Arkansas and the first woman to hold the office. She was inaugurated in January 2023 after serving as White House press secretary under President Donald Trump, and she is seeking re-election in 2026.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Sarah_Sanders_2017.jpg",
       "website": "https://governor.arkansas.gov/administration/governor-sanders/",
       "social_media": {
         "facebook": "https://www.facebook.com/SarahHuckabeeSanders/",
@@ -82,67 +82,67 @@
               "url": "https://governor.arkansas.gov/news_post/sanders-negotiates-insurance-rate-increases-down-by-35-8/",
               "type": "government",
               "title": "Sanders Negotiates Insurance Rate Increases Down by 35.8%",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-announces-arkansas-application-for-rural-health-funding/",
               "type": "government",
               "title": "Sanders Announces Arkansas' Application for Rural Health Funding",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-arkansas-department-of-health-launch-statewide-campaign-to-connect-women-to-pregnancy-care/",
               "type": "government",
               "title": "Sanders, Arkansas Department of Health Launch Statewide Campaign to Connect Women to Pregnancy Care",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/governor-sanders-announces-healthy-moms-healthy-babies-act/",
               "type": "government",
               "title": "Governor Sanders Announces Healthy Moms, Healthy Babies Act",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Sanders has centered her economic agenda on tax cuts and a pro-growth business climate. She has said she wants to keep reducing taxes and encouraging business investment in Arkansas.",
+          "stance": "Sanders has centered her economic agenda on tax cuts and a pro-growth business climate. In 2026, she signed legislation reducing Arkansas's individual and corporate income tax rates, reinforcing that approach.",
           "confidence": "high",
           "sources": [
+            {
+              "url": "https://www.arkansasonline.com/news/2026/may/06/arkansas-senate-and-house-vote-to-send-tax-cut/",
+              "type": "news",
+              "title": "Sanders signs bills to cut Arkansas' individual and corporate tax rates",
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
+            },
             {
               "url": "https://www.arkansashouse.org/news/post/35262/tax-cuts-passed-in-special-session",
               "type": "government",
               "title": "Tax Cuts Passed in Special Session",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/governor-sanders-delivers-state-of-the-state-address-3/",
               "type": "government",
               "title": "Governor Sanders Delivers State of the State Address - Arkansas Governor - Sarah Huckabee Sanders",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
-            },
-            {
-              "url": "https://governor.arkansas.gov/news_post/icymi-opinion-sarah-huckabee-sanders-arkansas-is-taking-off/",
-              "type": "government",
-              "title": "OPINION | SARAH HUCKABEE SANDERS: Arkansas is Taking off",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Sanders has focused on streamlining permitting for economic development projects while saying the process should still preserve environmental protections. Her administration frames the approach as making Arkansas more competitive for investment.",
+          "stance": "Sanders has focused on streamlining permitting for economic development projects, while saying the process should still preserve environmental protections.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-signs-executive-order-to-speed-permitting-for-economic-development-projects/",
               "type": "government",
               "title": "Sanders Signs Executive Order to Speed Permitting for Economic Development Projects",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/executive_orders/sanders-signs-executive-order-to-speed-permitting-for-economic-development-projects/",
               "type": "government",
               "title": "EO 26-04 Executive Order to Make Arkansas the Best State in America to Do Business Through Streamlined, Clear, and Expeditious Permitting",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -154,19 +154,19 @@
               "url": "https://governor.arkansas.gov/news_post/arkansas-named-most-pro-life-state-in-america-for-sixth-year-in-a-row/",
               "type": "government",
               "title": "Arkansas Named Most Pro-Life State in America for Sixth Year in a Row",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/governor-sanders-announces-healthy-moms-healthy-babies-act/",
               "type": "government",
               "title": "Governor Sanders Announces Healthy Moms, Healthy Babies Act",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-arkansas-department-of-health-launch-statewide-campaign-to-connect-women-to-pregnancy-care/",
               "type": "government",
               "title": "Sanders, Arkansas Department of Health Launch Statewide Campaign to Connect Women to Pregnancy Care",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -178,13 +178,13 @@
               "url": "https://governor.arkansas.gov/news_post/governor-sanders-announces-defense-against-criminal-illegals-act/",
               "type": "government",
               "title": "Governor Sanders Announces Defense Against Criminal Illegals Act",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-announces-arkansas-national-guard-to-assist-ice-with-immigration-enforcement-in-arkansas/",
               "type": "government",
               "title": "Sanders Announces Arkansas National Guard to Assist ICE with Immigration Enforcement in Arkansas",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -196,13 +196,13 @@
               "url": "https://arkleg.state.ar.us/Bills/Detail?id=HB1117&ddBienniumSession=2025%2F2025R",
               "type": "government",
               "title": "HB1117 Bill Information - Arkansas State Legislature",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://arkleg.state.ar.us/Home/FTPDocument?path=%2FBills%2F2025R%2FPublic%2FHB1117%2FHB1117012820250911.pdf",
               "type": "government",
               "title": "HB1117 engrossed PDF (Act 229)",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -214,13 +214,13 @@
               "url": "https://governor.arkansas.gov/news_post/governor-sanders-announces-the-communist-china-defense-legislative-package/",
               "type": "government",
               "title": "Governor Sanders Announces the Communist China Defense Legislative Package",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/state-shield-awards-arkansas-top-marks-for-defending-against-foreign-adversary-influence/",
               "type": "government",
               "title": "State Shield Awards Arkansas Top Marks for Defending Against Foreign Adversary Influence",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -232,19 +232,19 @@
               "url": "https://governor.arkansas.gov/executive_orders/executive-order-to-prohibit-indoctrination-and-critical-race-theory-in-schools/",
               "type": "government",
               "title": "EXECUTIVE ORDER TO PROHIBIT INDOCTRINATION AND CRITICAL RACE THEORY IN SCHOOLS",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/proclamation-for-black-history-month/",
               "type": "government",
               "title": "Proclamation for Black History Month",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/newsroom/",
               "type": "government",
               "title": "Newsroom - Arkansas Governor - Sarah Huckabee Sanders",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -256,25 +256,25 @@
               "url": "https://governor.arkansas.gov/news_post/governor-sanders-delivers-state-of-the-state-address-3/",
               "type": "government",
               "title": "Governor Sanders Delivers State of the State Address - Arkansas Governor - Sarah Huckabee Sanders",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-announces-arkansas-access-higher-education-reform-legislation/",
               "type": "government",
               "title": "Sanders Announces Arkansas ACCESS, Higher Education Reform Legislation",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-announces-merit-bonuses-for-more-than-4200-arkansas-teachers/",
               "type": "government",
               "title": "Sanders Announces Merit Bonuses for More Than 4200 Arkansas Teachers",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/arkansas-to-participate-in-president-trumps-federal-tax-credit-scholarship-program-for-school-choice/",
               "type": "government",
               "title": "Arkansas to Participate in President Trump's Federal Tax Credit Scholarship Program for School Choice",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -286,13 +286,13 @@
               "url": "https://governor.arkansas.gov/news_post/sanders-receives-ai-center-of-excellence-effectiveness-and-safety-report/",
               "type": "government",
               "title": "Sanders Receives AI Center of Excellence Effectiveness and Safety Report",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/following-calls-from-sanders-ai-regulatory-moratorium-removed-from-one-big-beautiful-bill/",
               "type": "government",
               "title": "Following Calls from Sanders, AI Regulatory Moratorium Removed from One, Big, Beautiful Bill",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -304,13 +304,13 @@
               "url": "https://www.axios.com/local/nw-arkansas/2026/03/18/gov-sanders-touts-save-act-funding-dhs",
               "type": "news",
               "title": "Gov. Sanders touts SAVE Act, funding DHS - Axios NW Arkansas",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/arkansas-ranks-1-for-election-integrity/",
               "type": "government",
               "title": "Arkansas ranks #1 for Election Integrity",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -322,19 +322,19 @@
               "url": "https://governor.arkansas.gov/news_post/governor-sanders-delivers-state-of-the-state-address-3/",
               "type": "government",
               "title": "Governor Sanders Delivers State of the State Address",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://arkansasadvocate.com/briefs/sanders-highlights-capital-for-a-day-program-during-rural-development-conference-speech/",
               "type": "news",
               "title": "Sanders highlights 'Capital for a Day' program during Rural Development conference speech",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://governor.arkansas.gov/news_post/sanders-announces-batesville-as-arkansas-capital-for-a-day-on-june-5/",
               "type": "government",
               "title": "Sanders Announces Batesville as Arkansas' Capital for a Day on June 5",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         }
@@ -351,13 +351,13 @@
           "url": "https://governor.arkansas.gov/administration/governor-sanders/",
           "type": "government",
           "title": "The Governor - Arkansas Governor - Sarah Huckabee Sanders",
-          "last_accessed": "2026-06-13T01:54:25.1828210Z"
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
         },
         {
           "url": "https://ballotpedia.org/Sarah_Huckabee_Sanders",
           "type": "website",
           "title": "Sarah Huckabee Sanders - Ballotpedia",
-          "last_accessed": "2026-06-13T01:54:25.1828210Z"
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
         }
       ],
       "voting_summary": "Has not held legislative office, so there is no legislative voting record to report. As Arkansas governor, her comparable governing record is reflected in executive actions and policy choices reported in state government materials and coverage of her administration, but not in roll-call votes.",
@@ -458,7 +458,7 @@
       "name": "Fred Love",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Fred Love is a Democratic Arkansas state senator representing District 15 and serves as Senate Minority Whip. He previously served in the Arkansas House of Representatives and is the Democratic nominee for Arkansas governor in 2026.",
+      "summary": "Fred Love is a Democratic member of the Arkansas State Senate representing District 15 and serves as Senate Minority Whip. He previously served in the Arkansas House of Representatives and is running for governor in 2026.",
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Fredrick_Love.jpg",
       "website": "https://www.fredloveforarkansas.com/",
       "social_media": {
@@ -640,20 +640,20 @@
       ],
       "issues": {
         "Healthcare": {
-          "stance": "Love says healthcare is a right, not a privilege, and he would protect Medicaid, expand mental health services statewide, and grow telehealth access, especially in rural communities.",
+          "stance": "Love says healthcare is a right, not a privilege, and he would protect Medicaid, expand mental health services statewide, grow telehealth, and improve access to affordable care, especially in rural communities.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://www.ktlo.com/2026/05/04/governor-candidate-discusses-medicaid-rural-hospitals-and-education-vouchers-during-mh-stop/",
               "type": "website",
               "title": "Governor candidate discusses Medicaid, rural hospitals and education vouchers during MH stop | KTLO",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -665,47 +665,49 @@
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found on abortion access or restrictions. Love has, however, supported reproductive-health-related services in the legislature, including a yes vote on a doula certification bill, which speaks to maternal health access rather than abortion policy.",
-          "confidence": "medium",
+          "stance": "No public position found on climate or energy policy in the campaign materials reviewed as of the review date.",
+          "confidence": "low",
           "sources": [
-            {
-              "url": "https://www.arkleg.state.ar.us/Legislators/Detail?member=F.+Love&ddBienniumSession=2025%2F2025R",
-              "type": "government",
-              "title": "Senator Fredrick J. Love (D) - Arkansas State Legislature",
-              "last_accessed": "2026-06-13T01:49:38.653147+00:00"
-            },
             {
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:49:38.653147+00:00"
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found on abortion or reproductive health in the campaign materials reviewed on his campaign website and related news coverage as of the review date.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.fredloveforarkansas.com/values-priorities",
+              "type": "website",
+              "title": "Values & Priorities | Fred Love for Governor",
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
+            },
+            {
+              "url": "https://arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/",
+              "type": "news",
+              "title": "Love wins Democratic nomination for Arkansas governor",
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
             }
           ]
         },
         "Immigration": {
-          "stance": "Love has not published a detailed immigration platform, but his legislative voting record includes a no vote on HB 1974, which would have prohibited state entities from employing undocumented immigrants. That vote suggests opposition to that specific restriction, though the campaign has not outlined a broader immigration agenda.",
-          "confidence": "medium",
+          "stance": "No public position found on immigration policy in the campaign materials reviewed as of the review date.",
+          "confidence": "low",
           "sources": [
-            {
-              "url": "https://www.arkleg.state.ar.us/Legislators/Detail?member=F.+Love&ddBienniumSession=2025%2F2025R",
-              "type": "government",
-              "title": "Senator Fredrick J. Love (D) - Arkansas State Legislature",
-              "last_accessed": "2026-06-13T01:49:38.653147+00:00"
-            },
             {
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:49:38.653147+00:00"
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
             }
           ]
         },
@@ -714,32 +716,46 @@
           "confidence": "high",
           "sources": [
             {
+              "url": "https://www.facebook.com/FredLoveforGovernor/posts/ive-noticed-some-of-you-saying-youre-not-familiar-with-my-platform-yet-and-i-hea/842216614978960/",
+              "type": "social_media",
+              "title": "Fred Love for Governor post",
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
+            },
+            {
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "No public position found",
-          "confidence": "low"
+          "stance": "No public position found on foreign policy in the campaign materials reviewed as of the review date.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.fredloveforarkansas.com/values-priorities",
+              "type": "website",
+              "title": "Values & Priorities | Fred Love for Governor",
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
+            }
+          ]
         },
         "Civil Rights & Equality": {
-          "stance": "Love emphasizes education equity and community investment, and he has opposed voucher programs that divert public funds from public schools.",
+          "stance": "Love emphasizes education equity and community investment, including support for public schools, literacy and mental health initiatives, rural investment, and opposition to voucher programs that divert public funds from classrooms.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/",
               "type": "news",
               "title": "Love wins Democratic nomination for Arkansas governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -751,47 +767,55 @@
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://www.newsfromthestates.com/article/issue-spotlight-what-democrats-running-arkansas-governor-say-about-education",
               "type": "news",
               "title": "What Democrats running for Arkansas governor say about education",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "No public position found",
-          "confidence": "low"
+          "stance": "No public position found on technology or artificial intelligence policy in the campaign materials reviewed as of the review date.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.fredloveforarkansas.com/values-priorities",
+              "type": "website",
+              "title": "Values & Priorities | Fred Love for Governor",
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
+            }
+          ]
         },
         "Election Policy": {
-          "stance": "No public position found in the campaign materials reviewed.",
+          "stance": "No public position found on election policy in the campaign materials reviewed.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://katv.com/community/little-rock-arc/arkansas-senator-fred-love-announces-gubernatorial-run-with-bold-vision-katv-inform-share-educate-community-public-assist-engage-recall-legislature-leader-campaign",
               "type": "website",
               "title": "Arkansas senator Fred Love announces candidacy for governor with bold vision",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "Love says he would eliminate the state school voucher program and reinvest funds in public education, while also bolstering roads, water, sewer, and broadband infrastructure and expanding rural workforce training and small-business development.",
+          "stance": "Love says he would eliminate the state school voucher program and reinvest funds in public education, while also bolstering local infrastructure such as roads, water, sewer, and broadband and expanding rural workforce training and small-business development.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.fredloveforarkansas.com/values-priorities",
               "type": "website",
               "title": "Values & Priorities | Fred Love for Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         }
@@ -806,15 +830,21 @@
       "summary_sources": [
         {
           "url": "https://senate.arkansas.gov/senators/640/",
-          "type": "website",
+          "type": "government",
           "title": "Senator Fredrick J. Love - Arkansas Senate",
-          "last_accessed": "2026-06-13T01:54:25.1828210Z"
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
+        },
+        {
+          "url": "https://www.fredloveforarkansas.com/meetfred",
+          "type": "website",
+          "title": "Meet Fred | Fred Love for Governor",
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
         },
         {
           "url": "https://www.arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/",
           "type": "news",
           "title": "Love wins Democratic nomination for Arkansas governor",
-          "last_accessed": "2026-06-13T01:54:25.1828210Z"
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
         }
       ],
       "voting_summary": "Incumbent Arkansas state senator, so he has a legislative voting and sponsorship record. In the Arkansas House/Senate archive, Love is shown sponsoring measures on economic development, tax policy, higher education and public health, and the public-facing issue page for his gubernatorial campaign emphasizes Medicaid protection, prison reform, workforce development, and expanded education services.",
@@ -891,11 +921,6 @@
           "url": "https://www.arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/",
           "title": "Love wins Democratic nomination for Arkansas governor",
           "type": "news"
-        },
-        {
-          "url": "https://www.arkleg.state.ar.us/Legislators/Detail?member=F.+Love&ddBienniumSession=2025%2F2025R",
-          "title": "Senator Fredrick J. Love (D) - Arkansas State Legislature",
-          "type": "legislature"
         }
       ],
       "donor_sources": [
@@ -903,31 +928,31 @@
           "url": "https://www.opensecrets.org/officeholders/fred-love/summary?cycle=2013&id=6459312",
           "title": "Fred Love Money Profile - OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
         },
         {
           "url": "https://www.opensecrets.org/officeholders/fred-love/industries?cycle=2017&id=6459312",
           "title": "Fred Love Top Industries - OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
         },
         {
           "url": "https://www.opensecrets.org/officeholders/fred-love/contributors?cycle=2018&id=6459312&recs=100",
           "title": "Fred Love Top Contributors - OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
         },
         {
           "url": "https://www.followthemoney.org/entity-details?eid=6459312&default=candidate",
           "title": "LOVE, FREDERICK (FRED) - FollowTheMoney.org",
           "type": "finance",
-          "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
         },
         {
           "url": "https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=d6da0031-efa3-4b5b-8262-5b228517a6a2&tabName=Reports",
           "title": "Senator Fredrick J Love I - Financial Disclosure",
           "type": "government",
-          "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
         }
       ],
       "voting_sources": [
@@ -949,25 +974,25 @@
       "name": "Colt Shelby",
       "party": "Libertarian",
       "incumbent": false,
-      "summary": "Colt Shelby is the Libertarian candidate for Arkansas governor in 2026. He is a sixth-generation Arkansan from Cecil, Arkansas, and has said he entered politics after opposing the proposed Franklin County prison and later challenging the timing of a special election for Senate District 26.",
+      "summary": "Colt Shelby is the Libertarian nominee for Arkansas governor in 2026. He is from Cecil, Arkansas, and has said he entered politics after opposing the proposed Franklin County prison and later challenging the timing of a special election for Senate District 26.",
       "summary_sources": [
         {
           "url": "https://arkansasadvocate.com/briefs/libertarian-party-of-arkansas-nominates-2026-general-election-candidates/",
           "type": "news",
           "title": "Libertarian Party of Arkansas nominates 2026 general election candidates",
-          "last_accessed": "2026-06-13T01:54:25.1828210Z"
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
         },
         {
           "url": "https://www.4029tv.com/article/colt-shelby-libertarian-governor-arkansas/71085667",
           "type": "news",
           "title": "Colt Shelby says prison plan got him into politics",
-          "last_accessed": "2026-06-13T01:54:25.1828210Z"
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
         },
         {
-          "url": "https://www.colt4arkansas.org/",
-          "type": "website",
-          "title": "Colt Shelby for Arkansas Governor",
-          "last_accessed": "2026-06-13T01:54:25.1828210Z"
+          "url": "https://www.4029tv.com/article/franklin-county-resident-sues-governor-secretary-of-state-over-special-election-timing/68881629",
+          "type": "news",
+          "title": "Franklin County resident sues governor, secretary of state over special election timing",
+          "last_accessed": "2026-06-13T20:48:48.772977+00:00"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Colt_Shelby_20260226_045137.png",
@@ -998,13 +1023,13 @@
               "url": "https://www.colt4arkansas.org/platform",
               "type": "website",
               "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://independentarkansas.com/libertarian-colt-shelby/",
               "type": "news",
               "title": "Libertarian Colt Shelby seeks another win - independentarkansas.com",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -1013,86 +1038,86 @@
           "confidence": "low"
         },
         "Firearms & Second Amendment": {
-          "stance": "Shelby continues to portray gun rights as a constitutional right and a natural, God-given right, and he frames them as part of Arkansas’s cultural norm. He also emphasized in a March 20 Facebook post that he opposes adding more gun regulations and said the current law should remain in place for people deemed mentally ill or a danger to themselves or others after due process.",
+          "stance": "Shelby says gun rights are a constitutional right and a natural, God-given right. His platform also says he opposes unnecessary new gun regulations and favors leaving current law in place, including due-process protections for people found to be a danger to themselves or others.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.colt4arkansas.org/issues",
+              "url": "https://www.colt4arkansas.org/platform",
               "type": "website",
               "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
             }
           ]
         },
         "Healthcare": {
-          "stance": "Shelby says government should not manage private life and that parents should have authority in healthcare and family decisions. His platform does not set out a more detailed healthcare agenda.",
+          "stance": "Shelby says parents should have authority in healthcare and family decisions, and he opposes government mandates that interfere with private life. His public platform does not provide a more detailed healthcare policy agenda.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.colt4arkansas.org/issues",
               "type": "website",
               "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-05-19T01:20:25.729379+00:00"
             }
           ]
         },
         "Abortion & Reproductive Health": {
-          "stance": "Shelby has not published a detailed abortion policy on his campaign site. In a campaign post, he said Arkansas should focus more on women's health and infant mortality as part of being 'pro-life,' indicating attention to maternal and infant health rather than a specific stance on abortion restrictions or access.",
+          "stance": "Shelby has not published a detailed abortion policy on his campaign site. His public comments instead emphasize parental authority in healthcare and family decisions, and a campaign post says Arkansas should address women's health and infant mortality as part of being \"truly pro-life.\"",
           "confidence": "medium",
           "sources": [
+            {
+              "url": "https://www.colt4arkansas.org/platform",
+              "type": "website",
+              "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
+            },
             {
               "url": "https://x.com/Colt_Shelby/status/2042563366095372720",
               "type": "social_media",
               "title": "Colt Shelby For Arkansas Governor on X",
-              "last_accessed": "2026-06-13T01:49:38.653147+00:00"
-            },
-            {
-              "url": "https://www.colt4arkansas.org/issues",
-              "type": "website",
-              "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:49:38.653147+00:00"
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Shelby has criticized Arkansas’ reliance on data centers, wind turbines, and solar projects, arguing the state lacks the infrastructure to support them and that they do not add enough local value or jobs. His comments frame the issue mainly as land-use and infrastructure concerns rather than a broader climate agenda.",
+          "stance": "Shelby has not released a comprehensive climate or energy platform. His public statements focus on criticism of specific data center, wind, and solar projects, which he says raise infrastructure and land-use concerns and do not clearly benefit local communities.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.4029tv.com/article/colt-shelby-libertarian-governor-arkansas/71085667",
               "type": "news",
-              "title": "Colt Shelby says prison plan got him into politics",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "title": "Libertarian Colt Shelby says Franklin County prison fight pushed him into politics",
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
             },
             {
               "url": "https://www.colt4arkansas.org/platform",
               "type": "website",
-              "title": "Colt's Platform",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
+              "last_accessed": "2026-06-13T01:52:54.032193+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "Shelby has criticized the secrecy around Arkansas data center projects and said it benefits \"Big Tech overlords\" seeking handouts rather than the public. He also says Arkansas should rely on Arkansas companies and people, and he has framed a recent campaign video as AI-generated in a social media post.",
+          "stance": "Shelby has publicly criticized the secrecy around Arkansas data center projects and said it benefits \"Big Tech overlords\" seeking handouts, not the public. He also says Arkansas should rely on Arkansas companies and people, and he framed a recent campaign video as AI-generated in a social media post.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.colt4arkansas.org/",
               "type": "website",
               "title": "Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://www.x.com/Colt_Shelby",
               "type": "social_media",
               "title": "Colt Shelby For Arkansas Governor (@Colt_Shelby) / X",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://x.com/Colt_Shelby/status/2057150678284513338",
               "type": "social_media",
               "title": "Where I Come From: Colt Shelby For Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -1101,32 +1126,32 @@
           "confidence": "low"
         },
         "Civil Rights & Equality": {
-          "stance": "Shelby frames civil-rights and equality questions through a limited-government lens, emphasizing free speech, privacy, parental authority, and opposition to mandates affecting churches, homeschooling, or private associations. His platform does not specifically address racial equity, policing reform, or DEI.",
+          "stance": "Shelby frames civil-rights and equality questions through a limited-government lens. On his campaign platform, he says government should not manage private life, emphasizes civil liberties such as free speech and privacy, and supports parental authority while opposing mandates that affect churches, homeschooling, and private associations. The site does not specifically address racial equity, policing reform, or DEI.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.colt4arkansas.org/issues",
               "type": "website",
               "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
         "Election Policy": {
-          "stance": "Shelby’s platform emphasizes limited, local, and accountable government, with decisions made by counties, cities, and communities rather than Little Rock or Washington. It does not specify a detailed agenda on voting access, election administration, or redistricting.",
+          "stance": "Shelby's campaign platform now states that he supports limited, local, and accountable government, with decisions made at the county, city, and community level rather than Little Rock or Washington. It does not provide a specific election-policy agenda on voting access, election administration, or redistricting, so his public position on election policy remains largely unspecified beyond that general local-control framework.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://www.colt4arkansas.org/platform",
               "type": "website",
               "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             },
             {
               "url": "https://www.colt4arkansas.org/issues",
               "type": "website",
               "title": "Colt's Platform - Colt Shelby for Arkansas Governor",
-              "last_accessed": "2026-06-13T01:48:16.217245+00:00"
+              "last_accessed": "2026-06-13T01:47:13.691612+00:00"
             }
           ]
         },
@@ -1143,10 +1168,10 @@
           ]
         }
       },
-      "voting_summary": "No legislative voting record is available because Shelby has not held legislative office. Public evidence instead consists of campaign statements and court-related activity, including his criticism of the proposed Franklin County prison project and his challenge to the timing of a Senate District 26 special election.",
+      "voting_summary": "Has not held legislative office, so there is no legislative voting record to report. No prior elected or executive office was found in the sources reviewed; public evidence instead consists of litigation and campaign statements, including his criticism of the proposed Franklin County prison project and his campaign against Gov. Sarah Huckabee Sanders.",
       "voting_source_url": "https://caseinfo.arcourts.gov/opad/case/60CV-25-12172",
       "donor_source_url": "https://portal.arkansas.gov/service/ar-candidate-contributions-expenditures-report/",
-      "donor_summary": "No campaign finance data was found in the public disclosures reviewed. The candidate has a state campaign finance reporting portal listed, but accessible itemized donor totals were not located in the sources reviewed.",
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-06-13. Publicly indexed searches turned up Ballotpedia and news coverage of his candidacy, but no accessible OpenSecrets, FEC, or Arkansas state finance page with itemized donor totals was located for this candidate.",
       "links": [
         {
           "url": "https://ballotpedia.org/Colt_Shelby",
@@ -1207,175 +1232,683 @@
       "donor_sources": [
         {
           "url": "https://portal.arkansas.gov/service/ar-candidate-contributions-expenditures-report/",
-          "type": "finance",
-          "last_accessed": "2026-06-13T01:48:03.908046+00:00",
           "title": "Candidates' Contributions and Expenditure Report Search",
-          "description": "Arkansas candidate finance search portal",
-          "published_at": "2026-06-13"
+          "type": "government",
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
         },
         {
           "url": "https://ethics-disclosures.sos.arkansas.gov/",
-          "type": "finance",
-          "last_accessed": "2026-06-13T01:48:03.908083+00:00",
           "title": "Financial Disclosure - Arkansas.gov",
-          "description": "Arkansas ethics and disclosure portal",
-          "published_at": "2026-06-13"
+          "type": "government",
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
+        },
+        {
+          "url": "https://ballotpedia.org/Colt_Shelby",
+          "title": "Colt Shelby - Ballotpedia",
+          "type": "news",
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
+        },
+        {
+          "url": "https://independentarkansas.com/libertarian-colt-shelby/",
+          "title": "Libertarian Colt Shelby seeks another win",
+          "type": "news",
+          "last_accessed": "2026-06-13T01:47:13.691612+00:00"
         }
       ],
       "voting_sources": [
         {
-          "url": "https://caseinfo.arcourts.gov/opad/case/60CV-25-12172",
-          "type": "government",
-          "last_accessed": "2026-06-13T01:49:30.652126+00:00",
-          "title": "colt shelby v sarah huckabee sanders, et al",
-          "description": "Arkansas court case docket referencing Shelby's litigation over special election timing",
-          "published_at": "2026-05-18"
+          "url": "https://residentnewsnetwork.com/libertarian-nominee-colt-shelby-announces-bid-for-governor/",
+          "type": "news",
+          "last_accessed": "2026-05-18T02:16:38.097431+00:00",
+          "title": "Libertarian Nominee Colt Shelby Announces Bid for Governor"
         },
         {
-          "url": "https://www.4029tv.com/article/colt-shelby-libertarian-governor-arkansas/71085667",
+          "url": "https://www.4029tv.com/article/franklin-county-resident-lawsuit/68881629",
           "type": "news",
-          "last_accessed": "2026-06-13T01:49:30.652154+00:00",
-          "title": "Colt Shelby says prison plan got him into politics",
-          "description": "Local news interview on Shelby's campaign background and prison project opposition",
-          "published_at": "2026-05-18"
+          "last_accessed": "2026-05-18T02:16:38.097464+00:00",
+          "title": "Franklin County resident sues governor, secretary of state over special election timing"
         }
       ]
     }
   ],
-  "updated_utc": "2026-06-13T01:49:38.653147+00:00",
+  "updated_utc": "2026-06-13T20:49:56.090000+00:00",
   "generator": [
-    "openai/gpt-5.4-mini",
-    "anthropic/claude-haiku-4.5",
-    "google/gemini-3.1-flash-lite-preview",
-    "x-ai/grok-4.3"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "anthropic/claude-haiku-4.5",
-      "reviewed_at": "2026-06-13T01:49:57.866757+00:00",
+      "reviewed_at": "2026-06-13T01:53:36.931896+00:00",
       "verdict": "approved",
       "score": 87,
       "flags": [
         {
           "field": "candidates[1].issues.Abortion & Reproductive Health.stance",
-          "concern": "The stance description says 'No public position found on abortion access or restrictions' but then immediately pivots to a yes vote on a doula certification bill as evidence of 'reproductive-health-related services.' This framing could be read as inferring a pro-choice position from a maternal-health vote, which is a logical leap. The doula vote supports maternal health access, not necessarily a position on abortion policy itself.",
-          "suggestion": "Clarify that the doula vote reflects support for maternal health services but does not constitute a public stance on abortion access or restrictions. Consider: 'Love has not published a detailed position on abortion access or restrictions. His legislative record includes a yes vote on HB 1252 (Certified Community-Based Doula Certification Act), which reflects support for maternal health services, but this does not indicate his stance on abortion policy.'",
+          "concern": "Fred Love's stance on abortion and reproductive health is marked as 'low' confidence with a generic 'no public position found' entry. Given that this is a major 2026 gubernatorial issue in Arkansas (a state with strict abortion restrictions), and Love is the Democratic nominee, it is notable that no campaign statement, interview, or position paper on this issue was located. This may reflect genuine absence of public positioning, but it warrants human verification—particularly checking recent news coverage, debate transcripts, or direct campaign outreach materials that may not have been indexed by the web-research agent.",
+          "suggestion": "Human reviewer should verify whether Love has made any public statements on abortion/reproductive rights in interviews, debates, or campaign materials published after the profile's last access date (2026-06-13). If no position exists, the current 'low confidence' entry is appropriate; if one does exist, add it with source.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.stance",
+          "concern": "Fred Love's immigration stance is marked 'low' confidence with 'no public position found.' Given that Sanders has made immigration enforcement a central plank (Defense Against Criminal Illegals Act, National Guard ICE cooperation), the absence of a contrasting Democratic position is notable. This may reflect Love's campaign strategy, but it should be verified.",
+          "suggestion": "Human reviewer should check recent Love campaign materials, debate coverage, or news interviews for any statements on immigration policy, sanctuary policies, or ICE cooperation. If genuinely absent, the current entry is acceptable.",
           "severity": "info"
         },
         {
           "field": "candidates[2].issues.Abortion & Reproductive Health.stance",
-          "concern": "Shelby's stance says he 'said Arkansas should focus more on women's health and infant mortality as part of being pro-life.' The phrase 'as part of being pro-life' could be interpreted as the profile endorsing or summarizing Shelby's own framing rather than neutrally reporting it. The source (an X post) should be verified to confirm whether Shelby himself used the phrase 'pro-life' or whether the profile is attributing that label.",
-          "suggestion": "Reframe to: 'In a campaign post, Shelby emphasized women's health and infant mortality reduction, framing these as priorities within his stated pro-life perspective. However, he has not published a detailed abortion policy on his campaign site.' This makes clear that 'pro-life' is Shelby's own characterization, not the profile's.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].issues.Firearms & Second Amendment.stance",
-          "concern": "Sanders' firearms stance is described as: 'Sanders signed a 2025 law requiring annual, age-appropriate gun safety instruction in public schools.' This is factually accurate per the sources, but the framing could be perceived as emphasizing a gun-safety measure without noting that this is a pro-gun-rights governor's approach to the issue. For balance, consider whether the stance description should note that this represents her administration's approach to gun safety within a pro-Second Amendment framework, or whether the current framing is sufficiently neutral. The sources support the claim, so this is a minor framing note rather than a factual error.",
-          "suggestion": "Optional: Add context such as 'Sanders has also signed legislation requiring gun safety instruction in schools, reflecting her administration's approach to firearm safety education.' This would clarify that gun safety and Second Amendment support are not mutually exclusive in her platform.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].top_donors",
-          "concern": "Fred Love's top_donors list includes entries with null 'amount' values (e.g., 'Arkansas Medical Society'). While this reflects incomplete data, it creates an asymmetry with Sanders' donor section, which explicitly notes 'pending current-cycle finance disclosures' rather than listing partial data. This could inadvertently suggest Love has fewer or less-documented donors.",
-          "suggestion": "Either (a) remove null-amount entries and add a note similar to Sanders' ('2026 cycle donor data pending current-cycle finance disclosures'), or (b) explicitly note in the donor_summary that some entries lack itemized amounts. Consistency across candidates would improve clarity.",
+          "concern": "Colt Shelby's abortion stance is marked 'medium' confidence and relies on a single X/social-media post (status 2042563366095372720) that references being 'truly pro-life' in the context of women's health and infant mortality. The stance description notes he 'has not published a detailed abortion policy' and instead emphasizes 'parental authority in healthcare.' This is appropriately cautious, but the social-media URL should be spot-checked to confirm it actually contains the quoted language and is not a misattribution.",
+          "suggestion": "Human reviewer should verify the X post URL (https://x.com/Colt_Shelby/status/2042563366095372720) to confirm it contains the quoted language about being 'truly pro-life' and women's health. If the URL is broken or the content differs, update the stance and confidence accordingly.",
           "severity": "info"
         },
         {
           "field": "candidates[2].donor_summary",
-          "concern": "Shelby's donor_summary states 'No campaign finance data was found in the public disclosures reviewed.' However, the donor_sources array lists two URLs (Arkansas state portal and ethics disclosures portal) that should theoretically contain this data. The summary should clarify whether these portals were checked and found to have no filings, or whether they were not fully accessible.",
-          "suggestion": "Revise to: 'No itemized campaign finance data was located in the public disclosures reviewed as of June 13, 2026. The Arkansas state campaign finance portal and ethics disclosure portal are the authoritative sources for any future filings.'",
+          "concern": "Colt Shelby's donor_summary states 'No campaign finance data found in public disclosures as of 2026-06-13.' This is consistent with the empty top_donors array and the donor_source_url pointing to the Arkansas state portal. However, as a Libertarian nominee in a general election, Shelby may be required to file with the Arkansas Secretary of State. The absence of data could reflect either genuine non-filing, late filing, or indexing lag. This should be verified by a human reviewer checking the state portal directly.",
+          "suggestion": "Human reviewer should visit the Arkansas Secretary of State campaign finance portal (https://portal.arkansas.gov/service/ar-candidate-contributions-expenditures-report/) and search for 'Colt Shelby' to confirm whether any 2026 gubernatorial campaign finance filings exist. If filings exist but were not indexed, add them; if no filings exist, note whether Shelby is exempt or has not yet filed.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Firearms & Second Amendment.stance",
+          "concern": "Sarah Huckabee Sanders' firearms stance describes her signing 'a 2025 law requiring annual, age-appropriate gun safety instruction in public schools.' The sources cite HB1117 (Act 229). This is a gun-safety measure, not a gun-rights measure, and the framing is neutral. However, the stance section is titled 'Firearms & Second Amendment' and contains only this one policy. For balance, the profile should note whether Sanders has taken other positions on Second Amendment rights, gun regulations, or constitutional carry—or whether this safety-instruction law represents her primary public stance on firearms. The current entry is not biased, but it may be incomplete.",
+          "suggestion": "Human reviewer should verify whether Sanders has issued other public statements on Second Amendment rights, constitutional carry, or gun regulations. If the safety-instruction law is her primary 2026 firearms position, the current entry is acceptable; if other positions exist, add them with sources.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].voting_record",
+          "concern": "Fred Love's voting_record array contains 13 bills with votes and dates. The dates range from 2025-03-01 to 2025-04-16. These appear to be from the 2025 legislative session. The sources cited in voting_sources point to the Arkansas State Legislature website. The bills are described with titles (e.g., 'SB17 - To Create Lux's Law...'), which is good. However, I cannot independently verify from the source URLs provided whether these votes are accurately recorded. The profile should be spot-checked by a human reviewer against the official Arkansas legislature voting records to confirm accuracy of vote tallies and dates.",
+          "suggestion": "Human reviewer should spot-check 3–5 of these votes (e.g., SB17, HB1974, HB1365) against the official Arkansas State Legislature website (https://www.arkleg.state.ar.us/) to confirm the vote record, date, and bill description are accurate.",
           "severity": "info"
         }
       ],
-      "summary": "This is a well-researched, comprehensive profile of the 2026 Arkansas gubernatorial race with strong sourcing across all three candidates. Sarah Huckabee Sanders' profile is particularly robust, with high-confidence citations from official state government sources documenting her healthcare, education, immigration, and economic initiatives. Fred Love's profile includes a detailed legislative voting record with specific bill names and dates, and his issue stances are grounded in campaign materials and voting history. Colt Shelby's profile appropriately documents the limits of available public information for a third-party candidate while still capturing his stated platform positions. The profile maintains neutral, nonpartisan language throughout, with consistent terminology across candidates (e.g., 'opposes abortion rights' vs. 'no public position found' rather than loaded framing). Candidate backgrounds are accurate and well-documented with appropriate source citations. The iteration notes demonstrate thoughtful refinement, including removal of stale donor data and clarification of issue framings. Minor gaps exist on some candidates' positions (e.g., Shelby's foreign policy, Love's climate/energy stance), but these are appropriately marked as 'no public position found' after good-faith search efforts, which is acceptable per the missing-data policy."
+      "summary": "This is a well-researched, substantially sourced profile of the 2026 Arkansas gubernatorial race. All three candidates are covered across 12 canonical issue areas with appropriate confidence levels. Sarah Huckabee Sanders' positions are backed by official government sources and news coverage; Fred Love's stances are grounded in campaign materials and legislative voting records; Colt Shelby's limited public profile is accurately reflected with low-confidence entries where positions are genuinely unavailable. The profile demonstrates good-faith effort to locate positions for all candidates and appropriately documents gaps. Language is neutral and nonpartisan throughout, with no value-laden adjectives or asymmetric framing detected. Candidate backgrounds are internally consistent with cited sources. Minor gaps exist (e.g., Love's abortion stance, Shelby's immigration position), but these reflect genuine absence of public campaign material rather than research failure. The profile's iteration notes show transparent refinement and source-checking discipline."
     },
     {
       "model": "google/gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-06-13T01:50:01.853564+00:00",
+      "reviewed_at": "2026-06-13T01:53:15.632081+00:00",
       "verdict": "approved",
       "score": 96,
       "flags": [
         {
-          "field": "candidates[1].issues.Immigration.stance",
-          "concern": "The profile uses the term 'undocumented immigrants' to describe the subject of a bill. While neutral, the bill title cited in the profile uses the term 'undocumented immigrants' as well, but the legislative record often uses specific legal terminology.",
-          "suggestion": "Ensure consistency with the official bill language if the legislative record uses a different term, though the current usage is acceptable and neutral.",
+          "field": "candidates[1].issues.Abortion & Reproductive Health.stance",
+          "concern": "The stance notes no public position found, but the candidate's voting record includes a 'yes' vote on HB 1252 (Certified Community-Based Doula Certification Act), which is relevant to reproductive health.",
+          "suggestion": "Consider cross-referencing the voting record with the issue stance to see if the 'yes' vote on HB 1252 warrants a brief mention under reproductive health, even if a broader policy platform is absent.",
           "severity": "info"
         },
         {
-          "field": "candidates[0].issues.Immigration.stance",
-          "concern": "The profile uses the term 'illegal' in the context of the 'Defense Against Criminal Illegals Act'.",
-          "suggestion": "This is the official name of the legislation, so it is accurate to cite it as such. No change needed, but ensure the distinction between the act's title and the candidate's general platform terminology remains clear.",
+          "field": "candidates[1].issues.Climate/Energy.stance",
+          "concern": "The stance notes no public position found, but the voting record includes a 'yes' vote on HB 1656 (Amends State Law Regarding Oil and Gas Production and Conservation).",
+          "suggestion": "Mention the vote on HB 1656 as a data point regarding his legislative record on energy, even if a comprehensive climate platform is not articulated.",
           "severity": "info"
         }
       ],
-      "summary": "This profile is exceptionally well-researched and balanced. It maintains a neutral, objective tone across all candidates and provides high-quality, verifiable sources for nearly every claim. The agent successfully navigated the challenge of documenting a race with an incumbent and two challengers, providing clear context for legislative records and campaign platforms while appropriately noting where information is currently unavailable."
+      "summary": "This profile is exceptionally well-structured and maintains a high standard of neutrality. It effectively balances the incumbent's extensive executive record with the challenger's legislative and campaign-based positions. The sourcing is robust, utilizing official government portals and reputable news outlets, and the profile handles the absence of public information for certain issues with transparency and clear confidence levels."
     },
     {
       "model": "x-ai/grok-4.3",
-      "reviewed_at": "2026-06-13T01:49:41.902483+00:00",
+      "reviewed_at": "2026-06-13T01:53:17.931115+00:00",
       "verdict": "approved",
-      "score": 95,
+      "score": 93,
       "flags": [],
-      "summary": "Strong sourcing across all 12 issues for Sanders and Love (and the available issues for Shelby) with high-confidence citations from official campaign sites, Arkansas legislative records, and state government materials. Candidate backgrounds, voting records, and donor notes are internally consistent with the cited URLs. Neutral, nonpartisan language throughout with no asymmetric framing or loaded terminology. Gaps (e.g., Love and Shelby on several issues) are properly documented as “no public position found” after good-faith searches."
+      "summary": "Strong sourcing across all 12 issues with high-confidence citations from official campaign sites (fredloveforarkansas.com, colt4arkansas.org), state government portals (governor.arkansas.gov, arkleg.state.ar.us), Ballotpedia, and credible local news. Candidate backgrounds, voting records, and donor notes are accurately tied to cited legislative and campaign sources. Low-confidence 'no public position found' entries for Love and Shelby are appropriately documented after searches. Neutral, consistent terminology used for all three candidates with no asymmetric framing or loaded adjectives."
     },
     {
       "model": "automated-link-validator",
-      "reviewed_at": "2026-06-13T01:50:05.117660+00:00",
+      "reviewed_at": "2026-06-13T01:56:16.132708+00:00",
       "verdict": "flagged",
       "score": null,
       "flags": [
         {
-          "field": "candidates[1].issues.Firearms & Second Amendment.sources[0].url",
-          "concern": "Cited source URL (https://www.facebook.com/FredLoveforGovernor/posts/ive-noticed-some-of-you-saying-youre-not-familiar-with-my-platform-yet-and-i-hea/842216614978960/) returned a dead link: HTTP error 400.",
+          "field": "candidates[0].summary_sources[1].url",
+          "concern": "Cited source URL (https://ballotpedia.org/Sarah_Huckabee_Sanders) returned a dead link: Request failed: .",
           "suggestion": "Verify the URL, find a replacement source, and update the stance.",
           "severity": "warning"
         },
         {
-          "field": "candidates[2].issues.Firearms & Second Amendment.sources[1].url",
-          "concern": "Cited source URL (https://www.facebook.com/colt.shelby.2025/posts/i-thought-we-were-past-this-stage-and-i-cant-stand-when-little-rock-gets-involve/4449693488605486/) returned a dead link: HTTP error 400.",
+          "field": "candidates[0].issues.Healthcare.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-negotiates-insurance-rate-increases-down-by-35-8/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Healthcare.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-announces-arkansas-application-for-rural-health-funding/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Healthcare.sources[2].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-arkansas-department-of-health-launch-statewide-campaign-to-connect-women-to-pregnancy-care/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Healthcare.sources[3].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/governor-sanders-announces-healthy-moms-healthy-babies-act/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Economy.sources[0].url",
+          "concern": "Cited source URL (https://www.arkansasonline.com/news/2026/may/06/arkansas-senate-and-house-vote-to-send-tax-cut/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Economy.sources[1].url",
+          "concern": "Cited source URL (https://www.arkansashouse.org/news/post/35262/tax-cuts-passed-in-special-session) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Economy.sources[2].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/governor-sanders-delivers-state-of-the-state-address-3/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-signs-executive-order-to-speed-permitting-for-economic-development-projects/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/executive_orders/sanders-signs-executive-order-to-speed-permitting-for-economic-development-projects/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/arkansas-named-most-pro-life-state-in-america-for-sixth-year-in-a-row/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/governor-sanders-announces-healthy-moms-healthy-babies-act/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources[2].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-arkansas-department-of-health-launch-statewide-campaign-to-connect-women-to-pregnancy-care/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Immigration.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/governor-sanders-announces-defense-against-criminal-illegals-act/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Immigration.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-announces-arkansas-national-guard-to-assist-ice-with-immigration-enforcement-in-arkansas/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Firearms & Second Amendment.sources[0].url",
+          "concern": "Cited source URL (https://arkleg.state.ar.us/Bills/Detail?id=HB1117&ddBienniumSession=2025%2F2025R) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Firearms & Second Amendment.sources[1].url",
+          "concern": "Cited source URL (https://arkleg.state.ar.us/Home/FTPDocument?path=%2FBills%2F2025R%2FPublic%2FHB1117%2FHB1117012820250911.pdf) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Foreign Policy.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/governor-sanders-announces-the-communist-china-defense-legislative-package/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Foreign Policy.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/state-shield-awards-arkansas-top-marks-for-defending-against-foreign-adversary-influence/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/executive_orders/executive-order-to-prohibit-indoctrination-and-critical-race-theory-in-schools/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/proclamation-for-black-history-month/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[2].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/newsroom/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/governor-sanders-delivers-state-of-the-state-address-3/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-announces-arkansas-access-higher-education-reform-legislation/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[2].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-announces-merit-bonuses-for-more-than-4200-arkansas-teachers/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[3].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/arkansas-to-participate-in-president-trumps-federal-tax-credit-scholarship-program-for-school-choice/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Tech & AI.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-receives-ai-center-of-excellence-effectiveness-and-safety-report/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Tech & AI.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/following-calls-from-sanders-ai-regulatory-moratorium-removed-from-one-big-beautiful-bill/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Election Policy.sources[0].url",
+          "concern": "Cited source URL (https://www.axios.com/local/nw-arkansas/2026/03/18/gov-sanders-touts-save-act-funding-dhs) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Election Policy.sources[1].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/arkansas-ranks-1-for-election-integrity/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Local Issues.sources[0].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/governor-sanders-delivers-state-of-the-state-address-3/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Local Issues.sources[1].url",
+          "concern": "Cited source URL (https://arkansasadvocate.com/briefs/sanders-highlights-capital-for-a-day-program-during-rural-development-conference-speech/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Local Issues.sources[2].url",
+          "concern": "Cited source URL (https://governor.arkansas.gov/news_post/sanders-announces-batesville-as-arkansas-capital-for-a-day-on-june-5/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].donor_sources[0].url",
+          "concern": "Cited source URL (https://portal.arkansas.gov/service/ar-candidate-contributions-expenditures-report/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].donor_sources[1].url",
+          "concern": "Cited source URL (https://www.arkansasonline.com/news/2026/may/21/sanders-reelection-campaign-balance-reported-to/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].donor_sources[2].url",
+          "concern": "Cited source URL (https://www.arkansasonline.com/news/2025/jan/17/sanders-2026-campaign-raises-more-than-1m-so-far/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].summary_sources[0].url",
+          "concern": "Cited source URL (https://senate.arkansas.gov/senators/640/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].summary_sources[1].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/meetfred) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].summary_sources[2].url",
+          "concern": "Cited source URL (https://www.arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Healthcare.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Healthcare.sources[1].url",
+          "concern": "Cited source URL (https://www.ktlo.com/2026/05/04/governor-candidate-discusses-medicaid-rural-hospitals-and-education-vouchers-during-mh-stop/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Economy.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Climate/Energy.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Abortion & Reproductive Health.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Abortion & Reproductive Health.sources[1].url",
+          "concern": "Cited source URL (https://arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Firearms & Second Amendment.sources[0].url",
+          "concern": "Cited source URL (https://www.facebook.com/FredLoveforGovernor/posts/ive-noticed-some-of-you-saying-youre-not-familiar-with-my-platform-yet-and-i-hea/842216614978960/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Firearms & Second Amendment.sources[1].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Foreign Policy.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.sources[1].url",
+          "concern": "Cited source URL (https://arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Education.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Education.sources[1].url",
+          "concern": "Cited source URL (https://www.newsfromthestates.com/article/issue-spotlight-what-democrats-running-arkansas-governor-say-about-education) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Election Policy.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Election Policy.sources[1].url",
+          "concern": "Cited source URL (https://katv.com/community/little-rock-arc/arkansas-senator-fred-love-announces-gubernatorial-run-with-bold-vision-katv-inform-share-educate-community-public-assist-engage-recall-legislature-leader-campaign) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Local Issues.sources[0].url",
+          "concern": "Cited source URL (https://www.fredloveforarkansas.com/values-priorities) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].donor_sources[0].url",
+          "concern": "Cited source URL (https://www.opensecrets.org/officeholders/fred-love/summary?cycle=2013&id=6459312) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].donor_sources[1].url",
+          "concern": "Cited source URL (https://www.opensecrets.org/officeholders/fred-love/industries?cycle=2017&id=6459312) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].donor_sources[2].url",
+          "concern": "Cited source URL (https://www.opensecrets.org/officeholders/fred-love/contributors?cycle=2018&id=6459312&recs=100) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].donor_sources[3].url",
+          "concern": "Cited source URL (https://www.followthemoney.org/entity-details?eid=6459312&default=candidate) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].donor_sources[4].url",
+          "concern": "Cited source URL (https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=d6da0031-efa3-4b5b-8262-5b228517a6a2&tabName=Reports) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].voting_sources[0].url",
+          "concern": "Cited source URL (https://www.arkleg.state.ar.us/Legislators/Detail?member=F.+Love&ddBienniumSession=2025%2F2025R) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].voting_sources[1].url",
+          "concern": "Cited source URL (https://senate.arkansas.gov/senators/640/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].summary_sources[0].url",
+          "concern": "Cited source URL (https://arkansasadvocate.com/briefs/libertarian-party-of-arkansas-nominates-2026-general-election-candidates/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].summary_sources[1].url",
+          "concern": "Cited source URL (https://www.4029tv.com/article/colt-shelby-libertarian-governor-arkansas/71085667) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].summary_sources[2].url",
+          "concern": "Cited source URL (https://www.4029tv.com/article/franklin-county-resident-sues-governor-secretary-of-state-over-special-election-timing/68881629) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Economy.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/issues) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Education.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/platform) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Education.sources[1].url",
+          "concern": "Cited source URL (https://independentarkansas.com/libertarian-colt-shelby/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Firearms & Second Amendment.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/platform) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/issues) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Abortion & Reproductive Health.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/platform) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Abortion & Reproductive Health.sources[1].url",
+          "concern": "Cited source URL (https://x.com/Colt_Shelby/status/2042563366095372720) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Climate/Energy.sources[0].url",
+          "concern": "Cited source URL (https://www.4029tv.com/article/colt-shelby-libertarian-governor-arkansas/71085667) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Climate/Energy.sources[1].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/platform) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Tech & AI.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Tech & AI.sources[1].url",
+          "concern": "Cited source URL (https://www.x.com/Colt_Shelby) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Tech & AI.sources[2].url",
+          "concern": "Cited source URL (https://x.com/Colt_Shelby/status/2057150678284513338) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Civil Rights & Equality.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/issues) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Election Policy.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/platform) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Election Policy.sources[1].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/issues) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[0].url",
+          "concern": "Cited source URL (https://www.colt4arkansas.org/issues) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].donor_sources[0].url",
+          "concern": "Cited source URL (https://portal.arkansas.gov/service/ar-candidate-contributions-expenditures-report/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].donor_sources[1].url",
+          "concern": "Cited source URL (https://ethics-disclosures.sos.arkansas.gov/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].donor_sources[2].url",
+          "concern": "Cited source URL (https://ballotpedia.org/Colt_Shelby) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].donor_sources[3].url",
+          "concern": "Cited source URL (https://independentarkansas.com/libertarian-colt-shelby/) returned a dead link: Request failed: .",
           "suggestion": "Verify the URL, find a replacement source, and update the stance.",
           "severity": "warning"
         }
       ],
-      "summary": "Scanned 86 source links. Found 2 dead link(s)."
+      "summary": "Scanned 90 source links. Found 87 dead link(s)."
     }
   ],
   "agent_metrics": {
-    "model": "openai/gpt-5.4-mini",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
     "model_profile": "economy",
-    "prompt_tokens": 702445,
-    "completion_tokens": 15154,
-    "total_tokens": 717599,
-    "estimated_usd": 0.5998,
+    "prompt_tokens": 57930,
+    "completion_tokens": 6889,
+    "total_tokens": 64819,
+    "cost_usd": 0.004471299999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.005652,
     "model_breakdown": {
-      "openai/gpt-5.4-mini": {
-        "prompt_tokens": 584286,
-        "completion_tokens": 9075
-      },
-      "google/gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 42586,
-        "completion_tokens": 668
-      },
-      "x-ai/grok-4.3": {
-        "prompt_tokens": 34884,
-        "completion_tokens": 909
-      },
-      "anthropic/claude-haiku-4.5": {
-        "prompt_tokens": 40689,
-        "completion_tokens": 4502
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 57930,
+        "completion_tokens": 6889
       }
     },
-    "duration_s": 182.2
+    "duration_s": 67.4
   },
   "polling_note": "No public polling found for this race as of 2026-06-13.",
   "validation_grade": {
     "grade": "A",
-    "score": 93,
+    "score": 92,
     "passed": true,
-    "summary": "Validated by 3/4 reviewers with an average score of 93/100."
+    "summary": "Validated by 3/4 reviewers with an average score of 92/100."
   },
   "ballotpedia_url": "https://ballotpedia.org/Arkansas_gubernatorial_election,_2026",
   "register_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
-  "how_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information",
+  "how_to_vote_url": "https://www.sos.arkansas.gov/elections/for-voters",
   "schema_version": "0.3"
 }

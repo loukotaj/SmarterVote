@@ -14,60 +14,422 @@
       "name": "Laura Gillen",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Laura Gillen is the U.S. representative for New York\u2019s 4th Congressional District and is seeking re-election in 2026. Before Congress, she served as Hempstead town supervisor, worked as a lawyer, and has said she lives in Rockville Centre with her family.",
+      "summary": "Laura Gillen is the U.S. representative for New York’s 4th Congressional District and is seeking re-election in 2026. Before Congress, she served as Hempstead town supervisor, worked as a lawyer, and has said she lives in Rockville Centre with her family.",
       "summary_sources": [
         {
           "url": "https://history.house.gov/People/Detail/36507225722",
-          "type": "official",
-          "title": "GILLEN, Laura | US House of Representatives - History, Art & Archives"
+          "type": "government",
+          "title": "GILLEN, Laura | US House of Representatives - History, Art & Archives",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:07.137144Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.congress.gov/member/laura-gillen/G000602",
-          "type": "official",
-          "title": "Laura Gillen - Congress.gov"
+          "type": "government",
+          "title": "Laura Gillen - Congress.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:07.137144Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://lauragillen.com/",
-          "type": "campaign",
-          "title": "Laura Gillen for Congress"
+          "type": "website",
+          "title": "Laura Gillen for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:07.137144Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Laura_Gillen_2024.jpg",
-      "website": "https://lauragillen.com/",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Gillen says she wants bipartisan action to lower costs for Long Island families, including restoring the full SALT deduction and opposing tax increases she says would raise household costs. Her office has framed these efforts as part of a broader cost-of-living agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/lowercosts",
+              "type": "government",
+              "title": "Lowering Costs | Representative Laura Gillen",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://gillen.house.gov/media/press-releases/gillen-long-island-needs-lower-costs-not-another-tax-hike-consumers",
+              "type": "government",
+              "title": "Gillen: Long Island needs lower costs, not another tax hike for consumers",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Gillen has emphasized coastal resilience, cleaner water, safer roads, and transit investments on Long Island, including support for low-emission bus replacements and PFAS-related water protections. Her public materials frame these efforts as part of infrastructure and community resilience work rather than a standalone climate platform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-proposes-clean-water-amendment-to-stop-cancer-causing-pfas-discharges-in-local-water",
+              "type": "government",
+              "title": "Gillen Proposes Clean Water Amendment to Stop Cancer-Causing PFAS Discharges in Local Water",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-secures-42-million-in-funding-for-nassau-inter-county-express-bus-replacements-station-upgrades-in-rockville-centre",
+              "type": "government",
+              "title": "Gillen Secures $42 Million in Funding for Nassau Inter-County Express Bus Replacements, Station Upgrades in Rockville Centre",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Gillen supports protecting access to contraception and IVF. She co-sponsored the Right to Contraception Act and helped introduce the Access to Family Building Act to codify a federal right to access IVF.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-im-proud-defend-womens-freedom-make-their-own-personal-health-care",
+              "type": "government",
+              "title": "Gillen: I’m proud to defend women’s freedom to make their own personal health care decisions",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-lawler-fitzpatrick-announce-introduction-bipartisan-access-family-building-act-2025",
+              "type": "government",
+              "title": "Gillen, Lawler, Fitzpatrick Announce Introduction of Bipartisan Access to Family Building Act of 2025",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Gillen supports bipartisan immigration reform that strengthens border security while creating a temporary legal status with work authorization for certain long-standing undocumented immigrants. She has backed the Dignity Act framework and said reform should be comprehensive rather than purely punitive.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-leads-introduction-dignity-act-2025",
+              "type": "government",
+              "title": "Gillen Leads Introduction of Dignity Act of 2025",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-salazar-escobar-bipartisan-group-lawmakers-introduce-comprehensive",
+              "type": "government",
+              "title": "Gillen, Salazar, Escobar, Bipartisan Group of Lawmakers Introduce Comprehensive Immigration Reform",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "Gillen supports gun-safety measures such as universal background checks and red-flag policies. Her public profile and allied groups describe her as a gun-safety supporter who favors broader efforts to reduce gun violence.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://giffords.org/candidates/laura-gillen-2/",
+              "type": "website",
+              "title": "Giffords: Laura Gillen profile",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elections.bradyunited.org/press/laura-gillen-victory",
+              "type": "government",
+              "title": "Brady: Laura Gillen Gun Safety Champion Victory",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Gillen has said she supported legislation and local efforts addressing sexual harassment, domestic violence, and veterans’ benefits during her time as Hempstead town supervisor. No broader, formal social justice platform was found in the reviewed campaign materials.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/about",
+              "type": "government",
+              "title": "About | Representative Laura Gillen - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Gillen supports federal action on education-related costs and school access, including no-cost school meals and other measures aimed at helping students and families. Her office has also highlighted work on school safety and related community concerns.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/issues/education",
+              "type": "government",
+              "title": "Education | Representative Laura Gillen - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/rep-gillen-introduces-bipartisan-feed-hungry-kids-act-protect-no-cost-school",
+              "type": "government",
+              "title": "Rep. Gillen Introduces Bipartisan Feed Hungry Kids Act to Protect No-Cost School Lunch",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Gillen has backed federal support for quantum and AI-related research and regional innovation hubs, arguing that partnerships among federal agencies, universities, and startups can strengthen national security and keep Long Island competitive in emerging technologies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://gillen.house.gov/media/press-releases/reps-gillen-obernolte-introduce-bipartisan-advancing-regional-quantum-hubs-act",
+              "type": "government",
+              "title": "Reps. Gillen, Obernolte Introduce Bipartisan Advancing Regional Quantum Hubs Act to Help Boost Long Island AI Leadership",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Gillen opposed the SAVE Act, saying it would burden voters and suppress access to the ballot. Her office said she supports protecting citizen voting rights and opposes measures she views as disenfranchising.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://gillen.house.gov/media/press-releases/rep-gillen-statement-save-act",
+              "type": "government",
+              "title": "Rep. Gillen Statement on the SAVE Act",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Gillen says she is focused on lowering health care costs, protecting Medicaid, and preserving access to care for Long Island families and seniors. Her office has also highlighted support for bipartisan measures on medical research funding, IVF access, and defibrillator access in transportation facilities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/issues/health",
+              "type": "government",
+              "title": "Health | Representative Laura Gillen - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-blasts-gop-attempts-slash-medicaid",
+              "type": "government",
+              "title": "Gillen Blasts GOP Attempts to Slash Medicaid",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-lawler-fitzpatrick-announce-introduction-bipartisan-access-family-building-act-2025",
+              "type": "government",
+              "title": "Gillen, Lawler, Fitzpatrick Announce Introduction of Bipartisan Access to Family Building Act of 2025",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Gillen has taken a hawkish posture on Iran, calling for strong sanctions and opposing any nuclear deal that leaves Iran with uranium-enrichment capability. She has also emphasized support for Israel, backed efforts to counter the ICC, and said the U.S. should prioritize returning hostages and preventing Iran from obtaining a nuclear weapon.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-tenney-lead-bipartisan-letter-urging-no-nuclear-enrichment-iran-call",
+              "type": "government",
+              "title": "Gillen, Tenney Lead Bipartisan Letter Urging No Nuclear Enrichment for Iran; Call for Snapback Sanctions if Talks Fall Through",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/in-the-news/gillen-us-needs-get-more-hawkish-and-get-more-aggressive-against-iran",
+              "type": "government",
+              "title": "Gillen: U.S. needs to ‘get more hawkish and get more aggressive against Iran’",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Gillen’s public materials emphasize Long Island-specific concerns such as water infrastructure, road safety, transit upgrades, and federal funding for Nassau County projects. She has highlighted securing money for Hempstead water treatment upgrades, safer streets, and NICE bus improvements.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://gillen.house.gov/issues/infrastructure",
+              "type": "government",
+              "title": "Infrastructure | Representative Laura Gillen - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/rep-gillen-secures-over-1-million-for-the-village-of-hempsteads-water-treatment-system-hosts-press-conference-with-mayor",
+              "type": "government",
+              "title": "Rep. Gillen Secures Over $1 Million for the Village of Hempstead’s Water Treatment System, Hosts Press Conference with Mayor",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://gillen.house.gov/media/press-releases/gillen-secures-42-million-in-funding-for-nassau-inter-county-express-bus-replacements-station-upgrades-in-rockville-centre",
+              "type": "government",
+              "title": "Gillen Secures $42 Million in Funding for Nassau Inter-County Express Bus Replacements, Station Upgrades in Rockville Centre",
+              "description": null,
+              "last_accessed": "2026-04-07T07:04:51.086748Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 2025,
           "end_year": null,
-          "description": "Represents New York's 4th Congressional District."
+          "description": "Represents New York's 4th Congressional District.",
+          "source": null
         },
         {
           "title": "Supervisor",
           "organization": "Town of Hempstead",
           "start_year": 2018,
           "end_year": 2019,
-          "description": "Served as town supervisor in Hempstead, Nassau County."
+          "description": "Served as town supervisor in Hempstead, Nassau County.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "Laura Gillen\u2019s federal campaign fundraising has been driven largely by individual donors, including retirees, lawyers, real estate interests, and securities and investment contributors. OpenSecrets also lists support from a range of PACs and industry-linked donors, reflecting a donor base that includes both local and national political and business interests.",
-      "donor_source_url": "https://www.opensecrets.org/members-of-congress/laura-gillen/summary?cid=N00050425",
-      "voting_summary": "Laura Gillen is an incumbent U.S. Representative, serving since Jan. 3, 2025. GovTrack shows she has voted with the House Democratic caucus on major roll calls in 2025\u20132026, and her recent sponsored bills focus mainly on transportation/public works and health; notable votes include support for the 2026 appropriations bill and the AGOA Extension Act.",
+      "voting_summary": "Laura Gillen is an incumbent U.S. Representative, serving since Jan. 3, 2025. GovTrack shows she has voted with the House Democratic caucus on major roll calls in 2025–2026, and her recent sponsored bills focus mainly on transportation/public works and health; notable votes include support for the 2026 appropriations bill and the AGOA Extension Act.",
       "voting_source_url": "https://www.govtrack.us/congress/members/laura_gillen/457010",
+      "voting_sources": [],
+      "donor_summary": "Laura Gillen’s federal campaign fundraising has been driven largely by individual donors, including retirees, lawyers, real estate interests, and securities and investment contributors. OpenSecrets also lists support from a range of PACs and industry-linked donors, reflecting a donor base that includes both local and national political and business interests.",
+      "donor_source_url": "https://www.opensecrets.org/members-of-congress/laura-gillen/summary?cid=N00050425",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://lauragillen.com/",
-          "type": "campaign"
+          "title": "https://lauragillen.com/",
+          "type": "other"
         },
         {
           "url": "http://gillen.house.gov/about",
-          "type": "government"
+          "title": "http://gillen.house.gov/about",
+          "type": "other"
         },
         {
           "url": "https://clerk.house.gov/members/G000602",
-          "type": "government"
+          "title": "https://clerk.house.gov/members/G000602",
+          "type": "other"
         },
         {
           "url": "https://ballotpedia.org/Laura_Gillen",
@@ -115,553 +477,21 @@
           "type": "other"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Gillen says she wants bipartisan action to lower costs for Long Island families, including restoring the full SALT deduction and opposing tax increases she says would raise household costs. Her office has framed these efforts as part of a broader cost-of-living agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/lowercosts",
-              "type": "official",
-              "title": "Lowering Costs | Representative Laura Gillen",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://gillen.house.gov/media/press-releases/gillen-long-island-needs-lower-costs-not-another-tax-hike-consumers",
-              "type": "official",
-              "title": "Gillen: Long Island needs lower costs, not another tax hike for consumers",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Gillen has emphasized coastal resilience, cleaner water, safer roads, and transit investments on Long Island, including support for low-emission bus replacements and PFAS-related water protections. Her public materials frame these efforts as part of infrastructure and community resilience work rather than a standalone climate platform.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-proposes-clean-water-amendment-to-stop-cancer-causing-pfas-discharges-in-local-water",
-              "type": "official",
-              "title": "Gillen Proposes Clean Water Amendment to Stop Cancer-Causing PFAS Discharges in Local Water",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-secures-42-million-in-funding-for-nassau-inter-county-express-bus-replacements-station-upgrades-in-rockville-centre",
-              "type": "official",
-              "title": "Gillen Secures $42 Million in Funding for Nassau Inter-County Express Bus Replacements, Station Upgrades in Rockville Centre",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Gillen supports protecting access to contraception and IVF. She co-sponsored the Right to Contraception Act and helped introduce the Access to Family Building Act to codify a federal right to access IVF.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-im-proud-defend-womens-freedom-make-their-own-personal-health-care",
-              "type": "official",
-              "title": "Gillen: I\u2019m proud to defend women\u2019s freedom to make their own personal health care decisions",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-lawler-fitzpatrick-announce-introduction-bipartisan-access-family-building-act-2025",
-              "type": "official",
-              "title": "Gillen, Lawler, Fitzpatrick Announce Introduction of Bipartisan Access to Family Building Act of 2025",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Gillen supports bipartisan immigration reform that strengthens border security while creating a temporary legal status with work authorization for certain long-standing undocumented immigrants. She has backed the Dignity Act framework and said reform should be comprehensive rather than purely punitive.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-leads-introduction-dignity-act-2025",
-              "type": "official",
-              "title": "Gillen Leads Introduction of Dignity Act of 2025",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-salazar-escobar-bipartisan-group-lawmakers-introduce-comprehensive",
-              "type": "official",
-              "title": "Gillen, Salazar, Escobar, Bipartisan Group of Lawmakers Introduce Comprehensive Immigration Reform",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Gillen supports gun-safety measures such as universal background checks and red-flag policies. Her public profile and allied groups describe her as a gun-safety supporter who favors broader efforts to reduce gun violence.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://giffords.org/candidates/laura-gillen-2/",
-              "type": "campaign_profile",
-              "title": "Giffords: Laura Gillen profile",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://elections.bradyunited.org/press/laura-gillen-victory",
-              "type": "press_release",
-              "title": "Brady: Laura Gillen Gun Safety Champion Victory",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Gillen has said she supported legislation and local efforts addressing sexual harassment, domestic violence, and veterans\u2019 benefits during her time as Hempstead town supervisor. No broader, formal social justice platform was found in the reviewed campaign materials.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/about",
-              "type": "government",
-              "title": "About | Representative Laura Gillen - House.gov",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Gillen supports federal action on education-related costs and school access, including no-cost school meals and other measures aimed at helping students and families. Her office has also highlighted work on school safety and related community concerns.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/issues/education",
-              "type": "official",
-              "title": "Education | Representative Laura Gillen - House.gov",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/rep-gillen-introduces-bipartisan-feed-hungry-kids-act-protect-no-cost-school",
-              "type": "official",
-              "title": "Rep. Gillen Introduces Bipartisan Feed Hungry Kids Act to Protect No-Cost School Lunch",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Gillen has backed federal support for quantum and AI-related research and regional innovation hubs, arguing that partnerships among federal agencies, universities, and startups can strengthen national security and keep Long Island competitive in emerging technologies.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://gillen.house.gov/media/press-releases/reps-gillen-obernolte-introduce-bipartisan-advancing-regional-quantum-hubs-act",
-              "type": "official",
-              "title": "Reps. Gillen, Obernolte Introduce Bipartisan Advancing Regional Quantum Hubs Act to Help Boost Long Island AI Leadership",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Gillen opposed the SAVE Act, saying it would burden voters and suppress access to the ballot. Her office said she supports protecting citizen voting rights and opposes measures she views as disenfranchising.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://gillen.house.gov/media/press-releases/rep-gillen-statement-save-act",
-              "type": "official",
-              "title": "Rep. Gillen Statement on the SAVE Act",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Gillen says she is focused on lowering health care costs, protecting Medicaid, and preserving access to care for Long Island families and seniors. Her office has also highlighted support for bipartisan measures on medical research funding, IVF access, and defibrillator access in transportation facilities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/issues/health",
-              "type": "official",
-              "title": "Health | Representative Laura Gillen - House.gov",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-blasts-gop-attempts-slash-medicaid",
-              "type": "official",
-              "title": "Gillen Blasts GOP Attempts to Slash Medicaid",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-lawler-fitzpatrick-announce-introduction-bipartisan-access-family-building-act-2025",
-              "type": "official",
-              "title": "Gillen, Lawler, Fitzpatrick Announce Introduction of Bipartisan Access to Family Building Act of 2025",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Gillen has taken a hawkish posture on Iran, calling for strong sanctions and opposing any nuclear deal that leaves Iran with uranium-enrichment capability. She has also emphasized support for Israel, backed efforts to counter the ICC, and said the U.S. should prioritize returning hostages and preventing Iran from obtaining a nuclear weapon.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-tenney-lead-bipartisan-letter-urging-no-nuclear-enrichment-iran-call",
-              "type": "official",
-              "title": "Gillen, Tenney Lead Bipartisan Letter Urging No Nuclear Enrichment for Iran; Call for Snapback Sanctions if Talks Fall Through",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/in-the-news/gillen-us-needs-get-more-hawkish-and-get-more-aggressive-against-iran",
-              "type": "official",
-              "title": "Gillen: U.S. needs to \u2018get more hawkish and get more aggressive against Iran\u2019",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Gillen\u2019s public materials emphasize Long Island-specific concerns such as water infrastructure, road safety, transit upgrades, and federal funding for Nassau County projects. She has highlighted securing money for Hempstead water treatment upgrades, safer streets, and NICE bus improvements.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://gillen.house.gov/issues/infrastructure",
-              "type": "official",
-              "title": "Infrastructure | Representative Laura Gillen - House.gov",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/rep-gillen-secures-over-1-million-for-the-village-of-hempsteads-water-treatment-system-hosts-press-conference-with-mayor",
-              "type": "official",
-              "title": "Rep. Gillen Secures Over $1 Million for the Village of Hempstead\u2019s Water Treatment System, Hosts Press Conference with Mayor",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "http://gillen.house.gov/media/press-releases/gillen-secures-42-million-in-funding-for-nassau-inter-county-express-bus-replacements-station-upgrades-in-rockville-centre",
-              "type": "official",
-              "title": "Gillen Secures $42 Million in Funding for Nassau Inter-County Express Bus Replacements, Station Upgrades in Rockville Centre",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Anthony D'Esposito",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "Anthony D'Esposito is a Republican former U.S. representative from New York's 4th Congressional District. He previously worked as a New York City police detective and served on the Hempstead Town Council; after losing his 2024 reelection bid, he was later nominated and confirmed as U.S. Department of Labor inspector general in 2025.",
-      "summary_sources": [
-        {
-          "url": "https://bioguide.congress.gov/search/bio/D000632",
-          "type": "government",
-          "title": "D'ESPOSITO, Anthony - Bioguide Search"
-        },
-        {
-          "url": "https://www.congress.gov/nomination/119th-congress/60/8",
-          "type": "government",
-          "title": "PN60-8 - Nomination of Anthony D'Esposito for Department of Labor Inspector General"
-        },
-        {
-          "url": "https://www.oig.dol.gov/igbio.htm",
-          "type": "government",
-          "title": "The Honorable Anthony P. D'Esposito, Inspector General"
-        },
-        {
-          "url": "https://ballotpedia.org/Anthony_D%27Esposito",
-          "type": "website",
-          "title": "Anthony D'Esposito - Ballotpedia"
-        }
-      ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Anthony_D%E2%80%99Esposito_Labor_portrait.jpg/500px-Anthony_D%E2%80%99Esposito_Labor_portrait.jpg",
-      "website": null,
+      "website": "https://lauragillen.com/",
       "social_media": {},
-      "career_history": [
-        {
-          "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2023,
-          "end_year": 2025,
-          "description": "Represented New York's 4th Congressional District."
-        },
-        {
-          "title": "Detective",
-          "organization": "New York City Police Department",
-          "start_year": null,
-          "end_year": null,
-          "description": "Retired NYPD detective."
-        }
-      ],
-      "education": [],
-      "donor_summary": "Anthony D'Esposito's 2023-2024 fundraising was driven by large individual donors, PAC money, and candidate committees. OpenSecrets reports he raised about $4.52 million total; top disclosed contributors included the Town of Hempstead, NY, Blackstone Group, NorPAC, Republican Jewish Coalition, and Elliott Management.",
-      "donor_source_url": "https://www.opensecrets.org/members-of-congress/anthony-d-esposito/summary?cid=N00050681",
-      "voting_summary": "Anthony D'Esposito served in the U.S. House from 2023 to 2024. GovTrack shows votes including support for the Deploying American Blockchains Act and the House resolution expelling George Santos, and opposition to the Tax Relief for American Families and Workers Act and some appropriations-related measures.",
-      "voting_source_url": "https://www.govtrack.us/congress/members/anthony_desposito/456922",
-      "links": [
-        {
-          "url": "https://ballotpedia.org/Anthony_D%27Esposito",
-          "type": "website"
-        },
-        {
-          "url": "https://history.house.gov/People/Detail/25769822949",
-          "type": "government"
-        },
-        {
-          "url": "https://www.opensecrets.org/members-of-congress/anthony-d-esposito/summary?cid=N00050681",
-          "title": "Rep. Anthony D'Esposito - Campaign Finance Summary - OpenSecrets",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.fec.gov/data/committee/C00852889/",
-          "title": "ESPOSITO FOR CONGRESS - committee overview - FEC",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.govtrack.us/congress/members/anthony_desposito/456922",
-          "title": "Rep. Anthony D'Esposito - GovTrack.us",
-          "type": "govtrack"
-        },
-        {
-          "url": "https://justfacts.votesmart.org/candidate/174091/anthony-desposito",
-          "title": "Anthony D'Esposito - Vote Smart",
-          "type": "votesmart"
-        },
-        {
-          "url": "https://despositoforcongress.com/",
-          "title": "Anthony D'Esposito for Congress (NY-4)",
-          "type": "official"
-        },
-        {
-          "url": "https://www.congress.gov/member/anthony-desposito/D000626",
-          "title": "Anthony D'Esposito - Congress.gov",
-          "type": "other"
-        },
-        {
-          "url": "https://en.wikipedia.org/wiki/Anthony_D%27Esposito",
-          "title": "Anthony D'Esposito - Wikipedia",
-          "type": "wiki"
-        },
-        {
-          "url": "https://bioguide.congress.gov/search/bio/D000632",
-          "title": "D'ESPOSITO, Anthony - Bioguide Search",
-          "type": "official"
-        },
-        {
-          "url": "https://www.congress.gov/member/anthony-desposito/D000632",
-          "title": "Anthony D'Esposito - Congress.gov",
-          "type": "other"
-        }
-      ],
-      "issues": {
-        "Healthcare": {
-          "stance": "D'Esposito says he supports protecting Medicare and Social Security for seniors and opposes benefit cuts or privatization proposals.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://despositoforcongress.com/protect-medicare-and-ss/",
-              "type": "campaign",
-              "title": "Protect Medicare and SS - Anthony D'Esposito for Congress (NY-4)",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://www.cityandstateny.com/politics/2023/04/dems-target-gop-rep-anthony-desposito-medicare-social-security/385468/",
-              "type": "news",
-              "title": "Dems target GOP Rep. Anthony D'Esposito on Medicare, Social Security",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "No clear public position found in the sources reviewed. His campaign and public materials located in this review did not yield a specific, citable statement on taxes, inflation, jobs, or other broad economic policy priorities.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://despositoforcongress.com/",
-              "type": "campaign",
-              "title": "Anthony D'Esposito for Congress (NY-4)",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            },
-            {
-              "url": "https://www.newsday.com/long-island/politics/elections/anthony-desposito-congress-jovm7l96",
-              "type": "news",
-              "title": "Anthony D'Esposito to vie for congressional seat he lost last year - Newsday",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "D'Esposito opposes offshore wind development and has criticized New York's climate law as unrealistic, arguing the grid and infrastructure are not ready for its goals.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.eenews.net/articles/leader-of-house-offshore-wind-caucus-denounces-the-industry/",
-              "type": "news",
-              "title": "Leader of House offshore wind caucus denounces the industry",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://www.newsday.com/opinion/the-point/the-point-newsday-anthony-desposito-long-beach-equinor-climate-leadership-and-community-protection-act-o7kc32fw",
-              "type": "news",
-              "title": "D'Esposito seeks tailwinds from Long Beach",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://www.lcvvictoryfund.org/candidate/anthony-desposito/",
-              "type": "organization",
-              "title": "Anthony D'Esposito | LCV Victory Fund",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "D'Esposito has been described by campaign-tracking and advocacy groups as opposing abortion rights, and his campaign has pushed back by saying he has been fighting in Congress to ensure women are empowered to make their own health-care decisions. The available sources reviewed here do not provide a single direct, primary-source statement from him on abortion policy.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://emilyslist.org/on-notice/anthony-desposito/",
-              "type": "website",
-              "title": "Anthony D'Esposito - EMILYs List",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            },
-            {
-              "url": "https://dccc.org/wp-content/uploads/2023/06/Anthony-DEsposito-NY-04-Anti-Choice-Fact-Sheet.pdf",
-              "type": "pdf",
-              "title": "Anthony D'Esposito NY-04 Anti-Choice Fact Sheet - DCCC",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            },
-            {
-              "url": "https://despositoforcongress.com/protecting-womens-rights/",
-              "type": "campaign",
-              "title": "Protecting Women's Rights - Anthony D'Esposito for Congress (NY-4)",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "D'Esposito supports stronger border security and immigration enforcement, including tighter border controls and measures to deter illegal crossings.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://homeland.house.gov/2023/12/05/subcommittee-chairman-desposito-border-crisis-has-unprecedented-consequences-on-public-safety/",
-              "type": "official-press-release",
-              "title": "Subcommittee Chairman Desposito: Border Crisis Has Unprecedented Consequences on Public Safety",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://despositoforcongress.com/protect-our-borders/",
-              "type": "campaign",
-              "title": "Protect Our Borders - Anthony D'Esposito for Congress (NY-4)",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://despositoforcongress.com/2024/05/15/desPOSITOs-new-bill-to-support-law-enforcement-and-protect-our-border/",
-              "type": "campaign",
-              "title": "D'Esposito's new bill to support law enforcement and protect our border",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "D'Esposito generally favors gun rights and has opposed broad federal gun-safety expansions; he cosponsored the Concealed Carry Reciprocity Act.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.congress.gov/bill/118th-congress/house-bill/38/cosponsors",
-              "type": "legislation",
-              "title": "Cosponsors - H.R.38 - 118th Congress (2023-2024): Concealed Carry Reciprocity Act",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://www.govtrack.us/congress/bills/118/hr38/cosponsors",
-              "type": "legislation",
-              "title": "Concealed Carry Reciprocity Act cosponsors",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://assets.bradyunited.org/production/files/Desposito_NY.pdf?dm=1728494356",
-              "type": "policy memo",
-              "title": "GUNS ON THE BALLOT: THE D'ESPOSITO-GILLEN REMATCH IN NY-04",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "No clear public position found in the sources reviewed. The materials located for this profile did not provide a specific, citable statement on social justice issues.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://despositoforcongress.com/",
-              "type": "campaign",
-              "title": "Anthony D'Esposito for Congress (NY-4)",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Anthony_D%27Esposito",
-              "type": "website",
-              "title": "Anthony D'Esposito - Ballotpedia",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "D'Esposito has emphasized school safety as part of his education messaging, arguing that students learn best when schools have strong safety measures.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.linkedin.com/posts/anthony-d-esposito-b734b26b_protecting-our-kids-real-school-safety-requires-activity-7364608648129462275-LMit",
-              "type": "social",
-              "title": "Real School Safety Requires Action, Not Politics | Anthony D'Esposito",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://5tjt.com/protecting-our-kids-real-school-safety-requires-action-not-politics/",
-              "type": "news",
-              "title": "Protecting Our Kids: Real School Safety Requires Action, Not Politics",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Election Reform": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Local Issues": {
-          "stance": "D'Esposito's campaign page provides voter information for Nassau County, including that polling places are accessible to voters with physical disabilities and that eligible county residents may vote there. This is voter-information content rather than a substantive policy position on a local issue.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://despositoforcongress.com/vote/",
-              "type": "campaign",
-              "title": "Vote - Anthony D'Esposito for Congress (NY-4)",
-              "last_accessed": "2026-04-07T07:05:55.356736+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "D'Esposito has supported pro-Israel positions in Congress, including resolutions condemning Hamas and opposing one-sided pressure on Israel; public materials also show he voted on foreign-aid and security measures tied to Israel and Ukraine.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.congress.gov/bill/118th-congress/house-resolution/889/all-info",
-              "type": "legislation",
-              "title": "H.Res.889 - Condemning the Hamas-led terrorist attack on the State of Israel",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/bill/118th-congress/house-resolution/1117/all-info",
-              "type": "legislation",
-              "title": "H.Res.1117 - Opposing efforts to place one-sided pressure on Israel with respect to Gaza",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            },
-            {
-              "url": "https://www.c-span.org/program/washington-journal/rep-anthony-desposito-on-congressional-news-of-the-day/635903",
-              "type": "news",
-              "title": "Rep. Anthony D'Esposito on Congressional News of the Day - C-SPAN",
-              "last_accessed": "2026-04-07T07:04:51.086748+00:00"
-            }
-          ]
-        }
-      }
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-07T07:05:55.356736+00:00",
+  "updated_utc": "2026-06-13T23:15:48.545589+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-07T07:06:15.516623+00:00",
+      "reviewed_at": "2026-04-07T07:06:15.516623Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -679,7 +509,7 @@
         },
         {
           "field": "candidates[1].issues.Economy.stance",
-          "concern": "Marked as 'low' confidence with 'no clear public position found.' This is honestly documented, but D'Esposito's 2023\u20132024 voting record (cited via GovTrack) does include votes on tax relief and appropriations bills. The profile could note specific votes (e.g., opposition to 'Tax Relief for American Families and Workers Act' per voting_summary) as a proxy for economic positioning, even if he has not issued a standalone economic policy statement.",
+          "concern": "Marked as 'low' confidence with 'no clear public position found.' This is honestly documented, but D'Esposito's 2023–2024 voting record (cited via GovTrack) does include votes on tax relief and appropriations bills. The profile could note specific votes (e.g., opposition to 'Tax Relief for American Families and Workers Act' per voting_summary) as a proxy for economic positioning, even if he has not issued a standalone economic policy statement.",
           "suggestion": "Optional: expand the stance by noting his voting pattern on specific tax/economic legislation if campaign materials remain silent. Current low-confidence flag is appropriate if no primary statement is available.",
           "severity": "info"
         },
@@ -691,16 +521,16 @@
         },
         {
           "field": "candidates[1].donor_summary",
-          "concern": "The donor summary notes D'Esposito 'raised about $4.52 million total' but does not specify the cycle(s) covered. The profile references 2023\u20132024 fundraising. The OpenSecrets link should clarify the year range, but this could be made explicit in the summary itself.",
-          "suggestion": "Add '(2023\u20132024)' after '4.52 million' to clarify the election cycle, or retain as-is if the OpenSecrets URL clearly shows the cycle.",
+          "concern": "The donor summary notes D'Esposito 'raised about $4.52 million total' but does not specify the cycle(s) covered. The profile references 2023–2024 fundraising. The OpenSecrets link should clarify the year range, but this could be made explicit in the summary itself.",
+          "suggestion": "Add '(2023–2024)' after '4.52 million' to clarify the election cycle, or retain as-is if the OpenSecrets URL clearly shows the cycle.",
           "severity": "info"
         }
       ],
-      "summary": "This is a well-researched and substantially balanced profile of the NY-04 House race with strong sourcing across both candidates. Laura Gillen's profile is particularly comprehensive, with 11 issue areas documented through official House.gov pages, press releases, and credible advocacy-group endorsements (Giffords, Brady). Anthony D'Esposito's profile shows good effort despite his having left office and moved to the Labor Department \u2014 stances on immigration, climate, and guns are well-sourced to legislative records and campaign materials, and the profile honestly documents low-confidence gaps (Economy, Social Justice, Tech & AI, Election Reform) rather than fabricating positions. Both candidates' career histories align with cited government sources. Language is appropriately neutral throughout. Minor gaps remain on D'Esposito's economic platform and a few unsourced claim details, but these are appropriately flagged as low-confidence in the profile itself, and absence of public statements is not a research failure."
+      "summary": "This is a well-researched and substantially balanced profile of the NY-04 House race with strong sourcing across both candidates. Laura Gillen's profile is particularly comprehensive, with 11 issue areas documented through official House.gov pages, press releases, and credible advocacy-group endorsements (Giffords, Brady). Anthony D'Esposito's profile shows good effort despite his having left office and moved to the Labor Department — stances on immigration, climate, and guns are well-sourced to legislative records and campaign materials, and the profile honestly documents low-confidence gaps (Economy, Social Justice, Tech & AI, Election Reform) rather than fabricating positions. Both candidates' career histories align with cited government sources. Language is appropriately neutral throughout. Minor gaps remain on D'Esposito's economic platform and a few unsourced claim details, but these are appropriately flagged as low-confidence in the profile itself, and absence of public statements is not a research failure."
     },
     {
       "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-07T07:06:12.126670+00:00",
+      "reviewed_at": "2026-04-07T07:06:12.126670Z",
       "verdict": "approved",
       "score": 98,
       "flags": [
@@ -723,11 +553,11 @@
           "severity": "info"
         }
       ],
-      "summary": "This is an exceptional research profile that demonstrates highly sophisticated web retrieval, particularly in how it handles the simulated 2026 timeline. The sourcing is robust, utilizing a perfect mix of official House.gov records for the incumbent and relevant historical/nomination data for the challenger. The issue mapping for Rep. Gillen is particularly thorough, citing specific legislative actions (PFAS amendments, Quantum Hubs Act) that provide high-confidence stances. The neutral handling of Anthony D'Esposito's transition to a federal Inspector General role\u2014and the resulting 'low confidence' on certain political stances\u2014is an excellent example of epistemological integrity."
+      "summary": "This is an exceptional research profile that demonstrates highly sophisticated web retrieval, particularly in how it handles the simulated 2026 timeline. The sourcing is robust, utilizing a perfect mix of official House.gov records for the incumbent and relevant historical/nomination data for the challenger. The issue mapping for Rep. Gillen is particularly thorough, citing specific legislative actions (PFAS amendments, Quantum Hubs Act) that provide high-confidence stances. The neutral handling of Anthony D'Esposito's transition to a federal Inspector General role—and the resulting 'low confidence' on certain political stances—is an excellent example of epistemological integrity."
     },
     {
       "model": "grok-3-mini",
-      "reviewed_at": "2026-04-07T07:06:05.819834+00:00",
+      "reviewed_at": "2026-04-07T07:06:05.819834Z",
       "verdict": "approved",
       "score": 95,
       "flags": [],
@@ -741,33 +571,25 @@
     "summary": "Validated by 3/3 reviewers with an average score of 93/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 1929170,
-    "completion_tokens": 159194,
-    "total_tokens": 2088364,
-    "estimated_usd": 0.3259,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 182966,
+    "completion_tokens": 11539,
+    "total_tokens": 194505,
+    "cost_usd": 0.00977798,
+    "cost_source": "provider",
+    "estimated_usd": 0.013764,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 696266,
-        "completion_tokens": 11844
-      },
-      "gpt-5-nano": {
-        "prompt_tokens": 1168606,
-        "completion_tokens": 142640
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 18725,
-        "completion_tokens": 214
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 23211,
-        "completion_tokens": 954
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 22362,
-        "completion_tokens": 3542
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 182966,
+        "completion_tokens": 11539
       }
     },
-    "duration_s": 1578.0
-  }
+    "duration_s": 101.5
+  },
+  "schema_version": "0.3",
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

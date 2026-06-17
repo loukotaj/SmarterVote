@@ -1,0 +1,277 @@
+{
+  "id": "ny-house-11-2026",
+  "title": "New York's 11th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 11th Congressional District",
+  "state": "New York",
+  "district": "11th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New York's 11th Congressional District will determine who represents Staten Island and parts of southern Brooklyn in the U.S. House. Incumbent Republican Nicole Malliotakis, first elected in 2020, is seeking a fourth term in a district that has trended conservative and is the only Republican-held congressional seat in New York City. Democrat Michael DeCillis, a former NYPD officer and 9/11 first responder, is the only active Democratic candidate on the primary ballot and is running on a platform focused on protecting democracy, lowering costs, and opposing Trump administration policies. The district's existing boundaries were upheld by the U.S. Supreme Court in early 2026 after a legal challenge sought to redraw the lines, preserving the current configuration for this election cycle.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to the NY-11 general election were found as of June 2026. The race is rated as Likely Republican or Solid Republican by major nonpartisan forecasters.",
+  "candidates": [
+    {
+      "name": "Nicole Malliotakis",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Nicole Malliotakis is the incumbent U.S. Representative for New York's 11th Congressional District, first elected in 2020 after defeating Democrat Max Rose. She previously served in the New York State Assembly from 2011 to 2021 and was the Republican nominee for mayor of New York City in 2017. Malliotakis, the only Republican representing New York City in Congress, sits on the House Foreign Affairs Committee and the House Transportation and Infrastructure Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nicole_Malliotakis",
+          "type": "news",
+          "title": "Nicole Malliotakis - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/M000317",
+          "type": "government",
+          "title": "MALLIOTAKIS, Nicole - Bioguide Search",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Nicole_Malliotakis",
+          "type": "website",
+          "title": "Nicole Malliotakis - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Congresswoman_Nicole_Malliotakis.jpg/250px-Congresswoman_Nicole_Malliotakis.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing New York's 11th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Member of the New York State Assembly",
+          "organization": "New York State Assembly",
+          "start_year": 2011,
+          "end_year": 2021,
+          "description": "Represented the 60th district (2011-2012) and 64th district (2013-2021)",
+          "source": null
+        },
+        {
+          "title": "Public Affairs Manager",
+          "organization": "Consolidated Edison Company of New York",
+          "start_year": null,
+          "end_year": 2010,
+          "description": "Worked on state energy policy",
+          "source": null
+        },
+        {
+          "title": "Community Liaison",
+          "organization": "Office of Governor George Pataki",
+          "start_year": 2004,
+          "end_year": 2006,
+          "description": "Community liaison for the Governor",
+          "source": null
+        },
+        {
+          "title": "Community Liaison",
+          "organization": "Office of State Senator John Marchi",
+          "start_year": 2003,
+          "end_year": 2004,
+          "description": "Community liaison for the state senator",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Seton Hall University",
+          "degree": "Bachelor of Arts",
+          "field": "Communications",
+          "year": 2001,
+          "source": null
+        },
+        {
+          "institution": "Wagner College",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": 2010,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://malliotakis.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://nicolemalliotakis.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://nicolemalliotakis.com/",
+      "social_media": {
+        "twitter": "https://x.com/NMalliotakis",
+        "facebook": "https://www.facebook.com/RepNicole/",
+        "instagram": "https://www.instagram.com/repnicolem/",
+        "youtube": "https://www.youtube.com/@RepNicoleMalliotakis"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michael DeCillis",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Michael DeCillis is a Democrat running for U.S. House in New York's 11th Congressional District. He is a fourth-generation Staten Islander with 35 years of public service experience as a paramedic, 9/11 first responder, retired NYPD police officer, civil litigation attorney, special education teacher, and former chief of staff in the New York State Assembly. DeCillis is the only active Democratic candidate on the primary ballot after his opponents suspended their campaigns, and his platform focuses on protecting democracy, lowering costs for working families, and opposing Trump administration and congressional Republican policies.",
+      "summary_sources": [
+        {
+          "url": "https://www.decillisforcongress.com/",
+          "type": "website",
+          "title": "DeCillis for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.brooklynpaper.com/michael-decillis-democratic-primary-ny-11/",
+          "type": "news",
+          "title": "Former NYPD officer Michael DeCillis enters Democratic primary in NY-11",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Michael_DeCillis",
+          "type": "website",
+          "title": "Michael DeCillis - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Chief of Staff",
+          "organization": "New York State Assembly (Office of Assembly Member Mathylde Frontus)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Political advisor and chief of staff for then-Assembly Member Mathylde Frontus",
+          "source": null
+        },
+        {
+          "title": "Assistant Counsel",
+          "organization": "NYC Districting Commission",
+          "start_year": null,
+          "end_year": null,
+          "description": "Assisted with redistricting commission work",
+          "source": null
+        },
+        {
+          "title": "Special Education Teacher",
+          "organization": "New York City Public Schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught special education in NYC public schools",
+          "source": null
+        },
+        {
+          "title": "Police Officer",
+          "organization": "New York Police Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served 10 years with NYPD",
+          "source": null
+        },
+        {
+          "title": "Paramedic / 9/11 First Responder",
+          "organization": "Emergency Medical Services",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a paramedic and responded to the September 11, 2001 attacks",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.decillisforcongress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.decillisforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/mike.decillis/",
+        "facebook": "https://www.facebook.com/mikedecillisforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_11th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:21:36.238421+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 401503,
+    "completion_tokens": 9149,
+    "total_tokens": 410652,
+    "cost_usd": 0.025235986000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.04114,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 401503,
+        "completion_tokens": 9149
+      }
+    },
+    "duration_s": 143.7
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "id": "sc-house-07-2026",
+  "title": "South Carolina's 7th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "South Carolina's 7th Congressional District",
+  "state": "South Carolina",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "South Carolina's 7th Congressional District covers the Grand Strand and Pee Dee regions, anchored in fast-growing Horry County. Incumbent Republican Russell Fry, first elected in 2022 after defeating Rep. Tom Rice in a primary fueled by Rice's impeachment vote, is seeking a third term. The district is heavily Republican (Cook Political Rating: Solid R) and hasn't elected a Democrat to Congress in the modern era. Democratic challenger John Vincent, a retired Navy command master chief and small business owner, is campaigning on economic populism and bipartisanship, but faces a steep uphill climb in a district where Fry won 65% of the vote in 2024.",
+  "polling": [],
+  "polling_note": "No public general election opinion polls were found for this race as of July 2026. The Cook Political Report rates the race as 'Solid Republican'.",
+  "candidates": [
+    {
+      "name": "Russell Fry",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Russell Fry is the incumbent U.S. Representative for South Carolina's 7th Congressional District, first elected in 2022 after defeating Rep. Tom Rice in the Republican primary and winning the general election with 65% of the vote. He previously served in the South Carolina House of Representatives from 2015 to 2022, where he was Majority Chief Whip, and worked as an attorney along the Grand Strand. Fry, a close ally of President Donald Trump who received Trump's endorsement in 2022, serves on the House Judiciary Committee and was elected president of the congressional freshman class.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Russell_Fry",
+          "type": "website",
+          "title": "Russell Fry - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Russell_Fry",
+          "type": "website",
+          "title": "Russell Fry - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://fry.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Russell Fry",
+          "description": null,
+          "last_accessed": "2026-07-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Russell_Fry.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing South Carolina's 7th Congressional District. Serves on House Judiciary Committee. Elected president of the freshman class.",
+          "source": null
+        },
+        {
+          "title": "Member of the South Carolina House of Representatives",
+          "organization": "South Carolina House of Representatives",
+          "start_year": 2015,
+          "end_year": 2022,
+          "description": "Represented District 106. Served as Majority Chief Whip for the 122nd South Carolina General Assembly.",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law along the Grand Strand prior to elective office.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of South Carolina",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Charleston School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://russellfrysc.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Vincent",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "John Vincent is a retired U.S. Navy command master chief petty officer and first-time candidate running for Congress in South Carolina's 7th District. He served 20 years in the Navy, including being stationed at Charleston Naval Base, and later worked as a sales manager for WBTW-TV in Florence before starting a leadership consulting firm. Vincent campaigns on economic populism, supporting a $15 minimum wage, protecting Medicare and Medicaid, and a woman's right to choose up to 14 weeks, while emphasizing bipartisanship and his slogan 'Common Sense Over Chaos'.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/John_Vincent_(South_Carolina)",
+          "type": "website",
+          "title": "John Vincent (South Carolina) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://scdailygazette.com/2025/04/17/navy-veteran-hopes-to-be-first-democrat-to-win-grand-strand-and-pee-dee-congressional-seat/",
+          "type": "news",
+          "title": "Navy veteran hopes to be first Democrat this century to represent Grand Strand, Pee Dee in Congress",
+          "description": null,
+          "last_accessed": "2026-07-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vincentforcongress.com/",
+          "type": "website",
+          "title": "John Vincent for Congress SC-07",
+          "description": null,
+          "last_accessed": "2026-07-10T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/John_Vincent.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Command Master Chief Petty Officer",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": 2003,
+          "description": "Retired after 20 years of service, one of the Navy's highest enlisted ranks.",
+          "source": null
+        },
+        {
+          "title": "Sales Manager",
+          "organization": "WBTW-TV (Florence, SC)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Managed advertising sales for the CBS affiliate.",
+          "source": null
+        },
+        {
+          "title": "Owner / Leadership Consultant",
+          "organization": "Leadership consulting firm",
+          "start_year": null,
+          "end_year": null,
+          "description": "Provides organizational and leadership consulting. Co-authored a book on diversity and inclusion.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.vincentforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/South_Carolina%27s_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:39:53.440000+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 223304,
+    "completion_tokens": 7461,
+    "total_tokens": 230765,
+    "cost_usd": 0.015758308,
+    "cost_source": "provider",
+    "estimated_usd": 0.023346,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 223304,
+        "completion_tokens": 7461
+      }
+    },
+    "duration_s": 117.1
+  }
+}

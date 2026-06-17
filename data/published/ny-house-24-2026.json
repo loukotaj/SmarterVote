@@ -1,0 +1,537 @@
+{
+  "id": "ny-house-24-2026",
+  "title": "New York's 24th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 24th Congressional District",
+  "state": "New York",
+  "district": "24th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New York's 24th Congressional District pits incumbent Republican Representative Claudia Tenney against a field of Democratic and independent challengers. This district stretches along Lake Ontario from Niagara Falls to Jefferson County and is considered reliably Republican. Tenney advanced from the Republican primary unopposed after it was canceled. The Democratic primary, scheduled for June 23, 2026, features Alissa Ellman, a disabled Army veteran and former VA employee, and Diana Kastenbaum, a former manufacturing CEO. Additionally, independent candidates Todd Sloan (Upstate Party), retired SUNY Geneseo professor Tony Macula, and seventh-generation farmer Ken Estes are running in the general election, creating a multi-candidate field for the seat representing New York's 'Lake District.'",
+  "polling": [],
+  "polling_note": "No independent scientific opinion polls were found for this race as of June 2026. Prediction markets and internal campaign polling may exist but are not independently verifiable.",
+  "candidates": [
+    {
+      "name": "Claudia Tenney",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Claudia Tenney is the incumbent U.S. Representative for New York's 24th Congressional District, first elected in 2016. She is an attorney and businesswoman who co-owns Mid-York Press and previously served in the New York State Assembly. Tenney advanced from the Republican primary unopposed and is running for re-election on a platform focused on fiscal conservatism, election integrity, and support for rural communities.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Claudia_Tenney",
+          "type": "website",
+          "title": "Claudia Tenney - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://claudiaforcongress.com/bio/",
+          "type": "website",
+          "title": "Bio - Claudia for Congress",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Claudia_Tenney",
+          "type": "website",
+          "title": "Claudia Tenney - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Rep._Claudia_Tenney_official_portrait%2C_117th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Represented New York's 22nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents New York's 24th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "New York State Assembly",
+          "start_year": 2011,
+          "end_year": 2016,
+          "description": "Represented portions of what is now the 24th District",
+          "source": null
+        },
+        {
+          "title": "Co-owner",
+          "organization": "Mid-York Press, Inc.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Commercial printing and manufacturing firm started by her grandfather",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Colgate University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Cincinnati College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://tenney.house.gov/",
+          "title": "https://tenney.house.gov/",
+          "type": "other"
+        }
+      ],
+      "website": "https://claudiaforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/ClaudiaForCongress/",
+        "twitter": "https://twitter.com/RepTenney"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Alissa Ellman",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Alissa Ellman is a disabled U.S. Army veteran who served in Afghanistan and a former employee of the U.S. Department of Veterans Affairs who was laid off. She is running for the Democratic nomination in NY-24, positioning herself as a working-class advocate focused on healthcare, energy costs, childcare, and government accountability.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Alissa_Ellman",
+          "type": "website",
+          "title": "Alissa Ellman - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://spectrumlocalnews.com/nys/buffalo/news/2026/06/05/getting-to-know-the-democratic-candidates-for-ny-24th-congressional-district",
+          "type": "news",
+          "title": "Meet the Democratic candidates for New York's 24th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Alissa_Ellman.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Program Support Assistant",
+          "organization": "U.S. Department of Veterans Affairs",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "Laid off during federal workforce reductions",
+          "source": null
+        },
+        {
+          "title": "Soldier",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Disabled veteran who served in Afghanistan",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Niagara University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/EllmanforCongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Diana Kastenbaum",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Diana Kastenbaum is a former CEO of Pinnacle Manufacturing Company, a tool-and-die casting business, and a SUNY Genesee Community College trustee. She is running for the Democratic nomination, emphasizing her business experience, focus on affordability for rural communities, and commitment to bipartisan problem-solving.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Diana_Kastenbaum",
+          "type": "website",
+          "title": "Diana Kastenbaum - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dianaforny24.com/about/",
+          "type": "website",
+          "title": "Meet Diana | Diana Kastenbaum for Congress",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://spectrumlocalnews.com/nys/buffalo/news/2026/06/05/getting-to-know-the-democratic-candidates-for-ny-24th-congressional-district",
+          "type": "news",
+          "title": "Meet the Democratic candidates for New York's 24th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Diana_Kastenbaum.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CEO and Owner",
+          "organization": "Pinnacle Manufacturing Company, Inc.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Tool-and-die casting manufacturing business",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Software training company",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ran a company training and developing software for law firms for 25 years",
+          "source": null
+        },
+        {
+          "title": "Trustee",
+          "organization": "SUNY Genesee Community College",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advocating for accessible, affordable education",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.dianaforny24.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DianaKastenbaum/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Todd Sloan",
+      "party": "Upstate Party",
+      "incumbent": false,
+      "summary": "Todd Sloan is an Auburn-based criminal defense and appeals attorney running as an independent candidate under the 'Upstate Party' line. He has framed his campaign around constitutional principles, criticizing both major parties, and has filed the necessary petition signatures to appear on the November ballot.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Todd_Sloan",
+          "type": "website",
+          "title": "Todd Sloan - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.toddsloanforcongress.com/",
+          "type": "website",
+          "title": "Todd Sloan for Congress - NY-24 Independent Candidate",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fltimes.com/news/auburn-attorney-looks-to-challenge-claudia-tenney-in-24th-house-race/article_144ac5a2-9465-491d-9165-b449316024a8.html",
+          "type": "news",
+          "title": "Auburn attorney looks to challenge Claudia Tenney in 24th House race",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Sloan Legal",
+          "start_year": null,
+          "end_year": null,
+          "description": "Criminal defense and appeals lawyer practicing in Auburn, NY",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.toddsloanforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/people/Todd-Sloan-for-Congress-NY-24/61578439993317/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tony Macula",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Tony Macula is a retired SUNY Geneseo mathematics professor and researcher running as an independent candidate. He describes himself as an 'economic liberal and social conservative' and is focusing his campaign on issues affecting rural and upstate New York communities.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Tony_Macula",
+          "type": "website",
+          "title": "Tony Macula - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thelcn.com/news/tony-macula-announces-independent-candidacy-for-ny-24/article_82d56d41-228d-4481-a4fb-2c1b9b8d150d.html",
+          "type": "news",
+          "title": "Tony Macula announces independent candidacy for NY-24",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Professor of Mathematics",
+          "organization": "SUNY Geneseo",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired mathematics professor and researcher",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "State University of New York, Plattsburgh",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": 1983,
+          "source": null
+        },
+        {
+          "institution": "Wesleyan University",
+          "degree": "Ph.D.",
+          "field": "Mathematics",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ken Estes",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Ken Estes Jr. is a seventh-generation farmer from Caledonia, New York, and an education specialist at Cornell Cooperative Extension running as an independent candidate. His campaign emphasizes sustainable agriculture, community development, and rural economic revitalization.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ken_Estes",
+          "type": "website",
+          "title": "Ken Estes - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kenfornys24.org/",
+          "type": "website",
+          "title": "Ken for NY-24 Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thebatavian.com/howard-owens/caledonia-farmer-announces-independent-run-for-ny-24/645541",
+          "type": "news",
+          "title": "Caledonia farmer announces independent run for NY-24",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Education Specialist",
+          "organization": "Cornell Cooperative Extension Livingston County",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Agricultural and environmental education",
+          "source": null
+        },
+        {
+          "title": "Farmer",
+          "organization": "JoGlenn Farms / Honey Locust Farms",
+          "start_year": null,
+          "end_year": null,
+          "description": "Seventh-generation farmer in Caledonia, NY",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "SUNY College of Environmental Science and Forestry",
+          "degree": "Bachelor of Science",
+          "field": "Landscape Architecture",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "SUNY Cobleskill",
+          "degree": "Associate of Applied Science",
+          "field": "Natural Resources & Environmental Conservation",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.kenfornys24.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/kenfornys24-61579866864982/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_24th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:17:58.480904+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 228892,
+    "completion_tokens": 10390,
+    "total_tokens": 239282,
+    "cost_usd": 0.016959888,
+    "cost_source": "provider",
+    "estimated_usd": 0.024468,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 228892,
+        "completion_tokens": 10390
+      }
+    },
+    "duration_s": 132.0
+  }
+}

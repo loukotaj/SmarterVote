@@ -10,18 +10,7 @@
       "pollster": "University of New Hampshire Survey Center",
       "date": "2025-10-24",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Phil Scott",
-            "No named opponent / undecided"
-          ],
-          "percentages": [
-            57.0,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://scholars.unh.edu/survey_center_polls/898/"
     }
   ],
@@ -36,50 +25,60 @@
         {
           "url": "https://www.vermontpublic.org/local-news/2026-03-10/republican-gov-phil-scott-democratic-challenge-2026",
           "type": "news",
-          "title": "Republican Gov. Phil Scott to see Democratic challenge in 2026"
+          "title": "Republican Gov. Phil Scott to see Democratic challenge in 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:56.925052Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://governor.vermont.gov/press-release/statement-governor-scotts-office-vermont-labor-relations-board-decision-states-hybrid",
           "type": "government",
-          "title": "Statement from Governor Scott's Office on the Vermont Labor Relations Board Decision on the State's Hybrid Work Standard"
+          "title": "Statement from Governor Scott's Office on the Vermont Labor Relations Board Decision on the State's Hybrid Work Standard",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:56.925052Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Phil_Scott_2019.png/500px-Phil_Scott_2019.png",
-      "website": "https://www.philscott.org/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/GovPhilScott/",
-        "x": "https://x.com/GovPhilScott",
-        "instagram": "https://www.instagram.com/philscottvt/?hl=en",
-        "youtube": "https://www.youtube.com/@GovPhilScott"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Governor of Vermont",
           "organization": "State of Vermont",
           "start_year": 2017,
           "end_year": null,
-          "description": "Serves as Vermont's chief executive; reelected to a fifth term in 2024."
+          "description": "Serves as Vermont's chief executive; reelected to a fifth term in 2024.",
+          "source": null
         },
         {
           "title": "Lieutenant Governor of Vermont",
           "organization": "State of Vermont",
           "start_year": 2011,
           "end_year": 2017,
-          "description": "Served three terms before becoming governor."
+          "description": "Served three terms before becoming governor.",
+          "source": null
         },
         {
           "title": "Vermont State Senator",
           "organization": "Vermont State Senate",
           "start_year": 2001,
           "end_year": 2010,
-          "description": "Represented Washington County; served as vice chair of the Transportation Committee and chair of the Institutions Committee."
+          "description": "Represented Washington County; served as vice chair of the Transportation Committee and chair of the Institutions Committee.",
+          "source": null
         },
         {
           "title": "Co-owner",
           "organization": "Dubois Construction",
           "start_year": null,
           "end_year": 2016,
-          "description": "Co-owned his family's construction business for more than 30 years."
+          "description": "Co-owned his family's construction business for more than 30 years.",
+          "source": null
         }
       ],
       "education": [
@@ -87,21 +86,33 @@
           "institution": "University of Vermont",
           "degree": "Bachelor's degree",
           "field": "Technical education",
-          "year": 1980
+          "year": 1980,
+          "source": null
         },
         {
           "institution": "Spaulding High School",
           "degree": "High school diploma",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.philscott.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/GovPhilScott/",
+        "x": "https://x.com/GovPhilScott",
+        "instagram": "https://www.instagram.com/philscottvt/?hl=en",
+        "youtube": "https://www.youtube.com/@GovPhilScott"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Amanda Janoo",
@@ -112,81 +123,112 @@
         {
           "url": "https://vtdigger.org/2026/03/10/first-democratic-challenger-to-phil-scott-enters-governors-race/",
           "type": "news",
-          "title": "First Democratic candidate enters governor's race - VTDigger"
+          "title": "First Democratic candidate enters governor's race - VTDigger",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:56.925052Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.vermontpublic.org/local-news/2026-03-10/republican-gov-phil-scott-democratic-challenge-2026",
           "type": "news",
-          "title": "Republican Gov. Phil Scott to see Democratic challenge in 2026"
+          "title": "Republican Gov. Phil Scott to see Democratic challenge in 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:56.925052Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://vermontbiz.com/news/2026/march/10/amanda-janoo-announces-campaign-governor",
           "type": "news",
-          "title": "Amanda Janoo announces campaign for governor"
+          "title": "Amanda Janoo announces campaign for governor",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:56.925052Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": "https://janooforvt.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/JanooForVT/",
-        "instagram": "https://www.instagram.com/amandajanoo/",
-        "linkedin": "https://www.linkedin.com/in/amandajanoo"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Knowledge & Policy Lead",
           "organization": "Wellbeing Economy Alliance (WEAll)",
           "start_year": null,
           "end_year": null,
-          "description": "Leads policy and knowledge work focused on wellbeing economy and industrial policy."
+          "description": "Leads policy and knowledge work focused on wellbeing economy and industrial policy.",
+          "source": null
         },
         {
           "title": "Economic Security and Wellbeing Fellow",
           "organization": "New America",
           "start_year": null,
           "end_year": null,
-          "description": "Worked as a fellow focused on economic security and wellbeing."
+          "description": "Worked as a fellow focused on economic security and wellbeing.",
+          "source": null
         },
         {
           "title": "Policy and economic development roles",
           "organization": "International development and policy organizations",
           "start_year": null,
           "end_year": null,
-          "description": "Has worked with governments and international development institutions on participatory economic policy design."
+          "description": "Has worked with governments and international development institutions on participatory economic policy design.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://janooforvt.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JanooForVT/",
+        "instagram": "https://www.instagram.com/amandajanoo/",
+        "linkedin": "https://www.linkedin.com/in/amandajanoo"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:04:53.802468+00:00",
+  "updated_utc": "2026-06-13T20:50:40.464231+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 227267,
-    "completion_tokens": 8080,
-    "total_tokens": 235347,
-    "estimated_usd": 0.0347,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 56604,
+    "completion_tokens": 3492,
+    "total_tokens": 60096,
+    "cost_usd": 0.00280428,
+    "cost_source": "provider",
+    "estimated_usd": 0.004227,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 57452,
-        "completion_tokens": 6662
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 169815,
-        "completion_tokens": 1418
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 56604,
+        "completion_tokens": 3492
       }
     },
-    "duration_s": 139.1
+    "duration_s": 43.6
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

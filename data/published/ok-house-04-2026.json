@@ -1,0 +1,436 @@
+{
+  "id": "ok-house-04-2026",
+  "title": "2026 U.S. House of Representatives Election for Oklahoma's 4th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Oklahoma's 4th Congressional District",
+  "state": "Oklahoma",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Oklahoma's 4th Congressional District pits longtime incumbent Rep. Tom Cole (R) against two Democratic primary candidates and an independent candidate in the general election. The district covers south-central Oklahoma across 14 counties, including Norman, Lawton, Moore, Midwest City, and Ardmore. Cole, who has held the seat since 2003 and chairs the powerful House Appropriations Committee, faces a primary challenge from self-described America First candidate Marcie Everhart. The Democratic primary features retired Air Force Colonel Jeff Pixley and U.S. Army veteran and public defender Mitchell Jacob. Independent disability advocate Rocco Bonacci will also appear on the general election ballot. The primary elections are scheduled for June 16, 2026.",
+  "candidates": [
+    {
+      "name": "Tom Cole",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Tom Cole is the incumbent U.S. Representative for Oklahoma's 4th Congressional District, first elected in 2002. He chairs the House Appropriations Committee and is an enrolled member of the Chickasaw Nation. Cole campaigns on his record as a fiscal conservative, his seniority and committee leadership, and his support for energy independence, Second Amendment rights, and protecting the state's military installations.",
+      "summary_sources": [
+        {
+          "url": "https://nondoc.com/2026/06/01/cheat-sheet-brecheen-lucas-cole-try-to-defend-cd-2-cd-3-cd-4-seats-in-okgop-primary/",
+          "type": "news",
+          "title": "Cheat sheet: Brecheen, Lucas, Cole try to defend CD 2, CD 3, CD 4 seats in OKGOP primary",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://oklahoma.gov/content/dam/ok/en/elections/candidate-filing-archives/2026-candidate-filing-archives/2026-candidate-list-book.pdf",
+          "type": "government",
+          "title": "2026 Candidates for Elective Office - Oklahoma State Election Board",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Tom_Cole_official_congressional_photo_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2003,
+          "end_year": null,
+          "description": "Representing Oklahoma's 4th Congressional District; Chairman of the House Appropriations Committee",
+          "source": null
+        },
+        {
+          "title": "Oklahoma Secretary of State",
+          "organization": "State of Oklahoma",
+          "start_year": 1995,
+          "end_year": 1999,
+          "description": "Appointed by Governor Frank Keating",
+          "source": null
+        },
+        {
+          "title": "Oklahoma State Senator",
+          "organization": "Oklahoma State Senate",
+          "start_year": 1988,
+          "end_year": 1991,
+          "description": "Represented the 43rd district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Grinnell College",
+          "degree": "Bachelor of Arts",
+          "field": "History",
+          "year": 1971,
+          "source": null
+        },
+        {
+          "institution": "Yale University",
+          "degree": "Master of Arts",
+          "field": "British History",
+          "year": 1974,
+          "source": null
+        },
+        {
+          "institution": "University of Oklahoma",
+          "degree": "Doctor of Philosophy",
+          "field": "American History",
+          "year": 1984,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://cole.house.gov/",
+          "title": "Official House website",
+          "type": "other"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/c001053",
+          "title": "Biographical Directory of the U.S. Congress",
+          "type": "other"
+        }
+      ],
+      "website": "https://tomcoleforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/TomColeOK04/",
+        "instagram": "https://www.instagram.com/tomcoleok04/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Marcie Everhart",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Marcie Everhart is a retired marketing director and Republican primary challenger running on an America First platform. She emphasizes her status as a grassroots candidate who does not accept special interest funding and calls for a 'total reset' of Congress. Her platform priorities include requiring paper ballots for all elections, enacting new qualifications for congressional service, and pursuing judicial reform.",
+      "summary_sources": [
+        {
+          "url": "https://nondoc.com/2026/06/01/cheat-sheet-brecheen-lucas-cole-try-to-defend-cd-2-cd-3-cd-4-seats-in-okgop-primary/",
+          "type": "news",
+          "title": "Cheat sheet: Brecheen, Lucas, Cole try to defend CD 2, CD 3, CD 4 seats in OKGOP primary",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://everhartforcongress.com/",
+          "type": "website",
+          "title": "Marcie Everhart for U.S. Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Marketing Director",
+          "organization": "Various (retired)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Specialized in emerging technologies marketing",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://everhartforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jeff Pixley",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jeff Pixley is a retired U.S. Air Force Colonel and F-16 pilot running as a Democrat for Oklahoma's 4th Congressional District. With over 30 years of military service, he enlisted at age 17 and rose through the ranks to Colonel, flying combat missions and investigating aircraft accidents. His campaign emphasizes congressional term limits, banning stock trading by members of Congress, and bipartisan problem-solving.",
+      "summary_sources": [
+        {
+          "url": "https://pixleyforcongress.com/",
+          "type": "website",
+          "title": "Jeff Pixley for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://oklahoma.gov/content/dam/ok/en/elections/candidate-filing-archives/2026-candidate-filing-archives/2026-candidate-list-book.pdf",
+          "type": "government",
+          "title": "2026 Candidates for Elective Office - Oklahoma State Election Board",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Colonel (Retired)",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "F-16 pilot, served in combat zones, investigated aircraft accidents, served as a legislative fellow",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://pixleyforcongress.com/",
+      "social_media": {
+        "facebook": "https://facebook.com/jeffpixleyforcongress",
+        "instagram": "https://instagram.com/pixleyforcongress",
+        "bluesky": "https://bsky.app/profile/pixleyforcongress.bsky.social"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mitchell Jacob",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mitchell Jacob is a U.S. Army veteran, public defender, and recent University of Oklahoma College of Law graduate running as a Democrat. He served five and a half years in the Army as a Cryptologic Linguist, deploying to Syria in support of Operation Inherent Resolve, and achieved the rank of Sergeant. His platform includes eliminating the federal debt, reforming immigration, protecting abortion rights, and abolishing ICE, and he does not accept PAC money.",
+      "summary_sources": [
+        {
+          "url": "https://www.mitchelljacob.com/",
+          "type": "website",
+          "title": "Jacob for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.facebook.com/electmitchelljacob/",
+          "type": "website",
+          "title": "Mitchell Jacob for Congress - Facebook",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Sergeant (E-5)",
+          "organization": "United States Army",
+          "start_year": 2017,
+          "end_year": 2022,
+          "description": "35P Cryptologic Linguist, deployed to Southern Syria in support of Operation Inherent Resolve",
+          "source": null
+        },
+        {
+          "title": "Public Defender",
+          "organization": "Oklahoma",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Criminal defense attorney after graduating law school",
+          "source": null
+        },
+        {
+          "title": "Stockbroker / Banker / Mortgage Loan Originator",
+          "organization": "Various",
+          "start_year": 2012,
+          "end_year": 2017,
+          "description": "Licensed stockbroker, banker, and mortgage loan originator prior to military service",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Oklahoma College of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2025,
+          "source": null
+        },
+        {
+          "institution": "Grand Canyon University",
+          "degree": "Bachelor of Arts",
+          "field": "Government Studies",
+          "year": 2019,
+          "source": null
+        },
+        {
+          "institution": "Defense Language Institute",
+          "degree": "Associate of Arts",
+          "field": "Arabic Studies",
+          "year": 2018,
+          "source": null
+        },
+        {
+          "institution": "Rio Salado College",
+          "degree": "Associate Degree",
+          "field": "General Studies",
+          "year": 2016,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mitchelljacob.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/electmitchelljacob/",
+        "instagram": "https://www.instagram.com/electmitchelljacob/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rocco Bonacci",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Rocco Bonacci is an independent candidate and disability advocate from Lawton, Oklahoma, running for U.S. House in the 4th Congressional District. He is known for his advocacy work with Children United, seeking to build inclusive playgrounds for children with disabilities. Bonacci will appear on the general election ballot as an independent after filing with the Oklahoma State Election Board.",
+      "summary_sources": [
+        {
+          "url": "https://www.kswo.com/2020/01/06/lawton-man-overcomes-adversity-help-children-with-disabilities/",
+          "type": "news",
+          "title": "Lawton man overcomes adversity to help children with disabilities",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://oklahoma.gov/content/dam/ok/en/elections/candidate-filing-archives/2026-candidate-filing-archives/2026-candidate-list-book.pdf",
+          "type": "government",
+          "title": "2026 Candidates for Elective Office - Oklahoma State Election Board",
+          "description": null,
+          "last_accessed": "2026-06-14T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Disability Advocate",
+          "organization": "Children United",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advocacy for inclusive playgrounds and resources for children with disabilities",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Rocco-Bonacci-for-US-House-District-4-61575386681888/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:20:15.900565+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 234652,
+    "completion_tokens": 9921,
+    "total_tokens": 244573,
+    "cost_usd": 0.041873724,
+    "cost_source": "provider",
+    "estimated_usd": 0.04394,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 234652,
+        "completion_tokens": 9921
+      }
+    },
+    "duration_s": 201.4,
+    "serper_calls": 19,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 49792,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0475,
+    "context_deduplicated_results": 73,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

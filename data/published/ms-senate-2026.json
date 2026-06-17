@@ -17,56 +17,81 @@
         {
           "url": "https://www.clarionledger.com/story/news/politics/elections/2026/03/10/cindy-hyde-smith-wins-mississippi-us-senate-republican-primary-election/89063095007/",
           "type": "news",
-          "title": "Hyde-Smith wins GOP nomination, Colom secures Democratic nod ..."
+          "title": "Hyde-Smith wins GOP nomination, Colom secures Democratic nod ...",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.hydesmith.senate.gov/about-cindy",
-          "type": "official",
-          "title": "About Cindy | Senator Cindy Hyde-Smith"
+          "type": "government",
+          "title": "About Cindy | Senator Cindy Hyde-Smith",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Cindy_Hyde-Smith",
-          "type": "ballotpedia",
-          "title": "Cindy Hyde-Smith - Ballotpedia"
+          "type": "website",
+          "title": "Cindy Hyde-Smith - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/480px-Cindy_Hyde-Smith_official_photo.jpg",
-      "website": "https://cindyhydesmith.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SenatorCindyHydeSmith/",
-        "instagram": "https://www.instagram.com/sencindyhydesmith/?hl=en",
-        "x": "https://x.com/SenHydeSmith/with_replies"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Senator",
           "organization": "United States Senate",
           "start_year": 2018,
           "end_year": null,
-          "description": "Represents Mississippi in the U.S. Senate."
+          "description": "Represents Mississippi in the U.S. Senate.",
+          "source": null
         },
         {
           "title": "Commissioner of Agriculture and Commerce",
           "organization": "State of Mississippi",
           "start_year": 2012,
           "end_year": 2018,
-          "description": "Served as Mississippi’s agriculture commissioner before joining the Senate."
+          "description": "Served as Mississippi’s agriculture commissioner before joining the Senate.",
+          "source": null
         },
         {
           "title": "State Senator",
           "organization": "Mississippi State Senate",
           "start_year": 2000,
           "end_year": 2012,
-          "description": "Served in the Mississippi legislature."
+          "description": "Served in the Mississippi legislature.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://cindyhydesmith.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorCindyHydeSmith/",
+        "instagram": "https://www.instagram.com/sencindyhydesmith/?hl=en",
+        "x": "https://x.com/SenHydeSmith/with_replies"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Scott Colom",
@@ -77,20 +102,112 @@
         {
           "url": "https://www.clarionledger.com/story/news/politics/elections/2026/03/10/cindy-hyde-smith-wins-mississippi-us-senate-republican-primary-election/89063095007/",
           "type": "news",
-          "title": "Hyde-Smith wins GOP nomination, Colom secures Democratic nod ..."
+          "title": "Hyde-Smith wins GOP nomination, Colom secures Democratic nod ...",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Scott_Colom",
-          "type": "ballotpedia",
-          "title": "Scott Colom - Ballotpedia"
+          "type": "website",
+          "title": "Scott Colom - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://scottcolom.com/",
-          "type": "official",
-          "title": "Scott Colom for Senate – Mississippi Matters"
+          "type": "government",
+          "title": "Scott Colom for Senate – Mississippi Matters",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ScottColom2025.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "District Attorney",
+          "organization": "16th Judicial District of Mississippi",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Serves as district attorney for the 16th Judicial District.",
+          "source": null
+        },
+        {
+          "title": "City prosecutor",
+          "organization": "City of Columbus, Mississippi",
+          "start_year": 2013,
+          "end_year": 2016,
+          "description": "Worked as a city prosecutor.",
+          "source": null
+        },
+        {
+          "title": "Municipal court judge",
+          "organization": "Aberdeen, Mississippi",
+          "start_year": 2012,
+          "end_year": 2013,
+          "description": "Served as a municipal court judge.",
+          "source": null
+        },
+        {
+          "title": "Interim justice court judge",
+          "organization": "Lowndes County, Mississippi",
+          "start_year": 2012,
+          "end_year": 2013,
+          "description": "Served as an interim justice court judge.",
+          "source": null
+        },
+        {
+          "title": "Lawyer",
+          "organization": "Colom Law Firm LLC",
+          "start_year": 2011,
+          "end_year": 2016,
+          "description": "Practiced law in private practice.",
+          "source": null
+        },
+        {
+          "title": "Staff lawyer and Skadden Fellow",
+          "organization": "Mississippi Center for Justice",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Worked on legal advocacy and public-interest matters.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Millsaps College",
+          "degree": "Bachelor's degree",
+          "field": "unknown",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "University of Wisconsin Law School",
+          "degree": "J.D.",
+          "field": "law",
+          "year": 2009,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
       "website": "https://scottcolom.com/",
       "social_media": {
         "facebook": "https://www.facebook.com/ScottColomForSenate/",
@@ -99,70 +216,8 @@
         "youtube": "https://www.youtube.com/@ScottColomForSenate",
         "tiktok": "https://www.tiktok.com/@scottcolomforsenate"
       },
-      "career_history": [
-        {
-          "title": "District Attorney",
-          "organization": "16th Judicial District of Mississippi",
-          "start_year": 2016,
-          "end_year": null,
-          "description": "Serves as district attorney for the 16th Judicial District."
-        },
-        {
-          "title": "City prosecutor",
-          "organization": "City of Columbus, Mississippi",
-          "start_year": 2013,
-          "end_year": 2016,
-          "description": "Worked as a city prosecutor."
-        },
-        {
-          "title": "Municipal court judge",
-          "organization": "Aberdeen, Mississippi",
-          "start_year": 2012,
-          "end_year": 2013,
-          "description": "Served as a municipal court judge."
-        },
-        {
-          "title": "Interim justice court judge",
-          "organization": "Lowndes County, Mississippi",
-          "start_year": 2012,
-          "end_year": 2013,
-          "description": "Served as an interim justice court judge."
-        },
-        {
-          "title": "Lawyer",
-          "organization": "Colom Law Firm LLC",
-          "start_year": 2011,
-          "end_year": 2016,
-          "description": "Practiced law in private practice."
-        },
-        {
-          "title": "Staff lawyer and Skadden Fellow",
-          "organization": "Mississippi Center for Justice",
-          "start_year": 2009,
-          "end_year": 2011,
-          "description": "Worked on legal advocacy and public-interest matters."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Millsaps College",
-          "degree": "Bachelor's degree",
-          "field": "unknown",
-          "year": 2005
-        },
-        {
-          "institution": "University of Wisconsin Law School",
-          "degree": "J.D.",
-          "field": "law",
-          "year": 2009
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Ty Pinkins",
@@ -173,53 +228,71 @@
         {
           "url": "https://www.wjtv.com/news/election/ty-pinkins-to-run-as-independent-for-us-senate-in-2026/",
           "type": "news",
-          "title": "Ty Pinkins rocks political boat for 2026 US Senate bid - WJTV"
+          "title": "Ty Pinkins rocks political boat for 2026 US Senate bid - WJTV",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.typinkins.com/",
-          "type": "official",
-          "title": "Ty Pinkins for US Senate | Mississippi"
+          "type": "government",
+          "title": "Ty Pinkins for US Senate | Mississippi",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Ty_Pinkins",
-          "type": "ballotpedia",
-          "title": "Ty Pinkins - Ballotpedia"
+          "type": "website",
+          "title": "Ty Pinkins - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ty-Pinkins.png",
-      "website": "https://www.typinkins.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/typinkins",
-        "linkedin": "https://www.linkedin.com/in/ty-pinkins"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Business owner",
           "organization": "Self-employed",
           "start_year": null,
           "end_year": null,
-          "description": "Owns a business, according to Ballotpedia."
+          "description": "Owns a business, according to Ballotpedia.",
+          "source": null
         },
         {
           "title": "Attorney",
           "organization": "Mississippi Center for Justice",
           "start_year": null,
           "end_year": null,
-          "description": "Worked as an attorney with the Mississippi Center for Justice."
+          "description": "Worked as an attorney with the Mississippi Center for Justice.",
+          "source": null
         },
         {
           "title": "Presidential communications aide",
           "organization": "White House Communications Agency",
           "start_year": null,
           "end_year": null,
-          "description": "Worked as a communications aide supporting presidential communications."
+          "description": "Worked as a communications aide supporting presidential communications.",
+          "source": null
         },
         {
           "title": "U.S. Army service member",
           "organization": "United States Army",
           "start_year": 1996,
           "end_year": 2017,
-          "description": "Served 21 years in the Army."
+          "description": "Served 21 years in the Army.",
+          "source": null
         }
       ],
       "education": [
@@ -227,149 +300,38 @@
           "institution": "University of Maryland Global Campus",
           "degree": "Bachelor's degree",
           "field": "political science and government",
-          "year": 2012
+          "year": 2012,
+          "source": null
         },
         {
           "institution": "Georgetown University Law Center",
           "degree": "J.D.",
           "field": "law",
-          "year": 2020
+          "year": 2020,
+          "source": null
         },
         {
           "institution": "Georgetown University Law Center",
           "degree": "LL.M.",
           "field": "national security law",
-          "year": 2021
+          "year": 2021,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Sarah Adlakha",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "Sarah Adlakha ran in the Republican primary for U.S. Senate in Mississippi and is a physician by profession. Her campaign emphasized healthcare, affordability, education, border security, fiscal restraint, and ethics reform, but she lost the primary to incumbent Cindy Hyde-Smith.",
-      "summary_sources": [
-        {
-          "url": "https://www.clarionledger.com/story/news/politics/elections/2026/03/10/cindy-hyde-smith-wins-mississippi-us-senate-republican-primary-election/89063095007/",
-          "type": "news",
-          "title": "Hyde-Smith wins GOP nomination, Colom secures Democratic nod ..."
-        },
-        {
-          "url": "https://www.wtok.com/2025/09/11/republican-candidate-sarah-adlakha-adds-her-name-us-senate-race/",
-          "type": "news",
-          "title": "Republican candidate Sarah Adlakha adds her name to the U.S. Senate race"
-        },
-        {
-          "url": "https://ballotpedia.org/Sarah_Adlakha",
-          "type": "ballotpedia",
-          "title": "Sarah Adlakha - Ballotpedia"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sarah_Adlakha_20250528_073510.jpg",
-      "website": "https://www.facebook.com/sarahforsenate/",
+      "website": "https://www.typinkins.com/",
       "social_media": {
-        "facebook": "https://www.facebook.com/sarahforsenate/",
-        "instagram": "https://www.instagram.com/sarahadlakha/",
-        "x": "https://x.com/sarahforsenate"
+        "facebook": "https://www.facebook.com/typinkins",
+        "linkedin": "https://www.linkedin.com/in/ty-pinkins"
       },
-      "career_history": [
-        {
-          "title": "Physician",
-          "organization": "Medical practice",
-          "start_year": null,
-          "end_year": null,
-          "description": "Works as a physician."
-        },
-        {
-          "title": "Paramedic",
-          "organization": "Unknown",
-          "start_year": null,
-          "end_year": null,
-          "description": "Ballotpedia lists prior work as a paramedic."
-        },
-        {
-          "title": "Author",
-          "organization": "Self-employed",
-          "start_year": null,
-          "end_year": null,
-          "description": "Has worked as an author."
-        },
-        {
-          "title": "Business manager",
-          "organization": "Unknown",
-          "start_year": null,
-          "end_year": null,
-          "description": "Ballotpedia lists prior work as a business manager."
-        },
-        {
-          "title": "Real estate developer",
-          "organization": "Unknown",
-          "start_year": null,
-          "end_year": null,
-          "description": "Ballotpedia lists prior work in real estate development."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Trinity Presbyterian High School",
-          "degree": "High school diploma",
-          "field": "unknown",
-          "year": null
-        },
-        {
-          "institution": "Huntingdon College",
-          "degree": "Bachelor's degree",
-          "field": "unknown",
-          "year": 1996
-        },
-        {
-          "institution": "Touro University",
-          "degree": "D.O.",
-          "field": "medicine",
-          "year": 2003
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Albert R. Littell",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Albert R. Littell was a Democratic candidate in Mississippi’s 2026 U.S. Senate race and campaigned on living wages and affordable healthcare. He was one of the Democratic primary candidates but did not emerge as the nominee.",
-      "summary_sources": [
-        {
-          "url": "https://www.mississippifreepress.org/democrat-albert-littell-vows-20-living-wage-if-mississippi-sends-him-to-us-senate/",
-          "type": "news",
-          "title": "Albert Littell Vows $20 Living Wage if Elected to US Senate"
-        },
-        {
-          "url": "https://ballotpedia.org/Albert_Littell",
-          "type": "ballotpedia",
-          "title": "Albert Littell - Ballotpedia"
-        }
-      ],
-      "image_url": null,
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Priscilla W. Till",
@@ -380,50 +342,72 @@
         {
           "url": "https://jacksonadvocateonline.com/priscilla-williams-till-a-choice-for-real-change/",
           "type": "news",
-          "title": "Priscilla Williams Till: A choice for real change - Jackson Advocate"
+          "title": "Priscilla Williams Till: A choice for real change - Jackson Advocate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Priscilla_Till",
-          "type": "ballotpedia",
-          "title": "Priscilla Till - Ballotpedia"
+          "type": "website",
+          "title": "Priscilla Till - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:28.152236Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Priscilla_Hill.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:44:14.888185+00:00",
+  "updated_utc": "2026-06-13T23:16:57.160076+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 287527,
-    "completion_tokens": 10427,
-    "total_tokens": 297954,
-    "estimated_usd": 0.0434,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 54877,
+    "completion_tokens": 10181,
+    "total_tokens": 65058,
+    "cost_usd": 0.00549145,
+    "cost_source": "provider",
+    "estimated_usd": 0.006816,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 86584,
-        "completion_tokens": 8381
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 200943,
-        "completion_tokens": 2046
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 54877,
+        "completion_tokens": 10181
       }
     },
-    "duration_s": 155.0
+    "duration_s": 89.1
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

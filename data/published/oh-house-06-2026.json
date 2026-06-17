@@ -1,0 +1,247 @@
+{
+  "id": "oh-house-06-2026",
+  "title": "2026 U.S. House Election for Ohio's 6th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Ohio's 6th Congressional District",
+  "state": "Ohio",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Ohio's 6th congressional district pits incumbent Republican Representative Michael Rulli against Democratic challenger Elizabeth Kirtley. The district covers ten counties in eastern Ohio, including parts of Stark, Mahoning, and Columbiana counties, and is rated as Solidly Republican by the Cook Political Report. Rulli, who won a special election in June 2024 and a full term in November 2024, is seeking another term. Kirtley, a first-time candidate from New Philadelphia, defeated a crowded Democratic primary field. Key issues in the race include healthcare, immigration enforcement, abortion rights, and local economic development.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for the 2026 general election in Ohio's 6th congressional district as of the time of research. The race is rated Solidly Republican by Cook Political Report.",
+  "candidates": [
+    {
+      "name": "Michael Rulli",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Michael Rulli is the incumbent U.S. Representative for Ohio's 6th congressional district, first elected in a June 2024 special election and re-elected in November 2024. He previously served in the Ohio Senate for the 33rd district from 2019 to 2024 and is the director of operations for the family-owned Rulli Bros. Markets grocery chain. His congressional priorities include fiscal conservatism, border security, and supporting energy independence.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Michael_Rulli",
+          "type": "website",
+          "title": "Michael Rulli - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://rulli.house.gov/",
+          "type": "government",
+          "title": "Congressman Michael Rulli - House.gov",
+          "description": null,
+          "last_accessed": "2025-07-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wosu.org/2026-05-05/2026-ohio-primary-challengers-set-in-5th-6th-and-13th-congressional-districts",
+          "type": "news",
+          "title": "2026 Ohio Primary: Challengers set in 5th, 6th and 13th Districts",
+          "description": null,
+          "last_accessed": "2025-07-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Michael_Rulli_118th_Congress.jpg/250px-Michael_Rulli_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Representing Ohio's 6th congressional district since June 2024.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Ohio Senate",
+          "start_year": 2019,
+          "end_year": 2024,
+          "description": "Represented the 33rd senatorial district.",
+          "source": null
+        },
+        {
+          "title": "Director of Operations",
+          "organization": "Rulli Bros. Markets",
+          "start_year": null,
+          "end_year": null,
+          "description": "Family-owned grocery chain based in the Mahoning Valley.",
+          "source": null
+        },
+        {
+          "title": "School Board Member",
+          "organization": "Leetonia Exempted Village School District",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the local school board.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Emerson College",
+          "degree": "Bachelor of Arts",
+          "field": "Communications and Speech",
+          "year": 1991,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://rulli.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Elizabeth Kirtley",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Elizabeth Kirtley is the Democratic nominee for Ohio's 6th congressional district. She won a six-candidate Democratic primary on May 5, 2026, receiving 31.5% of the vote. Kirtley is a New Philadelphia resident with a background in customer service, entrepreneurship as a nail salon co-owner, and content creation. Her campaign platform includes abolishing ICE, codifying abortion rights, implementing universal healthcare, and regulating data centers.",
+      "summary_sources": [
+        {
+          "url": "https://www.ballotready.org/people/elizabeth-kirtley",
+          "type": "website",
+          "title": "Elizabeth Kirtley - BallotReady",
+          "description": null,
+          "last_accessed": "2025-07-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.elizabethforus.com/",
+          "type": "website",
+          "title": "Elizabeth Kirtley for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2025-07-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wfmj.com/news/political/elizabeth-kirtley-to-face-rulli-in-race-for-6th-district-congressional-seat/article_381927c8-e370-4367-b74e-5fe2c6678469.html",
+          "type": "news",
+          "title": "Democrat Kirtley to face Rulli in race for 6th District Congressional seat",
+          "description": null,
+          "last_accessed": "2025-07-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cantonrep.com/story/news/politics/2026/04/19/whos-in-democratic-primary-for-ohios-6th-congressional-district/89514549007/",
+          "type": "news",
+          "title": "Meet the Democratic candidates for Ohio's 6th Congressional District",
+          "description": null,
+          "last_accessed": "2025-07-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Guest Brand Ambassador",
+          "organization": "Couples Tower Island Ocho Rios",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Brand ambassadorship role.",
+          "source": null
+        },
+        {
+          "title": "CEO and Co-owner",
+          "organization": "The_nail_mechanic",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Nail salon business.",
+          "source": null
+        },
+        {
+          "title": "Content Creator and Writer",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Digital content creation and writing.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Kent State University",
+          "degree": "Bachelor's degree",
+          "field": "English Literature",
+          "year": 1996,
+          "source": null
+        },
+        {
+          "institution": "New Philadelphia High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1991,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.elizabethforus.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:45:47.340250+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 350420,
+    "completion_tokens": 6956,
+    "total_tokens": 357376,
+    "cost_usd": 0.025351128,
+    "cost_source": "provider",
+    "estimated_usd": 0.035705,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 350420,
+        "completion_tokens": 6956
+      }
+    },
+    "duration_s": 125.7
+  }
+}

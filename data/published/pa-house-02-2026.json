@@ -1,0 +1,267 @@
+{
+  "id": "pa-house-02-2026",
+  "title": "Pennsylvania's 2nd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Pennsylvania's 2nd Congressional District",
+  "state": "Pennsylvania",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Pennsylvania's 2nd Congressional District, covering all of Northeast Philadelphia and parts of North Philadelphia and Center City east of Broad Street, is holding its general election on November 3, 2026. The race pits incumbent Democratic U.S. Rep. Brendan Boyle, who has represented the district since 2019 and serves as Ranking Member of the House Budget Committee, against Republican challenger Jessica Arriaga, a healthcare professional and community health coordinator making her first run for elected office. The district is overwhelmingly Democratic by partisan registration, and the Cook Political Report rated the seat as 'Solidly Democratic' heading into the primary. Key issues in the race include economic opportunity, healthcare access, public safety, and the cost of living in Philadelphia.",
+  "polling": [],
+  "polling_note": "No independent general-election opinion polls were found for Pennsylvania's 2nd Congressional District in 2026. The Cook Political Report rated the race 'Solidly Democratic' before the primary, and prediction markets indicate a high probability of a Democratic win in this heavily Democratic Philadelphia-based district.",
+  "candidates": [
+    {
+      "name": "Brendan Boyle",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Brendan Boyle is an incumbent Democratic U.S. Representative for Pennsylvania's 2nd Congressional District, first elected in 2014 after serving in the Pennsylvania House of Representatives. He serves as the Ranking Member of the House Budget Committee and focuses on fiscal policy, healthcare access, and economic opportunity. Boyle was born and raised in Philadelphia and is the first in his family to attend college, earning degrees from the University of Notre Dame and Harvard Kennedy School.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Brendan_Boyle",
+          "type": "website",
+          "title": "Brendan Boyle - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vote.phila.gov/voting/candidates-for-office/",
+          "type": "government",
+          "title": "Candidates for Office - Philadelphia City Commissioners",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cityandstatepa.com/politics/2026/05/whos-running-congress-pennsylvania-2026/413737/",
+          "type": "news",
+          "title": "Who's running for Congress in Pennsylvania in 2026? - City & State PA",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-pennsylvania-us-house-2-primary.html",
+          "type": "news",
+          "title": "Pennsylvania Second Congressional District Primary 2026 - NYT",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Brendan_Boyle_-_2018-05-21_ec_0004.jpg/250px-Brendan_Boyle_-_2018-05-21_ec_0004.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing Pennsylvania's 13th district (2015-2019) and 2nd district (2019-present). Serves as Ranking Member of the House Budget Committee.",
+          "source": null
+        },
+        {
+          "title": "Member of the Pennsylvania House of Representatives",
+          "organization": "Pennsylvania House of Representatives",
+          "start_year": 2009,
+          "end_year": 2015,
+          "description": "Represented the 170th district in Northeast Philadelphia.",
+          "source": null
+        },
+        {
+          "title": "Consultant",
+          "organization": "United States Department of Defense (Naval Sea Systems Command)",
+          "start_year": 2002,
+          "end_year": 2008,
+          "description": "Worked as a consultant for the Department of Defense.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Kennedy School",
+          "degree": "Master of Public Policy",
+          "field": "Public Policy",
+          "year": 2008,
+          "source": null
+        },
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Bachelor of Arts",
+          "field": "Government / Hesburgh Program in Public Service",
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://boyle.house.gov/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/repbrendanboyle/",
+        "facebook": "https://www.facebook.com/CongressmanBrendanBoyle/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jessica Arriaga",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jessica Arriaga is a Republican candidate running for U.S. House representing Pennsylvania's 2nd Congressional District. She has worked as an operating room technician for over 20 years and later expanded into community health coordination in North Philadelphia. Born and raised in North Philadelphia to a Puerto Rican family, Arriaga is an evangelical Christian and serves as the Republican Ward Leader for Philadelphia's 37th District, making her first bid for elected office.",
+      "summary_sources": [
+        {
+          "url": "https://vote.phila.gov/voting/candidates-for-office/",
+          "type": "government",
+          "title": "Candidates for Office - Philadelphia City Commissioners",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cityandstatepa.com/politics/2026/05/whos-running-congress-pennsylvania-2026/413737/",
+          "type": "news",
+          "title": "Who's running for Congress in Pennsylvania in 2026? - City & State PA",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-pennsylvania-us-house-2-primary.html",
+          "type": "news",
+          "title": "Pennsylvania Second Congressional District Primary 2026 - NYT",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://aldianews.com/en/politics/women-politics/latina-voice",
+          "type": "news",
+          "title": "Jessica Arriaga: Puerto Rican, Mother, and Candidate - Al D\u00eda News",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jessforcongress.com/",
+          "type": "website",
+          "title": "Jessica Arriaga for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Operating Room Technician",
+          "organization": "Various surgical centers and hospitals",
+          "start_year": 2004,
+          "end_year": null,
+          "description": "More than 20 years of experience in operating rooms, assisting surgical teams during critical procedures.",
+          "source": null
+        },
+        {
+          "title": "Community Health Coordinator",
+          "organization": "North Philadelphia community organizations",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Organized neighborhood health events, brought medical resources to underserved areas, and led wellness initiatives.",
+          "source": null
+        },
+        {
+          "title": "Republican Ward Leader",
+          "organization": "Philadelphia 37th Ward",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Serves as the Republican Ward Leader for Philadelphia's 37th District, engaging in neighborhood organizing and constituent services.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Olney High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jessforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/jessicaarriaga4philly/",
+        "facebook": "https://www.facebook.com/people/Jessica-Arriaga/61586313816557/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:27:34.514521+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 275152,
+    "completion_tokens": 5287,
+    "total_tokens": 280439,
+    "cost_usd": 0.019404924,
+    "cost_source": "provider",
+    "estimated_usd": 0.028001,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 275152,
+        "completion_tokens": 5287
+      }
+    },
+    "duration_s": 110.0
+  }
+}

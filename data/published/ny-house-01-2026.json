@@ -1,0 +1,376 @@
+{
+  "id": "ny-house-01-2026",
+  "title": "New York's 1st Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 1st Congressional District",
+  "state": "New York",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New York's 1st Congressional District will determine who represents the eastern end and North Shore of Long Island, including the Hamptons, Riverhead, Smithtown, and Shelter Island in Suffolk County. Incumbent Republican Rep. Nick LaLota, first elected in 2022 and re-elected in 2024 with 55.5% of the vote, is seeking a third term. Two Democrats, Chris Gallant and Lukas Ventouras, are competing in the June 23, 2026 Democratic primary for the chance to challenge LaLota in a district that Cook Political Report rates as Solid Republican. The race will test whether Democratic messaging on affordability and health care can overcome the district's recent Republican lean, with independent candidates also filing to run.",
+  "polling": [
+    {
+      "pollster": "Public Policy Polling (D) for House Majority PAC",
+      "date": "2025-12-11",
+      "sample_size": 579,
+      "matchups": [
+        {
+          "candidates": [
+            "Nick LaLota",
+            "Chris Gallant"
+          ],
+          "percentages": [
+            41.0,
+            38.0
+          ]
+        }
+      ],
+      "source_url": "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-nick-lalota-vulnerable-in-november"
+    }
+  ],
+  "polling_note": "Only one publicly available poll was found. It was conducted by a Democratic-leaning organization (House Majority PAC) and shows a close race between LaLota and Gallant, with 20% undecided. The general election is still months away and the Democratic nominee has not yet been determined.",
+  "candidates": [
+    {
+      "name": "Nick LaLota",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Nick LaLota is the incumbent U.S. Representative for New York's 1st Congressional District, first elected in 2022 and re-elected in 2024. A Navy veteran and former Suffolk County Board of Elections commissioner, he serves on the House Appropriations Committee and is a member of the moderate Republican Governance Group and Problem Solvers Caucus. LaLota is running for a third term emphasizing his record on fiscal responsibility, supporting law enforcement, and protecting Long Island's coastal communities.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nick_LaLota",
+          "type": "website",
+          "title": "Nick LaLota - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nicklalota.com/about-nick",
+          "type": "website",
+          "title": "About Nick - LaLota for Congress",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://lalota.house.gov/about",
+          "type": "website",
+          "title": "About | Congressman Nick LaLota",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Nick_lalota_portrait.jpg/250px-Nick_lalota_portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing New York's 1st Congressional District; serves on House Appropriations Committee and Small Business Committee",
+          "source": null
+        },
+        {
+          "title": "Commissioner",
+          "organization": "Suffolk County Board of Elections",
+          "start_year": null,
+          "end_year": null,
+          "description": "Oversaw election administration for Suffolk County",
+          "source": null
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "Suffolk County Legislature",
+          "start_year": null,
+          "end_year": null,
+          "description": "Chief of staff to Suffolk County Presiding Officer Kevin McCaffrey",
+          "source": null
+        },
+        {
+          "title": "Surface Warfare Officer",
+          "organization": "United States Navy",
+          "start_year": 2000,
+          "end_year": 2007,
+          "description": "Served as a Navy officer with three overseas deployments",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Naval Academy",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": 2000,
+          "source": null
+        },
+        {
+          "institution": "Hofstra University",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Hofstra University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.nicklalota.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepLaLota",
+        "facebook": "https://www.facebook.com/LaLotaForCongress/",
+        "instagram": "https://www.instagram.com/replalota/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Gallant",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Chris Gallant is a U.S. Army veteran, Black Hawk helicopter pilot, FAA air traffic controller, union leader, and volunteer firefighter running for Congress in New York's 1st District. He has been endorsed by former Transportation Secretary Pete Buttigieg, former Congressman John Avlon, and the New York Working Families Party. Gallant's campaign focuses on affordability for Long Island families, protecting Medicare and Medicaid, coastal resilience, and accountable government.",
+      "summary_sources": [
+        {
+          "url": "https://gallantny.com/",
+          "type": "website",
+          "title": "Chris Gallant for Congress",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.politico.com/news/2025/08/05/gallant-lalota-long-island-00493460",
+          "type": "news",
+          "title": "Black Hawk pilot launches challenge to battleground...",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Christopher_Gallant",
+          "type": "website",
+          "title": "Christopher Gallant - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Christopher_Gallant.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Air Traffic Controller",
+          "organization": "Federal Aviation Administration",
+          "start_year": null,
+          "end_year": null,
+          "description": "Protects U.S. airspace as an air traffic controller",
+          "source": null
+        },
+        {
+          "title": "Union Representative",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Stands up for coworkers as a union leader",
+          "source": null
+        },
+        {
+          "title": "Volunteer Firefighter",
+          "organization": "Copiague Fire Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a volunteer firefighter in his community",
+          "source": null
+        },
+        {
+          "title": "Black Hawk Helicopter Pilot",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Deployed multiple times to Kuwait and flew overseas missions",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://gallantny.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/_gallantny/",
+        "facebook": "https://www.facebook.com/gallantny/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lukas Ventouras",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Lukas Ventouras is a first-generation American attorney and law student running for Congress in New York's 1st District. A graduate of NYU and a student at St. John's University School of Law, he previously interned for Congresswoman Grace Meng and served as president of the NYU chapter of Students Demand Action. Ventouras is campaigning on a platform of ending corruption, protecting reproductive freedom, expanding healthcare access, and addressing climate change.",
+      "summary_sources": [
+        {
+          "url": "https://lukasforcongress.com/about-lukas/",
+          "type": "website",
+          "title": "About Lukas Ventouras",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.eastendbeacon.com/congress-2026-lukas-ventouras-counts-on-his-candor-to-cut-through-the-noise/",
+          "type": "news",
+          "title": "Congress 2026: Lukas Ventouras Counts On His Candor",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Lukas_Ventouras",
+          "type": "website",
+          "title": "Lukas Ventouras - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-03T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Law Clerk",
+          "organization": "Law Offices of Frederick Brewington",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked for a civil rights attorney; delivered seminar on Project 2025",
+          "source": null
+        },
+        {
+          "title": "Intern",
+          "organization": "Office of Congresswoman Grace Meng",
+          "start_year": null,
+          "end_year": null,
+          "description": "Interned in the Flushing district office",
+          "source": null
+        },
+        {
+          "title": "Founder & President",
+          "organization": "Students Demand Action - NYU Chapter",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded and served as inaugural president of the NYU chapter",
+          "source": null
+        },
+        {
+          "title": "Intern Writer",
+          "organization": "Mediaite",
+          "start_year": null,
+          "end_year": null,
+          "description": "Contributed as an intern writer",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "New York University",
+          "degree": "Bachelor of Arts",
+          "field": "History",
+          "year": 2023,
+          "source": null
+        },
+        {
+          "institution": "St. John's University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://lukasforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/lukas4congress/",
+        "facebook": "https://www.facebook.com/p/Lukas-Ventouras-for-Congress-61568958486936/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York's_1st_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T22:01:05.122379+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 251841,
+    "completion_tokens": 8220,
+    "total_tokens": 260061,
+    "cost_usd": 0.016896593999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.026292,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 251841,
+        "completion_tokens": 8220
+      }
+    },
+    "duration_s": 150.9
+  }
+}

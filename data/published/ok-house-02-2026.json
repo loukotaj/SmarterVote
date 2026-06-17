@@ -1,0 +1,454 @@
+{
+  "id": "ok-house-02-2026",
+  "title": "Oklahoma's 2nd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Oklahoma's 2nd Congressional District",
+  "state": "Oklahoma",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Oklahoma's 2nd Congressional District covers 28 counties across eastern Oklahoma, including Green Country and Little Dixie. Incumbent Republican Josh Brecheen, first elected in 2022 and re-elected with 74.2% of the vote in 2024, is seeking a third term. The district is rated as 'Solid Republican' by nonpartisan election forecasters. Brecheen faces a Republican primary challenge from veteran Will Webb on June 16, 2026, while two Democratic candidates \u2014 Erik Terwey and Brandon Wade \u2014 compete for their party's nomination. Independent candidate Ronnie Hopkins is also running in the general election.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026. The district is rated Safe/Solid Republican by Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Josh Brecheen",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Josh Brecheen is the incumbent U.S. Representative for Oklahoma's 2nd Congressional District, first elected in 2022. He is a fourth-generation rancher and former Oklahoma State Senator who served from 2010 to 2018, honoring a self-imposed term limit pledge. Brecheen serves on the House Budget and Homeland Security Committees and chairs the Oversight, Investigations, and Accountability Subcommittee.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Josh_Brecheen",
+          "type": "website",
+          "title": "Josh Brecheen - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nondoc.com/2026/06/01/cheat-sheet-brecheen-lucas-cole-try-to-defend-cd-2-cd-3-cd-4-seats-in-okgop-primary/",
+          "type": "news",
+          "title": "Cheat sheet: Brecheen, Lucas, Cole try to defend CD 2, CD 3, CD 4 seats in OKGOP primary",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Oklahoma",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Oklahoma",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Josh_Brecheen.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Oklahoma's 2nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Oklahoma State Senate",
+          "start_year": 2010,
+          "end_year": 2018,
+          "description": "Represented the 20th district; honored self-imposed term limit",
+          "source": null
+        },
+        {
+          "title": "Field Representative",
+          "organization": "Office of U.S. Senator Tom Coburn",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a field representative for the late U.S. Senator",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oklahoma State University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://brecheen.house.gov/",
+          "title": "https://brecheen.house.gov/",
+          "type": "other"
+        }
+      ],
+      "website": "https://joshbrecheen.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoshBrecheenforCongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Will Webb",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Will Webb is a Republican candidate challenging incumbent Josh Brecheen in the June 16, 2026, primary. He is an Army veteran, nonprofit leader, and Eufaula native who describes himself as a citizen-candidate rather than a career politician. Webb self-funds his campaign entirely and does not accept PAC or individual donor contributions, focusing his platform on faith, family, veterans' issues, and government transparency.",
+      "summary_sources": [
+        {
+          "url": "https://nondoc.com/2026/06/01/cheat-sheet-brecheen-lucas-cole-try-to-defend-cd-2-cd-3-cd-4-seats-in-okgop-primary/",
+          "type": "news",
+          "title": "Cheat sheet: Brecheen, Lucas, Cole try to defend CD 2, CD 3, CD 4 seats in OKGOP primary",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kxii.com/2026/06/02/will-webb-announces-congressional-bid-oklahomas-2nd-district/",
+          "type": "news",
+          "title": "Will Webb announces congressional bid in Oklahoma's 2nd District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/William_Webb_(Oklahoma)",
+          "type": "website",
+          "title": "William Webb (Oklahoma) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://nondoc.com/wp-content/uploads/2026/05/WillWebb2026CD2.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder / Nonprofit Leader",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit and veteran service work",
+          "source": null
+        },
+        {
+          "title": "Veteran",
+          "organization": "U.S. Army / Oklahoma Army National Guard",
+          "start_year": null,
+          "end_year": null,
+          "description": "Military service",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://willwebbforok.wixsite.com/willwebbforok-1",
+      "social_media": {
+        "facebook": "https://www.facebook.com/WILLWEBBFOROK/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Erik Terwey",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Erik Terwey is a Democratic candidate for Oklahoma's 2nd Congressional District, competing in the June 16, 2026, primary. Raised in Bartlesville, he holds a bachelor's and master's degree in French Studies from the University of Oklahoma and has worked as a high school teacher, store manager, and adjunct faculty member at the University of Tulsa. He previously served as chairman of the Washington County Democratic Party.",
+      "summary_sources": [
+        {
+          "url": "https://nondoc.com/2026/06/01/cheat-sheet-democrats-go-head-to-head-in-2nd-3rd-4th-congressional-district-primaries/",
+          "type": "news",
+          "title": "Cheat sheet: Democrats face off in 2nd, 3rd, 4th Congressional District primaries",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Erik_Terwey",
+          "type": "website",
+          "title": "Erik Terwey - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.linkedin.com/in/erik-terwey-22a536272",
+          "type": "website",
+          "title": "Erik Terwey - LinkedIn",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://nondoc.com/wp-content/uploads/2026/05/ErikTerweyCD2dem2026.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Adjunct Faculty Member",
+          "organization": "University of Tulsa",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught French studies",
+          "source": null
+        },
+        {
+          "title": "High School Teacher",
+          "organization": "Tulsa Public Schools",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Chairman",
+          "organization": "Washington County Democratic Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served two-year term",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Oklahoma",
+          "degree": "Master's degree",
+          "field": "French Studies",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Oklahoma",
+          "degree": "Bachelor's degree",
+          "field": "French Studies",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.terweyforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/terweyforcongress",
+        "linkedin": "https://www.linkedin.com/in/erik-terwey-22a536272"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brandon Wade",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brandon Wade is a Democratic candidate for Oklahoma's 2nd Congressional District, running in the June 16, 2026, primary. A third-generation union worker from Copan, he served as Committee Chairman and Vice President of the International Union of Operating Engineers Local 351 for 26 years. Wade previously ran for U.S. Senate in 2022 and received 21.4% of the vote against incumbent Josh Brecheen in the 2024 general election.",
+      "summary_sources": [
+        {
+          "url": "https://nondoc.com/2026/06/01/cheat-sheet-democrats-go-head-to-head-in-2nd-3rd-4th-congressional-district-primaries/",
+          "type": "news",
+          "title": "Cheat sheet: Democrats face off in 2nd, 3rd, 4th Congressional District primaries",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Brandon_Wade",
+          "type": "website",
+          "title": "Brandon Wade - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://brandon4congress.com/",
+          "type": "website",
+          "title": "Brandon Wade for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://nondoc.com/wp-content/uploads/2026/05/BrandonWadeCD2dem2026-1.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Committee Chairman / Vice President",
+          "organization": "International Union of Operating Engineers Local 351",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served for 26 years",
+          "source": null
+        },
+        {
+          "title": "Secretary",
+          "organization": "Oklahoma Democratic Party Veterans Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Copan High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1995,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://brandon4congress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/brandon4congress",
+        "twitter": "https://x.com/Wade4OKCD2"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ronnie Hopkins",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Ronnie Hopkins is an independent candidate running for Oklahoma's 2nd Congressional District in the November 3, 2026, general election. He previously ran as an independent in the 2024 election for the same seat. Ballotpedia lists him as a confirmed general election candidate. Limited public information is available about his background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ronnie_Hopkins",
+          "type": "website",
+          "title": "Ronnie Hopkins - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://oklahoma.gov/content/dam/ok/en/elections/candidate-filing-archives/2026-candidate-filing-archives/2026-candidate-list-book.pdf",
+          "type": "government",
+          "title": "2026 Oklahoma Candidate Filing List",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tahlequahnews.com/single-post/hopkins-seeks-to-represent-oklahoma-s-2nd-congressional-district",
+          "type": "news",
+          "title": "Hopkins seeks to represent Oklahoma's 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Oklahoma%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:18:00.510411+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 253196,
+    "completion_tokens": 10856,
+    "total_tokens": 264052,
+    "cost_usd": 0.018474551999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.026941,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 253196,
+        "completion_tokens": 10856
+      }
+    },
+    "duration_s": 152.0
+  }
+}

@@ -10,36 +10,14 @@
       "pollster": "Gonzales Research & Media Services",
       "date": "2026-01-13",
       "sample_size": 808,
-      "matchups": [
-        {
-          "candidates": [
-            "Wes Moore",
-            "Larry Hogan"
-          ],
-          "percentages": [
-            50,
-            38
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://marylandmatters.org/wp-content/uploads/2026/01/260113-Gonzales_20Poll_2C_20Part_201_20-_20January_202026.pdf"
     },
     {
       "pollster": "Gonzales Research & Media Services",
       "date": "2025-01-07",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Wes Moore",
-            "Larry Hogan"
-          ],
-          "percentages": [
-            52,
-            38
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://marylandmatters.org/wp-content/uploads/2025/01/Report-Gonzales-Poll-Part-1-January-2025-.pdf"
     }
   ],
@@ -55,51 +33,59 @@
           "url": "https://governor.maryland.gov/leadership/pages/governor.aspx",
           "type": "government",
           "title": "Our Leadership - Office of Governor Wes Moore",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://wesmoore.com/about/",
           "type": "website",
           "title": "Meet Wes - Wes Moore for Maryland",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Wes_Moore.jpg",
-      "website": "https://wesmoore.com/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/iamwesmoore/?hl=en",
-        "facebook": "https://www.facebook.com/iamwesmoore/",
-        "x": "https://x.com/iamwesmoore",
-        "youtube": "https://www.youtube.com/channel/UCdxota7dx7862DWyTbHN1nA/about"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Governor",
           "organization": "State of Maryland",
           "start_year": 2023,
           "end_year": null,
-          "description": "Serves as Maryland’s 63rd governor."
+          "description": "Serves as Maryland’s 63rd governor.",
+          "source": null
         },
         {
           "title": "CEO",
           "organization": "Robin Hood Foundation",
           "start_year": null,
           "end_year": null,
-          "description": "Led one of the country’s largest anti-poverty organizations before entering office."
+          "description": "Led one of the country’s largest anti-poverty organizations before entering office.",
+          "source": null
         },
         {
           "title": "Founder and leader",
           "organization": "BridgeEdU",
           "start_year": null,
           "end_year": null,
-          "description": "Launched and led an education-focused nonprofit aimed at improving first-year college success."
+          "description": "Launched and led an education-focused nonprofit aimed at improving first-year college success.",
+          "source": null
         },
         {
           "title": "Paratrooper",
           "organization": "U.S. Army, 82nd Airborne Division",
           "start_year": null,
           "end_year": null,
-          "description": "Served in the Army and led soldiers in Afghanistan."
+          "description": "Served in the Army and led soldiers in Afghanistan.",
+          "source": null
         }
       ],
       "education": [
@@ -107,21 +93,33 @@
           "institution": "Johns Hopkins University",
           "degree": "Bachelor's degree",
           "field": "unknown",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Oxford",
           "degree": "Rhodes Scholar",
           "field": "unknown",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://wesmoore.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/iamwesmoore/?hl=en",
+        "facebook": "https://www.facebook.com/iamwesmoore/",
+        "x": "https://x.com/iamwesmoore",
+        "youtube": "https://www.youtube.com/channel/UCdxota7dx7862DWyTbHN1nA/about"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Aruna Miller",
@@ -133,39 +131,51 @@
           "url": "https://governor.maryland.gov/leadership/ltgovernor/Pages/biography.aspx",
           "type": "government",
           "title": "Biography - Lt. Governor - Our Leadership - Office of Governor Wes Moore",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://arunamiller.com/",
           "type": "website",
           "title": "Wes Moore & Aruna Miller for Maryland",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Aruna-Miller.PNG",
-      "website": "https://arunamiller.com/",
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Lieutenant Governor",
           "organization": "State of Maryland",
           "start_year": 2023,
           "end_year": null,
-          "description": "Serves as Maryland’s 10th lieutenant governor."
+          "description": "Serves as Maryland’s 10th lieutenant governor.",
+          "source": null
         },
         {
           "title": "Member, Maryland House of Delegates",
           "organization": "Maryland General Assembly, District 15",
           "start_year": 2010,
           "end_year": 2018,
-          "description": "Represented District 15 and served on the Ways and Means and Appropriations committees."
+          "description": "Represented District 15 and served on the Ways and Means and Appropriations committees.",
+          "source": null
         },
         {
           "title": "Civil and transportation engineer",
           "organization": "Montgomery County Department of Transportation",
           "start_year": null,
           "end_year": null,
-          "description": "Worked for 25 years on transportation safety and access projects."
+          "description": "Worked for 25 years on transportation safety and access projects.",
+          "source": null
         }
       ],
       "education": [
@@ -173,15 +183,21 @@
           "institution": "Missouri University of Science and Technology",
           "degree": "Bachelor of Science",
           "field": "civil engineering",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://arunamiller.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Dan Cox",
@@ -193,46 +209,59 @@
           "url": "https://msa.maryland.gov/msa/mdmanual/06hse/former/html/msa18012.html",
           "type": "government",
           "title": "Daniel L. Cox, Maryland State Delegate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Dan_Cox_(Maryland)",
           "type": "website",
           "title": "Dan Cox (Maryland) - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Dan_Cox_Mar2020_%2849617550556%29.jpg/500px-Dan_Cox_Mar2020_%2849617550556%29.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Member, Maryland House of Delegates",
           "organization": "Maryland General Assembly, District 4",
           "start_year": 2019,
           "end_year": 2023,
-          "description": "Served on the Judiciary Committee and related subcommittees."
+          "description": "Served on the Judiciary Committee and related subcommittees.",
+          "source": null
         },
         {
           "title": "Chief of Staff",
           "organization": "Office of State Senator Douglas V. Mastriano",
           "start_year": 2023,
           "end_year": null,
-          "description": "Served as chief of staff to a Pennsylvania state senator."
+          "description": "Served as chief of staff to a Pennsylvania state senator.",
+          "source": null
         },
         {
           "title": "Attorney",
           "organization": "Cox Law Center LLC",
           "start_year": 2007,
           "end_year": null,
-          "description": "Operated a solo law practice."
+          "description": "Operated a solo law practice.",
+          "source": null
         },
         {
           "title": "High school teacher",
           "organization": "Walkersville Christian Family Schools",
           "start_year": 1995,
           "end_year": 2005,
-          "description": "Taught at a Christian family school in Maryland."
+          "description": "Taught at a Christian family school in Maryland.",
+          "source": null
         }
       ],
       "education": [
@@ -240,27 +269,35 @@
           "institution": "Mount St. Mary's University",
           "degree": "attended",
           "field": "unknown",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Maryland University College",
           "degree": "Bachelor of Science",
           "field": "government & politics",
-          "year": 2002
+          "year": 2002,
+          "source": null
         },
         {
           "institution": "Regent University School of Law",
           "degree": "Juris Doctor",
           "field": "law",
-          "year": 2006
+          "year": 2006,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Ed Hale",
@@ -272,150 +309,73 @@
           "url": "https://haleforgov.com/",
           "type": "website",
           "title": "Hale for Gov",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://marylandmatters.org/2025/08/21/hale-cites-pragmatism-as-he-switches-party-affiliation-to-run-for-governor/",
           "type": "news",
           "title": "Hale cites pragmatism as he switches party affiliation to run for governor",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": "https://haleforgov.com/",
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Founder / chairman / chief executive",
           "organization": "First Mariner Bank",
           "start_year": null,
           "end_year": null,
-          "description": "Built and led a Baltimore banking business."
+          "description": "Built and led a Baltimore banking business.",
+          "source": null
         },
         {
           "title": "Businessman",
           "organization": "Shipping, banking, and real estate ventures",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign materials describe him as having built businesses and buildings and employed thousands of Marylanders."
+          "description": "Campaign materials describe him as having built businesses and buildings and employed thousands of Marylanders.",
+          "source": null
         },
         {
           "title": "Owner",
           "organization": "Baltimore Blast",
           "start_year": null,
           "end_year": null,
-          "description": "Known publicly as the owner of the Baltimore Blast soccer team."
+          "description": "Known publicly as the owner of the Baltimore Blast soccer team.",
+          "source": null
         },
         {
           "title": "CIA operative",
           "organization": "Central Intelligence Agency",
           "start_year": 1991,
           "end_year": 2001,
-          "description": "Hale has said he worked covertly for the CIA for nearly a decade."
+          "description": "Hale has said he worked covertly for the CIA for nearly a decade.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Andy Ellis",
-      "party": "Green",
-      "incumbent": false,
-      "summary": "Andy Ellis is the Green Party candidate for governor and is running with Owen Silverman Andrews on the ticket. He is a longtime debate coach and civic activist in Baltimore, and his campaign biography says he has worked on education, debate programs, and local political organizing for years.",
-      "summary_sources": [
-        {
-          "url": "https://www.gogreen2026.com/bio-andy",
-          "type": "website",
-          "title": "Andy Biography | Get Involved Today - Andy Ellis For Governor 2026",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://ballotpedia.org/Andy_Ellis",
-          "type": "website",
-          "title": "Andy Ellis - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Andy_Ellis.png",
-      "website": "https://www.gogreen2026.com/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/gogreenmd/",
-        "x": "https://x.com/gogreen2026"
-      },
-      "career_history": [
-        {
-          "title": "Debate coach",
-          "organization": "Universities and high schools",
-          "start_year": null,
-          "end_year": null,
-          "description": "Coached college and high school debate teams for decades."
-        },
-        {
-          "title": "Program coordinator",
-          "organization": "Baltimore Urban Debate League",
-          "start_year": null,
-          "end_year": null,
-          "description": "Helped start debate programs at Baltimore City middle schools."
-        },
-        {
-          "title": "Co-chair",
-          "organization": "Baltimore City Green Party",
-          "start_year": 2015,
-          "end_year": 2017,
-          "description": "Served in local Green Party leadership."
-        },
-        {
-          "title": "Co-chair",
-          "organization": "Maryland Green Party",
-          "start_year": 2019,
-          "end_year": 2020,
-          "description": "Served in state Green Party leadership."
-        },
-        {
-          "title": "Business owner",
-          "organization": "Debate Strategies, LLC",
-          "start_year": 2025,
-          "end_year": null,
-          "description": "Founded a small business focused on public debate and argumentation workshops."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Governor Thomas Johnson High School",
-          "degree": "high school diploma",
-          "field": "unknown",
-          "year": null
-        },
-        {
-          "institution": "St. Mary's College of Maryland",
-          "degree": "attended",
-          "field": "unknown",
-          "year": null
-        },
-        {
-          "institution": "Towson University",
-          "degree": "attended",
-          "field": "unknown",
-          "year": null
-        },
-        {
-          "institution": "University of Maryland Global Campus",
-          "degree": "studying",
-          "field": "business",
-          "year": null
-        }
-      ],
+      "voting_sources": [],
       "donor_summary": null,
       "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://haleforgov.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Eric S. Felber",
@@ -424,16 +384,20 @@
       "summary": "",
       "summary_sources": [],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Eric_Felber.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "LaTrece Hawkins Lytes",
@@ -442,16 +406,20 @@
       "summary": "",
       "summary_sources": [],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/LaTreceHawkinsLytes2.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Carl A. Brunner, Jr.",
@@ -460,16 +428,20 @@
       "summary": "",
       "summary_sources": [],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Kevin L. Rhodes, Sr.",
@@ -478,311 +450,52 @@
       "summary": "",
       "summary_sources": [],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
-    },
-    {
-      "name": "L. D. Burkindine",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
       "website": null,
       "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Jeremy M. Shifflett",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Rob Krop",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Tyrone Keys, Jr.",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Douglas Larcomb",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Douglas_Larcomb_2026.jpg",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Martina D. Duncan",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "John A. Myrick",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnMyrick2024.jpg",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Brenda J. Thiam",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/bthiam.jpg",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Michael Oakes",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Ronald W. Abend",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Nancy Jane Taylor",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Rachel Hannah Swift",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Shannon Wright",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Reba A. Hawkins",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Reba-Hawkins.PNG",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Owen Silverman Andrews",
-      "party": "Green",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:54:22.233656+00:00",
+  "updated_utc": "2026-06-13T20:51:19.600806+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 343705,
-    "completion_tokens": 31520,
-    "total_tokens": 375225,
-    "estimated_usd": 0.0527,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 33981,
+    "completion_tokens": 14756,
+    "total_tokens": 48737,
+    "cost_usd": 0.00691025,
+    "cost_source": "provider",
+    "estimated_usd": 0.007601,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 231609,
-        "completion_tokens": 30887
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 112096,
-        "completion_tokens": 633
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 33981,
+        "completion_tokens": 14756
       }
     },
-    "duration_s": 197.3
+    "duration_s": 84.9
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

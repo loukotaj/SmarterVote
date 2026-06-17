@@ -1,0 +1,203 @@
+{
+  "id": "ma-house-07-2026",
+  "title": "2026 U.S. House of Representatives election in Massachusetts's 7th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Massachusetts's 7th Congressional District",
+  "state": "Massachusetts",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Massachusetts's 7th Congressional District pits four-term incumbent Democrat Ayanna Pressley, a member of the progressive 'Squad,' against independent candidate Kelechi Linardon. The district encompasses roughly three-fourths of Boston, as well as parts of Cambridge and Somerville, and is one of the most reliably Democratic districts in the country with a Cook PVI of D+34. Pressley, first elected in 2018 after defeating incumbent Michael Capuano in the Democratic primary, is seeking a fifth term after declining to challenge Senator Ed Markey in the 2026 Senate primary. The Democratic primary is scheduled for September 1, 2026; additional general election candidates may emerge following the primary.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polls were found specifically for this race as of mid-2026. The district is rated 'Solid D' by The Cook Political Report.",
+  "candidates": [
+    {
+      "name": "Ayanna Pressley",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Ayanna Pressley is the incumbent U.S. Representative for Massachusetts's 7th Congressional District, first elected in 2018. She is a member of the progressive 'Squad' in Congress and previously served on the Boston City Council. Pressley announced in December 2025 that she would seek reelection rather than challenge Senator Ed Markey in the 2026 Democratic primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ayanna_Pressley",
+          "type": "government",
+          "title": "Ayanna Pressley - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483266",
+          "type": "news",
+          "title": "MA-07 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.politico.com/live-updates/2025/12/02/congress/pressley-seeks-reelection-00673538",
+          "type": "news",
+          "title": "Rep. Ayanna Pressley will run for reelection, foregoing Senate race",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wbur.org/news/2025/12/03/ayanna-pressley-senate-2026-moulton-markey",
+          "type": "news",
+          "title": "Ayanna Pressley passes on Senate run, despite seeing 'strong path ...'",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ayanna_Pressley.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Massachusetts's 7th Congressional District",
+          "source": null
+        },
+        {
+          "title": "At-Large City Councilor",
+          "organization": "Boston City Council",
+          "start_year": 2010,
+          "end_year": 2019,
+          "description": "Served as an at-large member of the Boston City Council",
+          "source": null
+        },
+        {
+          "title": "Staff Member",
+          "organization": "Office of U.S. Senator John Kerry",
+          "start_year": 1996,
+          "end_year": 2009,
+          "description": "Worked as a staff aide",
+          "source": null
+        },
+        {
+          "title": "Staff Member",
+          "organization": "Office of U.S. Representative Joseph P. Kennedy II",
+          "start_year": 1996,
+          "end_year": 1996,
+          "description": "Worked as a staff aide",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Boston University",
+          "degree": "No degree (left to support family)",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Francis W. Parker School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1992,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ayannapressley.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kelechi Linardon",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Kelechi Linardon is an independent candidate running for U.S. House to represent Massachusetts's 7th Congressional District. Linardon declared candidacy for the 2026 election and is listed on Ballotpedia as a general election candidate. Additional biographical details were not available from authoritative sources at the time of research.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Massachusetts%27_7th_Congressional_District",
+          "type": "government",
+          "title": "Massachusetts' 7th Congressional District - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Kelechi_Linardon",
+          "type": "government",
+          "title": "Kelechi Linardon - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:38:14.497838+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 187312,
+    "completion_tokens": 5451,
+    "total_tokens": 192763,
+    "cost_usd": 0.014752460000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.019425,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 187312,
+        "completion_tokens": 5451
+      }
+    },
+    "duration_s": 105.0
+  }
+}

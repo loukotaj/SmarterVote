@@ -1,0 +1,195 @@
+{
+  "id": "tx-house-18-2026",
+  "title": "Texas's 18th Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Texas's 18th Congressional District",
+  "state": "Texas",
+  "district": "18th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Texas's 18th Congressional District pits Democratic incumbent Rep. Christian Menefee against Republican nominee Ronald Whitfield. The district was significantly redrawn by the Republican-controlled Texas legislature in 2025, forcing an incumbent-on-incumbent Democratic primary between Menefee and longtime Rep. Al Green, which Menefee won on May 26, 2026. The newly configured 18th District encompasses parts of southwest, central, and northeast Houston and remains heavily Democratic with a Cook Partisan Voting Index of D+29. Menefee, a freshman congressman who previously served as Harris County Attorney, is heavily favored to win the general election in this deep-blue district.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the general election matchup between Christian Menefee and Ronald Whitfield in Texas's 18th Congressional District. The district is rated 'Solid D' by the Cook Political Report with a PVI of D+29.",
+  "candidates": [
+    {
+      "name": "Christian Menefee",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Christian Menefee is the incumbent U.S. Representative for Texas's 18th Congressional District, first sworn in on February 2, 2026 after winning a special election. He previously served as Harris County Attorney from 2021 to 2026, where he was the youngest person and first African American to hold that office. Menefee, an attorney and former commercial litigator, defeated fellow Democratic incumbent Al Green in a May 2026 primary runoff after mid-decade redistricting forced them into the same district.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Christian_Menefee",
+          "type": "website",
+          "title": "Christian Menefee - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.texastribune.org/2026/05/26/texas-18th-congressional-district-democratic-runoff-al-green-christian-menefee/",
+          "type": "news",
+          "title": "Menefee beats Green in Houston congressional district - Texas Tribune",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485306",
+          "type": "website",
+          "title": "TX-18 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Christian_Menefee%2C_official_portrait_%28119th_Congress%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Representing Texas's 18th Congressional District; sworn in February 2, 2026",
+          "source": null
+        },
+        {
+          "title": "County Attorney",
+          "organization": "Harris County, Texas",
+          "start_year": 2021,
+          "end_year": 2026,
+          "description": "First African American and youngest person to hold the office; sued Texas officials over voting restrictions, mask mandates, and environmental issues",
+          "source": null
+        },
+        {
+          "title": "Commercial Litigator",
+          "organization": "Norton Rose Fulbright and Kirkland & Ellis LLP",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced commercial litigation before entering public office",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Washington University School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Texas at San Antonio",
+          "degree": "BA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://christianmenefee.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ronald Whitfield",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ronald Dwayne Whitfield is the Republican nominee for U.S. House in Texas's 18th Congressional District, having won the Republican primary on March 3, 2026. He is a perennial candidate who previously ran in the November 2025 special election for the same seat. Very little biographical information is publicly available about Whitfield, who did not respond to candidate questionnaires from local media outlets.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ronald_Whitfield",
+          "type": "website",
+          "title": "Ronald Whitfield - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.texastribune.org/2026/05/26/texas-18th-congressional-district-democratic-runoff-al-green-christian-menefee/",
+          "type": "news",
+          "title": "Menefee beats Green in Houston congressional district - Texas Tribune",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://communityimpact.com/houston/bellaire-meyerland-west-university/election/2026/01/15/qa-get-to-know-the-republican-candidates-running-for-congressional-district-18-ahead-of-the-march-primaries/",
+          "type": "news",
+          "title": "Q&A: Get to know the Republican candidates running for Congressional District 18 - Community Impact",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_18th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:45:12.515446+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 195136,
+    "completion_tokens": 6089,
+    "total_tokens": 201225,
+    "cost_usd": 0.014396260000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.020317,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 195136,
+        "completion_tokens": 6089
+      }
+    },
+    "duration_s": 103.9
+  }
+}

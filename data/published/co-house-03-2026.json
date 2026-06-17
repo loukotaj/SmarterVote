@@ -1,0 +1,491 @@
+{
+  "id": "co-house-03-2026",
+  "title": "Colorado's 3rd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Colorado's 3rd Congressional District",
+  "state": "Colorado",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Colorado's 3rd Congressional District encompasses the Western Slope, including Grand Junction, Pueblo, and Montrose. Incumbent Republican Rep. Jeff Hurd, first elected in 2024 with 50.8% of the vote, is seeking a second term in a district that leans Republican (Cook PVI: R+5) and has not elected a Democrat since 2011. Hurd faces a primary challenge from former state Rep. Ron Hanks, while Democrats Alex Kelloff and Dwayne Romero compete in their own primary. The general election is rated 'Likely Republican' by Cook Political Report, though Democrats see an opportunity in presidential-year turnout and backlash to Trump administration policies. Heather Barton is also running as an unaffiliated candidate.",
+  "polling": [
+    {
+      "pollster": "Ragnar Research Partners (R)",
+      "date": "2026-03-12",
+      "sample_size": 400,
+      "matchups": [
+        {
+          "candidates": [
+            "Jeff Hurd",
+            "Alex Kelloff"
+          ],
+          "percentages": [
+            46.0,
+            41.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado"
+    },
+    {
+      "pollster": "Expedition Strategies (D)",
+      "date": "2026-01-12",
+      "sample_size": 400,
+      "matchups": [
+        {
+          "candidates": [
+            "Jeff Hurd",
+            "Alex Kelloff"
+          ],
+          "percentages": [
+            48.0,
+            39.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado"
+    }
+  ],
+  "polling_note": "Two polls have been conducted for a potential Hurd vs. Kelloff general election matchup. No polls including Dwayne Romero, Ron Hanks, or Heather Barton were found.",
+  "candidates": [
+    {
+      "name": "Jeff Hurd",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Jeff Hurd is the incumbent U.S. Representative for Colorado's 3rd Congressional District, first elected in 2024. A Colorado native and attorney, Hurd is a member of the moderate Republican Governance Group and has served on the House Committees on Natural Resources, Science, Space and Technology, and Transportation and Infrastructure. He is running for re-election and has been endorsed by President Donald Trump after a brief rescission and reinstatement of that endorsement.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jeff_Hurd",
+          "type": "news",
+          "title": "Jeff Hurd - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.jeffhurdforcolorado.com/meet-jeff",
+          "type": "website",
+          "title": "Meet Jeff | Jeff Hurd for Colorado",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/RepJeffHurd.jpg/250px-RepJeffHurd.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Colorado's 3rd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Managing Attorney",
+          "organization": "Ireland Stapleton Pryor & Pascoe PC",
+          "start_year": 2014,
+          "end_year": 2024,
+          "description": "Managed the Grand Junction office of the commercial law firm",
+          "source": null
+        },
+        {
+          "title": "Associate",
+          "organization": "Sullivan & Cromwell",
+          "start_year": null,
+          "end_year": 2014,
+          "description": "International law firm based in New York City",
+          "source": null
+        },
+        {
+          "title": "Law Clerk",
+          "organization": "U.S. Court of Appeals for the Tenth Circuit",
+          "start_year": null,
+          "end_year": null,
+          "description": "Clerked for Chief Judge Timothy Tymkovich",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Columbia University",
+          "degree": "LLM",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Denver",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Notre Dame",
+          "degree": "BA",
+          "field": "Philosophy",
+          "year": 2001,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.jeffhurdforcolorado.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepJeffHurd",
+        "facebook": "https://www.facebook.com/JeffHurdforColorado/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ron Hanks",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ron Hanks is a former Colorado State Representative (2021-2023) and a retired U.S. Air Force veteran of 32 years. He ran for U.S. Senate in 2022 and previously challenged for this House seat in 2024, losing the primary to Jeff Hurd. Hanks participated in the January 6, 2021 Capitol protest and has promoted claims of election fraud. He is running on a conservative platform emphasizing immigration enforcement, opposing mail-in voting, and supporting Trump administration policies.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ron_Hanks",
+          "type": "news",
+          "title": "Ron Hanks - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://coloradosun.com/2026/06/04/jeff-hurd-ron-hanks-colorado-primary-election-cd3-issue-guide/",
+          "type": "news",
+          "title": "Where the Republican candidates in Colorado's 3rd Congressional District stand on the top issues",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Ron_Hanks.JPG/250px-Ron_Hanks.JPG",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Colorado House of Representatives",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Represented District 60; served on various committees",
+          "source": null
+        },
+        {
+          "title": "Air Force Linguist and Intelligence Officer",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served 32 years active and reserve",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://hanksforcolorado.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Alex Kelloff",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Alex Kelloff is a businessman and entrepreneur who co-founded Armada Skis, with family roots in Colorado's 3rd District dating back to 1893. He has a 30-year career in finance and telecommunications, including serving as a partner at SDC Capital Partners and as Head of Telecommunications Investment Banking at Jefferies. Kelloff holds a BBA from James Madison University, an MS from Johns Hopkins University, and an MBA from INSEAD, and is running on a platform of healthcare access, public lands protection, and economic opportunity.",
+      "summary_sources": [
+        {
+          "url": "https://alexkelloff.com/",
+          "type": "website",
+          "title": "Alex Kelloff for Colorado",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://coloradosun.com/2026/06/08/alex-kelloff-dwayne-romero-cd3-colorado-primary-election-issue-guide/",
+          "type": "news",
+          "title": "Where Democrats Alex Kelloff, Dwayne Romero stand on the issues in Colorado's 3rd Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Partner and Member of Investment Committee",
+          "organization": "SDC Capital Partners",
+          "start_year": null,
+          "end_year": null,
+          "description": "Focused on investments in rural broadband, data centers, and wireless infrastructure",
+          "source": null
+        },
+        {
+          "title": "Head of Telecommunications Investment Banking",
+          "organization": "Jefferies",
+          "start_year": null,
+          "end_year": null,
+          "description": "Managed over $20 billion in global M&A and financial transactions",
+          "source": null
+        },
+        {
+          "title": "Co-Founder",
+          "organization": "Armada Skis",
+          "start_year": 2002,
+          "end_year": null,
+          "description": "Ski manufacturing company based in Colorado",
+          "source": null
+        },
+        {
+          "title": "Consultant",
+          "organization": "Booz Allen Hamilton",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advised on strategic projects for federal agencies and military commands",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "INSEAD",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "MS",
+          "field": "Information Technology and Telecommunications",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "James Madison University",
+          "degree": "BBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://alexkelloff.com/",
+      "social_media": {
+        "twitter": "https://x.com/alexkelloffco",
+        "facebook": "https://www.facebook.com/alexkelloffco/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dwayne Romero",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Dwayne Romero is a U.S. Army veteran, former Army Ranger, and Bronze Star recipient who served as a Combat Engineer Executive Officer during the Persian Gulf War. He has served on the Aspen City Council, Aspen School District Board of Education (including as President), and various local boards. Romero also served as Director of Economic Development under Gov. John Hickenlooper and owns a property management company on the Western Slope. He is running on a platform of reversing healthcare cuts, protecting public lands, and restoring federal funding for Colorado communities.",
+      "summary_sources": [
+        {
+          "url": "https://romeroforcolorado.com/",
+          "type": "website",
+          "title": "Romero for Colorado",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.aspentimes.com/news/colorado-aspen-democratic-primary-congessional-seat",
+          "type": "news",
+          "title": "In Democratic primary to flip western Colorado congressional seat from red to blue, Aspen-area candidates run on backlash to Trump",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner and Operator",
+          "organization": "Property Management Company (Western Slope)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Employs 120 Coloradans",
+          "source": null
+        },
+        {
+          "title": "Director of Economic Development",
+          "organization": "Office of Governor John Hickenlooper",
+          "start_year": null,
+          "end_year": null,
+          "description": "Top state official in charge of economic development",
+          "source": null
+        },
+        {
+          "title": "City Council Member",
+          "organization": "City of Aspen",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on Aspen City Council",
+          "source": null
+        },
+        {
+          "title": "Board President",
+          "organization": "Aspen School District Board of Education",
+          "start_year": 2020,
+          "end_year": 2021,
+          "description": "Served as President of the school board",
+          "source": null
+        },
+        {
+          "title": "Combat Engineer Executive Officer",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served 11 years including during Persian Gulf War; earned Bronze Star and graduated from Army Ranger School",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "BS",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://romeroforcolorado.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/romeroforcolorado/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Heather Barton",
+      "party": "Unaffiliated",
+      "incumbent": false,
+      "summary": "Heather Barton is an unaffiliated candidate running for U.S. House representing Colorado's 3rd Congressional District. She declared her candidacy for the general election and has filed paperwork with the Federal Election Commission. Limited public information is available about her background and policy positions beyond her campaign statement that she is 'fighting for the working class, not the ruling class.'",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Heather_Barton",
+          "type": "website",
+          "title": "Heather Barton - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/committee/C00918193/",
+          "type": "government",
+          "title": "HEATHER BARTON FOR CONGRESS - FEC",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Heather-Barton-for-Colorado-61582565691995/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:31:09.694879+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 394825,
+    "completion_tokens": 10269,
+    "total_tokens": 405094,
+    "cost_usd": 0.027546662,
+    "cost_source": "provider",
+    "estimated_usd": 0.040706,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 394825,
+        "completion_tokens": 10269
+      }
+    },
+    "duration_s": 160.0
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "id": "pa-house-14-2026",
+  "title": "Pennsylvania's 14th Congressional District general election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Pennsylvania's 14th Congressional District",
+  "state": "Pennsylvania",
+  "district": "14th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Pennsylvania's 14th Congressional District will be held November 3, 2026. The district covers Washington, Fayette, Greene, and portions of Westmoreland, Indiana, and Somerset counties in southwestern Pennsylvania. Incumbent Republican Guy Reschenthaler, who serves as House Chief Deputy Whip and is seeking his fifth term, faces Democratic nominee Alan Bradstock, a U.S. Army veteran and retired FBI agent, as well as American Independent Party candidate Adam Halfhill. The Cook Political Report rates the district as Solidly Republican, giving Reschenthaler a strong advantage in November.",
+  "candidates": [
+    {
+      "name": "Guy Reschenthaler",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Guy Reschenthaler is the incumbent U.S. Representative for Pennsylvania's 14th Congressional District, first elected in 2018. He serves as House Republican Chief Deputy Whip and is a member of the House Appropriations Committee. A U.S. Navy JAG Corps veteran who served in Iraq, Reschenthaler previously served in the Pennsylvania Senate and as a magisterial district judge. He is seeking his fifth term in Congress.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Guy_Reschenthaler",
+          "type": "website",
+          "title": "Guy Reschenthaler - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://reschenthaler.house.gov/about",
+          "type": "government",
+          "title": "Meet Guy | U.S. Congressman Guy Reschenthaler",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-pennsylvania-us-house-14-primary.html",
+          "type": "news",
+          "title": "Pennsylvania 14th Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Guy_Reschenthaler_Official_Portrait_2022_%28cropped2%29.jpg/250px-Guy_Reschenthaler_Official_Portrait_2022_%28cropped2%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Pennsylvania's 14th Congressional District; House Republican Chief Deputy Whip since 2023",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Pennsylvania State Senate",
+          "start_year": 2015,
+          "end_year": 2019,
+          "description": "Represented the 37th Senatorial District",
+          "source": null
+        },
+        {
+          "title": "Magisterial District Judge",
+          "organization": "Commonwealth of Pennsylvania",
+          "start_year": 2013,
+          "end_year": 2015,
+          "description": "Served in Pittsburgh's South Hills",
+          "source": null
+        },
+        {
+          "title": "Lieutenant / JAG Officer",
+          "organization": "U.S. Navy Judge Advocate General's Corps",
+          "start_year": 2008,
+          "end_year": 2012,
+          "description": "Deployed to Iraq; defended a Navy SEAL at court-martial",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Duquesne University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Penn State Erie, The Behrend College",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2004,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://reschenthaler.house.gov/",
+          "title": "https://reschenthaler.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Guy_Reschenthaler",
+          "title": "https://en.wikipedia.org/wiki/Guy_Reschenthaler",
+          "type": "other"
+        }
+      ],
+      "website": "https://guyforpa.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepGuyReschenthaler/",
+        "twitter": "https://twitter.com/GReschenthaler",
+        "instagram": "https://www.instagram.com/repguyreschenthaler/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Alan Bradstock",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Alan Bradstock is the Democratic nominee for Pennsylvania's 14th Congressional District. He served eight years in the U.S. Army as an aviation officer, deploying to the Middle East during Operation Desert Storm, followed by 20 years as an FBI Special Agent. His FBI career included assignments in counterterrorism, drug trafficking investigations, and serving as Deputy Legal Attach\u00e9 at the U.S. Embassy in Ottawa. Bradstock holds a Bachelor's in Accounting from Washington & Jefferson College and a Master's in International Relations from Troy State University.",
+      "summary_sources": [
+        {
+          "url": "https://www.bradstockforcongress.com/about",
+          "type": "website",
+          "title": "About Alan Bradstock",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-pennsylvania-us-house-14-primary.html",
+          "type": "news",
+          "title": "Pennsylvania 14th Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cityandstatepa.com/politics/2026/05/whos-running-congress-pennsylvania-2026/413737/",
+          "type": "news",
+          "title": "Who's running for Congress in Pennsylvania in 2026?",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "FBI Special Agent / Senior Manager",
+          "organization": "Federal Bureau of Investigation",
+          "start_year": 2000,
+          "end_year": 2020,
+          "description": "20 years of service including counterterrorism, drug trafficking investigations, and Deputy Legal Attach\u00e9 in Ottawa",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Aviation Officer",
+          "organization": "United States Army",
+          "start_year": 1990,
+          "end_year": 1998,
+          "description": "8 years of service; deployed to Middle East during Operation Desert Storm",
+          "source": null
+        },
+        {
+          "title": "Auditor",
+          "organization": "KPMG",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an auditor in private sector",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Troy State University",
+          "degree": "Master's",
+          "field": "International Relations",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Washington & Jefferson College",
+          "degree": "Bachelor of Arts",
+          "field": "Accounting",
+          "year": 1990,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.bradstockforcongress.com/",
+          "title": "https://www.bradstockforcongress.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://ato.org/ato-roadshow/alumni-alan-bradstock-running-for-congress/",
+          "title": "https://ato.org/ato-roadshow/alumni-alan-bradstock-running-for-congress/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.linkedin.com/in/davidalanbradstock",
+          "title": "https://www.linkedin.com/in/davidalanbradstock",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.bradstockforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/bradstockforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Adam Scott Halfhill",
+      "party": "American Independent Party",
+      "incumbent": false,
+      "summary": "Adam Scott Halfhill is an American Independent Party candidate for U.S. House in Pennsylvania's 14th Congressional District. He filed with the Federal Election Commission under FEC candidate ID H4PA14114 and is listed as a challenger for the open seat. Limited public information is available about his background or policy platform.",
+      "summary_sources": [
+        {
+          "url": "https://thecandidate.com/candidates/adam-scott-halfhill-pa-house-14",
+          "type": "website",
+          "title": "HALFHILL, ADAM SCOTT \u2014 U.S. House \u2014 PA-14",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4PA14114/",
+          "type": "government",
+          "title": "FEC Candidate Data - HALFHILL, ADAM SCOTT",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Adam_Halfhill",
+          "type": "website",
+          "title": "Adam Halfhill - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:20:19.073351+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 183463,
+    "completion_tokens": 7310,
+    "total_tokens": 190773,
+    "cost_usd": 0.03344917,
+    "cost_source": "provider",
+    "estimated_usd": 0.034412,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 183463,
+        "completion_tokens": 7310
+      }
+    },
+    "duration_s": 203.5,
+    "serper_calls": 15,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 46414,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0443,
+    "context_deduplicated_results": 52,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

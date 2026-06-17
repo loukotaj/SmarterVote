@@ -1,0 +1,258 @@
+{
+  "id": "or-house-01-2026",
+  "title": "Oregon's 1st Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Oregon's 1st Congressional District",
+  "state": "Oregon",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Oregon's 1st Congressional District pits incumbent Democrat Suzanne Bonamici, who has held the seat since 2012, against Republican veterinarian Barbara Kahl. The district encompasses northwestern Oregon including the Portland suburbs of Beaverton and Hillsboro, parts of Portland west of the Willamette River, and Tillamook County. Bonamici won the Democratic primary with 86.6% of the vote, while Kahl secured the Republican nomination with 71.5%. The district has a Cook Partisan Voting Index of D+20 and is rated Solid D by Cook Political Report, Inside Elections, and Sabato's Crystal Ball, making Bonamici a strong favorite for re-election.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026, likely due to the district's solid Democratic lean and the incumbent's consistent re-election margins above 68%.",
+  "candidates": [
+    {
+      "name": "Suzanne Bonamici",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Suzanne Bonamici has represented Oregon's 1st Congressional District in the U.S. House since February 2012, when she won a special election to succeed David Wu. Before Congress, she served in the Oregon House of Representatives and was appointed to the Oregon State Senate. Bonamici holds a J.D. from the University of Oregon School of Law and previously worked as an attorney for the Federal Trade Commission and in private practice.",
+      "summary_sources": [
+        {
+          "url": "https://awpc.cattcenter.iastate.edu/directory/suzanne-bonamici",
+          "type": "government",
+          "title": "Suzanne Bonamici - Archives of Women's Political Communication",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Oregon",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Oregon - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483881",
+          "type": "news",
+          "title": "OR-01 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Suzanne_Bonamici%2C_official_portrait%2C_112th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2012,
+          "end_year": null,
+          "description": "Representing Oregon's 1st Congressional District; elected by special election in February 2012 and re-elected subsequently.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Oregon State Senate",
+          "start_year": 2008,
+          "end_year": 2011,
+          "description": "Represented District 17; served as chair of the Senate Consumer Protection & Public Affairs Committee.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Oregon House of Representatives",
+          "start_year": 2007,
+          "end_year": 2008,
+          "description": "Represented District 34 in Washington County; served on Health Care and Judiciary committees.",
+          "source": null
+        },
+        {
+          "title": "Legislative Assistant",
+          "organization": "Oregon House of Representatives",
+          "start_year": 2001,
+          "end_year": 2006,
+          "description": "Worked as a legislative assistant before being elected to the chamber.",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Federal Trade Commission",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Credit Practices Division of the Bureau of Consumer Protection.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Oregon School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1983,
+          "source": null
+        },
+        {
+          "institution": "University of Oregon",
+          "degree": "B.A.",
+          "field": "Journalism",
+          "year": 1980,
+          "source": null
+        },
+        {
+          "institution": "Lane Community College",
+          "degree": "A.A.",
+          "field": "General Studies",
+          "year": 1978,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://bonamici.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Barbara Kahl",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Barbara Kahl is a veterinarian and the Republican nominee for Oregon's 1st Congressional District. She previously worked at Intel in high-tech finance and purchasing, and has also served as a military ombudsman. Kahl holds a Doctorate in Veterinary Medicine from Oregon State University and emphasizes her family's century-long roots in Northwest Oregon in her campaign.",
+      "summary_sources": [
+        {
+          "url": "https://oregonvotes.gov/voters-guide-military/barbarajkahl.html",
+          "type": "government",
+          "title": "Barbara J Kahl - Oregon Secretary of State Voters Guide",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Oregon",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Oregon - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://drkahlforcongress.com/",
+          "type": "website",
+          "title": "Dr. Kahl for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Veterinarian / Doctor of Veterinary Medicine",
+          "organization": "Self-Employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "USDA Accredited Veterinarian serving Oregon communities.",
+          "source": null
+        },
+        {
+          "title": "Finance and Purchasing Professional",
+          "organization": "Intel Corporation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in high-tech finance and purchasing.",
+          "source": null
+        },
+        {
+          "title": "Military Ombudsman",
+          "organization": "United States Military",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a military ombudsman.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oregon State University",
+          "degree": "Doctorate (DVM)",
+          "field": "Veterinary Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Oregon State University",
+          "degree": "B.Sc.",
+          "field": "Science with minor in Chemistry",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://drkahlforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Oregon%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:18:00.354132+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 217326,
+    "completion_tokens": 5369,
+    "total_tokens": 222695,
+    "cost_usd": 0.017553316,
+    "cost_source": "provider",
+    "estimated_usd": 0.02235,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 217326,
+        "completion_tokens": 5369
+      }
+    },
+    "duration_s": 134.8
+  }
+}

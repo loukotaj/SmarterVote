@@ -1,0 +1,327 @@
+{
+  "id": "ar-house-02-2026",
+  "title": "2026 U.S. House election in Arkansas's 2nd Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Arkansas's 2nd Congressional District",
+  "state": "Arkansas",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Arkansas's 2nd Congressional District pits seven-term Republican incumbent French Hill against Democratic nominee Chris Jones. The district covers central Arkansas including most of Little Rock and all of Cleburne, Conway, Faulkner, Perry, Saline, Van Buren, and White counties. Hill chairs the powerful House Financial Services Committee, while Jones is a nuclear engineer and former Democratic gubernatorial nominee who has outraised expectations. The race is rated Solid/Safe Republican by major nonpartisan forecasters, though a May 2026 poll showed Jones leading Hill by 3 points among likely voters.",
+  "polling": [
+    {
+      "pollster": "2040 Strategy Group",
+      "date": "2026-05-08",
+      "sample_size": 660,
+      "matchups": [
+        {
+          "candidates": [
+            "Chris Jones",
+            "French Hill"
+          ],
+          "percentages": [
+            46.0,
+            43.0
+          ]
+        }
+      ],
+      "source_url": "https://chrisjonesforcongress.com/democrat-chris-jones-leads-46-43-among-likely-voters-in-arkansas-02/"
+    }
+  ],
+  "polling_note": "Only one poll was found for this race as of late May 2026, commissioned by the Jones campaign and conducted by 2040 Strategy Group. No independent public polls were available.",
+  "candidates": [
+    {
+      "name": "French Hill",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "French Hill is the incumbent U.S. Representative for Arkansas's 2nd Congressional District, first elected in 2014. He chairs the House Financial Services Committee and previously served as Deputy Assistant Secretary of the Treasury and Executive Secretary to President George H.W. Bush's Economic Policy Council. A ninth-generation Arkansan and former community banker, Hill is running on a platform of tax cuts, border security, and conservative economic policy.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/French_Hill_(politician)",
+          "type": "website",
+          "title": "French Hill (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-29T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.electfrench.com/",
+          "type": "website",
+          "title": "French Hill for Congress",
+          "description": null,
+          "last_accessed": "2026-05-29T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Arkansas",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Arkansas - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-29T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Hill_French_119th_Congress.jpg/250px-Hill_French_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing Arkansas's 2nd Congressional District; Chairman of House Financial Services Committee since 2025",
+          "source": null
+        },
+        {
+          "title": "Chairman of the Board and CEO",
+          "organization": "Delta Trust & Banking Corp.",
+          "start_year": 1999,
+          "end_year": 2014,
+          "description": "Founded and led community bank headquartered in Little Rock",
+          "source": null
+        },
+        {
+          "title": "Executive Secretary",
+          "organization": "President's Economic Policy Council",
+          "start_year": 1991,
+          "end_year": 1993,
+          "description": "Coordinated White House domestic and international economic policy under President George H.W. Bush",
+          "source": null
+        },
+        {
+          "title": "Deputy Assistant Secretary of the Treasury for Corporate Finance",
+          "organization": "U.S. Department of the Treasury",
+          "start_year": 1989,
+          "end_year": 1991,
+          "description": "Senior official in the George H.W. Bush administration",
+          "source": null
+        },
+        {
+          "title": "Aide / Staff Member",
+          "organization": "U.S. Senate Committee on Banking, Housing, and Urban Affairs",
+          "start_year": 1982,
+          "end_year": 1984,
+          "description": "Staffer for Senator John Tower (R-TX) and the Banking Committee",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Vanderbilt University",
+          "degree": "Bachelor of Arts",
+          "field": "Economics",
+          "year": 1979,
+          "source": null
+        },
+        {
+          "institution": "UCLA Anderson Graduate School of Management",
+          "degree": "Certified Corporate Director",
+          "field": "Corporate Governance",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://hill.house.gov/",
+          "title": "https://hill.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.electfrench.com/",
+          "title": "https://www.electfrench.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/French_Hill_(politician)",
+          "title": "https://en.wikipedia.org/wiki/French_Hill_(politician)",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.electfrench.com/",
+      "social_media": {
+        "twitter": "https://x.com/ElectFrench",
+        "facebook": "https://www.facebook.com/RepFrenchHill/",
+        "instagram": "https://www.instagram.com/repfrenchhill/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Jones",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Chris Jones is the Democratic nominee for Arkansas's 2nd Congressional District, having won the March 3 primary. A nuclear engineer with a PhD from MIT and a BS from Morehouse College, he was the Democratic nominee for governor in 2022. Jones has worked as an assistant dean at MIT, executive director of the Arkansas Regional Innovation Hub, and is an ordained minister, campaigning on affordability, healthcare access, and education investment.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Chris_Jones_(Arkansas_politician)",
+          "type": "website",
+          "title": "Chris Jones (Arkansas politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-29T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://chrisjonesforcongress.com/about/",
+          "type": "website",
+          "title": "Meet Chris - Chris Jones for Congress",
+          "description": null,
+          "last_accessed": "2026-05-29T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://arkansasadvocate.com/2025/08/01/former-democratic-candidate-for-arkansas-governor-will-challenge-u-s-rep-hill-in-2026/",
+          "type": "news",
+          "title": "Former Democratic candidate for Arkansas governor will challenge U.S. Rep. Hill in 2026",
+          "description": null,
+          "last_accessed": "2026-05-29T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Chris_Jones%2C_Arkansas_gubernatorial_candidate.jpg/250px-Chris_Jones%2C_Arkansas_gubernatorial_candidate.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Executive Director",
+          "organization": "Arkansas Regional Innovation Hub",
+          "start_year": 2018,
+          "end_year": 2021,
+          "description": "Led nonprofit innovation and makerspace affiliated with Winrock International in North Little Rock",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Dudley Street Neighborhood Initiative",
+          "start_year": 2013,
+          "end_year": 2015,
+          "description": "Led community development nonprofit in Boston; oversaw $3.4M budget and federal Promise Neighborhoods grant",
+          "source": null
+        },
+        {
+          "title": "Assistant Dean for Graduate Students",
+          "organization": "Massachusetts Institute of Technology",
+          "start_year": 2004,
+          "end_year": 2013,
+          "description": "Tripled graduate applications from underrepresented minorities; received Irwin Sizer Award for educational improvement",
+          "source": null
+        },
+        {
+          "title": "Algebra Teacher",
+          "organization": "Boston Public Schools",
+          "start_year": 2003,
+          "end_year": 2004,
+          "description": "Taught algebra at a Boston public school",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "Doctor of Philosophy",
+          "field": "Urban Studies and Planning",
+          "year": 2016,
+          "source": null
+        },
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "Master of Science",
+          "field": "Nuclear Engineering",
+          "year": 2003,
+          "source": null
+        },
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "Master of Science",
+          "field": "Technology and Policy",
+          "year": 2003,
+          "source": null
+        },
+        {
+          "institution": "Morehouse College",
+          "degree": "Bachelor of Science",
+          "field": "Mathematics and Physics",
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://chrisjonesforcongress.com/",
+          "title": "https://chrisjonesforcongress.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Chris_Jones_(Arkansas_politician)",
+          "title": "https://en.wikipedia.org/wiki/Chris_Jones_(Arkansas_politician)",
+          "type": "other"
+        }
+      ],
+      "website": "https://chrisjonesforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/jonesforar",
+        "instagram": "https://www.instagram.com/jonesforar/",
+        "youtube": "https://www.youtube.com/@chrisjonesforcongress"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Arkansas%27_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:03:11.331302+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 337191,
+    "completion_tokens": 7038,
+    "total_tokens": 344229,
+    "cost_usd": 0.018419814,
+    "cost_source": "provider",
+    "estimated_usd": 0.034424,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 337191,
+        "completion_tokens": 7038
+      }
+    },
+    "duration_s": 148.0
+  }
+}

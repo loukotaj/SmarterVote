@@ -1,0 +1,283 @@
+{
+  "id": "tx-house-04-2026",
+  "title": "Texas's 4th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Texas's 4th Congressional District",
+  "state": "Texas",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Texas's 4th Congressional District pits incumbent Republican Rep. Pat Fallon against Democratic nominee Jason Pearce. The district, which stretches from Dallas-Fort Worth exurbs to the Oklahoma and Arkansas borders, underwent a contentious mid-decade redistricting in 2025 that was ultimately upheld by the U.S. Supreme Court. With a Cook Partisan Voting Index of R+16 and a 'Solid R' rating from the Cook Political Report, the district is considered heavily Republican, and Fallon is favored to win a fourth term. Key issues include cost of living, healthcare affordability, national security, and the fallout from the 2025 redistricting fight.",
+  "polling": [],
+  "polling_note": "No district-specific public opinion polls were found for this race as of June 2026. Only generic Texas-wide congressional ballot polls exist, which are not applicable to this specific district.",
+  "candidates": [
+    {
+      "name": "Pat Fallon",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Pat Fallon is the incumbent U.S. Representative for Texas's 4th Congressional District, first elected in 2020. A Republican, he chairs the House Armed Services Subcommittee on Military Personnel and serves on the House Permanent Select Committee on Intelligence and the House Committee on Oversight and Government Accountability. Prior to Congress, Fallon served in the Texas House (2013-2019) and Texas Senate (2019-2021), and was a Frisco city councilmember and mayor pro tem.",
+      "summary_sources": [
+        {
+          "url": "https://fallon.house.gov/about/",
+          "type": "government",
+          "title": "Biography | Congressman Pat Fallon",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://history.house.gov/People/Detail/13283",
+          "type": "government",
+          "title": "FALLON, Pat | US House of Representatives: History, Art & Archives",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Pat_Fallon",
+          "type": "website",
+          "title": "Pat Fallon - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485236",
+          "type": "website",
+          "title": "TX-04 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-4-primary.html",
+          "type": "news",
+          "title": "Texas Fourth Congressional District Primary Election Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Pat_Fallon.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Texas's 4th Congressional District; Chairman of House Armed Services Subcommittee on Military Personnel; member of House Intelligence Committee and Oversight Committee",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Texas Senate",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Represented North Texas in the Texas State Senate",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Texas House of Representatives",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Represented district in the Texas House",
+          "source": null
+        },
+        {
+          "title": "Councilmember / Mayor Pro Tem",
+          "organization": "City of Frisco, Texas",
+          "start_year": 2009,
+          "end_year": 2012,
+          "description": "Served on Frisco City Council, including as Mayor Pro Tem (2011-2012)",
+          "source": null
+        },
+        {
+          "title": "United States Air Force Officer",
+          "organization": "United States Air Force",
+          "start_year": 1990,
+          "end_year": 1994,
+          "description": "Commissioned officer stationed at Sheppard Air Force Base, Wichita Falls, TX",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "University of Massachusetts Amherst",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://fallon.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/fallonfortexas/",
+        "twitter": "https://twitter.com/PatFallonTX"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jason Pearce",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jason Pearce is the Democratic nominee for Texas's 4th Congressional District, having won a competitive primary in March 2026. A Plano native, Pearce worked in sales, mortgage lending, and insurance before leaving his job to campaign full-time. His campaign focuses on lowering the cost of living, affordable healthcare, fair wages, worker protections, corporate accountability, and clean government.",
+      "summary_sources": [
+        {
+          "url": "https://pearcefortexas.com/",
+          "type": "website",
+          "title": "Pearce for Texas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tx3dnews.com/jason-pearce-candidate-for-u-s-house-tx-04/",
+          "type": "news",
+          "title": "Jason Pearce \u2014 Candidate for U.S. House (TX-04)",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-4-primary.html",
+          "type": "news",
+          "title": "Texas Fourth Congressional District Primary Election Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/texas-us-house-district-4-results",
+          "type": "news",
+          "title": "Texas House District 4 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://static.wixstatic.com/media/edf5ac_0f3f7e86200e416ba842b33eb5f5ac45~mv2.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Congressional Candidate",
+          "organization": "Pearce for Congress",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Full-time candidate for U.S. House in Texas's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Licensed Insurance Professional",
+          "organization": "Self-employed / Finance & Insurance",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "Licensed in insurance; passed licensing exams on first attempt",
+          "source": null
+        },
+        {
+          "title": "Mortgage Loan Originator",
+          "organization": "Mortgage Industry",
+          "start_year": null,
+          "end_year": null,
+          "description": "Became a top national performer in the mortgage industry; earned federal license on first attempt",
+          "source": null
+        },
+        {
+          "title": "Sales and Customer Service",
+          "organization": "Various employers",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in retail, restaurants, and customer service roles; often worked two jobs and eighty-hour weeks",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://pearcefortexas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Jason-Pearce-For-Texas-61580869978602/",
+        "instagram": "https://www.instagram.com/pearcefortexas/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:29:29.766100+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 302587,
+    "completion_tokens": 6955,
+    "total_tokens": 309542,
+    "cost_usd": 0.02084301,
+    "cost_source": "provider",
+    "estimated_usd": 0.031017,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 302587,
+        "completion_tokens": 6955
+      }
+    },
+    "duration_s": 124.2
+  }
+}

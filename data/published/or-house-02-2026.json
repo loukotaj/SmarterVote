@@ -1,0 +1,262 @@
+{
+  "id": "or-house-02-2026",
+  "title": "Oregon's 2nd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Oregon's 2nd Congressional District",
+  "state": "Oregon",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Oregon's 2nd Congressional District pits incumbent Republican Rep. Cliff Bentz against Democratic nominee Chris Beck. The district encompasses over 70,000 square miles across 20 counties in eastern and southern Oregon and has been held by a Republican since 1981; it is the only Oregon congressional district with more registered Republicans than Democrats. Bentz, who won the 2024 general election with 64% of the vote, is heavily favored in this safely Republican district according to nonpartisan election forecasters such as the Cook Political Report. Beck, a former state representative and Obama administration official, advances after winning a competitive six-candidate Democratic primary and is campaigning on rural healthcare access, affordability, and land conservation.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in Oregon's 2nd Congressional District as of June 2026. Nonpartisan forecasters (Cook Political Report) rate the race as 'Solid Republican.'",
+  "candidates": [
+    {
+      "name": "Cliff Bentz",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Cliff Bentz is the Republican incumbent representing Oregon's 2nd Congressional District, first elected in 2020. A third-generation Oregonian raised on family cattle ranches in Harney County, he is an attorney who specialized in ranch reorganizations and water law before entering politics. Bentz previously served in the Oregon House of Representatives and Oregon State Senate, and he handily won the 2026 Republican primary with nearly 80% of the vote against two challengers.",
+      "summary_sources": [
+        {
+          "url": "http://bentz.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Cliff Bentz",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-oregon-us-house-2-primary.html",
+          "type": "news",
+          "title": "Oregon Second Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Oregon",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Oregon",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Cliff_Bentz_117th_U.S_Congress_%28cropped%29_%28centered%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Oregon's 2nd Congressional District; serves on Energy and Commerce and Natural Resources committees.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Oregon State Senate",
+          "start_year": 2018,
+          "end_year": 2020,
+          "description": "Appointed to fill District 30 seat; served on Finance and Revenue, Judiciary, and Energy committees.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Oregon House of Representatives",
+          "start_year": 2008,
+          "end_year": 2018,
+          "description": "Represented District 60; served on Revenue, Transportation, Energy and Environment committees.",
+          "source": null
+        },
+        {
+          "title": "Partner and Attorney",
+          "organization": "Yturri, O'Kief, Rose and Burnham Law Firm",
+          "start_year": 1981,
+          "end_year": 2008,
+          "description": "Specialized in ranch reorganizations and water law in Ontario, Oregon.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lewis and Clark Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Eastern Oregon State College",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://cliffbentz.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Beck",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Chris Beck is the Democratic nominee for Oregon's 2nd Congressional District, a former state representative who served three terms in the Oregon House from 1997 to 2003 representing the 12th District. He later worked as a rural policy advisor in the Obama administration at the U.S. Department of Agriculture and as a conservation professional with the Trust for Public Land. Beck won a six-candidate Democratic primary with 34% of the vote in May 2026 and faces incumbent Cliff Bentz in the general election, campaigning on rural healthcare access, affordability, and land use planning.",
+      "summary_sources": [
+        {
+          "url": "https://oregonvotes.gov/voters-guide/english/chrisbeck.html",
+          "type": "government",
+          "title": "Chris Beck - Voting & Elections - Oregon Secretary of State",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://chrisbeckforcongress.com/",
+          "type": "website",
+          "title": "Chris Beck for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opb.org/article/2026/05/20/former-democratic-oregon-lawmaker-will-face-bentz-in-sprawling-2nd-congressional-district/",
+          "type": "news",
+          "title": "Former Democratic Oregon lawmaker will face Bentz in sprawling 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Oregon",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Oregon",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://oregoncapitalchronicle.com/wp-content/uploads/2026/04/Beck_fireplace_cropped2-1024x995.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Rural Policy Advisor",
+          "organization": "U.S. Department of Agriculture, Obama Administration",
+          "start_year": 2010,
+          "end_year": 2016,
+          "description": "Worked on rural economic development policy.",
+          "source": null
+        },
+        {
+          "title": "Conservation Professional",
+          "organization": "Trust for Public Land",
+          "start_year": 1990,
+          "end_year": 2004,
+          "description": "Worked on land conservation projects.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Oregon House of Representatives",
+          "start_year": 1997,
+          "end_year": 2003,
+          "description": "Represented the 12th House District encompassing most of Lane County.",
+          "source": null
+        },
+        {
+          "title": "Committee Staff",
+          "organization": "Oregon Senate",
+          "start_year": null,
+          "end_year": null,
+          "description": "Clerk and staff for Agriculture and Natural Resources Committee.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Kennedy School",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Brown University",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://chrisbeckforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Oregon%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:03:24.007602+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 241643,
+    "completion_tokens": 6549,
+    "total_tokens": 248192,
+    "cost_usd": 0.017696266000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.024965,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 241643,
+        "completion_tokens": 6549
+      }
+    },
+    "duration_s": 127.5
+  }
+}

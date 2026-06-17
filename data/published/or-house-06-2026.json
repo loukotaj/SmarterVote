@@ -1,0 +1,320 @@
+{
+  "id": "or-house-06-2026",
+  "title": "Oregon's 6th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Oregon's 6th Congressional District",
+  "state": "Oregon",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Oregon's 6th Congressional District, which stretches from the southern Portland suburbs through the Willamette Valley to Salem, features Democratic incumbent Andrea Salinas seeking a third term against Republican nominee David Russ, a former mayor of Dundee. The district, created after the 2020 Census, has a Cook Partisan Voting Index of D+6 and is rated 'Solid D' by the Cook Political Report. Salinas won the open seat in 2022 with 50.0% of the vote and was re-elected in 2024 with 53.4%. Non-affiliated candidate Jason Faler, a combat veteran and healthcare executive, is also seeking ballot access via signature petition and could appear on the November ballot if he meets the required threshold.",
+  "candidates": [
+    {
+      "name": "Andrea Salinas",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Andrea Salinas is the incumbent U.S. Representative for Oregon's 6th Congressional District, first elected in 2022. A former Oregon state representative and House Majority Whip, she serves on the House Agriculture and Science, Space, and Technology Committees and is co-chair of the bipartisan Mental Health Caucus. Her priorities include health care access, reproductive rights, environmental protection, and supporting working families.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Andrea_Salinas",
+          "type": "news",
+          "title": "Andrea Salinas - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://salinas.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Andrea Salinas",
+          "description": null,
+          "last_accessed": "2026-06-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Andrea_Salinas.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Oregon's 6th Congressional District; serves on Agriculture and Science, Space, and Technology Committees",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Oregon House of Representatives",
+          "start_year": 2017,
+          "end_year": 2023,
+          "description": "Represented the 38th district; served as House Majority Whip and Chair of the House Health Care Committee",
+          "source": null
+        },
+        {
+          "title": "Oregon Vice President",
+          "organization": "Strategies 360",
+          "start_year": null,
+          "end_year": 2017,
+          "description": "Political consulting firm",
+          "source": null
+        },
+        {
+          "title": "Legislative Director",
+          "organization": "Oregon Environmental Council",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led environmental policy advocacy",
+          "source": null
+        },
+        {
+          "title": "Legislative Aide",
+          "organization": "U.S. Senate / U.S. House of Representatives",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked for Senator Harry Reid and Representatives Pete Stark and Darlene Hooley",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Berkeley",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.andreasalinasfororegon.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "David Russ",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "David Russ is the Republican nominee for Oregon's 6th Congressional District, having won an uncontested primary on May 19, 2026. He has served as Mayor of Dundee, Oregon for over nine years, and has decades of experience as an accountant, real estate broker, and business owner. His platform emphasizes constitutional limits on government, border security, fiscal responsibility, and support for rural communities and small businesses.",
+      "summary_sources": [
+        {
+          "url": "https://oregonvotes.gov/voters-guide-military/davidruss.html",
+          "type": "government",
+          "title": "US Representative, 6th District - David Russ",
+          "description": null,
+          "last_accessed": "2026-06-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.russisforus.com/",
+          "type": "website",
+          "title": "David Russ for Congress",
+          "description": null,
+          "last_accessed": "2026-06-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-oregon-us-house-6-primary.html",
+          "type": "news",
+          "title": "Oregon Sixth Congressional District Primary 2026: Live Election Results",
+          "description": null,
+          "last_accessed": "2026-06-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/David_Russ.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Dundee, Oregon",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served over nine years as Mayor of Dundee",
+          "source": null
+        },
+        {
+          "title": "Accountant & Real Estate Broker",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over 40 years of experience in accounting, real estate, manufacturing, and retail",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Eastern Washington University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.russisforus.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jason Faler",
+      "party": "Non-affiliated",
+      "incumbent": false,
+      "summary": "Jason Faler is a non-affiliated candidate seeking ballot access for Oregon's 6th Congressional District. A fourth-generation Oregonian and combat veteran with 27 years in the U.S. Army Reserve, he is a former healthcare executive and teaches healthcare law at Oregon Health & Science University-Portland State University School of Public Health. He must collect approximately 3,500 valid signatures by August 25, 2026 to qualify for the November ballot.",
+      "summary_sources": [
+        {
+          "url": "https://www.opb.org/article/2026/06/15/oregon-election-congress-jason-faler-non-affiliated-candidate/",
+          "type": "news",
+          "title": "This nonaffiliated Oregonian is running for Congress. His campaign looks different than most",
+          "description": null,
+          "last_accessed": "2026-06-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.falerforcongress.com/press",
+          "type": "website",
+          "title": "Press - Jason Faler for Congress",
+          "description": null,
+          "last_accessed": "2026-06-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CEO",
+          "organization": "Oral Surgery Practice",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "Chief executive of an oral surgery practice; stepped down to focus on campaign",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Reserve Officer",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nearly 27 years of service; awaiting promotion to colonel",
+          "source": null
+        },
+        {
+          "title": "Adjunct Instructor",
+          "organization": "OHSU-PSU School of Public Health",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teaches healthcare law",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oregon State University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Seton Hall University",
+          "degree": "Master's",
+          "field": "Healthcare Administration and Jurisprudence",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.falerforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:14:27.932419+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 313404,
+    "completion_tokens": 6763,
+    "total_tokens": 320167,
+    "cost_usd": 0.042361828,
+    "cost_source": "provider",
+    "estimated_usd": 0.044039,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 313404,
+        "completion_tokens": 6763
+      }
+    },
+    "duration_s": 203.3,
+    "serper_calls": 12,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 57528,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0549,
+    "context_deduplicated_results": 28,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

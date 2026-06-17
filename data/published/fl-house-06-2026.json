@@ -1,0 +1,529 @@
+{
+  "id": "fl-house-06-2026",
+  "title": "Florida's 6th Congressional District Election, 2026",
+  "office": "U.S. Representative",
+  "jurisdiction": "Florida's 6th Congressional District",
+  "state": "Florida",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 6th Congressional District will hold its regular election on November 3, 2026, following a special election in April 2025 that brought Republican Randy Fine to the seat. The district covers a six-county area in east-central Florida including Daytona Beach, St. Johns County, and parts of Volusia, Flagler, Putnam, and Lake counties. A new congressional map signed by Governor Ron DeSantis in May 2026 takes effect for this cycle and is being challenged in court over alleged partisan gerrymandering. The Republican primary on August 18, 2026 features incumbent Fine facing three challengers: social media personality Dan Bilzerian, retired Brigadier General Charles Gambaro, and activist Aaron Baker. On the Democratic side, Marine veteran Robert Cooper II and business owner Eric Yonce are competing for the nomination. The race has drawn national attention due to Fine's controversial rhetoric and Bilzerian's antisemitic statements.",
+  "candidates": [
+    {
+      "name": "Randy Fine",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Randy Fine is the incumbent U.S. Representative for Florida's 6th Congressional District, having won a special election in April 2025 after Mike Waltz resigned to become National Security Advisor. A former gambling industry executive, Fine served in the Florida House of Representatives (2016-2024) and Florida Senate (2024-2025) before moving to Congress. He holds degrees from Harvard University (BA in Government, magna cum laude) and Harvard Business School (MBA, Baker Scholar). Fine has been endorsed by President Donald Trump and serves on the House Foreign Affairs and Education and Workforce Committees.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Randy_Fine",
+          "type": "news",
+          "title": "Randy Fine - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://fine.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Randy Fine",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Randy_Fine",
+          "type": "news",
+          "title": "Randy Fine - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Rep._Randy_Fine%2C_official_portrait%2C_2026_%28full_body_crop%29.jpg/250px-Rep._Randy_Fine%2C_official_portrait%2C_2026_%28full_body_crop%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Florida's 6th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Florida Senate",
+          "start_year": 2024,
+          "end_year": 2025,
+          "description": "19th Senate District",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Florida House of Representatives",
+          "start_year": 2016,
+          "end_year": 2024,
+          "description": "53rd and 33rd House Districts",
+          "source": null
+        },
+        {
+          "title": "Founder & CEO",
+          "organization": "Fine Point Group",
+          "start_year": 2005,
+          "end_year": 2015,
+          "description": "Casino industry consulting and management business",
+          "source": null
+        },
+        {
+          "title": "Executive",
+          "organization": "Harrah's Entertainment / American Casino & Entertainment Properties",
+          "start_year": 1998,
+          "end_year": 2005,
+          "description": "Casino gambling industry executive",
+          "source": null
+        },
+        {
+          "title": "Consultant",
+          "organization": "McKinsey & Company",
+          "start_year": 1997,
+          "end_year": 1998,
+          "description": "Management consulting",
+          "source": null
+        },
+        {
+          "title": "Teaching Fellow",
+          "organization": "Harvard University",
+          "start_year": 1997,
+          "end_year": 1998,
+          "description": "Economics teaching fellow",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Business School",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": 1998,
+          "source": null
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "BA",
+          "field": "Government",
+          "year": 1996,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://fine.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://voterandyfine.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://voterandyfine.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Aaron Baker",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Aaron Baker is an 'America First' activist running in the Republican primary for Florida's 6th Congressional District. He previously ran against Randy Fine in the 2025 special election. Baker has criticized Fine for putting the interests of Israel ahead of the United States and has blamed Trump advisor Susie Wiles for the former president's endorsement of Fine. He runs a grassroots conservative campaign through his website aaron4fl6.com.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Aaron_Baker_(Florida)",
+          "type": "news",
+          "title": "Aaron Baker (Florida) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://aaron4fl6.com/",
+          "type": "website",
+          "title": "Aaron Baker for Florida's 6th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/800922-cory-mills-to-face-ryan-elijah-in-gop-primary-as-randy-fine-draws-republican-challenge-from-dan-bilzerian/",
+          "type": "news",
+          "title": "Florida Politics: Randy Fine draws Republican challenge from Dan Bilzerian",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Congressional Candidate",
+          "organization": "Florida's 6th Congressional District",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Ran in 2025 special election; running in 2026 Republican primary",
+          "source": null
+        },
+        {
+          "title": "America First Activist",
+          "organization": "Grassroots conservative movement",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Political activism and commentary",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://aaron4fl6.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://aaron4fl6.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Charles Gambaro",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Charles Gambaro is a retired U.S. Army Reserve Brigadier General and Trump administration veteran running in the Republican primary for Florida's 6th Congressional District. He has loaned his campaign over $250,000 and has criticized Randy Fine's anti-Palestinian rhetoric as creating a 'security risk' for the district. Gambaro has sought former President Trump's endorsement and has been endorsed by former Volusia County Sheriff Ben Johnson.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Charles_Gambaro",
+          "type": "news",
+          "title": "Charles Gambaro - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/761671-charles-gambaro-has-215k-to-challenge-randy-fine-but-wants-something-more-valuable-donald-trumps-endorsement/",
+          "type": "news",
+          "title": "Charles Gambaro has $215K to challenge Randy Fine but wants Trump's endorsement",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/800922-cory-mills-to-face-ryan-elijah-in-gop-primary-as-randy-fine-draws-republican-challenge-from-dan-bilzerian/",
+          "type": "news",
+          "title": "Florida Politics: Randy Fine draws Republican challenge from Dan Bilzerian",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Brigadier General (Retired)",
+          "organization": "U.S. Army Reserve",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired Army Reserve Brigadier General",
+          "source": null
+        },
+        {
+          "title": "Trump Administration Official",
+          "organization": "U.S. Federal Government",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Served in Trump administration",
+          "source": null
+        },
+        {
+          "title": "Congressional Candidate",
+          "organization": "Florida's 6th Congressional District",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Republican primary candidate for 2026 election",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Robert Cooper II",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Robert Cooper II is a Marine veteran running in the Democratic primary for Florida's 6th Congressional District. He has been endorsed by March On PAC and describes himself as 'not a politician \u2014 he's a Marine on a mission to serve again.' His campaign emphasizes that Washington is too focused on partisanship and he aims to bring a service-oriented approach to Congress.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Robert_Cooper_II",
+          "type": "news",
+          "title": "Robert Cooper II - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://robcooperforcongress.com/",
+          "type": "website",
+          "title": "Rob Cooper for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.instagram.com/p/DXaPfxhktEz/",
+          "type": "news",
+          "title": "Robert Cooper II is March On PAC's pick for US House (FL-6)",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Marine Veteran",
+          "organization": "U.S. Marine Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the U.S. Marine Corps",
+          "source": null
+        },
+        {
+          "title": "Congressional Candidate",
+          "organization": "Florida's 6th Congressional District",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Democratic primary candidate for 2026 election",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://robcooperforcongress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://robcooperforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eric Yonce",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Eric Yonce is a business owner and outdoor enthusiast running in the Democratic primary for Florida's 6th Congressional District. He is an Appalachian Trail thru-hiker (2022 NOBO) and Airstream remodeler. Yonce raised nearly $130,000 in the first quarter of 2026, with nearly $110,000 from unitemized small-dollar donations. He positions himself as a grassroots candidate focused on representing working-class Floridians.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Eric_Yonce",
+          "type": "news",
+          "title": "Eric Yonce - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://yonceforcongress.com/",
+          "type": "website",
+          "title": "Eric Yonce for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/791194-fine-fund-cd6/",
+          "type": "news",
+          "title": "Randy Fine leads CD 6 fundraising race, but some Democrats are making credible showings",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Business owner and entrepreneur",
+          "source": null
+        },
+        {
+          "title": "Airstream Remodeler",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Specializes in Airstream trailer renovation",
+          "source": null
+        },
+        {
+          "title": "Congressional Candidate",
+          "organization": "Florida's 6th Congressional District",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Democratic primary candidate for 2026 election",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://yonceforcongress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://yonceforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:16:34.534126+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 245007,
+    "completion_tokens": 8543,
+    "total_tokens": 253550,
+    "cost_usd": 0.07548824600000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.06763,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 208781,
+        "completion_tokens": 3603
+      },
+      "nvidia/nemotron-3-ultra-550b-a55b": {
+        "prompt_tokens": 36226,
+        "completion_tokens": 4940
+      }
+    },
+    "duration_s": 202.5,
+    "serper_calls": 16,
+    "context_requests": 15,
+    "max_estimated_context_tokens": 45639,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0435,
+    "context_deduplicated_results": 59,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 3,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  }
+}

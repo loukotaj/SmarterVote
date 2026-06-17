@@ -1,0 +1,237 @@
+{
+  "id": "il-house-13-2026",
+  "title": "Illinois's 13th Congressional District general election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Illinois's 13th Congressional District",
+  "state": "Illinois",
+  "district": "13th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Illinois's 13th Congressional District features Democratic incumbent Nikki Budzinski, first elected in 2022, against Republican challenger Jeff Wilson, a Champaign County Board member. The district stretches from Champaign-Urbana southwest through Springfield and Decatur to the Metro East suburbs of St. Louis. Created as a Democratic-leaning seat after the 2021 redistricting, it carries a Cook PVI of D+5, and Budzinski won her 2024 race by 16 points. Budzinski emphasizes affordability and protecting the middle class, while Wilson campaigns on border security, lowering costs, and supporting President Trump's America First agenda.",
+  "polling": [],
+  "polling_note": "No publicly available general election polls were found for this race as of June 2026.",
+  "candidates": [
+    {
+      "name": "Nikki Budzinski",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Nikki Budzinski is the incumbent U.S. Representative for Illinois's 13th District, first elected in 2022. She previously served as chief of staff at the White House Office of Management and Budget and as a senior advisor to Illinois Governor J.B. Pritzker, and spent much of her career as a labor union official. She serves on the House Agriculture and Veterans' Affairs Committees and is a member of the moderate New Democrat Coalition.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nikki_Budzinski",
+          "type": "website",
+          "title": "Nikki Budzinski - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T01:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://budzinski.house.gov/about",
+          "type": "government",
+          "title": "About - Congresswoman Nikki Budzinski",
+          "description": null,
+          "last_accessed": "2026-06-13T01:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nikkiforcongress.com/about/",
+          "type": "website",
+          "title": "Meet Nikki - Nikki for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T01:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Rep_Nikki_Budzinski%2C_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Illinois's 13th Congressional District; serves on Agriculture and Veterans' Affairs Committees",
+          "source": null
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "White House Office of Management and Budget",
+          "start_year": 2021,
+          "end_year": 2021,
+          "description": "Helped establish the Made in America Office",
+          "source": null
+        },
+        {
+          "title": "Senior Advisor / Transition Director",
+          "organization": "Office of the Governor of Illinois",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Senior advisor to Gov. J.B. Pritzker; chaired the Illinois Broadband Advisory Council",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Climate Jobs Illinois",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advised the National Climate Jobs Resource Center",
+          "source": null
+        },
+        {
+          "title": "National Political Director",
+          "organization": "United Food and Commercial Workers (UFCW)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on political strategy and advocacy for grocery and meatpacking workers",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Illinois Urbana-Champaign",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://nikkiforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jeff Wilson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jeff Wilson is a Republican running for U.S. House in Illinois's 13th District. He is a U.S. Navy veteran who served as a crew member on a nuclear-powered submarine, a retired nuclear engineer with a master's degree from the University of Illinois, and is currently serving his second term on the Champaign County Board. Wilson campaigns on supporting President Trump's America First policies, focusing on border security, lowering costs through energy production and deregulation, and opposing what he views as overreach by federal law enforcement restrictions.",
+      "summary_sources": [
+        {
+          "url": "https://www.wilsonforcongress.com/",
+          "type": "website",
+          "title": "Jeff Wilson for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T01:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ipmnewsroom.org/jeff-wilson-believes-hes-the-republican-to-flip-illinois-13th-congressional-district/",
+          "type": "news",
+          "title": "Jeff Wilson believes he's the Republican to flip Illinois' 13th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T01:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ipmnewsroom.org/budzinski-wilson-to-face-off-in-general-election-for-illinois-13th-congressional-district/",
+          "type": "news",
+          "title": "Budzinski, Wilson to face off in general election for Illinois' 13th congressional district",
+          "description": null,
+          "last_accessed": "2026-06-13T01:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Champaign County Board Member",
+          "organization": "Champaign County Government",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Currently serving his second term; Republican in a Democratic-majority board",
+          "source": null
+        },
+        {
+          "title": "Nuclear Engineer (retired)",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired nuclear engineer with a master's degree in nuclear engineering",
+          "source": null
+        },
+        {
+          "title": "Submarine Crew Member",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a crew member on a U.S. nuclear-powered submarine",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Illinois Urbana-Champaign",
+          "degree": "Master of Science",
+          "field": "Nuclear Engineering",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.wilsonforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_13th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:25:20.033653+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 236509,
+    "completion_tokens": 6162,
+    "total_tokens": 242671,
+    "cost_usd": 0.016208738,
+    "cost_source": "provider",
+    "estimated_usd": 0.024386,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 236509,
+        "completion_tokens": 6162
+      }
+    },
+    "duration_s": 124.7
+  }
+}

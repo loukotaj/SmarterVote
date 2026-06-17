@@ -9,32 +9,7 @@
     {
       "pollster": "Marquette University Law School",
       "date": "2026-03-24",
-      "matchups": [
-        {
-          "candidates": [
-            "Democratic primary undecided"
-          ],
-          "percentages": [
-            65
-          ]
-        },
-        {
-          "candidates": [
-            "Republican primary undecided"
-          ],
-          "percentages": [
-            54
-          ]
-        },
-        {
-          "candidates": [
-            "Sara Rodriguez favorability net"
-          ],
-          "percentages": [
-            0
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.jsonline.com/story/news/politics/2026/03/24/marquette-poll-finds-wisconsin-voters-not-engaged-in-governors-race/89287530007/",
       "sample_size": 850
     },
@@ -74,68 +49,12 @@
         },
         {
           "candidates": [
-            "David Crowley",
-            "Tom Tiffany"
-          ],
-          "percentages": [
-            12,
-            21
-          ]
-        },
-        {
-          "candidates": [
             "Kelda Roys",
             "Tom Tiffany"
           ],
           "percentages": [
             10,
             21
-          ]
-        },
-        {
-          "candidates": [
-            "Missy Hughes",
-            "Tom Tiffany"
-          ],
-          "percentages": [
-            7,
-            21
-          ]
-        },
-        {
-          "candidates": [
-            "Joel Brennan",
-            "Tom Tiffany"
-          ],
-          "percentages": [
-            6,
-            21
-          ]
-        },
-        {
-          "candidates": [
-            "Brett Hulsey",
-            "Tom Tiffany"
-          ],
-          "percentages": [
-            3,
-            21
-          ]
-        },
-        {
-          "candidates": [
-            "Democratic primary undecided"
-          ],
-          "percentages": [
-            65
-          ]
-        },
-        {
-          "candidates": [
-            "Republican primary undecided"
-          ],
-          "percentages": [
-            63
           ]
         }
       ],
@@ -145,32 +64,7 @@
     {
       "pollster": "Marquette University Law School",
       "date": "2026-03-18",
-      "matchups": [
-        {
-          "candidates": [
-            "Democratic primary undecided"
-          ],
-          "percentages": [
-            65
-          ]
-        },
-        {
-          "candidates": [
-            "Republican primary undecided"
-          ],
-          "percentages": [
-            54
-          ]
-        },
-        {
-          "candidates": [
-            "Sara Rodriguez favorability net"
-          ],
-          "percentages": [
-            0
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.jsonline.com/story/news/politics/2026/03/24/marquette-poll-finds-wisconsin-voters-not-engaged-in-governors-race/89287530007/",
       "sample_size": 850
     },
@@ -221,17 +115,20 @@
         {
           "url": "https://www.saraforwi.com/about",
           "title": "About Sara Rodriguez | Leadership for Wisconsin",
-          "type": "website"
+          "type": "website",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://evers.wi.gov/ltgov/Pages/About_LG.aspx",
           "title": "About Lieutenant Governor Sara Rodriguez",
-          "type": "official"
+          "type": "government",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://ballotpedia.org/Sara_Rodriguez",
           "title": "Sara Rodriguez - Ballotpedia",
-          "type": "website"
+          "type": "website",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Sarah_Rodriguez_%28trim%29.jpg/500px-Sarah_Rodriguez_%28trim%29.jpg",
@@ -379,7 +276,8 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "Rodriguez says she would lower costs for families by cutting property taxes, making child care more affordable, and helping more Wisconsinites buy homes. Her campaign also emphasizes wages and long-term affordability for working families.",
@@ -397,7 +295,8 @@
               "type": "website",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "Rodriguez says she would lower utility costs and energy bills while protecting Wisconsin’s air, water, and land. She has also said large energy users such as data centers should cover their own energy costs and that projects should include local input and renewable energy commitments.",
@@ -415,9 +314,10 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "Rodriguez says she would protect reproductive freedom and ensure people can make their own health care decisions. Her campaign says it would defend abortion rights and access to contraception and fertility care.",
           "confidence": "high",
           "sources": [
@@ -433,7 +333,8 @@
               "type": "website",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "Rodriguez says she would stand up to federal immigration enforcement she views as reckless and protect Wisconsin communities. Her campaign has also called for limits on enforcement at sensitive locations such as schools, hospitals, courthouses, and places of worship.",
@@ -451,9 +352,10 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "Rodriguez’s campaign says she would keep communities safe and build a justice system that works, but it does not lay out a detailed firearms policy on the campaign site reviewed. Public materials emphasize public safety, fairness, and second chances.",
           "confidence": "medium",
           "sources": [
@@ -463,13 +365,15 @@
               "type": "website",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "No public position found.",
-          "confidence": "low"
+          "confidence": "low",
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "Rodriguez says she would reform the criminal justice system so it keeps communities safe, treats people fairly, and gives people a second chance. Her campaign also says it would defend civil rights and protect Wisconsin from federal overreach affecting health care, schools, voting rights, and communities.",
           "confidence": "high",
           "sources": [
@@ -479,7 +383,8 @@
               "type": "website",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "Rodriguez says she would fully fund public schools and keep property taxes from rising because of school costs. Her campaign also says it would support child care and keep kids safe online as part of a broader family-support agenda.",
@@ -497,7 +402,8 @@
               "type": "website",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Tech & AI": {
           "stance": "Rodriguez says she would make AI work for Wisconsin workers rather than only for tech companies. Her campaign also says it would protect kids online by holding Big Tech accountable and limiting harmful design and advertising practices.",
@@ -515,9 +421,10 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "Rodriguez has supported automatic voter registration and previously authored AVR legislation in the Wisconsin Assembly. Her campaign also says it would protect voting rights from federal overreach.",
           "confidence": "high",
           "sources": [
@@ -533,7 +440,8 @@
               "type": "website",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
           "stance": "Rodriguez says she would support local communities by lowering property taxes, making housing more affordable, and requiring local input on major energy projects. Her campaign also emphasizes clean air and water protections and community-level decision-making.",
@@ -551,7 +459,8 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         }
       },
       "donor_summary": "Sara Rodriguez’s publicly available campaign-finance data shows a mix of individual donors, PACs, and entity contributions, with the largest publicly accessible state-level totals coming from her Wisconsin campaign filings rather than the unrelated 2022 Tony Evers OpenSecrets ticket page. OpenSecrets’ Evers page does list Sara Rodriguez for Wisconsin as one contributor to Evers’ 2022 committee, but that source is ticket-level data and should not be treated as Rodriguez’s own donor list.",
@@ -619,7 +528,9 @@
       ],
       "donor_source_url": "https://www.transparencyusa.org/wi/candidate/sara-rodriguez/contributions",
       "voting_summary": "Sara Rodriguez is an incumbent Wisconsin lieutenant governor, not a legislator, so there is no legislative voting record to report. Her comparable governing record is executive: she has served in the Evers administration since 2023, but I did not find a public roll-call voting record for her in the sources reviewed. Sources: https://ballotpedia.org/Sara_Rodriguez ; https://evers.wi.gov/Pages/Newsroom/About_Mandela.aspx",
-      "voting_source_url": "https://ballotpedia.org/Sara_Rodriguez"
+      "voting_source_url": "https://ballotpedia.org/Sara_Rodriguez",
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Tom Tiffany",
@@ -630,17 +541,20 @@
         {
           "url": "https://www.congress.gov/member/thomas-tiffany/T000165",
           "type": "government",
-          "title": "Thomas Tiffany | Congress.gov"
+          "title": "Thomas Tiffany | Congress.gov",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://tomtiffany.com/solutions/",
-          "type": "campaign",
-          "title": "Tom's Solutions - Tom Tiffany for Governor"
+          "type": "website",
+          "title": "Tom's Solutions - Tom Tiffany for Governor",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://ballotpedia.org/Tom_Tiffany",
-          "type": "ballotpedia",
-          "title": "Tom Tiffany - Ballotpedia"
+          "type": "website",
+          "title": "Tom Tiffany - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Tom_Tiffany.jpg/500px-Tom_Tiffany.jpg",
@@ -703,7 +617,7 @@
           "sources": [
             {
               "url": "https://tomtiffany.com/solutions/",
-              "type": "campaign",
+              "type": "website",
               "title": "Tom's Solutions - Tom Tiffany for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -713,7 +627,8 @@
               "title": "A Better Wisconsin Together: Tom Tiffany votes to take healthcare away from 60,000 Wisconsinites",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "Tiffany says he would freeze property taxes, repeal Gov. Evers’ proposed 400-year tax increase, end state income taxes on tips and overtime, and cut regulations to reduce costs for families and businesses. He also says he would pursue lower energy costs as part of his economic agenda.",
@@ -721,7 +636,7 @@
           "sources": [
             {
               "url": "https://tomtiffany.com/solutions/",
-              "type": "campaign",
+              "type": "website",
               "title": "Tom's Solutions - Tom Tiffany for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -737,7 +652,8 @@
               "title": "Tiffany campaign: Announces plan in Wausau to eliminate state income taxes on tips and overtime",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "Tiffany says he would lower energy costs by expanding reliable baseload power and opposing wind and solar projects on farmland. He also supports ending vehicle emissions testing in southeast Wisconsin.",
@@ -745,7 +661,7 @@
           "sources": [
             {
               "url": "https://tomtiffany.com/solutions/",
-              "type": "campaign",
+              "type": "website",
               "title": "Tom's Solutions - Tom Tiffany for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -755,9 +671,10 @@
               "title": "Should Wisconsin get rid of car emissions tests? Tom Tiffany says yes",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "Tiffany has said he would uphold Wisconsin’s current abortion law if elected governor.",
           "confidence": "high",
           "sources": [
@@ -773,7 +690,8 @@
               "title": "What Bill Berrien, Josh Schoemann and Tom Tiffany say about abortion",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "Tiffany supports aggressive immigration enforcement, including working with federal authorities such as ICE, and his campaign says it would ban sanctuary cities in Wisconsin.",
@@ -781,7 +699,7 @@
           "sources": [
             {
               "url": "https://tomtiffany.com/solutions/",
-              "type": "campaign",
+              "type": "website",
               "title": "Tom's Solutions - Tom Tiffany for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -791,9 +709,10 @@
               "title": "US Rep. Tom Tiffany, GOP candidate for governor, blames Democrats for Minnesota shooting",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "Tiffany strongly supports Second Amendment rights and has said concealed carry should be allowed for permit holders, including at protests, while emphasizing responsible and lawful carry.",
           "confidence": "high",
           "sources": [
@@ -809,7 +728,8 @@
               "title": "Wisconsin Democrats use gun rights to target GOP candidate Tom Tiffany",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "Tiffany has criticized what he describes as a globalist foreign-policy approach and has supported cutting foreign aid and reducing the State Department budget.",
@@ -827,15 +747,16 @@
               "title": "US Rep. Tom Tiffany on the border, inflation, foreign policy",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "Tiffany’s campaign messaging is socially conservative, including opposition to policies it says conflict with its views on gender identity in schools and support for girls’ sports and locker rooms being for girls.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://tomtiffany.com/solutions/",
-              "type": "campaign",
+              "type": "website",
               "title": "Tom's Solutions - Tom Tiffany for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -845,7 +766,8 @@
               "title": "Tom Tiffany, Rob Kreibich Call on New Richmond Schools to Reverse Policy Allowing Males in Girls’ Bathrooms",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "Tiffany says he would increase education funding while requiring accountability, raise teacher pay, reward successful schools and administrators, and emphasize early literacy and classroom instruction.",
@@ -853,7 +775,7 @@
           "sources": [
             {
               "url": "https://tomtiffany.com/solutions/",
-              "type": "campaign",
+              "type": "website",
               "title": "Tom's Solutions - Tom Tiffany for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -863,7 +785,8 @@
               "title": "Tom Tiffany on issues in Wisconsin's 2026 governor's race",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Tech & AI": {
           "stance": "Tiffany says he would end subsidies for data centers in Wisconsin and oppose government incentives for AI and data-center development.",
@@ -883,13 +806,14 @@
             },
             {
               "url": "https://www.instagram.com/p/DXSlSp1jN0s/",
-              "type": "social",
+              "type": "social_media",
               "title": "Tom Tiffany Instagram post: I will end all subsidies for data centers in Wisconsin",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "Tiffany has signaled opposition to expanding mail-in voting and says it should not be widespread, with a limited exception for military voters.",
           "confidence": "high",
           "sources": [
@@ -905,7 +829,8 @@
               "title": "Tom Tiffany, regular absentee voter, says 'I don't believe we should be doing mail-in voting'",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
           "stance": "Tiffany says local governments should be well-funded, especially for roads and bridges, and he favors local control on projects like mining and housing-related zoning decisions.",
@@ -919,11 +844,12 @@
             },
             {
               "url": "https://tomtiffany.com/solutions/",
-              "type": "campaign",
+              "type": "website",
               "title": "Tom's Solutions - Tom Tiffany for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         }
       },
       "donor_summary": "Tom Tiffany’s OpenSecrets profile shows federal campaign-finance data for his congressional committee, and Wisconsin reporting said he had raised about $2 million in the governor’s race. The public sources I found do not provide a clean industry breakdown in the search snippets, but OpenSecrets is the best full donor reference for his federal fundraising history and individual donors. Sources: https://www.opensecrets.org/profiles/tom-tiffany/us_congress/summary?mpid=1109891 ; https://wisconsinexaminer.com/2026/01/16/crowley-and-tiffany-lead-fundraising-in-governors-race/",
@@ -1001,7 +927,9 @@
       ],
       "donor_source_url": "https://www.opensecrets.org/profiles/tom-tiffany/us_congress/summary?mpid=1109891",
       "voting_summary": "Tom Tiffany is an incumbent U.S. representative, so he has a legislative voting record. GovTrack and Vote Smart both track his votes; his record is strongly aligned with the Republican caucus, and his 2024 GovTrack report card shows a conservative voting pattern. Sources: https://www.govtrack.us/congress/members/thomas_tiffany/456791/report-card/2024 ; https://justfacts.votesmart.org/candidate/key-votes/51831/tom-tiffany",
-      "voting_source_url": "https://justfacts.votesmart.org/candidate/key-votes/51831/tom-tiffany"
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/key-votes/51831/tom-tiffany",
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Mike Kohn",
@@ -1011,18 +939,21 @@
       "summary_sources": [
         {
           "url": "https://campaignfinance.wi.gov/browse-data/registrant/11954790",
-          "type": "official",
-          "title": "Mike Kohn for Governor - Sunshine: Wisconsin Campaign Finance"
+          "type": "government",
+          "title": "Mike Kohn for Governor - Sunshine: Wisconsin Campaign Finance",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://www.wuwm.com/2026-wisconsin-governor-race-candidates",
           "type": "news",
-          "title": "Here's who is running for Wisconsin governor in 2026"
+          "title": "Here's who is running for Wisconsin governor in 2026",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://ballotpedia.org/Mike_Kohn",
           "type": "website",
-          "title": "Mike Kohn - Ballotpedia"
+          "title": "Mike Kohn - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Mike_Kohn_2013b.jpg/500px-Mike_Kohn_2013b.jpg",
@@ -1051,7 +982,7 @@
           "sources": [
             {
               "url": "https://campaignfinance.wi.gov/browse-data/registrant/11954790",
-              "type": "official",
+              "type": "government",
               "title": "Mike Kohn for Governor - Sunshine: Wisconsin Campaign Finance",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -1061,7 +992,8 @@
               "title": "Here's who is running for Wisconsin governor in 2026",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "No public position found.",
@@ -1079,7 +1011,8 @@
               "title": "Here's who is running for Wisconsin governor in 2026",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "No public position found.",
@@ -1091,9 +1024,10 @@
               "title": "Mike Kohn - Ballotpedia",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
@@ -1103,7 +1037,8 @@
               "title": "Mike Kohn - Ballotpedia",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "No public position found.",
@@ -1121,9 +1056,10 @@
               "title": "Here's who is running for Wisconsin governor in 2026",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
@@ -1139,7 +1075,8 @@
               "title": "Mike Kohn - VOTE SAFE",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "No public position found.",
@@ -1151,9 +1088,10 @@
               "title": "Mike Kohn - Ballotpedia",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
@@ -1169,7 +1107,8 @@
               "title": "Kohn, Mike - Wisconsin Democracy Campaign",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "No public position found.",
@@ -1187,7 +1126,8 @@
               "title": "Here's who is running for Wisconsin governor in 2026",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Tech & AI": {
           "stance": "No public position found.",
@@ -1199,9 +1139,10 @@
               "title": "Mike Kohn - Ballotpedia",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
@@ -1211,7 +1152,8 @@
               "title": "Mike Kohn - Ballotpedia",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
           "stance": "No public position found.",
@@ -1229,7 +1171,8 @@
               "title": "Here's who is running for Wisconsin governor in 2026",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         }
       },
       "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-27. The Wisconsin campaign finance portal shows a committee registration for Mike Kohn for Governor, but I did not find a public fundraising total, donor list, or industry breakdown in the sources reviewed. Sources: https://campaignfinance.wi.gov/browse-data/registrant/11954790 ; https://ballotpedia.org/Mike_Kohn",
@@ -1267,305 +1210,9 @@
       ],
       "donor_source_url": "https://campaignfinance.wi.gov/browse-data/registrant/11954790",
       "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed, so there is no comparable roll-call or executive-action record to summarize. Sources: https://ballotpedia.org/Mike_Kohn ; https://campaignfinance.wi.gov/browse-data/registrant/11954790",
-      "voting_source_url": "https://ballotpedia.org/Mike_Kohn"
-    },
-    {
-      "name": "David D. King",
-      "party": "Independent",
-      "incumbent": false,
-      "summary": "David D. King is a Milwaukee-based pastor and community leader running as an independent for Wisconsin governor. His campaign says he is focused on education, health care, infrastructure, public safety, and economic opportunity, and it highlights his work with community outreach and transitional support programs.",
-      "summary_sources": [
-        {
-          "url": "https://www.kingforgovernor.com/meet-david-king",
-          "title": "Meet David King | King For Governor",
-          "type": "campaign"
-        },
-        {
-          "url": "https://www.kingforgovernor.com/my-platform",
-          "title": "My Platform | King For Governor",
-          "type": "campaign"
-        },
-        {
-          "url": "https://pbswisconsin.org/candidate/david-king/",
-          "title": "David King - PBS Wisconsin",
-          "type": "news"
-        }
-      ],
-      "image_url": null,
-      "website": "https://www.kingforgovernor.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/KingForGovernor/"
-      },
-      "career_history": [
-        {
-          "title": "Founder",
-          "organization": "Wisconsin God Squad",
-          "start_year": 2007,
-          "end_year": null,
-          "description": "Founded a community organization that has assisted over 2,000 individuals facing homelessness, addiction, or prior convictions by helping them find employment and transportation."
-        },
-        {
-          "title": "Founder",
-          "organization": "Kingdom Chamber of Commerce",
-          "start_year": 2021,
-          "end_year": null,
-          "description": "Established to support small businesses and ministries by offering networking opportunities and access to financial instruments."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Grace Theological Seminary",
-          "degree": "Doctorate in Theology",
-          "field": "Theology",
-          "year": 2021
-        }
-      ],
-      "voting_record": [
-        {
-          "bill_name": "No legislative voting record found",
-          "vote": "absent",
-          "date": "2026-03-29",
-          "source": {
-            "url": "https://ballotpedia.org/David_King_(Wisconsin)",
-            "type": "website",
-            "title": "David King (Wisconsin) - Ballotpedia",
-            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
-          }
-        }
-      ],
-      "top_donors": [],
-      "issues": {
-        "Healthcare": {
-          "stance": "King supports a Wisconsin Whole Health Plan that would integrate traditional medicine with chiropractic and other holistic services, including acupuncture, naturopathy, massage therapy, and nutrition counseling. The plan also calls for lower out-of-pocket costs, preventive health programs, and new integrative clinics in underserved areas.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "King’s economic plan emphasizes expanding manufacturing and innovation, including AI and research partnerships, while cutting red tape for small businesses and giving Wisconsin firms first shot at state contracts. He also calls for workforce training, apprenticeships, childcare solutions, support for agriculture and rural areas, and fiscal restraint.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "King says Wisconsin should strengthen the grid, support clean energy, and protect against outages while also prioritizing roads, bridges, broadband, and clean water infrastructure. His platform frames energy policy as part of a broader infrastructure agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "No public position found in the campaign materials reviewed. The campaign website pages reviewed do not state a position on abortion or reproductive rights.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.kingforgovernor.com/meet-david-king",
-              "title": "Meet David King | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found in the campaign materials reviewed. The campaign pages reviewed do not include an immigration-specific policy statement.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.kingforgovernor.com/meet-david-king",
-              "title": "Meet David King | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "King’s Wisconsin Safe Communities Plan says he would be tough on violent crime while expanding community policing, neighborhood officers, youth jobs, mentoring, and efforts against drug trafficking and fentanyl. The plan also sets public year-one targets for reducing shootings, homicides, overdose deaths, and reckless-driving fatalities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found in the campaign materials reviewed. The campaign website focuses on Wisconsin state issues and does not present a foreign-policy platform.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.kingforgovernor.com/meet-david-king",
-              "title": "Meet David King | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "King presents his campaign as focused on community uplift, unity, and service, highlighting ministry and civic work that has assisted people facing homelessness, addiction, and reentry challenges. His messaging emphasizes putting people before politics and bringing Wisconsinites together.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/meet-david-king",
-              "title": "Meet David King | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "King’s education plan calls for reading by third grade, math mastery by eighth grade, higher pay pathways and less paperwork for teachers, more mental health support in schools, paid youth apprenticeships and dual-credit opportunities, and fairer school funding.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "King’s platform says Wisconsin should grow manufacturing and innovation, including AI and research partnerships, but it does not lay out a detailed standalone technology or AI policy.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/meet-david-king",
-              "title": "Meet David King | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "King’s local-issues agenda centers on education, infrastructure, holistic health care, public safety, and economic development. His platform also emphasizes broadband access, clean water, reliable energy, support for farms and small businesses, and community revitalization.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kingforgovernor.com/my-platform",
-              "title": "My Platform | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.kingforgovernor.com/issues",
-              "title": "Issues | King For Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        }
-      },
-      "donor_summary": "David D. King’s public finance footprint appears to be limited and mostly state-level. The Wisconsin Transparency USA page exists, and his campaign donation page is public, but I did not find a reliable public total raised or a detailed industry breakdown in the sources reviewed. Sources: https://www.transparencyusa.org/wi/candidate/david-king ; https://www.kingforgovernor.com/donations",
-      "links": [
-        {
-          "url": "https://ballotpedia.org/David_King_(Wisconsin)",
-          "title": "David King (Wisconsin) - Ballotpedia",
-          "type": "ballotpedia"
-        },
-        {
-          "url": "https://pbswisconsin.org/candidate/david-king/",
-          "title": "David King - PBS Wisconsin",
-          "type": "news"
-        },
-        {
-          "url": "https://www.kingforgovernor.com/meet-david-king",
-          "title": "Meet David King | King For Governor",
-          "type": "official"
-        },
-        {
-          "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
-          "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
-          "type": "news"
-        },
-        {
-          "url": "https://www.transparencyusa.org/wi/candidate/david-king",
-          "title": "David King - Wisconsin Candidate - Transparency USA",
-          "type": "finance"
-        },
-        {
-          "url": "https://en.wikipedia.org/wiki/2026_Wisconsin_gubernatorial_election",
-          "title": "2026 Wisconsin gubernatorial election - Wikipedia",
-          "type": "wiki"
-        },
-        {
-          "url": "https://urbanmilwaukee.com/people/david-king/",
-          "title": "David D. King - Urban Milwaukee",
-          "type": "news"
-        },
-        {
-          "url": "https://www.kingforgovernor.com/",
-          "title": "King For Governor",
-          "type": "official"
-        },
-        {
-          "url": "https://www.kingforgovernor.com/my-platform",
-          "title": "My Platform | King For Governor",
-          "type": "official"
-        },
-        {
-          "url": "https://www.kingforgovernor.com/donations",
-          "title": "Donations | King For Governor",
-          "type": "official"
-        }
-      ],
-      "donor_source_url": "https://www.transparencyusa.org/wi/candidate/david-king",
-      "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed that would provide a comparable voting or executive-action record. Sources: https://ballotpedia.org/David_King_(Wisconsin) ; https://pbswisconsin.org/candidate/david-king/",
-      "voting_source_url": "https://ballotpedia.org/David_King_(Wisconsin)"
+      "voting_source_url": "https://ballotpedia.org/Mike_Kohn",
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Francesca Hong",
@@ -1575,15 +1222,21 @@
       "summary_sources": [
         {
           "url": "https://legis.wisconsin.gov/assembly/76/hong/about/",
-          "title": "Meet Francesca Hong - Wisconsin State Legislature"
+          "title": "Meet Francesca Hong - Wisconsin State Legislature",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00",
+          "type": "website"
         },
         {
           "url": "https://francescahong.com/",
-          "title": "Francesca Hong For Governor | We Make Better Possible"
+          "title": "Francesca Hong For Governor | We Make Better Possible",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00",
+          "type": "website"
         },
         {
           "url": "https://ballotpedia.org/Francesca_Hong",
-          "title": "Francesca Hong - Ballotpedia"
+          "title": "Francesca Hong - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00",
+          "type": "website"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Francesca_Hong_IMG_2500_%281%29.jpg",
@@ -1647,7 +1300,7 @@
           "sources": [
             {
               "url": "https://francescahong.com/",
-              "type": "official",
+              "type": "government",
               "title": "Francesca Hong campaign site",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             },
@@ -1657,7 +1310,8 @@
               "title": "PBS Wisconsin - Francesca Hong on issues in Wisconsin's 2026 governor's race",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "Hong’s economic platform centers on affordability for working families, including universal childcare, universal paid leave, fully funded public schools, and tax fairness that closes loopholes and asks more of high earners and large corporations. She also supports housing affordability measures and a public bank to help with lending for housing and small businesses.",
@@ -1665,7 +1319,7 @@
           "sources": [
             {
               "url": "https://francescahong.com/",
-              "type": "official",
+              "type": "government",
               "title": "Francesca Hong campaign site",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             },
@@ -1675,7 +1329,8 @@
               "title": "PBS Wisconsin - Francesca Hong on issues in Wisconsin's 2026 governor's race",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "Hong supports stronger limits on subsidies for large data centers and says Wisconsin should not hand out subsidies to corporations that raise costs for ratepayers or harm the environment. She has also said she is opposed to harmful mining and drilling projects and wants communities protected from environmental damage.",
@@ -1689,13 +1344,14 @@
             },
             {
               "url": "https://francescahong.com/",
-              "type": "official",
+              "type": "government",
               "title": "Francesca Hong campaign site",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "Hong supports repealing Wisconsin’s 1849 abortion ban and says abortion is health care that should be accessible equitably. She has also backed the Reproductive Freedom Act and opposes restrictions that interfere with reproductive health care.",
           "confidence": "high",
           "sources": [
@@ -1707,11 +1363,12 @@
             },
             {
               "url": "https://legis.wisconsin.gov/senate/26/roys/press-releases/sen-roys-rep-hong-introduce-reproductive-freedom-act/",
-              "type": "official",
+              "type": "government",
               "title": "Sen. Roys, Rep. Hong introduce Reproductive Freedom Act",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "Hong supports stronger protections for immigrant communities, including limiting ICE cooperation, protecting due process, and expanding access to state IDs and in-state tuition for DACA recipients. Her campaign says Wisconsin should use state authority to protect residents regardless of immigration status.",
@@ -1720,46 +1377,55 @@
             {
               "url": "https://francescahong.com/",
               "title": "Francesca Hong campaign site",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             },
             {
               "url": "https://francescahong.com/policy",
               "title": "Francesca Hong campaign policy page",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "Hong supports universal gun safety measures such as universal background checks, red flag laws, and safe-storage requirements. Her public comments frame these policies as child-safety and violence-prevention measures.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://pbswisconsin.org/news-item/francesca-hong-on-issues-in-wisconsins-2026-governors-race",
               "title": "PBS Wisconsin - Francesca Hong on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             },
             {
               "url": "https://www.pbs.org/video/francesca-hong-on-the-2026-primary-for-governor-of-wisconsin-bfjozz/",
               "title": "PBS - Francesca Hong on the 2026 primary for governor of Wisconsin",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "Hong’s platform emphasizes economic dignity and equity, including renter protections, right to counsel in eviction cases, LGBTQ-inclusive health care, immigrant protections, and criminal-justice reforms that expand due process. She frames these policies as part of a broader effort to reduce racial, gender, and class disparities.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://francescahong.com/policy/",
               "title": "Francesca Hong campaign policy page",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             },
             {
               "url": "https://francescahong.com/",
               "title": "Francesca Hong campaign site",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "Hong supports fully funding public schools, increasing special education reimbursement, and shifting school funding away from property taxes. She opposes voucher programs and says public dollars should go to public schools, universities, and technical colleges.",
@@ -1768,14 +1434,17 @@
             {
               "url": "https://francescahong.com/policy",
               "title": "Francesca Hong campaign policy page",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             },
             {
               "url": "https://pbswisconsin.org/news-item/francesca-hong-on-issues-in-wisconsins-2026-governors-race",
               "title": "PBS Wisconsin - Francesca Hong on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Local Issues": {
           "stance": "Hong supports a moratorium on new data centers until Wisconsin adopts statewide standards, and she wants local communities to have stronger input on energy, environmental, and tax impacts. She also backs local funding tools such as a local option income tax and community-based financing for housing and public services.",
@@ -1784,18 +1453,22 @@
             {
               "url": "https://francescahong.com/policy",
               "title": "Francesca Hong campaign policy page",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             },
             {
               "url": "https://wisconsinexaminer.com/2026/01/13/what-do-wisconsin-gubernatorial-candidates-think-about-data-center-development/",
               "title": "Wisconsin Examiner - data center development",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         },
         "Foreign Policy": {
           "stance": "No public position found.",
-          "confidence": "low"
+          "confidence": "low",
+          "issue": "Foreign Policy"
         },
         "Tech & AI": {
           "stance": "Hong says Wisconsin should pause new AI data-center construction until the state has rules to protect electricity rates, the environment, and local communities. She opposes tax breaks for data centers and says any approved projects should provide long-term public benefit and use union labor.",
@@ -1804,27 +1477,34 @@
             {
               "url": "https://francescahong.com/",
               "title": "Francesca Hong campaign site",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             },
             {
               "url": "https://wisconsinexaminer.com/2026/01/13/what-do-wisconsin-gubernatorial-candidates-think-about-data-center-development/",
               "title": "Wisconsin Examiner - data center development",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "Hong has opposed legislation she says would make voting and campaign participation harder, including a 2025 bill on absentee ballots and a 2025 bill on online political donations. Her public record suggests support for easier access to voting and skepticism of restrictive election measures.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://justfacts.votesmart.org/candidate/193953/francesca-hong",
               "title": "Vote Smart - Francesca Hong voting record",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
+              "last_accessed": "2026-04-27T14:16:05.276633+00:00",
+              "type": "website"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Mandela Barnes",
@@ -1835,17 +1515,20 @@
         {
           "url": "https://www.mandelabarnes.com/",
           "title": "Mandela Barnes for Wisconsin Governor",
-          "type": "official"
+          "type": "government",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://evers.wi.gov/Pages/Newsroom/About_Mandela.aspx",
           "title": "About Lieutenant Governor Mandela Barnes",
-          "type": "official"
+          "type": "government",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://www.jsonline.com/story/news/politics/2025/12/02/mandela-barnes-launches-2026-campaign-for-wisconsin-governor/86672859007/",
           "title": "Mandela Barnes launches 2026 campaign for Wisconsin governor",
-          "type": "news"
+          "type": "news",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mandela_Barnes_2022.jpg/500px-Mandela_Barnes_2022.jpg",
@@ -1913,10 +1596,11 @@
             {
               "url": "https://www.mandelabarnes.com/issues",
               "title": "The Wisconsin Way — Mandela Barnes for Wisconsin",
-              "type": "official",
+              "type": "government",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Climate/Energy": {
           "stance": "Barnes says Wisconsin should invest in more renewable energy, including wind, solar, and geothermal, and he wants the Public Service Commission to keep costs low for ratepayers. He also says large projects such as data centers should not raise utility rates for customers and should include community benefits agreements and local input.",
@@ -1931,28 +1615,30 @@
             {
               "url": "https://www.mandelabarnes.com/issues",
               "title": "The Wisconsin Way — Mandela Barnes for Wisconsin",
-              "type": "official",
+              "type": "government",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "Barnes supports red flag laws, universal background checks, and an assault weapons ban. His campaign says these measures are part of a broader public-safety approach while preserving lawful gun ownership.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.mandelabarnes.com/issues",
               "title": "The Wisconsin Way — Mandela Barnes for Wisconsin",
-              "type": "official",
+              "type": "government",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             },
             {
               "url": "https://giffords.org/candidates/mandela-barnes/",
               "title": "Mandela Barnes - Giffords endorsement",
-              "type": "policy",
+              "type": "website",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "No public position found",
@@ -1964,9 +1650,10 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "Barnes says he wants to represent Wisconsin residents rather than a party label and emphasizes civil rights, voting access, and broader community input in state decision-making. He also frames public services and education policy around helping people who face unequal starting conditions.",
           "confidence": "medium",
           "sources": [
@@ -1976,7 +1663,8 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "Barnes says Wisconsin should fully meet its public-school funding pledge, invest in the whole child, and ensure public funding comes with accountability. He also supports stronger support for students’ health, housing, and school resources, along with public accountability for voucher-funded schools.",
@@ -1988,7 +1676,8 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Tech & AI": {
           "stance": "Barnes says data centers should face community benefits agreements, local hiring expectations, and protections against higher utility rates for residents. He also wants community input prioritized and says water-quality concerns should be addressed before projects move forward.",
@@ -2006,9 +1695,10 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "Barnes says he has worked with bipartisan groups and election officials to strengthen confidence in the electoral process and support democracy reform. He favors changes that improve election integrity and says he is willing to work across party lines on the issue.",
           "confidence": "high",
           "sources": [
@@ -2018,7 +1708,8 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
           "stance": "Barnes says state government should help municipalities secure resources for basic services and that local leaders should have a meaningful role in decisions affecting their communities. He also ties local affordability concerns to utility rates, housing costs, and data-center siting.",
@@ -2036,7 +1727,8 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         },
         "Economy": {
           "stance": "Barnes emphasizes lowering household costs, including housing and utility bills, and says state policy should focus on affordability for Wisconsin families. He also argues for local fiscal solutions that help municipalities maintain services and for public investments that support working people.",
@@ -2054,9 +1746,10 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "Barnes said he would like to see abortion rights proactively protected in Wisconsin and return the state to a pre-Dobbs framework. He described abortion as a decision best made between a woman and her health care provider.",
           "confidence": "high",
           "sources": [
@@ -2066,7 +1759,8 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "No public position found",
@@ -2078,9 +1772,12 @@
               "type": "news",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Kelda Roys",
@@ -2091,17 +1788,20 @@
         {
           "url": "https://legis.wisconsin.gov/senate/26/roys/about/",
           "title": "About | Senate District 26 - Wisconsin State Legislature",
-          "type": "legislature"
+          "type": "government",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://www.keldaroys.com/about",
           "title": "Meet Kelda - Kelda Roys for Governor",
-          "type": "official"
+          "type": "government",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://ballotpedia.org/Kelda_Roys",
           "title": "Kelda Roys - Ballotpedia",
-          "type": "ballotpedia"
+          "type": "website",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         }
       ],
       "image_url": null,
@@ -2170,13 +1870,13 @@
           "sources": [
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
             {
               "url": "https://www.keldaroys.com/keldacare",
-              "type": "campaign page",
+              "type": "website",
               "title": "KeldaCare - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -2186,7 +1886,8 @@
               "title": "Journal Sentinel - Kelda Roys proposes KeldaCare health care platform",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "Backs raising wages, including a $15 minimum wage with a path to $20 by 2030, restoring collective bargaining rights, and expanding support for small businesses. Her campaign also says she would pursue paid family and medical leave, affordable childcare, housing affordability, and a state venture fund to help Wisconsin businesses grow.",
@@ -2194,7 +1895,7 @@
           "sources": [
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -2210,7 +1911,8 @@
               "title": "Wisconsin Public Radio - Democrats vying for Wisconsin governor sound off on data centers",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "Supports expanding clean energy and modernizing Wisconsin's energy system, with emphasis on wind, solar, geothermal, and infrastructure that keeps costs down for households. She also wants stronger oversight of data centers so they help pay for grid upgrades and do not shift costs onto ratepayers.",
@@ -2218,7 +1920,7 @@
           "sources": [
             {
               "url": "https://legis.wisconsin.gov/senate/26/roys/press-releases/roys-leads-on-energy-affordability/",
-              "type": "legislative press release",
+              "type": "government",
               "title": "Roys Leads on Energy Affordability - Wisconsin Legislature",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -2234,15 +1936,16 @@
               "title": "Kelda Roys on issues in Wisconsin's 2026 governor's race",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "Supports abortion rights, contraception access, and infertility coverage, and says reproductive decisions should remain private and protected in law. Her campaign and legislative biography describe her as a long-time advocate for reproductive freedom.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.keldaroys.com/about",
-              "type": "campaign page",
+              "type": "website",
               "title": "Meet Kelda - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -2254,11 +1957,12 @@
             },
             {
               "url": "https://legis.wisconsin.gov/senate/26/roys/about/",
-              "type": "legislature bio",
+              "type": "government",
               "title": "About | Senate District 26 - Wisconsin State Legislature",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Immigration": {
           "stance": "Supports immigration enforcement reforms that limit local participation in ICE raids, increase accountability for ICE conduct, and protect immigrant communities. Her campaign says Wisconsin can have immigration enforcement and secure borders without what it calls lawless ICE violence, and it backs a pathway to citizenship for undocumented immigrants.",
@@ -2266,7 +1970,7 @@
           "sources": [
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -2276,9 +1980,10 @@
               "title": "Kelda Roys lays out health care plan, immigration enforcement",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "Supports gun-safety legislation, including a proposal to prohibit firearms on Wisconsin college campuses with limited exceptions for law enforcement, military personnel on duty, and authorized campus programs. The campaign has also tied public safety to broader accountability and community protection measures.",
           "confidence": "high",
           "sources": [
@@ -2296,11 +2001,12 @@
             },
             {
               "url": "https://pro.stateaffairs.com/wi/press-releases/sen-roys-rep-brown-announce-gun-safety-legislation",
-              "type": "press release",
+              "type": "government",
               "title": "Sen. Roys, Rep. Brown: Announce gun safety legislation",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "No public position found on traditional foreign policy issues. Her campaign materials focus instead on state-level immigration enforcement, federal policy impacts on Wisconsin, and related accountability measures.",
@@ -2308,19 +2014,20 @@
           "sources": [
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "Emphasizes civil rights, voting access, worker protections, and accountability for powerful institutions. Her campaign links social justice to fair wages, affordable health care, public education, housing, and opposition to discriminatory or abusive enforcement practices.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -2330,7 +2037,8 @@
               "title": "Kelda Roys on issues in Wisconsin's 2026 governor's race",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "Supports stronger funding for Wisconsin public schools, ending or reforming voucher programs, and improving teacher retention and professional development. Her campaign also says schools should use evidence-based instruction, including the science of reading, and keep classrooms focused on learning rather than unproven technology.",
@@ -2338,13 +2046,13 @@
           "sources": [
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
             {
               "url": "https://weac.org/senator-kelda-roys-is-weacs-recommended-candidate-for-governor/",
-              "type": "endorsement/policy",
+              "type": "website",
               "title": "WEAC endorses Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -2354,7 +2062,8 @@
               "title": "Roys campaign: Our kids deserve the best education in the country",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Tech & AI": {
           "stance": "Supports state guardrails on AI and data-center development, including transparency, community-benefit requirements, and limits on practices she says can harm consumers or raise energy costs. Her campaign also backs protections against AI-driven abuses such as addictive algorithms and insurance denials.",
@@ -2368,29 +2077,31 @@
             },
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
             {
               "url": "https://legis.wisconsin.gov/senate/26/roys/press-releases/sen-kelda-roys-testifies-to-protect-wisconsinites-from-tech-exploitation/",
-              "type": "press release",
+              "type": "government",
               "title": "Sen. Kelda Roys Testifies to Protect Wisconsinites from Tech Exploitation",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "Supports strengthening civic education and voting rights, and reforming campaign finance and redistricting to improve accountability and democracy. Her campaign frames these changes as part of restoring trust in government.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.keldaroys.com/issues",
-              "type": "campaign page",
+              "type": "website",
               "title": "Priorities - Kelda Roys for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Local Issues": {
           "stance": "Supports stronger local control over data-center development, including transparency on environmental and ratepayer impacts and requirements that projects help pay for infrastructure upgrades. Her campaign says local communities should have a meaningful role in decisions that affect land use, utilities, and public costs.",
@@ -2410,507 +2121,16 @@
             },
             {
               "url": "https://www.pbs.org/video/kelda-roys-on-the-2026-primary-for-governor-of-wisconsin-7v4ada/",
-              "type": "video",
+              "type": "website",
               "title": "Kelda Roys on the 2026 primary for governor of Wisconsin",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         }
-      }
-    },
-    {
-      "name": "Missy Hughes",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Missy Hughes is a Wisconsin business and economic development leader running for governor in 2026. She previously led the Wisconsin Economic Development Corporation and worked for 17 years at Organic Valley before entering the race.",
-      "summary_sources": [
-        {
-          "url": "https://www.wpr.org/news/missy-hughes-wedc-democratic-primary-wisconsin-governor-2026",
-          "title": "Former WEDC CEO Missy Hughes joins Democratic primary for Wisconsin governor",
-          "type": "news"
-        },
-        {
-          "url": "https://www.missyforgovernor.com/about",
-          "title": "About Missy Hughes | Wisconsin’s Proven Leader for Governor",
-          "type": "campaign"
-        }
-      ],
-      "image_url": "https://www.missyforgovernor.com/media",
-      "website": "https://www.missyforgovernor.com/",
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": "Public campaign-finance disclosures available to me did not show a detailed donor breakdown for Missy Hughes at the time of review. A Wisconsin Politics report noted her campaign said she raised more than $475,000 in her first three months, but I did not find a verified public source listing individual top donors for her campaign.",
-      "donor_source_url": "https://campaignfinance.wi.gov/browse-data/reports?office=%5B5%5D",
-      "voting_summary": "Missy Hughes has not held legislative office, so there is no legislative roll-call voting record to report. Her public record is executive rather than legislative: she served as secretary and CEO of the Wisconsin Economic Development Corporation before resigning to run for governor.",
-      "voting_source_url": "https://wedc.org/newsroom/executive-profiles/",
-      "links": [
-        {
-          "url": "https://ballotpedia.org/Missy_Hughes",
-          "title": "Missy Hughes - Ballotpedia",
-          "type": "ballotpedia"
-        },
-        {
-          "url": "https://www.wpr.org/news/missy-hughes-wedc-democratic-primary-wisconsin-governor-2026",
-          "title": "Former WEDC CEO Missy Hughes joins Democratic primary ...",
-          "type": "news"
-        },
-        {
-          "url": "https://www.wispolitics.com/2026/hughes-campaign-former-wedc-secretary-missy-hughes-raises-over-475000-in-first-three-months-of-gubernatorial-campaign/",
-          "title": "Hughes campaign: Former WEDC Secretary Missy Hughes raises over $475,000",
-          "type": "news"
-        },
-        {
-          "url": "https://wedc.org/newsroom/executive-profiles/",
-          "title": "Executive Profiles - WEDC",
-          "type": "legislature"
-        },
-        {
-          "url": "https://en.wikipedia.org/wiki/Missy_Hughes",
-          "title": "Missy Hughes - Wikipedia",
-          "type": "wiki"
-        },
-        {
-          "url": "https://pbswisconsin.org/news-item/missy-hughes-on-issues-in-wisconsins-2026-governors-race",
-          "title": "Missy Hughes on issues in Wisconsin's 2026 governor's race",
-          "type": "news"
-        },
-        {
-          "url": "https://www.missyforgovernor.com/",
-          "title": "Missy Hughes for Governor",
-          "type": "official"
-        }
-      ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Missy Hughes supports expanding BadgerCare, creating a public option on the ACA marketplace, lowering prescription drug costs, and protecting abortion access as part of her healthcare agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.missyforgovernor.com/newsroom",
-              "title": "News & Press - Missy Hughes for Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.jsonline.com/story/news/politics/2026/04/08/dem-missy-hughes-announces-health-plan-aimed-at-countering-trump/89508692007/",
-              "title": "Dem Missy Hughes announces health plan aimed at countering Trump",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Missy Hughes says she would focus on growing small businesses, expanding housing, and training workers for higher-paying jobs as part of her economic plan.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.missyforgovernor.com/",
-              "title": "Missy Hughes for Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.jsonline.com/story/news/politics/2026/01/22/democrat-missy-hughes-pledges-surge-in-home-building-new-businesses/88263056007/",
-              "title": "Democrat Missy Hughes pledges surge in home building, new businesses",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Missy Hughes supports clean-energy investment and stronger oversight of large data-center projects to protect ratepayers and the environment.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/missy-hughes-on-issues-in-wisconsins-2026-governors-race",
-              "title": "Missy Hughes on issues in Wisconsin's 2026 governor's race",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.wpr.org/news/democrats-wisconsin-governor-primary-2026-data-centers-climate-accountability",
-              "title": "Democrats vying for Wisconsin governor sound off on data centers, climate accountability during forum",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Missy Hughes supports codifying abortion rights and related reproductive-health protections in Wisconsin, including access to contraception and IVF.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.wispolitics.com/2026/hughes-campaign-announces-10-proposals-to-unlock-wisconsin-for-stronger-healthcare-lower-costs-expanded-access-and-better-quality/",
-              "title": "Hughes campaign: Announces 10 proposals to UNLOCK WISCONSIN",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://pbswisconsin.org/news-item/missy-hughes-on-issues-in-wisconsins-2026-governors-race",
-              "title": "Missy Hughes on issues in Wisconsin's 2026 governor's race",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Tech & AI": {
-          "stance": "Missy Hughes supports using state leverage over data-center and technology investments to secure benefits for Wisconsin communities while protecting ratepayers and the environment.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/missy-hughes-on-issues-in-wisconsins-2026-governors-race",
-              "title": "Missy Hughes on issues in Wisconsin's 2026 governor's race",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.wpr.org/news/democrats-wisconsin-governor-primary-2026-data-centers-climate-accountability",
-              "title": "Democrats vying for Wisconsin governor sound off on data centers, climate accountability during forum",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Local Issues": {
-          "stance": "Missy Hughes emphasizes reinvesting state resources in local infrastructure, education, childcare, and housing, and says she wants state policy to better support local communities and governments.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/missy-hughes-on-issues-in-wisconsins-2026-governors-race",
-              "title": "Missy Hughes on issues in Wisconsin's 2026 governor's race",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.missyforgovernor.com/about",
-              "title": "About Missy Hughes | Wisconsin’s Proven Leader for Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Social Justice": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Education": {
-          "stance": "Missy Hughes says she would support strong public schools and has tied education funding to her broader affordability and workforce agenda.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.missyforgovernor.com/about",
-              "title": "About Missy Hughes | Wisconsin’s Proven Leader for Governor",
-              "type": "campaign",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://pbswisconsin.org/news-item/missy-hughes-on-issues-in-wisconsins-2026-governors-race",
-              "title": "Missy Hughes on issues in Wisconsin's 2026 governor's race",
-              "type": "news",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Josh Schoemann",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "Josh Schoemann is the Washington County executive and a Republican candidate for Wisconsin governor in 2026. He previously served in county government in Washington County and has emphasized taxes, education, energy, housing, and election administration in his campaign.",
-      "summary_sources": [
-        {
-          "url": "https://www.washcowisco.gov/departments/county_executive",
-          "type": "official",
-          "title": "County Executive - Washington County, WI"
-        },
-        {
-          "url": "https://www.joshschoemann.com/we-have-shown-that-a-better-path-exists-schoemann-formally-announces-run-for-governor/",
-          "type": "official",
-          "title": "Schoemann formally announces run for governor"
-        },
-        {
-          "url": "https://www.pbswisconsin.org/news-item/washington-county-executive-josh-schoemann-enters-the-2026-wisconsin-governors-race",
-          "type": "news",
-          "title": "Washington County Executive Josh Schoemann enters the 2026 Wisconsin governor's race"
-        }
-      ],
-      "image_url": null,
-      "website": "https://www.joshschoemann.com/",
-      "social_media": {
-        "twitter": "https://twitter.com/joshschoemann",
-        "facebook": "https://www.facebook.com/joshschoemann",
-        "x": "https://x.com/JoshSchoemann"
       },
-      "career_history": [],
-      "education": [],
-      "donor_summary": "Josh Schoemann’s public finance data appears limited in the sources reviewed. I found a Wisconsin Transparency USA candidate page and campaign coverage, but no reliable public total raised or detailed industry breakdown in the search results; the best finance reference is the state campaign finance page. Sources: https://www.transparencyusa.org/wi/candidate/josh-schoemann ; https://campaignfinance.wi.gov/browse-data/reports?office=%5B5%5D",
-      "donor_source_url": "https://www.transparencyusa.org/wi/candidate/josh-schoemann",
-      "voting_summary": "Josh Schoemann is a county executive, not a legislator, so there is no legislative voting record to report. His comparable governing record is executive: he has served as Washington County Executive since 2020, but I did not find a public roll-call voting record in the sources reviewed. Sources: https://www.washcowisco.gov/departments/county_executive ; https://ballotpedia.org/Josh_Schoemann_(Washington_County_Executive,_Wisconsin,_candidate_2024)",
-      "voting_source_url": "https://www.washcowisco.gov/departments/county_executive",
-      "links": [
-        {
-          "url": "https://ballotpedia.org/Josh_Schoemann",
-          "title": "Josh Schoemann - Ballotpedia",
-          "type": "ballotpedia"
-        },
-        {
-          "url": "https://www.transparencyusa.org/wi/candidate/josh-schoemann",
-          "title": "Josh Schoemann - Wisconsin Candidate - Transparency USA",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.washcowisco.gov/departments/county_executive",
-          "title": "County Executive - Washington County, WI",
-          "type": "legislature"
-        },
-        {
-          "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-          "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-          "type": "news"
-        },
-        {
-          "url": "https://www.joshschoemann.com/",
-          "title": "Josh Schoemann official campaign website",
-          "type": "official"
-        },
-        {
-          "url": "https://spectrumnews1.com/wi/milwaukee/news/2025/05/01/wisconsin--governor-race--2026--republican--josh-schoemann",
-          "title": "Republican Josh Schoemann to join 2026 governor race",
-          "type": "news"
-        },
-        {
-          "url": "https://www.politifact.com/personalities/josh-schoemann/",
-          "title": "Josh Schoemann - PolitiFact",
-          "type": "news"
-        }
-      ],
-      "issues": {
-        "Economy": {
-          "stance": "Schoemann favors tax relief to spur growth: flatten and eventually eliminate the top state income tax bracket and cut property taxes, aiming for a roughly 50% reduction in overall burden by consolidating tax districts. He also advocates a growth‑oriented approach to data centers and energy policy, including pursuing nuclear energy to support affordable, reliable power for Wisconsin’s economy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "news",
-              "title": "Josh Schoemann on issues in Wisconsin’s 2026 governor’s race - PBS Wisconsin",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.wkow.com/news/governor-race/gubernatorial-candidate-josh-schoemann-plans-to-focus-on-taxes/article_77f13130-a6de-4952-934a-806584b8c041.html",
-              "type": "news",
-              "title": "Gubernatorial candidate Josh Schoemann plans to focus on taxes - WKOW",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.thecentersquare.com/wisconsin/article_baefa7d9-209e-4e16-aab2-ea59935a7c8b.html",
-              "type": "news",
-              "title": "2026 GOP candidate Schoemann challenges Evers’ budget approach - The Center Square",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race#video",
-              "type": "video",
-              "title": "Video: Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Schoemann advocates protecting reproductive rights and ensuring access to health care services for all Wisconsinites.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "news",
-              "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race - PBS Wisconsin",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.jsonline.com/story/news/politics/2025/09/04/what-bill-berrien-josh-schoemann-and-tom-tiffany-say-about-abortion/85960435007/",
-              "type": "news",
-              "title": "What Bill Berrien, Josh Schoemann and Tom Tiffany say about abortion - Milwaukee Journal Sentinel",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Schoemann has said he supports strong immigration enforcement and cooperation with federal authorities, including ICE, as part of a law-and-order approach to the issue.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://dailydodge.com/washington-county-executive-supports-ice-amid-controversy/",
-              "type": "news",
-              "title": "Washington County Executive Supports ICE Amid Controversy",
-              "last_accessed": "2026-04-27T14:21:19.411293+00:00"
-            },
-            {
-              "url": "https://pbswisconsin.org/news-interviews/josh-schoemann/",
-              "type": "news",
-              "title": "Interviews with Josh Schoemann - PBS Wisconsin",
-              "last_accessed": "2026-04-27T14:21:19.411293+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Schoemann says Wisconsin should take a tougher-on-crime approach and give law enforcement, district attorneys, and police departments more resources. In the sources reviewed, he did not outline a detailed gun policy position.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "news",
-              "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Schoemann said he views tariffs as a tool to shape the global economy in a way that benefits American workers and the Western Hemisphere, and he expressed cautious support for President Trump’s tariff approach. He did not lay out a broader foreign policy platform in the sources reviewed.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "news",
-              "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Josh Schoemann supports universal school choice for every parent and reform of Wisconsin's public-school funding formula dating to the 1970s to improve student outcomes; he calls for bringing together school boards, superintendents, parents, homeschoolers, and voucher schools to design funding and policy that center on student results.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "news",
-              "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Schoemann supports targeted AI regulation to protect consumers and workers while avoiding unnecessary barriers to innovation; he also advocates studying AI’s impact on Wisconsin’s workforce and investing in retraining, and views data centers as an opportunity that should be pursued with strategic siting and reliable power (including consideration of nuclear energy) to meet demand.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://wisconsinexaminer.com/2025/11/07/wisconsin-gubernatorial-candidates-discuss-trump-data-centers-ai-and-marijuana-at-first-forum/",
-              "title": "Wisconsin gubernatorial candidates discuss Trump, data centers, AI and marijuana at first forum",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://wisconsinexaminer.com/2026/01/13/what-do-wisconsin-gubernatorial-candidates-think-about-data-center-development/",
-              "title": "What do Wisconsin gubernatorial candidates think about data center development?",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://pbswisconsin.org/news-interviews/josh-schoemann/",
-              "title": "Interviews with Josh Schoemann - PBS Wisconsin",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Schoemann’s plan for election reform centers on a comprehensive overhaul: abolish the Wisconsin Elections Commission, move all elections to November, end ballot drop boxes and central-count facilities, audit and modernize the system, and shift election administration to elected local officials (clerks) to increase accountability and turnout.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.maciverinstitute.com/news/schoemann-move-elections-to-november,-eliminate-drop-boxes,-close-wec",
-              "type": "article",
-              "title": "Schoemann: Move Elections to November, Eliminate Drop Boxes, Close WEC",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://upnorthnewswi.com/2025/11/13/another-republican-wants-to-take-away-absentee-ballot-drop-boxes-in-wisconsin/",
-              "type": "article",
-              "title": "Another Republican wants to take away absentee ballot drop boxes in Wisconsin",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://www.pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "article",
-              "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "No public position found on healthcare in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pbswisconsin.org/news-item/washington-county-executive-josh-schoemann-enters-the-2026-wisconsin-governors-race",
-              "type": "news",
-              "title": "Washington County Executive Josh Schoemann enters the 2026 Wisconsin governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Schoemann says Wisconsin should expand nuclear power as part of a broader energy portfolio and be strategic about siting data centers so growth does not outpace power supply and infrastructure. He frames energy reliability as central to affordability, housing, and economic growth.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://wisconsinexaminer.com/2026/01/13/what-do-wisconsin-gubernatorial-candidates-think-about-data-center-development/",
-              "type": "news",
-              "title": "What do Wisconsin gubernatorial candidates think about data center development?",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "news",
-              "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "No public position found on social justice in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pbswisconsin.org/news-item/washington-county-executive-josh-schoemann-enters-the-2026-wisconsin-governors-race",
-              "type": "news",
-              "title": "Washington County Executive Josh Schoemann enters the 2026 Wisconsin governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Schoemann emphasizes local control, shared services, housing development, and property-tax relief. As county executive, he points to Washington County initiatives on transportation, housing, and budget management as examples of his approach to local governance.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.washcowisco.gov/departments/county_executive",
-              "type": "official",
-              "title": "County Executive - Washington County, WI",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            },
-            {
-              "url": "https://pbswisconsin.org/news-item/josh-schoemann-on-issues-in-wisconsins-2026-governors-race",
-              "type": "news",
-              "title": "Josh Schoemann on issues in Wisconsin's 2026 governor's race",
-              "last_accessed": "2026-04-27T14:16:05.276633+00:00"
-            }
-          ]
-        }
-      }
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Andrew Manske",
@@ -2920,18 +2140,21 @@
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Andrew_Manske",
-          "type": "ballotpedia",
-          "title": "Andrew Manske - Ballotpedia"
+          "type": "website",
+          "title": "Andrew Manske - Ballotpedia",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://andymanske4governor.com/about/",
-          "type": "official",
-          "title": "About | Andy Manske for Governor"
+          "type": "government",
+          "title": "About | Andy Manske for Governor",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         },
         {
           "url": "https://www.wmtv15news.com/2025/11/27/wisconsin-governor-candidate-andy-manske-wants-use-ai-shrink-government/",
           "type": "news",
-          "title": "Wisconsin governor candidate Andy Manske wants to use AI to shrink the government"
+          "title": "Wisconsin governor candidate Andy Manske wants to use AI to shrink the government",
+          "last_accessed": "2026-06-13T23:09:31.447889+00:00"
         }
       ],
       "image_url": "https://pbswisconsin.org/wp-content/uploads/2025/11/andy-manske.jpg",
@@ -2982,17 +2205,18 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/about/",
-              "type": "official",
+              "type": "government",
               "title": "About | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             },
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Healthcare"
         },
         "Economy": {
           "stance": "Manske says his top priority is lowering the cost of living. His platform calls for property-tax changes, tax relief, housing-supply expansion, reduced regulation, and targeted support for farmers and rural development.",
@@ -3000,7 +2224,7 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             },
@@ -3010,7 +2234,8 @@
               "title": "Wisconsin governor candidate Andy Manske wants to use AI to shrink the government",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Economy"
         },
         "Climate/Energy": {
           "stance": "Manske has not published a detailed climate policy in the sources reviewed. He does say Wisconsin should avoid large-scale AI data centers because of their energy and land use, and he frames that as part of a broader efficiency and workforce strategy.",
@@ -3018,7 +2243,7 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             },
@@ -3028,19 +2253,21 @@
               "title": "Wisconsin governor candidate Andy Manske wants to use AI to shrink the government",
               "last_accessed": "2026-04-27T14:21:19.411293+00:00"
             }
-          ]
+          ],
+          "issue": "Climate/Energy"
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
           "stance": "Manske says abortion is legal in Wisconsin and that he respects the rule of law. He describes himself as personally pro-life, but says decisions about pregnancy should rest with families rather than government mandates or medical providers, and he says he wants to make choosing to have children more affordable.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/#Abortion",
-              "type": "official",
+              "type": "government",
               "title": "Platform - Abortion - Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Abortion & Reproductive Health"
         },
         "Tech & AI": {
           "stance": "Manske supports using artificial intelligence to reduce the size of state government and deliver tax relief, while also saying he would ban or heavily restrict large-scale AI data centers in Wisconsin. He frames AI as a tool for efficiency rather than bureaucracy.",
@@ -3048,7 +2275,7 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             },
@@ -3058,19 +2285,21 @@
               "title": "Wisconsin governor candidate Andy Manske wants to use AI to shrink the government",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Tech & AI"
         },
-        "Election Reform": {
+        "Election Policy": {
           "stance": "Manske says he wants elections to be secure and verifiable. He supports making Election Day a statewide holiday, restoring broader mail-in ballot access for eligible voters, and allowing earlier ballot counting to speed up results.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Election Policy"
         },
         "Immigration": {
           "stance": "Manske says Wisconsin citizens should have greater rights than foreign nationals in the housing market and says he would end the ability of foreign nationals to purchase land and residential property in the state. No broader immigration platform was found in the sources reviewed.",
@@ -3078,23 +2307,25 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Immigration"
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
           "stance": "No public position found on guns or a broader public-safety platform in the sources reviewed.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Firearms & Second Amendment"
         },
         "Foreign Policy": {
           "stance": "No public position found on foreign policy in the sources reviewed.",
@@ -3102,23 +2333,25 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/about/",
-              "type": "official",
+              "type": "government",
               "title": "About | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Foreign Policy"
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
           "stance": "No public position found on social justice issues in the sources reviewed.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://andymanske4governor.com/about/",
-              "type": "official",
+              "type": "government",
               "title": "About | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Civil Rights & Equality"
         },
         "Education": {
           "stance": "Manske says he supports AI-driven education options and greater parental freedom over how children learn, including homeschooling. He also says Wisconsin should invest in workforce training so workers can adapt to technological change.",
@@ -3126,11 +2359,12 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Education"
         },
         "Local Issues": {
           "stance": "Manske’s platform emphasizes Wisconsin-specific local concerns such as property taxes, housing affordability, road construction delays, rural development, and support for farmers. He also proposes special development zones for selected Wisconsin cities.",
@@ -3138,22 +2372,22 @@
           "sources": [
             {
               "url": "https://andymanske4governor.com/platform/",
-              "type": "official",
+              "type": "government",
               "title": "Platform | Andy Manske for Governor",
               "last_accessed": "2026-04-27T14:16:05.276633+00:00"
             }
-          ]
+          ],
+          "issue": "Local Issues"
         }
-      }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     }
   ],
-  "updated_utc": "2026-04-27T14:21:19.411293+00:00",
+  "updated_utc": "2026-06-13T23:11:51.339787+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
@@ -3276,39 +2510,28 @@
   ],
   "polling_note": "Some polling entries in this race may be incomplete or placeholder records; verify sample sizes and percentages against the cited source before using them.",
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 9410107,
-    "completion_tokens": 651401,
-    "total_tokens": 10061508,
-    "estimated_usd": 1.4487,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 215555,
+    "completion_tokens": 21358,
+    "total_tokens": 236913,
+    "cost_usd": 0.01355519,
+    "cost_source": "provider",
+    "estimated_usd": 0.019321,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 6314441,
-        "completion_tokens": 605931
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 2829546,
-        "completion_tokens": 38442
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 77564,
-        "completion_tokens": 546
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 97152,
-        "completion_tokens": 1369
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 91404,
-        "completion_tokens": 5113
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 215555,
+        "completion_tokens": 21358
       }
     },
-    "duration_s": 6741.3
+    "duration_s": 140.4
   },
   "validation_grade": {
     "grade": "A",
     "score": 90,
     "passed": true,
     "summary": "Validated by 3/3 reviewers with an average score of 90/100."
-  }
+  },
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "schema_version": "0.3"
 }

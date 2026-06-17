@@ -1,0 +1,642 @@
+{
+  "id": "mi-house-10-2026",
+  "title": "Michigan's 10th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Michigan's 10th Congressional District",
+  "state": "Michigan",
+  "district": "10th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Michigan's 10th Congressional District is an open seat after Republican incumbent John James decided to run for governor rather than seek re-election. The district covers southern Macomb County and portions of eastern Oakland County including Rochester and Rochester Hills, and has a Cook Partisan Voting Index of R+3. Cook Political Report rates the general election as Lean Republican. Three Democrats and four Republicans are competing in the August 4, 2026 primary for the right to succeed James in this competitive suburban Detroit district, which Republicans have held since 2022 after John James flipped it from Democratic control.",
+  "polling": [],
+  "polling_note": "No general election polls were publicly available as of June 2026. The New York Times poll tracker lists MI-10 but had not yet published any polls for this race. Primary polls may exist but were not identified in public sources.",
+  "candidates": [
+    {
+      "name": "Eric Chung",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Eric Chung is a former U.S. Department of Commerce attorney who worked on implementing the CHIPS and Science Act, overseeing a $325 million investment in Michigan. The son of Vietnamese immigrants and a Macomb County auto worker, Chung graduated as valedictorian from Lamphere High School before attending Harvard College and Yale Law School. He is running as a Democrat emphasizing economic opportunity, manufacturing job creation, and protecting working families.",
+      "summary_sources": [
+        {
+          "url": "https://www.ericchungformichigan.com/",
+          "type": "website",
+          "title": "Eric Chung for Michigan",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/voter-guides/contests/10th-district-representative-in-congress/",
+          "type": "news",
+          "title": "U.S. House, 10th District | Voter Guide: 2026 Michigan Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6MI10292/",
+          "type": "government",
+          "title": "CHUNG, ERIC - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://michiganadvance.com/wp-content/uploads/2025/04/Eric-Chung-Headshot-1024x683.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Associate Chief Counsel",
+          "organization": "U.S. Department of Commerce",
+          "start_year": 2022,
+          "end_year": 2025,
+          "description": "Senior lawyer helping implement the CHIPS and Science Act to bring semiconductor manufacturing back to the U.S.",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private Practice",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Practiced law prior to joining the Commerce Department",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard College",
+          "degree": "B.A.",
+          "field": "Undergraduate",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.ericchungformichigan.com/",
+      "social_media": {
+        "x": "https://x.com/EricYChung",
+        "instagram": "https://www.instagram.com/ericychung/",
+        "facebook": "https://www.facebook.com/ericchungformichigan/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tim Greimel",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tim Greimel served as Mayor of Pontiac from 2022 to 2026 and previously served in the Michigan House of Representatives from 2012 to 2019, where he was elected House Democratic Leader. He holds a B.A. in Economics and Political Science, a Master's in Public Policy, and a J.D. from the University of Michigan, and worked as a civil rights and labor attorney. Greimel emphasizes his experience working across party lines to establish Healthy Michigan and raise the minimum wage.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tim_Greimel",
+          "type": "news",
+          "title": "Tim Greimel - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Tim_Greimel",
+          "type": "website",
+          "title": "Tim Greimel - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://timgreimel.com/",
+          "type": "website",
+          "title": "Tim Greimel for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tim_Greimel.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Pontiac, Michigan",
+          "start_year": 2022,
+          "end_year": 2026,
+          "description": "Led redevelopment of Pontiac's downtown, worked to demolish the Phoenix Center and create a new city center",
+          "source": null
+        },
+        {
+          "title": "Minority Leader & State Representative",
+          "organization": "Michigan House of Representatives",
+          "start_year": 2012,
+          "end_year": 2019,
+          "description": "Served as House Democratic Leader from 2013-2017, helped establish Healthy Michigan and raise the minimum wage",
+          "source": null
+        },
+        {
+          "title": "County Commissioner",
+          "organization": "Oakland County Board of Commissioners",
+          "start_year": 2007,
+          "end_year": 2012,
+          "description": "Worked to broaden Southeast Michigan's economic base",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Michigan",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Michigan",
+          "degree": "Master of Public Policy",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Michigan",
+          "degree": "B.A.",
+          "field": "Economics and Political Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://timgreimel.com/",
+      "social_media": {
+        "x": "https://x.com/TimGreimelMI",
+        "instagram": "https://www.instagram.com/timgreimel/",
+        "facebook": "https://www.facebook.com/tim.greimel.3/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christina Hines",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Christina Hines is a former prosecutor who handled sexual assault, child abuse, human trafficking, and hate crime cases in Wayne and Washtenaw counties. She grew up in Macomb County, attended the University of Michigan, and earned her law degree from Wayne State University Law School. Hines previously ran for Macomb County Prosecutor in 2024 and is campaigning on lowering costs, protecting families, and defending democracy, while pledging not to take corporate PAC money.",
+      "summary_sources": [
+        {
+          "url": "https://www.christinahinesforcongress.com/",
+          "type": "website",
+          "title": "Christina Hines for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/voter-guides/contests/10th-district-representative-in-congress/",
+          "type": "news",
+          "title": "U.S. House, 10th District | Voter Guide: 2026 Michigan Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://emilyslist.org/candidate/christina-hines/",
+          "type": "website",
+          "title": "Christina Hines - EMILYs List",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://michiganadvance.com/wp-content/uploads/2025/04/Christina58of711_1746021284263-1024x808.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Prosecutor",
+          "organization": "Wayne County Prosecutor's Office / Washtenaw County Prosecutor's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Prosecuted sexual assault, child abuse, human trafficking, hate crimes, and homicide cases; started a Restorative Justice Program",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Wayne State University Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Michigan",
+          "degree": "B.A.",
+          "field": "Undergraduate",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.christinahinesforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/christinahinesforcongress/",
+        "instagram": "https://www.instagram.com/reel/DVtfDDHDaaB/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michael Bouchard",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Michael Bouchard is a U.S. Army Captain and Bronze Star recipient who served in the 82nd and 101st Airborne Divisions, including deployments to Iraq and the Southern Border. A third-generation Michigander and son of Oakland County Sheriff Mike Bouchard, he graduated from Michigan State University's ROTC program. Bouchard campaigns on supporting President Trump's manufacturing agenda, securing the border, and returning schools to educational basics.",
+      "summary_sources": [
+        {
+          "url": "https://www.bouchardforcongress.com/",
+          "type": "website",
+          "title": "Captain Mike Bouchard for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cbsnews.com/detroit/news/michael-bouchard-announces-candidacy-for-michigans-10th-congressional-district/",
+          "type": "news",
+          "title": "Michael Bouchard announces candidacy for Michigan's 10th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.foxnews.com/politics/from-combat-boots-campaign-trail-army-veteran-marches-michigan-congressional-race",
+          "type": "news",
+          "title": "Iraq veteran Michael Bouchard launches Michigan congressional campaign",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://michiganadvance.com/wp-content/uploads/2026/05/616821447_122118693435115934_3975229254277276919_n-1024x683.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Army Captain",
+          "organization": "U.S. Army / Michigan Army National Guard",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in 82nd and 101st Airborne Divisions, deployed to Iraq and Southern Border, served as COO for a 1,200-soldier infantry battalion, earned Bronze Star",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Michigan State University",
+          "degree": "B.A.",
+          "field": "ROTC Program Graduate",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.bouchardforcongress.com/",
+      "social_media": {
+        "x": "https://x.com/BouchardforMI",
+        "facebook": "https://www.facebook.com/BouchardforMI/",
+        "instagram": "https://www.instagram.com/bouchardformi/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Steffan Demetropoulos",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Steffan Demetropoulos is an Army combat veteran and construction project manager running for Congress from Macomb County. He and his wife live in Macomb County with their four children. Demetropoulos campaigns as a working-class conservative focused on bringing practical, veteran leadership to Washington.",
+      "summary_sources": [
+        {
+          "url": "https://michiganadvance.com/voter-guides/contests/10th-district-representative-in-congress/",
+          "type": "news",
+          "title": "U.S. House, 10th District | Voter Guide: 2026 Michigan Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Steffan_Demetropoulos",
+          "type": "website",
+          "title": "Steffan Demetropoulos - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/steffan-demetropoulos",
+          "type": "website",
+          "title": "Steffan Demetropoulos (R) - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://michiganadvance.com/wp-content/uploads/2026/05/Screenshot-2026-05-12-091023.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Construction Project Manager",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Works in construction project management",
+          "source": null
+        },
+        {
+          "title": "Army Combat Veteran",
+          "organization": "U.S. Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as an Army combat veteran",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://steffanforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/p/DWSMES-Duvm/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Justin Kirk",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Justin Kirk is an attorney born and raised in Macomb County who earned his degree from the University of Michigan and his law degree from Michigan State University College of Law. He previously worked alongside the late Congressman Paul Mitchell. Kirk campaigns on protecting Republican control of the House, revitalizing Michigan's economy, fixing education, and strengthening national security through Selfridge Air National Guard Base.",
+      "summary_sources": [
+        {
+          "url": "https://www.justinkirk2026.com/",
+          "type": "website",
+          "title": "Justin Kirk for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://michiganadvance.com/voter-guides/contests/10th-district-representative-in-congress/",
+          "type": "news",
+          "title": "U.S. House, 10th District | Voter Guide: 2026 Michigan Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Justin_Kirk",
+          "type": "website",
+          "title": "Justin Kirk - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://michiganadvance.com/wp-content/uploads/2026/05/638299516_1424711962725380_5286668567596168288_n.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Private Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Helps job creators, tradesmen, and small businesses navigate legal challenges",
+          "source": null
+        },
+        {
+          "title": "Staff",
+          "organization": "Office of Congressman Paul Mitchell",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked alongside the late Congressman Paul Mitchell",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Michigan State University College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Michigan",
+          "degree": "B.A.",
+          "field": "Undergraduate",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.justinkirk2026.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Robert Lulgjuraj",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Robert Lulgjuraj is a Sterling Heights native and former prosecutor who served in the Macomb County Prosecutor's Office, where he led the office's legislative engagement efforts. He is an Albanian-American and a devout Catholic who was selected as a Republican fellow in the Michigan Political Leadership Program at Michigan State University. Lulgjuraj runs on an America First platform emphasizing border security, election integrity, and conservative values, though he faced a residency eligibility challenge during the campaign.",
+      "summary_sources": [
+        {
+          "url": "https://www.robertlforcongress.com/",
+          "type": "website",
+          "title": "Robert Lulgjuraj For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.detroitnews.com/story/news/politics/2026/05/07/republican-robert-lulgjuraj-eligibility-challenge-michigan-10th-district-congressional-race/89963866007/",
+          "type": "news",
+          "title": "Robert Lulgjuraj faces eligibility challenge in congressional race",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.macombdaily.com/2026/05/06/gop-10th-district-congressional-candidate-accused-of-residency-fraud/",
+          "type": "news",
+          "title": "GOP 10th District congressional candidate accused of residency fraud",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://michiganadvance.com/wp-content/uploads/2026/05/Screenshot-2026-05-12-091904.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Assistant Prosecutor",
+          "organization": "Macomb County Prosecutor's Office",
+          "start_year": 2025,
+          "end_year": 2025,
+          "description": "Resigned to focus on congressional campaign; previously led legislative engagement for the office",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Michigan State University",
+          "degree": null,
+          "field": "Michigan Political Leadership Program (Republican Fellow)",
+          "year": 2023,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.robertlforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/robertlforcongress/",
+        "instagram": "https://www.instagram.com/robertlforcongress/",
+        "linkedin": "https://www.linkedin.com/in/robert-lulgjuraj"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_10th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:23:06.051853+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 407173,
+    "completion_tokens": 10775,
+    "total_tokens": 417948,
+    "cost_usd": 0.029425029999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.042015,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 407173,
+        "completion_tokens": 10775
+      }
+    },
+    "duration_s": 185.5
+  }
+}

@@ -1,0 +1,673 @@
+{
+  "id": "wi-house-06-2026",
+  "title": "Wisconsin's 6th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Wisconsin's 6th Congressional District",
+  "state": "Wisconsin",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Wisconsin's 6th Congressional District, covering east-central Wisconsin including Oshkosh, Sheboygan, and Fond du Lac, is a safely Republican seat held by incumbent Glenn Grothman (R) since 2015. The 2026 race features a competitive Republican primary between Grothman and challenger Jonathan Peetz, a crowded seven-candidate Democratic primary, and independent candidates including union fire captain Mike Thurow and Elizabeth Fitzgibbon. The district has not elected a Democrat to Congress since 1964, but independent candidate Thurow has shown surprising strength in early polling, cutting Grothman's lead significantly in head-to-head matchups.",
+  "polling": [
+    {
+      "pollster": "Independent Action (released by Thurow campaign)",
+      "date": "2026-05-15",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Glenn Grothman",
+            "Mike Thurow"
+          ],
+          "percentages": [
+            55.0,
+            45.0
+          ]
+        },
+        {
+          "candidates": [
+            "Glenn Grothman",
+            "Brad Smith"
+          ],
+          "percentages": [
+            61.0,
+            39.0
+          ]
+        }
+      ],
+      "source_url": "https://www.wispolitics.com/2026/thurow-campaign-new-polls-show-mike-thurow-cuts-grothmans-lead-in-half-in-wi-06/"
+    },
+    {
+      "pollster": "Tavern Research (released by Thurow campaign)",
+      "date": "2026-03-15",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Glenn Grothman",
+            "Mike Thurow"
+          ],
+          "percentages": [
+            42.0,
+            38.0
+          ]
+        }
+      ],
+      "source_url": "https://www.wispolitics.com/2026/thurow-campaign-new-polls-show-mike-thurow-cuts-grothmans-lead-in-half-in-wi-06/"
+    },
+    {
+      "pollster": "Tavern Research informed ballot (released by Thurow campaign)",
+      "date": "2026-03-15",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Glenn Grothman",
+            "Mike Thurow"
+          ],
+          "percentages": [
+            39.0,
+            46.0
+          ]
+        }
+      ],
+      "source_url": "https://www.wispolitics.com/2026/thurow-campaign-new-polls-show-mike-thurow-cuts-grothmans-lead-in-half-in-wi-06/"
+    }
+  ],
+  "polling_note": "Polls were released by the Thurow campaign and have not been independently verified. No independent nonpartisan polls have been published for this race as of June 2026. The primary election is August 11, 2026, with the general election on November 3, 2026.",
+  "candidates": [
+    {
+      "name": "Glenn Grothman",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Glenn Grothman is the incumbent U.S. Representative for Wisconsin's 6th Congressional District, first elected in 2014. He previously served in the Wisconsin State Assembly (1993-2004) and Wisconsin State Senate (2004-2014). Grothman is an attorney and holds a B.B.A. and J.D. from the University of Wisconsin-Madison.",
+      "summary_sources": [
+        {
+          "url": "https://grothman.house.gov/biography/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Glenn Grothman",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Glenn_Grothman",
+          "type": "news",
+          "title": "Glenn Grothman - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://history.house.gov/People/Detail/15032409717",
+          "type": "government",
+          "title": "GROTHMAN, Glenn | US House of Representatives",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Glenn_Grothman_117th_Congress_portrait_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing Wisconsin's 6th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Wisconsin State Senate",
+          "start_year": 2004,
+          "end_year": 2014,
+          "description": "Represented the 20th Senate District",
+          "source": null
+        },
+        {
+          "title": "State Assembly Member",
+          "organization": "Wisconsin State Assembly",
+          "start_year": 1993,
+          "end_year": 2004,
+          "description": "Represented the 58th Assembly District",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 1983,
+          "end_year": 1993,
+          "description": "Practiced law in Wisconsin",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin-Madison",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1983,
+          "source": null
+        },
+        {
+          "institution": "University of Wisconsin-Madison",
+          "degree": "B.B.A.",
+          "field": "Business Administration",
+          "year": 1978,
+          "source": null
+        },
+        {
+          "institution": "Homestead High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1973,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://grothman.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jonathan Peetz",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jonathan Peetz is a Republican candidate challenging incumbent Glenn Grothman in the August 11, 2026 Republican primary for Wisconsin's 6th Congressional District. He filed his Statement of Candidacy with the Federal Election Commission on September 26, 2025 and has pledged to support congressional term limits.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jonathan_Peetz",
+          "type": "news",
+          "title": "Jonathan Peetz - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/jonathan-peetz-pledges-to-support-congressional-term-limits/",
+          "type": "news",
+          "title": "Jonathan Peetz Pledges to Support Congressional Term Limits",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://civicmedia.us/news/2025/12/02/amanda-bell-runs-for-6th-congressional-district",
+          "type": "news",
+          "title": "Amanda Bell runs for 6th Congressional District - Civic Media",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jonathan_Peetz.jpeg",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Thurow",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Mike Thurow is an independent candidate for Wisconsin's 6th Congressional District. He is a union fire captain and lifelong Mequon resident who has centered his campaign on lowering costs for families, strengthening labor protections, protecting Social Security and Medicare, and banning congressional stock trading. Early polls show him competitive against incumbent Glenn Grothman.",
+      "summary_sources": [
+        {
+          "url": "https://www.thurowforcongress.com/",
+          "type": "website",
+          "title": "Mike Thurow | Independent for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485576",
+          "type": "news",
+          "title": "WI-06 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wispolitics.com/2026/thurow-campaign-new-polls-show-mike-thurow-cuts-grothmans-lead-in-half-in-wi-06/",
+          "type": "news",
+          "title": "New polls show Mike Thurow cuts Grothman's lead in half in WI-06",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Union Fire Captain",
+          "organization": "Fire Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a fire captain and union member",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.thurowforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Elizabeth Fitzgibbon",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Elizabeth Fitzgibbon is an independent candidate for Wisconsin's 6th Congressional District. She has been endorsed by the Libertarian Party of Wisconsin, which voted unanimously to support her campaign. She is listed on Ballotpedia as a general election candidate.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Elizabeth_Fitzgibbon",
+          "type": "news",
+          "title": "Elizabeth Fitzgibbon - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wispolitics.com/2026/libertarian-party-unanimously-endorses-elizabeth-fitzgibbon-for-congress/",
+          "type": "news",
+          "title": "Libertarian Party: Unanimously endorses Elizabeth Fitzgibbon for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brad Smith",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brad Smith is a Democratic candidate for Wisconsin's 6th Congressional District from Mequon. He is a lifelong Wisconsinite, National Guard veteran, husband and father. He has been endorsed by the Wisconsin Educator Association and has raised significant grassroots support, collecting over 2,150 signatures to get on the primary ballot.",
+      "summary_sources": [
+        {
+          "url": "https://www.bradsmithforcongress.com/",
+          "type": "website",
+          "title": "Brad Smith for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Brad_Smith",
+          "type": "news",
+          "title": "Brad Smith - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wispolitics.com/2026/smith-campaign-brad-smith-earns-wisconsin-educator-association-endorsement-in-6th-congressional-district-race/",
+          "type": "news",
+          "title": "Brad Smith earns Wisconsin Educator Association endorsement",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Brad_Smith.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "National Guard Veteran",
+          "organization": "Wisconsin National Guard",
+          "start_year": null,
+          "end_year": null,
+          "description": "Veteran of the Global War on Terrorism",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.bradsmithforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Amanda Bell",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Amanda Bell is a Democratic candidate for Wisconsin's 6th Congressional District from Pardeeville. She served as Deputy Director of the Upper Midwest Water Science Center at the U.S. Geological Survey for 24 years. She describes herself as a progressive populist Democrat focused on affordability, healthcare, and veterans care.",
+      "summary_sources": [
+        {
+          "url": "https://www.amandabellforcongress.org/",
+          "type": "website",
+          "title": "Amanda Bell for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://civicmedia.us/news/2025/12/02/amanda-bell-runs-for-6th-congressional-district",
+          "type": "news",
+          "title": "Amanda Bell runs for 6th Congressional District - Civic Media",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Amanda_Bell_(Wisconsin)",
+          "type": "news",
+          "title": "Amanda Bell (Wisconsin) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Deputy Director",
+          "organization": "Upper Midwest Water Science Center, U.S. Geological Survey",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "Oversaw water science operations across multiple states; specialized in aquatic biology",
+          "source": null
+        },
+        {
+          "title": "Federal Employee",
+          "organization": "U.S. Geological Survey",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "24 years of federal service, worked as an aquatic biologist",
+          "source": null
+        },
+        {
+          "title": "Substitute Teacher",
+          "organization": "Local Schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a substitute teacher in her community",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin-Stevens Point",
+          "degree": "Bachelor's",
+          "field": "Biology",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.amandabellforcongress.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Aaron Wojciechowski",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Aaron Wojciechowski is a Democratic candidate for Wisconsin's 6th Congressional District and a former two-term Winnebago County Board member and Oshkosh Common Council member. He works as Assistant Director of Student Activities & Support at Lawrence University and holds a BS in Economics from UW Oshkosh.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Aaron_Wojciechowski",
+          "type": "news",
+          "title": "Aaron Wojciechowski - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://civicmedia.us/news/2025/10/08/wojciechowski-aka-wojo-runs-for-6th-congressional-district",
+          "type": "news",
+          "title": "Wojciechowski aka WOJO runs for 6th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lawrence.edu/people/aaron-wojciechowski-assistant-director-of-student-activities-and-support-for-student-organizations",
+          "type": "website",
+          "title": "Aaron Wojciechowski - Lawrence University",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Aaron_Wojciechowski.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Asst. Director of Student Activities & Support",
+          "organization": "Lawrence University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Higher education professional supporting student organizations and DEI initiatives",
+          "source": null
+        },
+        {
+          "title": "Common Council Member",
+          "organization": "City of Oshkosh",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the Oshkosh City Council",
+          "source": null
+        },
+        {
+          "title": "County Board Member",
+          "organization": "Winnebago County",
+          "start_year": 2016,
+          "end_year": 2020,
+          "description": "Two-term member of the Winnebago County Board",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin-Oshkosh",
+          "degree": "B.S.",
+          "field": "Economics",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Macho",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "John Macho is a Democratic candidate for Wisconsin's 6th Congressional District from Oshkosh. He joined the race citing a lack of leadership in the country and is one of seven candidates in the Democratic primary scheduled for August 11, 2026.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/John_Macho",
+          "type": "news",
+          "title": "John Macho - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://civicmedia.us/news/2025/11/18/john-macho-of-oshkosh-jumps-into-the-6th-congressional-district",
+          "type": "news",
+          "title": "John Macho of Oshkosh jumps into the 6th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:00:22.289457+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 207528,
+    "completion_tokens": 11097,
+    "total_tokens": 218625,
+    "cost_usd": 0.013577075999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.022513,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 207528,
+        "completion_tokens": 11097
+      }
+    },
+    "duration_s": 149.1
+  }
+}

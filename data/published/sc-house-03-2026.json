@@ -1,0 +1,275 @@
+{
+  "id": "sc-house-03-2026",
+  "title": "South Carolina's 3rd Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "South Carolina's 3rd Congressional District",
+  "state": "South Carolina",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "South Carolina's 3rd Congressional District covers the western Upstate region including Anderson, Oconee, Pickens, and parts of Greenville and Edgefield counties. Incumbent Republican Rep. Sheri Biggs, first elected in 2024, is seeking her first full term in what is widely considered the state's most conservative district. She faces Democratic nominee Eunice Lehmacher, a licensed counselor and healthcare professional who won a competitive primary, and Libertarian candidate Brian Corriea, a Navy veteran and activist. The race tests whether Biggs can consolidate her freshman incumbency advantage in a heavily Republican seat that has not elected a Democrat to Congress in decades.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific general election race as of July 2026.",
+  "candidates": [
+    {
+      "name": "Sheri Biggs",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Sheri Biggs is the incumbent U.S. Representative for South Carolina's 3rd Congressional District, first elected in 2024. A board-certified family nurse practitioner and Lieutenant Colonel in the Air National Guard, she serves on the House Committees on Foreign Affairs, Homeland Security, and Science, Space, and Technology. Her campaign platform emphasizes stopping undocumented immigration, cutting government spending, and serving veterans' needs.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Sheri_Biggs",
+          "type": "website",
+          "title": "Sheri Biggs - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.greenvilleonline.com/story/news/politics/2026/03/06/rep-sheri-biggs-faces-democratic-challenger-district-3-seat/89022278007/",
+          "type": "news",
+          "title": "Healthcare professional Eunice Lehmacher runs to unseat Sheri Biggs",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Rep._Sheri_Biggs_official_photo%2C_119th_Congress_%283x4_full_crop%29.jpg/250px-Rep._Sheri_Biggs_official_photo%2C_119th_Congress_%283x4_full_crop%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing South Carolina's 3rd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Lieutenant Colonel",
+          "organization": "Mississippi Air National Guard",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Air National Guard",
+          "source": null
+        },
+        {
+          "title": "Family Nurse Practitioner",
+          "organization": "Private Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Board-certified family nurse practitioner",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Carolina College of Biblical Studies",
+          "degree": "Bachelor of Arts",
+          "field": "Christian Ministries",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Samford University",
+          "degree": "Master of Science",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Samford University",
+          "degree": "Doctor of Nursing Practice",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://sheribiggs.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eunice Lehmacher",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Eunice Lehmacher is a licensed professional counselor and healthcare professional from Clemson, South Carolina, and the Democratic nominee for the 3rd Congressional District. She won a competitive Democratic primary in June 2026 against Ernest Mackins. Lehmacher has over 40 years of experience as a counselor, educator, social worker, and small business owner, and was appointed by Gov. Henry McMaster to serve on the state Mental Health Board for Anderson, Oconee, and Pickens Counties. Her campaign focuses on lowering healthcare, housing, and utility costs, investing in clean energy, and making necessities more affordable.",
+      "summary_sources": [
+        {
+          "url": "https://www.greenvilleonline.com/story/news/politics/2026/03/06/rep-sheri-biggs-faces-democratic-challenger-district-3-seat/89022278007/",
+          "type": "news",
+          "title": "Healthcare professional Eunice Lehmacher runs to unseat Sheri Biggs",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.greenvilleonline.com/story/news/politics/2026/06/04/meet-candidates-in-south-carolinas-contested-congressional-primaries/90318723007/",
+          "type": "news",
+          "title": "Meet candidates in contested races for Congressional Districts 3, 4",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Eunice_Lehmacher.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Licensed Professional Counselor",
+          "organization": "Private Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns and operates a private counseling practice",
+          "source": null
+        },
+        {
+          "title": "Social Worker",
+          "organization": "Oconee Memorial Hospital",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a social worker",
+          "source": null
+        },
+        {
+          "title": "Student Counselor",
+          "organization": "Clemson University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a student counselor",
+          "source": null
+        },
+        {
+          "title": "Mental Health Board Member",
+          "organization": "State of South Carolina",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Appointed by Gov. McMaster to serve on the Mental Health Board for Anderson, Oconee, and Pickens counties",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.euniceforsc.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brian Corriea",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Brian Corriea is a Libertarian Party candidate for U.S. House in South Carolina's 3rd Congressional District. A U.S. Navy veteran who served nine years, he works as a claims adjuster and is active in the South Carolina Libertarian Party as a political commentator and activist focusing on government spending, sound money, and personal responsibility. He is a homeschool parent and advocates for limited government and individual liberty.",
+      "summary_sources": [
+        {
+          "url": "https://lp.org/candidate/brian-corriea/",
+          "type": "website",
+          "title": "Brian Corriea - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.greenvilleonline.com/story/news/politics/2026/04/01/who-running-2026-south-carolina-primary-elections-races/89401342007/",
+          "type": "news",
+          "title": "Primary election lineups set. Here are candidates in SC key races",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://b3870750.smushcdn.com/3870750/wp-content/uploads/headshot.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Claims Adjuster",
+          "organization": "Private Sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works in the insurance claims industry",
+          "source": null
+        },
+        {
+          "title": "Navy Veteran",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served nine years in the U.S. Navy",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.brianforliberty.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/South_Carolina%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:58:33.654487+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 204440,
+    "completion_tokens": 6999,
+    "total_tokens": 211439,
+    "cost_usd": 0.016135372,
+    "cost_source": "provider",
+    "estimated_usd": 0.021407,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 204440,
+        "completion_tokens": 6999
+      }
+    },
+    "duration_s": 115.8
+  }
+}

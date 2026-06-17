@@ -1,0 +1,215 @@
+{
+  "id": "or-house-03-2026",
+  "title": "Oregon's 3rd Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Oregon's 3rd Congressional District",
+  "state": "Oregon",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Oregon's 3rd Congressional District, covering most of Multnomah County, northeastern Clackamas County, and all of Hood River County, is holding its general election on November 3, 2026. The district is the most Democratic congressional district in Oregon, rated \"Solid D\" or \"Safe D\" by all major nonpartisan election forecasters. Incumbent Democrat Maxine Dexter, a physician and former state representative who first won the seat in 2024, faces Republican nominee Loran Ayles, who won his party's primary unopposed. The race presents voters with a clear contrast between Dexter's progressive record on healthcare, housing, and environmental issues, and Ayles' background as an activist opposed to COVID-19 restrictions.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race. The district is considered safely Democratic by major forecasters including Cook Political Report, Inside Elections, and Sabato's Crystal Ball, all of which rate it as Solid/Safe Democratic.",
+  "candidates": [
+    {
+      "name": "Maxine Dexter",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Maxine Dexter is the incumbent U.S. Representative for Oregon's 3rd Congressional District, first elected in 2024. She is a physician (pulmonologist and critical care specialist) who previously served in the Oregon House of Representatives, where she chaired the House Housing and Homelessness Committee and led efforts on healthcare access, abortion rights, and homelessness funding. In Congress, she serves on the House Veterans' Affairs and Natural Resources Committees.",
+      "summary_sources": [
+        {
+          "url": "https://dexter.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Maxine Dexter",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Maxine_Dexter",
+          "type": "website",
+          "title": "Maxine Dexter - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://results.oregonvotes.gov/resultsSW.aspx?type=FED&map=CTY",
+          "type": "government",
+          "title": "Oregon Secretary of State Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Maxine_Dexter_official_portrait_%28cropped%29.jpg/800px-Maxine_Dexter_official_portrait_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Oregon's 3rd Congressional District. Serves on House Veterans' Affairs and Natural Resources Committees.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Oregon House of Representatives",
+          "start_year": 2020,
+          "end_year": 2024,
+          "description": "Represented the 33rd District. Served as Chair of the House Housing and Homelessness Committee.",
+          "source": null
+        },
+        {
+          "title": "Physician (Pulmonologist/Critical Care)",
+          "organization": "Kaiser Permanente / Northwest Permanente",
+          "start_year": null,
+          "end_year": 2024,
+          "description": "Practiced as a lung and critical care physician for over 15 years. First woman to be Chair of the Board of Directors at Northwest Permanente.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Washington School of Medicine",
+          "degree": "MD",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Washington",
+          "degree": "BA",
+          "field": "Political Science and Communications",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Maxine_Dexter",
+          "title": "Ballotpedia - Maxine Dexter",
+          "type": "other"
+        },
+        {
+          "url": "https://www.congress.gov/member/maxine-dexter/D000635",
+          "title": "Congress.gov - Maxine Dexter",
+          "type": "other"
+        }
+      ],
+      "website": "https://dexter.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepDexterOR",
+        "twitter": "https://twitter.com/RepDexterOR"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Loran Ayles",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Loran Ayles is the Republican nominee for Oregon's 3rd Congressional District. He advanced from the Republican primary unopposed. Ayles was previously involved with Open Our Oregon, a group that sued to challenge COVID-19 restriction measures. He has a prior misdemeanor conviction for identity theft related to a 2013 incident that emerged during a 2019 school board campaign. Limited public biographical information is available about his professional background.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Loran_Ayles",
+          "type": "website",
+          "title": "Loran Ayles - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://results.oregonvotes.gov/resultsSW.aspx?type=FED&map=CTY",
+          "type": "government",
+          "title": "Oregon Secretary of State Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.columbiagorgenews.com/news/education/candidate-loran-ayles-identity-theft-conviction-emerges/article_33f4df60-765e-11e9-9c29-27a155c16f1e.html",
+          "type": "news",
+          "title": "Candidate Loran Ayles' Identity Theft conviction emerges",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Loran_Ayles",
+          "title": "Ballotpedia - Loran Ayles",
+          "type": "other"
+        }
+      ],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Oregon%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:23:13.911698+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 220612,
+    "completion_tokens": 4384,
+    "total_tokens": 224996,
+    "cost_usd": 0.01583988,
+    "cost_source": "provider",
+    "estimated_usd": 0.022479,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 220612,
+        "completion_tokens": 4384
+      }
+    },
+    "duration_s": 96.6
+  }
+}

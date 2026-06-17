@@ -1,0 +1,288 @@
+{
+  "id": "pa-house-04-2026",
+  "title": "Pennsylvania's 4th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Pennsylvania's 4th Congressional District",
+  "state": "Pennsylvania",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Pennsylvania's 4th Congressional District, covering most of Montgomery County and part of Berks County in the Philadelphia suburbs, is holding a general election on November 3, 2026. Incumbent Democratic U.S. Rep. Madeleine Dean, first elected in 2018, is seeking a fifth term. She faces Republican challenger Aurora Stuski, a small business owner and community activist from West Norriton. The Cook Political Report rates this district as 'Solid Democratic' (D+8 PVI), making Dean the clear favorite in a district that has consistently elected Democrats to Congress since the current district lines were drawn in 2018.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to the PA-04 general election were found. The Cook Political Report rates the race as 'Solid D' and notes the incumbent 'should sail to reelection.' Prediction markets give Democrats a 94% chance of holding the seat.",
+  "candidates": [
+    {
+      "name": "Madeleine Dean",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Madeleine Dean has served as the U.S. Representative for Pennsylvania's 4th Congressional District since 2019. She previously served in the Pennsylvania House of Representatives from 2012 to 2018 and was an Abington Township commissioner. Dean serves on the House Appropriations Committee and the House Foreign Affairs Committee, and was one of the House impeachment managers for the second impeachment trial of President Donald Trump. Her legislative priorities include public education funding, healthcare access, gun violence prevention, and environmental protection.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Madeleine_Dean",
+          "type": "website",
+          "title": "Madeleine Dean - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483926",
+          "type": "website",
+          "title": "PA-04 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cityandstatepa.com/politics/2026/05/whos-running-congress-pennsylvania-2026/413737/",
+          "type": "news",
+          "title": "Who's running for Congress in Pennsylvania in 2026? - City & State Pennsylvania",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Madeleine_Dean_Official_Portrait_116th_Congress.jpg/800px-Madeleine_Dean_Official_Portrait_116th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "United States House of Representatives \u2014 Pennsylvania's 4th District",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Serves on Appropriations and Foreign Affairs Committees; impeachment manager for Trump second impeachment.",
+          "source": null
+        },
+        {
+          "title": "Member of the Pennsylvania House of Representatives",
+          "organization": "Pennsylvania House of Representatives \u2014 153rd District",
+          "start_year": 2012,
+          "end_year": 2018,
+          "description": "Represented the 153rd district; co-founded PA SAFE Caucus for gun violence prevention.",
+          "source": null
+        },
+        {
+          "title": "Abington Township Commissioner",
+          "organization": "Abington Township, Montgomery County, Pennsylvania",
+          "start_year": 2011,
+          "end_year": 2012,
+          "description": "Served as a township commissioner before winning a special election to the state house.",
+          "source": null
+        },
+        {
+          "title": "Assistant Professor of English",
+          "organization": "La Salle University",
+          "start_year": 2001,
+          "end_year": 2012,
+          "description": "Taught writing and ethics.",
+          "source": null
+        },
+        {
+          "title": "Attorney / Trial Lawyer",
+          "organization": "Private Practice",
+          "start_year": 1984,
+          "end_year": 2001,
+          "description": "Practiced law with Philadelphia Trial Lawyers and later opened a small law practice in Glenside.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Widener University Delaware Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1984,
+          "source": null
+        },
+        {
+          "institution": "La Salle University",
+          "degree": "Bachelor of Arts",
+          "field": "English",
+          "year": 1981,
+          "source": null
+        },
+        {
+          "institution": "University of Pennsylvania",
+          "degree": "Non-degree",
+          "field": "Politics and Public Service (Fels Institute of Government)",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Montgomery County Community College",
+          "degree": "Non-degree",
+          "field": "General Studies",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mad4pa.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Aurora Stuski",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Aurora Stuski is the Republican nominee for Pennsylvania's 4th Congressional District. She is the founder and owner of AAS Appraisal Lab in King of Prussia, a business she has operated since 1989, and holds credentials as a Graduate Gemologist. Stuski has been active in Montgomery County Republican Party politics as Vice Chair of MCRC Area 8 and Chair of the West Norriton Republican Committee. Her campaign focuses on reducing the tax burden on homeowners, protecting seniors on fixed incomes, preserving green space, and supporting community-centered education.",
+      "summary_sources": [
+        {
+          "url": "https://aurora4pa.com/meet-aurora/",
+          "type": "website",
+          "title": "Meet Aurora - Aurora Stuski for Congress",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://glensidelocal.com/west-norriton-resident-to-challenge-rep-dean-of-glenside-for-pas-4th-congressional-district-seat/",
+          "type": "news",
+          "title": "West Norriton resident to challenge Rep. Dean for PA's 4th Congressional District seat",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-pennsylvania-us-house-4-primary.html",
+          "type": "news",
+          "title": "Pennsylvania Fourth Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder and Owner",
+          "organization": "AAS Appraisal Lab, King of Prussia, PA",
+          "start_year": 1989,
+          "end_year": null,
+          "description": "Provides appraisal services for jewelry, coins, and collectibles; expert witness testimony; estate valuation and liquidation.",
+          "source": null
+        },
+        {
+          "title": "Area 8 Vice Chair",
+          "organization": "Montgomery County Republican Committee (MCRC)",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Regional leadership role within the county Republican Party organization.",
+          "source": null
+        },
+        {
+          "title": "Chair",
+          "organization": "West Norriton Republican Committee",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Led the local Republican committee for West Norriton Township.",
+          "source": null
+        },
+        {
+          "title": "Delegate",
+          "organization": "Republican National Convention (CD-4)",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Elected as a delegate to the Republican National Convention representing the 4th Congressional District.",
+          "source": null
+        },
+        {
+          "title": "Committee Person",
+          "organization": "West Norriton 4-1",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Elected precinct committee person.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Arcadia University (formerly Beaver College)",
+          "degree": "Bachelor of Fine Arts",
+          "field": "Fine Arts",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Arcadia University (formerly Beaver College)",
+          "degree": "Minor",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Gemological Institute of America (GIA)",
+          "degree": "Graduate Gemologist",
+          "field": "Gemology",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://aurora4pa.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:32:20.025781+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 215903,
+    "completion_tokens": 5893,
+    "total_tokens": 221796,
+    "cost_usd": 0.015853874,
+    "cost_source": "provider",
+    "estimated_usd": 0.022314,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 215903,
+        "completion_tokens": 5893
+      }
+    },
+    "duration_s": 118.4
+  }
+}

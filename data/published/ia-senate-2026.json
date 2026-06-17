@@ -18,16 +18,107 @@
           "url": "https://turek4iowa.com/about",
           "type": "website",
           "title": "About Josh Turek",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
           "type": "website",
           "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Josh_Turek_20250901_100606.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Member",
+          "organization": "Iowa House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Council Bluffs area district in the Iowa House.",
+          "source": null
+        },
+        {
+          "title": "Professional wheelchair basketball player / Paralympian",
+          "organization": "Team USA",
+          "start_year": 2000,
+          "end_year": 2021,
+          "description": "Competed in four Paralympics and won two gold medals.",
+          "source": null
+        },
+        {
+          "title": "Volunteer Director",
+          "organization": "Ryan Martin Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked with an organization providing disabled children opportunities to play sports.",
+          "source": null
+        },
+        {
+          "title": "Mobility and rehab technology worker",
+          "organization": "Wheelchair and mobility assistance company",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked with patients and doctors to provide mobility devices and complex rehab technology.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Abraham Lincoln High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Southwest Minnesota State University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": 2002,
+          "source": null
+        },
+        {
+          "institution": "Unknown institution",
+          "degree": "MBA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://turek4iowa.com/",
+          "title": "https://turek4iowa.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://turek4iowa.com/about",
+          "title": "https://turek4iowa.com/about",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "other"
+        }
+      ],
       "website": "https://turek4iowa.com/",
       "social_media": {
         "facebook": "https://www.facebook.com/Turek4Iowa",
@@ -38,66 +129,8 @@
         "tiktok": "https://www.tiktok.com/@turek4iowa",
         "youtube": "https://www.youtube.com/@turek4iowa"
       },
-      "career_history": [
-        {
-          "title": "Member",
-          "organization": "Iowa House of Representatives",
-          "start_year": 2023,
-          "end_year": null,
-          "description": "Represents Council Bluffs area district in the Iowa House."
-        },
-        {
-          "title": "Professional wheelchair basketball player / Paralympian",
-          "organization": "Team USA",
-          "start_year": 2000,
-          "end_year": 2021,
-          "description": "Competed in four Paralympics and won two gold medals."
-        },
-        {
-          "title": "Volunteer Director",
-          "organization": "Ryan Martin Foundation",
-          "start_year": null,
-          "end_year": null,
-          "description": "Worked with an organization providing disabled children opportunities to play sports."
-        },
-        {
-          "title": "Mobility and rehab technology worker",
-          "organization": "Wheelchair and mobility assistance company",
-          "start_year": null,
-          "end_year": null,
-          "description": "Worked with patients and doctors to provide mobility devices and complex rehab technology."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Abraham Lincoln High School",
-          "degree": "High school diploma",
-          "field": null,
-          "year": null
-        },
-        {
-          "institution": "Southwest Minnesota State University",
-          "degree": "Bachelor's degree",
-          "field": null,
-          "year": 2002
-        },
-        {
-          "institution": "Unknown institution",
-          "degree": "MBA",
-          "field": null,
-          "year": null
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [
-        "https://turek4iowa.com/",
-        "https://turek4iowa.com/about",
-        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
-      ],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Zach Wahls",
@@ -109,16 +142,92 @@
           "url": "https://zachwahls.com/meet-zach-wahls/",
           "type": "website",
           "title": "Meet Zach Wahls - Wahls for Iowa",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
           "type": "website",
           "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Zach_Wahls_20250122_084308.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Iowa Senate",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Represents Iowa Senate District 43.",
+          "source": null
+        },
+        {
+          "title": "Vice President of Community Investment",
+          "organization": "GreenState Credit Union",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in community investment at Iowa’s largest independent financial cooperative.",
+          "source": null
+        },
+        {
+          "title": "Advocate and author",
+          "organization": "Independent / public advocacy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Became nationally known for testimony on marriage equality and later worked as an advocate and author.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Iowa",
+          "degree": "Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Princeton University School of Public and International Affairs",
+          "degree": "Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://zachwahls.com/",
+          "title": "https://zachwahls.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://zachwahls.com/meet-zach-wahls/",
+          "title": "https://zachwahls.com/meet-zach-wahls/",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "other"
+        }
+      ],
       "website": "https://zachwahls.com/",
       "social_media": {
         "facebook": "https://www.facebook.com/zach.wahls",
@@ -127,140 +236,8 @@
         "bluesky": "https://bsky.app/profile/zachwahls.bsky.social",
         "youtube": "https://www.youtube.com/@zachwahls"
       },
-      "career_history": [
-        {
-          "title": "State Senator",
-          "organization": "Iowa Senate",
-          "start_year": 2019,
-          "end_year": null,
-          "description": "Represents Iowa Senate District 43."
-        },
-        {
-          "title": "Vice President of Community Investment",
-          "organization": "GreenState Credit Union",
-          "start_year": null,
-          "end_year": null,
-          "description": "Worked in community investment at Iowa’s largest independent financial cooperative."
-        },
-        {
-          "title": "Advocate and author",
-          "organization": "Independent / public advocacy",
-          "start_year": null,
-          "end_year": null,
-          "description": "Became nationally known for testimony on marriage equality and later worked as an advocate and author."
-        }
-      ],
-      "education": [
-        {
-          "institution": "University of Iowa",
-          "degree": "Degree",
-          "field": null,
-          "year": null
-        },
-        {
-          "institution": "Princeton University School of Public and International Affairs",
-          "degree": "Degree",
-          "field": null,
-          "year": null
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [
-        "https://zachwahls.com/",
-        "https://zachwahls.com/meet-zach-wahls/",
-        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
-      ],
-      "issues": {}
-    },
-    {
-      "name": "Nathan Sage",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Nathan Sage is a Democratic candidate for U.S. Senate who built his campaign around working-class experience, military service, and local economic development. His background includes service in the Marine Corps and Army, work as a mechanic and broadcaster, and leadership at the Knoxville Chamber of Commerce.",
-      "summary_sources": [
-        {
-          "url": "https://www.sageforsenate.com/about",
-          "type": "website",
-          "title": "About — Nathan Sage | Democrat for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
-          "type": "website",
-          "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nathan_Sage_20250513_090956.jpg",
-      "website": "https://www.sageforsenate.com/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/sageforiowa/",
-        "facebook": "https://www.facebook.com/sageforsenate"
-      },
-      "career_history": [
-        {
-          "title": "Executive Director",
-          "organization": "Knoxville Chamber of Commerce",
-          "start_year": 2023,
-          "end_year": null,
-          "description": "Leads local economic development and business support efforts."
-        },
-        {
-          "title": "News Director and Sports Director",
-          "organization": "Two Iowa radio stations",
-          "start_year": null,
-          "end_year": 2023,
-          "description": "Worked in local radio after returning to Iowa."
-        },
-        {
-          "title": "Mechanic",
-          "organization": "Private sector",
-          "start_year": null,
-          "end_year": null,
-          "description": "Worked as a mechanic after military service."
-        },
-        {
-          "title": "Corporal",
-          "organization": "United States Marine Corps",
-          "start_year": null,
-          "end_year": 2008,
-          "description": "Served two deployments to Iraq during Operation Iraqi Freedom."
-        },
-        {
-          "title": "Corporal",
-          "organization": "United States Army",
-          "start_year": 2008,
-          "end_year": 2013,
-          "description": "Served in the Army after Marine Corps service."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Mason City High School",
-          "degree": "High school diploma",
-          "field": null,
-          "year": null
-        },
-        {
-          "institution": "Kansas State University",
-          "degree": "Degree",
-          "field": null,
-          "year": null
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [
-        "https://www.sageforsenate.com/",
-        "https://www.sageforsenate.com/about",
-        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
-      ],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Jim Carlin",
@@ -272,37 +249,60 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
           "type": "website",
           "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Jim_Carlin",
           "type": "website",
           "title": "Jim Carlin - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jim-Carlin.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "State Senator",
           "organization": "Iowa Senate",
           "start_year": 2017,
           "end_year": 2023,
-          "description": "Served in the Iowa Senate before running for federal office."
+          "description": "Served in the Iowa Senate before running for federal office.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
-        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
-        "https://ballotpedia.org/Jim_Carlin"
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Jim_Carlin",
+          "title": "https://ballotpedia.org/Jim_Carlin",
+          "type": "other"
+        }
       ],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Ashley Hinson",
@@ -314,32 +314,43 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
           "type": "website",
           "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Ashley_Hinson",
           "type": "website",
           "title": "Ashley Hinson - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/428px-Ashley_Hinson.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Member of Congress",
           "organization": "U.S. House of Representatives",
           "start_year": 2021,
           "end_year": null,
-          "description": "Represents Iowa’s 2nd Congressional District."
+          "description": "Represents Iowa’s 2nd Congressional District.",
+          "source": null
         },
         {
           "title": "Television news anchor and reporter",
           "organization": "KCRG-TV9",
           "start_year": null,
           "end_year": 2021,
-          "description": "Worked in broadcast journalism before entering politics."
+          "description": "Worked in broadcast journalism before entering politics.",
+          "source": null
         }
       ],
       "education": [
@@ -347,125 +358,89 @@
           "institution": "University of Southern California",
           "degree": "Degree",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
-        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
-        "https://ballotpedia.org/Ashley_Hinson"
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "title": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Ashley_Hinson",
+          "title": "https://ballotpedia.org/Ashley_Hinson",
+          "type": "other"
+        }
       ],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
-      "name": "Joni Ernst",
-      "party": "Republican",
-      "incumbent": true,
-      "summary": "Joni Ernst is the incumbent Republican U.S. senator from Iowa, but she is not seeking re-election in 2026. Her Senate career and military background have been central to her public profile, and her retirement created the open-seat contest now underway.",
-      "summary_sources": [
-        {
-          "url": "https://www.ernst.senate.gov/about",
-          "type": "government",
-          "title": "About | U.S. Senator Joni Ernst of Iowa",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://www.cbsnews.com/news/joni-ernst-wont-seek-reelection-to-senate-in-2026-sources-say/",
-          "type": "news",
-          "title": "Joni Ernst won't seek reelection to Senate in 2026, sources say",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joni_Ernst_Official_photo_portrait_114th_Congress.jpg",
-      "website": "https://www.ernst.senate.gov/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SenJoniErnst",
-        "instagram": "https://www.instagram.com/senjoni ernst/",
-        "x": "https://x.com/SenJoniErnst",
-        "youtube": "https://www.youtube.com/@SenJoniErnst"
-      },
-      "career_history": [
-        {
-          "title": "United States Senator",
-          "organization": "U.S. Senate",
-          "start_year": 2015,
-          "end_year": 2026,
-          "description": "Represents Iowa in the U.S. Senate."
-        },
-        {
-          "title": "Montgomery County Auditor",
-          "organization": "Montgomery County, Iowa",
-          "start_year": null,
-          "end_year": null,
-          "description": "Served as county auditor and local commissioner of elections."
-        },
-        {
-          "title": "State Senator",
-          "organization": "Iowa Senate",
-          "start_year": null,
-          "end_year": 2014,
-          "description": "Served in the Iowa Senate before election to Congress."
-        },
-        {
-          "title": "Lieutenant Colonel",
-          "organization": "Iowa Army National Guard",
-          "start_year": null,
-          "end_year": 2015,
-          "description": "Retired after 23 years of military service."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Iowa State University",
-          "degree": "B.A.",
-          "field": null,
-          "year": null
-        },
-        {
-          "institution": "Columbus State University",
-          "degree": "M.P.A.",
-          "field": null,
-          "year": null
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
+      "name": "Thomas Laehn",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [
-        "https://www.ernst.senate.gov/",
-        "https://www.ernst.senate.gov/about",
-        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
-      ],
-      "issues": {}
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T18:06:12.813960+00:00",
+  "updated_utc": "2026-06-13T20:52:16.148110+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 110170,
-    "completion_tokens": 12669,
-    "total_tokens": 122839,
-    "estimated_usd": 0.0184,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 75984,
+    "completion_tokens": 13855,
+    "total_tokens": 89839,
+    "cost_usd": 0.00842537,
+    "cost_source": "provider",
+    "estimated_usd": 0.009658,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 66986,
-        "completion_tokens": 11735
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 68175,
+        "completion_tokens": 13766
       },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 43184,
-        "completion_tokens": 934
+      "nvidia/nemotron-3-super-120b-a12b": {
+        "prompt_tokens": 7809,
+        "completion_tokens": 89
       }
     },
-    "duration_s": 174.0
+    "duration_s": 128.5
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

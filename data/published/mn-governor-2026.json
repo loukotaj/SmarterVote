@@ -12,387 +12,19 @@
       "pollster": "SurveyUSA / KSTP",
       "date": "2026-01-30",
       "sample_size": 575,
-      "matchups": [
-        {
-          "candidates": [
-            "Tim Walz",
-            "Jeff Johnson"
-          ],
-          "percentages": [
-            49,
-            34
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.realclearpolling.com/elections/governor/2026/minnesota"
     },
     {
       "pollster": "SurveyUSA",
       "date": "2026-02-05",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Tim Walz",
-            "Unnamed Republican opponents"
-          ],
-          "percentages": []
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.surveyusa.com/PollHistory.aspx?d=2026,1"
     }
   ],
   "polling_note": "No public polling found for this race in the last 90 days as of 2026-05-17.",
   "candidates": [
-    {
-      "name": "Tim Walz",
-      "party": "Democratic-Farmer-Labor",
-      "incumbent": true,
-      "summary": "Tim Walz is Minnesota’s 41st governor and a former educator and Army National Guard veteran. He was first elected governor in 2018 and won re-election in 2022; the Minnesota governor’s office says he later announced he would not seek a third term.",
-      "summary_sources": [
-        {
-          "url": "https://mn.gov/governor/about/timwalz/index.jsp",
-          "type": "government",
-          "title": "Governor Tim Walz - MN.gov"
-        },
-        {
-          "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-718148",
-          "type": "government",
-          "title": "Governor Walz Statement Announcing He Will Not Seek Reelection"
-        },
-        {
-          "url": "https://ballotpedia.org/Tim_Walz",
-          "type": "website",
-          "title": "Tim Walz - Ballotpedia"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tim_Walz.jpg",
-      "website": "https://mn.gov/governor/",
-      "social_media": {},
-      "career_history": [
-        {
-          "title": "Governor",
-          "organization": "State of Minnesota",
-          "start_year": 2019,
-          "end_year": null,
-          "description": "Serves as Minnesota’s chief executive."
-        },
-        {
-          "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2007,
-          "end_year": 2019,
-          "description": "Represented Minnesota’s 1st Congressional District."
-        },
-        {
-          "title": "Teacher and football coach",
-          "organization": "Mankato West High School",
-          "start_year": 1996,
-          "end_year": 2006,
-          "description": "Worked in education before entering full-time politics."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Chadron State College",
-          "degree": "Bachelor of Science",
-          "field": "social science education",
-          "year": 1989
-        }
-      ],
-      "donor_summary": "OpenSecrets and the FEC show Tim Walz’s federal campaign committees raised about $113,150.64 in the 2017–2018 cycle, with most receipts coming from other committees ($80,650) rather than individual donors. OpenSecrets’ profile page is available, but the page text available here does not expose a clean top-industries list; the best public finance page to review is the FEC candidate overview, with state-level disclosure also available through Minnesota’s campaign finance board and FollowTheMoney.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H6MN01174/",
-      "donor_sources": [
-        {
-          "url": "https://www.fec.gov/data/candidate/H6MN01174/",
-          "title": "WALZ, TIMOTHY J - Candidate overview - FEC",
-          "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-        },
-        {
-          "url": "https://www.opensecrets.org/profiles/tim-walz/us_congress/summary?mpid=1049709",
-          "title": "Tim Walz – US Congress – Summary - OpenSecrets",
-          "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-        },
-        {
-          "url": "https://www.opensecrets.org/officeholders/tim-walz/summary?cycle=2020&id=9202001",
-          "title": "Tim Walz Money Profile - OpenSecrets",
-          "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-        },
-        {
-          "url": "https://www.followthemoney.org/entity-details?eid=9202001&default=candidate",
-          "title": "WALZ, TIMOTHY J (TIM) - FollowTheMoney.org",
-          "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-        },
-        {
-          "url": "https://cfb.mn.gov/reports-and-data/viewers/campaign-finance/candidates/19247/2026/",
-          "title": "Candidates - Minnesota Campaign Finance Board",
-          "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-        }
-      ],
-      "voting_summary": "Tim Walz is an incumbent governor, not a legislator, so there is no legislative voting record to report for the 2026 governor race. His public governing record is instead as Minnesota governor since 2019, and his official state bio confirms he was first elected governor in 2018 and re-elected in 2022.",
-      "voting_source_url": "https://mn.gov/governor/about/timwalz/index.jsp",
-      "links": [
-        {
-          "url": "https://ballotpedia.org/Tim_Walz",
-          "title": "Tim Walz - Ballotpedia",
-          "type": "ballotpedia"
-        },
-        {
-          "url": "https://mn.gov/governor/about/timwalz/index.jsp",
-          "title": "Governor Tim Walz - MN.gov",
-          "type": "legislature"
-        },
-        {
-          "url": "https://mn.gov/governor/",
-          "title": "Office of Governor Tim Walz and Lt. Governor Peggy Flanagan - MN.gov",
-          "type": "official"
-        },
-        {
-          "url": "https://www.fec.gov/data/candidate/H6MN01174/",
-          "title": "WALZ, TIMOTHY J - Candidate overview - FEC",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.opensecrets.org/profiles/tim-walz/us_congress/summary?mpid=1049709",
-          "title": "Tim Walz – US Congress – Summary - OpenSecrets",
-          "type": "finance"
-        },
-        {
-          "url": "https://www.opensecrets.org/officeholders/tim-walz/summary?cycle=2020&id=9202001",
-          "title": "Tim Walz Money Profile - OpenSecrets",
-          "type": "finance"
-        },
-        {
-          "url": "https://justfacts.votesmart.org/candidate/key-votes/65443/tim-walz",
-          "title": "Tim Walz - Vote Smart",
-          "type": "votesmart"
-        },
-        {
-          "url": "https://www.followthemoney.org/entity-details?eid=9202001&default=candidate",
-          "title": "WALZ, TIMOTHY J (TIM) - FollowTheMoney.org",
-          "type": "finance"
-        },
-        {
-          "url": "https://en.wikipedia.org/wiki/Tim_Walz",
-          "title": "Tim Walz - Wikipedia",
-          "type": "wiki"
-        },
-        {
-          "url": "https://www.congress.gov/115/meeting/house/105558/witnesses/HHRG-115-HA00-Bio-WalzT-20170215.pdf",
-          "title": "Full Biography - Congress.gov",
-          "type": "other"
-        }
-      ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Walz has proposed a major overhaul of Minnesota’s human services and Medicaid administration, including moving more functions to the state level and ending the use of managed care organizations. He says the changes are intended to modernize systems, improve transparency, and reduce fraud.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-730514",
-              "type": "official",
-              "title": "Governor Walz Announces Proposal to Transform Minnesota’s Human Services System",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://mprnews.org/story/2026/03/10/walz-announce-plan-transform-minnesota-human-services-system",
-              "type": "news",
-              "title": "Walz unveils plan to 'transform' Minnesota's human services system",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Walz’s 2026 supplemental budget proposal focuses on lowering costs for middle-class families, including child care refunds, affordable housing, and sales tax relief, while also funding workforce preparation and targeted tax measures affecting large tech firms. He describes the plan as a balanced approach to growth and affordability.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-733146",
-              "type": "official press release",
-              "title": "Governor Walz Proposes Balanced Budget to Lower Costs, Make Big Tech Pay Their Fair Share, and Respond to Operation Metro Surge",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://content.govdelivery.com/attachments/MNGOV/2026/03/17/file_attachments/3586411/FINAL%20sup-budget2026_onepager.pdf",
-              "type": "policy document",
-              "title": "GOVERNOR WALZ’S 2026 SUPPLEMENTAL BUDGET (One Pager)",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Walz supports aggressive climate action and a transition to clean energy. As governor, he signed Minnesota’s 100% clean electricity law for 2040 and issued an executive order to streamline environmental permitting for clean-energy projects.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/commerce/news/?id=17-563384",
-              "type": "official",
-              "title": "Governor Walz Signs Bill Moving Minnesota to 100 Percent Clean Electricity by 2040",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-725104",
-              "type": "official",
-              "title": "Governor Walz Issues Executive Order Reforming Environmental Permitting",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Walz supports abortion access and reproductive freedom. In 2023 he signed the Protect Reproductive Options Act, which codified reproductive freedom into Minnesota law and protected abortion and contraception access.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-562506",
-              "type": "official government press release",
-              "title": "Governor Walz Signs Reproductive Freedom into Law - PRO Act",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://apnews.com/article/abortion-politics-minnesota-state-government-timothy-walz-11c3b1d5269c929e442b979ff1bac73b",
-              "type": "news article",
-              "title": "Governor Walz signs broad abortion rights bill into law",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Walz has backed more permissive immigration policies in Minnesota, including expanding driver’s license access to residents regardless of immigration status. He has also defended Minnesota’s approach to immigrant communities and said he supports broader immigration reform rather than mass deportations.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-568209",
-              "type": "government",
-              "title": "Governor Walz Signs Bill Expanding Access to Driver's Licenses",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://apnews.com/article/minnesota-immigration-crackdown-walz-homan-wiles-1f25629bf74467f91e41377f704a6b7a",
-              "type": "news",
-              "title": "Walz says federal immigration crackdown in Minnesota could end within days",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Walz supports a broad gun-violence-prevention agenda that includes universal background checks, an assault-weapons ban, a high-capacity magazine ban, ghost-gun restrictions, safe-storage requirements, and stronger reporting and enforcement measures. He has also backed giving local governments more flexibility by revisiting state preemption rules.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/index.jsp?id=1055-727531",
-              "type": "official-press-release",
-              "title": "Governor Walz Announces Comprehensive Gun Violence Prevention Package",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://content.govdelivery.com/attachments/MNGOV/2026/02/24/file_attachments/3563553/GVP_Fact%20Sheet.pdf",
-              "type": "fact-sheet",
-              "title": "Gun Violence Prevention Package - Fact Sheet",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Walz supports stronger AI regulation, including signing a Minnesota law banning AI nudification technology that creates non-consensual nude images. The law includes enforcement provisions and penalties for violations.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-746581",
-              "type": "official",
-              "title": "Governor Walz Signs Bills",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.cbsnews.com/minnesota/news/governor-walz-sings-law-stop-ai-being-used-for-csam/",
-              "type": "news",
-              "title": "Minnesota Gov. Walz signs first-of-its-kind law to stop AI being used for CSAM",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Walz supported and signed Minnesota voting-access legislation that expanded automatic voter registration, allowed 16- and 17-year-olds to pre-register, and created a permanent absentee voting system. The changes were designed to make voting easier for eligible Minnesota voters.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-567631",
-              "type": "news",
-              "title": "Governor Walz Signs Bill Expanding Voting Rights to ... - MN.gov",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://represent.us/2023-campaigns/minnesota-democracy-for-the-people-act/",
-              "type": "news",
-              "title": "Minnesota: Democracy for the People Act - RepresentUs",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Walz has emphasized state support for local communities through initiatives such as Shop Local Minnesota and through efforts to modernize human services delivery. His stated goal is to strengthen local businesses and improve how residents access services.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-721591&ref=rosevillereader.com",
-              "type": "news",
-              "title": "Shop Local Minnesota initiative announced by Governor Walz",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.kttc.com/2026/03/10/gov-tim-walz-announce-changes-states-human-services-system/",
-              "type": "news",
-              "title": "Gov. Walz to announce changes to Minnesota's human services system",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Walz has publicly supported civil-rights protections and LGBTQ+ equality as governor. His office has issued proclamations recognizing events such as Transgender Day of Visibility, and he has defended nondiscrimination policies in public remarks.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/assets/03.31.26%20Transgender%20Day%20of%20Visibility_tcm1055-736265.pdf",
-              "type": "government-proclamation",
-              "title": "Transgender Day of Visibility proclamation (MN.gov)",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/newsroom/proclamations.jsp",
-              "type": "government-proclamation",
-              "title": "Governor's proclamations - MN.gov",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Education": {
-          "stance": "Walz supports the Due North Education Plan, which aims to reform school finance, expand opportunities in Greater Minnesota, strengthen the teaching workforce, and add student supports such as mental health services and family engagement. The plan also emphasizes recovery from COVID-19 learning disruptions and equitable standards.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/onemn/index.jsp",
-              "type": "official_policy",
-              "title": "Due North Education Plan - Governor Walz",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://education.mn.gov/MDE/about/plan/",
-              "type": "official_policy",
-              "title": "Due North Education Plan - Minnesota Department of Education",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "Jeff Johnson",
       "party": "Republican",
@@ -402,43 +34,310 @@
         {
           "url": "https://www.lrl.mn.gov/legdb/fulldetail?id=10290",
           "type": "government",
-          "title": "Johnson, Jeff - Minnesota Legislative Reference Library"
+          "title": "Johnson, Jeff - Minnesota Legislative Reference Library",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:40.235225Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://en.wikipedia.org/wiki/Jeff_Johnson_(Minnesota_politician)",
-          "type": "wiki",
-          "title": "Jeff Johnson (Minnesota politician) - Wikipedia"
+          "type": "website",
+          "title": "Jeff Johnson (Minnesota politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:40.235225Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
           "type": "news",
-          "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid"
+          "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:40.235225Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jeff_Johnson.jpg",
-      "website": "https://www.votejeffjohnson.us/issues",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Jeff Johnson says Minnesota is overtaxing businesses and households and argues for lower spending, more efficiency, and reduced fraud. He frames business retention and fiscal restraint as central to improving the state economy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
+              "type": "news",
+              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
+              "type": "website",
+              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Jeff Johnson describes himself as strongly anti-abortion and says he is '100% unapologetically pro life starting at conception.'",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
+              "type": "website",
+              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Jeff Johnson supports an optional Minnesota Citizens Enhanced Protection Act that would provide additional training for permit holders. He presents the proposal as a training and preparedness measure rather than a broad gun restriction.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
+              "type": "news",
+              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
+              "type": "website",
+              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Jeff Johnson supports stricter enforcement against illegal immigration, says he has no problem with deporting people who are in the country illegally, and distinguishes that from legal immigration. He has also criticized sanctuary-style cooperation limits and previously proposed a refugee moratorium in St. Cloud.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
+              "type": "news",
+              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lrl.mn.gov/legdb/fulldetail?id=10290",
+              "type": "government",
+              "title": "Johnson, Jeff - Minnesota Legislative Reference Library",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Jeff Johnson opposes transgender women and girls using female bathrooms, locker rooms, prisons, and sports, and he says he would end taxpayer-funded DEI programs. He has also criticized drag performances at the state Capitol and gender-affirming care for minors.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
+              "type": "website",
+              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
+              "type": "news",
+              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Jeff Johnson supports requiring photo identification to vote as part of election-integrity measures.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://fox21online.com/homepage/republicans-running-for-minnesota-governor-support-voter-id/article_ddebfec8-ff30-5976-a339-2e6f33cdad35.html",
+              "type": "news",
+              "title": "Republicans Running for Minnesota Governor Support Voter ID",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Jeff Johnson has emphasized St. Cloud and Minneapolis crime, refugee resettlement, and business retention in Minnesota as local priorities. He has also tied his campaign to concerns about fraud, taxes, and state spending.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
+              "type": "news",
+              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Jeff Johnson says he opposes taxpayer-funded healthcare for undocumented immigrants and favors limiting government involvement in health care. His public comments emphasize cost control, private-market approaches, and opposition to expanding public programs.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
+              "type": "news",
+              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
+              "type": "website",
+              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Jeff Johnson says Minnesota schools have become ideological 'indoctrination centers' and criticizes what he describes as CRT, gender ideology, drag performances, and other content in schools. His comments indicate he wants to change school culture and curriculum direction.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
+              "type": "website",
+              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
+              "type": "news",
+              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [
         {
           "title": "Hennepin County Commissioner",
           "organization": "Hennepin County",
           "start_year": 2009,
           "end_year": 2021,
-          "description": "Served on the county board."
+          "description": "Served on the county board.",
+          "source": null
         },
         {
           "title": "Member",
           "organization": "Minnesota House of Representatives",
           "start_year": 2001,
           "end_year": 2007,
-          "description": "Represented a district in the Minnesota House."
+          "description": "Represented a district in the Minnesota House.",
+          "source": null
         },
         {
           "title": "Attorney / mediator / trainer",
           "organization": "Private practice",
           "start_year": null,
           "end_year": null,
-          "description": "Worked in law and mediation before and alongside public service."
+          "description": "Worked in law and mediation before and alongside public service.",
+          "source": null
         }
       ],
       "education": [
@@ -446,45 +345,68 @@
           "institution": "University of Minnesota",
           "degree": "J.D.",
           "field": "law",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Minnesota",
           "degree": "B.A.",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
+      "voting_summary": "Jeff Johnson is a former Minnesota legislator, so his voting record is from his time in the Minnesota House rather than the governor’s race. Public sources confirm he served in the Minnesota House from 2001 to 2007; however, the accessible sources here do not expose a detailed roll-call voting percentage, so the best available public record is his legislative biography and Vote Smart profile for bill-by-bill research.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/152557/jeff-johnson",
+      "voting_sources": [],
       "donor_summary": "Jeff Johnson’s public finance trail is strongest in Minnesota state disclosures and older gubernatorial coverage. The Minnesota Campaign Finance Board lists his 2025–2026 governor committee, while FollowTheMoney and news coverage from his 2014 gubernatorial run show a campaign that raised roughly $1 million in a late-2014 stretch and had about $866,000 cash on hand; the available snippets here do not provide a reliable top-industries breakdown, so the best full-data source is the state campaign finance portal.",
       "donor_source_url": "https://cfb.mn.gov/reports-and-data/viewers/campaign-finance/candidates/19247/2026/",
       "donor_sources": [
         {
           "url": "https://cfb.mn.gov/reports-and-data/viewers/campaign-finance/candidates/19247/2026/",
-          "title": "Candidates - Minnesota Campaign Finance Board",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
+          "title": "Candidates - Minnesota Campaign Finance Board",
+          "description": null,
+          "last_accessed": "2026-05-17T23:20:17.215450Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.followthemoney.org/entity-details?eid=23424555&default=candidate",
-          "title": "JOHNSON, JEFF - FollowTheMoney.org",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
+          "title": "JOHNSON, JEFF - FollowTheMoney.org",
+          "description": null,
+          "last_accessed": "2026-05-17T23:20:17.215450Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.startribune.com/republican-johnson-has-866k-in-the-bank-for-the-campaign-ahead/276764011",
-          "title": "Republican Johnson has $866K in the bank for the campaign ahead",
           "type": "news",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
+          "title": "Republican Johnson has $866K in the bank for the campaign ahead",
+          "description": null,
+          "last_accessed": "2026-05-17T23:20:17.215450Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.minnpost.com/party-politics/2014/09/dayton-holds-big-cash-advantage-governors-race/",
-          "title": "Dayton holds big cash advantage in governor's race - MinnPost",
           "type": "news",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
+          "title": "Dayton holds big cash advantage in governor's race - MinnPost",
+          "description": null,
+          "last_accessed": "2026-05-17T23:20:17.215450Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "Jeff Johnson is a former Minnesota legislator, so his voting record is from his time in the Minnesota House rather than the governor’s race. Public sources confirm he served in the Minnesota House from 2001 to 2007; however, the accessible sources here do not expose a detailed roll-call voting percentage, so the best available public record is his legislative biography and Vote Smart profile for bill-by-bill research.",
-      "voting_source_url": "https://justfacts.votesmart.org/candidate/152557/jeff-johnson",
       "links": [
         {
           "url": "https://ballotpedia.org/Jeff_Johnson_(Minnesota)",
@@ -527,164 +449,10 @@
           "type": "ballotpedia"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Jeff Johnson says Minnesota is overtaxing businesses and households and argues for lower spending, more efficiency, and reduced fraud. He frames business retention and fiscal restraint as central to improving the state economy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
-              "type": "news",
-              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
-              "type": "policy-quote",
-              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Jeff Johnson describes himself as strongly anti-abortion and says he is '100% unapologetically pro life starting at conception.'",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
-              "type": "policy-quote",
-              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Jeff Johnson supports an optional Minnesota Citizens Enhanced Protection Act that would provide additional training for permit holders. He presents the proposal as a training and preparedness measure rather than a broad gun restriction.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
-              "type": "news",
-              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
-              "type": "policy-quote",
-              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Jeff Johnson supports stricter enforcement against illegal immigration, says he has no problem with deporting people who are in the country illegally, and distinguishes that from legal immigration. He has also criticized sanctuary-style cooperation limits and previously proposed a refugee moratorium in St. Cloud.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
-              "type": "news",
-              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.lrl.mn.gov/legdb/fulldetail?id=10290",
-              "type": "government",
-              "title": "Johnson, Jeff - Minnesota Legislative Reference Library",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Jeff Johnson opposes transgender women and girls using female bathrooms, locker rooms, prisons, and sports, and he says he would end taxpayer-funded DEI programs. He has also criticized drag performances at the state Capitol and gender-affirming care for minors.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
-              "type": "policy-quote",
-              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
-              "type": "news",
-              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Jeff Johnson supports requiring photo identification to vote as part of election-integrity measures.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://fox21online.com/homepage/republicans-running-for-minnesota-governor-support-voter-id/article_ddebfec8-ff30-5976-a339-2e6f33cdad35.html",
-              "type": "news",
-              "title": "Republicans Running for Minnesota Governor Support Voter ID",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Jeff Johnson has emphasized St. Cloud and Minneapolis crime, refugee resettlement, and business retention in Minnesota as local priorities. He has also tied his campaign to concerns about fraud, taxes, and state spending.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
-              "type": "news",
-              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Jeff Johnson says he opposes taxpayer-funded healthcare for undocumented immigrants and favors limiting government involvement in health care. His public comments emphasize cost control, private-market approaches, and opposition to expanding public programs.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
-              "type": "news",
-              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
-              "type": "policy-quote",
-              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Education": {
-          "stance": "Jeff Johnson says Minnesota schools have become ideological 'indoctrination centers' and criticizes what he describes as CRT, gender ideology, drag performances, and other content in schools. His comments indicate he wants to change school culture and curriculum direction.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ontheissues.org/Archive/2026_MN_Gov_Jeff_Johnson_2026.htm",
-              "type": "policy-quote",
-              "title": "2026 Minnesota Governor's race - OnTheIssues.org",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            },
-            {
-              "url": "https://www.sctimes.com/story/news/politics/2025/03/25/st-cloud-republican-jeff-johnson-announces-minnesota-governor-bid/82550373007/",
-              "type": "news",
-              "title": "St. Cloud Republican Jeff Johnson announces Minnesota governor bid",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        }
-      }
+      "website": "https://www.votejeffjohnson.us/issues",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Kobey Layne",
@@ -694,32 +462,238 @@
       "summary_sources": [
         {
           "url": "https://www.kobey4governor.com/about",
-          "type": "official",
-          "title": "Kobey4Governor - About"
+          "type": "government",
+          "title": "Kobey4Governor - About",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:40.235225Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Kobey_Layne",
-          "type": "ballotpedia",
-          "title": "Kobey Layne - Ballotpedia"
+          "type": "website",
+          "title": "Kobey Layne - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:40.235225Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kobey_Layne.jpeg",
-      "website": null,
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports Medicare for All and says it would protect healthcare access for people with disabilities, older adults, farmers, families, the self-employed, and small businesses. He also says Minnesota should protect and fund Section 340B to help hospitals avoid closures.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Supports worker cooperatives, including grants or loans for startup and conversion costs, technical assistance for co-ops and small businesses, and a revolving loan fund for worker co-ops. He also backs universal childcare and tax policies such as a wealth tax and higher rates on very high incomes.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Supports a moratorium on new data center construction until Minnesota adopts a stronger regulatory framework. He also backs a Prove It First mining standard, stricter permitting for nonferrous mining, and upfront financial assurance for cleanup costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Supports abortion access, contraception, and birth control as part of a single-payer health care system. His campaign also calls for comprehensive sex education that includes contraception education.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Says he would work with the Minnesota Attorney General to prosecute ICE officers and frames the issue as community protection and accountability in immigration enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Supports divesting Minnesota state pension funds from companies that facilitate Israeli settlements or military supplies to Israel, and opposes state contracts with companies that sell to Israeli settlements. His campaign also calls for repealing a state contracting restriction related to Israel.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Supports LGBTQIA2S+ protections, including preserving gender-affirming care, sealing name-change records for some transgender people, prohibiting gender discrimination in shelters, protecting trans students in schools, and expanding LGBTQIA2S+-inclusive sex education.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports making Election Day a state holiday, establishing ranked-choice voting in state elections, and placing gubernatorial term limits in the Minnesota Constitution.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Supports rental assistance, a 3% annual cap on rent increases, stronger tenant protections and tenant unions, limits on large-scale housing purchases, and more funding for Housing Infrastructure Bonds.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports raising teacher pay, protecting educators’ ability to teach Minnesota, U.S., and world history including LGBTQIA2S+ and Black history, indexing school funding to inflation, expanding trades and skills programs, and funding youth mentorship programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kobey4governor.com/policies",
+              "type": "government",
+              "title": "Kobey4Governor - Policies",
+              "description": null,
+              "last_accessed": "2026-05-17T23:20:17.215450Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [
         {
           "title": "Retail worker",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Ballotpedia lists retail work among his career experience."
+          "description": "Ballotpedia lists retail work among his career experience.",
+          "source": null
         },
         {
           "title": "Legislative assistant",
           "organization": "Minnesota Senate",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography says he previously worked as a legislative assistant in the Minnesota Senate."
+          "description": "Campaign biography says he previously worked as a legislative assistant in the Minnesota Senate.",
+          "source": null
         }
       ],
       "education": [
@@ -727,33 +701,50 @@
           "institution": "Unknown institution",
           "degree": "Master of Public Policy",
           "field": "Public policy",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
+      "voting_summary": "Kobey Layne has not held legislative office, so there is no legislative voting record to report. The public record reviewed here shows a campaign website with detailed policy positions on housing, taxes, unions, healthcare, education, environmental protections, Indigenous sovereignty, and public safety, which is the best available evidence of governing approach.",
+      "voting_source_url": "https://www.kobey4governor.com/policies",
+      "voting_sources": [],
       "donor_summary": "No campaign finance data found in public disclosures as of 2026-05-17. The Minnesota Campaign Finance Board has a 2025–2026 candidate entry for Kobey Layne, but the accessible page text here does not show receipts, donor industries, or large contributions; the campaign website also does not disclose fundraising totals in the pages reviewed.",
       "donor_source_url": "https://cfb.mn.gov/reports-and-data/viewers/campaign-finance/districts-constitutional-offices/GC%7C",
       "donor_sources": [
         {
           "url": "https://cfb.mn.gov/reports-and-data/viewers/campaign-finance/districts-constitutional-offices/GC%7C",
-          "title": "Districts constitutional offices viewer - Minnesota Campaign Finance and Public Disclosure Board",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
+          "title": "Districts constitutional offices viewer - Minnesota Campaign Finance and Public Disclosure Board",
+          "description": null,
+          "last_accessed": "2026-05-17T23:20:17.215450Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kobey4governor.com/policies",
-          "title": "Policies - Kobey4Governor",
           "type": "website",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
+          "title": "Policies - Kobey4Governor",
+          "description": null,
+          "last_accessed": "2026-05-17T23:20:17.215450Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "http://kobey4governor.com/",
-          "title": "Kobey Layne",
           "type": "website",
-          "last_accessed": "2026-05-17T23:20:17.215450+00:00"
+          "title": "Kobey Layne",
+          "description": null,
+          "last_accessed": "2026-05-17T23:20:17.215450Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "Kobey Layne has not held legislative office, so there is no legislative voting record to report. The public record reviewed here shows a campaign website with detailed policy positions on housing, taxes, unions, healthcare, education, environmental protections, Indigenous sovereignty, and public safety, which is the best available evidence of governing approach.",
-      "voting_source_url": "https://www.kobey4governor.com/policies",
       "links": [
         {
           "url": "https://ballotpedia.org/Kobey_Layne",
@@ -791,146 +782,17 @@
           "type": "finance"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Supports Medicare for All and says it would protect healthcare access for people with disabilities, older adults, farmers, families, the self-employed, and small businesses. He also says Minnesota should protect and fund Section 340B to help hospitals avoid closures.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Supports worker cooperatives, including grants or loans for startup and conversion costs, technical assistance for co-ops and small businesses, and a revolving loan fund for worker co-ops. He also backs universal childcare and tax policies such as a wealth tax and higher rates on very high incomes.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Supports a moratorium on new data center construction until Minnesota adopts a stronger regulatory framework. He also backs a Prove It First mining standard, stricter permitting for nonferrous mining, and upfront financial assurance for cleanup costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Supports abortion access, contraception, and birth control as part of a single-payer health care system. His campaign also calls for comprehensive sex education that includes contraception education.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Says he would work with the Minnesota Attorney General to prosecute ICE officers and frames the issue as community protection and accountability in immigration enforcement.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Supports divesting Minnesota state pension funds from companies that facilitate Israeli settlements or military supplies to Israel, and opposes state contracts with companies that sell to Israeli settlements. His campaign also calls for repealing a state contracting restriction related to Israel.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Supports LGBTQIA2S+ protections, including preserving gender-affirming care, sealing name-change records for some transgender people, prohibiting gender discrimination in shelters, protecting trans students in schools, and expanding LGBTQIA2S+-inclusive sex education.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Supports making Election Day a state holiday, establishing ranked-choice voting in state elections, and placing gubernatorial term limits in the Minnesota Constitution.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Supports rental assistance, a 3% annual cap on rent increases, stronger tenant protections and tenant unions, limits on large-scale housing purchases, and more funding for Housing Infrastructure Bonds.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Education": {
-          "stance": "Supports raising teacher pay, protecting educators’ ability to teach Minnesota, U.S., and world history including LGBTQIA2S+ and Black history, indexing school funding to inflation, expanding trades and skills programs, and funding youth mentorship programs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kobey4governor.com/policies",
-              "type": "official",
-              "title": "Kobey4Governor - Policies",
-              "last_accessed": "2026-05-17T23:20:17.215450+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        }
-      }
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-  "updated_utc": "2026-05-17T23:20:17.215450+00:00",
+  "updated_utc": "2026-06-13T23:17:01.415154+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "register_to_vote_url": "https://www.sos.mn.gov/elections-voting/register-to-vote/",
   "how_to_vote_url": "https://www.sos.mn.gov/elections-voting/",
@@ -938,7 +800,7 @@
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-17T23:20:41.009530+00:00",
+      "reviewed_at": "2026-05-17T23:20:41.009530Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -977,7 +839,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-17T23:20:23.372668+00:00",
+      "reviewed_at": "2026-05-17T23:20:23.372668Z",
       "verdict": "approved",
       "score": 94,
       "flags": [
@@ -1004,7 +866,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-17T23:20:23.763822+00:00",
+      "reviewed_at": "2026-05-17T23:20:23.763822Z",
       "verdict": "approved",
       "score": 92,
       "flags": [],
@@ -1018,29 +880,21 @@
     "summary": "Validated by 3/3 reviewers with an average score of 91/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 324158,
-    "completion_tokens": 9703,
-    "total_tokens": 333861,
-    "estimated_usd": 0.0687,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 76784,
+    "completion_tokens": 9282,
+    "total_tokens": 86066,
+    "cost_usd": 0.0055072,
+    "cost_source": "provider",
+    "estimated_usd": 0.007552,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 280698,
-        "completion_tokens": 7432
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 15752,
-        "completion_tokens": 452
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 12872,
-        "completion_tokens": 126
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 14836,
-        "completion_tokens": 1693
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 76784,
+        "completion_tokens": 9282
       }
     },
-    "duration_s": 115.0
-  }
+    "duration_s": 81.3
+  },
+  "post_run_analysis": null
 }

@@ -14,25 +14,436 @@
       "name": "Suzan DelBene",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Suzan DelBene is the U.S. representative for Washington\u2019s 1st Congressional District and was first sworn into the House in November 2012. Before Congress, she worked in technology and business and served as Washington state\u2019s director of revenue.",
+      "summary": "Suzan DelBene is the U.S. representative for Washington’s 1st Congressional District and was first sworn into the House in November 2012. Before Congress, she worked in technology and business and served as Washington state’s director of revenue.",
       "summary_sources": [
         {
           "url": "https://delbene.house.gov/about/full-biography.htm",
           "type": "government",
-          "title": "Full Biography | U.S. House of Representatives - Suzan DelBene"
+          "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:21.041839Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.congress.gov/member/suzan-delbene/D000617",
           "type": "government",
-          "title": "Representative Suzan K. DelBene - Congress.gov"
+          "title": "Representative Suzan K. DelBene - Congress.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:21.041839Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://commons.wikimedia.org/wiki/File:Suzan_DelBene,_official_portrait,_115th_Congress_(3x4).jpg",
-      "website": "https://delbeneforcongress.com/",
-      "social_media": {
-        "twitter": "https://twitter.com/RepDelBene",
-        "facebook": "https://www.facebook.com/RepDelBene",
-        "instagram": "https://www.instagram.com/repdelbene"
+      "issues": {
+        "Economy": {
+          "issue": "Economy",
+          "stance": "DelBene says she supports expanding economic opportunity, helping working families and small businesses, spurring job growth, and being fiscally responsible. Her stated priorities include addressing rising costs for families and investing in infrastructure and education to strengthen the economy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbeneforcongress.com/issues",
+              "type": "website",
+              "title": "Issues - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/about/full-biography.htm",
+              "type": "government",
+              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "DelBene supports action on climate change and clean-energy investment, and her campaign says she backs a transition to a clean, renewable-energy economy. Her House biography also says she is a leader on environmental conservation and has prioritized climate change.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbeneforcongress.com/issues/environment/",
+              "type": "website",
+              "title": "Energy, Environment, and Climate Change - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/about/full-biography.htm",
+              "type": "government",
+              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "DelBene says she will stand against efforts to weaken access to safe abortion and family planning services, and her House biography says she is a member of the Pro-Choice Caucus. She supports protecting reproductive rights and access to birth control and family planning.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbeneforcongress.com/issues",
+              "type": "website",
+              "title": "Issues - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/issues/issue/?IssueID=14889",
+              "type": "government",
+              "title": "Health | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/about/full-biography.htm",
+              "type": "government",
+              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "DelBene says immigration reform is important for her district and that the current system is dysfunctional. Her campaign describes support for comprehensive reform that secures the border while recognizing immigrants’ contributions and providing pathways for workers and families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbene.house.gov/issues/issue/?IssueID=14898",
+              "type": "government",
+              "title": "Immigration | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbeneforcongress.com/issues/immigration/",
+              "type": "website",
+              "title": "Immigration - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "DelBene supports gun-safety reforms including community safety investments, police accountability, and measures to reduce gun violence. Her campaign also says she supports universal background checks, red-flag laws, and other gun-safety policies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbeneforcongress.com/issues/public-safety-and-police-accountability/",
+              "type": "website",
+              "title": "Public Safety and Police Accountability - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbeneforcongress.com/issues",
+              "type": "website",
+              "title": "Issues - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "DelBene says she supports continued U.S. and allied support for Ukraine and opposes Russia’s invasion. Her House site says she has supported legislation and letters backing Ukraine’s sovereignty and democratic institutions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbene.house.gov/legislation/legislation-and-letters-i-have-supported-to-stand-with-ukraine.htm",
+              "type": "government",
+              "title": "Legislation and Letters I Have Supported to Stand With Ukraine",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/issues/issue/?IssueID=15033",
+              "type": "government",
+              "title": "Standing With Ukraine | U.S. House of Representatives",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "DelBene says she supports treating people fairly in society and backs police accountability, community policing, reproductive rights, and civil rights protections. Her campaign also highlights public safety and police accountability as a priority.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbeneforcongress.com/issues",
+              "type": "website",
+              "title": "Issues - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbeneforcongress.com/issues/public-safety-and-police-accountability/",
+              "type": "website",
+              "title": "Public Safety and Police Accountability - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/issues/issue/?IssueID=14889",
+              "type": "government",
+              "title": "Health | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "DelBene says she supports strengthening the education system by closing achievement gaps, raising standards, and supporting teachers. Her campaign also says she supports reducing the cost of higher education and expanding vocational and apprenticeship opportunities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbeneforcongress.com/issues/education/",
+              "type": "website",
+              "title": "Education - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/issues/issue/?IssueID=14897",
+              "type": "government",
+              "title": "Education | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "DelBene supports a national consumer data privacy law and has introduced legislation to give consumers more control over personal data. Her campaign says current tech laws have not kept pace with the digital world and that consumers should be put back in charge of their data.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=2740",
+              "type": "government",
+              "title": "DelBene Introduces National Consumer Data Privacy Legislation",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=3691",
+              "type": "government",
+              "title": "DelBene Welcomes Biden AI EO, Urges Congress to Act on Data Privacy",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbeneforcongress.com/issues",
+              "type": "website",
+              "title": "Issues - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "DelBene supports voting-rights protections and democracy reform, including legislation to protect access to the ballot and restore the Voting Rights Act. Her House site also highlights support for ending partisan gerrymandering and making Election Day a national holiday.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=3024",
+              "type": "government",
+              "title": "Making sure that every American’s voice is heard",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=2735",
+              "type": "government",
+              "title": "House Passes Transformational Democracy Reform Legislation",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/issues/",
+              "type": "government",
+              "title": "Issues - U.S. House of Representatives",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "DelBene says she supports addressing housing affordability and homelessness through federal investment and stronger affordable-housing production, including the Low-Income Housing Tax Credit. Her campaign also says she supports community policing, police accountability, and gun-safety measures as part of local public-safety policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbeneforcongress.com/issues/housing-and-homelessness/",
+              "type": "website",
+              "title": "Housing and Homelessness - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbeneforcongress.com/issues/public-safety-and-police-accountability/",
+              "type": "website",
+              "title": "Public Safety and Police Accountability - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbene.house.gov/about/full-biography.htm",
+              "type": "government",
+              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "DelBene says she is committed to affordable, quality health care, supports protecting the Affordable Care Act, and backs efforts to lower prescription drug costs and expand coverage. She also says she supports protecting Medicare and improving access to care for seniors and families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delbene.house.gov/issues/issue/?IssueID=14889",
+              "type": "government",
+              "title": "Health | U.S. House of Representatives - Suzan DelBene",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://delbeneforcongress.com/issues/health-care/",
+              "type": "website",
+              "title": "Health Care - Delbene For Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -40,21 +451,24 @@
           "organization": "U.S. House of Representatives",
           "start_year": 2012,
           "end_year": null,
-          "description": "Represents Washington\u2019s 1st Congressional District."
+          "description": "Represents Washington’s 1st Congressional District.",
+          "source": null
         },
         {
           "title": "Business executive",
           "organization": "Private sector",
           "start_year": null,
           "end_year": 2012,
-          "description": "Worked in business before serving in Congress."
+          "description": "Worked in business before serving in Congress.",
+          "source": null
         },
         {
           "title": "Director of Revenue",
           "organization": "Washington State Department of Revenue",
           "start_year": null,
           "end_year": 2012,
-          "description": "Served as Washington state\u2019s Director of Revenue before being elected to Congress."
+          "description": "Served as Washington state’s Director of Revenue before being elected to Congress.",
+          "source": null
         }
       ],
       "education": [
@@ -62,31 +476,38 @@
           "institution": "Reed College",
           "degree": "Bachelor of Arts",
           "field": "Biology",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Washington",
           "degree": "Master of Business Administration",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "OpenSecrets and FEC show DelBene\u2019s 2025\u20132026 campaign committee raised about $2.74M in receipts through March 31, 2026, with $1.32M from individual contributions and $1.14M from other committees/PACs. OpenSecrets\u2019 profile indicates her donor base is concentrated in congressional PAC and industry giving, and her committee is a long-time incumbent fundraising operation rather than a small-dollar-only campaign. Sources: https://www.fec.gov/data/candidate/H0WA08046/ and https://www.opensecrets.org/profiles/suzan-delbene/us_congress/summary?mpid=1052007",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H0WA08046/",
       "voting_summary": "DelBene is an incumbent U.S. House member who has served since 2012. GovTrack shows she votes with the Democratic caucus on most major roll calls and has a relatively low missed-vote rate; for example, GovTrack records her as voting yea on H.R. 5378, the Lower Costs, More Transparency Act, on Dec. 11, 2023. Source: https://www.govtrack.us/congress/votes/118-2023/h708",
       "voting_source_url": "https://www.govtrack.us/congress/votes/118-2023/h708",
+      "voting_sources": [],
+      "donor_summary": "OpenSecrets and FEC show DelBene’s 2025–2026 campaign committee raised about $2.74M in receipts through March 31, 2026, with $1.32M from individual contributions and $1.14M from other committees/PACs. OpenSecrets’ profile indicates her donor base is concentrated in congressional PAC and industry giving, and her committee is a long-time incumbent fundraising operation rather than a small-dollar-only campaign. Sources: https://www.fec.gov/data/candidate/H0WA08046/ and https://www.opensecrets.org/profiles/suzan-delbene/us_congress/summary?mpid=1052007",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H0WA08046/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://delbene.house.gov/",
-          "type": "website"
+          "title": "https://delbene.house.gov/",
+          "type": "other"
         },
         {
           "url": "https://delbene.house.gov/about/full-biography.htm",
-          "type": "government"
+          "title": "https://delbene.house.gov/about/full-biography.htm",
+          "type": "other"
         },
         {
           "url": "https://delbeneforcongress.com/",
-          "type": "campaign"
+          "title": "https://delbeneforcongress.com/",
+          "type": "other"
         },
         {
           "url": "https://ballotpedia.org/Suzan_DelBene",
@@ -105,7 +526,7 @@
         },
         {
           "url": "https://www.opensecrets.org/profiles/suzan-delbene/us_congress/summary?mpid=1052007",
-          "title": "Suzan Delbene \u2013 US Congress \u2013 Summary - OpenSecrets",
+          "title": "Suzan Delbene – US Congress – Summary - OpenSecrets",
           "type": "finance"
         },
         {
@@ -124,301 +545,405 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "DelBene says she supports expanding economic opportunity, helping working families and small businesses, spurring job growth, and being fiscally responsible. Her stated priorities include addressing rising costs for families and investing in infrastructure and education to strengthen the economy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbeneforcongress.com/issues",
-              "type": "campaign website",
-              "title": "Issues - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/about/full-biography.htm",
-              "type": "government",
-              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "DelBene supports action on climate change and clean-energy investment, and her campaign says she backs a transition to a clean, renewable-energy economy. Her House biography also says she is a leader on environmental conservation and has prioritized climate change.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbeneforcongress.com/issues/environment/",
-              "type": "campaign",
-              "title": "Energy, Environment, and Climate Change - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/about/full-biography.htm",
-              "type": "government",
-              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "DelBene says she will stand against efforts to weaken access to safe abortion and family planning services, and her House biography says she is a member of the Pro-Choice Caucus. She supports protecting reproductive rights and access to birth control and family planning.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbeneforcongress.com/issues",
-              "type": "campaign website",
-              "title": "Issues - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/issues/issue/?IssueID=14889",
-              "type": "official",
-              "title": "Health | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/about/full-biography.htm",
-              "type": "government",
-              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "DelBene says immigration reform is important for her district and that the current system is dysfunctional. Her campaign describes support for comprehensive reform that secures the border while recognizing immigrants\u2019 contributions and providing pathways for workers and families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbene.house.gov/issues/issue/?IssueID=14898",
-              "type": "official_policy_page",
-              "title": "Immigration | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbeneforcongress.com/issues/immigration/",
-              "type": "campaign_policy_page",
-              "title": "Immigration - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "DelBene supports gun-safety reforms including community safety investments, police accountability, and measures to reduce gun violence. Her campaign also says she supports universal background checks, red-flag laws, and other gun-safety policies.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbeneforcongress.com/issues/public-safety-and-police-accountability/",
-              "type": "campaign page",
-              "title": "Public Safety and Police Accountability - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbeneforcongress.com/issues",
-              "type": "campaign website",
-              "title": "Issues - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "DelBene says she supports continued U.S. and allied support for Ukraine and opposes Russia\u2019s invasion. Her House site says she has supported legislation and letters backing Ukraine\u2019s sovereignty and democratic institutions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbene.house.gov/legislation/legislation-and-letters-i-have-supported-to-stand-with-ukraine.htm",
-              "type": "official-congress-press",
-              "title": "Legislation and Letters I Have Supported to Stand With Ukraine",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/issues/issue/?IssueID=15033",
-              "type": "official",
-              "title": "Standing With Ukraine | U.S. House of Representatives",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "DelBene says she supports treating people fairly in society and backs police accountability, community policing, reproductive rights, and civil rights protections. Her campaign also highlights public safety and police accountability as a priority.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbeneforcongress.com/issues",
-              "type": "campaign website",
-              "title": "Issues - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbeneforcongress.com/issues/public-safety-and-police-accountability/",
-              "type": "campaign page",
-              "title": "Public Safety and Police Accountability - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/issues/issue/?IssueID=14889",
-              "type": "official",
-              "title": "Health | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "DelBene says she supports strengthening the education system by closing achievement gaps, raising standards, and supporting teachers. Her campaign also says she supports reducing the cost of higher education and expanding vocational and apprenticeship opportunities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbeneforcongress.com/issues/education/",
-              "type": "campaign",
-              "title": "Education - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/issues/issue/?IssueID=14897",
-              "type": "official",
-              "title": "Education | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "DelBene supports a national consumer data privacy law and has introduced legislation to give consumers more control over personal data. Her campaign says current tech laws have not kept pace with the digital world and that consumers should be put back in charge of their data.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=2740",
-              "type": "official press release",
-              "title": "DelBene Introduces National Consumer Data Privacy Legislation",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=3691",
-              "type": "official press release",
-              "title": "DelBene Welcomes Biden AI EO, Urges Congress to Act on Data Privacy",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbeneforcongress.com/issues",
-              "type": "campaign policy page",
-              "title": "Issues - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "DelBene supports voting-rights protections and democracy reform, including legislation to protect access to the ballot and restore the Voting Rights Act. Her House site also highlights support for ending partisan gerrymandering and making Election Day a national holiday.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=3024",
-              "type": "official press release",
-              "title": "Making sure that every American\u2019s voice is heard",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/news/documentsingle.aspx?DocumentID=2735",
-              "type": "official press release",
-              "title": "House Passes Transformational Democracy Reform Legislation",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/issues/",
-              "type": "official policy page",
-              "title": "Issues - U.S. House of Representatives",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "DelBene says she supports addressing housing affordability and homelessness through federal investment and stronger affordable-housing production, including the Low-Income Housing Tax Credit. Her campaign also says she supports community policing, police accountability, and gun-safety measures as part of local public-safety policy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbeneforcongress.com/issues/housing-and-homelessness/",
-              "type": "campaign page",
-              "title": "Housing and Homelessness - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbeneforcongress.com/issues/public-safety-and-police-accountability/",
-              "type": "campaign page",
-              "title": "Public Safety and Police Accountability - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbene.house.gov/about/full-biography.htm",
-              "type": "government",
-              "title": "Full Biography | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "DelBene says she is committed to affordable, quality health care, supports protecting the Affordable Care Act, and backs efforts to lower prescription drug costs and expand coverage. She also says she supports protecting Medicare and improving access to care for seniors and families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://delbene.house.gov/issues/issue/?IssueID=14889",
-              "type": "official",
-              "title": "Health | U.S. House of Representatives - Suzan DelBene",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://delbeneforcongress.com/issues/health-care/",
-              "type": "campaign",
-              "title": "Health Care - Delbene For Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://delbeneforcongress.com/",
+      "social_media": {
+        "twitter": "https://twitter.com/RepDelBene",
+        "facebook": "https://www.facebook.com/RepDelBene",
+        "instagram": "https://www.instagram.com/repdelbene"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Benjamin Kincaid",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Benjamin Kincaid is a 2026 candidate for Washington\u2019s 1st Congressional District. His campaign website describes him as a Democrat focused on public safety, affordability, and results-oriented policymaking, and says he is challenging incumbent Suzan DelBene.",
+      "summary": "Benjamin Kincaid is a 2026 candidate for Washington’s 1st Congressional District. His campaign website describes him as a Democrat focused on public safety, affordability, and results-oriented policymaking, and says he is challenging incumbent Suzan DelBene.",
       "summary_sources": [
         {
           "url": "https://www.kincaidforcongress.com/p/about.html",
-          "type": "campaign",
-          "title": "About - Kincaid for Congress"
+          "type": "website",
+          "title": "About - Kincaid for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:21.041839Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Benjamin_Kincaid",
-          "type": "ballotpedia",
-          "title": "Benjamin Kincaid - Ballotpedia"
+          "type": "website",
+          "title": "Benjamin Kincaid - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:15:21.041839Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://www.kincaidforcongress.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Kincaid supports a Universal Healthcare Pilot Program rather than an immediate nationwide overhaul. His campaign says the pilot should test a publicly funded model in real-world settings before any broader expansion, and it also backs stronger protections for healthcare workers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/2025/06/healthcare-policy-proposal-for.html",
+              "type": "website",
+              "title": "Healthcare Policy - Proposal for Universal Healthcare Beta Test",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/search/label/Healthcare",
+              "type": "website",
+              "title": "Kincaid for Congress - Healthcare label page",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Kincaid says the economy should work for workers rather than shareholders and insiders. He supports tax relief for lower- and middle-income workers, tighter rules on corporate behavior, and workforce policies that prepare workers for AI-driven disruption.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/2026/04/press-release-kincaid-calls-on-congress.html",
+              "type": "website",
+              "title": "Kincaid Calls on Congress to Act as Oracle Files 3,000+ H-1B Petitions While Cutting American Jobs",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Kincaid’s campaign links climate and energy policy to jobs, apprenticeships, domestic manufacturing, and infrastructure investment. It says clean-energy work should expand opportunities in solar, wind, grid work, EV charging, and transit while protecting air and water quality.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/2026/04/kincaids-climate-and-environmental_16.html",
+              "type": "website",
+              "title": "Kincaid's Climate and Environmental Policy",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Kincaid’s campaign materials reviewed here do not show a clear public position on abortion or broader reproductive-rights policy. No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:43:53.001060Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/issues",
+              "type": "website",
+              "title": "Kincaid for Congress – Washington’s 1st District",
+              "description": null,
+              "last_accessed": "2026-04-29T01:43:53.001060Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Kincaid rejects both sanctuary-style non-enforcement and mass deportation, and says immigration policy should use enforceable guest-worker rules that balance labor needs, border integrity, and fair wages. He also supports reforming H-1B to address genuine skill shortages while protecting American workers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/search/label/Immigration",
+              "type": "website",
+              "title": "Kincaid for Congress - Immigration label page",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Kincaid’s public materials reviewed here focus mainly on Iran, where he calls for a long-term coalition-backed plan for a “Free Iran,” including a transitional government, an Iranian Volunteer Corps, and a no-fly zone. No broader foreign-policy platform was found in the materials reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/2026/04/kincaids-plan-for-free-iran.html",
+              "type": "website",
+              "title": "Kincaid's Plan for a Free Iran",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Kincaid says his campaign rejects socialism, antisemitism, and political extremism, and it emphasizes civil rights, women’s safety, and ending child marriage. His website frames these positions as part of a broader focus on accountability, fairness, and practical problem-solving.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Kincaid’s campaign materials reviewed here do not show a distinct education policy page or a detailed public education platform. No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/issues",
+              "type": "website",
+              "title": "Kincaid for Congress – Washington’s 1st District",
+              "description": null,
+              "last_accessed": "2026-04-29T01:43:53.001060Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:43:53.001060Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Kincaid frames AI-driven displacement as a real, imminent challenge and ties the transition to good jobs in the clean-energy economy. He supports a worker-first policy package including the Federal Clean Energy Workforce Act, displaced-worker training, and apprenticeship programs to ensure workers affected by automation have first access to new clean-energy jobs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/2026/04/kincaids-climate-and-environmental_16.html",
+              "type": "website",
+              "title": "Kincaid's Climate and Environmental Policy",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/2025/08/kincaids-statement-on-microsoft-job-cuts.html",
+              "type": "website",
+              "title": "Kincaid's statement on Microsoft job cuts",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Kincaid’s campaign materials reviewed here do not show a specific election-reform proposal. No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:43:53.001060Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/issues",
+              "type": "website",
+              "title": "Kincaid for Congress – Washington’s 1st District",
+              "description": null,
+              "last_accessed": "2026-04-29T01:43:53.001060Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Kincaid’s local platform centers on homelessness, crime, affordability, and neighborhood safety. He says homelessness should be addressed by separating addiction, severe mental illness, and financial hardship into different responses, while prioritizing treatment, safety, and accountability.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/2025/10/a-smarter-strategy-to-end-homelessness.html",
+              "type": "website",
+              "title": "Kincaid's Strategy to End Homelessness",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "Kincaid supports secure-storage and anti-theft gun policies, arguing that preventing firearm theft is a more effective way to reduce street crime than broad measures that do not address stolen handguns. His campaign says it supports enforceable policies to improve secure storage and prevent illegal firearm trafficking while protecting lawful ownership.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kincaidforcongress.com/search/label/Guns",
+              "type": "website",
+              "title": "Kincaid for Congress - Guns label page",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.kincaidforcongress.com/p/about.html",
+              "type": "website",
+              "title": "About - Kincaid for Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:42:01.876047Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Author",
           "organization": "Self-employed / publishing",
           "start_year": null,
           "end_year": null,
-          "description": "Ballotpedia lists his career experience as working as an author."
+          "description": "Ballotpedia lists his career experience as working as an author.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "The Federal Election Commission lists Benjamin Kincaid as a Democratic candidate for Washington\u2019s 1st Congressional District and shows his authorized committee, Kincaid for Congress, but the candidate page says 2025\u20132026 financial summary data is not yet available. As a result, no reliable total-raised figure or top-donor breakdown was available from the reviewed public filings at this time.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H6WA01238/?cycle=2026",
       "voting_summary": "Kincaid is a challenger and has not held legislative office, so there is no legislative voting record to report. His campaign website provides issue positions on homelessness, crime, healthcare, immigration, taxes, guns, antisemitism, and civil rights, which are the main public evidence of his governing approach in the materials reviewed.",
       "voting_source_url": "https://www.kincaidforcongress.com/p/about.html",
+      "voting_sources": [],
+      "donor_summary": "The Federal Election Commission lists Benjamin Kincaid as a Democratic candidate for Washington’s 1st Congressional District and shows his authorized committee, Kincaid for Congress, but the candidate page says 2025–2026 financial summary data is not yet available. As a result, no reliable total-raised figure or top-donor breakdown was available from the reviewed public filings at this time.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6WA01238/?cycle=2026",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.kincaidforcongress.com/",
-          "type": "campaign"
+          "title": "https://www.kincaidforcongress.com/",
+          "type": "other"
         },
         {
           "url": "https://www.kincaidforcongress.com/p/about.html",
-          "type": "campaign"
+          "title": "https://www.kincaidforcongress.com/p/about.html",
+          "type": "other"
         },
         {
           "url": "https://ballotpedia.org/Benjamin_Kincaid",
-          "type": "website"
+          "title": "https://ballotpedia.org/Benjamin_Kincaid",
+          "type": "other"
         },
         {
           "url": "https://www.kincaidforcongress.com/p/donations.html",
@@ -441,232 +966,27 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Kincaid supports a Universal Healthcare Pilot Program rather than an immediate nationwide overhaul. His campaign says the pilot should test a publicly funded model in real-world settings before any broader expansion, and it also backs stronger protections for healthcare workers.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/2025/06/healthcare-policy-proposal-for.html",
-              "type": "campaign",
-              "title": "Healthcare Policy - Proposal for Universal Healthcare Beta Test",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/search/label/Healthcare",
-              "type": "campaign",
-              "title": "Kincaid for Congress - Healthcare label page",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Kincaid says the economy should work for workers rather than shareholders and insiders. He supports tax relief for lower- and middle-income workers, tighter rules on corporate behavior, and workforce policies that prepare workers for AI-driven disruption.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/2026/04/press-release-kincaid-calls-on-congress.html",
-              "type": "campaign",
-              "title": "Kincaid Calls on Congress to Act as Oracle Files 3,000+ H-1B Petitions While Cutting American Jobs",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Kincaid\u2019s campaign links climate and energy policy to jobs, apprenticeships, domestic manufacturing, and infrastructure investment. It says clean-energy work should expand opportunities in solar, wind, grid work, EV charging, and transit while protecting air and water quality.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/2026/04/kincaids-climate-and-environmental_16.html",
-              "type": "campaign",
-              "title": "Kincaid's Climate and Environmental Policy",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Kincaid\u2019s campaign materials reviewed here do not show a clear public position on abortion or broader reproductive-rights policy. No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:43:53.001060+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/issues",
-              "type": "campaign",
-              "title": "Kincaid for Congress \u2013 Washington\u2019s 1st District",
-              "last_accessed": "2026-04-29T01:43:53.001060+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Kincaid rejects both sanctuary-style non-enforcement and mass deportation, and says immigration policy should use enforceable guest-worker rules that balance labor needs, border integrity, and fair wages. He also supports reforming H-1B to address genuine skill shortages while protecting American workers.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/search/label/Immigration",
-              "type": "campaign",
-              "title": "Kincaid for Congress - Immigration label page",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Kincaid\u2019s public materials reviewed here focus mainly on Iran, where he calls for a long-term coalition-backed plan for a \u201cFree Iran,\u201d including a transitional government, an Iranian Volunteer Corps, and a no-fly zone. No broader foreign-policy platform was found in the materials reviewed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/2026/04/kincaids-plan-for-free-iran.html",
-              "type": "campaign",
-              "title": "Kincaid's Plan for a Free Iran",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Kincaid says his campaign rejects socialism, antisemitism, and political extremism, and it emphasizes civil rights, women\u2019s safety, and ending child marriage. His website frames these positions as part of a broader focus on accountability, fairness, and practical problem-solving.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Kincaid\u2019s campaign materials reviewed here do not show a distinct education policy page or a detailed public education platform. No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/issues",
-              "type": "campaign",
-              "title": "Kincaid for Congress \u2013 Washington\u2019s 1st District",
-              "last_accessed": "2026-04-29T01:43:53.001060+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:43:53.001060+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Kincaid frames AI-driven displacement as a real, imminent challenge and ties the transition to good jobs in the clean-energy economy. He supports a worker-first policy package including the Federal Clean Energy Workforce Act, displaced-worker training, and apprenticeship programs to ensure workers affected by automation have first access to new clean-energy jobs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/2026/04/kincaids-climate-and-environmental_16.html",
-              "type": "campaign policy article",
-              "title": "Kincaid's Climate and Environmental Policy",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/2025/08/kincaids-statement-on-microsoft-job-cuts.html",
-              "type": "campaign statement",
-              "title": "Kincaid's statement on Microsoft job cuts",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Kincaid\u2019s campaign materials reviewed here do not show a specific election-reform proposal. No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:43:53.001060+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/issues",
-              "type": "campaign",
-              "title": "Kincaid for Congress \u2013 Washington\u2019s 1st District",
-              "last_accessed": "2026-04-29T01:43:53.001060+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Kincaid\u2019s local platform centers on homelessness, crime, affordability, and neighborhood safety. He says homelessness should be addressed by separating addiction, severe mental illness, and financial hardship into different responses, while prioritizing treatment, safety, and accountability.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/2025/10/a-smarter-strategy-to-end-homelessness.html",
-              "type": "campaign",
-              "title": "Kincaid's Strategy to End Homelessness",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Kincaid supports secure-storage and anti-theft gun policies, arguing that preventing firearm theft is a more effective way to reduce street crime than broad measures that do not address stolen handguns. His campaign says it supports enforceable policies to improve secure storage and prevent illegal firearm trafficking while protecting lawful ownership.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.kincaidforcongress.com/search/label/Guns",
-              "type": "campaign",
-              "title": "Kincaid for Congress - Guns label page",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            },
-            {
-              "url": "https://www.kincaidforcongress.com/p/about.html",
-              "type": "campaign",
-              "title": "About - Kincaid for Congress",
-              "last_accessed": "2026-04-29T01:42:01.876047+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.kincaidforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-29T01:43:53.001060+00:00",
+  "updated_utc": "2026-06-13T23:16:51.993550+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-sonnet-4-6",
-    "gemini-3-flash-preview",
-    "grok-3"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-sonnet-4-6",
-      "reviewed_at": "2026-04-29T01:44:28.334569+00:00",
+      "reviewed_at": "2026-04-29T01:44:28.334569Z",
       "verdict": "approved",
       "score": 85,
       "flags": [
         {
           "field": "candidates[0].summary",
-          "concern": "The summary states DelBene was 'first sworn into the House in November 2012.' Members of Congress are typically sworn in during January, not November. She won a special election in November 2012 (filling Jay Inslee's vacancy) and was sworn in shortly after \u2014 but standard congressional swearing-in ceremonies occur in January. The cited House biography URL should be checked to confirm the exact swearing-in date, as 'November 2012' may conflate election date with swearing-in date.",
+          "concern": "The summary states DelBene was 'first sworn into the House in November 2012.' Members of Congress are typically sworn in during January, not November. She won a special election in November 2012 (filling Jay Inslee's vacancy) and was sworn in shortly after — but standard congressional swearing-in ceremonies occur in January. The cited House biography URL should be checked to confirm the exact swearing-in date, as 'November 2012' may conflate election date with swearing-in date.",
           "suggestion": "Verify the exact swearing-in date against delbene.house.gov/about/full-biography.htm; if she was sworn in during the 112th Congress lame-duck period (December 2012 or later), clarify; otherwise change to 'elected in November 2012 and sworn in shortly thereafter.'",
           "severity": "warning"
         },
@@ -678,14 +998,14 @@
         },
         {
           "field": "candidates[0].education[0]",
-          "concern": "The profile lists DelBene's Reed College degree field as 'Biology.' My training data suggests she studied biochemistry at Reed, but this conflicts with the profile's sourced claim. The House biography URL is cited \u2014 a human reviewer should spot-check whether the biography says 'Biology' or 'Biochemistry.'",
+          "concern": "The profile lists DelBene's Reed College degree field as 'Biology.' My training data suggests she studied biochemistry at Reed, but this conflicts with the profile's sourced claim. The House biography URL is cited — a human reviewer should spot-check whether the biography says 'Biology' or 'Biochemistry.'",
           "suggestion": "Confirm the exact field of study against delbene.house.gov/about/full-biography.htm.",
           "severity": "info"
         },
         {
           "field": "candidates[0].voting_summary",
           "concern": "The voting summary highlights a single vote (H.R. 5378, Dec. 11, 2023) as illustrative evidence of DelBene's voting pattern. While the GovTrack URL is cited and this approach is reasonable, relying on one vote to characterize a 12-year legislative record is thin. The summary also does not mention any notable committee assignments (e.g., Ways and Means, DCCC chair role).",
-          "suggestion": "Consider expanding the voting summary with 2\u20133 additional representative votes or noting her committee assignments, which are documented on the cited Congress.gov page.",
+          "suggestion": "Consider expanding the voting summary with 2–3 additional representative votes or noting her committee assignments, which are documented on the cited Congress.gov page.",
           "severity": "info"
         },
         {
@@ -702,19 +1022,19 @@
         },
         {
           "field": "candidates[1].issues.Reproductive Rights.stance",
-          "concern": "The stance says 'No public position found' with low confidence. This is acceptable given a good-faith search was documented. However, the campaign's About page is listed as a source \u2014 if that page explicitly lists issues addressed, noting which issues appear and which do not would strengthen the documentation.",
+          "concern": "The stance says 'No public position found' with low confidence. This is acceptable given a good-faith search was documented. However, the campaign's About page is listed as a source — if that page explicitly lists issues addressed, noting which issues appear and which do not would strengthen the documentation.",
           "suggestion": "If the campaign issues page (kincaidforcongress.com/issues) lists topic categories, enumerate them in the source note to show what was and wasn't found.",
           "severity": "info"
         },
         {
           "field": "candidates[1].issues.Foreign Policy.stance",
-          "concern": "The Iran policy is described with medium confidence, which is appropriate. However, the 'Iranian Volunteer Corps' and 'no-fly zone' proposals are fairly specific and unusual \u2014 the single campaign URL cited should be verified to confirm these details are accurately characterized.",
+          "concern": "The Iran policy is described with medium confidence, which is appropriate. However, the 'Iranian Volunteer Corps' and 'no-fly zone' proposals are fairly specific and unusual — the single campaign URL cited should be verified to confirm these details are accurately characterized.",
           "suggestion": "Human reviewer should confirm kincaidforcongress.com/2026/04/kincaids-plan-for-free-iran.html contains exactly these proposals as described.",
           "severity": "info"
         },
         {
           "field": "election_date",
-          "concern": "The election date is listed as 2026-11-03. Washington's 2026 general election will likely fall on November 3, 2026 (first Tuesday after the first Monday in November), which is correct for 2026. However, the primary date is not mentioned. Washington's top-two primary is typically held in August \u2014 noting the primary date would improve completeness.",
+          "concern": "The election date is listed as 2026-11-03. Washington's 2026 general election will likely fall on November 3, 2026 (first Tuesday after the first Monday in November), which is correct for 2026. However, the primary date is not mentioned. Washington's top-two primary is typically held in August — noting the primary date would improve completeness.",
           "suggestion": "Add the expected primary election date (likely August 4, 2026 for WA) to the description or as a separate field.",
           "severity": "info"
         },
@@ -725,17 +1045,17 @@
           "severity": "info"
         }
       ],
-      "summary": "This is a well-constructed, thoroughly sourced candidate profile for WA-01 2026. Suzan DelBene's section is particularly strong: all 12 issue stances are marked high-confidence and draw from both official House pages and campaign-site policy pages, career history and education are cited to government and Congress.gov sources, and FEC/OpenSecrets donor figures are specific and linked. Benjamin Kincaid's section responsibly handles an obscure challenger \u2014 FEC registration is confirmed, low-confidence stances are flagged as 'no public position found' rather than fabricated, and the profile searches multiple campaign-site label pages before concluding. Language throughout is neutral and nonpartisan, presenting both candidates' stated positions without editorial spin. The description of Washington's top-two primary system is accurate and helpful context."
+      "summary": "This is a well-constructed, thoroughly sourced candidate profile for WA-01 2026. Suzan DelBene's section is particularly strong: all 12 issue stances are marked high-confidence and draw from both official House pages and campaign-site policy pages, career history and education are cited to government and Congress.gov sources, and FEC/OpenSecrets donor figures are specific and linked. Benjamin Kincaid's section responsibly handles an obscure challenger — FEC registration is confirmed, low-confidence stances are flagged as 'no public position found' rather than fabricated, and the profile searches multiple campaign-site label pages before concluding. Language throughout is neutral and nonpartisan, presenting both candidates' stated positions without editorial spin. The description of Washington's top-two primary system is accurate and helpful context."
     },
     {
       "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-29T01:44:17.670999+00:00",
+      "reviewed_at": "2026-04-29T01:44:17.670999Z",
       "verdict": "approved",
       "score": 96,
       "flags": [
         {
           "field": "candidates[0].donor_source_url",
-          "concern": "The FEC Candidate ID in the URL (H0WA08046) contains 'WA08', which refers to DelBene's original 2010 run in Washington's 8th District. While candidates often retain their original FEC ID for life, a human reviewer should confirm that the 2025\u20132026 receipts mentioned are correctly aggregated for her current WA-01 seat.",
+          "concern": "The FEC Candidate ID in the URL (H0WA08046) contains 'WA08', which refers to DelBene's original 2010 run in Washington's 8th District. While candidates often retain their original FEC ID for life, a human reviewer should confirm that the 2025–2026 receipts mentioned are correctly aggregated for her current WA-01 seat.",
           "suggestion": "Verify if current 2026 cycle filings are listed under ID H2WA01101 or if the legacy ID H0WA08046 is being used by the committee.",
           "severity": "info"
         },
@@ -756,7 +1076,7 @@
     },
     {
       "model": "grok-3",
-      "reviewed_at": "2026-04-29T01:44:04.859685+00:00",
+      "reviewed_at": "2026-04-29T01:44:04.859685Z",
       "verdict": "approved",
       "score": 95,
       "flags": [
@@ -801,33 +1121,29 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 2671987,
-    "completion_tokens": 157978,
-    "total_tokens": 2829965,
-    "estimated_usd": 0.5559,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 133606,
+    "completion_tokens": 6213,
+    "total_tokens": 139819,
+    "cost_usd": 0.008898163999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.011808,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 781402,
-        "completion_tokens": 11671
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 69006,
+        "completion_tokens": 3967
       },
-      "gpt-5-nano": {
-        "prompt_tokens": 1828281,
-        "completion_tokens": 140734
-      },
-      "grok-3": {
-        "prompt_tokens": 18237,
-        "completion_tokens": 1213
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 22448,
-        "completion_tokens": 879
-      },
-      "claude-sonnet-4-6": {
-        "prompt_tokens": 21619,
-        "completion_tokens": 3481
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 64600,
+        "completion_tokens": 2246
       }
     },
-    "duration_s": 1846.6
-  }
+    "duration_s": 91.1
+  },
+  "schema_version": "0.3",
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

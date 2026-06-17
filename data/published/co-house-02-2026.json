@@ -1,0 +1,309 @@
+{
+  "id": "co-house-02-2026",
+  "title": "Colorado's 2nd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Colorado's 2nd Congressional District",
+  "state": "Colorado",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Colorado's 2nd Congressional District covers north-central Colorado, including Boulder, Fort Collins, Longmont, and numerous rural and mountain communities stretching west along the I-70 corridor. The district has been held by Democrats for over 50 years and has a Cook Partisan Voting Index of D+20, making it the 56th most Democratic district nationally. Incumbent Rep. Joe Neguse (D), first elected in 2018 and serving as House Assistant Democratic Leader, is seeking a fifth term and faces no Democratic primary challenge. Two first-time Republican candidates \u2014 Kelley Dennison, a 27-year-old Estes Park massage therapist, and Christina Blunt, a Fort Collins hairstylist \u2014 are competing in the June 30 Republican primary for the chance to challenge Neguse in the general election.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race. The Cook Political Report rates the race as 'Solid D' as of February 2025.",
+  "candidates": [
+    {
+      "name": "Joe Neguse",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Joe Neguse is the incumbent U.S. Representative for Colorado's 2nd congressional district, first elected in 2018. He serves as House Assistant Democratic Leader, making him the first Coloradan to hold a senior House Democratic leadership position in nearly 90 years, and sits on the Natural Resources, Judiciary, and Rules Committees. Neguse has been recognized as one of the most effective and bipartisan members of Congress by the Center for Effective Lawmaking and the Lugar Center, and he authored the second-highest number of laws of any House member in the 118th Congress.",
+      "summary_sources": [
+        {
+          "url": "https://neguse.house.gov/about-joe",
+          "type": "government",
+          "title": "About Joe | Congressman Joe Neguse",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Joe_Neguse",
+          "type": "website",
+          "title": "Joe Neguse - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/custom_entity/482451",
+          "type": "website",
+          "title": "CO-02 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Neguse.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Colorado's 2nd congressional district",
+          "source": null
+        },
+        {
+          "title": "House Assistant Democratic Leader",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Senior member of House Democratic leadership",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Colorado Department of Regulatory Agencies",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Appointed by Gov. John Hickenlooper; one of youngest state cabinet officials",
+          "source": null
+        },
+        {
+          "title": "Regent",
+          "organization": "University of Colorado Board of Regents",
+          "start_year": 2008,
+          "end_year": 2015,
+          "description": "Elected to represent Colorado's 2nd congressional district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Colorado Boulder",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science and Economics",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "University of Colorado Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2009,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://joeforcolorado.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kelley Dennison",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Kelley Dennison is a 27-year-old small business owner and licensed massage therapist from Estes Park running for the Republican nomination. She got her start in politics working as a staffer on Adam DeRito's congressional campaign and was inspired to run to give young people a voice. Her campaign priorities include economic affordability, expanding federal funding for trade and vocational education, environmental stewardship, pro-family policies, and Second Amendment rights.",
+      "summary_sources": [
+        {
+          "url": "https://www.summitdaily.com/news/colorado-election-2026-congressional-district-2-republican-primary-candidates/",
+          "type": "news",
+          "title": "Two first-time Republican candidates vie to challenge Neguse in Colorado's 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://coloradonewsline.com/2026/06/09/candidate-qa-colorado-1st-congressional-district-2/",
+          "type": "news",
+          "title": "Candidate Q&A: Colorado's 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Kelley_Dennison",
+          "type": "website",
+          "title": "Kelley Dennison - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Massage Therapist / Business Owner",
+          "organization": "Wind Bear Holistic Healing",
+          "start_year": null,
+          "end_year": null,
+          "description": "Licensed massage therapist and small business owner",
+          "source": null
+        },
+        {
+          "title": "Campaign Staffer",
+          "organization": "Adam DeRito for Congress",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on Republican primary campaign for Colorado's 8th Congressional District",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "The Academy of Natural Therapy",
+          "degree": "Trade/Vocational Certificate",
+          "field": "Massage Therapy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://kelleyforco.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christina Blunt",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Christina Blunt (Ducommun) is a Fort Collins-based hairstylist and small business owner running for the Republican nomination. A lifelong Republican and petition carrier for Protect Kids Colorado, she entered the race to ensure citizen voices are represented in Congress. Her platform emphasizes fiscal responsibility through a 100% tariff-based revenue system and eliminating the IRS, strong immigration enforcement, cutting regulations to lower costs, and citizen-driven legislation where supporters propose bills.",
+      "summary_sources": [
+        {
+          "url": "https://www.cpr.org/2026/05/29/vg-2026-primary-election-2nd-congressional-district-christina-blunt-ducommun/",
+          "type": "news",
+          "title": "2nd Congressional District: Republican Christina Blunt (Ducommun)",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.summitdaily.com/news/colorado-election-2026-congressional-district-2-republican-primary-candidates/",
+          "type": "news",
+          "title": "Two first-time Republican candidates vie to challenge Neguse in Colorado's 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Christina_Blunt",
+          "type": "website",
+          "title": "Christina Blunt - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Hairstylist / Small Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Master hairstylist and business owner in Fort Collins",
+          "source": null
+        },
+        {
+          "title": "Petition Carrier",
+          "organization": "Protect Kids Colorado",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advocacy coalition focused on parental rights",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Unspecified",
+          "degree": "Bachelor's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.christinabluntforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:44:17.376535+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 271972,
+    "completion_tokens": 8900,
+    "total_tokens": 280872,
+    "cost_usd": 0.024993112,
+    "cost_source": "provider",
+    "estimated_usd": 0.028398,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 271972,
+        "completion_tokens": 8900
+      }
+    },
+    "duration_s": 130.9
+  }
+}

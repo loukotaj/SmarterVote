@@ -1,0 +1,243 @@
+{
+  "id": "oh-house-04-2026",
+  "title": "Ohio's 4th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Ohio's 4th Congressional District",
+  "state": "Ohio",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Ohio's 4th Congressional District will determine who represents north-central Ohio, including Lima, Marion, and Delaware, in the U.S. House of Representatives. Incumbent Republican Jim Jordan, first elected in 2006 and a prominent conservative leader, seeks re-election in a district with a strong Republican lean (Cook PVI: R+21). He faces Democratic nominee Joshua Kolasinski, a small business owner, and independent candidate Tamie Wilson, an entrepreneur who previously ran as a Democrat in 2022 and 2024. The primary elections took place on May 5, 2026, and the race is rated as 'Solid R' by the Cook Political Report, reflecting the district's entrenched Republican advantage even after mid-decade redistricting.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found specifically for the Ohio's 4th Congressional District general election race in 2026.",
+  "candidates": [
+    {
+      "name": "Jim Jordan",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Jim Jordan has represented Ohio's 4th Congressional District since 2007 and is a prominent conservative figure in the U.S. House, serving as former chairman of the House Judiciary Committee and the House Freedom Caucus. He previously served in the Ohio House of Representatives (1995\u20132000) and Ohio State Senate (2001\u20132007) before being elected to Congress. Jordan is seeking re-election for an 11th term.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jim_Jordan_(Ohio)",
+          "type": "website",
+          "title": "Jim Jordan (Ohio) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483796",
+          "type": "news",
+          "title": "OH-04 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Jordan.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2007,
+          "end_year": null,
+          "description": "Representing Ohio's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Ohio State Senate",
+          "start_year": 2001,
+          "end_year": 2007,
+          "description": "Represented the 12th Senate District",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Ohio House of Representatives",
+          "start_year": 1995,
+          "end_year": 2000,
+          "description": "Served in the Ohio House",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Capital University",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2001,
+          "source": null
+        },
+        {
+          "institution": "Ohio State University",
+          "degree": "M.A.",
+          "field": "Education",
+          "year": 1991,
+          "source": null
+        },
+        {
+          "institution": "University of Wisconsin-Madison",
+          "degree": "B.S.",
+          "field": "Economics",
+          "year": 1986,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Joshua Kolasinski",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Joshua Kolasinski is a small business owner who operates a medical equipment installation, testing, and repair company. He advanced from the Democratic primary on May 5, 2026, to challenge incumbent Jim Jordan in the general election. Kolasinski describes himself as an independent-minded candidate focused on government accountability, economic opportunity for working families, healthcare reform, and reducing the influence of money in politics.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Joshua_Kolasinski",
+          "type": "website",
+          "title": "Joshua Kolasinski - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.joshuaforohio.com/",
+          "type": "website",
+          "title": "Home | Josh Kolasinski For Congress",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Business Owner",
+          "organization": "Medical Equipment Services",
+          "start_year": null,
+          "end_year": null,
+          "description": "Installs, tests, and repairs medical equipment",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.joshuaforohio.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tamie Wilson",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Tamie Wilson is an entrepreneur and single mother running as an independent candidate for Ohio's 4th Congressional District. Born and raised in central Ohio, she previously ran as a Democrat against Jim Jordan in the 2022 and 2024 elections before switching to an independent bid for 2026. Wilson's campaign focuses on lowering costs for groceries, gas, and healthcare, and she has been actively engaging voters at county fairs across the district.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Tamie_Wilson",
+          "type": "website",
+          "title": "Tamie Wilson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.yahoo.com/news/articles/wilson-running-congress-independent-233000071.html",
+          "type": "news",
+          "title": "Wilson running for Congress as independent - Yahoo",
+          "description": null,
+          "last_accessed": "2026-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tamie_Wilson.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Entrepreneur",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Business owner and entrepreneur",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:59:03.820821+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 208134,
+    "completion_tokens": 8130,
+    "total_tokens": 216264,
+    "cost_usd": 0.016389588,
+    "cost_source": "provider",
+    "estimated_usd": 0.021991,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 208134,
+        "completion_tokens": 8130
+      }
+    },
+    "duration_s": 132.3
+  }
+}

@@ -1,0 +1,419 @@
+{
+  "id": "tn-house-04-2026",
+  "title": "Tennessee's 4th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Tennessee's 4th Congressional District",
+  "state": "Tennessee",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Tennessee's newly redrawn 4th Congressional District stretches from part of Davidson County (Nashville) south to the Alabama state line. Republican incumbent Scott DesJarlais, first elected in 2010, won the August 6, 2026 Republican primary and is seeking an eighth term. The district retains a strong Republican lean (Cook PVI R+11), though the new map incorporates more urban Nashville voters. Multiple Democrats qualified for the primary, including Metro Nashville Councilmember Mike Cortese and 2024 candidate Victoria Broderick. An independent candidate also qualified. The general election will be held November 3, 2026.",
+  "candidates": [
+    {
+      "name": "Scott DesJarlais",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Scott DesJarlais has represented Tennessee's 4th District in the U.S. House since 2011. A physician by training, he won the August 6, 2026 Republican primary against three challengers. DesJarlais emphasizes conservative voting record on fiscal, Second Amendment, and anti-abortion issues. He previously practiced medicine in South Dakota and Tennessee before entering Congress.",
+      "summary_sources": [
+        {
+          "url": "https://www.cookpolitical.com/house/race/485191",
+          "type": "news",
+          "title": "TN-04 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-15T21:51:11Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://fox17.com/news/local/scott-desjarlais-wins-republic-primary-for-tennessees-4th-congressional-district",
+          "type": "news",
+          "title": "Scott DesJarlais wins Republican Primary for Tennessee's 4th Congressional District",
+          "description": null,
+          "last_accessed": "2026-08-06T20:03:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://desjarlais.house.gov/",
+          "type": "government",
+          "title": "United States Congressman Scott DesJarlais",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Scott_DesJarlais.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Tennessee's 4th Congressional District (2011-present)",
+          "source": null
+        },
+        {
+          "title": "Physician",
+          "organization": "Private practice",
+          "start_year": 1991,
+          "end_year": 2010,
+          "description": "Practiced medicine in Tennessee and South Dakota",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of South Dakota",
+          "degree": "B.S.",
+          "field": "Pre-medicine",
+          "year": 1987,
+          "source": null
+        },
+        {
+          "institution": "University of South Dakota",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": 1991,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://desjarlais.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Victoria Broderick",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Victoria Broderick is a working-class mother from Fayetteville running for the Democratic nomination. She previously ran in the 2024 Democratic primary for this district. Her campaign focuses on economic issues, healthcare access, and opposition to incumbent Scott DesJarlais.",
+      "summary_sources": [
+        {
+          "url": "https://www.victoria4tennessee.org/",
+          "type": "website",
+          "title": "Victoria Broderick for Tennessee",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Victoria_Broderick",
+          "type": "news",
+          "title": "Victoria Broderick - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.newschannel5.com/news/tennessees-redrawn-congressional-districts-a-full-guide-to-every-candidate-running-in-2026",
+          "type": "news",
+          "title": "Tennessee's redrawn congressional districts: A full guide to every candidate running in 2026",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Candidate, U.S. House",
+          "organization": "Tennessee 4th District",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Democratic primary candidate in 2024 and 2026",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "High school",
+          "degree": "High school diploma",
+          "field": "General",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.victoria4tennessee.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Cortese",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mike Cortese serves on the Metropolitan Nashville Council representing District 4 since September 2023. A music industry veteran and educator with a Master's in Education, he previously ran in the 5th District before the redistricting moved him into the new 4th District. His campaign emphasizes public service experience and hometown roots.",
+      "summary_sources": [
+        {
+          "url": "https://mikefortennessee.com/",
+          "type": "website",
+          "title": "Mike Cortese for Tennessee | Hometown Over Headlines",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Mike_Cortese",
+          "type": "news",
+          "title": "Mike Cortese - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.newschannel5.com/news/tennessees-redrawn-congressional-districts-a-full-guide-to-every-candidate-running-in-2026",
+          "type": "news",
+          "title": "Tennessee's redrawn congressional districts: A full guide to every candidate running in 2026",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Metro Councilmember",
+          "organization": "Metropolitan Government of Nashville and Davidson County",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "District 4 (assumed office September 30, 2023)",
+          "source": null
+        },
+        {
+          "title": "Music industry professional / Educator",
+          "organization": "Various",
+          "start_year": 2000,
+          "end_year": 2023,
+          "description": "Artist management and higher education adjunct professor",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University",
+          "degree": "M.Ed.",
+          "field": "Education",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mikefortennessee.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Cliff Huffman",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Cliff Huffman of Sewanee is a Democratic candidate for Tennessee's 4th Congressional District. He qualified for the August 6, 2026 Democratic primary. Limited public information is available about his background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.newschannel5.com/news/tennessees-redrawn-congressional-districts-a-full-guide-to-every-candidate-running-in-2026",
+          "type": "news",
+          "title": "Tennessee's redrawn congressional districts: A full guide to every candidate running in 2026",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/districts/us-house-of-representatives-tn-4-2026",
+          "type": "website",
+          "title": "Tennessee's 4th Congressional District (TN-04) - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tim Lanier",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tim Lanier of Nashville qualified as a Democratic candidate for Tennessee's 4th Congressional District in the August 6, 2026 primary. Limited public information is available about his background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.newschannel5.com/news/tennessees-redrawn-congressional-districts-a-full-guide-to-every-candidate-running-in-2026",
+          "type": "news",
+          "title": "Tennessee's redrawn congressional districts: A full guide to every candidate running in 2026",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jacob Kristopher Anders",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Jacob Kristopher Anders of Tullahoma qualified as an independent candidate for Tennessee's 4th Congressional District. He will appear on the November 3, 2026 general election ballot. Limited public information is available about his background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.newschannel5.com/news/tennessees-redrawn-congressional-districts-a-full-guide-to-every-candidate-running-in-2026",
+          "type": "news",
+          "title": "Tennessee's redrawn congressional districts: A full guide to every candidate running in 2026",
+          "description": null,
+          "last_accessed": "2026-01-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:20:40.542343+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 292373,
+    "completion_tokens": 11302,
+    "total_tokens": 303675,
+    "cost_usd": 0.08113607799999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.078248,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 225763,
+        "completion_tokens": 6700
+      },
+      "nvidia/nemotron-3-ultra-550b-a55b": {
+        "prompt_tokens": 66610,
+        "completion_tokens": 4602
+      }
+    },
+    "duration_s": 222.2,
+    "serper_calls": 10,
+    "context_requests": 16,
+    "max_estimated_context_tokens": 42679,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0407,
+    "context_deduplicated_results": 35,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 3,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

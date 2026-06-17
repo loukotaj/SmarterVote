@@ -1,0 +1,253 @@
+{
+  "id": "in-house-05-2026",
+  "title": "Indiana's 5th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Indiana's 5th Congressional District",
+  "state": "Indiana",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Indiana's 5th Congressional District encompasses portions of central Indiana including Hamilton, Delaware, Madison, Grant, Howard, and Tipton counties. The seat is currently held by Republican Victoria Spartz, who is seeking a fourth term. The Democratic nominee is State Senator J.D. Ford, who won a competitive seven-candidate primary. The district has been represented by a Republican for 34 consecutive years and is rated as Solid Republican by The Cook Political Report. The race includes contrasts on issues such as federal spending, health care costs, government accountability, and redistricting.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of June 2026.",
+  "candidates": [
+    {
+      "name": "Victoria Spartz",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Victoria Spartz is the incumbent U.S. Representative for Indiana's 5th Congressional District, first elected in 2020. Born in Ukraine, she immigrated to the United States in 2000 and worked as a CPA and finance executive before entering politics. She previously served in the Indiana Senate and is a fiscal conservative focused on cutting federal spending, balancing the budget, and border security.",
+      "summary_sources": [
+        {
+          "url": "http://spartz.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Victoria Spartz",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.spartzforcongress.com/about/",
+          "type": "website",
+          "title": "About Victoria - Victoria Spartz for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Victoria_Spartz.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Indiana's 5th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Indiana Senate",
+          "start_year": 2017,
+          "end_year": 2020,
+          "description": "Represented District 20",
+          "source": null
+        },
+        {
+          "title": "Chief Financial Officer",
+          "organization": "Indiana Attorney General's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as CFO",
+          "source": null
+        },
+        {
+          "title": "Adjunct Faculty",
+          "organization": "Indiana University Kelley School of Business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught business courses",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "National University of Economics (Ukraine)",
+          "degree": "Bachelor of International Economics",
+          "field": "International Economics",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "National University of Economics (Ukraine)",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Indiana University Kelley School of Business",
+          "degree": "Master of Professional Accountancy",
+          "field": "Accountancy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Victoria_Spartz",
+          "title": "Ballotpedia - Victoria Spartz",
+          "type": "other"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/S000929",
+          "title": "Biographical Directory of the U.S. Congress",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.spartzforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "J.D. Ford",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "J.D. Ford is an Indiana State Senator representing District 29 since 2018 and the Democratic nominee for Indiana's 5th Congressional District. He was the first openly LGBTQ+ member elected to the Indiana General Assembly. Ford's campaign focuses on lowering health care and prescription drug costs, holding the federal government accountable, and making life more affordable for working families.",
+      "summary_sources": [
+        {
+          "url": "https://indianasenatedemocrats.org/senator/s29/",
+          "type": "government",
+          "title": "State Senator J.D. Ford - Indiana Senate Democrats",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.electjdford.com/",
+          "type": "website",
+          "title": "J.D. Ford for Congress | Indiana's 5th District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/J._D._Ford",
+          "type": "news",
+          "title": "J. D. Ford - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/J.D._Ford.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Indiana Senate",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Representing District 29; served as Democratic Caucus Chair",
+          "source": null
+        },
+        {
+          "title": "State Senate Candidate",
+          "organization": "Indiana Senate",
+          "start_year": 2014,
+          "end_year": 2014,
+          "description": "Unsuccessful campaign against incumbent Mike Delph",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Akron",
+          "degree": "Bachelor of Science",
+          "field": "Political Science and Criminal Justice",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Purdue University Northwest",
+          "degree": "Master of Education",
+          "field": "Education",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/J.D._Ford",
+          "title": "Ballotpedia - J.D. Ford",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/J._D._Ford",
+          "title": "Wikipedia - J.D. Ford",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.electjdford.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:34:38.858182+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 194258,
+    "completion_tokens": 5272,
+    "total_tokens": 199530,
+    "cost_usd": 0.01443962,
+    "cost_source": "provider",
+    "estimated_usd": 0.020071,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 194258,
+        "completion_tokens": 5272
+      }
+    },
+    "duration_s": 123.3
+  }
+}

@@ -1,0 +1,436 @@
+{
+  "id": "ct-house-05-2026",
+  "title": "Connecticut's 5th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Connecticut's 5th Congressional District",
+  "state": "Connecticut",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Connecticut's 5th Congressional District will determine who represents northwestern and central Connecticut \u2014 including Waterbury, Danbury, New Britain, and Meriden \u2014 in the U.S. House of Representatives. Incumbent Democrat Jahana Hayes, first elected in 2018 and the first African-American woman to represent Connecticut in Congress, is seeking a fifth term. She faces two Democratic primary challengers and a three-candidate Republican primary field. The district has been competitive in recent cycles: Hayes won by 53.4% in 2024 and 50.4% in 2022 against Republican George Logan, who is not running this cycle. The primaries will be held August 11, 2026, and the general election is November 3, 2026.",
+  "candidates": [
+    {
+      "name": "Jahana Hayes",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jahana Hayes is the incumbent U.S. Representative for Connecticut's 5th District, first elected in 2018. She is the first African-American woman to represent Connecticut in Congress. Before serving in Congress, she was a high school history teacher in Waterbury and was named the 2016 National Teacher of the Year by President Barack Obama.",
+      "summary_sources": [
+        {
+          "url": "https://hayes.house.gov/biography",
+          "type": "government",
+          "title": "Biography | Congresswoman Jahana Hayes",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jahana_Hayes.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Connecticut's 5th Congressional District. Serves on House Education and Workforce Committee and House Agriculture Committee.",
+          "source": null
+        },
+        {
+          "title": "History Teacher",
+          "organization": "John F. Kennedy High School, Waterbury CT",
+          "start_year": 2004,
+          "end_year": 2018,
+          "description": "Taught history for 15 years. Named Waterbury Teacher of the Year, Connecticut Teacher of the Year, and 2016 National Teacher of the Year.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Naugatuck Valley Community College",
+          "degree": "Associate of Arts",
+          "field": "",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Southern Connecticut State University",
+          "degree": "Bachelor of Arts",
+          "field": "History and Secondary Education",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "University of Saint Joseph",
+          "degree": "Master of Arts",
+          "field": "Curriculum and Instruction",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Bridgeport",
+          "degree": "Sixth-Year Certificate",
+          "field": "Administrative Leadership",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jahanahayes.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JahanaHayesCT",
+        "twitter": "https://twitter.com/RepJahanaHayes"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Winter Solomita",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Winter Solomita is a Democratic candidate challenging incumbent Jahana Hayes in the primary. She is 25 years old and from Waterbury, Connecticut. She has limited public campaign presence and no official campaign website has been identified.",
+      "summary_sources": [
+        {
+          "url": "https://lakevillejournal.com/race-for-cts-5th-house-district-gets-crowded-with-candidates",
+          "type": "news",
+          "title": "Race for CT's 5th House District gets crowded with candidates",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jackson Taddeo-Waite",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jackson Taddeo-Waite (also known as Jackson Waite) is a Democratic candidate from Washington Depot, Connecticut. He is a 44-year-old husband and father, an art school graduate who studied film and photography, and a union screenwriter. His campaign platform, the 'Custodian Era,' emphasizes government accountability and transparency.",
+      "summary_sources": [
+        {
+          "url": "https://votewaite.com/",
+          "type": "website",
+          "title": "Jackson Waite for Congress",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Screenwriter",
+          "organization": "",
+          "start_year": null,
+          "end_year": null,
+          "description": "Union screenwriter and producer. Worked as co-executive producer and writer on the television series Three Women.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Art School",
+          "degree": "Bachelor of Arts",
+          "field": "Film and Photography",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://votewaite.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/jacksonwaite03/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michele Botelho",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Michele Botelho is a Republican candidate from Danbury, Connecticut. She is the daughter of immigrants and worked her way through Northeastern University. Her career includes work at the Massachusetts Department of Labor, starting a small business, earning a paralegal certification from Boston University, working as a paralegal, and serving as a tutor for children with special needs in Danbury Public Schools. She also raised and homeschooled her children.",
+      "summary_sources": [
+        {
+          "url": "https://www.michelebotelhoforcongress.com/about",
+          "type": "website",
+          "title": "About - Michele Botelho",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michele_Botelho.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Tutor",
+          "organization": "Danbury Public School System",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a tutor to children with special needs.",
+          "source": null
+        },
+        {
+          "title": "Paralegal",
+          "organization": "",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a paralegal after earning certification from Boston University.",
+          "source": null
+        },
+        {
+          "title": "Staff",
+          "organization": "Massachusetts Department of Labor",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked at the Massachusetts Department of Labor.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northeastern University",
+          "degree": "",
+          "field": "",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Boston University",
+          "degree": "Paralegal Certification",
+          "field": "",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.michelebotelhoforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/michelle.botelho.50/",
+        "instagram": "https://www.instagram.com/michellebotelhoforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jonathan De Barros",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jonathan De Barros is a Republican candidate from Plymouth, Connecticut. He is an African-American conservative who describes himself as a 'Frederick Douglass Republican.' He runs the Phoenix Youth Foundation, a self-funded youth mentorship organization. De Barros has generated controversy for social media posts about fellow Republicans, drawing review by Capitol Police though no charges were filed. His campaign platform emphasizes a 'New Reconstruction' focused on economic empowerment, educational freedom, and public safety.",
+      "summary_sources": [
+        {
+          "url": "https://www.debarrosforcongress.org/policies/",
+          "type": "website",
+          "title": "Policies - Jonathan De Barros For Congress",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ctinsider.com/politics/article/ct-5th-district-videos-gop-jonathan-de-barros-21115708.php",
+          "type": "news",
+          "title": "CT congressional candidate's social media posts prompt police review",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder / Director",
+          "organization": "Phoenix Youth Foundation",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Self-funded organization that mentors at-risk youth.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.debarrosforcongress.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/jonathan.de.barros.2025/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Shea",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chris Shea is a Republican candidate from Cheshire, Connecticut. He is a retired U.S. Navy SEAL with 33 years of service, a North Haven firefighter and paramedic, and the founder of Hero to Hero, a nonprofit that helps military veterans transition into careers as first responders. At 55, Shea emphasizes lowering costs, border security, supporting veterans, and putting Connecticut families first.",
+      "summary_sources": [
+        {
+          "url": "https://ctmirror.org/2026/01/22/chris-shea-gop-ct-5th-congressional-district/",
+          "type": "news",
+          "title": "Chris Shea joins GOP field for CT 5th Congressional District",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://chrissheaforcongress.com/issues/",
+          "type": "website",
+          "title": "Issues - Chris Shea for Congress",
+          "description": null,
+          "last_accessed": "2025-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Firefighter / Paramedic",
+          "organization": "North Haven Fire Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a firefighter and paramedic.",
+          "source": null
+        },
+        {
+          "title": "Navy SEAL (Retired)",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served for 33 years as a Navy SEAL, including work at the Pentagon.",
+          "source": null
+        },
+        {
+          "title": "Founder / President",
+          "organization": "Hero to Hero",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit that helps military veterans transition into careers as first responders.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://chrissheaforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/people/Chris-Shea-for-Congress/61586811124047/",
+        "instagram": "https://www.instagram.com/chrissheaforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:12:56.268778+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 352323,
+    "completion_tokens": 10698,
+    "total_tokens": 363021,
+    "cost_usd": 0.05549627,
+    "cost_source": "provider",
+    "estimated_usd": 0.056624,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 352323,
+        "completion_tokens": 10698
+      }
+    },
+    "duration_s": 242.1,
+    "serper_calls": 20,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 70682,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0674,
+    "context_deduplicated_results": 64,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

@@ -1,0 +1,493 @@
+{
+  "id": "ks-house-03-2026",
+  "title": "2026 U.S. House of Representatives Election in Kansas's 3rd Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Kansas's 3rd Congressional District",
+  "state": "Kansas",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election in Kansas's 3rd Congressional District will determine who represents the Kansas City metropolitan area, including much of Johnson County, in the U.S. House. Incumbent Democrat Sharice Davids, first elected in 2018, is seeking a fifth term in a district with a Cook Partisan Voting Index of D+2. The district, once reliably Republican, has become competitive as suburban voters have shifted, but Davids has won multiple competitive reelections. The Republican primary field includes several candidates, while Davids also faces a primary challenge from the left.",
+  "polling": [],
+  "polling_note": "No specific public opinion polls were found for this race as of June 2026. The primary election is scheduled for August 4, 2026, and general election polling typically begins after nominees are determined.",
+  "candidates": [
+    {
+      "name": "Sharice Davids",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Sharice Davids is the incumbent U.S. Representative for Kansas's 3rd Congressional District, first elected in 2018. She is a member of the Ho-Chunk Nation and the first openly gay person elected to Congress from Kansas. Davids previously worked as an attorney, White House Fellow, and professional mixed martial arts fighter.",
+      "summary_sources": [
+        {
+          "url": "https://bioguide.congress.gov/scripts/biodisplay.pl?index=D000629",
+          "type": "government",
+          "title": "DAVIDS, Sharice - Biographical Directory of the U.S. Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483116",
+          "type": "news",
+          "title": "KS-03 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Kansas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Kansas's 3rd Congressional District",
+          "source": null
+        },
+        {
+          "title": "White House Fellow",
+          "organization": "White House",
+          "start_year": 2016,
+          "end_year": 2017,
+          "description": "Presidential fellowship program",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Various",
+          "start_year": 2010,
+          "end_year": 2016,
+          "description": "Practiced law after earning J.D. from Cornell Law School",
+          "source": null
+        },
+        {
+          "title": "Professional MMA Fighter",
+          "organization": "Various",
+          "start_year": null,
+          "end_year": null,
+          "description": "Competed professionally in mixed martial arts",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Cornell University",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "University of Missouri-Kansas City",
+          "degree": "B.A.",
+          "field": "Business Administration",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Johnson County Community College",
+          "degree": "A.A.",
+          "field": null,
+          "year": 2003,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://shariceforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Sarah Preu",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Sarah Preu is a Democratic candidate challenging incumbent Sharice Davids in the primary. She is described as a technology and communications professional running on a progressive platform. Preu has pledged to support congressional term limits and advocates for healthcare access, climate action, and economic justice.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Sarah_Preu",
+          "type": "news",
+          "title": "Sarah Preu - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sarahpreu2026.com/",
+          "type": "website",
+          "title": "Sarah Preu for Congress | Kansas 3rd District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/sarah-preu-pledges-to-support-congressional-term-limits/",
+          "type": "news",
+          "title": "Sarah Preu Pledges to Support Congressional Term Limits",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sarah_Preu.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Technology and Communications Professional",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Background in technology and communications fields",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.sarahpreu2026.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eric Jenkins",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Eric Jenkins is a Republican candidate for Kansas's 3rd Congressional District. He previously served as Shawnee City Council President. Jenkins has emphasized supporting law enforcement, standing up for working families, and opposing the Biden-Harris agenda on the campaign trail.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Eric_Jenkins",
+          "type": "news",
+          "title": "Eric Jenkins - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sunflowerstatejournal.com/former-shawnee-city-council-member-files-to-run-for-congress/",
+          "type": "news",
+          "title": "Former Shawnee City Council member files to run for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://johnsoncountypost.com/2026/05/28/eric-jenkins-congressional-bid-287345/",
+          "type": "news",
+          "title": "Former Shawnee city councilmember enters Congressional race",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Eric_Jenkins.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "City Council President",
+          "organization": "City of Shawnee, Kansas",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as councilmember and president of the Shawnee City Council",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chase LaPorte",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chase LaPorte is a Republican candidate for Kansas's 3rd Congressional District. He previously ran for Governor of Kansas in 2022. LaPorte describes himself as a businessman and has pledged to support congressional term limits, advocating for limited government and economic freedom.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chase_LaPorte",
+          "type": "news",
+          "title": "Chase LaPorte - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/chase-laporte-pledges-to-support-term-limits-on-congress/",
+          "type": "news",
+          "title": "Chase LaPorte Pledges to Support Term Limits on Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Kansas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Businessman",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Background in business",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Blake Stanley",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Blake Stanley is a Republican candidate running for Kansas's 3rd Congressional District. He is on the ballot in the August 4, 2026 Republican primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Blake_Stanley_(Kansas)",
+          "type": "news",
+          "title": "Blake Stanley (Kansas) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Kansas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Gavin Solomon",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Gavin Solomon is a Republican candidate for Kansas's 3rd Congressional District, described as a businessman from New York. He has filed as a candidate in multiple states, including Kansas, Florida, and Texas, for various congressional races.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Kansas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Florida%27s_27th_Congressional_District_election,_2026_(August_18_Republican_primary)",
+          "type": "news",
+          "title": "Florida's 27th Congressional District election, 2026 Republican primary",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Businessman",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Business background",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Steve Hohe",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Steve Hohe is the Libertarian Party candidate for Kansas's 3rd Congressional District. He advocates for downsizing the federal government, implementing a flat tax, and reducing federal spending. Hohe has run for this seat previously as the Libertarian nominee.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Steve_Hohe",
+          "type": "news",
+          "title": "Steve Hohe - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sunflowerstatejournal.com/outside-democratic-group-campaigns-for-libertarian-but-supports-davids/",
+          "type": "news",
+          "title": "Outside Democratic group campaigns for Libertarian but supports Davids",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Kansas%27_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:44:13.276683+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 160730,
+    "completion_tokens": 9181,
+    "total_tokens": 169911,
+    "cost_usd": 0.011790248,
+    "cost_source": "provider",
+    "estimated_usd": 0.017551,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 160730,
+        "completion_tokens": 9181
+      }
+    },
+    "duration_s": 124.9
+  }
+}

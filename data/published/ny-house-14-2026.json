@@ -1,0 +1,339 @@
+{
+  "id": "ny-house-14-2026",
+  "title": "New York's 14th Congressional District Election, 2026",
+  "office": "U.S. Representative",
+  "jurisdiction": "New York's 14th Congressional District",
+  "state": "New York",
+  "district": "14th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New York's 14th Congressional District features incumbent Democrat Alexandria Ocasio-Cortez seeking a fourth term in a district covering parts of the Bronx and Queens. Ocasio-Cortez faces two Democratic primary challengers: former Wall Street executive Marty Dolan, who previously challenged her in 2022, and energy executive Felipe Garcia. The Republican nominee is Diamant Hysenaj, an entrepreneur and real estate developer running on the Republican and Conservative Party lines. The district is heavily Democratic, with Ocasio-Cortez winning 68.9% in 2024. The primary is scheduled for June 23, 2026, with the general election on November 3, 2026.",
+  "candidates": [
+    {
+      "name": "Alexandria Ocasio-Cortez",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Alexandria Ocasio-Cortez is the incumbent U.S. Representative for New York's 14th Congressional District, first elected in 2018. She serves on the House Oversight and Accountability Committee and the House Natural Resources Committee. A member of the Democratic Socialists of America, she has advocated for the Green New Deal, Medicare for All, and tuition-free public college. She won re-election in 2024 with 68.9% of the vote and has nearly $15 million cash on hand for her 2026 campaign.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Alexandria_Ocasio-Cortez",
+          "type": "website",
+          "title": "Alexandria Ocasio-Cortez - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.bxtimes.com/2026-primaries-marty-dolan-felipe-garcia-aoc-cd-14/",
+          "type": "news",
+          "title": "2026 PRIMARIES: Democrats Marty Dolan and Felipe Garcia challenging AOC for Bronx and Queens District 14",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Alexandria_Ocasio-Cortez.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing New York's 14th Congressional District (Bronx and Queens)",
+          "source": null
+        },
+        {
+          "title": "Educational Director",
+          "organization": "National Hispanic Institute",
+          "start_year": 2012,
+          "end_year": 2016,
+          "description": "Worked on youth leadership development programs",
+          "source": null
+        },
+        {
+          "title": "Waitress and Bartender",
+          "organization": "Various establishments",
+          "start_year": 2011,
+          "end_year": 2018,
+          "description": "Worked in service industry while organizing for Bernie Sanders' 2016 presidential campaign",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Boston University",
+          "degree": "Bachelor of Arts",
+          "field": "International Relations and Economics",
+          "year": 2011,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ocasio-cortez.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Marty Dolan",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Marty Dolan is a former Wall Street insurance executive challenging Alexandria Ocasio-Cortez in the 2026 Democratic primary. He previously ran against Ocasio-Cortez in the 2022 primary, winning nearly 20% of the vote, and later mounted an unsuccessful campaign for NYC Public Advocate. Dolan proposes $75,000 in home equity for NYCHA residents to buy their apartments and reimbursing young workers for taxes paid upon turning 26, up to $25,000. As of June 2026, his campaign had about $8,000 cash on hand with over $33,000 in self-loans.",
+      "summary_sources": [
+        {
+          "url": "https://www.bxtimes.com/2026-primaries-marty-dolan-felipe-garcia-aoc-cd-14/",
+          "type": "news",
+          "title": "2026 PRIMARIES: Democrats Marty Dolan and Felipe Garcia challenging AOC for Bronx and Queens District 14",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cityandstateny.com/prediction-markets/candidates/marty-dolan",
+          "type": "website",
+          "title": "Marty Dolan - 2026 Election Polls & Odds | City & State New York",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Insurance Executive",
+          "organization": "Wall Street firms",
+          "start_year": 1990,
+          "end_year": 2020,
+          "description": "Veteran Wall Street insurance executive",
+          "source": null
+        },
+        {
+          "title": "Candidate for U.S. House",
+          "organization": "NY-14 Democratic Primary",
+          "start_year": 2022,
+          "end_year": 2022,
+          "description": "Challenged Alexandria Ocasio-Cortez, received nearly 20% of vote",
+          "source": null
+        },
+        {
+          "title": "Candidate for NYC Public Advocate",
+          "organization": "New York City",
+          "start_year": 2023,
+          "end_year": 2023,
+          "description": "Unsuccessful campaign for NYC Public Advocate",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Felipe Garcia",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Felipe Garcia is a Hunts Point native and former Mount Sinai executive challenging Alexandria Ocasio-Cortez in the 2026 Democratic primary. An energy executive and engineer, Garcia emphasizes career pathways for young people leaving high school, particularly in high-demand fields like phlebotomy and security. He states his priority is putting the district first with someone 'born and bred in the district, with no loyalty to anyone else but the upbringing that they have.' As of June 2026, his campaign had just over $4,000 cash on hand with a self-reported budget of $100,000 of his own money.",
+      "summary_sources": [
+        {
+          "url": "https://www.bxtimes.com/2026-primaries-marty-dolan-felipe-garcia-aoc-cd-14/",
+          "type": "news",
+          "title": "2026 PRIMARIES: Democrats Marty Dolan and Felipe Garcia challenging AOC for Bronx and Queens District 14",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.garcia2026.com/",
+          "type": "website",
+          "title": "Felipe Garcia for Congress | NY-14 | Bronx & Queens",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Energy Executive and Engineer",
+          "organization": "Private sector",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Director-level energy executive and engineer",
+          "source": null
+        },
+        {
+          "title": "Executive",
+          "organization": "Mount Sinai Health System",
+          "start_year": 2015,
+          "end_year": 2022,
+          "description": "Former Mount Sinai executive",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.garcia2026.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Diamant Hysenaj",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Diamant Hysenaj is the Republican and Conservative Party nominee for New York's 14th Congressional District. An entrepreneur and real estate developer, Hysenaj immigrated to the United States from Albania. He has been endorsed by NYGOP Chair Ed Cox. As of March 2026, Hysenaj had raised $288,000 in contributions with $13,000 cash on hand. He will face the Democratic primary winner in the November 3, 2026 general election.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Diamant_Hysenaj",
+          "type": "website",
+          "title": "Diamant Hysenaj - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.bxtimes.com/2026-primaries-marty-dolan-felipe-garcia-aoc-cd-14/",
+          "type": "news",
+          "title": "2026 PRIMARIES: Democrats Marty Dolan and Felipe Garcia challenging AOC for Bronx and Queens District 14",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nygop.org/nygop-chair-ed-cox-endorses-diamant-hysenaj-in-ny-14/",
+          "type": "website",
+          "title": "NYGOP Chair Ed Cox Endorses Diamant Hysenaj in NY-14",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Diamant_Hysenaj.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Entrepreneur and Real Estate Developer",
+          "organization": "Private sector",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Business owner in real estate development",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:20:24.289840+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 312977,
+    "completion_tokens": 9878,
+    "total_tokens": 322855,
+    "cost_usd": 0.072263256,
+    "cost_source": "provider",
+    "estimated_usd": 0.073476,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 274420,
+        "completion_tokens": 6680
+      },
+      "nvidia/nemotron-3-ultra-550b-a55b": {
+        "prompt_tokens": 38557,
+        "completion_tokens": 3198
+      }
+    },
+    "duration_s": 219.8,
+    "serper_calls": 18,
+    "context_requests": 15,
+    "max_estimated_context_tokens": 47798,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0456,
+    "context_deduplicated_results": 56,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 3,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

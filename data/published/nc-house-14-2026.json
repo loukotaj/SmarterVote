@@ -1,0 +1,221 @@
+{
+  "id": "nc-house-14-2026",
+  "title": "North Carolina's 14th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "North Carolina's 14th Congressional District",
+  "state": "North Carolina",
+  "district": "14th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "North Carolina's 14th Congressional District will hold a general election on November 3, 2026, to elect a U.S. Representative. The district covers portions of Mecklenburg, Gaston, Cleveland, Burke, Rutherford, and Polk counties, including part of Charlotte. Incumbent Republican Rep. Tim Moore faces Democratic nominee LaKesha Womack in a race set against North Carolina's newly redrawn congressional map adopted in October 2025. The district leans Republican \u2014 Cook Political Report rates it as R+15 \u2014 making Moore the clear favorite, though Womack is running on a platform of economic justice, affordability, and expanded access to healthcare and education.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found specifically for the NC-14 2026 general election matchup. The Cook Political Report rates the district as Solid Republican (R+15).",
+  "candidates": [
+    {
+      "name": "Tim Moore",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Tim Moore is the incumbent U.S. Representative for North Carolina's 14th Congressional District, first elected in 2024. He previously served as Speaker of the North Carolina House of Representatives for a decade (2015\u20132024), where he championed infrastructure development, education reform, and job creation. Moore serves on the House Committees on Financial Services and the Budget, and his campaign focuses on lowering energy costs, expanding homeownership, and cutting wasteful spending.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/North_Carolina%27s_14th_Congressional_District_election,_2026",
+          "type": "website",
+          "title": "North Carolina's 14th Congressional District election, 2026 - Ballotpedia",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        },
+        {
+          "url": "http://timmoore.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Tim Moore",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/north-carolina-us-house-district-14-results",
+          "type": "news",
+          "title": "North Carolina House District 14 Primary Election Live Results 2026",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        },
+        {
+          "url": "https://www.wbtv.com/2026/02/17/2026-primary-election-north-carolina-14th-congressional-district-candidates-answer-questions-about-top-issues/",
+          "type": "news",
+          "title": "2026 primary election: North Carolina 14th Congressional District candidates answer questions about top issues",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tim_Moore.jpg",
+      "website": "http://timmoore.house.gov",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CongressmanTimMoore/",
+        "instagram": "https://www.instagram.com/reptimmoore/",
+        "twitter": null
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, NC-14",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Member of House Committees on Financial Services and the Budget"
+        },
+        {
+          "title": "Speaker of the House",
+          "organization": "North Carolina House of Representatives",
+          "start_year": 2015,
+          "end_year": 2024,
+          "description": "Presided over the state House, led economic and education reforms"
+        },
+        {
+          "title": "State Representative",
+          "organization": "North Carolina House of Representatives",
+          "start_year": 2003,
+          "end_year": 2024,
+          "description": "Represented Cleveland County in the state legislature"
+        },
+        {
+          "title": "Attorney",
+          "organization": "Tim Moore, Attorney at Law, P.A.",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Private law practice in Kings Mountain, North Carolina"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oklahoma City University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1995
+        },
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1992
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "LaKesha Womack",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "LaKesha Womack is the Democratic nominee for North Carolina's 14th Congressional District, having won the March 3, 2026 primary with 52.2% of the vote. She is a strategic consultant and community advocate who founded Womack Consulting Group, a firm that has spent more than 20 years helping small businesses, nonprofits, and faith-based organizations. Womack also serves as Chief Strategy Officer for ASPIRE Community Capital, a Community Development Financial Institution, and is pursuing a Master of Legal Studies at Vanderbilt Law School. Her campaign platform focuses on affordability, economic opportunity, and access to healthcare and education for working families.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/North_Carolina%27s_14th_Congressional_District_election,_2026",
+          "type": "website",
+          "title": "North Carolina's 14th Congressional District election, 2026 - Ballotpedia",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        },
+        {
+          "url": "https://www.womack4nc14.com/bio",
+          "type": "website",
+          "title": "Meet the Candidate | LaKesha Womack for NC-14",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/north-carolina-us-house-district-14-results",
+          "type": "news",
+          "title": "North Carolina House District 14 Primary Election Live Results 2026",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        },
+        {
+          "url": "https://www.wbtv.com/2026/02/17/2026-primary-election-north-carolina-14th-congressional-district-candidates-answer-questions-about-top-issues/",
+          "type": "news",
+          "title": "2026 primary election: North Carolina 14th Congressional District candidates answer questions about top issues",
+          "last_accessed": "2026-07-13T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.womack4nc14.com",
+      "social_media": {
+        "facebook": "https://www.facebook.com/lakeshawomack/",
+        "instagram": "https://www.instagram.com/lakeshawomack/",
+        "linkedin": "https://www.linkedin.com/in/womackcg"
+      },
+      "career_history": [
+        {
+          "title": "Chief Strategy Officer",
+          "organization": "ASPIRE Community Capital",
+          "start_year": null,
+          "end_year": null,
+          "description": "Community Development Financial Institution focused on expanding economic opportunity for undercapitalized entrepreneurs"
+        },
+        {
+          "title": "Founder and Consultant",
+          "organization": "Womack Consulting Group",
+          "start_year": null,
+          "end_year": null,
+          "description": "Strategic planning and leadership development for small businesses, nonprofits, and faith-based organizations (20+ years)"
+        },
+        {
+          "title": "Consultant",
+          "organization": "American Baptist Home Mission Societies and Judson Press",
+          "start_year": null,
+          "end_year": null,
+          "description": "Storytelling strategies to support global missions and amplify faith leaders' voices"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Vanderbilt Law School",
+          "degree": "Master of Legal Studies (in progress)",
+          "field": "Legal Studies",
+          "year": null
+        },
+        {
+          "institution": "Vanderbilt University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": null
+        },
+        {
+          "institution": "Alabama School of Math and Science",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_14th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:08:35.730122+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 169473,
+    "completion_tokens": 6918,
+    "total_tokens": 176391,
+    "cost_usd": 0.013681146,
+    "cost_source": "provider",
+    "estimated_usd": 0.017964,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 169473,
+        "completion_tokens": 6918
+      }
+    },
+    "duration_s": 158.2
+  }
+}

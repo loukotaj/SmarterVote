@@ -1,0 +1,412 @@
+{
+  "id": "md-house-04-2026",
+  "title": "Maryland's 4th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Maryland's 4th Congressional District",
+  "state": "Maryland",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Maryland's 4th Congressional District covers most of Prince George's County and a small portion of Montgomery County, suburbs of Washington, D.C. Incumbent Democrat Glenn Ivey, first elected in 2022, faces multiple primary challengers in the June 23, 2026 Democratic primary, while perennial Republican candidate George E. McDermott is unopposed for the GOP nomination. The district is heavily Democratic (Cook Political Report rates it Solid D), making the Democratic primary the decisive contest. Ivey, a former Prince George's County State's Attorney, is being challenged by healthcare advocate Joseph Gomes, reproductive rights organizer Jakeya Johnson, and others from the left.",
+  "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_4th_Congressional_District_election,_2026",
+  "polling": [],
+  "polling_note": "No opinion polls were found for this race as of mid-2026. The district is rated Solid D by major nonpartisan forecasters, and no general-election polling has been conducted publicly.",
+  "candidates": [
+    {
+      "name": "Glenn F. Ivey",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Glenn Ivey is the incumbent U.S. Representative for Maryland's 4th Congressional District, first elected in 2022 and re-elected in 2024. He previously served as Prince George's County State's Attorney for eight years and as a federal prosecutor. Ivey focuses on public safety, economic opportunity, and infrastructure investments, and is the heavy favorite in the Democratic primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Glenn_Ivey",
+          "type": "website",
+          "title": "Glenn Ivey - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Glenn_Ivey",
+          "type": "website",
+          "title": "Glenn Ivey - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Glenn_Ivey.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Maryland's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State's Attorney",
+          "organization": "Prince George's County, Maryland",
+          "start_year": 2002,
+          "end_year": 2010,
+          "description": "Chief prosecutor for Prince George's County",
+          "source": null
+        },
+        {
+          "title": "Federal Prosecutor",
+          "organization": "U.S. Department of Justice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as federal prosecutor and later as counsel to the Senate Judiciary Committee",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Princeton University",
+          "degree": "AB",
+          "field": "History",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard Law School",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ivey.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Joseph Gomes",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Joseph Gomes is a community advocate and healthcare administration professional running for the Democratic nomination. A Beltsville resident, he holds a Bachelor of Commerce and Master of Commerce preliminary in Management from Dhaka University. Gomes emphasizes bipartisan cooperation, lowering costs for working families, and increasing constituent access to their representative.",
+      "summary_sources": [
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-4th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 4th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://elections.maryland.gov/elections/2026/Primary_candidates/2026_GP_statewide_candidatelist.html",
+          "type": "government",
+          "title": "2026 Gubernatorial Primary Election State Candidates List",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Community Advocate / Healthcare Administration / Business Professional",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Community leader and advocate engaging residents on public safety, education, and economic opportunity",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Dhaka University",
+          "degree": "Bachelor of Commerce",
+          "field": "Commerce",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "Dhaka University",
+          "degree": "Master of Commerce (preliminary)",
+          "field": "Management",
+          "year": 1991,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jakeya Johnson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jakeya Johnson is the Executive Director of Reproductive Justice Maryland and a Democratic primary candidate. She holds a BS in Healthcare Administration from Western Governors University and an MPA in Public Policy from Bowie State University. Johnson has led statewide advocacy for reproductive rights and authored legislation passed in the Maryland General Assembly.",
+      "summary_sources": [
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-4th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 4th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Maryland",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Maryland",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Executive Director",
+          "organization": "Reproductive Justice Maryland",
+          "start_year": null,
+          "end_year": null,
+          "description": "Leads policy development and advocacy for reproductive rights",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Western Governors University",
+          "degree": "BS",
+          "field": "Healthcare Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Bowie State University",
+          "degree": "MPA",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Shavonne N. Hedgepeth",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Shavonne N. Hedgepeth is a Democratic candidate in the June 23, 2026 primary for Maryland's 4th Congressional District. She did not complete the Baltimore Sun voter guide questionnaire. Limited public information is available about her background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-4th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 4th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Maryland%27s_4th_Congressional_District_election,_2026_(June_23_Democratic_primary)",
+          "type": "website",
+          "title": "Maryland's 4th Congressional District election, 2026 (June 23 Democratic primary) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jonathan D. White",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jonathan D. White is a Democratic candidate in the June 23, 2026 primary for Maryland's 4th Congressional District. He did not complete the Baltimore Sun voter guide questionnaire. Limited public information is available about his background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-4th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 4th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jonathan_White_(Maryland%27s_4th_Congressional_District)",
+          "type": "website",
+          "title": "Jonathan White (Maryland's 4th Congressional District) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "George E. McDermott",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "George E. McDermott is a perennial Republican candidate running unopposed in the June 23, 2026 Republican primary for Maryland's 4th Congressional District. He previously ran against Glenn Ivey in the 2024 general election, losing by a wide margin. McDermott is a resident of Forest Heights, Maryland, and his campaign has not reported significant fundraising.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Maryland",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Maryland",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-4th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 4th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://elections.maryland.gov/elections/2026/Primary_candidates/2026_GP_statewide_candidatelist.html",
+          "type": "government",
+          "title": "2026 Gubernatorial Primary Election State Candidates List",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-13T22:50:51.982877+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 268721,
+    "completion_tokens": 7450,
+    "total_tokens": 276171,
+    "cost_usd": 0.017701033999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.027795,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 268721,
+        "completion_tokens": 7450
+      }
+    },
+    "duration_s": 109.3
+  }
+}

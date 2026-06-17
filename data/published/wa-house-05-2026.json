@@ -1,0 +1,548 @@
+{
+  "id": "wa-house-05-2026",
+  "title": "Washington's 5th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Washington's 5th Congressional District",
+  "state": "Washington",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Washington's 5th Congressional District will determine who represents a large, Republican-leaning district spanning eastern Washington including Spokane and the surrounding counties. Incumbent Republican Michael Baumgartner, first elected in 2024, is seeking a second term in this R+5 district that covers 12 counties. A top-two primary on August 4, 2026, will narrow the field of at least nine candidates to two for the November 3 general election. The race features a rematch between Baumgartner and Democrat Carmela Conroy, who lost the 2024 general election 61%-39%, along with several other Democratic, Republican, and independent candidates competing in the nonpartisan primary.",
+  "polling": [],
+  "polling_note": "No public opinion polls for this race were found as of early 2026. The New York Times maintains a poll tracker page for WA-05 but no polls have been reported yet.",
+  "candidates": [
+    {
+      "name": "Michael Baumgartner",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "Michael Baumgartner is the incumbent U.S. Representative for Washington's 5th Congressional District, first elected in 2024. He previously served as Spokane County Treasurer (2019-2025) and as a Washington State Senator (2011-2019), and was the Republican nominee for U.S. Senate in 2012. Baumgartner holds degrees from Washington State University and Harvard's Kennedy School and worked as a civilian contractor in Iraq and Afghanistan.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Michael_Baumgartner",
+          "type": "news",
+          "title": "Michael Baumgartner - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Michael_Baumgartner",
+          "type": "website",
+          "title": "Michael Baumgartner - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Baumgartner.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Washington's 5th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Spokane County Treasurer",
+          "organization": "Spokane County, Washington",
+          "start_year": 2019,
+          "end_year": 2025,
+          "description": "28th Treasurer of Spokane County",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Washington State Senate",
+          "start_year": 2011,
+          "end_year": 2019,
+          "description": "Represented the 6th Legislative District",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": 2002,
+          "source": null
+        },
+        {
+          "institution": "Washington State University",
+          "degree": "Bachelor of Arts",
+          "field": "Economics",
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://votebaumgartner.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Carmela Conroy",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Carmela Conroy is a retired U.S. Foreign Service officer and former Spokane County deputy prosecutor who served as the Democratic nominee for this seat in 2024, losing to Baumgartner. Her 25-year diplomatic career included postings in Japan, New Zealand, Afghanistan, Norway, and Pakistan, where she served as U.S. Consul General in Lahore. Conroy holds a BA and JD from the University of Washington and an MA from the Naval War College.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Carmela_Conroy",
+          "type": "news",
+          "title": "Carmela Conroy - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://conroy4congress.com/",
+          "type": "website",
+          "title": "Carmela Conroy for Congress - Campaign website",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Carmela_Conroy_State_Department_Portrait_%28cropped%29.jpg/250px-Carmela_Conroy_State_Department_Portrait_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Consul General",
+          "organization": "U.S. Department of State, Lahore, Pakistan",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Senior American diplomat in Punjab province during a period of major militant attacks and diplomatic crises",
+          "source": null
+        },
+        {
+          "title": "Chair",
+          "organization": "Spokane County Democratic Party",
+          "start_year": 2022,
+          "end_year": 2024,
+          "description": "Leader of the county Democratic Party organization",
+          "source": null
+        },
+        {
+          "title": "Deputy Prosecuting Attorney",
+          "organization": "Spokane County",
+          "start_year": 1992,
+          "end_year": 1996,
+          "description": "Handled felony and domestic violence cases",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "U.S. Naval War College",
+          "degree": "Master of Arts",
+          "field": "National Security Studies",
+          "year": 2004,
+          "source": null
+        },
+        {
+          "institution": "University of Washington School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Washington",
+          "degree": "Bachelor of Arts",
+          "field": "International Trade and Investment",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://conroy4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kevin Fagan",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Kevin Fagan is a 2021 graduate of Gonzaga University who works as an operations manager and is making his first run for public office. He is on the ballot in the August 4, 2026 top-two primary for Washington's 5th Congressional District.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Kevin_Fagan",
+          "type": "website",
+          "title": "Kevin Fagan - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
+          "type": "news",
+          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kevin_Fagan.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Operations Manager",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Works in operations management",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Gonzaga University",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": 2021,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Bajun Mavalwalla",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Bajun Mavalwalla is a retired U.S. Army intelligence officer who served 20 years, including deployments in Iraq and Afghanistan. He is running for Congress to represent Washington's 5th District and is on the ballot in the August 4, 2026 top-two primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Bajun_Mavalwalla",
+          "type": "website",
+          "title": "Bajun Mavalwalla - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.votebajun.com/",
+          "type": "website",
+          "title": "Bajun Mavalwalla for Congress - Campaign website",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Intelligence Officer (Retired)",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served 20 years in Army intelligence, including deployments in Iraq and Afghanistan",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votebajun.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "David Womack",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "David Womack is a retired U.S. Air Force colonel who served as medical group commander at Fairchild Air Force Base and later held leadership roles in hospital administration in Colfax, Washington. He is on the ballot in the August 4, 2026 top-two primary for Washington's 5th Congressional District.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/David_Womack",
+          "type": "website",
+          "title": "David Womack - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
+          "type": "news",
+          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/David_Womack.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Medical Group Commander",
+          "organization": "Fairchild Air Force Base",
+          "start_year": null,
+          "end_year": null,
+          "description": "Commander of medical group at U.S. Air Force base",
+          "source": null
+        },
+        {
+          "title": "Hospital Administrator",
+          "organization": "Hospital in Colfax, Washington",
+          "start_year": null,
+          "end_year": null,
+          "description": "Leadership role in hospital administration",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ann Marie Danimus",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Ann Marie Danimus is a Spokane Valley business owner running as an Independent for Congress in Washington's 5th District. She previously ran in the 2022 and 2024 primaries as a Democrat and is now running without a major party affiliation. She is on the ballot in the August 4, 2026 top-two primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ann_Marie_Danimus",
+          "type": "website",
+          "title": "Ann Marie Danimus - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.spokesman.com/stories/2026/jun/10/ann-marie-danimus-hopes-third-time-is-the-charm-in/",
+          "type": "news",
+          "title": "Ann Marie Danimus hopes third time is the charm in uphill bid for Congress - The Spokesman-Review",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business owner in Spokane Valley",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://vote4annmarie.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Nate Powell",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Nate Powell is a firefighter and U.S. Marine Corps veteran running as an Independent in Washington's 5th Congressional District. He is on the ballot in the August 4, 2026 top-two primary with a campaign focused on public service and local concerns.",
+      "summary_sources": [
+        {
+          "url": "https://natepowellforcongress.com/",
+          "type": "website",
+          "title": "Nate Powell for Congress - Campaign website",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
+          "type": "news",
+          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Firefighter",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional firefighter",
+          "source": null
+        },
+        {
+          "title": "U.S. Marine Corps Veteran",
+          "organization": "United States Marine Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the U.S. Marine Corps",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://natepowellforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Anthony Jensen",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Anthony Jensen is a Spokane-based candidate running for the U.S. House in Washington's 5th Congressional District with a Republican party preference. He filed with the Federal Election Commission and is on the ballot for the August 4, 2026 top-two primary.",
+      "summary_sources": [
+        {
+          "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
+          "type": "news",
+          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "description": null,
+          "last_accessed": "2026-07-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Washington%27s_5th_Congressional_District_election,_2026_(August_4_top-two_primary)",
+  "updated_utc": "2026-06-13T22:26:03.883487+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 215498,
+    "completion_tokens": 9485,
+    "total_tokens": 224983,
+    "cost_usd": 0.015639623999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.022978,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 215498,
+        "completion_tokens": 9485
+      }
+    },
+    "duration_s": 157.7
+  }
+}

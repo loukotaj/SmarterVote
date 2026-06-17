@@ -19,31 +19,415 @@
         {
           "url": "https://www.markwarnerva.com/",
           "type": "website",
-          "title": "Mark Warner - Delivering for Virginia"
+          "title": "Mark Warner - Delivering for Virginia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Mark_Warner",
           "type": "website",
-          "title": "Mark Warner - Ballotpedia"
+          "title": "Mark Warner - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mark_Warner.jpg",
-      "website": "https://www.markwarnerva.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Warner says he supports lowering health care costs, protecting the Affordable Care Act, expanding telehealth, and protecting Medicaid access. His campaign also says he wants to make care more affordable for Virginia families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.markwarnerva.com/plan/",
+              "type": "website",
+              "title": "The Plan - Mark Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/about/priorities/health-care/",
+              "type": "government",
+              "title": "Health Care - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Warner says his economic agenda centers on lowering costs, supporting working families, expanding domestic manufacturing, and investing in infrastructure and broadband. He has highlighted federal manufacturing and infrastructure investments as part of that approach.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.markwarnerva.com/plan/",
+              "type": "website",
+              "title": "The Plan - Mark Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/about/priorities/economy/",
+              "type": "government",
+              "title": "Economy - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/broadband2/",
+              "type": "government",
+              "title": "Broadband - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Warner supports an all-of-the-above energy strategy that includes solar, wind, biofuels, nuclear energy, battery technologies, and energy efficiency. He has also backed clean-energy investment and offshore wind development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.warner.senate.gov/about/priorities/energy-environment/",
+              "type": "government",
+              "title": "Energy & Environment - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/public/index.cfm/energy-environment?page=4",
+              "type": "government",
+              "title": "Energy & Environment - Mark R. Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Warner supports abortion rights and reproductive health access. He has backed legislation to protect access to abortion care, contraception, and abortion medication, and has said he supports codifying reproductive freedom.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.warner.senate.gov/newsroom/press-releases/statement-of-senator-mark-r-warner-on-the-senate-s-failure-to-pass-the-women-s-health-protection-act/",
+              "type": "government",
+              "title": "Statement of Senator Mark R. Warner on the Senate's Failure to Pass the Women's Health Protection Act",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/newsroom/press-releases/sens-warner-kaine-introduce-bill-to-protect-access-to-reproductive-health-care/",
+              "type": "government",
+              "title": "Sens. Warner & Kaine Introduce Bill to Protect Access to Reproductive Health Care",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/newsroom/press-releases/ahead-of-scotus-ruling-warner-joins-entire-senate-democratic-caucus-in-backing-resolution-affirming-abortion-pill-as-safe-effective/",
+              "type": "government",
+              "title": "Ahead of SCOTUS Ruling, Warner Joins Entire Senate Democratic Caucus in Backing Resolution Affirming Abortion Pill as Safe, Effective",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Warner supports comprehensive immigration reform with stronger border security and a pathway to citizenship for undocumented immigrants, including Dreamers. He has said the current system is broken and should be fixed through bipartisan reform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.warner.senate.gov/about/priorities/immigration/",
+              "type": "government",
+              "title": "Immigration - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/immigration/",
+              "type": "government",
+              "title": "Immigration - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Warner supports gun-safety measures such as universal background checks and red-flag laws. He has also opposed concealed-carry reciprocity legislation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wvtf.org/news/2026-05-01/senators-kaine-and-warner-make-the-case-for-virginia-plan-on-gun-control",
+              "type": "news",
+              "title": "Senators Kaine and Warner make the case for Virginia plan on gun control",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.everytown.org/press/everytown-for-gun-safety-and-virginia-moms-demand-action-applaud-senator-mark-warner-for-declaring-his-opposition-to-concealed-carry-reciprocity-legislation/",
+              "type": "website",
+              "title": "Everytown for Gun Safety Applauds Warner for Opposing Concealed Carry Reciprocity",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Warner says he prioritizes defending democracy, strengthening alliances, countering Chinese influence, and protecting national security. He serves as chairman of the Senate Intelligence Committee and has emphasized oversight of intelligence and defense programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.warner.senate.gov/about/priorities/national-security/",
+              "type": "government",
+              "title": "National Security - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/newsroom/press-releases/sen-warner-on-passage-of-national-security-supplemental/",
+              "type": "government",
+              "title": "Sen. Warner on Passage of National Security Supplemental",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Warner supports voting-rights protections and anti-discrimination measures. He has backed legislation such as the John Lewis Voting Rights Advancement Act and other federal voting-rights efforts.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.warner.senate.gov/public/index.cfm/pressreleases?Label_id=FA13C4B9-3719-4B0D-89BA-A45A1CBFDCA8&page=2",
+              "type": "government",
+              "title": "Press Releases - Mark R. Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/about/priorities/civil-rights/",
+              "type": "government",
+              "title": "Civil Rights - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Warner supports making higher education and workforce training more affordable, expanding retraining and certifications, and preparing workers for an AI-driven economy. He has also backed federal efforts to support minority-serving institutions and workforce development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.warner.senate.gov/about/priorities/education-workforce-training/",
+              "type": "government",
+              "title": "Education & Workforce Training - Senator Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/newsroom/press-releases/warner-rounds-unveil-bipartisan-plan-to-prepare-american-workers-for-ai-driven-workforce-changes/",
+              "type": "government",
+              "title": "Warner & Rounds unveil bipartisan plan to prepare American workers for AI-driven workforce changes",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Warner supports collecting data on AI's impact on workers and using that information to guide policy and training. He has introduced bipartisan legislation to collect aggregated, de-identified data on AI usage and workforce effects.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.warner.senate.gov/newsroom/press-releases/warner-budd-introduce-legislation-to-collect-data-on-ais-impact-guide-lawmakers/",
+              "type": "government",
+              "title": "Warner, Budd Introduce Legislation to Collect Data on AI's Impact, Guide Lawmakers",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/newsroom/press-releases/warner-urges-federal-agencies-to-disclose-and-secure-their-ai-use/",
+              "type": "government",
+              "title": "Warner Urges Federal Agencies to Disclose and Secure their AI Use",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Warner supports protecting free and fair elections, election security, and voting rights. He has criticized efforts to nationalize election administration and has supported clarifying election-counting rules after the 2020 election.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.markwarnerva.com/plan/",
+              "type": "website",
+              "title": "The Plan - Mark Warner for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.warner.senate.gov/newsroom/in-the-news/13news-now-virginia-sen-warner-says-trump-s-push-to-nationalize-elections-threatens-democracy/",
+              "type": "news",
+              "title": "13News Now: Virginia Sen. Warner says Trump’s push to nationalize elections threatens democracy",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Warner’s Virginia-focused agenda emphasizes lowering costs, expanding housing supply, improving broadband, and investing in roads, bridges, and other infrastructure. He also highlights childcare, health care, and veteran services as local priorities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.markwarnerva.com/plan/",
+              "type": "government",
+              "title": "The Plan - Mark Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.markwarnerva.com/issues",
+              "type": "government",
+              "title": "On The Issues - Mark Warner",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "United States Senator",
           "organization": "U.S. Senate",
           "start_year": 2009,
           "end_year": null,
-          "description": "Represents Virginia in the U.S. Senate."
+          "description": "Represents Virginia in the U.S. Senate.",
+          "source": null
         },
         {
           "title": "Governor",
           "organization": "Commonwealth of Virginia",
           "start_year": 2002,
           "end_year": 2006,
-          "description": "Served one term as governor of Virginia."
+          "description": "Served one term as governor of Virginia.",
+          "source": null
         }
       ],
       "education": [
@@ -51,45 +435,68 @@
           "institution": "George Washington University",
           "degree": "B.A.",
           "field": "Political science",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "Harvard Law School",
           "degree": "J.D.",
           "field": "Law",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
+      "voting_summary": "Incumbent U.S. senator; GovTrack identifies him as the senior senator from Virginia serving since 2009, and Vote Smart provides a full voting record. His record is generally aligned with the Democratic caucus, and his issue pages on Vote Smart and GovTrack show participation in major Senate votes and legislation across national security, health care, and social policy.",
+      "voting_source_url": "https://www.votesmart.org/candidate/535/mark-warner?categoryId=25&type=V,S,R,E,F,P,E",
+      "voting_sources": [],
       "donor_summary": "Raised approximately $14.4M for the 2025–2026 cycle, with OpenSecrets showing $14,416,731 raised, $5,364,932 spent, and $14,605,034 cash on hand as of 2026-03-31. OpenSecrets identifies his fundraising as coming through a broad federal donor base, with industry and PAC breakdowns available on the candidate page; the page also links to industry and organization tabs for deeper sector analysis.",
       "donor_source_url": "https://www.opensecrets.org/profiles/mark-warner-d-va?mpid=1140953",
       "donor_sources": [
         {
           "url": "https://www.opensecrets.org/profiles/mark-warner-d-va?mpid=1140953",
-          "title": "Mark Warner – US Congress – Summary - OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "Mark Warner – US Congress – Summary - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.opensecrets.org/profiles/mark-warner/us_congress/industries?cycle=2024&mpid=1140953",
-          "title": "Mark Warner – US Congress – Industries - OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "Mark Warner – US Congress – Industries - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.followthemoney.org/entity-details?eid=6003122&default=candidate",
-          "title": "WARNER, MARK R - FollowTheMoney.org",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "WARNER, MARK R - FollowTheMoney.org",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.fec.gov/data/candidate/S6VA00218/",
-          "title": "MORAN, MARK - Candidate overview - FEC",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "MORAN, MARK - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "Incumbent U.S. senator; GovTrack identifies him as the senior senator from Virginia serving since 2009, and Vote Smart provides a full voting record. His record is generally aligned with the Democratic caucus, and his issue pages on Vote Smart and GovTrack show participation in major Senate votes and legislation across national security, health care, and social policy.",
-      "voting_source_url": "https://www.votesmart.org/candidate/535/mark-warner?categoryId=25&type=V,S,R,E,F,P,E",
       "links": [
         {
           "url": "https://ballotpedia.org/Mark_Warner",
@@ -117,236 +524,10 @@
           "type": "govtrack"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Warner says he supports lowering health care costs, protecting the Affordable Care Act, expanding telehealth, and protecting Medicaid access. His campaign also says he wants to make care more affordable for Virginia families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.markwarnerva.com/plan/",
-              "type": "campaign policy page",
-              "title": "The Plan - Mark Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/about/priorities/health-care/",
-              "type": "official campaign page",
-              "title": "Health Care - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Warner says his economic agenda centers on lowering costs, supporting working families, expanding domestic manufacturing, and investing in infrastructure and broadband. He has highlighted federal manufacturing and infrastructure investments as part of that approach.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.markwarnerva.com/plan/",
-              "type": "campaign policy page",
-              "title": "The Plan - Mark Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/about/priorities/economy/",
-              "type": "official senate page",
-              "title": "Economy - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/broadband2/",
-              "type": "official policy page",
-              "title": "Broadband - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Warner supports an all-of-the-above energy strategy that includes solar, wind, biofuels, nuclear energy, battery technologies, and energy efficiency. He has also backed clean-energy investment and offshore wind development.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.warner.senate.gov/about/priorities/energy-environment/",
-              "type": "official-site",
-              "title": "Energy & Environment - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/public/index.cfm/energy-environment?page=4",
-              "type": "official-site",
-              "title": "Energy & Environment - Mark R. Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Warner supports abortion rights and reproductive health access. He has backed legislation to protect access to abortion care, contraception, and abortion medication, and has said he supports codifying reproductive freedom.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.warner.senate.gov/newsroom/press-releases/statement-of-senator-mark-r-warner-on-the-senate-s-failure-to-pass-the-women-s-health-protection-act/",
-              "type": "press release",
-              "title": "Statement of Senator Mark R. Warner on the Senate's Failure to Pass the Women's Health Protection Act",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/newsroom/press-releases/sens-warner-kaine-introduce-bill-to-protect-access-to-reproductive-health-care/",
-              "type": "press release",
-              "title": "Sens. Warner & Kaine Introduce Bill to Protect Access to Reproductive Health Care",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/newsroom/press-releases/ahead-of-scotus-ruling-warner-joins-entire-senate-democratic-caucus-in-backing-resolution-affirming-abortion-pill-as-safe-effective/",
-              "type": "press release",
-              "title": "Ahead of SCOTUS Ruling, Warner Joins Entire Senate Democratic Caucus in Backing Resolution Affirming Abortion Pill as Safe, Effective",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Warner supports comprehensive immigration reform with stronger border security and a pathway to citizenship for undocumented immigrants, including Dreamers. He has said the current system is broken and should be fixed through bipartisan reform.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.warner.senate.gov/about/priorities/immigration/",
-              "type": "official policy page",
-              "title": "Immigration - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/immigration/",
-              "type": "official policy page",
-              "title": "Immigration - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Warner supports gun-safety measures such as universal background checks and red-flag laws. He has also opposed concealed-carry reciprocity legislation.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.wvtf.org/news/2026-05-01/senators-kaine-and-warner-make-the-case-for-virginia-plan-on-gun-control",
-              "type": "news",
-              "title": "Senators Kaine and Warner make the case for Virginia plan on gun control",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.everytown.org/press/everytown-for-gun-safety-and-virginia-moms-demand-action-applaud-senator-mark-warner-for-declaring-his-opposition-to-concealed-carry-reciprocity-legislation/",
-              "type": "advocacy",
-              "title": "Everytown for Gun Safety Applauds Warner for Opposing Concealed Carry Reciprocity",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Warner says he prioritizes defending democracy, strengthening alliances, countering Chinese influence, and protecting national security. He serves as chairman of the Senate Intelligence Committee and has emphasized oversight of intelligence and defense programs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.warner.senate.gov/about/priorities/national-security/",
-              "type": "official page",
-              "title": "National Security - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/newsroom/press-releases/sen-warner-on-passage-of-national-security-supplemental/",
-              "type": "press release",
-              "title": "Sen. Warner on Passage of National Security Supplemental",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Warner supports voting-rights protections and anti-discrimination measures. He has backed legislation such as the John Lewis Voting Rights Advancement Act and other federal voting-rights efforts.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.warner.senate.gov/public/index.cfm/pressreleases?Label_id=FA13C4B9-3719-4B0D-89BA-A45A1CBFDCA8&page=2",
-              "type": "press releases",
-              "title": "Press Releases - Mark R. Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/about/priorities/civil-rights/",
-              "type": "official",
-              "title": "Civil Rights - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Warner supports making higher education and workforce training more affordable, expanding retraining and certifications, and preparing workers for an AI-driven economy. He has also backed federal efforts to support minority-serving institutions and workforce development.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.warner.senate.gov/about/priorities/education-workforce-training/",
-              "type": "official-senate-education-priorities",
-              "title": "Education & Workforce Training - Senator Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/newsroom/press-releases/warner-rounds-unveil-bipartisan-plan-to-prepare-american-workers-for-ai-driven-workforce-changes/",
-              "type": "official-press-release",
-              "title": "Warner & Rounds unveil bipartisan plan to prepare American workers for AI-driven workforce changes",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Warner supports collecting data on AI's impact on workers and using that information to guide policy and training. He has introduced bipartisan legislation to collect aggregated, de-identified data on AI usage and workforce effects.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.warner.senate.gov/newsroom/press-releases/warner-budd-introduce-legislation-to-collect-data-on-ais-impact-guide-lawmakers/",
-              "type": "official press release",
-              "title": "Warner, Budd Introduce Legislation to Collect Data on AI's Impact, Guide Lawmakers",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/newsroom/press-releases/warner-urges-federal-agencies-to-disclose-and-secure-their-ai-use/",
-              "type": "official press release",
-              "title": "Warner Urges Federal Agencies to Disclose and Secure their AI Use",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Warner supports protecting free and fair elections, election security, and voting rights. He has criticized efforts to nationalize election administration and has supported clarifying election-counting rules after the 2020 election.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.markwarnerva.com/plan/",
-              "type": "campaign_plan",
-              "title": "The Plan - Mark Warner for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/newsroom/in-the-news/13news-now-virginia-sen-warner-says-trump-s-push-to-nationalize-elections-threatens-democracy/",
-              "type": "news",
-              "title": "13News Now: Virginia Sen. Warner says Trump’s push to nationalize elections threatens democracy",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Warner’s Virginia-focused agenda emphasizes lowering costs, expanding housing supply, improving broadband, and investing in roads, bridges, and other infrastructure. He also highlights childcare, health care, and veteran services as local priorities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.markwarnerva.com/plan/",
-              "type": "official_policy_page",
-              "title": "The Plan - Mark Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.markwarnerva.com/issues",
-              "type": "official_policy_page",
-              "title": "On The Issues - Mark Warner",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.markwarnerva.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Mark Moran",
@@ -357,29 +538,396 @@
         {
           "url": "https://runwithmoran.com/",
           "type": "website",
-          "title": "OUR PURSUIT · LIBERTY · LIFE — Mark Moran for U.S. Senate"
+          "title": "OUR PURSUIT · LIBERTY · LIFE — Mark Moran for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://runwithmoran.com/the-plan",
-          "type": "campaign_policy_page",
-          "title": "The Commonwealth Plan — Mark Moran for U.S. Senate"
+          "type": "website",
+          "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Mark_Moran_(Virginia)",
-          "type": "ballotpedia",
-          "title": "Mark Moran (Virginia) - Ballotpedia"
+          "type": "website",
+          "title": "Mark Moran (Virginia) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663031957544/2r3v9s34TpRKnH3oac8JMy/MarkMoran_-106-X4_6b30a1c2.jpeg",
-      "website": "https://runwithmoran.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "He proposes redirecting government healthcare spending away from publicly traded corporations and toward patient care, and says no Medicare, Medicaid, or other government healthcare dollars should go to for-profit entities. His 28th Amendment page also frames healthcare access as a right that should not depend on ability to pay or private profit.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/the-28th-amendment",
+              "type": "website",
+              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "He proposes the National Digital Infrastructure Act, which would fund free community college, student debt relief, a public equity stake in data centers, and grid upgrades through fees on data-center revenue and related automation measures. The campaign presents the plan as a way to shift costs from ratepayers and taxpayers to data-center operators and investors.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
+              "type": "website",
+              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "He links his energy policy to the National Digital Infrastructure Act, saying data centers should pay for the grid they demand and that grid upgrades should reduce electricity costs for ratepayers. The campaign frames this as an infrastructure and cost-shifting proposal rather than a standalone climate plan.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
+              "type": "website",
+              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found on foreign policy in the campaign materials reviewed; the campaign’s published platform focuses on domestic economic, healthcare, housing, education, and democracy proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/the-28th-amendment",
+              "type": "website",
+              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "He supports universal free community college for every American and says the federal government should fund a debt-free four-year public university degree after two years of community college. The campaign says the plan would be financed through the National Digital Infrastructure Act.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
+              "type": "website",
+              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "He makes the National Digital Infrastructure Act the core of his technology and AI agenda, including a data-center revenue fee, an AI automation fee, a public equity stake in data centers, and a digital democracy funding mechanism. The campaign says these measures would finance education, debt relief, and voting infrastructure while making data centers pay for the grid and other public costs they create.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
+              "type": "website",
+              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "He supports a secure, open-source, federally audited mobile voting application for federal elections and a public, auditable ledger for vote tallies. The campaign says the system would use multi-factor authentication and encryption and be funded through a Digital Democracy Fee tied to data-center revenue.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/the-28th-amendment",
+              "type": "website",
+              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "He says the National Digital Infrastructure Act would direct investment to poorer counties, expand grid infrastructure, and reduce ratepayer burdens in Virginia and other states where data centers are concentrated. The campaign presents the plan as a way to channel jobs and infrastructure spending to underserved communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
+              "type": "website",
+              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/the-plan",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "He has said he supports strong Second Amendment protections for law-abiding Americans and opposes broad gun-control measures, arguing that the right to keep and bear arms is tied to personal liberty and public safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.foxnews.com/politics/insurgent-virginia-democrat-says-party-completely-wrong-gun-rights-gerrymandering",
+              "type": "news",
+              "title": "Virginia Democratic Senate challenger says party is wrong on gun rights",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://dailycaller.com/2026/03/30/mark-moran-virginia-warner-spanberger-democrats-gerrymandering-second-amendment/",
+              "type": "news",
+              "title": "EXCLUSIVE: Mark Moran on gun rights and gerrymandering",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.aol.com/news/insurgent-virginia-democrat-says-party-093002609.html",
+              "type": "news",
+              "title": "Insurgent Virginia Democrat Mark Moran Criticizes Party on Gun Rights",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "He proposes a 28th Amendment that would constitutionalize rights to education, housing access, healthcare, and voting by secure means. The campaign says the amendment would also limit corporate ownership of single-family housing and prohibit government healthcare spending on for-profit entities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/the-28th-amendment",
+              "type": "website",
+              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found on immigration in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/issues",
+              "type": "website",
+              "title": "Issues — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/platform",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found on abortion or reproductive health in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://runwithmoran.com/issues",
+              "type": "website",
+              "title": "Issues — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://runwithmoran.com/platform",
+              "type": "website",
+              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "M&A adviser",
           "organization": "Wall Street / healthcare transactions",
           "start_year": null,
           "end_year": 2019,
-          "description": "Campaign materials say he spent about a decade advising on healthcare mergers and acquisitions."
+          "description": "Campaign materials say he spent about a decade advising on healthcare mergers and acquisitions.",
+          "source": null
         }
       ],
       "education": [
@@ -387,45 +935,64 @@
           "institution": "William & Mary",
           "degree": "B.A.",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Virginia School of Law",
           "degree": "J.D.",
           "field": "Law",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Virginia Darden School of Business",
           "degree": "M.B.A.",
           "field": "Business",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Available public materials describe him as a challenger and independent candidate, but no legislative office, roll-call voting record, or comparable official governing record was found in the sources reviewed.",
+      "voting_source_url": "https://www.fec.gov/data/candidate/S6VA00218/",
+      "voting_sources": [],
       "donor_summary": "Public campaign materials say Moran opposes corporate PAC money, and the FEC candidate page shows a principal committee for his 2026 Senate candidacy. Publicly available finance summaries reviewed here did not show a detailed itemized fundraising picture, so the profile should be treated as limited until fuller disclosures are available.",
       "donor_source_url": "https://www.fec.gov/data/candidate/S6VA00218/",
       "donor_sources": [
         {
           "url": "https://www.fec.gov/data/candidate/S6VA00218/",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:33:20.117060+00:00",
-          "title": "MORAN, MARK - Candidate overview - FEC"
+          "title": "MORAN, MARK - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-05-17T23:33:20.117060Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://runwithmoran.com/no-corporate-money",
           "type": "website",
-          "last_accessed": "2026-05-17T23:33:20.117076+00:00",
-          "title": "No Corporate Money — Mark Moran for U.S. Senate"
+          "title": "No Corporate Money — Mark Moran for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-05-17T23:33:20.117076Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.vpap.org/visuals/visual/q1-senate-fundraising/",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:33:20.117081+00:00",
-          "title": "U.S. Senate Fundraising: Q1 2026 - VPAP"
+          "title": "U.S. Senate Fundraising: Q1 2026 - VPAP",
+          "description": null,
+          "last_accessed": "2026-05-17T23:33:20.117081Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Available public materials describe him as a challenger and independent candidate, but no legislative office, roll-call voting record, or comparable official governing record was found in the sources reviewed.",
-      "voting_source_url": "https://www.fec.gov/data/candidate/S6VA00218/",
       "links": [
         {
           "url": "https://www.fec.gov/data/candidate/S6VA00218/",
@@ -453,224 +1020,10 @@
           "type": "ballotpedia"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "He proposes redirecting government healthcare spending away from publicly traded corporations and toward patient care, and says no Medicare, Medicaid, or other government healthcare dollars should go to for-profit entities. His 28th Amendment page also frames healthcare access as a right that should not depend on ability to pay or private profit.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/the-28th-amendment",
-              "type": "campaign_policy_page",
-              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "He proposes the National Digital Infrastructure Act, which would fund free community college, student debt relief, a public equity stake in data centers, and grid upgrades through fees on data-center revenue and related automation measures. The campaign presents the plan as a way to shift costs from ratepayers and taxpayers to data-center operators and investors.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
-              "type": "campaign_policy_page",
-              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "He links his energy policy to the National Digital Infrastructure Act, saying data centers should pay for the grid they demand and that grid upgrades should reduce electricity costs for ratepayers. The campaign frames this as an infrastructure and cost-shifting proposal rather than a standalone climate plan.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
-              "type": "campaign_policy_page",
-              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found on foreign policy in the campaign materials reviewed; the campaign’s published platform focuses on domestic economic, healthcare, housing, education, and democracy proposals.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/the-28th-amendment",
-              "type": "campaign_policy_page",
-              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "He supports universal free community college for every American and says the federal government should fund a debt-free four-year public university degree after two years of community college. The campaign says the plan would be financed through the National Digital Infrastructure Act.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
-              "type": "campaign_policy_page",
-              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "He makes the National Digital Infrastructure Act the core of his technology and AI agenda, including a data-center revenue fee, an AI automation fee, a public equity stake in data centers, and a digital democracy funding mechanism. The campaign says these measures would finance education, debt relief, and voting infrastructure while making data centers pay for the grid and other public costs they create.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
-              "type": "campaign_policy_page",
-              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "He supports a secure, open-source, federally audited mobile voting application for federal elections and a public, auditable ledger for vote tallies. The campaign says the system would use multi-factor authentication and encryption and be funded through a Digital Democracy Fee tied to data-center revenue.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/the-28th-amendment",
-              "type": "campaign_policy_page",
-              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "He says the National Digital Infrastructure Act would direct investment to poorer counties, expand grid infrastructure, and reduce ratepayer burdens in Virginia and other states where data centers are concentrated. The campaign presents the plan as a way to channel jobs and infrastructure spending to underserved communities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/national-digital-infrastructure-act",
-              "type": "campaign_policy_page",
-              "title": "The National Digital Infrastructure Act — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/the-plan",
-              "type": "campaign_policy_page",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "He has said he supports strong Second Amendment protections for law-abiding Americans and opposes broad gun-control measures, arguing that the right to keep and bear arms is tied to personal liberty and public safety.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.foxnews.com/politics/insurgent-virginia-democrat-says-party-completely-wrong-gun-rights-gerrymandering",
-              "type": "news",
-              "title": "Virginia Democratic Senate challenger says party is wrong on gun rights",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://dailycaller.com/2026/03/30/mark-moran-virginia-warner-spanberger-democrats-gerrymandering-second-amendment/",
-              "type": "news",
-              "title": "EXCLUSIVE: Mark Moran on gun rights and gerrymandering",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.aol.com/news/insurgent-virginia-democrat-says-party-093002609.html",
-              "type": "news",
-              "title": "Insurgent Virginia Democrat Mark Moran Criticizes Party on Gun Rights",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "He proposes a 28th Amendment that would constitutionalize rights to education, housing access, healthcare, and voting by secure means. The campaign says the amendment would also limit corporate ownership of single-family housing and prohibit government healthcare spending on for-profit entities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/the-28th-amendment",
-              "type": "campaign_policy_page",
-              "title": "The 28th Amendment — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found on immigration in the campaign materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/issues",
-              "type": "campaign",
-              "title": "Issues — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/platform",
-              "type": "campaign_platform",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found on abortion or reproductive health in the campaign materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://runwithmoran.com/issues",
-              "type": "campaign",
-              "title": "Issues — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://runwithmoran.com/platform",
-              "type": "campaign_platform",
-              "title": "The Commonwealth Plan — Mark Moran for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://runwithmoran.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Kim Farington",
@@ -680,63 +1033,328 @@
       "summary_sources": [
         {
           "url": "https://kimforvirginia.com/meet-kim/",
-          "type": "campaign biography",
-          "title": "Meet Kim"
+          "type": "website",
+          "title": "Meet Kim",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://kimforvirginia.com/",
-          "type": "campaign website",
-          "title": "Kim for Virginia"
+          "type": "website",
+          "title": "Kim for Virginia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Kim_Farington",
-          "type": "ballotpedia",
-          "title": "Kim Farington - Ballotpedia"
+          "type": "website",
+          "title": "Kim Farington - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kim_Farington.jpg",
-      "website": "https://kimforvirginia.com/",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Supports expanding the tax base through small business growth, domestic manufacturing, reduced regulation, and lower inflation. Her campaign also says she wants to reduce housing costs by limiting regulation and opposing large-scale corporate and investment-firm purchases of housing.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues",
+              "type": "website",
+              "title": "Priorities and Positions - Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Supports completing the border wall and deporting criminal offenders; emphasizes protecting American citizens by enforcing immigration laws.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues/",
+              "type": "website",
+              "title": "Priorities and Positions - Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Opposes government-run healthcare models; supports private-sector competition and price transparency.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issue",
+              "type": "website",
+              "title": "Priorities and Positions - Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Abortion & Reproductive Health: Agrees that abortion policy should be decided by the citizens of each state; advocates for adoption and abstinence education, and opposes post-birth abortion proposals.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues/",
+              "type": "website",
+              "title": "Priorities and Positions - Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Foreign Policy: Advocates an America-First approach and believes a strong military is the best defense against prolonged foreign conflicts.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues/",
+              "type": "government",
+              "title": "Priorities and Positions - Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Opposes affirmative action and DEI mandates. Supports equality under the law for all Americans, without preferential treatment based on race or identity.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues/",
+              "type": "website",
+              "title": "Priorities and Positions - Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Education: Supports school choice and parental rights; opposes politicized curriculum content.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues",
+              "type": "government",
+              "title": "Kim for Virginia - Issues page",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://kimforvirginia.com/issue",
+              "type": "government",
+              "title": "Kim for Virginia - Issue page",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Kim Farington's Local Issues stance emphasizes school choice and parental rights; strong border security and tougher-on-crime policing; expanded energy production and deregulation to spur manufacturing and jobs; and a defense-focused national security posture, while opposing government-run healthcare and aggressive federal climate mandates.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues/",
+              "type": "government",
+              "title": "Priorities and Positions - Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Advocates an all-of-the-above energy policy that expands domestic oil, gas, coal, and nuclear power, and opposes federal fossil-fuel restrictions on its use.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kimforvirginia.com/issues",
+              "type": "website",
+              "title": "Kim for Virginia - Issues",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://kimforvirginia.com/",
+              "type": "website",
+              "title": "Kim for Virginia",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Supports preserving Second Amendment rights for law-abiding gun owners and opposes new federal gun-control measures that would restrict lawful ownership; advocates enforcing existing laws and protecting constitutional rights.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/KimFaringtonforVA/posts/spent-an-amazing-weekend-at-the-nations-gunshow-in-manassas-in-addition-to-the-n/122159502866804701/",
+              "type": "social_media",
+              "title": "Kim Farington attends Nation's Gunshow in Manassas",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://oppintell.com/blog/kim-farington-public-safety-profile-what-public-records-reveal-about-the-virginia-candidate",
+              "type": "website",
+              "title": "Kim Farington Public Safety: Record Signals for 2026",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [
         {
           "title": "CEO",
           "organization": "KTech",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography and related profiles describe her as CEO of KTech and a business leader."
+          "description": "Campaign biography and related profiles describe her as CEO of KTech and a business leader.",
+          "source": null
         }
       ],
       "education": [],
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found. The reviewed sources identify her as a Republican Senate candidate, but they do not show any legislative service, roll-call votes, or executive actions to summarize.",
+      "voting_source_url": "https://www.fec.gov/data/candidate/S6VA00143/",
+      "voting_sources": [],
       "donor_summary": "Raised approximately $125,579 in the Virginia Senate race, according to VPAP’s 2026 fundraising summary. Publicly accessible pages reviewed did not provide a detailed industry or top-donor breakdown, so the available finance picture is limited to the aggregate amount raised and the FEC candidate listing.",
       "donor_source_url": "https://www.vpap.org/candidates/532892-kim-farington/",
       "donor_sources": [
         {
           "url": "https://www.vpap.org/candidates/532892-kim-farington/",
-          "title": "Kim Farington - VPAP",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "Kim Farington - VPAP",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.fec.gov/data/candidate/S6VA00143/",
-          "title": "FARINGTON, KIM - Candidate overview | FEC",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "FARINGTON, KIM - Candidate overview | FEC",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.localcandidates.org/politicians/kim-farington",
-          "title": "Kim Farington (R) | Local Candidates",
           "type": "website",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "Kim Farington (R) | Local Candidates",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.vpap.org/visuals/visual/q1-senate-fundraising/",
-          "title": "U.S. Senate Fundraising: Q1 2026 - VPAP",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "U.S. Senate Fundraising: Q1 2026 - VPAP",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "No public legislative voting record. No prior elected or executive office found. The reviewed sources identify her as a Republican Senate candidate, but they do not show any legislative service, roll-call votes, or executive actions to summarize.",
-      "voting_source_url": "https://www.fec.gov/data/candidate/S6VA00143/",
       "links": [
         {
           "url": "https://ballotpedia.org/Kim_Farington",
@@ -774,154 +1392,10 @@
           "type": "other"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Supports expanding the tax base through small business growth, domestic manufacturing, reduced regulation, and lower inflation. Her campaign also says she wants to reduce housing costs by limiting regulation and opposing large-scale corporate and investment-firm purchases of housing.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues",
-              "type": "campaign policy page",
-              "title": "Priorities and Positions - Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Supports completing the border wall and deporting criminal offenders; emphasizes protecting American citizens by enforcing immigration laws.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues/",
-              "type": "campaign policy page",
-              "title": "Priorities and Positions - Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Opposes government-run healthcare models; supports private-sector competition and price transparency.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issue",
-              "type": "campaign_policy_page",
-              "title": "Priorities and Positions - Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Abortion & Reproductive Health: Agrees that abortion policy should be decided by the citizens of each state; advocates for adoption and abstinence education, and opposes post-birth abortion proposals.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues/",
-              "type": "campaign",
-              "title": "Priorities and Positions - Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Foreign Policy: Advocates an America-First approach and believes a strong military is the best defense against prolonged foreign conflicts.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues/",
-              "type": "official_policy_page",
-              "title": "Priorities and Positions - Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Opposes affirmative action and DEI mandates. Supports equality under the law for all Americans, without preferential treatment based on race or identity.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues/",
-              "type": "campaign_policy_page",
-              "title": "Priorities and Positions - Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Education: Supports school choice and parental rights; opposes politicized curriculum content.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues",
-              "type": "official_policy_page",
-              "title": "Kim for Virginia - Issues page",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://kimforvirginia.com/issue",
-              "type": "official_policy_page",
-              "title": "Kim for Virginia - Issue page",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Kim Farington's Local Issues stance emphasizes school choice and parental rights; strong border security and tougher-on-crime policing; expanded energy production and deregulation to spur manufacturing and jobs; and a defense-focused national security posture, while opposing government-run healthcare and aggressive federal climate mandates.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues/",
-              "type": "Official policy page",
-              "title": "Priorities and Positions - Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Advocates an all-of-the-above energy policy that expands domestic oil, gas, coal, and nuclear power, and opposes federal fossil-fuel restrictions on its use.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kimforvirginia.com/issues",
-              "type": "campaign_page",
-              "title": "Kim for Virginia - Issues",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://kimforvirginia.com/",
-              "type": "campaign_homepage",
-              "title": "Kim for Virginia",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Supports preserving Second Amendment rights for law-abiding gun owners and opposes new federal gun-control measures that would restrict lawful ownership; advocates enforcing existing laws and protecting constitutional rights.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.facebook.com/KimFaringtonforVA/posts/spent-an-amazing-weekend-at-the-nations-gunshow-in-manassas-in-addition-to-the-n/122159502866804701/",
-              "type": "social",
-              "title": "Kim Farington attends Nation's Gunshow in Manassas",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://oppintell.com/blog/kim-farington-public-safety-profile-what-public-records-reveal-about-the-virginia-candidate",
-              "type": "analysis",
-              "title": "Kim Farington Public Safety: Record Signals for 2026",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Election Policy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        }
-      }
+      "website": "https://kimforvirginia.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "David Earl Williams",
@@ -931,37 +1405,284 @@
       "summary_sources": [
         {
           "url": "https://www.davidwilliamsforva.com/",
-          "type": "official",
-          "title": "David Williams for U.S. Senate"
+          "type": "government",
+          "title": "David Williams for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.davidwilliamsforva.com/about",
-          "type": "official",
-          "title": "About - David Williams for U.S. Senate"
+          "type": "government",
+          "title": "About - David Williams for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/David_Williams_(Virginia_senate_candidate)",
-          "type": "ballotpedia",
-          "title": "David Williams (Virginia senate candidate) - Ballotpedia"
+          "type": "website",
+          "title": "David Williams (Virginia senate candidate) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:13:56.245894Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/David_Earl_Williams_III.jpeg",
-      "website": "https://www.davidwilliamsforva.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "David Williams says he supports reducing the size of government, cutting waste, promoting transparency, and using a conservative approach to budgeting while protecting core services.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "David Williams says he supports strong border security, strict immigration enforcement, stopping fentanyl trafficking, and cracking down on cartel networks.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "David Williams frames his foreign-policy outlook around national security, strong defense, and counter-narcotics efforts, drawing on his military, diplomatic, and intelligence background.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/about",
+              "type": "government",
+              "title": "About - David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "David Williams says he supports school choice, parental rights in education, and policies that empower students rather than bureaucrats.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.davidwilliamsforva.com/",
+              "type": "government",
+              "title": "David Williams for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T23:34:07.042997Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Military officer and diplomat",
           "organization": "U.S. Navy, U.S. Marine Corps, U.S. State Department",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign materials say he served more than 30 years in the Navy, Marine Corps, State Department, CIA, and Marine Corps Reserves."
+          "description": "Campaign materials say he served more than 30 years in the Navy, Marine Corps, State Department, CIA, and Marine Corps Reserves.",
+          "source": null
         },
         {
           "title": "Case Officer / Chief of Station",
           "organization": "Central Intelligence Agency",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography says he later joined the CIA as a Case Officer and served as a Chief of Station."
+          "description": "Campaign biography says he later joined the CIA as a Case Officer and served as a Chief of Station.",
+          "source": null
         }
       ],
       "education": [
@@ -969,45 +1690,72 @@
           "institution": "Morehouse College",
           "degree": "Bachelor's degree",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Public materials reviewed describe him as a Republican Senate candidate with a military and diplomatic background, but they do not show any legislative service or official voting history.",
+      "voting_source_url": "https://www.fec.gov/data/candidate/S6VA00200/",
+      "voting_sources": [],
       "donor_summary": "Raised approximately $50,555 in the Virginia Senate race, according to VPAP’s 2026 fundraising summary. Publicly accessible pages reviewed did not provide a detailed industry or top-donor breakdown, so the available finance picture is limited to the aggregate amount raised and the FEC candidate listing.",
       "donor_source_url": "https://www.vpap.org/candidates/597995-david-earl-williams/",
       "donor_sources": [
         {
           "url": "https://www.vpap.org/candidates/597995-david-earl-williams/",
-          "title": "David Earl Williams - VPAP",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "David Earl Williams - VPAP",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.fec.gov/data/candidate/S6VA00200/",
-          "title": "WILLIAMS, DAVID EARL MR. - Candidate overview - FEC",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "WILLIAMS, DAVID EARL MR. - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.davidwilliamsforva.com/",
+          "type": "government",
           "title": "David Williams for U.S. Senate",
-          "type": "official",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.vpap.org/visuals/visual/q1-senate-fundraising/",
-          "title": "U.S. Senate Fundraising: Q1 2026 - VPAP",
           "type": "finance",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "title": "U.S. Senate Fundraising: Q1 2026 - VPAP",
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/David_Williams_(Virginia_senate_candidate)",
+          "type": "website",
           "title": "David Williams (Virginia senate candidate) - Ballotpedia",
-          "type": "ballotpedia",
-          "last_accessed": "2026-05-17T23:34:07.042997+00:00"
+          "description": null,
+          "last_accessed": "2026-05-17T23:34:07.042997Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Public materials reviewed describe him as a Republican Senate candidate with a military and diplomatic background, but they do not show any legislative service or official voting history.",
-      "voting_source_url": "https://www.fec.gov/data/candidate/S6VA00200/",
       "links": [
         {
           "url": "https://ballotpedia.org/David_Williams_(Virginia_senate_candidate)",
@@ -1035,168 +1783,39 @@
           "type": "wiki"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "David Williams says he supports reducing the size of government, cutting waste, promoting transparency, and using a conservative approach to budgeting while protecting core services.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "David Williams says he supports strong border security, strict immigration enforcement, stopping fentanyl trafficking, and cracking down on cartel networks.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "David Williams frames his foreign-policy outlook around national security, strong defense, and counter-narcotics efforts, drawing on his military, diplomatic, and intelligence background.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/about",
-              "type": "official",
-              "title": "About - David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            },
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "David Williams says he supports school choice, parental rights in education, and policies that empower students rather than bureaucrats.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.davidwilliamsforva.com/",
-              "type": "official",
-              "title": "David Williams for U.S. Senate",
-              "last_accessed": "2026-05-17T23:34:07.042997+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.davidwilliamsforva.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Bert K. Mizusawa",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Virginia,_2026",
-  "updated_utc": "2026-05-17T23:34:37.093052+00:00",
+  "updated_utc": "2026-06-13T23:15:46.948785+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "register_to_vote_url": "https://www.elections.virginia.gov/registration/",
   "how_to_vote_url": "https://www.elections.virginia.gov/casting-a-ballot/",
@@ -1204,7 +1823,7 @@
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-17T23:35:09.915570+00:00",
+      "reviewed_at": "2026-05-17T23:35:09.915570Z",
       "verdict": "approved",
       "score": 88,
       "flags": [
@@ -1231,7 +1850,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-17T23:34:45.646156+00:00",
+      "reviewed_at": "2026-05-17T23:34:45.646156Z",
       "verdict": "approved",
       "score": 96,
       "flags": [
@@ -1252,7 +1871,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-17T23:34:48.683891+00:00",
+      "reviewed_at": "2026-05-17T23:34:48.683891Z",
       "verdict": "approved",
       "score": 92,
       "flags": [],
@@ -1266,25 +1885,25 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 52380,
-    "completion_tokens": 2435,
-    "total_tokens": 54815,
-    "estimated_usd": 0.0265,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 96616,
+    "completion_tokens": 9313,
+    "total_tokens": 105929,
+    "cost_usd": 0.009164112,
+    "cost_source": "provider",
+    "estimated_usd": 0.010083,
     "model_breakdown": {
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 18977,
-        "completion_tokens": 290
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 62176,
+        "completion_tokens": 8693
       },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 15428,
-        "completion_tokens": 149
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 17975,
-        "completion_tokens": 1996
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 34440,
+        "completion_tokens": 620
       }
     },
-    "duration_s": 33.3
-  }
+    "duration_s": 110.8
+  },
+  "post_run_analysis": null
 }

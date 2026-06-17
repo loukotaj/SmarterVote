@@ -1,0 +1,696 @@
+{
+  "id": "va-house-01-2026",
+  "title": "Virginia's 1st Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Virginia's 1st Congressional District",
+  "state": "Virginia",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Virginia's 1st Congressional District stretches from the Northern Neck and Middle Peninsula down to the northern Richmond suburbs, including parts of Henrico, Chesterfield, Hanover, and James City counties. Incumbent Republican Rep. Rob Wittman, first elected in 2007, is seeking re-election in a district that backed Donald Trump by roughly five points in 2024 but also supported Democrat Abigail Spanberger for governor in 2025. A seven-candidate Democratic primary on August 4, 2026, will determine who challenges Wittman in the general election, with the contest rated as 'Lean Republican' by the Cook Political Report. Shannon Taylor, the Henrico County Commonwealth's Attorney, leads the Democratic field in fundraising and has the most institutional endorsements, though the primary remains competitive.",
+  "polling": [
+    {
+      "pollster": "Public Policy Polling (D)",
+      "date": "2025-08-09",
+      "sample_size": 541,
+      "matchups": [
+        {
+          "candidates": [
+            "Rob Wittman",
+            "Shannon Taylor"
+          ],
+          "percentages": [
+            41.0,
+            40.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Virginia#Polling"
+    }
+  ],
+  "polling_note": "Only one publicly available poll was found, a PPP poll conducted for a Democratic group in August 2025 testing Wittman vs. Shannon Taylor.",
+  "candidates": [
+    {
+      "name": "Rob Wittman",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Rob Wittman is the incumbent U.S. Representative for Virginia's 1st Congressional District, first elected in a 2007 special election. He serves as Vice Chairman of the House Armed Services Committee and the House Natural Resources Committee, focusing on national defense, shipbuilding, the Chesapeake Bay, and rural broadband. Prior to Congress, he worked for 26 years at the Virginia Department of Health's Division of Shellfish Sanitation and served on the Montross Town Council and Westmoreland County Board of Supervisors.",
+      "summary_sources": [
+        {
+          "url": "https://wittman.house.gov/about/biography.htm",
+          "type": "government",
+          "title": "Biography | U.S. Representative Rob Wittman",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rob_Wittman",
+          "type": "website",
+          "title": "Rob Wittman - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rob_Wittman.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2007,
+          "end_year": null,
+          "description": "Representing Virginia's 1st Congressional District",
+          "source": null
+        },
+        {
+          "title": "Field Director",
+          "organization": "Virginia Department of Health, Division of Shellfish Sanitation",
+          "start_year": null,
+          "end_year": 2007,
+          "description": "26-year career in state government environmental health",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Westmoreland County Board of Supervisors",
+          "start_year": 1996,
+          "end_year": 2005,
+          "description": "Served as Chairman 2004-2005",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "Town of Montross, Virginia",
+          "start_year": 1992,
+          "end_year": 1996,
+          "description": "Also served on Town Council 1986-1996",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Virginia Commonwealth University",
+          "degree": "PhD",
+          "field": "Public Policy and Administration",
+          "year": 2002,
+          "source": null
+        },
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "MPH",
+          "field": "Health Policy and Administration",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "Virginia Tech",
+          "degree": "BS",
+          "field": "Biology",
+          "year": 1981,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://robwittman.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Shannon Taylor",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Shannon Taylor is the Henrico County Commonwealth's Attorney, first elected in 2011 and re-elected three times. She is the first woman and first Democrat in decades to hold the office. Taylor previously ran for Virginia Attorney General in 2025, losing in the Democratic primary. She has endorsements from Governor Abigail Spanberger, numerous state legislators, and EMILY's List, and has raised over $1.3 million for her congressional campaign. Her platform focuses on lowering costs, fighting corruption, and protecting healthcare access.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Shannon_Taylor_(attorney)",
+          "type": "website",
+          "title": "Shannon Taylor (attorney) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://shannontaylorva.com/",
+          "type": "website",
+          "title": "Shannon Taylor for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://virginiamercury.com/2026/06/10/wittman-seeks-to-keep-1st-district-seat-as-democratic-challengers-face-crowded-primary/",
+          "type": "news",
+          "title": "Wittman seeks to keep 1st District seat, as Democratic challengers face crowded primary",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Shannon_Taylor.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Commonwealth's Attorney",
+          "organization": "Henrico County, Virginia",
+          "start_year": 2012,
+          "end_year": null,
+          "description": "First woman and first Democrat in decades elected to the office",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Richmond School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Virginia",
+          "degree": "BA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://shannontaylorva.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jason Knapp",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jason Knapp is a former U.S. Navy Commander and F/A-18 pilot who served for 21 years, including as a defense fellow assigned to the House Armed Services Committee and as Deputy Director of Legislative Affairs for U.S. European Command. He advocates for universal healthcare, reproductive freedom, and workers' rights. Knapp has raised over $500,000 for his campaign and emphasizes his experience in national security and bipartisan governance.",
+      "summary_sources": [
+        {
+          "url": "https://jasonknappforcongress.com/",
+          "type": "website",
+          "title": "Jason Knapp for Congress: Home",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://virginiamercury.com/2026/06/10/wittman-seeks-to-keep-1st-district-seat-as-democratic-challengers-face-crowded-primary/",
+          "type": "news",
+          "title": "Wittman seeks to keep 1st District seat, as Democratic challengers face crowded primary",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/candidates/597950/finance_summary/?start_year=2025&end_year=2026",
+          "type": "website",
+          "title": "Jason Knapp - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Commander / F/A-18 Pilot",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "21 years of service; served as Deputy Director of Legislative Affairs for U.S. European Command",
+          "source": null
+        },
+        {
+          "title": "Defense Fellow",
+          "organization": "House Armed Services Committee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Assigned to the committee as a Navy fellow",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Virginia",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jasonknappforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Salaam Bhatti",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Salaam Bhatti is a public interest lawyer who previously worked at the Virginia Poverty Law Center expanding SNAP access and at the Food Research and Action Center. He is the child of immigrants and grew up relying on WIC and free school meals. His campaign priorities include Medicare for All, taxing billionaires, and getting big money out of politics. He has raised over $184,000 and pledges not to accept corporate PAC or AIPAC money.",
+      "summary_sources": [
+        {
+          "url": "https://salaamforva.com/",
+          "type": "website",
+          "title": "Home \u2014 Salaam Bhatti for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://virginiamercury.com/2026/06/10/wittman-seeks-to-keep-1st-district-seat-as-democratic-challengers-face-crowded-primary/",
+          "type": "news",
+          "title": "Wittman seeks to keep 1st District seat, as Democratic challengers face crowded primary",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/candidates/549197/finance_summary/?start_year=2025&end_year=2026",
+          "type": "website",
+          "title": "Salaam Bhatti - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney / SNAP Unit Lead",
+          "organization": "Food Research and Action Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on SNAP policy and against farm bill cuts",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Virginia Poverty Law Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Expanded SNAP access for tens of thousands of Virginians",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://salaamforva.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Elizabeth Dempsey Beggs",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Elizabeth Dempsey Beggs is a U.S. Army veteran who served as a Tank Commander, one of the first women in a combat role. She now works in the package and manufacturing industry and is a foster parent. Her campaign focuses on affordability, government transparency, voting rights, and reproductive healthcare access. She has raised over $64,000 and emphasizes her lifelong commitment to service.",
+      "summary_sources": [
+        {
+          "url": "https://www.elizabethforvirginia.com/",
+          "type": "website",
+          "title": "Elizabeth Dempsey Beggs for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://virginiamercury.com/2026/06/10/wittman-seeks-to-keep-1st-district-seat-as-democratic-challengers-face-crowded-primary/",
+          "type": "news",
+          "title": "Wittman seeks to keep 1st District seat, as Democratic challengers face crowded primary",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/candidates/609183/finance_summary/?start_year=2025&end_year=2026",
+          "type": "website",
+          "title": "Elizabeth Dempsey Beggs - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Tank Commander",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "One of the first women to serve as a tank commander in a combat role",
+          "source": null
+        },
+        {
+          "title": "Foster Parent / Advocate",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Foster parent and advocate for children and families",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.elizabethforvirginia.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tim Cywinski",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tim Cywinski is a community organizer and policy advocate who has worked on political campaigns since age 17 and spent over a decade working inside and outside government. His 'Fair Shot Agenda' focuses on banning congressional stock trading, creating a Democracy Dollars program, and taxing corporate greed. He has raised over $8,000 and emphasizes that his family's experience with medical debt from his brother's heart defect drives his commitment to healthcare reform.",
+      "summary_sources": [
+        {
+          "url": "https://www.votetimva.com/",
+          "type": "website",
+          "title": "Tim Cywinski For Congress | A New Way Forward",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://virginiamercury.com/2026/06/10/wittman-seeks-to-keep-1st-district-seat-as-democratic-challengers-face-crowded-primary/",
+          "type": "news",
+          "title": "Wittman seeks to keep 1st District seat, as Democratic challengers face crowded primary",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/candidates/597948/finance_summary/?start_year=2025&end_year=2026",
+          "type": "website",
+          "title": "Tim Cywinski - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Community Organizer / Policy Advocate",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Helped secure more than $100 million in increased financial aid for Virginia students",
+          "source": null
+        },
+        {
+          "title": "Communications Director",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Per Wikipedia listing",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votetimva.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ericka Kopp",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Ericka Kopp is a healthcare attorney and caregiver to her husband, a disabled combat veteran. She is a first-generation college graduate and attorney, and describes herself as biracial, bisexual, and bilingual. Her platform includes establishing universal healthcare, abolishing ICE, taxing the rich, and campaign finance reform. She has raised over $13,800 and has been endorsed by the grassroots organization Courage Candidate.",
+      "summary_sources": [
+        {
+          "url": "https://erickakopp.com/",
+          "type": "website",
+          "title": "Ericka Kopp for Congress | VA-01 Progressive Democrat",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://virginiamercury.com/2026/06/10/wittman-seeks-to-keep-1st-district-seat-as-democratic-challengers-face-crowded-primary/",
+          "type": "news",
+          "title": "Wittman seeks to keep 1st District seat, as Democratic challengers face crowded primary",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/candidates/549195/finance_summary/?start_year=2025&end_year=2026",
+          "type": "website",
+          "title": "Ericka Kopp - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Healthcare Attorney",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Healthcare lawyer; caregiver to a disabled veteran",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Richmond School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://erickakopp.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mel Tull",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mel Tull is a business lawyer, Army veteran, and small law firm owner based in Henrico County. He served as Treasurer of the Henrico County Democrats and holds leadership roles supporting foster care youth. His campaign emphasizes practical, solutions-focused governance, protecting Social Security and Medicare, expanding affordable housing, and fiscal responsibility. He has raised over $179,000 and highlights his 30-year career helping businesses and nonprofits navigate complex challenges.",
+      "summary_sources": [
+        {
+          "url": "https://meltullforcongress.com/",
+          "type": "website",
+          "title": "Mel Tull for Congress",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://virginiamercury.com/2026/06/10/wittman-seeks-to-keep-1st-district-seat-as-democratic-challengers-face-crowded-primary/",
+          "type": "news",
+          "title": "Wittman seeks to keep 1st District seat, as Democratic challengers face crowded primary",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/candidates/343883/finance_summary/?start_year=2025&end_year=2026",
+          "type": "website",
+          "title": "Mel Tull - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Lawyer / Owner",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "30-year career representing small businesses, entrepreneurs, and nonprofits",
+          "source": null
+        },
+        {
+          "title": "Treasurer",
+          "organization": "Henrico County Democrats",
+          "start_year": null,
+          "end_year": null,
+          "description": "Supported local candidates and strengthened civic engagement",
+          "source": null
+        },
+        {
+          "title": "Soldier",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Enlisted after high school; used Army College Fund for education",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://meltullforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:25:40.121528+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 353433,
+    "completion_tokens": 12112,
+    "total_tokens": 365545,
+    "cost_usd": 0.027006418,
+    "cost_source": "provider",
+    "estimated_usd": 0.03701,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 353433,
+        "completion_tokens": 12112
+      }
+    },
+    "duration_s": 175.7
+  }
+}

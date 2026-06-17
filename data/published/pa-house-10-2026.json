@@ -1,0 +1,281 @@
+{
+  "id": "pa-house-10-2026",
+  "title": "Pennsylvania's 10th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Pennsylvania's 10th Congressional District",
+  "state": "Pennsylvania",
+  "district": "10th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Pennsylvania's 10th Congressional District features a rematch between incumbent Republican Rep. Scott Perry and Democratic challenger Janelle Stelson. Perry defeated Stelson by just 5,133 votes (50.6% to 49.4%) in 2024, making this one of the most competitive House races in the country. The district, which includes all of Dauphin County and parts of Cumberland and York Counties, is rated a 'toss-up' by the Cook Political Report. The race is seen as a key battleground in the fight for control of the U.S. House, with national Democrats targeting Perry as one of the most vulnerable Republican incumbents.",
+  "polling": [
+    {
+      "pollster": "Normington Petts (for Stelson campaign)",
+      "date": "2026-04-23",
+      "sample_size": 400,
+      "matchups": [
+        {
+          "candidates": [
+            "Janelle Stelson",
+            "Scott Perry"
+          ],
+          "percentages": [
+            51.0,
+            45.0
+          ]
+        }
+      ],
+      "source_url": "https://www.inquirer.com/politics/election/live/pennsylvania-primary-election-2026-results-house-20260520.html"
+    }
+  ],
+  "polling_note": "Only one publicly available general election poll was found for this race as of mid-2026. Additional polls may be released as the November election approaches.",
+  "candidates": [
+    {
+      "name": "Scott Perry",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Scott Perry is the seven-term incumbent U.S. Representative for Pennsylvania's 10th Congressional District, first elected in 2012. He previously chaired the House Freedom Caucus and served as a brigadier general in the Pennsylvania Army National Guard over a 39-year military career, including a deployment to Iraq. Perry is a conservative Republican who has focused on tax reduction, national security, and limited government, and has been a prominent ally of President Donald Trump.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scott_Perry",
+          "type": "website",
+          "title": "Scott Perry - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://perry.house.gov/about-scott/default.aspx",
+          "type": "government",
+          "title": "Biography | U.S. Representative Scott Perry",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Rep._Scott_Perry%2C_official_portrait%2C_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing Pennsylvania's 4th District (2013-2019) and 10th District (2019-present). Served as Chair of the House Freedom Caucus (2022-2024).",
+          "source": null
+        },
+        {
+          "title": "Brigadier General (Retired)",
+          "organization": "Pennsylvania Army National Guard",
+          "start_year": 1980,
+          "end_year": 2019,
+          "description": "Served 39 years including deployment to Iraq (2009-2010) as commander of 2nd Battalion, 104th Aviation Regiment, flying 44 combat missions.",
+          "source": null
+        },
+        {
+          "title": "Pennsylvania State Representative",
+          "organization": "Pennsylvania House of Representatives",
+          "start_year": 2007,
+          "end_year": 2012,
+          "description": "Represented the 92nd district.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Army War College",
+          "degree": "Master of Science",
+          "field": "Strategic Planning",
+          "year": 2012,
+          "source": null
+        },
+        {
+          "institution": "Pennsylvania State University",
+          "degree": "Bachelor of Science",
+          "field": "Business Administration and Management",
+          "year": 1991,
+          "source": null
+        },
+        {
+          "institution": "Harrisburg Area Community College",
+          "degree": "Associate's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://perry.house.gov/",
+          "title": "https://perry.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://patriotsforperry.com/",
+          "title": "https://patriotsforperry.com/",
+          "type": "other"
+        }
+      ],
+      "website": "https://perry.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/repscottperry/",
+        "twitter": "https://twitter.com/RepScottPerry"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Janelle Stelson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Janelle Stelson is a former Emmy Award-winning television news anchor who worked at WGAL-TV for 26 years before leaving in 2023 to run for Congress. She won the Democratic primary on May 19, 2026, defeating Dauphin County Commissioner Justin Douglas, setting up a rematch with incumbent Scott Perry. Stelson campaigns on lowering costs, protecting Social Security and Medicare, making healthcare more affordable, and fighting corruption in Washington.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Janelle_Stelson",
+          "type": "website",
+          "title": "Janelle Stelson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wgal.com/article/janelle-stelson/6218406",
+          "type": "news",
+          "title": "Janelle Stelson - WGAL",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://janellestelson.com/",
+          "type": "website",
+          "title": "Janelle Stelson for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "News Anchor",
+          "organization": "WGAL-TV (Lancaster, PA)",
+          "start_year": 1997,
+          "end_year": 2023,
+          "description": "Co-anchored News 8 at 5:30 and 11 p.m. newscasts for 26 years.",
+          "source": null
+        },
+        {
+          "title": "News Anchor",
+          "organization": "WHP-TV (Harrisburg, PA)",
+          "start_year": 1993,
+          "end_year": 1997,
+          "description": "Anchored 6 p.m. and 11 p.m. newscasts.",
+          "source": null
+        },
+        {
+          "title": "General Assignment Reporter / Weather Anchor",
+          "organization": "WPLG-TV (Miami, FL)",
+          "start_year": 1989,
+          "end_year": 1993,
+          "description": "Covered hurricanes, Haitian riots, and major drug busts.",
+          "source": null
+        },
+        {
+          "title": "General Assignment Reporter / Weather Anchor",
+          "organization": "WHTM-TV (Harrisburg, PA)",
+          "start_year": 1986,
+          "end_year": 1989,
+          "description": "First journalism role.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Puget Sound",
+          "degree": "Bachelor of Arts",
+          "field": "Politics and Government",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Austro-American Institute (Vienna, Austria)",
+          "degree": null,
+          "field": "International Politics and German Language",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://janellestelson.com/",
+          "title": "https://janellestelson.com/",
+          "type": "other"
+        }
+      ],
+      "website": "https://janellestelson.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/janellestelson/",
+        "instagram": "https://www.instagram.com/janellestelson/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_10th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:56:14.991383+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 262137,
+    "completion_tokens": 6549,
+    "total_tokens": 268686,
+    "cost_usd": 0.022637196,
+    "cost_source": "provider",
+    "estimated_usd": 0.026973,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 262137,
+        "completion_tokens": 6549
+      }
+    },
+    "duration_s": 110.1
+  }
+}

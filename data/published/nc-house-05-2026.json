@@ -1,0 +1,230 @@
+{
+  "id": "nc-house-05-2026",
+  "title": "North Carolina's 5th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "North Carolina's 5th Congressional District",
+  "state": "North Carolina",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for North Carolina's 5th Congressional District pits 10-term Republican incumbent Virginia Foxx against Democratic nominee Chuck Hubbard in a rematch from 2024. The district, which covers northwestern North Carolina from the Appalachian Mountains to the northern suburbs of Greensboro, has a Cook Partisan Voting Index of R+9 and backed Donald Trump by 18 points in 2024, making it a reliably Republican seat. Foxx, who chairs the House Rules Committee, is seeking an 11th term on a platform of conservative fiscal policy and limited government, while Hubbard, a former local journalist, is running on a platform of supporting working families, public education, and affordable healthcare. North Carolina redrew its congressional district boundaries in October 2025 ahead of this election.",
+  "polling": [],
+  "polling_note": "No public general election polls were found for this race as of mid-2026.",
+  "candidates": [
+    {
+      "name": "Virginia Foxx",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Virginia Foxx is the incumbent U.S. Representative for North Carolina's 5th Congressional District, first elected in 2004. She serves as Chairwoman of the House Committee on Rules and previously chaired the Committee on Education and the Workforce, and is consistently ranked among the most conservative members of Congress. Prior to her congressional service, she spent 10 years in the North Carolina Senate and held various roles in higher education, including president of Mayland Community College.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Virginia_Foxx",
+          "type": "government",
+          "title": "Virginia Foxx - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://foxx.house.gov/about/default.aspx",
+          "type": "government",
+          "title": "Meet Virginia | Congresswoman Virginia Foxx",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_North_Carolina",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in North Carolina",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Virginia_Foxx.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Representing North Carolina's 5th district; Chair of House Rules Committee; former Chair of Education and the Workforce Committee",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "North Carolina Senate",
+          "start_year": 1994,
+          "end_year": 2004,
+          "description": "Represented the 30th district",
+          "source": null
+        },
+        {
+          "title": "President",
+          "organization": "Mayland Community College",
+          "start_year": 1987,
+          "end_year": 1994,
+          "description": "Led the community college; implemented nationally recognized programs",
+          "source": null
+        },
+        {
+          "title": "Assistant Dean of the General College / Instructor",
+          "organization": "Appalachian State University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Sociology instructor and held several administrative positions",
+          "source": null
+        },
+        {
+          "title": "Deputy Secretary for Management",
+          "organization": "North Carolina Department of Administration",
+          "start_year": null,
+          "end_year": null,
+          "description": "Appointed by Governor Jim Martin",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "A.B.",
+          "field": "English",
+          "year": 1968,
+          "source": null
+        },
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "M.A.C.T.",
+          "field": "Sociology",
+          "year": 1972,
+          "source": null
+        },
+        {
+          "institution": "University of North Carolina at Greensboro",
+          "degree": "Ed.D.",
+          "field": "Curriculum and Teaching/Higher Education",
+          "year": 1985,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://foxx.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chuck Hubbard",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Chuck Hubbard is a Democratic candidate challenging incumbent Virginia Foxx for North Carolina's 5th Congressional District. A native of Wilkes County, he spent 40 years as a journalist at the Wilkes Journal-Patriot, a newspaper founded by his grandfather in 1932. In 2022, he ran unsuccessfully for the North Carolina House of Representatives, and he previously faced Foxx in the 2024 general election.",
+      "summary_sources": [
+        {
+          "url": "https://hubbardforcongress.com/",
+          "type": "website",
+          "title": "Chuck Hubbard for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.northcarolinahealthnews.org/govpack_profiles/chuck-hubbard/",
+          "type": "news",
+          "title": "Chuck Hubbard - North Carolina Health News",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_North_Carolina",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in North Carolina",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Journalist / Publisher",
+          "organization": "Wilkes Journal-Patriot",
+          "start_year": null,
+          "end_year": null,
+          "description": "Spent 40 years in journalism at the family-founded newspaper; served as a local reporter and publisher",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://hubbardforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/chuckhubbardnc/",
+        "facebook": "https://www.facebook.com/ChuckHubbardNC/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:40:45.703582+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 296685,
+    "completion_tokens": 5361,
+    "total_tokens": 302046,
+    "cost_usd": 0.020191806,
+    "cost_source": "provider",
+    "estimated_usd": 0.030126,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 296685,
+        "completion_tokens": 5361
+      }
+    },
+    "duration_s": 115.3
+  }
+}

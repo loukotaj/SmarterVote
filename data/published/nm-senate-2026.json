@@ -18,50 +18,59 @@
           "url": "https://www.lujan.senate.gov/about/",
           "type": "website",
           "title": "About Ben - Senator Ben Ray Luján",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_New_Mexico",
           "type": "news",
           "title": "2026 United States Senate election in New Mexico",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ben-Ray-Lujan.jpg",
-      "website": "https://benraylujan.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SenatorLujan/",
-        "instagram": "https://www.instagram.com/senatorlujan/",
-        "x": "https://x.com/SenatorLujan"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "United States Senator",
           "organization": "U.S. Senate",
           "start_year": 2021,
           "end_year": null,
-          "description": "Serves as New Mexico’s junior senator."
+          "description": "Serves as New Mexico’s junior senator.",
+          "source": null
         },
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 2009,
           "end_year": 2021,
-          "description": "Represented New Mexico’s 3rd Congressional District."
+          "description": "Represented New Mexico’s 3rd Congressional District.",
+          "source": null
         },
         {
           "title": "Assistant Speaker",
           "organization": "U.S. House of Representatives",
           "start_year": 2019,
           "end_year": 2021,
-          "description": "Served in House leadership."
+          "description": "Served in House leadership.",
+          "source": null
         },
         {
           "title": "Chair",
           "organization": "Democratic Congressional Campaign Committee",
           "start_year": 2017,
           "end_year": 2019,
-          "description": "Led House Democratic campaign efforts."
+          "description": "Led House Democratic campaign efforts.",
+          "source": null
         }
       ],
       "education": [
@@ -69,21 +78,51 @@
           "institution": "New Mexico Highlands University",
           "degree": "B.B.A.",
           "field": "Business administration",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
-        "https://www.lujan.senate.gov/",
-        "https://benraylujan.com/",
-        "https://www.facebook.com/SenatorLujan/",
-        "https://www.instagram.com/senatorlujan/",
-        "https://x.com/SenatorLujan"
+        {
+          "url": "https://www.lujan.senate.gov/",
+          "title": "https://www.lujan.senate.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://benraylujan.com/",
+          "title": "https://benraylujan.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.facebook.com/SenatorLujan/",
+          "title": "https://www.facebook.com/SenatorLujan/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.instagram.com/senatorlujan/",
+          "title": "https://www.instagram.com/senatorlujan/",
+          "type": "other"
+        },
+        {
+          "url": "https://x.com/SenatorLujan",
+          "title": "https://x.com/SenatorLujan",
+          "type": "other"
+        }
       ],
-      "issues": {}
+      "website": "https://benraylujan.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorLujan/",
+        "instagram": "https://www.instagram.com/senatorlujan/",
+        "x": "https://x.com/SenatorLujan"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Matt Dodson",
@@ -95,48 +134,62 @@
           "url": "https://mattdodsonfornm.com/",
           "type": "website",
           "title": "Matt Dodson for US Senate NM",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://nmpoliticalreport.com/2026/03/09/heres-everyone-running-for-congress-in-new-mexico-this-year/",
           "type": "news",
           "title": "Here’s everyone running for Congress in New Mexico this year",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Matt_Dodson",
           "type": "website",
           "title": "Matt Dodson - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Matt_Dodson_2026.jpeg",
-      "website": "https://mattdodsonfornm.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/mattdodsonfornm/",
-        "instagram": "https://www.instagram.com/mattdodsonfornm/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Air Force veteran",
           "organization": "United States Air Force",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign and news coverage identify him as a veteran."
+          "description": "Campaign and news coverage identify him as a veteran.",
+          "source": null
         },
         {
           "title": "Landlord",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "News coverage described him as a landlord from Farmington."
+          "description": "News coverage described him as a landlord from Farmington.",
+          "source": null
         },
         {
           "title": "Candidate for New Mexico state office",
           "organization": "New Mexico elections",
           "start_year": 2016,
           "end_year": 2022,
-          "description": "Previously ran for state legislative office, according to New Mexico Secretary of State election records."
+          "description": "Previously ran for state legislative office, according to New Mexico Secretary of State election records.",
+          "source": null
         }
       ],
       "education": [
@@ -144,19 +197,40 @@
           "institution": "University of Nebraska-Lincoln",
           "degree": null,
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
-        "https://mattdodsonfornm.com/",
-        "https://www.facebook.com/mattdodsonfornm/",
-        "https://www.instagram.com/mattdodsonfornm/"
+        {
+          "url": "https://mattdodsonfornm.com/",
+          "title": "https://mattdodsonfornm.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.facebook.com/mattdodsonfornm/",
+          "title": "https://www.facebook.com/mattdodsonfornm/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.instagram.com/mattdodsonfornm/",
+          "title": "https://www.instagram.com/mattdodsonfornm/",
+          "type": "other"
+        }
       ],
-      "issues": {}
+      "website": "https://mattdodsonfornm.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/mattdodsonfornm/",
+        "instagram": "https://www.instagram.com/mattdodsonfornm/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Larry E. Marker",
@@ -168,90 +242,91 @@
           "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_New_Mexico",
           "type": "news",
           "title": "2026 United States Senate election in New Mexico",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Mexico,_2026",
           "type": "website",
           "title": "United States Senate election in New Mexico, 2026",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://nmpoliticalreport.com/2026/03/09/heres-everyone-running-for-congress-in-new-mexico-this-year/",
           "type": "news",
           "title": "Here’s everyone running for Congress in New Mexico this year",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Former oil and gas operator",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Described in reporting as a former oil and gas operator."
+          "description": "Described in reporting as a former oil and gas operator.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Toby Smith",
-      "party": "Jewish/Christian National Party",
-      "incumbent": false,
-      "summary": "Toby Smith is a third-party candidate listed for the general election in New Mexico’s 2026 Senate race. Ballotpedia lists him as the Jewish/Christian National Party nominee, but there is limited public information available about his background.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Mexico,_2026",
-          "type": "website",
-          "title": "United States Senate election in New Mexico, 2026",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Toby_Smith_2014.jpg/500px-Toby_Smith_2014.jpg",
       "website": null,
       "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:30:01.765376+00:00",
+  "updated_utc": "2026-06-13T23:13:46.569810+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 131039,
-    "completion_tokens": 10244,
-    "total_tokens": 141283,
-    "estimated_usd": 0.0199,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 173103,
+    "completion_tokens": 13241,
+    "total_tokens": 186344,
+    "cost_usd": 0.00884243,
+    "cost_source": "provider",
+    "estimated_usd": 0.013952,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 81286,
-        "completion_tokens": 9334
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 49753,
-        "completion_tokens": 910
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 173103,
+        "completion_tokens": 13241
       }
     },
-    "duration_s": 116.9
+    "duration_s": 119.4
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

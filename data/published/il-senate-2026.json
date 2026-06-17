@@ -12,18 +12,7 @@
       "pollster": "Public Policy Polling",
       "date": "2026-03-03",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Juliana Stratton",
-            "Raja Krishnamoorthi"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://demlgs.org/wp-content/uploads/2026/03/PPP-IL-Senate-Memo-March-3-2026.pdf"
     }
   ],
@@ -38,36 +27,293 @@
         {
           "url": "https://www.julianastratton.com/",
           "type": "website",
-          "title": "Fighting for Illinois | Juliana Stratton for U.S. Senate"
+          "title": "Fighting for Illinois | Juliana Stratton for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:55.979795Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Juliana_Stratton",
           "type": "website",
-          "title": "Juliana Stratton - Ballotpedia"
+          "title": "Juliana Stratton - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:55.979795Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ltgov.illinois.gov/about.html",
           "type": "government",
-          "title": "About the Lieutenant Governor"
+          "title": "About the Lieutenant Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:55.979795Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Juliana_Stratton.jpg",
-      "website": "https://www.julianastratton.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports securing Medicare for All and lowering healthcare costs; her campaign says she wants families to be able to afford care without skipping medication and highlights efforts to relieve medical debt in Illinois.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Priorities - Issues overview",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Supports urgent action on climate change and says she has fought for environmental protections in Illinois as part of her broader rights-and-freedoms agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Priorities - Issues overview",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Supports restoring the abortion protections of Roe v. Wade and protecting reproductive freedom, including access to abortion and contraception.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Priorities - Issues overview",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Supports common-sense gun safety laws and says she wants to tackle gun violence as a public safety and public health issue.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Priorities - Issues overview",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Supports protecting voting rights, safeguarding LGBTQ+ rights, and defending civil liberties as part of her rights-and-democracy agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Priorities - Protecting Your Rights and Our Democracy",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Supports abolishing ICE and replacing it with an immigration system that emphasizes judges, community-based resources, social services, and a pathway to citizenship.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Priorities - Issues overview",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports restoring the Department of Education, expanding support for trades and technical schools, investing in early childhood programs, increasing public school funding, and addressing teacher shortages.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/priorities",
+              "type": "website",
+              "title": "Juliana Stratton priorities page",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana Stratton issues page",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Supports workforce training and education policies to help workers adapt to AI and automation, including expanded technical-skills training and related Pell Grant support.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://x.com/UChiPolitics/status/2015944859815702696",
+              "type": "social_media",
+              "title": "UChicago Institute of Politics on AI and the workplace (Stratton)",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports strong federal voting-rights protections, including the John Lewis Voting Rights Act, and says she wants to expand access to the ballot.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana Stratton's Issues - Voting Rights",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.julianastratton.com/priorities",
+              "type": "website",
+              "title": "Juliana Stratton's Priorities - Rights & Democracy",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Says she will focus on making life more affordable for Illinois families, citing her work as lieutenant governor on the grocery tax, minimum wage, and medical debt relief, and pledges to carry that focus into the Senate.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Issues",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.julianastratton.com/priorities",
+              "type": "website",
+              "title": "Juliana's Priorities",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Supports raising the federal minimum wage, ending Trump-era trade policies she says hurt working families, and cutting taxes for the middle class while increasing taxes on people making more than $1 million a year.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "website",
+              "title": "Juliana's Priorities - Issues overview",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Lieutenant Governor",
           "organization": "State of Illinois",
           "start_year": 2019,
           "end_year": null,
-          "description": "Serves as Illinois' 48th lieutenant governor."
+          "description": "Serves as Illinois' 48th lieutenant governor.",
+          "source": null
         },
         {
           "title": "State Representative",
           "organization": "Illinois House of Representatives",
           "start_year": 2017,
           "end_year": 2019,
-          "description": "Previously served in the Illinois House."
+          "description": "Previously served in the Illinois House.",
+          "source": null
         }
       ],
       "education": [
@@ -75,45 +321,68 @@
           "institution": "University of Illinois Chicago",
           "degree": "J.D.",
           "field": "Law",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Illinois at Chicago",
           "degree": "B.A.",
           "field": "Communications",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
+      "voting_summary": "Juliana Stratton has not held legislative office, so there is no legislative voting record to report. She is Illinois lieutenant governor, and public official pages describe her executive portfolio as leading state initiatives rather than casting votes; Vote Smart also lists her issue positions and candidate profile rather than a legislative roll call record.",
+      "voting_source_url": "https://ltgov.illinois.gov/",
+      "voting_sources": [],
       "donor_summary": "Juliana Stratton’s 2026 Senate campaign has raised millions in receipts, with most money coming from individual donors and additional support from other committees. Prior fundraising data show labor unions as a major source of support, and news reports say Gov. JB Pritzker gave $5 million through a pro-Stratton super PAC.",
       "donor_source_url": "https://www.fec.gov/data/candidate/S6IL00458/",
       "donor_sources": [
         {
           "url": "https://www.fec.gov/data/candidate/S6IL00458/",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:51:57.481632+00:00",
-          "title": "STRATTON, JULIANA - Candidate overview - FEC"
+          "title": "STRATTON, JULIANA - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-05-17T22:51:57.481632Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.opensecrets.org/officeholders/juliana-w-stratton/summary?cycle=2023&id=12431605",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:51:57.481662+00:00",
-          "title": "Juliana W Stratton Money Profile - OpenSecrets"
+          "title": "Juliana W Stratton Money Profile - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T22:51:57.481662Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.opensecrets.org/officeholders/juliana-w-stratton/industries?cycle=2023&id=12431605&recs=100",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:51:57.481669+00:00",
-          "title": "Juliana W Stratton Top Industries - OpenSecrets"
+          "title": "Juliana W Stratton Top Industries - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T22:51:57.481669Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://capitolnewsillinois.com/news/pritzker-drops-5m-to-boost-lt-gov-juliana-stratton-in-senate-race/",
           "type": "news",
-          "last_accessed": "2026-05-17T22:51:57.481674+00:00",
-          "title": "Pritzker drops $5M to boost Lt. Gov. Juliana Stratton in Senate race"
+          "title": "Pritzker drops $5M to boost Lt. Gov. Juliana Stratton in Senate race",
+          "description": null,
+          "last_accessed": "2026-05-17T22:51:57.481674Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "Juliana Stratton has not held legislative office, so there is no legislative voting record to report. She is Illinois lieutenant governor, and public official pages describe her executive portfolio as leading state initiatives rather than casting votes; Vote Smart also lists her issue positions and candidate profile rather than a legislative roll call record.",
-      "voting_source_url": "https://ltgov.illinois.gov/",
       "links": [
         {
           "url": "https://ballotpedia.org/Juliana_Stratton",
@@ -161,162 +430,10 @@
           "type": "wiki"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Supports securing Medicare for All and lowering healthcare costs; her campaign says she wants families to be able to afford care without skipping medication and highlights efforts to relieve medical debt in Illinois.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-issue-page",
-              "title": "Juliana's Priorities - Issues overview",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Supports urgent action on climate change and says she has fought for environmental protections in Illinois as part of her broader rights-and-freedoms agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-issue-page",
-              "title": "Juliana's Priorities - Issues overview",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Supports restoring the abortion protections of Roe v. Wade and protecting reproductive freedom, including access to abortion and contraception.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-issue-page",
-              "title": "Juliana's Priorities - Issues overview",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Supports common-sense gun safety laws and says she wants to tackle gun violence as a public safety and public health issue.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-issue-page",
-              "title": "Juliana's Priorities - Issues overview",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Civil Rights & Equality": {
-          "stance": "Supports protecting voting rights, safeguarding LGBTQ+ rights, and defending civil liberties as part of her rights-and-democracy agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-policy-page",
-              "title": "Juliana's Priorities - Protecting Your Rights and Our Democracy",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Supports abolishing ICE and replacing it with an immigration system that emphasizes judges, community-based resources, social services, and a pathway to citizenship.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-issue-page",
-              "title": "Juliana's Priorities - Issues overview",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports restoring the Department of Education, expanding support for trades and technical schools, investing in early childhood programs, increasing public school funding, and addressing teacher shortages.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/priorities",
-              "type": "campaign-priorities-page",
-              "title": "Juliana Stratton priorities page",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-issue-page",
-              "title": "Juliana Stratton issues page",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Supports workforce training and education policies to help workers adapt to AI and automation, including expanded technical-skills training and related Pell Grant support.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://x.com/UChiPolitics/status/2015944859815702696",
-              "type": "report",
-              "title": "UChicago Institute of Politics on AI and the workplace (Stratton)",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Supports strong federal voting-rights protections, including the John Lewis Voting Rights Act, and says she wants to expand access to the ballot.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign_issue_page",
-              "title": "Juliana Stratton's Issues - Voting Rights",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://www.julianastratton.com/priorities",
-              "type": "campaign_priorities_page",
-              "title": "Juliana Stratton's Priorities - Rights & Democracy",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Says she will focus on making life more affordable for Illinois families, citing her work as lieutenant governor on the grocery tax, minimum wage, and medical debt relief, and pledges to carry that focus into the Senate.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign",
-              "title": "Juliana's Issues",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://www.julianastratton.com/priorities",
-              "type": "campaign",
-              "title": "Juliana's Priorities",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Supports raising the federal minimum wage, ending Trump-era trade policies she says hurt working families, and cutting taxes for the middle class while increasing taxes on people making more than $1 million a year.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.julianastratton.com/issues",
-              "type": "campaign-issue-page",
-              "title": "Juliana's Priorities - Issues overview",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.julianastratton.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Chad Koppie",
@@ -327,69 +444,345 @@
         {
           "url": "https://www.chadkoppie.com/",
           "type": "website",
-          "title": "Chad Koppie"
+          "title": "Chad Koppie",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:55.979795Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.chadkoppie.com/issues.php",
           "type": "website",
-          "title": "Issues | Chad Koppie for Senate"
+          "title": "Issues | Chad Koppie for Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:55.979795Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Chad_Koppie",
           "type": "website",
-          "title": "Chad Koppie - Ballotpedia"
+          "title": "Chad Koppie - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:55.979795Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chad_Koppie.jpg",
-      "website": "https://www.chadkoppie.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Koppie says he is a free-market advocate and that government should protect the freedom to choose in health care. His campaign materials also call for health care reform along free-market lines.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Koppie says an out-of-control national debt and deficit oppresses the economy and prevents economic growth. His campaign emphasizes reducing debt and deficits and supporting pro-growth, limited-government policies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Koppie describes himself as pro-life and supports a constitutional view that life begins at conception. His campaign materials indicate opposition to abortion.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://illinoisrighttolifeaction.org/wp-content/uploads/2026/02/Prim26-3.pdf",
+              "type": "pdf",
+              "title": "Illinois Right To Life Action 2026 voter guide – Chad Koppie",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Koppie says the federal government should conduct relations with other nations on behalf of the states and emphasizes U.S. sovereignty in foreign policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Koppie says the primary purpose of government is to protect the rights and liberties of the people. His campaign frames civil liberties as a foundational government responsibility.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Koppie says the federal government has no constitutional authority over public education and calls for education control to be returned to states and local authorities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/education.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie on Education",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Koppie says immigration control is a fundamental sovereign power. His campaign opposes amnesty, sanctuary policies, and state laws that allow undocumented immigrants to receive benefits such as driver's licenses or in-state tuition.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/immigration.php",
+              "type": "website",
+              "title": "Issues | Immigration Reform",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Koppie’s campaign materials include an election reform section, but no detailed public position was found in the available pages reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Koppie’s website does not present a detailed local-issues agenda in the materials reviewed; his campaign instead emphasizes constitutional limits on federal power and local control over education and immigration enforcement.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/education.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie on Education",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/immigration.php",
+              "type": "website",
+              "title": "Issues | Immigration Reform",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:30.003169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Board member",
           "organization": "Kane County Regional Board of School Trustees",
           "start_year": null,
           "end_year": null,
-          "description": "Ballotpedia and campaign materials describe him as active in local education governance."
+          "description": "Ballotpedia and campaign materials describe him as active in local education governance.",
+          "source": null
         },
         {
           "title": "Farmer and retired pilot",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign and profile materials describe him as a farmer and retired jet pilot."
+          "description": "Campaign and profile materials describe him as a farmer and retired jet pilot.",
+          "source": null
         }
       ],
       "education": [],
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Publicly available materials instead show campaign policy statements, including a website issues page focused on budget and economy and a campaign message emphasizing limited government and life-at-conception positions.",
+      "voting_source_url": "https://chadkoppie.com/issues.php",
+      "voting_sources": [],
       "donor_summary": "No campaign finance data found in public disclosures as of 2026-05-17. The FEC candidate page shows no 2025–2026 financial summary yet for Chad Koppie, though his campaign website solicits donations and the FEC lists prior committee filings for earlier cycles.",
       "donor_source_url": "https://www.fec.gov/data/candidate/H2IL08203/",
       "donor_sources": [
         {
           "url": "https://www.fec.gov/data/candidate/H2IL08203/",
-          "title": "KOPPIE, CHAD - Candidate overview - FEC",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+          "title": "KOPPIE, CHAD - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:30.003169Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://chadkoppie.com/",
-          "title": "Chad Koppie",
           "type": "website",
-          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+          "title": "Chad Koppie",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:30.003169Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "http://www.koppieforcongress.com/contribute?amount=50",
-          "title": "Contribute - Chad Koppie",
           "type": "website",
-          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+          "title": "Contribute - Chad Koppie",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:30.003169Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.opensecrets.org/elections-overview/candidate-counts?cycle=All&showcands=Y&state=IL&type=US+Senate",
-          "title": "Candidate Counts - OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+          "title": "Candidate Counts - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:30.003169Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Publicly available materials instead show campaign policy statements, including a website issues page focused on budget and economy and a campaign message emphasizing limited government and life-at-conception positions.",
-      "voting_source_url": "https://chadkoppie.com/issues.php",
       "links": [
         {
           "url": "https://ballotpedia.org/Chad_Koppie",
@@ -427,168 +820,17 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Koppie says he is a free-market advocate and that government should protect the freedom to choose in health care. His campaign materials also call for health care reform along free-market lines.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Koppie says an out-of-control national debt and deficit oppresses the economy and prevents economic growth. His campaign emphasizes reducing debt and deficits and supporting pro-growth, limited-government policies.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Koppie describes himself as pro-life and supports a constitutional view that life begins at conception. His campaign materials indicate opposition to abortion.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://illinoisrighttolifeaction.org/wp-content/uploads/2026/02/Prim26-3.pdf",
-              "type": "policy-rating",
-              "title": "Illinois Right To Life Action 2026 voter guide – Chad Koppie",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Koppie says the federal government should conduct relations with other nations on behalf of the states and emphasizes U.S. sovereignty in foreign policy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Koppie says the primary purpose of government is to protect the rights and liberties of the people. His campaign frames civil liberties as a foundational government responsibility.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Koppie says the federal government has no constitutional authority over public education and calls for education control to be returned to states and local authorities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/includes/issues/education.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie on Education",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Koppie says immigration control is a fundamental sovereign power. His campaign opposes amnesty, sanctuary policies, and state laws that allow undocumented immigrants to receive benefits such as driver's licenses or in-state tuition.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/includes/issues/immigration.php",
-              "type": "website",
-              "title": "Issues | Immigration Reform",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Tech & AI": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Climate/Energy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Election Policy": {
-          "stance": "Koppie’s campaign materials include an election reform section, but no detailed public position was found in the available pages reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Koppie’s website does not present a detailed local-issues agenda in the materials reviewed; his campaign instead emphasizes constitutional limits on federal power and local control over education and immigration enforcement.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.chadkoppie.com/issues.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie for Senate",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://www.chadkoppie.com/includes/issues/education.php",
-              "type": "website",
-              "title": "Issues | Chad Koppie on Education",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            },
-            {
-              "url": "https://www.chadkoppie.com/includes/issues/immigration.php",
-              "type": "website",
-              "title": "Issues | Immigration Reform",
-              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.chadkoppie.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
-  "updated_utc": "2026-05-17T22:52:30.003169+00:00",
+  "updated_utc": "2026-06-13T20:51:13.783069+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "register_to_vote_url": "https://ova.elections.il.gov/",
   "how_to_vote_url": "https://www.elections.il.gov/VotingAndRegistrationSystems/VotingInformation.aspx",
@@ -596,7 +838,7 @@
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-17T22:52:59.098439+00:00",
+      "reviewed_at": "2026-05-17T22:52:59.098439Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -641,7 +883,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-17T22:52:38.051400+00:00",
+      "reviewed_at": "2026-05-17T22:52:38.051400Z",
       "verdict": "approved",
       "score": 96,
       "flags": [
@@ -662,7 +904,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-17T22:52:39.350104+00:00",
+      "reviewed_at": "2026-05-17T22:52:39.350104Z",
       "verdict": "approved",
       "score": 93,
       "flags": [
@@ -689,33 +931,21 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 472352,
-    "completion_tokens": 38359,
-    "total_tokens": 510711,
-    "estimated_usd": 0.0895,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 92723,
+    "completion_tokens": 7734,
+    "total_tokens": 100457,
+    "cost_usd": 0.0061284700000000004,
+    "cost_source": "provider",
+    "estimated_usd": 0.00773,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 212550,
-        "completion_tokens": 28559
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 233078,
-        "completion_tokens": 7202
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 9496,
-        "completion_tokens": 324
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 7944,
-        "completion_tokens": 306
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 9284,
-        "completion_tokens": 1968
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 92723,
+        "completion_tokens": 7734
       }
     },
-    "duration_s": 399.2
-  }
+    "duration_s": 77.9
+  },
+  "post_run_analysis": null
 }

@@ -1,0 +1,230 @@
+{
+  "id": "tx-house-29-2026",
+  "title": "Texas's 29th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 29th Congressional District",
+  "state": "Texas",
+  "district": "29th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This race will determine who represents Texas's 29th Congressional District, covering parts of eastern Houston and Harris County, in the U.S. House of Representatives. The district underwent significant mid-decade redistricting by the Republican-controlled Texas Legislature in 2025, which moved many Latino voters to other districts and added more Black voters in an effort to make the seat more competitive. Incumbent Democrat Sylvia Garcia, first elected in 2018 and one of the first Latinas to represent Texas in Congress, won a three-way Democratic primary with 58% of the vote in March 2026 despite the redrawn boundaries. She faces Republican nominee Martha Fierro in the general election. The Cook Political Report rates the seat as 'Solid D,' and Garcia is heavily favored to win reelection.",
+  "polling": [],
+  "polling_note": "No general election polls were found for this race as of June 2026. The University of Houston Hobby School conducted a Democratic primary poll in February 2026, but no general election matchup polls are available. The Cook Political Report rates the seat as 'Solid D' based on district fundamentals.",
+  "candidates": [
+    {
+      "name": "Sylvia Garcia",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Sylvia Garcia is the incumbent U.S. Representative for Texas's 29th Congressional District, first elected in 2018. She previously served in the Texas Senate, as a Harris County Commissioner, and as Houston City Controller. Garcia served as a House impeachment manager during Donald Trump's first impeachment trial in 2020 and is a Vice Ranking Member of the House Financial Services Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Sylvia_Garcia",
+          "type": "news",
+          "title": "Sylvia Garcia - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sylviaforcongress.com/meet-sylvia",
+          "type": "website",
+          "title": "Meet Sylvia Garcia - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485361",
+          "type": "news",
+          "title": "TX-29 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Sylvia_Garcia%2C_official_portrait%2C_116th_Congress.jpg/250px-Sylvia_Garcia%2C_official_portrait%2C_116th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Texas's 29th Congressional District; Vice Ranking Member of House Financial Services Committee; served as House impeachment manager in 2020",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Texas Senate",
+          "start_year": 2013,
+          "end_year": 2018,
+          "description": "Represented Senate District 6; chaired committees on Criminal Justice and Intergovernmental Relations",
+          "source": null
+        },
+        {
+          "title": "Harris County Commissioner",
+          "organization": "Harris County Commissioners Court",
+          "start_year": 2003,
+          "end_year": 2011,
+          "description": "First woman and first Latina elected to the post in her own right; Precinct 2",
+          "source": null
+        },
+        {
+          "title": "City Controller",
+          "organization": "City of Houston",
+          "start_year": 1998,
+          "end_year": 2003,
+          "description": "Second highest elected official in Houston city government; chief financial officer",
+          "source": null
+        },
+        {
+          "title": "Director and Presiding Judge",
+          "organization": "Houston Municipal Court System",
+          "start_year": 1983,
+          "end_year": 1998,
+          "description": "Served an unprecedented five terms under two mayors",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Texas Woman's University",
+          "degree": "Bachelor of Arts",
+          "field": "Social Work and Political Science",
+          "year": 1972,
+          "source": null
+        },
+        {
+          "institution": "Texas Southern University Thurgood Marshall School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1978,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://sylviagarcia.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/G000587",
+          "title": "Biographical Directory of the U.S. Congress",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.sylviaforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/LaCongresista",
+        "facebook": "https://www.facebook.com/SylviaRGarcia/",
+        "instagram": "https://www.instagram.com/repsylviagarcia/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Martha Fierro",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Martha Fierro is the Republican nominee for Texas's 29th Congressional District. She advanced uncontested from the Republican primary on March 3, 2026. A Houstonian described as 'Mexican born, Texas raised, American proud,' Fierro has previously run for Texas Senate District 6 and Texas House District 145. Her campaign focuses on healthcare affordability, school choice, lowering costs, border security, and supporting Texas energy independence.",
+      "summary_sources": [
+        {
+          "url": "https://www.fierrofortexas.com/",
+          "type": "website",
+          "title": "Martha Fierro for Congress - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Martha_Fierro",
+          "type": "news",
+          "title": "Martha Fierro - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.facebook.com/FierroforTexas/",
+          "type": "website",
+          "title": "Fierro for Congress - Facebook Page",
+          "description": null,
+          "last_accessed": "2026-06-13T10:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.fierrofortexas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/FierroforTexas/",
+        "instagram": "https://www.instagram.com/fierroforcongress/",
+        "twitter": "https://x.com/FierroforTexas"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_29th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:07:49.357020+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 311021,
+    "completion_tokens": 5296,
+    "total_tokens": 316317,
+    "cost_usd": 0.019607162,
+    "cost_source": "provider",
+    "estimated_usd": 0.031518,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 311021,
+        "completion_tokens": 5296
+      }
+    },
+    "duration_s": 112.8
+  }
+}

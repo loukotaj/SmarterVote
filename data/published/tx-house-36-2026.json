@@ -1,0 +1,276 @@
+{
+  "id": "tx-house-36-2026",
+  "title": "Texas's 36th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Texas's 36th Congressional District",
+  "state": "Texas",
+  "district": "36th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Texas's 36th Congressional District pits incumbent Republican Brian Babin against Democratic challenger Rhonda Hart. Babin has represented the district since 2015 and currently serves as Chairman of the House Committee on Science, Space, and Technology. The district underwent mid-decade redistricting in 2025, losing Liberty County and extending north to Lufkin, while maintaining its strongly Republican tilt (Cook PVI: R+12). Hart, an Army veteran and gun-safety activist whose daughter was killed in the 2018 Santa Fe High School shooting, is making her second bid for Congress after an unsuccessful run in TX-14 in 2024. The general election will be held on November 3, 2026, following primary elections on March 3, 2026.",
+  "polling": [],
+  "polling_note": "No district-specific public opinion polls were found for Texas's 36th Congressional District race. Statewide generic ballot polls for Texas from June 2026 showed Republicans leading Democrats 49% to 43% (Texas A&M University/ReconMR), but these are not specific to this district.",
+  "candidates": [
+    {
+      "name": "Brian Babin",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Brian Babin is the incumbent U.S. Representative for Texas's 36th Congressional District, first elected in 2014. He serves as Chairman of the House Committee on Science, Space, and Technology and previously chaired the Space Subcommittee. A dentist by profession and U.S. Air Force veteran, Babin focuses on border security, tax cuts, Second Amendment rights, and space exploration. He has held the seat since 2015 and won the 2026 Republican primary with 81.1% of the vote against challenger Jonathan Mitchell.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Brian_Babin",
+          "type": "website",
+          "title": "Brian Babin - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://babin.house.gov/biography/",
+          "type": "government",
+          "title": "About Brian - U.S. Representative Brian Babin",
+          "description": null,
+          "last_accessed": "2026-07-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/texas-us-house-district-36-results",
+          "type": "news",
+          "title": "Texas House District 36 Primary Election Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-07-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Brian_Babin_115th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing Texas's 36th Congressional District; Chairman of House Science, Space, and Technology Committee (2025-present)",
+          "source": null
+        },
+        {
+          "title": "Dentist / Owner",
+          "organization": "Private dental practice",
+          "start_year": 1979,
+          "end_year": 2015,
+          "description": "Operated a general dental practice in Woodville, Texas",
+          "source": null
+        },
+        {
+          "title": "Captain",
+          "organization": "United States Air Force",
+          "start_year": 1975,
+          "end_year": 1979,
+          "description": "Served as a commissioned officer stationed at Ramstein, Germany",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Woodville, Texas",
+          "start_year": 1982,
+          "end_year": 1984,
+          "description": "Served as mayor",
+          "source": null
+        },
+        {
+          "title": "City Councilman",
+          "organization": "City of Woodville, Texas",
+          "start_year": 1984,
+          "end_year": 1989,
+          "description": "Served on city council",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Woodville Independent School District Board",
+          "start_year": 1992,
+          "end_year": 1995,
+          "description": "School board member",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Lower Neches Valley Authority",
+          "start_year": 1999,
+          "end_year": 2015,
+          "description": "Appointed by Governor George W. Bush, reappointed by Governor Rick Perry",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Texas Historical Commission",
+          "start_year": 1989,
+          "end_year": 1995,
+          "description": "Appointed position",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lamar University",
+          "degree": "Bachelor of Science",
+          "field": "Biology",
+          "year": 1973,
+          "source": null
+        },
+        {
+          "institution": "University of Texas Dental Branch, Houston",
+          "degree": "Doctor of Dental Surgery (DDS)",
+          "field": "Dentistry",
+          "year": 1976,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.babinforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rhonda Hart",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Rhonda Hart is the Democratic nominee for Texas's 36th Congressional District. An Army veteran who served from 2000 to 2003, her daughter Kimberly Vaughan was killed in the 2018 Santa Fe High School shooting, leading Hart to become a prominent gun-safety activist. She previously ran for Congress in Texas's 14th Congressional District in 2024. Hart advocates for common-sense gun laws, women's reproductive rights, and improved veterans' healthcare. She won the 2026 Democratic primary with 64.1% of the vote, defeating Doug Rogers.",
+      "summary_sources": [
+        {
+          "url": "https://www.hart4congress.com/",
+          "type": "website",
+          "title": "Rhonda Hart for Congress",
+          "description": null,
+          "last_accessed": "2026-07-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ballotready.org/people/rhonda-hart",
+          "type": "website",
+          "title": "Rhonda Hart - BallotReady",
+          "description": null,
+          "last_accessed": "2026-07-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/texas-us-house-district-36-results",
+          "type": "news",
+          "title": "Texas House District 36 Primary Election Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-07-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CS Leadership Team Coordinator",
+          "organization": "Airbnb",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Customer service leadership role",
+          "source": null
+        },
+        {
+          "title": "CDL Driver and Trainer",
+          "organization": "Santa Fe Independent School District",
+          "start_year": 2011,
+          "end_year": 2018,
+          "description": "Commercial driver and trainer for the school district",
+          "source": null
+        },
+        {
+          "title": "Lead Educator",
+          "organization": "Bay Colony Children's House LLC",
+          "start_year": 2010,
+          "end_year": 2011,
+          "description": "Early childhood education lead educator",
+          "source": null
+        },
+        {
+          "title": "Soldier",
+          "organization": "United States Army",
+          "start_year": 2000,
+          "end_year": 2003,
+          "description": "Army veteran, MOS 88K (watercraft operator)",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Alaska Southeast",
+          "degree": "Associate's Degree",
+          "field": "Early Childhood Education and Teaching",
+          "year": 2009,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.hart4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_36th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:41:50.723827+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 231634,
+    "completion_tokens": 6066,
+    "total_tokens": 237700,
+    "cost_usd": 0.015392684,
+    "cost_source": "provider",
+    "estimated_usd": 0.023889,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 231634,
+        "completion_tokens": 6066
+      }
+    },
+    "duration_s": 108.1
+  }
+}

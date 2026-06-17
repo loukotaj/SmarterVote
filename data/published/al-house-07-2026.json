@@ -1,0 +1,245 @@
+{
+  "id": "al-house-07-2026",
+  "title": "Alabama's 7th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Alabama's 7th Congressional District",
+  "state": "Alabama",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Alabama's 7th Congressional District is holding its regularly scheduled general election on November 3, 2026, amid a turbulent redistricting cycle. After the U.S. Supreme Court narrowed Section 2 of the Voting Rights Act in April 2026, Alabama reverted to a 2023 Republican-drawn congressional map, triggering special primary elections on August 11, 2026, for this and three other districts. Incumbent Democrat Terri Sewell, first elected in 2010 and unopposed in the Democratic special primary, seeks a ninth term representing a district that spans parts of Birmingham, the Black Belt, and western Alabama. She will face the winner of a two-candidate Republican special primary between Ammie Akin and David Perry in a district that, under the 2023 map, saw its Black voting-age population drop slightly but remains safely Democratic.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to Alabama's 7th Congressional District general election in 2026 were found as of June 2026. The special primary has not yet occurred (scheduled for August 11, 2026), and general election polling is not yet available.",
+  "candidates": [
+    {
+      "name": "Terri A. Sewell",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Terri A. Sewell is the incumbent U.S. Representative for Alabama's 7th Congressional District, first elected in 2010. She serves on the House Ways and Means Committee and as a Chief Deputy Whip, and is the first Black woman ever elected to Congress from Alabama. Sewell is running unopposed in the Democratic special primary on August 11, 2026, and is the presumptive Democratic nominee for the general election.",
+      "summary_sources": [
+        {
+          "url": "https://sewell.house.gov/biography",
+          "type": "government",
+          "title": "Biography - U.S. Congresswoman Terri Sewell",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        },
+        {
+          "url": "https://sewellforcongress.com/about-terri/",
+          "type": "website",
+          "title": "About Terri Sewell - Terri Sewell for Congress",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        },
+        {
+          "url": "https://aldemocrats.org/august-11-special-primary-election-candidates",
+          "type": "website",
+          "title": "August 11 Special Primary Election Candidates - Alabama Democrats",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Terri_Sewell.jpg",
+      "website": "https://sewellforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepSewell/",
+        "twitter": "https://twitter.com/RepTerriSewell"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Alabama's 7th Congressional District; serves on House Ways and Means Committee and as Chief Deputy Whip"
+        },
+        {
+          "title": "Partner (Securities and Public Finance Attorney)",
+          "organization": "Maynard, Cooper & Gale, P.C.",
+          "start_year": null,
+          "end_year": 2010,
+          "description": "First Black woman partner at the Birmingham law office; practiced securities and public finance law"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
+        },
+        {
+          "institution": "Oxford University",
+          "degree": "M.A.",
+          "field": "Politics",
+          "year": null
+        },
+        {
+          "institution": "Princeton University",
+          "degree": "B.A.",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Ammie Akin",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ammie Akin is a Republican candidate running in the August 11, 2026 special primary for Alabama's 7th Congressional District. She holds an Ed.D. and has served as a teacher, elementary administrator, assistant superintendent, and Interim Superintendent of Briarwood Christian School. Akin is also the founder of Hub in the Hills, a community organization.",
+      "summary_sources": [
+        {
+          "url": "https://www.briarwoodchristianschool.org/about/highlights/details/~board/briarwood-news/post/dr-akin-my-briarwood-story",
+          "type": "website",
+          "title": "Dr. Ammie Akin: My Briarwood Story",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        },
+        {
+          "url": "https://www.linkedin.com/in/ammie-akin-ed-d-89a28153",
+          "type": "website",
+          "title": "Ammie Akin, Ed.D. - LinkedIn",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        },
+        {
+          "url": "https://algop.org/special-congressional-election-qualified-candidates/",
+          "type": "website",
+          "title": "Special Election Candidates - Alabama Republican Party",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "Hub in the Hills",
+          "start_year": null,
+          "end_year": null,
+          "description": "Community organization founder"
+        },
+        {
+          "title": "Interim Superintendent",
+          "organization": "Briarwood Christian School",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as interim superintendent"
+        },
+        {
+          "title": "Assistant Superintendent / Teacher / Administrator",
+          "organization": "Briarwood Christian School",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in multiple educational leadership roles including teacher, elementary administrator, and assistant superintendent"
+        }
+      ],
+      "education": [
+        {
+          "institution": null,
+          "degree": "Ed.D.",
+          "field": "Education",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "David Perry",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "David Perry is a Republican candidate running in the August 11, 2026 special primary for Alabama's 7th Congressional District. He previously served as CEO of Concourse Financial Group, a subsidiary of Protective Life Insurance Company, and was the 2024 Republican nominee for Alabama's 5th District seat on the State Board of Education. Perry also serves on the board of the Alabama Trails Foundation.",
+      "summary_sources": [
+        {
+          "url": "https://alabamareflector.com/2026/05/22/as-litigation-continues-21-candidates-qualify-for-august-alabama-congressional-primaries/",
+          "type": "news",
+          "title": "As litigation continues, 21 candidates qualify for August Alabama congressional primaries",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        },
+        {
+          "url": "https://alabamareflector.com/2024/10/28/democrat-tonya-chestnut-faces-republican-david-perry-in-single-contested-alabama-sboe-race/",
+          "type": "news",
+          "title": "Democrat Tonya Chestnut faces Republican David Perry in single contested Alabama SBOE race",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        },
+        {
+          "url": "https://alabamatrailsfoundation.org/board-of-director/david-perry/",
+          "type": "website",
+          "title": "David Perry - Alabama Trails Foundation",
+          "last_accessed": "2026-06-04T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "CEO",
+          "organization": "Concourse Financial Group (subsidiary of Protective Life Insurance Company)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Chief Executive Officer"
+        },
+        {
+          "title": "Board Member",
+          "organization": "Alabama Trails Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves on the board of directors"
+        },
+        {
+          "title": "Republican Nominee",
+          "organization": "Alabama State Board of Education, District 5",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Republican nominee for State Board of Education seat"
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:47:27.518424+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 258584,
+    "completion_tokens": 7327,
+    "total_tokens": 265911,
+    "cost_usd": 0.019289324,
+    "cost_source": "provider",
+    "estimated_usd": 0.026777,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 258584,
+        "completion_tokens": 7327
+      }
+    },
+    "duration_s": 114.9
+  }
+}

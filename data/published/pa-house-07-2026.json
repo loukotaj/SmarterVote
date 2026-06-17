@@ -1,0 +1,262 @@
+{
+  "id": "pa-house-07-2026",
+  "title": "Pennsylvania's 7th Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Pennsylvania's 7th Congressional District (Lehigh, Northampton, Carbon, and part of Monroe Counties)",
+  "state": "Pennsylvania",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This general election pits first-term Republican incumbent Ryan Mackenzie against Democratic nominee Bob Brooks in Pennsylvania's 7th Congressional District, covering the Lehigh Valley and parts of the Poconos. The district is considered a national bellwether and one of the most competitive House races in the country: in 2024, Mackenzie defeated then-incumbent Democrat Susan Wild by just 1 point (50.4%-49.4%), while Donald Trump also carried the district by 3.2 points. Mackenzie, a former state legislator, emphasizes his record on affordability, border security, and working families, while Brooks, a career firefighter and union president, runs on a working-class Democratic platform focused on lowering costs, protecting unions, and expanding healthcare access. Three independent race forecasters rate the general election as a toss-up. Mackenzie won the Republican primary unopposed, and Brooks emerged from a four-candidate Democratic primary on May 19, 2026.",
+  "candidates": [
+    {
+      "name": "Ryan Mackenzie",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Ryan Mackenzie is the incumbent U.S. Representative for Pennsylvania's 7th Congressional District, first elected in 2024 after defeating Democrat Susan Wild. He previously served 12 years in the Pennsylvania House of Representatives, where he was Republican chair of the Labor & Industry Committee, and worked as policy director at the Pennsylvania Department of Labor and Industry. Mackenzie holds an MBA from Harvard Business School and a BS in Finance and International Business from New York University.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ryan_Mackenzie",
+          "type": "website",
+          "title": "Ryan Mackenzie - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://mackenzie.house.gov/about",
+          "type": "government",
+          "title": "About | Congressman Ryan Mackenzie",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Ryan_Mackenzie",
+          "type": "website",
+          "title": "Ryan Mackenzie - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Rep._Ryan_Mackenzie_official_photo%2C_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Pennsylvania's 7th Congressional District; serves on Education & Workforce (chairs Workforce Protections Subcommittee), Foreign Affairs, and Homeland Security Committees",
+          "source": null
+        },
+        {
+          "title": "Member, Pennsylvania House of Representatives",
+          "organization": "Pennsylvania General Assembly",
+          "start_year": 2012,
+          "end_year": 2024,
+          "description": "Represented 134th District (2012-2022) and 187th District (2023-2024); served as Republican chair of Labor & Industry Committee, co-chair of International Relations Caucus",
+          "source": null
+        },
+        {
+          "title": "Policy Director",
+          "organization": "Pennsylvania Department of Labor and Industry",
+          "start_year": null,
+          "end_year": null,
+          "description": "Policy director prior to elected office",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Business School",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "New York University",
+          "degree": "BS",
+          "field": "Finance and International Business",
+          "year": 2004,
+          "source": null
+        },
+        {
+          "institution": "Parkland High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mackenzieforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepMackenzie",
+        "instagram": "https://www.instagram.com/mackenzieforcongress",
+        "house_website": "http://mackenzie.house.gov/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Bob Brooks",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Bob Brooks is a retired firefighter and union leader who won the Democratic primary on May 19, 2026, to challenge incumbent Ryan Mackenzie. He spent over 20 years as a firefighter with the City of Bethlehem and has served as president of the Pennsylvania Professional Fire Fighters Association (PPFFA) since 2021. Brooks emphasizes his working-class background\u2014having also worked as a bartender, landscaper, Teamster, and baseball coach\u2014and has been endorsed by Governor Josh Shapiro, Senator Bernie Sanders, and the Working Families Party.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/05/20/bob-brooks-wins-may-19-democratic-primary-for-pennsylvanias-7th-congressional-district-will-face-incumbent-ryan-mackenzie-in-november/",
+          "type": "news",
+          "title": "Bob Brooks wins May 19 Democratic primary for Pennsylvania's 7th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://brooksforcongress.com/",
+          "type": "website",
+          "title": "Bob Brooks For Congress",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.iaff.org/news/pennsylvania-fire-fighter-and-iaff-leader-bob-brooks-announces-run-for-congress/",
+          "type": "news",
+          "title": "Pennsylvania fire fighter and IAFF leader Bob Brooks announces run for Congress",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cityandstatepa.com/politics/2026/04/pa-7-dem-primary-bob-brooks-going-pole-poll/412907/",
+          "type": "news",
+          "title": "In PA-7 Dem primary, Bob Brooks is going from pole to poll",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bob_Brooks.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "President",
+          "organization": "Pennsylvania Professional Fire Fighters Association (PPFFA)",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Statewide union president representing fire fighters across Pennsylvania; previously served as Eastern Vice President",
+          "source": null
+        },
+        {
+          "title": "Firefighter",
+          "organization": "City of Bethlehem Fire Department (IAFF Local 735)",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Served over 20 years as a firefighter; held union roles including president, vice president, secretary-treasurer, trustee, and roster duty chairman",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "North Adams High School (Massachusetts)",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://brooksforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/VoteBobBrooks",
+        "instagram": "https://www.instagram.com/VoteBobBrooks"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:19:32.702240+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 239726,
+    "completion_tokens": 5619,
+    "total_tokens": 245345,
+    "cost_usd": 0.033636008,
+    "cost_source": "provider",
+    "estimated_usd": 0.034594,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 239726,
+        "completion_tokens": 5619
+      }
+    },
+    "duration_s": 171.7,
+    "serper_calls": 10,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 47942,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0457,
+    "context_deduplicated_results": 26,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

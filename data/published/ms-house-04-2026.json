@@ -1,0 +1,290 @@
+{
+  "id": "ms-house-04-2026",
+  "title": "Mississippi's 4th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Mississippi's 4th Congressional District",
+  "state": "Mississippi",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Mississippi's 4th Congressional District covers the southeastern region of the state, including the Gulf Coast communities of Gulfport, Biloxi, and Pascagoula, as well as Hattiesburg and inland areas. Incumbent Republican Mike Ezell, a former Jackson County Sheriff first elected in 2022 after defeating then-incumbent Steven Palazzo in the primary, is seeking a third term. He faces Democratic nominee Jeffrey Hulum III, a U.S. Army veteran and state representative from Gulfport, and Independent candidate Carl Boyanton, a small business owner and nonprofit founder. The district is considered safely Republican by nonpartisan election forecasters, with the Cook Political Report, Inside Elections, and Sabato's Crystal Ball all rating it as Solid/Safe Republican.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of the research date. The district is rated Solid/Safe Republican by major nonpartisan forecasters.",
+  "candidates": [
+    {
+      "name": "Mike Ezell",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Ezell is the incumbent U.S. Representative for Mississippi's 4th Congressional District, first elected in 2022. He spent over 42 years in law enforcement, most recently as Jackson County Sheriff, and serves on the House Transportation and Infrastructure Committee as Chairman of the Coast Guard and Maritime Transportation Subcommittee, as well as the House Natural Resources Committee.",
+      "summary_sources": [
+        {
+          "url": "https://ezell.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Mike Ezell",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.clarionledger.com/story/news/politics/elections/2026/03/11/mike-ezell-jeffrey-hulum-mississippi-election-results/89098463007/",
+          "type": "news",
+          "title": "Mike Ezell to face challenger Jeffrey Hulum in Nov. 3 General Election",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Rep._Mike_Ezell_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Mississippi's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Sheriff",
+          "organization": "Jackson County Sheriff's Office",
+          "start_year": null,
+          "end_year": 2022,
+          "description": "More than 42 years in law enforcement including as Sheriff",
+          "source": null
+        },
+        {
+          "title": "Chief of Police",
+          "organization": "Pascagoula Police Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as police chief",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Southern Mississippi",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Mississippi Law Enforcement Training Academy",
+          "degree": "Certificate",
+          "field": "Law Enforcement",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "FBI National Academy",
+          "degree": "Certificate",
+          "field": "Law Enforcement",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mikeezell.ms/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jeffrey Hulum III",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jeffrey Hulum III is a Democratic member of the Mississippi House of Representatives representing District 119 (Gulfport area) since 2022 and the Democratic nominee for Mississippi's 4th Congressional District. A 22-year U.S. Army veteran who retired as a Sergeant Major with six combat tours, he founded the nonprofit Extend A Hand, Help A Friend to fight food insecurity on the Gulf Coast. In the state legislature, he serves as Vice-Chair for Marine Resources and sits on the Gaming, Military Affairs, Ports/Harbors/Airports, and Tourism committees.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jeffrey_Hulum_III",
+          "type": "website",
+          "title": "Jeffrey Hulum III - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.jeffreyhulumiiiforcongress.com/",
+          "type": "website",
+          "title": "Jeffrey Hulum III for Congress",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Rep._Jeffrey_Hulum_III_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Mississippi House of Representatives",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Representing District 119 (Gulfport area)",
+          "source": null
+        },
+        {
+          "title": "Founder and Executive Director",
+          "organization": "Extend A Hand, Help A Friend",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit fighting food insecurity on the Mississippi Gulf Coast",
+          "source": null
+        },
+        {
+          "title": "Sergeant Major (Retired)",
+          "organization": "U.S. Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "22 years of service with six combat tours in Kosovo, Iraq, and Afghanistan",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Central Texas College",
+          "degree": "Attended",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Gulfport High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1994,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.jeffreyhulumiiiforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Carl Boyanton",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Carl Boyanton is an Independent candidate running for Mississippi's 4th Congressional District. He is a small business owner and founder of Farmer Fresh Produce, which grew to employ around 100 workers, and co-founded the nonprofit Farmed Fresh for Mississippi to deliver fresh food to veterans and families in need. Boyanton describes himself as a principled conservative alternative and previously ran for this seat as a Republican in 2022 and 2024.",
+      "summary_sources": [
+        {
+          "url": "https://carl4congress.com/",
+          "type": "website",
+          "title": "Carl Boyanton for Congress",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sos.ms.gov/content/CandidateQualifying/default.aspx",
+          "type": "government",
+          "title": "Mississippi Candidate Qualifying List",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "President",
+          "organization": "Farmer Fresh Produce",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded and operated a fresh produce business",
+          "source": null
+        },
+        {
+          "title": "Co-Founder",
+          "organization": "Farmed Fresh for Mississippi",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "501(c)(3) nonprofit providing fresh food to veterans and families in need",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Pearl River County Public Schools",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://carl4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Mississippi%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:36:18.952558+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 320090,
+    "completion_tokens": 8135,
+    "total_tokens": 328225,
+    "cost_usd": 0.018576336,
+    "cost_source": "provider",
+    "estimated_usd": 0.032963,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 320090,
+        "completion_tokens": 8135
+      }
+    },
+    "duration_s": 144.6
+  }
+}

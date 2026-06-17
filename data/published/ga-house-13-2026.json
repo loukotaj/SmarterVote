@@ -1,0 +1,225 @@
+{
+  "id": "ga-house-13-2026",
+  "title": "2026 U.S. House of Representatives election for Georgia's 13th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Georgia's 13th Congressional District",
+  "state": "Georgia",
+  "district": "13th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Georgia's 13th Congressional District covers portions of Clayton, DeKalb, Gwinnett, Henry, Newton, and Rockdale counties in metro Atlanta. The seat became open after the death of incumbent Democratic U.S. Rep. David Scott in April 2026, who had held the seat since its creation in 2003. State Rep. Jasmine Clark won a six-candidate Democratic primary on May 19, 2026, to become the Democratic nominee, while Air Force veteran Jonathan Chavez won the Republican nomination unopposed. The district leans heavily Democratic (Cook PVI: D+20), making Clark the strong favorite in the general election. A separate nonpartisan special election to fill the remainder of Scott's term will be held on July 28, 2026.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in Georgia's 13th Congressional District at this time.",
+  "candidates": [
+    {
+      "name": "Jasmine Clark",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Jasmine Clark is a Georgia State Representative for District 108 (since 2019) and the Democratic nominee for Georgia's 13th Congressional District. She holds a PhD in microbiology from Emory University, where she works as a senior lecturer at the Nell Hodgson Woodruff School of Nursing. Clark won the Democratic primary outright with over 50% of the vote in a six-candidate field and would become the first Black female PhD scientist in Congress if elected.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jasmine_Clark",
+          "type": "website",
+          "title": "Jasmine Clark - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ajc.com/politics/2026/05/jasmine-clark-wins-democratic-primary-to-succeed-late-us-rep-david-scott/",
+          "type": "news",
+          "title": "Jasmine Clark wins Democratic primary race to succeed late Rep. David Scott",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jasmine_Clark",
+          "type": "website",
+          "title": "Jasmine Clark - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jasmine_Clark.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Georgia House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing District 108 (Lilburn/Mountain Park area)",
+          "source": null
+        },
+        {
+          "title": "Senior Lecturer",
+          "organization": "Emory University, Nell Hodgson Woodruff School of Nursing",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teaches microbiology, human anatomy, and physiology",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Emory University",
+          "degree": "PhD",
+          "field": "Microbiology",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Emory University",
+          "degree": "MS",
+          "field": "Microbiology",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Tennessee",
+          "degree": "BS",
+          "field": "Biological Sciences",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://jasmine4ga.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jonathan Chavez",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Jonathan Chavez is an Air Force veteran and the Republican nominee for Georgia's 13th Congressional District. He ran unopposed in the Republican primary after receiving 28.2% of the vote against incumbent David Scott in the 2024 general election. Chavez holds a degree from the University of New Mexico School of Medicine and dual master's degrees from Harvard University and Johns Hopkins University, and advocates for conservative policies including the Fair Tax, school choice, and healthcare market reforms.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jonathan_Chavez",
+          "type": "website",
+          "title": "Jonathan Chavez - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jonathanchavezforcongress.com/meet-jonathan/",
+          "type": "website",
+          "title": "Meet Jonathan - Jonathan Chavez for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cbsnews.com/atlanta/news/georgia-13th-congressional-district-primary/",
+          "type": "news",
+          "title": "Rep. Jasmine Clark wins Democratic nomination for Georgia's 13th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Air Force Veteran",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "23 years of military service with combat deployments",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of New Mexico School of Medicine",
+          "degree": "Medical degree",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "Master's",
+          "field": "Finance / Healthcare Administration / Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Master's",
+          "field": "Finance / Healthcare Administration / Management",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jonathanchavezforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_13th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:14:01.875918+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 314848,
+    "completion_tokens": 9013,
+    "total_tokens": 323861,
+    "cost_usd": 0.025093716000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.032622,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 314848,
+        "completion_tokens": 9013
+      }
+    },
+    "duration_s": 172.4
+  }
+}

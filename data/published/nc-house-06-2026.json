@@ -1,0 +1,244 @@
+{
+  "id": "nc-house-06-2026",
+  "title": "North Carolina's 6th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "North Carolina's 6th Congressional District",
+  "state": "North Carolina",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for North Carolina's 6th Congressional District pits first-term Republican incumbent Addison McDowell against Democratic challenger Cyril Jefferson, the mayor of High Point. The district was dramatically redrawn by the Republican-controlled legislature in October 2025, shifting from a competitive seat to one with a Cook Partisan Voting Index of R+9. Cook Political Report rates the general election as 'Solid Republican,' reflecting the district's new conservative tilt. The primary election occurred on March 3, 2026, with McDowell running unopposed on the Republican side and Jefferson winning a four-way Democratic primary with 39.2% of the vote.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in North Carolina's 6th Congressional District. Cook Political Report rates the race as 'Solid R.'",
+  "candidates": [
+    {
+      "name": "Addison McDowell",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Addison McDowell is the incumbent U.S. Representative for North Carolina's 6th Congressional District, first elected in 2024. A former lobbyist for Blue Cross Blue Shield of North Carolina and former constituent services staffer for Senator Ted Budd and Representative Richard Hudson, McDowell has focused on border security, combating the fentanyl crisis, and supporting the America First agenda. He serves on the House Transportation and Infrastructure, Natural Resources, and Budget Committees.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Addison_McDowell",
+          "type": "news",
+          "title": "Addison McDowell - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://mcdowell.house.gov/about",
+          "type": "government",
+          "title": "About | Congressman Addison McDowell",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483731",
+          "type": "news",
+          "title": "NC-06 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Addison_McDowell_119th_congress.jpg/250px-Addison_McDowell_119th_congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing North Carolina's 6th Congressional District. Serves on Transportation and Infrastructure, Natural Resources, and Budget Committees.",
+          "source": null
+        },
+        {
+          "title": "Lobbyist",
+          "organization": "Blue Cross Blue Shield of North Carolina",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a lobbyist for the health insurance company.",
+          "source": null
+        },
+        {
+          "title": "Constituent Liaison",
+          "organization": "Office of U.S. Senator Ted Budd",
+          "start_year": null,
+          "end_year": null,
+          "description": "Provided constituent services and casework.",
+          "source": null
+        },
+        {
+          "title": "Staff",
+          "organization": "Office of U.S. Representative Richard Hudson",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on election campaign and in constituent services.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of North Carolina at Charlotte",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science and Government",
+          "year": 2016,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mcdowellfornc.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Cyril Jefferson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Cyril Jefferson is the mayor of High Point, North Carolina, and the Democratic nominee for the 6th Congressional District. First elected to the High Point City Council in 2019 and as mayor in 2023, he is the youngest person and first Black man elected to that office. A former teacher, youth development consultant, and founder of a social innovation firm, Jefferson's campaign focuses on affordability, healthcare, education, workforce development, and government accountability.",
+      "summary_sources": [
+        {
+          "url": "https://www.ncat.edu/news/2025/07/jefferson-flame-keeper.php",
+          "type": "news",
+          "title": "High Point Mayor Jefferson '18 to Receive 2025 Keeper of the Flame Award",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.communitiesinschools.org/articles/article/cis-alumnus-cyril-jefferson-making-history-and-leading-a-community/",
+          "type": "news",
+          "title": "CIS Alumnus Cyril Jefferson: Making History and Leading a Community",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cyrilforcongress.com/",
+          "type": "website",
+          "title": "Cyril Jefferson for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of High Point, North Carolina",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "First Black man and youngest elected mayor of High Point. Launched initiatives including affordable housing fund, on-demand transit system, and economic development projects.",
+          "source": null
+        },
+        {
+          "title": "City Council Member",
+          "organization": "City of High Point, North Carolina",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Represented Ward 1 on the High Point City Council.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "Change Often LLC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Social innovation firm providing capacity-building services to nonprofits and companies.",
+          "source": null
+        },
+        {
+          "title": "Youth Development Consultant",
+          "organization": "Communities In Schools of High Point",
+          "start_year": null,
+          "end_year": null,
+          "description": "Designed and implemented mentoring and intervention programs for students.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "North Carolina A&T State University",
+          "degree": "Bachelor of Arts",
+          "field": "Liberal Studies",
+          "year": 2018,
+          "source": null
+        },
+        {
+          "institution": "Howard University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.cyrilforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:56:48.412603+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 239827,
+    "completion_tokens": 6378,
+    "total_tokens": 246205,
+    "cost_usd": 0.018023918,
+    "cost_source": "provider",
+    "estimated_usd": 0.024753,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 239827,
+        "completion_tokens": 6378
+      }
+    },
+    "duration_s": 149.1
+  }
+}

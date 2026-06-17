@@ -1,0 +1,431 @@
+{
+  "id": "ct-house-04-2026",
+  "title": "2026 U.S. House of Representatives Election for Connecticut's 4th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Connecticut's 4th Congressional District",
+  "state": "Connecticut",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Connecticut's 4th Congressional District pits nine-term incumbent Democrat Jim Himes against a field of Republican and independent challengers. The district covers most of Fairfield County, including Bridgeport, Stamford, and Greenwich, and is rated 'Solid D' by the Cook Political Report with a PVI of D+13. Himes, the Ranking Member on the House Permanent Select Committee on Intelligence, faces a contested Republican primary between physician-lawyer Michael Goldstein (who secured the party endorsement at the May 2026 convention), Luz Helena Bueno, and Daniel Miressi, with the primary scheduled for August 11, 2026. The general election also includes independent candidate Damon Cerreta and Democratic primary challenger Joseph Perez-Caputo.",
+  "candidates": [
+    {
+      "name": "Jim Himes",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jim Himes has represented Connecticut's 4th Congressional District since 2009 and is serving his ninth term. He is the Ranking Member of the House Permanent Select Committee on Intelligence and previously worked as a banking executive and non-profit executive before entering politics.",
+      "summary_sources": [
+        {
+          "url": "https://bioguide.congress.gov/search/bio/H001047",
+          "type": "government",
+          "title": "HIMES, James A. - Bioguide Search",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/custom_entity/482501",
+          "type": "website",
+          "title": "CT-04 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Jim_Himes_Official_Portrait%2C_117th_Congress_%28cropped%29.jpg?itok=xk3P01r2",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Representing Connecticut's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Ranking Member",
+          "organization": "House Permanent Select Committee on Intelligence",
+          "start_year": null,
+          "end_year": null,
+          "description": "Senior Democrat on the intelligence committee",
+          "source": null
+        },
+        {
+          "title": "Banking Executive",
+          "organization": "Financial services industry",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in banking before entering politics",
+          "source": null
+        },
+        {
+          "title": "Chairman",
+          "organization": "Greenwich Housing Authority",
+          "start_year": 2003,
+          "end_year": 2006,
+          "description": "Served as member and chairman",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Greenwich Board of Estimate and Taxation",
+          "start_year": 2006,
+          "end_year": 2007,
+          "description": "Appointed board member",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "A.B.",
+          "field": null,
+          "year": 1988,
+          "source": null
+        },
+        {
+          "institution": "Oxford University",
+          "degree": "M.Phil.",
+          "field": null,
+          "year": 1990,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://himes.house.gov/4225-2/about-jim/",
+          "title": "Official House Biography",
+          "type": "other"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/H001047",
+          "title": "Congressional Bioguide",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.himesforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/himesforcongress/",
+        "instagram": "https://www.instagram.com/himesforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michael Ted Goldstein",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Michael Goldstein is an ophthalmologist and health law attorney from Greenwich who secured the Republican Party endorsement at the May 2026 4th Congressional District Convention. His campaign focuses on affordability, education, public safety, small business, and economic opportunity.",
+      "summary_sources": [
+        {
+          "url": "https://greenwichfreepress.com/news/government/dr-michael-goldstein-receives-the-republican-nomination-for-connecticuts-4th-congressional-district-247904/",
+          "type": "news",
+          "title": "Dr. Michael Goldstein Receives the Republican Nomination for Connecticut's 4th Congressional District",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G26/CT",
+          "type": "website",
+          "title": "Connecticut 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Ophthalmologist",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practicing physician specializing in ophthalmology",
+          "source": null
+        },
+        {
+          "title": "Health Law Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Aiding physicians in managing legal issues",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://goldsteinforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/drmichaelgoldstein/",
+        "linkedin": "https://www.linkedin.com/in/michael-goldstein-1996aa19"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Luz Helena Bueno",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Luz Helena Bueno is a Republican candidate for Connecticut's 4th Congressional District who did not receive the party endorsement at the May 2026 convention but is pursuing ballot access for the August 11 primary. Her campaign emphasizes common sense, economic growth, better schools, jobs, opportunity, and border security.",
+      "summary_sources": [
+        {
+          "url": "https://www.thegreenpapers.com/G26/CT",
+          "type": "website",
+          "title": "Connecticut 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.luzbuenoforcongress.com/",
+          "type": "website",
+          "title": "Luz Helena Bueno for Congress",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.luzbuenoforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Daniel Miressi",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Daniel Miressi is a Republican candidate running for the U.S. House to represent Connecticut's 4th Congressional District. He has filed as a candidate with the FEC and reported campaign activity for the 2026 election cycle.",
+      "summary_sources": [
+        {
+          "url": "https://www.thegreenpapers.com/G26/CT",
+          "type": "website",
+          "title": "Connecticut 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Daniel_Miressi",
+          "type": "website",
+          "title": "Daniel Miressi - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Joseph Perez-Caputo",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Joseph Perez-Caputo is a Democratic candidate challenging incumbent Jim Himes in the August 11 primary. He did not receive the Democratic Party endorsement and his campaign focuses on affordability, housing costs, and healthcare access.",
+      "summary_sources": [
+        {
+          "url": "https://www.thegreenpapers.com/G26/CT",
+          "type": "website",
+          "title": "Connecticut 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.creatingcommunityeverywhere-jpcforcongress.org/home",
+          "type": "website",
+          "title": "Home - Creating Community Everywhere - JPC for Congress",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.creatingcommunityeverywhere-jpcforcongress.org/home",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Damon Lawrence Cerreta",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Damon Cerreta is an independent candidate running for Connecticut's 4th Congressional District. He has filed with the FEC as a candidate and is listed on the ballot as an independent for the general election.",
+      "summary_sources": [
+        {
+          "url": "https://www.thegreenpapers.com/G26/CT",
+          "type": "website",
+          "title": "Connecticut 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Damon_Cerreta",
+          "type": "website",
+          "title": "Damon Cerreta - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-06-13T21:06:52Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Business Owner",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Career experience includes working as a business owner",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "instagram": "https://www.instagram.com/damoncerreta/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:25:01.446070+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 226177,
+    "completion_tokens": 7986,
+    "total_tokens": 234163,
+    "cost_usd": 0.040931882,
+    "cost_source": "provider",
+    "estimated_usd": 0.041731,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 226177,
+        "completion_tokens": 7986
+      }
+    },
+    "duration_s": 176.9,
+    "serper_calls": 18,
+    "context_requests": 14,
+    "max_estimated_context_tokens": 41883,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0399,
+    "context_deduplicated_results": 68,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 1,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  }
+}

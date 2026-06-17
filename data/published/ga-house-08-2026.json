@@ -1,0 +1,244 @@
+{
+  "id": "ga-house-08-2026",
+  "title": "Georgia's 8th Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Georgia's 8th Congressional District",
+  "state": "Georgia",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Georgia's 8th Congressional District pits incumbent Republican Rep. Austin Scott, first elected in 2010 and a senior member of the House Agriculture and Armed Services Committees, against Democratic nominee Dr. Kelly Esti, a Navy veteran and PhD in public policy. The district covers more than 30 counties across middle and south Georgia and is rated 'Solid R' by nonpartisan analysts, making Scott the heavy favorite. Esti ran on a platform emphasizing affordability, education access, infrastructure, and visible constituent service. The race presents a contrast between Scott's long tenure and rural conservative record and Esti's call for new leadership focused on evidence-based policy and community engagement.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race. Nonpartisan election analysts including Cook Political Report rate the district as 'Solid Republican'.",
+  "candidates": [
+    {
+      "name": "Austin Scott",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Austin Scott is the incumbent U.S. Representative for Georgia's 8th Congressional District, first elected in 2010 and currently in his eighth term. He serves on the House Agriculture Committee (Vice Chairman), House Armed Services Committee, House Rules Committee, and House Permanent Select Committee on Intelligence, focusing on farm policy, military readiness, and rural development.",
+      "summary_sources": [
+        {
+          "url": "https://austinscott.house.gov/biography",
+          "type": "government",
+          "title": "Biography - United States Congressman Austin Scott",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Austin_Scott",
+          "type": "news",
+          "title": "Austin Scott - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Austin_Scott_2021-22.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Georgia's 8th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Georgia House of Representatives",
+          "start_year": 1996,
+          "end_year": 2011,
+          "description": "Represented districts 165, 138, and 153; chaired Governmental Affairs Committee",
+          "source": null
+        },
+        {
+          "title": "President",
+          "organization": "Southern Group, LLC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Insurance and risk management business owner",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Georgia",
+          "degree": "Bachelor of Business Administration",
+          "field": "Risk Management and Insurance",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.scottforga.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepAustinScott/",
+        "twitter": "https://twitter.com/AustinScottGA08"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kelly Esti",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Dr. Kelly Esti is the Democratic nominee for Georgia's 8th Congressional District, having won the May 19, 2026 primary with approximately 53.5% of the vote. A Navy veteran who served as a nuclear operator aboard the USS Henry M. Jackson, he holds a PhD in Public Policy from Walden University and has worked as a small business CFO, legislative aide, and municipal board member, emphasizing affordability, education, infrastructure, and visible constituent representation.",
+      "summary_sources": [
+        {
+          "url": "https://www.walb.com/2026/04/17/two-democrats-vie-chance-challenge-austin-scott-georgias-8th-congressional-district/",
+          "type": "news",
+          "title": "Two Democrats vie for chance to challenge Austin Scott in Georgia's 8th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kellyesti4congress.com/about-9",
+          "type": "website",
+          "title": "About Kelly - Kelly Esti for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/georgia-us-house-district-8-results",
+          "type": "news",
+          "title": "Georgia House District 8 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Chief Financial Officer / Co-owner",
+          "organization": "BroTagz Embroidery, LLC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business financial management",
+          "source": null
+        },
+        {
+          "title": "Nuclear Operator",
+          "organization": "United States Navy",
+          "start_year": 1999,
+          "end_year": 2002,
+          "description": "Served aboard USS Henry M. Jackson as a nuclear-trained sailor",
+          "source": null
+        },
+        {
+          "title": "Legislative Aide",
+          "organization": "Georgia State Senate",
+          "start_year": 2015,
+          "end_year": 2015,
+          "description": "Served as legislative aide to Senator Donzella James",
+          "source": null
+        },
+        {
+          "title": "Board Member",
+          "organization": "Georgia Equality",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former Legislative Chair and Board Member",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Walden University",
+          "degree": "Doctor of Philosophy (PhD)",
+          "field": "Public Policy and Policy Analysis",
+          "year": 2018,
+          "source": null
+        },
+        {
+          "institution": "Webster University",
+          "degree": "Master of Business Administration",
+          "field": "Finance",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Ottawa University",
+          "degree": "Bachelor of Arts",
+          "field": "Management",
+          "year": 2006,
+          "source": null
+        },
+        {
+          "institution": "South Pike High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.kellyesti4congress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DrKellyEstiGA/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:22:32.246551+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 216112,
+    "completion_tokens": 5752,
+    "total_tokens": 221864,
+    "cost_usd": 0.018033215999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.022306,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 216112,
+        "completion_tokens": 5752
+      }
+    },
+    "duration_s": 127.6
+  }
+}

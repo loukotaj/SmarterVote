@@ -1,0 +1,193 @@
+{
+  "id": "tx-house-08-2026",
+  "title": "2026 U.S. House General Election \u2014 Texas's 8th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 8th Congressional District",
+  "state": "Texas",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "An open-seat race for Texas's 8th Congressional District, as two-term Republican incumbent Morgan Luttrell is retiring. The district covers the northern Houston exurbs \u2014 including portions of Montgomery, Harris, Waller, and Walker counties \u2014 and has a strong Republican lean (Cook PVI R+13, with Donald Trump winning it by over 30 points in 2024). Republican nominee Jessica Steinmann, a former Trump Justice Department official and Ted Cruz aide, easily won the March 3, 2026 primary with 68% of the vote. Democratic nominee Laura Jones, a small business owner and Army mom, won her primary with 66%. Given the district's partisan makeup, Steinmann is considered the heavy favorite in the general election.",
+  "polling": [],
+  "polling_note": "No district-specific opinion polls were found for Texas's 8th Congressional District in 2026. Statewide generic-ballot polls from the Texas Politics Project and Texas A&M/ReconMR showed Republican leads of 1\u20136 points, but these are not precinct-level and do not reflect TX-08 specifically.",
+  "candidates": [
+    {
+      "name": "Jessica Steinmann",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jessica Hart Steinmann is an attorney and former Trump administration official who won the Republican nomination for Texas's 8th Congressional District. She served as Director of the Office for Victims of Crime at the U.S. Department of Justice and later as Executive General Counsel of the America First Policy Institute. She previously worked for U.S. Senator Ted Cruz, helped draft Texas's 2021 election integrity law, and has been endorsed by President Donald Trump, Senator Ted Cruz, and Governor Greg Abbott.",
+      "summary_sources": [
+        {
+          "url": "https://www.jessicasteinmann.com/about",
+          "type": "website",
+          "title": "About \u2014 Jessica Steinmann",
+          "last_accessed": "2026-06-14T18:00:00Z"
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485256",
+          "type": "news",
+          "title": "TX-08 2026 | Cook Political Report",
+          "last_accessed": "2026-06-14T18:00:00Z"
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-8-primary.html",
+          "type": "news",
+          "title": "Texas Eighth Congressional District Primary Election Results 2026",
+          "last_accessed": "2026-06-14T18:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.jessicasteinmann.com",
+      "social_media": {
+        "twitter": "https://x.com/jhartsteinmann",
+        "instagram": "https://www.instagram.com/jessicahartsteinmann/",
+        "facebook": "https://www.facebook.com/jessica.hart.52035/"
+      },
+      "career_history": [
+        {
+          "title": "Executive General Counsel & Director of Litigation",
+          "organization": "America First Policy Institute",
+          "start_year": 2021,
+          "end_year": 2026,
+          "description": "Led litigation on conservative priorities including fighting Biden administration Title IX rules and defending election integrity."
+        },
+        {
+          "title": "Director, Office for Victims of Crime",
+          "organization": "U.S. Department of Justice",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Oversaw nearly $9 billion in grant funding and directed record resources to combat human trafficking and support crime victims."
+        },
+        {
+          "title": "Staff Member / Counsel",
+          "organization": "Office of U.S. Senator Ted Cruz",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advised the Senator on policy and legal matters; helped draft Texas's 2021 election integrity law."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Texas A&M University School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://www.jessicasteinmann.com/issues",
+          "title": "Issues page",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "economy": "Supports cutting regulations to 'unleash American energy,' lowering taxes, and prioritizing American workers and families.",
+        "immigration_border": "Supports finishing the border wall, ending catch-and-release, and enforcing immigration laws.",
+        "education": "Opposes 'woke ideology' in schools; supports parental rights and keeping boys out of girls' sports.",
+        "healthcare": "Focus on protecting conservative values; no specific healthcare plan detailed beyond opposing government overreach.",
+        "energy": "Supports 'unleashing American energy' through deregulation of oil, gas, and domestic production."
+      }
+    },
+    {
+      "name": "Laura Jones",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Laura Jones is a lifelong Texan, Army mom, small business owner, and farmer who won the Democratic nomination for Texas's 8th Congressional District. A real estate broker by profession and a former county chair, she has run for office multiple times and describes herself as a working-class candidate focused on kitchen-table economic issues. Her platform includes raising the federal minimum wage and tying it to the cost of living, expanding Medicare for All, and increasing taxes on billionaires and large corporations to fund affordable housing, education, and infrastructure.",
+      "summary_sources": [
+        {
+          "url": "https://www.laura4tx.com/",
+          "type": "website",
+          "title": "Laura Jones for U.S. Congress | Texas District 8",
+          "last_accessed": "2026-06-14T18:00:00Z"
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-8-primary.html",
+          "type": "news",
+          "title": "Texas Eighth Congressional District Primary Election Results 2026",
+          "last_accessed": "2026-06-14T18:00:00Z"
+        },
+        {
+          "url": "https://www.fox26houston.com/news/u-s-representative-texas-8th-congressional-district-primary-election-results",
+          "type": "news",
+          "title": "U.S. representative for Texas' 8th Congressional District: Primary election results",
+          "last_accessed": "2026-06-14T18:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.laura4tx.com",
+      "social_media": {
+        "facebook": "https://www.facebook.com/LauraJonesforCongress/",
+        "instagram": "https://www.instagram.com/laurajonesforcongress/"
+      },
+      "career_history": [
+        {
+          "title": "Real Estate Broker",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works as a real estate broker and farmer in the 8th District."
+        },
+        {
+          "title": "County Chair",
+          "organization": "County Democratic Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Previously served as a county chair, organizing and building coalitions."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://www.houstonvotersguide.org/us-house-of-rep-dem/Laura-Jones",
+          "title": "Houston Voters Guide \u2014 Laura Jones Q&A",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "economy": "Supports raising the federal minimum wage and tying it to the cost of living, lowering taxes for the 99%, and making billionaires and large corporations 'pay their fair share.'",
+        "healthcare": "Supports expanding and improving Medicare for All to guarantee healthcare as a right; supports allowing Medicare to negotiate prescription drug prices.",
+        "education": "Supports fully funded education from early childhood through college or trade school, referencing legislation like the College for All Act.",
+        "housing": "Supports using tax revenue from corporations to invest in affordable housing and infrastructure for working-class communities.",
+        "immigration_border": "No detailed position found on her website; focuses on economic and healthcare issues."
+      }
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:52:45.680697+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 281153,
+    "completion_tokens": 6401,
+    "total_tokens": 287554,
+    "cost_usd": 0.018204582,
+    "cost_source": "provider",
+    "estimated_usd": 0.028808,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 281153,
+        "completion_tokens": 6401
+      }
+    },
+    "duration_s": 134.1
+  }
+}

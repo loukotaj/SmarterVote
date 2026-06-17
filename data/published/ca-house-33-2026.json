@@ -1,0 +1,202 @@
+{
+  "id": "ca-house-33-2026",
+  "title": "2026 U.S. House of Representatives election in California's 33rd Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 33rd Congressional District",
+  "state": "California",
+  "district": "33rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for California's 33rd Congressional District pits incumbent Democratic Rep. Pete Aguilar against Republican challenger Stephanie M. Vargas. Aguilar, who has represented the district (previously the 31st) since 2015, serves as House Democratic Caucus Chair, the No. 3 position in House Democratic leadership. Vargas is the Chief Deputy City Clerk for the City of Colton and a lifelong Inland Empire resident. The June 2, 2026 top-two primary advanced Aguilar (53.5%) and Vargas (17.5%) to the general election. The district, covering San Bernardino, Rialto, Colton, and parts of Redlands, has a Cook Partisan Voting Index of D+7 and is rated 'Solid D' by the Cook Political Report, reflecting a strong Democratic lean, though cost-of-living and public-safety concerns are key issues in the campaign.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for this race as of the primary election results. The Cook Political Report rates the seat as 'Solid D' based on district fundamentals.",
+  "candidates": [
+    {
+      "name": "Pete Aguilar",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Pete Aguilar is the incumbent U.S. Representative for California's 33rd Congressional District, first elected in 2014. He serves as Chair of the House Democratic Caucus, making him the highest-ranking Latino in Congress and the No. 3 House Democrat. Before Congress, he was Mayor of Redlands and a Redlands City Councilmember, and he worked as Deputy Director of the Inland Empire Regional Office under Governor Gray Davis.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Pete_Aguilar",
+          "type": "website",
+          "title": "Pete Aguilar - Wikipedia",
+          "last_accessed": "2026-06-12T20:00:00Z"
+        },
+        {
+          "url": "https://aguilar.house.gov/full-biography/",
+          "type": "government",
+          "title": "Biography - Pete Aguilar",
+          "last_accessed": "2026-06-12T20:00:00Z"
+        },
+        {
+          "url": "https://dp.electionresults.sos.ca.gov/returns/us-rep/district/33",
+          "type": "government",
+          "title": "U.S. House of Representatives District 33 - Districtwide Results - California Secretary of State",
+          "last_accessed": "2026-06-12T20:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Pete_Aguilar_117th_congress.jpeg",
+      "website": "https://peteaguilar.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/reppeteaguilar/",
+        "instagram": "https://www.instagram.com/rep.peteaguilar/",
+        "twitter": null
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Represents California's 33rd Congressional District (previously 31st); serves as Chair of the House Democratic Caucus and on the House Appropriations Committee."
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Redlands, California",
+          "start_year": 2010,
+          "end_year": 2014,
+          "description": "Appointed mayor by fellow councilmembers; focused on budget balancing, infrastructure, and transparency."
+        },
+        {
+          "title": "City Councilmember",
+          "organization": "City of Redlands, California",
+          "start_year": 2006,
+          "end_year": 2014,
+          "description": "Youngest member ever appointed to the Redlands City Council; elected to a full term in 2007."
+        },
+        {
+          "title": "Deputy Director / Interim Director",
+          "organization": "Inland Empire Regional Office of the Governor of California",
+          "start_year": 2001,
+          "end_year": 2006,
+          "description": "Appointed by Governor Gray Davis; served as deputy director and later interim director."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Redlands",
+          "degree": "Bachelor of Science",
+          "field": "Government and Business Administration",
+          "year": 2001
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://aguilar.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.congress.gov/member/pete-aguilar/A000371",
+          "title": "Congress.gov Profile",
+          "type": "other"
+        }
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Stephanie M. Vargas",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Stephanie M. Vargas is a Republican candidate running for U.S. House in California's 33rd Congressional District. She serves as Chief Deputy City Clerk and Elections Official for the City of Colton, and has held leadership roles on charter school boards and policy committees. Her campaign focuses on lowering the cost of living, election integrity, public safety, and parental rights.",
+      "summary_sources": [
+        {
+          "url": "https://www.stephanievargas4congress.com/meet-stephanie",
+          "type": "website",
+          "title": "Meet Stephanie - Stephanie Vargas for Congress",
+          "last_accessed": "2026-06-12T20:00:00Z"
+        },
+        {
+          "url": "https://dp.electionresults.sos.ca.gov/returns/us-rep/district/33",
+          "type": "government",
+          "title": "U.S. House of Representatives District 33 - Districtwide Results - California Secretary of State",
+          "last_accessed": "2026-06-12T20:00:00Z"
+        },
+        {
+          "url": "https://www.communityforwardredlands.com/meet-the-candidates-running-in-californias-33rd-congressional-district/",
+          "type": "news",
+          "title": "Meet the Candidates Running in California's 33rd Congressional District - Redlands Votes",
+          "last_accessed": "2026-06-12T20:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.stephanievargas4congress.com/",
+      "social_media": {
+        "facebook": null,
+        "instagram": "https://www.instagram.com/stephanievargas4congress/",
+        "twitter": null
+      },
+      "career_history": [
+        {
+          "title": "Chief Deputy City Clerk / Elections Official",
+          "organization": "City of Colton, California",
+          "start_year": null,
+          "end_year": null,
+          "description": "Manages legislative records, public transparency, and election administration for the city."
+        },
+        {
+          "title": "Chair / Vice Chair / Secretary",
+          "organization": "Inland Empire and Empire Springs Charter School Boards",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on multiple charter school boards, advocating for student-first education policies and parental rights."
+        },
+        {
+          "title": "Founding General Manager",
+          "organization": "Small Business (Fontana, CA)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Helped launch and manage a small business, gaining firsthand experience with regulatory and operational challenges."
+        },
+        {
+          "title": "Police Explorer / Police Cadet",
+          "organization": "San Bernardino Police Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Volunteered and trained alongside law enforcement officers, gaining insight into public safety operations."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_33rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:33:19.916673+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 219860,
+    "completion_tokens": 6668,
+    "total_tokens": 226528,
+    "cost_usd": 0.011731032,
+    "cost_source": "provider",
+    "estimated_usd": 0.022853,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 219860,
+        "completion_tokens": 6668
+      }
+    },
+    "duration_s": 115.4
+  }
+}

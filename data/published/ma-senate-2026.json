@@ -10,36 +10,14 @@
       "pollster": "University of New Hampshire",
       "date": "2025-11-17",
       "sample_size": 341,
-      "matchups": [
-        {
-          "candidates": [
-            "Ed Markey",
-            "Seth Moulton"
-          ],
-          "percentages": [
-            34,
-            25
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.realclearpolling.com/polls/senate/democratic-primary/2026/massachusetts"
     },
     {
       "pollster": "Boston Globe/Suffolk University",
       "date": "2025-11-23",
       "sample_size": 226,
-      "matchups": [
-        {
-          "candidates": [
-            "Ed Markey",
-            "Seth Moulton"
-          ],
-          "percentages": [
-            45,
-            22
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.realclearpolling.com/polls/senate/democratic-primary/2026/massachusetts"
     }
   ],
@@ -55,44 +33,51 @@
           "url": "https://www.markey.senate.gov/about",
           "type": "website",
           "title": "About Ed | Senator Edward Markey of Massachusetts",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.congress.gov/member/edward-markey/M000133",
           "type": "government",
           "title": "Senator Edward J. Markey - Congress.gov",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ed_Markey__Official_Portrait__112th_Congress_2-7_fixed.jpg",
-      "website": "https://www.edmarkey.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/EdMarkeyforMA/",
-        "x": "https://x.com/SenMarkey",
-        "instagram": "https://www.instagram.com/edmarkey/",
-        "youtube": "https://www.youtube.com/@markeypress"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Senator",
           "organization": "United States Senate",
           "start_year": 2013,
           "end_year": null,
-          "description": "Represents Massachusetts in the Senate; elected in a 2013 special election and seeking reelection in 2026."
+          "description": "Represents Massachusetts in the Senate; elected in a 2013 special election and seeking reelection in 2026.",
+          "source": null
         },
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 1976,
           "end_year": 2013,
-          "description": "Served 37 years in the House representing Massachusetts districts."
+          "description": "Served 37 years in the House representing Massachusetts districts.",
+          "source": null
         },
         {
           "title": "Member",
           "organization": "Massachusetts House of Representatives",
           "start_year": 1973,
           "end_year": 1976,
-          "description": "Served two terms in the Massachusetts state legislature."
+          "description": "Served two terms in the Massachusetts state legislature.",
+          "source": null
         }
       ],
       "education": [
@@ -100,21 +85,33 @@
           "institution": "Boston College",
           "degree": "B.A.",
           "field": "Political science",
-          "year": 1968
+          "year": 1968,
+          "source": null
         },
         {
           "institution": "Boston College Law School",
           "degree": "J.D.",
           "field": "Law",
-          "year": 1972
+          "year": 1972,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.edmarkey.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/EdMarkeyforMA/",
+        "x": "https://x.com/SenMarkey",
+        "instagram": "https://www.instagram.com/edmarkey/",
+        "youtube": "https://www.youtube.com/@markeypress"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Seth Moulton",
@@ -126,44 +123,51 @@
           "url": "http://moulton.house.gov/about/biography",
           "type": "website",
           "title": "Biography - Congressman Seth Moulton - House.gov",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.congress.gov/member/seth-moulton/M001196",
           "type": "government",
           "title": "Seth Moulton - Congress.gov",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Seth_Moulton.jpg",
-      "website": "https://sethmoulton.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SethMoulton/",
-        "x": "https://x.com/sethmoulton?lang=en",
-        "instagram": "https://www.instagram.com/sethmoulton/?hl=en",
-        "youtube": "https://www.youtube.com/@sethmoulton/videos"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 2015,
           "end_year": null,
-          "description": "Represents Massachusetts’s 6th Congressional District."
+          "description": "Represents Massachusetts’s 6th Congressional District.",
+          "source": null
         },
         {
           "title": "Marine Corps officer",
           "organization": "United States Marine Corps",
           "start_year": 2001,
           "end_year": 2008,
-          "description": "Served as a Marine officer, including combat service in Iraq."
+          "description": "Served as a Marine officer, including combat service in Iraq.",
+          "source": null
         },
         {
           "title": "Business and public service roles",
           "organization": "Various",
           "start_year": 2008,
           "end_year": 2015,
-          "description": "Worked in business and public service before election to Congress."
+          "description": "Worked in business and public service before election to Congress.",
+          "source": null
         }
       ],
       "education": [
@@ -171,27 +175,40 @@
           "institution": "Phillips Academy Andover",
           "degree": "High school diploma",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "Harvard University",
           "degree": "B.A.",
           "field": "Physics and economics",
-          "year": 2001
+          "year": 2001,
+          "source": null
         },
         {
           "institution": "Harvard Business School",
           "degree": "M.B.A.",
           "field": "Business administration",
-          "year": 2011
+          "year": 2011,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://sethmoulton.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SethMoulton/",
+        "x": "https://x.com/sethmoulton?lang=en",
+        "instagram": "https://www.instagram.com/sethmoulton/?hl=en",
+        "youtube": "https://www.youtube.com/@sethmoulton/videos"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "John Deaton",
@@ -203,41 +220,51 @@
           "url": "https://www.johndeatonforsenate.com/meet-john",
           "type": "website",
           "title": "Meet John | John Deaton for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.wgbh.org/news/politics/2025-11-11/5-things-to-know-about-republican-john-deaton-whos-launching-his-second-us-senate-run",
           "type": "news",
           "title": "5 things to know about Republican John Deaton, who's launching his second U.S. Senate run",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/2024_United_States_Senate_election_in_Massachusetts_results_map_by_county.svg/500px-2024_United_States_Senate_election_in_Massachusetts_results_map_by_county.svg.png",
-      "website": "https://www.johndeatonforsenate.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/deatonforsenate/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Trial attorney",
           "organization": "Private practice",
           "start_year": 1995,
           "end_year": null,
-          "description": "Practiced law in Massachusetts and other states, focusing on asbestos and cancer victims."
+          "description": "Practiced law in Massachusetts and other states, focusing on asbestos and cancer victims.",
+          "source": null
         },
         {
           "title": "Founder",
           "organization": "Private law practice",
           "start_year": 2006,
           "end_year": null,
-          "description": "Founded his own law practice."
+          "description": "Founded his own law practice.",
+          "source": null
         },
         {
           "title": "U.S. Marine Corps officer",
           "organization": "United States Marine Corps",
           "start_year": 1994,
           "end_year": 2002,
-          "description": "Served as a Judge Advocate and later was medically retired."
+          "description": "Served as a Judge Advocate and later was medically retired.",
+          "source": null
         }
       ],
       "education": [
@@ -245,21 +272,30 @@
           "institution": "Eastern Michigan University",
           "degree": "B.A.",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "New England School of Law",
           "degree": "J.D.",
           "field": "Law",
-          "year": 1995
+          "year": 1995,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.johndeatonforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/deatonforsenate/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "William Gates",
@@ -271,36 +307,51 @@
           "url": "https://www.ballotpedia.org/William_Gates",
           "type": "website",
           "title": "William Gates - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.williamfgatesforsenate.com/",
           "type": "website",
           "title": "Home | William F. Gates for Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/William_Gates_20260120_085346.jpg",
-      "website": "https://www.williamfgatesforsenate.com/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/wfgates1/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Professor and architect",
           "organization": "Private sector / academia",
           "start_year": null,
           "end_year": null,
-          "description": "Ballotpedia identifies him as a professor and architect."
+          "description": "Ballotpedia identifies him as a professor and architect.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.williamfgatesforsenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/wfgates1/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Alexander Rikleen",
@@ -312,43 +363,51 @@
           "url": "https://www.alexrikleen.us/meet-alex",
           "type": "website",
           "title": "Meet Alex | Democrat for Senate - Alex Rikleen",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.politico.com/newsletters/massachusetts-playbook/2025/05/30/meet-markeys-primary-challenger-00375839",
           "type": "news",
           "title": "Meet Markey's primary challenger - POLITICO",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Alexander_Rikleen_20250525_012218.jpg",
-      "website": "https://www.alexrikleen.us/",
-      "social_media": {
-        "x": "https://x.com/Rikleen",
-        "bluesky": "https://bsky.app/profile/rikleen.bsky.social",
-        "instagram": "https://www.instagram.com/rikleenalex/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "History teacher",
           "organization": "School system",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography says he taught history before changing careers."
+          "description": "Campaign biography says he taught history before changing careers.",
+          "source": null
         },
         {
           "title": "Sports analyst / writer",
           "organization": "Media",
           "start_year": 2016,
           "end_year": null,
-          "description": "He says he moved into sports analysis and writing after leaving teaching."
+          "description": "He says he moved into sports analysis and writing after leaving teaching.",
+          "source": null
         },
         {
           "title": "Volunteer",
           "organization": "School/community activities",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography says he focused volunteer efforts at his children’s school before running for office."
+          "description": "Campaign biography says he focused volunteer efforts at his children’s school before running for office.",
+          "source": null
         }
       ],
       "education": [
@@ -356,15 +415,25 @@
           "institution": "Graduate school",
           "degree": "Certification / graduate study",
           "field": "History teaching",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.alexrikleen.us/",
+      "social_media": {
+        "x": "https://x.com/Rikleen",
+        "bluesky": "https://bsky.app/profile/rikleen.bsky.social",
+        "instagram": "https://www.instagram.com/rikleenalex/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Nathan Bech",
@@ -376,20 +445,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
           "type": "website",
           "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Philip Devincentis",
@@ -401,20 +479,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
           "type": "website",
           "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Joseph Tache",
@@ -426,95 +513,61 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
           "type": "website",
           "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JosephTache2025.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Shiva Ayyadurai",
-      "party": "Independent",
-      "incumbent": false,
-      "summary": "Shiva Ayyadurai is listed by Ballotpedia as a general-election candidate in the Massachusetts Senate race. Publicly available biographical detail was limited in the sources reviewed.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
-          "type": "website",
-          "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ShivaAyyadurai.jpeg",
       "website": null,
       "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Morgan Dawicki",
-      "party": "Independent",
-      "incumbent": false,
-      "summary": "Morgan Dawicki is listed by Ballotpedia as a general-election candidate in the Massachusetts Senate race. Publicly available biographical detail was limited in the sources reviewed.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
-          "type": "website",
-          "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Morgan_Dawicki_20250713_074529.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:50:45.208409+00:00",
+  "updated_utc": "2026-06-13T23:16:27.396301+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 106961,
-    "completion_tokens": 6579,
-    "total_tokens": 113540,
-    "estimated_usd": 0.0167,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 56441,
+    "completion_tokens": 9018,
+    "total_tokens": 65459,
+    "cost_usd": 0.005300289999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.006429,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 42332,
-        "completion_tokens": 5772
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 64629,
-        "completion_tokens": 807
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 56441,
+        "completion_tokens": 9018
       }
     },
-    "duration_s": 92.2
+    "duration_s": 76.2
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

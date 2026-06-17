@@ -1,0 +1,477 @@
+{
+  "id": "ne-house-01-2026",
+  "title": "Nebraska's 1st Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Nebraska's 1st Congressional District",
+  "state": "Nebraska",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for Nebraska's 1st Congressional District will be held on November 3, 2026. Incumbent Republican Mike Flood, first elected in a 2022 special election and re-elected in 2024 with 60.1% of the vote, is seeking a third full term. He will face Democratic nominee Chris Backemeyer, a former U.S. deputy assistant secretary of state who defeated Eric Moyer in the May 12 Democratic primary. Libertarian nominee Nik Sandman is also on the ballot. Independent candidate Austin Ahlman, an investigative journalist, announced his candidacy in May 2026 and is working to secure ballot access by collecting 2,000 valid signatures. The district, which includes Lincoln, Norfolk, and much of eastern Nebraska, is considered safely Republican by nonpartisan analysts.",
+  "polling": [
+    {
+      "pollster": "Tavern Research (D)",
+      "date": "2026-05-19",
+      "sample_size": 1079,
+      "matchups": [
+        {
+          "candidates": [
+            "Mike Flood",
+            "Chris Backemeyer",
+            "Austin Ahlman"
+          ],
+          "percentages": [
+            41.0,
+            33.0,
+            9.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska"
+    },
+    {
+      "pollster": "Tavern Research (D)",
+      "date": "2026-05-19",
+      "sample_size": 1079,
+      "matchups": [
+        {
+          "candidates": [
+            "Mike Flood",
+            "Chris Backemeyer"
+          ],
+          "percentages": [
+            45.0,
+            43.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska"
+    },
+    {
+      "pollster": "Zenith Research (D)",
+      "date": "2026-05-11",
+      "sample_size": 371,
+      "matchups": [
+        {
+          "candidates": [
+            "Mike Flood",
+            "Chris Backemeyer"
+          ],
+          "percentages": [
+            45.0,
+            38.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska"
+    }
+  ],
+  "polling_note": "Polls are limited to two surveys conducted by Democratic-leaning firms. Both show incumbent Mike Flood leading Democratic nominee Chris Backemeyer, with independent Austin Ahlman drawing single-digit support in one poll. The Cook Political Report, Inside Elections, and Sabato's Crystal Ball all rate the race as 'Safe Republican.'",
+  "candidates": [
+    {
+      "name": "Mike Flood",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Flood is the incumbent U.S. Representative for Nebraska's 1st Congressional District, first elected in a 2022 special election and re-elected in 2024. He previously served in the Nebraska Legislature from 2005 to 2013, including six years as the youngest Speaker of the Legislature in state history. Flood founded Flood Communications, a statewide media network of radio and television stations, and earned his law degree from the University of Nebraska.",
+      "summary_sources": [
+        {
+          "url": "https://mikefloodfornebraska.com/about/",
+          "type": "website",
+          "title": "About - Mike Flood for U.S. Congress",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Nebraska",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nebraskaexaminer.com/voter-guides/contests/2026-primary-u-s-house-district-1/",
+          "type": "news",
+          "title": "U.S. House, 1st Congressional District | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Mike_Flood%2C_official_portrait_%28118th_Congress%29_%28cropped%29.jpg/800px-Mike_Flood%2C_official_portrait_%28118th_Congress%29_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Representing Nebraska's 1st Congressional District; Chair of the Republican Main Street Caucus",
+          "source": null
+        },
+        {
+          "title": "Founder & Owner",
+          "organization": "Flood Communications",
+          "start_year": 1999,
+          "end_year": null,
+          "description": "Founded and grew a statewide media network of 15 radio stations and 5 TV stations",
+          "source": null
+        },
+        {
+          "title": "Nebraska State Senator",
+          "organization": "Nebraska Legislature",
+          "start_year": 2005,
+          "end_year": 2013,
+          "description": "Served two terms including six years as Speaker of the Legislature",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Nebraska",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://flood.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://mikefloodfornebraska.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepMikeFlood/",
+        "twitter": "https://x.com/USRepMikeFlood",
+        "instagram": "https://www.instagram.com/usrepmikeflood/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Backemeyer",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Chris Backemeyer is the Democratic nominee for Nebraska's 1st Congressional District. A former deputy assistant secretary of state for Iranian Affairs and for Assistance Coordination in the Bureau of Near Eastern Affairs, he served 20 years at the U.S. Department of State under both Democratic and Republican administrations, also serving on the White House National Security Council and as an advisor to Vice President Kamala Harris. He is a fifth-generation Nebraskan from Lincoln who earned a master's degree in international relations.",
+      "summary_sources": [
+        {
+          "url": "https://backnebraska.com/chris-backemeyer-for-nebraska/",
+          "type": "website",
+          "title": "Meet Chris - Chris Backemeyer",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.state.gov/people/chris-backemeyer",
+          "type": "government",
+          "title": "Chris Backemeyer - U.S. Department of State",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Nebraska",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Christopher_Backemyer_DOS_%28cropped%29.jpg/800px-Christopher_Backemyer_DOS_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Deputy Assistant Secretary for Iranian Affairs / Assistance Coordination",
+          "organization": "U.S. Department of State, Bureau of Near Eastern Affairs",
+          "start_year": 2022,
+          "end_year": 2025,
+          "description": "Led Middle East policy and assistance coordination",
+          "source": null
+        },
+        {
+          "title": "National Security Council Advisor",
+          "organization": "White House National Security Council",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served under both Democratic and Republican administrations",
+          "source": null
+        },
+        {
+          "title": "Advisor",
+          "organization": "Executive Office of the Vice President",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advisor to Vice President Kamala Harris",
+          "source": null
+        },
+        {
+          "title": "Diplomat / Foreign Service Officer",
+          "organization": "U.S. Department of State",
+          "start_year": 2004,
+          "end_year": null,
+          "description": "20-year career focused on counterterrorism, economic policy, and Middle East affairs",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "UC San Diego School of Global Policy and Strategy",
+          "degree": "Master's",
+          "field": "International Relations",
+          "year": 2004,
+          "source": null
+        },
+        {
+          "institution": "University of Nebraska-Lincoln",
+          "degree": "Bachelor's",
+          "field": "Finance",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://backnebraska.com/",
+      "social_media": {
+        "twitter": "https://x.com/chrisbackemeyer",
+        "instagram": "https://www.instagram.com/chrisbackemeyerne/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Austin Ahlman",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Austin Ahlman is an independent candidate for Nebraska's 1st Congressional District. A 28-year-old investigative journalist who previously worked for The Intercept and The American Prospect, Ahlman grew up in Norfolk and attended Macalester College. He announced his candidacy in May 2026 and is working to secure ballot access by collecting 2,000 valid signatures from district voters by the August 3, 2026 deadline. His campaign focuses on anti-corporate monopoly policies, affordability, and cutting ties with establishment politics.",
+      "summary_sources": [
+        {
+          "url": "https://nebraskapublicmedia.org/en/news/news-articles/independent-candidate-from-norfolk-launches-bid-for-1st-congressional-district-race/",
+          "type": "news",
+          "title": "Independent candidate from Norfolk launches bid for 1st Congressional District race",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nebraskaexaminer.com/2026/05/15/new-nonpartisan-push-in-ne-01-as-austin-ahlman-jumps-into-race/",
+          "type": "news",
+          "title": "New nonpartisan push in NE-01 as Austin Ahlman jumps into race",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Nebraska",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Investigative Journalist",
+          "organization": "The Intercept",
+          "start_year": null,
+          "end_year": null,
+          "description": "Covered national security and politics",
+          "source": null
+        },
+        {
+          "title": "Investigative Journalist",
+          "organization": "The American Prospect",
+          "start_year": null,
+          "end_year": null,
+          "description": "Covered Nebraska politics and congressional races",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Macalester College",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "instagram": "https://www.instagram.com/ahlmanforne/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Nik Sandman",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Nik Sandman is the Libertarian Party nominee for Nebraska's 1st Congressional District. A 77-year-old retired farmer and rural mail carrier from Lincoln, Sandman earned a bachelor's degree in philosophy from the University of Nebraska-Lincoln. He ran unopposed in the May 12 Libertarian primary and advocates for constitutional governance, fiscal conservatism, and congressional authority over war declarations.",
+      "summary_sources": [
+        {
+          "url": "https://nebraskaexaminer.com/voter-guides/contests/2026-primary-u-s-house-district-1/",
+          "type": "news",
+          "title": "U.S. House, 1st Congressional District | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nebraska",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Nebraska",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://picknikforcongress.com/",
+          "type": "website",
+          "title": "Nik Sandman for Congress",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Farmer",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "5th generation farmer (retired)",
+          "source": null
+        },
+        {
+          "title": "Rural Mail Carrier",
+          "organization": "United States Postal Service",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Nebraska-Lincoln",
+          "degree": "Bachelor's",
+          "field": "Philosophy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://picknikforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Nebraska%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:12:18.729961+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 253280,
+    "completion_tokens": 8561,
+    "total_tokens": 261841,
+    "cost_usd": 0.020648772,
+    "cost_source": "provider",
+    "estimated_usd": 0.026499,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 253280,
+        "completion_tokens": 8561
+      }
+    },
+    "duration_s": 173.2
+  }
+}

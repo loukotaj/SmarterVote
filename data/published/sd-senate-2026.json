@@ -18,50 +18,62 @@
           "url": "https://www.rounds.senate.gov/",
           "type": "website",
           "title": "Home | U.S. Senator Mike Rounds",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Dakota,_2026",
           "type": "website",
           "title": "United States Senate election in South Dakota, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.congress.gov/member/mike-rounds/R000605",
           "type": "government",
           "title": "Senator Mike Rounds (1954 - )",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mike_Rounds_official_Senate_portrait.jpg",
-      "website": "https://roundsforsenate.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SenatorMikeRounds/",
-        "instagram": "https://www.instagram.com/senatorrounds/?hl=en",
-        "x": "https://x.com/SenatorRounds",
-        "youtube": "https://www.youtube.com/channel/UC-pvzimyBdpdkcIfsicrfrQ"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Senator",
           "organization": "United States Senate",
           "start_year": 2015,
           "end_year": null,
-          "description": "Represents South Dakota in the U.S. Senate."
+          "description": "Represents South Dakota in the U.S. Senate.",
+          "source": null
         },
         {
           "title": "Governor",
           "organization": "State of South Dakota",
           "start_year": 2003,
           "end_year": 2011,
-          "description": "Served two terms as governor."
+          "description": "Served two terms as governor.",
+          "source": null
         },
         {
           "title": "State legislator",
           "organization": "South Dakota Legislature",
           "start_year": null,
           "end_year": null,
-          "description": "Served in the South Dakota Legislature before becoming governor."
+          "description": "Served in the South Dakota Legislature before becoming governor.",
+          "source": null
         }
       ],
       "education": [
@@ -69,15 +81,26 @@
           "institution": "South Dakota State University",
           "degree": "Bachelor of Science",
           "field": "Political Science",
-          "year": 1977
+          "year": 1977,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://roundsforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorMikeRounds/",
+        "instagram": "https://www.instagram.com/senatorrounds/?hl=en",
+        "x": "https://x.com/SenatorRounds",
+        "youtube": "https://www.youtube.com/channel/UC-pvzimyBdpdkcIfsicrfrQ"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Julian Beaudion",
@@ -89,42 +112,51 @@
           "url": "https://www.julianforsd.com/about",
           "type": "website",
           "title": "About — Julian Beaudion for U.S. Senate | South Dakota",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Julian_Beaudion",
           "type": "website",
           "title": "Julian Beaudion - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Julian_Beaudion_2025.jpg",
-      "website": "https://www.julianforsd.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/julianforsd",
-        "instagram": "https://www.instagram.com/julianforsd/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Executive Director",
           "organization": "The HUB SD",
           "start_year": null,
           "end_year": null,
-          "description": "Leads a statewide nonprofit focused on engagement, leadership development, and community-centered communication strategies."
+          "description": "Leads a statewide nonprofit focused on engagement, leadership development, and community-centered communication strategies.",
+          "source": null
         },
         {
           "title": "South Dakota State Trooper",
           "organization": "South Dakota Highway Patrol",
           "start_year": null,
           "end_year": null,
-          "description": "Served for 13 years in law enforcement, including recruiting and executive-protection roles."
+          "description": "Served for 13 years in law enforcement, including recruiting and executive-protection roles.",
+          "source": null
         },
         {
           "title": "Owner",
           "organization": "Swamp Daddy’s Cajun Kitchen",
           "start_year": null,
           "end_year": null,
-          "description": "Owns a family restaurant in Sioux Falls."
+          "description": "Owns a family restaurant in Sioux Falls.",
+          "source": null
         }
       ],
       "education": [
@@ -132,15 +164,24 @@
           "institution": "Pineville High School",
           "degree": "High school diploma",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.julianforsd.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/julianforsd",
+        "instagram": "https://www.instagram.com/julianforsd/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Brian Bengs",
@@ -152,16 +193,98 @@
           "url": "https://ballotpedia.org/Brian_Bengs",
           "type": "website",
           "title": "Brian Bengs - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.ontheissues.org/2026_SD_Senate.htm",
           "type": "website",
           "title": "2026 South Dakota Senator's race - OnTheIssues.org",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/BrianBengs2025.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Private practice / legal work",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works as an attorney.",
+          "source": null
+        },
+        {
+          "title": "Assistant professor",
+          "organization": "Northern State University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught at Northern State University.",
+          "source": null
+        },
+        {
+          "title": "Chief of general law / assistant general counsel",
+          "organization": "U.S. Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in a senior legal role for the Air Force.",
+          "source": null
+        },
+        {
+          "title": "Military officer",
+          "organization": "U.S. Navy and U.S. Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in both the Navy and Air Force.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Iowa State University",
+          "degree": "Bachelor's degree",
+          "field": "History and international studies",
+          "year": 1994,
+          "source": null
+        },
+        {
+          "institution": "University of Iowa",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1996,
+          "source": null
+        },
+        {
+          "institution": "Louisiana Tech University",
+          "degree": "Master's degree",
+          "field": "History",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "George Washington University",
+          "degree": "Master's degree",
+          "field": "International and comparative law",
+          "year": 2007,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
       "website": null,
       "social_media": {
         "facebook": "https://www.facebook.com/BBengs1970?locale=zh_CN",
@@ -170,93 +293,39 @@
         "linkedin": "https://www.linkedin.com/in/brian-bengs-0b6b5a1a/",
         "personal_facebook": "https://www.facebook.com/BBengs1970?locale=zh_CN"
       },
-      "career_history": [
-        {
-          "title": "Attorney",
-          "organization": "Private practice / legal work",
-          "start_year": null,
-          "end_year": null,
-          "description": "Works as an attorney."
-        },
-        {
-          "title": "Assistant professor",
-          "organization": "Northern State University",
-          "start_year": null,
-          "end_year": null,
-          "description": "Taught at Northern State University."
-        },
-        {
-          "title": "Chief of general law / assistant general counsel",
-          "organization": "U.S. Air Force",
-          "start_year": null,
-          "end_year": null,
-          "description": "Served in a senior legal role for the Air Force."
-        },
-        {
-          "title": "Military officer",
-          "organization": "U.S. Navy and U.S. Air Force",
-          "start_year": null,
-          "end_year": null,
-          "description": "Served in both the Navy and Air Force."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Iowa State University",
-          "degree": "Bachelor's degree",
-          "field": "History and international studies",
-          "year": 1994
-        },
-        {
-          "institution": "University of Iowa",
-          "degree": "Juris Doctor",
-          "field": "Law",
-          "year": 1996
-        },
-        {
-          "institution": "Louisiana Tech University",
-          "degree": "Master's degree",
-          "field": "History",
-          "year": 2007
-        },
-        {
-          "institution": "George Washington University",
-          "degree": "Master's degree",
-          "field": "International and comparative law",
-          "year": 2007
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:12:18.405667+00:00",
+  "updated_utc": "2026-06-13T23:12:41.044222+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 112340,
-    "completion_tokens": 4003,
-    "total_tokens": 116343,
-    "estimated_usd": 0.0154,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 22540,
+    "completion_tokens": 5144,
+    "total_tokens": 27684,
+    "cost_usd": 0.00312124,
+    "cost_source": "provider",
+    "estimated_usd": 0.003185,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 63740,
-        "completion_tokens": 3448
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 48600,
-        "completion_tokens": 555
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 22540,
+        "completion_tokens": 5144
       }
     },
-    "duration_s": 115.8
+    "duration_s": 44.9
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

@@ -10,18 +10,7 @@
       "pollster": "Emerson College Polling",
       "date": "2026-03-17",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Democratic candidates",
-            "Republican candidates"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://emersoncollegepolling.com/minnesota-2026-poll-democrats-lead-gop-as-voters-cite-threats-to-democracy/"
     }
   ],
@@ -36,54 +25,72 @@
         {
           "url": "https://thehill.com/homenews/senate/5155523-minnesota-lt-governor-launches-senate-bid/",
           "type": "news",
-          "title": "Minnesota lieutenant governor launches Senate bid"
+          "title": "Minnesota lieutenant governor launches Senate bid",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://peggyflanagan.com/keynumbers/",
-          "type": "official",
-          "title": "Lt. Governor Peggy Flanagan Releases Key Numbers in U.S. Senate Campaign"
+          "type": "government",
+          "title": "Lt. Governor Peggy Flanagan Releases Key Numbers in U.S. Senate Campaign",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.startribune.com/minnesota-lt-gov-peggy-flanagan-announces-run-for-us-senate/601221717",
           "type": "news",
-          "title": "Minnesota Lt. Gov. Peggy Flanagan announces run for U.S. Senate"
+          "title": "Minnesota Lt. Gov. Peggy Flanagan announces run for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Peggy_Flanagan.JPG",
-      "website": "https://peggyflanagan.com/",
-      "social_media": {
-        "x": "https://x.com/peggyflanagan",
-        "instagram": "https://www.instagram.com/peggyflanagan/",
-        "facebook": "https://www.facebook.com/peggyflanaganMN/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Lieutenant Governor",
           "organization": "State of Minnesota",
           "start_year": 2019,
           "end_year": null,
-          "description": "Serves as Minnesota’s lieutenant governor."
+          "description": "Serves as Minnesota’s lieutenant governor.",
+          "source": null
         },
         {
           "title": "State Representative",
           "organization": "Minnesota House of Representatives",
           "start_year": 2015,
           "end_year": 2019,
-          "description": "Represented a Minnesota House district before becoming lieutenant governor."
+          "description": "Represented a Minnesota House district before becoming lieutenant governor.",
+          "source": null
         },
         {
           "title": "Organizer / advocacy leader",
           "organization": "Community and advocacy organizations",
           "start_year": null,
           "end_year": 2015,
-          "description": "Worked in organizing and advocacy before elected office."
+          "description": "Worked in organizing and advocacy before elected office.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Peggy_Flanagan",
@@ -91,7 +98,14 @@
           "type": "ballotpedia"
         }
       ],
-      "issues": {}
+      "website": "https://peggyflanagan.com/",
+      "social_media": {
+        "x": "https://x.com/peggyflanagan",
+        "instagram": "https://www.instagram.com/peggyflanagan/",
+        "facebook": "https://www.facebook.com/peggyflanaganMN/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Adam Schwarze",
@@ -101,48 +115,65 @@
       "summary_sources": [
         {
           "url": "https://www.schwarzeforsenate.com/",
-          "type": "official",
-          "title": "Adam Schwarze: Minnesota Veteran for U.S. Senate"
+          "type": "government",
+          "title": "Adam Schwarze: Minnesota Veteran for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.schwarzeforsenate.com/about/",
-          "type": "official",
-          "title": "Conservative Leadership for a Stronger America - Adam Schwarze"
+          "type": "government",
+          "title": "Conservative Leadership for a Stronger America - Adam Schwarze",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.kaaltv.com/news/adam-schwarze-announces-candidacy-for-u-s-senate-in-minnesota-to-replace-tina-smith/",
           "type": "news",
-          "title": "Adam Schwarze announces candidacy for US Senate"
+          "title": "Adam Schwarze announces candidacy for US Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Adam_Schwarze_20250411_103131.jpeg",
-      "website": "https://www.schwarzeforsenate.com/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/adamschwarze/",
-        "facebook": "https://www.facebook.com/TeamSchwarze/",
-        "linkedin": "https://www.linkedin.com/in/adamschwarze"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Navy SEAL",
           "organization": "U.S. Navy",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography describes him as a former Navy SEAL."
+          "description": "Campaign biography describes him as a former Navy SEAL.",
+          "source": null
         },
         {
           "title": "Marine infantry veteran",
           "organization": "U.S. Marine Corps",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography describes him as a former Marine infantry servicemember."
+          "description": "Campaign biography describes him as a former Marine infantry servicemember.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Adam_Schwarze",
@@ -150,7 +181,14 @@
           "type": "ballotpedia"
         }
       ],
-      "issues": {}
+      "website": "https://www.schwarzeforsenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/adamschwarze/",
+        "facebook": "https://www.facebook.com/TeamSchwarze/",
+        "linkedin": "https://www.linkedin.com/in/adamschwarze"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Christopher Brooks",
@@ -160,31 +198,48 @@
       "summary_sources": [
         {
           "url": "https://brooksforussenate.com/",
-          "type": "official",
-          "title": "Chris Brooks for US Senate"
+          "type": "government",
+          "title": "Chris Brooks for US Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://brooksforussenate.com/about/",
-          "type": "official",
-          "title": "Meet Chris - Brooks for U.S. Senate"
+          "type": "government",
+          "title": "Meet Chris - Brooks for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Christopher_Brooks_(Minnesota)",
-          "type": "reference",
-          "title": "Christopher Brooks (Minnesota) - Ballotpedia"
+          "type": "website",
+          "title": "Christopher Brooks (Minnesota) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Chris_Brooks_%28cropped%29.jpg",
-      "website": "https://brooksforussenate.com/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/chrisdbrooks/"
-      },
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Christopher_Brooks_(Minnesota)",
@@ -192,7 +247,12 @@
           "type": "ballotpedia"
         }
       ],
-      "issues": {}
+      "website": "https://brooksforussenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/chrisdbrooks/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Raymond Petersen",
@@ -202,40 +262,57 @@
       "summary_sources": [
         {
           "url": "https://www.rayforsenate.com/",
-          "type": "official",
-          "title": "Raymond Petersen for US Senator from Minnesota"
+          "type": "government",
+          "title": "Raymond Petersen for US Senator from Minnesota",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.rayforsenate.com/issue-outline",
-          "type": "official",
-          "title": "Position Outline — Raymond Petersen for US Senator from Minnesota"
+          "type": "government",
+          "title": "Position Outline — Raymond Petersen for US Senator from Minnesota",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Raymond_Petersen",
-          "type": "reference",
-          "title": "Raymond Petersen - Ballotpedia"
+          "type": "website",
+          "title": "Raymond Petersen - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": "https://www.rayforsenate.com/",
-      "social_media": {
-        "x": "https://x.com/RayForSenate24",
-        "facebook": "https://www.facebook.com/raymond.petersen.37/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Candidate / community resident",
           "organization": "Minnesota",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign biography says he is a lifelong Minnesota resident; no prior elected office was identified in the accessible sources."
+          "description": "Campaign biography says he is a lifelong Minnesota resident; no prior elected office was identified in the accessible sources.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Raymond_Petersen",
@@ -243,7 +320,13 @@
           "type": "ballotpedia"
         }
       ],
-      "issues": {}
+      "website": "https://www.rayforsenate.com/",
+      "social_media": {
+        "x": "https://x.com/RayForSenate24",
+        "facebook": "https://www.facebook.com/raymond.petersen.37/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Tina Smith",
@@ -253,56 +336,72 @@
       "summary_sources": [
         {
           "url": "https://www.smith.senate.gov/u-s-senator-tina-smith-pens-op-ed-announcing-she-will-not-seek-reelection-in-2026/",
-          "type": "official",
-          "title": "U.S. Senator Tina Smith Pens Op-Ed Announcing She Will Not Seek Re-election in 2026"
+          "type": "government",
+          "title": "U.S. Senator Tina Smith Pens Op-Ed Announcing She Will Not Seek Re-election in 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.smith.senate.gov/about-tina/biography/",
-          "type": "official",
-          "title": "Biography - Senator Tina Smith"
+          "type": "government",
+          "title": "Biography - Senator Tina Smith",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.congress.gov/member/tina-smith/S001203",
           "type": "government",
-          "title": "Senator Tina Smith - Congress.gov"
+          "title": "Senator Tina Smith - Congress.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T23:12:10.207832Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tina_Smith-1.jpg",
-      "website": "https://tinaforminnesota.com/",
-      "social_media": {
-        "x": "https://x.com/SenTinaSmith",
-        "facebook": "https://www.facebook.com/USSenTinaSmith/",
-        "instagram": "https://www.instagram.com/tinasmithmn/",
-        "linkedin": "https://www.linkedin.com/in/tina-smith-b498504"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "United States Senator",
           "organization": "U.S. Senate",
           "start_year": 2018,
           "end_year": null,
-          "description": "Represents Minnesota in the U.S. Senate."
+          "description": "Represents Minnesota in the U.S. Senate.",
+          "source": null
         },
         {
           "title": "Lieutenant Governor",
           "organization": "State of Minnesota",
           "start_year": 2015,
           "end_year": 2018,
-          "description": "Served as Minnesota’s lieutenant governor before appointment to the Senate."
+          "description": "Served as Minnesota’s lieutenant governor before appointment to the Senate.",
+          "source": null
         },
         {
           "title": "Chief of staff",
           "organization": "Office of the Governor of Minnesota",
           "start_year": null,
           "end_year": 2015,
-          "description": "Worked in the governor’s office before statewide elected office."
+          "description": "Worked in the governor’s office before statewide elected office.",
+          "source": null
         },
         {
           "title": "Executive in business and public affairs",
           "organization": "General Mills and related roles",
           "start_year": null,
           "end_year": null,
-          "description": "Worked in corporate and public-affairs roles before entering elected office."
+          "description": "Worked in corporate and public-affairs roles before entering elected office.",
+          "source": null
         }
       ],
       "education": [
@@ -310,19 +409,23 @@
           "institution": "Stanford University",
           "degree": "Bachelor's degree",
           "field": "Political science",
-          "year": 1980
+          "year": 1980,
+          "source": null
         },
         {
           "institution": "Dartmouth College, Tuck School of Business",
           "degree": "MBA",
           "field": "Business administration",
-          "year": 1984
+          "year": 1984,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Tina_Smith",
@@ -330,32 +433,46 @@
           "type": "ballotpedia"
         }
       ],
-      "issues": {}
+      "website": "https://tinaforminnesota.com/",
+      "social_media": {
+        "x": "https://x.com/SenTinaSmith",
+        "facebook": "https://www.facebook.com/USSenTinaSmith/",
+        "instagram": "https://www.instagram.com/tinasmithmn/",
+        "linkedin": "https://www.linkedin.com/in/tina-smith-b498504"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:46:56.087133+00:00",
+  "updated_utc": "2026-06-13T23:13:04.746596+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 235593,
-    "completion_tokens": 10639,
-    "total_tokens": 246232,
-    "estimated_usd": 0.0364,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 68477,
+    "completion_tokens": 4736,
+    "total_tokens": 73213,
+    "cost_usd": 0.00349809,
+    "cost_source": "provider",
+    "estimated_usd": 0.005318,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 71876,
-        "completion_tokens": 8491
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 163717,
-        "completion_tokens": 2148
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 68477,
+        "completion_tokens": 4736
       }
     },
-    "duration_s": 143.1
+    "duration_s": 54.6
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

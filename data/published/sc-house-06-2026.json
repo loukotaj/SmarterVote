@@ -1,0 +1,310 @@
+{
+  "id": "sc-house-06-2026",
+  "title": "South Carolina's 6th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "South Carolina's 6th Congressional District",
+  "state": "South Carolina",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "South Carolina's 6th Congressional District election pits 34-year incumbent Rep. James Clyburn (D) against Republican nominee John Peterson and Alliance Party candidate Joseph Oddo. The district, which includes all or parts of 15 counties in central and eastern South Carolina, has been represented by Clyburn since 1993 and is rated as Solidly Democratic by the Cook Political Report. Clyburn, the 85-year-old former House Majority Whip who is seeking an 18th term, easily won his Democratic primary with 90.3% of the vote, while Peterson secured the Republican nomination with 74% against Maurice Washington. A GOP effort to redraw the district's lines to create a 7-0 Republican delegation failed in May 2026.",
+  "polling": [],
+  "polling_note": "No general election opinion polls were found for this race. The Cook Political Report rated the district as Solidly Democratic prior to the primary.",
+  "candidates": [
+    {
+      "name": "James E. Clyburn",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "James E. Clyburn has represented South Carolina's 6th Congressional District since 1993 and is the longest-serving member of Congress in South Carolina history. He previously served as House Majority Whip (2007-2010, 2019-2022) and Assistant Democratic Leader, and received the Presidential Medal of Freedom in 2024. Clyburn is widely credited with reviving Joe Biden's 2020 presidential campaign through his endorsement before the South Carolina primary.",
+      "summary_sources": [
+        {
+          "url": "https://clyburn.house.gov/biography/",
+          "type": "government",
+          "title": "Biography - Congressman James E. Clyburn",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/James_Clyburn",
+          "type": "website",
+          "title": "James Clyburn - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://scdailygazette.com/2026/06/09/us-rep-clyburn-trounces-his-democratic-opponent-in-6th-district/",
+          "type": "news",
+          "title": "US Rep. Clyburn trounces his Democratic opponent in 6th District",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/James_Clyburn.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1993,
+          "end_year": null,
+          "description": "Representing South Carolina's 6th Congressional District",
+          "source": null
+        },
+        {
+          "title": "House Majority Whip",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "First African American to serve multiple terms as Majority Whip",
+          "source": null
+        },
+        {
+          "title": "House Majority Whip",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2007,
+          "end_year": 2010,
+          "description": "First African American Majority Whip",
+          "source": null
+        },
+        {
+          "title": "Assistant Democratic Leader",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2011,
+          "end_year": 2018,
+          "description": "Third-ranking Democrat in the House",
+          "source": null
+        },
+        {
+          "title": "South Carolina Human Affairs Commissioner",
+          "organization": "State of South Carolina",
+          "start_year": 1974,
+          "end_year": 1992,
+          "description": "Appointed by Governor John C. West",
+          "source": null
+        },
+        {
+          "title": "Minority Advisor to the Governor",
+          "organization": "Office of Governor John C. West",
+          "start_year": 1971,
+          "end_year": 1974,
+          "description": "First African American advisor to a South Carolina governor",
+          "source": null
+        },
+        {
+          "title": "Public School Teacher",
+          "organization": "Charleston Public Schools",
+          "start_year": 1962,
+          "end_year": 1965,
+          "description": "Taught public school in Charleston, SC",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "South Carolina State College (now University)",
+          "degree": "B.S.",
+          "field": "Education",
+          "year": 1961,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://clyburnforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Peterson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Peterson is a banquet supervisor at Embassy Suites in North Charleston and a political newcomer who won the Republican nomination for South Carolina's 6th Congressional District with 74% of the primary vote. He describes himself as a 'common sense conservative' and emphasizes fiscally conservative policies, voter ID requirements, and reducing the national debt. Peterson holds a bachelor's degree in mathematics from the State University of New York.",
+      "summary_sources": [
+        {
+          "url": "https://www.ballotready.org/people/john-peterson-d27ad970-1885-4631-af02-75934c52e9e0",
+          "type": "website",
+          "title": "John Peterson - BallotReady",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.johnpeterson.org/",
+          "type": "website",
+          "title": "John Peterson for SC-6",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://scdailygazette.com/2026/06/09/us-rep-clyburn-trounces-his-democratic-opponent-in-6th-district/",
+          "type": "news",
+          "title": "US Rep. Clyburn trounces his Democratic opponent in 6th District",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Banquet Supervisor",
+          "organization": "Embassy Suites at the North Charleston Convention Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Current position in event and banquet operations",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "State University of New York",
+          "degree": "B.S.",
+          "field": "Mathematics",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.johnpeterson.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Joseph Oddo",
+      "party": "Alliance",
+      "incumbent": false,
+      "summary": "Joseph Oddo is the Alliance Party nominee for South Carolina's 6th Congressional District. A mergers and acquisitions advisor and writer, Oddo has run for Congress multiple times in both Virginia and South Carolina as a third-party candidate. He advocates for election reform including instant-runoff voting, balancing the federal budget, and protecting natural resources. Oddo holds a bachelor's degree in public policy from Penn State University.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/South_Carolina%27s_6th_Congressional_District",
+          "type": "website",
+          "title": "South Carolina's 6th Congressional District - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thestate.com/news/politics-government/election/voter-guide/article293441019.html",
+          "type": "news",
+          "title": "Five candidates are running for Congress in SC's 6th District",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bettercandidates.org/",
+          "type": "website",
+          "title": "Oddo for Congress SC CD-6",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "M&A Advisor / Writer",
+          "organization": "Write Consult LLC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Mergers and acquisitions advisory and writing services",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Penn State University",
+          "degree": "B.A.",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://bettercandidates.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/South_Carolina%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:51:52.080420+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 298285,
+    "completion_tokens": 7841,
+    "total_tokens": 306126,
+    "cost_usd": 0.019776382000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.030769,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 298285,
+        "completion_tokens": 7841
+      }
+    },
+    "duration_s": 214.6
+  }
+}

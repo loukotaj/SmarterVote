@@ -1,0 +1,499 @@
+{
+  "id": "ks-house-04-2026",
+  "title": "Kansas's 4th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Kansas's 4th Congressional District",
+  "state": "Kansas",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Kansas's 4th Congressional District will be held on November 3, 2026, with the primary scheduled for August 4, 2026. The district covers 17 counties in southcentral Kansas, including Wichita, and has been represented by a Republican since 1994. Incumbent Republican Rep. Ron Estes, first elected in 2017, is seeking re-election and faces a primary challenge from Republican Frank McCollum. The Democratic primary features multiple contenders including retired Air Force Col. Chris Carmichael, attorney Katy Tyndell, and business manager Ryan Gilbert, while Drew Cranmer is running as the Libertarian nominee. The race is considered safely Republican by major election forecasters.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of June 2026. Election forecasters including Cook Political Report, Inside Elections, and Sabato's Crystal Ball rate the race as 'Solid R' or 'Safe R.'",
+  "candidates": [
+    {
+      "name": "Ron Estes",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "Ron Estes is a fifth-generation Kansan serving as the U.S. Representative for Kansas's 4th Congressional District since 2017. A former Sedgwick County Treasurer and Kansas State Treasurer, he serves on the House Ways and Means Committee, Budget Committee, and Joint Economic Committee. Estes champions lower taxes, free trade, aerospace manufacturing, and pro-life policies.",
+      "summary_sources": [
+        {
+          "url": "https://estes.house.gov/biography/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Ron Estes",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kwch.com/2026/01/28/rep-ron-estes-files-reelection/",
+          "type": "news",
+          "title": "Rep. Ron Estes files for reelection",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bioguide.congress.gov/scripts/biodisplay.pl?index=E000298",
+          "type": "government",
+          "title": "ESTES, Ron - Biographical Directory of the United States Congress",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Ron_Estes_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Representing Kansas's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Kansas State Treasurer",
+          "organization": "State of Kansas",
+          "start_year": 2011,
+          "end_year": 2017,
+          "description": "Elected state treasurer",
+          "source": null
+        },
+        {
+          "title": "Sedgwick County Treasurer",
+          "organization": "Sedgwick County, Kansas",
+          "start_year": 2005,
+          "end_year": 2011,
+          "description": "County treasurer",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Tennessee Technological University",
+          "degree": "Bachelor of Science",
+          "field": "Civil Engineering",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Tennessee Technological University",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Ron_Estes_(U.S._Representative_from_Kansas)",
+          "title": "Ballotpedia \u2013 Ron Estes",
+          "type": "other"
+        }
+      ],
+      "website": "https://estes.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepRonEstes/",
+        "twitter": "https://x.com/RepRonEstes",
+        "instagram": "https://www.instagram.com/repronestes/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Carmichael",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Chris Carmichael is a retired U.S. Air Force Colonel and Democratic candidate for Kansas's 4th Congressional District. He served 31 years in the U.S. Army and Air Force, including 2.5 years in Afghanistan, earning a Bronze Star. He now works as Vice President at D-J Engineering in Augusta, Kansas, and is running on a platform of lowering costs, protecting Social Security, and opposing what he calls the incumbent's 'blind devotion' to President Trump.",
+      "summary_sources": [
+        {
+          "url": "https://www.chriscarmichael.org/",
+          "type": "website",
+          "title": "Chris Carmichael for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kansasreflector.com/2026/05/18/democrat-hopes-to-pull-off-upset-for-u-s-house-seat-with-military-experience-disapproval-of-trump/",
+          "type": "news",
+          "title": "Democrat hopes to pull off upset for U.S. House seat with military experience, disapproval of Trump",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Chris_Carmichael",
+          "type": "website",
+          "title": "Chris Carmichael - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chris_Carmichael.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Vice President",
+          "organization": "D-J Engineering",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Aerospace company in Augusta, Kansas",
+          "source": null
+        },
+        {
+          "title": "Colonel, Logistics Officer",
+          "organization": "United States Air Force",
+          "start_year": 1995,
+          "end_year": 2019,
+          "description": "Served 24 years including 2.5 years in Afghanistan; logistics lead for Iran war planning at U.S. Central Command",
+          "source": null
+        },
+        {
+          "title": "Enlisted Soldier",
+          "organization": "United States Army",
+          "start_year": 1988,
+          "end_year": 1995,
+          "description": "Served as a private for seven years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Florida State University",
+          "degree": "Bachelor of Arts",
+          "field": "Theatre",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.chriscarmichael.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/chriscarmichael4ks04/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ryan Gilbert",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Ryan Gilbert is a Democratic candidate for Kansas's 4th Congressional District from Goddard, Kansas. Born and raised in Kansas, he describes himself as an abuse survivor who built a successful business and career. Gilbert is running on a platform of accountability, affordability, and adaptability, emphasizing common-sense solutions for working Kansans.",
+      "summary_sources": [
+        {
+          "url": "https://www.gilbert4congress.com/",
+          "type": "website",
+          "title": "Ryan Gilbert for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Ryan_Gilbert_(Kansas)",
+          "type": "website",
+          "title": "Ryan Gilbert (Kansas) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kwch.com/2026/01/28/rep-ron-estes-files-reelection/",
+          "type": "news",
+          "title": "Rep. Ron Estes files for reelection",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Family Law Business Manager",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Business management in family law context",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.gilbert4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Katy Tyndell",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Katy Tyndell is an attorney and Democratic candidate for Kansas's 4th Congressional District. She is the co-founder of Leading Kansas, a non-partisan civic engagement organization, and focuses her campaign on lowering the cost of living and expanding access to healthcare. Tyndell raised $100,000 in the first 48 hours following her campaign launch in March 2026.",
+      "summary_sources": [
+        {
+          "url": "https://www.kwch.com/2026/03/08/kansas-attorney-katy-tyndell-announces-candidacy-congress/",
+          "type": "news",
+          "title": "Kansas attorney Katy Tyndell announces candidacy for congress",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kansasreflector.com/2026/03/30/people-are-hurting-kansas-democrat-takes-aim-at-republican-incumbents-congressional-seat/",
+          "type": "news",
+          "title": "'People are hurting': Kansas Democrat takes aim at Republican incumbent's congressional seat",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Katy_Tyndell",
+          "type": "website",
+          "title": "Katy Tyndell - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Co-Founder",
+          "organization": "Leading Kansas",
+          "start_year": null,
+          "end_year": null,
+          "description": "Non-partisan civic engagement organization",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice (oil and gas law)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Oil and gas attorney",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Stanford University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Drew Cranmer",
+      "party": "Libertarian Party",
+      "incumbent": false,
+      "summary": "Drew Cranmer is the Libertarian Party candidate for Kansas's 4th Congressional District. A data engineer and small business founder, he was nominated at the Libertarian Party of Kansas state convention. Cranmer runs on a platform of non-interventionist foreign policy, privacy rights, sound money, fiscal accountability, and decentralization of federal power.",
+      "summary_sources": [
+        {
+          "url": "https://drew4kansas.com/",
+          "type": "website",
+          "title": "Drew Cranmer for Congress \u2014 Kansas 4th District",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://lp.org/candidate/drew-cranmer/",
+          "type": "website",
+          "title": "Drew Cranmer - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Drew_Cranmer",
+          "type": "website",
+          "title": "Drew Cranmer - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Data Engineer / Software Entrepreneur",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Data engineering and software business founder",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://drew4kansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/drew4kansas",
+        "twitter": "https://x.com/drew4kansas"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Frank McCollum",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Frank McCollum is a Republican candidate challenging incumbent Ron Estes in the primary for Kansas's 4th Congressional District. He resides in Fall River, Kansas, and filed to run for the seat ahead of the June 1, 2026 filing deadline.",
+      "summary_sources": [
+        {
+          "url": "https://kansasreflector.com/2026/05/18/democrat-hopes-to-pull-off-upset-for-u-s-house-seat-with-military-experience-disapproval-of-trump/",
+          "type": "news",
+          "title": "Democrat hopes to pull off upset for U.S. House seat with military experience, disapproval of Trump",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Frank_McCollum",
+          "type": "website",
+          "title": "Frank McCollum - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Kansas%27_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:01:27.483917+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 264136,
+    "completion_tokens": 9624,
+    "total_tokens": 273760,
+    "cost_usd": 0.01915544,
+    "cost_source": "provider",
+    "estimated_usd": 0.027772,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 264136,
+        "completion_tokens": 9624
+      }
+    },
+    "duration_s": 142.0
+  }
+}

@@ -9,6 +9,7 @@
     {
       "pollster": "Emerson College",
       "date": "2026-03-31",
+      "sample_size": 1165,
       "matchups": [
         {
           "candidates": [
@@ -16,76 +17,43 @@
             "Alexander Vindman"
           ],
           "percentages": [
-            46,
-            38
+            46.0,
+            38.0
           ]
         }
       ],
-      "source_url": "https://floridapolitics.com/archives/788552-poll-ashley-moody-leading-all-potential-democratic-opponents-in-senate-race/",
-      "sample_size": 1165
+      "source_url": "https://floridapolitics.com/archives/788552-poll-ashley-moody-leading-all-potential-democratic-opponents-in-senate-race/"
     },
     {
       "pollster": "University of North Florida Public Opinion Research Lab",
-      "date": "2026-03-02",
-      "matchups": [
-        {
-          "candidates": [
-            "Ashley Moody",
-            "Alexander Vindman"
-          ],
-          "percentages": [
-            45,
-            38
-          ]
-        }
-      ],
-      "source_url": "https://floridapolitics.com/archives/783202-unf-poll-shows-ashley-moody-lead-in-single-digits-against-either-angie-nixon-or-alex-vindman/",
-      "sample_size": 786
-    },
-    {
-      "pollster": "University of North Florida",
       "date": "2026-03-02",
       "sample_size": 786,
       "matchups": [
         {
           "candidates": [
             "Ashley Moody",
-            "Jennifer Jenkins"
+            "Alexander Vindman"
           ],
           "percentages": [
-            46,
-            38
-          ]
-        },
-        {
-          "candidates": [
-            "Ashley Moody",
-            "Alex Vindman"
-          ],
-          "percentages": [
-            45,
-            38
+            45.0,
+            38.0
           ]
         }
       ],
+      "source_url": "https://floridapolitics.com/archives/783202-unf-poll-shows-ashley-moody-lead-in-single-digits-against-either-angie-nixon-or-alex-vindman/"
+    },
+    {
+      "pollster": "University of North Florida",
+      "date": "2026-03-02",
+      "sample_size": 786,
+      "matchups": [],
       "source_url": "https://ballotpedia.org/United_States_Senate_special_election_in_Florida,_2026"
     },
     {
       "pollster": "University of North Florida",
       "date": "2026-03-02",
       "sample_size": 786,
-      "matchups": [
-        {
-          "candidates": [
-            "Ashley Moody",
-            "Alex Vindman"
-          ],
-          "percentages": [
-            45,
-            38
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://floridapolitics.com/archives/783202-unf-poll-shows-ashley-moody-lead-in-single-digits-against-either-angie-nixon-or-alex-vindman/"
     }
   ],
@@ -98,286 +66,198 @@
       "summary_sources": [
         {
           "url": "https://www.moody.senate.gov/about/",
-          "type": "official",
-          "title": "About - Ashley Moody - Senate.gov"
+          "type": "government",
+          "title": "About - Ashley Moody - Senate.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.764494Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ashleymoody.com/about/",
-          "type": "campaign_page",
-          "title": "About - Ashley Moody for US Senate"
+          "type": "website",
+          "title": "About - Ashley Moody for US Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.764494Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Senator_Ashley_Moody_Official_Portrait.jpg/500px-Senator_Ashley_Moody_Official_Portrait.jpg",
-      "website": "https://ashleymoody.com/",
-      "social_media": {
-        "x": "https://x.com/AshleyMoodyFL",
-        "instagram": "https://www.instagram.com/ashleymoodyfl/",
-        "facebook": "https://www.facebook.com/AshleyMoodyFL/"
-      },
-      "career_history": [
-        {
-          "title": "United States Senator",
-          "organization": "U.S. Senate",
-          "start_year": 2025,
-          "end_year": null,
-          "description": "Appointed to fill Florida’s Senate vacancy and serving in the seat up for special election."
-        },
-        {
-          "title": "Attorney General",
-          "organization": "State of Florida",
-          "start_year": 2019,
-          "end_year": 2025,
-          "description": "Served as Florida’s attorney general before joining the Senate."
-        },
-        {
-          "title": "Circuit Judge",
-          "organization": "Thirteenth Judicial Circuit, Florida",
-          "start_year": 2006,
-          "end_year": 2017,
-          "description": "Served as a state trial-court judge in Hillsborough County."
-        },
-        {
-          "title": "Assistant U.S. Attorney / Prosecutor",
-          "organization": "U.S. Department of Justice / Hillsborough County State Attorney",
-          "start_year": 2001,
-          "end_year": 2006,
-          "description": "Worked as a federal prosecutor and earlier as a state prosecutor."
-        },
-        {
-          "title": "Attorney",
-          "organization": "Holland & Knight",
-          "start_year": 1998,
-          "end_year": 2001,
-          "description": "Practiced commercial litigation before entering public service."
-        }
-      ],
-      "education": [
-        {
-          "institution": "University of Florida",
-          "degree": "B.S.",
-          "field": "Accounting",
-          "year": 1995
-        },
-        {
-          "institution": "University of Florida Levin College of Law",
-          "degree": "J.D.",
-          "field": "Law",
-          "year": 1998
-        },
-        {
-          "institution": "Stetson University College of Law",
-          "degree": "LL.M.",
-          "field": "International Law",
-          "year": null
-        }
-      ],
-      "voting_record": [
-        {
-          "bill_name": "Laken Riley Act (S.5)",
-          "vote": "yes",
-          "date": "2025-01-20",
-          "source": {
-            "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5",
-            "type": "government",
-            "title": "S.5 - Laken Riley Act",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        },
-        {
-          "bill_name": "Confirmation of Marco Rubio as Secretary of State",
-          "vote": "yes",
-          "date": "2025-01-20",
-          "source": {
-            "url": "https://www.congress.gov/nomination/119th-congress/1",
-            "type": "government",
-            "title": "PN1 - Marco Rubio nomination",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        },
-        {
-          "bill_name": "PN 25-19 - Nomination of Allison Hooker to be an Under Secretary of State (Political Affairs)",
-          "vote": "absent",
-          "date": "2025-02-12",
-          "source": {
-            "url": "https://votesmart.org/bill/40431/110541/183198/ashley-moody-did-not-vote-pn-25-19-nomination-of-allison-hooker-to-be-an-under-secretary-of-state-political-affairs",
-            "type": "news",
-            "title": "Facts For All - Vote Smart",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        },
-        {
-          "bill_name": "PN 26-25 - Nomination of Matthew Kozma to be Under Secretary for Intelligence and Analysis, Department of Homeland Security",
-          "vote": "yes",
-          "date": "2025-03-04",
-          "source": {
-            "url": "https://votesmart.org/bill/41071/113068/183198/ashley-moody-voted-yea-confirmation-vote-pn-26-25-nomination-of-matthew-kozma-to-be-under-secretary-for-intelligence-and-analysis-department-of-homeland-security",
-            "type": "news",
-            "title": "Facts For All - Vote Smart",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        }
-      ],
-      "top_donors": [
-        {
-          "name": "Florida Republican Party",
-          "amount": 400681,
-          "organization": "Florida Republican Party",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/ashley-moody/contributors?cycle=2021&id=1835686",
-            "type": "website",
-            "title": "Ashley Moody Top Contributors - OpenSecrets",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        },
-        {
-          "name": "Organization unavailable for these records",
-          "amount": 211996,
-          "organization": null,
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/ashley-moody/contributors?cycle=2021&id=1835686",
-            "type": "website",
-            "title": "Ashley Moody Top Contributors - OpenSecrets",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        },
-        {
-          "name": "Publix Super Markets",
-          "amount": 6000,
-          "organization": "Publix Super Markets",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/ashley-moody/contributors?cycle=2021&id=1835686",
-            "type": "website",
-            "title": "Ashley Moody Top Contributors - OpenSecrets",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        },
-        {
-          "name": "Quality Care Properies Llc",
-          "amount": 3000,
-          "organization": "Quality Care Properies Llc",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/ashley-moody/contributors?cycle=2021&id=1835686",
-            "type": "website",
-            "title": "Ashley Moody Top Contributors - OpenSecrets",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        },
-        {
-          "name": "River Blue Llc",
-          "amount": 3000,
-          "organization": "River Blue Llc",
-          "source": {
-            "url": "https://www.opensecrets.org/officeholders/ashley-moody/contributors?cycle=2021&id=1835686",
-            "type": "website",
-            "title": "Ashley Moody Top Contributors - OpenSecrets",
-            "last_accessed": "2026-03-29T17:59:44.305877+00:00"
-          }
-        }
-      ],
       "issues": {
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "Moody has focused on health-care fraud enforcement, including legislation to crack down on Medicaid fraud and calls to recover allegedly improper ACA subsidy payments. She has also opposed extending ACA premium subsidies.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.moody.senate.gov/press-releases/news-release-icymi-senator-moody-introduces-stop-fraud-in-medicaid-act-targeting-bad-actors-stealing-taxpayer-funds/",
-              "type": "official",
+              "type": "government",
               "title": "STOP Fraud in Medicaid Act",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/news-release-senator-moody-calls-on-doj-to-recoup-fraudulent-obamacare-subsidy-payments/",
-              "type": "official",
+              "type": "government",
               "title": "DOJ to Recoup Fraudulent Obamacare Subsidy Payments",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://floridapolitics.com/archives/769482-ashley-moody-rick-scott-vote-to-kill-extension-of-health-care-subsidies/",
               "type": "news",
               "title": "Ashley Moody, Rick Scott vote to kill extension of health care subsidies",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "Moody says she supports cutting burdensome regulations, lowering taxes, expanding domestic energy production, and bringing manufacturing back to the U.S. Her campaign also highlights housing affordability and support for Florida agriculture as part of her economic agenda.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://ashleymoody.com/priorities",
-              "type": "campaign_page",
+              "type": "website",
               "title": "Priorities - Ashley Moody for U.S. Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.nrsc.org/press-releases/ashley-moody-delivers-on-affordable-housing-2026-03-12/",
               "type": "website",
               "title": "Ashley Moody Delivers on Affordable Housing",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/news-release-senator-moody-colleagues-introduce-bipartisan-legislation-to-strengthen-florida-agriculture-by-supporting-new-farming-technology-to-lower-costs-and-increase-efficiency/",
-              "type": "official",
+              "type": "government",
               "title": "Florida agriculture technology legislation",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "Moody’s campaign emphasizes expanding domestic energy production, including oil, gas, nuclear, and newer technologies, as part of an energy-independence agenda. She has also backed legislation aimed at helping Florida agriculture adapt to extreme weather.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://ashleymoody.com/priorities",
-              "type": "campaign_page",
+              "type": "website",
               "title": "Priorities - Ashley Moody for U.S. Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/news-release-sen-ashley-moody-and-rep-scott-franklin-introduce-temp-act-to-examine-resilience-for-our-american-growers-when-extreme-weather-hits/",
-              "type": "official",
+              "type": "government",
               "title": "TEMP Act press release",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
           "stance": "Moody has taken a pro-life position and sponsored legislation to require parental notification before a minor crosses state lines for an abortion. Her public messaging emphasizes parental rights and accountability in abortion-related cases.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.moody.senate.gov/press-releases/news-release-senator-moody-introduces-child-interstate-abortion-notification-act-to-empower-parents-and-strengthen-accountability/",
-              "type": "official",
+              "type": "government",
               "title": "Child Interstate Abortion Notification Act",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Immigration": {
+          "issue": "Immigration",
           "stance": "Moody supports stricter immigration enforcement, including finishing the border wall, ending sanctuary-city policies, and speeding removal of people she describes as illegal or criminal aliens. She has introduced legislation to expand state enforcement and accelerate removals.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://ashleymoody.com/priorities",
-              "type": "campaign_page",
+              "type": "website",
               "title": "Priorities - Ashley Moody for U.S. Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/senator-ashley-moody-leads-efforts-to-codify-president-trumps-immigration-priorities-introduces-expedited-removal-of-criminal-aliens-act/",
-              "type": "official",
+              "type": "government",
               "title": "Expedited Removal of Criminal Aliens Act",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/senator-ashley-moody-introduces-legislation-to-empower-states-to-enforce-illegal-immigration-laws-prevent-human-trafficking-of-children-at-the-border/",
-              "type": "official",
+              "type": "government",
               "title": "RIPPLE Act press release",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
           "stance": "Moody says she supports gun rights and has opposed federal gun-control measures she describes as overreach. She joined litigation against a Biden administration rule expanding background-check requirements at gun shows.",
           "confidence": "high",
           "sources": [
@@ -385,35 +265,57 @@
               "url": "https://floridapolitics.com/archives/672428-ashley-moody-among-26-republican-ags-suing-to-block-joe-biden-rule-requiring-background-checks-at-gun-shows/",
               "type": "news",
               "title": "Ashley Moody among 26 Republican AGs suing to block Joe Biden rule requiring background checks at gun shows",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.wusf.org/politics-issues/2026-01-24/u-s-senator-ashley-moody-legislative-goals",
               "type": "news",
               "title": "Sen. Ashley Moody on her legislative goals for this year and more",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Moody’s campaign says she favors a strong military, border security, reduced foreign aid that does not serve U.S. interests, and less support for international bodies she views as misaligned with American priorities. Her campaign also emphasizes U.S. leadership in space and American sovereignty.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://ashleymoody.com/priorities",
-              "type": "campaign_page",
+              "type": "website",
               "title": "Priorities - Ashley Moody for U.S. Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://ashleymoody.com/",
-              "type": "campaign_homepage",
+              "type": "website",
               "title": "Ashley Moody for U.S. Senate – Homepage",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
           "stance": "Moody’s public messaging centers on law enforcement, border security, and tougher criminal enforcement rather than social-justice reforms. I did not find a detailed campaign platform outlining broader civil-rights or social-justice proposals.",
           "confidence": "medium",
           "sources": [
@@ -421,102 +323,236 @@
               "url": "https://www.wusf.org/politics-issues/2026-01-24/u-s-senator-ashley-moody-legislative-goals",
               "type": "news",
               "title": "Sen. Ashley Moody on her legislative goals for this year and more",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/",
-              "type": "official",
+              "type": "government",
               "title": "Press Releases Archive - Ashley Moody - Senate.gov",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "Moody says she supports parental rights, school choice, and reducing federal control over education. Her campaign highlights efforts to expand charter-school flexibility and support parents choosing schools for their children.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.moody.senate.gov/press-releases/video-release-senator-moody-continues-efforts-to-improve-education-options-through-legislation-to-expand-funding-flexibility-for-florida-charter-schools/",
-              "type": "official",
+              "type": "government",
               "title": "FLEX Act press release",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/video-release-senator-ashley-moody-continues-to-fight-for-florida-students-and-families-with-the-introduction-of-the-flex-act/",
-              "type": "official",
+              "type": "government",
               "title": "FLEX Act introduction",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Tech & AI": {
+          "issue": "Tech & AI",
           "stance": "Moody has called for Congress to investigate AI harms, especially child exploitation and deepfakes, and has supported stronger restrictions on AI-generated abuse material. She has also backed AI use in agriculture and legislation to protect kids online.",
           "confidence": "high",
           "sources": [
             {
               "url": "http://www.myfloridalegal.com/newsrelease/attorney-general-moody-calls-congress-investigate-ai-and-child-exploitation",
-              "type": "official",
+              "type": "government",
               "title": "Attorney General Moody Calls on Congress to Investigate AI and Child Exploitation",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/news-release-senator-moody-colleagues-introduce-bipartisan-legislation-to-strengthen-florida-agriculture-by-supporting-new-farming-technology-to-lower-costs-and-increase-efficiency/",
-              "type": "official",
+              "type": "government",
               "title": "Florida agriculture technology legislation",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/senator-ashley-moody-joins-colleagues-in-supporting-the-kids-online-safety-act-to-protect-kids-online/",
-              "type": "official",
+              "type": "government",
               "title": "Kids Online Safety Act",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Election Reform": {
+        "Election Policy": {
+          "issue": "Election Policy",
           "stance": "Moody supports voter-ID requirements and other election-integrity measures. She has backed the SAVE Act and said election rules should ensure that only eligible U.S. citizens vote.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.moody.senate.gov/press-releases/video-release-senator-moody-works-to-secure-elections-with-save-america-act/",
-              "type": "official",
+              "type": "government",
               "title": "SAVE America Act",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.myfloridalegal.com/newsrelease/attorney-general-moody-and-coalition-call-us-senate-pass-save-act-ensure-only-americans",
-              "type": "official",
+              "type": "government",
               "title": "SAVE Act coalition statement",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://ashleymoody.com/",
-              "type": "campaign_homepage",
+              "type": "website",
               "title": "Ashley Moody for U.S. Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Moody’s campaign priorities for Florida include border security, space industry growth, domestic energy production, parental rights in education, fiscal discipline, and support for Florida agriculture. Her campaign site presents these as the main issues she says she will pursue for Florida voters.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://ashleymoody.com/priorities",
-              "type": "campaign_page",
+              "type": "website",
               "title": "Priorities - Ashley Moody for U.S. Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://ashleymoody.com/",
-              "type": "campaign_homepage",
+              "type": "website",
               "title": "Ashley Moody for U.S. Senate – Homepage",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         }
       },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Appointed to fill Florida’s Senate vacancy and serving in the seat up for special election.",
+          "source": null
+        },
+        {
+          "title": "Attorney General",
+          "organization": "State of Florida",
+          "start_year": 2019,
+          "end_year": 2025,
+          "description": "Served as Florida’s attorney general before joining the Senate.",
+          "source": null
+        },
+        {
+          "title": "Circuit Judge",
+          "organization": "Thirteenth Judicial Circuit, Florida",
+          "start_year": 2006,
+          "end_year": 2017,
+          "description": "Served as a state trial-court judge in Hillsborough County.",
+          "source": null
+        },
+        {
+          "title": "Assistant U.S. Attorney / Prosecutor",
+          "organization": "U.S. Department of Justice / Hillsborough County State Attorney",
+          "start_year": 2001,
+          "end_year": 2006,
+          "description": "Worked as a federal prosecutor and earlier as a state prosecutor.",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Holland & Knight",
+          "start_year": 1998,
+          "end_year": 2001,
+          "description": "Practiced commercial litigation before entering public service.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida",
+          "degree": "B.S.",
+          "field": "Accounting",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "University of Florida Levin College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1998,
+          "source": null
+        },
+        {
+          "institution": "Stetson University College of Law",
+          "degree": "LL.M.",
+          "field": "International Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
       "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.moody.senate.gov/about/",
@@ -538,7 +574,15 @@
           "title": "Vote Smart biography",
           "type": "votesmart"
         }
-      ]
+      ],
+      "website": "https://ashleymoody.com/",
+      "social_media": {
+        "x": "https://x.com/AshleyMoodyFL",
+        "instagram": "https://www.instagram.com/ashleymoodyfl/",
+        "facebook": "https://www.facebook.com/AshleyMoodyFL/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Alexander Vindman",
@@ -549,67 +593,30 @@
         {
           "url": "https://alexvindman.com/",
           "type": "website",
-          "title": "Alex Vindman for Florida"
+          "title": "Alex Vindman for Florida",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.764494Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.pbs.org/newshour/politics/alex-vindman-key-figure-in-trumps-first-impeachment-enters-florida-senate-race",
           "type": "news",
-          "title": "Alex Vindman, key figure in Trump's first impeachment, enters Florida Senate race"
+          "title": "Alex Vindman, key figure in Trump's first impeachment, enters Florida Senate race",
+          "description": null,
+          "last_accessed": "2026-06-13T20:48:48.764494Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alexander_Vindman_on_May_20%2C_2019.jpg",
-      "website": "https://alexvindman.com/",
-      "social_media": {
-        "x": "https://x.com/AVindman",
-        "facebook": "https://www.facebook.com/vindmana/"
-      },
-      "career_history": [
-        {
-          "title": "Retired U.S. Army Lieutenant Colonel",
-          "organization": "U.S. Army",
-          "start_year": 1999,
-          "end_year": 2020,
-          "description": "Served in the Army for 21 years, including combat service and foreign-policy assignments."
-        },
-        {
-          "title": "Director for European Affairs",
-          "organization": "National Security Council, White House",
-          "start_year": 2018,
-          "end_year": 2020,
-          "description": "Served on the National Security Council and became a key witness in the Trump impeachment inquiry."
-        },
-        {
-          "title": "Senior Fellow / Scholar",
-          "organization": "Harvard University and related policy institutions",
-          "start_year": 2020,
-          "end_year": null,
-          "description": "Worked in academic and policy roles after leaving government service."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Binghamton University",
-          "degree": "B.A.",
-          "field": "History",
-          "year": 1997
-        },
-        {
-          "institution": "Harvard University",
-          "degree": "M.A.",
-          "field": "Russian, Eastern European, and Eurasian Studies",
-          "year": 2006
-        },
-        {
-          "institution": "University of Texas at Austin",
-          "degree": "M.S.",
-          "field": "National Security Studies",
-          "year": 2013
-        }
-      ],
-      "voting_record": [],
-      "top_donors": [],
       "issues": {
         "Healthcare": {
+          "issue": "Healthcare",
           "stance": "Vindman says Florida families are facing unaffordable health care premiums and argues that the cost of care needs to come down. His campaign ties health care to broader affordability concerns rather than laying out a detailed policy agenda.",
           "confidence": "high",
           "sources": [
@@ -617,11 +624,17 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Economy": {
+          "issue": "Economy",
           "stance": "Vindman says Florida’s cost of living is too high and argues the economy is tilted toward special interests and corporate greed. He says he would focus on lowering costs for working families, including housing, insurance, and health care expenses.",
           "confidence": "high",
           "sources": [
@@ -629,17 +642,28 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.clickorlando.com/news/politics/2026/04/24/alex-vindman-courts-hispanic-vote-in-orlando-promises-to-fight-high-costs-in-the-senate/",
               "type": "news",
               "title": "Alex Vindman courts Hispanic vote in Orlando, promises to fight high costs in the Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Climate/Energy": {
+          "issue": "Climate/Energy",
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
@@ -647,11 +671,17 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Reproductive Rights": {
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
@@ -659,11 +689,17 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Immigration": {
+          "issue": "Immigration",
           "stance": "Vindman supports comprehensive immigration reform that secures the border while avoiding mass detention and family separations. He has also said he supports a path to legal status for undocumented immigrants, including Dreamers, and improved asylum processing.",
           "confidence": "high",
           "sources": [
@@ -671,11 +707,17 @@
               "url": "https://www.clickorlando.com/video/news/2026/04/24/us-senate-candidate-alex-vindman-on-affordability-expanding-health-care-and-being-independent/",
               "type": "news",
               "title": "US Senate candidate Alex Vindman on affordability, expanding health care, and being independent",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Guns & Safety": {
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
           "stance": "Vindman supports gun-safety measures and says he backs commonsense policies to keep illegal guns off the streets and out of the hands of criminals. He has also said expanding nonlethal options for law enforcement can strengthen public safety.",
           "confidence": "high",
           "sources": [
@@ -683,11 +725,17 @@
               "url": "https://vindman.house.gov/2026/02/12/vindman-votes-to-provide-non-lethal-options-to-law-enforcement-prevent-gun-violence/",
               "type": "website",
               "title": "Vindman Votes to Provide Non-Lethal Options to Law Enforcement, Prevent Gun Violence",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Foreign Policy": {
+          "issue": "Foreign Policy",
           "stance": "Vindman’s foreign-policy views are strongly pro-Ukraine and focused on national security. He has argued that the U.S. has turned its back on Ukraine and that Russia remains a long-term threat to Ukrainian statehood and culture.",
           "confidence": "high",
           "sources": [
@@ -695,17 +743,28 @@
               "url": "https://www.kqed.org/forum/2010101909045/trump-whistleblower-alexander-vindman-on-why-the-u-s-has-turned-its-back-on-ukraine",
               "type": "news",
               "title": "Trump Whistleblower Alexander Vindman on Why the U.S. Has Turned Its Back on Ukraine",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://kyivindependent.com/us-overestimated-its-ability-to-deal-with-russia-over-past-35-years-alexander-vindman-says/",
               "type": "news",
               "title": "Trump repeats past US mistakes with Russia, Alexander Vindman says",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Social Justice": {
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
           "stance": "Vindman’s campaign messaging emphasizes defending democracy, opposing corruption, and checking abuses of power. The sources reviewed did not show a detailed social-justice policy agenda beyond those themes.",
           "confidence": "medium",
           "sources": [
@@ -713,17 +772,28 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.pbs.org/newshour/politics/alex-vindman-key-figure-in-trumps-first-impeachment-enters-florida-senate-race",
               "type": "news",
               "title": "Alex Vindman, key figure in Trump's first impeachment, enters Florida Senate race",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Education": {
+          "issue": "Education",
           "stance": "No public position found.",
           "confidence": "low",
           "sources": [
@@ -731,11 +801,17 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Tech & AI": {
+          "issue": "Tech & AI",
           "stance": "Vindman has written that generative AI will affect communication, learning, labor, and national security, and he says Americans should understand both the limits and power of these tools. He frames AI primarily as a national-security issue, including how adversaries could use it against U.S. interests.",
           "confidence": "high",
           "sources": [
@@ -743,11 +819,17 @@
               "url": "https://www.avindman.com/p/on-ai-and-national-security-work",
               "type": "website",
               "title": "On AI and National Security Work - by Alexander Vindman",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
-        "Election Reform": {
+        "Election Policy": {
+          "issue": "Election Policy",
           "stance": "Vindman’s campaign is framed around defending democracy and checking corruption, but the sources reviewed did not show a detailed election-reform proposal. His public messaging emphasizes democratic accountability and opposition to abuses of power.",
           "confidence": "medium",
           "sources": [
@@ -755,17 +837,28 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.pbs.org/newshour/politics/alex-vindman-key-figure-in-trumps-first-impeachment-enters-florida-senate-race",
               "type": "news",
               "title": "Alex Vindman, key figure in Trump's first impeachment, enters Florida Senate race",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         },
         "Local Issues": {
+          "issue": "Local Issues",
           "stance": "Vindman emphasizes affordability for Florida families, especially high homeowners’ insurance, rents, and health-care premiums. He also links those concerns to disaster recovery, corruption, and the need for federal action to reduce costs and improve housing and insurance markets.",
           "confidence": "high",
           "sources": [
@@ -773,33 +866,101 @@
               "url": "https://alexvindman.com/",
               "type": "website",
               "title": "Alex Vindman for Florida",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             },
             {
               "url": "https://www.clickorlando.com/news/politics/2026/04/24/alex-vindman-courts-hispanic-vote-in-orlando-promises-to-fight-high-costs-in-the-senate/",
               "type": "news",
               "title": "Alex Vindman courts Hispanic vote in Orlando, promises to fight high costs in the Senate",
-              "last_accessed": "2026-04-29T23:49:26.015052+00:00"
+              "description": null,
+              "last_accessed": "2026-04-29T23:49:26.015052Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
             }
           ]
         }
       },
+      "career_history": [
+        {
+          "title": "Retired U.S. Army Lieutenant Colonel",
+          "organization": "U.S. Army",
+          "start_year": 1999,
+          "end_year": 2020,
+          "description": "Served in the Army for 21 years, including combat service and foreign-policy assignments.",
+          "source": null
+        },
+        {
+          "title": "Director for European Affairs",
+          "organization": "National Security Council, White House",
+          "start_year": 2018,
+          "end_year": 2020,
+          "description": "Served on the National Security Council and became a key witness in the Trump impeachment inquiry.",
+          "source": null
+        },
+        {
+          "title": "Senior Fellow / Scholar",
+          "organization": "Harvard University and related policy institutions",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Worked in academic and policy roles after leaving government service.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Binghamton University",
+          "degree": "B.A.",
+          "field": "History",
+          "year": 1997,
+          "source": null
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "M.A.",
+          "field": "Russian, Eastern European, and Eurasian Studies",
+          "year": 2006,
+          "source": null
+        },
+        {
+          "institution": "University of Texas at Austin",
+          "degree": "M.S.",
+          "field": "National Security Studies",
+          "year": 2013,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
       "donor_summary": null,
-      "links": []
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://alexvindman.com/",
+      "social_media": {
+        "x": "https://x.com/AVindman",
+        "facebook": "https://www.facebook.com/vindmana/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-29T23:49:26.015052+00:00",
+  "updated_utc": "2026-06-13T20:50:06.811459+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-29T23:49:52.026602+00:00",
+      "reviewed_at": "2026-04-29T23:49:52.026602Z",
       "verdict": "approved",
       "score": 88,
       "flags": [
@@ -844,7 +1005,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-04-29T23:49:34.908190+00:00",
+      "reviewed_at": "2026-04-29T23:49:34.908190Z",
       "verdict": "approved",
       "score": 94,
       "flags": [
@@ -865,7 +1026,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-04-29T23:49:37.372807+00:00",
+      "reviewed_at": "2026-04-29T23:49:37.372807Z",
       "verdict": "approved",
       "score": 96,
       "flags": [
@@ -893,39 +1054,33 @@
   ],
   "polling_note": "Recent polling found Ashley Moody leading Alexander Vindman 45% to 38% in a University of North Florida Public Opinion Research Lab survey of 786 likely midterm voters conducted Feb. 21 to Mar. 2, 2026. No additional polls from the last 90 days were identified in this update.",
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 1520817,
-    "completion_tokens": 144664,
-    "total_tokens": 1665481,
-    "estimated_usd": 0.2405,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 110720,
+    "completion_tokens": 7967,
+    "total_tokens": 118687,
+    "cost_usd": 0.00616536,
+    "cost_source": "provider",
+    "estimated_usd": 0.008723,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 1204518,
-        "completion_tokens": 134577
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 280266,
-        "completion_tokens": 7737
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 13066,
-        "completion_tokens": 278
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 10655,
-        "completion_tokens": 411
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 12312,
-        "completion_tokens": 1661
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 110720,
+        "completion_tokens": 7967
       }
     },
-    "duration_s": 1532.5
+    "duration_s": 78.2
   },
   "validation_grade": {
     "grade": "A",
     "score": 93,
     "passed": true,
     "summary": "Validated by 3/3 reviewers with an average score of 93/100."
-  }
+  },
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

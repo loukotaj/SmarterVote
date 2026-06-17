@@ -1,0 +1,296 @@
+{
+  "id": "ny-house-23-2026",
+  "title": "New York's 23rd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "New York's 23rd Congressional District",
+  "state": "New York",
+  "district": "23rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New York's 23rd Congressional District pits incumbent Republican Rep. Nick Langworthy against either Democrat Aaron Gies or Kevin Stocker, who are competing in the June 23 Democratic primary. The district covers Western New York and the Southern Tier, including all of Allegany, Cattaraugus, Chautauqua, Chemung, and Tioga counties and parts of Erie, Schuyler, and Steuben counties. This is a reliably Republican district \u2014 Donald Trump carried it by 21 points in 2024 \u2014 and the Cook Political Report rates the general election as Solid R. The race has centered on affordability, rural economic development, and Langworthy's voting record and constituent engagement.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polls were found for the NY-23 2026 general or primary elections.",
+  "candidates": [
+    {
+      "name": "Nick Langworthy",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Nick Langworthy is the incumbent U.S. Representative for New York's 23rd Congressional District, first elected in 2022. A former chairman of the New York Republican State Committee, he serves on the House Rules, Energy and Commerce, and Oversight Committees. Langworthy has prioritized constituent service, rural economic development, and fiscal conservatism, and advanced to the general election without a primary challenger.",
+      "summary_sources": [
+        {
+          "url": "https://langworthy.house.gov/about",
+          "type": "government",
+          "title": "About | Congressman Nick Langworthy",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483686",
+          "type": "news",
+          "title": "NY-23 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Nick_langworthy_portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives, NY-23",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serves on House Rules, Energy and Commerce, and Oversight Committees; Chairman of the Aviation Safety Caucus.",
+          "source": null
+        },
+        {
+          "title": "Chairman",
+          "organization": "New York Republican State Committee",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Led the state party organization.",
+          "source": null
+        },
+        {
+          "title": "District Office Staff",
+          "organization": "Office of Congressman Tom Reynolds",
+          "start_year": null,
+          "end_year": null,
+          "description": "Began his career working in constituent services.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Niagara University",
+          "degree": "B.A.",
+          "field": "Political Science and Government",
+          "year": 2003,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://nicklangworthy.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Aaron Gies",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Aaron Gies is an associate professor of Theology and Franciscan Studies at St. Bonaventure University and a first-time candidate for office. He is running on the Democratic and Working Families Party lines, emphasizing affordability, community investment, and accountable government. Gies has been endorsed by five county Democratic committees in the district and has focused on town hall-style engagement with constituents.",
+      "summary_sources": [
+        {
+          "url": "https://www.wskg.org/regional-news/2026-02-24/race-to-flip-new-yorks-23rd-congressional-district-underway-as-petitioning-starts-for-two-democratic-candidates",
+          "type": "news",
+          "title": "Race to flip New York's 23rd Congressional District underway as petitioning starts for two Democratic candidates",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sbu.edu/academics/faculty/gies-aaron-m",
+          "type": "website",
+          "title": "Gies, Aaron M. - Faculty | St. Bonaventure University",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Associate Professor of Theology and Franciscan Studies",
+          "organization": "St. Bonaventure University",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Joined as research postdoctoral fellow in 2019; became regular faculty member in 2021; associate editor of Franciscan Studies.",
+          "source": null
+        },
+        {
+          "title": "Research Fellow",
+          "organization": "Collegio San Bonaventura / Frati editori di Quaracchi (Rome)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Academic research fellowship.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "The Catholic University of America",
+          "degree": "Ph.D.",
+          "field": "Historical & Systematic Theology",
+          "year": 2018,
+          "source": null
+        },
+        {
+          "institution": "The Catholic University of America",
+          "degree": "M.A.",
+          "field": "Medieval Studies",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "Gordon Conwell Theological Seminary",
+          "degree": "M.A.",
+          "field": "Christian Thought",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Montreat College",
+          "degree": "B.A.",
+          "field": "Bible & Religion",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://aaronforny23.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kevin Stocker",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Kevin Stocker is an attorney in Erie County with more than 35 years of legal experience, including service as a town prosecutor for Kenmore and Tonawanda. A former Republican who switched parties in 2016, he is running for Congress on a platform of fighting for hardworking families, protecting democracy, and holding political bosses accountable. Stocker has run for state office previously, including a 2020 Democratic primary bid for state assembly.",
+      "summary_sources": [
+        {
+          "url": "https://stockerforcongress.com/about-kevin/",
+          "type": "website",
+          "title": "Meet the Candidate - Committee to Elect Stocker for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wskg.org/regional-news/2025-07-17/two-democrats-vying-for-chance-to-challenge-southern-tier-rep-nick-langworthy-in-midterms",
+          "type": "news",
+          "title": "Two Democrats vying for chance to challenge Southern Tier Rep. Nick Langworthy in midterms",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://stockerforcongress.com/wp-content/uploads/2025/10/picture.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "The Law Office of Kevin Stocker",
+          "start_year": null,
+          "end_year": null,
+          "description": "Civil litigation practice for over 30 years, representing individuals against insurance companies, governments, and large corporations.",
+          "source": null
+        },
+        {
+          "title": "Town Prosecutor",
+          "organization": "Towns of Kenmore and Tonawanda",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as local prosecutor for approximately 15 years.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University at Buffalo School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Michigan State University",
+          "degree": "B.A.",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Kenmore East High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://stockerforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_23rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:27:22.975615+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 295500,
+    "completion_tokens": 7111,
+    "total_tokens": 302611,
+    "cost_usd": 0.019250548,
+    "cost_source": "provider",
+    "estimated_usd": 0.030353,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 295500,
+        "completion_tokens": 7111
+      }
+    },
+    "duration_s": 142.6
+  }
+}

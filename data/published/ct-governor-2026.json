@@ -10,36 +10,14 @@
       "pollster": "University of New Hampshire Survey Center",
       "date": "2026-02-12",
       "sample_size": 174,
-      "matchups": [
-        {
-          "candidates": [
-            "Ned Lamont",
-            "Josh Elliott"
-          ],
-          "percentages": [
-            57.0,
-            13.0
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/"
     },
     {
       "pollster": "University of New Hampshire Survey Center",
       "date": "2025-11-24",
       "sample_size": 235,
-      "matchups": [
-        {
-          "candidates": [
-            "Ned Lamont",
-            "Josh Elliott"
-          ],
-          "percentages": [
-            55.0,
-            7.0
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.270towin.com/2026-governor-polls/connecticut"
     }
   ],
@@ -55,51 +33,59 @@
           "url": "https://portal.ct.gov/governor/about-governor-ned-lamont",
           "type": "government",
           "title": "Learn About Connecticut Governor Ned Lamont - CT.gov",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.nedlamont.com/",
           "type": "website",
           "title": "Ned Lamont for Governor",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ned_Lamont_20240913_045834.jpg",
-      "website": "https://www.nedlamont.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/NedLamontCT/",
-        "instagram": "https://www.instagram.com/govnedlamont/",
-        "tiktok": "https://www.tiktok.com/@governornedlamont",
-        "x": "https://x.com/GovNedLamont"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Governor",
           "organization": "State of Connecticut",
           "start_year": 2019,
           "end_year": null,
-          "description": "Elected governor in 2018 and took office in 2019; re-elected in 2022."
+          "description": "Elected governor in 2018 and took office in 2019; re-elected in 2022.",
+          "source": null
         },
         {
           "title": "Chairman",
           "organization": "Connecticut State Investment Advisory Council",
           "start_year": null,
           "end_year": null,
-          "description": "Served for four years overseeing the state pension fund, according to his official biography."
+          "description": "Served for four years overseeing the state pension fund, according to his official biography.",
+          "source": null
         },
         {
           "title": "Member",
           "organization": "Greenwich Board of Selectmen and Board of Estimate and Taxation",
           "start_year": null,
           "end_year": null,
-          "description": "Served in local government in Greenwich before becoming governor."
+          "description": "Served in local government in Greenwich before becoming governor.",
+          "source": null
         },
         {
           "title": "Founder",
           "organization": "A weekly newspaper in a Connecticut town",
           "start_year": null,
           "end_year": null,
-          "description": "Founded a weekly newspaper early in his public-service career, according to the state biography."
+          "description": "Founded a weekly newspaper early in his public-service career, according to the state biography.",
+          "source": null
         }
       ],
       "education": [
@@ -107,21 +93,33 @@
           "institution": "Harvard University",
           "degree": "Bachelor's degree",
           "field": "Sociology",
-          "year": 1976
+          "year": 1976,
+          "source": null
         },
         {
           "institution": "Yale University",
           "degree": "Master of Business Administration",
           "field": "Business Administration",
-          "year": 1980
+          "year": 1980,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.nedlamont.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/NedLamontCT/",
+        "instagram": "https://www.instagram.com/govnedlamont/",
+        "tiktok": "https://www.tiktok.com/@governornedlamont",
+        "x": "https://x.com/GovNedLamont"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Joshua Elliott",
@@ -133,34 +131,49 @@
           "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
           "type": "website",
           "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
           "type": "news",
           "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Elliott.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "State Representative",
           "organization": "Connecticut General Assembly",
           "start_year": null,
           "end_year": null,
-          "description": "Serves as a member of the Connecticut House of Representatives from Hamden."
+          "description": "Serves as a member of the Connecticut House of Representatives from Hamden.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Ryan Fazio",
@@ -172,34 +185,49 @@
           "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
           "type": "website",
           "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
           "type": "news",
           "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RyanFazio.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "State Senator",
           "organization": "Connecticut General Assembly",
           "start_year": null,
           "end_year": null,
-          "description": "Serves in the Connecticut State Senate representing Greenwich-area constituents."
+          "description": "Serves in the Connecticut State Senate representing Greenwich-area constituents.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Erin Stewart",
@@ -211,51 +239,59 @@
           "url": "https://erinforct.com/bio/",
           "type": "website",
           "title": "Bio - Erin Stewart – Republican For Governor 2026",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Erin_Stewart",
           "type": "website",
           "title": "Erin Stewart - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/800px-Erin_E._Stewart__40th_Mayor_of_New_Britain__CT_fixed.jpg",
-      "website": "https://erinforct.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/ErinStewartCT/",
-        "instagram": "https://www.instagram.com/erinstewartct/",
-        "tiktok": "https://www.tiktok.com/@erinstewartct",
-        "x": "https://x.com/erinstewartct"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Mayor",
           "organization": "City of New Britain, Connecticut",
           "start_year": 2013,
           "end_year": 2025,
-          "description": "Served as the 40th mayor of New Britain and was first elected at age 26."
+          "description": "Served as the 40th mayor of New Britain and was first elected at age 26.",
+          "source": null
         },
         {
           "title": "Member",
           "organization": "Connecticut Board of Regents",
           "start_year": null,
           "end_year": null,
-          "description": "Served on the state higher-education governing board, according to her campaign biography."
+          "description": "Served on the state higher-education governing board, according to her campaign biography.",
+          "source": null
         },
         {
           "title": "Chairwoman",
           "organization": "Capitol Region Council of Governments",
           "start_year": null,
           "end_year": null,
-          "description": "Led the regional council of governments."
+          "description": "Led the regional council of governments.",
+          "source": null
         },
         {
           "title": "Member",
           "organization": "Connecticut Conference of Municipalities Board of Directors",
           "start_year": null,
           "end_year": null,
-          "description": "Served on the board of the municipal advocacy organization."
+          "description": "Served on the board of the municipal advocacy organization.",
+          "source": null
         }
       ],
       "education": [
@@ -263,27 +299,40 @@
           "institution": "New Britain High School",
           "degree": "High school diploma",
           "field": null,
-          "year": 2005
+          "year": 2005,
+          "source": null
         },
         {
           "institution": "Central Connecticut State University",
           "degree": "Bachelor of Arts",
           "field": "Public Administration; minor in Communications",
-          "year": 2009
+          "year": 2009,
+          "source": null
         },
         {
           "institution": "University of New Haven",
           "degree": "Master of Public Administration",
           "field": "Finance",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://erinforct.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/ErinStewartCT/",
+        "instagram": "https://www.instagram.com/erinstewartct/",
+        "tiktok": "https://www.tiktok.com/@erinstewartct",
+        "x": "https://x.com/erinstewartct"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Betsy McCaughey",
@@ -295,41 +344,57 @@
           "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
           "type": "website",
           "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
           "type": "news",
           "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Lieutenant Governor",
           "organization": "State of New York",
           "start_year": 1995,
           "end_year": 1998,
-          "description": "Served as New York's lieutenant governor."
+          "description": "Served as New York's lieutenant governor.",
+          "source": null
         },
         {
           "title": "Commentator",
           "organization": "News media",
           "start_year": null,
           "end_year": null,
-          "description": "Has worked as a political commentator and media personality."
+          "description": "Has worked as a political commentator and media personality.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Timothy Wilcox",
@@ -341,51 +406,71 @@
           "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
           "type": "website",
           "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
           "type": "news",
           "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Timothy_Wilcox_20250915_012501.jpeg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T18:21:22.144574+00:00",
+  "updated_utc": "2026-06-13T23:15:58.697254+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 161805,
-    "completion_tokens": 5149,
-    "total_tokens": 166954,
-    "estimated_usd": 0.0214,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 45013,
+    "completion_tokens": 13561,
+    "total_tokens": 58574,
+    "cost_usd": 0.0071451299999999995,
+    "cost_source": "provider",
+    "estimated_usd": 0.007675,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 101180,
-        "completion_tokens": 4672
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 60625,
-        "completion_tokens": 477
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 45013,
+        "completion_tokens": 13561
       }
     },
-    "duration_s": 94.4
+    "duration_s": 126.8
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

@@ -1,0 +1,470 @@
+{
+  "id": "fl-house-19-2026",
+  "title": "Florida's 19th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Florida's 19th Congressional District",
+  "state": "Florida",
+  "district": "19th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 19th Congressional District is an open seat in 2026 after incumbent Republican Rep. Byron Donalds decided to run for governor of Florida. The district covers Southwest Florida, including Cape Coral, Fort Myers, Naples, Bonita Springs, and Marco Island. With a Cook Partisan Voting Index of R+14 and Donald Trump winning 64% of the district's vote in 2024, the Republican nominee will be heavily favored in the general election. The crowded Republican primary features 11 candidates, including former U.S. Representatives Madison Cawthorn and Chris Collins, while the Democratic primary has three candidates vying for the nomination.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to the FL-19 general election race were found as of June 2026. The primary election is scheduled for August 18, 2026.",
+  "candidates": [
+    {
+      "name": "Victor Arias",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Victor Arias is a Democratic candidate for Florida's 19th Congressional District. He is the managing attorney of Arias Law Firm and is running on a platform focused on unity and justice for Southwest Florida. Arias is one of three Democrats competing in the August 18, 2026 primary election.",
+      "summary_sources": [
+        {
+          "url": "https://votearias.us/",
+          "type": "website",
+          "title": "Arias for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Victor_Arias",
+          "type": "website",
+          "title": "Victor Arias - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Managing Attorney",
+          "organization": "Arias Law Firm",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practices law in Southwest Florida",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://votearias.us/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Howard Sapp",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Howard Sapp is a Democratic candidate for Florida's 19th Congressional District. He is a retired air traffic controller with 30 years of federal service and a former candidate for the Florida House of Representatives. Sapp emphasizes integrity, accountability, and community-focused policies in his campaign.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Howard_Sapp",
+          "type": "website",
+          "title": "Howard Sapp - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/723404-howard-sapp-becomes-first-candidate-to-file-for-byron-donalds-seat-in-congress/",
+          "type": "news",
+          "title": "Howard Sapp becomes first candidate to file for Byron Donalds' seat",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Howard_Sapp.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Air Traffic Controller",
+          "organization": "Federal Aviation Administration",
+          "start_year": null,
+          "end_year": null,
+          "description": "30 years of federal service as an air traffic controller",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.hsapp4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jared Kane",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Jared Kane is a Democratic candidate for Florida's 19th Congressional District. He is one of three Democrats running in the August 18, 2026 primary election. Kane is a Fort Myers area resident seeking the open seat being vacated by Rep. Byron Donalds.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jared_Kane",
+          "type": "website",
+          "title": "Jared Kane - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.yahoo.com/news/articles/crowded-fl-19-race-forms-090233832.html",
+          "type": "news",
+          "title": "Crowded FL 19 race forms after Byron Donalds exit. Who is running?",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Madison Cawthorn",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Madison Cawthorn is a Republican candidate for Florida's 19th Congressional District. He previously served one term as U.S. Representative for North Carolina's 11th District (2021-2023) before losing a primary bid amid numerous controversies. Cawthorn moved to Southwest Florida and is seeking a political comeback in the open seat being vacated by Rep. Byron Donalds.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Madison_Cawthorn",
+          "type": "website",
+          "title": "Madison Cawthorn - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/758786-madison-cawthorn-officially-enters-race-for-byron-donalds-house-seat/",
+          "type": "news",
+          "title": "Madison Cawthorn officially enters race for Byron Donalds' House seat",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Represented North Carolina's 11th Congressional District",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Collins",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Chris Collins is a Republican candidate for Florida's 19th Congressional District. He previously served as U.S. Representative for New York's 27th District (2013-2019) and was the first member of Congress to endorse Donald Trump's 2016 presidential campaign. Collins resigned from Congress in 2019 after pleading guilty to insider trading charges and was later pardoned by President Trump in 2020. He now lives in Florida and is seeking a political comeback.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chris_Collins",
+          "type": "website",
+          "title": "Chris Collins - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.politico.com/news/2026/01/23/chris-collins-florida-congress-comeback-00744621",
+          "type": "news",
+          "title": "Former New York Rep. Chris Collins makes a comeback play in Florida",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chris_Collins.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Represented New York's 27th Congressional District",
+          "source": null
+        },
+        {
+          "title": "CEO",
+          "organization": "iCardiac Technologies",
+          "start_year": null,
+          "end_year": null,
+          "description": "Leadership role at clinical research company",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "North Carolina State University",
+          "degree": "BS",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jim Oberweis",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Jim Oberweis is a Republican candidate for Florida's 19th Congressional District. He is a successful businessman and owner of Oberweis Dairy, and previously served as an Illinois state Senator. Oberweis has run multiple campaigns for U.S. Senate and U.S. House in Illinois, and is now seeking federal office in Florida. He was the first Republican to file for the open seat being vacated by Rep. Byron Donalds.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jim_Oberweis",
+          "type": "website",
+          "title": "Jim Oberweis - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/725612-jim-oberweis-becomes-first-republican-to-file-for-byron-donalds-seat-in-congress/",
+          "type": "news",
+          "title": "Jim Oberweis becomes first Republican to file for Byron Donalds' seat",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jim_Oberweis.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Illinois State Senate",
+          "start_year": null,
+          "end_year": null,
+          "description": "Represented Illinois state senate district",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Oberweis Dairy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Family-owned dairy business",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://votejimo.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Catalina Lauf",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Catalina Lauf is a Republican candidate for Florida's 19th Congressional District. She served as a Trump administration appointee and is an author and health activist. Lauf previously ran for Congress in Illinois in 2022. She has raised significant funds and secured endorsements including from Rep. Anna Paulina Luna. Her campaign focuses on conservative values and common-sense governance.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Catalina_Lauf",
+          "type": "website",
+          "title": "Catalina Lauf - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/779343-fierce-anna-paulina-luna-backs-catalina-lauf-in-open-cd-19-race/",
+          "type": "news",
+          "title": "'Fierce': Anna Paulina Luna backs Catalina Lauf in open CD 19 race",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Appointee",
+          "organization": "Trump Administration",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in a role within the Trump administration",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Seth Haskin",
+      "party": "No Party Affiliation",
+      "incumbent": false,
+      "summary": "Seth Haskin is a candidate running without party affiliation for Florida's 19th Congressional District. He qualified for the ballot shortly before the June 2026 qualifying deadline and will face the Democratic and Republican primary winners in the November general election as an independent candidate.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/801768-massive-field-qualifies-in-race-to-succeed-byron-donalds-in-congress/",
+          "type": "news",
+          "title": "Massive field qualifies in race to succeed Byron Donalds in Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_19th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:13:58.565720+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 261871,
+    "completion_tokens": 12402,
+    "total_tokens": 274273,
+    "cost_usd": 0.01860935,
+    "cost_source": "provider",
+    "estimated_usd": 0.028094,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 261871,
+        "completion_tokens": 12402
+      }
+    },
+    "duration_s": 187.2
+  }
+}

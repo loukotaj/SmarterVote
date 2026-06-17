@@ -1,0 +1,230 @@
+{
+  "id": "nc-house-08-2026",
+  "title": "2026 U.S. House Election for North Carolina's 8th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "North Carolina's 8th Congressional District",
+  "state": "North Carolina",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "North Carolina's 8th Congressional District election pits incumbent Republican Rep. Mark Harris against Democratic nominee Colby Watson. The district includes Union, Cabarrus, Anson, Stanly, Richmond, and Montgomery counties, along with a portion of Mecklenburg County. After the March 3, 2026 primary, Harris advanced uncontested on the Republican side while Watson won a three-way Democratic primary with 47.9% of the vote. The Cook Political Report rates this race as 'Solidly Republican,' making Harris the clear favorite in a district that has trended strongly toward the GOP in recent cycles.",
+  "polling": [],
+  "polling_note": "No general election polls were found for this race as of the research date. The Cook Political Report rates NC-08 as 'Solidly Republican.'",
+  "candidates": [
+    {
+      "name": "Mark Harris",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mark Harris is a Baptist pastor and politician serving as the U.S. Representative for North Carolina's 8th Congressional District since January 2025. Before Congress, he was senior pastor of First Baptist Church in Charlotte for over a decade and served as president of the North Carolina Baptist Convention. He serves on the House Agriculture, Education and Workforce, and Judiciary Committees.",
+      "summary_sources": [
+        {
+          "url": "http://markharris.house.gov/meet-mark",
+          "type": "government",
+          "title": "Meet Mark | Congressman Mark Harris",
+          "description": null,
+          "last_accessed": "2026-06-15T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://clerk.house.gov/members/H001102",
+          "type": "government",
+          "title": "Mark Harris - Office of the Clerk, U.S. House of Representatives",
+          "description": null,
+          "last_accessed": "2026-06-15T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing North Carolina's 8th Congressional District; serves on Agriculture, Education and Workforce, and Judiciary Committees",
+          "source": null
+        },
+        {
+          "title": "Senior Pastor",
+          "organization": "First Baptist Church, Charlotte",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as senior pastor for over a decade",
+          "source": null
+        },
+        {
+          "title": "President",
+          "organization": "North Carolina Baptist Convention",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led the convention and helped pass North Carolina's Marriage Amendment",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Appalachian State University",
+          "degree": "Bachelor of Science",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Southeastern Baptist Theological Seminary",
+          "degree": "Master of Divinity",
+          "field": "Divinity",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Southeastern Baptist Theological Seminary",
+          "degree": "Doctor of Ministry",
+          "field": "Ministry",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://markharris.house.gov/",
+      "social_media": {
+        "twitter": "https://x.com/RepMarkHarrisNC",
+        "facebook": "https://www.facebook.com/pastormarkharris",
+        "instagram": "https://www.instagram.com/repmarkharris/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Colby Watson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Colby Watson is a small business owner and Democratic nominee for North Carolina's 8th Congressional District. Born and raised in Union County, he was homeschooled and entered the workforce directly after high school, working in farming and construction before co-founding a construction company that grew to employ over 50 people. He campaigns on affordability, healthcare reform, antitrust enforcement, and campaign finance reform, and has pledged not to accept corporate PAC money or trade individual stocks while in office.",
+      "summary_sources": [
+        {
+          "url": "https://www.colbyforcongress.com/about",
+          "type": "website",
+          "title": "About | Colby Watson For Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wsoctv.com/news/local/political-beat-candidate-guide-house-representatives-district-8/MWKKVCYTNBDNLGDPREFRGVZHMA/",
+          "type": "news",
+          "title": "The Political Beat Candidate Guide: House of Representatives District 8",
+          "description": null,
+          "last_accessed": "2026-06-15T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-north-carolina-us-house-8-primary.html",
+          "type": "news",
+          "title": "North Carolina Eighth Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-15T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Co-owner / Construction Business Owner",
+          "organization": "Construction Company",
+          "start_year": null,
+          "end_year": null,
+          "description": "Built and ran a construction business with his brother that grew to employ more than 50 people, working on federal, state, and local infrastructure projects",
+          "source": null
+        },
+        {
+          "title": "Worker",
+          "organization": "Farming and Construction Industries",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked jobs in farming and construction after high school before starting his own business",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Homeschooled (Union County, NC)",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Central Piedmont Community College",
+          "degree": null,
+          "field": "Continuing education courses",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.colbyforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/colbyforcongress",
+        "instagram": "https://www.instagram.com/colbyforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:45:39.897347+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 232323,
+    "completion_tokens": 5397,
+    "total_tokens": 237720,
+    "cost_usd": 0.014829882,
+    "cost_source": "provider",
+    "estimated_usd": 0.023825,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 232323,
+        "completion_tokens": 5397
+      }
+    },
+    "duration_s": 107.3
+  }
+}

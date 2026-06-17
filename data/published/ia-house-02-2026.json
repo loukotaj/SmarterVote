@@ -1,0 +1,316 @@
+{
+  "id": "ia-house-02-2026",
+  "title": "Iowa's 2nd Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Iowa's 2nd Congressional District",
+  "state": "Iowa",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Iowa's 2nd Congressional District is an open seat covering northeastern Iowa, including Cedar Rapids, Waterloo, Dubuque, and Mason City. Incumbent Republican Representative Ashley Hinson is not seeking re-election, instead running for the U.S. Senate, creating a competitive race to succeed her. Republican nominee Joe Mitchell, a former state representative and Trump administration appointee, will face Democratic nominee Lindsay James, a state representative and Presbyterian minister. The district has been represented by Republicans since 2021, and the Cook Political Report rates the race as Likely Republican, though Democrats view it as a potential flip opportunity. Independent candidate Dave Bushaw, a farmer and labor organizer, also qualified for the general election ballot.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the general election matchup between Joe Mitchell and Lindsay James in Iowa's 2nd Congressional District as of this writing.",
+  "candidates": [
+    {
+      "name": "Joe Mitchell",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Joe Mitchell is a former Iowa state representative (2019\u20132023) who won the Republican nomination for Iowa's 2nd Congressional District on June 2, 2026, defeating state senator Charlie McClintock. At 29, he is the youngest candidate in the race, and his campaign emphasizes fiscal conservatism, reducing government spending, and supporting Trump's agenda. He previously served as a Regional Administrator for the U.S. Department of Housing and Urban Development and as Chief of Staff at the Federal Housing Finance Agency under the Trump administration.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Joe_Mitchell_(politician)",
+          "type": "website",
+          "title": "Joe Mitchell (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://iowacapitaldispatch.com/2026/06/02/state-rep-lindsay-james-wins-district-2-democratic-primary-ap-projects/",
+          "type": "news",
+          "title": "Iowa 2nd District race will pit Republican Joe Mitchell and Democrat Lindsay James",
+          "description": null,
+          "last_accessed": "2025-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Joe_Mitchell_%28cropped2%29.jpg/320px-Joe_Mitchell_%28cropped2%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Regional Administrator, Great Plains Region",
+          "organization": "U.S. Department of Housing and Urban Development",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Appointed by the Trump administration to oversee HUD operations in the Great Plains region; resigned to run for Congress.",
+          "source": null
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "Federal Housing Finance Agency",
+          "start_year": 2025,
+          "end_year": 2025,
+          "description": "Served as chief of staff at FHFA under the Trump administration before becoming HUD Regional Administrator.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Iowa House of Representatives",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Represented the 84th district; served as Assistant Majority Leader and Vice-Chairman of the Ways & Means Committee. Was the youngest member ever elected to the Iowa House at age 21.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "Run Gen Z",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Founded a nonprofit focused on recruiting and supporting young conservative candidates for state and local office across the U.S.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Drake University",
+          "degree": "Bachelor of Arts",
+          "field": "Business Administration",
+          "year": 2019,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.joemitchell.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoeMitchellIA"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lindsay James",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Lindsay James is an Iowa state representative (2019\u2013present) and Presbyterian minister who won the Democratic nomination for Iowa's 2nd Congressional District on June 2, 2026. She defeated primary challengers Clint Twedt-Ball and Kathy Dolter with 57.3% of the vote. Her campaign focuses on lowering healthcare and housing costs, protecting reproductive rights, and expanding access to affordable insulin. She has served as Minority Whip in the Iowa House and previously worked as a chaplain and adjunct professor at the University of Dubuque.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lindsay_James_(politician)",
+          "type": "website",
+          "title": "Lindsay James (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://iowacapitaldispatch.com/2026/06/02/state-rep-lindsay-james-wins-district-2-democratic-primary-ap-projects/",
+          "type": "news",
+          "title": "Iowa 2nd District race will pit Republican Joe Mitchell and Democrat Lindsay James",
+          "description": null,
+          "last_accessed": "2025-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Member_of_the_Iowa_House_of_Representatives_Lindsay_James_%28cropped%29.jpg/320px-Member_of_the_Iowa_House_of_Representatives_Lindsay_James_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Iowa House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Represents the 71st district (previously 99th district). Serves as House Minority Whip. Co-founded Iowa's first bipartisan, bicameral caucus.",
+          "source": null
+        },
+        {
+          "title": "Associate Pastor",
+          "organization": "Westminster Presbyterian Church",
+          "start_year": 2016,
+          "end_year": 2017,
+          "description": "Served as an associate pastor.",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Loras College Peace Institute",
+          "start_year": 2017,
+          "end_year": 2018,
+          "description": "Co-founded and served as director.",
+          "source": null
+        },
+        {
+          "title": "Interfaith Chaplain",
+          "organization": "Endicott College",
+          "start_year": 2012,
+          "end_year": 2015,
+          "description": "Served as interfaith chaplain.",
+          "source": null
+        },
+        {
+          "title": "Minister",
+          "organization": "Menlo Park Presbyterian Church",
+          "start_year": 2007,
+          "end_year": 2010,
+          "description": "Served as a minister.",
+          "source": null
+        },
+        {
+          "title": "Adjunct Professor",
+          "organization": "University of Dubuque",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Taught as an adjunct professor.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Fuller Theological Seminary",
+          "degree": "Master of Divinity",
+          "field": "Divinity",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Santa Clara University",
+          "degree": "Bachelor of Arts",
+          "field": "Communications",
+          "year": 2003,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.lindsayforiowa.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/lindsayjamesIA",
+        "instagram": "https://www.instagram.com/lindsay4iowa/",
+        "twitter": "https://x.com/Lindsay4Iowa"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dave Bushaw",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Dave Bushaw is an independent candidate for Iowa's 2nd Congressional District, a farmer, folk musician, and labor organizer from West Union, Iowa. He qualified for the general election ballot as an independent, positioning himself as a working-class alternative to the major party candidates. His campaign focuses on accountability, transparency, and representing rural and working-class communities.",
+      "summary_sources": [
+        {
+          "url": "https://www.iowapublicradio.org/political-news/2025-11-12/independent-dave-bushaw-2nd-congressional-district-race-2026-midterms",
+          "type": "news",
+          "title": "Independent candidate Dave Bushaw enters 2nd District race",
+          "description": null,
+          "last_accessed": "2025-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.davebushaw.com/",
+          "type": "website",
+          "title": "Dave Bushaw for Congress",
+          "description": null,
+          "last_accessed": "2025-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Farmer",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Self-described as one of the youngest self-made, first-generation farmland owners in the U.S.",
+          "source": null
+        },
+        {
+          "title": "Folk and Labor Musician",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Traveled the country playing for striking workers and training people in workplace organizing.",
+          "source": null
+        },
+        {
+          "title": "Labor Organizer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a labor organizer.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.davebushaw.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/davebushaw/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Iowa%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:48:31.686176+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 252542,
+    "completion_tokens": 7580,
+    "total_tokens": 260122,
+    "cost_usd": 0.02140254,
+    "cost_source": "provider",
+    "estimated_usd": 0.026235,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 252542,
+        "completion_tokens": 7580
+      }
+    },
+    "duration_s": 127.3
+  }
+}

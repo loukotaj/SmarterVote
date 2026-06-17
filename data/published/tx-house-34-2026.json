@@ -1,0 +1,279 @@
+{
+  "id": "tx-house-34-2026",
+  "title": "Texas's 34th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 34th Congressional District",
+  "state": "Texas",
+  "district": "34th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Texas's 34th Congressional District, stretching along the Gulf Coast from Brownsville to Corpus Christi, is hosting one of the most competitive House races in the country. Incumbent Democrat Vicente Gonzalez, a moderate Blue Dog Coalition co-chair, faces Republican challenger Eric Flores, an Army veteran and former federal prosecutor endorsed by President Trump. The district voted for Trump in 2024 while re-electing Gonzalez by a narrow margin, making it a top GOP target. The race will test the GOP's gains with Hispanic voters in South Texas and the strength of Democratic incumbency in a district rated as a Toss-up by the Cook Political Report.",
+  "polling": [
+    {
+      "pollster": "co/efficient (for NRCC)",
+      "date": "2026-04-29",
+      "sample_size": 777,
+      "matchups": [
+        {
+          "candidates": [
+            "Eric Flores",
+            "Vicente Gonzalez"
+          ],
+          "percentages": [
+            41.0,
+            40.0
+          ]
+        }
+      ],
+      "source_url": "https://www.nrcc.org/wp-content/uploads/2026/05/NRCC-TX-34-Survey-Memo-1.pdf"
+    }
+  ],
+  "polling_note": "Only one poll was located, conducted by a Republican party committee (NRCC). Independent nonpartisan polling data for this race was not publicly available as of June 2026.",
+  "candidates": [
+    {
+      "name": "Vicente Gonzalez",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Vicente Gonzalez is the incumbent U.S. Representative for Texas's 34th Congressional District, first elected in 2016. A moderate Democrat and co-chair of the Blue Dog Coalition, he has focused on affordable healthcare, veterans' benefits, and economic development for South Texas. He previously represented the 15th district before redistricting and won re-election in 2024 by a narrow margin in this Republican-trending seat.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Vicente_Gonzalez_(American_politician)",
+          "type": "news",
+          "title": "Vicente Gonzalez (American politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vicentegonzalez.com/",
+          "type": "website",
+          "title": "Vicente Gonzalez for Congress - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-34-primary.html",
+          "type": "news",
+          "title": "Texas 34th Congressional District Primary Election Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/44/Rep._Vicente_Gonzalez%2C_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Representing Texas's 15th district (2017-2023) and 34th district (2023-present)",
+          "source": null
+        },
+        {
+          "title": "Founder and Attorney",
+          "organization": "V. Gonzalez & Associates",
+          "start_year": 1997,
+          "end_year": 2016,
+          "description": "Private law practice in South Texas",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Del Mar College",
+          "degree": "Associate of Science",
+          "field": "Banking and Finance",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "Embry-Riddle Aeronautical University",
+          "degree": "Bachelor of Science",
+          "field": "Aviation Business Administration",
+          "year": 1992,
+          "source": null
+        },
+        {
+          "institution": "Texas Wesleyan University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1996,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://vicentegonzalez.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepGonzalez",
+        "facebook": "https://www.facebook.com/RepVicenteGonzalez/",
+        "instagram": "https://www.instagram.com/repvicentegonzalez/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eric Flores",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Eric Flores is the Republican nominee for Texas's 34th Congressional District. A former U.S. Army infantry captain and assistant U.S. attorney, he prosecuted transnational human smuggling and white-collar crime in the Southern District of Texas. He has been endorsed by President Trump and Gov. Greg Abbott, and his campaign emphasizes border security, support for law enforcement and veterans, and U.S. energy independence.",
+      "summary_sources": [
+        {
+          "url": "https://www.texastribune.org/2025/07/21/texas-congress-eric-flores-vicente-gonzalez-34th-district/",
+          "type": "news",
+          "title": "GOP Army veteran announces challenge to Democrat Vicente Gonzalez",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.808west.com/ericdflores",
+          "type": "website",
+          "title": "Eric Flores biography - ODC Law",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ericflores.com/",
+          "type": "website",
+          "title": "Eric Flores for Congress - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-34-primary.html",
+          "type": "news",
+          "title": "Texas 34th Congressional District Primary Election Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.borderreport.com/wp-content/uploads/sites/28/2026/03/Eric-Flores-Photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Partner",
+          "organization": "O'Hanlon, Demerath & Castillo",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Private practice focusing on municipal law, school districts, and governmental entities",
+          "source": null
+        },
+        {
+          "title": "Assistant U.S. Attorney",
+          "organization": "U.S. Department of Justice, Southern District of Texas",
+          "start_year": 2021,
+          "end_year": 2025,
+          "description": "Prosecuted white-collar fraud, public corruption, immigration, and human smuggling cases",
+          "source": null
+        },
+        {
+          "title": "City Attorney / Associate Municipal Judge",
+          "organization": "City of Alton, Texas",
+          "start_year": 2018,
+          "end_year": 2021,
+          "description": "Provided legal counsel and presided as municipal judge",
+          "source": null
+        },
+        {
+          "title": "Infantry Officer, Captain",
+          "organization": "Texas Army National Guard",
+          "start_year": 2012,
+          "end_year": 2023,
+          "description": "Commanded an Infantry Rifle Company; led border security and pandemic response operations",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Thurgood Marshall School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Texas at Austin",
+          "degree": "Bachelor's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.ericflores.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Eric-Flores-for-Congress-61578310026781/",
+        "instagram": "https://www.instagram.com/eric4texas/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_34th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:10:02.216648+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 283684,
+    "completion_tokens": 5388,
+    "total_tokens": 289072,
+    "cost_usd": 0.021409015999999996,
+    "cost_source": "provider",
+    "estimated_usd": 0.028857,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 283684,
+        "completion_tokens": 5388
+      }
+    },
+    "duration_s": 139.7
+  }
+}

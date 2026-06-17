@@ -1,0 +1,342 @@
+{
+  "id": "co-house-08-2026",
+  "title": "Colorado's 8th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Colorado's 8th Congressional District",
+  "state": "Colorado",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Colorado's 8th Congressional District, created after the 2020 census, is one of the most competitive House seats in the country. Incumbent Republican Rep. Gabe Evans, who flipped the seat in 2024 by defeating Democrat Yadira Caraveo 49.0%-48.2%, is running for re-election unopposed in the Republican primary. Two Democrats \u2014 former state Rep. Shannon Bird and state Rep. Manny Rutinel \u2014 are competing in the June 30 Democratic primary to determine who will face Evans in the November general election. The Cook Political Report, Inside Elections, and Sabato's Crystal Ball all rate the race as a toss-up, and the outcome could help determine which party controls the House.",
+  "polling": [],
+  "polling_note": "No general election polls found for this race as of mid-June 2026. The New York Times poll tracker lists the race but shows no public polls yet for the general election matchup. The Democratic primary is still ongoing (June 30, 2026).",
+  "candidates": [
+    {
+      "name": "Gabe Evans",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Gabe Evans is the incumbent U.S. Representative for Colorado's 8th Congressional District, first elected in 2024. He is a former U.S. Army captain who served in Afghanistan and a former lieutenant with the Arvada Police Department, and previously served in the Colorado House of Representatives. Evans is running for re-election unopposed in the Republican primary and has been endorsed by Donald Trump.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Gabe_Evans",
+          "type": "website",
+          "title": "Gabe Evans - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Gabe_Evans",
+          "type": "website",
+          "title": "Gabe Evans - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Rep._Gabe_Evans_official_photo%2C_119th_Congress.jpg/250px-Rep._Gabe_Evans_official_photo%2C_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Colorado's 8th Congressional District; serves on Energy and Commerce and Homeland Security committees",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Colorado House of Representatives",
+          "start_year": 2023,
+          "end_year": 2025,
+          "description": "Represented the 48th district",
+          "source": null
+        },
+        {
+          "title": "Police Lieutenant",
+          "organization": "Arvada Police Department",
+          "start_year": 2011,
+          "end_year": 2022,
+          "description": "Served as a police officer and rose to the rank of lieutenant",
+          "source": null
+        },
+        {
+          "title": "Captain / Army Aviator",
+          "organization": "United States Army / Colorado Army National Guard",
+          "start_year": 2007,
+          "end_year": 2019,
+          "description": "Served as a UH-60 Black Hawk helicopter pilot including deployment to Afghanistan; also served in Virginia Army National Guard",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Patrick Henry College",
+          "degree": "BA",
+          "field": "Government",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.electgabeevans.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Shannon Bird",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Shannon Bird is a former Colorado state representative who served from 2019 to 2026, representing parts of Adams County, and previously served on the Westminster City Council. She resigned from the state legislature in January 2026 to focus on her congressional campaign, where she emphasizes healthcare affordability, immigration reform, and standing up to the Trump administration. Bird has positioned herself as a moderate Democrat and highlights her experience on the Joint Budget Committee and her record of holding over 90 town halls.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Shannon_Bird",
+          "type": "website",
+          "title": "Shannon Bird - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://coloradonewsline.com/2026/06/09/candidate-qa-colorado-1st-congressional-district/",
+          "type": "news",
+          "title": "Candidate Q&A: Colorado's 8th Congressional District - Colorado Newsline",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://coloradonewsline.com/wp-content/uploads/2026/05/ShannonBird-1-scaled-e1780004689999-150x150.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Colorado House of Representatives",
+          "start_year": 2019,
+          "end_year": 2026,
+          "description": "Represented the 35th district (2019-2023) and 29th district (2023-2026); served on Joint Budget Committee and Finance Committee",
+          "source": null
+        },
+        {
+          "title": "City Council Member",
+          "organization": "Westminster City Council",
+          "start_year": 2015,
+          "end_year": 2019,
+          "description": "Served as a council member for the City of Westminster",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced corporate law",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Denver",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Colorado Denver",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Colorado Denver",
+          "degree": "MS",
+          "field": "Finance",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Colorado Boulder",
+          "degree": "BA",
+          "field": "Economics",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://shannonbird.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Manny Rutinel",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Manny Rutinel is a Colorado state representative for the 32nd district, serving since October 2023, and an environmental attorney. A first-generation American raised by a single mother, he previously worked as an economist for the U.S. Army Corps of Engineers and as an associate attorney at Earthjustice. Rutinel is running on a platform of lowering costs, protecting Social Security and Medicare, and holding the Trump administration accountable, with strong support from progressive groups.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Manny_Rutinel",
+          "type": "website",
+          "title": "Manny Rutinel - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://coloradonewsline.com/2026/06/09/candidate-qa-colorado-1st-congressional-district/",
+          "type": "news",
+          "title": "Candidate Q&A: Colorado's 8th Congressional District - Colorado Newsline",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Manny_Rutinel_at_2024_YIMBY_Denver_Legislative_Kickoff_%28cropped%29.jpg/250px-Manny_Rutinel_at_2024_YIMBY_Denver_Legislative_Kickoff_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Colorado House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing the 32nd district; prime sponsor of bills on homelessness prevention, worker safety, and earned income tax credit expansion",
+          "source": null
+        },
+        {
+          "title": "CEO",
+          "organization": "Climate Refarm",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Non-profit organization focused on climate and agriculture",
+          "source": null
+        },
+        {
+          "title": "Associate Attorney",
+          "organization": "Earthjustice",
+          "start_year": 2020,
+          "end_year": 2021,
+          "description": "Environmental law practice",
+          "source": null
+        },
+        {
+          "title": "Economist",
+          "organization": "United States Army Corps of Engineers",
+          "start_year": 2016,
+          "end_year": 2018,
+          "description": "Served as an economist in Upstate New York",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale Law School",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "MS",
+          "field": "Applied Economics",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Florida",
+          "degree": "BS",
+          "field": "Microbiology",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Florida",
+          "degree": "BA",
+          "field": "Economics",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Pasco-Hernando State College",
+          "degree": "AA",
+          "field": "General Studies",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mannyforcolorado.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:59:57.915746+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 325683,
+    "completion_tokens": 7368,
+    "total_tokens": 333051,
+    "cost_usd": 0.022797989999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.033361,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 325683,
+        "completion_tokens": 7368
+      }
+    },
+    "duration_s": 155.3
+  }
+}

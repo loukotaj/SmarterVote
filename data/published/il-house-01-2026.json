@@ -1,0 +1,200 @@
+{
+  "id": "il-house-01-2026",
+  "title": "Illinois's 1st Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Illinois's 1st Congressional District",
+  "state": "Illinois",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Illinois's 1st Congressional District pits incumbent Democratic U.S. Representative Jonathan Jackson against Republican nominee Christian Maxwell. The district covers the South Side of Chicago and parts of Cook, Will, and Kankakee counties, including areas such as Bronzeville, Hyde Park, Morgan Park, New Lenox, and Homer Glen. Jackson, first elected in 2022 and re-elected in 2024 with 65.8% of the vote, faces a Republican challenger in a district that is considered safely Democratic by major political forecasters. Key issues include economic opportunity, public safety, education, and federal immigration enforcement.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of June 2026. The district is rated 'Solid D' by The Cook Political Report, 'Safe D' by Sabato's Crystal Ball, and 'Solid D' by Inside Elections.",
+  "candidates": [
+    {
+      "name": "Jonathan Jackson",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jonathan Jackson is the incumbent U.S. Representative for Illinois's 1st Congressional District, first elected in 2022. Born in Chicago to civil rights leaders Rev. Jesse Jackson and Jacqueline Jackson, he has a B.S. in Business from North Carolina A&T State University and an MBA from Northwestern University's Kellogg School of Management. He serves on the House Agriculture Committee and the House Foreign Affairs Committee and previously worked as a national spokesman for the Rainbow PUSH Coalition, where he advocated for criminal justice reform and international human rights.",
+      "summary_sources": [
+        {
+          "url": "http://jonathanjackson.house.gov/about",
+          "type": "government",
+          "title": "About | Congressman Jonathan Jackson",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Illinois",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Rep._Jonathan_Jackson_official_portrait%2C_118th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Illinois's 1st Congressional District; serves on Agriculture Committee and Foreign Affairs Committee",
+          "source": null
+        },
+        {
+          "title": "National Spokesman",
+          "organization": "Rainbow PUSH Coalition",
+          "start_year": null,
+          "end_year": 2022,
+          "description": "Advocated for civil rights, criminal justice reform, and international human rights",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "North Carolina Agricultural & Technical State University",
+          "degree": "Bachelor of Science",
+          "field": "Business",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Northwestern University - Kellogg School of Management",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jonathanjacksonforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/repjackson/",
+        "instagram": "https://www.instagram.com/jonathanjacksonforcongress/",
+        "twitter": "https://twitter.com/RepJackson"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christian Maxwell",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Christian Maxwell is the Republican nominee for Illinois's 1st Congressional District, having won the March 17, 2026, Republican primary with 64.5% of the vote. She is a conservative businesswoman, e-commerce growth marketing consultant, and mother of four from Chicago's South Side. Maxwell holds a bachelor's degree from the University of Illinois at Chicago and has no prior political experience, running on a platform focused on economic opportunity, education reform, public safety, and reducing the tax burden on working families.",
+      "summary_sources": [
+        {
+          "url": "https://chicago.suntimes.com/elections/2026/candidate-questionnaires/christian-maxwell-illinois-primary-1st-congressional-district",
+          "type": "news",
+          "title": "Christian Maxwell, Republican candidate for Illinois 1st Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://news.wttw.com/elections/voters-guide/2026-primary/christian-maxwell",
+          "type": "news",
+          "title": "Christian Maxwell | 2026 Primary Election Voter Guide",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Illinois",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "E-commerce Growth Marketing Consultant",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Marketing strategist and businesswoman",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Illinois at Chicago",
+          "degree": "Bachelor's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://christianmaxwellforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Christian-Maxwell-For-Congress-61575173978034/",
+        "instagram": "https://www.instagram.com/christianmaxwellforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:20:21.379739+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 188359,
+    "completion_tokens": 4407,
+    "total_tokens": 192766,
+    "cost_usd": 0.010057802,
+    "cost_source": "provider",
+    "estimated_usd": 0.019323,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 188359,
+        "completion_tokens": 4407
+      }
+    },
+    "duration_s": 113.0
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "id": "ky-house-02-2026",
+  "title": "Kentucky's 2nd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Kentucky's 2nd Congressional District",
+  "state": "Kentucky",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Kentucky's 2nd Congressional District pits 17-term Republican incumbent Brett Guthrie against Democratic nominee Megan Wingfield. Guthrie, who chairs the House Energy and Commerce Committee, has held the seat since 2009 and won re-election with 73.1% of the vote in 2024. The district, covering west-central Kentucky including Bowling Green, Owensboro, Elizabethtown, and part of eastern Louisville, is considered a safely Republican seat. Wingfield, a mechanic and first-time candidate, is running on a progressive platform emphasizing economic justice, healthcare access, and reproductive rights.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 Kentucky's 2nd Congressional District general election. The race is widely rated as 'Solid R' or 'Safe R' by nonpartisan analysts.",
+  "candidates": [
+    {
+      "name": "Brett Guthrie",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Brett Guthrie is the incumbent U.S. Representative for Kentucky's 2nd Congressional District, first elected in 2008. He serves as Chairman of the House Energy and Commerce Committee and previously served in the Kentucky Senate. Guthrie is a West Point graduate and former Army officer who worked in manufacturing before entering politics.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Brett_Guthrie",
+          "type": "news",
+          "title": "Brett Guthrie - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://guthrie.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Congressman Brett Guthrie",
+          "description": null,
+          "last_accessed": "2026-06-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Brett_Guthrie",
+          "type": "website",
+          "title": "Brett Guthrie - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Brett_Guthrie%2C_Official_Photo.jpg/250px-Brett_Guthrie%2C_Official_Photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Representing Kentucky's 2nd Congressional District; Chairman of House Energy and Commerce Committee (2025-present)",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Kentucky Senate",
+          "start_year": 1999,
+          "end_year": 2008,
+          "description": "Represented the 32nd District",
+          "source": null
+        },
+        {
+          "title": "Vice President",
+          "organization": "Trace Die Cast",
+          "start_year": null,
+          "end_year": null,
+          "description": "Manufacturing business based in Bowling Green, Kentucky",
+          "source": null
+        },
+        {
+          "title": "Field Artillery Officer",
+          "organization": "United States Army, 101st Airborne Division",
+          "start_year": 1987,
+          "end_year": 1990,
+          "description": "Served as a Captain at Fort Campbell",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale University",
+          "degree": "MBA",
+          "field": "Public and Private Management",
+          "year": 1997,
+          "source": null
+        },
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "BS",
+          "field": "Mathematical Economics",
+          "year": 1987,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://guthrie.house.gov/",
+          "title": "https://guthrie.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Brett_Guthrie",
+          "title": "https://ballotpedia.org/Brett_Guthrie",
+          "type": "other"
+        }
+      ],
+      "website": "https://brettguthrie.com/",
+      "social_media": {
+        "twitter": "https://x.com/CongressmanGuthrie",
+        "facebook": "https://www.facebook.com/CongressmanGuthrie/",
+        "youtube": "https://www.youtube.com/@CongressmanGuthrie"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Megan Wingfield",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Megan Wingfield is the Democratic nominee for Kentucky's 2nd Congressional District. A mechanic by trade and a community activist, she graduated from Southcentral Kentucky Community and Technical College with a degree in Automotive Technology. Wingfield advocates for universal healthcare, reproductive freedom, economic justice, and term limits, positioning herself as a working-class challenger to the incumbent.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Kentucky",
+          "description": null,
+          "last_accessed": "2026-06-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://meganwingfieldforcongress.com/",
+          "type": "website",
+          "title": "Megan Wingfield for Congress",
+          "description": null,
+          "last_accessed": "2026-06-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-2nd-district-dems/",
+          "type": "news",
+          "title": "U.S. House \u2013 2nd District \u2014 Dems | Voter Guide",
+          "description": null,
+          "last_accessed": "2026-06-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://meganwingfieldforcongress.com/_assets/media/41866aab95d3f082cdc0b97e78abe639.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mechanic",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Automotive technician by trade",
+          "source": null
+        },
+        {
+          "title": "Community Activist",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Advocate for working families, healthcare access, and reproductive rights",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Southcentral Kentucky Community and Technical College (SKYCTC)",
+          "degree": "Associate Degree",
+          "field": "Automotive Technology",
+          "year": 2023,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Megan_Wingfield",
+          "title": "https://ballotpedia.org/Megan_Wingfield",
+          "type": "other"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6KY02068/",
+          "title": "https://www.fec.gov/data/candidate/H6KY02068/",
+          "type": "other"
+        }
+      ],
+      "website": "https://meganwingfieldforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/wingfieldforcongress/",
+        "facebook": "https://www.facebook.com/megan.wingfield.for.congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:45:53.890977+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 248470,
+    "completion_tokens": 5371,
+    "total_tokens": 253841,
+    "cost_usd": 0.018993048,
+    "cost_source": "provider",
+    "estimated_usd": 0.025403,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 248470,
+        "completion_tokens": 5371
+      }
+    },
+    "duration_s": 106.2
+  }
+}

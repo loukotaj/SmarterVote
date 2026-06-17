@@ -9,45 +9,62 @@
   "polling_note": "No public polling found for this race as of 2026-04-01.",
   "candidates": [
     {
-      "name": "N'Kiyla Thomas",
+      "name": "N'Kiyla Jasmine Thomas",
       "party": "Democratic",
       "incumbent": false,
       "summary": "N'Kiyla Thomas is the Democratic candidate for Oklahoma's 2026 U.S. Senate race. Ballotpedia describes her as a declared candidate for the Democratic primary, and her campaign has publicly framed her bid around being a nurse, mother, and grassroots candidate focused on Oklahoma's future.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/N'Kiyla_Thomas",
+          "type": "website",
           "title": "Ballotpedia profile",
-          "type": "ballotpedia"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:31.358767Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.instagram.com/jasmineforok/",
+          "type": "government",
           "title": "Campaign Instagram",
-          "type": "official"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:31.358767Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nkiyla_Thomas_2025.jpeg",
-      "website": "https://www.instagram.com/jasmineforok/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/p/NKiyla-Jasmine-Thomas-US-Senate-2026-61573870225392/",
-        "instagram": "https://www.instagram.com/jasmineforok/",
-        "tiktok": "https://www.tiktok.com/@jasmineforok"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Senate candidate",
           "organization": "N'Kiyla Thomas campaign",
           "start_year": 2026,
           "end_year": null,
-          "description": "Running for the Oklahoma U.S. Senate seat in 2026."
+          "description": "Running for the Oklahoma U.S. Senate seat in 2026.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.instagram.com/jasmineforok/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/NKiyla-Jasmine-Thomas-US-Senate-2026-61573870225392/",
+        "instagram": "https://www.instagram.com/jasmineforok/",
+        "tiktok": "https://www.tiktok.com/@jasmineforok"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Kevin Hern",
@@ -57,74 +74,196 @@
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Kevin_Hern",
+          "type": "website",
           "title": "Ballotpedia profile",
-          "type": "ballotpedia"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:31.358767Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://thehill.com/homenews/campaign/5783965-trump-endorses-kevin-hern/",
+          "type": "news",
           "title": "The Hill: Trump endorses Hern",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:31.358767Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://oklahomavoice.com/briefs/hern-launches-bid-for-us-senate-announces-he-will-not-seek-another-term-in-house/",
+          "type": "news",
           "title": "Oklahoma Voice: Hern launches Senate bid",
-          "type": "news"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:31.358767Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/15589751_225475587878868_2375580706974003254_n.jpg",
-      "website": "https://hern.house.gov/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/KevinRHern/",
-        "instagram": "https://www.instagram.com/repkevinhern/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives, Oklahoma's 1st Congressional District",
           "start_year": 2018,
           "end_year": null,
-          "description": "Represents Oklahoma's 1st District in Congress."
+          "description": "Represents Oklahoma's 1st District in Congress.",
+          "source": null
         },
         {
           "title": "Business owner",
           "organization": "Various business ventures",
           "start_year": null,
           "end_year": 2018,
-          "description": "Public materials describe him as a businessman before entering Congress."
+          "description": "Public materials describe him as a businessman before entering Congress.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://hern.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/KevinRHern/",
+        "instagram": "https://www.instagram.com/repkevinhern/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "R.O. Joe Cassity, Jr.",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Troy W. Green",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jim Priest",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ervin Stone Yen",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:22:25.612833+00:00",
+  "updated_utc": "2026-06-13T23:11:38.836880+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 222199,
-    "completion_tokens": 8446,
-    "total_tokens": 230645,
-    "estimated_usd": 0.0338,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 89367,
+    "completion_tokens": 14718,
+    "total_tokens": 104085,
+    "cost_usd": 0.00872637,
+    "cost_source": "provider",
+    "estimated_usd": 0.011129,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 63642,
-        "completion_tokens": 7298
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 68174,
+        "completion_tokens": 13525
       },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 158557,
-        "completion_tokens": 1148
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 21193,
+        "completion_tokens": 1193
       }
     },
-    "duration_s": 100.8
+    "duration_s": 127.6
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

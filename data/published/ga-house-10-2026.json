@@ -1,0 +1,244 @@
+{
+  "id": "ga-house-10-2026",
+  "title": "Georgia's 10th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Georgia's 10th Congressional District",
+  "state": "Georgia",
+  "district": "10th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This is an open-seat election for Georgia's 10th Congressional District, which covers central-east Georgia including the city of Athens and surrounding counties. The incumbent, Republican U.S. Rep. Mike Collins, is not seeking re-election and is instead running for the U.S. Senate, creating a competitive contest for this strongly Republican-leaning district. The general election pits Republican state Representative Houston Gaines, who won a three-candidate GOP primary with a Trump endorsement, against Democratic retired Army Nurse Colonel Pamela DeLancy, who prevailed in a multi-candidate Democratic primary. Nonpartisan forecasters including the Cook Political Report and Sabato's Crystal Ball rate the district as 'Solid Republican' or 'Safe Republican.'",
+  "polling": [],
+  "polling_note": "No public opinion polls were found specifically for the Georgia 10th Congressional District general election as of mid-2026. The district is rated as Solid/Safe Republican by major nonpartisan forecasters.",
+  "candidates": [
+    {
+      "name": "Houston Gaines",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Houston Gaines is a Georgia state representative who has served District 120 since 2019. He won the Republican primary for Georgia's 10th Congressional District with an endorsement from President Donald Trump, and he works at Carter Engineering helping grow small businesses. An eighth-generation northeast Georgian, he was born and raised in Athens, attended the University of Georgia where he served as student body president, and has authored more than 20 bills that passed the state legislature, including legislation to prohibit defunding police and to crack down on illegal immigration.",
+      "summary_sources": [
+        {
+          "url": "https://houstongaines.com/about/",
+          "type": "website",
+          "title": "About - Houston Gaines for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ajc.com/politics/2026/04/us-house-district-10-trump-support-faces-test-in-race-to-replace-collins/",
+          "type": "news",
+          "title": "Georgia's 10th Congressional District candidates 2026: Who's running?",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4955&Member=4955",
+          "type": "government",
+          "title": "Representative Houston Gaines",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.legis.ga.gov/api/images/default-source/portraits/gaines-houston-4955.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Georgia House of Representatives, District 120",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Serves on Appropriations, Insurance, Transportation, and Ways & Means committees. Previously served as Majority Caucus Vice-Chairman.",
+          "source": null
+        },
+        {
+          "title": "Small Business Employee",
+          "organization": "Carter Engineering",
+          "start_year": null,
+          "end_year": null,
+          "description": "Focuses on expanding this Oconee County small business.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Georgia",
+          "degree": "Bachelor's",
+          "field": "Unknown",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Houston_Gaines",
+          "title": "Ballotpedia - Houston Gaines",
+          "type": "other"
+        }
+      ],
+      "website": "https://houstongaines.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/HoustonGaines/",
+        "twitter": "https://x.com/houstongaines",
+        "instagram": "https://www.instagram.com/houstongaines/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Pamela DeLancy",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Pamela DeLancy is a retired U.S. Army Nurse Colonel with 39 years of service and a registered nurse who now works in healthcare. She won the Democratic primary for Georgia's 10th Congressional District, campaigning on a platform focused on accessible and affordable healthcare, veterans' services, and economic growth. A cancer survivor and resident of McDonough, Georgia, she holds a Bachelor of Science in Nursing, an MS in Administration from Central Michigan University, and a Master of Strategic Studies from the U.S. Army War College.",
+      "summary_sources": [
+        {
+          "url": "https://www.votepamdelancy.com/",
+          "type": "website",
+          "title": "Pamela DeLancy for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.covnews.com/news/state/pamela-delancy-declares-her-candidacy-for-congress/",
+          "type": "news",
+          "title": "Pamela DeLancy declares her candidacy for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ajc.com/politics/2026/04/us-house-district-10-trump-support-faces-test-in-race-to-replace-collins/",
+          "type": "news",
+          "title": "Georgia's 10th Congressional District candidates 2026: Who's running?",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Colonel / Army Nurse Corps Officer (Retired)",
+          "organization": "United States Army",
+          "start_year": 1980,
+          "end_year": 2019,
+          "description": "Served 39 years, including at William Beaumont Army Medical Center, Fort Stewart, Fort Gordon, AMEDD Professional Management Command, U.S. Army Reserve Command\u2013Atlanta, and the Office of the Chief Army Reserve\u2013Fort Belvoir, VA as Deputy Surgeon for Clinical Operations.",
+          "source": null
+        },
+        {
+          "title": "Registered Nurse",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Currently works as a registered nurse.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Texas Health Science Center",
+          "degree": "Bachelor of Science",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Central Michigan University",
+          "degree": "Master of Science",
+          "field": "Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "U.S. Army War College",
+          "degree": "Master of Strategic Studies",
+          "field": "Strategic Studies",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Houston",
+          "degree": "ROTC Early Commissioning Program",
+          "field": null,
+          "year": 1987,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Pamela_DeLancy",
+          "title": "Ballotpedia - Pamela DeLancy",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.votepamdelancy.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Elect-Pamela-Delancy-for-Congress-61586716196860/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_10th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:23:25.493108+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 384043,
+    "completion_tokens": 6286,
+    "total_tokens": 390329,
+    "cost_usd": 0.026817582,
+    "cost_source": "provider",
+    "estimated_usd": 0.038868,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 384043,
+        "completion_tokens": 6286
+      }
+    },
+    "duration_s": 120.2
+  }
+}

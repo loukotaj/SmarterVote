@@ -6,51 +6,20 @@
   "state": "Michigan",
   "district": "7th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Michigan\u2019s 7th Congressional District race features Democratic candidates Elyon Badger, Bridget Brink, and Matt Maasdam. The seat is currently held by Republican Tom Barrett.",
+  "description": "Michigan’s 7th Congressional District race features Democratic candidates Elyon Badger, Bridget Brink, and Matt Maasdam. The seat is currently held by Republican Tom Barrett.",
   "polling": [
     {
       "pollster": "Public Policy Polling",
       "date": "2025-11-07",
-      "matchups": [
-        {
-          "candidates": [
-            "Tom Barrett",
-            "Matt Maasdam"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        },
-        {
-          "candidates": [
-            "Tom Barrett",
-            "Bridget Brink"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "sample_size": null,
+      "matchups": [],
       "source_url": "https://www.publicpolicypolling.com/polls/democrats-should-swing-for-the-fences-in-2026/"
     },
     {
       "pollster": "Public Policy Polling",
       "date": "2025-11-01",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Tom Barrett",
-            "Unnamed Democratic challenger"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.publicpolicypolling.com/polls/democrats-should-swing-for-the-fences-in-2026/"
     }
   ],
@@ -60,33 +29,368 @@
       "name": "Bridget Brink",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Bridget Brink is a Michigan native, sixth-generation Michigander, and former U.S. ambassador to Ukraine who is running as a Democrat in Michigan\u2019s 7th Congressional District. Her campaign emphasizes her foreign-service background, her resignation from the ambassador post over U.S. policy toward Ukraine, and her focus on lowering costs, health care, and defending democratic institutions.",
+      "summary": "Bridget Brink is a Michigan native, sixth-generation Michigander, and former U.S. ambassador to Ukraine who is running as a Democrat in Michigan’s 7th Congressional District. Her campaign emphasizes her foreign-service background, her resignation from the ambassador post over U.S. policy toward Ukraine, and her focus on lowering costs, health care, and defending democratic institutions.",
       "summary_sources": [
         {
           "url": "https://www.bridgetbrink.com/about",
           "type": "website",
-          "title": "Meet Bridget - Bridget Brink for Congress"
+          "title": "Meet Bridget - Bridget Brink for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.bridgetbrink.com/issues",
           "type": "website",
-          "title": "Priorities - Bridget Brink for Congress"
+          "title": "Priorities - Bridget Brink for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.mlive.com/politics/2025/06/former-us-ambassador-to-ukraine-announces-run-for-michigan-congressional-seat.html",
           "type": "news",
-          "title": "Former U.S. Ambassador to Ukraine announces run for Michigan's 7th Congressional District"
+          "title": "Former U.S. Ambassador to Ukraine announces run for Michigan's 7th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://www.bridgetbrink.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Brink supports extending ACA tax credits, creating a public health insurance option, repealing Medicaid cuts, lowering prescription drug costs, and capping insulin at $35. She also backs stronger consumer protections and more transparency from insurers and drug companies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues/making-health-care-more-affordable-and-accessible",
+              "type": "website",
+              "title": "Making Health Care More Affordable and Accessible",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Brink’s economic plan focuses on lowering costs for families, supporting small businesses, investing in infrastructure and broadband, expanding job training and free community college, and strengthening worker rights. She also says she would roll back tariffs, reform zoning and permitting to expand housing, and crack down on corporate landlords and utility monopolies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
+              "type": "website",
+              "title": "Lowering Costs and Investing in mid-Michigan",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Brink says she supports protecting the environment and growing the green economy. Her campaign also says it would increase regulation of public utility monopolies and support clean, future-oriented economic development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/priorities",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Brink says she supports protecting fundamental rights and freedoms, and her campaign materials place reproductive freedom within that broader rights framework. Public campaign materials reviewed do not provide a more detailed abortion policy statement on the main issues pages beyond that rights-based framing.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/priorities",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found on guns or gun safety in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Brink’s foreign-policy message centers on supporting Ukraine, defending democracy, and opposing Russian aggression. She says her diplomatic experience shaped her view that the U.S. should remain engaged with allies and stand against corruption and authoritarianism.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/about",
+              "type": "website",
+              "title": "Meet Bridget - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Brink frames her campaign around protecting fundamental rights and freedoms, defending democracy, and making health care and other essentials more affordable. Her materials also emphasize her union background and support for working families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/about",
+              "type": "website",
+              "title": "Meet Bridget - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Brink supports strengthening public schools and expanding job training, career and technical education, and free community college. Her campaign says education and workforce development are part of preparing workers for the future economy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
+              "type": "website",
+              "title": "Lowering Costs and Investing in mid-Michigan",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Brink says she supports clear rules for emerging technologies, including artificial intelligence, to encourage innovation while protecting consumers from risk and bad actors. Her campaign specifically says it would crack down on corporate landlords who use A.I. to artificially raise rents and hide fees.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
+              "type": "website",
+              "title": "Lowering Costs and Investing in mid-Michigan",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Brink says she supports fighting corruption and defending democracy, including stronger ethics rules and accountability for public officials. Her campaign also emphasizes protecting the integrity of elections as part of that broader democracy message.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/priorities",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Brink’s local priorities for mid-Michigan focus on lowering costs, making health care more affordable, protecting Social Security and Medicare, strengthening public schools, defending democracy, and growing the green economy. Her campaign also highlights infrastructure, broadband, housing, and small-business support.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
+              "type": "website",
+              "title": "Lowering Costs and Investing in mid-Michigan",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found on immigration in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bridgetbrink.com/issues",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bridgetbrink.com/priorities",
+              "type": "website",
+              "title": "Priorities - Bridget Brink for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": "Bridget Brink\u2019s 2026 House campaign reported $1,643,666.77 in total receipts through 12/31/2025, with $1,603,216.65 from individual contributions and $20,450 from other committees; the campaign also reported a $20,000 candidate loan. Public FEC summary data does not identify top industries or named major donors on the candidate overview page, but the campaign\u2019s own site says it is powered by grassroots support and reported over $2.2M raised by early April 2026.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H6MI07256/",
-      "voting_summary": "Bridget Brink has not held legislative office, so there is no legislative voting record to report. She previously served as U.S. Ambassador to Ukraine (2022\u20132025), and her campaign frames her governing approach around affordability, health care, Social Security and Medicare, democracy, the environment, schools, and rights.",
+      "voting_summary": "Bridget Brink has not held legislative office, so there is no legislative voting record to report. She previously served as U.S. Ambassador to Ukraine (2022–2025), and her campaign frames her governing approach around affordability, health care, Social Security and Medicare, democracy, the environment, schools, and rights.",
       "voting_source_url": "https://www.bridgetbrink.com/about",
+      "voting_sources": [],
+      "donor_summary": "Bridget Brink’s 2026 House campaign reported $1,643,666.77 in total receipts through 12/31/2025, with $1,603,216.65 from individual contributions and $20,450 from other committees; the campaign also reported a $20,000 candidate loan. Public FEC summary data does not identify top industries or named major donors on the candidate overview page, but the campaign’s own site says it is powered by grassroots support and reported over $2.2M raised by early April 2026.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6MI07256/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Bridget_Brink",
@@ -110,7 +414,7 @@
         },
         {
           "url": "https://www.leadershipnowproject.org/candidate-bio-bridget-brink",
-          "title": "Candidate Bio - Bridget Brink \u2014 Leadership Now Project",
+          "title": "Candidate Bio - Bridget Brink — Leadership Now Project",
           "type": "other"
         },
         {
@@ -139,235 +443,313 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Brink supports extending ACA tax credits, creating a public health insurance option, repealing Medicaid cuts, lowering prescription drug costs, and capping insulin at $35. She also backs stronger consumer protections and more transparency from insurers and drug companies.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues/making-health-care-more-affordable-and-accessible",
-              "type": "policy_page",
-              "title": "Making Health Care More Affordable and Accessible",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "policy_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Brink\u2019s economic plan focuses on lowering costs for families, supporting small businesses, investing in infrastructure and broadband, expanding job training and free community college, and strengthening worker rights. She also says she would roll back tariffs, reform zoning and permitting to expand housing, and crack down on corporate landlords and utility monopolies.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
-              "type": "policy_page",
-              "title": "Lowering Costs and Investing in mid-Michigan",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Brink says she supports protecting the environment and growing the green economy. Her campaign also says it would increase regulation of public utility monopolies and support clean, future-oriented economic development.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/priorities",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Brink says she supports protecting fundamental rights and freedoms, and her campaign materials place reproductive freedom within that broader rights framework. Public campaign materials reviewed do not provide a more detailed abortion policy statement on the main issues pages beyond that rights-based framing.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/priorities",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found on guns or gun safety in the campaign materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "official_campaign",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Brink\u2019s foreign-policy message centers on supporting Ukraine, defending democracy, and opposing Russian aggression. She says her diplomatic experience shaped her view that the U.S. should remain engaged with allies and stand against corruption and authoritarianism.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/about",
-              "type": "website",
-              "title": "Meet Bridget - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Brink frames her campaign around protecting fundamental rights and freedoms, defending democracy, and making health care and other essentials more affordable. Her materials also emphasize her union background and support for working families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/about",
-              "type": "website",
-              "title": "Meet Bridget - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Brink supports strengthening public schools and expanding job training, career and technical education, and free community college. Her campaign says education and workforce development are part of preparing workers for the future economy.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
-              "type": "policy_page",
-              "title": "Lowering Costs and Investing in mid-Michigan",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Brink says she supports clear rules for emerging technologies, including artificial intelligence, to encourage innovation while protecting consumers from risk and bad actors. Her campaign specifically says it would crack down on corporate landlords who use A.I. to artificially raise rents and hide fees.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
-              "type": "policy_page",
-              "title": "Lowering Costs and Investing in mid-Michigan",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Brink says she supports fighting corruption and defending democracy, including stronger ethics rules and accountability for public officials. Her campaign also emphasizes protecting the integrity of elections as part of that broader democracy message.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/priorities",
-              "type": "campaign_page",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Brink\u2019s local priorities for mid-Michigan focus on lowering costs, making health care more affordable, protecting Social Security and Medicare, strengthening public schools, defending democracy, and growing the green economy. Her campaign also highlights infrastructure, broadband, housing, and small-business support.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "official_campaign",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/issues/lowering-costs-and-investing-in-mid-michigan",
-              "type": "policy_page",
-              "title": "Lowering Costs and Investing in mid-Michigan",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found on immigration in the campaign materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bridgetbrink.com/issues",
-              "type": "official_campaign",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://www.bridgetbrink.com/priorities",
-              "type": "official_campaign",
-              "title": "Priorities - Bridget Brink for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.bridgetbrink.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Matt Maasdam",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Matt Maasdam is a former Navy SEAL, White House military aide, and entrepreneur running as a Democrat in Michigan\u2019s 7th Congressional District. His campaign emphasizes military service, business experience, and practical problem-solving focused on affordability.",
+      "summary": "Matt Maasdam is a former Navy SEAL, White House military aide, and entrepreneur running as a Democrat in Michigan’s 7th Congressional District. His campaign emphasizes military service, business experience, and practical problem-solving focused on affordability.",
       "summary_sources": [
         {
           "url": "https://mattmaasdam.com/",
-          "type": "official_campaign",
-          "title": "Matt Maasdam for Congress"
+          "type": "website",
+          "title": "Matt Maasdam for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.fec.gov/data/candidate/H6MI07272/",
           "type": "finance",
-          "title": "MAASDAM, MATTHEW - Candidate overview - FEC"
+          "title": "MAASDAM, MATTHEW - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://votevets.org/candidates/matt-maasdam",
           "type": "website",
-          "title": "Matt Maasdam - VoteVets"
+          "title": "Matt Maasdam - VoteVets",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://mattmaasdam.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/mattmaasdam",
-        "instagram": "https://www.instagram.com/mattmaasdam/",
-        "twitter": "https://x.com/mattmaasdam"
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Matt Maasdam supports protecting Medicaid and the Affordable Care Act, including extending ACA tax credits, lowering prescription drug costs, capping out-of-pocket costs, and allowing people to buy into Medicare. His campaign has also criticized efforts that would make healthcare coverage more expensive.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mattmaasdam.com/watch-maasdam-slams-barrett-for-letting-critical-aca-tax-credits-expire/",
+              "type": "website",
+              "title": "Maasdam Slams Barrett for Letting Critical ACA Tax Credits Expire",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Matt Maasdam says his economic focus is lowering everyday costs for working families. His campaign highlights support for reducing healthcare costs, cutting red tape to build more housing, rolling back tariffs that raise prices, and expanding childcare.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mattmaasdam.com/priorites/",
+              "type": "website",
+              "title": "Priorities - Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Matt Maasdam’s background is in military service and national security, including service as a Navy SEAL and White House military aide. However, his campaign materials do not publish a detailed foreign policy platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Matt Maasdam says he will fight for civil rights and LGBTQ rights as part of defending democracy and freedom.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/priorites/",
+              "type": "website",
+              "title": "Priorities - Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Matt Maasdam says he supports fully funding public schools so every child, regardless of ZIP code, has a chance to succeed.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/priorites/",
+              "type": "website",
+              "title": "Priorities - Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Matt Maasdam says Michigan should lead in emerging industries such as AI and digital assets. His campaign supports clear, commonsense rules for digital assets that protect consumers while encouraging responsible innovation, and it says families should be protected from harmful content and privacy risks tied to AI.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/priorites/",
+              "type": "website",
+              "title": "Priorities - Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Matt Maasdam supports anti-corruption and election-reform measures, including banning stock trading by members of Congress and senior government officials, rejecting corporate PAC money, and reducing the influence of dark money in elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/",
+              "type": "website",
+              "title": "Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://michiganadvance.com/briefs/end-citizens-united-backs-maasdam-in-race-for-michigans-7th-congressional-district/",
+              "type": "news",
+              "title": "End Citizens United backs Maasdam in race for Michigan's 7th Congressional District",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Matt Maasdam says he will fight for women’s rights, including the right to choose.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/priorites/",
+              "type": "website",
+              "title": "Priorities - Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Matt Maasdam’s campaign emphasizes lowering everyday costs in Michigan, including health care, housing, groceries, and childcare, along with protecting manufacturing and public schools.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mattmaasdam.com/priorites/",
+              "type": "website",
+              "title": "Priorities - Matt Maasdam for Congress",
+              "description": null,
+              "last_accessed": "2026-04-07T10:59:13.530277Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -375,35 +757,40 @@
           "organization": "Private sector",
           "start_year": 2020,
           "end_year": null,
-          "description": "Campaign materials describe him as a business owner and entrepreneur."
+          "description": "Campaign materials describe him as a business owner and entrepreneur.",
+          "source": null
         },
         {
           "title": "Military Aide to the President",
           "organization": "The White House",
           "start_year": 2009,
           "end_year": 2013,
-          "description": "Served as President Barack Obama\u2019s military aide, coordinating emergency response planning and carrying the nuclear football."
+          "description": "Served as President Barack Obama’s military aide, coordinating emergency response planning and carrying the nuclear football.",
+          "source": null
         },
         {
           "title": "Executive",
           "organization": "Under Armour",
           "start_year": 2014,
           "end_year": 2017,
-          "description": "Worked in Under Armour's e-commerce operations after leaving active duty; campaign and reporting describe him as a former Under Armour executive."
+          "description": "Worked in Under Armour's e-commerce operations after leaving active duty; campaign and reporting describe him as a former Under Armour executive.",
+          "source": null
         },
         {
           "title": "Founder",
           "organization": "Two e-commerce businesses",
           "start_year": 2020,
           "end_year": null,
-          "description": "Founded two e-commerce businesses after leaving the military and corporate sector."
+          "description": "Founded two e-commerce businesses after leaving the military and corporate sector.",
+          "source": null
         },
         {
           "title": "Navy SEAL",
           "organization": "U.S. Navy",
           "start_year": 2000,
           "end_year": 2013,
-          "description": "Served as a Navy SEAL from 2000 to 2013, including a White House military aide assignment during that period."
+          "description": "Served as a Navy SEAL from 2000 to 2013, including a White House military aide assignment during that period.",
+          "source": null
         }
       ],
       "education": [
@@ -411,19 +798,23 @@
           "institution": "University of Michigan",
           "degree": "Bachelor's degree",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "Harvard Kennedy School",
           "degree": "Executive education",
           "field": "Leadership and teamwork",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "Matt Maasdam\u2019s campaign reported more than $1 million raised in 2025, including $400,000 in Q4, according to the campaign website. The public FEC summary page shows receipts and transfers but does not list major named donors or top industries on the candidate overview page.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H6MI07272/",
       "voting_summary": "Matt Maasdam has not held legislative office, so there is no legislative voting record to report. His public record is instead as a Navy SEAL, White House military aide, and business executive.",
       "voting_source_url": "https://mattmaasdam.com/",
+      "voting_sources": [],
+      "donor_summary": "Matt Maasdam’s campaign reported more than $1 million raised in 2025, including $400,000 in Q4, according to the campaign website. The public FEC summary page shows receipts and transfers but does not list major named donors or top industries on the candidate overview page.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6MI07272/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Matt_Maasdam",
@@ -456,225 +847,406 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Matt Maasdam supports protecting Medicaid and the Affordable Care Act, including extending ACA tax credits, lowering prescription drug costs, capping out-of-pocket costs, and allowing people to buy into Medicare. His campaign has also criticized efforts that would make healthcare coverage more expensive.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://mattmaasdam.com/watch-maasdam-slams-barrett-for-letting-critical-aca-tax-credits-expire/",
-              "type": "campaign_press_release",
-              "title": "Maasdam Slams Barrett for Letting Critical ACA Tax Credits Expire",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Matt Maasdam says his economic focus is lowering everyday costs for working families. His campaign highlights support for reducing healthcare costs, cutting red tape to build more housing, rolling back tariffs that raise prices, and expanding childcare.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://mattmaasdam.com/priorites/",
-              "type": "official_campaign",
-              "title": "Priorities - Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found in the campaign materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found in the campaign materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found in the campaign materials reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Matt Maasdam\u2019s background is in military service and national security, including service as a Navy SEAL and White House military aide. However, his campaign materials do not publish a detailed foreign policy platform.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Matt Maasdam says he will fight for civil rights and LGBTQ rights as part of defending democracy and freedom.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/priorites/",
-              "type": "official_campaign",
-              "title": "Priorities - Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Matt Maasdam says he supports fully funding public schools so every child, regardless of ZIP code, has a chance to succeed.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/priorites/",
-              "type": "official_campaign",
-              "title": "Priorities - Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Matt Maasdam says Michigan should lead in emerging industries such as AI and digital assets. His campaign supports clear, commonsense rules for digital assets that protect consumers while encouraging responsible innovation, and it says families should be protected from harmful content and privacy risks tied to AI.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/priorites/",
-              "type": "official_campaign",
-              "title": "Priorities - Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            },
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Matt Maasdam supports anti-corruption and election-reform measures, including banning stock trading by members of Congress and senior government officials, rejecting corporate PAC money, and reducing the influence of dark money in elections.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/",
-              "type": "official_campaign",
-              "title": "Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://michiganadvance.com/briefs/end-citizens-united-backs-maasdam-in-race-for-michigans-7th-congressional-district/",
-              "type": "news",
-              "title": "End Citizens United backs Maasdam in race for Michigan's 7th Congressional District",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Matt Maasdam says he will fight for women\u2019s rights, including the right to choose.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/priorites/",
-              "type": "official_campaign",
-              "title": "Priorities - Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Matt Maasdam\u2019s campaign emphasizes lowering everyday costs in Michigan, including health care, housing, groceries, and childcare, along with protecting manufacturing and public schools.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mattmaasdam.com/priorites/",
-              "type": "official_campaign",
-              "title": "Priorities - Matt Maasdam for Congress",
-              "last_accessed": "2026-04-07T10:59:13.530277+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://mattmaasdam.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/mattmaasdam",
+        "instagram": "https://www.instagram.com/mattmaasdam/",
+        "twitter": "https://x.com/mattmaasdam"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Elyon Badger",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Elyon Badger, who also uses the name Samuel Smeltzer, is a Democratic candidate in Michigan\u2019s 7th Congressional District. His campaign describes him as a Michigan Army National Guard veteran, LGBTQIA+ activist, and small business owner, and his platform includes universal healthcare, ending the drug war, and a Technology Bill of Rights.",
+      "summary": "Elyon Badger, who also uses the name Samuel Smeltzer, is a Democratic candidate in Michigan’s 7th Congressional District. His campaign describes him as a Michigan Army National Guard veteran, LGBTQIA+ activist, and small business owner, and his platform includes universal healthcare, ending the drug war, and a Technology Bill of Rights.",
       "summary_sources": [
         {
           "url": "https://elyonbadger.com/",
-          "type": "official campaign website",
-          "title": "Elyon Badger for Congress \u2013 MI-07"
+          "type": "website",
+          "title": "Elyon Badger for Congress – MI-07",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://elyonbadger.com/issues",
-          "type": "official campaign page",
-          "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues"
+          "type": "government",
+          "title": "Elyon Badger for Congress – MI-07 – Issues",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:45.327281Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://elyonbadger.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Supports universal healthcare, describing it as shelter, food, and medicine to each according to their basic needs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Supports cancelling student debt, expanding public investment in infrastructure, and using anti-corruption reforms to improve economic opportunity.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Promotes the Hyperstate Project, a modular elevated high-speed rail concept, as part of a broader infrastructure-focused platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Calls for abolishing ICE and says ICE should be dismantled; his campaign page uses the phrase 'Abolish and Imprison ICE' and describes ICE as 'the American Gestapo.'",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T11:00:10.610153Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Supports LGBTQIA+ rights, criminal-justice reform through ending the drug war and expunging records, and broader equity-oriented policy changes.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Supports free public college and trade school for all Americans and backs canceling student debt.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Supports a Technology Bill of Rights to protect user data and privacy, defend net neutrality, guarantee Right to Repair, and ban most AI.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Supports banning insider trading by politicians, overturning Citizens United, and holding elected officials accountable.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Centers his local platform on universal healthcare, ending the drug war, anti-corruption reforms, a Technology Bill of Rights, free public college and trade school, and the Hyperstate Project rail concept.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elyonbadger.com/issues",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://elyonbadger.com/platform",
+              "type": "government",
+              "title": "Elyon Badger for Congress – MI-07 – Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T10:57:46.891190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Michigan Army National Guard veteran",
           "organization": "Michigan Army National Guard",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign materials identify him as a veteran of the Michigan Army National Guard."
+          "description": "Campaign materials identify him as a veteran of the Michigan Army National Guard.",
+          "source": null
         },
         {
           "title": "Small business owner",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign materials identify him as a small business owner."
+          "description": "Campaign materials identify him as a small business owner.",
+          "source": null
         },
         {
           "title": "LGBTQIA+ activist",
           "organization": "Advocacy",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign materials identify him as an LGBTQIA+ activist."
+          "description": "Campaign materials identify him as an LGBTQIA+ activist.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "Elyon Badger\u2019s FEC candidate page currently shows no public 2025\u20132026 financial activity for the committee ELYON BADGER FOR CONGRESS (C00909002), so there are no reported receipts or named major donors to summarize from the public disclosure page. This means the available finance record is presently sparse rather than absent from the race entirely.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H6MI07264/",
       "voting_summary": "Elyon Badger has not held legislative office, so there is no legislative voting record to report. His public record is as a Michigan Army National Guard veteran, activist, and small business owner, and his campaign site lays out policy positions on universal health care, drug legalization, rail/highway infrastructure, anti-corruption, technology rights, student debt cancellation, and immigration enforcement. Confidence: high.",
       "voting_source_url": "https://elyonbadger.com/",
+      "voting_sources": [],
+      "donor_summary": "Elyon Badger’s FEC candidate page currently shows no public 2025–2026 financial activity for the committee ELYON BADGER FOR CONGRESS (C00909002), so there are no reported receipts or named major donors to summarize from the public disclosure page. This means the available finance record is presently sparse rather than absent from the race entirely.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6MI07264/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Elyon_Badger",
@@ -683,7 +1255,7 @@
         },
         {
           "url": "https://elyonbadger.com/",
-          "title": "Elyon Badger for Congress \u2013 MI-07",
+          "title": "Elyon Badger for Congress – MI-07",
           "type": "official"
         },
         {
@@ -707,226 +1279,21 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Supports universal healthcare, describing it as shelter, food, and medicine to each according to their basic needs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Supports cancelling student debt, expanding public investment in infrastructure, and using anti-corruption reforms to improve economic opportunity.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Promotes the Hyperstate Project, a modular elevated high-speed rail concept, as part of a broader infrastructure-focused platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Calls for abolishing ICE and says ICE should be dismantled; his campaign page uses the phrase 'Abolish and Imprison ICE' and describes ICE as 'the American Gestapo.'",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T11:00:10.610153+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Supports LGBTQIA+ rights, criminal-justice reform through ending the drug war and expunging records, and broader equity-oriented policy changes.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports free public college and trade school for all Americans and backs canceling student debt.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Supports a Technology Bill of Rights to protect user data and privacy, defend net neutrality, guarantee Right to Repair, and ban most AI.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Supports banning insider trading by politicians, overturning Citizens United, and holding elected officials accountable.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Centers his local platform on universal healthcare, ending the drug war, anti-corruption reforms, a Technology Bill of Rights, free public college and trade school, and the Hyperstate Project rail concept.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://elyonbadger.com/issues",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Issues",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            },
-            {
-              "url": "https://elyonbadger.com/platform",
-              "type": "official campaign page",
-              "title": "Elyon Badger for Congress \u2013 MI-07 \u2013 Platform",
-              "last_accessed": "2026-04-07T10:57:46.891190+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://elyonbadger.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-07T11:00:10.610153+00:00",
+  "updated_utc": "2026-06-13T23:12:21.979171+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-07T11:00:31.494268+00:00",
+      "reviewed_at": "2026-04-07T11:00:31.494268Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -956,8 +1323,8 @@
         },
         {
           "field": "candidates[2].donor_summary",
-          "concern": "The donor_summary correctly reports that 'Elyon Badger's FEC candidate page currently shows no public 2025\u20132026 financial activity,' which is appropriate transparency. However, the parenthetical note 'so there are no reported receipts or named major donors to summarize from the public disclosure page' could be misread as implying no campaign finance activity occurred\u2014when in fact it simply means no disclosures were filed or found. This is a minor clarity issue, not a factual error.",
-          "suggestion": "Rephrase to: 'Elyon Badger's FEC candidate page shows no filed or disclosed 2025\u20132026 financial activity for committee C00909002. Without filings, no receipt or donor data are available to summarize.' This makes clear that absence of data reflects absence of filings, not absence of funding.",
+          "concern": "The donor_summary correctly reports that 'Elyon Badger's FEC candidate page currently shows no public 2025–2026 financial activity,' which is appropriate transparency. However, the parenthetical note 'so there are no reported receipts or named major donors to summarize from the public disclosure page' could be misread as implying no campaign finance activity occurred—when in fact it simply means no disclosures were filed or found. This is a minor clarity issue, not a factual error.",
+          "suggestion": "Rephrase to: 'Elyon Badger's FEC candidate page shows no filed or disclosed 2025–2026 financial activity for committee C00909002. Without filings, no receipt or donor data are available to summarize.' This makes clear that absence of data reflects absence of filings, not absence of funding.",
           "severity": "info"
         }
       ],
@@ -965,7 +1332,7 @@
     },
     {
       "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-07T11:00:23.622619+00:00",
+      "reviewed_at": "2026-04-07T11:00:23.622619Z",
       "verdict": "approved",
       "score": 95,
       "flags": [
@@ -982,11 +1349,11 @@
           "severity": "info"
         }
       ],
-      "summary": "This is an exceptionally thorough and well-documented profile for the 2026 Michigan 7th District race. The research successfully captures a diverse field of candidates\u2014ranging from a high-level diplomat to a grassroots activist\u2014while maintaining a neutral, matter-of-fact tone throughout. Sourcing is top-tier, utilizing live FEC filings, specific campaign policy sub-pages, and reputable news outlets like AP and the Detroit Free Press to provide granular detail on issues like the 'Technology Bill of Rights' and specific healthcare caps."
+      "summary": "This is an exceptionally thorough and well-documented profile for the 2026 Michigan 7th District race. The research successfully captures a diverse field of candidates—ranging from a high-level diplomat to a grassroots activist—while maintaining a neutral, matter-of-fact tone throughout. Sourcing is top-tier, utilizing live FEC filings, specific campaign policy sub-pages, and reputable news outlets like AP and the Detroit Free Press to provide granular detail on issues like the 'Technology Bill of Rights' and specific healthcare caps."
     },
     {
       "model": "grok-3-mini",
-      "reviewed_at": "2026-04-07T11:00:23.853491+00:00",
+      "reviewed_at": "2026-04-07T11:00:23.853491Z",
       "verdict": "approved",
       "score": 91,
       "flags": [],
@@ -1000,33 +1367,29 @@
     "summary": "Validated by 3/3 reviewers with an average score of 91/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 3708699,
-    "completion_tokens": 233450,
-    "total_tokens": 3942149,
-    "estimated_usd": 0.5762,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 153857,
+    "completion_tokens": 6097,
+    "total_tokens": 159954,
+    "cost_usd": 0.00878711,
+    "cost_source": "provider",
+    "estimated_usd": 0.013041,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 977856,
-        "completion_tokens": 16388
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 87188,
+        "completion_tokens": 4672
       },
-      "gpt-5-nano": {
-        "prompt_tokens": 2614070,
-        "completion_tokens": 208572
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 34282,
-        "completion_tokens": 416
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 41870,
-        "completion_tokens": 1294
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 40621,
-        "completion_tokens": 6780
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 66669,
+        "completion_tokens": 1425
       }
     },
-    "duration_s": 2336.4
-  }
+    "duration_s": 96.8
+  },
+  "schema_version": "0.3",
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

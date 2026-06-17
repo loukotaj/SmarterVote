@@ -1,0 +1,549 @@
+{
+  "id": "mo-house-08-2026",
+  "title": "Missouri's 8th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Missouri's 8th Congressional District",
+  "state": "Missouri",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Missouri's 8th Congressional District will determine who represents 30 counties across southeastern and southern Missouri in the U.S. House. Incumbent Republican Jason Smith, who has held the seat since 2013 and chairs the powerful House Ways and Means Committee, faces two Republican primary challengers and two Democratic primary challengers, plus a Libertarian candidate. The district has been reliably Republican for decades, but this cycle includes notable challengers including a former Democratic state senator who previously held the seat in the state legislature and a disabled Army veteran running on a progressive economic platform. The August 4 primary will narrow the field to one nominee per party for the November general election.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026. The district is considered safely Republican by major election forecasters.",
+  "candidates": [
+    {
+      "name": "Jason Smith",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Jason Smith is the incumbent U.S. Representative for Missouri's 8th Congressional District, first elected in a 2013 special election and re-elected six times. He serves as Chairman of the House Ways and Means Committee, making him one of the most powerful members of Congress. Smith is a former Missouri state representative and majority whip, and has built his career on conservative economic policies, strong support for former President Donald Trump, and advocacy for rural agricultural interests.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jason_Smith_(American_politician)",
+          "type": "government",
+          "title": "Jason Smith (American politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jasonsmith.house.gov/",
+          "type": "government",
+          "title": "Congressman Jason Smith - House.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.semissourian.com/news/8th-district-race-up-to-4-candidates-a2d1193f",
+          "type": "news",
+          "title": "8th District race up to 4 candidates - Southeast Missourian",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Rep_Jason_Smith_-_2024.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing Missouri's 8th Congressional District; Chairman of House Ways and Means Committee since 2023",
+          "source": null
+        },
+        {
+          "title": "Speaker Pro Tempore",
+          "organization": "Missouri House of Representatives",
+          "start_year": 2013,
+          "end_year": 2013,
+          "description": "Served as Speaker Pro Tempore of the Missouri House",
+          "source": null
+        },
+        {
+          "title": "Majority Whip",
+          "organization": "Missouri House of Representatives",
+          "start_year": 2011,
+          "end_year": 2013,
+          "description": "Served as Majority Whip during the 96th Missouri General Assembly",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Missouri House of Representatives",
+          "start_year": 2005,
+          "end_year": 2013,
+          "description": "Represented the 150th and later 120th district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oklahoma City University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2004,
+          "source": null
+        },
+        {
+          "institution": "University of Missouri",
+          "degree": "Bachelor of Science",
+          "field": "Agriculture Economics",
+          "year": 2000,
+          "source": null
+        },
+        {
+          "institution": "University of Missouri",
+          "degree": "Bachelor of Science",
+          "field": "Business Administration",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://electjasonsmith.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CongressmanJasonSmith",
+        "twitter": "https://x.com/RepJasonSmith"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Gordon Heslop",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Gordon Heslop is a retired educator and accounting professor who taught for most of the past 20 years on the accounting faculty at East Texas A&M University. He holds multiple advanced degrees including a Doctor of Business Administration, an MBA, and a Bachelor of Laws with Honours, and previously held several professional accounting certifications. Heslop is challenging incumbent Jason Smith from the right, running on a platform focused on fiscal responsibility, reducing the national debt, strengthening the middle class, and maintaining America's global leadership role.",
+      "summary_sources": [
+        {
+          "url": "https://republicmonitor.com/stories/heslop-fi-les-for-8th-congressional-district-representative,178592",
+          "type": "news",
+          "title": "Heslop files for 8th Congressional District representative - Republic Monitor",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Gordon_Heslop",
+          "type": "website",
+          "title": "Gordon Heslop - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://heslopforcongress.com/",
+          "type": "website",
+          "title": "Gordon Heslop for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Gordon_Heslop.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Accounting Professor",
+          "organization": "East Texas A&M University",
+          "start_year": 2006,
+          "end_year": 2026,
+          "description": "Taught accounting on the faculty, most of the last 20 years",
+          "source": null
+        },
+        {
+          "title": "Certified Public Accountant (CPA)",
+          "organization": "Various",
+          "start_year": null,
+          "end_year": null,
+          "description": "Held multiple professional certifications including CPA, CMA, CIA, and CFM (currently inactive)",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "East Texas A&M University",
+          "degree": "Doctor of Business Administration",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University",
+          "degree": "Master of Commerce with Honours",
+          "field": "Commerce",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University",
+          "degree": "Bachelor of Laws with Honours",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University",
+          "degree": "Bachelor of Commerce",
+          "field": "Commerce",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://heslopforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Frank Barnitz",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Frank Barnitz is a lifelong Missourian, family farmer, businessman, and former Democratic state senator who represented the area in the Missouri Senate from 2005 to 2011 and previously in the Missouri House from 2000 to 2005. He manages Barnitz Farms and runs Networth Feeds & Feeding, a custom feed mill, and has served on the Dent-Phelps R-III School Board and Salem Memorial Hospital Board. Barnitz is running on a platform focused on strengthening rural healthcare, defending public education, supporting organized labor, protecting Social Security and Medicare, and expanding access to reproductive healthcare in accordance with Missouri's 2024 Amendment 3.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Frank_Barnitz",
+          "type": "website",
+          "title": "Frank Barnitz - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://frankbarnitz.com/",
+          "type": "website",
+          "title": "Frank Barnitz for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.semissourian.com/news/8th-district-race-up-to-4-candidates-a2d1193f",
+          "type": "news",
+          "title": "8th District race up to 4 candidates - Southeast Missourian",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner/Operator",
+          "organization": "Barnitz Farms",
+          "start_year": null,
+          "end_year": null,
+          "description": "Family farm in Lake Spring, MO, land farmed by family for generations",
+          "source": null
+        },
+        {
+          "title": "Owner/Operator",
+          "organization": "Networth Feeds & Feeding",
+          "start_year": null,
+          "end_year": null,
+          "description": "Custom feed mill supporting local agricultural producers",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Missouri State Senate",
+          "start_year": 2005,
+          "end_year": 2011,
+          "description": "Served as Democratic state senator for the 16th district",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Missouri House of Representatives",
+          "start_year": 2000,
+          "end_year": 2005,
+          "description": "Represented the 150th district",
+          "source": null
+        },
+        {
+          "title": "School Board Member",
+          "organization": "Dent-Phelps R-III School District",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on local school board",
+          "source": null
+        },
+        {
+          "title": "Hospital Board Member",
+          "organization": "Salem Memorial Hospital Board",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves on rural hospital board",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Southwest Missouri State University",
+          "degree": "Attended",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Rolla High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1986,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://frankbarnitz.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/NoBullBarnitz",
+        "instagram": "https://www.instagram.com/nobullbarnitz/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Reichard",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Chris Reichard is a disabled U.S. Army veteran who served in Operation Iraqi Freedom and a second-generation member of IBEW Local 1, working as a construction worker/union electrician from Arnold, Missouri. He is running a 100% grassroots-funded campaign that rejects corporate PAC donations, with a platform centered on workers' rights through the PRO Act, veterans' benefits including the Major Richard Star Act, campaign finance reform to overturn Citizens United, ending foreign wars, and protecting civil rights and the Constitution.",
+      "summary_sources": [
+        {
+          "url": "https://www.reichardforrep.com/",
+          "type": "website",
+          "title": "Chris Reichard for U.S. Representative MO-08",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.semissourian.com/news/8th-district-race-up-to-4-candidates-a2d1193f",
+          "type": "news",
+          "title": "8th District race up to 4 candidates - Southeast Missourian",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Christopher_Reichard",
+          "type": "website",
+          "title": "Christopher Reichard - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Construction Worker / Union Electrician",
+          "organization": "IBEW Local 1",
+          "start_year": null,
+          "end_year": null,
+          "description": "Second generation IBEW union member",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Veteran",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Disabled veteran who served in Operation Iraqi Freedom (OIF)",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.reichardforrep.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/people/Chris-Reichard-for-Congress/61585417107927/",
+        "twitter": "https://x.com/reichard4rep",
+        "instagram": "https://www.instagram.com/chris.reichard.for.congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rebecca Sharpe Lombard",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Rebecca Sharpe Lombard is the Libertarian Party candidate for Missouri's 8th Congressional District. She serves as the 6th Ward Committeewoman and as Treasurer of the St. Louis City Libertarian Party. She is a public policy analyst running to offer a Libertarian alternative in the general election.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Rebecca_Sharpe_Lombard",
+          "type": "website",
+          "title": "Rebecca Sharpe Lombard - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://s1.sos.mo.gov/candidatesonweb/displaycandidatesplacement.aspx",
+          "type": "government",
+          "title": "Certified Candidate List - Missouri Secretary of State",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.facebook.com/RebeccaForMOChoice/",
+          "type": "website",
+          "title": "Rebecca Sharpe Lombard - Facebook",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Public Policy Analyst",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Works as a public policy analyst",
+          "source": null
+        },
+        {
+          "title": "6th Ward Committeewoman",
+          "organization": "City of St. Louis",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as committeewoman for the 6th Ward",
+          "source": null
+        },
+        {
+          "title": "Treasurer",
+          "organization": "St. Louis City Libertarian Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as party treasurer",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/RebeccaForMOChoice/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Missouri%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:59:03.287304+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 350812,
+    "completion_tokens": 9364,
+    "total_tokens": 360176,
+    "cost_usd": 0.023155848,
+    "cost_source": "provider",
+    "estimated_usd": 0.036215,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 350812,
+        "completion_tokens": 9364
+      }
+    },
+    "duration_s": 137.7
+  }
+}

@@ -6,7 +6,7 @@
   "state": "North Dakota",
   "district": "At-large Congressional District",
   "election_date": "2026-11-03",
-  "description": "This race is for North Dakota\u2019s at-large seat in the U.S. House of Representatives, the state\u2019s only congressional district. It matters because the winner will represent North Dakota on federal issues such as agriculture, energy, taxes, and federal spending. North Dakota has leaned Republican in recent federal elections, and the 2026 contest is expected to feature an incumbent Republican seeking reelection against Democratic-NPL and Republican primary challengers. The race is likely to turn on national political trends as well as local concerns about the economy, tariffs, and energy policy.",
+  "description": "This race is for North Dakota’s at-large seat in the U.S. House of Representatives, the state’s only congressional district. It matters because the winner will represent North Dakota on federal issues such as agriculture, energy, taxes, and federal spending. North Dakota has leaned Republican in recent federal elections, and the 2026 contest is expected to feature an incumbent Republican seeking reelection against Democratic-NPL and Republican primary challengers. The race is likely to turn on national political trends as well as local concerns about the economy, tariffs, and energy policy.",
   "polling": [],
   "polling_note": "No public polling found for this race as of 2026-04-29.",
   "candidates": [
@@ -14,48 +14,450 @@
       "name": "Julie Fedorchak",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Julie Fedorchak is the Republican U.S. representative for North Dakota\u2019s at-large congressional district, first elected in 2024 and sworn in on January 3, 2025. Before Congress, she served on the North Dakota Public Service Commission from 2012 to 2025 and previously worked in state government and communications roles.",
+      "summary": "Julie Fedorchak is the Republican U.S. representative for North Dakota’s at-large congressional district, first elected in 2024 and sworn in on January 3, 2025. Before Congress, she served on the North Dakota Public Service Commission from 2012 to 2025 and previously worked in state government and communications roles.",
       "summary_sources": [
         {
           "url": "https://www.congress.gov/member/julie-fedorchak/F000482",
           "type": "government",
-          "title": "Julie Fedorchak | Congress.gov"
+          "title": "Julie Fedorchak | Congress.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:47.153572Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://history.house.gov/People/Detail/36507225716",
           "type": "government",
-          "title": "FEDORCHAK, Julie | US House of Representatives"
+          "title": "FEDORCHAK, Julie | US House of Representatives",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:47.153572Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://en.wikipedia.org/wiki/Julie_Fedorchak",
-          "type": "reference",
-          "title": "Julie Fedorchak - Wikipedia"
+          "type": "website",
+          "title": "Julie Fedorchak - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:47.153572Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Rep._Julie_Fedorchak_official_photo%2C_119th_Congress.jpg/500px-Rep._Julie_Fedorchak_official_photo%2C_119th_Congress.jpg",
-      "website": "https://fedorchaknd.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Fedorchak says she supports affordable, high-quality health care, especially for rural areas, and favors patient-centered solutions that lower costs, expand access, and reduce government bureaucracy. Her House page says health care decisions should be made by doctors and patients in North Dakota, not Washington.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/issues/health",
+              "type": "government",
+              "title": "Health | Representative Julie Fedorchak",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Fedorchak says she is focused on energy affordability, reliability, sustainability, and security, and supports expanding domestic energy production while improving environmental stewardship. Her House materials emphasize unleashing American energy production, strengthening the grid, and supporting North Dakota’s role in feeding and fueling the country.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/issues/energy-and-environment",
+              "type": "government",
+              "title": "Energy and Environment | Representative Julie Fedorchak",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Fedorchak supports stronger border security and tougher immigration enforcement. Her House press releases say she voted for measures to crack down on illegal entry and backed the Laken Riley Act and related enforcement legislation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://fedorchak.house.gov/media/press-releases/fedorchak-votes-increased-border-security-crack-down-illegal-entry",
+              "type": "government",
+              "title": "Fedorchak votes in increased border security, crack down on illegal entry",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchak.house.gov/media/press-releases/congresswoman-julie-fedorchak-attends-historic-signing-laken-riley-act-white",
+              "type": "government",
+              "title": "Congresswoman Julie Fedorchak attends historic signing Laken Riley Act",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "Supports defending the Second Amendment and allowing law-abiding citizens to responsibly own guns; frames gun rights as a constitutional protection and opposes broad restrictions that would infringe on firearm ownership.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/issues/values",
+              "type": "government",
+              "title": "Values | Representative Julie Fedorchak",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchaknd.com/issues",
+              "type": "website",
+              "title": "Issues - Julie Fedorchak for US Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Julie Fedorchak supports a defense-first foreign policy that strengthens U.S. security by backing allies (Israel, Taiwan) and countering adversaries, including Iran's nuclear ambitions. She emphasizes border security and homeland defense funding as integral to national security.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/issues/national-defense-and-security",
+              "type": "government",
+              "title": "National Defense and Security - Julie Fedorchak",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-participates-national-security-and-trade-focused-congressional",
+              "type": "government",
+              "title": "Fedorchak participates in national security and trade-focused congressional delegation to Taiwan",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchak.house.gov/media/in-the-news/rep-fedorchak-newsmax-iran-cannot-have-nuclear-weapons",
+              "type": "government",
+              "title": "Rep. Fedorchak on Newsmax: Iran cannot have nuclear weapons",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchak.house.gov/media/press-releases/fedorchak-statement-on-resolution-reaffirming-iran-as-worlds-leading-state-sponsor-of-terrorism",
+              "type": "government",
+              "title": "Fedorchak statement on Iran state sponsor of terrorism resolution",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "No public position found on a standalone social justice agenda in the campaign or House issue pages reviewed. Her public materials instead focus on border security, energy, taxes, health care, life, and government overreach.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://fedorchaknd.com/issues",
+              "type": "website",
+              "title": "Issues - Julie Fedorchak for US Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://fedorchak.house.gov/issues",
+              "type": "government",
+              "title": "Issues | Representative Julie Fedorchak - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Fedorchak has publicly backed legislation aimed at limiting Chinese Communist Party influence in K-12 schools, but her campaign site does not appear to have a detailed standalone education platform. Publicly available materials suggest she approaches education through broader conservative priorities rather than a comprehensive education policy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-votes-curb-ccp-influence-k-12-schools",
+              "type": "government",
+              "title": "Fedorchak votes to curb CCP influence in K-12 schools",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchaknd.com/issues",
+              "type": "website",
+              "title": "Issues - Julie Fedorchak for US Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Julie Fedorchak advocates tying AI policy to U.S. energy policy, promoting American energy dominance to power AI, building a reliable electric grid, and leading U.S. AI innovation. She formed an AI & Energy Working Group to develop a legislative framework to power AI reliably, affordably, and sustainably.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-announces-working-group-establish-legislative-framework-power-future",
+              "type": "government",
+              "title": "Fedorchak announces working group to establish legislative framework to power the future of AI",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchak.house.gov/media/press-releases/fedorchak-applauds-white-house-ai-framework",
+              "type": "government",
+              "title": "Fedorchak applauds White House AI framework",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-highlights-urgent-need-beat-china-ai-race",
+              "type": "government",
+              "title": "Fedorchak highlights urgent need to beat China in the AI race",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchaknd.com/issues",
+              "type": "website",
+              "title": "Issues - Julie Fedorchak for US Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Julie Fedorchak supports federal election-integrity measures, cosponsoring and voting for the SAVE Act and the SAVE America Act. These bills require proof of U.S. citizenship for voter registration in federal elections and add a photo ID requirement to vote in federal elections, aligning with North Dakota's standards and aiming to strengthen election integrity.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-votes-strengthen-election-integrity-support-save-act",
+              "type": "government",
+              "title": "Fedorchak votes to strengthen election integrity with support for the SAVE Act",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-helps-pass-save-america-act",
+              "type": "government",
+              "title": "Fedorchak helps pass SAVE America Act",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://fedorchak.house.gov/media/op-eds-and-speeches/simple-standard-secure-elections",
+              "type": "government",
+              "title": "A simple standard for secure elections - Julie Fedorchak",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Fedorchak’s North Dakota-focused priorities include reliable and affordable energy, support for farmers and ranchers, and opposition to federal overreach. Her campaign issues page highlights securing the border, reducing the federal debt, backing law enforcement, and supporting agriculture and energy production.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://fedorchaknd.com/issues",
+              "type": "website",
+              "title": "Issues - Julie Fedorchak for US Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://fedorchak.house.gov/issues",
+              "type": "government",
+              "title": "Issues | Representative Julie Fedorchak - House.gov",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Fedorchak says Washington’s spending and debt are hurting the economy and supports balancing the budget, reducing waste, fraud, and abuse, and increasing transparency in federal spending. Her campaign and House materials also emphasize tax relief and policies aimed at supporting workers, families, farmers, and energy producers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/issues/budget-and-economy",
+              "type": "government",
+              "title": "Budget and Economy | Representative Julie Fedorchak",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fedorchaknd.com/issues",
+              "type": "website",
+              "title": "Issues - Julie Fedorchak for US Congress",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "Fedorchak says she believes in the sanctity of life and is committed to protecting the unborn. Her House materials describe her as supporting pro-life legislation and opposing abortion rights measures.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://fedorchak.house.gov/issues/values",
+              "type": "government",
+              "title": "Values | Representative Julie Fedorchak",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://fedorchak.house.gov/media/press-releases/congresswoman-julie-fedorchak-stands-life",
+              "type": "government",
+              "title": "Congresswoman Julie Fedorchak stands for life",
+              "description": null,
+              "last_accessed": "2026-04-29T01:12:54.622102Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 2025,
           "end_year": null,
-          "description": "Represents North Dakota\u2019s at-large congressional district in Congress."
+          "description": "Represents North Dakota’s at-large congressional district in Congress.",
+          "source": null
         },
         {
           "title": "Public Service Commissioner",
           "organization": "North Dakota Public Service Commission",
           "start_year": 2012,
           "end_year": 2024,
-          "description": "Served on the state regulatory commission before election to Congress."
+          "description": "Served on the state regulatory commission before election to Congress.",
+          "source": null
         },
         {
           "title": "State Director",
           "organization": "Office of U.S. Senator John Hoeven",
           "start_year": 2011,
           "end_year": 2012,
-          "description": "Worked in the senator\u2019s North Dakota office."
+          "description": "Worked in the senator’s North Dakota office.",
+          "source": null
         }
       ],
       "education": [
@@ -63,25 +465,31 @@
           "institution": "University of North Dakota",
           "degree": "B.A.",
           "field": "Political Science",
-          "year": 1991
+          "year": 1991,
+          "source": null
         }
       ],
-      "donor_summary": "OpenSecrets shows Julie Fedorchak\u2019s federal campaign committee with 2026-cycle summary data, but the page text available here does not expose a dollar total beyond placeholder formatting; it does identify the campaign as a federal House committee and links to detailed PAC, organization, and industry breakdowns. FollowTheMoney also has a state-level entity page for Julie A. Liffrig-Fedorchak, but the accessible page text here does not surface donor totals or top contributors; based on the available OpenSecrets profile, the best-supported sector-level takeaway is that her fundraising is tracked through federal disclosures and industry/PAC categories rather than a single dominant small-donor source.",
-      "donor_source_url": "https://www.opensecrets.org/profiles/julie-fedorchak/us_congress/summary?cycle=2024&mpid=1339579",
-      "voting_summary": "Julie Fedorchak is an incumbent U.S. House member, serving North Dakota\u2019s at-large district since Jan. 3, 2025. GovTrack shows her voting record as generally aligned with the Republican caucus, with key votes including yea on H.R. 6500 (AGOA Extension Act), yea on H.R. 2483 (SUPPORT for Patients and Communities Reauthorization Act of 2025), yea on H.R. 1263 (Strengthening the Quad Act), and nay on H.R. 1917 (Great Lakes Mass Marking Program Act of 2025).",
+      "voting_summary": "Julie Fedorchak is an incumbent U.S. House member, serving North Dakota’s at-large district since Jan. 3, 2025. GovTrack shows her voting record as generally aligned with the Republican caucus, with key votes including yea on H.R. 6500 (AGOA Extension Act), yea on H.R. 2483 (SUPPORT for Patients and Communities Reauthorization Act of 2025), yea on H.R. 1263 (Strengthening the Quad Act), and nay on H.R. 1917 (Great Lakes Mass Marking Program Act of 2025).",
       "voting_source_url": "https://www.govtrack.us/congress/members/julie_fedorchak/457006",
+      "voting_sources": [],
+      "donor_summary": "OpenSecrets shows Julie Fedorchak’s federal campaign committee with 2026-cycle summary data, but the page text available here does not expose a dollar total beyond placeholder formatting; it does identify the campaign as a federal House committee and links to detailed PAC, organization, and industry breakdowns. FollowTheMoney also has a state-level entity page for Julie A. Liffrig-Fedorchak, but the accessible page text here does not surface donor totals or top contributors; based on the available OpenSecrets profile, the best-supported sector-level takeaway is that her fundraising is tracked through federal disclosures and industry/PAC categories rather than a single dominant small-donor source.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/julie-fedorchak/us_congress/summary?cycle=2024&mpid=1339579",
+      "donor_sources": [],
       "links": [
         {
-          "label": "Campaign website",
-          "url": "https://fedorchaknd.com/"
+          "url": "https://fedorchaknd.com/",
+          "title": "https://fedorchaknd.com/",
+          "type": "other"
         },
         {
-          "label": "Congress.gov profile",
-          "url": "https://www.congress.gov/member/julie-fedorchak/F000482"
+          "url": "https://www.congress.gov/member/julie-fedorchak/F000482",
+          "title": "https://www.congress.gov/member/julie-fedorchak/F000482",
+          "type": "other"
         },
         {
-          "label": "House biography",
-          "url": "https://history.house.gov/People/Detail/36507225716"
+          "url": "https://history.house.gov/People/Detail/36507225716",
+          "title": "https://history.house.gov/People/Detail/36507225716",
+          "type": "other"
         },
         {
           "url": "https://www.govtrack.us/congress/members/julie_fedorchak/457006",
@@ -90,12 +498,12 @@
         },
         {
           "url": "https://www.opensecrets.org/profiles/julie-fedorchak/us_congress/summary?cycle=2024&mpid=1339579",
-          "title": "Julie Fedorchak \u2013 US Congress \u2013 Summary - OpenSecrets",
+          "title": "Julie Fedorchak – US Congress – Summary - OpenSecrets",
           "type": "finance"
         },
         {
           "url": "https://www.opensecrets.org/profiles/julie-fedorchak/us_congress/industries?cycle=2024&mpid=1339579",
-          "title": "Julie Fedorchak \u2013 US Congress \u2013 Industries - OpenSecrets",
+          "title": "Julie Fedorchak – US Congress – Industries - OpenSecrets",
           "type": "finance"
         },
         {
@@ -119,256 +527,65 @@
           "type": "wiki"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Fedorchak says she supports affordable, high-quality health care, especially for rural areas, and favors patient-centered solutions that lower costs, expand access, and reduce government bureaucracy. Her House page says health care decisions should be made by doctors and patients in North Dakota, not Washington.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/issues/health",
-              "type": "official_policy_page",
-              "title": "Health | Representative Julie Fedorchak",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Fedorchak says she is focused on energy affordability, reliability, sustainability, and security, and supports expanding domestic energy production while improving environmental stewardship. Her House materials emphasize unleashing American energy production, strengthening the grid, and supporting North Dakota\u2019s role in feeding and fueling the country.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/issues/energy-and-environment",
-              "type": "official_policy_page",
-              "title": "Energy and Environment | Representative Julie Fedorchak",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Fedorchak supports stronger border security and tougher immigration enforcement. Her House press releases say she voted for measures to crack down on illegal entry and backed the Laken Riley Act and related enforcement legislation.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://fedorchak.house.gov/media/press-releases/fedorchak-votes-increased-border-security-crack-down-illegal-entry",
-              "type": "official_press_release",
-              "title": "Fedorchak votes in increased border security, crack down on illegal entry",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchak.house.gov/media/press-releases/congresswoman-julie-fedorchak-attends-historic-signing-laken-riley-act-white",
-              "type": "official_press_release",
-              "title": "Congresswoman Julie Fedorchak attends historic signing Laken Riley Act",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Supports defending the Second Amendment and allowing law-abiding citizens to responsibly own guns; frames gun rights as a constitutional protection and opposes broad restrictions that would infringe on firearm ownership.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/issues/values",
-              "type": "official-policy-page",
-              "title": "Values | Representative Julie Fedorchak",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchaknd.com/issues",
-              "type": "campaign-issues-page",
-              "title": "Issues - Julie Fedorchak for US Congress",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Julie Fedorchak supports a defense-first foreign policy that strengthens U.S. security by backing allies (Israel, Taiwan) and countering adversaries, including Iran's nuclear ambitions. She emphasizes border security and homeland defense funding as integral to national security.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/issues/national-defense-and-security",
-              "type": "official policy page",
-              "title": "National Defense and Security - Julie Fedorchak",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-participates-national-security-and-trade-focused-congressional",
-              "type": "press release",
-              "title": "Fedorchak participates in national security and trade-focused congressional delegation to Taiwan",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchak.house.gov/media/in-the-news/rep-fedorchak-newsmax-iran-cannot-have-nuclear-weapons",
-              "type": "news/interview",
-              "title": "Rep. Fedorchak on Newsmax: Iran cannot have nuclear weapons",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchak.house.gov/media/press-releases/fedorchak-statement-on-resolution-reaffirming-iran-as-worlds-leading-state-sponsor-of-terrorism",
-              "type": "press release",
-              "title": "Fedorchak statement on Iran state sponsor of terrorism resolution",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "No public position found on a standalone social justice agenda in the campaign or House issue pages reviewed. Her public materials instead focus on border security, energy, taxes, health care, life, and government overreach.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://fedorchaknd.com/issues",
-              "type": "campaign_issues_page",
-              "title": "Issues - Julie Fedorchak for US Congress",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "http://fedorchak.house.gov/issues",
-              "type": "official_website",
-              "title": "Issues | Representative Julie Fedorchak - House.gov",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Fedorchak has publicly backed legislation aimed at limiting Chinese Communist Party influence in K-12 schools, but her campaign site does not appear to have a detailed standalone education platform. Publicly available materials suggest she approaches education through broader conservative priorities rather than a comprehensive education policy agenda.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-votes-curb-ccp-influence-k-12-schools",
-              "type": "official_press_release",
-              "title": "Fedorchak votes to curb CCP influence in K-12 schools",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchaknd.com/issues",
-              "type": "campaign_issues_page",
-              "title": "Issues - Julie Fedorchak for US Congress",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Julie Fedorchak advocates tying AI policy to U.S. energy policy, promoting American energy dominance to power AI, building a reliable electric grid, and leading U.S. AI innovation. She formed an AI & Energy Working Group to develop a legislative framework to power AI reliably, affordably, and sustainably.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-announces-working-group-establish-legislative-framework-power-future",
-              "type": "press release",
-              "title": "Fedorchak announces working group to establish legislative framework to power the future of AI",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchak.house.gov/media/press-releases/fedorchak-applauds-white-house-ai-framework",
-              "type": "press release",
-              "title": "Fedorchak applauds White House AI framework",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-highlights-urgent-need-beat-china-ai-race",
-              "type": "press release",
-              "title": "Fedorchak highlights urgent need to beat China in the AI race",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchaknd.com/issues",
-              "type": "campaign page",
-              "title": "Issues - Julie Fedorchak for US Congress",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Julie Fedorchak supports federal election-integrity measures, cosponsoring and voting for the SAVE Act and the SAVE America Act. These bills require proof of U.S. citizenship for voter registration in federal elections and add a photo ID requirement to vote in federal elections, aligning with North Dakota's standards and aiming to strengthen election integrity.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-votes-strengthen-election-integrity-support-save-act",
-              "type": "official press release",
-              "title": "Fedorchak votes to strengthen election integrity with support for the SAVE Act",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "http://fedorchak.house.gov/media/press-releases/fedorchak-helps-pass-save-america-act",
-              "type": "official press release",
-              "title": "Fedorchak helps pass SAVE America Act",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "http://fedorchak.house.gov/media/op-eds-and-speeches/simple-standard-secure-elections",
-              "type": "official op-ed",
-              "title": "A simple standard for secure elections - Julie Fedorchak",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Fedorchak\u2019s North Dakota-focused priorities include reliable and affordable energy, support for farmers and ranchers, and opposition to federal overreach. Her campaign issues page highlights securing the border, reducing the federal debt, backing law enforcement, and supporting agriculture and energy production.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://fedorchaknd.com/issues",
-              "type": "campaign_issues_page",
-              "title": "Issues - Julie Fedorchak for US Congress",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "http://fedorchak.house.gov/issues",
-              "type": "official_website",
-              "title": "Issues | Representative Julie Fedorchak - House.gov",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Fedorchak says Washington\u2019s spending and debt are hurting the economy and supports balancing the budget, reducing waste, fraud, and abuse, and increasing transparency in federal spending. Her campaign and House materials also emphasize tax relief and policies aimed at supporting workers, families, farmers, and energy producers.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/issues/budget-and-economy",
-              "type": "official_policy_page",
-              "title": "Budget and Economy | Representative Julie Fedorchak",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "https://fedorchaknd.com/issues",
-              "type": "campaign_issues_page",
-              "title": "Issues - Julie Fedorchak for US Congress",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Fedorchak says she believes in the sanctity of life and is committed to protecting the unborn. Her House materials describe her as supporting pro-life legislation and opposing abortion rights measures.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://fedorchak.house.gov/issues/values",
-              "type": "official_policy_page",
-              "title": "Values | Representative Julie Fedorchak",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            },
-            {
-              "url": "http://fedorchak.house.gov/media/press-releases/congresswoman-julie-fedorchak-stands-life",
-              "type": "official_press_release",
-              "title": "Congresswoman Julie Fedorchak stands for life",
-              "last_accessed": "2026-04-29T01:12:54.622102+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://fedorchaknd.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Trygve Hammer",
+      "party": "Democratic-NPL",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Alex Balazs",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-29T01:12:54.622102+00:00",
+  "updated_utc": "2026-06-13T23:12:28.936380+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-sonnet-4-6",
-    "gemini-3-flash-preview",
-    "grok-3"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-sonnet-4-6",
-      "reviewed_at": "2026-04-29T01:13:22.997888+00:00",
+      "reviewed_at": "2026-04-29T01:13:22.997888Z",
       "verdict": "approved",
       "score": 84,
       "flags": [
@@ -380,7 +597,7 @@
         },
         {
           "field": "candidates[0].career_history[2]",
-          "concern": "The profile lists a role as 'State Director' in the Office of U.S. Senator John Hoeven (2011\u20132012). This is plausible given Hoeven was elected to the Senate in 2010, but this specific role is not directly confirmed by any of the three cited summary sources (Congress.gov, House History, Wikipedia). It may derive from the Wikipedia article or another source not explicitly linked to this field. A human reviewer should verify this against the Wikipedia or House History source.",
+          "concern": "The profile lists a role as 'State Director' in the Office of U.S. Senator John Hoeven (2011–2012). This is plausible given Hoeven was elected to the Senate in 2010, but this specific role is not directly confirmed by any of the three cited summary sources (Congress.gov, House History, Wikipedia). It may derive from the Wikipedia article or another source not explicitly linked to this field. A human reviewer should verify this against the Wikipedia or House History source.",
           "suggestion": "Add a specific source citation for the Hoeven State Director role, or note it comes from Wikipedia if that is the case.",
           "severity": "info"
         },
@@ -392,7 +609,7 @@
         },
         {
           "field": "candidates[0].donor_summary",
-          "concern": "The donor summary is transparent about its limitations \u2014 it honestly acknowledges that specific dollar totals were not surfaced from the scraped pages. This is methodologically sound. However, as a result, voters receive no substantive fundraising information (total raised, top donors, top industries). This is a completeness gap, not an accuracy failure.",
+          "concern": "The donor summary is transparent about its limitations — it honestly acknowledges that specific dollar totals were not surfaced from the scraped pages. This is methodologically sound. However, as a result, voters receive no substantive fundraising information (total raised, top donors, top industries). This is a completeness gap, not an accuracy failure.",
           "suggestion": "If possible, manually check the OpenSecrets summary page for cycle-to-date fundraising totals and top industry/sector figures and add them to the summary.",
           "severity": "info"
         },
@@ -404,7 +621,7 @@
         },
         {
           "field": "candidates[0].issues.Immigration.stance",
-          "concern": "The stance says she 'voted for measures to crack down on illegal entry and backed the Laken Riley Act' \u2014 both are sourced to official press releases, which is appropriate. No bias concern. Minor note: the phrase 'crack down on illegal entry' mirrors the title of her own press release, which is accurately attributed.",
+          "concern": "The stance says she 'voted for measures to crack down on illegal entry and backed the Laken Riley Act' — both are sourced to official press releases, which is appropriate. No bias concern. Minor note: the phrase 'crack down on illegal entry' mirrors the title of her own press release, which is accurately attributed.",
           "suggestion": "No change needed; sourcing is appropriate.",
           "severity": "info"
         },
@@ -415,11 +632,11 @@
           "severity": "info"
         }
       ],
-      "summary": "This is a well-constructed, thoroughly sourced candidate profile for Julie Fedorchak. The profile covers 12 distinct issue areas, each backed by official government or campaign sources with access timestamps. Career history is internally consistent across the three cited government sources (Congress.gov, House History, Wikipedia). The description of her background \u2014 PSC service 2012\u20132025, then Congress from January 3, 2025 \u2014 is coherent across all summary fields. Issue stances are drawn directly from official House.gov issue pages and press releases, and confidence levels are appropriately calibrated (e.g., 'low' for Social Justice where no public position was found, 'medium' for Education where coverage is partial). The donor summary is admirably honest about the limits of what the scraped OpenSecrets data revealed, rather than fabricating figures. Language throughout is largely neutral and factual, reporting what Fedorchak says she supports rather than editorializing."
+      "summary": "This is a well-constructed, thoroughly sourced candidate profile for Julie Fedorchak. The profile covers 12 distinct issue areas, each backed by official government or campaign sources with access timestamps. Career history is internally consistent across the three cited government sources (Congress.gov, House History, Wikipedia). The description of her background — PSC service 2012–2025, then Congress from January 3, 2025 — is coherent across all summary fields. Issue stances are drawn directly from official House.gov issue pages and press releases, and confidence levels are appropriately calibrated (e.g., 'low' for Social Justice where no public position was found, 'medium' for Education where coverage is partial). The donor summary is admirably honest about the limits of what the scraped OpenSecrets data revealed, rather than fabricating figures. Language throughout is largely neutral and factual, reporting what Fedorchak says she supports rather than editorializing."
     },
     {
       "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-29T01:13:03.979598+00:00",
+      "reviewed_at": "2026-04-29T01:13:03.979598Z",
       "verdict": "approved",
       "score": 98,
       "flags": [
@@ -440,7 +657,7 @@
     },
     {
       "model": "grok-3",
-      "reviewed_at": "2026-04-29T01:13:03.407495+00:00",
+      "reviewed_at": "2026-04-29T01:13:03.407495Z",
       "verdict": "approved",
       "score": 95,
       "flags": [
@@ -479,33 +696,29 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 1077128,
-    "completion_tokens": 80440,
-    "total_tokens": 1157568,
-    "estimated_usd": 0.2292,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 116135,
+    "completion_tokens": 5969,
+    "total_tokens": 122104,
+    "cost_usd": 0.006937242,
+    "cost_source": "provider",
+    "estimated_usd": 0.009592,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 458149,
-        "completion_tokens": 4632
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 83413,
+        "completion_tokens": 5122
       },
-      "gpt-5-nano": {
-        "prompt_tokens": 598261,
-        "completion_tokens": 73581
-      },
-      "grok-3": {
-        "prompt_tokens": 6106,
-        "completion_tokens": 538
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 7409,
-        "completion_tokens": 383
-      },
-      "claude-sonnet-4-6": {
-        "prompt_tokens": 7203,
-        "completion_tokens": 1306
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 32722,
+        "completion_tokens": 847
       }
     },
-    "duration_s": 866.3
-  }
+    "duration_s": 101.9
+  },
+  "schema_version": "0.3",
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

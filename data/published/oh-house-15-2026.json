@@ -1,0 +1,393 @@
+{
+  "id": "oh-house-15-2026",
+  "title": "Ohio's 15th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Ohio's 15th Congressional District",
+  "state": "Ohio",
+  "district": "15th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Ohio's 15th Congressional District election pits Republican incumbent Mike Carey against Democratic nominee Don Leonard and Libertarian candidate Brennan Barrington. The district covers Columbus suburbs and parts of western and central Ohio, including Pickaway, Madison, Fayette, Highland, and Miami counties. Ohio redrew its congressional map in October 2025 ahead of this election. Cook Political Report rates this race as 'Solid Republican,' though the redrawn map and Leonard's grassroots campaign have generated some Democratic interest. Carey, a former coal lobbyist first elected in a 2021 special election, emphasizes energy independence and conservative values, while Leonard, a former Ohio State professor, campaigns on economic fairness and healthcare access.",
+  "polling": [],
+  "polling_note": "No independent general election polls were publicly available for this race as of mid-2026. Cook Political Report rates the district 'Solid Republican.'",
+  "candidates": [
+    {
+      "name": "Mike Carey",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Carey (born March 13, 1971) is the incumbent U.S. Representative for Ohio's 15th Congressional District, first elected in a 2021 special election. He previously served as vice president of government affairs for American Consolidated Natural Resources, a coal company, and chaired the Ohio Coal Association. In Congress, he serves on the Ways and Means, House Administration, and Budget Committees, and has focused on energy policy, tax reform, and civility in government.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mike_Carey_(politician)",
+          "type": "website",
+          "title": "Mike Carey (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://carey.house.gov/about/",
+          "type": "government",
+          "title": "About Mike | Representative Mike Carey",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Mike_Carey_(Ohio)",
+          "type": "website",
+          "title": "Mike Carey (Ohio) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Mike_Carey_2025.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Ohio's 15th District",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Serves on Ways and Means, House Administration, and Budget Committees.",
+          "source": null
+        },
+        {
+          "title": "Vice President of Government Affairs",
+          "organization": "American Consolidated Natural Resources",
+          "start_year": null,
+          "end_year": 2021,
+          "description": "Coal company lobbying and government relations.",
+          "source": null
+        },
+        {
+          "title": "Chairman",
+          "organization": "Ohio Coal Association",
+          "start_year": null,
+          "end_year": 2021,
+          "description": "Advocacy for the coal industry.",
+          "source": null
+        },
+        {
+          "title": "Staff",
+          "organization": "U.S. Representative Robert Ney",
+          "start_year": 1995,
+          "end_year": 1998,
+          "description": "Congressional staff member.",
+          "source": null
+        },
+        {
+          "title": "Staff",
+          "organization": "Ohio State Senator Merle Grace Kearns",
+          "start_year": 1991,
+          "end_year": 1993,
+          "description": "State legislative aide.",
+          "source": null
+        },
+        {
+          "title": "Soldier",
+          "organization": "United States Army National Guard",
+          "start_year": 1989,
+          "end_year": 1999,
+          "description": "Army National Guard service.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Ohio State University",
+          "degree": "Bachelor of Arts",
+          "field": "History",
+          "year": 1993,
+          "source": null
+        },
+        {
+          "institution": "Marion Military Institute",
+          "degree": "Associate of Arts",
+          "field": "Economics",
+          "year": 1991,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://carey.house.gov/",
+          "title": "https://carey.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://www.careyforcongress.com/",
+          "title": "https://www.careyforcongress.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mike_Carey_(politician)",
+          "title": "https://en.wikipedia.org/wiki/Mike_Carey_(politician)",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.careyforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CareyforCongress",
+        "twitter": "https://x.com/MikeCareyOH15",
+        "instagram": "https://www.instagram.com/careyforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Don Leonard",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Don Leonard is the Democratic nominee for Ohio's 15th Congressional District. A former assistant professor of practice at Ohio State University's Knowlton School of Architecture, he holds a Ph.D. in Government from Cornell University and served as a Peace Corps volunteer in Bolivia. He defeated former state Representative Adam Miller in the May 5, 2026 Democratic primary, and campaigns as a 'Do Something Democrat' focused on economic fairness, affordable healthcare, housing, and childcare.",
+      "summary_sources": [
+        {
+          "url": "https://donforohio.com/bio",
+          "type": "website",
+          "title": "Bio \u2014 Don Leonard for US Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://clas.osu.edu/people/leonard.471",
+          "type": "website",
+          "title": "Don Leonard | Center for Latin American Studies",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.dispatch.com/story/news/politics/elections/congressional/2026/05/05/democratic-primary-results-for-leonard-vs-miller-15th-congressional-district/89889538007/",
+          "type": "news",
+          "title": "Democrat Don Leonard advances to face Rep. Mike Carey for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Don_Leonard",
+          "type": "website",
+          "title": "Don Leonard - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://clas.osu.edu/sites/default/files/styles/people_profile_image/public/leonard471.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Assistant Professor of Practice, City and Regional Planning",
+          "organization": "The Ohio State University, Knowlton School of Architecture",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught and researched political economy, trade, and development.",
+          "source": null
+        },
+        {
+          "title": "Postdoctoral Fellow",
+          "organization": "Tulane University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Postdoctoral research.",
+          "source": null
+        },
+        {
+          "title": "Peace Corps Volunteer",
+          "organization": "United States Peace Corps, Bolivia",
+          "start_year": 2004,
+          "end_year": 2006,
+          "description": "Community development service.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Cornell University",
+          "degree": "Doctor of Philosophy",
+          "field": "Government",
+          "year": 2014,
+          "source": null
+        },
+        {
+          "institution": "Cornell University",
+          "degree": "Master of Arts",
+          "field": "Government",
+          "year": 2011,
+          "source": null
+        },
+        {
+          "institution": "University of Massachusetts Amherst",
+          "degree": "Master of Arts",
+          "field": "Economic and Social Development",
+          "year": 2004,
+          "source": null
+        },
+        {
+          "institution": "University of Massachusetts Amherst",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://donforohio.com/",
+          "title": "https://donforohio.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://clas.osu.edu/people/leonard.471",
+          "title": "https://clas.osu.edu/people/leonard.471",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Don_Leonard",
+          "title": "https://ballotpedia.org/Don_Leonard",
+          "type": "other"
+        }
+      ],
+      "website": "https://donforohio.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Don-Leonard-for-Ohio-61581963835424",
+        "twitter": "https://x.com/DonRLeonard",
+        "instagram": "https://www.instagram.com/donforohio/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brennan Barrington",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Brennan Barrington is the Libertarian Party nominee for Ohio's 15th Congressional District. He is certified as a candidate on the general election ballot and is listed on the Libertarian Party's official candidate roster for Ohio's 15th District. Detailed biographical information about his professional background and policy platform is limited.",
+      "summary_sources": [
+        {
+          "url": "https://lp.org/candidate/brennan-barrington/",
+          "type": "website",
+          "title": "Brennan Barrington - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Brennan_Barrington",
+          "type": "website",
+          "title": "Brennan Barrington - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.dispatch.com/story/news/politics/elections/congressional/2026/05/05/democratic-primary-results-for-leonard-vs-miller-15th-congressional-district/89889538007/",
+          "type": "news",
+          "title": "Democrat Don Leonard advances to face Rep. Mike Carey for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://b3870750.smushcdn.com/3870750/wp-content/uploads/Brennan_Barrington-768x1024.jpg",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://lp.org/candidate/brennan-barrington/",
+          "title": "https://lp.org/candidate/brennan-barrington/",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Brennan_Barrington",
+          "title": "https://ballotpedia.org/Brennan_Barrington",
+          "type": "other"
+        }
+      ],
+      "website": null,
+      "social_media": {
+        "twitter": "https://x.com/Barrington4OH15"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_15th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:58:49.419372+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 266975,
+    "completion_tokens": 7673,
+    "total_tokens": 274648,
+    "cost_usd": 0.023064834000000003,
+    "cost_source": "provider",
+    "estimated_usd": 0.027667,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 266975,
+        "completion_tokens": 7673
+      }
+    },
+    "duration_s": 138.5
+  }
+}

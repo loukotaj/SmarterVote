@@ -18,49 +18,62 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.booker.senate.gov/about-cory",
           "type": "government",
           "title": "About Cory | U.S. Senator Cory Booker of New Jersey",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://corybooker.com/",
           "type": "website",
           "title": "Stand with Cory Booker -- join our campaign for Senate today",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CoryBooker.jpg",
-      "website": "https://corybooker.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/corybooker/",
-        "instagram": "https://www.instagram.com/senbooker/",
-        "x": "https://x.com/SenBooker"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "United States Senator",
           "organization": "U.S. Senate",
           "start_year": 2013,
           "end_year": null,
-          "description": "Represents New Jersey in the U.S. Senate."
+          "description": "Represents New Jersey in the U.S. Senate.",
+          "source": null
         },
         {
           "title": "Mayor",
           "organization": "City of Newark, New Jersey",
           "start_year": 2006,
           "end_year": 2013,
-          "description": "Served as mayor of Newark before entering the Senate."
+          "description": "Served as mayor of Newark before entering the Senate.",
+          "source": null
         },
         {
           "title": "Member of the Newark Municipal Council",
           "organization": "City of Newark, New Jersey",
           "start_year": 1998,
           "end_year": 2002,
-          "description": "Served on the city council early in his political career."
+          "description": "Served on the city council early in his political career.",
+          "source": null
         }
       ],
       "education": [
@@ -68,52 +81,39 @@
           "institution": "Stanford University",
           "degree": "Bachelor of Arts",
           "field": "Political Science",
-          "year": 1991
+          "year": 1991,
+          "source": null
         },
         {
           "institution": "University of Oxford",
           "degree": "Master of Arts",
           "field": "Sociology",
-          "year": 1994
+          "year": 1994,
+          "source": null
         },
         {
           "institution": "Yale Law School",
           "degree": "Juris Doctor",
           "field": "Law",
-          "year": 1997
+          "year": 1997,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Michael Misseri",
-      "party": "Independent",
-      "incumbent": false,
-      "summary": "Michael Misseri is listed by Ballotpedia as the general-election candidate for U.S. Senate in New Jersey, though the page notes the candidate list is still unofficial and will be updated after the primary. Publicly available biographical information was limited in the searched sources, so his background and campaign profile could not be fully confirmed from the materials reviewed.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
-          "type": "government",
-          "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
+      "voting_sources": [],
       "donor_summary": null,
       "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://corybooker.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/corybooker/",
+        "instagram": "https://www.instagram.com/senbooker/",
+        "x": "https://x.com/SenBooker"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Saxon Callahan",
@@ -125,20 +125,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Chris Fields",
@@ -150,26 +159,40 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://chrisfieldsforsenate.com/",
           "type": "website",
           "title": "Chris Fields for Senate - A Progressive Democrat for New Jersey",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Oklahomacitybombing-DF-ST-98-01356.jpg/500px-Oklahomacitybombing-DF-ST-98-01356.jpg",
-      "website": "https://chrisfieldsforsenate.com/",
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://chrisfieldsforsenate.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Lisa McCormick",
@@ -181,45 +204,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Gregory Richard Tomaini",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Gregory Richard Tomaini is listed by Ballotpedia as a Democratic primary candidate for U.S. Senate in New Jersey. No reliable public campaign or biographical source was found in the searched materials that would support a fuller summary of his background.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
-          "type": "government",
-          "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Gregory_Tomaini_26.jpeg",
       "website": null,
       "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Robert Lebovics",
@@ -231,20 +238,29 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Robert_Lebovics.jpg",
-      "website": null,
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Justin Murphy",
@@ -256,51 +272,72 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://jerseyjustin4senate.org/",
           "type": "website",
           "title": "MURPHY FOR U.S. SENATE 2026 - New Jersey",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Justin_Murphy",
           "type": "government",
           "title": "Justin Murphy - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JustinMurphy24.jpg",
-      "website": "https://jerseyjustin4senate.org/",
-      "social_media": {
-        "x": "https://x.com/murpho5",
-        "instagram": "https://www.instagram.com/jstnmrphy/",
-        "facebook": "https://www.facebook.com/justin.murphy.1848/"
-      },
+      "issues": {},
       "career_history": [
         {
           "title": "Deputy Mayor",
           "organization": "Tabernacle, New Jersey",
           "start_year": null,
           "end_year": null,
-          "description": "Ballotpedia identifies him as having served as deputy mayor of Tabernacle."
+          "description": "Ballotpedia identifies him as having served as deputy mayor of Tabernacle.",
+          "source": null
         },
         {
           "title": "Founder",
           "organization": "iCoach Nutrition",
           "start_year": 2018,
           "end_year": null,
-          "description": "His public Facebook profile describes him as founder of iCoach Nutrition."
+          "description": "His public Facebook profile describes him as founder of iCoach Nutrition.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://jerseyjustin4senate.org/",
+      "social_media": {
+        "x": "https://x.com/murpho5",
+        "instagram": "https://www.instagram.com/jstnmrphy/",
+        "facebook": "https://www.facebook.com/justin.murphy.1848/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Natalie Rivera",
@@ -312,29 +349,43 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://votenatalie2026.com/",
           "type": "website",
           "title": "Natalie Rivera's Campaign Announcement",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Natalie-Rivera-e1556213891448.jpg",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
       "website": "https://votenatalie2026.com/",
       "social_media": {
         "instagram": "https://www.instagram.com/natalieriveraofficial/",
         "facebook": "https://www.facebook.com/Natalieriveraofficial/"
       },
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Richard Tabor",
@@ -346,109 +397,86 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
           "type": "government",
           "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.taborforsenate.com/",
           "type": "website",
           "title": "Richard Tabor For US Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://unioncountygop.org/candidates/",
           "type": "news",
           "title": "Candidates - Union County Republican Committee",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-04-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Richard_Tabor_20260330_032501.jpeg",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
       "website": "https://www.taborforsenate.com/",
       "social_media": {
         "instagram": "https://www.instagram.com/rich_tabor/",
         "facebook": "https://www.facebook.com/richard.tabor.90/"
       },
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Alex Zdan",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "Alex Zdan is listed by Ballotpedia as a Republican primary candidate for U.S. Senate in New Jersey. His campaign site says he is running on border security, energy independence, and public safety, and his public profiles describe him as a writer, investigative journalist, and commentator.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
-          "type": "government",
-          "title": "United States Senate election in New Jersey, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://zdanforsenate.com/",
-          "type": "website",
-          "title": "Alex Zdan for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://x.com/ActualAlexZ",
-          "type": "website",
-          "title": "Alex Zdan (@ActualAlexZ) / Posts / X",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/azdan.jpeg",
-      "website": "https://zdanforsenate.com/",
-      "social_media": {
-        "x": "https://x.com/ActualAlexZ",
-        "instagram": "https://www.instagram.com/alexzdanforussenate/",
-        "facebook": "https://www.facebook.com/AlexforNJ/"
-      },
-      "career_history": [
-        {
-          "title": "Writer / Investigative Journalist / Commentator",
-          "organization": "Media and broadcast outlets",
-          "start_year": null,
-          "end_year": null,
-          "description": "Public profiles describe him as a writer, investigative journalist, and TV news commentator."
-        }
-      ],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T17:33:07.388350+00:00",
+  "updated_utc": "2026-06-13T23:14:22.508701+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 175823,
-    "completion_tokens": 12906,
-    "total_tokens": 188729,
-    "estimated_usd": 0.0272,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 112082,
+    "completion_tokens": 7139,
+    "total_tokens": 119221,
+    "cost_usd": 0.00522834,
+    "cost_source": "provider",
+    "estimated_usd": 0.00846,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 92131,
-        "completion_tokens": 11797
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 83692,
-        "completion_tokens": 1109
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 112082,
+        "completion_tokens": 7139
       }
     },
-    "duration_s": 167.8
+    "duration_s": 72.3
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "post_run_analysis": null
 }

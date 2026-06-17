@@ -1,0 +1,285 @@
+{
+  "id": "ca-house-29-2026",
+  "title": "California's 29th Congressional District general election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 29th Congressional District",
+  "state": "California",
+  "district": "29th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 29th Congressional District, covering parts of the San Fernando Valley including Arleta, Pacoima, San Fernando, Sylmar, and Van Nuys, holds a general election on November 3, 2026. Under California's top-two primary system, both candidates who advanced are Democrats, meaning the seat is guaranteed to remain in Democratic hands. Incumbent Luz Maria Rivas, first elected in 2024, faces a progressive challenge from community organizer Ang\u00e9lica Mar\u00eda Due\u00f1as, who has run for this seat multiple times. The Cook Political Report rated the district as Solidly Democratic for the general election.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in California's 29th Congressional District. The Cook Political Report rated the race as Solidly Democratic.",
+  "candidates": [
+    {
+      "name": "Luz Maria Rivas",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Luz Maria Rivas is the incumbent U.S. Representative for California's 29th Congressional District, first elected in 2024. She previously served in the California State Assembly from 2018 to 2024 and is an engineer and educator by background. Her campaign focuses on economic opportunity, protecting Social Security and Medicare, and addressing climate change.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Luz_Rivas",
+          "type": "news",
+          "title": "Luz Rivas - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.luzforcongress.com/",
+          "type": "website",
+          "title": "Luz Rivas for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-29-primary.html",
+          "type": "news",
+          "title": "California 29th Congressional District Primary Election Results - NYT",
+          "description": null,
+          "last_accessed": "2026-06-13T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Rivas_Luz%2C_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing California's 29th Congressional District; serves on Natural Resources and Science, Space, and Technology committees",
+          "source": null
+        },
+        {
+          "title": "Member of the California State Assembly",
+          "organization": "California State Legislature",
+          "start_year": 2018,
+          "end_year": 2024,
+          "description": "Represented the 39th district (2018-2022) and 43rd district (2022-2024)",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "DIY Girls",
+          "start_year": 2012,
+          "end_year": 2018,
+          "description": "Nonprofit encouraging school-age girls to pursue STEM careers",
+          "source": null
+        },
+        {
+          "title": "Electrical Engineer",
+          "organization": "Motorola",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an electrical engineer prior to public service",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "Bachelor of Science",
+          "field": "Electrical Engineering",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard Graduate School of Education",
+          "degree": "Master of Education",
+          "field": "Education",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://rivas.house.gov/",
+          "title": "Official House website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Luz_Rivas",
+          "title": "Wikipedia biography",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.luzforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepLuzRivas",
+        "instagram": "https://www.instagram.com/luzmrivas/",
+        "facebook": "https://www.facebook.com/congresswomanluzrivas/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ang\u00e9lica Mar\u00eda Due\u00f1as",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Ang\u00e9lica Mar\u00eda Due\u00f1as is a progressive Democratic candidate and community organizer running for U.S. House in California's 29th Congressional District. A Human Resources specialist and Sun Valley Area Neighborhood Council member, she has run for this seat multiple times since 2020. Her platform emphasizes abolishing ICE, Medicare for All, national rent control, and rejecting corporate PAC and AIPAC money.",
+      "summary_sources": [
+        {
+          "url": "https://angelica4congress.com/",
+          "type": "website",
+          "title": "Ang\u00e9lica Due\u00f1as for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ocregister.com/2026/05/04/angelica-maria-duenas-ca-29-candidate-2026-primary-election-questionnaire/",
+          "type": "news",
+          "title": "Ang\u00e9lica Mar\u00eda Due\u00f1as, CA-29 candidate, 2026 primary election questionnaire",
+          "description": null,
+          "last_accessed": "2026-06-13T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ballotready.org/people/angelica-maria-duenas-c15075d9-d40f-4d5e-b273-1d85f1721574",
+          "type": "website",
+          "title": "Ang\u00e9lica Mar\u00eda Due\u00f1as - BallotReady",
+          "description": null,
+          "last_accessed": "2026-06-13T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dp.electionresults.sos.ca.gov/returns/us-rep/district/29",
+          "type": "government",
+          "title": "California Secretary of State - District 29 Primary Results",
+          "description": null,
+          "last_accessed": "2026-06-13T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Human Resources Specialist",
+          "organization": "Various employers",
+          "start_year": 2014,
+          "end_year": null,
+          "description": "Human resources professional",
+          "source": null
+        },
+        {
+          "title": "Councilmember / President / Vice President",
+          "organization": "Sun Valley Area Neighborhood Council",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Served two terms as President and one term as Vice President",
+          "source": null
+        },
+        {
+          "title": "Southern California Campaign Coordinator",
+          "organization": "Jill Stein presidential campaign",
+          "start_year": 2016,
+          "end_year": 2016,
+          "description": "Coordinated campaign activities in Southern California",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Woodbury University",
+          "degree": "Master's",
+          "field": "Organizational Leadership",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "California State University, Los Angeles",
+          "degree": "Bachelor of Arts",
+          "field": "Public Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Polytechnic High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.fec.gov/data/candidate/H8CA29100/",
+          "title": "FEC candidate profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://angelica4congress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/angelica4us/",
+        "facebook": "https://www.facebook.com/Angelica4CA/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_29th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:54:12.577277+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 168971,
+    "completion_tokens": 6727,
+    "total_tokens": 175698,
+    "cost_usd": 0.013963922,
+    "cost_source": "provider",
+    "estimated_usd": 0.017878,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 168971,
+        "completion_tokens": 6727
+      }
+    },
+    "duration_s": 105.0
+  }
+}

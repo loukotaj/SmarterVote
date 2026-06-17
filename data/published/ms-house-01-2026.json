@@ -1,0 +1,366 @@
+{
+  "id": "ms-house-01-2026",
+  "title": "Mississippi's 1st Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Mississippi's 1st Congressional District",
+  "state": "Mississippi",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Mississippi's 1st Congressional District pits Republican incumbent Trent Kelly against Democratic nominee Cliff Johnson and Libertarian nominee Johnny Baucom. The district covers northeastern Mississippi including Columbus, Oxford, Southaven, and Tupelo. Kelly, a retired U.S. Army Major General first elected in 2015, is a staunch conservative with a focus on military and border security. Johnson, a civil-rights attorney and director of the MacArthur Justice Center at the University of Mississippi School of Law, is campaigning on health care expansion, criminal justice reform, and economic issues. The race is rated Safe or Solid Republican by leading nonpartisan election forecasters, reflecting the district's strong Republican lean.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race. Nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate the district as Safe/Solid Republican.",
+  "candidates": [
+    {
+      "name": "Trent Kelly",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Trent Kelly is the incumbent U.S. Representative for Mississippi's 1st Congressional District, first elected in a 2015 special election and re-elected with 69.8% of the vote in 2024. A retired U.S. Army Major General with 39 years of service, he serves on the House Armed Services, Intelligence, and Agriculture Committees and chairs the Seapower and Projection Forces Subcommittee. Kelly focuses on border security, military readiness, and conservative fiscal policies.",
+      "summary_sources": [
+        {
+          "url": "https://trentkelly.house.gov/biography/",
+          "type": "government",
+          "title": "Biography \u2013 Congressman Trent Kelly",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Mississippi",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Mississippi",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Trent_Kelly",
+          "type": "website",
+          "title": "Trent Kelly \u2013 Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Trent_Kelly.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing Mississippi's 1st Congressional District; serves on Armed Services, Intelligence, and Agriculture Committees",
+          "source": null
+        },
+        {
+          "title": "Major General",
+          "organization": "Mississippi Army National Guard",
+          "start_year": 1986,
+          "end_year": 2025,
+          "description": "Retired after 39 years of service; deployed to Iraq twice; awarded Soldier's Medal and two Bronze Stars",
+          "source": null
+        },
+        {
+          "title": "District Attorney",
+          "organization": "1st Circuit Judicial District of Mississippi",
+          "start_year": null,
+          "end_year": 2015,
+          "description": "Managed all felony cases for a seven-county district",
+          "source": null
+        },
+        {
+          "title": "City Prosecutor / Forfeiture Attorney",
+          "organization": "City of Tupelo / North Mississippi Narcotics Unit",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as Tupelo City Prosecutor and Forfeiture Attorney",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private Law Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Maintained a private law practice in Saltillo, Mississippi",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Mississippi",
+          "degree": "Bachelor's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Mississippi School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "United States Army War College",
+          "degree": "Master's Degree",
+          "field": "Strategic Studies",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "East Central Community College",
+          "degree": "Associate's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://trentkelly.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://kellyformississippi.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://kellyformississippi.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepTrentKelly/",
+        "twitter": "https://x.com/RepTrentKelly",
+        "instagram": "https://www.instagram.com/reptrentkelly/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Cliff Johnson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Cliff Johnson is the Democratic nominee for Mississippi's 1st Congressional District. He is the Director of the Roderick and Solange MacArthur Justice Center and a faculty member at the University of Mississippi School of Law, where he supervises litigation on criminal justice reform, civil rights, and poverty issues. Johnson previously served as an Assistant U.S. Attorney prosecuting health care fraud and was a partner at the Jackson law firm Pigott & Johnson. He is campaigning on health care expansion, criminal justice reform, and addressing economic inequality.",
+      "summary_sources": [
+        {
+          "url": "https://www.macarthurjustice.org/team_member/cliff-johnson/",
+          "type": "website",
+          "title": "Cliff Johnson \u2013 MacArthur Justice Center",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cliffjohnsonforcongress.com/",
+          "type": "website",
+          "title": "Cliff Johnson for Congress",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://apnews.com/article/mississippi-congress-election-cliff-johnson-trent-kelly-2fbdbd3dc1e11fcf05f8041dedab4b7b",
+          "type": "news",
+          "title": "Mississippi Democrat Cliff Johnson announces bid for US House seat",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Director, Mississippi Office",
+          "organization": "Roderick and Solange MacArthur Justice Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Oversees litigation on criminal justice reform, civil rights, and poverty; supervises law students in the MacArthur Justice Clinic",
+          "source": null
+        },
+        {
+          "title": "Assistant U.S. Attorney",
+          "organization": "United States Department of Justice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Prosecuted health care fraud in Mississippi federal courts; received Inspector General's Integrity Award from HHS",
+          "source": null
+        },
+        {
+          "title": "Partner",
+          "organization": "Pigott & Johnson",
+          "start_year": null,
+          "end_year": null,
+          "description": "Handled complex civil and criminal litigation for 13 years",
+          "source": null
+        },
+        {
+          "title": "Associate Attorney",
+          "organization": "Butler Snow",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law at this Jackson, Mississippi law firm",
+          "source": null
+        },
+        {
+          "title": "Fulbright Scholar",
+          "organization": "Raoul Wallenberg Institute for Human Rights and Humanitarian Law, Lund, Sweden",
+          "start_year": 2005,
+          "end_year": 2006,
+          "description": "Taught Law and History of the American Civil Rights Movement; researched immigration and integration",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Columbia Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1992,
+          "source": null
+        },
+        {
+          "institution": "Mississippi College",
+          "degree": "B.A.",
+          "field": "Political Science",
+          "year": 1989,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.cliffjohnsonforcongress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.macarthurjustice.org/team_member/cliff-johnson/",
+          "title": "MacArthur Justice Center Profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.cliffjohnsonforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/cliffjohnsonforcongress/",
+        "instagram": "https://www.instagram.com/cliffjohnsonforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Johnny Baucom",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Johnny Baucom is the Libertarian Party nominee for Mississippi's 1st Congressional District. He advanced to the general election as the Libertarian candidate after the party's primary. Specific biographical details about Baucom are limited in publicly available sources.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Mississippi",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Mississippi",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Johnny_Baucom_(Mississippi)",
+          "type": "website",
+          "title": "Johnny Baucom (Mississippi) \u2013 Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.desotocountyms.gov/CivicAlerts.aspx?AID=1016",
+          "type": "government",
+          "title": "November 3, 2026 Election Candidates \u2013 DeSoto County, MS",
+          "description": null,
+          "last_accessed": "2026-06-08T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Mississippi%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:53:52.127057+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 247391,
+    "completion_tokens": 6822,
+    "total_tokens": 254213,
+    "cost_usd": 0.016675701999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.025581,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 247391,
+        "completion_tokens": 6822
+      }
+    },
+    "duration_s": 118.6
+  }
+}

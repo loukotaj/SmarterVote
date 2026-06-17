@@ -1,0 +1,249 @@
+{
+  "id": "ny-house-08-2026",
+  "title": "New York's 8th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 8th Congressional District",
+  "state": "New York",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New York's 8th congressional district will be held on November 3, 2026, with a primary election on June 23, 2026. The district covers portions of central Brooklyn, including neighborhoods such as Bedford-Stuyvesant, Crown Heights, Brownsville, and East New York. Incumbent Democrat Hakeem Jeffries, the House Minority Leader, is seeking re-election and faces a Democratic primary challenge from New York City Council Member Chi Oss\u00e9, a democratic socialist, as well as a challenge from progressive activist Vance Bostic. The district is overwhelmingly Democratic and is rated \"Safe D\" by major nonpartisan forecasters, making the Democratic primary the de facto competitive contest in this cycle.",
+  "polling": [
+    {
+      "pollster": "Private poll (cited by City & State NY)",
+      "date": "2025-10-01",
+      "sample_size": 600,
+      "matchups": [],
+      "source_url": "https://www.cityandstateny.com/politics/2025/10/private-poll-shows-hakeem-jeffries-50-point-lead-over-chi-osse-hypothetical-congressional-primary/408870/"
+    }
+  ],
+  "polling_note": "Only one private poll was identified for the Democratic primary matchup. No general election polls were found, as the race is considered non-competitive in the general election.",
+  "candidates": [
+    {
+      "name": "Hakeem Jeffries",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Hakeem Jeffries is the U.S. Representative for New York's 8th congressional district, first elected in 2012 and serving since 2013. He is the House Minority Leader, the highest-ranking Democrat in the House, and previously served as Chair of the House Democratic Caucus. Jeffries is a former corporate attorney and New York State Assembly member, and is widely seen as a leading figure in the national Democratic Party.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hakeem_Jeffries",
+          "type": "website",
+          "title": "Hakeem Jeffries - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jeffries.house.gov/",
+          "type": "government",
+          "title": "Congressman Hakeem Jeffries \u2013 Proudly Representing the 8th District of New York",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg/250px-Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "House Minority Leader",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Highest-ranking Democrat in the House",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing New York's 8th congressional district",
+          "source": null
+        },
+        {
+          "title": "Chair of the House Democratic Caucus",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Led the House Democratic Caucus",
+          "source": null
+        },
+        {
+          "title": "Member of the New York State Assembly",
+          "organization": "New York State Assembly",
+          "start_year": 2007,
+          "end_year": 2012,
+          "description": "Represented the 57th Assembly district in Brooklyn",
+          "source": null
+        },
+        {
+          "title": "Corporate Litigator / Attorney",
+          "organization": "Paul, Weiss, Rifkind, Wharton & Garrison; Viacom; CBS",
+          "start_year": 1998,
+          "end_year": 2004,
+          "description": "Worked in private practice and as in-house counsel for media companies",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Binghamton University",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": 1992,
+          "source": null
+        },
+        {
+          "institution": "Georgetown University",
+          "degree": "MPP",
+          "field": "Public Policy",
+          "year": 1994,
+          "source": null
+        },
+        {
+          "institution": "New York University School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": 1997,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://hakeemjeffries.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lewis Mizrahi",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Lewis Mizrahi is a Republican and Conservative Party candidate running for the U.S. House in New York's 8th congressional district. He is listed on Ballotpedia as a declared candidate for the 2026 election. Detailed biographical information is currently limited.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Lewis_Mizrahi",
+          "type": "website",
+          "title": "Lewis Mizrahi - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/lewis-mizrahi",
+          "type": "website",
+          "title": "Lewis Mizrahi (R) - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Richard Simmons",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Richard Simmons is a Republican candidate running for the U.S. House in New York's 8th congressional district in the 2026 election. He is listed on Ballotpedia and Local Candidates as a candidate in the Republican primary. Detailed biographical information is currently limited.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Richard_Simmons_(New_York)",
+          "type": "website",
+          "title": "Richard Simmons (New York) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/elections/2026-us-house-of-representatives-ny-8?view=candidates&stage=republican-primary",
+          "type": "website",
+          "title": "2026 US House (NY) District 8 Election - Republican Primary",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Richard_Simmons.png",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:54:22.693299+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 265682,
+    "completion_tokens": 9127,
+    "total_tokens": 274809,
+    "cost_usd": 0.017941567999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.027826,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 265682,
+        "completion_tokens": 9127
+      }
+    },
+    "duration_s": 137.5
+  }
+}

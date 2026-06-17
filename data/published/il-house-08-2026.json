@@ -1,0 +1,263 @@
+{
+  "id": "il-house-08-2026",
+  "title": "Illinois's 8th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Illinois's 8th Congressional District",
+  "state": "Illinois",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Illinois's 8th Congressional District is an open seat in the 2026 general election after incumbent Democrat Raja Krishnamoorthi vacated the seat to run for the U.S. Senate. The district covers parts of Cook, DuPage, Kane, and McHenry counties, including communities such as Schaumburg, Elgin, and parts of Chicago's Far Northwest Side. The race pits former three-term Democratic Congresswoman Melissa Bean against Republican tech entrepreneur Jennifer Davis. The district has been redrawn to be solidly Democratic, and Bean won a competitive eight-way primary with significant support from pro-Israel super PACs.",
+  "polling": [],
+  "polling_note": "No general election matchup polls between Melissa Bean and Jennifer Davis were available as of mid-2026. The Cook Political Report rates the race as Solid D / Solidly Democratic.",
+  "candidates": [
+    {
+      "name": "Melissa Bean",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Melissa Bean is a former U.S. Representative who served Illinois's 8th Congressional District from 2005 to 2011. She won the 2026 Democratic primary with 32% of the vote in an eight-candidate field, positioning herself to reclaim the seat she lost to Joe Walsh in the 2010 Tea Party wave. Bean has campaigned on a moderate platform emphasizing pragmatism over polarization, criticizing the Trump administration, and has been buoyed by over $7 million in outside spending, including from pro-Israel groups.",
+      "summary_sources": [
+        {
+          "url": "https://www.wbez.org/government-politics/elections/2026/03/17/melissa-bean-wins-8th-congressional-district-primary-moves-to-reclaim-seat-she-lost-16-years-ago",
+          "type": "news",
+          "title": "Melissa Bean wins 8th Congressional District primary, moves to reclaim seat she lost 16 years ago",
+          "description": null,
+          "last_accessed": "2026-03-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://history.house.gov/People/Detail/10405",
+          "type": "government",
+          "title": "BEAN, Melissa L. - US House of Representatives",
+          "description": null,
+          "last_accessed": "2026-03-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Melissa_Bean",
+          "type": "website",
+          "title": "Melissa Bean - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-03-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Melissa_Bean.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2005,
+          "end_year": 2011,
+          "description": "Represented Illinois's 8th Congressional District; served on Financial Services and Small Business Committees; member of Blue Dog Coalition; chaired Small Business Subcommittee on Finance and Tax.",
+          "source": null
+        },
+        {
+          "title": "President and CEO",
+          "organization": "The Executives' Club of Chicago",
+          "start_year": null,
+          "end_year": null,
+          "description": "Leads premier networking organization for business executives in Chicago.",
+          "source": null
+        },
+        {
+          "title": "Vice Chairman, Midwest",
+          "organization": "JPMorgan Chase & Co.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Senior executive overseeing all lines of business in the Midwest region.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oakton Community College",
+          "degree": "Associate of Arts",
+          "field": "General Studies",
+          "year": 1982,
+          "source": null
+        },
+        {
+          "institution": "Roosevelt University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Melissa_Bean",
+          "title": "Wikipedia",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Melissa_Bean",
+          "title": "Ballotpedia",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.melissabeanforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/Melissabeanil08",
+        "instagram": "https://www.instagram.com/melissabeanforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jennifer Davis",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jennifer Davis is a tech entrepreneur and political outsider who won the 2026 Republican primary for Illinois's 8th Congressional District with 51% of the vote. She co-founded Davisware with her husband at age 17 and grew it into a global service technology company before selling to Serent Capital. Davis, a mother of ten, has positioned herself as a pragmatic conservative focused on cutting red tape, supporting small businesses, and putting families first, and has been endorsed by several local Republican leaders.",
+      "summary_sources": [
+        {
+          "url": "https://www.wbez.org/government-politics/elections/2026/03/17/melissa-bean-wins-8th-congressional-district-primary-moves-to-reclaim-seat-she-lost-16-years-ago",
+          "type": "news",
+          "title": "Melissa Bean wins 8th Congressional District primary, moves to reclaim seat she lost 16 years ago",
+          "description": null,
+          "last_accessed": "2026-03-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.votejenniferdavis.com/",
+          "type": "website",
+          "title": "Jennifer Davis for Congress",
+          "description": null,
+          "last_accessed": "2026-03-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jennifer_Davis_(Illinois)",
+          "type": "website",
+          "title": "Jennifer Davis (Illinois) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-03-18T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Co-Founder and CEO",
+          "organization": "Davisware, Inc.",
+          "start_year": 1994,
+          "end_year": null,
+          "description": "Co-founded vertical SaaS company serving commercial service industries; grew company to over $20M in revenue and sold to Serent Capital.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "BExponential",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded organization to help women thrive personally and professionally through coaching, workshops, and speaking.",
+          "source": null
+        },
+        {
+          "title": "Author",
+          "organization": "Self-published",
+          "start_year": null,
+          "end_year": null,
+          "description": "Published best-selling book 'Living Exponentially in Life and Business' sharing blueprint for building success.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin-La Crosse",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "North Central College",
+          "degree": null,
+          "field": "Education/History",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Jennifer_Davis_(Illinois)",
+          "title": "Ballotpedia",
+          "type": "other"
+        },
+        {
+          "url": "https://www.itsjenniferdavis.com/",
+          "title": "Personal Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.votejenniferdavis.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/votejenniferdavis/",
+        "facebook": "https://www.facebook.com/p/Jennifer-Davis-for-Congress-61578993118568/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:13:13.432989+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 227974,
+    "completion_tokens": 6606,
+    "total_tokens": 234580,
+    "cost_usd": 0.016307972,
+    "cost_source": "provider",
+    "estimated_usd": 0.023636,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 227974,
+        "completion_tokens": 6606
+      }
+    },
+    "duration_s": 135.2
+  }
+}

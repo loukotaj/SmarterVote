@@ -9,6 +9,7 @@
     {
       "pollster": "Public Policy Polling",
       "date": "2025-11-22",
+      "sample_size": 704,
       "matchups": [
         {
           "candidates": [
@@ -16,23 +17,12 @@
             "Annie Andrews"
           ],
           "percentages": [
-            47,
-            41
-          ]
-        },
-        {
-          "candidates": [
-            "Lindsey Graham",
-            "Generic Democrat"
-          ],
-          "percentages": [
-            45,
-            43
+            47.0,
+            41.0
           ]
         }
       ],
-      "source_url": "https://abcnews4.com/news/local/poll-graham-faces-tight-race-against-generic-democrat-challenger-andrews-trails-by-6-annie-andrews-lindsey-graham",
-      "sample_size": 704
+      "source_url": "https://abcnews4.com/news/local/poll-graham-faces-tight-race-against-generic-democrat-challenger-andrews-trails-by-6-annie-andrews-lindsey-graham"
     },
     {
       "pollster": "Impact Research",
@@ -45,8 +35,8 @@
             "Annie Andrews"
           ],
           "percentages": [
-            47,
-            42
+            47.0,
+            42.0
           ]
         }
       ],
@@ -63,25 +53,487 @@
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Lindsey_Graham",
-          "type": "ballotpedia",
-          "title": "Lindsey Graham - Ballotpedia"
+          "type": "website",
+          "title": "Lindsey Graham - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://lindseygraham.com/",
-          "type": "official",
-          "title": "Lindsey Graham | Fighting for America First & Conservative Values"
+          "type": "government",
+          "title": "Lindsey Graham | Fighting for America First & Conservative Values",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.lgraham.senate.gov/public/index.cfm/biography",
-          "type": "official",
-          "title": "Biography - United States Senator Lindsey Graham"
+          "type": "government",
+          "title": "Biography - United States Senator Lindsey Graham",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Lindsey_Graham.jpg",
-      "website": "https://lindseygraham.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/LindseyGrahamSC/",
-        "x": "https://x.com/LindseyGrahamSC"
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Advocates market-based reforms to reduce healthcare costs and premiums, and has opposed broad Obamacare subsidies. Has supported consumer-driven options such as Health Savings Accounts and backed reform plans aimed at replacing or scaling back Obamacare subsidies in favor of market-based approaches.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2025/12/graham-votes-for-affordable-health-care-and-against-extending-fraud-riddled-broken-obamacare-subsidies",
+              "type": "government",
+              "title": "Graham votes for affordable health care and against extending fraud-riddled/broken Obamacare subsidies",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://thehill.com/homenews/senate/5661828-health-care-funding-senate-2026/",
+              "type": "news",
+              "title": "Health care funding in the Senate 2026: what to watch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abcnews4.com/news/state/sen-graham-proposes-health-savings-accounts-to-tackle-rising-healthcare-costs",
+              "type": "news",
+              "title": "Graham proposes Health Savings Accounts to tackle rising costs",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Supports a targeted FY2026 budget resolution to fully fund ICE and Border Patrol for 3.5 years to secure the border; argues that disciplined, security-focused immigration spending is essential for economic stability and reducing illegal immigration costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.budget.senate.gov/chairman/newsroom/press/chairman-graham-introduces-targeted-fy26-budget-resolution-to-unlock-legislation-to-keep-border-secure",
+              "type": "government",
+              "title": "Chairman Graham Introduces Targeted FY26 Budget Resolution to Unlock Legislation to Keep Border Secure",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/press-releases?ID=980903ED-E629-43D8-862C-07D49CEABF78",
+              "type": "government",
+              "title": "Chairman Graham Statement on the Senate Adopting the FY26 Budget Resolution",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Supports strict immigration enforcement and robust border security, including full funding for ICE and CBP. Has introduced the Updated End Sanctuary Cities Act of 2026 to end sanctuary city policies and restore federal enforcement authority.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/4/chairman-graham-introduces-targeted-fy26-budget-resolution-to-unlock-legislation-to-keep-border-secure",
+              "type": "government",
+              "title": "Chairman Graham Introduces Targeted FY26 Budget Resolution To Unlock Legislation To Keep Border Secure",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/2/graham-introduces-updated-end-sanctuary-cities-act-of-2026",
+              "type": "government",
+              "title": "Graham Introduces Updated End Sanctuary Cities Act of 2026",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Lindsey Graham strongly defends Second Amendment rights, opposes broad new gun restrictions, and has urged strengthening enforcement of existing laws; he has supported actions to protect gun owners from federal overreach by pushing the ATF to strengthen Second Amendment protections and rescind Biden-era rules.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2025/2/graham-colleagues-urge-atf-to-strengthen-second-amendment-protections-and-rescind-unconstitutional-biden-rules",
+              "type": "government",
+              "title": "Graham Colleagues Urge ATF to Strengthen Second Amendment Protections and Rescind Unconstitutional Biden Rules",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2024/9/graham-earns-a-rating-for-unwavering-support-for-the-second-amendment",
+              "type": "government",
+              "title": "Graham Earns A+ Rating for Unwavering Support for the Second Amendment",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Supports energy independence via expanded domestic energy production and resilient infrastructure, and backs targeted energy affordability and disaster-relief investments; has criticized broad federal clean-energy subsidies and advocates a conservative, targeted approach to energy and climate policy rather than sweeping reforms like the Green New Deal.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/energy-independence",
+              "type": "government",
+              "title": "Energy Independence - Lindsey O. Graham",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/1/graham-introduces-legislation-to-provide-relief-to-south-carolinians-affected-by-hurricane-helene-other-natural-disasters",
+              "type": "government",
+              "title": "Graham introduces legislation to provide relief to South Carolinians affected by Hurricane Helene and other natural disasters",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://wpde.com/news/local/graham-introduces-bill-to-help-south-carolina-recover-from-hurricane-helene-senate-lindsey-graham-lowcountry-south-carolina-legislation",
+              "type": "news",
+              "title": "Graham introduces bill to help South Carolina recover from Hurricane Helene",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://scdailygazette.com/2025/01/28/scs-sen-lindsey-graham-wants-to-claw-back-redirect-clean-energy-funding-to-border-control/",
+              "type": "news",
+              "title": "SC's Sen. Lindsey Graham wants to claw back/redirect clean energy funding to border control",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Opposes broad federal protections for LGBTQ+ status in civil rights law; previously voted against the Respect for Marriage Act, supporting traditional marriage; stance updated to reflect that he opposed federal protections for same-sex marriage in 2022 and has historically expressed reservations about expanding LGBTQ+ rights beyond religious liberty protections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.congress.gov/bill/117th-congress/house-bill/8404",
+              "type": "government",
+              "title": "H.R. 8404 - Respect for Marriage Act (117th Congress)",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.out.com/news/2022/11/29/senate-passes-marriage-equality-bill-lindsey-graham-voted-no",
+              "type": "website",
+              "title": "Senate Passes Marriage Equality Bill (Lindsey Graham Voted No)",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.presidency.ucsb.edu/documents/statement-senator-lindsey-graham-todays-supreme-court-ruling-same-sex-marriage",
+              "type": "website",
+              "title": null,
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Supports national standards for AI and a federal regulatory framework intended to promote safety, accountability, and innovation. He has publicly argued that Congress should take a more active role in setting rules for artificial intelligence.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.wsj.com/video/wsj-opinion-lindsey-graham-we-need-national-standards-for-ai-regulation/CEE22FD0-A127-4398-8AFC-F6213C02CD8E",
+              "type": "news",
+              "title": "WSJ Opinion: Lindsey Graham - We Need National Standards for AI Regulation",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.foxnews.com/politics/graham-leads-bipartisan-demand-tech-reform-vote-bring-social-media-companies-heel",
+              "type": "news",
+              "title": "Graham leads bipartisan demand for tech reform vote",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports election integrity measures, including requiring documentary proof of citizenship to register and photo ID to vote in federal elections; cosponsored the Safeguard American Voter Eligibility (SAVE America Act), an expanded version of SAVE Act, to implement these requirements and to remove non-citizens from voter rolls.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/2/graham-cosponsors-save-america-act",
+              "type": "government",
+              "title": "Graham Cosponsors SAVE America Act - Press Releases",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/house-bill/7296",
+              "type": "government",
+              "title": "H.R.7296 - 119th Congress (2025-2026): SAVE America Act",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Supports targeted federal funding for South Carolina infrastructure and readiness, prioritizing local projects such as upgrades at Joint Base Charleston and Coast Guard Base Charleston and other SC infrastructure initiatives funded in FY2026 spending bills. Emphasizes narrowly tailored spending aimed at improving local security, job creation, and resilience rather than broad national subsidies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/press-releases?ID=1686AB98-5FB7-4E78-B4AD-DB24DEF77C1F",
+              "type": "website",
+              "title": "Graham Welcomes Over $200 Million Investment In U.S. Coast Guard Base Charleston",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/2/graham-secures-nearly-150-million-in-funding-for-south-carolina-projects-in-third-fy26-spending-package",
+              "type": "website",
+              "title": "Graham Secures Nearly $150 Million in Funding for South Carolina Projects in Third FY26 Spending Package",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.foxcarolina.com/2026/02/05/sen-graham-announces-150-million-funding-south-carolina-projects/",
+              "type": "website",
+              "title": "Sen. Graham announces $150 million funding for South Carolina projects",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abcnews4.com/news/local/graham-hails-senate-bill-steering-nearly-120-million-for-south-carolina-projects-lowcountry-taxes-money-fiscal-lindsey-graham-senator-representative-bill-pass-legislation",
+              "type": "website",
+              "title": "Graham hails Senate bill steering nearly $120 million for South Carolina projects",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.counton2.com/news/sen-lindsey-graham-secures-over-30-million-for-joint-base-charleston/",
+              "type": "website",
+              "title": "Graham secures over $30 million for Joint Base Charleston",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Supports a federal ban on abortions after 15 weeks gestation with exceptions for rape, incest, and risks to the life or health of the mother; would leave in place state laws that are more protective of unborn life.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.npr.org/2022/09/13/1122700975/gop-sen-lindsey-graham-introduces-15-week-abortion-ban-in-the-senate",
+              "type": "news",
+              "title": "GOP Sen. Lindsey Graham introduces 15-week abortion ban in the Senate - NPR",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.washingtonpost.com/politics/2022/09/13/abortion-graham-republicans-nationwide-ban/",
+              "type": "news",
+              "title": "Graham introduces bill to ban abortions nationwide after 15 weeks - The Washington Post",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pbs.org/newshour/politics/watch-live-sen-lindsey-graham-holds-news-briefing-on-proposed-national-abortion-restrictions",
+              "type": "news",
+              "title": "WATCH: Sen. Lindsey Graham unveils national proposal banning abortion after 15 weeks - PBS NewsHour",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2022/9/graham-introduces-legislation-to-protect-unborn-children-bring-u-s-abortion-policy-in-line-with-other-developed-nations",
+              "type": "government",
+              "title": "Graham introduces legislation to protect unborn children, bring U.S. abortion policy in line with other developed nations",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Advocates a hardline, containment-focused foreign policy toward Iran, endorsing military options and allied efforts to deter Iran's nuclear ambitions. Supports reopening the Strait of Hormuz as a strategic measure to pressure Iran and stabilize energy markets.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/1/statement-from-u-s-senator-lindsey-graham-r-south-carolina",
+              "type": "government",
+              "title": "Statement from U.S. Senator Lindsey Graham - Jan 18, 2026",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.greenvilleonline.com/story/news/politics/2026/05/05/lindsey-graham-addresses-war-in-iran-pushes-strait-of-hormuz-reopening/89948369007/",
+              "type": "news",
+              "title": "Lindsey Graham addresses war in Iran, says it was necessary",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports school choice and parental options in K-12 education, including policies that expand charter schools and private-school choice programs. His public comments and legislative record indicate support for alternatives to traditional public-school funding models.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.congress.gov/bill/118th-congress/house-bill/8/text",
+              "type": "government",
+              "title": "H.R. 8 (118th Congress) text",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://lindseygraham.com/",
+              "type": "government",
+              "title": "Lindsey Graham campaign website",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -89,21 +541,24 @@
           "organization": "United States Senate",
           "start_year": 2003,
           "end_year": null,
-          "description": "Represents South Carolina in the Senate; first took office in 2003."
+          "description": "Represents South Carolina in the Senate; first took office in 2003.",
+          "source": null
         },
         {
           "title": "U.S. Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 1995,
           "end_year": 2003,
-          "description": "Represented South Carolina in the House before winning election to the Senate."
+          "description": "Represented South Carolina in the House before winning election to the Senate.",
+          "source": null
         },
         {
           "title": "Judge Advocate / Air Force officer",
           "organization": "U.S. Air Force and South Carolina Air National Guard",
           "start_year": 1982,
           "end_year": 1995,
-          "description": "Served as a military lawyer and officer before entering Congress."
+          "description": "Served as a military lawyer and officer before entering Congress.",
+          "source": null
         }
       ],
       "education": [
@@ -111,19 +566,23 @@
           "institution": "University of South Carolina",
           "degree": "J.D.",
           "field": "Law",
-          "year": 1981
+          "year": 1981,
+          "source": null
         },
         {
           "institution": "University of South Carolina",
           "degree": "B.A.",
           "field": "Psychology",
-          "year": 1977
+          "year": 1977,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Lindsey_Graham",
@@ -136,279 +595,13 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Advocates market-based reforms to reduce healthcare costs and premiums, and has opposed broad Obamacare subsidies. Has supported consumer-driven options such as Health Savings Accounts and backed reform plans aimed at replacing or scaling back Obamacare subsidies in favor of market-based approaches.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2025/12/graham-votes-for-affordable-health-care-and-against-extending-fraud-riddled-broken-obamacare-subsidies",
-              "type": "government",
-              "title": "Graham votes for affordable health care and against extending fraud-riddled/broken Obamacare subsidies",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://thehill.com/homenews/senate/5661828-health-care-funding-senate-2026/",
-              "type": "news",
-              "title": "Health care funding in the Senate 2026: what to watch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://abcnews4.com/news/state/sen-graham-proposes-health-savings-accounts-to-tackle-rising-healthcare-costs",
-              "type": "news",
-              "title": "Graham proposes Health Savings Accounts to tackle rising costs",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Supports a targeted FY2026 budget resolution to fully fund ICE and Border Patrol for 3.5 years to secure the border; argues that disciplined, security-focused immigration spending is essential for economic stability and reducing illegal immigration costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.budget.senate.gov/chairman/newsroom/press/chairman-graham-introduces-targeted-fy26-budget-resolution-to-unlock-legislation-to-keep-border-secure",
-              "type": "government",
-              "title": "Chairman Graham Introduces Targeted FY26 Budget Resolution to Unlock Legislation to Keep Border Secure",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/press-releases?ID=980903ED-E629-43D8-862C-07D49CEABF78",
-              "type": "government",
-              "title": "Chairman Graham Statement on the Senate Adopting the FY26 Budget Resolution",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Supports strict immigration enforcement and robust border security, including full funding for ICE and CBP. Has introduced the Updated End Sanctuary Cities Act of 2026 to end sanctuary city policies and restore federal enforcement authority.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/4/chairman-graham-introduces-targeted-fy26-budget-resolution-to-unlock-legislation-to-keep-border-secure",
-              "type": "government",
-              "title": "Chairman Graham Introduces Targeted FY26 Budget Resolution To Unlock Legislation To Keep Border Secure",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/2/graham-introduces-updated-end-sanctuary-cities-act-of-2026",
-              "type": "government",
-              "title": "Graham Introduces Updated End Sanctuary Cities Act of 2026",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Lindsey Graham strongly defends Second Amendment rights, opposes broad new gun restrictions, and has urged strengthening enforcement of existing laws; he has supported actions to protect gun owners from federal overreach by pushing the ATF to strengthen Second Amendment protections and rescind Biden-era rules.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2025/2/graham-colleagues-urge-atf-to-strengthen-second-amendment-protections-and-rescind-unconstitutional-biden-rules",
-              "type": "government",
-              "title": "Graham Colleagues Urge ATF to Strengthen Second Amendment Protections and Rescind Unconstitutional Biden Rules",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2024/9/graham-earns-a-rating-for-unwavering-support-for-the-second-amendment",
-              "type": "government",
-              "title": "Graham Earns A+ Rating for Unwavering Support for the Second Amendment",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Supports energy independence via expanded domestic energy production and resilient infrastructure, and backs targeted energy affordability and disaster-relief investments; has criticized broad federal clean-energy subsidies and advocates a conservative, targeted approach to energy and climate policy rather than sweeping reforms like the Green New Deal.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/energy-independence",
-              "type": "government",
-              "title": "Energy Independence - Lindsey O. Graham",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/1/graham-introduces-legislation-to-provide-relief-to-south-carolinians-affected-by-hurricane-helene-other-natural-disasters",
-              "type": "government",
-              "title": "Graham introduces legislation to provide relief to South Carolinians affected by Hurricane Helene and other natural disasters",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://wpde.com/news/local/graham-introduces-bill-to-help-south-carolina-recover-from-hurricane-helene-senate-lindsey-graham-lowcountry-south-carolina-legislation",
-              "type": "news",
-              "title": "Graham introduces bill to help South Carolina recover from Hurricane Helene",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://scdailygazette.com/2025/01/28/scs-sen-lindsey-graham-wants-to-claw-back-redirect-clean-energy-funding-to-border-control/",
-              "type": "news",
-              "title": "SC's Sen. Lindsey Graham wants to claw back/redirect clean energy funding to border control",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Opposes broad federal protections for LGBTQ+ status in civil rights law; previously voted against the Respect for Marriage Act, supporting traditional marriage; stance updated to reflect that he opposed federal protections for same-sex marriage in 2022 and has historically expressed reservations about expanding LGBTQ+ rights beyond religious liberty protections.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.congress.gov/bill/117th-congress/house-bill/8404",
-              "type": "government",
-              "title": "H.R. 8404 - Respect for Marriage Act (117th Congress)",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.out.com/news/2022/11/29/senate-passes-marriage-equality-bill-lindsey-graham-voted-no",
-              "type": "website",
-              "title": "Senate Passes Marriage Equality Bill (Lindsey Graham Voted No)",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.presidency.ucsb.edu/documents/statement-senator-lindsey-graham-todays-supreme-court-ruling-same-sex-marriage",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00",
-              "type": "website"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Supports national standards for AI and a federal regulatory framework intended to promote safety, accountability, and innovation. He has publicly argued that Congress should take a more active role in setting rules for artificial intelligence.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.wsj.com/video/wsj-opinion-lindsey-graham-we-need-national-standards-for-ai-regulation/CEE22FD0-A127-4398-8AFC-F6213C02CD8E",
-              "type": "news",
-              "title": "WSJ Opinion: Lindsey Graham - We Need National Standards for AI Regulation",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.foxnews.com/politics/graham-leads-bipartisan-demand-tech-reform-vote-bring-social-media-companies-heel",
-              "type": "news",
-              "title": "Graham leads bipartisan demand for tech reform vote",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Supports election integrity measures, including requiring documentary proof of citizenship to register and photo ID to vote in federal elections; cosponsored the Safeguard American Voter Eligibility (SAVE America Act), an expanded version of SAVE Act, to implement these requirements and to remove non-citizens from voter rolls.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/2/graham-cosponsors-save-america-act",
-              "type": "government",
-              "title": "Graham Cosponsors SAVE America Act - Press Releases",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/bill/119th-congress/house-bill/7296",
-              "type": "government",
-              "title": "H.R.7296 - 119th Congress (2025-2026): SAVE America Act",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Supports targeted federal funding for South Carolina infrastructure and readiness, prioritizing local projects such as upgrades at Joint Base Charleston and Coast Guard Base Charleston and other SC infrastructure initiatives funded in FY2026 spending bills. Emphasizes narrowly tailored spending aimed at improving local security, job creation, and resilience rather than broad national subsidies.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/press-releases?ID=1686AB98-5FB7-4E78-B4AD-DB24DEF77C1F",
-              "title": "Graham Welcomes Over $200 Million Investment In U.S. Coast Guard Base Charleston",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00",
-              "type": "website"
-            },
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/2/graham-secures-nearly-150-million-in-funding-for-south-carolina-projects-in-third-fy26-spending-package",
-              "title": "Graham Secures Nearly $150 Million in Funding for South Carolina Projects in Third FY26 Spending Package",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00",
-              "type": "website"
-            },
-            {
-              "url": "https://www.foxcarolina.com/2026/02/05/sen-graham-announces-150-million-funding-south-carolina-projects/",
-              "title": "Sen. Graham announces $150 million funding for South Carolina projects",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00",
-              "type": "website"
-            },
-            {
-              "url": "https://abcnews4.com/news/local/graham-hails-senate-bill-steering-nearly-120-million-for-south-carolina-projects-lowcountry-taxes-money-fiscal-lindsey-graham-senator-representative-bill-pass-legislation",
-              "title": "Graham hails Senate bill steering nearly $120 million for South Carolina projects",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00",
-              "type": "website"
-            },
-            {
-              "url": "https://www.counton2.com/news/sen-lindsey-graham-secures-over-30-million-for-joint-base-charleston/",
-              "title": "Graham secures over $30 million for Joint Base Charleston",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00",
-              "type": "website"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Supports a federal ban on abortions after 15 weeks gestation with exceptions for rape, incest, and risks to the life or health of the mother; would leave in place state laws that are more protective of unborn life.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.npr.org/2022/09/13/1122700975/gop-sen-lindsey-graham-introduces-15-week-abortion-ban-in-the-senate",
-              "type": "news",
-              "title": "GOP Sen. Lindsey Graham introduces 15-week abortion ban in the Senate - NPR",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.washingtonpost.com/politics/2022/09/13/abortion-graham-republicans-nationwide-ban/",
-              "type": "news",
-              "title": "Graham introduces bill to ban abortions nationwide after 15 weeks - The Washington Post",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.pbs.org/newshour/politics/watch-live-sen-lindsey-graham-holds-news-briefing-on-proposed-national-abortion-restrictions",
-              "type": "news",
-              "title": "WATCH: Sen. Lindsey Graham unveils national proposal banning abortion after 15 weeks - PBS NewsHour",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2022/9/graham-introduces-legislation-to-protect-unborn-children-bring-u-s-abortion-policy-in-line-with-other-developed-nations",
-              "type": "government",
-              "title": "Graham introduces legislation to protect unborn children, bring U.S. abortion policy in line with other developed nations",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Advocates a hardline, containment-focused foreign policy toward Iran, endorsing military options and allied efforts to deter Iran's nuclear ambitions. Supports reopening the Strait of Hormuz as a strategic measure to pressure Iran and stabilize energy markets.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.lgraham.senate.gov/public/index.cfm/2026/1/statement-from-u-s-senator-lindsey-graham-r-south-carolina",
-              "type": "government",
-              "title": "Statement from U.S. Senator Lindsey Graham - Jan 18, 2026",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.greenvilleonline.com/story/news/politics/2026/05/05/lindsey-graham-addresses-war-in-iran-pushes-strait-of-hormuz-reopening/89948369007/",
-              "type": "news",
-              "title": "Lindsey Graham addresses war in Iran, says it was necessary",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports school choice and parental options in K-12 education, including policies that expand charter schools and private-school choice programs. His public comments and legislative record indicate support for alternatives to traditional public-school funding models.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.congress.gov/bill/118th-congress/house-bill/8/text",
-              "type": "government",
-              "title": "H.R. 8 (118th Congress) text",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://lindseygraham.com/",
-              "type": "government",
-              "title": "Lindsey Graham campaign website",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        }
+      "website": "https://lindseygraham.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/LindseyGrahamSC/",
+        "x": "https://x.com/LindseyGrahamSC"
       },
-      "donor_sources": [],
-      "voting_sources": []
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Annie Andrews",
@@ -419,23 +612,299 @@
         {
           "url": "https://drannieandrews.com/",
           "type": "website",
-          "title": "Dr. Annie Andrews for Senate"
+          "title": "Dr. Annie Andrews for Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://drannieandrews.com/platform",
-          "type": "campaign_platform",
-          "title": "Platform - Dr. Annie Andrews for Senate"
+          "type": "website",
+          "title": "Platform - Dr. Annie Andrews for Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Annieandrews.jpg",
-      "website": "https://drannieandrews.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/AnnieAndrewsMD/",
-        "instagram": "https://www.instagram.com/annieandrewsmd/",
-        "x": "https://x.com/AnnieAndrewsMD",
-        "youtube": "https://www.youtube.com/@DrAnnieAndrews",
-        "threads": "https://www.threads.net/@annieandrewsmd",
-        "tiktok": "https://www.tiktok.com/@annieandrewsmd"
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Healthcare is a right. Andrews says she supports expanding access through a public option, protecting and expanding Medicaid and Medicare, lowering prescription drug costs, improving mental health care access, and keeping rural hospitals open.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/issue/healthcare-is-a-right-not-a-privilege/",
+              "type": "website",
+              "title": "Healthcare is a Right, Not a Privilege",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "website",
+              "title": "Platform - Healthcare priorities",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Andrews says she will fight for an economy that works for working families by ending tax breaks for the ultra-wealthy and corporate polluters, raising wages, strengthening workers’ rights, expanding affordable child care and paid family leave, and supporting trade policies that protect South Carolina jobs and farms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/issue/an-economy-that-works-for-working-people/",
+              "type": "website",
+              "title": "An Economy That Works for Working People - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Andrews’ platform says she supports clean energy investment, emissions reductions, resilience, and environmental protections, with a transition away from fossil fuels that considers workers and communities affected by that shift.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "website",
+              "title": "Platform - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Andrews says she supports reproductive freedom, restoring Roe protections, guaranteeing access to contraception and infertility care, expanding maternal health services, especially in rural areas, and ensuring women do not have to leave their state or risk their lives to obtain medical care.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/issue/reproductive-freedom-trust-women/",
+              "type": "website",
+              "title": "Reproductive Freedom: Trust Women",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "website",
+              "title": "Platform - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Andrews says she supports keeping families together, ensuring due process, creating a path to citizenship for people who work hard and follow the rules, and immigration reform that strengthens border security while supporting South Carolina’s farms, businesses, and workforce.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "website",
+              "title": "Platform - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Andrews says she supports universal background checks, banning weapons of war from civilian streets, strong safe-storage laws, and expanded funding for community violence prevention and mental health programs, while respecting the Second Amendment.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/issue/an-end-to-gun-violence/",
+              "type": "website",
+              "title": "An End to Gun Violence - Platform policy",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Andrews says she wants to end reckless, open-ended wars, require Congress to approve use of military force, prioritize diplomacy and accountability, and fully support veterans and military families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/issue/no-more-endless-wars/",
+              "type": "government",
+              "title": "No More Endless Wars",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "website",
+              "title": "Platform - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Andrews’ platform says she supports equal protection and nondiscrimination for LGBTQ people, marriage equality, and federal civil rights protections, and that she will oppose efforts to roll back LGBTQ rights and advocate for anti-discrimination enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "website",
+              "title": "Platform - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Andrews says she supports full funding for public schools and special education, investment in modern classrooms and school safety, expanded affordable child care and early learning, higher pay for teachers and school staff, and free and reduced-price school meals.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/platform/",
+              "type": "government",
+              "title": "Platform - Education priorities",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://drannieandrews.com/issue/strong-schools-affordable-child-care/",
+              "type": "government",
+              "title": "Strong Schools & Affordable Child Care",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Andrews’ platform priority “Protecting Kids, Not Big Tech” indicates support for policies aimed at reducing technology harms to children and limiting the influence of large tech companies.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "website",
+              "title": "Platform - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Andrews’ platform emphasizes affordable child care, full funding for K-12 and early childhood education, and transportation and infrastructure investments as priorities for South Carolina communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/platform",
+              "type": "government",
+              "title": "Platform | Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Andrews says she supports campaign finance reform, including banning corporate PAC money and dark money, prohibiting stock trading by members of Congress, strengthening ethics rules and term limits, and protecting voting rights and election access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://drannieandrews.com/issue/fighting-political-corruption/",
+              "type": "website",
+              "title": "Fighting Political Corruption - Platform Page",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://drannieandrews.com/platform/",
+              "type": "website",
+              "title": "Platform - Dr. Annie Andrews for Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -443,21 +912,24 @@
           "organization": "Medical University of South Carolina and related clinical roles",
           "start_year": 2006,
           "end_year": null,
-          "description": "Has spent nearly two decades caring for children in South Carolina, including hospital-based pediatric care."
+          "description": "Has spent nearly two decades caring for children in South Carolina, including hospital-based pediatric care.",
+          "source": null
         },
         {
           "title": "Clinical professor of pediatrics",
           "organization": "George Washington University",
           "start_year": 2023,
           "end_year": null,
-          "description": "Listed in public bios as a clinical professor of pediatrics."
+          "description": "Listed in public bios as a clinical professor of pediatrics.",
+          "source": null
         },
         {
           "title": "Child health advocate",
           "organization": "Everytown for Gun Safety and related advocacy work",
           "start_year": 2020,
           "end_year": null,
-          "description": "Has been active in child health and gun-violence-prevention advocacy."
+          "description": "Has been active in child health and gun-violence-prevention advocacy.",
+          "source": null
         }
       ],
       "education": [
@@ -465,13 +937,16 @@
           "institution": "University of Cincinnati College of Medicine",
           "degree": "M.D.",
           "field": "Medicine",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Annie_Andrews",
@@ -489,184 +964,17 @@
           "type": "finance"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Healthcare is a right. Andrews says she supports expanding access through a public option, protecting and expanding Medicaid and Medicare, lowering prescription drug costs, improving mental health care access, and keeping rural hospitals open.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/issue/healthcare-is-a-right-not-a-privilege/",
-              "type": "website",
-              "title": "Healthcare is a Right, Not a Privilege",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "website",
-              "title": "Platform - Healthcare priorities",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Andrews says she will fight for an economy that works for working families by ending tax breaks for the ultra-wealthy and corporate polluters, raising wages, strengthening workers’ rights, expanding affordable child care and paid family leave, and supporting trade policies that protect South Carolina jobs and farms.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/issue/an-economy-that-works-for-working-people/",
-              "type": "website",
-              "title": "An Economy That Works for Working People - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Andrews’ platform says she supports clean energy investment, emissions reductions, resilience, and environmental protections, with a transition away from fossil fuels that considers workers and communities affected by that shift.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "website",
-              "title": "Platform - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Andrews says she supports reproductive freedom, restoring Roe protections, guaranteeing access to contraception and infertility care, expanding maternal health services, especially in rural areas, and ensuring women do not have to leave their state or risk their lives to obtain medical care.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/issue/reproductive-freedom-trust-women/",
-              "type": "website",
-              "title": "Reproductive Freedom: Trust Women",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "website",
-              "title": "Platform - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Andrews says she supports keeping families together, ensuring due process, creating a path to citizenship for people who work hard and follow the rules, and immigration reform that strengthens border security while supporting South Carolina’s farms, businesses, and workforce.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "website",
-              "title": "Platform - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Andrews says she supports universal background checks, banning weapons of war from civilian streets, strong safe-storage laws, and expanded funding for community violence prevention and mental health programs, while respecting the Second Amendment.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/issue/an-end-to-gun-violence/",
-              "type": "website",
-              "title": "An End to Gun Violence - Platform policy",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Andrews says she wants to end reckless, open-ended wars, require Congress to approve use of military force, prioritize diplomacy and accountability, and fully support veterans and military families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/issue/no-more-endless-wars/",
-              "type": "government",
-              "title": "No More Endless Wars",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "website",
-              "title": "Platform - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Andrews’ platform says she supports equal protection and nondiscrimination for LGBTQ people, marriage equality, and federal civil rights protections, and that she will oppose efforts to roll back LGBTQ rights and advocate for anti-discrimination enforcement.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "website",
-              "title": "Platform - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Andrews says she supports full funding for public schools and special education, investment in modern classrooms and school safety, expanded affordable child care and early learning, higher pay for teachers and school staff, and free and reduced-price school meals.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/platform/",
-              "type": "government",
-              "title": "Platform - Education priorities",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://drannieandrews.com/issue/strong-schools-affordable-child-care/",
-              "type": "government",
-              "title": "Strong Schools & Affordable Child Care",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Andrews’ platform priority “Protecting Kids, Not Big Tech” indicates support for policies aimed at reducing technology harms to children and limiting the influence of large tech companies.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "website",
-              "title": "Platform - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Andrews’ platform emphasizes affordable child care, full funding for K-12 and early childhood education, and transportation and infrastructure investments as priorities for South Carolina communities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/platform",
-              "type": "government",
-              "title": "Platform | Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Andrews says she supports campaign finance reform, including banning corporate PAC money and dark money, prohibiting stock trading by members of Congress, strengthening ethics rules and term limits, and protecting voting rights and election access.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://drannieandrews.com/issue/fighting-political-corruption/",
-              "type": "website",
-              "title": "Fighting Political Corruption - Platform Page",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://drannieandrews.com/platform/",
-              "type": "website",
-              "title": "Platform - Dr. Annie Andrews for Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        }
+      "website": "https://drannieandrews.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AnnieAndrewsMD/",
+        "instagram": "https://www.instagram.com/annieandrewsmd/",
+        "x": "https://x.com/AnnieAndrewsMD",
+        "youtube": "https://www.youtube.com/@DrAnnieAndrews",
+        "threads": "https://www.threads.net/@annieandrewsmd",
+        "tiktok": "https://www.tiktok.com/@annieandrewsmd"
       },
-      "donor_sources": [],
-      "voting_sources": []
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Paul Dans",
@@ -677,57 +985,318 @@
         {
           "url": "https://www.pauldans.com/",
           "type": "website",
-          "title": "Paul Dans for US Senate"
+          "title": "Paul Dans for US Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.pauldans.com/meet-paul",
           "type": "website",
-          "title": "Meet Paul | Paul Dans for US Senate"
+          "title": "Meet Paul | Paul Dans for US Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.pauldans.com/platform",
           "type": "website",
-          "title": "Platform | Paul Dans for U.S. Senate"
+          "title": "Platform | Paul Dans for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Paul_Dans_20251106_061937.jpg",
-      "website": "https://www.pauldans.com/",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Paul Dans says he wants to reduce the federal debt and pursue pro-growth conservative reforms. His campaign platform frames economic policy around restoring faith-based values, cutting government waste, and supporting a stronger economy for South Carolina families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pauldans.com/",
+              "type": "website",
+              "title": "Paul Dans for US Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Paul Dans says he wants to end endless wars and favors a more restrained, America First foreign policy. His campaign platform ties that message to national renewal and conservative reform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pauldans.com/",
+              "type": "website",
+              "title": "Paul Dans for US Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Paul Dans’s platform calls for education for re-industrialization, including hands-on career and technical education in welding, HVAC, robotics, and computer programming in every South Carolina high school.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pauldans.com/platform",
+              "type": "website",
+              "title": "Platform | Paul Dans for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Director",
           "organization": "2025 Presidential Transition Project (Heritage Foundation)",
           "start_year": 2022,
           "end_year": 2024,
-          "description": "Led the Heritage Foundation's 2025 Presidential Transition Project, widely known as Project 2025."
+          "description": "Led the Heritage Foundation's 2025 Presidential Transition Project, widely known as Project 2025.",
+          "source": null
         },
         {
           "title": "Chief of staff",
           "organization": "Office of Personnel Management",
           "start_year": 2020,
           "end_year": 2021,
-          "description": "Served in the Trump administration at OPM as White House liaison, senior advisor, and chief of staff."
+          "description": "Served in the Trump administration at OPM as White House liaison, senior advisor, and chief of staff.",
+          "source": null
         },
         {
           "title": "Chief of staff",
           "organization": "Office of Personnel Management",
           "start_year": 2020,
           "end_year": 2021,
-          "description": "Served in the Trump administration at OPM as White House liaison, senior advisor, and chief of staff."
+          "description": "Served in the Trump administration at OPM as White House liaison, senior advisor, and chief of staff.",
+          "source": null
         },
         {
           "title": "Senior advisor",
           "organization": "U.S. Department of Housing and Urban Development",
           "start_year": 2019,
           "end_year": 2020,
-          "description": "Served in HUD before moving to OPM."
+          "description": "Served in HUD before moving to OPM.",
+          "source": null
         },
         {
           "title": "Attorney in private practice",
           "organization": "Debevoise & Plimpton; LeBoeuf, Lamb, Greene & MacRae; solo practice",
           "start_year": 1990,
           "end_year": 2019,
-          "description": "Practiced commercial litigation in New York City for roughly two decades."
+          "description": "Practiced commercial litigation in New York City for roughly two decades.",
+          "source": null
         }
       ],
       "education": [
@@ -735,25 +1304,30 @@
           "institution": "Massachusetts Institute of Technology",
           "degree": "M.C.P.",
           "field": "City planning",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "Massachusetts Institute of Technology",
           "degree": "M.C.P.",
           "field": "City planning",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Virginia School of Law",
           "degree": "J.D.",
           "field": "Law",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Paul_Dans",
@@ -766,166 +1340,10 @@
           "type": "wiki"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Paul Dans says he wants to reduce the federal debt and pursue pro-growth conservative reforms. His campaign platform frames economic policy around restoring faith-based values, cutting government waste, and supporting a stronger economy for South Carolina families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.pauldans.com/",
-              "type": "website",
-              "title": "Paul Dans for US Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Paul Dans says he wants to end endless wars and favors a more restrained, America First foreign policy. His campaign platform ties that message to national renewal and conservative reform.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.pauldans.com/",
-              "type": "website",
-              "title": "Paul Dans for US Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Paul Dans’s platform calls for education for re-industrialization, including hands-on career and technical education in welding, HVAC, robotics, and computer programming in every South Carolina high school.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.pauldans.com/platform",
-              "type": "website",
-              "title": "Platform | Paul Dans for U.S. Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": "https://www.pauldans.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Kyle Freeman",
@@ -936,38 +1354,292 @@
         {
           "url": "https://kylefreemanforsenate.com/about",
           "type": "website",
-          "title": "About Kyle Freeman"
+          "title": "About Kyle Freeman",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://kylefreemanforsenate.com/",
           "type": "website",
-          "title": "Kyle Freeman For Senate"
+          "title": "Kyle Freeman For Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kyle_Freeman_20241122_105330.jpg",
-      "website": "https://kylefreemanforsenate.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports a single-payer healthcare system, with government negotiation to lower costs and fair compensation for doctors and healthcare workers. He also backs higher wages, full-time benefits, and an end to exploitative contract practices for in-home caregivers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Supports raising wages, strengthening collective bargaining, enforcing antitrust laws, and challenging corporate power to reduce income inequality and restore competition.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Says climate change is real, human-caused, and urgent, and supports energy reform with investments in clean-energy technologies such as salt reactors and advanced storage like gravity batteries.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports fully funding public K-12 schools and expanding critical thinking and information literacy instruction.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Centers his campaign on South Carolina-specific concerns including good-paying jobs, affordable health care, infrastructure, veterans, and transparency in Washington.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/about",
+              "type": "website",
+              "title": "About Kyle Freeman",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://kylefreemanforsenate.com/",
+              "type": "website",
+              "title": "Kyle Freeman For Senate",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Emphasizes honesty, integrity, transparency, and accountability in government, and says he wants to restore trust in public institutions.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/about",
+              "type": "website",
+              "title": "About Kyle Freeman",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://kylefreemanforsenate.com/issues",
+              "type": "website",
+              "title": "Kyle Freeman For Senate – Issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Logistics professional",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Campaign website describes him as a logistics professional."
+          "description": "Campaign website describes him as a logistics professional.",
+          "source": null
         },
         {
           "title": "Essential worker",
           "organization": "Critical systems / logistics during COVID-19",
           "start_year": 2020,
           "end_year": 2021,
-          "description": "Campaign says he worked as an essential worker during the pandemic."
+          "description": "Campaign says he worked as an essential worker during the pandemic.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Kyle_Freeman",
@@ -980,166 +1652,10 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Supports a single-payer healthcare system, with government negotiation to lower costs and fair compensation for doctors and healthcare workers. He also backs higher wages, full-time benefits, and an end to exploitative contract practices for in-home caregivers.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Supports raising wages, strengthening collective bargaining, enforcing antitrust laws, and challenging corporate power to reduce income inequality and restore competition.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Says climate change is real, human-caused, and urgent, and supports energy reform with investments in clean-energy technologies such as salt reactors and advanced storage like gravity batteries.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports fully funding public K-12 schools and expanding critical thinking and information literacy instruction.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Centers his campaign on South Carolina-specific concerns including good-paying jobs, affordable health care, infrastructure, veterans, and transparency in Washington.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/about",
-              "type": "website",
-              "title": "About Kyle Freeman",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://kylefreemanforsenate.com/",
-              "type": "website",
-              "title": "Kyle Freeman For Senate",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Emphasizes honesty, integrity, transparency, and accountability in government, and says he wants to restore trust in public institutions.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/about",
-              "type": "website",
-              "title": "About Kyle Freeman",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://kylefreemanforsenate.com/issues",
-              "type": "website",
-              "title": "Kyle Freeman For Senate – Issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": "https://kylefreemanforsenate.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Catherine Fleming Bruce",
@@ -1150,29 +1666,341 @@
         {
           "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
           "type": "news",
-          "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch"
+          "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://en.wikipedia.org/wiki/Catherine_Fleming_Bruce",
-          "type": "wiki",
-          "title": "Catherine Fleming Bruce - Wikipedia"
+          "type": "website",
+          "title": "Catherine Fleming Bruce - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-          "type": "self-published",
-          "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch"
+          "type": "website",
+          "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CahterineFlemingBruce2025.jpg",
-      "website": "https://catherineflemingbruce.com/",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Centers affordability, wages, and economic opportunity, arguing that many South Carolinians are struggling with housing, utility, and health care costs. She has said she wants to address economic uncertainty and improve conditions for workers and small businesses.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
+              "type": "news",
+              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports expanding health care access and affordability, including stronger health care infrastructure and protections for women’s health care decisions. In her campaign launch remarks, she said she would fight to improve access to health care for all South Carolinians.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
+              "type": "news",
+              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Supports protecting women’s health care decisions and opposes restrictions that she says could endanger women and girls. Her campaign launch remarks framed the issue as one of medical decision-making and access to care.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found on climate or energy policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://catherineflemingbruce.com/",
+              "type": "government",
+              "title": "Catherine Fleming Bruce official campaign site",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found on immigration policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://catherineflemingbruce.com/",
+              "type": "government",
+              "title": "Catherine Fleming Bruce official campaign site",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Supports stronger ties with allies and says trade and diplomacy should be used to protect South Carolina jobs and lower economic harm from tariffs and conflict. In her campaign launch remarks, she criticized tariff policy and said the U.S. should work with allies in peacemaking.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
+              "type": "news",
+              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found on firearms or Second Amendment policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://catherineflemingbruce.com/",
+              "type": "government",
+              "title": "Catherine Fleming Bruce official campaign site",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Supports civil rights protections, equality, and anti-discrimination principles. Her public remarks emphasize human dignity, justice, equality, and the rule of law, and her background includes preservation and civic work tied to Black history and civil rights.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Catherine_Fleming_Bruce",
+              "type": "website",
+              "title": "Catherine Fleming Bruce - Wikipedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Emphasizes local governance, community development, and affordability in South Carolina communities. Her campaign launch focused on neighborhoods, main streets, housing costs, and empowering local communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
+              "type": "news",
+              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports public education and teacher support, and has described her mother as a retired public school educator. Her campaign launch remarks also tied family caregiving and public service to broader support for community institutions.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Catherine_Fleming_Bruce",
+              "type": "website",
+              "title": "Catherine Fleming Bruce - Wikipedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found on technology or artificial intelligence policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://catherineflemingbruce.com/",
+              "type": "government",
+              "title": "Catherine Fleming Bruce official campaign site",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports anti-corruption measures, voting rights, and democratic governance. She has said she wants to root out corruption, protect the rule of law, and strengthen the guardrails of government.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
+              "type": "news",
+              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Foreman",
           "organization": "South Carolina State Grand Jury",
           "start_year": 2016,
           "end_year": 2018,
-          "description": "Served as foreman during the statehouse corruption investigation and presented indictments on behalf of the grand jury."
+          "description": "Served as foreman during the statehouse corruption investigation and presented indictments on behalf of the grand jury.",
+          "source": null
         }
       ],
       "education": [
@@ -1180,19 +2008,23 @@
           "institution": "Agnes Scott College",
           "degree": "Bachelor of Arts",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of South Carolina",
           "degree": "Master of Arts",
           "field": "Journalism and Mass Communication",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Catherine_Fleming_Bruce",
@@ -1220,196 +2052,10 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Centers affordability, wages, and economic opportunity, arguing that many South Carolinians are struggling with housing, utility, and health care costs. She has said she wants to address economic uncertainty and improve conditions for workers and small businesses.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
-              "type": "news",
-              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Supports expanding health care access and affordability, including stronger health care infrastructure and protections for women’s health care decisions. In her campaign launch remarks, she said she would fight to improve access to health care for all South Carolinians.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
-              "type": "news",
-              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Supports protecting women’s health care decisions and opposes restrictions that she says could endanger women and girls. Her campaign launch remarks framed the issue as one of medical decision-making and access to care.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found on climate or energy policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://catherineflemingbruce.com/",
-              "type": "government",
-              "title": "Catherine Fleming Bruce official campaign site",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found on immigration policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://catherineflemingbruce.com/",
-              "type": "government",
-              "title": "Catherine Fleming Bruce official campaign site",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Supports stronger ties with allies and says trade and diplomacy should be used to protect South Carolina jobs and lower economic harm from tariffs and conflict. In her campaign launch remarks, she criticized tariff policy and said the U.S. should work with allies in peacemaking.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
-              "type": "news",
-              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found on firearms or Second Amendment policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://catherineflemingbruce.com/",
-              "type": "government",
-              "title": "Catherine Fleming Bruce official campaign site",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Supports civil rights protections, equality, and anti-discrimination principles. Her public remarks emphasize human dignity, justice, equality, and the rule of law, and her background includes preservation and civic work tied to Black history and civil rights.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://en.wikipedia.org/wiki/Catherine_Fleming_Bruce",
-              "type": "website",
-              "title": "Catherine Fleming Bruce - Wikipedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Emphasizes local governance, community development, and affordability in South Carolina communities. Her campaign launch focused on neighborhoods, main streets, housing costs, and empowering local communities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
-              "type": "news",
-              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports public education and teacher support, and has described her mother as a retired public school educator. Her campaign launch remarks also tied family caregiving and public service to broader support for community institutions.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://en.wikipedia.org/wiki/Catherine_Fleming_Bruce",
-              "type": "website",
-              "title": "Catherine Fleming Bruce - Wikipedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found on technology or artificial intelligence policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://catherineflemingbruce.com/",
-              "type": "government",
-              "title": "Catherine Fleming Bruce official campaign site",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Supports anti-corruption measures, voting rights, and democratic governance. She has said she wants to root out corruption, protect the rule of law, and strengthen the guardrails of government.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://open.substack.com/pub/catherineflemingbruce/p/speech-from-catherine-fleming-bruce?utm_campaign=post&utm_medium=web",
-              "type": "website",
-              "title": "Speech from Catherine Fleming Bruce for United States Senate Campaign Launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://www.blackcatholicmessenger.org/catherine-fleming-bruce-campaign-launch/",
-              "type": "news",
-              "title": "Black Catholic Messenger: Catherine Fleming Bruce campaign launch",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": "https://catherineflemingbruce.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Brandon Brown",
@@ -1419,46 +2065,320 @@
       "summary_sources": [
         {
           "url": "https://brandonpbrown.com/meet-brandon",
-          "type": "official_campaign",
-          "title": "Meet Brandon - Brandon Brown for U.S. Senate"
+          "type": "website",
+          "title": "Meet Brandon - Brandon Brown for U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Brandon_Brown_(South_Carolina)",
-          "type": "ballotpedia",
-          "title": "Brandon Brown (South Carolina) - Ballotpedia"
+          "type": "website",
+          "title": "Brandon Brown (South Carolina) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://brandonpbrown.com/assets/brandon-portrait-D6scHVSu.jpg",
-      "website": "https://brandonpbrown.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Brown says he supports universal access to health care, lower prescription drug prices, stronger mental health care, and protections for Medicaid and Medicare. His campaign also emphasizes expanding access to affordable care for working families and rural communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brandonpbrown.com/fair-shot-agenda",
+              "type": "website",
+              "title": "The Fair Shot Agenda",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://brandonpbrown.com/meet-brandon",
+              "type": "website",
+              "title": "Meet Brandon",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Brown says he supports small businesses, good-paying jobs, a living wage, and housing affordability. His campaign frames these priorities around helping working families and rural communities while lowering costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brandonpbrown.com/fair-shot-agenda",
+              "type": "website",
+              "title": "The Fair Shot Agenda",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://brandonpbrown.com/meet-brandon",
+              "type": "website",
+              "title": "Meet Brandon",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Brown supports a federal reproductive justice and maternal health approach that would protect reproductive freedom, expand maternal health care, and extend postpartum Medicaid coverage. His campaign says the plan would also protect patients and providers in certain abortion-related circumstances and support maternal-health workforce and community programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://abcnews4.com/news/local/senate-candidate-brown-unveils-reproductive-rights-act-amid-near-total-abortion-ban-battle-reproductive-rights-reproductive-justice-and-maternal-health-act-medical-affairs-subcommittee-senate-bill-s1095-unborn-child-protection-act",
+              "type": "website",
+              "title": "Senate candidate Brown unveils reproductive rights act amid near total abortion ban battle",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://brandonbrownforsc.substack.com/p/press-release-brandon-brown-announces",
+              "type": "website",
+              "title": "Press release: Brandon Brown Announces Plan to Introduce Landmark Women's Freedom and Health Legislation",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Brown's campaign says the Fair Shot Agenda is about restoring the people's rights and protecting equal access to opportunity. The reviewed sources also emphasize defending constitutional values and reproductive freedom, but do not provide a detailed standalone civil-rights platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://brandonpbrown.com/fair-shot-agenda",
+              "type": "website",
+              "title": "The Fair Shot Agenda",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://brandonpbrown.com/meet-brandon",
+              "type": "website",
+              "title": "Meet Brandon",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Brown has criticized ICE and, in a social media post, called for ICE in its current form to be formally designated as an agency of terror and impunity. No broader immigration policy proposal was found in the reviewed sources.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/brandonpbrown/posts/i-am-calling-unequivocally-and-without-apology-for-ice-in-its-current-form-to-be/1293188115951915/",
+              "type": "social_media",
+              "title": "Brandon Brown Facebook post on ICE",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Brown says he supports public education and expanding access to quality education from K-12 through higher education. His campaign also says he wants to defend public education and draw on his background in higher education leadership.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brandonpbrown.com/meet-brandon",
+              "type": "website",
+              "title": "Meet Brandon",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://greenvilledemocrats.com/brown-profile/",
+              "type": "news",
+              "title": "Brown focuses on higher education and healthcare as two key issues",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Brown's campaign site includes general pro-Second Amendment language in its Safety category, but the reviewed sources did not show a detailed firearms policy or specific gun-control proposals. No public position on universal background checks was found in the reviewed sources.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://brandonpbrown.com/fair-shot-agenda",
+              "type": "website",
+              "title": "The Fair Shot Agenda",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Brown's campaign says he supports clean air and water and a transition to cleaner energy while protecting jobs and communities. The campaign site presents this as part of its broader Fair Shot Agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://brandonpbrown.com/fair-shot-agenda",
+              "type": "website",
+              "title": "The Fair Shot Agenda",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Brown's campaign says it supports defending democracy and constitutional values, and its Fair Shot Agenda includes an Equal Vote category. The reviewed sources did not provide a detailed election-administration platform, so his specific election-policy proposals remain limited in public materials reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://brandonpbrown.com/fair-shot-agenda",
+              "type": "website",
+              "title": "The Fair Shot Agenda",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://brandonpbrown.com/meet-brandon",
+              "type": "website",
+              "title": "Meet Brandon",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Brown's campaign emphasizes grassroots organizing and local voices across South Carolina, including a statewide Local Leaders Coalition. The reviewed sources do not yet publish a detailed local-issues agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://theminorityeye.com/brandon-brown-unveils-statewide-local-leaders-coalition-in-u-s-senate-bid/",
+              "type": "website",
+              "title": "Brandon Brown Unveils Statewide Local Leaders Coalition in U.S. Senate Bid",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [
         {
           "title": "Vice President",
           "organization": "Three HBCUs",
           "start_year": null,
           "end_year": null,
-          "description": "Served as vice president at three historically Black colleges and universities."
+          "description": "Served as vice president at three historically Black colleges and universities.",
+          "source": null
         },
         {
           "title": "Deputy Tax Commissioner",
           "organization": "Chatham County",
           "start_year": null,
           "end_year": null,
-          "description": "Served as deputy tax commissioner for Chatham County."
+          "description": "Served as deputy tax commissioner for Chatham County.",
+          "source": null
         },
         {
           "title": "State Political Director and Senior Advisor",
           "organization": "Joe Biden presidential campaign",
           "start_year": null,
           "end_year": null,
-          "description": "Served as a state political director and senior advisor for Vice President Joe Biden."
+          "description": "Served as a state political director and senior advisor for Vice President Joe Biden.",
+          "source": null
         },
         {
           "title": "Owner",
           "organization": "Two funeral homes",
           "start_year": null,
           "end_year": null,
-          "description": "Owns two funeral homes and works with families in his community."
+          "description": "Owns two funeral homes and works with families in his community.",
+          "source": null
         }
       ],
       "education": [
@@ -1466,13 +2386,16 @@
           "institution": "Harvard University",
           "degree": "Certificate",
           "field": "Higher education leadership",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Brandon_Brown_(South_Carolina)",
@@ -1490,174 +2413,10 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Brown says he supports universal access to health care, lower prescription drug prices, stronger mental health care, and protections for Medicaid and Medicare. His campaign also emphasizes expanding access to affordable care for working families and rural communities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brandonpbrown.com/fair-shot-agenda",
-              "type": "website",
-              "title": "The Fair Shot Agenda",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://brandonpbrown.com/meet-brandon",
-              "type": "website",
-              "title": "Meet Brandon",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Brown says he supports small businesses, good-paying jobs, a living wage, and housing affordability. His campaign frames these priorities around helping working families and rural communities while lowering costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brandonpbrown.com/fair-shot-agenda",
-              "type": "website",
-              "title": "The Fair Shot Agenda",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://brandonpbrown.com/meet-brandon",
-              "type": "website",
-              "title": "Meet Brandon",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Brown supports a federal reproductive justice and maternal health approach that would protect reproductive freedom, expand maternal health care, and extend postpartum Medicaid coverage. His campaign says the plan would also protect patients and providers in certain abortion-related circumstances and support maternal-health workforce and community programs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://abcnews4.com/news/local/senate-candidate-brown-unveils-reproductive-rights-act-amid-near-total-abortion-ban-battle-reproductive-rights-reproductive-justice-and-maternal-health-act-medical-affairs-subcommittee-senate-bill-s1095-unborn-child-protection-act",
-              "type": "website",
-              "title": "Senate candidate Brown unveils reproductive rights act amid near total abortion ban battle",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://brandonbrownforsc.substack.com/p/press-release-brandon-brown-announces",
-              "type": "website",
-              "title": "Press release: Brandon Brown Announces Plan to Introduce Landmark Women's Freedom and Health Legislation",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Brown's campaign says the Fair Shot Agenda is about restoring the people's rights and protecting equal access to opportunity. The reviewed sources also emphasize defending constitutional values and reproductive freedom, but do not provide a detailed standalone civil-rights platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://brandonpbrown.com/fair-shot-agenda",
-              "type": "website",
-              "title": "The Fair Shot Agenda",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://brandonpbrown.com/meet-brandon",
-              "type": "website",
-              "title": "Meet Brandon",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Brown has criticized ICE and, in a social media post, called for ICE in its current form to be formally designated as an agency of terror and impunity. No broader immigration policy proposal was found in the reviewed sources.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.facebook.com/brandonpbrown/posts/i-am-calling-unequivocally-and-without-apology-for-ice-in-its-current-form-to-be/1293188115951915/",
-              "type": "social_media",
-              "title": "Brandon Brown Facebook post on ICE",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Brown says he supports public education and expanding access to quality education from K-12 through higher education. His campaign also says he wants to defend public education and draw on his background in higher education leadership.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brandonpbrown.com/meet-brandon",
-              "type": "website",
-              "title": "Meet Brandon",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://greenvilledemocrats.com/brown-profile/",
-              "type": "news",
-              "title": "Brown focuses on higher education and healthcare as two key issues",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Brown's campaign site includes general pro-Second Amendment language in its Safety category, but the reviewed sources did not show a detailed firearms policy or specific gun-control proposals. No public position on universal background checks was found in the reviewed sources.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://brandonpbrown.com/fair-shot-agenda",
-              "type": "website",
-              "title": "The Fair Shot Agenda",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Climate/Energy": {
-          "stance": "Brown's campaign says he supports clean air and water and a transition to cleaner energy while protecting jobs and communities. The campaign site presents this as part of its broader Fair Shot Agenda.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://brandonpbrown.com/fair-shot-agenda",
-              "type": "website",
-              "title": "The Fair Shot Agenda",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Brown's campaign says it supports defending democracy and constitutional values, and its Fair Shot Agenda includes an Equal Vote category. The reviewed sources did not provide a detailed election-administration platform, so his specific election-policy proposals remain limited in public materials reviewed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://brandonpbrown.com/fair-shot-agenda",
-              "type": "website",
-              "title": "The Fair Shot Agenda",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://brandonpbrown.com/meet-brandon",
-              "type": "website",
-              "title": "Meet Brandon",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Brown's campaign emphasizes grassroots organizing and local voices across South Carolina, including a statewide Local Leaders Coalition. The reviewed sources do not yet publish a detailed local-issues agenda.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://theminorityeye.com/brandon-brown-unveils-statewide-local-leaders-coalition-in-u-s-senate-bid/",
-              "type": "website",
-              "title": "Brandon Brown Unveils Statewide Local Leaders Coalition in U.S. Senate Bid",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": "https://brandonpbrown.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Calvin Cowen",
@@ -1667,24 +2426,265 @@
       "summary_sources": [
         {
           "url": "https://vrems.scvotes.sc.gov/Candidate/CandidateDetail/?candidateId=24362&electionId=22596&searchType=Default",
-          "type": "official",
-          "title": "Candidate Detail - scVOTES.gov - South Carolina"
+          "type": "government",
+          "title": "Candidate Detail - scVOTES.gov - South Carolina",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Calvin_Cowen",
-          "type": "ballotpedia",
-          "title": "Calvin Cowen - Ballotpedia"
+          "type": "website",
+          "title": "Calvin Cowen - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://vrems.scvotes.sc.gov/Candidate/CandidateDetail/?candidateId=24362&electionId=22596&searchType=Default",
-      "social_media": {},
+      "issues": {
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Calvin_Cowen",
+              "type": "website",
+              "title": "Calvin Cowen - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://scdailygazette.com/2026/04/06/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-want-to-replace-him/",
+              "type": "news",
+              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates want to replace him.",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Cowen has said he supports a federal law that would leave abortion policy to the states rather than impose a nationwide standard.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://scdailygazette.com/2026/04/06/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-want-to-replace-him/",
+              "type": "news",
+              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates want to replace him.",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://vrems.scvotes.sc.gov/Candidate/CandidateDetail/?candidateId=24362&electionId=22596&searchType=Default",
+              "type": "government",
+              "title": "Candidate Detail - scVOTES.gov - South Carolina",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://vrems.scvotes.sc.gov/Candidate/CandidateDetail/?candidateId=24362&electionId=22596&searchType=Default",
+              "type": "government",
+              "title": "Candidate Detail - scVOTES.gov - South Carolina",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Cowen has emphasized states' rights on abortion policy and has also called for a federal law giving states authority over policies affecting transgender athletes.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scdailygazette.com/2026/04/06/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-want-to-replace-him/",
+              "type": "news",
+              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates want to replace him.",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://theitem.com/stories/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-total-want-to-replace-him,441542",
+              "type": "news",
+              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates total want to replace him.",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Calvin_Cowen",
+              "type": "website",
+              "title": "Calvin Cowen - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Calvin_Cowen",
+              "type": "website",
+              "title": "Calvin Cowen - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Calvin_Cowen",
+              "type": "website",
+              "title": "Calvin Cowen - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Calvin_Cowen",
+              "type": "website",
+              "title": "Calvin Cowen - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Calvin_Cowen",
+              "type": "website",
+              "title": "Calvin Cowen - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Calvin_Cowen",
+              "type": "website",
+              "title": "Calvin Cowen - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Calvin_Cowen",
@@ -1697,160 +2697,10 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Calvin_Cowen",
-              "type": "website",
-              "title": "Calvin Cowen - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://scdailygazette.com/2026/04/06/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-want-to-replace-him/",
-              "type": "news",
-              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates want to replace him.",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Cowen has said he supports a federal law that would leave abortion policy to the states rather than impose a nationwide standard.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://scdailygazette.com/2026/04/06/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-want-to-replace-him/",
-              "type": "news",
-              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates want to replace him.",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://vrems.scvotes.sc.gov/Candidate/CandidateDetail/?candidateId=24362&electionId=22596&searchType=Default",
-              "type": "government",
-              "title": "Candidate Detail - scVOTES.gov - South Carolina",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://vrems.scvotes.sc.gov/Candidate/CandidateDetail/?candidateId=24362&electionId=22596&searchType=Default",
-              "type": "government",
-              "title": "Candidate Detail - scVOTES.gov - South Carolina",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Cowen has emphasized states' rights on abortion policy and has also called for a federal law giving states authority over policies affecting transgender athletes.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://scdailygazette.com/2026/04/06/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-want-to-replace-him/",
-              "type": "news",
-              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates want to replace him.",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://theitem.com/stories/gop-field-to-unseat-sen-graham-doubled-during-filing-12-candidates-total-want-to-replace-him,441542",
-              "type": "news",
-              "title": "GOP field to unseat Sen. Graham doubled during filing. 12 candidates total want to replace him.",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Calvin_Cowen",
-              "type": "website",
-              "title": "Calvin Cowen - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Calvin_Cowen",
-              "type": "website",
-              "title": "Calvin Cowen - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Calvin_Cowen",
-              "type": "website",
-              "title": "Calvin Cowen - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Calvin_Cowen",
-              "type": "website",
-              "title": "Calvin Cowen - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Calvin_Cowen",
-              "type": "website",
-              "title": "Calvin Cowen - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Calvin_Cowen",
-              "type": "website",
-              "title": "Calvin Cowen - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": "https://vrems.scvotes.sc.gov/Candidate/CandidateDetail/?candidateId=24362&electionId=22596&searchType=Default",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Thomas Dismukes",
@@ -1860,24 +2710,265 @@
       "summary_sources": [
         {
           "url": "https://www.justcallmethomas.com/",
-          "type": "campaign page",
-          "title": "Thomas Dismukes"
+          "type": "website",
+          "title": "Thomas Dismukes",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Thomas_Dismukes",
-          "type": "reference",
-          "title": "Thomas Dismukes - Ballotpedia"
+          "type": "website",
+          "title": "Thomas Dismukes - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:10:27.662937Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Dismukes says Washington has a spending problem, not a revenue problem, and he supports cutting waste, balancing the budget, and reducing government barriers to business growth.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/Thomas_Dismukes",
+              "type": "website",
+              "title": "Thomas Dismukes - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Dismukes says he supports securing the border and restoring law and order, including stronger immigration enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Dismukes says he supports restoring confidence in elections and securing the voting process, but his campaign does not appear to publish detailed election-policy proposals.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Dismukes says he is traveling across South Carolina to listen to local concerns and emphasizes accountability, efficiency, and returning power to communities rather than Washington. His campaign also highlights support for strong families, parental rights, and community values.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.justcallmethomas.com/",
+              "type": "website",
+              "title": "Thomas Dismukes",
+              "description": null,
+              "last_accessed": "2026-05-18T06:53:02.760745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Thomas_Dismukes",
@@ -1895,174 +2986,21 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Dismukes says Washington has a spending problem, not a revenue problem, and he supports cutting waste, balancing the budget, and reducing government barriers to business growth.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Thomas_Dismukes",
-              "type": "website",
-              "title": "Thomas Dismukes - Ballotpedia",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Dismukes says he supports securing the border and restoring law and order, including stronger immigration enforcement.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Dismukes says he supports restoring confidence in elections and securing the voting process, but his campaign does not appear to publish detailed election-policy proposals.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Dismukes says he is traveling across South Carolina to listen to local concerns and emphasizes accountability, efficiency, and returning power to communities rather than Washington. His campaign also highlights support for strong families, parental rights, and community values.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.justcallmethomas.com/",
-              "type": "website",
-              "title": "Thomas Dismukes",
-              "last_accessed": "2026-05-18T06:53:02.760745+00:00"
-            }
-          ]
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-05-18T06:53:02.760745+00:00",
+  "updated_utc": "2026-06-13T23:11:51.912967+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-18T06:53:29.481750+00:00",
+      "reviewed_at": "2026-05-18T06:53:29.481750Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -2125,7 +3063,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-18T06:53:05.136914+00:00",
+      "reviewed_at": "2026-05-18T06:53:05.136914Z",
       "verdict": "approved",
       "score": 96,
       "flags": [
@@ -2152,7 +3090,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-18T06:53:08.736323+00:00",
+      "reviewed_at": "2026-05-18T06:53:08.736323Z",
       "verdict": "approved",
       "score": 92,
       "flags": [
@@ -2179,30 +3117,21 @@
     }
   ],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 681973,
-    "completion_tokens": 23509,
-    "total_tokens": 705482,
-    "estimated_usd": 0.1397,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 185236,
+    "completion_tokens": 9678,
+    "total_tokens": 194914,
+    "cost_usd": 0.00885332,
+    "cost_source": "provider",
+    "estimated_usd": 0.013133,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 601830,
-        "completion_tokens": 20692
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 29069,
-        "completion_tokens": 353
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 23523,
-        "completion_tokens": 330
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 27551,
-        "completion_tokens": 2134
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 185236,
+        "completion_tokens": 9678
       }
     },
-    "duration_s": 244.8
+    "duration_s": 84.3
   },
   "validation_grade": {
     "grade": "A",
@@ -2214,5 +3143,8 @@
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
   "register_to_vote_url": "https://scvotes.gov/voters/register-to-vote/",
   "how_to_vote_url": "https://scvotes.gov/voters/how-to-vote/",
-  "schema_version": "0.3"
+  "schema_version": "0.3",
+  "state": null,
+  "district": null,
+  "post_run_analysis": null
 }

@@ -1,0 +1,280 @@
+{
+  "id": "ca-house-42-2026",
+  "title": "California's 42nd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 42nd Congressional District",
+  "state": "California",
+  "district": "42nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 42nd congressional district, covering parts of Los Angeles County (Long Beach) and Orange County (Huntington Beach and portions of Newport Beach), holds a general election on November 3, 2026. Incumbent Democrat Robert Garcia, a former Long Beach mayor and current ranking member of the House Oversight Committee, is seeking a third term after advancing from the June 2 top-two primary with 56.5% of the vote. He faces Republican Brian Burley, a Huntington Beach City School District trustee who advanced with 20.6%. The district has a Cook Partisan Voting Index of D+18 and was rated \"Solid Democratic\" by the Cook Political Report, though its boundaries shifted under mid-decade redistricting, adding more conservative Orange County coastal communities.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific general election race. Cook Political Report rates the race as \"Solid D\" and the district has a D+18 Cook PVI.",
+  "candidates": [
+    {
+      "name": "Robert Garcia",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Robert Garcia is the incumbent U.S. Representative for California's 42nd congressional district, first elected in 2022. He previously served two terms as mayor of Long Beach (2014-2022), was vice mayor (2012-2014), and served on the Long Beach City Council (2009-2014). In Congress, he serves as the ranking member of the House Oversight Committee. Born in Lima, Peru, Garcia immigrated to the United States at age five and became a citizen during college. He holds degrees from California State University, Long Beach (BA in Communication Studies, EdD in Educational Policy) and the University of Southern California (MA) and has taught at both institutions and Long Beach City College.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Robert_Garcia_(California_congressman)",
+          "type": "website",
+          "title": "Robert Garcia (California congressman) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/G000598",
+          "type": "government",
+          "title": "GARCIA, Robert - Bioguide Search",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-42-primary.html",
+          "type": "news",
+          "title": "California 42nd Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Robert_Garcia_119th_Congress.jpeg/250px-Robert_Garcia_119th_Congress.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Ranking Member, House Oversight and Government Reform Committee",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Elected by House Democrats to serve as the lead Democrat on the House Oversight Committee.",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents California's 42nd congressional district. First elected in 2022.",
+          "source": null
+        },
+        {
+          "title": "Mayor of Long Beach",
+          "organization": "City of Long Beach, California",
+          "start_year": 2014,
+          "end_year": 2022,
+          "description": "28th mayor of Long Beach. First elected in 2014, re-elected in 2018 with ~80% of the vote. City's youngest and first openly LGBT mayor, and first Latino mayor.",
+          "source": null
+        },
+        {
+          "title": "Vice Mayor",
+          "organization": "City of Long Beach",
+          "start_year": 2012,
+          "end_year": 2014,
+          "description": "Unanimously elected vice mayor by the city council.",
+          "source": null
+        },
+        {
+          "title": "Councilmember, 1st District",
+          "organization": "Long Beach City Council",
+          "start_year": 2009,
+          "end_year": 2014,
+          "description": "Elected in 2009, re-elected in 2010. Authored the city's first Equal Benefits Ordinance and supported infrastructure improvements.",
+          "source": null
+        },
+        {
+          "title": "Faculty, Public Policy and Communications",
+          "organization": "University of Southern California, California State University Long Beach, Long Beach City College",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught courses in communication studies and public policy.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "California State University, Long Beach",
+          "degree": "Doctor of Education (EdD)",
+          "field": "Educational Policy",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "University of Southern California",
+          "degree": "Master of Arts (MA)",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "California State University, Long Beach",
+          "degree": "Bachelor of Arts (BA)",
+          "field": "Communication Studies",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://robertgarcia.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brian Burley",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Brian Burley is a Republican candidate for U.S. House in California's 42nd congressional district, having advanced from the June 2, 2026 top-two primary with 20.6% of the vote. He serves as a trustee on the Huntington Beach City School District Board and works as an educational systems administrator at the University of Southern California. Burley earned his undergraduate degree in Political Economy from USC, along with three master's degrees in Public Policy, Digital Media Management, and Emergency Management. His campaign focuses on affordability, public safety, border security, and election integrity.",
+      "summary_sources": [
+        {
+          "url": "https://www.burley4congress.com/",
+          "type": "website",
+          "title": "Brian Burley for Congress (CA-42)",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ocregister.com/2026/06/02/2026-election-results-new-ca-42-robert-garcia-faces-4-challengers/",
+          "type": "news",
+          "title": "2026 Election Results: In new CA-42, D-Robert Garcia gets out to big lead",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-42-primary.html",
+          "type": "news",
+          "title": "California 42nd Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Trustee, District 1",
+          "organization": "Huntington Beach City School District Board",
+          "start_year": null,
+          "end_year": null,
+          "description": "Elected school board member. Has focused on parental rights, academic excellence, and fiscal responsibility.",
+          "source": null
+        },
+        {
+          "title": "Educational Systems Administrator",
+          "organization": "University of Southern California",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works in information technology and higher education.",
+          "source": null
+        },
+        {
+          "title": "Elected Member",
+          "organization": "Orange County Central Committee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Past service on the county party central committee.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Southern California",
+          "degree": "Master of Arts",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Southern California",
+          "degree": "Master of Arts",
+          "field": "Digital Media Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Southern California",
+          "degree": "Master of Arts",
+          "field": "Emergency Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Southern California",
+          "degree": "Bachelor of Arts",
+          "field": "Political Economy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.burley4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_42nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:49:09.206343+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 225555,
+    "completion_tokens": 5489,
+    "total_tokens": 231044,
+    "cost_usd": 0.017209802,
+    "cost_source": "provider",
+    "estimated_usd": 0.02318,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 225555,
+        "completion_tokens": 5489
+      }
+    },
+    "duration_s": 115.5
+  }
+}

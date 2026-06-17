@@ -11,6 +11,7 @@
     {
       "pollster": "Quinnipiac University",
       "date": "2026-02-25",
+      "sample_size": 836,
       "matchups": [
         {
           "candidates": [
@@ -18,13 +19,12 @@
             "Stacy Garrity"
           ],
           "percentages": [
-            55,
-            37
+            55.0,
+            37.0
           ]
         }
       ],
-      "source_url": "https://poll.qu.edu/images/polling/pa/pa02252026_pdkl34.pdf",
-      "sample_size": 836
+      "source_url": "https://poll.qu.edu/images/polling/pa/pa02252026_pdkl34.pdf"
     },
     {
       "pollster": "RealClearPolling average",
@@ -56,70 +56,458 @@
         {
           "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
           "type": "government",
-          "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania"
+          "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:09.185775Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Josh_Shapiro",
           "type": "website",
-          "title": "Josh Shapiro - Ballotpedia"
+          "title": "Josh Shapiro - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:09.185775Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Josh_Shapiro.jpg",
-      "website": "https://joshshapiro.org/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Shapiro supports expanding access to affordable healthcare, including funding recovery services, lowering prescription drug costs, and requiring insurance coverage for preventive screenings and telemedicine. His administration says it has also increased support for rural hospitals, mental health services, and Medicaid access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/accomplishments/healthcare",
+              "type": "government",
+              "title": "Healthcare | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
+              "type": "government",
+              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Shapiro says his budget and economic agenda are focused on lowering costs, cutting red tape, and attracting private investment. The governor’s office says his administration has created more than 21,500 jobs and attracted more than $39 billion in private-sector investment, while also proposing tax relief for working families and small businesses.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
+              "type": "government",
+              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/pennsylvania-s-budget",
+              "type": "government",
+              "title": "Pennsylvania's Budget | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Shapiro supports expanding clean energy and reducing energy costs through a Pennsylvania-specific climate approach, permitting reform, and investment in energy production. His administration has proposed new renewable energy goals and says it is pursuing an all-of-the-above strategy that includes clean energy, industry decarbonization, and grid reliability.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
+              "type": "government",
+              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/accomplishments/environment",
+              "type": "government",
+              "title": "Environmental Protection | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Shapiro supports abortion rights and says he will defend access to reproductive healthcare in Pennsylvania. As governor, he has taken actions to protect abortion access and has publicly opposed restrictions on abortion and related care.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov--shapiro-takes-action-to-protect-abortion-access",
+              "type": "government",
+              "title": "Gov. Shapiro Takes Action To Protect Abortion Access",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
+              "type": "government",
+              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Shapiro has taken a generally pro-immigrant approach as governor, including issuing state guidance for people and organizations during immigration enforcement operations. He has also criticized federal immigration enforcement tactics and said Pennsylvania should be prepared for possible federal crackdowns.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/know-your-rights",
+              "type": "government",
+              "title": "Know Your Rights | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://thehill.com/homenews/state-watch/5713787-pennsylvania-gov-shapiro-trump-immigration/",
+              "type": "news",
+              "title": "Gov. Josh Shapiro: Pennsylvania ready if Trump immigration crackdown",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Shapiro says he supports the Second Amendment while backing gun-violence prevention measures. His administration has re-established the state Office of Gun Violence Prevention and proposed additional funding for violence intervention, police, and fire services.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/agencies/pccd/programs-and-services/reducing-gun-violence/ogvp",
+              "type": "government",
+              "title": "Office of Gun Violence Prevention - Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
+              "type": "government",
+              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Shapiro has publicly emphasized support for Israel and for U.S.-Israel security cooperation, while also criticizing some actions of Israeli Prime Minister Benjamin Netanyahu. His comments on the issue have focused on the Israel-Gaza conflict and U.S. support for Israel.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://thehill.com/homenews/campaign/5794105-josh-shapiro-democrats-israel-iran-war/",
+              "type": "news",
+              "title": "Shapiro leans into support for Israel on podcast tour - The Hill",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://forward.com/news/769786/josh-shapiro-israel-gaza-pennsylvania-governor/",
+              "type": "news",
+              "title": "As Democrats shift on Israel, Josh Shapiro stands firm - The Forward",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Shapiro has said he supports nondiscrimination protections for LGBTQ+ Pennsylvanians and has repeatedly called for passage of the Fairness Act. The governor’s office says his administration is committed to protecting LGBTQ+ state employees and expanding equal protection under the law.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2025-press-releases/icymi--50-years-of-protection-from-discrimination-for-lgbtq--sta",
+              "type": "government",
+              "title": "ICYMI: 50 Years of Protection from Discrimination for LGBTQ+ State Employees",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
+              "type": "government",
+              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Shapiro says Pennsylvania should use AI responsibly, with consumer protections and enforcement against deceptive uses. His administration has launched AI-related literacy and enforcement efforts and has framed the issue around protecting students and consumers.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/governor-shapiro-takes-action-to-protect-pennsylvanians-using-ai",
+              "type": "government",
+              "title": "Governor Shapiro Takes Action to Protect Pennsylvanians Using AI",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.witf.org/2026/05/12/a-state-task-force-is-hunting-for-misleading-ai-chatbots-as-the-shapiro-admin-vows-legal-crackdown/",
+              "type": "news",
+              "title": "Shapiro admin using task force to crack down on misleading AI chatbots",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Shapiro says he supports secure and accessible voting and has defended Pennsylvania’s election system against federal overreach. His administration says it implemented automatic voter registration and has taken legal action to protect voting rights and election administration.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
+              "type": "government",
+              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/governor-shapiro-takes-legal-action-to-protect-pennsylvanians--r",
+              "type": "government",
+              "title": "Governor Shapiro Takes Legal Action to Protect Pennsylvanians’ Right to Vote",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Shapiro supports increased public education funding, career and technical education, early childhood programs, and higher education affordability. His administration says it has delivered historic K-12 funding increases, expanded free school breakfast, and increased support for teachers and student aid.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pa.gov/governor/accomplishments/education",
+              "type": "government",
+              "title": "Education | Commonwealth of Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
+              "type": "government",
+              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Shapiro’s local-issues agenda emphasizes broadband expansion, rural health support, and managing data-center growth with community input. His administration has also highlighted support for small businesses, main streets, and local governments through targeted state investments.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.spotlightpa.org/statecollege/2026/04/garrity-shapiro-pennsylvania-governor-race-2026-broadband-data-centers-medicaid-rural-issues/",
+              "type": "news",
+              "title": "Where Shapiro and Garrity stand on rural Pennsylvania issues - Spotlight PA",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
+              "type": "government",
+              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Governor",
           "organization": "Commonwealth of Pennsylvania",
           "start_year": 2023,
           "end_year": null,
-          "description": "Serves as the chief executive of Pennsylvania."
+          "description": "Serves as the chief executive of Pennsylvania.",
+          "source": null
         },
         {
           "title": "Attorney General",
           "organization": "Commonwealth of Pennsylvania",
           "start_year": 2017,
           "end_year": 2023,
-          "description": "Led the state’s law-enforcement and consumer-protection office."
+          "description": "Led the state’s law-enforcement and consumer-protection office.",
+          "source": null
         }
       ],
       "education": [],
+      "voting_summary": "Josh Shapiro is a non-legislator in this race and has no legislative voting record to report. He has held executive office as Pennsylvania governor since 2023, so the closest governing record is his administration’s official actions and policy agenda rather than roll-call votes.",
+      "voting_source_url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
+      "voting_sources": [],
       "donor_summary": "Raised approximately $14.1M in 2026 Pennsylvania gubernatorial-cycle contributions, with the largest disclosed support coming from labor and professional sectors. OpenSecrets shows his donor base historically dominated by building trade unions, lawyers/law firms, and electronics manufacturing, while Pennsylvania campaign finance filings show he entered 2026 with about $30.2M cash on hand and ended the latest reported period with about $37.8M cash on hand.",
       "donor_source_url": "https://www.campaignfinanceonline.pa.gov/Pages/CFAnnualTotals.aspx?Filer=20160016",
       "donor_sources": [
         {
           "url": "https://www.opensecrets.org/officeholders/josh-shapiro/summary?cycle=2023&id=6454796",
-          "title": "Josh Shapiro Money Profile • OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Josh Shapiro Money Profile • OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.opensecrets.org/officeholders/josh-shapiro/contributors?cycle=2023&id=6454796",
-          "title": "Josh Shapiro Top Contributors • OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Josh Shapiro Top Contributors • OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.opensecrets.org/officeholders/josh-shapiro/industries?cycle=2021&id=6454796",
-          "title": "Josh Shapiro Top Industries • OpenSecrets",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Josh Shapiro Top Industries • OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.campaignfinanceonline.pa.gov/Pages/CFAnnualTotals.aspx?Filer=20160016",
-          "title": "Campaign Finance Online Filing - SHAPIRO, JOSH FOR PENNSYLVANIA",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Campaign Finance Online Filing - SHAPIRO, JOSH FOR PENNSYLVANIA",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.cityandstatepa.com/politics/2026/04/shapiro-raises-10m-and-other-takeaways-pennsylvanias-newest-campaign-finance-reports/412715/",
-          "title": "Shapiro raises $10M – and other takeaways from Pennsylvania's newest campaign finance reports",
           "type": "news",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Shapiro raises $10M – and other takeaways from Pennsylvania's newest campaign finance reports",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "Josh Shapiro is a non-legislator in this race and has no legislative voting record to report. He has held executive office as Pennsylvania governor since 2023, so the closest governing record is his administration’s official actions and policy agenda rather than roll-call votes.",
-      "voting_source_url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
       "links": [
         {
           "url": "https://ballotpedia.org/Josh_Shapiro",
@@ -162,224 +550,10 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Shapiro supports expanding access to affordable healthcare, including funding recovery services, lowering prescription drug costs, and requiring insurance coverage for preventive screenings and telemedicine. His administration says it has also increased support for rural hospitals, mental health services, and Medicaid access.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/accomplishments/healthcare",
-              "type": "government",
-              "title": "Healthcare | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
-              "type": "government",
-              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Shapiro says his budget and economic agenda are focused on lowering costs, cutting red tape, and attracting private investment. The governor’s office says his administration has created more than 21,500 jobs and attracted more than $39 billion in private-sector investment, while also proposing tax relief for working families and small businesses.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
-              "type": "official",
-              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/pennsylvania-s-budget",
-              "type": "government",
-              "title": "Pennsylvania's Budget | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Shapiro supports expanding clean energy and reducing energy costs through a Pennsylvania-specific climate approach, permitting reform, and investment in energy production. His administration has proposed new renewable energy goals and says it is pursuing an all-of-the-above strategy that includes clean energy, industry decarbonization, and grid reliability.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
-              "type": "official",
-              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/accomplishments/environment",
-              "type": "government",
-              "title": "Environmental Protection | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Shapiro supports abortion rights and says he will defend access to reproductive healthcare in Pennsylvania. As governor, he has taken actions to protect abortion access and has publicly opposed restrictions on abortion and related care.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov--shapiro-takes-action-to-protect-abortion-access",
-              "type": "official",
-              "title": "Gov. Shapiro Takes Action To Protect Abortion Access",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
-              "type": "government",
-              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Shapiro has taken a generally pro-immigrant approach as governor, including issuing state guidance for people and organizations during immigration enforcement operations. He has also criticized federal immigration enforcement tactics and said Pennsylvania should be prepared for possible federal crackdowns.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/know-your-rights",
-              "type": "government",
-              "title": "Know Your Rights | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://thehill.com/homenews/state-watch/5713787-pennsylvania-gov-shapiro-trump-immigration/",
-              "type": "news",
-              "title": "Gov. Josh Shapiro: Pennsylvania ready if Trump immigration crackdown",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Shapiro says he supports the Second Amendment while backing gun-violence prevention measures. His administration has re-established the state Office of Gun Violence Prevention and proposed additional funding for violence intervention, police, and fire services.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/agencies/pccd/programs-and-services/reducing-gun-violence/ogvp",
-              "type": "government",
-              "title": "Office of Gun Violence Prevention - Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
-              "type": "official",
-              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Shapiro has publicly emphasized support for Israel and for U.S.-Israel security cooperation, while also criticizing some actions of Israeli Prime Minister Benjamin Netanyahu. His comments on the issue have focused on the Israel-Gaza conflict and U.S. support for Israel.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://thehill.com/homenews/campaign/5794105-josh-shapiro-democrats-israel-iran-war/",
-              "type": "news",
-              "title": "Shapiro leans into support for Israel on podcast tour - The Hill",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://forward.com/news/769786/josh-shapiro-israel-gaza-pennsylvania-governor/",
-              "type": "news",
-              "title": "As Democrats shift on Israel, Josh Shapiro stands firm - The Forward",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Shapiro has said he supports nondiscrimination protections for LGBTQ+ Pennsylvanians and has repeatedly called for passage of the Fairness Act. The governor’s office says his administration is committed to protecting LGBTQ+ state employees and expanding equal protection under the law.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2025-press-releases/icymi--50-years-of-protection-from-discrimination-for-lgbtq--sta",
-              "type": "government",
-              "title": "ICYMI: 50 Years of Protection from Discrimination for LGBTQ+ State Employees",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
-              "type": "government",
-              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Shapiro says Pennsylvania should use AI responsibly, with consumer protections and enforcement against deceptive uses. His administration has launched AI-related literacy and enforcement efforts and has framed the issue around protecting students and consumers.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/governor-shapiro-takes-action-to-protect-pennsylvanians-using-ai",
-              "type": "official",
-              "title": "Governor Shapiro Takes Action to Protect Pennsylvanians Using AI",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.witf.org/2026/05/12/a-state-task-force-is-hunting-for-misleading-ai-chatbots-as-the-shapiro-admin-vows-legal-crackdown/",
-              "type": "news",
-              "title": "Shapiro admin using task force to crack down on misleading AI chatbots",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Shapiro says he supports secure and accessible voting and has defended Pennsylvania’s election system against federal overreach. His administration says it implemented automatic voter registration and has taken legal action to protect voting rights and election administration.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/about/governor-josh-shapiro",
-              "type": "government",
-              "title": "Governor Josh Shapiro | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/governor-shapiro-takes-legal-action-to-protect-pennsylvanians--r",
-              "type": "official",
-              "title": "Governor Shapiro Takes Legal Action to Protect Pennsylvanians’ Right to Vote",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Shapiro supports increased public education funding, career and technical education, early childhood programs, and higher education affordability. His administration says it has delivered historic K-12 funding increases, expanded free school breakfast, and increased support for teachers and student aid.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.pa.gov/governor/accomplishments/education",
-              "type": "government",
-              "title": "Education | Commonwealth of Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
-              "type": "official",
-              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Shapiro’s local-issues agenda emphasizes broadband expansion, rural health support, and managing data-center growth with community input. His administration has also highlighted support for small businesses, main streets, and local governments through targeted state investments.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.spotlightpa.org/statecollege/2026/04/garrity-shapiro-pennsylvania-governor-race-2026-broadband-data-centers-medicaid-rural-issues/",
-              "type": "news",
-              "title": "Where Shapiro and Garrity stand on rural Pennsylvania issues - Spotlight PA",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-2026-27-budget-proposal-to-keep-doing-what-s-working",
-              "type": "official",
-              "title": "Gov Shapiro 2026–27 Budget Proposal to Keep Doing What’s Working in Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://joshshapiro.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Stacy Garrity",
@@ -390,36 +564,315 @@
         {
           "url": "https://www.patreasury.gov/treasurer/",
           "type": "government",
-          "title": "Treasurer Garrity - Pennsylvania Treasury Department"
+          "title": "Treasurer Garrity - Pennsylvania Treasury Department",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:09.185775Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://garrityforpa.com/",
           "type": "website",
-          "title": "Stacy Garrity for Governor"
+          "title": "Stacy Garrity for Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:09.185775Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.spotlightpa.org/news/2026/04/pennsylvania-primary-election-stacy-garrity-governor-guide-elections/",
           "type": "news",
-          "title": "PA governor race: Your guide to Republican Stacy Garrity"
+          "title": "PA governor race: Your guide to Republican Stacy Garrity",
+          "description": null,
+          "last_accessed": "2026-06-13T23:14:09.185775Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://garrityforpa.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Garrity supports allowing the ACA premium tax credits to expire and has aligned herself with Republican arguments for market-based health care reforms. Her public comments have framed this approach as the correct path for addressing health-care costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://heartlandsignal.com/2026/03/30/pennsylvania-governor-candidate-stacy-garrity-says-gop-was-correct-to-let-health-care-tax-credits-expire/",
+              "type": "news",
+              "title": "Heartland Signal: Garrity says GOP was correct to let health care tax credits expire",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.padems.org/the-gop-healthcare-cuts-stacy-garrity-supports-are-driving-a-healthcare-catastrophe-across-pennsylvania/",
+              "type": "news",
+              "title": "PA Dems: The GOP Healthcare Cuts Stacy Garrity Supports",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Garrity’s Turn Around PA plan calls for expanding energy production, cutting taxes, and using property-tax rebates to make life more affordable for Pennsylvania families. The campaign says these steps would support job growth, lower utility costs, and reduce the burden of government spending.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://garrityforpa.com/issues/",
+              "type": "website",
+              "title": "Issues - Stacy Garrity for Governor",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Garrity supports lifting the ban on new drilling sites, speeding permits for natural gas, pipelines, and power plants, and rolling back or pausing some renewable-energy mandates. Her campaign says the goal is to increase supply, improve grid reliability, and lower electricity costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://garrityforpa.com/issues",
+              "type": "website",
+              "title": "Issues - Stacy Garrity for Governor",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Garrity has aligned with anti-abortion and pro-life positions and has criticized efforts to expand abortion-related coverage. Public reporting describes her as opposing abortion-rights protections in Pennsylvania.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://abc27.com/pennsylvania-politics/garrity-derides-pennsylvania-courts-ruling-on-medicaid-coverage-for-abortion/",
+              "type": "news",
+              "title": "Garrity derides Pennsylvania court's ruling on Medicaid coverage for abortion",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.padems.org/icymi-stacy-garrity-makes-it-clear-she-opposes-protecting-reproductive-freedom-in-pennsylvania/",
+              "type": "news",
+              "title": "ICYMI: Stacy Garrity Makes It Clear She Opposes Protecting Reproductive Freedom in Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Garrity has not laid out a detailed immigration platform, but she has said proposed ICE detention facilities in Pennsylvania warrant serious review rather than automatic opposition. Reporting on the race describes her position as cautious and not fully defined.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.spotlightpa.org/news/2026/03/stacy-garrity-ice-immigration-detention-facilities-schuylkill-berks-shapiro-governor-election-2026-elections-federal-government/",
+              "type": "news",
+              "title": "How Garrity would approach ICE detention as PA governor – Spotlight PA",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.post-gazette.com/news/politics-state/2026/04/01/stacy-garrity-josh-shapiro-ice-pennsylvania/stories/202604010025",
+              "type": "news",
+              "title": "How Stacy Garrity would approach ICE detention centers – Pittsburgh Post-Gazette",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Garrity presents herself as a strong Second Amendment supporter. Gun-rights groups have endorsed her and highlighted support for constitutional carry and stronger firearms preemption.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://pennsylvania.gunowners.org/goa-endorses-stacy-garrity-for-governor-and-jason-richey-for-lt-governor/",
+              "type": "website",
+              "title": "GOA Endorses Stacy Garrity for Governor and Jason Richey for Lt Governor – GOA Pennsylvania",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Garrity’s campaign supports voter ID and says every voter should be a U.S. citizen and show identification. It also backs a ban on transgender girls and women competing in girls’ sports, framing the policy as protecting fairness and safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://garrityforpa.com/issues",
+              "type": "website",
+              "title": "Issues - Stacy Garrity for Governor",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Garrity has said rural Pennsylvania could host data centers to support AI growth and that local communities should be part of planning for that expansion. Reporting on the race says she sees data centers as a potential economic-development opportunity.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.witf.org/2026/01/12/a-lot-of-areas-in-rural-pa-could-house-data-centers-for-ai-growth-garrity-says/",
+              "type": "news",
+              "title": "Rural Pa could house data centers for AI growth, Garrity says - WITF",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wesa.fm/politics-government/2026-01-13/rural-pa-data-centers-ai-growth-garrity",
+              "type": "news",
+              "title": "Garrity: Rural Pa. could house data centers for AI growth | 90.5 WESA",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Garrity supports voter ID and says elections should be easy for eligible voters but hard to cheat. Her campaign says every voter should be a U.S. citizen and show ID.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://garrityforpa.com/issues/",
+              "type": "government",
+              "title": "Issues - Stacy Garrity for Governor",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.politicspa.com/garrity-calls-on-shapiro-to-secure-elections/145854/",
+              "type": "website",
+              "title": "Garrity Calls On Shapiro To Secure Elections - Politics PA",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found on foreign policy.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Garrity supports expanding school-choice programs, including Lifeline Scholarships, the Education Improvement Tax Credit, and the Opportunity Scholarship Tax Credit. Her campaign says these programs would help students leave failing schools and expand access to tutoring, literacy, and STEM opportunities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://garrityforpa.com/issues",
+              "type": "website",
+              "title": "Issues - Stacy Garrity for Governor",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Garrity’s campaign highlights property-tax relief, homeownership support, and energy affordability as major local priorities. It says its HOPE for PA plan would reduce the property-tax burden and help first-time homebuyers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://garrityforpa.com/issues",
+              "type": "website",
+              "title": "Issues - Stacy Garrity for Governor",
+              "description": null,
+              "last_accessed": "2026-05-17T22:52:44.533388Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "State Treasurer",
           "organization": "Commonwealth of Pennsylvania",
           "start_year": 2021,
           "end_year": null,
-          "description": "Manages state funds and related treasury functions."
+          "description": "Manages state funds and related treasury functions.",
+          "source": null
         },
         {
           "title": "U.S. Army Reserve officer",
           "organization": "United States Army Reserve",
           "start_year": null,
           "end_year": null,
-          "description": "Served in the Army Reserve before entering statewide office."
+          "description": "Served in the Army Reserve before entering statewide office.",
+          "source": null
         }
       ],
       "education": [
@@ -427,39 +880,61 @@
           "institution": "Commonwealth University-Bloomsburg",
           "degree": "Bachelor of Science",
           "field": "Business administration",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
+      "voting_summary": "Stacy Garrity is a non-legislator in this race and has no legislative voting record to report. Her comparable governing record comes from executive office as Pennsylvania treasurer, where the public record is administrative rather than legislative.",
+      "voting_source_url": "https://www.patreasury.gov/treasurer/",
+      "voting_sources": [],
       "donor_summary": "Public disclosures show Garrity’s 2026 campaign had about $1.0M in new fundraising in the latest reported period, far behind Shapiro’s totals. Available public pages do not provide a clean OpenSecrets-style industry breakdown for her gubernatorial campaign, but Pennsylvania campaign finance filings and news coverage indicate a much smaller fundraising operation with roughly $28.6K in 2020 receipts on the state portal for the earlier Garrity committee record and a 2026 cash position that trails Shapiro by about 10-to-1.",
       "donor_source_url": "https://www.campaignfinanceonline.pa.gov/Pages/CFAnnualTotals.aspx?Filer=2020C0542",
       "donor_sources": [
         {
           "url": "https://www.campaignfinanceonline.pa.gov/Pages/CFAnnualTotals.aspx?Filer=2020C0542",
-          "title": "Campaign Finance Online Filing - GARRITY STACY",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Campaign Finance Online Filing - GARRITY STACY",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.transparencyusa.org/pa/candidate/stacey-l-garrity",
-          "title": "Stacey L Garrity - Pennsylvania Candidate - Transparency USA",
           "type": "finance",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Stacey L Garrity - Pennsylvania Candidate - Transparency USA",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.post-gazette.com/news/politics-state/2026/04/07/stacy-garrity-pa-governor-race-josh-shapiro-campaign-finances/stories/202604070076",
-          "title": "Treasurer Stacy Garrity raises $1 million in first three months of 2026 campaign",
           "type": "news",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "Treasurer Stacy Garrity raises $1 million in first three months of 2026 campaign",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.spotlightpa.org/news/2026/04/garrity-shapiro-governor-election-2026-fundraising-elections/",
-          "title": "PA governor race: Garrity trails Shapiro 10-to-1 in fundraising",
           "type": "news",
-          "last_accessed": "2026-05-17T22:52:44.533388+00:00"
+          "title": "PA governor race: Garrity trails Shapiro 10-to-1 in fundraising",
+          "description": null,
+          "last_accessed": "2026-05-17T22:52:44.533388Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "voting_summary": "Stacy Garrity is a non-legislator in this race and has no legislative voting record to report. Her comparable governing record comes from executive office as Pennsylvania treasurer, where the public record is administrative rather than legislative.",
-      "voting_source_url": "https://www.patreasury.gov/treasurer/",
       "links": [
         {
           "url": "https://ballotpedia.org/Stacy_Garrity",
@@ -507,184 +982,17 @@
           "type": "votesmart"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Garrity supports allowing the ACA premium tax credits to expire and has aligned herself with Republican arguments for market-based health care reforms. Her public comments have framed this approach as the correct path for addressing health-care costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://heartlandsignal.com/2026/03/30/pennsylvania-governor-candidate-stacy-garrity-says-gop-was-correct-to-let-health-care-tax-credits-expire/",
-              "type": "news",
-              "title": "Heartland Signal: Garrity says GOP was correct to let health care tax credits expire",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.padems.org/the-gop-healthcare-cuts-stacy-garrity-supports-are-driving-a-healthcare-catastrophe-across-pennsylvania/",
-              "type": "news",
-              "title": "PA Dems: The GOP Healthcare Cuts Stacy Garrity Supports",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Garrity’s Turn Around PA plan calls for expanding energy production, cutting taxes, and using property-tax rebates to make life more affordable for Pennsylvania families. The campaign says these steps would support job growth, lower utility costs, and reduce the burden of government spending.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://garrityforpa.com/issues/",
-              "type": "campaign-issues",
-              "title": "Issues - Stacy Garrity for Governor",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Garrity supports lifting the ban on new drilling sites, speeding permits for natural gas, pipelines, and power plants, and rolling back or pausing some renewable-energy mandates. Her campaign says the goal is to increase supply, improve grid reliability, and lower electricity costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://garrityforpa.com/issues",
-              "type": "campaign-issues",
-              "title": "Issues - Stacy Garrity for Governor",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Garrity has aligned with anti-abortion and pro-life positions and has criticized efforts to expand abortion-related coverage. Public reporting describes her as opposing abortion-rights protections in Pennsylvania.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://abc27.com/pennsylvania-politics/garrity-derides-pennsylvania-courts-ruling-on-medicaid-coverage-for-abortion/",
-              "type": "news",
-              "title": "Garrity derides Pennsylvania court's ruling on Medicaid coverage for abortion",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.padems.org/icymi-stacy-garrity-makes-it-clear-she-opposes-protecting-reproductive-freedom-in-pennsylvania/",
-              "type": "news",
-              "title": "ICYMI: Stacy Garrity Makes It Clear She Opposes Protecting Reproductive Freedom in Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Garrity has not laid out a detailed immigration platform, but she has said proposed ICE detention facilities in Pennsylvania warrant serious review rather than automatic opposition. Reporting on the race describes her position as cautious and not fully defined.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.spotlightpa.org/news/2026/03/stacy-garrity-ice-immigration-detention-facilities-schuylkill-berks-shapiro-governor-election-2026-elections-federal-government/",
-              "type": "news",
-              "title": "How Garrity would approach ICE detention as PA governor – Spotlight PA",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.post-gazette.com/news/politics-state/2026/04/01/stacy-garrity-josh-shapiro-ice-pennsylvania/stories/202604010025",
-              "type": "news",
-              "title": "How Stacy Garrity would approach ICE detention centers – Pittsburgh Post-Gazette",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Garrity presents herself as a strong Second Amendment supporter. Gun-rights groups have endorsed her and highlighted support for constitutional carry and stronger firearms preemption.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://pennsylvania.gunowners.org/goa-endorses-stacy-garrity-for-governor-and-jason-richey-for-lt-governor/",
-              "type": "endorsement",
-              "title": "GOA Endorses Stacy Garrity for Governor and Jason Richey for Lt Governor – GOA Pennsylvania",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Garrity’s campaign supports voter ID and says every voter should be a U.S. citizen and show identification. It also backs a ban on transgender girls and women competing in girls’ sports, framing the policy as protecting fairness and safety.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://garrityforpa.com/issues",
-              "type": "campaign-website",
-              "title": "Issues - Stacy Garrity for Governor",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Garrity has said rural Pennsylvania could host data centers to support AI growth and that local communities should be part of planning for that expansion. Reporting on the race says she sees data centers as a potential economic-development opportunity.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.witf.org/2026/01/12/a-lot-of-areas-in-rural-pa-could-house-data-centers-for-ai-growth-garrity-says/",
-              "type": "news",
-              "title": "Rural Pa could house data centers for AI growth, Garrity says - WITF",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.wesa.fm/politics-government/2026-01-13/rural-pa-data-centers-ai-growth-garrity",
-              "type": "news",
-              "title": "Garrity: Rural Pa. could house data centers for AI growth | 90.5 WESA",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Garrity supports voter ID and says elections should be easy for eligible voters but hard to cheat. Her campaign says every voter should be a U.S. citizen and show ID.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://garrityforpa.com/issues/",
-              "type": "official_policy_page",
-              "title": "Issues - Stacy Garrity for Governor",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            },
-            {
-              "url": "https://www.politicspa.com/garrity-calls-on-shapiro-to-secure-elections/145854/",
-              "type": "news_article",
-              "title": "Garrity Calls On Shapiro To Secure Elections - Politics PA",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found on foreign policy.",
-          "confidence": "low"
-        },
-        "Education": {
-          "stance": "Garrity supports expanding school-choice programs, including Lifeline Scholarships, the Education Improvement Tax Credit, and the Opportunity Scholarship Tax Credit. Her campaign says these programs would help students leave failing schools and expand access to tutoring, literacy, and STEM opportunities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://garrityforpa.com/issues",
-              "type": "campaign-website",
-              "title": "Issues - Stacy Garrity for Governor",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Garrity’s campaign highlights property-tax relief, homeownership support, and energy affordability as major local priorities. It says its HOPE for PA plan would reduce the property-tax burden and help first-time homebuyers.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://garrityforpa.com/issues",
-              "type": "campaign-issues",
-              "title": "Issues - Stacy Garrity for Governor",
-              "last_accessed": "2026-05-17T22:52:44.533388+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://garrityforpa.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania_gubernatorial_election,_2026",
-  "updated_utc": "2026-05-17T22:52:44.533388+00:00",
+  "updated_utc": "2026-06-13T23:15:24.001073+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "register_to_vote_url": "https://www.pa.gov/agencies/vote/voter-registration",
   "how_to_vote_url": "https://www.pa.gov/agencies/vote",
@@ -692,7 +1000,7 @@
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-17T22:53:10.188164+00:00",
+      "reviewed_at": "2026-05-17T22:53:10.188164Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -731,7 +1039,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-17T22:52:51.782355+00:00",
+      "reviewed_at": "2026-05-17T22:52:51.782355Z",
       "verdict": "approved",
       "score": 96,
       "flags": [
@@ -758,7 +1066,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-17T22:52:51.447555+00:00",
+      "reviewed_at": "2026-05-17T22:52:51.447555Z",
       "verdict": "approved",
       "score": 92,
       "flags": [],
@@ -772,33 +1080,21 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 754881,
-    "completion_tokens": 42097,
-    "total_tokens": 796978,
-    "estimated_usd": 0.128,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 94078,
+    "completion_tokens": 5882,
+    "total_tokens": 99960,
+    "cost_usd": 0.00618694,
+    "cost_source": "provider",
+    "estimated_usd": 0.007057,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 337808,
-        "completion_tokens": 31641
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 382055,
-        "completion_tokens": 8315
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 10310,
-        "completion_tokens": 78
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 12661,
-        "completion_tokens": 350
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 12047,
-        "completion_tokens": 1713
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 94078,
+        "completion_tokens": 5882
       }
     },
-    "duration_s": 408.5
-  }
+    "duration_s": 74.9
+  },
+  "post_run_analysis": null
 }

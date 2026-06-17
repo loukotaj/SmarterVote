@@ -1,0 +1,265 @@
+{
+  "id": "nj-house-03-2026",
+  "title": "2026 U.S. House Election for New Jersey's 3rd Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "New Jersey's 3rd Congressional District",
+  "state": "New Jersey",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for New Jersey's 3rd Congressional District pits first-term Democratic incumbent Rep. Herb Conaway against Republican challenger Michael McGuire. Conaway, a physician and former longtime state assemblyman, won the open seat in 2024 after Rep. Andy Kim ran for the Senate. The district covers parts of Burlington, Mercer, and Monmouth counties and has a Democratic lean (Cook PVI D+5), having voted for Kamala Harris by eight points in 2024. Conaway is campaigning on protecting democracy, reproductive rights, and healthcare access, while McGuire, a Marine Corps veteran and former NYPD officer, focuses on affordability, veterans' issues, and government accountability.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for this specific race as of June 2026. The Cook Political Report rates the district as 'Solid D,' indicating a non-competitive rating.",
+  "candidates": [
+    {
+      "name": "Herb Conaway",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Herb Conaway is a physician, attorney, and former U.S. Air Force captain serving as the U.S. Representative for New Jersey's 3rd Congressional District since January 2025. He previously served 26 years in the New Jersey General Assembly representing the 7th Legislative District, where he chaired the Health Committee and served as Deputy Speaker and Majority Whip. Conaway is seeking a second term with a platform emphasizing healthcare access, protecting democracy, and reproductive rights.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Herb_Conaway",
+          "type": "website",
+          "title": "Herb Conaway - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-08T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483511",
+          "type": "website",
+          "title": "NJ-03 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-08T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Representative_Herb_Conaway_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing New Jersey's 3rd Congressional District; serves on Small Business and Veterans' Affairs committees",
+          "source": null
+        },
+        {
+          "title": "Deputy Speaker / Majority Whip / Assemblyman",
+          "organization": "New Jersey General Assembly",
+          "start_year": 1998,
+          "end_year": 2025,
+          "description": "Represented the 7th Legislative District for 26 years; chaired the Health Committee for 18 years",
+          "source": null
+        },
+        {
+          "title": "Captain (Medical Corps)",
+          "organization": "United States Air Force",
+          "start_year": 1992,
+          "end_year": 1996,
+          "description": "Served as general medical officer and assistant director of the primary care clinic at McGuire Air Force Base",
+          "source": null
+        },
+        {
+          "title": "Physician (Internal Medicine)",
+          "organization": "St. Francis Medical Center / Cooper University Hospital",
+          "start_year": 1996,
+          "end_year": null,
+          "description": "Practicing internal medicine; serves as director of the internal medicine clinic at St. Francis Medical Center in Trenton",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Princeton University",
+          "degree": "Bachelor of Arts",
+          "field": "Politics",
+          "year": 1985,
+          "source": null
+        },
+        {
+          "institution": "Thomas Jefferson University (Jefferson Medical College)",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Rutgers School of Law\u2014Newark",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://conaway.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.herbforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/Repherbconaway/",
+        "instagram": "https://www.instagram.com/repherbconaway/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michael McGuire",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Michael McGuire is a Marine Corps veteran, former NYPD officer, and family law attorney who won the Republican nomination for New Jersey's 3rd Congressional District in the June 2, 2026 primary. He served in the U.S. Marine Corps, worked as a New York City police officer (responding to Ground Zero on 9/11), and currently serves in the Naval Reserve while practicing family and divorce law. McGuire's campaign focuses on affordability, veterans' issues, term limits, and government accountability, criticizing Conaway as a career politician.",
+      "summary_sources": [
+        {
+          "url": "https://whyy.org/articles/new-jersey-election-2026-primary-3rd-congressional-district-winner/",
+          "type": "news",
+          "title": "Michael McGuire wins Republican primary for New Jersey's 3rd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-08T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newjerseyglobe.com/congress/attorney-marine-corps-veteran-joining-gop-primary-for-nj-3/",
+          "type": "news",
+          "title": "Attorney, Marine Corps veteran joining GOP primary for NJ-3",
+          "description": null,
+          "last_accessed": "2026-06-08T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://patch.com/new-jersey/moorestown/3rd-congressional-district-primary-election-2026-michael-mcguire",
+          "type": "news",
+          "title": "3rd Congressional District Primary Election 2026: Michael P. McGuire",
+          "description": null,
+          "last_accessed": "2026-06-08T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://whyy.org/wp-content/uploads/2026/05/michael-mcguire-new-jersey-3rd-congressional-district-republican-primary-election-2026-768x555.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Family Law and Divorce Attorney",
+          "organization": "Law Offices Of Michael P. McGuire, LLC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practices family and divorce law in Freehold, New Jersey",
+          "source": null
+        },
+        {
+          "title": "Naval Reservist",
+          "organization": "United States Navy Reserve",
+          "start_year": null,
+          "end_year": null,
+          "description": "Currently serving; recently called to active military duty",
+          "source": null
+        },
+        {
+          "title": "Police Officer",
+          "organization": "New York Police Department (NYPD)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former NYPD officer; responded to Ground Zero on September 11, 2001",
+          "source": null
+        },
+        {
+          "title": "Marine",
+          "organization": "United States Marine Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "Enlisted in the Marine Corps twice",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Unknown Institution",
+          "degree": "Bachelor of Science",
+          "field": "Accounting",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Unknown Institution",
+          "degree": "Master of Business Administration",
+          "field": "Accounting",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Unknown Institution",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://michaelmcguireforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorMikeMcGuire/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:43:27.751868+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 258568,
+    "completion_tokens": 7367,
+    "total_tokens": 265935,
+    "cost_usd": 0.021472108000000004,
+    "cost_source": "provider",
+    "estimated_usd": 0.026784,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 258568,
+        "completion_tokens": 7367
+      }
+    },
+    "duration_s": 138.4
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "id": "fl-house-23-2026",
+  "title": "Florida's 23rd Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Florida's 23rd Congressional District",
+  "state": "Florida",
+  "district": "23rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 23rd Congressional District, redrawn in 2026 to cover coastal Palm Beach County from West Palm Beach to Delray Beach, is rated Solid Democratic with a D+9 partisan lean. Incumbent Democratic Rep. Lois Frankel, who previously represented the 22nd District, shifted her candidacy to the new 23rd District and faces two Democratic primary challengers: attorney Victoria Doyle and Mark Piper. Two Republicans, Deborah Adeimy and Paola Branda, are also running. The August 18 primary will determine the nominees for the November 3 general election in this heavily Democratic district where Kamala Harris won over 56% of the vote in 2024.",
+  "candidates": [
+    {
+      "name": "Lois Frankel",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Lois Frankel has served as U.S. Representative for Florida's 22nd Congressional District since 2013 and shifted her candidacy to the new 23rd District after redistricting. She previously served as Mayor of West Palm Beach (2003-2011) and in the Florida House of Representatives (1986-1992, 1994-2002), including as Minority Leader. Frankel holds a B.A. from Boston University and a J.D. from Georgetown University Law Center.",
+      "summary_sources": [
+        {
+          "url": "https://www.cookpolitical.com/house/race/482626",
+          "type": "news",
+          "title": "FL-23 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/795175-redistricting-shuffle-lois-frankel-officially-shifts-candidacy-to-new-cd-23/",
+          "type": "news",
+          "title": "Redistricting shuffle: Lois Frankel officially shifts candidacy to new CD 23",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wpbf.com/article/florida-three-democrats-qualify-to-run-in-new-florida-congressional-districts/71573834",
+          "type": "news",
+          "title": "Three Democrats qualify to run in new, different Florida congressional districts",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Lois_Frankel_118th_Congress_%28cropped%29.jpeg?itok=gjJGnPzs",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Represented Florida's 22nd District (2013-2023), now running in 23rd District",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of West Palm Beach",
+          "start_year": 2003,
+          "end_year": 2011,
+          "description": "Two-term mayor of West Palm Beach",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Florida House of Representatives",
+          "start_year": 1986,
+          "end_year": 2002,
+          "description": "Served multiple terms; Minority Leader 2000-2002",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 1973,
+          "end_year": 1986,
+          "description": "Practiced law in West Palm Beach",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Boston University",
+          "degree": "B.A.",
+          "field": "Liberal Arts",
+          "year": 1970,
+          "source": null
+        },
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1973,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://loisfrankel.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Victoria Doyle",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Victoria Doyle is a Lake Worth Beach attorney and local activist running in the Democratic primary against incumbent Lois Frankel. She is a trademark attorney who has filed a lawsuit challenging the renaming of Palm Beach International Airport after Donald Trump. Doyle emphasizes ending the status quo and has positioned herself as a progressive alternative to Frankel.",
+      "summary_sources": [
+        {
+          "url": "https://www.wlrn.org/government-politics/2026-01-15/lake-worth-lois-frankel-victoria-doyle",
+          "type": "news",
+          "title": "Lawyer, activist in Lake Worth to challenge Democratic incumbent Lois Frankel",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wpbf.com/article/florida-three-democrats-qualify-to-run-in-new-florida-congressional-districts/71573834",
+          "type": "news",
+          "title": "Three Democrats qualify to run in new, different Florida congressional districts",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6FL22107/",
+          "type": "government",
+          "title": "DOYLE, VICTORIA JANE BOKER - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Trademark and intellectual property attorney in Lake Worth Beach",
+          "source": null
+        },
+        {
+          "title": "Local activist",
+          "organization": "Community organizations",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Active in Palm Beach County civic and advocacy groups",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2010,
+          "source": null
+        },
+        {
+          "institution": "Florida State University",
+          "degree": "B.A.",
+          "field": "Political Science",
+          "year": 2007,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.doyleforcongress.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mark Piper",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mark Piper is a Democratic candidate who qualified for the ballot in Florida's 23rd Congressional District. He is running in the Democratic primary against incumbent Lois Frankel and Victoria Doyle. Limited public information is available about his background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.wpbf.com/article/florida-three-democrats-qualify-to-run-in-new-florida-congressional-districts/71573834",
+          "type": "news",
+          "title": "Three Democrats qualify to run in new, different Florida congressional districts",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4FL23134/",
+          "type": "government",
+          "title": "PIPER, MARK - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Deborah Adeimy",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Deborah Adeimy is a Republican candidate who qualified for the ballot in Florida's 23rd Congressional District. She is running in the Republican primary for the seat. Adeimy has previously run for Congress in Florida's 22nd District.",
+      "summary_sources": [
+        {
+          "url": "https://www.wpbf.com/article/florida-three-democrats-qualify-to-run-in-new-florida-congressional-districts/71573834",
+          "type": "news",
+          "title": "Three Democrats qualify to run in new, different Florida congressional districts",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H2FL21132/",
+          "type": "government",
+          "title": "ADEIMY, DEBORAH - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Paola Branda",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Paola Branda is a Republican candidate who qualified for the ballot in Florida's 23rd Congressional District. She is running in the Republican primary for the seat. Limited public information is available about her background and platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.wpbf.com/article/florida-three-democrats-qualify-to-run-in-new-florida-congressional-districts/71573834",
+          "type": "news",
+          "title": "Three Democrats qualify to run in new, different Florida congressional districts",
+          "description": null,
+          "last_accessed": "2026-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-16T01:13:20.338632+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": null,
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 259886,
+    "completion_tokens": 10384,
+    "total_tokens": 270270,
+    "cost_usd": 0.06508509800000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.065986,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 227167,
+        "completion_tokens": 6769
+      },
+      "nvidia/nemotron-3-ultra-550b-a55b": {
+        "prompt_tokens": 32719,
+        "completion_tokens": 3615
+      }
+    },
+    "duration_s": 267.0,
+    "serper_calls": 17,
+    "context_requests": 15,
+    "max_estimated_context_tokens": 42531,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0406,
+    "context_deduplicated_results": 71,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 3,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  }
+}

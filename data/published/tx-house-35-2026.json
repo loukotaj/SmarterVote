@@ -1,0 +1,238 @@
+{
+  "id": "tx-house-35-2026",
+  "title": "Texas's 35th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 35th Congressional District \u2014 Bexar, Guadalupe, Wilson, and Karnes counties",
+  "state": "Texas",
+  "district": "35th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Texas's 35th Congressional District is an open-seat race following 2025 redistricting that drew incumbent Democrat Greg Casar out of the district and reconfigured the boundaries to favor Republicans. The newly drawn district covers parts of San Antonio and outlying areas in Bexar, Guadalupe, Wilson, and Karnes counties; Trump would have carried it by about 10 points in 2024, and the Cook Political Report rates it R+4. Democrat Johnny Garcia, a Bexar County Sheriff's Deputy and self-described 'old-school law-and-order Democrat,' faces Republican Carlos De La Cruz, a retired 20-year Air Force veteran and brother of U.S. Rep. Monica De La Cruz, in what is expected to be one of the most competitive House races in Texas. Both candidates won their party's primary runoffs on May 26, 2026, setting up a general election contest that will test whether Democrats can hold a Hispanic-majority district redrawn at the request of President Trump.",
+  "polling": [],
+  "polling_note": "No public opinion polls for the TX-35 general election were found as of the research date. The Cook Political Report rates the race as Lean Republican (R+4).",
+  "candidates": [
+    {
+      "name": "Johnny Garcia",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Johnny Garcia is a Bexar County Sheriff's Deputy and the Democratic nominee for Texas's 35th Congressional District. A lifelong San Antonio resident, he worked construction jobs while attending community college before joining the Bexar County Sheriff's Office, where he served in the jail, patrol, SWAT Crisis Negotiation Team, and as Public Information Officer for the past seven years. Garcia pitches himself as an 'old-school, law-and-order Democrat' focused on reducing tariffs, increasing federal grants for local law enforcement, preventing congressional stock trading, and strengthening public education.",
+      "summary_sources": [
+        {
+          "url": "https://www.texastribune.org/2026/05/26/texas-35th-congressional-district-democrat-republican-primary-runoff/",
+          "type": "news",
+          "title": "Democrat Johnny Garcia to face Republican Carlos De La Cruz for redrawn Texas district",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sanantonioreport.org/profile/johnny-garcia-2026-candidate-for-texas-35th-congressional-district/",
+          "type": "news",
+          "title": "Johnny Garcia | 2026 candidate for Texas' 35th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.votejohnnygarcia.com/meet-johnny",
+          "type": "website",
+          "title": "MEET JOHNNY | Johnny Garcia For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Public Information Officer",
+          "organization": "Bexar County Sheriff's Office",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Served as the department's spokesperson for seven years, managing media relations and community engagement.",
+          "source": null
+        },
+        {
+          "title": "SWAT Crisis Negotiator",
+          "organization": "Bexar County Sheriff's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Selected for the elite SWAT Crisis Negotiation Team after only six months on patrol duty.",
+          "source": null
+        },
+        {
+          "title": "Patrol Deputy",
+          "organization": "Bexar County Sheriff's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a uniformed patrol deputy responding to calls in Bexar County.",
+          "source": null
+        },
+        {
+          "title": "Jail Deputy & Inmate Worker Program Lead",
+          "organization": "Bexar County Sheriff's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led a second-chance initiative providing job training and reintegration planning for incarcerated individuals.",
+          "source": null
+        },
+        {
+          "title": "Construction Worker",
+          "organization": "Self-employed / various contractors",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked construction jobs while attending college to support himself.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "St. Philip's College",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Memorial High School (Edgewood ISD)",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votejohnnygarcia.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Carlos De La Cruz",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Carlos De La Cruz is a retired 20-year U.S. Air Force veteran and the Republican nominee for Texas's 35th Congressional District. He enlisted at age 18, served multiple post-9/11 deployments to the Middle East and assignments along the southern border conducting counter-narcotics operations, and later co-owned a kickboxing gym in San Antonio with his wife. De La Cruz, who is the brother of U.S. Rep. Monica De La Cruz (R-TX-15), has been endorsed by President Donald Trump and emphasizes border security, American energy independence, cutting government spending, and supporting law enforcement.",
+      "summary_sources": [
+        {
+          "url": "https://www.texastribune.org/2026/05/26/texas-35th-congressional-district-democrat-republican-primary-runoff/",
+          "type": "news",
+          "title": "Democrat Johnny Garcia to face Republican Carlos De La Cruz for redrawn Texas district",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sanantonioreport.org/profile/carlos-de-la-cruz-2026-candidate-for-texas-35th-congressional-district/",
+          "type": "news",
+          "title": "Carlos De La Cruz | 2026 candidate for Texas' 35th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tpr.org/government-politics/2026-05-27/trump-backed-carlos-de-la-cruz-wins-gop-runoff-setting-up-november-test-of-redistricting-in-tx-35",
+          "type": "news",
+          "title": "Trump-backed Carlos De La Cruz wins GOP runoff in race that could flip TX-35",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Carlos_De_La_Cruz.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner / Operator",
+          "organization": "Kickboxing Gym (San Antonio)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Co-founded and operated a kickboxing gym with his wife after retiring from the Air Force.",
+          "source": null
+        },
+        {
+          "title": "U.S. Air Force Veteran (20 years)",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Enlisted at age 18 and served 20 years, including multiple post-9/11 deployments to the Middle East and drug interdiction operations at the southern border.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Air Force",
+          "degree": null,
+          "field": "Military Training",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "twitter": "https://x.com/CarlosForTexas"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_35th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T22:09:24.151390+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 215258,
+    "completion_tokens": 6063,
+    "total_tokens": 221321,
+    "cost_usd": 0.013747312000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.022284,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 215258,
+        "completion_tokens": 6063
+      }
+    },
+    "duration_s": 133.8
+  }
+}

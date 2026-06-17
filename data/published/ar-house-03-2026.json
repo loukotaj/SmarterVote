@@ -1,0 +1,1865 @@
+{
+  "id": "ar-house-03-2026",
+  "title": "Arkansas's 3rd Congressional District general election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Arkansas's 3rd Congressional District",
+  "state": "Arkansas",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Arkansas's 3rd Congressional District will determine who represents the northwest Arkansas region, including Benton, Carroll, Crawford, Madison, and Washington counties and part of Sebastian County. Incumbent Republican Steve Womack, first elected in 2010, is seeking reelection after winning an uncontested Republican primary on March 3, 2026. He faces Democrat Robb Ryerse, a pastor and nonprofit leader who switched parties after challenging Womack in the 2018 Republican primary, and independent Christopher Hocevar, a University of Arkansas doctoral candidate and teacher. The district is rated 'Solidly Republican' by the Cook Political Report, making Womack the strong favorite in the general election.",
+  "candidates": [
+    {
+      "name": "Steve Womack",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "Incumbent U.S. Representative for Arkansas's 3rd Congressional District since 2011. A senior member of the House Appropriations Committee, Womack chairs the Transportation, Housing and Urban Development Subcommittee and formerly served as Chairman of the House Budget Committee. Prior to Congress, he served as Mayor of Rogers, Arkansas for 12 years and retired from the Arkansas Army National Guard as a Colonel after more than 30 years of military service.",
+      "summary_sources": [
+        {
+          "url": "https://womack.house.gov/biography/",
+          "type": "government",
+          "title": "Biography | U.S. Congressman Steve Womack",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Steve_Womack",
+          "type": "website",
+          "title": "Steve Womack - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Steve_Womack",
+          "type": "website",
+          "title": "Steve Womack - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Steve_Womack.jpg",
+      "issues": {
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Steve Womack consistently defends Second Amendment rights and opposes broad federal gun-control legislation. He supported overturning the ATF's stabilizing brace rule (HJ Res. 44) in 2023 and voted against the Senate gun-control bill in 2022.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=407215",
+              "type": "government",
+              "title": "Womack Votes to Overturn ATF Stabilizing Brace Rule",
+              "description": null,
+              "last_accessed": "2026-06-16T23:44:29.479073Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=405634",
+              "type": "government",
+              "title": "Womack Statement on Senate Gun-Control Legislation",
+              "description": null,
+              "last_accessed": "2026-06-16T23:44:29.479127Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Supports election integrity measures that require citizenship verification and photo ID for federal elections, asserting that only U.S. citizens should vote. He voted in favor of the SAVE America Act (S.1383) to implement those protections, including removing noncitizens from voter rolls.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=410546",
+              "type": "government",
+              "title": "Womack Votes for SAVE America Act to Safeguard Federal Elections",
+              "description": null,
+              "last_accessed": "2026-06-16T23:44:37.104579Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://womack.house.gov/voterecord/",
+              "type": "government",
+              "title": "Vote Record | U.S. Congressman Steve Womack - House.gov",
+              "description": null,
+              "last_accessed": "2026-06-16T23:44:37.104606Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Steve Womack voted in support of S.1383, the Safeguard American Voter Eligibility Act (SAVE Act). The bill would require documentary proof of U.S. citizenship to register to vote in federal elections, require photo ID to vote, and require states to remove noncitizens from voter rolls.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=410546",
+              "type": "government",
+              "title": "Womack Votes for SAVE America Act to Safeguard Federal Elections",
+              "description": null,
+              "last_accessed": "2026-06-16T23:45:49.388673Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/house-bill/22",
+              "type": "government",
+              "title": "H.R.22 - 119th Congress (2025-2026): SAVE Act",
+              "description": null,
+              "last_accessed": "2026-06-16T23:45:49.388701Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports limiting federal involvement in K-12 education and giving states and local communities more decision-making authority over standards and accountability. Believes in expanding educational options and pursuing higher-education reforms to improve access and affordability.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://womack.house.gov/issues/issue/?IssueID=27219",
+              "type": "government",
+              "title": "Education | U.S. Congressman Steve Womack - House.gov",
+              "description": null,
+              "last_accessed": "2026-06-16T23:46:20.340633Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=398582",
+              "type": "government",
+              "title": "Policy Update: Education Reform | U.S. Congressman Steve Womack",
+              "description": null,
+              "last_accessed": "2026-06-16T23:46:20.340930Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Steve Womack supports pro-growth, low-tax economic policies, including lowering taxes, reducing regulatory burdens, and supporting American energy development to strengthen and grow the U.S. economy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.womackforcongress.com/newsroom/congressman-womack-files-for-re-election",
+              "type": "website",
+              "title": "Congressman Womack Files for Reelection \u2014 Steve Womack for Congress",
+              "description": null,
+              "last_accessed": "2026-06-16T23:47:24.370586Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.womackforcongress.com/newsroom/womack-receives-endorsement-from-president-trump",
+              "type": "website",
+              "title": "Congressman Womack Receives Endorsement from President Trump",
+              "description": null,
+              "last_accessed": "2026-06-16T23:47:24.370612Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports the Lower Health Care Premiums for All Americans Act (H.R. 6703), which aims to reduce health care premiums and costs through transparency and expanded coverage options; he stated he would have voted in support of the act in Congress to deliver more affordable health care to Arkansans in the 3rd District.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=410510",
+              "type": "government",
+              "title": "Womack Supports Bill to Lower Health Care Premiums for All Americans",
+              "description": null,
+              "last_accessed": "2026-06-16T23:47:42.225505Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Supports targeted local infrastructure funding to address transportation, water system upgrades, and public safety needs in Arkansas's Third District. This includes advocacy for and highlighting Community Project Funding for local projects such as highway improvements and water infrastructure upgrades.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://womack.house.gov/legislation/fy2026.htm",
+              "type": "government",
+              "title": "FY2026 Community Project Funding \u2013 Steve Womack (House.gov)",
+              "description": null,
+              "last_accessed": "2026-06-16T23:52:44.835030Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://arkansasadvocate.com/2025/07/28/womack-appropriations-bill-proposes-millions-for-arkansas-infrastructure-projects/",
+              "type": "website",
+              "title": "Womack appropriations bill proposes millions for Arkansas infrastructure projects - Arkansas Advocate",
+              "description": null,
+              "last_accessed": "2026-06-16T23:52:44.835077Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Steve Womack supports a strong, globally engaged U.S. foreign policy that prioritizes national security, defense readiness, and enduring alliances. He backs targeted foreign aid\u2014such as Israel security assistance\u2014and robust defense spending to promote security and economic growth for the United States.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://womack.house.gov/issues/issue/?IssueID=57334",
+              "type": "government",
+              "title": "Foreign Affairs - Steve Womack",
+              "description": null,
+              "last_accessed": "2026-06-16T23:52:49.246960Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=410520",
+              "type": "government",
+              "title": "Womack Votes for Full-Year Spending Package to Fund Departments of State, Treasury, and More",
+              "description": null,
+              "last_accessed": "2026-06-16T23:52:49.247130Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://womack.house.gov/news/documentsingle.aspx?DocumentID=407394",
+              "type": "government",
+              "title": "House Passes Womack Cosponsored Bill Supporting Israel",
+              "description": null,
+              "last_accessed": "2026-06-16T23:52:49.247141Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Arkansas's 3rd Congressional District. Senior member of House Appropriations Committee, chairs THUD Subcommittee. Former Chairman of House Budget Committee.",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Rogers, Arkansas",
+          "start_year": 1999,
+          "end_year": 2011,
+          "description": "Led unprecedented economic expansion with more than $1 billion in local investment.",
+          "source": null
+        },
+        {
+          "title": "Colonel",
+          "organization": "Arkansas Army National Guard",
+          "start_year": 1979,
+          "end_year": 2009,
+          "description": "Retired as Colonel after 30 years of service. Deployed to Sinai, Egypt in 2002. Awards include Legion of Merit and Harry S. Truman Award.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Arkansas Tech University",
+          "degree": "Bachelor of Arts",
+          "field": "Communications",
+          "year": 1979,
+          "source": null
+        }
+      ],
+      "voting_summary": "Incumbent Republican since 2011. Heritage Action scorecard rates him 75% for the 119th Congress and 66% lifetime conservative. Serves as Chairman of the House Appropriations subcommittee on Transportation, Housing and Urban Development (THUD). Voted to reopen the federal government in November 2025 and supported the Financial Services and General Government appropriations bill in January 2026.",
+      "voting_source_url": "https://heritageaction.com/scorecard/members/W000809/119",
+      "voting_sources": [],
+      "donor_summary": "Raised $1,541,099 in the 2025-2026 cycle as of March 31, 2026, with $2,293,005 cash on hand. In the 2023-2024 cycle, raised $2,464,039, with top industries including miscellaneous business, finance/insurance/real estate, agribusiness, and defense, according to OpenSecrets. His career fundraising total exceeds $20 million, with substantial PAC support from sectors he oversees as chair of the Appropriations Transportation-HUD subcommittee.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/steve-womack/us_congress/summary?cycle=2024&mpid=1125329&type=P",
+      "donor_sources": [
+        {
+          "url": "https://www.opensecrets.org/profiles/steve-womack/us_congress/summary?cycle=2024&mpid=1125329&type=P",
+          "type": "finance",
+          "title": "Steve Womack \u2013 US Congress \u2013 Summary \u2013 OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/members-of-congress/steve-womack/industries?cid=N00031857&cycle=2024&type=P",
+          "type": "finance",
+          "title": "Steve Womack \u2013 Industries \u2013 OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.arkansasonline.com/news/2026/apr/16/arkansas-house-members-report-strong-campaign/",
+          "type": "news",
+          "title": "Arkansas' House members report strong campaign fundraising numbers in first quarter",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Steve_Womack",
+          "title": "Steve Womack \u2013 Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/steve-womack/us_congress/summary",
+          "title": "Steve Womack \u2013 OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6AR03128/",
+          "title": "Womack FEC candidate page (note: URL points to Ryerse; Womack FEC ID is H0AR03128)",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/steve_womack/412402",
+          "title": "Steve Womack \u2013 GovTrack",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://womack.house.gov/",
+          "title": "Official U.S. House website \u2013 Steve Womack",
+          "type": "legislature"
+        },
+        {
+          "url": "https://heritageaction.com/scorecard/members/W000809/119",
+          "title": "Heritage Action Scorecard \u2013 Steve Womack",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.womackforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/rep_stevewomack",
+        "instagram": "https://www.instagram.com/rep_stevewomack/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Robb Ryerse",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Pastor and nonprofit leader running for Congress in Arkansas's 3rd District. A former Republican who switched to the Democratic Party, he previously challenged incumbent Steve Womack in the 2018 Republican primary. He co-founded Vortex PAC with Dr. Chris Jones and worked with Vote Common Good to combat extremism. Ryerse has lived in Springdale for 20 years with his wife Vanessa and raised four children, and pastors Vintage Fellowship, a faith community that meets monthly.",
+      "summary_sources": [
+        {
+          "url": "https://www.robbforcongress.com/meet-robb",
+          "type": "website",
+          "title": "Meet Robb - Robb for Congress",
+          "description": null,
+          "last_accessed": "2026-06-17T00:45:33.773914Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.arkansasonline.com/news/2025/jul/19/robb-ryerse-seeks-2018-rematch-with-26-run-in-3rd/",
+          "type": "news",
+          "title": "Robb Ryerse seeks 2018 rematch with '26 run in 3rd District - Arkansas Democrat-Gazette",
+          "description": null,
+          "last_accessed": "2026-06-17T00:45:33.773942Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.4029tv.com/article/arkansas-us-house-district-3-robb-ryerse-steve-womack/70289825",
+          "type": "news",
+          "title": "Arkansas' U.S. House District 3 candidates: Ryerse, Womack - 40/29 News",
+          "description": null,
+          "last_accessed": "2026-06-17T00:45:33.773947Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.4029tv.com/article/ryerse-womack-arkansas/69532469",
+          "type": "news",
+          "title": "Ryerse switches parties, challenges Rep. Steve Womack - 40/29 News",
+          "description": null,
+          "last_accessed": "2026-06-17T00:45:33.773950Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://static.wixstatic.com/media/782cb5_4eb9041b78e84b8489fb807525f23ae9~mv2.jpg/v1/fill/w_100,h_100,al_c,q_80,usm_0.66_1.00_0.01,blur_3,enc_avif,quality_auto/782cb5_4eb9041b78e84b8489fb807525f23ae9~mv2.jpg",
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Supports lowering the cost of living for Arkansas families by easing everyday expenses, lowering housing costs, and expanding access to affordable healthcare. Advocates for better-paying jobs through workforce development and support for small businesses to help families build financial stability.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/our-values",
+              "type": "website",
+              "title": "Our Shared Values - Lower the Cost of Living; Better Jobs and Pay",
+              "description": null,
+              "last_accessed": "2026-06-17T00:46:15.157976Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Supports transitioning Arkansas' 3rd District toward clean energy, reducing pollution, and protecting air and water quality for communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/our-values",
+              "type": "website",
+              "title": "Our Values | Robb for Congress",
+              "description": null,
+              "last_accessed": "2026-06-17T00:46:15.248407Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Supports gun-safety laws to protect kids at school and reduce gun violence in communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/our-values",
+              "type": "website",
+              "title": "Our Values | Robb for Congress",
+              "description": null,
+              "last_accessed": "2026-06-17T00:46:15.359546Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Supports comprehensive immigration reform including a pathway to citizenship, keeping families together, and has expressed support for abolishing ICE. He has criticized current immigration enforcement for detaining people without criminal records and argues the system is broken.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/our-values",
+              "type": "website",
+              "title": "Our Values - Robb for Congress",
+              "description": null,
+              "last_accessed": "2026-06-17T00:45:56.225957Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.instagram.com/reel/DVO5KB0DxQM/",
+              "type": "social_media",
+              "title": "Robb Ryerse Instagram: I'm proud to sign the pledge to abolish ICE",
+              "description": null,
+              "last_accessed": "2026-06-17T00:45:56.225987Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.facebook.com/robbforarkansas/videos/im-robb-ryerse-and-im-proud-to-sign-the-pledge-to-abolish-ice-for-years-ive-been/1450393843306489/",
+              "type": "social_media",
+              "title": "Robb Ryerse Facebook: Pledge to abolish ICE",
+              "description": null,
+              "last_accessed": "2026-06-17T00:45:56.225993Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.4029tv.com/article/ryerse-womack-arkansas/69532469",
+              "type": "news",
+              "title": "Ryerse switches parties, challenges Rep. Steve Womack - 40/29 News",
+              "description": null,
+              "last_accessed": "2026-06-17T00:45:56.225998Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports strengthening public schools and supporting teachers so that every child, regardless of ZIP code, has a real shot at success.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/our-values",
+              "type": "website",
+              "title": "Our Values | Robb for Congress",
+              "description": null,
+              "last_accessed": "2026-06-17T00:46:15.447289Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Supports civil rights protections, including protecting LGBTQ+ people, defending privacy, and ensuring equal treatment under the law for all Arkansans.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/our-values",
+              "type": "website",
+              "title": "Our Values | Robb for Congress",
+              "description": null,
+              "last_accessed": "2026-06-17T00:46:15.591933Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Robb Ryerse supports making health care more accessible and affordable, with a focus on strengthening mental health care and veterans\u2019 health services. He advocates for timely, reliable VA health care (including mental health and PTSD care) and expanding access to mental health resources in rural communities, so Arkansans don\u2019t have to choose between care and their bills.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/post/honor-service-with-support",
+              "type": "website",
+              "title": "Honor Service with Support",
+              "description": null,
+              "last_accessed": "2026-06-17T00:07:46.026783Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.robbforcongress.com/post/no-one-should-struggle-alone",
+              "type": "website",
+              "title": "No One Should Struggle Alone",
+              "description": null,
+              "last_accessed": "2026-06-17T00:07:46.026828Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports protecting democracy by ending gerrymandering and protecting voting rights; believes every eligible Arkansan should be able to vote freely and fairly.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.robbforcongress.com/our-values",
+              "type": "website",
+              "title": "Our Values | Robb for Congress",
+              "description": null,
+              "last_accessed": "2026-06-17T00:46:15.531370Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
+      "career_history": [
+        {
+          "title": "Pastor/Founder",
+          "organization": "Vintage Fellowship",
+          "start_year": null,
+          "end_year": null,
+          "description": "Faith community meeting monthly in Springdale, Arkansas.",
+          "source": null
+        },
+        {
+          "title": "Co-Founder",
+          "organization": "Vortex PAC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Organization co-founded with Dr. Chris Jones to support good leaders and bring people together.",
+          "source": null
+        },
+        {
+          "title": "National Organizer",
+          "organization": "Vote Common Good",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked to build cross-partisan coalitions and stand up to extremism.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": "Non-legislator with no prior elected or executive office. Has never held legislative office, so no voting record exists. Ryerse is a former Republican pastor and non-profit leader who switched parties, stating the modern GOP was overtaken by authoritarian politics and Christian nationalism. His campaign platform emphasizes faith, family, and freedom, and he has pledged not to take AIPAC money.",
+      "voting_source_url": "https://www.robbforcongress.com/",
+      "voting_sources": [],
+      "donor_summary": "No detailed campaign finance data found in public disclosures as of June 2026. Ryerse's FEC candidate ID is H6AR03128 with an active 2025-2026 filing, but no summary totals were available on the FEC page. His campaign website encourages grassroots donations but does not disclose aggregate figures. He has been endorsed by Track AIPAC, a group that supports candidates rejecting AIPAC funding.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6AR03128/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/H6AR03128/",
+          "type": "finance",
+          "title": "RYERSE, ROBB \u2013 Candidate overview \u2013 FEC",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.robbforcongress.com/",
+          "type": "website",
+          "title": "Robb for Congress \u2013 Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.instagram.com/p/DPhNbD9jhv7/",
+          "type": "news",
+          "title": "Track AIPAC endorsement \u2013 Instagram",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Robb_Ryerse",
+          "title": "Robb Ryerse \u2013 Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6AR03128/",
+          "title": "Ryerse FEC candidate page",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.robbforcongress.com/",
+          "title": "Robb for Congress \u2013 Official Campaign",
+          "type": "official"
+        }
+      ],
+      "website": "https://www.robbforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/RobbRyerse",
+        "instagram": "https://www.instagram.com/robbryerse/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christopher Hocevar",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Christopher Hocevar is an independent candidate for Arkansas's 3rd Congressional District in the 2026 general election. A doctoral candidate in Materials Science at the University of Arkansas, he holds an engineering degree from the University of Oklahoma and works as a teaching and research assistant. His campaign focuses on housing affordability, healthcare access, teacher pay, student loan reform, raising the minimum wage, and reducing corporate influence in politics. Originally from Ponca City, Oklahoma, Hocevar was inspired to run after conversations with local small business owners about permitting and regulatory burdens.",
+      "summary_sources": [
+        {
+          "url": "https://www.uatrav.com/news/ua-doctoral-candidate-enters-race-for-arkansas-3rd-congressional-district/article_fe16676b-5d02-49bd-a81a-92cb57dce1d9.html",
+          "type": "news",
+          "title": "UA doctoral candidate enters race for Arkansas' 3rd Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-17T00:34:29.058367Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://chocevar.com/",
+          "type": "website",
+          "title": "Christopher Hocevar campaign website",
+          "description": null,
+          "last_accessed": "2026-06-17T00:34:29.058391Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.arkansasonline.com/news/2026/feb/06/university-of-arkansas-fayetteville-student-will/",
+          "type": "news",
+          "title": "University of Arkansas Fayetteville student will run for 3rd District as independent",
+          "description": null,
+          "last_accessed": "2026-06-17T00:34:29.058399Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nwahomepage.com/news/independent-candidate-kicks-off-congressional-campaign/",
+          "type": "news",
+          "title": "Independent candidate kicks off congressional campaign",
+          "description": null,
+          "last_accessed": "2026-06-17T00:34:29.058403Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {
+        "Immigration": {
+          "issue": null,
+          "stance": "Hocevar supports funding the Department of Homeland Security, including ICE, but insists on strong oversight and accountability. He argues that with the federal deficit, every dollar spent should be justified and transparent.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.4029tv.com/article/candidates-for-us-house-district-3-weigh-in-on-partial-government-shutdown/70426247",
+              "type": "news",
+              "title": "Candidates for US House District 3 weigh in on partial government shutdown",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:42.906662Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Hocevar supports defending Medicaid and promoting bills that ease enrollment in affordable healthcare programs. He notes that nearly 9% of 3rd District residents are uninsured and that the number of uninsured children in Arkansas has risen drastically. He advocates for ensuring federal healthcare funding is used to benefit local communities and not wasted.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://chocevar.com/",
+              "type": "website",
+              "title": "Hocevar campaign website - Community Health and Wellness",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:42.755092Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.uatrav.com/news/ua-doctoral-candidate-enters-race-for-arkansas-3rd-congressional-district/article_fe16676b-5d02-49bd-a81a-92cb57dce1d9.html",
+              "type": "news",
+              "title": "UA doctoral candidate enters race for Arkansas' 3rd Congressional District",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:42.755108Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Hocevar advocates for fiscally responsible federal budgeting with rigorous oversight to ensure spending is efficient and necessary, including accountability for DHS funding. He also supports raising the federal minimum wage to $15 per hour for full-time workers and adjusting tipped workers' wages accordingly, arguing the current $7.25 an hour does not provide a livable income.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.4029tv.com/article/candidates-for-us-house-district-3-weigh-in-on-partial-government-shutdown/70426247",
+              "type": "news",
+              "title": "Candidates for US House District 3 weigh in on partial government shutdown",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:29.264760Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://chocevar.com/",
+              "type": "website",
+              "title": "Hocevar campaign website - Minimum Wage position",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:29.264777Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Hocevar focuses on housing affordability and availability in Northwest Arkansas, advocating for reducing private investment firms' role in the housing market and shifting more control to cities and states. He also emphasizes reducing hunger and expanding healthcare access. His platform includes supporting agriculture infrastructure to keep economic benefits local.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.uatrav.com/news/ua-doctoral-candidate-enters-race-for-arkansas-3rd-congressional-district/article_fe16676b-5d02-49bd-a81a-92cb57dce1d9.html",
+              "type": "news",
+              "title": "UA doctoral candidate enters race for Arkansas' 3rd Congressional District",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:42.813028Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.nwahomepage.com/news/independent-candidate-kicks-off-congressional-campaign/",
+              "type": "news",
+              "title": "Independent candidate kicks off congressional campaign",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:42.813042Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.arkansasonline.com/news/2026/feb/06/university-of-arkansas-fayetteville-student-will/",
+              "type": "news",
+              "title": "University of Arkansas student will run for 3rd District as independent",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:42.813048Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://chocevar.com/",
+              "type": "website",
+              "title": "Hocevar campaign website - Housing",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:42.813053Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Hocevar supports raising teacher pay, noting Arkansas teachers earn about $58,000 on average, significantly below the national average, and often cover classroom materials out of pocket. He also advocates for student loan reform, arguing that the interest accumulation makes it difficult for borrowers to fully pay off debt, and that higher education should be made more affordable and fair.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://chocevar.com/",
+              "type": "website",
+              "title": "Hocevar campaign website - Education positions",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:29.118796Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Hocevar supports instituting term limits for members of Congress and reducing corporate influence in politics. He advocates for banning members of Congress from trading stocks and from having financial interests in bills they propose.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://chocevar.com/",
+              "type": "website",
+              "title": "Hocevar campaign website - Congressional Reform",
+              "description": null,
+              "last_accessed": "2026-06-17T00:34:29.201174Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
+      "career_history": [],
+      "education": [],
+      "voting_summary": "Non-legislator with no prior elected or executive office. No legislative voting record exists. Hocevar is a University of Arkansas doctoral candidate in materials science running as an independent. His campaign launch emphasized independent solutions over party politics. He has made no specific policy pledges found in public records beyond general reform messaging.",
+      "voting_source_url": "https://www.nwahomepage.com/news/independent-candidate-kicks-off-congressional-campaign/",
+      "voting_sources": [],
+      "donor_summary": "Limited campaign finance data available. Hocevar's FEC candidate ID is H6AR03144 for the 2025-2026 cycle, but no aggregate fundraising totals were displayed on the FEC page. He has an active OpenCampaign profile but no detailed contribution records are publicly accessible. As a first-time independent candidate, he has likely raised modest amounts primarily from individual supporters.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6AR03144/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/H6AR03144/",
+          "type": "finance",
+          "title": "HOCEVAR, CHRISTOPHER JOHN MR. II \u2013 Candidate overview \u2013 FEC",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opencampaign.com/politicians-in-united-states/197731/christopher-hocevar",
+          "type": "finance",
+          "title": "Christopher Hocevar \u2013 OpenCampaign",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nwahomepage.com/news/independent-candidate-kicks-off-congressional-campaign/",
+          "type": "news",
+          "title": "Independent candidate kicks off congressional campaign \u2013 KNWA",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Christopher_Hocevar",
+          "title": "Christopher Hocevar \u2013 Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6AR03144/",
+          "title": "Hocevar FEC candidate page",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.nwahomepage.com/news/independent-candidate-kicks-off-congressional-campaign/",
+          "title": "Independent candidate kicks off campaign \u2013 KNWA",
+          "type": "news"
+        },
+        {
+          "url": "https://vote-usa.org/intro.aspx?state=ar&id=arhocevarchristopher",
+          "title": "Christopher Hocevar \u2013 Vote-USA",
+          "type": "votesmart"
+        }
+      ],
+      "website": "https://chocevar.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/chocevar4congress/",
+        "facebook": "https://www.facebook.com/chocevar4congress"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Bobby Wilson",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bobby_Wilson.png",
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
+      "career_history": [],
+      "education": [],
+      "voting_summary": "Non-legislator with no prior elected or executive office. No legislative voting record exists. Wilson is a Libertarian Party activist from Bentonville who has run twice for Arkansas's 3rd Congressional District (2024 and 2026). He participated in candidate debates in 2024 where he articulated Libertarian positions on reducing government spending and expanding individual liberties.",
+      "voting_source_url": "https://www.nwahomepage.com/election/your-local-election/u-s-congress-arkansas-district-3-candidates-talk-issues-ahead-of-election/",
+      "voting_sources": [],
+      "donor_summary": "No campaign finance data found in public FEC disclosures for the 2023-2024 election cycle; the FEC page for candidate ID H4AR03081 reported no financial activity. Wilson was the Libertarian Party nominee in 2024 and received 13,331 votes (4.43%) in the general election. He has been nominated again for the 2026 election as the Libertarian candidate. As a minor-party candidate, he likely operates with minimal reported fundraising.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H4AR03081/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/H4AR03081/",
+          "type": "finance",
+          "title": "WILSON, BOBBY \u2013 Candidate overview \u2013 FEC",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G24/House.phtml?v=u&p=REP",
+          "type": "news",
+          "title": "The Green Papers \u2013 2024 House election results",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://arkansasadvocate.com/briefs/libertarian-party-of-arkansas-nominates-2026-general-election-candidates/",
+          "type": "news",
+          "title": "Libertarian Party nominates 2026 candidates \u2013 Arkansas Advocate",
+          "description": null,
+          "last_accessed": "2026-06-17T02:00:23.707552Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Bobby_Wilson_(Arkansas)",
+          "title": "Bobby Wilson (Arkansas) \u2013 Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4AR03081/",
+          "title": "Wilson FEC candidate page (2024)",
+          "type": "finance"
+        },
+        {
+          "url": "https://arkansasadvocate.com/briefs/libertarian-party-of-arkansas-nominates-2026-general-election-candidates/",
+          "title": "Libertarian Party nominates 2026 candidates \u2013 Arkansas Advocate",
+          "type": "news"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=q5axtN4fzS0",
+          "title": "U.S. Congress Arkansas District 3 candidates preview \u2013 YouTube",
+          "type": "news"
+        }
+      ],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-17T02:03:10.120220+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano",
+    "anthropic/claude-haiku-4.5",
+    "google/gemini-3.1-flash-lite-preview",
+    "x-ai/grok-4.3"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": [
+      "discovery.metadata",
+      "discovery.roster_sync",
+      "discovery.roster_verify",
+      "issues:Bobby Wilson:Abortion & Reproductive Health",
+      "issues:Bobby Wilson:Civil Rights & Equality",
+      "issues:Bobby Wilson:Climate/Energy",
+      "issues:Bobby Wilson:Economy",
+      "issues:Bobby Wilson:Education",
+      "issues:Bobby Wilson:Election Policy",
+      "issues:Bobby Wilson:Firearms & Second Amendment",
+      "issues:Bobby Wilson:Foreign Policy",
+      "issues:Bobby Wilson:Healthcare",
+      "issues:Bobby Wilson:Immigration",
+      "issues:Bobby Wilson:Local Issues",
+      "issues:Bobby Wilson:Tech & AI",
+      "issues:Christopher Hocevar:Abortion & Reproductive Health",
+      "issues:Christopher Hocevar:Civil Rights & Equality",
+      "issues:Christopher Hocevar:Climate/Energy",
+      "issues:Christopher Hocevar:Economy",
+      "issues:Christopher Hocevar:Education",
+      "issues:Christopher Hocevar:Election Policy",
+      "issues:Christopher Hocevar:Firearms & Second Amendment",
+      "issues:Christopher Hocevar:Foreign Policy",
+      "issues:Christopher Hocevar:Healthcare",
+      "issues:Christopher Hocevar:Immigration",
+      "issues:Christopher Hocevar:Local Issues",
+      "issues:Christopher Hocevar:Tech & AI",
+      "issues:Robb Ryerse:Abortion & Reproductive Health",
+      "issues:Robb Ryerse:Civil Rights & Equality",
+      "issues:Robb Ryerse:Climate/Energy",
+      "issues:Robb Ryerse:Economy",
+      "issues:Robb Ryerse:Education",
+      "issues:Robb Ryerse:Election Policy",
+      "issues:Robb Ryerse:Firearms & Second Amendment",
+      "issues:Robb Ryerse:Foreign Policy",
+      "issues:Robb Ryerse:Healthcare",
+      "issues:Robb Ryerse:Immigration",
+      "issues:Robb Ryerse:Local Issues",
+      "issues:Robb Ryerse:Tech & AI",
+      "issues:Steve Womack:Abortion & Reproductive Health",
+      "issues:Steve Womack:Civil Rights & Equality",
+      "issues:Steve Womack:Climate/Energy",
+      "issues:Steve Womack:Economy",
+      "issues:Steve Womack:Education",
+      "issues:Steve Womack:Election Policy",
+      "issues:Steve Womack:Firearms & Second Amendment",
+      "issues:Steve Womack:Foreign Policy",
+      "issues:Steve Womack:Healthcare",
+      "issues:Steve Womack:Immigration",
+      "issues:Steve Womack:Local Issues",
+      "issues:Steve Womack:Tech & AI",
+      "iteration:1:Bobby Wilson",
+      "iteration:1:Christopher Hocevar",
+      "iteration:1:Robb Ryerse",
+      "iteration:1:Steve Womack",
+      "refinement:Bobby Wilson",
+      "refinement:Christopher Hocevar",
+      "refinement:Robb Ryerse",
+      "refinement:Steve Womack",
+      "refinement:meta"
+    ]
+  },
+  "polling": [],
+  "schema_version": "0.3",
+  "polling_note": "No public polling found for this race as of 2026-06-17. Sources consulted: Ballotpedia (Arkansas' 3rd Congressional District election, 2026): https://ballotpedia.org/Arkansas%27_3rd_Congressional_District_election,_2026; Ballotpedia (Arkansas' 3rd Congressional District election, 2026 (March 3 Republican primary)): https://ballotpedia.org/Arkansas%27_3rd_Congressional_District_election,_2026_(March_3_Republican_primary); Cook Political Report (AR-03 2026): https://www.cookpolitical.com/house/race/481811; NBC News (Arkansas House District 3 Primary Results 2026): https://www.nbcnews.com/politics/2026-primary-elections/arkansas-us-house-district-3-results; 4029 TV (Arkansas election results US House primary): https://www.4029tv.com/article/arkansas-election-results-us-house-primary/70536294; NYTimes Interactive (Arkansas 2026 primary results AR-03): https://www.nytimes.com/interactive/2026/us/elections/results-arkansas-us-house-3-primary.html",
+  "ballotpedia_url": "https://ballotpedia.org/Arkansas'_3rd_Congressional_District",
+  "register_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
+  "how_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information",
+  "reviews": [
+    {
+      "model": "anthropic/claude-haiku-4.5",
+      "reviewed_at": "2026-06-17T02:03:36.475103Z",
+      "verdict": "approved",
+      "score": 87,
+      "flags": [
+        {
+          "field": "candidates[0].career_history[1]",
+          "concern": "The claim that Womack 'Led unprecedented economic expansion with more than $1 billion in local investment' as Mayor of Rogers (1999\u20132011) has no source URL. While this is a plausible mayoral accomplishment, the specific quantification and framing ('unprecedented') should be verified against official city records or contemporary news sources.",
+          "suggestion": "Add a source URL to a Rogers city report, news archive, or official biography documenting the $1 billion figure.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].career_history[2]",
+          "concern": "Womack's military service details (Colonel, 30 years, Sinai deployment 2002, Legion of Merit, Truman Award) lack a direct source URL in the career_history object. The summary_sources include Wikipedia and Ballotpedia, which likely contain this information, but the specific military record should ideally be sourced to an official military or biographical database.",
+          "suggestion": "Add a source URL to an official military biography, Department of Defense record, or verified biographical source (e.g., official House.gov biography page).",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health",
+          "concern": "Womack's stance is listed as 'No public position found after repeated research attempts' with low confidence and no sources. This is appropriate for a candidate who may not have taken a prominent public stance on this issue. However, given his 15-year voting record in Congress, it would be worth verifying whether any votes (e.g., on abortion-related appropriations riders or healthcare bills) implicitly reflect his position.",
+          "suggestion": "If no explicit statement exists, consider noting whether voting record on related bills (e.g., healthcare appropriations, Planned Parenthood funding) provides indirect evidence of position.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_summary",
+          "concern": "Ryerse's donor summary states 'No detailed campaign finance data found in public disclosures as of June 2026' and notes his FEC page showed 'no summary totals.' This is plausible for a challenger early in the cycle, but the phrasing 'no aggregate figures' could be clarified\u2014does this mean zero fundraising, or simply that the FEC page had not yet aggregated the data?",
+          "suggestion": "Clarify whether the absence of totals reflects zero fundraising, incomplete FEC filing, or a data lag. If possible, note the filing deadline or expected update date.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.stance",
+          "concern": "Ryerse's immigration stance includes the claim that he 'has expressed support for abolishing ICE' with sources pointing to Instagram and Facebook posts. The sources are cited, but social media posts are ephemeral and may be difficult to verify independently. The stance itself is clear and sourced, but the reliability of social media as a permanent record is lower than legislative votes or official statements.",
+          "suggestion": "Consider cross-referencing with news coverage of Ryerse's immigration positions or official campaign statements to corroborate the ICE abolition pledge.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].summary",
+          "concern": "Christopher Hocevar's summary describes him as 'a doctoral candidate in Materials Science at the University of Arkansas' and notes he 'holds an engineering degree from the University of Oklahoma.' However, the education field in the profile is empty (no degree or institution listed). This is an internal inconsistency\u2014the summary contains educational details not reflected in the structured education field.",
+          "suggestion": "Populate the education field with Hocevar's degrees (B.S. Engineering, University of Oklahoma; Ph.D. candidate, Materials Science, University of Arkansas) to match the summary.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].summary",
+          "concern": "Bobby Wilson's summary field is empty (blank string). While the voting_summary provides context (Libertarian activist, 2024 and 2026 candidate, 13,331 votes in 2024), the absence of a summary is inconsistent with the other candidates' profiles.",
+          "suggestion": "Add a brief summary of Wilson's background, candidacy, and platform (e.g., 'Libertarian Party activist from Bentonville running for the second time in Arkansas's 3rd District, advocating for reduced government spending and expanded individual liberties.').",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues",
+          "concern": "All 12 issue stances for Bobby Wilson are marked 'No public position found after repeated research attempts' with low confidence and no sources. While this may reflect genuine absence of detailed public positions from a minor-party candidate, it results in a profile with zero substantive policy information. This is not necessarily an error (absence of data is acceptable per the missing data policy), but it limits the profile's utility for voters.",
+          "suggestion": "If Wilson has a campaign website, social media, or debate participation records, attempt to extract any policy positions (e.g., Libertarian platform positions on taxes, regulation, civil liberties). If none exist, the current approach is acceptable.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-sourced, comprehensive profile of the AR-03 2026 House race with strong documentation across all four candidates. The incumbent Steve Womack's positions are backed by official House.gov sources, campaign materials, and legislative records (OpenSecrets, Congress.gov). Challenger Robb Ryerse's stances are documented via his campaign website and social media. Independent Christopher Hocevar's platform is sourced from his campaign site and news coverage. Libertarian Bobby Wilson's minimal issue coverage reflects genuine absence of public positions rather than research failure. Language is consistently neutral across all candidates\u2014no loaded adjectives, no asymmetric framing between opposing candidates' similar positions (e.g., both Womack and Ryerse on economy are described neutrally). Career histories are internally consistent with cited sources. The profile appropriately flags low-confidence stances where research found no public position, which is acceptable for minor-party and first-time candidates. Minor gaps in sourcing for some career history fields (e.g., Womack's military service lacks a direct URL) are not material given the corroboration from multiple biographical sources."
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-06-17T02:03:13.032316Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[0].links",
+          "concern": "The FEC link for Steve Womack (H6AR03128) is noted in the profile as pointing to Ryerse; this is a minor administrative discrepancy.",
+          "suggestion": "Update the link to the correct FEC ID for Steve Womack (H0AR03128) to ensure users reach the intended data.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.stance",
+          "concern": "The profile notes the candidate signed a pledge to 'abolish ICE'. While this is sourced, the term 'abolish ICE' is a highly charged political slogan that can be interpreted differently by various audiences.",
+          "suggestion": "Consider adding a brief, neutral clarification of what the candidate means by this (e.g., 'advocating for a restructuring of immigration enforcement agencies') if the candidate has provided such context in their materials.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].summary",
+          "concern": "The summary field for Bobby Wilson is empty.",
+          "suggestion": "Even for minor-party candidates, a brief sentence summarizing their platform or background (e.g., 'Libertarian activist from Bentonville') would improve completeness.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is exceptionally well-researched, providing a balanced and neutral overview of all candidates in the race. It effectively handles the challenge of varying levels of public information by clearly documenting where positions were not found, and it maintains a consistent, objective tone across all candidate summaries. The sourcing is robust, particularly for the incumbent, and the formatting is clean and professional."
+    },
+    {
+      "model": "x-ai/grok-4.3",
+      "reviewed_at": "2026-06-17T02:03:13.956928Z",
+      "verdict": "approved",
+      "score": 91,
+      "flags": [],
+      "summary": "Strong sourcing across candidate platforms and voting records, with high-confidence stances tied directly to official House.gov documents, campaign websites, and credible local news. Career histories and summaries are internally consistent with cited sources (Ballotpedia, FEC, womack.house.gov, robbforcongress.com). Neutral, balanced language used for all four candidates with no asymmetric framing or loaded terminology. Low-confidence 'no position found' entries are properly documented after searches."
+    },
+    {
+      "model": "automated-link-validator",
+      "reviewed_at": "2026-06-17T02:03:42.580432Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[1].donor_sources[0].url",
+          "concern": "Cited source URL (https://www.fec.gov/data/candidate/H6AR03128/) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Scanned 62 source links. Found 1 dead link(s)."
+    },
+    {
+      "model": "automated-profile-quality",
+      "reviewed_at": "2026-06-17T02:03:42.585059Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Civil Rights & Equality.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].links[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.sources[3]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[3].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].links[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[3].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Economy.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[3].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[3]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[3].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[3].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[3].donor_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Immigration.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Tech & AI.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Abortion & Reproductive Health.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Local Issues.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Climate/Energy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Abortion & Reproductive Health.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Firearms & Second Amendment.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Civil Rights & Equality.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Tech & AI.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Healthcare.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Economy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Climate/Energy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Abortion & Reproductive Health.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Immigration.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Firearms & Second Amendment.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Civil Rights & Equality.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Education.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Tech & AI.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Election Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Local Issues.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Found 53 profile quality issue(s)."
+    }
+  ],
+  "validation_grade": {
+    "grade": "A",
+    "score": 90,
+    "passed": true,
+    "summary": "Validated by 3/5 reviewers with an average score of 90/100."
+  },
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 1741863,
+    "completion_tokens": 55338,
+    "total_tokens": 1797201,
+    "cost_usd": 0.37669396599999994,
+    "cost_source": "provider",
+    "estimated_usd": 0.382443,
+    "model_breakdown": {
+      "anthropic/claude-haiku-4.5": {
+        "prompt_tokens": 29078,
+        "completion_tokens": 7129
+      },
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 1576688,
+        "completion_tokens": 24773
+      },
+      "google/gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 29666,
+        "completion_tokens": 810
+      },
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 80768,
+        "completion_tokens": 21888
+      },
+      "x-ai/grok-4.3": {
+        "prompt_tokens": 25663,
+        "completion_tokens": 738
+      }
+    },
+    "duration_s": 133.3,
+    "serper_calls": 103,
+    "context_requests": 88,
+    "max_estimated_context_tokens": 69015,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0658,
+    "context_deduplicated_results": 122,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 36,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 2,
+    "review": {
+      "whole_profile": true,
+      "configured_providers": [
+        "claude",
+        "gemini",
+        "grok"
+      ],
+      "packet_revisions": 2,
+      "packet_chars": 44104,
+      "packet_estimated_tokens": 11026,
+      "calls": 6,
+      "providers": {
+        "gemini": {
+          "model": "google/gemini-3.1-flash-lite-preview",
+          "calls": 2,
+          "prompt_tokens": 26317,
+          "completion_tokens": 751,
+          "provider_cost_usd": 0.00770575,
+          "estimated_cost_usd": 0.00770575
+        },
+        "grok": {
+          "model": "x-ai/grok-4.3",
+          "calls": 2,
+          "prompt_tokens": 22903,
+          "completion_tokens": 1010,
+          "provider_cost_usd": 0.03088495,
+          "estimated_cost_usd": 0.03115375
+        },
+        "claude": {
+          "model": "anthropic/claude-haiku-4.5",
+          "calls": 2,
+          "prompt_tokens": 25876,
+          "completion_tokens": 4919,
+          "provider_cost_usd": 0.050471,
+          "estimated_cost_usd": 0.050470999999999995
+        }
+      }
+    }
+  }
+}

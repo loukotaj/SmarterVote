@@ -1,0 +1,303 @@
+{
+  "id": "nc-house-03-2026",
+  "title": "North Carolina's 3rd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "North Carolina's 3rd Congressional District",
+  "state": "North Carolina",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for North Carolina's 3rd Congressional District pits incumbent Republican Rep. Greg Murphy against Democratic nominee Dr. Raymond Smith and Libertarian candidate Daniel Cavender. The district, which covers eastern North Carolina including the Outer Banks, Greenville, and Jacksonville, was redrawn in October 2025, adding Greene, Lenoir, Wayne, and Wilson counties. Murphy, a urologist first elected in a 2019 special election, has represented the district for seven years and is a supporter of President Donald Trump. Smith, a former state representative and decorated combat veteran, won the Democratic primary on March 3, 2026, with 56.6% of the vote. Cook Political Report rates the race as 'Likely Republican,' though Democrats see the newly drawn district as slightly more competitive in a favorable national environment.",
+  "polling": [],
+  "polling_note": "No independent opinion polls were found for this race as of mid-2026. Cook Political Report rates the race as 'Likely Republican.' Prediction markets (Polymarket, Kalshi) suggest Rep. Greg Murphy is heavily favored but these are not traditional scientific polls.",
+  "candidates": [
+    {
+      "name": "Greg Murphy",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Gregory Francis Murphy (born March 5, 1963) is an American politician and urologist serving as the U.S. Representative for North Carolina's 3rd congressional district since 2019. He previously served in the North Carolina House of Representatives from 2015 to 2019, where he was Senior Chair of Health Policy and authored the STOP Act to combat the opioid epidemic. Murphy was unopposed in the 2026 Republican primary and is campaigning on reducing the cost of living and improving community safety.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Greg_Murphy_(politician)",
+          "type": "website",
+          "title": "Greg Murphy (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://abc11.com/post/dr-raymond-smith-secures-district-3-primary-victory-will-face-greg-murphy-november/18674271/",
+          "type": "news",
+          "title": "Smith secures District 3 primary victory, will face Murphy in November",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Rep._Greg_Murphy_116th_Congress_Portrait.jpg/250px-Rep._Greg_Murphy_116th_Congress_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing North Carolina's 3rd Congressional District. Serves on Committee on Ways and Means, Committee on Veterans' Affairs, and Committee on House Administration.",
+          "source": null
+        },
+        {
+          "title": "Member of the North Carolina House of Representatives",
+          "organization": "North Carolina General Assembly",
+          "start_year": 2015,
+          "end_year": 2019,
+          "description": "Represented the 9th District (Pitt County). Served as Senior Chair of Health Policy and authored the STOP Act addressing the opioid epidemic.",
+          "source": null
+        },
+        {
+          "title": "Urologist / Chief of Staff",
+          "organization": "Vidant Medical Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced urology and served as Chief of Staff at Vidant Medical Center in Greenville, NC. Also served on faculty at the Brody School of Medicine at East Carolina University.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Davidson College",
+          "degree": "Bachelor of Science",
+          "field": "Pre-Medicine and Religion",
+          "year": 1985,
+          "source": null
+        },
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://murphy4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Raymond Smith",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Dr. Raymond Edward Smith Jr. (born October 15, 1961) is a former Democratic member of the North Carolina House of Representatives who represented the 21st district (Wayne and Sampson counties) from 2019 to 2023. A decorated U.S. Army combat veteran who served during the Persian Gulf War, Smith also worked as an educator, football coach, and transportation planner. He won the 2026 Democratic primary with 56.6% of the vote, defeating Allison Jaslow, and is running on a platform of lowering costs, expanding affordable healthcare, and improving public education and infrastructure.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Raymond_Smith_Jr.",
+          "type": "website",
+          "title": "Raymond Smith Jr. - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://abc11.com/post/dr-raymond-smith-secures-district-3-primary-victory-will-face-greg-murphy-november/18674271/",
+          "type": "news",
+          "title": "Smith secures District 3 primary victory, will face Murphy in November",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.newsobserver.com/news/politics-government/election/article314546513.html",
+          "type": "news",
+          "title": "Two Democrats challenge Rep. Greg Murphy in NC-03",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Rep._Raymond_E._Smith_Jr.jpg/250px-Rep._Raymond_E._Smith_Jr.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "North Carolina House of Representatives",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Represented the 21st District (Wayne and Sampson counties). Served on Education, Finance, Transportation, Military, and Appropriations committees.",
+          "source": null
+        },
+        {
+          "title": "At-Large Member and Vice Chair",
+          "organization": "Wayne County Board of Education",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Served on the local school board.",
+          "source": null
+        },
+        {
+          "title": "Combat Veteran / Military Police Officer",
+          "organization": "United States Army and Army Reserve",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a combat veteran and military police officer during the Persian Gulf War.",
+          "source": null
+        },
+        {
+          "title": "Educational Support Consultant and Nonprofit Director",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Current occupation as of 2026 campaign.",
+          "source": null
+        },
+        {
+          "title": "Transportation Planner",
+          "organization": "N.C. Department of Transportation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a statewide transportation planner.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "North Carolina Agricultural and Technical State University",
+          "degree": "Bachelor of Arts",
+          "field": "Supply Chain Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "North Carolina Central University",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Fayetteville State University",
+          "degree": "Doctor of Education",
+          "field": "Education Leadership",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://raymondsmithfornc.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Daniel Cavender",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Daniel Cavender is the Libertarian Party candidate for North Carolina's 3rd Congressional District in the 2026 general election. He was previously a candidate for North Carolina State Senate District 30 in 2024. Cavender will appear on the November 2026 ballot alongside Republican incumbent Greg Murphy and Democratic nominee Raymond Smith.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Daniel_Cavender",
+          "type": "website",
+          "title": "Daniel Cavender - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://wcti12.com/news/election/national-election/meet-allison-jaslow-candidate-for-us-house-of-representatives-district-3",
+          "type": "news",
+          "title": "Meet Allison Jaslow: Candidate for U.S. House of Representatives, District 3",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.witn.com/2026/03/03/voters-decide-party-november-standard-bearers-newly-redrawn-congressional-districts-1-3/",
+          "type": "news",
+          "title": "Voters to decide party November standard bearers in newly redrawn congressional districts 1 & 3",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_3rd_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T22:25:41.237836+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 234286,
+    "completion_tokens": 5847,
+    "total_tokens": 240133,
+    "cost_usd": 0.01716716,
+    "cost_source": "provider",
+    "estimated_usd": 0.024106,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 234286,
+        "completion_tokens": 5847
+      }
+    },
+    "duration_s": 151.7
+  }
+}

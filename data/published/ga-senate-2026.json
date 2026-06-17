@@ -11,57 +11,26 @@
     {
       "pollster": "Emerson College Polling / Nexstar Media",
       "date": "2026-03-05",
+      "sample_size": 1000,
       "matchups": [
-        {
-          "candidates": [
-            "Jon Ossoff",
-            "Buddy Carter"
-          ],
-          "percentages": [
-            47,
-            44
-          ]
-        },
         {
           "candidates": [
             "Jon Ossoff",
             "Mike Collins"
           ],
           "percentages": [
-            48,
-            43
-          ]
-        },
-        {
-          "candidates": [
-            "Jon Ossoff",
-            "Derek Dooley"
-          ],
-          "percentages": [
-            49,
-            41
+            48.0,
+            43.0
           ]
         }
       ],
-      "source_url": "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/",
-      "sample_size": 1000
+      "source_url": "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/"
     },
     {
       "pollster": "RealClearPolling",
       "date": "2026-05-15",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Jon Ossoff",
-            "Buddy Carter"
-          ],
-          "percentages": [
-            44.3,
-            40.8
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.realclearpolling.com/polls/senate/general/2026/georgia/ossoff-vs-carter"
     }
   ],
@@ -75,37 +44,526 @@
       "summary_sources": [
         {
           "url": "https://www.ossoff.senate.gov/about/",
-          "type": "official",
-          "title": "About – U.S. Senator for Georgia Jon Ossoff"
+          "type": "government",
+          "title": "About – U.S. Senator for Georgia Jon Ossoff",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:41.095156Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Jon_Ossoff",
-          "type": "ballotpedia",
-          "title": "Jon Ossoff - Ballotpedia"
+          "type": "website",
+          "title": "Jon Ossoff - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:41.095156Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://electjon.com/",
-          "type": "official",
-          "title": "Jon Ossoff – Official Campaign Website"
+          "type": "government",
+          "title": "Jon Ossoff – Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T20:49:41.095156Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Jon_Ossoff_official_portrait.jpg",
-      "website": "https://electjon.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Ossoff supports lowering health care costs, protecting coverage for pre-existing conditions, and expanding access to care, including in rural communities. His campaign has also promoted a public option and Medicaid expansion as part of its health care agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://electjon.com/wp-content/uploads/2020/08/2020.08.24-Ossoff-Health-Care-Plan.pdf",
+              "type": "pdf",
+              "title": "Ossoff Health Care Plan (Aug. 24, 2020)",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cbsnews.com/atlanta/news/ossoff-rallies-atlanta-crowd-puts-health-care-at-center-of-democrats-2026-fight/",
+              "type": "news",
+              "title": "Ossoff centers health care in 2026 campaign (CBS News)",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wabe.org/health-costs-are-fueling-voter-stress-and-powering-campaigns-for-ossoff-and-other-democrats/",
+              "type": "news",
+              "title": "Health costs fueling campaigns for Ossoff (WABE)",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Ossoff says federal infrastructure investment, manufacturing growth, and small-business support are central to his economic agenda. His office has highlighted transportation, broadband, and port upgrades as well as pandemic relief and other federal funding for Georgia projects.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/four-year-report/",
+              "type": "government",
+              "title": "Four-Year Report – U.S. Senator for Georgia Jon Ossoff",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/one-year-report/",
+              "type": "government",
+              "title": "One-Year Report – U.S. Senator for Georgia Jon Ossoff",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/five-year-report/",
+              "type": "government",
+              "title": "Five-Year Report – U.S. Senator for Georgia Jon Ossoff",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Ossoff supports clean energy and grid investment, and he has highlighted federal infrastructure funding for transportation, broadband, the energy grid, and clean energy in Georgia. His office has also pointed to concerns about rising electricity costs and the impact of data centers on power demand.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-secures-historic-bipartisan-infrastructure-investments-for-transportation-broadband-internet-and-clean-energy-in-georgia/",
+              "type": "government",
+              "title": "Sen. Ossoff Secures Historic Bipartisan Infrastructure Investments for Transportation, Broadband Internet, and Clean Energy in Georgia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-colleagues-launch-inquiry-into-department-of-defenses-use-of-ai-software-known-for-antisemitic-content/",
+              "type": "government",
+              "title": "Sen. Ossoff, Colleagues Launch Inquiry into Department of Defense's Use of AI Software Known for Antisemitic Content",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://newschannel9.com/news/local/georgia-senator-ossoff-launches-probe-into-ai-data-centers-rising-electricity-bills",
+              "type": "news",
+              "title": "Georgia Senator Ossoff launches probe into AI data centers, rising electricity bills",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Ossoff supports abortion rights and reproductive health access and opposes nationwide abortion bans. He has been endorsed by reproductive-rights groups and has backed federal protections for reproductive freedom.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://reproductivefreedomforall.org/lawmaker/jon-ossoff/",
+              "type": "website",
+              "title": "Jon Ossoff — Reproductive Freedom for All",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/news/icymi-reproductive-freedom-for-all-endorses-senator-jon-ossoff-and-joins-planned-parenthood-action-fund-for-campaign-event/",
+              "type": "website",
+              "title": "Reproductive Freedom For All endorses Senator Jon Ossoff and joins Planned Parenthood Action Fund for campaign event",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
+              "type": "government",
+              "title": "GovTrack - Jon Ossoff voting record",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Ossoff supports a pathway to citizenship for DACA recipients and broader immigration reform. He has also backed legislation requiring local approval before the federal government opens ICE detention facilities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-urges-bipartisan-action-on-pathway-to-citizenship-for-daca-recipients/",
+              "type": "government",
+              "title": "Watch: Sen. Ossoff urges bipartisan action on pathway to citizenship for DACA recipients",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-backing-bill-to-require-federal-government-to-get-local-approval-for-ice-detention-facilities-including-social-circle/",
+              "type": "government",
+              "title": "Sen. Ossoff backs bill to require local approval for ICE detention facilities (Social Circle)",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wabe.org/after-pushback-in-georgia-communities-congress-looks-at-bill-on-local-approval-for-immigration-facilities/",
+              "type": "news",
+              "title": "After pushback in Georgia communities, Congress looks at bill on local approval for immigration facilities",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Ossoff supports a diplomacy- and alliance-based foreign policy, prioritizing strong partnerships with NATO allies and Indo-Pacific partners. He has backed aid to Ukraine and measures to counter China’s economic and security coercion.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sens-ossoff-young-introduce-bipartisan-legislation-to-strengthen-u-s-national-security-in-indo-pacific-region/",
+              "type": "government",
+              "title": "Sen. Ossoff, Sen. Young Introduce Bipartisan Legislation to Strengthen U.S. National Security in Indo-Pacific Region",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-statement-on-iran/",
+              "type": "government",
+              "title": "Sen. Ossoff Statement on Iran",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Ossoff supports expanding access to affordable higher education, including Pell Grants, scholarships, and tuition-free job training. He has also promoted policies to make college more affordable for first-generation students and HBCU students.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-working-to-make-college-more-affordable-and-expand-access-to-tuition-free-job-training-programs/",
+              "type": "government",
+              "title": "WATCH: Sen. Ossoff Working to Make College More Affordable and Expand Access to Tuition-Free Job Training Programs",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-expanding-access-to-scholarships-tutoring-for-first-gen-college-students/",
+              "type": "government",
+              "title": "Sen. Ossoff Expanding Access to Scholarships, Tutoring for First-Gen College Students",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://electjon.com/wp-content/uploads/2020/09/Ossoff-HBCU-Policy-Plan-2020.09.03.pdf",
+              "type": "pdf",
+              "title": "Ossoff HBCU Policy Plan 2020",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Ossoff supports federal voting-rights protections, including a statutory right to vote in federal elections and stronger protections for election workers and polling places. He has also backed efforts to restore the Voting Rights Act and modernize election infrastructure.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-introduces-bill-establishing-first-ever-statutory-federal-right-to-vote/",
+              "type": "government",
+              "title": "Sen. Ossoff Introduces Legislation Establishing First-Ever Statutory Federal Right to Vote",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-introduces-voting-rights-legislation-to-protect-election-workers-polling-places-from-rising-threats/",
+              "type": "government",
+              "title": "WATCH: Sen. Ossoff Introduces Voting Rights Legislation to Protect Election Workers & Polling Places from Rising Threats",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoffs-right-to-vote-act-co-sponsored-by-sens-rev-warnock-klobuchar-padilla-king/",
+              "type": "government",
+              "title": "Sen. Ossoff’s Right to Vote Act Co-Sponsored by Sens. Warnock, Klobuchar, Padilla, King",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Ossoff supports federal action to lower housing costs and curb bulk purchases of single-family homes by out-of-state investors. He has also promoted affordable housing options, including measures aimed at helping veterans and other Georgians.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-helps-pass-bipartisan-legislation-to-lower-housing-costs/",
+              "type": "government",
+              "title": "Sen. Ossoff Helps Pass Bipartisan Legislation to Lower Housing Costs",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/senate-passes-bill-championed-by-sen-ossoff-to-crack-down-on-out-of-state-companies-buying-single-family-homes/",
+              "type": "government",
+              "title": "Senate Passes Bill Championed by Sen. Ossoff to Crack Down on Out-of-State Companies Buying Single-Family Homes",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ajc.com/politics/2026/03/warnock-ossoff-back-housing-bill-to-limit-investor-owned-houses/",
+              "type": "news",
+              "title": "Warnock, Ossoff back bill to limit investor-owned houses - AJC",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Ossoff supports gun violence prevention measures and has backed federal resources for violence prevention and safer communities. He has also said he supports the Second Amendment while favoring restrictions on some firearms and stronger gun safety laws.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-statement-on-bipartisan-action-to-prevent-gun-violence/",
+              "type": "government",
+              "title": "Sen. Ossoff Statement on Bipartisan Action to Prevent Gun Violence",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-delivering-resources-to-strengthen-violence-prevention-efforts/",
+              "type": "government",
+              "title": "Sen. Ossoff Delivering Resources to Strengthen Violence Prevention Efforts",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.pbs.org/newshour/politics/what-action-should-be-taken-on-guns-we-asked-every-senator",
+              "type": "news",
+              "title": "What action should be taken on guns? We asked every senator",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Ossoff has emphasized protecting civil rights and civil liberties, including efforts to preserve civil rights records and support LGBTQ equality. His office has also highlighted work on civil rights in federal courts and civil rights cold cases.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-leads-effort-to-protect-americans-civil-rights-in-federal-courts/",
+              "type": "government",
+              "title": "Sen. Ossoff Leads Effort to Protect Americans' Civil Rights in Federal Courts",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoffs-bipartisan-bill-to-help-solve-civil-rights-cold-cases-passes-u-s-senate/",
+              "type": "government",
+              "title": "Watch: Sen. Ossoff's Bipartisan Bill to Help Solve Civil Rights Cold Cases Passes U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.hrc.org/press-releases/human-rights-campaign-pac-endorses-georgia-sen-jon-ossoff-for-reelection",
+              "type": "website",
+              "title": "Human Rights Campaign PAC Endorses Georgia Sen. Jon Ossoff for Reelection",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Ossoff has focused on online child safety and AI-related harms, including pressuring major tech companies over AI-generated sexual exploitation content and launching inquiries into AI misuse. He has framed these efforts as part of protecting children and consumers online.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-pressing-big-tech-over-sexual-exploitation-of-children-online/",
+              "type": "government",
+              "title": "Sen. Ossoff Pressing Big Tech Over Sexual Exploitation of Children Online",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/sens-ossoff-blackburn-launch-bipartisan-inquiry-to-address-ai-generated-child-sex-abuse-material-online/",
+              "type": "government",
+              "title": "Sens. Ossoff, Blackburn Launch Bipartisan Inquiry to Address AI-Generated Child Sex Abuse Material Online",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-convenes-hearing-on-implications-of-artificial-intelligence-for-human-rights/",
+              "type": "government",
+              "title": "Watch: Sen. Ossoff Convenes Hearing on Implications of Artificial Intelligence for Human Rights",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "United States Senator",
           "organization": "U.S. Senate",
           "start_year": 2021,
           "end_year": null,
-          "description": "Represents Georgia in the U.S. Senate."
+          "description": "Represents Georgia in the U.S. Senate.",
+          "source": null
         },
         {
           "title": "Investigative journalist and media executive",
           "organization": "Various",
           "start_year": null,
           "end_year": null,
-          "description": "Worked in media and investigative reporting before entering elected office."
+          "description": "Worked in media and investigative reporting before entering elected office.",
+          "source": null
         }
       ],
       "education": [
@@ -113,19 +571,23 @@
           "institution": "Harvard University",
           "degree": "Bachelor of Arts",
           "field": "Government",
-          "year": 2009
+          "year": 2009,
+          "source": null
         },
         {
           "institution": "London School of Economics",
           "degree": "Master of Science",
           "field": "Comparative Politics",
-          "year": 2013
+          "year": 2013,
+          "source": null
         }
       ],
-      "donor_summary": "OpenSecrets reports Jon Ossoff’s 2025–2026 campaign committee raised $57,034,189 as of the March 31, 2026 filing, with $31,736,032 cash on hand. The campaign is dominated by small-dollar individual contributions rather than a single industry bloc; FEC data shows $72,024,823.38 in individual contributions and $958,546.93 from other committees, with OpenSecrets’ industry/organization pages available for deeper breakdowns.",
-      "donor_source_url": "https://www.opensecrets.org/profiles/jon-ossoff/us_congress/summary?mpid=1124497",
       "voting_summary": "Jon Ossoff is an incumbent U.S. senator, so he has a federal legislative voting record. Vote Smart and GovTrack show a Senate voting profile; GovTrack’s 2024 report card identifies him as a Democratic senator, and his Vote Smart profile contains key votes by issue area. His record is that of a Democratic caucus member in the Senate, with issue-specific votes documented on Vote Smart and GovTrack.",
       "voting_source_url": "https://www.govtrack.us/congress/members/jon_ossoff/456857/report-card/2024",
+      "voting_sources": [],
+      "donor_summary": "OpenSecrets reports Jon Ossoff’s 2025–2026 campaign committee raised $57,034,189 as of the March 31, 2026 filing, with $31,736,032 cash on hand. The campaign is dominated by small-dollar individual contributions rather than a single industry bloc; FEC data shows $72,024,823.38 in individual contributions and $958,546.93 from other committees, with OpenSecrets’ industry/organization pages available for deeper breakdowns.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/jon-ossoff/us_congress/summary?mpid=1124497",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Jon_Ossoff",
@@ -178,290 +640,10 @@
           "type": "legislature"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Ossoff supports lowering health care costs, protecting coverage for pre-existing conditions, and expanding access to care, including in rural communities. His campaign has also promoted a public option and Medicaid expansion as part of its health care agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://electjon.com/wp-content/uploads/2020/08/2020.08.24-Ossoff-Health-Care-Plan.pdf",
-              "type": "policy document",
-              "title": "Ossoff Health Care Plan (Aug. 24, 2020)",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.cbsnews.com/atlanta/news/ossoff-rallies-atlanta-crowd-puts-health-care-at-center-of-democrats-2026-fight/",
-              "type": "news",
-              "title": "Ossoff centers health care in 2026 campaign (CBS News)",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.wabe.org/health-costs-are-fueling-voter-stress-and-powering-campaigns-for-ossoff-and-other-democrats/",
-              "type": "news",
-              "title": "Health costs fueling campaigns for Ossoff (WABE)",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Ossoff says federal infrastructure investment, manufacturing growth, and small-business support are central to his economic agenda. His office has highlighted transportation, broadband, and port upgrades as well as pandemic relief and other federal funding for Georgia projects.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/four-year-report/",
-              "type": "official",
-              "title": "Four-Year Report – U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/one-year-report/",
-              "type": "official",
-              "title": "One-Year Report – U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/five-year-report/",
-              "type": "official",
-              "title": "Five-Year Report – U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Ossoff supports clean energy and grid investment, and he has highlighted federal infrastructure funding for transportation, broadband, the energy grid, and clean energy in Georgia. His office has also pointed to concerns about rising electricity costs and the impact of data centers on power demand.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-secures-historic-bipartisan-infrastructure-investments-for-transportation-broadband-internet-and-clean-energy-in-georgia/",
-              "type": "official",
-              "title": "Sen. Ossoff Secures Historic Bipartisan Infrastructure Investments for Transportation, Broadband Internet, and Clean Energy in Georgia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-colleagues-launch-inquiry-into-department-of-defenses-use-of-ai-software-known-for-antisemitic-content/",
-              "type": "official",
-              "title": "Sen. Ossoff, Colleagues Launch Inquiry into Department of Defense's Use of AI Software Known for Antisemitic Content",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://newschannel9.com/news/local/georgia-senator-ossoff-launches-probe-into-ai-data-centers-rising-electricity-bills",
-              "type": "news",
-              "title": "Georgia Senator Ossoff launches probe into AI data centers, rising electricity bills",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Ossoff supports abortion rights and reproductive health access and opposes nationwide abortion bans. He has been endorsed by reproductive-rights groups and has backed federal protections for reproductive freedom.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://reproductivefreedomforall.org/lawmaker/jon-ossoff/",
-              "type": "organization",
-              "title": "Jon Ossoff — Reproductive Freedom for All",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://reproductivefreedomforall.org/news/icymi-reproductive-freedom-for-all-endorses-senator-jon-ossoff-and-joins-planned-parenthood-action-fund-for-campaign-event/",
-              "type": "organization",
-              "title": "Reproductive Freedom For All endorses Senator Jon Ossoff and joins Planned Parenthood Action Fund for campaign event",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
-              "type": "government",
-              "title": "GovTrack - Jon Ossoff voting record",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Ossoff supports a pathway to citizenship for DACA recipients and broader immigration reform. He has also backed legislation requiring local approval before the federal government opens ICE detention facilities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-urges-bipartisan-action-on-pathway-to-citizenship-for-daca-recipients/",
-              "type": "official",
-              "title": "Watch: Sen. Ossoff urges bipartisan action on pathway to citizenship for DACA recipients",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-backing-bill-to-require-federal-government-to-get-local-approval-for-ice-detention-facilities-including-social-circle/",
-              "type": "official",
-              "title": "Sen. Ossoff backs bill to require local approval for ICE detention facilities (Social Circle)",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.wabe.org/after-pushback-in-georgia-communities-congress-looks-at-bill-on-local-approval-for-immigration-facilities/",
-              "type": "news",
-              "title": "After pushback in Georgia communities, Congress looks at bill on local approval for immigration facilities",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Ossoff supports a diplomacy- and alliance-based foreign policy, prioritizing strong partnerships with NATO allies and Indo-Pacific partners. He has backed aid to Ukraine and measures to counter China’s economic and security coercion.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sens-ossoff-young-introduce-bipartisan-legislation-to-strengthen-u-s-national-security-in-indo-pacific-region/",
-              "type": "official",
-              "title": "Sen. Ossoff, Sen. Young Introduce Bipartisan Legislation to Strengthen U.S. National Security in Indo-Pacific Region",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-statement-on-iran/",
-              "type": "official",
-              "title": "Sen. Ossoff Statement on Iran",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Ossoff supports expanding access to affordable higher education, including Pell Grants, scholarships, and tuition-free job training. He has also promoted policies to make college more affordable for first-generation students and HBCU students.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-working-to-make-college-more-affordable-and-expand-access-to-tuition-free-job-training-programs/",
-              "type": "press-release",
-              "title": "WATCH: Sen. Ossoff Working to Make College More Affordable and Expand Access to Tuition-Free Job Training Programs",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-expanding-access-to-scholarships-tutoring-for-first-gen-college-students/",
-              "type": "press-release",
-              "title": "Sen. Ossoff Expanding Access to Scholarships, Tutoring for First-Gen College Students",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://electjon.com/wp-content/uploads/2020/09/Ossoff-HBCU-Policy-Plan-2020.09.03.pdf",
-              "type": "policy-paper",
-              "title": "Ossoff HBCU Policy Plan 2020",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Ossoff supports federal voting-rights protections, including a statutory right to vote in federal elections and stronger protections for election workers and polling places. He has also backed efforts to restore the Voting Rights Act and modernize election infrastructure.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-introduces-bill-establishing-first-ever-statutory-federal-right-to-vote/",
-              "type": "official",
-              "title": "Sen. Ossoff Introduces Legislation Establishing First-Ever Statutory Federal Right to Vote",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-introduces-voting-rights-legislation-to-protect-election-workers-polling-places-from-rising-threats/",
-              "type": "official",
-              "title": "WATCH: Sen. Ossoff Introduces Voting Rights Legislation to Protect Election Workers & Polling Places from Rising Threats",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoffs-right-to-vote-act-co-sponsored-by-sens-rev-warnock-klobuchar-padilla-king/",
-              "type": "official",
-              "title": "Sen. Ossoff’s Right to Vote Act Co-Sponsored by Sens. Warnock, Klobuchar, Padilla, King",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Ossoff supports federal action to lower housing costs and curb bulk purchases of single-family homes by out-of-state investors. He has also promoted affordable housing options, including measures aimed at helping veterans and other Georgians.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-helps-pass-bipartisan-legislation-to-lower-housing-costs/",
-              "type": "official",
-              "title": "Sen. Ossoff Helps Pass Bipartisan Legislation to Lower Housing Costs",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/senate-passes-bill-championed-by-sen-ossoff-to-crack-down-on-out-of-state-companies-buying-single-family-homes/",
-              "type": "official",
-              "title": "Senate Passes Bill Championed by Sen. Ossoff to Crack Down on Out-of-State Companies Buying Single-Family Homes",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ajc.com/politics/2026/03/warnock-ossoff-back-housing-bill-to-limit-investor-owned-houses/",
-              "type": "news",
-              "title": "Warnock, Ossoff back bill to limit investor-owned houses - AJC",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Ossoff supports gun violence prevention measures and has backed federal resources for violence prevention and safer communities. He has also said he supports the Second Amendment while favoring restrictions on some firearms and stronger gun safety laws.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-statement-on-bipartisan-action-to-prevent-gun-violence/",
-              "type": "official",
-              "title": "Sen. Ossoff Statement on Bipartisan Action to Prevent Gun Violence",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-delivering-resources-to-strengthen-violence-prevention-efforts/",
-              "type": "official",
-              "title": "Sen. Ossoff Delivering Resources to Strengthen Violence Prevention Efforts",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.pbs.org/newshour/politics/what-action-should-be-taken-on-guns-we-asked-every-senator",
-              "type": "news",
-              "title": "What action should be taken on guns? We asked every senator",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Ossoff has emphasized protecting civil rights and civil liberties, including efforts to preserve civil rights records and support LGBTQ equality. His office has also highlighted work on civil rights in federal courts and civil rights cold cases.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-leads-effort-to-protect-americans-civil-rights-in-federal-courts/",
-              "type": "official",
-              "title": "Sen. Ossoff Leads Effort to Protect Americans' Civil Rights in Federal Courts",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoffs-bipartisan-bill-to-help-solve-civil-rights-cold-cases-passes-u-s-senate/",
-              "type": "official",
-              "title": "Watch: Sen. Ossoff's Bipartisan Bill to Help Solve Civil Rights Cold Cases Passes U.S. Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.hrc.org/press-releases/human-rights-campaign-pac-endorses-georgia-sen-jon-ossoff-for-reelection",
-              "type": "organization",
-              "title": "Human Rights Campaign PAC Endorses Georgia Sen. Jon Ossoff for Reelection",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Ossoff has focused on online child safety and AI-related harms, including pressuring major tech companies over AI-generated sexual exploitation content and launching inquiries into AI misuse. He has framed these efforts as part of protecting children and consumers online.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-pressing-big-tech-over-sexual-exploitation-of-children-online/",
-              "type": "official",
-              "title": "Sen. Ossoff Pressing Big Tech Over Sexual Exploitation of Children Online",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sens-ossoff-blackburn-launch-bipartisan-inquiry-to-address-ai-generated-child-sex-abuse-material-online/",
-              "type": "official",
-              "title": "Sens. Ossoff, Blackburn Launch Bipartisan Inquiry to Address AI-Generated Child Sex Abuse Material Online",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-convenes-hearing-on-implications-of-artificial-intelligence-for-human-rights/",
-              "type": "official",
-              "title": "Watch: Sen. Ossoff Convenes Hearing on Implications of Artificial Intelligence for Human Rights",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://electjon.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Jonathan McColumn",
@@ -473,46 +655,176 @@
           "url": "https://ballotpedia.org/Jonathan_McColumn",
           "type": "government",
           "title": "Jonathan McColumn - Ballotpedia",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://jonathanmccolumn.com/",
           "type": "website",
           "title": "Jonathan McColumn | For U.S. Senate",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://jonathanmccolumn.com/",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "He supports a focused approach to the economy centering on affordability and sustainability, with emphasis on home affordability and price stability. He advocates wage enhancements through voluntary actions by corporations and market reforms to counter inflation.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://jonathanmccolumn.com/jonathans-perspective/",
+              "type": "government",
+              "title": "My Perspective - Jonathan McColumn for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public climate/energy policy position is publicly published by Jonathan McColumn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://jonathanmccolumn.com/",
+              "type": "website",
+              "title": "Jonathan McColumn – Official Campaign Website",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://jonathanmccolumn.com/jonathans-perspective/",
+              "type": "government",
+              "title": "My Perspective – Jonathan McColumn for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "McColumn supports securing the U.S. border and enforcing immigration laws. He says entry should occur legally and with vetting, and that unauthorized border crossings are illegal.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jonathanmccolumn.com/jonathans-perspective/",
+              "type": "government",
+              "title": "Jonathan's Perspective",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=9MlDL2m0_1M",
+              "type": "website",
+              "title": "General Jonathan McColumn discusses Immigration system design",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://jonathanmccolumn.com/",
+              "type": "website",
+              "title": "Jonathan McColumn – For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "No publicly published position on Education is available from Jonathan McColumn; his campaign site and public materials do not outline a formal education policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://jonathanmccolumn.com/",
+              "type": "website",
+              "title": "Jonathan McColumn – For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://jonathanmccolumn.com/issues",
+              "type": "website",
+              "title": "Issues - Jonathan McColumn (site shows 404/not found)",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Brigadier General (Retired)",
           "organization": "U.S. Army",
           "start_year": null,
           "end_year": null,
-          "description": "Served 31 years of active federal service before retiring."
+          "description": "Served 31 years of active federal service before retiring.",
+          "source": null
         },
         {
           "title": "Clergy",
           "organization": "Religious ministry",
           "start_year": null,
           "end_year": null,
-          "description": "States he has served as clergy for more than 25 years."
+          "description": "States he has served as clergy for more than 25 years.",
+          "source": null
         },
         {
           "title": "Adjunct Instructor",
           "organization": "Phoenix University",
           "start_year": null,
           "end_year": null,
-          "description": "Served briefly as an adjunct instructor."
+          "description": "Served briefly as an adjunct instructor.",
+          "source": null
         },
         {
           "title": "Consultant",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Lists consulting among his professional roles."
+          "description": "Lists consulting among his professional roles.",
+          "source": null
         }
       ],
       "education": [
@@ -520,25 +832,30 @@
           "institution": "Northside High School",
           "degree": "High school diploma",
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "Georgia Military College",
           "degree": null,
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "Georgia College & State University",
           "degree": null,
           "field": null,
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "No campaign finance data found in public disclosures as of 2026-05-15. FEC candidate pages exist for Jonathan McColumn, but the public search results available here did not surface a current fundraising summary, industry breakdown, or major donor list.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/S2GA00282/",
       "voting_summary": "Jonathan McColumn has not held legislative office, so there is no legislative voting record to report. Publicly available material found here identifies him as a retired U.S. Army brigadier general and current Senate candidate, but no elected-office voting record or executive actions were located in the sources reviewed.",
       "voting_source_url": "https://jonathanmccolumn.com/",
+      "voting_sources": [],
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-05-15. FEC candidate pages exist for Jonathan McColumn, but the public search results available here did not surface a current fundraising summary, industry breakdown, or major donor list.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S2GA00282/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Jonathan_McColumn",
@@ -576,80 +893,10 @@
           "type": "wiki"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "He supports a focused approach to the economy centering on affordability and sustainability, with emphasis on home affordability and price stability. He advocates wage enhancements through voluntary actions by corporations and market reforms to counter inflation.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://jonathanmccolumn.com/jonathans-perspective/",
-              "type": "official_policy_page",
-              "title": "My Perspective - Jonathan McColumn for U.S. Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public climate/energy policy position is publicly published by Jonathan McColumn.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://jonathanmccolumn.com/",
-              "type": "campaign_website",
-              "title": "Jonathan McColumn – Official Campaign Website",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://jonathanmccolumn.com/jonathans-perspective/",
-              "type": "official_policy_page",
-              "title": "My Perspective – Jonathan McColumn for U.S. Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "McColumn supports securing the U.S. border and enforcing immigration laws. He says entry should occur legally and with vetting, and that unauthorized border crossings are illegal.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://jonathanmccolumn.com/jonathans-perspective/",
-              "type": "official policy page",
-              "title": "Jonathan's Perspective",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.youtube.com/watch?v=9MlDL2m0_1M",
-              "type": "video",
-              "title": "General Jonathan McColumn discusses Immigration system design",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://jonathanmccolumn.com/",
-              "type": "official campaign site",
-              "title": "Jonathan McColumn – For U.S. Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No publicly published position on Education is available from Jonathan McColumn; his campaign site and public materials do not outline a formal education policy.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://jonathanmccolumn.com/",
-              "type": "campaign website",
-              "title": "Jonathan McColumn – For U.S. Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://jonathanmccolumn.com/issues",
-              "type": "campaign policy page",
-              "title": "Issues - Jonathan McColumn (site shows 404/not found)",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://jonathanmccolumn.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Christina Loren Clement",
@@ -661,24 +908,184 @@
           "url": "https://ballotpedia.org/Christina_Loren_Clement",
           "type": "government",
           "title": "Christina Loren Clement - Ballotpedia",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://stateoflocnation.com/f/dr-clement-officially-enters-2026-georgia-us-senate-with-2b",
           "type": "website",
           "title": "Dr. Clement Officially Enters 2026 Georgia U.S. Senate with $2B dr ...",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found on abortion and reproductive health. No campaign policy page, voting record, or credible public statements identified to date.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Christina_Loren_Clement",
+              "type": "website",
+              "title": "Christina Loren Clement - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/P40016412/",
+              "type": "government",
+              "title": "FEC candidate profile",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No publicly available position found on immigration. There is no official campaign policy page or credible public statement identified; available reporting covers campaign activity but does not specify a stance on immigration.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Christina_Loren_Clement",
+              "type": "website",
+              "title": "Christina Loren Clement - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/P40016412/",
+              "type": "website",
+              "title": "FEC candidate profile for Christina Loren Rev Dr Clement",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wsav.com/news/your-local-election-hq/gop-senate-candidates-campaign-in-coastal-georgia/",
+              "type": "website",
+              "title": "WSAV - GOP Senate candidates campaign in Coastal Georgia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "There is no publicly available position on technology and artificial intelligence policy. A review of publicly available materials shows no credible campaign policy page, voting record, or direct statements on Tech & AI.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Christina_Loren_Clement",
+              "type": "government",
+              "title": "Christina Loren Clement - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
+              "type": "government",
+              "title": "United States Senate election in Georgia, 2026 - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wtoc.com/2026/04/01/georgias-senate-race-heats-up-four-candidates-pitch-savannah-voters/",
+              "type": "news",
+              "title": "Georgia's Senate race heats up as four candidates pitch to Savannah voters - WTOC",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://stateoflocnation.com/press-release/f/dr-clement-officially-enters-2026-georgia-us-senate-with-2b",
+              "type": "website",
+              "title": "Dr. Clement Officially Enters 2026 Georgia U.S. Senate with $2B",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/P40016412/",
+              "type": "government",
+              "title": "FEC candidate profile for Christina Loren Clement",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.instagram.com/dynastyhealing/",
+              "type": "social_media",
+              "title": "Christina Loren Clement - Instagram",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": "Public FEC search results show a candidate committee for Christina Loren Clement, but the available public pages here did not provide a standard OpenSecrets-style industry breakdown. News and commentary sources indicate unusually large self-financing, including a report that she loaned her campaign more than $50 million, while the FEC candidate page confirms active federal campaign-finance filings.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/P40016412/",
       "voting_summary": "Christina Loren Clement has not held legislative office, so there is no legislative voting record to report. The sources reviewed identify her as a declared Senate candidate and organizational leader, but no prior elected or executive office with recorded votes was found in the material accessed here.",
       "voting_source_url": "https://stateoflocnation.com/f/who-is-rev-dr-christina-clement",
+      "voting_sources": [],
+      "donor_summary": "Public FEC search results show a candidate committee for Christina Loren Clement, but the available public pages here did not provide a standard OpenSecrets-style industry breakdown. News and commentary sources indicate unusually large self-financing, including a report that she loaned her campaign more than $50 million, while the FEC candidate page confirms active federal campaign-finance filings.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/P40016412/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Christina_Loren_Clement",
@@ -721,96 +1128,10 @@
           "type": "other"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found on abortion and reproductive health. No campaign policy page, voting record, or credible public statements identified to date.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Christina_Loren_Clement",
-              "type": "web",
-              "title": "Christina Loren Clement - Ballotpedia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/P40016412/",
-              "type": "web",
-              "title": "FEC candidate profile",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No publicly available position found on immigration. There is no official campaign policy page or credible public statement identified; available reporting covers campaign activity but does not specify a stance on immigration.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Christina_Loren_Clement",
-              "type": "website",
-              "title": "Christina Loren Clement - Ballotpedia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/P40016412/",
-              "type": "website",
-              "title": "FEC candidate profile for Christina Loren Rev Dr Clement",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.wsav.com/news/your-local-election-hq/gop-senate-candidates-campaign-in-coastal-georgia/",
-              "type": "website",
-              "title": "WSAV - GOP Senate candidates campaign in Coastal Georgia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "There is no publicly available position on technology and artificial intelligence policy. A review of publicly available materials shows no credible campaign policy page, voting record, or direct statements on Tech & AI.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Christina_Loren_Clement",
-              "type": "official",
-              "title": "Christina Loren Clement - Ballotpedia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
-              "type": "official",
-              "title": "United States Senate election in Georgia, 2026 - Ballotpedia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.wtoc.com/2026/04/01/georgias-senate-race-heats-up-four-candidates-pitch-savannah-voters/",
-              "type": "news",
-              "title": "Georgia's Senate race heats up as four candidates pitch to Savannah voters - WTOC",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://stateoflocnation.com/press-release/f/dr-clement-officially-enters-2026-georgia-us-senate-with-2b",
-              "type": "press",
-              "title": "Dr. Clement Officially Enters 2026 Georgia U.S. Senate with $2B",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.fec.gov/data/candidate/P40016412/",
-              "type": "federal election",
-              "title": "FEC candidate profile for Christina Loren Clement",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.instagram.com/dynastyhealing/",
-              "type": "social",
-              "title": "Christina Loren Clement - Instagram",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        }
-      }
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Hisham Darwish",
@@ -822,24 +1143,195 @@
           "url": "https://ballotpedia.org/Hisham_Darwish",
           "type": "government",
           "title": "Hisham Darwish - Ballotpedia",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://hisham-darwish1.org/",
           "type": "website",
           "title": "Vote For Hisham Darwish",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://hisham-darwish1.org/",
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "No public position found on Civil Rights & Equality.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Hisham_Darwish",
+              "type": "website",
+              "title": "Hisham Darwish - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
+              "type": "website",
+              "title": "United States Senate election in Georgia, 2026 - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hisham-darwish1.org/issues",
+              "type": "website",
+              "title": "Issues page not found (404)",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hisham-darwish1.org/issue",
+              "type": "website",
+              "title": "Issue page not found (404)",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://hisham-darwish1.org/issues",
+              "type": "website",
+              "title": "Hisham Darwish - Issues",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hisham-darwish1.org/issue",
+              "type": "website",
+              "title": "Hisham Darwish - Issue",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hisham-darwish1.org/policy",
+              "type": "website",
+              "title": "Hisham Darwish - Policy",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hisham-darwish1.org/policies",
+              "type": "website",
+              "title": "Hisham Darwish - Policies",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hisham-darwish1.org/priorities",
+              "type": "website",
+              "title": "Hisham Darwish - Priorities",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hisham-darwish1.org/platform",
+              "type": "website",
+              "title": "Hisham Darwish - Platform",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/Hisham_Darwish",
+              "type": "website",
+              "title": "Ballotpedia: Hisham Darwish",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": "No campaign finance data found in public disclosures as of 2026-05-15. The public search results reviewed here surfaced Ballotpedia and campaign-style pages, but no FEC summary, OpenSecrets profile, or credible donor totals for Hisham Darwish.",
-      "donor_source_url": "https://ballotpedia.org/Hisham_Darwish",
       "voting_summary": "Hisham Darwish has not held legislative office, so there is no legislative voting record to report. The sources reviewed identify him as a Democratic Senate candidate, but no prior elected or executive office with recorded votes was found in the material accessed here.",
       "voting_source_url": "https://ballotpedia.org/Hisham_Darwish",
+      "voting_sources": [],
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-05-15. The public search results reviewed here surfaced Ballotpedia and campaign-style pages, but no FEC summary, OpenSecrets profile, or credible donor totals for Hisham Darwish.",
+      "donor_source_url": "https://ballotpedia.org/Hisham_Darwish",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Hisham_Darwish",
@@ -872,102 +1364,10 @@
           "type": "wiki"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Foreign Policy": {
-          "stance": "No public position found",
-          "confidence": "low"
-        },
-        "Civil Rights & Equality": {
-          "stance": "No public position found on Civil Rights & Equality.",
-          "confidence": "low"
-        },
-        "Tech & AI": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Hisham_Darwish",
-              "type": "ballotpedia",
-              "title": "Hisham Darwish - Ballotpedia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
-              "type": "ballotpedia",
-              "title": "United States Senate election in Georgia, 2026 - Ballotpedia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://hisham-darwish1.org/issues",
-              "type": "webpage",
-              "title": "Issues page not found (404)",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://hisham-darwish1.org/issue",
-              "type": "webpage",
-              "title": "Issue page not found (404)",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://hisham-darwish1.org/issues",
-              "type": "campaign_site",
-              "title": "Hisham Darwish - Issues",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://hisham-darwish1.org/issue",
-              "type": "campaign_site",
-              "title": "Hisham Darwish - Issue",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://hisham-darwish1.org/policy",
-              "type": "campaign_site",
-              "title": "Hisham Darwish - Policy",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://hisham-darwish1.org/policies",
-              "type": "campaign_site",
-              "title": "Hisham Darwish - Policies",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://hisham-darwish1.org/priorities",
-              "type": "campaign_site",
-              "title": "Hisham Darwish - Priorities",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://hisham-darwish1.org/platform",
-              "type": "campaign_site",
-              "title": "Hisham Darwish - Platform",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Hisham_Darwish",
-              "type": "encyclopedic",
-              "title": "Ballotpedia: Hisham Darwish",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://hisham-darwish1.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Earl Carter",
@@ -979,32 +1379,176 @@
           "url": "https://ballotpedia.org/Earl_%22Buddy%22_Carter",
           "type": "government",
           "title": "Earl \"Buddy\" Carter - Ballotpedia",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
           "type": "government",
           "title": "United States Senate election in Georgia, 2026 - Ballotpedia",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {
+        "Immigration": {
+          "issue": null,
+          "stance": "Supports expanding federal immigration enforcement, including stronger ICE enforcement and border security, and enforcing existing immigration laws while opposing leniency for illegal immigration.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://thecurrentga.org/2026/01/26/as-criticism-of-ice-mounts-carter-urges-expansion-to-georgia/",
+              "type": "news",
+              "title": "As criticism of ICE mounts, Carter urges expansion to Georgia",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=tlsKRAs6gg8",
+              "type": "website",
+              "title": "Buddy Carter outlines U.S. Senate campaign",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://thehill.com/homenews/campaign/5850187-gop-primary-georgia-senate-race/",
+              "type": "news",
+              "title": "Carter, Collins throw elbows in Georgia Senate GOP debate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Supports a strong, deterrence-based foreign policy with a robust national defense and sanctions to deter adversaries. He has urged aggressive measures against Iran and other threats and backs firm U.S. security commitments, including countering China.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://buddycarter.house.gov/issues/",
+              "type": "government",
+              "title": "Issues Home : U.S. Representative Buddy Carter",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/email/show.aspx?ID=DDHH7R33QNWH74RI6R4KAH7QMY",
+              "type": "government",
+              "title": "Peace Through Strength - Representative Buddy Carter",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16365",
+              "type": "government",
+              "title": "Carter statement on vote in support of our troops against war powers ...",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.congress.gov/member/earl-carter/C001103",
+              "type": "government",
+              "title": "Congress.gov - Member Earl L. Carter",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://buddycarter.com/",
+              "type": "website",
+              "title": "Buddy Carter for Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Supports securing federal funding for local Georgia infrastructure projects, including Savannah port facilities and riverfront improvements, to drive local job growth and economic development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16463",
+              "type": "government",
+              "title": "Carter secures $53 million for Garden City terminal",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16289",
+              "type": "government",
+              "title": "Rep. Carter Announces $4.2 million in funding for Savannah Riverwalk Renovation and Critically Infrastructure Improvements Project",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Member of Congress",
           "organization": "U.S. House of Representatives",
           "start_year": 2015,
           "end_year": null,
-          "description": "Represents Georgia’s 1st Congressional District."
+          "description": "Represents Georgia’s 1st Congressional District.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "OpenSecrets reports Earl “Buddy” Carter’s 2025–2026 Senate campaign committee raised $6,704,676 as of March 31, 2026, with $3,730,261 cash on hand and $3,000,000 in campaign debt. FEC data shows $3,106,615.26 in contributions and a $3,000,000 candidate loan, indicating a mix of donor money and self-financing; OpenSecrets’ industry and organization pages are the best source for sector detail.",
-      "donor_source_url": "https://www.opensecrets.org/profiles/buddy-carter/us_congress/summary?mpid=1099565",
       "voting_summary": "Earl “Buddy” Carter is an incumbent U.S. representative, so he has a federal legislative voting record. GovTrack and Vote Smart provide his House voting profile; GovTrack identifies him as a Republican member from Georgia’s 1st District, and Vote Smart contains key votes and ratings. His record is that of a Republican caucus member in the House, with issue-specific votes documented in those profiles.",
       "voting_source_url": "https://www.govtrack.us/congress/members/earl_carter/412622",
+      "voting_sources": [],
+      "donor_summary": "OpenSecrets reports Earl “Buddy” Carter’s 2025–2026 Senate campaign committee raised $6,704,676 as of March 31, 2026, with $3,730,261 cash on hand and $3,000,000 in campaign debt. FEC data shows $3,106,615.26 in contributions and a $3,000,000 candidate loan, indicating a mix of donor money and self-financing; OpenSecrets’ industry and organization pages are the best source for sector detail.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/buddy-carter/us_congress/summary?mpid=1099565",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Earl_%22Buddy%22_Carter",
@@ -1047,86 +1591,10 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Immigration": {
-          "stance": "Supports expanding federal immigration enforcement, including stronger ICE enforcement and border security, and enforcing existing immigration laws while opposing leniency for illegal immigration.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://thecurrentga.org/2026/01/26/as-criticism-of-ice-mounts-carter-urges-expansion-to-georgia/",
-              "type": "news",
-              "title": "As criticism of ICE mounts, Carter urges expansion to Georgia",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.youtube.com/watch?v=tlsKRAs6gg8",
-              "type": "video",
-              "title": "Buddy Carter outlines U.S. Senate campaign",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://thehill.com/homenews/campaign/5850187-gop-primary-georgia-senate-race/",
-              "type": "news",
-              "title": "Carter, Collins throw elbows in Georgia Senate GOP debate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Supports a strong, deterrence-based foreign policy with a robust national defense and sanctions to deter adversaries. He has urged aggressive measures against Iran and other threats and backs firm U.S. security commitments, including countering China.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://buddycarter.house.gov/issues/",
-              "type": "official_policy_page",
-              "title": "Issues Home : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://buddycarter.house.gov/news/email/show.aspx?ID=DDHH7R33QNWH74RI6R4KAH7QMY",
-              "type": "official_statement",
-              "title": "Peace Through Strength - Representative Buddy Carter",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16365",
-              "type": "press_release",
-              "title": "Carter statement on vote in support of our troops against war powers ...",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/member/earl-carter/C001103",
-              "type": "legislation",
-              "title": "Congress.gov - Member Earl L. Carter",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://buddycarter.com/",
-              "type": "campaign_site",
-              "title": "Buddy Carter for Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Supports securing federal funding for local Georgia infrastructure projects, including Savannah port facilities and riverfront improvements, to drive local job growth and economic development.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16463",
-              "type": "Official campaign/news",
-              "title": "Carter secures $53 million for Garden City terminal",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16289",
-              "type": "Official campaign/news",
-              "title": "Rep. Carter Announces $4.2 million in funding for Savannah Riverwalk Renovation and Critically Infrastructure Improvements Project",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        }
-      }
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Mike Collins",
@@ -1138,38 +1606,171 @@
           "url": "https://ballotpedia.org/Mike_Collins_(Georgia)",
           "type": "government",
           "title": "Mike Collins (Georgia) - Ballotpedia",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://news.ballotpedia.org/2025/07/30/rep-mike-collins-becomes-the-eighth-representative-to-announce-a-u-s-senate-bid-for-2026/",
           "type": "news",
           "title": "Rep. Mike Collins becomes the eighth representative to announce a U.S. Senate bid for 2026",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
           "type": "government",
           "title": "United States Senate election in Georgia, 2026 - Ballotpedia",
-          "last_accessed": "2026-05-14T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-05-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Mike Collins advocates pro-growth, free-market economics: he would cut federal regulations affecting builders and small businesses, speed up building approvals, and oppose costly environmental rules to help housing be more affordable. He also backs tax cuts and broader deregulation to spur job creation and domestic production.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2026/04/mike-collins-a-look-at-the-ajcs-coverage/",
+              "type": "website",
+              "title": "U.S. Senate candidate Mike Collins: Positions on key issues",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.clubforgrowth.org/candidates/mike-collins/",
+              "type": "website",
+              "title": "Mike Collins - Club for Growth",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mikecollinsga.com/about/",
+              "type": "website",
+              "title": "MEET MIKE – Mike Collins for Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Mike Collins supports gun rights and has pushed to protect Second Amendment freedoms. He voted in Congress to protect the constitutional rights of gun owners (H.J.Res 44) and has endorsements from gun-rights groups.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://collins.house.gov/media/press-releases/collins-votes-protect-constitutional-rights-gun-owners-rescind",
+              "type": "government",
+              "title": "Collins Votes to Protect Constitutional Rights of Gun Owners",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mikecollinsga.com/endorsements/",
+              "type": "website",
+              "title": "Endorsements – Mike Collins for Senate",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports parental rights in education and voted in favor of H.R.5 (Parents Bill of Rights Act); also advocates education-focused workforce development initiatives, including the Aviation Workforce Development Act.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://collins.house.gov/issues/education",
+              "type": "government",
+              "title": "Education | Representative Collins - Education policy page",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.congress.gov/bill/118th-congress/house-bill/5",
+              "type": "government",
+              "title": "H.R.5: Parents Bill of Rights Act",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://clerk.house.gov/Votes/2023161",
+              "type": "government",
+              "title": "Roll Call 161 on H.R.5 - Parents Bill of Rights Act",
+              "description": null,
+              "last_accessed": "2026-05-15T00:48:12.053026Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [
         {
           "title": "Member of Congress",
           "organization": "U.S. House of Representatives",
           "start_year": 2023,
           "end_year": null,
-          "description": "Represents Georgia’s 10th Congressional District."
+          "description": "Represents Georgia’s 10th Congressional District.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "OpenSecrets reports Mike Collins’s 2025–2026 House campaign committee raised $4,294,513 as of March 31, 2026, with $2,125,437 cash on hand and $286,941 in debts. FEC data for his House committee shows $1,713,411.61 in receipts for 2023–2024, and OpenSecrets’ industry page indicates support from sectors such as real estate and food & beverage, though the full 2025–2026 industry breakdown should be checked directly on OpenSecrets.",
-      "donor_source_url": "https://www.opensecrets.org/profiles/mike-collins/us_congress/summary?mpid=1169014",
       "voting_summary": "Mike Collins is an incumbent U.S. representative, so he has a federal legislative voting record. GovTrack and Vote Smart provide his House voting profile; GovTrack identifies him as a Republican member from Georgia’s 10th District, and Vote Smart contains key votes and ratings. His record is that of a Republican caucus member in the House, with issue-specific votes documented in those profiles.",
       "voting_source_url": "https://www.govtrack.us/congress/members/mike_collins/456895",
+      "voting_sources": [],
+      "donor_summary": "OpenSecrets reports Mike Collins’s 2025–2026 House campaign committee raised $4,294,513 as of March 31, 2026, with $2,125,437 cash on hand and $286,941 in debts. FEC data for his House committee shows $1,713,411.61 in receipts for 2023–2024, and OpenSecrets’ industry page indicates support from sectors such as real estate and food & beverage, though the full 2025–2026 industry breakdown should be checked directly on OpenSecrets.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/mike-collins/us_congress/summary?mpid=1169014",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Mike_Collins_(Georgia)",
@@ -1212,95 +1813,46 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Mike Collins advocates pro-growth, free-market economics: he would cut federal regulations affecting builders and small businesses, speed up building approvals, and oppose costly environmental rules to help housing be more affordable. He also backs tax cuts and broader deregulation to spur job creation and domestic production.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ajc.com/politics/2026/04/mike-collins-a-look-at-the-ajcs-coverage/",
-              "type": "news-article",
-              "title": "U.S. Senate candidate Mike Collins: Positions on key issues",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.clubforgrowth.org/candidates/mike-collins/",
-              "type": "organization",
-              "title": "Mike Collins - Club for Growth",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://mikecollinsga.com/about/",
-              "type": "campaign-website",
-              "title": "MEET MIKE – Mike Collins for Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Mike Collins supports gun rights and has pushed to protect Second Amendment freedoms. He voted in Congress to protect the constitutional rights of gun owners (H.J.Res 44) and has endorsements from gun-rights groups.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://collins.house.gov/media/press-releases/collins-votes-protect-constitutional-rights-gun-owners-rescind",
-              "type": "press release",
-              "title": "Collins Votes to Protect Constitutional Rights of Gun Owners",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://mikecollinsga.com/endorsements/",
-              "type": "campaign page",
-              "title": "Endorsements – Mike Collins for Senate",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports parental rights in education and voted in favor of H.R.5 (Parents Bill of Rights Act); also advocates education-focused workforce development initiatives, including the Aviation Workforce Development Act.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "http://collins.house.gov/issues/education",
-              "type": "official",
-              "title": "Education | Representative Collins - Education policy page",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/bill/118th-congress/house-bill/5",
-              "type": "legislation",
-              "title": "H.R.5: Parents Bill of Rights Act",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            },
-            {
-              "url": "https://clerk.house.gov/Votes/2023161",
-              "type": "legislation_vote",
-              "title": "Roll Call 161 on H.R.5 - Parents Bill of Rights Act",
-              "last_accessed": "2026-05-15T00:48:12.053026+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        }
-      }
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Derek Dooley",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
-  "updated_utc": "2026-05-15T01:56:05.711464+00:00",
+  "updated_utc": "2026-06-14T19:55:12.675261+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-4-1-fast-non-reasoning"
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
   ],
   "register_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-registering-vote",
   "how_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-voting",
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-15T00:48:39.865382+00:00",
+      "reviewed_at": "2026-05-15T00:48:39.865382Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -1333,7 +1885,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-15T00:48:15.804621+00:00",
+      "reviewed_at": "2026-05-15T00:48:15.804621Z",
       "verdict": "approved",
       "score": 94,
       "flags": [
@@ -1354,7 +1906,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-15T00:48:16.282791+00:00",
+      "reviewed_at": "2026-05-15T00:48:16.282791Z",
       "verdict": "approved",
       "score": 94,
       "flags": [
@@ -1375,34 +1927,38 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 3072642,
-    "completion_tokens": 280430,
-    "total_tokens": 3353072,
-    "estimated_usd": 0.4789,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 307556,
+    "completion_tokens": 21086,
+    "total_tokens": 328642,
+    "cost_usd": 0.050467455999999994,
+    "cost_source": "provider",
+    "estimated_usd": 0.05086,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 676399,
-        "completion_tokens": 13450
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 146494,
+        "completion_tokens": 17735
       },
-      "gpt-5-nano": {
-        "prompt_tokens": 2336375,
-        "completion_tokens": 264111
-      },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 21562,
-        "completion_tokens": 421
-      },
-      "grok-4-1-fast-non-reasoning": {
-        "prompt_tokens": 17655,
-        "completion_tokens": 269
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 20651,
-        "completion_tokens": 2179
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 161062,
+        "completion_tokens": 3351
       }
     },
-    "duration_s": 4209.4
+    "duration_s": 299.4,
+    "serper_calls": 20,
+    "context_requests": 21,
+    "max_estimated_context_tokens": 55730,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0531,
+    "context_deduplicated_results": 37,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
   },
-  "schema_version": "0.3"
+  "schema_version": "0.3",
+  "post_run_analysis": null
 }
