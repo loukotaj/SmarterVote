@@ -12,7 +12,7 @@ const config = {
       strict: true,
     }),
     prerender: {
-      entries: ["/", "/about/"],
+      entries: ["/", "/about/", "/admin/", "/admin/pipeline/"],
       handleUnseenRoutes: "ignore",
     },
     alias: {
