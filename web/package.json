@@ -11,7 +11,7 @@
     "build": "vite build",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
-    "build:cloudflare": "npm run generate:sitemap && npm run build && node -e \"const fs=require('fs'); fs.writeFileSync('build/_redirects','/* /200.html 200\\n');\"",
+    "build:cloudflare": "npm run generate:sitemap && npm run build && node -e \"const fs=require('fs'); fs.writeFileSync('build/_redirects','/200 / 301\\n/200/ / 301\\n/* /__fallback.html 200\\n');\"",
     "preview": "vite preview",
     "test": "npm run test:unit",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
