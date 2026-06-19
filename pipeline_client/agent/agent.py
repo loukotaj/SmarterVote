@@ -19,11 +19,12 @@ are attached to the output JSON under ``agent_metrics``.
 import copy
 import json
 import logging
-import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+from shared.pipeline_config import PIPELINE_STEP_IDS, REVIEW_PROVIDERS, PipelineRuntimeConfig
 
 from .ballotpedia import default_ballotpedia_race_url
 from .cost import _cost_ctx, estimate_cost
@@ -436,25 +437,15 @@ async def run_agent(
     gemini_model = option_models["review_gemini"]
     grok_model = option_models["review_grok"]
     enabled_review_providers = (
-        [provider for provider in review_providers if provider in {"claude", "gemini", "grok"}]
+        [provider for provider in review_providers if provider in REVIEW_PROVIDERS]
         if review_providers is not None
-        else ["claude", "gemini", "grok"]
+        else list(REVIEW_PROVIDERS)
     )
     log = make_logger(on_log)
     t0 = time.perf_counter()
 
     # Step enablement check - None means all enabled
-    _all_steps = {
-        "discovery",
-        "images",
-        "issues",
-        "finance",
-        "refinement",
-        "polling",
-        "voter_resources",
-        "review",
-        "iteration",
-    }
+    _all_steps = set(PIPELINE_STEP_IDS)
     _enabled = set(enabled_steps) if enabled_steps else _all_steps
 
     def _step_enabled(step: str) -> bool:
@@ -666,7 +657,8 @@ async def run_agent(
         if should_iterate:
             _track("start", "iteration")
             iter_t0 = time.perf_counter()
-            max_review_cycles = max(1, min(int(os.getenv("PIPELINE_MAX_REVIEW_CYCLES", "1")), 3))
+            runtime_config = PipelineRuntimeConfig.from_env()
+            max_review_cycles = runtime_config.max_review_cycles
             did_iterate = False
             for cycle in range(1, max_review_cycles + 1):
                 min_severity = "warning" if cycle == 1 else "error"
@@ -692,7 +684,7 @@ async def run_agent(
                     model=model,
                     on_log=on_log,
                     on_progress=_on_iteration_progress,
-                    max_iterations=max(cycle_budget, 14),
+                    max_iterations=max(cycle_budget, runtime_config.iteration_min_iterations),
                     resume_partial=resume_partial,
                     unit_prefix=f"iteration:{cycle}",
                     run_budget=run_budget,

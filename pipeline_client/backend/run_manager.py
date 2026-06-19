@@ -28,12 +28,14 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message
+from shared.config import FIRESTORE_RUNS_COLLECTION
+from shared.pipeline_config import RetentionConfig
 
 from .models import RunInfo, RunOptions, RunRequest, RunStatus, RunStep
 
 logger = logging.getLogger("pipeline")
 
-_COLLECTION = "pipeline_runs"
+_COLLECTION = FIRESTORE_RUNS_COLLECTION
 
 # Maximum completed runs kept in the local-dev in-memory history.
 # Prevents unbounded memory growth during long-running local sessions.
@@ -44,8 +46,11 @@ class RunManager:
     """Manages pipeline run lifecycle and state."""
 
     def __init__(self):
+        self.retention = RetentionConfig.from_env()
         self.active_runs: Dict[str, RunInfo] = {}
         self._log_handlers: Dict[str, Any] = {}
+        self.dropped_log_count = 0
+        self.truncated_log_count = 0
         # Completed-run store: Firestore client in production, in-memory dict in local dev
         self._db: Optional[Any] = None  # google.cloud.firestore.Client when available
         self._local_history: Dict[str, RunInfo] = {}  # local dev fallback
@@ -406,7 +411,17 @@ class RunManager:
         if run_info:
             if not hasattr(run_info, "logs") or run_info.logs is None:
                 run_info.logs = []
-            run_info.logs.append(sanitize_log_data(log))
+            sanitized = sanitize_log_data(log)
+            if isinstance(sanitized, dict) and isinstance(sanitized.get("message"), str):
+                original = sanitized["message"]
+                truncated = sanitize_log_message(original, max_chars=self.retention.max_log_message_chars)
+                if truncated != original:
+                    self.truncated_log_count += 1
+                sanitized["message"] = truncated
+            if len(run_info.logs) >= self.retention.run_log_buffer_size:
+                del run_info.logs[0 : len(run_info.logs) - self.retention.run_log_buffer_size + 1]
+                self.dropped_log_count += 1
+            run_info.logs.append(sanitized)
 
     def get_run_logs(self, run_id: str):
         run_info = self.get_run(run_id)

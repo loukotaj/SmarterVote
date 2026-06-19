@@ -1,6 +1,6 @@
 # Pipeline Hardening Plan
 
-Last reviewed: 2026-06-14.
+Last reviewed: 2026-06-19.
 
 ## Objective
 
@@ -719,6 +719,8 @@ Focused path/storage suite: 28 passed
 
 ## Phase 9: Centralize Magic Values and Validate Options
 
+Status: Complete.
+
 ### Implementation
 
 Create typed configuration for:
@@ -760,7 +762,32 @@ Model prices and availability change frequently. Keep estimates in one configura
 - Model/profile/provider names have one canonical definition.
 - Threshold changes do not require edits across unrelated modules.
 
+### Progress
+
+- Added shared pipeline configuration for canonical step order, step labels,
+  step weights, model profiles, model override roles, review providers,
+  canonical issue count, bounded runtime limits, and option validators.
+- Routed backend and production API run-option validation through the shared
+  validators.
+- Replaced duplicated production queue step metadata with the shared step
+  configuration.
+- Derived quality issue-coverage alert denominators and thresholds from
+  `CanonicalIssue` rather than hard-coded `12`, `6`, and `8` values.
+- Routed issue concurrency, issue retry attempts, review cycle limits, and
+  iteration minimums through bounded typed runtime configuration.
+- Centralized search/page cache TTLs, freshness thresholds, log/queue/artifact
+  retention values, and local/Firestore log bounding settings.
+
+### Validation
+
+```text
+Focused config/API/agent/queue/metrics suite: passed
+Black and isort checks: passed
+```
+
 ## Phase 10: Logging, Artifact, and Cache Retention
+
+Status: Complete.
 
 ### Problem
 
@@ -797,7 +824,34 @@ Suggested retention starting point:
 - Old operational data expires automatically.
 - Secrets are sanitized before all persistence paths.
 
+### Delivered
+
+- Added bounded live log, status, active-run, and handler artifact log buffers
+  with dropped/truncated counters.
+- Truncated persisted log messages after sanitization using a shared maximum
+  message size.
+- Changed Firestore run logs to buffered batch writes and flushed logs on
+  progress, completion, failure, and handoff updates.
+- Removed embedded `agent_logs` from saved step artifacts while preserving
+  `agent_log_count` and log stats.
+- Added `ttl_at` fields to Firestore log, queue, search-cache, and page-cache
+  documents.
+- Added Firestore TTL policies for queue history, run logs, search cache, and
+  page cache.
+- Added GCS lifecycle policies for debug artifacts and continuation
+  checkpoints while leaving published and retired RaceJSON under existing
+  product retention rules.
+
+### Validation
+
+```text
+Focused logging/cache/handler/cloud-function suite: passed
+Terraform fmt, init -backend=false, and validate: passed
+```
+
 ## Phase 11: Tests and Observability
+
+Status: Complete.
 
 Add metrics per phase:
 
@@ -850,6 +904,28 @@ PYTHONPATH=. python -m pytest tests/test_run_agent.py tests/test_agent_loop.py t
 PYTHONPATH=. python -m pytest
 ```
 
+### Delivered
+
+- Audited the required regression scenarios against the current test suite:
+  twenty-candidate rosters, ten large tool responses, deadline handoffs,
+  transactional queue claims, review-provider unavailability, malformed or
+  oversized tool output, credential-bearing exception URLs, and multi-working
+  directory execution are covered by focused tests.
+- Added explicit queue scale coverage for a listing request above 1,000 records
+  and verified the API caps returned queue records to 500.
+- Added terminal queue TTL assertions for Cloud Function success, failure,
+  cancellation, missing race IDs, and continuation handoffs.
+- Extended admin queue/run/race cancellation and stale-run repair paths so every
+  terminal queue update receives `ttl_at` retention metadata.
+
+### Validation
+
+```text
+Focused Phase 11 regression suite: 231 passed
+Full Python suite: 348 passed
+Black and isort checks for touched Python files: passed
+```
+
 ## Completion Checklist
 
 - [x] Automatic post-run LLM analysis removed.
@@ -862,12 +938,12 @@ PYTHONPATH=. python -m pytest
 - [x] Review preserves default three-provider whole-profile coverage, removes only operational duplication, and reports cost clearly.
 - [x] Queue claims are transactional and lease-based.
 - [x] Firestore and GCS list operations are paginated or explicitly bounded.
-- [ ] Queue/run/race/storage ownership is consolidated.
-- [ ] Paths and cloud collection/prefix names are centralized.
-- [ ] Magic thresholds and provider names use typed configuration.
-- [ ] Logs, artifacts, checkpoints, and caches have retention policies.
-- [ ] Polling and voter resources decoupled into separate pipeline steps.
-- [ ] Load, deadline, security, and cost regression tests pass.
+- [x] Queue/run/race/storage ownership is consolidated.
+- [x] Paths and cloud collection/prefix names are centralized.
+- [x] Magic thresholds and provider names use typed configuration.
+- [x] Logs, artifacts, checkpoints, and caches have retention policies.
+- [x] Polling and voter resources decoupled into separate pipeline steps.
+- [x] Load, deadline, security, and cost regression tests pass.
 
 ## Non-Goals and Guardrails
 

@@ -13,11 +13,17 @@ from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException, Request
 from request_models import BatchPublishRequest, RaceQueueRequest, RunOptions, validate_race_id
 
+from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields
 
 router = APIRouter()
 
 STALE_ACTIVE_RUN_SECONDS = int(os.getenv("STALE_ACTIVE_RUN_SECONDS", "7200"))
+_RETENTION = RetentionConfig.from_env()
+
+
+def _queue_ttl_at() -> datetime:
+    return datetime.now(timezone.utc) + timedelta(days=_RETENTION.completed_queue_days)
 
 
 def _coerce_datetime(value: Any) -> datetime | None:
@@ -241,6 +247,7 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
                                     "status": "failed",
                                     "error": "Marked stale by race recheck",
                                     "completed_at": datetime.now(timezone.utc).isoformat(),
+                                    "ttl_at": _queue_ttl_at(),
                                 }
                             )
                     except Exception as exc:
@@ -608,7 +615,9 @@ async def cancel_race(race_id: str) -> Dict[str, Any]:
     for doc in db.collection("pipeline_queue").where("race_id", "==", race_id).stream():
         d = doc.to_dict() or {}
         if d.get("status") in ("pending", "running"):
-            doc.reference.update({"status": "cancelled"})
+            doc.reference.update(
+                {"status": "cancelled", "lease_owner": None, "lease_expires_at": None, "ttl_at": _queue_ttl_at()}
+            )
     run_id = race_data.get("current_run_id")
     if run_id:
         run_ref = db.collection("pipeline_runs").document(run_id)
@@ -839,7 +848,7 @@ async def delete_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
             for queue_doc in db.collection("pipeline_queue").where("run_id", "==", run_id).stream():
                 queue_data = queue_doc.to_dict() or {}
                 if queue_data.get("status") in ("pending", "running"):
-                    queue_doc.reference.update({"status": "cancelled"})
+                    queue_doc.reference.update({"status": "cancelled", "ttl_at": _queue_ttl_at()})
             race_doc = db.collection("races").document(race_id).get()
             if race_doc.exists and (race_doc.to_dict() or {}).get("status") in ("running", "queued"):
                 firestore_helpers._fs_update_race(race_id, {"status": "cancelled"})

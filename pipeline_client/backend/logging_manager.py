@@ -13,7 +13,8 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message
+from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message_with_metadata
+from shared.pipeline_config import RetentionConfig
 
 logger = logging.getLogger("pipeline")
 
@@ -44,16 +45,22 @@ class PipelineLoggingHandler(logging.Handler):
 
     def emit(self, record: logging.LogRecord) -> None:
         try:
+            message, truncated = sanitize_log_message_with_metadata(
+                record.getMessage(),
+                max_chars=self.manager.retention.max_log_message_chars,
+            )
             log_entry = LogEntry(
                 timestamp=datetime.fromtimestamp(record.created).isoformat(),
                 level=record.levelname.lower(),
-                message=sanitize_log_message(record.getMessage()),
+                message=message,
                 step=getattr(record, "step", None),
                 run_id=getattr(record, "run_id", None),
                 race_id=getattr(record, "race_id", None),
                 duration_ms=getattr(record, "duration_ms", None),
                 extra=sanitize_log_data(getattr(record, "extra", None)),
             )
+            if truncated:
+                self.manager.truncated_logs += 1
             self.manager.add_log_to_queue(log_entry)
         except Exception:
             # Logging must never break the pipeline.
@@ -63,9 +70,13 @@ class PipelineLoggingHandler(logging.Handler):
 class LoggingManager:
     """Stores local log/status events and exposes async broadcast-compatible helpers."""
 
-    def __init__(self, buffer_size: int = 1000):
-        self.log_buffer: deque[LogEntry] = deque(maxlen=buffer_size)
-        self.status_buffer: deque[dict[str, Any]] = deque(maxlen=buffer_size)
+    def __init__(self, buffer_size: int | None = None):
+        self.retention = RetentionConfig.from_env()
+        size = buffer_size or self.retention.live_log_buffer_size
+        self.log_buffer: deque[LogEntry] = deque(maxlen=size)
+        self.status_buffer: deque[dict[str, Any]] = deque(maxlen=size)
+        self.dropped_logs = 0
+        self.truncated_logs = 0
         self.lock = threading.Lock()
         self._main_loop = None
 
@@ -88,6 +99,8 @@ class LoggingManager:
     def add_log_to_queue(self, log_entry: LogEntry) -> None:
         """Add a log entry to the local buffer."""
         with self.lock:
+            if len(self.log_buffer) == self.log_buffer.maxlen:
+                self.dropped_logs += 1
             self.log_buffer.append(log_entry)
 
         try:
@@ -116,6 +129,8 @@ class LoggingManager:
     async def broadcast_message(self, message_data: dict) -> None:
         """Store a structured status/log event for local debugging."""
         with self.lock:
+            if len(self.status_buffer) == self.status_buffer.maxlen:
+                self.dropped_logs += 1
             self.status_buffer.append(sanitize_log_data(message_data))
 
     async def send_run_status(self, run_id: str, status: str, **kwargs) -> None:

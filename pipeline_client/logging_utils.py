@@ -6,6 +6,8 @@ import re
 from typing import Any
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
+from shared.pipeline_config import RetentionConfig
+
 _SENSITIVE_QUERY_KEYS = frozenset({"key", "api_key", "apikey", "token", "access_token", "secret"})
 _URL_RE = re.compile(r"https?://[^\s\"'<>]+")
 _BEARER_RE = re.compile(r"(?i)\b(Bearer\s+)[A-Za-z0-9._~+/=-]+")
@@ -36,13 +38,30 @@ def _sanitize_url(match: re.Match[str]) -> str:
         return raw_url + trailing
 
 
-def sanitize_log_message(message: Any) -> str:
-    """Return a string safe to persist in pipeline logs."""
+def truncate_log_message(message: str, max_chars: int | None = None) -> tuple[str, bool]:
+    """Bound a sanitized log message and return whether it was truncated."""
+    limit = max_chars if max_chars is not None else RetentionConfig.from_env().max_log_message_chars
+    if len(message) <= limit:
+        return message, False
+    suffix = f"... [truncated to {limit} chars]"
+    if limit <= len(suffix):
+        return message[:limit], True
+    return message[: limit - len(suffix)] + suffix, True
+
+
+def sanitize_log_message_with_metadata(message: Any, *, max_chars: int | None = None) -> tuple[str, bool]:
+    """Return a safe log string plus a flag indicating post-sanitization truncation."""
     text = str(message)
     text = _URL_RE.sub(_sanitize_url, text)
     text = _HEADER_RE.sub(r"\1: [REDACTED]", text)
     text = _BEARER_RE.sub(r"\1[REDACTED]", text)
-    return _PROVIDER_KEY_RE.sub("[REDACTED]", text)
+    sanitized = _PROVIDER_KEY_RE.sub("[REDACTED]", text)
+    return truncate_log_message(sanitized, max_chars=max_chars)
+
+
+def sanitize_log_message(message: Any, *, max_chars: int | None = None) -> str:
+    """Return a string safe to persist in pipeline logs."""
+    return sanitize_log_message_with_metadata(message, max_chars=max_chars)[0]
 
 
 def sanitize_log_data(value: Any) -> Any:

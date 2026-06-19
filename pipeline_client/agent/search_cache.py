@@ -28,7 +28,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from shared.config import local_paths
+from shared.config import FIRESTORE_PAGE_CACHE_COLLECTION, FIRESTORE_SEARCH_CACHE_COLLECTION, local_paths
+from shared.pipeline_config import RetentionConfig
 
 logger = logging.getLogger("pipeline")
 
@@ -39,7 +40,7 @@ class SearchCache:
     def __init__(
         self,
         cache_dir: Optional[str] = None,
-        default_ttl_hours: int = 168,  # 7 days default - searches are stable
+        default_ttl_hours: Optional[int] = None,
     ):
         """
         Initialize the search cache.
@@ -48,7 +49,9 @@ class SearchCache:
             cache_dir: Directory for cache database. Defaults to ./data/cache
             default_ttl_hours: Default time-to-live for cache entries in hours (default 7 days)
         """
-        self.default_ttl_hours = default_ttl_hours
+        retention = RetentionConfig.from_env()
+        self.default_ttl_hours = default_ttl_hours or retention.search_cache_ttl_hours
+        self.page_ttl_hours = retention.page_cache_ttl_hours
 
         # Set up cache directory
         if cache_dir:
@@ -62,7 +65,7 @@ class SearchCache:
         # Initialize database
         self._init_db()
 
-        logger.info(f"Search cache initialized at {self.db_path} (TTL: {default_ttl_hours}h)")
+        logger.info(f"Search cache initialized at {self.db_path} (TTL: {self.default_ttl_hours}h)")
 
     def _init_db(self):
         """Initialize SQLite database schema."""
@@ -243,11 +246,12 @@ class SearchCache:
         logger.debug(f"Page cache MISS: {url[:60]}")
         return None
 
-    def set_page(self, url: str, content: str, ttl_hours: int = 24) -> bool:
+    def set_page(self, url: str, content: str, ttl_hours: Optional[int] = None) -> bool:
         """Cache stripped page text content. TTL defaults to 24h (pages change faster than searches)."""
         url_hash = hashlib.sha256(url.encode()).hexdigest()
+        ttl = ttl_hours or self.page_ttl_hours
         now = datetime.now(timezone.utc)
-        expires_at = now + timedelta(hours=ttl_hours)
+        expires_at = now + timedelta(hours=ttl)
         try:
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute(
@@ -259,7 +263,7 @@ class SearchCache:
                     (url_hash, url, content, len(content), now.isoformat(), expires_at.isoformat()),
                 )
                 conn.commit()
-            logger.debug(f"Page cached: {url[:60]} ({len(content)} chars, TTL: {ttl_hours}h)")
+            logger.debug(f"Page cached: {url[:60]} ({len(content)} chars, TTL: {ttl}h)")
             return True
         except sqlite3.Error as e:
             logger.error(f"Failed to cache page {url[:60]}: {e}")
@@ -384,18 +388,20 @@ class FirestoreSearchCache:
     results shared across all deployed workers.
     """
 
-    def __init__(self, project: Optional[str] = None, default_ttl_hours: int = 168):
-        self.default_ttl_hours = default_ttl_hours
+    def __init__(self, project: Optional[str] = None, default_ttl_hours: Optional[int] = None):
+        retention = RetentionConfig.from_env()
+        self.default_ttl_hours = default_ttl_hours or retention.search_cache_ttl_hours
+        self.page_ttl_hours = retention.page_cache_ttl_hours
         self.project = project or os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
         from google.cloud import firestore  # type: ignore
 
         self._db = firestore.Client(project=self.project) if self.project else firestore.Client()
-        self._search_collection = os.getenv("SEARCH_CACHE_FIRESTORE_COLLECTION", "search_cache")
-        self._page_collection = os.getenv("PAGE_CACHE_FIRESTORE_COLLECTION", "page_cache")
+        self._search_collection = os.getenv("SEARCH_CACHE_FIRESTORE_COLLECTION", FIRESTORE_SEARCH_CACHE_COLLECTION)
+        self._page_collection = os.getenv("PAGE_CACHE_FIRESTORE_COLLECTION", FIRESTORE_PAGE_CACHE_COLLECTION)
         logger.info(
             "Search cache initialized in Firestore collection %s (TTL: %sh)",
             self._search_collection,
-            default_ttl_hours,
+            self.default_ttl_hours,
         )
 
     def _query_hash(self, query_text: str, race_id: Optional[str] = None) -> str:
@@ -461,6 +467,7 @@ class FirestoreSearchCache:
         ttl = ttl_hours or self.default_ttl_hours
         now = datetime.now(timezone.utc)
         try:
+            expires_at = now + timedelta(hours=ttl)
             self._db.collection(self._search_collection).document(query_hash).set(
                 {
                     "query_hash": query_hash,
@@ -470,7 +477,8 @@ class FirestoreSearchCache:
                     "results": results,
                     "result_count": len(results),
                     "searched_at": now.isoformat(),
-                    "expires_at": (now + timedelta(hours=ttl)).isoformat(),
+                    "expires_at": expires_at.isoformat(),
+                    "ttl_at": expires_at,
                     "hit_count": 0,
                 }
             )
@@ -496,9 +504,11 @@ class FirestoreSearchCache:
             logger.warning("Firestore page cache read failed: %s", exc)
             return None
 
-    def set_page(self, url: str, content: str, ttl_hours: int = 24) -> bool:
+    def set_page(self, url: str, content: str, ttl_hours: Optional[int] = None) -> bool:
         now = datetime.now(timezone.utc)
+        ttl = ttl_hours or self.page_ttl_hours
         try:
+            expires_at = now + timedelta(hours=ttl)
             self._db.collection(self._page_collection).document(self._page_hash(url)).set(
                 {
                     "url_hash": self._page_hash(url),
@@ -506,7 +516,8 @@ class FirestoreSearchCache:
                     "content": content,
                     "content_length": len(content),
                     "fetched_at": now.isoformat(),
-                    "expires_at": (now + timedelta(hours=ttl_hours)).isoformat(),
+                    "expires_at": expires_at.isoformat(),
+                    "ttl_at": expires_at,
                     "hit_count": 0,
                 }
             )

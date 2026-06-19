@@ -16,11 +16,13 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from shared.config import GCS_RACES_PREFIX, local_paths
+from shared.pipeline_config import CANONICAL_ISSUE_COUNT, FreshnessConfig, PipelineRuntimeConfig
+
 from .settings import settings
 
 logger = logging.getLogger("pipeline")
 
-ROOT = Path(__file__).resolve().parents[2]
 ACKNOWLEDGED_FILE = Path(__file__).parent.parent / "acknowledged_alerts.json"
 
 
@@ -104,7 +106,7 @@ def _load_races(races_dir: Path) -> List[Dict[str, Any]]:
             client = gcs.Client()
             bucket = client.bucket(settings.gcs_bucket)
             races = []
-            for blob in bucket.list_blobs(prefix="races/", timeout=30):
+            for blob in bucket.list_blobs(prefix=f"{GCS_RACES_PREFIX}/", timeout=30):
                 if not blob.name.endswith(".json"):
                     continue
                 try:
@@ -143,6 +145,7 @@ def _parse_utc(ts: Optional[str]) -> Optional[datetime]:
 def evaluate_freshness(races: List[Dict[str, Any]]) -> List[Alert]:
     """Emit alerts for races not updated recently."""
     now = datetime.now(timezone.utc)
+    freshness = FreshnessConfig.from_env()
     alerts: List[Alert] = []
 
     for race in races:
@@ -161,7 +164,7 @@ def evaluate_freshness(races: List[Dict[str, Any]]) -> List[Alert]:
             continue
 
         age_days = (now - updated).days
-        if age_days > 30:
+        if age_days > freshness.alert_critical_days:
             alerts.append(
                 Alert(
                     id=f"freshness-critical-{race_id}",
@@ -171,7 +174,7 @@ def evaluate_freshness(races: List[Dict[str, Any]]) -> List[Alert]:
                     details={"race_id": race_id, "age_days": age_days, "updated_utc": race.get("updated_utc")},
                 )
             )
-        elif age_days > 14:
+        elif age_days > freshness.alert_warning_days:
             alerts.append(
                 Alert(
                     id=f"freshness-warning-{race_id}",
@@ -237,7 +240,7 @@ def evaluate_pipeline_failures(run_manager) -> List[Alert]:
 def evaluate_quality(races: List[Dict[str, Any]]) -> List[Alert]:
     """Emit alerts for races with poor data quality."""
     alerts: List[Alert] = []
-    TOTAL_ISSUES = 12
+    runtime_config = PipelineRuntimeConfig.from_env()
 
     for race in races:
         race_id = race.get("id", "unknown")
@@ -248,23 +251,23 @@ def evaluate_quality(races: List[Dict[str, Any]]) -> List[Alert]:
             issues = candidate.get("issues", {})
             issue_count = len([v for v in issues.values() if v and v.get("stance")])
 
-            if issue_count < 6:
+            if issue_count < runtime_config.quality_critical_issue_stances:
                 alerts.append(
                     Alert(
                         id=f"quality-critical-{race_id}-{name}",
                         severity="critical",
                         category="quality",
-                        message=f"{name} ({race_id}) only has {issue_count}/{TOTAL_ISSUES} issue stances",
+                        message=f"{name} ({race_id}) only has {issue_count}/{CANONICAL_ISSUE_COUNT} issue stances",
                         details={"race_id": race_id, "candidate": name, "issues_covered": issue_count},
                     )
                 )
-            elif issue_count < 8:
+            elif issue_count < runtime_config.quality_warning_issue_stances:
                 alerts.append(
                     Alert(
                         id=f"quality-warning-{race_id}-{name}",
                         severity="warning",
                         category="quality",
-                        message=f"{name} ({race_id}) only has {issue_count}/{TOTAL_ISSUES} issue stances",
+                        message=f"{name} ({race_id}) only has {issue_count}/{CANONICAL_ISSUE_COUNT} issue stances",
                         details={"race_id": race_id, "candidate": name, "issues_covered": issue_count},
                     )
                 )
@@ -326,8 +329,7 @@ def evaluate_analytics_health(overview: Optional[Dict[str, Any]]) -> List[Alert]
 
 def evaluate_all(run_manager, overview: Optional[Dict[str, Any]] = None) -> List[Alert]:
     """Run all alert rules and return active (non-acknowledged) alerts."""
-    races_dir = ROOT / "data" / "published"
-    races = _load_races(races_dir)
+    races = _load_races(local_paths.published_dir)
     acknowledged = _load_acknowledged()
 
     all_alerts: List[Alert] = []

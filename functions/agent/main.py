@@ -26,6 +26,7 @@ from typing import Any, Dict, Optional
 import functions_framework
 from cloudevents.http import CloudEvent
 
+from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields, build_versioned_catalog_fields
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
@@ -35,6 +36,7 @@ _FIRESTORE_PROJECT = os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
 _GCS_BUCKET = os.getenv("GCS_BUCKET", "")
 _QUEUE_LEASE_SECONDS = max(60, int(os.getenv("QUEUE_LEASE_SECONDS", "180")))
 _QUEUE_LEASE_RENEW_SECONDS = max(15, min(int(os.getenv("QUEUE_LEASE_RENEW_SECONDS", "60")), _QUEUE_LEASE_SECONDS // 2))
+_RETENTION = RetentionConfig.from_env()
 
 # ---------------------------------------------------------------------------
 # Lazy singletons
@@ -117,6 +119,11 @@ def _queue_item_owned(item_ref: Any, lease_owner: str) -> bool:
     except Exception:
         logger.exception("Failed to verify queue lease ownership")
         return False
+
+
+def _queue_ttl_at(now: Optional[datetime] = None) -> datetime:
+    base = now or datetime.now(timezone.utc)
+    return base + timedelta(days=_RETENTION.completed_queue_days)
 
 
 def _start_lease_heartbeat(db: Any, item_ref: Any, lease_owner: str) -> tuple[threading.Event, threading.Thread]:
@@ -237,6 +244,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "error": "Missing race_id",
                 "lease_owner": None,
                 "lease_expires_at": None,
+                "ttl_at": _queue_ttl_at(),
             }
         )
         return
@@ -318,6 +326,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                         "status": "cancelled",
                         "cancelled_at": datetime.now(timezone.utc).isoformat(),
                         "cancel_reason": f"Parent queue item {item_id} was cancelled during handoff",
+                        "ttl_at": _queue_ttl_at(),
                     }
                 )
             except Exception as cleanup_exc:
@@ -334,6 +343,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "continuation_item_id": exc.continuation_item_id,
                 "lease_owner": None,
                 "lease_expires_at": None,
+                "ttl_at": _queue_ttl_at(),
             }
         )
         continuation_run_id = getattr(exc, "continuation_run_id", None) or run_id
@@ -366,6 +376,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "completed_at": datetime.now(timezone.utc).isoformat(),
                 "lease_owner": None,
                 "lease_expires_at": None,
+                "ttl_at": _queue_ttl_at(),
             }
         )
         run_ref.update({"status": "cancelled", "completed_at": SERVER_TIMESTAMP})
@@ -394,6 +405,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "completed_at": datetime.now(timezone.utc).isoformat(),
                 "lease_owner": None,
                 "lease_expires_at": None,
+                "ttl_at": _queue_ttl_at(),
             }
         )
         run_ref.update(
@@ -426,6 +438,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "error": error_msg,
                 "lease_owner": None,
                 "lease_expires_at": None,
+                "ttl_at": _queue_ttl_at(),
             }
         )
         run_ref.update({"status": "failed", "error": error_msg, "completed_at": SERVER_TIMESTAMP})

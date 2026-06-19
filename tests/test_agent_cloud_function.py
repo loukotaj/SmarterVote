@@ -230,6 +230,7 @@ def test_marks_failed_when_race_id_missing():
     item_ref.update.assert_called_once()
     args = item_ref.update.call_args[0][0]
     assert args["status"] == "failed"
+    assert args["ttl_at"] > datetime.now(timezone.utc)
 
 
 # ---------------------------------------------------------------------------
@@ -261,6 +262,8 @@ def test_marks_completed_on_success():
     update_calls = [c[0][0] for c in item_ref.update.call_args_list]
     statuses = [u.get("status") for u in update_calls]
     assert "completed" in statuses, f"Expected 'completed' in {statuses}"
+    completed_update = next(u for u in update_calls if u.get("status") == "completed")
+    assert completed_update["ttl_at"] > datetime.now(timezone.utc)
 
     # races doc updated with draft and run summary metadata
     race_set_calls = [c[0][0] for c in race_ref.set.call_args_list]
@@ -300,6 +303,8 @@ def test_marks_failed_on_exception():
     update_calls = [c[0][0] for c in item_ref.update.call_args_list]
     statuses = [u.get("status") for u in update_calls]
     assert "failed" in statuses, f"Expected 'failed' in {statuses}"
+    failed_update = next(u for u in update_calls if u.get("status") == "failed")
+    assert failed_update["ttl_at"] > datetime.now(timezone.utc)
 
     # Error message should be recorded
     errors = [u.get("error") for u in update_calls if u.get("status") == "failed"]
@@ -340,6 +345,8 @@ def test_marks_cancelled_on_agent_cancelled():
     race_sets = [c[0][0] for c in race_ref.set.call_args_list]
 
     assert any(update.get("status") == "cancelled" for update in item_updates)
+    cancelled_update = next(update for update in item_updates if update.get("status") == "cancelled")
+    assert cancelled_update["ttl_at"] > datetime.now(timezone.utc)
     assert any(update.get("status") == "cancelled" for update in run_updates)
     assert any(update.get("status") == "cancelled" for update in race_sets)
     assert any(update.get("status") == "cancelled" and update.get("current_run_id") is None for update in race_sets)
@@ -521,6 +528,8 @@ def test_marks_continued_on_handoff():
 
     continuation_ids = [u.get("continuation_item_id") for u in update_calls if u.get("status") == "continued"]
     assert "item-continuation-abc" in continuation_ids
+    continued_update = next(u for u in update_calls if u.get("status") == "continued")
+    assert continued_update["ttl_at"] > datetime.now(timezone.utc)
 
 
 def test_handoff_records_continuation_run_id():

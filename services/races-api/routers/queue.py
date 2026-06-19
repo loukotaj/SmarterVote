@@ -6,6 +6,7 @@ by the Eventarc-triggered Cloud Function.
 """
 
 import uuid
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
 
 import firestore_helpers
@@ -13,33 +14,22 @@ from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
 from request_models import RaceQueueRequest, validate_race_id
 
+from shared.pipeline_config import PIPELINE_STEP_LABELS, PIPELINE_STEP_ORDER, PIPELINE_STEP_WEIGHTS, RetentionConfig
+
 router = APIRouter()
 
-_PIPELINE_STEPS = [
-    "discovery",
-    "images",
-    "issues",
-    "finance",
-    "refinement",
-    "polling",
-    "voter_resources",
-    "review",
-    "iteration",
-]
+_PIPELINE_STEPS = list(PIPELINE_STEP_ORDER)
 _PIPELINE_STEP_DETAILS = [
-    {"id": "discovery", "label": "Discovery", "weight": 12},
-    {"id": "images", "label": "Image Resolution", "weight": 4},
-    {"id": "issues", "label": "Issue Research", "weight": 30},
-    {"id": "finance", "label": "Finance & Voting", "weight": 9},
-    {"id": "refinement", "label": "Refinement", "weight": 12},
-    {"id": "polling", "label": "Polling", "weight": 8},
-    {"id": "voter_resources", "label": "Voter Resources", "weight": 5},
-    {"id": "review", "label": "AI Review", "weight": 12},
-    {"id": "iteration", "label": "Review Iteration", "weight": 8},
+    {"id": step, "label": PIPELINE_STEP_LABELS[step], "weight": PIPELINE_STEP_WEIGHTS[step]} for step in PIPELINE_STEP_ORDER
 ]
 _ACTIVE_STATUSES = {"pending", "running"}
 _TERMINAL_STATUSES = {"completed", "failed", "cancelled", "continued"}
 _INACTIVE_RACE_STATUSES = {"draft", "published", "empty", "failed", "cancelled"}
+_RETENTION = RetentionConfig.from_env()
+
+
+def _queue_ttl_at() -> datetime:
+    return datetime.now(timezone.utc) + timedelta(days=_RETENTION.completed_queue_days)
 
 
 def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
@@ -121,7 +111,7 @@ def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[
                 run_data = None
             run_status = (run_data or {}).get("status")
             if run_status in _TERMINAL_STATUSES:
-                updates = {"status": run_status}
+                updates = {"status": run_status, "ttl_at": _queue_ttl_at()}
                 for field in ("completed_at", "error", "artifact_id", "duration_ms"):
                     if (run_data or {}).get(field) is not None:
                         updates[field] = run_data[field]
@@ -140,6 +130,7 @@ def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[
                         updates = {
                             "status": "cancelled",
                             "error": f"Superseded by race current_run_id {current_run_id}",
+                            "ttl_at": _queue_ttl_at(),
                         }
             if updates:
                 next_item.update(updates)
@@ -257,7 +248,7 @@ async def clear_pending_queue() -> Dict[str, Any]:
     docs = db.collection("pipeline_queue").where("status", "==", "pending").limit(500).stream()
     for doc in docs:
         data = doc.to_dict() or {}
-        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
+        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None, "ttl_at": _queue_ttl_at()})
         removed += 1
         race_id = data.get("race_id")
         if race_id:
@@ -288,7 +279,7 @@ async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]
         return {"ok": True, "action": "force_removed", "id": item_id}
 
     if status == "pending":
-        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
+        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None, "ttl_at": _queue_ttl_at()})
         if race_id:
             firestore_helpers._fs_update_race(race_id, {"status": "idle", "current_run_id": None})
         return {"ok": True, "action": "cancelled", "id": item_id}
@@ -297,7 +288,7 @@ async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]
         return {"ok": True, "action": "removed", "id": item_id}
     else:
         # running — mark cancelled; CF will check at next step boundary
-        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
+        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None, "ttl_at": _queue_ttl_at()})
         if race_id:
             firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
         return {"ok": True, "action": "cancelled", "id": item_id}

@@ -115,13 +115,18 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
                 artifact_id = new_artifact_id(step)
                 import json as _json
 
+                artifact_output = _json.loads(_json.dumps(output, default=str))
+                if isinstance(artifact_output, dict) and isinstance(artifact_output.get("agent_logs"), list):
+                    artifact_output["agent_log_count"] = len(artifact_output["agent_logs"])
+                    artifact_output.pop("agent_logs", None)
+
                 save_artifact(
                     artifact_id,
                     {
                         "step": step,
                         "input": request.payload,
                         "options": options,
-                        "output": _json.loads(_json.dumps(output, default=str)),
+                        "output": artifact_output,
                         "run_started_utc": run_started_utc,
                         "duration_ms": duration_ms,
                         "run_id": run_id,

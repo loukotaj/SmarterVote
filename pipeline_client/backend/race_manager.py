@@ -21,6 +21,8 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
+from shared.pipeline_config import FreshnessConfig
+
 from .models import RunInfo, RunStatus
 
 logger = logging.getLogger("pipeline")
@@ -86,11 +88,12 @@ def _compute_freshness(updated_utc: Optional[str]) -> str:
         days = diff.days
     except Exception:
         return "stale"
-    if days <= 7:
+    config = FreshnessConfig.from_env()
+    if days <= config.fresh_days:
         return "fresh"
-    if days <= 14:
+    if days <= config.recent_days:
         return "recent"
-    if days <= 30:
+    if days <= config.aging_days:
         return "aging"
     return "stale"
 

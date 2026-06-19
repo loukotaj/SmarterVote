@@ -6,18 +6,14 @@ from typing import Any, Dict, List, Optional
 from fastapi import HTTPException
 from pydantic import BaseModel, field_validator, model_validator
 
+from shared.pipeline_config import (
+    normalize_model_profile,
+    normalize_pipeline_steps,
+    normalize_review_providers,
+    validate_model_override_keys,
+)
+
 _RACE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,99}$")
-_PIPELINE_STEPS = {
-    "discovery",
-    "images",
-    "issues",
-    "finance",
-    "refinement",
-    "polling",
-    "voter_resources",
-    "review",
-    "iteration",
-}
 
 
 def validate_race_id(race_id: str) -> None:
@@ -47,16 +43,19 @@ class RunOptions(BaseModel):
     @field_validator("enabled_steps")
     @classmethod
     def validate_enabled_steps(cls, value: Optional[List[str]]) -> Optional[List[str]]:
-        if value is None:
-            return None
-        normalized = [step.strip() for step in value if isinstance(step, str) and step.strip()]
-        if not normalized:
-            raise ValueError("enabled_steps cannot be empty when provided")
-        deduped = list(dict.fromkeys(normalized))
-        invalid = [step for step in deduped if step not in _PIPELINE_STEPS]
-        if invalid:
-            raise ValueError(f"Unknown enabled_steps: {', '.join(invalid)}")
-        return deduped
+        return normalize_pipeline_steps(value)
+
+    @field_validator("max_candidates")
+    @classmethod
+    def validate_max_candidates(cls, value: Optional[int]) -> Optional[int]:
+        if value is not None and value < 1:
+            raise ValueError("max_candidates must be at least 1 when provided")
+        return value
+
+    @field_validator("model_overrides")
+    @classmethod
+    def validate_model_overrides(cls, value: Optional[Dict[str, str]]) -> Optional[Dict[str, str]]:
+        return validate_model_override_keys(value)
 
     @field_validator("candidate_names")
     @classmethod
@@ -69,24 +68,12 @@ class RunOptions(BaseModel):
     @field_validator("model_profile")
     @classmethod
     def validate_model_profile(cls, value: Optional[str]) -> Optional[str]:
-        if value is None:
-            return None
-        normalized = value.strip().lower()
-        if normalized not in {"economy", "balanced", "quality", "custom"}:
-            raise ValueError("model_profile must be one of: economy, balanced, quality, custom")
-        return normalized
+        return normalize_model_profile(value)
 
     @field_validator("review_providers")
     @classmethod
     def validate_review_providers(cls, value: Optional[List[str]]) -> Optional[List[str]]:
-        if value is None:
-            return None
-        normalized = [provider.strip().lower() for provider in value if isinstance(provider, str) and provider.strip()]
-        deduped = list(dict.fromkeys(normalized))
-        invalid = [provider for provider in deduped if provider not in {"claude", "gemini", "grok"}]
-        if invalid:
-            raise ValueError(f"Unknown review_providers: {', '.join(invalid)}")
-        return deduped
+        return normalize_review_providers(value)
 
     @model_validator(mode="after")
     def validate_step_dependencies(self) -> "RunOptions":

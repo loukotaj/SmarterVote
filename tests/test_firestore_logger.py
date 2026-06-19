@@ -19,19 +19,49 @@ def mock_db():
 
 
 def test_log_writes_to_subcollection(mock_db):
-    """log() writes a document to pipeline_runs/{run_id}/logs/."""
+    """log() batches entries and flush() writes them to pipeline_runs/{run_id}/logs/."""
     logger = FirestoreLogger("run-001")
     logger.log("info", "Test message", step="issues")
+    logger.flush()
 
     run_ref = mock_db.collection.return_value.document.return_value
     logs_col = run_ref.collection.return_value
     doc_ref = logs_col.document.return_value
-    doc_ref.set.assert_called_once()
-    written = doc_ref.set.call_args[0][0]
+    batch = mock_db.batch.return_value
+    batch.set.assert_called_once()
+    batch.commit.assert_called_once()
+    assert batch.set.call_args.args[0] == doc_ref
+    written = batch.set.call_args.args[1]
     assert written["level"] == "info"
     assert written["message"] == "Test message"
     assert written["step"] == "issues"
     assert written["run_id"] == "run-001"
+
+
+def test_log_flushes_at_configured_batch_size(mock_db, monkeypatch):
+    monkeypatch.setenv("PIPELINE_FIRESTORE_LOG_BATCH_SIZE", "2")
+    logger = FirestoreLogger("run-batch")
+
+    logger.log("info", "one")
+    assert mock_db.batch.return_value.commit.call_count == 0
+
+    logger.log("info", "two")
+
+    assert mock_db.batch.return_value.set.call_count == 2
+    assert mock_db.batch.return_value.commit.call_count == 1
+
+
+def test_log_truncates_before_batch_write(mock_db, monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_LOG_MESSAGE_CHARS", "256")
+    logger = FirestoreLogger("run-truncate")
+
+    logger.log("warning", "x" * 1000)
+    logger.flush()
+
+    written = mock_db.batch.return_value.set.call_args.args[1]
+    assert len(written["message"]) <= 256
+    assert written["truncated"] is True
+    assert logger.truncated_log_count == 1
 
 
 def test_log_swallows_exceptions():

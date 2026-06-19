@@ -11,13 +11,20 @@ import json
 import logging
 import os
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 from shared.config import FIRESTORE_QUEUE_COLLECTION, local_paths
+from shared.pipeline_config import (
+    RetentionConfig,
+    normalize_model_profile,
+    normalize_pipeline_steps,
+    normalize_review_providers,
+    validate_model_override_keys,
+)
 
 logger = logging.getLogger("pipeline")
 
@@ -38,6 +45,33 @@ class QueueItemOptions(BaseModel):
     target_no_info: bool = False
     candidate_names: Optional[List[str]] = None
 
+    @field_validator("enabled_steps")
+    @classmethod
+    def validate_enabled_steps(cls, value: Optional[List[str]]) -> Optional[List[str]]:
+        return normalize_pipeline_steps(value)
+
+    @field_validator("max_candidates")
+    @classmethod
+    def validate_max_candidates(cls, value: Optional[int]) -> Optional[int]:
+        if value is not None and value < 1:
+            raise ValueError("max_candidates must be at least 1 when provided")
+        return value
+
+    @field_validator("model_overrides")
+    @classmethod
+    def validate_model_overrides(cls, value: Optional[Dict[str, str]]) -> Optional[Dict[str, str]]:
+        return validate_model_override_keys(value)
+
+    @field_validator("model_profile")
+    @classmethod
+    def validate_model_profile(cls, value: Optional[str]) -> Optional[str]:
+        return normalize_model_profile(value)
+
+    @field_validator("review_providers")
+    @classmethod
+    def validate_review_providers(cls, value: Optional[List[str]]) -> Optional[List[str]]:
+        return normalize_review_providers(value)
+
 
 class QueueItem(BaseModel):
     id: str
@@ -49,6 +83,7 @@ class QueueItem(BaseModel):
     started_at: Optional[str] = None
     completed_at: Optional[str] = None
     error: Optional[str] = None
+    ttl_at: Optional[datetime] = None
 
 
 class QueueManager:
@@ -59,6 +94,7 @@ class QueueManager:
     """
 
     def __init__(self, storage_path: str | Path | None = None):
+        self.retention = RetentionConfig.from_env()
         self._storage_path = Path(storage_path) if storage_path is not None else local_paths.local_queue_path
         self._items: List[QueueItem] = []
         self._processing = False
@@ -350,7 +386,9 @@ class QueueManager:
         for item in self._items:
             if item.id == item_id:
                 item.status = "completed"
-                item.completed_at = datetime.now(timezone.utc).isoformat()
+                now = datetime.now(timezone.utc)
+                item.completed_at = now.isoformat()
+                item.ttl_at = now + timedelta(days=self.retention.completed_queue_days)
                 if self._use_firestore:
                     self._persist_item_firestore(item)
                 else:
@@ -362,7 +400,9 @@ class QueueManager:
             if item.id == item_id:
                 item.status = "failed"
                 item.error = error
-                item.completed_at = datetime.now(timezone.utc).isoformat()
+                now = datetime.now(timezone.utc)
+                item.completed_at = now.isoformat()
+                item.ttl_at = now + timedelta(days=self.retention.completed_queue_days)
                 if self._use_firestore:
                     self._persist_item_firestore(item)
                 else:

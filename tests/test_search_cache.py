@@ -77,6 +77,11 @@ def test_firestore_search_cache_round_trips_search_and_page(monkeypatch):
     assert cache.set("roy cooper image", [{"title": "Roy", "url": "https://ballotpedia.org/Roy_Cooper"}], race_id="nc")
     assert cache.set_page("https://ballotpedia.org/Roy_Cooper", "Roy Cooper page text")
 
+    search_doc = cache._db.collection(cache._search_collection).docs[cache._query_hash("roy cooper image", "nc")]
+    page_doc = cache._db.collection(cache._page_collection).docs[cache._page_hash("https://ballotpedia.org/Roy_Cooper")]
+    assert "ttl_at" in search_doc
+    assert "ttl_at" in page_doc
+
     cached = cache.get("roy cooper image", "nc")
     assert cached is not None
     assert cached["results"][0]["url"] == "https://ballotpedia.org/Roy_Cooper"

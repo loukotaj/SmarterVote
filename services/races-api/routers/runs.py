@@ -12,12 +12,19 @@ import firestore_helpers
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
 
+from shared.pipeline_config import RetentionConfig
+
 router = APIRouter()
 
 _ACTIVE_STATUSES = {"pending", "running"}
 _TERMINAL_STATUSES = {"completed", "failed", "cancelled", "continued"}
 _INACTIVE_RACE_STATUSES = {"draft", "published", "empty", "failed", "cancelled"}
 _STALE_ACTIVE_RUN_SECONDS = int(os.getenv("STALE_ACTIVE_RUN_SECONDS", "7200"))
+_RETENTION = RetentionConfig.from_env()
+
+
+def _queue_ttl_at() -> datetime:
+    return datetime.now(timezone.utc) + timedelta(days=_RETENTION.completed_queue_days)
 
 
 def _coerce_datetime(value: Any) -> datetime | None:
@@ -155,6 +162,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
                     firestore_helpers._fs_update_race(str(race_id), {"current_run_id": None})
                     return run
                 update = {"status": "cancelled", "error": f"Superseded by race current_run_id {current_run_id}"}
+                queue_update = {**update, "ttl_at": _queue_ttl_at()}
                 try:
                     runs_ref.document(str(run_id)).update(update)
                 except Exception:
@@ -163,7 +171,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
                     queue_data = queue_doc.to_dict() or {}
                     if queue_data.get("status") in _ACTIVE_STATUSES:
                         try:
-                            queue_doc.reference.update(update)
+                            queue_doc.reference.update(queue_update)
                         except Exception:
                             pass
                 return None
@@ -187,6 +195,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
                             "status": "failed",
                             "error": "Marked stale by active run listing",
                             "completed_at": now.isoformat(),
+                            "ttl_at": _queue_ttl_at(),
                         }
                     )
                 except Exception:
@@ -330,7 +339,9 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
         for queue_doc in db.collection("pipeline_queue").where("run_id", "==", run_id).limit(20).stream():
             queue_data = queue_doc.to_dict() or {}
             if queue_data.get("status") in ("pending", "running"):
-                queue_doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
+                queue_doc.reference.update(
+                    {"status": "cancelled", "lease_owner": None, "lease_expires_at": None, "ttl_at": _queue_ttl_at()}
+                )
         race_id = data.get("race_id")
         if race_id:
             race_doc = db.collection("races").document(str(race_id)).get()

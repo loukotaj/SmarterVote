@@ -9,11 +9,12 @@ import asyncio
 import copy
 import json
 import logging
-import os
 import re
 import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
+
+from shared.pipeline_config import PipelineRuntimeConfig
 
 logger = logging.getLogger("pipeline")
 
@@ -434,6 +435,7 @@ async def _run_issue_research_for_candidate(
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
 
     handoffs: List[Dict[str, Any]] = []
+    total_issues = len(CANONICAL_ISSUES)
 
     for issue_idx, issue in enumerate(CANONICAL_ISSUES):
         existing_issue_data: Dict[str, Any] | None = None
@@ -445,7 +447,7 @@ async def _run_issue_research_for_candidate(
                 break
 
         if resume_partial and existing_issue_data is not None:
-            log("info", f"    Issue {issue_idx + 1}/12: {issue} already present; skipping")
+            log("info", f"    Issue {issue_idx + 1}/{total_issues}: {issue} already present; skipping")
             handoffs.append(
                 {
                     "issue": issue,
@@ -510,7 +512,7 @@ async def _run_issue_research_for_candidate(
                 candidate_issue_urls=issue_hint_text,
             )
 
-        log("info", f"    Issue {issue_idx + 1}/12: {issue}")
+        log("info", f"    Issue {issue_idx + 1}/{total_issues}: {issue}")
 
         try:
             await _agent_loop(
@@ -785,9 +787,9 @@ async def _run_shared_phases(
         rn = len(research_names)
         n_issues = len(CANONICAL_ISSUES)
         total_units = max(rn * n_issues, 1)
-        configured_concurrency = int(os.getenv("PIPELINE_ISSUE_CONCURRENCY", "3"))
-        issue_concurrency = max(1, min(configured_concurrency, 8))
-        max_issue_attempts = max(1, int(os.getenv("PIPELINE_ISSUE_MAX_ATTEMPTS", "3")))
+        runtime_config = PipelineRuntimeConfig.from_env()
+        issue_concurrency = runtime_config.issue_concurrency
+        max_issue_attempts = runtime_config.issue_max_attempts
         semaphore = asyncio.Semaphore(issue_concurrency)
         candidates_by_name = {
             str(candidate.get("name")): candidate

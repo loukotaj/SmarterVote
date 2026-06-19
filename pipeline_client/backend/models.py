@@ -4,6 +4,16 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+from shared.pipeline_config import (
+    PIPELINE_STEP_LABELS,
+    PIPELINE_STEP_ORDER,
+    PIPELINE_STEP_WEIGHTS,
+    normalize_model_profile,
+    normalize_pipeline_steps,
+    normalize_review_providers,
+    validate_model_override_keys,
+)
+
 
 class RunStatus(str, Enum):
     PENDING = "pending"
@@ -35,33 +45,13 @@ class PipelineStep(str, Enum):
 
 
 # Ordered lists for run creation
-ALL_STEPS: List[str] = [s.value for s in PipelineStep]
+ALL_STEPS: List[str] = list(PIPELINE_STEP_ORDER)
 
 # Human-readable labels for each step
-STEP_LABELS: Dict[str, str] = {
-    PipelineStep.DISCOVERY: "Discovery",
-    PipelineStep.IMAGES: "Image Resolution",
-    PipelineStep.ISSUES: "Issue Research",
-    PipelineStep.FINANCE: "Finance & Voting",
-    PipelineStep.REFINEMENT: "Refinement",
-    PipelineStep.POLLING: "Polling",
-    PipelineStep.VOTER_RESOURCES: "Voter Resources",
-    PipelineStep.REVIEW: "AI Review",
-    PipelineStep.ITERATION: "Review Iteration",
-}
+STEP_LABELS: Dict[str, str] = dict(PIPELINE_STEP_LABELS)
 
 # Weights for progress computation (must sum to 100)
-STEP_WEIGHTS: Dict[str, int] = {
-    PipelineStep.DISCOVERY: 12,
-    PipelineStep.IMAGES: 4,
-    PipelineStep.ISSUES: 30,
-    PipelineStep.FINANCE: 9,
-    PipelineStep.REFINEMENT: 12,
-    PipelineStep.POLLING: 8,
-    PipelineStep.VOTER_RESOURCES: 5,
-    PipelineStep.REVIEW: 12,
-    PipelineStep.ITERATION: 8,
-}
+STEP_WEIGHTS: Dict[str, int] = dict(PIPELINE_STEP_WEIGHTS)
 
 
 class RunOptions(BaseModel):
@@ -89,16 +79,19 @@ class RunOptions(BaseModel):
     @field_validator("enabled_steps")
     @classmethod
     def validate_enabled_steps(cls, value: Optional[List[str]]) -> Optional[List[str]]:
-        if value is None:
-            return None
-        normalized = [step.strip() for step in value if isinstance(step, str) and step.strip()]
-        if not normalized:
-            raise ValueError("enabled_steps cannot be empty when provided")
-        deduped = list(dict.fromkeys(normalized))
-        invalid = [step for step in deduped if step not in ALL_STEPS]
-        if invalid:
-            raise ValueError(f"Unknown enabled_steps: {', '.join(invalid)}")
-        return deduped
+        return normalize_pipeline_steps(value)
+
+    @field_validator("max_candidates")
+    @classmethod
+    def validate_max_candidates(cls, value: Optional[int]) -> Optional[int]:
+        if value is not None and value < 1:
+            raise ValueError("max_candidates must be at least 1 when provided")
+        return value
+
+    @field_validator("model_overrides")
+    @classmethod
+    def validate_model_overrides(cls, value: Optional[Dict[str, str]]) -> Optional[Dict[str, str]]:
+        return validate_model_override_keys(value)
 
     @field_validator("candidate_names")
     @classmethod
@@ -111,24 +104,12 @@ class RunOptions(BaseModel):
     @field_validator("model_profile")
     @classmethod
     def validate_model_profile(cls, value: Optional[str]) -> Optional[str]:
-        if value is None:
-            return None
-        normalized = value.strip().lower()
-        if normalized not in {"economy", "balanced", "quality", "custom"}:
-            raise ValueError("model_profile must be one of: economy, balanced, quality, custom")
-        return normalized
+        return normalize_model_profile(value)
 
     @field_validator("review_providers")
     @classmethod
     def validate_review_providers(cls, value: Optional[List[str]]) -> Optional[List[str]]:
-        if value is None:
-            return None
-        normalized = [provider.strip().lower() for provider in value if isinstance(provider, str) and provider.strip()]
-        deduped = list(dict.fromkeys(normalized))
-        invalid = [provider for provider in deduped if provider not in {"claude", "gemini", "grok"}]
-        if invalid:
-            raise ValueError(f"Unknown review_providers: {', '.join(invalid)}")
-        return deduped
+        return normalize_review_providers(value)
 
     @model_validator(mode="after")
     def validate_step_dependencies(self) -> "RunOptions":

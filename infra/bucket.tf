@@ -40,6 +40,26 @@ resource "google_storage_bucket" "sv_data" {
     }
   }
 
+  lifecycle_rule {
+    condition {
+      age            = 30
+      matches_prefix = ["artifacts/"]
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
+  lifecycle_rule {
+    condition {
+      age            = 7
+      matches_prefix = ["checkpoints/"]
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
   # Prevent accidental deletion and ignore certain changes
   lifecycle {
     prevent_destroy = true
@@ -60,6 +80,8 @@ resource "google_storage_bucket_object" "folders" {
     "races/",
     "drafts/",
     "retired/",
+    "artifacts/",
+    "checkpoints/",
   ])
 
   name    = each.value

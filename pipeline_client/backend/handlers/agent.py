@@ -11,11 +11,14 @@ import re
 import shutil
 import time
 import uuid
+from collections import deque
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Deque, Dict, List, Optional, Set
 
+from pipeline_client.logging_utils import sanitize_log_message_with_metadata
 from shared.config import GCS_CHECKPOINTS_PREFIX, local_paths
+from shared.pipeline_config import RetentionConfig
 
 
 class HandoffTriggered(Exception):
@@ -570,16 +573,27 @@ class AgentHandler:
         # before we define on_log below)
         race_json_holder: List[Optional[Dict[str, Any]]] = [existing_data if isinstance(existing_data, dict) else None]
 
-        # --- Log collector ---
-        agent_logs: list[Dict[str, Any]] = []
+        # --- Bounded log collector for response/debug metadata ---
+        retention = RetentionConfig.from_env()
+        agent_logs: Deque[Dict[str, Any]] = deque(maxlen=retention.run_log_buffer_size)
+        log_stats = {"dropped": 0, "truncated": 0}
 
         def on_log(level: str, message: str) -> None:
             _maybe_handoff("during log callback", step=_current_step, pct=0)
+            safe_message, truncated = sanitize_log_message_with_metadata(
+                message,
+                max_chars=retention.max_log_message_chars,
+            )
             log_entry = {
                 "level": level,
-                "message": message,
+                "message": safe_message,
                 "timestamp": datetime.now(timezone.utc).isoformat(),
             }
+            if truncated:
+                log_entry["truncated"] = True
+                log_stats["truncated"] += 1
+            if len(agent_logs) == agent_logs.maxlen:
+                log_stats["dropped"] += 1
             agent_logs.append(log_entry)
             if run_id and _run_manager:
                 try:
@@ -678,7 +692,8 @@ class AgentHandler:
             "race_json": race_json,
             "draft_path": str(draft_path),
             "duration_ms": duration_ms,
-            "agent_logs": agent_logs,
+            "agent_logs": list(agent_logs),
+            "log_stats": log_stats,
             "status": "draft",
         }
 

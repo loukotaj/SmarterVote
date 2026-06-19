@@ -13,11 +13,14 @@ a Firestore outage never crashes the agent.
 
 import logging
 import os
+import threading
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 
-from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message
+from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message, sanitize_log_message_with_metadata
+from shared.config import FIRESTORE_RUNS_COLLECTION
+from shared.pipeline_config import RetentionConfig
 
 logger = logging.getLogger("pipeline")
 
@@ -53,6 +56,11 @@ class FirestoreLogger:
     def __init__(self, run_id: str):
         self.run_id = run_id
         self._log_counter = 0
+        self.retention = RetentionConfig.from_env()
+        self._pending_logs: list[tuple[str, Dict[str, Any]]] = []
+        self._lock = threading.Lock()
+        self.dropped_log_count = 0
+        self.truncated_log_count = 0
 
     # ------------------------------------------------------------------
     # Log entry writer
@@ -77,22 +85,62 @@ class FirestoreLogger:
             # when Firestore timestamps have the same millisecond.
             ts = datetime.now(timezone.utc)
             doc_id = f"{int(ts.timestamp() * 1000):016d}_{self._log_counter:06d}"
+            safe_message, was_truncated = sanitize_log_message_with_metadata(
+                message,
+                max_chars=self.retention.max_log_message_chars,
+            )
             entry: Dict[str, Any] = {
                 "timestamp": ts.isoformat(),
                 "level": level,
-                "message": sanitize_log_message(message),
+                "message": safe_message,
                 "run_id": self.run_id,
+                "ttl_at": ts + timedelta(days=self.retention.live_run_logs_days),
             }
+            if was_truncated:
+                entry["truncated"] = True
             if step:
                 entry["step"] = step
             if race_id:
                 entry["race_id"] = race_id
             if extra:
                 entry["extra"] = sanitize_log_data(extra)
-            (db.collection("pipeline_runs").document(self.run_id).collection("logs").document(doc_id).set(entry))
+            should_flush = False
+            with self._lock:
+                if was_truncated:
+                    self.truncated_log_count += 1
+                self._pending_logs.append((doc_id, entry))
+                should_flush = len(self._pending_logs) >= self.retention.firestore_log_batch_size
+            if should_flush:
+                self.flush()
         except Exception as exc:
             # Never crash the agent because of a logging failure
             logger.debug("FirestoreLogger.log failed: %s", exc)
+
+    def flush(self) -> None:
+        """Flush buffered log entries to Firestore in one batch when supported."""
+        with self._lock:
+            pending = list(self._pending_logs)
+            self._pending_logs.clear()
+        if not pending:
+            return
+        try:
+            db = _get_db()
+            if db is None:
+                return
+            run_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id)
+            if hasattr(db, "batch"):
+                batch = db.batch()
+                for doc_id, entry in pending:
+                    batch.set(run_ref.collection("logs").document(doc_id), entry)
+                batch.commit()
+            else:
+                logs = run_ref.collection("logs")
+                for doc_id, entry in pending:
+                    logs.document(doc_id).set(entry)
+        except Exception as exc:
+            with self._lock:
+                self.dropped_log_count += len(pending)
+            logger.debug("FirestoreLogger.flush failed: %s", exc)
 
     # ------------------------------------------------------------------
     # Progress / status update
@@ -109,6 +157,7 @@ class FirestoreLogger:
         status: Optional[str] = None,
     ) -> None:
         """Update the top-level run document with current progress fields."""
+        self.flush()
         db = _get_db()
         if db is None:
             return
@@ -127,12 +176,13 @@ class FirestoreLogger:
                 update["remaining_steps"] = remaining_steps
             if status is not None:
                 update["status"] = status
-            db.collection("pipeline_runs").document(self.run_id).set(update, merge=True)
+            db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(update, merge=True)
         except Exception as exc:
             logger.debug("FirestoreLogger.update_progress failed: %s", exc)
 
     def mark_completed(self, *, duration_ms: Optional[int] = None) -> None:
         """Mark the run document as completed."""
+        self.flush()
         db = _get_db()
         if db is None:
             return
@@ -144,12 +194,18 @@ class FirestoreLogger:
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
-            db.collection("pipeline_runs").document(self.run_id).set(update, merge=True)
+            if self.truncated_log_count or self.dropped_log_count:
+                update["log_stats"] = {
+                    "truncated": self.truncated_log_count,
+                    "dropped": self.dropped_log_count,
+                }
+            db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(update, merge=True)
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_completed failed: %s", exc)
 
     def mark_failed(self, error: str, *, duration_ms: Optional[int] = None) -> None:
         """Mark the run document as failed."""
+        self.flush()
         db = _get_db()
         if db is None:
             return
@@ -161,19 +217,25 @@ class FirestoreLogger:
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
-            db.collection("pipeline_runs").document(self.run_id).set(update, merge=True)
+            if self.truncated_log_count or self.dropped_log_count:
+                update["log_stats"] = {
+                    "truncated": self.truncated_log_count,
+                    "dropped": self.dropped_log_count,
+                }
+            db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(update, merge=True)
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_failed failed: %s", exc)
 
     def mark_handoff(self, continuation_item_id: str) -> None:
         """Record an invocation handoff while keeping the logical run active."""
+        self.flush()
         db = _get_db()
         if db is None:
             return
         try:
             from google.cloud.firestore_v1 import Increment  # type: ignore
 
-            db.collection("pipeline_runs").document(self.run_id).set(
+            db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(
                 {
                     "status": "running",
                     "continuation_item_id": continuation_item_id,

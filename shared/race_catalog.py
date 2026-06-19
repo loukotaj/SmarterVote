@@ -3,6 +3,8 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any, Dict, List
 
+from shared.pipeline_config import FreshnessConfig
+
 
 def _coerce_datetime(value: Any) -> datetime | None:
     if value is None:
@@ -27,10 +29,11 @@ def compute_freshness(updated_utc: Any) -> str | None:
     updated_at = _coerce_datetime(updated_utc)
     if updated_at is None:
         return None
+    config = FreshnessConfig.from_env()
     age_days = (datetime.now(timezone.utc) - updated_at).days
-    if age_days <= 30:
+    if age_days <= config.aging_days:
         return "recent"
-    if age_days <= 180:
+    if age_days <= config.stale_days:
         return "stale"
     return "old"
 

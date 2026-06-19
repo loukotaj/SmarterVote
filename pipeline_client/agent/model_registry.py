@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Dict, Mapping, Optional
 
+from shared.pipeline_config import MODEL_PROFILES, MODEL_ROLES
+
 DEFAULT_MODEL = "openai/gpt-5.4"
 CHEAP_MODEL = "openai/gpt-5.4-mini"
 NANO_MODEL = "openai/gpt-5-nano"
@@ -25,8 +27,6 @@ DEFAULT_GROK_MODEL = "x-ai/grok-4.20"
 CHEAP_GROK_MODEL = "x-ai/grok-4.3"
 
 DEFAULT_ADMIN_CHAT_MODEL = NEMOTRON_ULTRA_MODEL
-
-MODEL_PROFILES = {"economy", "balanced", "quality", "custom"}
 
 
 @dataclass(frozen=True)
@@ -175,6 +175,8 @@ def resolve_run_models(
     overrides = options.get("model_overrides")
     if isinstance(overrides, Mapping):
         for key, value in overrides.items():
+            if str(key) not in MODEL_ROLES:
+                raise ValueError(f"Unknown model_overrides role: {key}")
             normalized = normalize_model_id(value if isinstance(value, str) else None)
             if normalized:
                 resolved[str(key)] = normalized

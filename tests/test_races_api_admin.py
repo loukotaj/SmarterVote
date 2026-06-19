@@ -209,6 +209,48 @@ def test_get_queue_empty(client):
     assert body["running"] is False
 
 
+def test_get_queue_caps_large_queue_listing_to_500_records():
+    """Queue listing stays bounded even when Firestore has more than 1,000 records."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    docs = [
+        _make_existing_doc(
+            {
+                "id": f"item-{index:04d}",
+                "race_id": f"race-{index:04d}",
+                "run_id": f"run-{index:04d}",
+                "status": "completed",
+                "created_at": f"2026-01-01T00:{index % 60:02d}:00+00:00",
+            }
+        )
+        for index in range(500)
+    ]
+
+    queue_coll = MagicMock()
+    queue_coll.order_by.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
+    queue_coll.stream.return_value = iter(docs)
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: queue_coll if name == "pipeline_queue" else MagicMock()
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/queue?limit=1001")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert len(body["items"]) == 500
+    queue_coll.limit.assert_called_once_with(500)
+
+
 def test_get_queue_does_not_count_continuation_parent_as_running():
     """Continuation ancestors should not inflate active run counts."""
     os.environ["SKIP_AUTH"] = "true"
@@ -320,7 +362,11 @@ def test_get_queue_hides_active_item_when_run_is_terminal():
     body = resp.json()
     assert body["items"] == []
     assert body["running"] is False
-    stale_ref.update.assert_called_once_with({"status": "completed", "completed_at": "2026-05-15T00:48:00+00:00"})
+    stale_ref.update.assert_called_once()
+    update = stale_ref.update.call_args.args[0]
+    assert update["status"] == "completed"
+    assert update["completed_at"] == "2026-05-15T00:48:00+00:00"
+    assert update["ttl_at"] > datetime.now(timezone.utc)
 
 
 def test_get_queue_hides_superseded_active_item_when_race_is_inactive():
@@ -396,9 +442,11 @@ def test_get_queue_hides_superseded_active_item_when_race_is_inactive():
     body = resp.json()
     assert body["items"] == []
     assert body["running"] is False
-    stale_ref.update.assert_called_once_with(
-        {"status": "cancelled", "error": "Superseded by race current_run_id run-completed"}
-    )
+    stale_ref.update.assert_called_once()
+    update = stale_ref.update.call_args.args[0]
+    assert update["status"] == "cancelled"
+    assert update["error"] == "Superseded by race current_run_id run-completed"
+    assert update["ttl_at"] > datetime.now(timezone.utc)
 
 
 def test_get_queue_keeps_active_item_when_race_current_run_is_stale_terminal():
@@ -534,7 +582,9 @@ def test_active_runs_hides_stale_run_and_marks_queue_failed():
     assert run_update["status"] == "failed"
     assert "Marked stale by active run listing" in run_update["error"]
     queue_doc.reference.update.assert_called_once()
-    assert queue_doc.reference.update.call_args.args[0]["status"] == "failed"
+    queue_update = queue_doc.reference.update.call_args.args[0]
+    assert queue_update["status"] == "failed"
+    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
 
 
 def test_active_runs_hides_superseded_inactive_race_run():
@@ -599,7 +649,11 @@ def test_active_runs_hides_superseded_inactive_race_run():
     assert resp.json() == {"runs": [], "count": 0}
     update = {"status": "cancelled", "error": "Superseded by race current_run_id run-completed"}
     run_ref.update.assert_called_once_with(update)
-    queue_doc.reference.update.assert_called_once_with(update)
+    queue_doc.reference.update.assert_called_once()
+    queue_update = queue_doc.reference.update.call_args.args[0]
+    assert queue_update["status"] == update["status"]
+    assert queue_update["error"] == update["error"]
+    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
 
 
 def test_active_runs_keeps_run_when_race_current_run_is_stale_terminal():
@@ -1262,6 +1316,15 @@ def test_run_options_normalize_and_validate_pipeline_controls():
     with pytest.raises(ValidationError):
         RunOptions(enabled_steps=["iteration"])
 
+    with pytest.raises(ValidationError):
+        RunOptions(max_candidates=0)
+
+    with pytest.raises(ValidationError):
+        RunOptions(model_overrides={"review": "bad-role"})
+
+    with pytest.raises(ValidationError):
+        RunOptions(review_providers=[])
+
 
 # ---------------------------------------------------------------------------
 # /api/races/queue — invalid race_id rejected
@@ -1910,6 +1973,9 @@ def test_recheck_all_marks_stale_running_races_failed():
     assert body["updated"] == 1
     run_ref.update.assert_called()
     queue_doc.reference.update.assert_called()
+    queue_update = queue_doc.reference.update.call_args.args[0]
+    assert queue_update["status"] == "failed"
+    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
     assert mock_update.call_args.args[0] == "az-senate-2026"
     assert mock_update.call_args.args[1]["status"] == "failed"
 
@@ -2727,7 +2793,11 @@ def test_delete_active_run_cancels_matching_queue_item():
     assert resp.status_code == 200
     assert resp.json()["message"] == "Run cancelled"
     run_ref.update.assert_called_with({"status": "cancelled"})
-    queue_doc.reference.update.assert_called_with({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
+    queue_update = queue_doc.reference.update.call_args.args[0]
+    assert queue_update["status"] == "cancelled"
+    assert queue_update["lease_owner"] is None
+    assert queue_update["lease_expires_at"] is None
+    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
     race_ref.set.assert_called()
 
 
@@ -2788,7 +2858,11 @@ def test_delete_superseded_active_run_does_not_cancel_published_race():
     assert resp.status_code == 200
     assert resp.json()["message"] == "Run cancelled"
     run_ref.update.assert_called_with({"status": "cancelled"})
-    queue_doc.reference.update.assert_called_with({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
+    queue_update = queue_doc.reference.update.call_args.args[0]
+    assert queue_update["status"] == "cancelled"
+    assert queue_update["lease_owner"] is None
+    assert queue_update["lease_expires_at"] is None
+    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
     race_ref.set.assert_not_called()
 
 
@@ -2848,7 +2922,9 @@ def test_delete_race_scoped_active_run_cancels_matching_queue_item():
     assert resp.status_code == 200
     assert resp.json()["message"] == "Run cancelled"
     run_ref.update.assert_called_with({"status": "cancelled"})
-    queue_doc.reference.update.assert_called_with({"status": "cancelled"})
+    queue_update = queue_doc.reference.update.call_args.args[0]
+    assert queue_update["status"] == "cancelled"
+    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
     race_ref.set.assert_called()
 
 

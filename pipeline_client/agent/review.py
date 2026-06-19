@@ -12,6 +12,7 @@ from urllib.parse import urlparse
 import httpx
 
 from shared.models import Candidate, CanonicalIssue, RaceJSON
+from shared.pipeline_config import REVIEW_PROVIDERS
 
 from .cost import estimate_cost
 from .llm import _call_openrouter, _provider_usage_cost
@@ -32,9 +33,9 @@ from .web_tools import _get_validated
 logger = logging.getLogger("pipeline")
 
 _REVIEW_MODELS = {
-    "claude": (DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL),
-    "gemini": (DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL),
-    "grok": (DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
+    REVIEW_PROVIDERS[0]: (DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL),
+    REVIEW_PROVIDERS[1]: (DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL),
+    REVIEW_PROVIDERS[2]: (DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
 }
 
 _ACCESS_RESTRICTED_HOSTS = frozenset({"facebook.com", "www.facebook.com", "m.facebook.com"})
