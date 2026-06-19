@@ -62,6 +62,16 @@ for (let start = 0; start < urls.length; start += MAX_URLS_PER_REQUEST) {
 
   if (!response.ok) {
     const body = await response.text();
+    if (
+      response.status === 403 &&
+      body.includes("SiteVerificationNotCompleted")
+    ) {
+      console.warn(
+        `Skipping IndexNow submission: site verification is still pending (${body}).`
+      );
+      continue;
+    }
+
     throw new Error(
       `IndexNow submission failed with ${response.status}: ${body}`
     );
