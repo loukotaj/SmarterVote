@@ -3,6 +3,10 @@
 
   export let reviews: AgentReview[] = [];
 
+  $: displayReviews = (reviews || []).filter(
+    (r) => r.model !== "automated-link-validator" && r.model !== "automated-profile-quality"
+  );
+
   let collapsed = true;
 
   function verdictColor(verdict: string): string {
@@ -41,8 +45,8 @@
       />
     </svg>
     AI Review Status
-    {#if reviews && reviews.length > 0}
-      <span class="review-count">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
+    {#if displayReviews && displayReviews.length > 0}
+      <span class="review-count">{displayReviews.length} review{displayReviews.length !== 1 ? "s" : ""}</span>
     {/if}
     <svg
       class="w-4 h-4 ml-auto transition-transform duration-200"
@@ -56,11 +60,11 @@
   </button>
 
   {#if !collapsed}
-    {#if !reviews || reviews.length === 0}
+    {#if !displayReviews || displayReviews.length === 0}
       <p class="review-empty">No AI review has been run for this race yet.</p>
     {:else}
       <div class="review-cards">
-        {#each reviews as review}
+        {#each displayReviews as review}
         <div class="review-card">
           <div class="review-header">
             <span class="review-model">{review.model}</span>

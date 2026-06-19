@@ -93,7 +93,21 @@ _PLACEHOLDER_CANDIDATE_NAMES = {
     "sample",
     "example",
 }
-_MISSING_STANCE_MARKERS = {"", "missing", "unknown", "n/a", "na", "none"}
+_MISSING_STANCE_MARKERS = {
+    "",
+    "missing",
+    "unknown",
+    "n/a",
+    "na",
+    "none",
+    "temp",
+    "pending",
+    "tbd",
+    "to be determined",
+    "no position found",
+    "no public position found",
+    "no public position found after repeated research attempts.",
+}
 _VALID_CANDIDATE_LINK_TYPES = {
     "finance",
     "ballotpedia",
@@ -303,8 +317,8 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
                 issue["issue"] = LEGACY_ISSUE_NAMES.get(str(issue.get("issue") or key), str(issue.get("issue") or key))
                 stance = str(issue.get("stance") or "").strip()
                 if stance.lower() in _MISSING_STANCE_MARKERS:
-                    issue["stance"] = "No public position found"
-                    issue.setdefault("confidence", "low")
+                    issue["stance"] = "No public position found after repeated research attempts."
+                    issue["confidence"] = "low"
                     issue.setdefault("sources", [])
                     if log:
                         log("warning", f"Normalized placeholder stance for candidates[{candidate_index}].issues.{key}")

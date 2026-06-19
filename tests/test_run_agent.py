@@ -829,7 +829,7 @@ async def test_run_agent_normalizes_schema_version_legacy_issues_and_missing_sta
     assert result["schema_version"] == "0.3"
     assert "Reproductive Rights" not in issues
     assert issues["Abortion & Reproductive Health"]["stance"] == "Supports abortion access."
-    assert issues["Tech & AI"]["stance"] == "No public position found"
+    assert issues["Tech & AI"]["stance"] == "No public position found after repeated research attempts."
 
 
 @pytest.mark.asyncio

@@ -558,7 +558,11 @@ async def run_reviews(
 
 def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """Compute an aggregate validation grade from review scores."""
-    scores = [r["score"] for r in reviews if isinstance(r.get("score"), (int, float))]
+    # Exclude automated link validator and automated profile quality from scoring and publish gates
+    excluded_models = {"automated-link-validator", "automated-profile-quality"}
+    eligible_reviews = [r for r in reviews if r.get("model") not in excluded_models]
+
+    scores = [r["score"] for r in eligible_reviews if isinstance(r.get("score"), (int, float))]
     if not scores:
         return None
 
@@ -566,7 +570,7 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     avg = max(0, min(100, avg))
     error_flags = [
         flag
-        for review in reviews
+        for review in eligible_reviews
         for flag in (review.get("flags") or [])
         if isinstance(flag, dict) and flag.get("severity") == "error"
     ]
@@ -585,9 +589,9 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
         grade = "F"
 
     passed = avg >= 80
-    verdicts = [r.get("verdict", "") for r in reviews]
+    verdicts = [r.get("verdict", "") for r in eligible_reviews]
     approved_count = sum(1 for v in verdicts if v == "approved")
-    total = len(reviews)
+    total = len(eligible_reviews)
 
     if error_flags:
         summary = (
