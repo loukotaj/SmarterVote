@@ -584,5 +584,25 @@ export interface ChamberForecasts {
   house: string;
   senate: string;
   governors: string;
+  schema_version?: string;
+  chambers?: Partial<
+    Record<
+      "house" | "senate" | "governors",
+      {
+        narrative: string;
+        control_party: "Democratic" | "Republican" | "Other";
+        control_probability: number;
+        outcome_probabilities: Record<string, number>;
+        projected_seats: Record<string, number>;
+        expected_seats: Record<string, number>;
+        threshold: number;
+        total_seats: number;
+        tossup_count: number;
+        competitive_race_count?: number;
+        competitive_races: string[];
+        method: string;
+      }
+    >
+  >;
   updated_at?: string;
 }

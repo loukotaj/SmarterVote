@@ -398,6 +398,135 @@ async def update_chamber_forecasts(
     return await _client().post("/api/races/chamber_forecasts", json=payload)
 
 
+def _published_data_dir() -> "Path":
+    from pathlib import Path
+
+    return Path(__file__).resolve().parents[1] / "data" / "published"
+
+
+def _load_local_published_summaries() -> list[dict[str, Any]]:
+    import json
+
+    summaries_path = _published_data_dir() / "summaries.json"
+    with summaries_path.open("r", encoding="utf-8") as fh:
+        data = json.load(fh)
+    if not isinstance(data, list):
+        raise RuntimeError(f"Expected {summaries_path} to contain a list")
+    return data
+
+
+def _is_us_senate_summary(race: dict[str, Any]) -> bool:
+    return str(race.get("office") or "") in {"United States Senate", "U.S. Senate"}
+
+
+async def _hydrate_missing_senate_summary_forecasts(summaries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Fill missing Senate summary forecasts from full published RaceJSON records."""
+    from shared.race_catalog import build_forecast_summary
+
+    hydrated = []
+    client = _client()
+    for race in summaries:
+        if not _is_us_senate_summary(race) or race.get("forecast"):
+            continue
+        race_id = str(race.get("id") or race.get("race_id") or "")
+        if not race_id:
+            continue
+        full_race = await client.get(f"/races/{race_id}")
+        forecast = build_forecast_summary(full_race) if isinstance(full_race, dict) else None
+        if forecast:
+            race["forecast"] = forecast
+            hydrated.append(race_id)
+    return hydrated
+
+
+@mcp.tool()
+async def generate_static_chamber_forecasts(source: str = "api") -> dict[str, Any]:
+    """Generate data/published/chamber_forecasts.json from published summaries.
+
+    Use source="api" to read live published summaries through races-api, or
+    source="local" to use data/published/summaries.json. This does not publish
+    or deploy anything by itself.
+    """
+    import json
+
+    from shared.forecast_summary import build_chamber_forecasts
+
+    if source == "local":
+        summaries = _load_local_published_summaries()
+    elif source == "api":
+        summaries = await _client().get("/races/summaries")
+        await _hydrate_missing_senate_summary_forecasts(summaries)
+    else:
+        raise ValueError('source must be "api" or "local"')
+    if not isinstance(summaries, list):
+        raise RuntimeError(f"Expected a list of summaries, got {type(summaries)}")
+    data = build_chamber_forecasts(summaries)
+    output_path = _published_data_dir() / "chamber_forecasts.json"
+    output_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    return {
+        "success": True,
+        "path": str(output_path),
+        "updated_at": data["updated_at"],
+        "senate": data["chambers"]["senate"],
+    }
+
+
+@mcp.tool()
+async def refresh_static_race_summaries() -> dict[str, Any]:
+    """Refresh data/published/summaries.json from live published races-api summaries."""
+    import json
+
+    summaries = await _client().get("/races/summaries")
+    if not isinstance(summaries, list):
+        raise RuntimeError(f"Expected a list of summaries, got {type(summaries)}")
+    hydrated_forecasts = await _hydrate_missing_senate_summary_forecasts(summaries)
+    output_path = _published_data_dir() / "summaries.json"
+    output_path.write_text(json.dumps(summaries, indent=2) + "\n", encoding="utf-8")
+    senate_forecast_count = sum(
+        1
+        for race in summaries
+        if "senate" in str(race.get("office") or "").lower() and race.get("forecast")
+    )
+    return {
+        "success": True,
+        "path": str(output_path),
+        "summary_count": len(summaries),
+        "senate_forecast_count": senate_forecast_count,
+        "hydrated_senate_forecasts": hydrated_forecasts,
+    }
+
+
+@mcp.tool()
+async def refresh_static_forecast_data() -> dict[str, Any]:
+    """Refresh summaries.json from live API, then regenerate chamber_forecasts.json locally."""
+    summaries_result = await refresh_static_race_summaries()
+    chamber_result = await generate_static_chamber_forecasts(source="local")
+    return {"success": True, "summaries": summaries_result, "chamber_forecasts": chamber_result}
+
+
+@mcp.tool()
+async def publish_static_chamber_forecasts() -> dict[str, Any]:
+    """Publish local data/published/chamber_forecasts.json through the races-api admin endpoint."""
+    import json
+
+    path = _published_data_dir() / "chamber_forecasts.json"
+    if not path.exists():
+        generated = await generate_static_chamber_forecasts()
+        path = _published_data_dir() / "chamber_forecasts.json"
+    else:
+        generated = None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    payload = {
+        "schema_version": data.get("schema_version"),
+        "house_narrative": data.get("house") or data.get("chambers", {}).get("house", {}).get("narrative", ""),
+        "senate_narrative": data.get("senate") or data.get("chambers", {}).get("senate", {}).get("narrative", ""),
+        "governors_narrative": data.get("governors") or data.get("chambers", {}).get("governors", {}).get("narrative", ""),
+        "chambers": data.get("chambers"),
+    }
+    save_res = await _client().post("/api/races/chamber_forecasts", json=payload)
+    return {"success": True, "generated": generated, "save_response": save_res}
+
+
 @mcp.tool()
 async def generate_chamber_forecasts(
     model: str = "google/gemini-2.5-flash",
@@ -507,17 +636,30 @@ async def generate_chamber_forecasts(
     house_narrative = await get_narrative("US House", build_chamber_context(house_races, "US House"))
     governors_narrative = await get_narrative("Governors", build_chamber_context(governor_races, "Governors"))
 
+    from shared.forecast_summary import build_chamber_forecasts
+
+    forecast_data = build_chamber_forecasts(
+        summaries,
+        {
+            "house": house_narrative,
+            "senate": senate_narrative,
+            "governors": governors_narrative,
+        },
+    )
+
     # 4. Save via POST endpoint
     payload = {
-        "house_narrative": house_narrative,
-        "senate_narrative": senate_narrative,
-        "governors_narrative": governors_narrative,
+        "schema_version": forecast_data.get("schema_version"),
+        "house_narrative": forecast_data["house"],
+        "senate_narrative": forecast_data["senate"],
+        "governors_narrative": forecast_data["governors"],
+        "chambers": forecast_data.get("chambers"),
     }
 
     save_res = await client.post("/api/races/chamber_forecasts", json=payload)
     return {
         "success": True,
-        "narratives": payload,
+        "forecast": forecast_data,
         "save_response": save_res
     }
 

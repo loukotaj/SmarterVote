@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
-import { getRace, getRaceSummaries } from "./api";
+import { getChamberForecasts, getRace, getRaceSummaries } from "./api";
 import { sampleRaces } from "./sampleData";
 
 describe("API Fallback Functionality", () => {
@@ -68,6 +68,17 @@ describe("API Fallback Functionality", () => {
     await expect(getRaceSummaries(mockFetch, false)).rejects.toThrow(
       "Static data request failed: 404"
     );
+  });
+
+  it("uses bundled static forecast data without public API calls by default", async () => {
+    const mockFetch = vi.fn();
+
+    const summaries = await getRaceSummaries(mockFetch, false);
+    const chamberForecasts = await getChamberForecasts(mockFetch, false);
+
+    expect(summaries.length).toBeGreaterThan(0);
+    expect(chamberForecasts.chambers?.senate?.control_party).toBe("Republican");
+    expect(mockFetch).not.toHaveBeenCalled();
   });
 
   it("should fallback to generic sample data for unknown race IDs", async () => {

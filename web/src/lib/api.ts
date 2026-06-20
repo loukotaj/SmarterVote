@@ -74,6 +74,11 @@ export async function getRaceSummaries(
   fetchFn: typeof fetch = fetch,
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<RaceSummary[]> {
+  if (!publicDataBase()) {
+    const staticRaceSummaries = await import("../../../data/published/summaries.json");
+    return staticRaceSummaries.default as RaceSummary[];
+  }
+
   try {
     return await fetchPublicJson<RaceSummary[]>(
       "summaries.json",
@@ -152,6 +157,11 @@ export async function getChamberForecasts(
   fetchFn: typeof fetch = fetch,
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<ChamberForecasts> {
+  if (!publicDataBase()) {
+    const staticChamberForecasts = await import("../../../data/published/chamber_forecasts.json");
+    return staticChamberForecasts.default as ChamberForecasts;
+  }
+
   try {
     return await fetchPublicJson<ChamberForecasts>(
       "chamber_forecasts.json",

@@ -4,7 +4,7 @@
   import { page } from "$app/stores";
   import TabButton from "$lib/components/TabButton.svelte";
   import USMap from "$lib/components/USMap.svelte";
-  import type { ForecastRating, RaceSummary } from "$lib/types";
+  import type { ChamberForecasts, ForecastRating, RaceSummary } from "$lib/types";
   import {
     aggregateForecasts,
     formatNet,
@@ -44,6 +44,7 @@
   let filterParty: string = "all";
   let sortBy: string = "competitiveness";
   let expandedRaceIds = new Set<string>();
+  let expandedRaceTab: ForecastTab = activeTab;
 
   $: races = ($page.data.races as RaceSummary[] | undefined) ?? [];
   $: activeTab = browser
@@ -54,20 +55,31 @@
     : null;
   $: aggregate = aggregateForecasts(races, activeTab);
 
-  $: chamberForecasts = $page.data.chamberForecasts;
-  $: chamberNarrative = chamberForecasts?.[activeTab] || "";
+  $: chamberForecasts = $page.data.chamberForecasts as ChamberForecasts | undefined;
+  $: chamberSummary = chamberForecasts?.chambers?.[activeTab];
+  $: chamberNarrative =
+    chamberSummary?.narrative || chamberForecasts?.[activeTab] || "";
 
-  $: if (activeTab) {
+  $: if (activeTab !== expandedRaceTab) {
     expandedRaceIds.clear();
     expandedRaceIds = expandedRaceIds;
+    expandedRaceTab = activeTab;
   }
 
+  $: projectedSeats = chamberSummary?.projected_seats ?? aggregate.projected;
+  $: expectedSeats = chamberSummary?.expected_seats;
+  $: outcomeProbabilities = chamberSummary?.outcome_probabilities;
   $: controlParty =
-    (aggregate.projected.Democratic ?? 0) >= aggregate.threshold
+    chamberSummary?.control_party ??
+    (activeTab === "senate" &&
+    (aggregate.projected.Democratic ?? 0) === 50 &&
+    (aggregate.projected.Republican ?? 0) === 50
+      ? "Republican"
+      : (aggregate.projected.Democratic ?? 0) >= aggregate.threshold
       ? "Democratic"
       : (aggregate.projected.Republican ?? 0) >= aggregate.threshold
       ? "Republican"
-      : "No clear control";
+      : "Other");
 
   // Filter active states for the map click handler
   $: activeStates = new Set(
@@ -407,6 +419,11 @@
     return `${Math.round(value * 100)}%`;
   }
 
+  function oneDecimal(value?: number): string {
+    if (value === undefined || value === null) return "n/a";
+    return value.toFixed(1);
+  }
+
   function clearStateFilter() {
     setUrlState(activeTab, null);
   }
@@ -495,20 +512,32 @@
     <div class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md grid grid-cols-2 gap-4">
       <div class="flex flex-col justify-center border-b border-stroke/20 pb-2">
         <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected Control</span>
-        <span class={`text-lg font-black mt-1 ${partyClass(controlParty)}`}>{controlParty}</span>
+        <span class={`text-lg font-black mt-1 ${partyClass(controlParty)}`}>
+          {controlParty === "Other" ? "No clear control" : controlParty}
+        </span>
+        {#if chamberSummary?.control_probability}
+          <span class="mt-0.5 text-[10px] text-content-subtle font-semibold">
+            {probability(chamberSummary.control_probability)} control estimate
+          </span>
+        {/if}
       </div>
       <div class="flex flex-col justify-center border-b border-stroke/20 pb-2">
         <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Toss-up Seats</span>
-        <span class="text-lg font-black mt-1 text-content">{aggregate.ratingCounts.tossup || 0}</span>
+        <span class="text-lg font-black mt-1 text-content">{chamberSummary?.tossup_count ?? aggregate.ratingCounts.tossup ?? 0}</span>
       </div>
       <div class="flex flex-col justify-center pt-2">
         <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected Dem</span>
-        <span class="text-lg font-black mt-1 text-blue-600 dark:text-blue-400">{aggregate.projected.Democratic ?? 0}</span>
+        <span class="text-lg font-black mt-1 text-blue-600 dark:text-blue-400">{projectedSeats.Democratic ?? 0}</span>
       </div>
       <div class="flex flex-col justify-center pt-2">
         <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected GOP</span>
-        <span class="text-lg font-black mt-1 text-red-600 dark:text-red-400">{aggregate.projected.Republican ?? 0}</span>
+        <span class="text-lg font-black mt-1 text-red-600 dark:text-red-400">{projectedSeats.Republican ?? 0}</span>
       </div>
+      {#if activeTab === "senate"}
+        <p class="col-span-2 text-[10px] leading-relaxed text-content-subtle border-t border-stroke/20 pt-3">
+          A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican.
+        </p>
+      {/if}
     </div>
   </div>
 
@@ -621,11 +650,13 @@
         <h3
           class="mt-3 text-3xl font-extrabold text-content flex items-baseline gap-2"
         >
-          <span class={partyClass(controlParty)}>{controlParty} Projected</span>
+          <span class={partyClass(controlParty)}>
+            {controlParty === "Other" ? "No Clear Control" : `${controlParty} Control`}
+          </span>
         </h3>
 
         <p class="mt-1 text-xs text-content-subtle font-medium">
-          {aggregate.threshold} seats needed for majority
+          {chamberSummary?.threshold ?? aggregate.threshold} seats needed for majority
         </p>
 
         <!-- Seat Distribution Bar Chart -->
@@ -633,8 +664,8 @@
           <div
             class="flex items-center justify-between text-xs font-bold text-content-muted"
           >
-            <span>Democrat: {aggregate.projected.Democratic ?? 0}</span>
-            <span>Republican: {aggregate.projected.Republican ?? 0}</span>
+            <span>Democrat: {projectedSeats.Democratic ?? 0}</span>
+            <span>Republican: {projectedSeats.Republican ?? 0}</span>
           </div>
 
           <div
@@ -644,41 +675,41 @@
               class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center text-[10px] font-bold text-white shadow-inner"
               style={`width: ${Math.min(
                 100,
-                ((aggregate.projected.Democratic ?? 0) /
+                  ((projectedSeats.Democratic ?? 0) /
                   aggregate.totalExpected) *
                   100
               )}%`}
               title="Democratic projected seats"
             >
-              {#if (aggregate.projected.Democratic ?? 0) > 20}
-                {aggregate.projected.Democratic}
+              {#if (projectedSeats.Democratic ?? 0) > 20}
+                {projectedSeats.Democratic}
               {/if}
             </div>
-            {#if aggregate.projected.Other}
+            {#if projectedSeats.Other}
               <div
                 class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center text-[10px] font-bold text-white shadow-inner"
                 style={`width: ${Math.min(
                   100,
-                  ((aggregate.projected.Other ?? 0) / aggregate.totalExpected) *
+                  ((projectedSeats.Other ?? 0) / aggregate.totalExpected) *
                     100
                 )}%`}
                 title="Other projected seats"
               >
-                {aggregate.projected.Other}
+                {projectedSeats.Other}
               </div>
             {/if}
             <div
               class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center text-[10px] font-bold text-white shadow-inner ml-auto"
               style={`width: ${Math.min(
                 100,
-                ((aggregate.projected.Republican ?? 0) /
+                ((projectedSeats.Republican ?? 0) /
                   aggregate.totalExpected) *
                   100
               )}%`}
               title="Republican projected seats"
             >
-              {#if (aggregate.projected.Republican ?? 0) > 20}
-                {aggregate.projected.Republican}
+              {#if (projectedSeats.Republican ?? 0) > 20}
+                {projectedSeats.Republican}
               {/if}
             </div>
           </div>
@@ -687,8 +718,33 @@
             class="flex justify-between text-[10px] text-content-subtle px-1"
           >
             <span>Total: {aggregate.totalExpected}</span>
-            <span>Majority Line: {aggregate.threshold}</span>
+            <span>Majority Line: {chamberSummary?.threshold ?? aggregate.threshold}</span>
           </div>
+          {#if outcomeProbabilities}
+            <div class="mt-4 grid grid-cols-2 gap-2 text-xs">
+              <div class="rounded-lg border border-blue-500/20 bg-blue-500/10 px-3 py-2">
+                <div class="font-bold text-blue-700 dark:text-blue-300">
+                  {probability(outcomeProbabilities.Democratic)}
+                </div>
+                <div class="text-[10px] text-content-subtle font-semibold uppercase tracking-wider">
+                  Dem control
+                </div>
+              </div>
+              <div class="rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-right">
+                <div class="font-bold text-red-700 dark:text-red-300">
+                  {probability(outcomeProbabilities.Republican)}
+                </div>
+                <div class="text-[10px] text-content-subtle font-semibold uppercase tracking-wider">
+                  GOP control
+                </div>
+              </div>
+            </div>
+          {/if}
+          {#if expectedSeats}
+            <p class="mt-3 text-[10px] text-content-subtle">
+              Expected seats: D {oneDecimal(expectedSeats.Democratic)}, R {oneDecimal(expectedSeats.Republican)}
+            </p>
+          {/if}
         </div>
 
         <!-- Net Seats Change Grid -->
@@ -703,7 +759,7 @@
                 {party.slice(0, 3)}
               </div>
               <div class={`text-xl font-black mt-1 ${partyClass(party)}`}>
-                {aggregate.projected[party] ?? 0}
+                {projectedSeats[party] ?? 0}
               </div>
               <div
                 class="text-[10px] text-content-subtle font-semibold tabular-nums mt-0.5"
@@ -879,13 +935,13 @@
       </div>
     {:else}
       <!-- Responsive Card Feed -->
-      <div class="divide-y divide-stroke/30">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 bg-surface-alt/10">
         {#each filteredRaces as race (race.id)}
           {@const party = normalizeForecastParty(race.forecast.predicted_winner_party)}
           {@const rating = race.forecast.rating}
           {@const isExpanded = expandedRaceIds.has(race.id)}
 
-          <div class="p-5 hover:bg-surface-alt/10 transition-colors flex flex-col gap-4">
+          <article class="bg-surface border border-stroke/70 rounded-xl p-5 shadow-sm hover:border-blue-400/50 dark:hover:border-blue-500/50 transition-colors flex flex-col gap-4">
             <!-- Card Header: Title, Rating, and Details Link -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div class="flex flex-col">
@@ -914,24 +970,24 @@
             </div>
 
             <!-- Card Metrics Dashboard -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+            <div class="grid grid-cols-1 gap-4 items-center">
               <!-- Forecast Projections -->
-              <div class="grid grid-cols-3 gap-2 bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center shadow-inner">
-                <div class="flex flex-col justify-center border-r border-stroke/30 pr-1">
+              <div class="grid grid-cols-[minmax(0,1.35fr)_minmax(0,0.8fr)_minmax(0,0.85fr)] gap-2 bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center">
+                <div class="flex flex-col justify-center border-r border-stroke/30 pr-1 min-w-0">
                   <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Projected</span>
-                  <span class={`text-xs font-extrabold mt-0.5 truncate ${partyClass(party)}`}>
+                  <span class={`text-sm font-extrabold mt-0.5 leading-tight break-words ${partyClass(party)}`}>
                     {race.forecast.predicted_winner_name || party}
                   </span>
                 </div>
                 <div class="flex flex-col justify-center border-r border-stroke/30">
                   <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Win Prob.</span>
-                  <span class="text-xs font-black mt-0.5 text-content tabular-nums">
+                  <span class="text-sm font-black mt-0.5 text-content tabular-nums">
                     {probability(race.forecast.win_probability)}
                   </span>
                 </div>
                 <div class="flex flex-col justify-center pl-1">
                   <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Est. Margin</span>
-                  <span class="text-xs font-extrabold mt-0.5 text-content tabular-nums">
+                  <span class="text-sm font-extrabold mt-0.5 text-content tabular-nums">
                     {race.forecast.margin_estimate === undefined || race.forecast.margin_estimate === null
                       ? "n/a"
                       : `${race.forecast.margin_estimate.toFixed(1)}%`}
@@ -940,7 +996,7 @@
               </div>
 
               <!-- Takeaway Text -->
-              <div class="md:col-span-2 flex flex-col justify-center">
+              <div class="flex flex-col justify-center">
                 <span class="text-[10px] font-bold text-content-subtle uppercase tracking-wider mb-0.5">Key Takeaway</span>
                 <p class="text-xs text-content-muted leading-relaxed font-medium">
                   {race.forecast.takeaway || (race.forecast.rationale ? race.forecast.rationale.split(/[.!?]/)[0] + "." : "No summary narrative available.")}
@@ -951,6 +1007,7 @@
             <!-- Card Accordion Toggle -->
             <div class="flex items-center justify-between border-t border-stroke/10 pt-3">
               <button
+                type="button"
                 on:click={() => toggleExpand(race.id)}
                 class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold flex items-center gap-1 focus:outline-none"
               >
@@ -1007,7 +1064,7 @@
                 </div>
               </div>
             {/if}
-          </div>
+          </article>
         {/each}
       </div>
     {/if}

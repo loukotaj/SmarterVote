@@ -1,0 +1,128 @@
+{
+  "schema_version": "chamber_forecasts.v2",
+  "house": "Republican control is projected for the house, with 203 Democratic seats and 222 Republican seats. The model identifies 19 toss-up races and 67 broadly competitive races.",
+  "senate": "Republican control is projected for the senate, with 50 Democratic seats and 50 Republican seats. The model identifies 3 toss-up races and 11 broadly competitive races. A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican.",
+  "governors": "Republican control is projected for the governors, with 23 Democratic seats and 27 Republican seats. The model identifies 3 toss-up races and 16 broadly competitive races.",
+  "chambers": {
+    "house": {
+      "narrative": "Republican control is projected for the house, with 203 Democratic seats and 222 Republican seats. The model identifies 19 toss-up races and 67 broadly competitive races.",
+      "control_party": "Republican",
+      "control_probability": 0.683,
+      "outcome_probabilities": {
+        "Democratic": 0.317,
+        "Republican": 0.683,
+        "Other": 0.0,
+        "tie_50_50": 0.0
+      },
+      "projected_seats": {
+        "Democratic": 203,
+        "Republican": 222,
+        "Other": 10
+      },
+      "expected_seats": {
+        "Democratic": 214.3,
+        "Republican": 218.5,
+        "Other": 2.2
+      },
+      "threshold": 218,
+      "total_seats": 435,
+      "tossup_count": 19,
+      "competitive_race_count": 67,
+      "competitive_races": [
+        "Alaska's At-Large Congressional District Election, 2026",
+        "Alabama's 2nd Congressional District Election, 2026",
+        "2026 U.S. House race for Arizona's 1st Congressional District",
+        "2026 U.S. House election in Arizona's 6th Congressional District",
+        "California's 13th Congressional District election, 2026",
+        "California's 45th Congressional District election, 2026",
+        "2026 U.S. House of Representatives election in California's 1st Congressional District",
+        "California's 7th Congressional District General Election, 2026",
+        "California's 12th Congressional District general election, 2026",
+        "California's 22nd Congressional District election, 2026",
+        "California's 27th Congressional District general election, 2026",
+        "California's 48th Congressional District General Election, 2026"
+      ],
+      "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break."
+    },
+    "senate": {
+      "narrative": "Republican control is projected for the senate, with 50 Democratic seats and 50 Republican seats. The model identifies 3 toss-up races and 11 broadly competitive races. A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican.",
+      "control_party": "Republican",
+      "control_probability": 0.63,
+      "outcome_probabilities": {
+        "Democratic": 0.37,
+        "Republican": 0.63,
+        "Other": 0.0,
+        "tie_50_50": 0.061
+      },
+      "projected_seats": {
+        "Democratic": 50,
+        "Republican": 50,
+        "Other": 0
+      },
+      "expected_seats": {
+        "Democratic": 49.0,
+        "Republican": 50.4,
+        "Other": 0.6
+      },
+      "threshold": 51,
+      "total_seats": 100,
+      "tossup_count": 3,
+      "competitive_race_count": 11,
+      "competitive_races": [
+        "2026 U.S. Senate election in Alaska",
+        "2026 U.S. Senate election in Georgia",
+        "2026 U.S. Senate election in Maine",
+        "2026 U.S. Senate election in Michigan",
+        "2026 U.S. Senate election in Minnesota",
+        "2026 U.S. Senate election in Montana",
+        "2026 U.S. Senate election in North Carolina",
+        "2026 U.S. Senate election in Nebraska",
+        "2026 U.S. Senate election in New Hampshire",
+        "2026 Ohio U.S. Senate special election",
+        "2026 U.S. Senate election in Texas"
+      ],
+      "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break."
+    },
+    "governors": {
+      "narrative": "Republican control is projected for the governors, with 23 Democratic seats and 27 Republican seats. The model identifies 3 toss-up races and 16 broadly competitive races.",
+      "control_party": "Republican",
+      "control_probability": 0.624,
+      "outcome_probabilities": {
+        "Democratic": 0.376,
+        "Republican": 0.624,
+        "Other": 0.0,
+        "tie_50_50": 0.0
+      },
+      "projected_seats": {
+        "Democratic": 23,
+        "Republican": 27,
+        "Other": 0
+      },
+      "expected_seats": {
+        "Democratic": 23.5,
+        "Republican": 26.0,
+        "Other": 0.5
+      },
+      "threshold": 26,
+      "total_seats": 50,
+      "tossup_count": 3,
+      "competitive_race_count": 16,
+      "competitive_races": [
+        "2026 Alaska Gubernatorial Election",
+        "Arizona Governor Election, 2026",
+        "2026 Florida Gubernatorial Election",
+        "2026 Georgia gubernatorial election",
+        "2026 Iowa gubernatorial election",
+        "2026 Kansas Governor Election",
+        "2026 Maine Gubernatorial Election",
+        "2026 Michigan gubernatorial election",
+        "2026 Minnesota gubernatorial election",
+        "2026 New Hampshire Gubernatorial Election",
+        "2026 New Mexico Gubernatorial Election",
+        "2026 Nevada gubernatorial election"
+      ],
+      "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break."
+    }
+  },
+  "updated_at": "2026-06-20T21:24:41.975581+00:00"
+}

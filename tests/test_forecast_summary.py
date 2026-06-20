@@ -1,3 +1,7 @@
+import json
+from pathlib import Path
+
+from shared.forecast_summary import build_chamber_forecasts
 from shared.race_catalog import build_race_summary_fields
 
 
@@ -28,3 +32,15 @@ def test_race_summary_includes_forecast():
 
     assert summary["forecast"]["rating"] == "tilt_d"
     assert summary["forecast"]["predicted_winner_name"] == "Alice"
+
+
+def test_chamber_forecast_counts_senate_tie_as_republican_control():
+    summaries = json.loads((Path(__file__).resolve().parents[1] / "data" / "published" / "summaries.json").read_text())
+
+    forecast = build_chamber_forecasts(summaries)
+    senate = forecast["chambers"]["senate"]
+
+    assert senate["projected_seats"]["Democratic"] + senate["projected_seats"]["Republican"] == 100
+    assert senate["control_party"] == "Republican"
+    assert "50-50 Senate" in senate["narrative"]
+    assert senate["competitive_race_count"] >= len(senate["competitive_races"])
