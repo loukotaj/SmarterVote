@@ -23,10 +23,15 @@ _NON_PHOTO_TOKENS = frozenset(
     {
         "avatar",
         "badge",
+        "background",
         "banner",
         "favicon",
+        "hero",
         "icon",
+        "landscape",
         "logo",
+        "mountain",
+        "placeholder",
         "seal",
         "sprite",
         "torch",
@@ -387,7 +392,7 @@ async def _resolve_single_image(
 
     # Validate existing URL (extension / host check + live HEAD request)
     if current_url:
-        if _is_valid_image_url(current_url):
+        if _is_valid_image_url(current_url) and not _looks_like_non_photo(current_url):
             log("info", f"  [{name}] Checking URL accessibility: {current_url[:80]}")
             best_url = await _best_accessible_image_url(current_url)
             if best_url:
