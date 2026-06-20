@@ -7,7 +7,7 @@ from typing import Any, Dict, Mapping, Optional
 
 from shared.pipeline_config import MODEL_PROFILES, MODEL_ROLES
 
-DEFAULT_MODEL = "openai/gpt-5.4"
+DEFAULT_MODEL = "google/gemini-2.5-flash"
 CHEAP_MODEL = "openai/gpt-5.4-mini"
 NANO_MODEL = "openai/gpt-5-nano"
 DEEPSEEK_FLASH_MODEL = "deepseek/deepseek-v4-flash"
