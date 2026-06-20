@@ -486,12 +486,12 @@ async def test_run_agent_adds_donor_source_timestamps():
 
 @pytest.mark.asyncio
 async def test_run_agent_model_selection():
-    """run_agent selects DeepSeek V4 Flash in cheap mode, Nemotron-3 Ultra in balanced mode, and GPT-5.4 in quality mode."""
+    """run_agent selects the configured primary model for cheap, quality, and balanced profiles."""
     discovery_result = {"id": "m-2024", "candidates": []}
 
     cases = [
         (True, "deepseek/deepseek-v4-flash"),
-        (False, "openai/gpt-5.4"),
+        (False, "google/gemini-2.5-flash"),
         (None, "google/gemini-2.5-flash"),
     ]
 
