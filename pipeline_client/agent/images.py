@@ -18,6 +18,7 @@ logger = logging.getLogger("pipeline")
 _IMAGE_EXTENSIONS = frozenset({".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".svg"})
 
 _BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+_WIKIMEDIA_API_UA = "SmarterVoteBot/1.0 (https://smarter.vote; contact: dev@smarter.vote)"
 
 _NON_PHOTO_TOKENS = frozenset(
     {
@@ -172,7 +173,10 @@ async def _lookup_known_page_image(candidate: Dict[str, Any]) -> Optional[str]:
                 for image_url in _extract_page_image_urls(response.text, str(response.url), candidate.get("name", "")):
                     accessible, final_url = await _check_url_accessible(image_url)
                     if accessible:
-                        return final_url if _is_valid_image_url(final_url) else image_url
+                        store_url = final_url if _is_valid_image_url(final_url) else image_url
+                        if _looks_like_low_resolution_reference_photo(store_url):
+                            continue
+                        return store_url
     except Exception as exc:
         logger.debug("Candidate page image lookup failed: %s", exc)
     return None
@@ -301,7 +305,7 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
                         "limit": "3",
                         "format": "json",
                     },
-                    headers={"User-Agent": _BROWSER_UA},
+                    headers={"User-Agent": _WIKIMEDIA_API_UA},
                 )
                 search_resp.raise_for_status()
                 search_data = search_resp.json()
@@ -317,7 +321,7 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
                             "format": "json",
                             "redirects": "1",
                         },
-                        headers={"User-Agent": _BROWSER_UA},
+                        headers={"User-Agent": _WIKIMEDIA_API_UA},
                     )
                     img_resp.raise_for_status()
                     data = img_resp.json()
