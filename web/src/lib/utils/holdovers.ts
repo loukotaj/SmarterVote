@@ -16,7 +16,8 @@ export const GOVERNOR_HOLDOVERS: Record<string, "Democratic" | "Republican"> = {
 };
 
 export const SENATE_HOLDOVERS: Record<string, ("Democratic" | "Republican")[]> = {
-  // 13 States with no Senate races in 2026 (2 holdover seats each)
+  // 14 States with no Senate races in 2026 (2 holdover seats each)
+  "Arizona": ["Democratic", "Democratic"],
   "California": ["Democratic", "Democratic"],
   "Connecticut": ["Democratic", "Democratic"],
   "Hawaii": ["Democratic", "Democratic"],
@@ -35,8 +36,7 @@ export const SENATE_HOLDOVERS: Record<string, ("Democratic" | "Republican")[]> =
   "Virginia": ["Democratic", "Democratic"],
   "West Virginia": ["Republican", "Republican"],
 
-  // 35 States with forecasted Senate races in 2026 (1 holdover seat each)
-  "Arizona": ["Democratic"],
+  // 34 States with forecasted Senate races in 2026 (1 holdover seat each)
   "Colorado": ["Democratic"],
   "Delaware": ["Democratic"],
   "Georgia": ["Democratic"],
