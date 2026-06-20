@@ -176,6 +176,17 @@ def get_race_summaries(request: Request, response: Response) -> List[schemas.Rac
     return publish_service.get_race_summaries()
 
 
+@app.get("/races/chamber_forecasts")
+@limiter.limit("60/minute")
+def get_chamber_forecasts(request: Request, response: Response):
+    """Retrieve overall chamber-level forecasts (narratives) from GCS or local file."""
+    data = publish_service.get_chamber_forecasts_data()
+    if not data:
+        raise HTTPException(status_code=404, detail="Chamber forecasts not found")
+    response.headers["Cache-Control"] = "public, max-age=300"
+    return data
+
+
 @app.get("/races/{race_id}")
 @limiter.limit("60/minute")
 def get_race(request: Request, response: Response, race_id: str):

@@ -11,7 +11,7 @@ import firestore_helpers
 import gcs_helpers
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException, Request
-from request_models import BatchPublishRequest, RaceQueueRequest, RunOptions, validate_race_id
+from request_models import BatchPublishRequest, ChamberForecastsPayload, RaceQueueRequest, RunOptions, validate_race_id
 
 from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields
@@ -953,3 +953,19 @@ async def restore_version_as_draft(race_id: str, filename: str) -> Dict[str, Any
         },
     )
     return {"message": f"Retired version restored as draft for {race_id}", "id": race_id, "restored_from": filename}
+
+
+@router.post("/api/races/chamber_forecasts", dependencies=[Depends(verify_token)])
+async def save_chamber_forecasts_endpoint(payload: ChamberForecastsPayload) -> Dict[str, Any]:
+    """Save chamber-level forecast narratives to GCS or local file."""
+    data = {
+        "house": payload.house_narrative,
+        "senate": payload.senate_narrative,
+        "governors": payload.governors_narrative,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    try:
+        gcs_helpers.save_chamber_forecasts(data)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to save chamber forecasts: {exc}")
+    return {"message": "Chamber forecasts saved successfully", "updated_at": data["updated_at"]}

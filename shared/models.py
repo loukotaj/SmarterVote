@@ -201,6 +201,9 @@ class RaceForecast(BaseModel):
     rating: ForecastRating
     confidence: ConfidenceLevel = ConfidenceLevel.UNKNOWN
     rationale: str = ""
+    takeaway: Optional[str] = None
+    key_reasons: List[str] = Field(default_factory=list)
+    uncertainty: Optional[str] = None
     based_on_poll_count: int = Field(default=0, ge=0)
     generated_at: datetime
     model: str

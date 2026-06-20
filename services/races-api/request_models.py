@@ -113,3 +113,9 @@ class AdminAgentMessageRequest(BaseModel):
         if len(normalized) > 12000:
             raise ValueError("content cannot exceed 12000 characters")
         return normalized
+
+
+class ChamberForecastsPayload(BaseModel):
+    house_narrative: str
+    senate_narrative: str
+    governors_narrative: str

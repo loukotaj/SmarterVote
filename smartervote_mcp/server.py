@@ -383,6 +383,145 @@ def review_race_prompt(race_id: str) -> str:
     )
 
 
+@mcp.tool()
+async def update_chamber_forecasts(
+    house_narrative: str,
+    senate_narrative: str,
+    governors_narrative: str,
+) -> dict[str, Any]:
+    """Manually update the chamber-level forecast narratives."""
+    payload = {
+        "house_narrative": house_narrative,
+        "senate_narrative": senate_narrative,
+        "governors_narrative": governors_narrative,
+    }
+    return await _client().post("/api/races/chamber_forecasts", json=payload)
+
+
+@mcp.tool()
+async def generate_chamber_forecasts(
+    model: str = "google/gemini-2.5-flash",
+) -> dict[str, Any]:
+    """Automatically generate chamber-level forecast narratives using an LLM over published race summaries and save them."""
+    import logging
+    logger = logging.getLogger("smartervote_mcp.generate")
+
+    # 1. Fetch all published race summaries
+    client = _client()
+    summaries = await client.get("/races/summaries")
+    if not isinstance(summaries, list):
+        raise RuntimeError(f"Expected a list of summaries, got {type(summaries)}")
+
+    # 2. Group races by chamber
+    senate_races = []
+    house_races = []
+    governor_races = []
+
+    for r in summaries:
+        office = (r.get("office") or "").lower()
+        if "senate" in office:
+            senate_races.append(r)
+        elif "house" in office or "representative" in office:
+            house_races.append(r)
+        elif "governor" in office or "gubernatorial" in office:
+            governor_races.append(r)
+
+    # Helper to build summaries text
+    def build_chamber_context(races: list[dict[str, Any]], name: str) -> str:
+        if not races:
+            return f"No published races found for the {name}."
+
+        dem_wins = 0
+        gop_wins = 0
+        toss_ups = 0
+        competitive_list = []
+
+        for r in races:
+            forecast = r.get("forecast") or {}
+            rating = (forecast.get("rating") or "").lower()
+            winner_party = (forecast.get("predicted_winner_party") or "").lower()
+            prob = forecast.get("win_probability") or 0.5
+            title = r.get("title") or r.get("id")
+
+            if "toss-up" in rating or "tossup" in rating:
+                toss_ups += 1
+                competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob*100:.1f}%)")
+            elif "lean" in rating:
+                competitive_list.append(f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
+                if "d" in winner_party:
+                    dem_wins += 1
+                elif "r" in winner_party:
+                    gop_wins += 1
+            elif "likely" in rating:
+                competitive_list.append(f"- {title}: Likely {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
+                if "d" in winner_party:
+                    dem_wins += 1
+                elif "r" in winner_party:
+                    gop_wins += 1
+            elif "safe" in rating:
+                if "d" in winner_party:
+                    dem_wins += 1
+                elif "r" in winner_party:
+                    gop_wins += 1
+
+        lines = [
+            f"Chamber: {name}",
+            f"Total Published Races: {len(races)}",
+            f"Toss-up Races: {toss_ups}",
+            f"Projected Democratic Wins (among published non-tossups): {dem_wins}",
+            f"Projected Republican Wins (among published non-tossups): {gop_wins}",
+            "\nCompetitive/Notable Races Detail:"
+        ]
+        lines.extend(competitive_list[:30])
+        return "\n".join(lines)
+
+    # 3. Call LLM for each chamber
+    from pipeline_client.agent.llm import _call_openrouter
+
+    async def get_narrative(chamber_name: str, context_text: str) -> str:
+        system_prompt = (
+            "You are a professional, nonpartisan, highly analytical election forecaster (like Cook Political Report, FiveThirtyEight, or Split Ticket). "
+            f"Your goal is to write a concise, 2-3 sentence overview narrative summarizing the battle for control "
+            f"of the {chamber_name} in the 2026 election cycle, based on the forecast data provided. "
+            "Focus on the big picture: which party is favored to win or retain control, the size of their projected majority "
+            "(if clear), the number of toss-up/competitive seats, and key battlegrounds. "
+            "Keep it sober, analytical, and objective. Avoid generic filler. Do not mention that you are an AI. "
+            "Do not use markdown formatting (like lists, bolding, or headers), just write 2-3 well-crafted sentences."
+        )
+        user_prompt = f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+
+        try:
+            resp = await _call_openrouter(messages=messages, model=model)
+            narrative = resp.choices[0].message.content.strip()
+            return narrative
+        except Exception as e:
+            logger.warning(f"Error calling LLM for {chamber_name}: {e}")
+            return f"Model projections indicate a highly competitive battle for control of the {chamber_name}."
+
+    senate_narrative = await get_narrative("US Senate", build_chamber_context(senate_races, "US Senate"))
+    house_narrative = await get_narrative("US House", build_chamber_context(house_races, "US House"))
+    governors_narrative = await get_narrative("Governors", build_chamber_context(governor_races, "Governors"))
+
+    # 4. Save via POST endpoint
+    payload = {
+        "house_narrative": house_narrative,
+        "senate_narrative": senate_narrative,
+        "governors_narrative": governors_narrative,
+    }
+
+    save_res = await client.post("/api/races/chamber_forecasts", json=payload)
+    return {
+        "success": True,
+        "narratives": payload,
+        "save_response": save_res
+    }
+
+
 def main() -> None:
     """Run the MCP server."""
     transport = os.getenv("SMARTERVOTE_MCP_TRANSPORT", "stdio")

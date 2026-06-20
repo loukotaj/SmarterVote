@@ -706,6 +706,19 @@ SET_FORECAST_TOOL: Dict = {
                 },
                 "confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
                 "rationale": {"type": "string", "description": "Brief nonpartisan rationale."},
+                "takeaway": {
+                    "type": "string",
+                    "description": "Concise, 1-sentence forecast takeaway summary (e.g., 'Democrats are slightly favored in this highly competitive race...').",
+                },
+                "key_reasons": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "List of the 2-3 most important analytical reasons supporting this forecast (e.g., incumbency advantage, recent poll lead, national environment).",
+                },
+                "uncertainty": {
+                    "type": "string",
+                    "description": "A single sentence highlighting key caveats or sources of uncertainty (e.g., lack of polling, strong third-party candidates).",
+                },
                 "based_on_poll_count": {"type": "integer", "minimum": 0},
                 "source_urls": {"type": "array", "items": {"type": "string"}},
             },

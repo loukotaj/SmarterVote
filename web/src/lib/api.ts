@@ -1,4 +1,4 @@
-import type { Race, RaceSummary } from "./types";
+import type { Race, RaceSummary, ChamberForecasts } from "./types";
 import { sampleRaces } from "./sampleData";
 import { logger } from "./utils/logger";
 import { fetchWithAuth } from "$lib/stores/apiStore";
@@ -146,4 +146,31 @@ export async function getDraftRace(id: string): Promise<Race> {
     throw new Error(`Failed to fetch draft race: ${res.status}`);
   }
   return (await res.json()) as Race;
+}
+
+export async function getChamberForecasts(
+  fetchFn: typeof fetch = fetch,
+  useFallback: boolean = USE_SAMPLE_FALLBACK
+): Promise<ChamberForecasts> {
+  try {
+    return await fetchPublicJson<ChamberForecasts>(
+      "chamber_forecasts.json",
+      "/races/chamber_forecasts",
+      fetchFn
+    );
+  } catch (error) {
+    if (useFallback) {
+      logger.warn(
+        `API request failed for chamber forecasts, falling back to sample data:`,
+        error
+      );
+      return {
+        house: "The Republican party is currently projected to maintain a narrow majority in the US House, though key suburban districts remain highly competitive.",
+        senate: "Democrats face a challenging map but have key paths to holding their majority, with crucial toss-up races in key battleground states.",
+        governors: "Gubernatorial contests are expected to largely favor incumbents, though open seats present critical opportunities for both parties to gain ground.",
+        updated_at: new Date().toISOString(),
+      };
+    }
+    throw error;
+  }
 }

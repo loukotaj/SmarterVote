@@ -134,6 +134,9 @@ export interface RaceForecast {
   rating: ForecastRating;
   confidence: ConfidenceLevel;
   rationale: string;
+  takeaway?: string;
+  key_reasons?: string[];
+  uncertainty?: string;
   based_on_poll_count: number;
   generated_at: string;
   model: string;
@@ -575,4 +578,11 @@ export interface RaceRecord {
 
   created_at: string;
   updated_at: string;
+}
+
+export interface ChamberForecasts {
+  house: string;
+  senate: string;
+  governors: string;
+  updated_at?: string;
 }

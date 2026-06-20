@@ -1,4 +1,4 @@
-"""GCS helpers for the races-api admin backend."""
+﻿"""GCS helpers for the races-api admin backend."""
 
 import json
 import logging
@@ -11,7 +11,7 @@ from google.api_core.exceptions import NotFound, PreconditionFailed
 # Resolved once at startup; can be overridden in tests.
 _GCS_BUCKET = os.getenv("GCS_BUCKET", "")
 
-# Module-level singleton — tests can patch _get_gcs_admin to return a mock.
+# Module-level singleton â€” tests can patch _get_gcs_admin to return a mock.
 _gcs_admin_client = None
 
 
@@ -314,3 +314,51 @@ def publish_race_to_gcs(race_id: str, data: Dict[str, Any]) -> None:
 
 # Alias used by races_admin router
 _publish_race_gcs = publish_race_to_gcs
+
+
+def save_chamber_forecasts(data: Dict[str, Any]) -> None:
+    """Save chamber forecasts to GCS or local file."""
+    if _GCS_BUCKET:
+        client = _get_gcs_admin()
+        if client is not None:
+            bucket = client.bucket(_GCS_BUCKET)
+            bucket.blob("races/chamber_forecasts.json").upload_from_string(
+                json.dumps(data, indent=2), content_type="application/json"
+            )
+            return
+
+    from pathlib import Path
+
+    from config import DATA_DIR
+
+    local_path = Path(DATA_DIR) / "chamber_forecasts.json"
+    local_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(local_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
+def load_chamber_forecasts() -> Optional[Dict[str, Any]]:
+    """Load chamber forecasts from GCS or local file."""
+    if _GCS_BUCKET:
+        client = _get_gcs_admin()
+        if client is not None:
+            try:
+                bucket = client.bucket(_GCS_BUCKET)
+                blob = bucket.blob("races/chamber_forecasts.json")
+                if blob.exists():
+                    return json.loads(blob.download_as_text())
+            except Exception as e:
+                logging.warning("Error reading chamber forecasts from GCS: %s", e)
+
+    from pathlib import Path
+
+    from config import DATA_DIR
+
+    local_path = Path(DATA_DIR) / "chamber_forecasts.json"
+    if local_path.exists():
+        try:
+            with open(local_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            logging.warning("Error reading local chamber forecasts: %s", e)
+    return None
