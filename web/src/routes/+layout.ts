@@ -1,5 +1,6 @@
 import type { LayoutLoad } from "./$types";
 import { getRaceSummaries, getChamberForecasts } from "$lib/api";
+import type { ChamberForecasts, RaceSummary } from "$lib/types";
 
 export const trailingSlash = "always";
 
@@ -14,8 +15,8 @@ export const load: LayoutLoad = async ({ fetch }) => {
     return { races, chamberForecasts };
   } catch (error) {
     console.error("Failed to load layout data in layout load function:", error);
-    let races = [];
-    let chamberForecasts = {
+    let races: RaceSummary[] = [];
+    let chamberForecasts: { house: string; senate: string; governors: string; updated_at?: string } = {
       house: "House narrative overview loading...",
       senate: "Senate narrative overview loading...",
       governors: "Gubernatorial narrative overview loading...",

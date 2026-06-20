@@ -9,6 +9,7 @@
 
   export let data: PageData;
 
+  let races: RaceSummary[] = [];
   $: races = data.races || [];
   let loading = false;
 

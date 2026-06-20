@@ -15,6 +15,7 @@
   let isAuthenticated = false;
 
   // Global search autocomplete state
+  let races: RaceSummary[] = [];
   $: races = data.races || [];
   let headerQuery = "";
   let showSuggestions = false;
