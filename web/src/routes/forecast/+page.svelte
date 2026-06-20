@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
@@ -534,7 +534,7 @@
             on:click={clearStateFilter}
             class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold flex items-center gap-1 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-lg border border-blue-200/50 dark:border-blue-900/50"
           >
-            Clear Map Filter: {selectedState} âœ•
+            Clear Map Filter: {selectedState} ×
           </button>
         {/if}
       </div>
@@ -767,7 +767,7 @@
           </span>
         </div>
         <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">
-          {showHoldovers ? "Hide List â–²" : "Show List â–¼"}
+          {showHoldovers ? "Hide List ▲" : "Show List ▼"}
         </span>
       </button>
 
@@ -852,7 +852,7 @@
             on:click={clearStateFilter}
             class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold bg-blue-50 dark:bg-blue-950/40 px-2 py-1 rounded-lg border border-blue-200/50"
           >
-            State: {selectedState} âœ•
+            State: {selectedState} ×
           </button>
         {/if}
 
@@ -908,7 +908,7 @@
                   href={browser ? raceHref(race.id) : undefined}
                   class="text-xs text-content-subtle hover:text-blue-600 dark:hover:text-blue-400 font-bold bg-surface border border-stroke/60 px-2.5 py-1 rounded-lg transition-all"
                 >
-                  Details â†’
+                  Details →
                 </a>
               </div>
             </div>
@@ -954,7 +954,7 @@
                 on:click={() => toggleExpand(race.id)}
                 class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold flex items-center gap-1 focus:outline-none"
               >
-                <span class="inline-block transition-transform duration-200" style={isExpanded ? "transform: rotate(180deg);" : ""}>â–¼</span>
+                <span class="inline-block transition-transform duration-200" style={isExpanded ? "transform: rotate(180deg);" : ""}>▼</span>
                 {isExpanded ? "Hide Analysis" : "Expand Analysis"}
               </button>
 
