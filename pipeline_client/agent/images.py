@@ -223,6 +223,46 @@ async def _check_url_accessible(url: str) -> Tuple[bool, str]:
         return False, url
 
 
+def _wikimedia_original_image_url(url: str) -> Optional[str]:
+    """Return the original Wikimedia upload URL for thumbnail URLs."""
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        return None
+    if parsed.netloc.lower() != "upload.wikimedia.org":
+        return None
+    parts = parsed.path.split("/")
+    try:
+        thumb_index = parts.index("thumb")
+    except ValueError:
+        return None
+    if thumb_index < 2 or len(parts) <= thumb_index + 3:
+        return None
+    original_parts = parts[:thumb_index] + parts[thumb_index + 1 : -1]
+    if not original_parts or not original_parts[-1]:
+        return None
+    return parsed._replace(path="/".join(original_parts), query="", fragment="").geturl()
+
+
+async def _best_accessible_image_url(url: str) -> Optional[str]:
+    """Return the best accessible direct URL for an image candidate."""
+    candidates: List[str] = []
+    original = _wikimedia_original_image_url(url)
+    if original:
+        candidates.append(original)
+    candidates.append(url)
+
+    seen: set[str] = set()
+    for candidate_url in candidates:
+        if candidate_url in seen or not _is_valid_image_url(candidate_url):
+            continue
+        seen.add(candidate_url)
+        accessible, final_url = await _check_url_accessible(candidate_url)
+        if accessible:
+            return final_url if _is_valid_image_url(final_url) else candidate_url
+    return None
+
+
 async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Optional[str]:
     """Query the Wikipedia API to get a candidate's headshot URL.
 
@@ -257,7 +297,7 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
                             "action": "query",
                             "titles": title,
                             "prop": "pageimages",
-                            "pithumbsize": "400",
+                            "pithumbsize": "1000",
                             "format": "json",
                             "redirects": "1",
                         },
@@ -349,6 +389,14 @@ async def _resolve_single_image(
     if current_url:
         if _is_valid_image_url(current_url):
             log("info", f"  [{name}] Checking URL accessibility: {current_url[:80]}")
+            best_url = await _best_accessible_image_url(current_url)
+            if best_url:
+                candidate["image_url"] = best_url
+                if best_url != current_url:
+                    log("info", f"  [{name}] URL upgraded to better form: {best_url[:80]}")
+                else:
+                    log("info", f"  [{name}] URL OK - keeping existing image")
+                return
             accessible, final_url = await _check_url_accessible(current_url)
             if accessible:
                 if final_url != current_url and _is_valid_image_url(final_url):
