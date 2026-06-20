@@ -76,6 +76,17 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     return any(token in haystack for token in _NON_PHOTO_TOKENS)
 
 
+def _looks_like_low_resolution_reference_photo(url: str) -> bool:
+    """Return True for usable-but-small reference headshots worth upgrading."""
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        return False
+    netloc = parsed.netloc.lower()
+    path = unquote(parsed.path).lower()
+    return netloc == "www.govtrack.us" and "/static/legislator-photos/" in path
+
+
 def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> List[str]:
     """Return candidate page images ordered from most to least likely portrait."""
     parser = _PageImageParser()
@@ -373,10 +384,17 @@ async def _resolve_single_image(
     log = make_logger(on_log)
     name = candidate.get("name", "unknown")
     current_url = candidate.get("image_url") or None  # Treat "" and None identically
+    low_resolution_fallback: Optional[str] = None
 
     # Normalise empty string to None
     if not current_url:
         candidate["image_url"] = None
+
+    if current_url and _looks_like_low_resolution_reference_photo(current_url):
+        low_resolution_fallback = current_url
+        candidate["image_url"] = None
+        current_url = None
+        log("info", f"  [{name}] Existing image is a low-resolution reference photo - searching for better")
 
     # Commons file-page URL: resolve via Special:FilePath redirect
     if current_url and "commons.wikimedia.org/wiki/File:" in current_url:
@@ -445,6 +463,11 @@ async def _resolve_single_image(
     wiki_url = await _lookup_wikipedia_image(name, context=search_context)
     if wiki_url:
         log("info", f"  [{name}] Wikipedia API returned: {wiki_url[:80]}")
+        best_url = await _best_accessible_image_url(wiki_url)
+        if best_url:
+            candidate["image_url"] = best_url
+            log("info", f"  [{name}] Wikipedia image confirmed -> {best_url[:80]}")
+            return
         accessible, final_url = await _check_url_accessible(wiki_url)
         if accessible:
             store_url = final_url if _is_valid_image_url(final_url) else wiki_url
@@ -463,6 +486,10 @@ async def _resolve_single_image(
         log("info", f"  [{name}] Candidate page image confirmed -> {page_url[:80]}")
         return
     log("info", f"  [{name}] Known pages yielded no usable image - falling back to agent search")
+    if low_resolution_fallback:
+        candidate["image_url"] = low_resolution_fallback
+        log("info", f"  [{name}] Keeping low-resolution fallback -> {low_resolution_fallback[:80]}")
+        return
 
     # Ask the agent to find a working image URL
     from .prompts import IMAGE_SEARCH_SYSTEM, IMAGE_SEARCH_USER

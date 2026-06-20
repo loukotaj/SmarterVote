@@ -106,3 +106,32 @@ async def test_resolve_single_image_replaces_existing_non_photo_url(monkeypatch)
     await _resolve_single_image(candidate, agent_loop_fn=fail_agent, model="test")
 
     assert candidate["image_url"] == replacement
+
+
+@pytest.mark.asyncio
+async def test_resolve_single_image_replaces_low_resolution_govtrack_reference_photo(monkeypatch):
+    low_res = "https://www.govtrack.us/static/legislator-photos/412609-200px.jpeg"
+    replacement = "https://upload.wikimedia.org/wikipedia/commons/0/0b/Hill_French_119th_Congress.jpg"
+    candidate = {"name": "French Hill", "image_url": low_res}
+
+    async def fake_check(url: str):
+        return url == replacement, url
+
+    async def fail_agent(*args, **kwargs):
+        raise AssertionError("agent search should not run when Wikipedia finds an image")
+
+    monkeypatch.setattr("pipeline_client.agent.images._check_url_accessible", fake_check)
+
+    async def fake_ballotpedia(name: str):
+        return None
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_ballotpedia_image", fake_ballotpedia)
+
+    async def fake_wikipedia(name: str, context: str = ""):
+        return replacement
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_wikipedia_image", fake_wikipedia)
+
+    await _resolve_single_image(candidate, agent_loop_fn=fail_agent, model="test")
+
+    assert candidate["image_url"] == replacement
