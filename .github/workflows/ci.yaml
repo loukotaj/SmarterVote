@@ -135,6 +135,8 @@ jobs:
         cd web && npm run check
 
     - name: Build SvelteKit
+      env:
+        FAST_BUILD: "true"
       run: |
         cd web && npm run build
 
