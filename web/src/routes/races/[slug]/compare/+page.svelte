@@ -200,7 +200,7 @@
                 {candidate.summary}
                 {#if isExternalUrl(candidate.website)}
                   <div class="mt-3">
-                    <a href={candidate.website} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                    <a href={candidate.website.trim()} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
                       Visit Campaign Website
                       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -325,7 +325,7 @@
                 {#if candidate.donor_summary}
                   <p class="text-xs leading-relaxed mb-3">{candidate.donor_summary}</p>
                   {#if isExternalUrl(candidate.donor_source_url)}
-                    <a href={candidate.donor_source_url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                    <a href={candidate.donor_source_url.trim()} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
                       Open FEC Donor Details
                       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -349,7 +349,7 @@
                 {#if candidate.voting_summary}
                   <p class="text-xs leading-relaxed mb-3">{candidate.voting_summary}</p>
                   {#if isExternalUrl(candidate.voting_source_url)}
-                    <a href={candidate.voting_source_url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                    <a href={candidate.voting_source_url.trim()} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline">
                       Open Detailed Voting Source
                       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

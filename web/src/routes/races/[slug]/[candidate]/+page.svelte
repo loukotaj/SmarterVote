@@ -383,27 +383,31 @@
           <ul class="summary-sources-list">
             {#each (summarySourcesOpen ? candidate.summary_sources : candidate.summary_sources.slice(0, SUMMARY_SOURCE_LIMIT)) as src}
               <li>
-                <a
-                  href={src.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="summary-source-link"
-                >
-                  <svg
-                    class="w-3 h-3 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                {#if isExternalUrl(src.url)}
+                  <a
+                    href={src.url.trim()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="summary-source-link"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                  </svg>
-                  {src.title ?? src.url}
-                </a>
+                    <svg
+                      class="w-3 h-3 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                    {src.title ?? src.url}
+                  </a>
+                {:else}
+                  <span class="summary-source-link">{src.title ?? src.url}</span>
+                {/if}
               </li>
             {/each}
           </ul>
@@ -425,7 +429,7 @@
       <div class="quick-links">
         {#if isExternalUrl(candidate.website)}
           <a
-            href={candidate.website}
+            href={candidate.website.trim()}
             target="_blank"
             rel="noopener noreferrer"
             class="quick-link"
@@ -448,7 +452,7 @@
         {/if}
         {#each socialLinks as [platform, url]}
           <a
-            href={url}
+            href={url.trim()}
             target="_blank"
             rel="noopener noreferrer"
             class="quick-link"
@@ -498,9 +502,9 @@
                     {#if entry.description}
                       <p class="timeline-desc">{entry.description}</p>
                     {/if}
-                    {#if entry.source}
+                    {#if entry.source && isExternalUrl(entry.source.url)}
                       <a
-                        href={entry.source.url}
+                        href={entry.source.url.trim()}
                         target="_blank"
                         rel="noopener noreferrer"
                         class="entry-source-link"
@@ -539,9 +543,9 @@
                         {#if edu.year}({edu.year}){/if}
                       </span>
                     {/if}
-                    {#if edu.source}
+                    {#if edu.source && isExternalUrl(edu.source.url)}
                       <a
-                        href={edu.source.url}
+                        href={edu.source.url.trim()}
                         target="_blank"
                         rel="noopener noreferrer"
                         class="entry-source-link"

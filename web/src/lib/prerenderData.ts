@@ -9,6 +9,10 @@ export function publicApiBase(): string {
   return import.meta.env.VITE_RACES_API_URL || DEFAULT_API_BASE;
 }
 
+function shouldPrerenderDynamicRoutes(): boolean {
+  return import.meta.env.MODE !== "fast" || import.meta.env.VITE_PRERENDER_RACES === "true";
+}
+
 export async function fetchPublishedRaceSummaries(fetchFn: typeof fetch = fetch): Promise<RaceSummary[]> {
   summariesCache ??= (async () => {
     const res = await fetchFn(`${publicApiBase()}/races/summaries`);
@@ -36,6 +40,7 @@ export async function fetchPublishedRace(id: string, fetchFn: typeof fetch = fet
 }
 
 export async function raceEntries(): Promise<Array<{ slug: string }>> {
+  if (!shouldPrerenderDynamicRoutes()) return [];
   const summaries = await fetchPublishedRaceSummaries().catch((error) => {
     console.warn("Skipping race prerender entries:", error);
     return [];
@@ -44,6 +49,7 @@ export async function raceEntries(): Promise<Array<{ slug: string }>> {
 }
 
 export async function candidateEntries(): Promise<Array<{ slug: string; candidate: string }>> {
+  if (!shouldPrerenderDynamicRoutes()) return [];
   const summaries = await fetchPublishedRaceSummaries().catch((error) => {
     console.warn("Skipping candidate prerender entries:", error);
     return [];

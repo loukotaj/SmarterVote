@@ -136,7 +136,7 @@
     {#if isExternalUrl(candidate.website)}
       <div class="mt-3">
         <a
-          href={candidate.website}
+          href={candidate.website.trim()}
           target="_blank"
           rel="noopener noreferrer"
           class="website-link"
@@ -256,9 +256,9 @@
                       {#if entry.description}
                         <p class="timeline-desc">{entry.description}</p>
                       {/if}
-                      {#if entry.source}
+                      {#if entry.source && isExternalUrl(entry.source.url)}
                         <a
-                          href={entry.source.url}
+                          href={entry.source.url.trim()}
                           target="_blank"
                           rel="noopener noreferrer"
                           class="entry-source-link"
@@ -299,9 +299,9 @@
                           {/if}
                         </span>
                       {/if}
-                      {#if edu.source}
+                      {#if edu.source && isExternalUrl(edu.source.url)}
                         <a
-                          href={edu.source.url}
+                          href={edu.source.url.trim()}
                           target="_blank"
                           rel="noopener noreferrer"
                           class="entry-source-link"

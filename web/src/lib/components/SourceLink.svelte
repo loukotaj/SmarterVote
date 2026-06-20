@@ -1,14 +1,12 @@
 <script lang="ts">
   import type { Source } from "../types";
+  import { isExternalUrl } from "$lib/utils/url";
 
   export let source: Source;
   export let text: string | undefined = undefined;
 
-  // Only allow http/https URLs to prevent javascript: XSS
-  $: safeUrl =
-    source.url.startsWith("http://") || source.url.startsWith("https://")
-      ? source.url
-      : undefined;
+  // Only allow valid http/https URLs to prevent javascript: XSS and prerender crawler crashes.
+  $: safeUrl = isExternalUrl(source.url) ? source.url.trim() : undefined;
 
   // Extract domain from URL for display
   $: domain = getDomain(source.url);

@@ -1,6 +1,7 @@
 <script lang="ts">
   import NoDataFallback from "./NoDataFallback.svelte";
   import type { Source } from "$lib/types";
+  import { isExternalUrl } from "$lib/utils/url";
 
   export let votingSummary: string = "";
   export let votingSourceUrl: string = "";
@@ -37,9 +38,11 @@
     const links: SourceLink[] = [];
     const seen = new Set<string>();
     const add = (url: string | undefined, title?: string) => {
-      if (!url || seen.has(url)) return;
-      seen.add(url);
-      links.push({ url, title: title || titleForUrl(url) });
+      if (!isExternalUrl(url)) return;
+      const safeUrl = url.trim();
+      if (seen.has(safeUrl)) return;
+      seen.add(safeUrl);
+      links.push({ url: safeUrl, title: title || titleForUrl(safeUrl) });
     };
 
     add(sourceUrl, "View full voting record");
