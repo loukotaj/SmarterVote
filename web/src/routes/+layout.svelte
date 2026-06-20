@@ -243,6 +243,9 @@
             <a href="/about" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
               About
             </a>
+            <a href="/forecast" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/forecast') ? 'font-semibold text-content' : ''}">
+              Forecasts
+            </a>
             {#if isAuthenticated}
               <a href="/admin" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">
                 Admin
@@ -343,6 +346,9 @@
           </a>
           <a href="/about" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
             About
+          </a>
+          <a href="/forecast" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/forecast') ? 'font-semibold text-content' : ''}">
+            Forecasts
           </a>
           {#if isAuthenticated}
             <a href="/admin" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">

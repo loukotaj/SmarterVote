@@ -113,6 +113,33 @@ export interface ValidationGrade {
   summary: string;
 }
 
+export type ForecastRating =
+  | "safe_d"
+  | "likely_d"
+  | "lean_d"
+  | "tilt_d"
+  | "tossup"
+  | "tilt_r"
+  | "lean_r"
+  | "likely_r"
+  | "safe_r"
+  | "other";
+
+export interface RaceForecast {
+  predicted_winner_name?: string;
+  predicted_winner_party?: string;
+  win_probability?: number;
+  party_probabilities: Record<string, number>;
+  margin_estimate?: number;
+  rating: ForecastRating;
+  confidence: ConfidenceLevel;
+  rationale: string;
+  based_on_poll_count: number;
+  generated_at: string;
+  model: string;
+  source_urls: string[];
+}
+
 export interface Candidate {
   name: string;
   party?: string;
@@ -171,6 +198,7 @@ export interface Race {
   description?: string;
   polling?: PollEntry[];
   polling_note?: string;
+  forecast?: RaceForecast;
   reviews?: AgentReview[];
   validation_grade?: ValidationGrade;
   pipeline_state?: PipelineState;
@@ -247,6 +275,7 @@ export interface RaceSummary {
     model?: string;
     total_tokens?: number;
   } | null;
+  forecast?: RaceForecast | null;
 }
 
 // Pipeline run types
@@ -267,6 +296,7 @@ export type PipelineStepId =
   | "finance"
   | "refinement"
   | "polling"
+  | "forecast"
   | "voter_resources"
   | "review"
   | "iteration";
@@ -278,10 +308,11 @@ export const PIPELINE_STEPS: {
 }[] = [
   { id: "discovery", label: "Discovery", weight: 12 },
   { id: "images", label: "Image Resolution", weight: 4 },
-  { id: "issues", label: "Issue Research", weight: 30 },
+  { id: "issues", label: "Issue Research", weight: 28 },
   { id: "finance", label: "Finance & Voting", weight: 9 },
-  { id: "refinement", label: "Refinement", weight: 12 },
-  { id: "polling", label: "Polling", weight: 8 },
+  { id: "refinement", label: "Refinement", weight: 11 },
+  { id: "polling", label: "Polling", weight: 7 },
+  { id: "forecast", label: "Forecast", weight: 4 },
   { id: "voter_resources", label: "Voter Resources", weight: 5 },
   { id: "review", label: "AI Review", weight: 12 },
   { id: "iteration", label: "Review Iteration", weight: 8 },

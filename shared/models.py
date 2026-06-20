@@ -171,6 +171,53 @@ class ValidationGrade(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# Forecast
+# ---------------------------------------------------------------------------
+
+
+class ForecastRating(str, Enum):
+    """Forecast rating bands for race-level predictions."""
+
+    SAFE_D = "safe_d"
+    LIKELY_D = "likely_d"
+    LEAN_D = "lean_d"
+    TILT_D = "tilt_d"
+    TOSSUP = "tossup"
+    TILT_R = "tilt_r"
+    LEAN_R = "lean_r"
+    LIKELY_R = "likely_r"
+    SAFE_R = "safe_r"
+    OTHER = "other"
+
+
+class RaceForecast(BaseModel):
+    """Informational AI forecast for a race."""
+
+    predicted_winner_name: Optional[str] = None
+    predicted_winner_party: Optional[str] = None
+    win_probability: Optional[float] = Field(None, ge=0, le=1)
+    party_probabilities: Dict[str, float] = Field(default_factory=dict)
+    margin_estimate: Optional[float] = None
+    rating: ForecastRating
+    confidence: ConfidenceLevel = ConfidenceLevel.UNKNOWN
+    rationale: str = ""
+    based_on_poll_count: int = Field(default=0, ge=0)
+    generated_at: datetime
+    model: str
+    source_urls: List[str] = Field(default_factory=list)
+
+    @field_validator("party_probabilities")
+    @classmethod
+    def validate_party_probabilities(cls, v: Dict[str, float]) -> Dict[str, float]:
+        for party, probability in v.items():
+            if not party:
+                raise ValueError("party_probabilities keys must be non-empty")
+            if not 0 <= probability <= 1:
+                raise ValueError(f"party probability for {party!r} out of range 0-1")
+        return v
+
+
+# ---------------------------------------------------------------------------
 # Candidate
 # ---------------------------------------------------------------------------
 
@@ -304,6 +351,7 @@ class RaceJSON(BaseModel):
     # Polling data
     polling: List[PollEntry] = Field(default_factory=list)
     polling_note: Optional[str] = None  # set when no public polls are found
+    forecast: Optional[RaceForecast] = None
 
     # Voter action links
     ballotpedia_url: Optional[str] = Field(None, description="URL to the Ballotpedia election page")

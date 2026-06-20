@@ -278,6 +278,54 @@ Remove duplicate or malformed existing polls. If no public polling exists, set
 polling_note to "No public polling found for this race as of {current_date}."
 Use only add_poll, remove_poll, and update_race_field for polling_note."""
 
+FORECAST_SYSTEM = """\
+You are a nonpartisan election forecaster. Your only task is to set an
+informational race forecast from the provided race data.
+
+Rules:
+1. Do not search the web. Do not fetch pages. Use only the data in this prompt.
+2. Be explicit about uncertainty. Sparse or missing polling should reduce
+   confidence and should be reflected in the rationale.
+3. The forecast is informational, not an endorsement.
+4. Prefer candidate-level polling when available. When polling is sparse, use
+   incumbency, party context, race description, candidate field strength, and
+   historical signals already present in the race data.
+5. Use set_forecast exactly once. Do not change candidates, polling, voter
+   resources, or any other race fields."""
+
+FORECAST_USER = """\
+Race: "{race_id}"
+Current date: {current_date}
+Office: {office}
+Jurisdiction: {jurisdiction}
+State: {state}
+District: {district}
+Description: {description}
+
+Candidates:
+{candidates_json}
+
+Polling note: {polling_note}
+Polling:
+{polling_json}
+
+Existing forecast:
+{forecast_json}
+
+Set a forecast using these rating bands:
+- safe_d / safe_r: overwhelming advantage, roughly 95%+ party win probability.
+- likely_d / likely_r: clear advantage, roughly 80-94%.
+- lean_d / lean_r: meaningful advantage, roughly 65-79%.
+- tilt_d / tilt_r: narrow advantage, roughly 55-64%.
+- tossup: no clear favorite or both major parties roughly 45-55%.
+- other: independent/third-party/nonpartisan outcome is most likely or party
+  control cannot be represented by D/R.
+
+Use party_probabilities with normalized party labels such as "Democratic",
+"Republican", "Independent", or "Other". Keep probabilities between 0 and 1.
+Use source_urls from existing polling source_url values only. If no numeric
+polls exist, source_urls may be empty and based_on_poll_count should be 0."""
+
 VOTER_RESOURCES_SYSTEM = f"""\
 You are a nonpartisan election-resource researcher. Your only task is to verify
 official voter links for a race without changing candidates, polling, or prose.

@@ -73,6 +73,26 @@ def build_agent_metrics_summary(race_data: Dict[str, Any]) -> Dict[str, Any] | N
     }
 
 
+def build_forecast_summary(race_data: Dict[str, Any]) -> Dict[str, Any] | None:
+    forecast = race_data.get("forecast")
+    if not isinstance(forecast, dict):
+        return None
+    return {
+        "predicted_winner_name": forecast.get("predicted_winner_name"),
+        "predicted_winner_party": forecast.get("predicted_winner_party"),
+        "win_probability": forecast.get("win_probability"),
+        "party_probabilities": forecast.get("party_probabilities") or {},
+        "margin_estimate": forecast.get("margin_estimate"),
+        "rating": forecast.get("rating"),
+        "confidence": forecast.get("confidence"),
+        "rationale": forecast.get("rationale"),
+        "based_on_poll_count": forecast.get("based_on_poll_count", 0),
+        "generated_at": forecast.get("generated_at"),
+        "model": forecast.get("model"),
+        "source_urls": forecast.get("source_urls") or [],
+    }
+
+
 def build_race_summary_fields(race_id: str, race_data: Dict[str, Any]) -> Dict[str, Any]:
     candidates = build_candidate_summaries(race_data)
     updated_utc = race_data.get("updated_utc")
@@ -89,6 +109,7 @@ def build_race_summary_fields(race_id: str, race_data: Dict[str, Any]) -> Dict[s
         "quality_grade": extract_quality_grade(race_data),
         "freshness": compute_freshness(updated_utc),
         "agent_metrics": build_agent_metrics_summary(race_data),
+        "forecast": build_forecast_summary(race_data),
     }
 
 

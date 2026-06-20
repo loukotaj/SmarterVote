@@ -668,6 +668,60 @@ POLLING_TOOLS: List[Dict] = [
     REMOVE_POLL_TOOL,
     _restricted_race_field_tool(["polling_note"], "Update the race polling note."),
 ]
+
+SET_FORECAST_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "set_forecast",
+        "description": "Set the race-level informational forecast based only on existing race data.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "predicted_winner_name": {
+                    "type": "string",
+                    "description": "Predicted winning candidate name, or empty if unknown.",
+                },
+                "predicted_winner_party": {"type": "string", "description": "Predicted winning party, or empty if unknown."},
+                "win_probability": {"type": "number", "minimum": 0, "maximum": 1},
+                "party_probabilities": {
+                    "type": "object",
+                    "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1},
+                    "description": "Party-level win probabilities keyed by normalized party name.",
+                },
+                "margin_estimate": {"type": "number", "description": "Estimated winner margin in percentage points."},
+                "rating": {
+                    "type": "string",
+                    "enum": [
+                        "safe_d",
+                        "likely_d",
+                        "lean_d",
+                        "tilt_d",
+                        "tossup",
+                        "tilt_r",
+                        "lean_r",
+                        "likely_r",
+                        "safe_r",
+                        "other",
+                    ],
+                },
+                "confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
+                "rationale": {"type": "string", "description": "Brief nonpartisan rationale."},
+                "based_on_poll_count": {"type": "integer", "minimum": 0},
+                "source_urls": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": [
+                "rating",
+                "confidence",
+                "rationale",
+                "based_on_poll_count",
+                "party_probabilities",
+                "source_urls",
+            ],
+        },
+    },
+}
+
+FORECAST_TOOLS: List[Dict] = [SET_FORECAST_TOOL]
 VOTER_RESOURCE_TOOLS: List[Dict] = [
     _restricted_race_field_tool(
         ["ballotpedia_url", "register_to_vote_url", "how_to_vote_url"],

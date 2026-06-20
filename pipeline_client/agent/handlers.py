@@ -540,6 +540,60 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         log("info", f"    race.{field} updated")
         return f"Updated race.{field}."
 
+    def set_forecast(args: Dict[str, Any]) -> str:
+        rating = args["rating"]
+        if rating not in {
+            "safe_d",
+            "likely_d",
+            "lean_d",
+            "tilt_d",
+            "tossup",
+            "tilt_r",
+            "lean_r",
+            "likely_r",
+            "safe_r",
+            "other",
+        }:
+            return f"ERROR: Forecast rating '{rating}' is not valid."
+        confidence = args["confidence"]
+        if confidence not in {"high", "medium", "low", "unknown"}:
+            return f"ERROR: Forecast confidence '{confidence}' is not valid."
+
+        def _optional_probability(value: Any, field_name: str) -> float | None:
+            if value in (None, ""):
+                return None
+            if not isinstance(value, (int, float)) or not 0 <= float(value) <= 1:
+                raise ValueError(f"{field_name} must be a number from 0 to 1")
+            return float(value)
+
+        try:
+            win_probability = _optional_probability(args.get("win_probability"), "win_probability")
+            party_probabilities = {}
+            for party, probability in (args.get("party_probabilities") or {}).items():
+                normalized = _optional_probability(probability, f"party_probabilities[{party}]")
+                if normalized is not None:
+                    party_probabilities[str(party)] = normalized
+        except ValueError as exc:
+            return f"ERROR: {exc}"
+
+        forecast = {
+            "predicted_winner_name": args.get("predicted_winner_name") or None,
+            "predicted_winner_party": args.get("predicted_winner_party") or None,
+            "win_probability": win_probability,
+            "party_probabilities": party_probabilities,
+            "margin_estimate": args.get("margin_estimate"),
+            "rating": rating,
+            "confidence": confidence,
+            "rationale": str(args.get("rationale") or "").strip(),
+            "based_on_poll_count": max(0, int(args.get("based_on_poll_count") or 0)),
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "model": str(args.get("model") or ""),
+            "source_urls": [str(url) for url in args.get("source_urls") or [] if str(url).strip()],
+        }
+        race_json["forecast"] = forecast
+        log("info", f"    race.forecast updated ({rating})")
+        return "Updated race.forecast."
+
     # --- Read-only verification handler ---
 
     def read_profile(args: Dict[str, Any]) -> str:
@@ -568,6 +622,8 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             return json.dumps(compact, separators=(",", ":"))
         if section == "polling":
             return json.dumps(race_json.get("polling", []), separators=(",", ":"), default=str)
+        if section == "forecast":
+            return json.dumps(race_json.get("forecast"), separators=(",", ":"), default=str)
         if section == "meta":
             return json.dumps(
                 {
@@ -593,6 +649,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         "add_poll": add_poll,
         "remove_poll": remove_poll,
         "update_race_field": update_race_field,
+        "set_forecast": set_forecast,
         "read_profile": read_profile,
         "add_career_entry": add_career_entry,
         "remove_career_entry": remove_career_entry,

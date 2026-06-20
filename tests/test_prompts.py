@@ -5,6 +5,8 @@ from pipeline_client.agent.prompts import (
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
     FINANCE_VOTING_USER,
+    FORECAST_SYSTEM,
+    FORECAST_USER,
     ISSUE_SUBAGENT_SYSTEM,
     ISSUE_SUBAGENT_USER,
     ITERATE_USER,
@@ -312,3 +314,24 @@ def test_polling_prompt_distinguishes_source_only_polls_from_numeric_matchups():
 
     assert "matchups: []" in POLLING_USER
     assert "does not publish numeric candidate percentages" in POLLING_USER
+
+
+def test_forecast_prompt_formats_and_disallows_search():
+    result = FORECAST_USER.format(
+        race_id="ga-senate-2026",
+        current_date="2026-06-20",
+        office="United States Senate",
+        jurisdiction="Georgia",
+        state="Georgia",
+        district="",
+        description="A competitive Senate race.",
+        candidates_json='[{"name":"Alice","party":"Democratic"}]',
+        polling_note="No public polling found.",
+        polling_json="[]",
+        forecast_json="null",
+    )
+
+    assert "ga-senate-2026" in result
+    assert "set a forecast" in result.lower()
+    assert "Do not search the web" in FORECAST_SYSTEM
+    assert "Use set_forecast exactly once" in FORECAST_SYSTEM

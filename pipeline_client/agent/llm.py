@@ -389,6 +389,7 @@ async def _agent_loop(
     tools_mode: bool = False,
     run_budget: RunBudget | None = None,
     max_request_retries: int = 3,
+    allow_search_tools: bool = True,
 ) -> Dict[str, Any]:
     """Run a single agent loop.
 
@@ -431,7 +432,9 @@ async def _agent_loop(
 
         if tools_mode:
             search_tools = (
-                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL] if iteration < nudge_at else []
+                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL]
+                if allow_search_tools and iteration < nudge_at
+                else []
             )
             tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
 
@@ -464,7 +467,11 @@ async def _agent_loop(
                 ]
                 log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
 
-            base_tools = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL] if iteration < nudge_at else []
+            base_tools = (
+                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL]
+                if allow_search_tools and iteration < nudge_at
+                else []
+            )
             tools_for_call = (base_tools + _extra_tools) if (base_tools or _extra_tools) else None
 
         t_call = time.perf_counter()

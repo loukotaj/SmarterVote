@@ -156,6 +156,7 @@ def _gcs_list_versions(race_id: str) -> List[Dict[str, Any]]:
 
 def _summary_from_race_data(race_id: str, race_data: Dict[str, Any]) -> Dict[str, Any]:
     agent_metrics = race_data.get("agent_metrics") or None
+    forecast = race_data.get("forecast") or None
     return {
         "id": race_data.get("id", race_id),
         "title": race_data.get("title"),
@@ -181,6 +182,24 @@ def _summary_from_race_data(race_id: str, race_data: Dict[str, Any]) -> Dict[str
                 "total_tokens": agent_metrics.get("total_tokens"),
             }
             if isinstance(agent_metrics, dict)
+            else None
+        ),
+        "forecast": (
+            {
+                "predicted_winner_name": forecast.get("predicted_winner_name"),
+                "predicted_winner_party": forecast.get("predicted_winner_party"),
+                "win_probability": forecast.get("win_probability"),
+                "party_probabilities": forecast.get("party_probabilities") or {},
+                "margin_estimate": forecast.get("margin_estimate"),
+                "rating": forecast.get("rating"),
+                "confidence": forecast.get("confidence"),
+                "rationale": forecast.get("rationale"),
+                "based_on_poll_count": forecast.get("based_on_poll_count", 0),
+                "generated_at": forecast.get("generated_at"),
+                "model": forecast.get("model"),
+                "source_urls": forecast.get("source_urls") or [],
+            }
+            if isinstance(forecast, dict)
             else None
         ),
     }

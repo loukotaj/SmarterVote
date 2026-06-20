@@ -39,6 +39,7 @@ class PipelineStep(str, Enum):
     FINANCE = "finance"
     REFINEMENT = "refinement"
     POLLING = "polling"
+    FORECAST = "forecast"
     VOTER_RESOURCES = "voter_resources"
     REVIEW = "review"
     ITERATION = "iteration"

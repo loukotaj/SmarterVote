@@ -52,6 +52,7 @@ from .tools import (  # noqa: F401 - re-exported for tests
     BALLOTPEDIA_TOOL,
     CANDIDATE_TOOLS,
     FETCH_TOOL,
+    FORECAST_TOOLS,
     ISSUE_TOOLS,
     RACE_TOOLS,
     READ_PROFILE_TOOL,
@@ -63,6 +64,7 @@ from .tools import (  # noqa: F401 - re-exported for tests
     SET_CANDIDATE_FIELD_TOOL,
     SET_CANDIDATE_SUMMARY_TOOL,
     SET_DONOR_SUMMARY_TOOL,
+    SET_FORECAST_TOOL,
     SET_ISSUE_STANCE_TOOL,
     SET_VOTING_SUMMARY_TOOL,
     UPDATE_RACE_FIELD_TOOL,
@@ -586,7 +588,7 @@ async def run_agent(
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
     review_required_steps_ran = bool(_enabled & {"discovery", "images", "issues", "finance", "refinement", "iteration"})
-    maintenance_steps_ran = bool(_enabled & {"polling", "voter_resources"})
+    maintenance_steps_ran = bool(_enabled & {"polling", "forecast", "voter_resources"})
     validation_grade = race_json.get("validation_grade")
     if not isinstance(validation_grade, dict) and race_json.get("reviews"):
         validation_grade = compute_validation_grade(race_json.get("reviews", []))

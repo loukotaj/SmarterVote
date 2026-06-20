@@ -40,7 +40,16 @@ def _valid_review_profile():
 
 def test_shared_models_have_new_fields():
     """shared/models.py has CareerEntry, EducationEntry, CandidateLink, AgentReview."""
-    from shared.models import AgentReview, Candidate, CandidateLink, CareerEntry, EducationEntry, RaceJSON, ReviewFlag
+    from shared.models import (
+        AgentReview,
+        Candidate,
+        CandidateLink,
+        CareerEntry,
+        EducationEntry,
+        RaceForecast,
+        RaceJSON,
+        ReviewFlag,
+    )
 
     # CareerEntry
     entry = CareerEntry(title="Senator")
@@ -73,6 +82,23 @@ def test_shared_models_have_new_fields():
     c_with_finance = Candidate(name="Finance Test", donor_sources=[finance_source])
     assert str(c_with_finance.donor_sources[0].url) == finance_source["url"]
     assert c_with_finance.donor_sources[0].type == "finance"
+
+    forecast = RaceForecast(
+        predicted_winner_name="Alice Example",
+        predicted_winner_party="Democratic",
+        win_probability=0.68,
+        party_probabilities={"Democratic": 0.68, "Republican": 0.32},
+        margin_estimate=3.2,
+        rating="lean_d",
+        confidence="medium",
+        rationale="Available polling and incumbency favor Alice.",
+        based_on_poll_count=2,
+        generated_at=datetime(2026, 6, 20),
+        model="openai/gpt-5.4",
+        source_urls=["https://example.com/poll"],
+    )
+    assert forecast.rating == "lean_d"
+    assert forecast.party_probabilities["Democratic"] == 0.68
 
     # AgentReview
     review = AgentReview(

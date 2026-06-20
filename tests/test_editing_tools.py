@@ -42,6 +42,7 @@ def test_editing_tool_schemas_exist():
         SET_CANDIDATE_FIELD_TOOL,
         SET_CANDIDATE_SUMMARY_TOOL,
         SET_DONOR_SUMMARY_TOOL,
+        SET_FORECAST_TOOL,
         SET_ISSUE_STANCE_TOOL,
         SET_VOTING_SUMMARY_TOOL,
         UPDATE_RACE_FIELD_TOOL,
@@ -52,6 +53,7 @@ def test_editing_tool_schemas_exist():
     assert len(ISSUE_TOOLS) == 1
     assert len(RECORD_TOOLS) == 3  # donor_summary, voting_summary, add_link
     assert len(RACE_TOOLS) == 3
+    assert SET_FORECAST_TOOL["function"]["name"] == "set_forecast"
     assert READ_PROFILE_TOOL["function"]["name"] == "read_profile"
 
 
@@ -81,6 +83,7 @@ def test_make_editing_handlers():
         "add_poll",
         "remove_poll",
         "update_race_field",
+        "set_forecast",
         "read_profile",
         "add_education_entry",
         "update_education_entry",
@@ -92,6 +95,33 @@ def test_make_editing_handlers():
         "clear_career_history",
     }
     assert set(handlers.keys()) == expected_names
+
+
+def test_set_forecast_handler_updates_race_forecast():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "Democratic"}], "polling": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_forecast"](
+        {
+            "predicted_winner_name": "Alice",
+            "predicted_winner_party": "Democratic",
+            "win_probability": 0.72,
+            "party_probabilities": {"Democratic": 0.72, "Republican": 0.28},
+            "margin_estimate": 4.5,
+            "rating": "lean_d",
+            "confidence": "medium",
+            "rationale": "Alice leads based on the available race profile.",
+            "based_on_poll_count": 1,
+            "source_urls": ["https://example.com/poll"],
+        }
+    )
+
+    assert result == "Updated race.forecast."
+    assert race_json["forecast"]["rating"] == "lean_d"
+    assert race_json["forecast"]["win_probability"] == 0.72
+    assert race_json["forecast"]["generated_at"]
 
 
 def test_add_candidate_link_ignores_legacy_string_links_for_dedup():

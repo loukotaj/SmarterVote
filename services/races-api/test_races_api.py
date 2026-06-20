@@ -222,6 +222,34 @@ def test_local_listing_uses_static_summaries_index(tmp_path):
     assert service.get_race_summaries() == sample_summary
 
 
+def test_race_summary_schema_accepts_forecast():
+    from schemas import RaceSummary
+
+    summary = RaceSummary(
+        id="ga-senate-2026",
+        election_date="2026-11-03",
+        updated_utc="2026-06-20T00:00:00Z",
+        candidates=[],
+        forecast={
+            "predicted_winner_name": "Alice",
+            "predicted_winner_party": "Democratic",
+            "win_probability": 0.6,
+            "party_probabilities": {"Democratic": 0.6, "Republican": 0.4},
+            "margin_estimate": 1.5,
+            "rating": "tilt_d",
+            "confidence": "medium",
+            "rationale": "Narrow advantage.",
+            "based_on_poll_count": 1,
+            "generated_at": "2026-06-20T00:00:00Z",
+            "model": "openai/gpt-5.4",
+            "source_urls": ["https://example.com/poll"],
+        },
+    )
+
+    assert summary.forecast is not None
+    assert summary.forecast.rating == "tilt_d"
+
+
 def test_rate_limit_exceeded(client):
     """Exceeding the rate limit returns 429 Too Many Requests."""
     import main as main_mod

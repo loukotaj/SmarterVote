@@ -38,6 +38,8 @@ from .prompts import (
     DISCOVERY_USER,
     FINANCE_VOTING_SYSTEM,
     FINANCE_VOTING_USER,
+    FORECAST_SYSTEM,
+    FORECAST_USER,
     ISSUE_SUBAGENT_SYSTEM,
     ISSUE_SUBAGENT_USER,
     ITERATE_META_USER,
@@ -71,6 +73,7 @@ from .tools import (
     BACKGROUND_TOOLS,
     CANDIDATE_TOOLS,
     DESCRIPTION_TOOLS,
+    FORECAST_TOOLS,
     ISSUE_TOOLS,
     POLLING_TOOLS,
     RACE_TOOLS,
@@ -1131,6 +1134,61 @@ async def _run_shared_phases(
         track("complete", "polling", duration_ms=int((time.perf_counter() - polling_t0) * 1000), race_json=race_json)
     else:
         track("skip", "polling")
+
+    if step_enabled("forecast"):
+        track("start", "forecast")
+        forecast_t0 = time.perf_counter()
+        log("info", f"{prefix} 4b: Generating race forecast...")
+        try:
+            compact_candidates = [
+                {
+                    "name": candidate.get("name"),
+                    "party": candidate.get("party"),
+                    "incumbent": candidate.get("incumbent", False),
+                    "withdrawn": candidate.get("withdrawn", False),
+                    "summary": candidate.get("summary", ""),
+                    "donor_summary": candidate.get("donor_summary"),
+                    "voting_summary": candidate.get("voting_summary"),
+                }
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict)
+            ]
+            await _agent_loop(
+                FORECAST_SYSTEM,
+                FORECAST_USER.format(
+                    race_id=race_id,
+                    current_date=datetime.now(timezone.utc).date().isoformat(),
+                    office=race_json.get("office") or "",
+                    jurisdiction=race_json.get("jurisdiction") or "",
+                    state=race_json.get("state") or "",
+                    district=race_json.get("district") or "",
+                    description=race_json.get("description") or "",
+                    candidates_json=json.dumps(compact_candidates, indent=2, default=str),
+                    polling_note=race_json.get("polling_note") or "",
+                    polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
+                    forecast_json=json.dumps(race_json.get("forecast"), indent=2, default=str),
+                ),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=min(max_iterations, 4),
+                phase_name=f"{'update-' if is_update else ''}forecast",
+                max_tokens=4096,
+                extra_tools=FORECAST_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+                run_budget=run_budget,
+                allow_search_tools=False,
+            )
+            if isinstance(race_json.get("forecast"), dict):
+                race_json["forecast"]["model"] = model
+        except RunBudgetExceeded:
+            raise
+        except Exception as exc:
+            log("warning", f"  Forecast phase failed: {exc}")
+        track("complete", "forecast", duration_ms=int((time.perf_counter() - forecast_t0) * 1000), race_json=race_json)
+    else:
+        track("skip", "forecast")
 
     if step_enabled("voter_resources"):
         track("start", "voter_resources")
