@@ -419,3 +419,48 @@ def test_analytics_timeseries_bucket_bounds(client):
         assert client.get("/analytics/timeseries?bucket=361", headers={"X-Admin-Key": "secret"}).status_code == 422
     finally:
         main_mod._ADMIN_API_KEY = original
+
+
+def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
+    """GET and POST for chamber_forecasts."""
+    import config
+
+    monkeypatch.setattr(config, "DATA_DIR", data_dir)
+
+    # First GET when no file exists should return 404
+    resp = client.get("/races/chamber_forecasts")
+    assert resp.status_code == 404
+
+    # Setup admin key for POST in env
+    monkeypatch.setenv("ADMIN_API_KEY", "secret")
+
+    # POST with missing/invalid data should return 422
+    resp = client.post(
+        "/api/races/chamber_forecasts",
+        headers={"X-Admin-Key": "secret"},
+        json={"house_narrative": "House is Lean D"},
+    )
+    assert resp.status_code == 422
+
+    # POST with correct payload
+    payload = {
+        "house_narrative": "House is Tilt R",
+        "senate_narrative": "Senate is Lean D",
+        "governors_narrative": "Governors is Safe R",
+    }
+    resp = client.post(
+        "/api/races/chamber_forecasts",
+        headers={"X-Admin-Key": "secret"},
+        json=payload,
+    )
+    assert resp.status_code == 200
+    assert "updated_at" in resp.json()
+
+    # GET should now return 200 and the saved data
+    resp = client.get("/races/chamber_forecasts")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["house"] == "House is Tilt R"
+    assert data["senate"] == "Senate is Lean D"
+    assert data["governors"] == "Governors is Safe R"
+    assert "updated_at" in data
