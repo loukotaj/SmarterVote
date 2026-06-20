@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import type { RaceSummary } from "$lib/types";
-import { aggregateForecasts, officeGroup } from "./forecast";
+import {
+  aggregateForecasts,
+  isRaceInForecastTab,
+  officeGroup,
+  parseForecastTab,
+} from "./forecast";
 
 const baseRace = {
   election_date: "2026-11-03",
@@ -31,6 +36,13 @@ describe("forecast utilities", () => {
         office: "United States House",
       })
     ).toBe("house");
+  });
+
+  it("parses URL tab parameters with a house default", () => {
+    expect(parseForecastTab("senate")).toBe("senate");
+    expect(parseForecastTab("governors")).toBe("governors");
+    expect(parseForecastTab("bad-value")).toBe("house");
+    expect(parseForecastTab(null)).toBe("house");
   });
 
   it("aggregates senate forecasts with holdover baseline", () => {
@@ -85,5 +97,6 @@ describe("forecast utilities", () => {
     const aggregate = aggregateForecasts(races, "governors");
     expect(aggregate.races).toHaveLength(0);
     expect(aggregate.projected.Republican).toBe(8);
+    expect(isRaceInForecastTab(races[0], "governors")).toBe(false);
   });
 });
