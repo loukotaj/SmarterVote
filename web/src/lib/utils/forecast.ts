@@ -1,4 +1,5 @@
 import type { ForecastRating, RaceSummary } from "$lib/types";
+import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "./holdovers";
 
 export type ForecastTab = "house" | "senate" | "governors";
 
@@ -17,6 +18,7 @@ export interface ForecastAggregate {
   races: ForecastRace[];
   missingForecasts: RaceSummary[];
   totalExpected: number;
+  holdovers: { state: string; party: "Democratic" | "Republican" | "Other"; count: number }[];
 }
 
 const RATINGS: ForecastRating[] = [
@@ -32,14 +34,46 @@ const RATINGS: ForecastRating[] = [
   "other",
 ];
 
-const SENATE_HOLDOVER_BASELINE = { Democratic: 34, Republican: 31, Other: 0 };
-const GOVERNOR_NON_UP_BASELINE = { Democratic: 6, Republican: 8, Other: 0 };
 const HOUSE_CURRENT_BASELINE = { Democratic: 212, Republican: 218, Other: 1 };
 
 const EXPECTED_TOTALS: Record<ForecastTab, number> = {
   house: 435,
   senate: 100,
   governors: 50,
+};
+
+const ABBR_TO_STATE: Record<string, string> = {
+  al: "Alabama", ak: "Alaska", az: "Arizona", ar: "Arkansas", ca: "California",
+  co: "Colorado", ct: "Connecticut", de: "Delaware", fl: "Florida", ga: "Georgia",
+  hi: "Hawaii", id: "Idaho", il: "Illinois", in: "Indiana", ia: "Iowa", ks: "Kansas",
+  ky: "Kentucky", la: "Louisiana", me: "Maine", md: "Maryland", ma: "Massachusetts",
+  mi: "Michigan", mn: "Minnesota", ms: "Mississippi", mo: "Missouri", mt: "Montana",
+  ne: "Nebraska", nv: "Nevada", nh: "New Hampshire", nj: "New Jersey", nm: "New Mexico",
+  ny: "New York", nc: "North Carolina", nd: "North Dakota", oh: "Ohio", ok: "Oklahoma",
+  or: "Oregon", pa: "Pennsylvania", ri: "Rhode Island", sc: "South Carolina", sd: "South Dakota",
+  tn: "Tennessee", tx: "Texas", ut: "Utah", vt: "Vermont", va: "Virginia", wa: "Washington",
+  wv: "West Virginia", wi: "Wisconsin", wy: "Wyoming"
+};
+
+export function getRaceState(race: RaceSummary): string | null {
+  if (race.state) return race.state;
+  const id = race.id || "";
+  const prefix = id.split("-")[0].toLowerCase();
+  return ABBR_TO_STATE[prefix] || null;
+}
+
+export const INCUMBENT_FALLBACKS: Record<string, Record<string, "Democratic" | "Republican">> = {
+  governors: {
+    "Illinois": "Democratic",
+    "New York": "Democratic",
+    "Vermont": "Republican",
+    "Wisconsin": "Democratic"
+  },
+  senate: {
+    "Virginia": "Democratic",
+    "West Virginia": "Republican"
+  },
+  house: {}
 };
 
 export function officeGroup(race: RaceSummary): ForecastTab | null {
@@ -85,8 +119,8 @@ function emptyRatingCounts(): Record<ForecastRating, number> {
 }
 
 function baselineFor(tab: ForecastTab): Record<string, number> {
-  if (tab === "senate") return { ...SENATE_HOLDOVER_BASELINE };
-  if (tab === "governors") return { ...GOVERNOR_NON_UP_BASELINE };
+  if (tab === "senate") return { Democratic: 34, Republican: 31, Other: 0 };
+  if (tab === "governors") return { Democratic: 6, Republican: 8, Other: 0 };
   return { Democratic: 0, Republican: 0, Other: 0 };
 }
 
@@ -107,20 +141,55 @@ export function aggregateForecasts(
   const label =
     tab === "house" ? "House" : tab === "senate" ? "Senate" : "Governors";
   const threshold = tab === "governors" ? 26 : tab === "senate" ? 51 : 218;
-  const projected = baselineFor(tab);
+
+  const projected: Record<string, number> = { Democratic: 0, Republican: 0, Other: 0 };
   const current = currentBaselineFor(tab);
   const ratingCounts = emptyRatingCounts();
+
   const scoped = races.filter((race) => {
     if (officeGroup(race) !== tab) return false;
     if (tab === "governors" && !isValidGovernorControlRace(race)) return false;
     return true;
   });
+
+  const activeStates = new Set(scoped.map(getRaceState).filter(Boolean) as string[]);
+
+  // Initialize baseline holdovers
+  if (tab === "governors") {
+    for (const [state, party] of Object.entries(GOVERNOR_HOLDOVERS)) {
+      projected[party] = (projected[party] ?? 0) + 1;
+    }
+  } else if (tab === "senate") {
+    for (const [state, parties] of Object.entries(SENATE_HOLDOVERS)) {
+      if (activeStates.has(state)) {
+        if (parties.length > 0) {
+          const party = parties[0];
+          projected[party] = (projected[party] ?? 0) + 1;
+        }
+      } else {
+        for (const party of parties) {
+          projected[party] = (projected[party] ?? 0) + 1;
+        }
+      }
+    }
+  } else {
+    const base = baselineFor(tab);
+    for (const [party, count] of Object.entries(base)) {
+      projected[party] = count;
+    }
+  }
+
   const forecasted: ForecastRace[] = [];
   const missingForecasts: RaceSummary[] = [];
 
   for (const race of scoped) {
     if (!race.forecast) {
       missingForecasts.push(race);
+      const stateName = getRaceState(race);
+      const fallbackParty = stateName ? INCUMBENT_FALLBACKS[tab]?.[stateName] : undefined;
+      if (fallbackParty) {
+        projected[fallbackParty] = (projected[fallbackParty] ?? 0) + 1;
+      }
       continue;
     }
     forecasted.push(race as ForecastRace);
@@ -139,6 +208,35 @@ export function aggregateForecasts(
     );
   });
 
+  const holdoversList: { state: string; party: "Democratic" | "Republican" | "Other"; count: number }[] = [];
+  if (tab === "governors") {
+    for (const [state, party] of Object.entries(GOVERNOR_HOLDOVERS)) {
+      holdoversList.push({
+        state,
+        party: party as "Democratic" | "Republican" | "Other",
+        count: 1
+      });
+    }
+  } else if (tab === "senate") {
+    for (const [state, parties] of Object.entries(SENATE_HOLDOVERS)) {
+      const isStateActive = activeStates.has(state);
+      const seatsToCount = isStateActive ? parties.slice(0, 1) : parties;
+
+      const counts = seatsToCount.reduce((acc, p) => {
+        acc[p] = (acc[p] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+
+      for (const [party, count] of Object.entries(counts)) {
+        holdoversList.push({
+          state,
+          party: party as "Democratic" | "Republican" | "Other",
+          count
+        });
+      }
+    }
+  }
+
   return {
     tab,
     label,
@@ -154,6 +252,7 @@ export function aggregateForecasts(
     races: forecasted,
     missingForecasts,
     totalExpected: EXPECTED_TOTALS[tab],
+    holdovers: holdoversList,
   };
 }
 

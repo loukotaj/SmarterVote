@@ -8,6 +8,14 @@
   export let selectedState: string | null = null;
   export let raceCounts: Record<string, number> = {};
   export let matchingCandidatesByState: Record<string, string[]> = {};
+  export let stateColors: Record<string, string> = {};
+  export let stateTooltips: Record<string, {
+    title: string;
+    subtitle?: string;
+    badge?: string;
+    badgeClass?: string;
+    details?: string[];
+  }> = {};
 
   const dispatch = createEventDispatcher<{ stateClick: string }>();
 
@@ -88,6 +96,7 @@
   }
 
   function getFill(name: string): string {
+    if (stateColors[name]) return stateColors[name];
     if (name === selectedState) return "var(--map-selected)";
     if (activeStates.has(name)) return "var(--map-active)";
     return "var(--map-inactive)";
@@ -105,6 +114,19 @@
     --map-selected-stroke: #ffffff;
     --map-inactive: #e5e7eb;
     --map-stroke: #d1d5db;
+
+    --color-safe-d: #1d4ed8;
+    --color-likely-d: #3b82f6;
+    --color-lean-d: #60a5fa;
+    --color-tilt-d: #93c5fd;
+    --color-tossup: #cbd5e1;
+    --color-tilt-r: #fca5a5;
+    --color-lean-r: #f87171;
+    --color-likely-r: #ef4444;
+    --color-safe-r: #b91c1c;
+    --color-other: #94a3b8;
+    --color-holdover-d: rgba(59, 130, 246, 0.18);
+    --color-holdover-r: rgba(239, 68, 68, 0.18);
   }
 
   :global(.dark) {
@@ -113,6 +135,19 @@
     --map-selected-stroke: #0f172a;
     --map-inactive: #1f2937;
     --map-stroke: #374151;
+
+    --color-safe-d: #1e3a8a;
+    --color-likely-d: #1d4ed8;
+    --color-lean-d: #2563eb;
+    --color-tilt-d: #3b82f6;
+    --color-tossup: #334155;
+    --color-tilt-r: #ef4444;
+    --color-lean-r: #dc2626;
+    --color-likely-r: #b91c1c;
+    --color-safe-r: #7f1d1d;
+    --color-other: #475569;
+    --color-holdover-d: rgba(59, 130, 246, 0.28);
+    --color-holdover-r: rgba(239, 68, 68, 0.28);
   }
 
   .state-path {
@@ -217,7 +252,8 @@
     <svg bind:this={svgEl} viewBox="0 0 975 610" aria-label="US States map">
       <!-- Base pass: all states except selected -->
       {#each baseFeatures as state (state.id)}
-        {@const isActive = activeStates.has(state.name)}
+        {@const canHover = activeStates.has(state.name) || !!stateTooltips[state.name]}
+        {@const canClick = activeStates.has(state.name)}
         {@const count = raceCounts[state.name] ?? 0}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <path
@@ -225,39 +261,63 @@
           fill={getFill(state.name)}
           stroke="var(--map-stroke)"
           stroke-width="0.6"
-          class="state-path {isActive ? 'clickable' : ''}"
-          role={isActive ? "button" : "img"}
-          tabindex={isActive ? 0 : -1}
-          aria-label={isActive ? `${state.name}, ${count} race${count !== 1 ? 's' : ''}` : state.name}
-          on:click={() => isActive && handleClick(state.name)}
+          class="state-path {canHover ? 'clickable' : ''}"
+          role={canClick ? "button" : (canHover ? "img" : "presentation")}
+          tabindex={canClick ? 0 : -1}
+          aria-label={canClick ? `${state.name}, ${count} race${count !== 1 ? 's' : ''}` : state.name}
+          on:click={() => canClick && handleClick(state.name)}
           on:keydown={(e) => handleKeydown(e, state.name)}
-          on:mouseenter={(e) => isActive && handleMouseEnter(e, state.name, count)}
+          on:mouseenter={(e) => canHover && handleMouseEnter(e, state.name, count)}
           on:mouseleave={handleMouseLeave}
         />
       {/each}
 
       <!-- Selected state rendered last so its stroke is never clipped by neighbors -->
       {#if selectedFeature}
+        {@const canHover = activeStates.has(selectedFeature.name) || !!stateTooltips[selectedFeature.name]}
+        {@const canClick = activeStates.has(selectedFeature.name)}
         {@const count = raceCounts[selectedFeature.name] ?? 0}
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <path
           d={selectedFeature.pathData}
-          fill="var(--map-selected)"
+          fill={getFill(selectedFeature.name)}
           stroke="var(--map-selected-stroke)"
           stroke-width="2.5"
           stroke-linejoin="round"
-          class="state-path clickable"
-          role="button"
-          tabindex={0}
+          class="state-path {canHover ? 'clickable' : ''}"
+          role={canClick ? "button" : (canHover ? "img" : "presentation")}
+          tabindex={canClick ? 0 : -1}
           aria-label="{selectedFeature.name}, {count} race{count !== 1 ? 's' : ''}, selected"
-          on:click={() => handleClick(selectedFeature.name)}
+          on:click={() => canClick && handleClick(selectedFeature.name)}
           on:keydown={(e) => handleKeydown(e, selectedFeature.name)}
-          on:mouseenter={(e) => handleMouseEnter(e, selectedFeature.name, count)}
+          on:mouseenter={(e) => canHover && handleMouseEnter(e, selectedFeature.name, count)}
           on:mouseleave={handleMouseLeave}
         />
       {/if}
     </svg>
 
-    {#if hoveredStateName}
+    {#if hoveredStateName && stateTooltips[hoveredStateName]}
+      {@const tip = stateTooltips[hoveredStateName]}
+      <div
+        class="tooltip"
+        style="left: {tooltipX}%; top: {tooltipY}%;"
+      >
+        <span class="tooltip-state">{tip.title}</span>
+        {#if tip.subtitle}
+          <span class="text-[11px] text-gray-400 font-medium">{tip.subtitle}</span>
+        {/if}
+        {#if tip.badge}
+          <span class="tooltip-badge {tip.badgeClass ?? ''}">{tip.badge}</span>
+        {/if}
+        {#if tip.details && tip.details.length > 0}
+          <div class="mt-1.5 pt-1.5 border-t border-white/10 w-full text-center flex flex-col gap-0.5 animate-fade-in">
+            {#each tip.details as detail}
+              <span class="text-[11px] text-white/90 font-medium">{detail}</span>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    {:else if hoveredStateName}
       <div
         class="tooltip"
         style="left: {tooltipX}%; top: {tooltipY}%;"
