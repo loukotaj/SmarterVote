@@ -144,6 +144,12 @@ jobs:
         run: |
           cd web && npm run lint
 
+      - name: Create mock static data for CI build
+        run: |
+          mkdir -p web/static
+          echo "[]" > web/static/summaries.json
+          echo '{"schema_version":"chamber_forecasts.v2","house":"","senate":"","governors":"","chambers":{"house":{"projected_seats":{"Democratic":0,"Republican":0},"tossup_count":0,"competitive_race_count":0},"senate":{"projected_seats":{"Democratic":0,"Republican":0},"tossup_count":0,"competitive_race_count":0},"governors":{"projected_seats":{"Democratic":0,"Republican":0},"tossup_count":0,"competitive_race_count":0}}}' > web/static/chamber_forecasts.json
+
       - name: Build SvelteKit
         env:
           FAST_BUILD: "true"
