@@ -53,10 +53,10 @@ jobs:
             curl -sSfL "$API_URL/races/summaries" -o data/published/summaries.json
             curl -sSfL "$API_URL/races/chamber_forecasts" -o data/published/chamber_forecasts.json
           else
-            echo "Warning: VITE_PUBLIC_DATA_URL and RACES_API_URL are empty. Falling back to default races API."
-            API_URL="${DEFAULT_RACES_API_URL%/}"
-            curl -sSfL "$API_URL/races/summaries" -o data/published/summaries.json
-            curl -sSfL "$API_URL/races/chamber_forecasts" -o data/published/chamber_forecasts.json
+            echo "Warning: VITE_PUBLIC_DATA_URL and RACES_API_URL are empty. Falling back to dev GCS bucket."
+            DATA_URL="https://storage.googleapis.com/smartervote-sv-data-dev"
+            curl -sSfL "$DATA_URL/races/summaries.json" -o data/published/summaries.json
+            curl -sSfL "$DATA_URL/races/chamber_forecasts.json" -o data/published/chamber_forecasts.json
           fi
 
       - name: Generate SvelteKit files
