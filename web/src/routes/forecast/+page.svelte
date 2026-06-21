@@ -757,7 +757,7 @@
                   class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
                 >
                   <svg
-                    class="w-4.5 h-4.5 text-content-subtle shrink-0 mt-0.5"
+                    class="w-5 h-5 text-content-subtle shrink-0 mt-0.5"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
