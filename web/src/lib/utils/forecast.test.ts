@@ -112,7 +112,7 @@ describe("forecast utilities", () => {
       "52R-48D": 0.08,
       "53R-47D": 0.02,
     };
-    const buckets = groupSeatDistribution(dist);
+    const buckets = groupSeatDistribution(dist, "senate");
     expect(buckets).toHaveLength(5);
 
     // Strong D (53D+) should sum 54D and 53D: 0.05 + 0.10 = 0.15

@@ -76,7 +76,8 @@
   }
 
   $: seatBuckets = groupSeatDistribution(
-    chamberSummary?.seat_distribution ?? {}
+    chamberSummary?.seat_distribution ?? {},
+    activeTab
   );
   $: sortedOutcomes = Object.entries(chamberSummary?.seat_distribution ?? {})
     .map(([key, prob]) => {
@@ -105,6 +106,8 @@
     const maxD = Math.max(...sortedOutcomes.map((o) => o.dSeats));
     const span = maxD - minD || 1;
     const maxP = Math.max(...sortedOutcomes.map((o) => o.probability), 0.01);
+    // Use the majority threshold for the tie-break line on the curve
+    const tieThreshold = chamberSummary?.threshold ?? 51;
 
     const points = sortedOutcomes.map((o) => {
       const pctX = (o.dSeats - minD) / span;
@@ -131,9 +134,9 @@
     }
 
     let tieX = 150;
-    if (50 >= minD && 50 <= maxD) {
-      tieX = 15 + ((50 - minD) / span) * 270;
-    } else if (50 < minD) {
+    if (tieThreshold >= minD && tieThreshold <= maxD) {
+      tieX = 15 + ((tieThreshold - minD) / span) * 270;
+    } else if (tieThreshold < minD) {
       tieX = 15;
     } else {
       tieX = 285;
@@ -1451,7 +1454,7 @@
           </div>
         </div>
 
-        {#if activeTab === "senate" && chamberSummary?.seat_distribution}
+        {#if chamberSummary?.seat_distribution && Object.keys(chamberSummary.seat_distribution).length > 0}
           <!-- Seat Outcome Distribution Card -->
           <div
             class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"

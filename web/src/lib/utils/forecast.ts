@@ -384,7 +384,8 @@ export function parseSeatDistributionKey(key: string): {
 }
 
 export function groupSeatDistribution(
-  dist: Record<string, number>
+  dist: Record<string, number>,
+  tab: ForecastTab = "senate"
 ): GroupedSeatBucket[] {
   if (!dist) return [];
 
@@ -397,55 +398,114 @@ export function groupSeatDistribution(
 
   outcomes.sort((a, b) => b.dSeats - a.dSeats);
 
-  const buckets: GroupedSeatBucket[] = [
-    {
-      label: "Strong D (53D+)",
-      probability: 0,
-      colorClass: "bg-blue-600 dark:bg-blue-700",
-      outcomes: [],
-    },
-    {
-      label: "Narrow D (51-52D)",
-      probability: 0,
-      colorClass: "bg-blue-400 dark:bg-blue-500",
-      outcomes: [],
-    },
-    {
-      label: "Tie (50-50)",
-      probability: 0,
-      colorClass: "bg-slate-400 dark:bg-slate-500",
-      outcomes: [],
-    },
-    {
-      label: "Narrow R (51-52R)",
-      probability: 0,
-      colorClass: "bg-red-400 dark:bg-red-500",
-      outcomes: [],
-    },
-    {
-      label: "Strong R (53R+)",
-      probability: 0,
-      colorClass: "bg-red-600 dark:bg-red-700",
-      outcomes: [],
-    },
-  ];
+  // Chamber-specific thresholds and labels
+  type BucketDef = {
+    label: string;
+    colorClass: string;
+    test: (o: SeatOutcome) => boolean;
+  };
+
+  let bucketDefs: BucketDef[];
+
+  if (tab === "senate") {
+    bucketDefs = [
+      {
+        label: "Strong D (53D+)",
+        colorClass: "bg-blue-600 dark:bg-blue-700",
+        test: (o) => o.dSeats >= 53,
+      },
+      {
+        label: "Narrow D (51-52D)",
+        colorClass: "bg-blue-400 dark:bg-blue-500",
+        test: (o) => o.dSeats >= 51 && o.dSeats <= 52,
+      },
+      {
+        label: "Tie (50-50)",
+        colorClass: "bg-slate-400 dark:bg-slate-500",
+        test: (o) => o.dSeats === 50,
+      },
+      {
+        label: "Narrow R (51-52R)",
+        colorClass: "bg-red-400 dark:bg-red-500",
+        test: (o) => o.rSeats >= 51 && o.rSeats <= 52,
+      },
+      {
+        label: "Strong R (53R+)",
+        colorClass: "bg-red-600 dark:bg-red-700",
+        test: (o) => o.rSeats >= 53,
+      },
+    ];
+  } else if (tab === "governors") {
+    bucketDefs = [
+      {
+        label: "Strong D (28D+)",
+        colorClass: "bg-blue-600 dark:bg-blue-700",
+        test: (o) => o.dSeats >= 28,
+      },
+      {
+        label: "Narrow D (26-27D)",
+        colorClass: "bg-blue-400 dark:bg-blue-500",
+        test: (o) => o.dSeats >= 26 && o.dSeats <= 27,
+      },
+      {
+        label: "Tie (25-25)",
+        colorClass: "bg-slate-400 dark:bg-slate-500",
+        test: (o) => o.dSeats === 25,
+      },
+      {
+        label: "Narrow R (26-27R)",
+        colorClass: "bg-red-400 dark:bg-red-500",
+        test: (o) => o.rSeats >= 26 && o.rSeats <= 27,
+      },
+      {
+        label: "Strong R (28R+)",
+        colorClass: "bg-red-600 dark:bg-red-700",
+        test: (o) => o.rSeats >= 28,
+      },
+    ];
+  } else {
+    // house
+    bucketDefs = [
+      {
+        label: "Strong D (225D+)",
+        colorClass: "bg-blue-600 dark:bg-blue-700",
+        test: (o) => o.dSeats >= 225,
+      },
+      {
+        label: "Narrow D (218-224D)",
+        colorClass: "bg-blue-400 dark:bg-blue-500",
+        test: (o) => o.dSeats >= 218 && o.dSeats <= 224,
+      },
+      {
+        label: "Near Tie (215-217)",
+        colorClass: "bg-slate-400 dark:bg-slate-500",
+        test: (o) => o.dSeats >= 212 && o.dSeats <= 217,
+      },
+      {
+        label: "Narrow R (218-224R)",
+        colorClass: "bg-red-400 dark:bg-red-500",
+        test: (o) => o.rSeats >= 218 && o.rSeats <= 224,
+      },
+      {
+        label: "Strong R (225R+)",
+        colorClass: "bg-red-600 dark:bg-red-700",
+        test: (o) => o.rSeats >= 225,
+      },
+    ];
+  }
+
+  const buckets: GroupedSeatBucket[] = bucketDefs.map((def) => ({
+    label: def.label,
+    probability: 0,
+    colorClass: def.colorClass,
+    outcomes: [],
+  }));
 
   for (const outcome of outcomes) {
-    if (outcome.dSeats >= 53) {
-      buckets[0].probability += outcome.probability;
-      buckets[0].outcomes.push(outcome);
-    } else if (outcome.dSeats >= 51) {
-      buckets[1].probability += outcome.probability;
-      buckets[1].outcomes.push(outcome);
-    } else if (outcome.dSeats === 50) {
-      buckets[2].probability += outcome.probability;
-      buckets[2].outcomes.push(outcome);
-    } else if (outcome.dSeats >= 48) {
-      buckets[3].probability += outcome.probability;
-      buckets[3].outcomes.push(outcome);
-    } else {
-      buckets[4].probability += outcome.probability;
-      buckets[4].outcomes.push(outcome);
+    const idx = bucketDefs.findIndex((def) => def.test(outcome));
+    if (idx >= 0) {
+      buckets[idx].probability += outcome.probability;
+      buckets[idx].outcomes.push(outcome);
     }
   }
 

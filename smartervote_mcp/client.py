@@ -20,6 +20,7 @@ class RacesApiClient:
     base_url: str = "http://127.0.0.1:8080"
     bearer_token: str = ""
     admin_key: str = ""
+    cloud_run_id_token: str = ""
     timeout_seconds: float = 60.0
 
     @classmethod
@@ -28,6 +29,12 @@ class RacesApiClient:
         base_url = os.getenv("SMARTERVOTE_RACES_API_URL") or os.getenv("RACES_API_URL") or "http://127.0.0.1:8080"
         bearer_token = os.getenv("SMARTERVOTE_RACES_API_TOKEN") or os.getenv("RACES_API_BEARER_TOKEN") or ""
         admin_key = os.getenv("SMARTERVOTE_RACES_API_ADMIN_KEY") or os.getenv("ADMIN_API_KEY") or ""
+        cloud_run_id_token = (
+            os.getenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN")
+            or os.getenv("SMARTERVOTE_RACES_API_ID_TOKEN")
+            or os.getenv("RACES_API_CLOUD_RUN_ID_TOKEN")
+            or ""
+        )
         timeout_raw = os.getenv("SMARTERVOTE_RACES_API_TIMEOUT", "60")
         try:
             timeout_seconds = float(timeout_raw)
@@ -37,11 +44,14 @@ class RacesApiClient:
             base_url=_clean_base_url(base_url),
             bearer_token=bearer_token,
             admin_key=admin_key,
+            cloud_run_id_token=cloud_run_id_token,
             timeout_seconds=timeout_seconds,
         )
 
     def _headers(self) -> dict[str, str]:
         headers: dict[str, str] = {"Accept": "application/json"}
+        if self.cloud_run_id_token:
+            headers["X-Serverless-Authorization"] = f"Bearer {self.cloud_run_id_token}"
         if self.bearer_token:
             headers["Authorization"] = f"Bearer {self.bearer_token}"
         if self.admin_key:

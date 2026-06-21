@@ -256,6 +256,8 @@ def summarize_chamber(
         for party in GOVERNOR_HOLDOVERS.values():
             projected[party] += 1
             expected[party] += 1
+            if party == "Republican":
+                rep_holdovers += 1
 
     for race in races:
         forecast = race.get("forecast") if isinstance(race.get("forecast"), dict) else None
@@ -279,47 +281,52 @@ def summarize_chamber(
     rep_expected = expected["Republican"]
 
     seat_distribution = {}
+    rep_probs = []
+    for race in races:
+        forecast = race.get("forecast") if isinstance(race.get("forecast"), dict) else None
+        if forecast:
+            probs = _race_party_probabilities(forecast)
+            rep_probs.append(probs.get("Republican", 0.0))
+        else:
+            fallback_party = fallback_party_for_race(race)
+            rep_probs.append(1.0 if fallback_party == "Republican" else 0.0)
+
+    # Exact Poisson binomial distribution using dynamic programming
+    dp = [1.0]
+    for p in rep_probs:
+        next_dp = [0.0] * (len(dp) + 1)
+        for j, val in enumerate(dp):
+            next_dp[j] += val * (1.0 - p)
+            next_dp[j + 1] += val * p
+        dp = next_dp
+
+    # Exact control and tie probabilities from DP
     if chamber == "senate":
-        rep_probs = []
-        for race in races:
-            forecast = race.get("forecast") if isinstance(race.get("forecast"), dict) else None
-            if forecast:
-                probs = _race_party_probabilities(forecast)
-                rep_probs.append(probs.get("Republican", 0.0))
-            else:
-                fallback_party = fallback_party_for_race(race)
-                rep_probs.append(1.0 if fallback_party == "Republican" else 0.0)
-
-        # Exact Poisson binomial distribution using dynamic programming
-        dp = [1.0]
-        for p in rep_probs:
-            next_dp = [0.0] * (len(dp) + 1)
-            for j, val in enumerate(dp):
-                next_dp[j] += val * (1.0 - p)
-                next_dp[j + 1] += val * p
-            dp = next_dp
-
-        # Exact control and tie probabilities from DP
         dem_control_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j <= 49)
         tie_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j == 50)
         republican_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j >= 50)
-
-        # Populate seat distribution keys e.g. "51R-49D"
-        for j, prob in enumerate(dp):
-            r_seats = rep_holdovers + j
-            d_seats = 100 - r_seats
-            if r_seats > 50:
-                key = f"{r_seats}R-{d_seats}D"
-            elif r_seats < 50:
-                key = f"{d_seats}D-{r_seats}R"
-            else:
-                key = "50R-50D"
-            if prob > 0.0005:  # Keep only non-trivial probabilities to limit payload size
-                seat_distribution[key] = round(prob, 4)
-    else:
-        dem_control_probability = 0.5 + (dem_expected - THRESHOLDS[chamber]) / 20.0
+    elif chamber == "governors":
+        dem_control_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j <= 24)
+        tie_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j == 25)
+        republican_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j >= 26)
+    else:  # house
+        dem_control_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j <= 217)
         tie_probability = 0.0
-        republican_probability = 1.0 - dem_control_probability
+        republican_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j >= 218)
+
+    # Populate seat distribution keys e.g. "51R-49D"
+    total_chamber_seats = EXPECTED_TOTALS[chamber]
+    for j, prob in enumerate(dp):
+        r_seats = rep_holdovers + j
+        d_seats = total_chamber_seats - r_seats
+        if r_seats > d_seats:
+            key = f"{r_seats}R-{d_seats}D"
+        elif r_seats < d_seats:
+            key = f"{d_seats}D-{r_seats}R"
+        else:
+            key = f"{r_seats}R-{d_seats}D"  # tie split
+        if prob > 0.0005:  # Keep only non-trivial probabilities to limit payload size
+            seat_distribution[key] = round(prob, 4)
 
     dem_control_probability = max(0.01, min(0.99, dem_control_probability))
     republican_probability = max(0.01, min(0.99, republican_probability))
@@ -359,7 +366,7 @@ def summarize_chamber(
             "Democratic": round(dem_control_probability, 3),
             "Republican": round(republican_probability, 3),
             "Other": 0.0,
-            "tie_50_50": round(tie_probability, 3) if chamber == "senate" else 0.0,
+            "tie_50_50": round(tie_probability, 3) if chamber in ("senate", "governors") else 0.0,
         },
         "projected_seats": projected,
         "expected_seats": {key: round(value, 1) for key, value in expected.items()},
@@ -375,11 +382,9 @@ def summarize_chamber(
         "key_uncertainty": (analysis or {}).get("key_uncertainty") or default_uncertainty,
     }
 
+    res["seat_distribution"] = seat_distribution
     if chamber == "senate":
         res["vp_tiebreak_party"] = "Republican"
-        res["seat_distribution"] = seat_distribution
-    else:
-        res["seat_distribution"] = {}
 
     return res
 

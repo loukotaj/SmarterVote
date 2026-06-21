@@ -1,4 +1,4 @@
-"""Launch SmarterVote MCP with an admin key loaded from GCP Secret Manager."""
+"""Launch SmarterVote MCP with GCP auth for the deployed races API."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ import os
 import shutil
 import subprocess
 import sys
+from urllib.parse import urlparse
 
 
 def _gcloud_executable() -> str:
@@ -60,12 +61,44 @@ def configure_admin_key_from_gcp() -> None:
     os.environ["SMARTERVOTE_RACES_API_ADMIN_KEY"] = admin_key
 
 
+def _cloud_run_audience() -> str | None:
+    """Return the Cloud Run audience URL when the MCP targets a deployed run.app service."""
+    raw_url = os.getenv("SMARTERVOTE_RACES_API_URL") or os.getenv("RACES_API_URL") or ""
+    if not raw_url:
+        return None
+    parsed = urlparse(raw_url)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc.endswith(".run.app"):
+        return None
+    return f"{parsed.scheme}://{parsed.netloc}"
+
+
+def configure_cloud_run_identity_token_from_gcp() -> None:
+    """Populate a Cloud Run identity token unless already configured.
+
+    The races API may require Cloud Run IAM before the FastAPI app receives the
+    request. Use X-Serverless-Authorization for that identity token so the app
+    can still receive Auth0 Authorization or X-Admin-Key headers separately.
+    """
+    if os.getenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN") or os.getenv("SMARTERVOTE_RACES_API_ID_TOKEN"):
+        return
+
+    audience = _cloud_run_audience()
+    if not audience:
+        return
+
+    token = _run_gcloud(["auth", "print-identity-token", f"--audiences={audience}"])
+    if not token:
+        raise RuntimeError(f"gcloud returned an empty identity token for audience {audience}")
+    os.environ["SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN"] = token
+
+
 def main() -> None:
     """Configure auth and run the MCP server."""
     try:
         configure_admin_key_from_gcp()
+        configure_cloud_run_identity_token_from_gcp()
     except Exception as exc:
-        print(f"Failed to configure SmarterVote MCP admin auth: {exc}", file=sys.stderr)
+        print(f"Failed to configure SmarterVote MCP GCP auth: {exc}", file=sys.stderr)
         raise SystemExit(1) from exc
 
     from smartervote_mcp.server import main as server_main
