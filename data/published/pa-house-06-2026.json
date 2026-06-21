@@ -220,7 +220,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:33:48.287830+00:00",
+  "updated_utc": "2026-06-20T15:38:16.238846+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -234,18 +234,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 193685,
-    "completion_tokens": 5962,
-    "total_tokens": 199647,
-    "cost_usd": 0.012511922,
+    "prompt_tokens": 7081,
+    "completion_tokens": 1092,
+    "total_tokens": 8173,
+    "cost_usd": 0.000838082,
     "cost_source": "provider",
-    "estimated_usd": 0.02015,
+    "estimated_usd": 0.000834,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 193685,
-        "completion_tokens": 5962
+        "prompt_tokens": 7081,
+        "completion_tokens": 1092
       }
     },
-    "duration_s": 130.9
+    "duration_s": 19.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3691,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0035,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Chrissy Houlahan",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 15.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polls exist for this race, so the forecast relies entirely on non-polling indicators. Chrissy Houlahan is a four-term Democratic incumbent in a Philadelphia-suburban district (Chester County and part of Berks County) that has trended Democratic in recent cycles. Cook Political Report rates the race as 'Solid D.' Prediction markets heavily favor a Democratic win (~97% per City & State PA). The challenger, Marty Young, is a credible Republican candidate (West Point graduate, Army National Guard officer, corporate executive) but faces steep headwinds in a district that has consistently elected Houlahan by double-digit margins since 2018. The absence of any traditional polling data reduces confidence from high to medium, but the structural and contextual signals strongly support a safe Democratic hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:08.511457Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

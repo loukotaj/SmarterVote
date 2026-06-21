@@ -118,7 +118,7 @@
       "name": "Jamie Ager",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Jamie Ager is a fourth-generation farmer and small business owner from Fairview, North Carolina, and the Democratic nominee for the 11th Congressional District. He runs Hickory Nut Gap Farm, a sustainable meat company employing 25 people and working with dozens of regional farms. Ager comes from a politically active family \u2014 his grandfather Jamie Clarke represented the 11th District in Congress in the 1980s, his father served in the state House, and his brother Eric currently holds that state House seat. He won the Democratic primary on March 3, 2026 with nearly 65% of the vote and has been endorsed by the DCCC's 'Red to Blue' program.",
+      "summary": "Jamie Ager is a fourth-generation farmer and small business owner from Fairview, North Carolina, and the Democratic nominee for the 11th Congressional District. He runs Hickory Nut Gap Farm, a sustainable meat company employing 25 people and working with dozens of regional farms. Ager comes from a politically active family — his grandfather Jamie Clarke represented the 11th District in Congress in the 1980s, his father served in the state House, and his brother Eric currently holds that state House seat. He won the Democratic primary on March 3, 2026 with nearly 65% of the vote and has been endorsed by the DCCC's 'Red to Blue' program.",
       "summary_sources": [
         {
           "url": "https://agerforcongress.com/about",
@@ -210,7 +210,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_11th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:02:57.539805+00:00",
+  "updated_utc": "2026-06-20T15:40:00.459773+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -224,18 +224,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 267993,
-    "completion_tokens": 5450,
-    "total_tokens": 273443,
-    "cost_usd": 0.023367866000000004,
+    "prompt_tokens": 11618,
+    "completion_tokens": 2421,
+    "total_tokens": 14039,
+    "cost_usd": 0.0016130800000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.027332,
+    "estimated_usd": 0.001481,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 267993,
-        "completion_tokens": 5450
+        "prompt_tokens": 11618,
+        "completion_tokens": 2421
       }
     },
-    "duration_s": 154.1
+    "duration_s": 43.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6905,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Chuck Edwards",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.83,
+    "party_probabilities": {
+      "Republican": 0.83,
+      "Democratic": 0.17
+    },
+    "margin_estimate": 7.5,
+    "rating": "likely_r",
+    "confidence": "low",
+    "rationale": "No public general-election polling exists for this race, so the forecast relies entirely on non-polling indicators. Incumbent Chuck Edwards (R) benefits from incumbency and a district that, even after a pro-competitive 2025 redraw, still carries a Republican lean reflected in Cook's 'Likely Republican' rating. However, multiple factors introduce significant uncertainty: the redistricting has made this the most competitive congressional race in North Carolina; Democratic nominee Jamie Ager is a strong, well-funded challenger with deep local roots and DCCC 'Red to Blue' backing; Edwards faces an active House Ethics Committee investigation (sexual harassment allegations, April 2026); Inside Elections has shifted the race toward Democrats; and regional trends are moving in the Democratic direction. Without polling to validate these dynamics, the Republican advantage is modest and confidence is low. Slight downward adjustment from the prior forecast reflects the ethics investigation and the district's increased competitiveness under the new map.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:54.119702Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

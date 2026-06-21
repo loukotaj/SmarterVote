@@ -6,7 +6,7 @@
   "state": "Indiana",
   "district": "9th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Indiana's 9th Congressional District stretches across south-central and southeastern Indiana, encompassing 18 counties including Monroe (Bloomington), Clark, Floyd, and Lawrence. Incumbent Republican Representative Erin Houchin, first elected in 2022 and serving as Secretary of the House Republican Conference, is running for a third term. She faces Democratic nominee Brad Meyer, a Purdue-trained engineer and former manufacturing leader who won a four-way primary on May 5, 2026, and Libertarian nominee Tonya Hudson, a real estate broker and perennial candidate. The district has leaned Republican in recent cycles \u2014 Houchin won with nearly 65% of the vote in 2024 \u2014 but Democrats see an opportunity to flip the seat in the midterm environment.",
+  "description": "Indiana's 9th Congressional District stretches across south-central and southeastern Indiana, encompassing 18 counties including Monroe (Bloomington), Clark, Floyd, and Lawrence. Incumbent Republican Representative Erin Houchin, first elected in 2022 and serving as Secretary of the House Republican Conference, is running for a third term. She faces Democratic nominee Brad Meyer, a Purdue-trained engineer and former manufacturing leader who won a four-way primary on May 5, 2026, and Libertarian nominee Tonya Hudson, a real estate broker and perennial candidate. The district has leaned Republican in recent cycles — Houchin won with nearly 65% of the vote in 2024 — but Democrats see an opportunity to flip the seat in the midterm environment.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of the research date.",
   "candidates": [
@@ -264,7 +264,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:19:59.681336+00:00",
+  "updated_utc": "2026-06-20T15:29:51.704895+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -278,18 +278,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 246449,
-    "completion_tokens": 6487,
-    "total_tokens": 252936,
-    "cost_usd": 0.019093597999999996,
+    "prompt_tokens": 13109,
+    "completion_tokens": 2234,
+    "total_tokens": 15343,
+    "cost_usd": 0.001662642,
     "cost_source": "provider",
-    "estimated_usd": 0.025423,
+    "estimated_usd": 0.001582,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 246449,
-        "completion_tokens": 6487
+        "prompt_tokens": 13109,
+        "completion_tokens": 2234
       }
     },
-    "duration_s": 118.3
+    "duration_s": 35.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7789,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0074,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Erin Houchin",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.91,
+    "party_probabilities": {
+      "Republican": 0.91,
+      "Democratic": 0.08,
+      "Other": 0.01
+    },
+    "margin_estimate": 17.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, so the forecast relies on structural and historical factors with limited confidence. Erin Houchin is the two-term incumbent, serves as Secretary of the House Republican Conference (a leadership post), and won the district with nearly 65% of the vote in 2024 — the strongest concrete signal in the record. The district (18 counties across south-central and southeastern Indiana, including Bloomington but otherwise largely rural and suburban) has leaned Republican in recent cycles. Democratic nominee Brad Meyer won a four-way primary in May 2026 and presents an articulate challenger, but there is no race-specific polling or fundraising data to suggest the race has become competitive. Libertarian Tonya Hudson is a perennial candidate who drew modest support in prior runs. The midterm environment may somewhat benefit Democrats nationally, but evidence to quantify a shift specific to IN-09 is absent. Accordingly, Republicans hold a clear but not overwhelming advantage, placing this race in the likely R band.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:47.286397Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

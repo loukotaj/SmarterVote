@@ -275,7 +275,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:39:24.134603+00:00",
+  "updated_utc": "2026-06-20T15:27:11.821255+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -289,18 +289,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 315589,
-    "completion_tokens": 6941,
-    "total_tokens": 322530,
-    "cost_usd": 0.023452318,
+    "prompt_tokens": 18632,
+    "completion_tokens": 1563,
+    "total_tokens": 20195,
+    "cost_usd": 0.00207238,
     "cost_source": "provider",
-    "estimated_usd": 0.032288,
+    "estimated_usd": 0.001958,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 315589,
-        "completion_tokens": 6941
+        "prompt_tokens": 18632,
+        "completion_tokens": 1563
       }
     },
-    "duration_s": 155.6
+    "duration_s": 30.9,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8031,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0077,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Hillary Scholten",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 7.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, which inherently limits confidence to medium. However, several structural factors point clearly toward a Democratic edge: Incumbent Hillary Scholten is seeking a third term after flipping the seat in 2022; the district has shifted left in recent cycles, with Kamala Harris carrying it by about 8 points in 2024 after decades of Republican dominance; and the Republican field remains unsettled with a primary scheduled for August 4, 2026, between two candidates (Terri DeBoer and Ryan Cushman) who have never held elected office. Cook Political Report rates the race 'Likely D' as of January 2026. The combination of incumbency, favorable recent district partisanship, and a contested GOP primary gives Democrats a clear advantage, but the absence of race-specific polling prevents higher confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:04.190445Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

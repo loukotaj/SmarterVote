@@ -228,7 +228,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:49:23.181995+00:00",
+  "updated_utc": "2026-06-20T15:21:07.608529+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -242,18 +242,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 276731,
-    "completion_tokens": 8077,
-    "total_tokens": 284808,
-    "cost_usd": 0.017710346000000002,
+    "prompt_tokens": 7185,
+    "completion_tokens": 1398,
+    "total_tokens": 8583,
+    "cost_usd": 0.000918234,
     "cost_source": "provider",
-    "estimated_usd": 0.028703,
+    "estimated_usd": 0.000898,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 276731,
-        "completion_tokens": 8077
+        "prompt_tokens": 7185,
+        "completion_tokens": 1398
       }
     },
-    "duration_s": 159.6
+    "duration_s": 23.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3579,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Lori Trahan",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No opinion polling exists for this race, which limits statistical confidence. However, the structural factors are overwhelmingly clear: Incumbent Democrat Lori Trahan has held this seat since 2018, was re-elected unopposed in 2024, and the district is assessed as safely Democratic by major nonpartisan forecasters. Massachusetts's 3rd District has a strong Democratic lean, and Trahan has consistently won by comfortable double-digit margins (23–36 points) in her prior contested elections. The Republican candidate, retired Army Colonel Gary Grossi, is a credible challenger on paper but faces a steep uphill climb in a district that did not even field a Republican opponent in 2024. The unenrolled candidate Kevin Ades does not materially alter the race structure. Barring extraordinary developments, this seat is not competitive in the general election.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:58.523514Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

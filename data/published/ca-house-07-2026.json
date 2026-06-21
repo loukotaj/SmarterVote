@@ -107,7 +107,7 @@
         {
           "url": "https://maivangsacramento.org/biography",
           "type": "website",
-          "title": "About 1 \u2014 Office of Councilmember Mai Vang",
+          "title": "About 1 — Office of Councilmember Mai Vang",
           "description": null,
           "last_accessed": "2026-06-17T00:00:00Z",
           "published_at": null,
@@ -220,7 +220,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:24:34.978801+00:00",
+  "updated_utc": "2026-06-20T15:22:23.262873+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -234,18 +234,52 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 240749,
-    "completion_tokens": 7113,
-    "total_tokens": 247862,
-    "cost_usd": 0.016166235999999997,
+    "prompt_tokens": 11400,
+    "completion_tokens": 1850,
+    "total_tokens": 13250,
+    "cost_usd": 0.001419896,
     "cost_source": "provider",
-    "estimated_usd": 0.024988,
+    "estimated_usd": 0.001359,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 240749,
-        "completion_tokens": 7113
+        "prompt_tokens": 11400,
+        "completion_tokens": 1850
       }
     },
-    "duration_s": 181.6
+    "duration_s": 28.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6655,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Doris Matsui",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.6,
+    "party_probabilities": {
+      "Democratic": 1.0
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "This is a Democratic-versus-Democratic general election under California's top-two system, so Democrats are certain to hold the seat. No public general-election polls exist, sharply limiting certainty on the candidate-level outcome. The best available behavioral signal is the June 2, 2026 primary, in which challenger Mai Vang narrowly led incumbent Doris Matsui — a notable result given Matsui's 21-year incumbency. However, primary electorates tend to be more ideologically activated, which may have favored Vang's progressive platform (Medicare for All, abolishing ICE). The general-election electorate (still entirely Democratic) could shift toward Matsui's moderate, seniority-based appeal. The district was significantly redrawn under Proposition 50, adding unfamiliar territory that may weaken incumbency advantage. Matsui retains advantages in name recognition, institutional support, and a record of delivering federal funding. With no polling and conflicting structural signals, Matsui is assessed as a narrow favorite, but the race is highly uncertain.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:17.659604Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

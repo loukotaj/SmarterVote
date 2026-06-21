@@ -6,20 +6,20 @@
   "state": "California",
   "district": "41st Congressional District",
   "election_date": "2026-11-03",
-  "description": "California's 41st Congressional District was substantially redrawn under Proposition 50, shifting its boundaries to encompass southeast Los Angeles County communities including Downey, Whittier, Norwalk, and parts of Orange County. Incumbent Democratic Rep. Linda S\u00e1nchez, who previously represented the 38th District, chose to run for re-election in this new configuration. The June 2 top-two primary advanced S\u00e1nchez and Republican plumbing contractor Mitch Clemmons to the general election. Cook Political Report rates the general election as Solidly Democratic, given that registered Democrats outnumber Republicans roughly 46% to 26% in the district.",
+  "description": "California's 41st Congressional District was substantially redrawn under Proposition 50, shifting its boundaries to encompass southeast Los Angeles County communities including Downey, Whittier, Norwalk, and parts of Orange County. Incumbent Democratic Rep. Linda Sánchez, who previously represented the 38th District, chose to run for re-election in this new configuration. The June 2 top-two primary advanced Sánchez and Republican plumbing contractor Mitch Clemmons to the general election. Cook Political Report rates the general election as Solidly Democratic, given that registered Democrats outnumber Republicans roughly 46% to 26% in the district.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race.",
   "candidates": [
     {
-      "name": "Linda S\u00e1nchez",
+      "name": "Linda Sánchez",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Linda S\u00e1nchez is the Democratic incumbent representing California's 38th congressional district since 2013 and previously the 39th district from 2003. She is a former labor lawyer and serves on the House Ways and Means Committee, and was the first woman of color elected to House Democratic leadership as Vice Chair of the Democratic Caucus. S\u00e1nchez chairs BOLD PAC, the campaign arm of the Congressional Hispanic Caucus, and has focused on lowering costs for working families, protecting union jobs, and holding the Trump administration accountable.",
+      "summary": "Linda Sánchez is the Democratic incumbent representing California's 38th congressional district since 2013 and previously the 39th district from 2003. She is a former labor lawyer and serves on the House Ways and Means Committee, and was the first woman of color elected to House Democratic leadership as Vice Chair of the Democratic Caucus. Sánchez chairs BOLD PAC, the campaign arm of the Congressional Hispanic Caucus, and has focused on lowering costs for working families, protecting union jobs, and holding the Trump administration accountable.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Linda_S%C3%A1nchez",
           "type": "website",
-          "title": "Linda S\u00e1nchez - Wikipedia",
+          "title": "Linda Sánchez - Wikipedia",
           "description": null,
           "last_accessed": "2026-06-13T20:00:00Z",
           "published_at": null,
@@ -181,7 +181,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_41st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:39:51.475775+00:00",
+  "updated_utc": "2026-06-20T15:20:55.209412+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -195,18 +195,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 227432,
-    "completion_tokens": 7188,
-    "total_tokens": 234620,
-    "cost_usd": 0.015021088000000002,
+    "prompt_tokens": 12356,
+    "completion_tokens": 1847,
+    "total_tokens": 14203,
+    "cost_usd": 0.001512996,
     "cost_source": "provider",
-    "estimated_usd": 0.023697,
+    "estimated_usd": 0.001445,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 227432,
-        "completion_tokens": 7188
+        "prompt_tokens": 12356,
+        "completion_tokens": 1847
       }
     },
-    "duration_s": 149.5
+    "duration_s": 31.2,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 5762,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0055,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Linda Sánchez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, limiting direct measurement of voter sentiment. However, structural indicators are overwhelmingly favorable for Democrats: registered Democrats outnumber Republicans roughly 46% to 26% in the district, incumbent Linda Sánchez is a long-serving six-term House member with a strong profile (former House Democratic Caucus Vice Chair and BOLD PAC chair), and Cook Political Report rates the race as Solidly Democratic. Republican challenger Mitch Clemmons is a first-time congressional candidate and plumbing contractor from Santa Monica who has not previously held elected office. The combination of a 20-point Democratic registration edge, incumbency advantage, and favorable district geography makes a Democratic victory all but certain. Confidence is medium rather than high due to the absence of any polls and the district's recent redrawing under Proposition 50.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:51.475863Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

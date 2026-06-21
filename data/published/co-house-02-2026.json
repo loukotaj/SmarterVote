@@ -6,7 +6,7 @@
   "state": "Colorado",
   "district": "2nd Congressional District",
   "election_date": "2026-11-03",
-  "description": "Colorado's 2nd Congressional District covers north-central Colorado, including Boulder, Fort Collins, Longmont, and numerous rural and mountain communities stretching west along the I-70 corridor. The district has been held by Democrats for over 50 years and has a Cook Partisan Voting Index of D+20, making it the 56th most Democratic district nationally. Incumbent Rep. Joe Neguse (D), first elected in 2018 and serving as House Assistant Democratic Leader, is seeking a fifth term and faces no Democratic primary challenge. Two first-time Republican candidates \u2014 Kelley Dennison, a 27-year-old Estes Park massage therapist, and Christina Blunt, a Fort Collins hairstylist \u2014 are competing in the June 30 Republican primary for the chance to challenge Neguse in the general election.",
+  "description": "Colorado's 2nd Congressional District covers north-central Colorado, including Boulder, Fort Collins, Longmont, and numerous rural and mountain communities stretching west along the I-70 corridor. The district has been held by Democrats for over 50 years and has a Cook Partisan Voting Index of D+20, making it the 56th most Democratic district nationally. Incumbent Rep. Joe Neguse (D), first elected in 2018 and serving as House Assistant Democratic Leader, is seeking a fifth term and faces no Democratic primary challenge. Two first-time Republican candidates — Kelley Dennison, a 27-year-old Estes Park massage therapist, and Christina Blunt, a Fort Collins hairstylist — are competing in the June 30 Republican primary for the chance to challenge Neguse in the general election.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race. The Cook Political Report rates the race as 'Solid D' as of February 2025.",
   "candidates": [
@@ -278,7 +278,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:44:17.376535+00:00",
+  "updated_utc": "2026-06-20T15:25:12.444673+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -292,18 +292,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 271972,
-    "completion_tokens": 8900,
-    "total_tokens": 280872,
-    "cost_usd": 0.024993112,
+    "prompt_tokens": 19032,
+    "completion_tokens": 2087,
+    "total_tokens": 21119,
+    "cost_usd": 0.002214284,
     "cost_source": "provider",
-    "estimated_usd": 0.028398,
+    "estimated_usd": 0.002089,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 271972,
-        "completion_tokens": 8900
+        "prompt_tokens": 19032,
+        "completion_tokens": 2087
       }
     },
-    "duration_s": 130.9
+    "duration_s": 30.3,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8344,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.008,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Joe Neguse",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "high",
+    "rationale": "Colorado's 2nd District has a D+20 Cook PVI and has been represented by Democrats for over 50 years. Incumbent Joe Neguse, serving as House Assistant Democratic Leader and rated among the most effective and bipartisan members, faces no Democratic primary challenge and is strongly positioned for a fifth term. The Republican nominee (to be decided in a June 30 primary between two first-time candidates — a massage therapist and a hairstylist, both lacking elected office experience) will face a steep uphill climb in a district that is the 56th most Democratic nationally. Cook Political Report rates the race 'Solid D' as of February 2025. No public polling exists, but the structural advantages — incumbency, senior party leadership position, district partisan lean, and weak challenger bench — overwhelmingly favor the Democratic incumbent.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:06.039009Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

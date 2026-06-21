@@ -316,7 +316,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oklahoma%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:44:21.486305+00:00",
+  "updated_utc": "2026-06-20T15:27:30.106036+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -330,18 +330,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 277467,
-    "completion_tokens": 9826,
-    "total_tokens": 287293,
-    "cost_usd": 0.017596125999999997,
+    "prompt_tokens": 7788,
+    "completion_tokens": 1606,
+    "total_tokens": 9394,
+    "cost_usd": 0.001078,
     "cost_source": "provider",
-    "estimated_usd": 0.029118,
+    "estimated_usd": 0.00099,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 277467,
-        "completion_tokens": 9826
+        "prompt_tokens": 7788,
+        "completion_tokens": 1606
       }
     },
-    "duration_s": 167.6
+    "duration_s": 28.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8124,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0077,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Stephanie Bice",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.9,
+    "party_probabilities": {
+      "Republican": 0.9,
+      "Democratic": 0.09,
+      "Independent": 0.01
+    },
+    "margin_estimate": 13.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, so confidence is necessarily limited. Still, the provided race data indicates a clear Republican edge: Stephanie Bice is the incumbent, avoided a primary, has a large reported fundraising advantage, and the district was redrawn after 2020 to include more rural territory described as more favorable to Republicans. The race description also says nonpartisan forecasters view Bice as a strong favorite. Democrats retain some upside because the district includes much of Oklahoma City and has a history of competitive results under an earlier map, but based on the current district configuration and the absence of evidence showing a close contest, Republicans are favored. The two independent candidates do not appear competitive for first place from the information provided.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T14:21:10.597372Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

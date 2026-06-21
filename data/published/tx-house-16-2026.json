@@ -178,7 +178,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_16th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:23:41.711768+00:00",
+  "updated_utc": "2026-06-20T15:24:04.789821+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -192,18 +192,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 241133,
-    "completion_tokens": 6072,
-    "total_tokens": 247205,
-    "cost_usd": 0.019399834,
+    "prompt_tokens": 6832,
+    "completion_tokens": 1227,
+    "total_tokens": 8059,
+    "cost_usd": 0.0007802359999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.024821,
+    "estimated_usd": 0.000836,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 241133,
-        "completion_tokens": 6072
+        "prompt_tokens": 6832,
+        "completion_tokens": 1227
       }
     },
-    "duration_s": 136.5
+    "duration_s": 21.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3346,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0032,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Veronica Escobar",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 23.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available, limiting granular confidence. However, the structural data is unambiguous: TX-16 has a Cook PVI of D+11, has not elected a Republican since 1962, features a four-term Democratic incumbent in Veronica Escobar who has never lost a congressional race, is rated 'Solid D' by Cook Political Report, and is not targeted by national Republican leadership. These fundamentals point to an overwhelming Democratic advantage with no plausible near-term competitive pathway for a Republican challenger.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:57.093504Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

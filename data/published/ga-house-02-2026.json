@@ -238,7 +238,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia's_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:13:33.142914+00:00",
+  "updated_utc": "2026-06-20T15:30:52.947827+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -252,18 +252,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 257097,
-    "completion_tokens": 6288,
-    "total_tokens": 263385,
-    "cost_usd": 0.016853298,
+    "prompt_tokens": 11797,
+    "completion_tokens": 1396,
+    "total_tokens": 13193,
+    "cost_usd": 0.001429722,
     "cost_source": "provider",
-    "estimated_usd": 0.026428,
+    "estimated_usd": 0.001313,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 257097,
-        "completion_tokens": 6288
+        "prompt_tokens": 11797,
+        "completion_tokens": 1396
       }
     },
-    "duration_s": 149.6
+    "duration_s": 24.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6720,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sanford Bishop",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.029,
+      "Other": 0.001
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which limits confidence. Even so, the provided race data strongly favors Democrats: Sanford Bishop is a 17-term incumbent who has represented the district since 1993, is described as having won comfortably in recent cycles, and faces a Republican challenger without prior elected experience plus a minor-party candidate with limited profile. The district description and the Cook Political Report rating cited in the race data both indicate a solid Democratic advantage. Because this forecast relies on incumbency, district context, and candidate strength rather than polls, confidence is medium rather than high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:47.220578Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

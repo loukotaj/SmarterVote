@@ -149,7 +149,7 @@
           "organization": "United States Army",
           "start_year": 1980,
           "end_year": 2019,
-          "description": "Served 39 years, including at William Beaumont Army Medical Center, Fort Stewart, Fort Gordon, AMEDD Professional Management Command, U.S. Army Reserve Command\u2013Atlanta, and the Office of the Chief Army Reserve\u2013Fort Belvoir, VA as Deputy Surgeon for Clinical Operations.",
+          "description": "Served 39 years, including at William Beaumont Army Medical Center, Fort Stewart, Fort Gordon, AMEDD Professional Management Command, U.S. Army Reserve Command–Atlanta, and the Office of the Chief Army Reserve–Fort Belvoir, VA as Deputy Surgeon for Clinical Operations.",
           "source": null
         },
         {
@@ -213,7 +213,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:23:25.493108+00:00",
+  "updated_utc": "2026-06-20T15:43:01.301061+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -227,18 +227,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 384043,
-    "completion_tokens": 6286,
-    "total_tokens": 390329,
-    "cost_usd": 0.026817582,
+    "prompt_tokens": 11629,
+    "completion_tokens": 1695,
+    "total_tokens": 13324,
+    "cost_usd": 0.001471862,
     "cost_source": "provider",
-    "estimated_usd": 0.038868,
+    "estimated_usd": 0.001352,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 384043,
-        "completion_tokens": 6286
+        "prompt_tokens": 11629,
+        "completion_tokens": 1695
       }
     },
-    "duration_s": 120.2
+    "duration_s": 29.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6778,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Houston Gaines",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "This is an open-seat race for Georgia's strongly Republican-leaning 10th Congressional District. No district-specific general-election polling exists as of mid-2026, which reduces confidence. However, major nonpartisan forecasters (Cook Political Report, Sabato's Crystal Ball) rate the seat as 'Solid Republican' or 'Safe Republican.' The Republican nominee, state Representative Houston Gaines, won a contested primary with President Trump's endorsement. The Democratic nominee, retired Army Nurse Colonel Pamela DeLancy, is a credible candidate but faces an uphill race in a district with a strong Republican baseline. With no polls available and the district's partisan lean clearly favoring Republicans, the forecast is safe_r with medium confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:42:54.070079Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

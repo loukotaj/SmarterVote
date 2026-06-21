@@ -221,7 +221,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_18th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:16:23.058108+00:00",
+  "updated_utc": "2026-06-20T15:44:12.806182+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -235,18 +235,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 246242,
-    "completion_tokens": 5488,
-    "total_tokens": 251730,
-    "cost_usd": 0.016870724,
+    "prompt_tokens": 11099,
+    "completion_tokens": 1769,
+    "total_tokens": 12868,
+    "cost_usd": 0.001374522,
     "cost_source": "provider",
-    "estimated_usd": 0.025207,
+    "estimated_usd": 0.001317,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 246242,
-        "completion_tokens": 5488
+        "prompt_tokens": 11099,
+        "completion_tokens": 1769
       }
     },
-    "duration_s": 103.3
+    "duration_s": 26.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6393,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Zoe Lofgren",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists for this race, reducing confidence. However, the available structural data strongly favors the Democratic incumbent. Zoe Lofgren has held this seat since 1995 and serves as Ranking Member of the House Science, Space, and Technology Committee. Cook Political Report rates CA-18 as Solid Democratic, reflecting the district's partisan lean encompassing parts of San Jose, Salinas, and surrounding Bay Area/Central Coast communities. The Republican challenger, Shane Lewis, is a first-time candidate without prior elected office. Absent any contrary polling evidence, the combination of incumbent seniority, favorable district fundamentals, and the Cook rating points to a very strong Democratic advantage consistent with a safe Democratic rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:44:07.337866Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

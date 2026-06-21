@@ -989,10 +989,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T23:15:24.001073+00:00",
+  "updated_utc": "2026-06-20T03:17:31.351293+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://www.pa.gov/agencies/vote/voter-registration",
   "how_to_vote_url": "https://www.pa.gov/agencies/vote",
@@ -1080,21 +1079,59 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 94078,
-    "completion_tokens": 5882,
-    "total_tokens": 99960,
-    "cost_usd": 0.00618694,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4160,
+    "completion_tokens": 257,
+    "total_tokens": 4417,
+    "cost_usd": 0.010799,
     "cost_source": "provider",
-    "estimated_usd": 0.007057,
+    "estimated_usd": 0.014255,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 94078,
-        "completion_tokens": 5882
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4160,
+        "completion_tokens": 257
       }
     },
-    "duration_s": 74.9
+    "duration_s": 8.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3415,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0033,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Josh Shapiro",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.9,
+    "party_probabilities": {
+      "Democratic": 0.9,
+      "Republican": 0.1
+    },
+    "margin_estimate": 14.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "Available public polling shows incumbent Democratic Gov. Josh Shapiro with a large and consistent lead over Republican Stacy Garrity, including Quinnipiac at 55%-37% in February and a RealClearPolling average at 53.7%-33.7% in May. Shapiro also has notable incumbency and fundraising advantages in a major swing state. However, the polling is still sparse and relatively early for a 2026 general election, so uncertainty remains meaningful despite the current Democratic edge. The evidence supports a clear but not overwhelming advantage for Shapiro and Democrats.",
+    "based_on_poll_count": 2,
+    "generated_at": "2026-06-20T03:17:30.441263Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://poll.qu.edu/images/polling/pa/pa02252026_pdkl34.pdf",
+      "https://www.realclearpolling.com/polls/governor/general/2026/pennsylvania/shapiro-vs-garrity"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

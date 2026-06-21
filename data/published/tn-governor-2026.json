@@ -661,10 +661,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Tennessee_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:04:28.302439+00:00",
+  "updated_utc": "2026-06-20T03:16:53.851893+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -673,20 +672,60 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 264057,
-    "completion_tokens": 9040,
-    "total_tokens": 273097,
-    "cost_usd": 0.019532434,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5651,
+    "completion_tokens": 328,
+    "total_tokens": 5979,
+    "cost_usd": 0.0132875,
     "cost_source": "provider",
-    "estimated_usd": 0.027649,
+    "estimated_usd": 0.019047,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 264057,
-        "completion_tokens": 9040
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5651,
+        "completion_tokens": 328
       }
     },
-    "duration_s": 179.1
+    "duration_s": 11.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4664,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0044,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Marsha Blackburn",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "This is an open-seat race, but the available race data still points strongly to Republicans. Tennessee has not elected a Democrat statewide since 2006, and the race description says the general election is heavily Republican-favored. Within the GOP primary, Marsha Blackburn appears dominant: she leads all available Republican primary polls by very large margins, has strong statewide name recognition, major endorsements, and a substantial fundraising edge. The Democratic field appears weaker and less established statewide. Confidence is not high because the available polling is primary polling only, not general-election polling, and the election is still months away; however, the state’s recent statewide partisan track record and the current candidate field support a safe Republican informational forecast.",
+    "based_on_poll_count": 4,
+    "generated_at": "2026-06-20T03:16:52.802468Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-TargozMay2026-24",
+      "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-26",
+      "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-28",
+      "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-30"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

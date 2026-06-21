@@ -1842,10 +1842,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
-  "updated_utc": "2026-06-14T19:55:12.675261+00:00",
+  "updated_utc": "2026-06-20T03:17:09.849690+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-registering-vote",
   "how_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-voting",
@@ -1927,38 +1926,59 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 307556,
-    "completion_tokens": 21086,
-    "total_tokens": 328642,
-    "cost_usd": 0.050467455999999994,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 6605,
+    "completion_tokens": 274,
+    "total_tokens": 6879,
+    "cost_usd": 0.020622500000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.05086,
+    "estimated_usd": 0.020622,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 146494,
-        "completion_tokens": 17735
-      },
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 161062,
-        "completion_tokens": 3351
+      "openai/gpt-5.4": {
+        "prompt_tokens": 6605,
+        "completion_tokens": 274
       }
     },
-    "duration_s": 299.4,
-    "serper_calls": 20,
-    "context_requests": 21,
-    "max_estimated_context_tokens": 55730,
-    "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0531,
-    "context_deduplicated_results": 37,
+    "duration_s": 9.0,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 5258,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.005,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
     "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
   },
   "schema_version": "0.3",
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Jon Ossoff",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.61,
+    "party_probabilities": {
+      "Democratic": 0.61,
+      "Republican": 0.39
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "Georgia is a closely divided battleground, and this race remains early with Republicans still in a competitive primary and no settled nominee. The available numeric candidate-level polling is sparse: one March Emerson/Nexstar poll showed incumbent Jon Ossoff leading Mike Collins 48%-43%, and the race summary says Ossoff led each tested Republican matchup in that survey. Ossoff also appears to have substantial fundraising and incumbency advantages over the current Republican field. But the evidence base is thin, the single public poll is several months old, and Georgia’s recent statewide elections have been consistently close, so the incumbent’s edge looks narrow rather than durable. That supports a slight Democratic advantage, not more.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T03:17:08.683156Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

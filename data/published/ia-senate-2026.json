@@ -408,39 +408,70 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T20:52:16.148110+00:00",
+  "updated_utc": "2026-06-20T03:16:45.640515+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 75984,
-    "completion_tokens": 13855,
-    "total_tokens": 89839,
-    "cost_usd": 0.00842537,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2977,
+    "completion_tokens": 220,
+    "total_tokens": 3197,
+    "cost_usd": 0.0084385,
     "cost_source": "provider",
-    "estimated_usd": 0.009658,
+    "estimated_usd": 0.010743,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 68175,
-        "completion_tokens": 13766
-      },
-      "nvidia/nemotron-3-super-120b-a12b": {
-        "prompt_tokens": 7809,
-        "completion_tokens": 89
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2977,
+        "completion_tokens": 220
       }
     },
-    "duration_s": 128.5
+    "duration_s": 17.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2587,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0025,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Ashley Hinson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Democratic": 0.17,
+      "Republican": 0.82,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 6.5,
+    "rating": "likely_r",
+    "confidence": "low",
+    "rationale": "This open-seat Senate race lacks any public, credible general-election polling in the provided data, so confidence is limited. Still, the race description itself notes Ballotpedia rates it likely Republican, and the Republican field includes Ashley Hinson, a sitting U.S. House member with a higher-profile federal résumé than the other listed candidates. Democrats have plausible contenders and the open-seat dynamic makes the race more competitive than an incumbent-held seat, but with no polling and given Iowa’s recent Republican tilt implied by the description, Republicans appear to hold a clear but not overwhelming edge at this stage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:44.880418Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

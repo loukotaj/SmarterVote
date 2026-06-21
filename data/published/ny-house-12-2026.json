@@ -545,7 +545,7 @@
         {
           "url": "https://www.nycitynewsservice.com/2026/05/05/not-the-clickbait-candidate-against-odds-laura-dunn-is-running-for-congress/",
           "type": "news",
-          "title": "NY City News Service: Not the 'Clickbait Candidate' \u2014 Laura Dunn Is Running for Congress",
+          "title": "NY City News Service: Not the 'Clickbait Candidate' — Laura Dunn Is Running for Congress",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -669,7 +669,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:32:33.824795+00:00",
+  "updated_utc": "2026-06-20T15:38:08.285295+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -683,18 +683,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 317154,
-    "completion_tokens": 13111,
-    "total_tokens": 330265,
-    "cost_usd": 0.022358944000000002,
+    "prompt_tokens": 20973,
+    "completion_tokens": 2459,
+    "total_tokens": 23432,
+    "cost_usd": 0.002487398,
     "cost_source": "provider",
-    "estimated_usd": 0.033651,
+    "estimated_usd": 0.00233,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 317154,
-        "completion_tokens": 13111
+        "prompt_tokens": 20973,
+        "completion_tokens": 2459
       }
     },
-    "duration_s": 183.4
+    "duration_s": 34.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 12368,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0118,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "NY-12 is an open-seat race following the retirement of Rep. Jerrold Nadler (D, since 1992), but the district — covering Manhattan's Upper West Side, Midtown East, and adjacent neighborhoods — is one of the most reliably Democratic districts in the country (Cook Political Rating: Solid/Safe Democratic). The Democratic primary (June 23, 2026, three days from this forecast) features a competitive field of ten candidates including Alex Bores, Micah Lasher, George Conway, and Jack Schlossberg. The Republican nominee, Caroline Shinkle, ran unopposed in the GOP primary. No general-election head-to-head polling is available in the public record. The sparse polling references (Emerson College, City & State NY/PPP, AARP) pertain to the primary and do not provide usable general-election matchup numbers. Regardless of which Democrat wins the primary, the general election in this deep-blue Manhattan seat is an overwhelming Democratic hold. Confidence is medium rather than high due to the lack of general-election polling, the open-seat uncertainty, and the fact the Democratic nominee is not yet determined.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:02.345863Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

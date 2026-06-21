@@ -297,7 +297,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:32:08.381181+00:00",
+  "updated_utc": "2026-06-20T15:36:59.787407+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -311,18 +311,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 296598,
-    "completion_tokens": 8051,
-    "total_tokens": 304649,
-    "cost_usd": 0.020550776,
+    "prompt_tokens": 14188,
+    "completion_tokens": 2733,
+    "total_tokens": 16921,
+    "cost_usd": 0.001926092,
     "cost_source": "provider",
-    "estimated_usd": 0.030645,
+    "estimated_usd": 0.001769,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 296598,
-        "completion_tokens": 8051
+        "prompt_tokens": 14188,
+        "completion_tokens": 2733
       }
     },
-    "duration_s": 129.8
+    "duration_s": 37.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8472,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0081,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jeff Crank",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Republican": 0.84,
+      "Democratic": 0.14,
+      "Independent": 0.02
+    },
+    "margin_estimate": 6.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "Republicans remain favored based on the district's Republican lean (Cook 'Solid R'), Jeff Crank's incumbency, his 54.7% win in 2024, and his uncontested primary status. However, competitive signals are emerging: the only available poll (a Democratic internal from Nov 2025) shows a narrow 43%-40% race within the margin of error; Democrat Jessica Killin has raised record funds and earned endorsements from Senators Bennet and Hickenlooper; national Democrats have added the district to target lists; and the district has trended left in recent presidential cycles. The Democratic primary is still unresolved as of June 20 (concluding June 30), adding further uncertainty. Independent candidate Steven Fuller introduces a potential third-way vote. With only one old partisan poll and no independent polling, confidence is moderate — the Republican edge is clear but not overwhelming, and the margin could narrow significantly depending on the eventual Democratic nominee and general election dynamics.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:36:54.396166Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.killinforcolorado.com/news/new-poll-shows-colorados-5th-congressional-district-is-a-toss-up"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

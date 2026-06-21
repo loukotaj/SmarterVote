@@ -205,7 +205,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:16:34.965074+00:00",
+  "updated_utc": "2026-06-20T15:43:57.414696+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -219,7 +219,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Texas'_24th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -227,30 +227,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 235023,
-    "completion_tokens": 6950,
-    "total_tokens": 241973,
-    "cost_usd": 0.038746338,
+    "prompt_tokens": 17938,
+    "completion_tokens": 1560,
+    "total_tokens": 19498,
+    "cost_usd": 0.002043716,
     "cost_source": "provider",
-    "estimated_usd": 0.039394,
+    "estimated_usd": 0.001895,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 235023,
-        "completion_tokens": 6950
+        "prompt_tokens": 17938,
+        "completion_tokens": 1560
       }
     },
-    "duration_s": 196.7,
-    "serper_calls": 15,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 42736,
+    "duration_s": 26.8,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 9744,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0408,
-    "context_deduplicated_results": 63,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Beth Van Duyne",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "There are no public polls available for this race, so the forecast relies entirely on district fundamentals, which strongly favor the incumbent Republican. Beth Van Duyne is a three-term incumbent in a district that was significantly redrawn in 2021 to favor Republicans, and she has won her previous two elections in the redrawn district by approximately 20-point margins. Cook Political Report rates the seat 'Solidly Republican.' Kevin Burge is a credible Democratic nominee (Marine Corps veteran, former White House Situation Room advisor), but in this heavily Republican-leaning district he remains a clear long-shot. The win probability of 0.97 reflects an overwhelming Republican advantage consistent with the 'safe_r' rating band (95%+). However, confidence is medium rather than high due to the complete absence of polling data and the possibility that district dynamics could shift by November.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:43:57.305471Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

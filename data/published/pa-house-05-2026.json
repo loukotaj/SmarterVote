@@ -2,7 +2,7 @@
   "id": "pa-house-05-2026",
   "title": "Pennsylvania's 5th Congressional District election, 2026",
   "office": "U.S. House of Representatives",
-  "jurisdiction": "Pennsylvania's 5th Congressional District \u2014 Delaware County, southwestern Philadelphia, and parts of Chester and Montgomery counties",
+  "jurisdiction": "Pennsylvania's 5th Congressional District — Delaware County, southwestern Philadelphia, and parts of Chester and Montgomery counties",
   "state": "Pennsylvania",
   "district": "5th Congressional District",
   "election_date": "2026-11-03",
@@ -55,7 +55,7 @@
       "career_history": [
         {
           "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives \u2014 Pennsylvania's 5th/7th District",
+          "organization": "U.S. House of Representatives — Pennsylvania's 5th/7th District",
           "start_year": 2018,
           "end_year": null,
           "description": "Serves on House Judiciary Committee and House Rules Committee",
@@ -254,7 +254,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:54:13.792265+00:00",
+  "updated_utc": "2026-06-20T15:37:26.600100+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -268,18 +268,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 298406,
-    "completion_tokens": 6142,
-    "total_tokens": 304548,
-    "cost_usd": 0.018167299999999997,
+    "prompt_tokens": 11454,
+    "completion_tokens": 1728,
+    "total_tokens": 13182,
+    "cost_usd": 0.001401276,
     "cost_source": "provider",
-    "estimated_usd": 0.030448,
+    "estimated_usd": 0.001342,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 298406,
-        "completion_tokens": 6142
+        "prompt_tokens": 11454,
+        "completion_tokens": 1728
       }
     },
-    "duration_s": 134.1
+    "duration_s": 25.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6696,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mary Gay Scanlon",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists as of June 2026, which reduces confidence and prevents direct voter-measurement confirmation. However, structural factors strongly point to a Democratic hold: Pennsylvania's 5th District has a Cook PVI of D+15, covering Democratic-trending Philadelphia suburbs (Delaware County, South Philadelphia). Incumbent Mary Gay Scanlon has held the seat since 2018 and consistently won by large margins. All major nonpartisan race analysts (Cook Political Report: Solid D; Sabato's Crystal Ball: Safe Democratic; Inside Elections: Solid Democratic) rate this as a safe Democratic seat. Republican challenger Nick Manganaro is a first-time congressional candidate, albeit with a strong finance background. Given no polling but overwhelming structural and incumbency advantages, the forecast is safe Democratic with medium confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:21.792586Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

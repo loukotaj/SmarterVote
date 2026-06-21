@@ -209,7 +209,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:04:49.505707+00:00",
+  "updated_utc": "2026-06-20T15:33:25.370242+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -220,18 +220,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 210365,
-    "completion_tokens": 7004,
-    "total_tokens": 217369,
-    "cost_usd": 0.01344225,
+    "prompt_tokens": 11011,
+    "completion_tokens": 1599,
+    "total_tokens": 12610,
+    "cost_usd": 0.001332578,
     "cost_source": "provider",
-    "estimated_usd": 0.021989,
+    "estimated_usd": 0.001279,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 210365,
-        "completion_tokens": 7004
+        "prompt_tokens": 11011,
+        "completion_tokens": 1599
       }
     },
-    "duration_s": 206.0
+    "duration_s": 29.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6407,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Alma Adams",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 24,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists, which inherently limits certainty. However, the available contextual indicators are overwhelming: Alma Adams is a longtime incumbent seeking her seventh full term with a strong incumbency track record; Cook Political Report rates NC-12 as 'Solidly Democratic'; the Republican challenger Jack Codiga is a first-time candidate with no prior electoral experience; and the district (covering most of Charlotte/Mecklenburg County) has a heavily Democratic partisan lean, even after the 2025 redistricting by the Republican-led legislature. While sparse polling and redistricting introduce some uncertainty, the combination of incumbency, partisanship, and rating firmly supports a safe Democratic outcome.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:18.696517+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

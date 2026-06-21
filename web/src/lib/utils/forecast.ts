@@ -127,7 +127,10 @@ export const INCUMBENT_FALLBACKS: Record<
 
 export function officeGroup(race: RaceSummary): ForecastTab | null {
   const office = (race.office || "").toLowerCase();
-  if (office.includes("senate")) return "senate";
+  if (office.includes("state senate") || office.includes("state senator"))
+    return null;
+  if (office.includes("united states senate") || office.includes("u.s. senate"))
+    return "senate";
   if (office.includes("governor") || office.includes("gubernatorial"))
     return "governors";
   if (office.includes("house") || office.includes("representative"))
@@ -228,7 +231,7 @@ export function aggregateForecasts(
 
   // Initialize baseline holdovers
   if (tab === "governors") {
-    for (const [state, party] of Object.entries(GOVERNOR_HOLDOVERS)) {
+    for (const party of Object.values(GOVERNOR_HOLDOVERS)) {
       projected[party] = (projected[party] ?? 0) + 1;
     }
   } else if (tab === "senate") {

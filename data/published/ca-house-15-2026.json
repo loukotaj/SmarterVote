@@ -227,7 +227,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_15th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:22:33.898151+00:00",
+  "updated_utc": "2026-06-20T15:21:38.230239+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -241,18 +241,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 281032,
-    "completion_tokens": 6352,
-    "total_tokens": 287384,
-    "cost_usd": 0.017364432,
+    "prompt_tokens": 11751,
+    "completion_tokens": 1898,
+    "total_tokens": 13649,
+    "cost_usd": 0.001473686,
     "cost_source": "provider",
-    "estimated_usd": 0.028786,
+    "estimated_usd": 0.001399,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 281032,
-        "completion_tokens": 6352
+        "prompt_tokens": 11751,
+        "completion_tokens": 1898
       }
     },
-    "duration_s": 144.3
+    "duration_s": 28.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6699,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Kevin Mullin",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists, which limits certainty and keeps confidence at medium. However, all other indicators point to an overwhelming Democratic advantage: the district has a D+26 Cook Partisan Voting Index and is rated 'Solid D' by Cook Political Report. Incumbent Democrat Kevin Mullin (first elected 2022) dominated the June 2, 2026 top-two primary with 65.0% of the vote, while Republican challenger Charles Hoelter—a retired UPS supervisor and first-time candidate—received only 18.7%. The district covers most of San Mateo County in the San Francisco Bay Area, a consistently deep-blue region. District partisanship, incumbency, candidate experience disparity, and the primary vote share all converge to indicate a near-certain Democratic hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:33.069949Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

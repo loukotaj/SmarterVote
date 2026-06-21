@@ -238,7 +238,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_49th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:35:21.168753+00:00",
+  "updated_utc": "2026-06-20T15:23:58.231078+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -252,18 +252,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 310919,
-    "completion_tokens": 9433,
-    "total_tokens": 320352,
-    "cost_usd": 0.020348114000000004,
+    "prompt_tokens": 11610,
+    "completion_tokens": 1805,
+    "total_tokens": 13415,
+    "cost_usd": 0.001431656,
     "cost_source": "provider",
-    "estimated_usd": 0.032319,
+    "estimated_usd": 0.00137,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 310919,
-        "completion_tokens": 9433
+        "prompt_tokens": 11610,
+        "completion_tokens": 1805
       }
     },
-    "duration_s": 142.8
+    "duration_s": 27.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6781,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Levin",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 7.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for CA-49, so the forecast relies entirely on non-polling fundamentals. Incumbent Democrat Mike Levin has won four consecutive competitive elections in this district since flipping it in 2018. The district was redrawn by Proposition 50 in 2025 to be more Democratic-leaning, now with a Cook Partisan Voter Index of D+4. Cook Political Report rates the race as 'Likely Democratic.' Levin holds key committee assignments (Appropriations) and has passed 35 bipartisan laws. Republican challenger Armen Kurdian is a credible candidate with a strong Navy background but has limited electoral experience (narrowly lost a Vista City Council race) and no campaign finance data available. The fundamentals point to a clear Democratic advantage, but the complete absence of public polling and sparse independent ratings keep confidence at medium rather than high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:52.663152Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

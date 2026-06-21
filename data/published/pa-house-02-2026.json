@@ -162,7 +162,7 @@
         {
           "url": "https://aldianews.com/en/politics/women-politics/latina-voice",
           "type": "news",
-          "title": "Jessica Arriaga: Puerto Rican, Mother, and Candidate - Al D\u00eda News",
+          "title": "Jessica Arriaga: Puerto Rican, Mother, and Candidate - Al Día News",
           "description": null,
           "last_accessed": "2026-06-11T00:00:00Z",
           "published_at": null,
@@ -236,7 +236,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:27:34.514521+00:00",
+  "updated_utc": "2026-06-20T15:25:13.268069+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -250,18 +250,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 275152,
-    "completion_tokens": 5287,
-    "total_tokens": 280439,
-    "cost_usd": 0.019404924,
+    "prompt_tokens": 4143,
+    "completion_tokens": 1169,
+    "total_tokens": 5312,
+    "cost_usd": 0.00056525,
     "cost_source": "provider",
-    "estimated_usd": 0.028001,
+    "estimated_usd": 0.000583,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 275152,
-        "completion_tokens": 5287
+        "prompt_tokens": 4143,
+        "completion_tokens": 1169
       }
     },
-    "duration_s": 110.0
+    "duration_s": 19.2,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2851,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0027,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brendan Boyle",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 38.0,
+    "rating": "safe_d",
+    "confidence": "low",
+    "rationale": "No independent general-election polls are available for this race, so confidence is low. However, the race data describes PA-02 as an overwhelmingly Democratic Philadelphia-based district by partisan registration. Incumbent Brendan Boyle has held the seat since 2014, serves as Ranking Member of the House Budget Committee, and faces a first-time Republican challenger with no elected office experience. The Cook Political Report rated the seat 'Solidly Democratic' heading into the primary. Absent any evidence of unusual competitiveness, structural factors point to an overwhelming Democratic advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:07.219031Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

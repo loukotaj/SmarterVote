@@ -1115,10 +1115,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Maine,_2026",
-  "updated_utc": "2026-06-13T23:11:33.949038+00:00",
+  "updated_utc": "2026-06-20T03:17:28.983108+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://registertovote.sos.maine.gov/",
   "schema_version": "0.3",
@@ -1216,29 +1215,64 @@
     "grade": "A",
     "score": 90,
     "passed": true,
-    "summary": "Validated by 4/4 reviewers with an average score of 90/100."
+    "summary": "Validated by 3/3 reviewers with an average score of 90/100."
   },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 118015,
-    "completion_tokens": 12877,
-    "total_tokens": 130892,
-    "cost_usd": 0.011783718000000002,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4376,
+    "completion_tokens": 281,
+    "total_tokens": 4657,
+    "cost_usd": 0.011699000000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.014155,
+    "estimated_usd": 0.015155,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 40645,
-        "completion_tokens": 9883
-      },
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 77370,
-        "completion_tokens": 2994
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4376,
+        "completion_tokens": 281
       }
     },
-    "duration_s": 123.0
+    "duration_s": 8.8,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3644,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0035,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "how_to_vote_url": "https://www.maine.gov/sos/elections-voting",
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Graham Platner",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.7,
+    "party_probabilities": {
+      "Democratic": 0.7,
+      "Republican": 0.3
+    },
+    "margin_estimate": 4.0,
+    "rating": "lean_d",
+    "confidence": "medium",
+    "rationale": "Three recent public polls all show Democratic nominee Graham Platner leading incumbent Susan Collins, by margins of 5 to 9 points. That consistent candidate-level polling gives Democrats a real edge at this stage. However, confidence should remain moderate rather than high because the polling is still limited to three surveys, the election is several months away, and Collins is a well-known multi-term incumbent with substantial fundraising and a history of statewide competitiveness in Maine. The informational forecast therefore favors Platner, but not decisively.",
+    "based_on_poll_count": 3,
+    "generated_at": "2026-06-20T03:17:27.434781Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://scholars.unh.edu/cgi/viewcontent.cgi?article=1959&context=survey_center_polls",
+      "https://www.uml.edu/news/press-releases/2026/06042026-maine-senate-poll.aspx",
+      "https://mainemorningstar.com/2026/05/20/new-poll-shows-platner-leading-collins-in-general-election-match-up/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

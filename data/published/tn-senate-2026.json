@@ -2569,10 +2569,9 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T20:51:42.281129+00:00",
+  "updated_utc": "2026-06-20T03:17:15.122927+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -2664,21 +2663,33 @@
     }
   ],
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 96709,
-    "completion_tokens": 10222,
-    "total_tokens": 106931,
-    "cost_usd": 0.0072884099999999995,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3640,
+    "completion_tokens": 227,
+    "total_tokens": 3867,
+    "cost_usd": 0.012505,
     "cost_source": "provider",
-    "estimated_usd": 0.008924,
+    "estimated_usd": 0.012505,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 96709,
-        "completion_tokens": 10222
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3640,
+        "completion_tokens": 227
       }
     },
-    "duration_s": 86.4
+    "duration_s": 7.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3097,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0029,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": {
     "grade": "A",
@@ -2687,11 +2698,33 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Tennessee,_2026",
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "register_to_vote_url": "https://ovr.govote.tn.gov/",
   "how_to_vote_url": "https://sos.tn.gov/elections/guides/how-to-register-to-vote",
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Bill Hagerty",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which increases uncertainty and lowers confidence. Even so, the available race description and state context strongly favor Republicans: Tennessee has voted reliably Republican in recent federal elections, the seat is held by incumbent Republican Bill Hagerty, and the race is widely described as safely Republican, including a Solid R characterization in the provided race data. The Democratic field appears multi-candidate and lacks evidence here of a top-tier statewide challenger, while Hagerty benefits from incumbency in a state where Democrats have not won a U.S. Senate race since 1990. Taken together, the non-polling fundamentals point to a very strong Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:14.373804Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

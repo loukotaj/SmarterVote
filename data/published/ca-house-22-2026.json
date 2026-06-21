@@ -241,7 +241,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California's_22nd_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:51:24.573187+00:00",
+  "updated_utc": "2026-06-20T15:27:38.586238+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -255,18 +255,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 171260,
-    "completion_tokens": 5981,
-    "total_tokens": 177241,
-    "cost_usd": 0.012165036,
+    "prompt_tokens": 12834,
+    "completion_tokens": 2163,
+    "total_tokens": 14997,
+    "cost_usd": 0.0016018080000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.017956,
+    "estimated_usd": 0.001544,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 171260,
-        "completion_tokens": 5981
+        "prompt_tokens": 12834,
+        "completion_tokens": 2163
       }
     },
-    "duration_s": 120.6
+    "duration_s": 32.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7407,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0071,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "David Valadao",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Republican": 0.56,
+      "Democratic": 0.44
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No general-election head-to-head polling exists as of mid-June 2026; the only available survey was a pre-primary poll (Data for Progress, May 2026) that tested the Democratic primary matchup only. The forecast therefore relies on non-polling indicators: outside race ratings (Cook/Sabato: Toss-up; Inside Elections: Tilt Republican), incumbency advantage for Valadao (six non-consecutive terms and known cross-party appeal in a competitive Central Valley district), and the nature of the Democratic challenger. Villegas advanced past a moderate Democrat in the top-two primary by running as a progressive, which could energize the base but may be a slight liability in a district with a large Latino and working-class electorate where Valadao has demonstrated crossover appeal. Redistricting made the district more competitive, and the challenger is well-funded and credible, keeping the race close. With zero general-election polls, confidence is low, but Valadao's incumbency, fundraising network, and history of surviving tough races give Republicans a narrow edge consistent with a Tilt Republican rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:31.969022Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.270towin.com/2026-house-polls/california/district-22"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

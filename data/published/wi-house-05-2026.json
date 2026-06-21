@@ -91,7 +91,7 @@
       ],
       "education": [
         {
-          "institution": "University of Wisconsin\u2013Oshkosh",
+          "institution": "University of Wisconsin–Oshkosh",
           "degree": "Bachelor of Science",
           "field": null,
           "year": 1985,
@@ -213,7 +213,7 @@
         {
           "url": "https://www.wisconsinforben.com/about-me",
           "type": "website",
-          "title": "About Me \u2014 Ben Steinhoff | Wisconsin Congress Candidate | District 5",
+          "title": "About Me — Ben Steinhoff | Wisconsin Congress Candidate | District 5",
           "description": null,
           "last_accessed": "2026-06-15T12:00:00Z",
           "published_at": null,
@@ -283,7 +283,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:17:54.436979+00:00",
+  "updated_utc": "2026-06-20T15:37:20.357349+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -297,7 +297,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Wisconsin's_5th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -305,30 +305,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 280249,
-    "completion_tokens": 6682,
-    "total_tokens": 286931,
-    "cost_usd": 0.042640345999999996,
+    "prompt_tokens": 12162,
+    "completion_tokens": 1732,
+    "total_tokens": 13894,
+    "cost_usd": 0.0014714440000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.042774,
+    "estimated_usd": 0.001406,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 280249,
-        "completion_tokens": 6682
+        "prompt_tokens": 12162,
+        "completion_tokens": 1732
       }
     },
-    "duration_s": 202.1,
-    "serper_calls": 14,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 50925,
+    "duration_s": 31.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7293,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0486,
-    "context_deduplicated_results": 42,
+    "max_context_utilization": 0.007,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Scott Fitzgerald",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "This race presents an overwhelming Republican advantage based on fundamentals. Cook PVI R+14 places the 5th District among the most Republican-leaning seats in the country. Incumbent Scott Fitzgerald is a three-term incumbent with 26 years of prior legislative service and strong name recognition. The Democratic primary between Ben Steinhoff (2024 nominee who lost decisively) and Andrew Beck is not yet resolved, leaving the general-election challenger unsettled and without a unified campaign. No published polling exists, which tempers confidence, but the structural landscape — a strong incumbent in a safely Republican district with no Democratic nominee finalized — supports a Safe Republican rating with approximately 97% probability of Republican control. Margin estimate of ~22 points is consistent with the district's baseline partisanship and recent performance.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:14.726239Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

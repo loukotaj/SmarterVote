@@ -19,7 +19,7 @@
         {
           "url": "http://quigley.house.gov/about/biography",
           "type": "government",
-          "title": "Biography \u2013 Congressman Mike Quigley",
+          "title": "Biography – Congressman Mike Quigley",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -41,7 +41,7 @@
         {
           "url": "https://www.cookpolitical.com/house/race/482976",
           "type": "news",
-          "title": "IL-05 2026 \u2013 Cook Political Report",
+          "title": "IL-05 2026 – Cook Political Report",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -152,7 +152,7 @@
         {
           "url": "https://chicago.suntimes.com/candidate-questionnaires/tommy-hanson-illinois-5th-congressional-district",
           "type": "news",
-          "title": "Tommy Hanson, Illinois 5th Congressional District \u2013 Chicago Sun-Times",
+          "title": "Tommy Hanson, Illinois 5th Congressional District – Chicago Sun-Times",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -204,7 +204,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:47:52.675897+00:00",
+  "updated_utc": "2026-06-20T15:32:18.522957+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -218,18 +218,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 227541,
-    "completion_tokens": 6869,
-    "total_tokens": 234410,
-    "cost_usd": 0.017325470000000003,
+    "prompt_tokens": 7041,
+    "completion_tokens": 1356,
+    "total_tokens": 8397,
+    "cost_usd": 0.0008958900000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.023645,
+    "estimated_usd": 0.000878,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 227541,
-        "completion_tokens": 6869
+        "prompt_tokens": 7041,
+        "completion_tokens": 1356
       }
     },
-    "duration_s": 157.1
+    "duration_s": 24.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3546,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Quigley",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 38.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No independent general-election polling was found for this race, so certainty is limited by the absence of direct survey data. However, the structural indicators in the race record are overwhelming: the district has a Cook PVI of D+19, making it one of the most Democratic seats in Illinois; 16-year incumbent Mike Quigley has defeated the same Republican challenger, Tommy Hanson, in each of the last four general elections by margins of 69% to 76%; and the race is rated 'Solid D' by the Cook Political Report. Based on incumbency, district partisanship, and past electoral performance, Democrats hold an overwhelming advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:11.570436Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

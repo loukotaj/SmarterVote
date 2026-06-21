@@ -27,7 +27,7 @@
       "source_url": "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-rob-bresnahan-trailing-paige-cognetti-in-pa-08"
     }
   ],
-  "polling_note": "Only one publicly released poll was found \u2014 an early September 2025 internal poll from the Democratic-aligned House Majority PAC showing Cognetti leading Bresnahan 45% to 43%. No independent or nonpartisan polls were available as of mid-2026. The Cook Political Report moved the race rating to 'Toss Up' in April 2026.",
+  "polling_note": "Only one publicly released poll was found — an early September 2025 internal poll from the Democratic-aligned House Majority PAC showing Cognetti leading Bresnahan 45% to 43%. No independent or nonpartisan polls were available as of mid-2026. The Cook Political Report moved the race rating to 'Toss Up' in April 2026.",
   "candidates": [
     {
       "name": "Rob Bresnahan Jr.",
@@ -231,7 +231,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_8th_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T22:08:46.445679+00:00",
+  "updated_utc": "2026-06-20T15:33:08.211884+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -245,18 +245,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 213465,
-    "completion_tokens": 5073,
-    "total_tokens": 218538,
-    "cost_usd": 0.015384341999999999,
+    "prompt_tokens": 12491,
+    "completion_tokens": 2025,
+    "total_tokens": 14516,
+    "cost_usd": 0.0015611140000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.021914,
+    "estimated_usd": 0.001489,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 213465,
-        "completion_tokens": 5073
+        "prompt_tokens": 12491,
+        "completion_tokens": 2025
       }
     },
-    "duration_s": 105.1
+    "duration_s": 28.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7053,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rob Bresnahan Jr.",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.53,
+    "party_probabilities": {
+      "Democratic": 0.47,
+      "Republican": 0.53
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "This race is a genuine tossup with very sparse public polling. The only available survey is a Democratic-aligned internal poll from September 2025 — nearly a year old — showing Cognetti ahead 45%-43%, which carries limited evidentiary weight due to age and partisan sponsorship. The fundamentals cut both ways: Bresnahan is the freshman incumbent in an R+4 district, giving Republicans a modest structural edge, but the seat was held by Democrats for 12 years prior to 2024, and Cognetti is a strong, well-known challenger as Scranton's mayor with demonstrated crossover appeal (first elected as an independent). Cook Political Report's shift to Toss Up in April 2026 confirms the competitive dynamics. With only one dated, partisan-sponsored poll and mixed fundamentals, the race is too close to call, though incumbency and district partisanship provide a very narrow Republican lean.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:33:03.199761Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-rob-bresnahan-trailing-paige-cognetti-in-pa-08"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

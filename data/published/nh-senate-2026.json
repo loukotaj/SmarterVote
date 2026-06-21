@@ -2138,10 +2138,9 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:14:58.472276+00:00",
+  "updated_utc": "2026-06-20T03:16:53.808588+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -2252,21 +2251,33 @@
   ],
   "polling_note": "Recent publicly available polling found in this update includes the UNH Survey Center's Jan. 21, 2026 Granite State Poll. No post-2026-04-01 public polls were identified in the sources reviewed for this update.",
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 165896,
-    "completion_tokens": 7096,
-    "total_tokens": 172992,
-    "cost_usd": 0.007417999999999999,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5174,
+    "completion_tokens": 343,
+    "total_tokens": 5517,
+    "cost_usd": 0.013472,
     "cost_source": "provider",
-    "estimated_usd": 0.011133,
+    "estimated_usd": 0.01808,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 165896,
-        "completion_tokens": 7096
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5174,
+        "completion_tokens": 343
       }
     },
-    "duration_s": 70.3
+    "duration_s": 18.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4054,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0039,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": {
     "grade": "A",
@@ -2277,8 +2288,35 @@
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_New_Hampshire,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Chris Pappas",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.58,
+    "party_probabilities": {
+      "Democratic": 0.58,
+      "Republican": 0.42
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_d",
+    "confidence": "medium",
+    "rationale": "Available public polling is limited and somewhat stale, with no identified public polls after late March 2026, so uncertainty remains substantial. Still, the existing general-election matchups consistently show Democrat Chris Pappas leading both tested Republicans. Against John E. Sununu, Pappas leads by 5 points in January UNH, 3 points in March Saint Anselm, and 1 point in March Emerson, indicating a very competitive race but a small, persistent Democratic edge. Against Scott Brown, Pappas' leads are larger, while Republican primary polling shows Sununu running well ahead of Brown, making Sununu the stronger likely GOP standard-bearer. Because this is an open seat in a competitive battleground state and the best-tested general-election pairing is close, the race rates Tilt Democratic rather than Lean Democratic.",
+    "based_on_poll_count": 4,
+    "generated_at": "2026-06-20T03:16:52.815003Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://scholars.unh.edu/survey_center_polls/922/",
+      "https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858",
+      "https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

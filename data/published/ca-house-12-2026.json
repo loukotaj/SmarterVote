@@ -262,7 +262,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:32:26.244987+00:00",
+  "updated_utc": "2026-06-20T15:24:12.990275+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -276,18 +276,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 262290,
-    "completion_tokens": 6296,
-    "total_tokens": 268586,
-    "cost_usd": 0.019520324000000002,
+    "prompt_tokens": 12088,
+    "completion_tokens": 2524,
+    "total_tokens": 14612,
+    "cost_usd": 0.0016194240000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.026938,
+    "estimated_usd": 0.001542,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 262290,
-        "completion_tokens": 6296
+        "prompt_tokens": 12088,
+        "completion_tokens": 2524
       }
     },
-    "duration_s": 111.9
+    "duration_s": 36.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7238,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Lateefah Simon",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 1.0,
+      "Republican": 0.0,
+      "Independent": 0.0,
+      "Other": 0.0
+    },
+    "margin_estimate": 14.0,
+    "rating": "other",
+    "confidence": "low",
+    "rationale": "No independent public polling exists for this intra-party general election matchup. Both candidates are Democrats in California's deep-blue 12th District (Oakland/Berkeley/East Bay), so Democratic party control is certain regardless of outcome. Incumbent Lateefah Simon (first elected 2024) is meaningfully favored based on incumbency, her established congressional profile (Vice Chair of the Congressional Progressive Caucus, Deputy Whip for Policy), and her prominent local history as a BART Board President and civil rights leader. Challenger Jamie Joyce is a first-time candidate with a niche reform platform (the MAD Act) and has not held elected office. Primary results (June 2, 2026) showed Simon leading in early returns, reinforcing the incumbency advantage. However, with zero direct matchup polling in an intra-party contest where traditional partisan cues do not apply, uncertainty remains elevated. The 'other' rating is used because both general-election candidates are from the same party, making standard D/R control bands inapplicable.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:06.395669Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

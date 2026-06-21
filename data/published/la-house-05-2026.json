@@ -492,7 +492,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:05:23.309589+00:00",
+  "updated_utc": "2026-06-20T15:38:41.322217+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -506,18 +506,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 325485,
-    "completion_tokens": 10590,
-    "total_tokens": 336075,
-    "cost_usd": 0.023010738,
+    "prompt_tokens": 14749,
+    "completion_tokens": 2768,
+    "total_tokens": 17517,
+    "cost_usd": 0.0019280259999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.033973,
+    "estimated_usd": 0.001826,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 325485,
-        "completion_tokens": 10590
+        "prompt_tokens": 14749,
+        "completion_tokens": 2768
       }
     },
-    "duration_s": 163.0
+    "duration_s": 37.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 11267,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0107,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Blake Miguez",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.4,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 25.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "Louisiana's 5th District is rated Solid R by Cook and is heavily Republican, giving any Republican nominee an overwhelming structural advantage in this open-seat contest. The lone Rainey Center poll (April 2026) contains no usable matchup data and predates both the primary postponement and the switch to an open-primary format, so polling offers no actionable guidance. The Democratic field (McKay, Fleenor, Garcia, Nyman) faces severe partisan headwinds in a district where Republicans have a massive registration advantage. Among the four Republicans, Blake Miguez is the most plausible frontrunner due to his state Senate profile and endorsement by former President Donald Trump, but the intraparty competition is genuinely uncertain — Echols is a Landry ally with personal wealth, Edmonds has a Baton Rouge base, and Cordell has institutional ties. The safe_r rating reflects near-certain Republican control, but the crowded primary and absence of reliable polling make the specific nominee prediction moderately uncertain.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:28.188604Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.270towin.com/2026-house-polls/louisiana/district-5"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

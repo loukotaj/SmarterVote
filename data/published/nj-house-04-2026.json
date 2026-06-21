@@ -219,7 +219,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:13:22.111481+00:00",
+  "updated_utc": "2026-06-20T15:26:02.762485+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -233,18 +233,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 246539,
-    "completion_tokens": 5456,
-    "total_tokens": 251995,
-    "cost_usd": 0.01802175,
+    "prompt_tokens": 9291,
+    "completion_tokens": 983,
+    "total_tokens": 10274,
+    "cost_usd": 0.001033298,
     "cost_source": "provider",
-    "estimated_usd": 0.02523,
+    "estimated_usd": 0.001013,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 246539,
-        "completion_tokens": 5456
+        "prompt_tokens": 9291,
+        "completion_tokens": 983
       }
     },
-    "duration_s": 120.6
+    "duration_s": 22.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6583,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Chris Smith",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race, which limits direct voter measurement and reduces confidence. However, structural indicators overwhelmingly favor Republicans. The district has a Cook PVI of R+14, approximately 40% of registered voters are Republican, and the race is rated 'Solid R' by Cook. Chris Smith is a 45-year incumbent seeking a 24th term and is described as heavily favored. Rachel Peace is a first-time challenger in a heavily Republican district without significant independent spending or polling evidence of a shift. Absent contrary data, the most likely outcome is a decisive Republican hold with a large margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:54.109139Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -6,7 +6,7 @@
   "state": "New Jersey",
   "district": "10th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 general election for New Jersey's 10th Congressional District pits incumbent Democrat LaMonica McIver against Republican challenger Carmen Bucco. This heavily Democratic district \u2014 with a 54% Democratic voter registration advantage over just 10% Republican \u2014 covers parts of Essex, Union, and Hudson counties, including Newark, East Orange, Irvington, and parts of Jersey City. McIver, first elected in a September 2024 special election following the death of Rep. Donald Payne Jr., won renomination in the June 2 Democratic primary. Bucco, a perennial candidate and small business owner, ran unopposed in the Republican primary. The race is a rematch of the 2024 general election, which McIver won by a wide margin in this safe Democratic seat.",
+  "description": "The 2026 general election for New Jersey's 10th Congressional District pits incumbent Democrat LaMonica McIver against Republican challenger Carmen Bucco. This heavily Democratic district — with a 54% Democratic voter registration advantage over just 10% Republican — covers parts of Essex, Union, and Hudson counties, including Newark, East Orange, Irvington, and parts of Jersey City. McIver, first elected in a September 2024 special election following the death of Rep. Donald Payne Jr., won renomination in the June 2 Democratic primary. Bucco, a perennial candidate and small business owner, ran unopposed in the Republican primary. The race is a rematch of the 2024 general election, which McIver won by a wide margin in this safe Democratic seat.",
   "polling": [],
   "polling_note": "No public opinion polls were found specifically for the 2026 New Jersey 10th Congressional District general election as of mid-June 2026. The district is considered a safe Democratic seat and has not been the subject of independent polling this cycle.",
   "candidates": [
@@ -242,7 +242,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:25:11.886410+00:00",
+  "updated_utc": "2026-06-20T15:32:18.332812+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -256,18 +256,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 154718,
-    "completion_tokens": 6085,
-    "total_tokens": 160803,
-    "cost_usd": 0.010863824000000001,
+    "prompt_tokens": 12024,
+    "completion_tokens": 1665,
+    "total_tokens": 13689,
+    "cost_usd": 0.001444788,
     "cost_source": "provider",
-    "estimated_usd": 0.016355,
+    "estimated_usd": 0.001382,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 154718,
-        "completion_tokens": 6085
+        "prompt_tokens": 12024,
+        "completion_tokens": 1665
       }
     },
-    "duration_s": 114.1
+    "duration_s": 32.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6969,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "LaMonica McIver",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 50.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public district-specific polls exist for the 2026 NJ-10 race, limiting confidence. However, the structural fundamentals are overwhelmingly Democratic: the district has a 54% Democratic voter registration advantage versus just 10% Republican, covering heavily Democratic urban areas (Newark, East Orange, Irvington, parts of Jersey City). Incumbent Democrat LaMonica McIver already won the seat in a 2024 special election and the 2024 general election by wide margins. Challenger Carmen Bucco is a perennial Republican candidate who has lost multiple prior races for various offices and ran unopposed in the primary, demonstrating minimal party investment. Given the massive registration gap, incumbency advantage, and lack of any polling suggesting competitiveness, a Democratic hold is all but certain.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:11.644292Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

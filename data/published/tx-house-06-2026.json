@@ -190,7 +190,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:55:02.306083+00:00",
+  "updated_utc": "2026-06-20T15:35:45.045110+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -204,18 +204,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 215995,
-    "completion_tokens": 5039,
-    "total_tokens": 221034,
-    "cost_usd": 0.013389202,
+    "prompt_tokens": 11118,
+    "completion_tokens": 1901,
+    "total_tokens": 13019,
+    "cost_usd": 0.0014621600000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.022155,
+    "estimated_usd": 0.001343,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 215995,
-        "completion_tokens": 5039
+        "prompt_tokens": 11118,
+        "completion_tokens": 1901
       }
     },
-    "duration_s": 136.0
+    "duration_s": 27.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6238,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jake Ellzey",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polling exists. This forecast relies entirely on non-polling indicators. Jake Ellzey is the Republican incumbent, first elected in a 2021 special election, who won renomination comfortably (66.3% in the March 2026 primary). Democratic nominee Danny Minton is a first-time candidate who ran unopposed for his party's nomination. Cook Political Report rates the race 'Solid Republican.' Mid-decade 2025 redistricting—upheld by the Supreme Court after a racial gerrymander challenge—introduces some uncertainty about the district's exact partisan composition, but with no polling, no signs of Democratic strength, and a strong incumbent, the evidence points to a substantial Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:38.035157Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

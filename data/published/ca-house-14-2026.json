@@ -332,7 +332,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_14th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:43:45.940638+00:00",
+  "updated_utc": "2026-06-20T15:38:28.759968+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -346,18 +346,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 148116,
-    "completion_tokens": 9429,
-    "total_tokens": 157545,
-    "cost_usd": 0.009654204,
+    "prompt_tokens": 25785,
+    "completion_tokens": 3415,
+    "total_tokens": 29200,
+    "cost_usd": 0.00319627,
     "cost_source": "provider",
-    "estimated_usd": 0.016363,
+    "estimated_usd": 0.002935,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 148116,
-        "completion_tokens": 9429
+        "prompt_tokens": 25785,
+        "completion_tokens": 3415
       }
     },
-    "duration_s": 117.5
+    "duration_s": 52.0,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 13773,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0131,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Aisha Wahab",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No verified public opinion polls exist for this special election, which depresses confidence. The district is wholly within Alameda County and described as strongly Democratic, giving any Democratic nominee an overwhelming partisan advantage (~95%+ party win probability). Among a field of at least 11 candidates, State Sen. Aisha Wahab is the strongest individual contender: she led the June 2 regular primary for the concurrent full-term race with 34%, well ahead of the next Democrat (former Dublin Mayor Melissa Hernandez at 16%), and she has the endorsement of the California Democratic Party. The special primary was held June 16, 2026; with a fragmented field, it is plausible no candidate received a majority, forcing an August 18 runoff. In a likely runoff between a Democrat and a Republican, the Democrat would be heavily favored; even in a Democrat-vs-Democrat runoff, Wahab's primary performance and institutional support make her the likeliest winner. However, the absence of special-election-specific polling and the large candidate field introduce uncertainty about the exact runoff configuration and final margin, hence a medium confidence rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:11.435424Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

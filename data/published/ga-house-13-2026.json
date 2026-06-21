@@ -194,7 +194,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_13th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:14:01.875918+00:00",
+  "updated_utc": "2026-06-20T15:21:09.037747+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -208,18 +208,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 314848,
-    "completion_tokens": 9013,
-    "total_tokens": 323861,
-    "cost_usd": 0.025093716000000002,
+    "prompt_tokens": 10998,
+    "completion_tokens": 2199,
+    "total_tokens": 13197,
+    "cost_usd": 0.001508808,
     "cost_source": "provider",
-    "estimated_usd": 0.032622,
+    "estimated_usd": 0.001386,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 314848,
-        "completion_tokens": 9013
+        "prompt_tokens": 10998,
+        "completion_tokens": 2199
       }
     },
-    "duration_s": 172.4
+    "duration_s": 35.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6365,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jasmine Clark",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 27.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists, which caps confidence at medium. However, the district has a Cook PVI of D+20, marking it as one of the most Democratic-leaning seats in Georgia. It was held by Democrat David Scott for 23 years until his death in April 2026. Democratic nominee Jasmine Clark won a competitive six-candidate primary with over 50% of the vote, demonstrating strong local support. Republican nominee Jonathan Chavez received just 28.2% against Scott in 2024 and is running in a district where Democrats hold an overwhelming structural advantage. The partisan fundamentals, historical voting patterns, and candidate quality differential all point to a safe Democratic hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:02.268748Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

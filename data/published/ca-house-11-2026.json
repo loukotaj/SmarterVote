@@ -8,13 +8,13 @@
   "election_date": "2026-11-03",
   "description": "California's 11th Congressional District, encompassing most of San Francisco, is open for the first time in nearly 40 years as Speaker Emerita Nancy Pelosi retires. In a June 2, 2026 top-two primary, State Senator Scott Wiener and San Francisco Supervisor Connie Chan, both Democrats, advanced to the November 3 general election. The race represents a generational shift for San Francisco's congressional representation, with both candidates offering progressive but distinct visions on housing, public safety, and federal policy. Rated Safe/Solid Democratic by major election forecasters, the general election will determine Pelosi's successor in this heavily Democratic district.",
   "polling": [],
-  "polling_note": "No general election polls were found as of June 2026; the primary concluded on June 2, 2026, and general election polling has not yet been released. A San Francisco Chronicle poll conducted April 28\u2013May 3, 2026 surveyed likely primary voters, not the general electorate.",
+  "polling_note": "No general election polls were found as of June 2026; the primary concluded on June 2, 2026, and general election polling has not yet been released. A San Francisco Chronicle poll conducted April 28–May 3, 2026 surveyed likely primary voters, not the general electorate.",
   "candidates": [
     {
       "name": "Scott Wiener",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Scott Wiener is a California State Senator (District 11) first elected in 2016, representing San Francisco and parts of San Mateo County. Before the Senate, he served on the San Francisco Board of Supervisors (2011\u20132016) and worked as a deputy city attorney and in private practice. He has authored over 100 state laws focusing on housing affordability, transportation, LGBTQ+ rights, mental health, and climate action, and is chair of the Senate Elections Committee.",
+      "summary": "Scott Wiener is a California State Senator (District 11) first elected in 2016, representing San Francisco and parts of San Mateo County. Before the Senate, he served on the San Francisco Board of Supervisors (2011–2016) and worked as a deputy city attorney and in private practice. He has authored over 100 state laws focusing on housing affordability, transportation, LGBTQ+ rights, mental health, and climate action, and is chair of the Senate Elections Committee.",
       "summary_sources": [
         {
           "url": "https://sd11.senate.ca.gov/biography",
@@ -266,7 +266,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_11th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:18:20.693655+00:00",
+  "updated_utc": "2026-06-20T15:22:55.068504+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -280,18 +280,52 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 206735,
-    "completion_tokens": 6952,
-    "total_tokens": 213687,
-    "cost_usd": 0.014144605999999999,
+    "prompt_tokens": 11951,
+    "completion_tokens": 2762,
+    "total_tokens": 14713,
+    "cost_usd": 0.0016526460000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.021623,
+    "estimated_usd": 0.001573,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 206735,
-        "completion_tokens": 6952
+        "prompt_tokens": 11951,
+        "completion_tokens": 2762
       }
     },
-    "duration_s": 112.1
+    "duration_s": 36.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6979,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Scott Wiener",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.65,
+    "party_probabilities": {
+      "Democratic": 1.0
+    },
+    "margin_estimate": 5.0,
+    "rating": "safe_d",
+    "confidence": "low",
+    "rationale": "This heavily Democratic San Francisco district ensures a Democratic winner regardless of candidate outcome, as both general-election finalists (Wiener and Chan) are Democrats under California's top-two primary system. No general-election polls have been released since the June 2, 2026 primary, making the candidate-level forecast highly uncertain. Scott Wiener is given a modest edge based on his longer and higher-profile elected career (State Senator since 2016, previously SF Supervisor), broader districtwide and statewide name recognition, and chairmanship of the Senate Elections Committee. Connie Chan, a first-term SF Supervisor, would make history as the first Asian American to represent San Francisco in Congress. Without polling data, the margin and win probability carry low confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:45.253186Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

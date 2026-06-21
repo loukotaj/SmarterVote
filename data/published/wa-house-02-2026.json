@@ -447,7 +447,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:50:17.506466+00:00",
+  "updated_utc": "2026-06-20T15:45:07.825583+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -461,18 +461,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 342930,
-    "completion_tokens": 10320,
-    "total_tokens": 353250,
-    "cost_usd": 0.027512867999999996,
+    "prompt_tokens": 16414,
+    "completion_tokens": 1577,
+    "total_tokens": 17991,
+    "cost_usd": 0.001917664,
     "cost_source": "provider",
-    "estimated_usd": 0.03563,
+    "estimated_usd": 0.001761,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 342930,
-        "completion_tokens": 10320
+        "prompt_tokens": 16414,
+        "completion_tokens": 1577
       }
     },
-    "duration_s": 228.3
+    "duration_s": 28.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9713,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rick Larsen",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, capping confidence at medium. However, all available structural indicators point to an overwhelming Democratic advantage: Cook PVI of D+12, no Republican victory in the district since 1998, and uniform ratings of 'Solid D' / 'Safe D' from Cook Political Report, Inside Elections, and Sabato's Crystal Ball. Incumbent Rick Larsen has held the seat since 2001, raised over $1.6 million, and has broad bipartisan-county endorsements. The Republican field consists of two low-profile candidates (an 83-year-old first-time candidate and a state-legislative runner-up), while the Democratic primary challengers are progresships unlikely to overcome Larsen's deep incumbency. Under Washington's top-two primary system, the general election will almost certainly feature Larsen vs. a Republican, and district fundamentals indicate a Democratic hold with a large margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:44:59.577711Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

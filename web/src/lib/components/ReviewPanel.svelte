@@ -4,7 +4,9 @@
   export let reviews: AgentReview[] = [];
 
   $: displayReviews = (reviews || []).filter(
-    (r) => r.model !== "automated-link-validator" && r.model !== "automated-profile-quality"
+    (r) =>
+      r.model !== "automated-link-validator" &&
+      r.model !== "automated-profile-quality"
   );
 
   let collapsed = true;
@@ -35,8 +37,17 @@
 </script>
 
 <div id="ai-review" class="review-panel">
-  <button class="review-title" on:click={() => (collapsed = !collapsed)} aria-expanded={!collapsed}>
-    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <button
+    class="review-title"
+    on:click={() => (collapsed = !collapsed)}
+    aria-expanded={!collapsed}
+  >
+    <svg
+      class="w-5 h-5 flex-shrink-0"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -46,7 +57,11 @@
     </svg>
     AI Review Status
     {#if displayReviews && displayReviews.length > 0}
-      <span class="review-count">{displayReviews.length} review{displayReviews.length !== 1 ? "s" : ""}</span>
+      <span class="review-count"
+        >{displayReviews.length} review{displayReviews.length !== 1
+          ? "s"
+          : ""}</span
+      >
     {/if}
     <svg
       class="w-4 h-4 ml-auto transition-transform duration-200"
@@ -55,7 +70,12 @@
       stroke="currentColor"
       viewBox="0 0 24 24"
     >
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"
+      />
     </svg>
   </button>
 
@@ -65,58 +85,68 @@
     {:else}
       <div class="review-cards">
         {#each displayReviews as review}
-        <div class="review-card">
-          <div class="review-header">
-            <span class="review-model">{review.model}</span>
-            <div class="review-header-right">
-              {#if review.score != null}
-                <span class="review-score">{review.score}/100</span>
-              {/if}
-              <span class="review-verdict {verdictColor(review.verdict)}">
-                {review.verdict.replace("_", " ")}
-              </span>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-model">{review.model}</span>
+              <div class="review-header-right">
+                {#if review.score != null}
+                  <span class="review-score">{review.score}/100</span>
+                {/if}
+                <span class="review-verdict {verdictColor(review.verdict)}">
+                  {review.verdict.replace("_", " ")}
+                </span>
+              </div>
             </div>
+            {#if review.summary}
+              <p class="review-summary">{review.summary}</p>
+            {/if}
+            {#if review.flags && review.flags.length > 0}
+              <details class="review-flags">
+                <summary class="flags-toggle">
+                  {review.flags.length} flag{review.flags.length !== 1
+                    ? "s"
+                    : ""}
+                </summary>
+                <ul class="flags-list">
+                  {#each review.flags as flag}
+                    <li class="flag-item">
+                      <span class="flag-severity"
+                        >{severityIcon(flag.severity)}</span
+                      >
+                      <div>
+                        <span class="flag-field">{flag.field}</span>
+                        <span class="flag-concern">{flag.concern}</span>
+                        {#if flag.suggestion}
+                          <span class="flag-suggestion"
+                            >💡 {flag.suggestion}</span
+                          >
+                        {/if}
+                      </div>
+                    </li>
+                  {/each}
+                </ul>
+              </details>
+            {:else}
+              <p class="review-all-clear">
+                No issues found — profile looks good.
+              </p>
+            {/if}
+            <span class="review-date">
+              Reviewed: {(() => {
+                try {
+                  const d = new Date(review.reviewed_at);
+                  return isNaN(d.getTime())
+                    ? review.reviewed_at
+                    : d.toLocaleDateString();
+                } catch {
+                  return review.reviewed_at;
+                }
+              })()}
+            </span>
           </div>
-          {#if review.summary}
-            <p class="review-summary">{review.summary}</p>
-          {/if}
-          {#if review.flags && review.flags.length > 0}
-            <details class="review-flags">
-              <summary class="flags-toggle">
-                {review.flags.length} flag{review.flags.length !== 1 ? "s" : ""}
-              </summary>
-              <ul class="flags-list">
-                {#each review.flags as flag}
-                  <li class="flag-item">
-                    <span class="flag-severity">{severityIcon(flag.severity)}</span>
-                    <div>
-                      <span class="flag-field">{flag.field}</span>
-                      <span class="flag-concern">{flag.concern}</span>
-                      {#if flag.suggestion}
-                        <span class="flag-suggestion">💡 {flag.suggestion}</span>
-                      {/if}
-                    </div>
-                  </li>
-                {/each}
-              </ul>
-            </details>
-          {:else}
-            <p class="review-all-clear">No issues found — profile looks good.</p>
-          {/if}
-          <span class="review-date">
-            Reviewed: {(() => {
-              try {
-                const d = new Date(review.reviewed_at);
-                return isNaN(d.getTime()) ? review.reviewed_at : d.toLocaleDateString();
-              } catch {
-                return review.reviewed_at;
-              }
-            })()}
-          </span>
-        </div>
-      {/each}
-    </div>
-  {/if}
+        {/each}
+      </div>
+    {/if}
   {/if}
 </div>
 

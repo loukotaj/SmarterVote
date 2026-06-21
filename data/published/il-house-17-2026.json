@@ -201,7 +201,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_17th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:42:15.713051+00:00",
+  "updated_utc": "2026-06-20T15:25:08.942549+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -215,18 +215,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 171569,
-    "completion_tokens": 5608,
-    "total_tokens": 177177,
-    "cost_usd": 0.012661346,
+    "prompt_tokens": 8996,
+    "completion_tokens": 1156,
+    "total_tokens": 10152,
+    "cost_usd": 0.001108184,
     "cost_source": "provider",
-    "estimated_usd": 0.017913,
+    "estimated_usd": 0.001018,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 171569,
-        "completion_tokens": 5608
+        "prompt_tokens": 8996,
+        "completion_tokens": 1156
       }
     },
-    "duration_s": 153.6
+    "duration_s": 23.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6265,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Eric Sorensen",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.57,
+    "party_probabilities": {
+      "Democratic": 0.57,
+      "Republican": 0.43
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "No independent public polling exists for this race, severely limiting quantitative confidence. The district is described as competitive and has flipped between parties in recent cycles, indicating a closely divided electorate without a strong built-in partisan lean. Incumbent Eric Sorensen has won two consecutive terms in this swing district (2022 and 2024), providing Democrats a modest structural edge through incumbency, name recognition from his two-decade career as a local TV meteorologist, and committee assignments. Republican nominee Dillan Vancil is a credible challenger with a competitive primary win (57.2%) and local leadership experience, which gives the GOP a realistic pathway in a favorable national environment. However, sparse candidate-level data, no polling, and the district's swing character make any forecast highly uncertain. The rating reflects a narrow Democratic advantage based on incumbency in a competitive seat, but the confidence is low due to the absence of polling and limited information on district-specific dynamics in the current cycle.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:59.686290Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

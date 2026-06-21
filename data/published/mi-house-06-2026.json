@@ -203,7 +203,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:35:40.303652+00:00",
+  "updated_utc": "2026-06-20T15:31:40.423972+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -217,18 +217,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 219878,
-    "completion_tokens": 5678,
-    "total_tokens": 225556,
-    "cost_usd": 0.016051524,
+    "prompt_tokens": 11854,
+    "completion_tokens": 2677,
+    "total_tokens": 14531,
+    "cost_usd": 0.001686384,
     "cost_source": "provider",
-    "estimated_usd": 0.022661,
+    "estimated_usd": 0.001549,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 219878,
-        "completion_tokens": 5678
+        "prompt_tokens": 11854,
+        "completion_tokens": 2677
       }
     },
-    "duration_s": 150.9
+    "duration_s": 34.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7281,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Debbie Dingell",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, so confidence is medium despite strong structural signals. However, the available district and candidate data point to a safe Democratic hold. Michigan's 6th District encompasses all of Washtenaw County (including Ann Arbor) and parts of Wayne County (including Dearborn), two of the most Democratic areas in the state. Incumbent Debbie Dingell is a well-established, institutionally powerful figure — chair of the House Democratic Policy and Communications Committee, co-chair of the Great Lakes Task Force — who has held this seat or adjacent territory since 2015, preceded by her late husband John Dingell (the longest-serving member of Congress). Republican challenger Heather Smiley is a repeat opponent from 2024 with a strong professional background but no public polling, fundraising data, or other evidence of a race that has become competitive. The district was drawn in the 2022 redistricting cycle as a safely Democratic seat. Without polls, the forecast relies on these structural fundamentals, which overwhelmingly favor the incumbent.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:33.348497Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://debbiedingell.house.gov/about/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

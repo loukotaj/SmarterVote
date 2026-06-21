@@ -241,7 +241,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_11th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:22:18.143620+00:00",
+  "updated_utc": "2026-06-20T15:21:28.650706+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -255,18 +255,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 297189,
-    "completion_tokens": 6560,
-    "total_tokens": 303749,
-    "cost_usd": 0.018040106,
+    "prompt_tokens": 11729,
+    "completion_tokens": 2537,
+    "total_tokens": 14266,
+    "cost_usd": 0.001596774,
     "cost_source": "provider",
-    "estimated_usd": 0.03041,
+    "estimated_usd": 0.001512,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 297189,
-        "completion_tokens": 6560
+        "prompt_tokens": 11729,
+        "completion_tokens": 2537
       }
     },
-    "duration_s": 153.6
+    "duration_s": 35.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6716,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Bill Foster",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 13.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race (zero polls as of June 2026), which inherently limits certainty. However, the structural fundamentals are exceptionally strong for the incumbent party: Cook Political Report rates the race 'Solid D,' the district has a D+6 Cook PVI, Bill Foster is a long-serving incumbent with strong name recognition (representing the district since 2013, previously served IL-14 from 2008), and he was unopposed in the Democratic primary. Jeff Walter is a credible Republican nominee—a retired Navy Master Chief and three-term Elburn mayor—but he won a divided four-way primary with only 42.6%, suggesting limited top-of-ticket strength. Given the combination of incumbency, favorable district partisanship, and the Cook 'Solid D' designation, the race falls into 'safe D' territory (95%+ Democratic win probability), though the complete absence of polling tempers confidence from high to medium.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:21.530952Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

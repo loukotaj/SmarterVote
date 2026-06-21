@@ -59,7 +59,7 @@
         },
         {
           "title": "Senior Policy Adviser",
-          "organization": "Office of UN Secretary-General Ant\u00f3nio Guterres",
+          "organization": "Office of UN Secretary-General António Guterres",
           "start_year": 2017,
           "end_year": 2021,
           "description": "Advised on climate policy and the Paris Agreement"
@@ -110,7 +110,7 @@
         {
           "url": "https://independentpartycoalition.com/biography",
           "type": "website",
-          "title": "Biography \u2014 Republican Nicholas N. Glenn",
+          "title": "Biography — Republican Nicholas N. Glenn",
           "last_accessed": "2026-06-12T12:00:00Z"
         },
         {
@@ -273,7 +273,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arizona%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:08:46.444793+00:00",
+  "updated_utc": "2026-06-20T15:20:31.886567+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -284,18 +284,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 209987,
-    "completion_tokens": 6697,
-    "total_tokens": 216684,
-    "cost_usd": 0.015371786000000002,
+    "prompt_tokens": 14063,
+    "completion_tokens": 1696,
+    "total_tokens": 15759,
+    "cost_usd": 0.0017105900000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.021891,
+    "estimated_usd": 0.001571,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 209987,
-        "completion_tokens": 6697
+        "prompt_tokens": 14063,
+        "completion_tokens": 1696
       }
     },
-    "duration_s": 110.5
+    "duration_s": 32.3,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8376,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.008,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Yassamin Ansari",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.015,
+      "Other": 0.005
+    },
+    "margin_estimate": 38,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race as of June 2026. The forecast relies entirely on district fundamentals: Arizona's 3rd Congressional District has a Cook PVI of D+22 (safely Democratic), and incumbent Democrat Yassamin Ansari won the 2024 general election with approximately 71% of the vote. Ansari benefits from incumbency, a four-way race with a single Republican and two minor-party candidates (Green and No Labels), and a strongly Democratic electorate in a district covering southern/western Phoenix, downtown Phoenix, and part of Glendale. These structural factors strongly favor the Democratic incumbent. Confidence is medium rather than high due to the absence of any current polling to confirm whether specific dynamics (candidate quality, fundraising, national headwinds, or the primary election still to come on July 21) could shift the margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:22.757421+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -269,7 +269,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_51st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:19:43.931485+00:00",
+  "updated_utc": "2026-06-20T15:38:54.915686+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -283,18 +283,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 259286,
-    "completion_tokens": 5207,
-    "total_tokens": 264493,
-    "cost_usd": 0.018273672,
+    "prompt_tokens": 11756,
+    "completion_tokens": 1467,
+    "total_tokens": 13223,
+    "cost_usd": 0.00143962,
     "cost_source": "provider",
-    "estimated_usd": 0.026431,
+    "estimated_usd": 0.001322,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 259286,
-        "completion_tokens": 5207
+        "prompt_tokens": 11756,
+        "completion_tokens": 1467
       }
     },
-    "duration_s": 174.8
+    "duration_s": 25.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6773,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sara Jacobs",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race, which tempers confidence. However, the fundamentals strongly support an overwhelming Democratic advantage: Cook Political Report rates this race 'Solid D,' the district has a Partisan Voting Index of D+10, and incumbent Democrat Sara Jacobs is seeking a fourth term. Republican challenger Ricardo Cabrera advanced from the top-two primary with 37.0% of the vote, but the district's clear Democratic lean, incumbency advantage, and absence of any competitive polling indicators make a Democratic hold the most likely outcome. The 'safe_d' rating reflects a >95% win probability despite the polling gap.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:48.513958Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

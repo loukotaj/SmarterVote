@@ -433,10 +433,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:04:57.060013+00:00",
+  "updated_utc": "2026-06-20T03:17:09.539861+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -445,20 +444,58 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 292170,
-    "completion_tokens": 8128,
-    "total_tokens": 300298,
-    "cost_usd": 0.018065236,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4099,
+    "completion_tokens": 254,
+    "total_tokens": 4353,
+    "cost_usd": 0.0140575,
     "cost_source": "provider",
-    "estimated_usd": 0.030226,
+    "estimated_usd": 0.014058,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 292170,
-        "completion_tokens": 8128
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4099,
+        "completion_tokens": 254
       }
     },
-    "duration_s": 208.2
+    "duration_s": 8.2,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3244,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0031,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Vivek Ramaswamy",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.44,
+      "Republican": 0.56,
+      "Other": 0.0
+    },
+    "margin_estimate": 1.0,
+    "rating": "tilt_r",
+    "confidence": "medium",
+    "rationale": "This open-seat race appears highly competitive, with five candidate-level polls showing a mixed picture: two polls have Acton ahead, two have Ramaswamy ahead narrowly, and one has Acton ahead by a larger margin. The most recent poll shows Acton up 50-49, so polling alone suggests a near tossup. However, Ohio’s recent statewide partisan environment has favored Republicans, and the state has not elected a Democratic governor since 2006, which gives the GOP a modest structural edge in a close open-seat contest. Because the polling is limited and somewhat inconsistent this far from Election Day, uncertainty remains substantial.",
+    "based_on_poll_count": 5,
+    "generated_at": "2026-06-20T03:17:08.582384Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://www.270towin.com/2026-governor-polls/ohio"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

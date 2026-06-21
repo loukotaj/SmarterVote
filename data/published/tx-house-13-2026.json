@@ -279,7 +279,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_13th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:36:47.796496+00:00",
+  "updated_utc": "2026-06-20T15:39:53.400559+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -293,18 +293,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 322985,
-    "completion_tokens": 6212,
-    "total_tokens": 329197,
-    "cost_usd": 0.021997505999999997,
+    "prompt_tokens": 4440,
+    "completion_tokens": 1190,
+    "total_tokens": 5630,
+    "cost_usd": 0.0006084560000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.03287,
+    "estimated_usd": 0.000614,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 322985,
-        "completion_tokens": 6212
+        "prompt_tokens": 4440,
+        "completion_tokens": 1190
       }
     },
-    "duration_s": 183.1
+    "duration_s": 23.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2969,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0028,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ronny Jackson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.02
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "low",
+    "rationale": "No district-specific public polling exists for this general election matchup, which constrains confidence to 'low' despite strong structural factors. TX-13 is rated Solid Republican by Cook with a PVI of R+23, and has not elected a Democrat to Congress since the early 1990s. Incumbent Ronny Jackson won his primary with 89.5%, demonstrating strong intraparty support. While Democratic nominee Mark Nair is a credible former Amarillo City Council member, the district's deeply Republican partisan lean, incumbency advantage, and absence of any recent Democratic competitiveness in the district indicate an overwhelming Republican advantage. The margin estimate reflects the district's strong Republican skew based on historical voting patterns.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:45.489990Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

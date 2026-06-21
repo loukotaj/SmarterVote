@@ -224,7 +224,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:33:44.117278+00:00",
+  "updated_utc": "2026-06-20T15:32:08.287004+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -238,18 +238,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 222404,
-    "completion_tokens": 8687,
-    "total_tokens": 231091,
-    "cost_usd": 0.018823868,
+    "prompt_tokens": 13577,
+    "completion_tokens": 3281,
+    "total_tokens": 16858,
+    "cost_usd": 0.001973622,
     "cost_source": "provider",
-    "estimated_usd": 0.023498,
+    "estimated_usd": 0.001813,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 222404,
-        "completion_tokens": 8687
+        "prompt_tokens": 13577,
+        "completion_tokens": 3281
       }
     },
-    "duration_s": 179.2
+    "duration_s": 42.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7666,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0073,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brad Lander",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "NY-10 is a safely Democratic seat where the general election is a formality — the Democratic nominee will almost certainly prevail (Goldman won 81.0% in 2024, and the Republican candidate Jennifer Moore is a long-shot who advanced without appearing on the primary ballot). The real contest is the June 23 Democratic primary, just 3 days from now. Two polls (Emerson College June 2026, Demand Progress Sept. 2025) show Brad Lander leading incumbent Daniel Goldman among likely Democratic primary voters. Accordingly, Lander is the current informational favorite to become the Democratic nominee and general election winner. Confidence is medium rather than high because the poll matchups lack numeric toplines in the available data, and one of the two polls is from September 2025, making it relatively old for a competitive primary.",
+    "based_on_poll_count": 2,
+    "generated_at": "2026-06-20T15:32:00.801652Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://emersoncollegepolling.com/new-york-city-2026-congressional-polling-ny-07-ny-10-ny-12/",
+      "https://demandprogress.org/poll-brad-lander-leads-dan-goldman-by-19-points-in-potential-ny-10-democratic-primary/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

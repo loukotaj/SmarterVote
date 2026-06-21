@@ -6,7 +6,7 @@
   "state": "Indiana",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Indiana's 1st Congressional District features incumbent Democrat Frank Mrvan facing Republican challenger Barb Regnitz. The district covers Lake and Porter counties and parts of LaPorte County in northwest Indiana, part of the Chicago metropolitan area. Mrvan has held the seat since 2021 and is seeking a fourth term, while Regnitz, a Porter County commissioner, won the Republican nomination in the May 5 primary. The race is considered competitive \u2014 the Cook Political Report rates it 'Likely Democratic' \u2014 and is viewed as one of Indiana's most closely watched congressional contests given the district's shifting political dynamics.",
+  "description": "The 2026 election for Indiana's 1st Congressional District features incumbent Democrat Frank Mrvan facing Republican challenger Barb Regnitz. The district covers Lake and Porter counties and parts of LaPorte County in northwest Indiana, part of the Chicago metropolitan area. Mrvan has held the seat since 2021 and is seeking a fourth term, while Regnitz, a Porter County commissioner, won the Republican nomination in the May 5 primary. The race is considered competitive — the Cook Political Report rates it 'Likely Democratic' — and is viewed as one of Indiana's most closely watched congressional contests given the district's shifting political dynamics.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of mid-2026.",
   "candidates": [
@@ -174,7 +174,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:56:43.555673+00:00",
+  "updated_utc": "2026-06-20T15:40:24.923211+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -188,18 +188,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 211709,
-    "completion_tokens": 5659,
-    "total_tokens": 217368,
-    "cost_usd": 0.013589894,
+    "prompt_tokens": 8572,
+    "completion_tokens": 1609,
+    "total_tokens": 10181,
+    "cost_usd": 0.001025628,
     "cost_source": "provider",
-    "estimated_usd": 0.021857,
+    "estimated_usd": 0.001061,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 211709,
-        "completion_tokens": 5659
+        "prompt_tokens": 8572,
+        "completion_tokens": 1609
       }
     },
-    "duration_s": 129.3
+    "duration_s": 28.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5907,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0056,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Frank Mrvan",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 6.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polls are available, which materially limits confidence. However, strong contextual signals point to a Democratic advantage: Frank Mrvan is the three-term incumbent in a district that has long been held by Democrats; the nonpartisan Cook Political Report rates the race 'Likely Democratic'; and Mrvan serves on the Appropriations Committee and as Vice Chairman of the Steel Caucus, which aligns with the district's industrial base. Republican challenger Barb Regnitz is a credible opponent (Porter County Commissioner with a professional background), and the race description notes 'shifting political dynamics,' which cautions against a 'safe' rating. On balance, Mrvan is the clear favorite with a comfortable but not prohibitive advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:16.584780Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

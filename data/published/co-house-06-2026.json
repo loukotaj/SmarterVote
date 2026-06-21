@@ -267,7 +267,7 @@
       "issues": {}
     }
   ],
-  "updated_utc": "2026-06-16T01:13:17.392518+00:00",
+  "updated_utc": "2026-06-20T15:21:42.332579+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -285,30 +285,49 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 229240,
-    "completion_tokens": 8525,
-    "total_tokens": 237765,
-    "cost_usd": 0.039347684,
+    "prompt_tokens": 8026,
+    "completion_tokens": 1111,
+    "total_tokens": 9137,
+    "cost_usd": 0.0009444,
     "cost_source": "provider",
-    "estimated_usd": 0.040136,
+    "estimated_usd": 0.000922,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 229240,
-        "completion_tokens": 8525
+        "prompt_tokens": 8026,
+        "completion_tokens": 1111
       }
     },
-    "duration_s": 263.5,
-    "serper_calls": 16,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 42842,
+    "duration_s": 22.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4023,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0409,
-    "context_deduplicated_results": 53,
+    "max_context_utilization": 0.0038,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
-  }
+  },
+  "forecast": {
+    "predicted_winner_name": "Jason Crow",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.03,
+      "Other": 0.01
+    },
+    "margin_estimate": 12,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "There is no district-level polling in the provided data, which limits precision and keeps confidence at medium rather than high. However, the non-polling signals are strongly consistent: incumbent Democrat Jason Crow has held this seat since flipping it in 2018, the district is described as having trended Democratic in recent cycles, and major nonpartisan forecasters rate it Solid/Safe Democratic. Crow's primary is uncontested, and no strong Republican or third-party challenge is indicated in the data. Given these fundamentals, Democrats have an overwhelming advantage in this district, supporting a safe_d rating with approximately 96% win probability and an estimated margin of roughly 12 percentage points, consistent with Crow's recent re-election margins.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:34.199878+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "ballotpedia_url": "https://ballotpedia.org/Colorado's_6th_Congressional_District"
 }

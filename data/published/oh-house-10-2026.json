@@ -223,7 +223,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:15:40.718435+00:00",
+  "updated_utc": "2026-06-20T15:32:13.680663+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -237,18 +237,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 208328,
-    "completion_tokens": 4916,
-    "total_tokens": 213244,
-    "cost_usd": 0.015129696000000002,
+    "prompt_tokens": 11841,
+    "completion_tokens": 2131,
+    "total_tokens": 13972,
+    "cost_usd": 0.00151819,
     "cost_source": "provider",
-    "estimated_usd": 0.02138,
+    "estimated_usd": 0.001449,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 208328,
-        "completion_tokens": 4916
+        "prompt_tokens": 11841,
+        "completion_tokens": 2131
       }
     },
-    "duration_s": 101.8
+    "duration_s": 32.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6999,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Turner",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Republican": 0.84,
+      "Democratic": 0.16
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_r",
+    "confidence": "low",
+    "rationale": "No district-specific public polling is available for this race, so the forecast relies on non-polling indicators. Incumbent Republican Mike Turner has held this seat for over two decades (since 2003), served as chair of the House Intelligence Committee (2023–2025), and benefits from substantial name recognition and incumbency advantages in a district he has represented through multiple redistricting cycles. Democratic challenger Kristina Knickerbocker is a credible candidate—an Air Force veteran and oncology nurse practitioner who won the Democratic primary on May 5, 2026—but the available data contain no fundraising figures, endorsements, or other measures of campaign strength. The district was redrawn under Ohio's new congressional map adopted in October 2025, introducing meaningful uncertainty about the district's baseline partisanship. Nevertheless, Turner's long incumbency and established electoral track record point to a clear advantage, consistent with a 'likely Republican' rating (~84% win probability and ~8-point margin estimate). Confidence remains low due to the complete absence of polling and uncertainty from the 2025 redistricting.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:08.484498Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

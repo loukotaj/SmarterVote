@@ -592,36 +592,69 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T20:50:03.466390+00:00",
+  "updated_utc": "2026-06-20T03:16:20.793119+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 85429,
-    "completion_tokens": 6902,
-    "total_tokens": 92331,
-    "cost_usd": 0.004924089999999999,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5280,
+    "completion_tokens": 237,
+    "total_tokens": 5517,
+    "cost_usd": 0.012147,
     "cost_source": "provider",
-    "estimated_usd": 0.007032,
+    "estimated_usd": 0.016755,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 85429,
-        "completion_tokens": 6902
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5280,
+        "completion_tokens": 237
       }
     },
-    "duration_s": 74.8
+    "duration_s": 8.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4237,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.004,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Alabama,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "Republicans remain overwhelming favorites for this Alabama Senate seat based on the race description, which says the general election is broadly viewed as safely or solidly Republican and that the main contest is the Republican primary. This is an open seat, which introduces some uncertainty relative to an incumbent race, but the provided candidate field also suggests a deeper and more prominent Republican bench, including statewide and federal officeholders, while the Democratic field is smaller and less defined in the supplied data. The polling entries provided are for the Republican primary and do not include usable numeric general-election matchups or vote shares, so this forecast relies mainly on the state’s strong Republican context and the race description rather than direct general-election polling; that limits confidence to medium rather than high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:19.878613Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

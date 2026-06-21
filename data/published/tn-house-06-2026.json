@@ -233,7 +233,7 @@
         {
           "url": "https://www.vanfortn.com/about/",
           "type": "website",
-          "title": "Meet Van \u2013 Van Hilleary for U.S. Congress",
+          "title": "Meet Van – Van Hilleary for U.S. Congress",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -553,7 +553,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Tennessee%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:39:32.377973+00:00",
+  "updated_utc": "2026-06-20T15:40:42.293000+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -567,18 +567,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 309026,
-    "completion_tokens": 9313,
-    "total_tokens": 318339,
-    "cost_usd": 0.023603528,
+    "prompt_tokens": 18666,
+    "completion_tokens": 1649,
+    "total_tokens": 20315,
+    "cost_usd": 0.0020925680000000004,
     "cost_source": "provider",
-    "estimated_usd": 0.03211,
+    "estimated_usd": 0.001977,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 309026,
-        "completion_tokens": 9313
+        "prompt_tokens": 18666,
+        "completion_tokens": 1649
       }
     },
-    "duration_s": 146.8
+    "duration_s": 27.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10981,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0105,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.05
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race. The general election nominees are undetermined (primaries are August 6, 2026), the district was redrawn in May 2026 via mid-cycle redistricting, and the seat is open — all of which introduce meaningful uncertainty. However, structural fundamentals are overwhelmingly Republican: Cook PVI R+13 and a 27-point Trump margin. In a district this partisan, the Republican nominee — whoever emerges from a competitive four-way primary — is a very strong favorite in the general election. The mid-cycle redistricting could alter the precise partisan composition but is unlikely to flip the district's fundamental character. The absence of polling and the fluid candidate environment preclude high confidence, but the underlying partisan lean clearly supports a Safe Republican rating with an estimated double-digit general election margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:37.121309Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

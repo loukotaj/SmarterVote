@@ -191,7 +191,7 @@
       }
     }
   ],
-  "updated_utc": "2026-06-16T01:12:01.593526+00:00",
+  "updated_utc": "2026-06-20T15:27:30.634408+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -209,30 +209,48 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 254379,
-    "completion_tokens": 5560,
-    "total_tokens": 259939,
-    "cost_usd": 0.037060438,
+    "prompt_tokens": 8921,
+    "completion_tokens": 1309,
+    "total_tokens": 10230,
+    "cost_usd": 0.001130822,
     "cost_source": "provider",
-    "estimated_usd": 0.038019,
+    "estimated_usd": 0.001039,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 254379,
-        "completion_tokens": 5560
+        "prompt_tokens": 8921,
+        "completion_tokens": 1309
       }
     },
-    "duration_s": 188.8,
-    "serper_calls": 12,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 45384,
+    "duration_s": 23.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6258,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0433,
-    "context_deduplicated_results": 42,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
-  }
+  },
+  "forecast": {
+    "predicted_winner_name": "Paul Gosar",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "There is zero district-specific polling in the provided data, which limits confidence. However, the structural fundamentals are extremely one-sided. The district has a Cook Partisan Voting Index of R+15 — the most Republican seat in Arizona. Incumbent Republican Paul Gosar has held the seat since 2010 and is seeking a ninth term. The Cook Political Report rates the race as 'Solid R,' and with only a Democratic challenger (Danielle Sterbinsky) who has no prior elected office, the partisan baseline and incumbency together point to an overwhelming Republican advantage despite the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:21.448809+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "ballotpedia_url": "https://ballotpedia.org/Arizona's_9th_Congressional_District"
 }

@@ -6,7 +6,7 @@
   "state": "New Mexico",
   "district": "2nd Congressional District",
   "election_date": "2026-11-03",
-  "description": "The general election for New Mexico's 2nd Congressional District pits two-term Democratic incumbent Rep. Gabe Vasquez against Republican nominee Greg Cunningham, a Marine Corps veteran and former Albuquerque police detective. The district, which covers southern and western New Mexico including Las Cruces, Carlsbad, and parts of Albuquerque, has been highly competitive in recent cycles \u2014 Vasquez won by narrow margins in both 2022 (flipping the seat) and 2024. With national ratings agencies calling the race Lean D to Toss Up, control of this swing seat could factor into which party holds the U.S. House majority. Key contrasts include border security, the economy, public safety, and energy policy.",
+  "description": "The general election for New Mexico's 2nd Congressional District pits two-term Democratic incumbent Rep. Gabe Vasquez against Republican nominee Greg Cunningham, a Marine Corps veteran and former Albuquerque police detective. The district, which covers southern and western New Mexico including Las Cruces, Carlsbad, and parts of Albuquerque, has been highly competitive in recent cycles — Vasquez won by narrow margins in both 2022 (flipping the seat) and 2024. With national ratings agencies calling the race Lean D to Toss Up, control of this swing seat could factor into which party holds the U.S. House majority. Key contrasts include border security, the economy, public safety, and energy policy.",
   "polling": [
     {
       "pollster": "co/efficient (NRCC)",
@@ -209,7 +209,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Mexico's_2nd_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:55:06.520050+00:00",
+  "updated_utc": "2026-06-20T15:35:36.064183+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -223,18 +223,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 247625,
-    "completion_tokens": 5576,
-    "total_tokens": 253201,
-    "cost_usd": 0.015745554000000002,
+    "prompt_tokens": 9808,
+    "completion_tokens": 1405,
+    "total_tokens": 11213,
+    "cost_usd": 0.00117666,
     "cost_source": "provider",
-    "estimated_usd": 0.02536,
+    "estimated_usd": 0.001136,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 247625,
-        "completion_tokens": 5576
+        "prompt_tokens": 9808,
+        "completion_tokens": 1405
       }
     },
-    "duration_s": 144.2
+    "duration_s": 22.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6677,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Gabe Vasquez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.56,
+      "Republican": 0.44
+    },
+    "margin_estimate": 1.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "NM-02 is a highly competitive swing district that Democrat Gabe Vasquez has held by narrow margins since flipping it in 2022. Only one public poll is available — a Republican-aligned NRCC survey from late April 2026 showing Vasquez at 43% and Cunningham at 41%, essentially tied within the margin of error. Vasquez benefits from two-term incumbency, name recognition, and a track record of winning in this district, while Republican nominee Greg Cunningham has lost two prior state legislative races. National handicappers rate the race Lean D to Toss Up, reflecting the district's competitiveness. However, with just one partisan-sponsored poll and no independent or Democratic surveys available, the evidence base is thin enough that uncertainty is high. Democrats hold a narrow advantage due to incumbency and recent electoral performance, but the race remains highly fluid.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:35:25.991013Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.nrcc.org/wp-content/uploads/2026/05/NRCC-NM-02-Survey-Memo-1.pdf"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

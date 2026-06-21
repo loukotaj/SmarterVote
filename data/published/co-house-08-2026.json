@@ -6,7 +6,7 @@
   "state": "Colorado",
   "district": "8th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Colorado's 8th Congressional District, created after the 2020 census, is one of the most competitive House seats in the country. Incumbent Republican Rep. Gabe Evans, who flipped the seat in 2024 by defeating Democrat Yadira Caraveo 49.0%-48.2%, is running for re-election unopposed in the Republican primary. Two Democrats \u2014 former state Rep. Shannon Bird and state Rep. Manny Rutinel \u2014 are competing in the June 30 Democratic primary to determine who will face Evans in the November general election. The Cook Political Report, Inside Elections, and Sabato's Crystal Ball all rate the race as a toss-up, and the outcome could help determine which party controls the House.",
+  "description": "Colorado's 8th Congressional District, created after the 2020 census, is one of the most competitive House seats in the country. Incumbent Republican Rep. Gabe Evans, who flipped the seat in 2024 by defeating Democrat Yadira Caraveo 49.0%-48.2%, is running for re-election unopposed in the Republican primary. Two Democrats — former state Rep. Shannon Bird and state Rep. Manny Rutinel — are competing in the June 30 Democratic primary to determine who will face Evans in the November general election. The Cook Political Report, Inside Elections, and Sabato's Crystal Ball all rate the race as a toss-up, and the outcome could help determine which party controls the House.",
   "polling": [],
   "polling_note": "No general election polls found for this race as of mid-June 2026. The New York Times poll tracker lists the race but shows no public polls yet for the general election matchup. The Democratic primary is still ongoing (June 30, 2026).",
   "candidates": [
@@ -311,7 +311,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:59:57.915746+00:00",
+  "updated_utc": "2026-06-20T15:43:01.917655+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -325,18 +325,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 325683,
-    "completion_tokens": 7368,
-    "total_tokens": 333051,
-    "cost_usd": 0.022797989999999997,
+    "prompt_tokens": 7652,
+    "completion_tokens": 1218,
+    "total_tokens": 8870,
+    "cost_usd": 0.000918736,
     "cost_source": "provider",
-    "estimated_usd": 0.033361,
+    "estimated_usd": 0.000908,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 325683,
-        "completion_tokens": 7368
+        "prompt_tokens": 7652,
+        "completion_tokens": 1218
       }
     },
-    "duration_s": 155.3
+    "duration_s": 22.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3767,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0036,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Gabe Evans",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.51,
+    "party_probabilities": {
+      "Democratic": 0.49,
+      "Republican": 0.51
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "Colorado's 8th is rated a toss-up by Cook Political Report, Inside Elections, and Sabato's Crystal Ball. Incumbent Republican Gabe Evans won this seat in 2024 by just 0.8 percentage points (49.0%-48.2%), making it one of the most competitive House districts nationally. No general-election public polls are available as of mid-June 2026, and the Democratic nominee is still undetermined — the primary between Shannon Bird and Manny Rutinel occurs June 30. With no polling data, an unresolved nominee, and a district that produced a razor-thin result in the last cycle, there is no clear favorite. The incumbency gives Evans a marginal edge, but uncertainty is very high, warranting a tossup rating with low confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:42:53.626386Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

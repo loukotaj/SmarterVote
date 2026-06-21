@@ -14,7 +14,7 @@
       "name": "Mark DeSaulnier",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Mark DeSaulnier is the incumbent U.S. Representative for California's 10th congressional district, first elected in 2014. He previously served in the California State Senate (2008\u20132015), the California State Assembly (2006\u20132008), and as a Contra Costa County Supervisor (1994\u20132006). He sits on the House Ethics, Education and Workforce, and Transportation and Infrastructure committees, and his legislative priorities include lowering healthcare and housing costs, protecting Social Security and Medicare, and investing in infrastructure.",
+      "summary": "Mark DeSaulnier is the incumbent U.S. Representative for California's 10th congressional district, first elected in 2014. He previously served in the California State Senate (2008–2015), the California State Assembly (2006–2008), and as a Contra Costa County Supervisor (1994–2006). He sits on the House Ethics, Education and Workforce, and Transportation and Infrastructure committees, and his legislative priorities include lowering healthcare and housing costs, protecting Social Security and Medicare, and investing in infrastructure.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Mark_DeSaulnier",
@@ -182,7 +182,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:38:58.341465+00:00",
+  "updated_utc": "2026-06-20T15:32:40.804816+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -196,18 +196,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 280852,
-    "completion_tokens": 5017,
-    "total_tokens": 285869,
-    "cost_usd": 0.021967307999999998,
+    "prompt_tokens": 9147,
+    "completion_tokens": 1254,
+    "total_tokens": 10401,
+    "cost_usd": 0.001072302,
     "cost_source": "provider",
-    "estimated_usd": 0.028507,
+    "estimated_usd": 0.001049,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 280852,
-        "completion_tokens": 5017
+        "prompt_tokens": 9147,
+        "completion_tokens": 1254
       }
     },
-    "duration_s": 100.9
+    "duration_s": 20.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6366,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mark DeSaulnier",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No general-election polling is available for this race, so the forecast relies entirely on non-polling evidence. Democratic incumbent Mark DeSaulnier has held the seat since 2014 and has extensive prior elected experience at the state and local level. The Cook Political Report rated the contest as Solidly Democratic before the June top-two primary. The district covers most of Contra Costa County and part of Alameda County in the East Bay, a strongly Democratic-leaning area. Republican nominee Jeff Frese advanced with only 12.9% of the primary vote, reflecting the district's partisan composition. Given the absence of direct voter polling, uncertainty remains elevated, supporting a medium confidence level. However, the structural factors point to a safe Democratic hold, consistent with a safe_d rating and a Democratic win probability above 95%.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:31.558578Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

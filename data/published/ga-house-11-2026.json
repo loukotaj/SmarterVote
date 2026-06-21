@@ -207,7 +207,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_11th_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:42:33.695763+00:00",
+  "updated_utc": "2026-06-20T15:29:04.837537+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -221,18 +221,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 280940,
-    "completion_tokens": 8181,
-    "total_tokens": 289121,
-    "cost_usd": 0.021647595999999998,
+    "prompt_tokens": 7762,
+    "completion_tokens": 1434,
+    "total_tokens": 9196,
+    "cost_usd": 0.0009818359999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.029136,
+    "estimated_usd": 0.000957,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 280940,
-        "completion_tokens": 8181
+        "prompt_tokens": 7762,
+        "completion_tokens": 1434
       }
     },
-    "duration_s": 166.0
+    "duration_s": 26.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3863,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0037,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists for this race, so the forecast relies entirely on district fundamentals. Georgia's 11th is rated Solidly Republican by Cook Political Report, indicating a strong Republican baseline in this northwest metro Atlanta district. The seat is open due to Rep. Barry Loudermilk's retirement, and the Republican nomination was settled in a June 16 runoff (just four days ago), adding some near-term uncertainty. Democrat Chris Harden is a credible nominee who won his primary decisively, but in a district of this partisan lean, the eventual GOP nominee is an overwhelming favorite. The absence of polling and the unsettled (until very recently) Republican field moderate confidence, but the district's structural advantage for Republicans is clear.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:53.733557Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

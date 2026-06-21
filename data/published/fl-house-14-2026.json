@@ -347,7 +347,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_14th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:24:52.894846+00:00",
+  "updated_utc": "2026-06-20T15:25:37.174753+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -361,18 +361,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 273983,
-    "completion_tokens": 7477,
-    "total_tokens": 281460,
-    "cost_usd": 0.019170482,
+    "prompt_tokens": 23108,
+    "completion_tokens": 3558,
+    "total_tokens": 26666,
+    "cost_usd": 0.002902048,
     "cost_source": "provider",
-    "estimated_usd": 0.028316,
+    "estimated_usd": 0.00272,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 273983,
-        "completion_tokens": 7477
+        "prompt_tokens": 23108,
+        "completion_tokens": 3558
       }
     },
-    "duration_s": 125.2
+    "duration_s": 63.6,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 10407,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0099,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": 0.5,
+    "party_probabilities": {
+      "Democratic": 0.5,
+      "Republican": 0.5
+    },
+    "margin_estimate": 0.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "No general-election polling exists for this race, so the forecast rests entirely on structural and candidate factors. The May 2026 redistricting transformed this seat from Harris +7 (2024) to Trump +10 — a roughly 17-point Republican shift — giving the GOP a very strong underlying partisan baseline in the newly drawn district. Offsetting this, Democrat Kathy Castor is a 20-year incumbent (first elected 2006) with very high name recognition, established constituent ties, and a proven ability to outperform the district's partisan lean. The Republican primary (August 18) is crowded with four candidates including well-funded contenders Mike Beltran ($1M self-funded) and Kevin Steele (net worth $152M, self-funded $5M previously), adding uncertainty about nominee quality and post-primary party unity. Given the competing forces of a strongly Republican district versus a durable Democratic incumbent, and the complete absence of general-election polling data, the race is best characterized as a pure tossup with neither party showing a clear advantage at this pre-primary stage. Confidence is low due to zero polling availability and the fluid pre-primary environment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:28.944392Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

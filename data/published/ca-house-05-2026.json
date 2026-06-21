@@ -179,7 +179,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:06:59.527493+00:00",
+  "updated_utc": "2026-06-20T15:21:35.326347+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -193,18 +193,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 268565,
-    "completion_tokens": 6558,
-    "total_tokens": 275123,
-    "cost_usd": 0.020665858000000002,
+    "prompt_tokens": 11202,
+    "completion_tokens": 1549,
+    "total_tokens": 12751,
+    "cost_usd": 0.001341496,
     "cost_source": "provider",
-    "estimated_usd": 0.027605,
+    "estimated_usd": 0.001287,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 268565,
-        "completion_tokens": 6558
+        "prompt_tokens": 11202,
+        "completion_tokens": 1549
       }
     },
-    "duration_s": 156.2
+    "duration_s": 26.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6317,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": null,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": null,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No independent general-election polling is available for CA-05 as of June 2026, so this forecast relies on non-polling fundamentals. Tom McClintock is a long-serving incumbent first elected in 2008 and has held this district or its predecessor reliably. The Cook Political Report rates the race 'Solid Republican,' indicating an overwhelming Republican advantage. However, the district was redrawn under California Proposition 50 (2025), which adds some uncertainty about the exact partisan composition of the new boundaries. McClintock's long incumbency and the district's conservative lean in the Sierra Nevada foothills and Central Valley support a safe Republican forecast, but the absence of polling and recent redistricting limit confidence to medium.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:31.027925Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

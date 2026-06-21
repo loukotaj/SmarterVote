@@ -46,6 +46,14 @@
   let sortBy: string = "competitiveness";
   let expandedRaceIds = new Set<string>();
 
+  type StateTooltip = {
+    title: string;
+    subtitle?: string;
+    badge?: string;
+    badgeClass?: string;
+    details?: string[];
+  };
+
   $: races = ($page.data.races as RaceSummary[] | undefined) ?? [];
   $: activeTab = browser
     ? parseForecastTab($page.url.searchParams.get("tab"))
@@ -80,11 +88,11 @@
 
   // Dynamic colors and tooltips for the map
   let stateColors: Record<string, string> = {};
-  let stateTooltips: Record<string, any> = {};
+  let stateTooltips: Record<string, StateTooltip> = {};
 
   $: {
     const colors: Record<string, string> = {};
-    const tooltips: Record<string, any> = {};
+    const tooltips: Record<string, StateTooltip> = {};
 
     const activeRaces = races.filter((r) => isRaceInForecastTab(r, activeTab));
 
@@ -332,7 +340,9 @@
     expandedRaceIds = expandedRaceIds;
   }
 
-  function getRatingGroup(rating: ForecastRating): "safe" | "likely" | "lean" | "tossup" | "other" {
+  function getRatingGroup(
+    rating: ForecastRating
+  ): "safe" | "likely" | "lean" | "tossup" | "other" {
     const r = rating.toLowerCase();
     if (r.startsWith("safe")) return "safe";
     if (r.startsWith("likely")) return "likely";
@@ -354,9 +364,12 @@
 
       // Apply party filter
       if (filterParty !== "all") {
-        const party = normalizeForecastParty(race.forecast.predicted_winner_party);
+        const party = normalizeForecastParty(
+          race.forecast.predicted_winner_party
+        );
         if (filterParty === "democrat" && party !== "Democratic") return false;
-        if (filterParty === "republican" && party !== "Republican") return false;
+        if (filterParty === "republican" && party !== "Republican")
+          return false;
       }
 
       return true;
@@ -443,7 +456,8 @@
           2026 Election Forecast
         </h1>
         <p class="mt-2 text-base text-content-muted max-w-3xl">
-          Nonpartisan model projections, interactive maps, and structured analysis for the 2026 House, Senate, and Governor races.
+          Nonpartisan model projections, interactive maps, and structured
+          analysis for the 2026 House, Senate, and Governor races.
         </p>
       </div>
       <div
@@ -477,38 +491,79 @@
   <!-- Forecast at a glance narrative and quick metrics -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <!-- Chamber Narrative Block -->
-    <div class="lg:col-span-2 bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between">
+    <div
+      class="lg:col-span-2 bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between"
+    >
       <div>
-        <h2 class="text-xs font-bold uppercase text-content-subtle tracking-wider mb-2">Chamber Outlook & Analysis</h2>
+        <h2
+          class="text-xs font-bold uppercase text-content-subtle tracking-wider mb-2"
+        >
+          Chamber Outlook & Analysis
+        </h2>
         <p class="text-base font-medium text-content leading-relaxed">
-          {chamberNarrative || `Projections indicate a highly competitive cycle for the ${activeTab === 'governors' ? 'Governors' : activeTab === 'senate' ? 'Senate' : 'House'}.`}
+          {chamberNarrative ||
+            `Projections indicate a highly competitive cycle for the ${
+              activeTab === "governors"
+                ? "Governors"
+                : activeTab === "senate"
+                ? "Senate"
+                : "House"
+            }.`}
         </p>
       </div>
-      <div class="mt-4 flex items-center justify-between text-[10px] text-content-subtle border-t border-stroke/20 pt-3">
+      <div
+        class="mt-4 flex items-center justify-between text-[10px] text-content-subtle border-t border-stroke/20 pt-3"
+      >
         <span>SmarterVote Nonpartisan Forecasting Model</span>
         {#if chamberForecasts?.updated_at}
-          <span>Updated: {new Date(chamberForecasts.updated_at).toLocaleDateString()}</span>
+          <span
+            >Updated: {new Date(
+              chamberForecasts.updated_at
+            ).toLocaleDateString()}</span
+          >
         {/if}
       </div>
     </div>
 
     <!-- Quick Stats Grid -->
-    <div class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md grid grid-cols-2 gap-4">
+    <div
+      class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md grid grid-cols-2 gap-4"
+    >
       <div class="flex flex-col justify-center border-b border-stroke/20 pb-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected Control</span>
-        <span class={`text-lg font-black mt-1 ${partyClass(controlParty)}`}>{controlParty}</span>
+        <span
+          class="text-[10px] font-bold uppercase text-content-subtle tracking-wider"
+          >Projected Control</span
+        >
+        <span class={`text-lg font-black mt-1 ${partyClass(controlParty)}`}
+          >{controlParty}</span
+        >
       </div>
       <div class="flex flex-col justify-center border-b border-stroke/20 pb-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Toss-up Seats</span>
-        <span class="text-lg font-black mt-1 text-content">{aggregate.ratingCounts.tossup || 0}</span>
+        <span
+          class="text-[10px] font-bold uppercase text-content-subtle tracking-wider"
+          >Toss-up Seats</span
+        >
+        <span class="text-lg font-black mt-1 text-content"
+          >{aggregate.ratingCounts.tossup || 0}</span
+        >
       </div>
       <div class="flex flex-col justify-center pt-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected Dem</span>
-        <span class="text-lg font-black mt-1 text-blue-600 dark:text-blue-400">{aggregate.projected.Democratic ?? 0}</span>
+        <span
+          class="text-[10px] font-bold uppercase text-content-subtle tracking-wider"
+          >Projected Dem</span
+        >
+        <span class="text-lg font-black mt-1 text-blue-600 dark:text-blue-400"
+          >{aggregate.projected.Democratic ?? 0}</span
+        >
       </div>
       <div class="flex flex-col justify-center pt-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected GOP</span>
-        <span class="text-lg font-black mt-1 text-red-600 dark:text-red-400">{aggregate.projected.Republican ?? 0}</span>
+        <span
+          class="text-[10px] font-bold uppercase text-content-subtle tracking-wider"
+          >Projected GOP</span
+        >
+        <span class="text-lg font-black mt-1 text-red-600 dark:text-red-400"
+          >{aggregate.projected.Republican ?? 0}</span
+        >
       </div>
     </div>
   </div>
@@ -552,7 +607,9 @@
 
       <!-- Map Colors Legend -->
       <div class="border-t border-stroke/40 pt-4 mt-4 space-y-3">
-        <span class="text-xs font-semibold text-content-muted block">Map Legend</span>
+        <span class="text-xs font-semibold text-content-muted block"
+          >Map Legend</span
+        >
         <div
           class="flex flex-wrap gap-x-4 gap-y-2 justify-center lg:justify-start"
         >
@@ -764,7 +821,8 @@
           <span
             class="bg-surface-alt text-content-muted font-bold text-xs px-2.5 py-0.5 rounded-full border border-stroke/60"
           >
-            {aggregate.holdovers.length} {activeTab === "governors" ? "states" : "seats"}
+            {aggregate.holdovers.length}
+            {activeTab === "governors" ? "states" : "seats"}
           </span>
         </div>
         <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">
@@ -775,7 +833,9 @@
       {#if showHoldovers}
         <div class="p-5 bg-surface-alt/10">
           <p class="text-xs text-content-subtle mb-4">
-            These seats are not up for election in 2026 and are factored into our control calculations based on current incumbent party representation.
+            These seats are not up for election in 2026 and are factored into
+            our control calculations based on current incumbent party
+            representation.
           </p>
           <div
             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"
@@ -811,12 +871,21 @@
     class="bg-surface border border-stroke rounded-2xl shadow-sm overflow-hidden"
   >
     <!-- Filter and Sort Header bar -->
-    <div class="px-5 py-4 border-b border-stroke/40 bg-surface-alt/10 flex flex-wrap items-center justify-between gap-4">
+    <div
+      class="px-5 py-4 border-b border-stroke/40 bg-surface-alt/10 flex flex-wrap items-center justify-between gap-4"
+    >
       <div class="flex flex-wrap items-center gap-3">
         <!-- Filter by Rating -->
         <div class="flex items-center gap-1.5">
-          <label for="rating-filter" class="text-xs font-semibold text-content-subtle">Rating:</label>
-          <select id="rating-filter" bind:value={filterRating} class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500">
+          <label
+            for="rating-filter"
+            class="text-xs font-semibold text-content-subtle">Rating:</label
+          >
+          <select
+            id="rating-filter"
+            bind:value={filterRating}
+            class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
             <option value="all">All Ratings</option>
             <option value="tossup">Toss-ups</option>
             <option value="lean">Lean/Tilt</option>
@@ -827,8 +896,15 @@
 
         <!-- Filter by Party -->
         <div class="flex items-center gap-1.5">
-          <label for="party-filter" class="text-xs font-semibold text-content-subtle">Favored:</label>
-          <select id="party-filter" bind:value={filterParty} class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500">
+          <label
+            for="party-filter"
+            class="text-xs font-semibold text-content-subtle">Favored:</label
+          >
+          <select
+            id="party-filter"
+            bind:value={filterParty}
+            class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
             <option value="all">All Parties</option>
             <option value="democrat">Democratic</option>
             <option value="republican">Republican</option>
@@ -839,8 +915,14 @@
       <div class="flex items-center gap-3">
         <!-- Sort By -->
         <div class="flex items-center gap-1.5">
-          <label for="sort-by" class="text-xs font-semibold text-content-subtle">Sort by:</label>
-          <select id="sort-by" bind:value={sortBy} class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500">
+          <label for="sort-by" class="text-xs font-semibold text-content-subtle"
+            >Sort by:</label
+          >
+          <select
+            id="sort-by"
+            bind:value={sortBy}
+            class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
             <option value="competitiveness">Competitiveness</option>
             <option value="probability">Win Probability</option>
             <option value="margin">Margin Estimate</option>
@@ -869,9 +951,13 @@
         <p class="text-base text-content-muted font-semibold">
           No forecasts found matching the selected filters.
         </p>
-        {#if selectedState || filterRating !== 'all' || filterParty !== 'all'}
+        {#if selectedState || filterRating !== "all" || filterParty !== "all"}
           <button
-            on:click={() => { clearStateFilter(); filterRating = 'all'; filterParty = 'all'; }}
+            on:click={() => {
+              clearStateFilter();
+              filterRating = "all";
+              filterParty = "all";
+            }}
             class="mt-3 text-xs text-blue-600 hover:underline dark:text-blue-400 font-semibold"
           >
             Clear all filters
@@ -882,13 +968,19 @@
       <!-- Responsive Card Feed -->
       <div class="divide-y divide-stroke/30">
         {#each filteredRaces as race (race.id)}
-          {@const party = normalizeForecastParty(race.forecast.predicted_winner_party)}
+          {@const party = normalizeForecastParty(
+            race.forecast.predicted_winner_party
+          )}
           {@const rating = race.forecast.rating}
           {@const isExpanded = expandedRaceIds.has(race.id)}
 
-          <div class="p-5 hover:bg-surface-alt/10 transition-colors flex flex-col gap-4">
+          <div
+            class="p-5 hover:bg-surface-alt/10 transition-colors flex flex-col gap-4"
+          >
             <!-- Card Header: Title, Rating, and Details Link -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+            >
               <div class="flex flex-col">
                 <a
                   href={browser ? raceHref(race.id) : undefined}
@@ -902,7 +994,11 @@
               </div>
 
               <div class="flex items-center gap-2 self-start sm:self-center">
-                <span class={`inline-flex border rounded-full px-2.5 py-0.5 text-xs font-bold leading-none ${ratingClass(rating)}`}>
+                <span
+                  class={`inline-flex border rounded-full px-2.5 py-0.5 text-xs font-bold leading-none ${ratingClass(
+                    rating
+                  )}`}
+                >
                   {formatRating(rating)}
                 </span>
                 <a
@@ -917,23 +1013,47 @@
             <!-- Card Metrics Dashboard -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
               <!-- Forecast Projections -->
-              <div class="grid grid-cols-3 gap-2 bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center shadow-inner">
-                <div class="flex flex-col justify-center border-r border-stroke/30 pr-1">
-                  <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Projected</span>
-                  <span class={`text-xs font-extrabold mt-0.5 truncate ${partyClass(party)}`}>
+              <div
+                class="grid grid-cols-3 gap-2 bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center shadow-inner"
+              >
+                <div
+                  class="flex flex-col justify-center border-r border-stroke/30 pr-1"
+                >
+                  <span
+                    class="text-[9px] font-bold text-content-subtle uppercase tracking-wider"
+                    >Projected</span
+                  >
+                  <span
+                    class={`text-xs font-extrabold mt-0.5 truncate ${partyClass(
+                      party
+                    )}`}
+                  >
                     {race.forecast.predicted_winner_name || party}
                   </span>
                 </div>
-                <div class="flex flex-col justify-center border-r border-stroke/30">
-                  <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Win Prob.</span>
-                  <span class="text-xs font-black mt-0.5 text-content tabular-nums">
+                <div
+                  class="flex flex-col justify-center border-r border-stroke/30"
+                >
+                  <span
+                    class="text-[9px] font-bold text-content-subtle uppercase tracking-wider"
+                    >Win Prob.</span
+                  >
+                  <span
+                    class="text-xs font-black mt-0.5 text-content tabular-nums"
+                  >
                     {probability(race.forecast.win_probability)}
                   </span>
                 </div>
                 <div class="flex flex-col justify-center pl-1">
-                  <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Est. Margin</span>
-                  <span class="text-xs font-extrabold mt-0.5 text-content tabular-nums">
-                    {race.forecast.margin_estimate === undefined || race.forecast.margin_estimate === null
+                  <span
+                    class="text-[9px] font-bold text-content-subtle uppercase tracking-wider"
+                    >Est. Margin</span
+                  >
+                  <span
+                    class="text-xs font-extrabold mt-0.5 text-content tabular-nums"
+                  >
+                    {race.forecast.margin_estimate === undefined ||
+                    race.forecast.margin_estimate === null
                       ? "n/a"
                       : `${race.forecast.margin_estimate.toFixed(1)}%`}
                   </span>
@@ -942,50 +1062,82 @@
 
               <!-- Takeaway Text -->
               <div class="md:col-span-2 flex flex-col justify-center">
-                <span class="text-[10px] font-bold text-content-subtle uppercase tracking-wider mb-0.5">Key Takeaway</span>
-                <p class="text-xs text-content-muted leading-relaxed font-medium">
-                  {race.forecast.takeaway || (race.forecast.rationale ? race.forecast.rationale.split(/[.!?]/)[0] + "." : "No summary narrative available.")}
+                <span
+                  class="text-[10px] font-bold text-content-subtle uppercase tracking-wider mb-0.5"
+                  >Key Takeaway</span
+                >
+                <p
+                  class="text-xs text-content-muted leading-relaxed font-medium"
+                >
+                  {race.forecast.takeaway ||
+                    (race.forecast.rationale
+                      ? race.forecast.rationale.split(/[.!?]/)[0] + "."
+                      : "No summary narrative available.")}
                 </p>
               </div>
             </div>
 
             <!-- Card Accordion Toggle -->
-            <div class="flex items-center justify-between border-t border-stroke/10 pt-3">
+            <div
+              class="flex items-center justify-between border-t border-stroke/10 pt-3"
+            >
               <button
                 on:click={() => toggleExpand(race.id)}
                 class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold flex items-center gap-1 focus:outline-none"
               >
-                <span class="inline-block transition-transform duration-200" style={isExpanded ? "transform: rotate(180deg);" : ""}>▼</span>
+                <span
+                  class="inline-block transition-transform duration-200"
+                  style={isExpanded ? "transform: rotate(180deg);" : ""}>▼</span
+                >
                 {isExpanded ? "Hide Analysis" : "Expand Analysis"}
               </button>
 
               <span class="text-[10px] text-content-subtle font-medium">
-                {race.forecast.based_on_poll_count} poll{race.forecast.based_on_poll_count === 1 ? "" : "s"} analyzed
+                {race.forecast.based_on_poll_count} poll{race.forecast
+                  .based_on_poll_count === 1
+                  ? ""
+                  : "s"} analyzed
               </span>
             </div>
 
             <!-- Expandable Drawer Content -->
             {#if isExpanded}
-              <div transition:slide class="mt-1 pt-4 border-t border-stroke/30 grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs bg-surface-alt/10 rounded-xl p-4 shadow-inner">
+              <div
+                transition:slide
+                class="mt-1 pt-4 border-t border-stroke/30 grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs bg-surface-alt/10 rounded-xl p-4 shadow-inner"
+              >
                 <!-- Left Column: Key Drivers & Uncertainty -->
                 <div class="space-y-3">
                   <div>
-                    <span class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1">Key Drivers</span>
+                    <span
+                      class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1"
+                      >Key Drivers</span
+                    >
                     {#if race.forecast.key_reasons && race.forecast.key_reasons.length > 0}
-                      <ul class="list-disc list-inside space-y-1 text-content-muted font-medium pl-1">
+                      <ul
+                        class="list-disc list-inside space-y-1 text-content-muted font-medium pl-1"
+                      >
                         {#each race.forecast.key_reasons as reason}
                           <li>{reason}</li>
                         {/each}
                       </ul>
                     {:else}
-                      <p class="text-content-subtle font-medium italic">No structured key drivers specified. Refer to the full assessment.</p>
+                      <p class="text-content-subtle font-medium italic">
+                        No structured key drivers specified. Refer to the full
+                        assessment.
+                      </p>
                     {/if}
                   </div>
 
                   {#if race.forecast.uncertainty}
                     <div class="pt-2 border-t border-stroke/20">
-                      <span class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1">Risk Factors & Uncertainty</span>
-                      <p class="text-content-muted font-medium leading-relaxed">{race.forecast.uncertainty}</p>
+                      <span
+                        class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1"
+                        >Risk Factors & Uncertainty</span
+                      >
+                      <p class="text-content-muted font-medium leading-relaxed">
+                        {race.forecast.uncertainty}
+                      </p>
                     </div>
                   {/if}
                 </div>
@@ -993,16 +1145,29 @@
                 <!-- Right Column: Full Rationale and Metadata -->
                 <div class="space-y-3 flex flex-col justify-between">
                   <div>
-                    <span class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1">Full Assessment</span>
-                    <p class="text-content-muted leading-relaxed font-medium whitespace-pre-wrap">{race.forecast.rationale}</p>
+                    <span
+                      class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1"
+                      >Full Assessment</span
+                    >
+                    <p
+                      class="text-content-muted leading-relaxed font-medium whitespace-pre-wrap"
+                    >
+                      {race.forecast.rationale}
+                    </p>
                   </div>
 
-                  <div class="pt-2 border-t border-stroke/20 flex flex-wrap items-center justify-between gap-2 text-[10px] text-content-subtle font-medium">
+                  <div
+                    class="pt-2 border-t border-stroke/20 flex flex-wrap items-center justify-between gap-2 text-[10px] text-content-subtle font-medium"
+                  >
                     {#if race.forecast.model}
                       <span>Model: {race.forecast.model}</span>
                     {/if}
                     {#if race.forecast.generated_at}
-                      <span>Run date: {new Date(race.forecast.generated_at).toLocaleDateString()}</span>
+                      <span
+                        >Run date: {new Date(
+                          race.forecast.generated_at
+                        ).toLocaleDateString()}</span
+                      >
                     {/if}
                   </div>
                 </div>

@@ -258,7 +258,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:44:15.602548+00:00",
+  "updated_utc": "2026-06-20T15:28:51.542202+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -272,18 +272,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 241950,
-    "completion_tokens": 6074,
-    "total_tokens": 248024,
-    "cost_usd": 0.014168804,
+    "prompt_tokens": 19596,
+    "completion_tokens": 1732,
+    "total_tokens": 21328,
+    "cost_usd": 0.002199976,
     "cost_source": "provider",
-    "estimated_usd": 0.024902,
+    "estimated_usd": 0.002075,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 241950,
-        "completion_tokens": 6074
+        "prompt_tokens": 19596,
+        "completion_tokens": 1732
       }
     },
-    "duration_s": 119.0
+    "duration_s": 28.7,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 10816,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0103,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Max Miller",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.05,
+      "Republican": 0.95
+    },
+    "margin_estimate": 19.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for OH-07 in 2026, so this forecast is based entirely on structural and contextual indicators. Incumbent Max Miller (R) is a first-term representative with a strong conservative profile (former Trump senior advisor, Ways & Means and Foreign Affairs assignments) who advanced unopposed in the GOP primary. The district was redrawn in October 2025 under a bipartisan agreement, but Cook Political Report continues to rate it Solid Republican, indicating a lasting rightward lean. Democratic nominee Brian Poindexter is a credible challenger (union ironworker, five-term Brook Park councilman) but won his primary with only 37%, suggesting modest party-base enthusiasm. In the absence of polling and with a structurally Republican district, safe_r with ~95% Republican win probability is the most evidence-based rating. Confidence is medium due to the absence of polling and the recent redistricting, which could shift the district's precise partisan composition.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:43.601800Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -466,36 +466,69 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T20:51:19.600806+00:00",
+  "updated_utc": "2026-06-20T03:16:47.511289+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 33981,
-    "completion_tokens": 14756,
-    "total_tokens": 48737,
-    "cost_usd": 0.00691025,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3644,
+    "completion_tokens": 213,
+    "total_tokens": 3857,
+    "cost_usd": 0.008849,
     "cost_source": "provider",
-    "estimated_usd": 0.007601,
+    "estimated_usd": 0.012305,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 33981,
-        "completion_tokens": 14756
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3644,
+        "completion_tokens": 213
       }
     },
-    "duration_s": 84.9
+    "duration_s": 15.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3024,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0029,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Maryland_gubernatorial_election,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Wes Moore",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.93,
+    "party_probabilities": {
+      "Democratic": 0.93,
+      "Republican": 0.07
+    },
+    "margin_estimate": 18.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "Maryland is described in the race data as solidly Democratic, and the incumbent governor, Wes Moore, is seeking re-election, giving Democrats a clear structural advantage. The Republican field includes several candidates, with Dan Cox noted as the 2022 nominee, but the provided polling entries contain no numeric matchup results, so there is not enough direct voter-preference data to justify a higher-confidence or safe rating. Given the state's strong Democratic lean and incumbency, Democrats are favored, but sparse usable polling lowers confidence and leaves some uncertainty about the eventual general-election environment and nominee strength.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:46.742972Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

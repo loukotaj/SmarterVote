@@ -388,7 +388,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:43:20.260373+00:00",
+  "updated_utc": "2026-06-20T15:34:09.012840+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -402,18 +402,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 330475,
-    "completion_tokens": 9095,
-    "total_tokens": 339570,
-    "cost_usd": 0.020101714,
+    "prompt_tokens": 12164,
+    "completion_tokens": 2041,
+    "total_tokens": 14205,
+    "cost_usd": 0.0015322040000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.034169,
+    "estimated_usd": 0.001462,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 330475,
-        "completion_tokens": 9095
+        "prompt_tokens": 12164,
+        "completion_tokens": 2041
       }
     },
-    "duration_s": 157.2
+    "duration_s": 36.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9194,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0088,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Tom Suozzi",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.69,
+    "party_probabilities": {
+      "Democratic": 0.69,
+      "Republican": 0.31
+    },
+    "margin_estimate": 3.0,
+    "rating": "lean_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polling has been identified (based_on_poll_count=0). This forecast relies on race fundamentals: Tom Suozzi is the Democratic incumbent who won the 2024 general election with 51.8% after also prevailing in the February 2024 special election, demonstrating repeat district-level appeal. Cook Political Report rates the seat Lean Democratic, consistent with a modest Democratic edge in this competitive swing seat on Long Island. Both parties face contested primaries — Suozzi is challenged from the left by Danielle Welch, while Mike LiPetri (2024 GOP nominee who lost by 3.6 points) and Greg Hach compete on the Republican side. The national midterm environment with a Republican in the White House typically benefits the out-party, adding some uncertainty to the Democratic hold. The Lean Democratic rating reflects Suozzi's demonstrated strength and structural advantages, balanced against the district's competitiveness and the absence of current-cycle polling. Confidence is medium due to the lack of survey data and potential primary-induced volatility.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:55.287967Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

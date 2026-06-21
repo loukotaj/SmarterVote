@@ -326,7 +326,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:10:31.086052+00:00",
+  "updated_utc": "2026-06-20T15:39:28.185782+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -340,18 +340,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 278995,
-    "completion_tokens": 7604,
-    "total_tokens": 286599,
-    "cost_usd": 0.02203279,
+    "prompt_tokens": 15210,
+    "completion_tokens": 2119,
+    "total_tokens": 17329,
+    "cost_usd": 0.001905904,
     "cost_source": "provider",
-    "estimated_usd": 0.028832,
+    "estimated_usd": 0.00175,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 278995,
-        "completion_tokens": 7604
+        "prompt_tokens": 15210,
+        "completion_tokens": 2119
       }
     },
-    "duration_s": 157.0
+    "duration_s": 30.8,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 9522,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0091,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ed Gallrein",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Other": 0.01
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polls exist for this race, so the forecast relies entirely on structural factors. Kentucky's 4th District carries a Cook PVI of R+18 and has not elected a Democrat to Congress since 2004, giving it one of the strongest Republican baselines in the country. The seat is open following incumbent Thomas Massie's primary loss, which introduces some uncertainty — but the Republican nominee, Ed Gallrein, emerged from a high-turnout, heavily funded primary with Donald Trump's endorsement and a decisive 54.9% victory. The Democratic candidate, Melissa Strange, is a credible first-time candidate but faces an extremely uphill climb in a district where Democrats have not been competitive at the federal level for over two decades. The Libertarian and Kentucky Party candidates could attract a modest protest vote but are not expected to alter the overall outcome. The absence of any general-election polling tempers confidence to medium, but the district's underlying partisanship and historical voting patterns point to an overwhelming Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:28.118238Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

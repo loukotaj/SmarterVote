@@ -245,7 +245,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_36th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:41:50.723827+00:00",
+  "updated_utc": "2026-06-20T15:44:46.225999+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -259,18 +259,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 231634,
-    "completion_tokens": 6066,
-    "total_tokens": 237700,
-    "cost_usd": 0.015392684,
+    "prompt_tokens": 11181,
+    "completion_tokens": 2132,
+    "total_tokens": 13313,
+    "cost_usd": 0.001453706,
     "cost_source": "provider",
-    "estimated_usd": 0.023889,
+    "estimated_usd": 0.00139,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 231634,
-        "completion_tokens": 6066
+        "prompt_tokens": 11181,
+        "completion_tokens": 2132
       }
     },
-    "duration_s": 108.1
+    "duration_s": 32.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6482,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brian Babin",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Republican": 0.92,
+      "Democratic": 0.08
+    },
+    "margin_estimate": 17.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists for this race, which limits confidence to medium. However, the structural data strongly favors the incumbent. Brian Babin is a six-term incumbent (first elected 2014) and current Chairman of the House Science, Space, and Technology Committee. He won his 2026 primary with 81.1% of the vote. The district's Cook PVI is R+12 and the 2025 redistricting maintained its strongly Republican tilt. The only broader polling signal—a June 2026 Texas generic ballot showing Republicans ahead 49% to 43%—is consistent with a Republican advantage. Rhonda Hart is a credible Democratic nominee (Army veteran and gun-safety activist) and won her primary with 64.1%, but the district's partisan lean combined with Babin's incumbency and fundraising/chairship advantages make the Republican nominee a clear favorite. A likely_r rating (92% win probability, ~17-point margin estimate) reflects that the seat is not quite safe—a Democratic longshot win is possible if national dynamics shift dramatically—but Babin holds a commanding structural edge.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:44:41.276498Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

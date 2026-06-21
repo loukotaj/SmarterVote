@@ -6,7 +6,7 @@
   "state": "Michigan",
   "district": "2nd Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Michigan's 2nd Congressional District covers 20 counties in central and western Michigan, including outer portions of the Grand Rapids metropolitan area. Incumbent Republican John Moolenaar, first elected in 2014 and re-elected with 65.1% of the vote in 2024, is seeking re-election in a district rated as 'Solid Republican' by The Cook Political Report, Inside Elections, and Sabato's Crystal Ball. The Democratic primary on August 4, 2026 features three candidates\u2014Marine veteran Ben Ambrose, physician assistant Jamie Hill, and Lake County Commissioner Clyde Welford\u2014who will compete to advance to the general election. No opinion polls for this race have been published as of mid-2026, reflecting the district's safe Republican classification.",
+  "description": "The 2026 election for Michigan's 2nd Congressional District covers 20 counties in central and western Michigan, including outer portions of the Grand Rapids metropolitan area. Incumbent Republican John Moolenaar, first elected in 2014 and re-elected with 65.1% of the vote in 2024, is seeking re-election in a district rated as 'Solid Republican' by The Cook Political Report, Inside Elections, and Sabato's Crystal Ball. The Democratic primary on August 4, 2026 features three candidates—Marine veteran Ben Ambrose, physician assistant Jamie Hill, and Lake County Commissioner Clyde Welford—who will compete to advance to the general election. No opinion polls for this race have been published as of mid-2026, reflecting the district's safe Republican classification.",
   "polling": [],
   "polling_note": "No opinion polls were found for Michigan's 2nd Congressional District in the 2026 cycle. Multiple nonpartisan election forecasters rate the race as 'Solid/Safe Republican.'",
   "candidates": [
@@ -173,7 +173,7 @@
         {
           "url": "https://couragefordemocracy.com/candidate/jamie-hill/",
           "type": "website",
-          "title": "Jamie Hill \u2013 Courage Candidate",
+          "title": "Jamie Hill – Courage Candidate",
           "last_accessed": "2026-06-09T12:00:00Z"
         },
         {
@@ -328,7 +328,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_2nd_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:26:55.192555+00:00",
+  "updated_utc": "2026-06-20T15:26:01.662300+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -339,18 +339,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 306585,
-    "completion_tokens": 8965,
-    "total_tokens": 315550,
-    "cost_usd": 0.020929893999999998,
+    "prompt_tokens": 14060,
+    "completion_tokens": 1595,
+    "total_tokens": 15655,
+    "cost_usd": 0.0016905,
     "cost_source": "provider",
-    "estimated_usd": 0.031802,
+    "estimated_usd": 0.001552,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 306585,
-        "completion_tokens": 8965
+        "prompt_tokens": 14060,
+        "completion_tokens": 1595
       }
     },
-    "duration_s": 164.1
+    "duration_s": 28.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8153,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0078,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "John Moolenaar",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No opinion polls have been published for this race, reducing confidence. However, non-polling indicators strongly favor Republicans: incumbent John Moolenaar has held the seat since 2014, was re-elected with 65.1% of the vote in 2024, and the district is rated 'Solid Republican' by Cook Political Report, Inside Elections, and Sabato's Crystal Ball. The Democratic primary (August 4, 2026) is contested among three candidates—Ben Ambrose, Jamie Hill, and Clyde Welford—while Moolenaar is a well-funded incumbent with high institutional support. Based on the heavy Republican lean of the district and the incumbent's strong electoral history, a Republican win is overwhelmingly likely, though the complete absence of polling data prevents 'high' confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:55.673507+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

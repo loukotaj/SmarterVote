@@ -1812,10 +1812,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Virginia,_2026",
-  "updated_utc": "2026-06-13T23:15:46.948785+00:00",
+  "updated_utc": "2026-06-20T03:17:01.623535+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://www.elections.virginia.gov/registration/",
   "how_to_vote_url": "https://www.elections.virginia.gov/casting-a-ballot/",
@@ -1885,25 +1884,57 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 96616,
-    "completion_tokens": 9313,
-    "total_tokens": 105929,
-    "cost_usd": 0.009164112,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3907,
+    "completion_tokens": 222,
+    "total_tokens": 4129,
+    "cost_usd": 0.0130975,
     "cost_source": "provider",
-    "estimated_usd": 0.010083,
+    "estimated_usd": 0.013097,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 62176,
-        "completion_tokens": 8693
-      },
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 34440,
-        "completion_tokens": 620
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3907,
+        "completion_tokens": 222
       }
     },
-    "duration_s": 110.8
+    "duration_s": 15.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3450,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0033,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Mark Warner",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.86,
+    "party_probabilities": {
+      "Democratic": 0.86,
+      "Republican": 0.12,
+      "Independent": 0.02
+    },
+    "margin_estimate": 9.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available, which increases uncertainty and lowers confidence. Still, the available race data point to a Democratic advantage: Warner is a well-known incumbent senator and former governor, Virginia has leaned Democratic in recent federal elections, and Warner has a very large fundraising edge over the currently listed Republican candidates, none of whom appear established statewide officeholders in the provided data. An independent candidate is in the field but, on the information available here, does not appear likely to win. Because there is no polling and the eventual Republican nominee could change the race dynamic, this is better characterized as likely Democratic rather than safe Democratic.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:00.715157Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

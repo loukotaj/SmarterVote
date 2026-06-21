@@ -468,7 +468,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:48:08.561191+00:00",
+  "updated_utc": "2026-06-20T15:27:04.616323+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -482,18 +482,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 398146,
-    "completion_tokens": 8204,
-    "total_tokens": 406350,
-    "cost_usd": 0.032429428,
+    "prompt_tokens": 27985,
+    "completion_tokens": 2760,
+    "total_tokens": 30745,
+    "cost_usd": 0.00328349,
     "cost_source": "provider",
-    "estimated_usd": 0.040626,
+    "estimated_usd": 0.003015,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 398146,
-        "completion_tokens": 8204
+        "prompt_tokens": 27985,
+        "completion_tokens": 2760
       }
     },
-    "duration_s": 158.6
+    "duration_s": 48.1,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 15661,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0149,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.16,
+      "Republican": 0.84
+    },
+    "margin_estimate": 7.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, so the forecast relies on district fundamentals. The decisive factor is the dramatic May 2026 redistricting: the district shifted from one Kamala Harris narrowly won (51% in 2024) to one Donald Trump would have carried with over 58% of the vote — representing approximately a 15+ point swing toward Republicans. This makes the seat a top GOP pickup target. Incumbent Democrat Darren Soto retains advantages from incumbency, name recognition, and five prior wins, which prevent this from being a 'safe' Republican seat. However, the district's new partisan baseline is heavily Republican, and many of Soto's former constituents were likely drawn out of the district. The unsettled seven-candidate Republican primary adds uncertainty about who the eventual nominee will be, but the overall structural environment strongly favors the Republican nominee in the general election.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:04.527399Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

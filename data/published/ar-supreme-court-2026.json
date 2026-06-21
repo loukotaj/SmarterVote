@@ -6,7 +6,7 @@
   "state": "Arkansas",
   "district": null,
   "election_date": "2026-03-03",
-  "description": "This race is for a nonpartisan seat on the Arkansas Supreme Court, the state\u2019s highest court, in the March 3, 2026 election. It drew unusual attention because state law barred appointed justices from running for re-election to the same seat, so two incumbent appointees ended up running for each other\u2019s seats. The court matters because it decides major questions of state constitutional law, election rules, criminal and civil appeals, and other high-stakes disputes affecting Arkansas government. The main campaign contrast centered on judicial philosophy: Nicholas Bronni emphasized originalism and a more conservative approach, while John Adams stressed judicial restraint, independence, and keeping the court nonpartisan.",
+  "description": "This race is for a nonpartisan seat on the Arkansas Supreme Court, the state’s highest court, in the March 3, 2026 election. It drew unusual attention because state law barred appointed justices from running for re-election to the same seat, so two incumbent appointees ended up running for each other’s seats. The court matters because it decides major questions of state constitutional law, election rules, criminal and civil appeals, and other high-stakes disputes affecting Arkansas government. The main campaign contrast centered on judicial philosophy: Nicholas Bronni emphasized originalism and a more conservative approach, while John Adams stressed judicial restraint, independence, and keeping the court nonpartisan.",
   "polling": [],
   "polling_note": "No public polling found for this race as of 2026-04-07.",
   "candidates": [
@@ -14,48 +14,340 @@
       "name": "Nicholas Bronni",
       "party": "Nonpartisan",
       "incumbent": true,
-      "summary": "Nicholas Bronni is an associate justice of the Arkansas Supreme Court, appointed by Governor Sarah Huckabee Sanders and sworn in on January 1, 2025. Before joining the court, he served as Arkansas solicitor general and worked in the Arkansas Attorney General\u2019s office, private practice, and federal service. His campaign describes him as an originalist who favors plain-language opinions and a limited judicial role.",
+      "summary": "Nicholas Bronni is an associate justice of the Arkansas Supreme Court, appointed by Governor Sarah Huckabee Sanders and sworn in on January 1, 2025. Before joining the court, he served as Arkansas solicitor general and worked in the Arkansas Attorney General’s office, private practice, and federal service. His campaign describes him as an originalist who favors plain-language opinions and a limited judicial role.",
       "summary_sources": [
         {
           "url": "http://arcourts.gov/courts/supreme-court/justices/associate-justice-karen-r-baker-position-6",
-          "type": "official",
-          "title": "Associate Justice Nicholas Bronni, Position 6 - Arkansas Judiciary"
+          "type": "government",
+          "title": "Associate Justice Nicholas Bronni, Position 6 - Arkansas Judiciary",
+          "description": null,
+          "last_accessed": "2026-06-20T03:16:11.631283Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://fedsoc.org/bio/nicholas-bronni",
-          "type": "biography",
-          "title": "Nicholas Bronni - The Federalist Society"
+          "type": "website",
+          "title": "Nicholas Bronni - The Federalist Society",
+          "description": null,
+          "last_accessed": "2026-06-20T03:16:11.631283Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.bronniforar.com/",
-          "type": "campaign",
-          "title": "Justice Nick Bronni"
+          "type": "website",
+          "title": "Justice Nick Bronni",
+          "description": null,
+          "last_accessed": "2026-06-20T03:16:11.631283Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Nicholas_Bronni.jpg",
-      "website": "https://www.bronniforar.com/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/issues",
+              "type": "website",
+              "title": "Justice Nick Bronni – Issues (404)",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Bronni says he supports protecting taxpayers and tax cuts, and his campaign frames his record as opposing federal actions he says would harm Arkansas’s economy, including student loan debt cancellation. His campaign also says he has worked to block regulations that would hurt small businesses and family farms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bronniforar.com/issues",
+              "type": "website",
+              "title": "Justice Nick Bronni – Issues (404)",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "Bronni’s campaign says he defended the Second Amendment against federal gun-control regulations. His campaign materials do not provide a broader public policy agenda on guns or public safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Bronni has publicly supported Arkansas’s anti-boycott law and said he stood with Israel in defending it. His campaign and commentary focus on that issue rather than a broader foreign-policy platform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.jns.org/opinion/nicholas-bronni/anti-israel-boycotts-are-not-ok-in-arkansas",
+              "type": "news",
+              "title": "Anti-Israel boycotts are not OK in Arkansas",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Bronni’s campaign says he has defended Arkansas’s voter ID law and written briefs on election integrity. No broader election-reform platform was found in his public campaign materials.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "Bronni says he wants Arkansas courts to be clearer, more accessible, and more efficient, and his campaign emphasizes plain-English opinions and a limited judicial role. His public materials also highlight his work on state court cases and access to justice.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://arktimes.com/arkansas-blog/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts",
+              "type": "news",
+              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Bronni says he has worked on cases involving crime victims, retirees, free speech, religious liberty, and civil-rights issues in his roles as solicitor general and justice. No broader standalone social-justice platform was found in his campaign materials.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.bronniforar.com/",
+              "type": "website",
+              "title": "Justice Nick Bronni",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "http://arcourts.gov/courts/supreme-court/justices/associate-justice-karen-r-baker-position-6",
+              "type": "government",
+              "title": "Associate Justice Nicholas Bronni, Position 6 - Arkansas Judiciary",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [
         {
           "title": "Associate Justice",
           "organization": "Arkansas Supreme Court",
           "start_year": 2025,
           "end_year": null,
-          "description": "Serves on Arkansas\u2019s highest court after appointment by Governor Sarah Huckabee Sanders."
+          "description": "Serves on Arkansas’s highest court after appointment by Governor Sarah Huckabee Sanders.",
+          "source": null
         },
         {
           "title": "Solicitor General",
-          "organization": "Arkansas Attorney General\u2019s Office",
+          "organization": "Arkansas Attorney General’s Office",
           "start_year": 2018,
           "end_year": 2024,
-          "description": "Served as Arkansas Solicitor General, representing the state in major appellate and constitutional litigation."
+          "description": "Served as Arkansas Solicitor General, representing the state in major appellate and constitutional litigation.",
+          "source": null
         },
         {
           "title": "Associate",
           "organization": "Private practice / international law firm",
           "start_year": null,
           "end_year": null,
-          "description": "Worked as an associate at Gibson Dunn & Crutcher LLP in Washington, D.C., before returning to Arkansas."
+          "description": "Worked as an associate at Gibson Dunn & Crutcher LLP in Washington, D.C., before returning to Arkansas.",
+          "source": null
         }
       ],
       "education": [
@@ -63,31 +355,38 @@
           "institution": "George Washington University",
           "degree": "Bachelor's degree",
           "field": "Elliott School of International Affairs",
-          "year": null
+          "year": null,
+          "source": null
         },
         {
           "institution": "University of Michigan Law School",
           "degree": "Juris Doctor",
           "field": "Law",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "Arkansas Secretary of State campaign finance disclosures show Justice Nick Bronni had raised $213,725.00 as of his last filed report, with $114,245.00 from individuals, $70,150.00 from PACs, $18,300.00 from county political party committees, and $6,000.00 from political parties. The largest listed donors in the disclosure include multiple $3,500 contributions from Arkansas health-care and business PACs such as Arkansas Health Care Political Action Committee, Arkansas Health Care Senate Political Action Committee, Arkansas Pharmacists Political Action Committee, Businesses for Justice PAC, and AR People First, indicating a donor base concentrated in health care, business, and legal/political networks.",
-      "donor_source_url": "https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=aab7c4e6-d0c4-45de-803e-a4261e3f229f&tabName=CAN",
       "voting_summary": "Nicholas Bronni is an incumbent Arkansas Supreme Court justice, not a legislator, so there is no legislative voting record to report. His public governing record is instead his judicial and solicitor-general work: the Arkansas Judiciary says he was appointed to the court in 2024 after serving as Solicitor General, where he argued cases including Delaware v. Pennsylvania and Rutledge v. PCMA, and his campaign site says he defended Arkansas laws on issues such as girls' sports, voter ID, and the state law barring contractors from boycotting Israel.",
       "voting_source_url": "https://arcourts.gov/courts/supreme-court/justices/associate-justice-karen-r-baker-position-6",
+      "voting_sources": [],
+      "donor_summary": "Arkansas Secretary of State campaign finance disclosures show Justice Nick Bronni had raised $213,725.00 as of his last filed report, with $114,245.00 from individuals, $70,150.00 from PACs, $18,300.00 from county political party committees, and $6,000.00 from political parties. The largest listed donors in the disclosure include multiple $3,500 contributions from Arkansas health-care and business PACs such as Arkansas Health Care Political Action Committee, Arkansas Health Care Senate Political Action Committee, Arkansas Pharmacists Political Action Committee, Businesses for Justice PAC, and AR People First, indicating a donor base concentrated in health care, business, and legal/political networks.",
+      "donor_source_url": "https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=aab7c4e6-d0c4-45de-803e-a4261e3f229f&tabName=CAN",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.bronniforar.com/",
-          "type": "campaign"
+          "title": "https://www.bronniforar.com/",
+          "type": "other"
         },
         {
           "url": "https://fedsoc.org/bio/nicholas-bronni",
-          "type": "biography"
+          "title": "https://fedsoc.org/bio/nicholas-bronni",
+          "type": "other"
         },
         {
           "url": "http://arcourts.gov/courts/supreme-court/justices/associate-justice-karen-r-baker-position-6",
-          "type": "judiciary"
+          "title": "http://arcourts.gov/courts/supreme-court/justices/associate-justice-karen-r-baker-position-6",
+          "type": "other"
         },
         {
           "url": "https://ballotpedia.org/Nicholas_Bronni",
@@ -120,182 +419,10 @@
           "type": "wiki"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/issues",
-              "type": "campaign_page",
-              "title": "Justice Nick Bronni \u2013 Issues (404)",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Bronni says he supports protecting taxpayers and tax cuts, and his campaign frames his record as opposing federal actions he says would harm Arkansas\u2019s economy, including student loan debt cancellation. His campaign also says he has worked to block regulations that would hurt small businesses and family farms.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.bronniforar.com/issues",
-              "type": "campaign_page",
-              "title": "Justice Nick Bronni \u2013 Issues (404)",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Bronni\u2019s campaign says he defended the Second Amendment against federal gun-control regulations. His campaign materials do not provide a broader public policy agenda on guns or public safety.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Bronni has publicly supported Arkansas\u2019s anti-boycott law and said he stood with Israel in defending it. His campaign and commentary focus on that issue rather than a broader foreign-policy platform.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.jns.org/opinion/nicholas-bronni/anti-israel-boycotts-are-not-ok-in-arkansas",
-              "type": "news",
-              "title": "Anti-Israel boycotts are not OK in Arkansas",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Bronni\u2019s campaign says he has defended Arkansas\u2019s voter ID law and written briefs on election integrity. No broader election-reform platform was found in his public campaign materials.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Bronni says he wants Arkansas courts to be clearer, more accessible, and more efficient, and his campaign emphasizes plain-English opinions and a limited judicial role. His public materials also highlight his work on state court cases and access to justice.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://arktimes.com/arkansas-blog/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts",
-              "type": "news",
-              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Bronni says he has worked on cases involving crime victims, retirees, free speech, religious liberty, and civil-rights issues in his roles as solicitor general and justice. No broader standalone social-justice platform was found in his campaign materials.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.bronniforar.com/",
-              "type": "campaign",
-              "title": "Justice Nick Bronni",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "http://arcourts.gov/courts/supreme-court/justices/associate-justice-karen-r-baker-position-6",
-              "type": "official",
-              "title": "Associate Justice Nicholas Bronni, Position 6 - Arkansas Judiciary",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.bronniforar.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "John Adams",
@@ -306,18 +433,314 @@
         {
           "url": "https://www.johnforjustice.org/about",
           "type": "website",
-          "title": "About John | Support Fair Justice Today"
+          "title": "About John | Support Fair Justice Today",
+          "description": null,
+          "last_accessed": "2026-06-20T03:16:11.631283Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://arkansasadvocate.com/2026/02/18/sanders-appointed-justice-and-lawyer-in-arkansas-library-case-go-head-to-head-in-supreme-court-race/",
           "type": "news",
-          "title": "Sanders-appointed justice and lawyer in Arkansas library case go head to head in Supreme Court race"
+          "title": "Sanders-appointed justice and lawyer in Arkansas library case go head to head in Supreme Court race",
+          "description": null,
+          "last_accessed": "2026-06-20T03:16:11.631283Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://www.johnforjustice.org/",
-      "social_media": {
-        "instagram": "https://www.instagram.com/johnforjustice2026/"
+      "issues": {
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Adams says Arkansas's courts should be funded in a way that reduces the financial burden on individuals; he advocates reforming court fees and funding mechanisms to ensure the ability to pay is considered and to prevent debtors' prisons.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://arktimes.com/arkansas-blog/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts/",
+              "type": "news",
+              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts - Arkansas Times",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://arkansasadvocate.com/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts/",
+              "type": "news",
+              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts - Arkansas Advocate",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://independentarkansas.com/bronni-adams-supreme-court/",
+              "type": "news",
+              "title": "Bronni vs. Adams for Supreme Court - Independent Arkansas",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.johnforjustice.org/issues",
+              "type": "website",
+              "title": "John Adams for Justice - Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/issue",
+              "type": "website",
+              "title": "John Adams for Justice - Issue",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/policy",
+              "type": "website",
+              "title": "John Adams for Justice - Policy",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/policies",
+              "type": "website",
+              "title": "John Adams for Justice - Policies",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/priorities",
+              "type": "website",
+              "title": "John Adams for Justice - Priorities",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/platform",
+              "type": "website",
+              "title": "John Adams for Justice - Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "Adams says he wants fair and impartial courts, equal treatment under the law, and broader access to justice in Arkansas. His campaign highlights pro bono work, protection of the right to read, and opposition to court practices that can trap low-income people in debt.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.johnforjustice.org/about",
+              "type": "website",
+              "title": "About John | Support Fair Justice Today",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://arkansasadvocate.com/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts/",
+              "type": "news",
+              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "Adams supports nonpartisan judicial elections and presents himself as an independent voice focused on judicial restraint and constitutional limits on power.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://arkansasadvocate.com/2026/02/18/sanders-appointed-justice-and-lawyer-in-arkansas-library-case-go-head-to-head-in-supreme-court-race/",
+              "type": "news",
+              "title": "Sanders-appointed justice and lawyer in Arkansas library case go head to head in Supreme Court race",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/about",
+              "type": "website",
+              "title": "About John | Support Fair Justice Today",
+              "description": null,
+              "last_accessed": "2026-04-07T09:38:35.352412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.johnforjustice.org/issues",
+              "type": "website",
+              "title": "John Adams for Justice - Issues",
+              "description": null,
+              "last_accessed": "2026-04-07T09:39:45.140122Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/issue",
+              "type": "website",
+              "title": "John Adams for Justice - Issue",
+              "description": null,
+              "last_accessed": "2026-04-07T09:39:45.140122Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/policy",
+              "type": "website",
+              "title": "John Adams for Justice - Policy",
+              "description": null,
+              "last_accessed": "2026-04-07T09:39:45.140122Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/policies",
+              "type": "website",
+              "title": "John Adams for Justice - Policies",
+              "description": null,
+              "last_accessed": "2026-04-07T09:39:45.140122Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/priorities",
+              "type": "website",
+              "title": "John Adams for Justice - Priorities",
+              "description": null,
+              "last_accessed": "2026-04-07T09:39:45.140122Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.johnforjustice.org/platform",
+              "type": "website",
+              "title": "John Adams for Justice - Platform",
+              "description": null,
+              "last_accessed": "2026-04-07T09:39:45.140122Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
       },
       "career_history": [
         {
@@ -325,28 +748,32 @@
           "organization": "Fuqua Campbell, P.A.",
           "start_year": null,
           "end_year": null,
-          "description": "Private practice attorney handling appellate, business, civil, and constitutional matters in Arkansas."
+          "description": "Private practice attorney handling appellate, business, civil, and constitutional matters in Arkansas.",
+          "source": null
         },
         {
           "title": "Assistant Attorney General",
-          "organization": "Arkansas Attorney General\u2019s Office",
+          "organization": "Arkansas Attorney General’s Office",
           "start_year": null,
           "end_year": null,
-          "description": "Worked in the criminal division on criminal and constitutional appeals."
+          "description": "Worked in the criminal division on criminal and constitutional appeals.",
+          "source": null
         },
         {
           "title": "General Counsel",
           "organization": "Bear State",
           "start_year": null,
           "end_year": null,
-          "description": "Served as legal counsel for an Arkansas community bank, with experience in banking regulation and business disputes."
+          "description": "Served as legal counsel for an Arkansas community bank, with experience in banking regulation and business disputes.",
+          "source": null
         },
         {
           "title": "Law professor",
           "organization": "University of Arkansas at Little Rock Bowen School of Law",
           "start_year": null,
           "end_year": null,
-          "description": "Taught constitutional law and business law at Bowen Law School."
+          "description": "Taught constitutional law and business law at Bowen Law School.",
+          "source": null
         }
       ],
       "education": [
@@ -354,29 +781,36 @@
           "institution": "University of Michigan Law School",
           "degree": "Juris Doctor",
           "field": "Law",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "No current 2026 Arkansas Supreme Court campaign finance disclosure was found in the sources reviewed. The only finance record located for John Adams was a historical 2010 FEC filing for his congressional campaign, so it is not used here as current race funding information.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/H0AR02149/",
       "voting_summary": "John Adams has not held legislative office, so there is no legislative voting record to report. His public governing record is instead his legal and advocacy work: his campaign says he has spent about 20 years representing Arkansans, including work on civil rights, defending librarians against book bans, and challenging court fees that burden low-income families; the Arkansas Supreme Court campaign site also describes him as a fifth-generation Arkansan with experience in banking and constitutional law.",
       "voting_source_url": "https://www.johnforjustice.org/",
+      "voting_sources": [],
+      "donor_summary": "No current 2026 Arkansas Supreme Court campaign finance disclosure was found in the sources reviewed. The only finance record located for John Adams was a historical 2010 FEC filing for his congressional campaign, so it is not used here as current race funding information.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H0AR02149/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://www.johnforjustice.org/",
-          "type": "campaign"
+          "title": "https://www.johnforjustice.org/",
+          "type": "other"
         },
         {
           "url": "https://www.johnforjustice.org/about",
-          "type": "campaign"
+          "title": "https://www.johnforjustice.org/about",
+          "type": "other"
         },
         {
           "url": "https://www.fc-lawyers.com/?page_id=1131",
-          "type": "biography"
+          "title": "https://www.fc-lawyers.com/?page_id=1131",
+          "type": "other"
         },
         {
           "url": "https://www.instagram.com/johnforjustice2026/",
-          "type": "social"
+          "title": "https://www.instagram.com/johnforjustice2026/",
+          "type": "other"
         },
         {
           "url": "https://ballotpedia.org/John_Adams_(Arkansas)",
@@ -409,194 +843,22 @@
           "type": "votesmart"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "Adams says Arkansas's courts should be funded in a way that reduces the financial burden on individuals; he advocates reforming court fees and funding mechanisms to ensure the ability to pay is considered and to prevent debtors' prisons.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://arktimes.com/arkansas-blog/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts/",
-              "type": "news",
-              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts - Arkansas Times",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://arkansasadvocate.com/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts/",
-              "type": "news",
-              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts - Arkansas Advocate",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://independentarkansas.com/bronni-adams-supreme-court/",
-              "type": "news",
-              "title": "Bronni vs. Adams for Supreme Court - Independent Arkansas",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.johnforjustice.org/issues",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Issues",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/issue",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Issue",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/policy",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Policy",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/policies",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Policies",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/priorities",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Priorities",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/platform",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Platform",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Guns & Safety": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Social Justice": {
-          "stance": "Adams says he wants fair and impartial courts, equal treatment under the law, and broader access to justice in Arkansas. His campaign highlights pro bono work, protection of the right to read, and opposition to court practices that can trap low-income people in debt.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.johnforjustice.org/about",
-              "type": "website",
-              "title": "About John | Support Fair Justice Today",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://arkansasadvocate.com/2026/02/27/issue-spotlight-how-arkansas-supreme-court-candidates-want-to-improve-state-courts/",
-              "type": "news",
-              "title": "Issue Spotlight: How Arkansas Supreme Court candidates want to improve state courts",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Election Reform": {
-          "stance": "Adams supports nonpartisan judicial elections and presents himself as an independent voice focused on judicial restraint and constitutional limits on power.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://arkansasadvocate.com/2026/02/18/sanders-appointed-justice-and-lawyer-in-arkansas-library-case-go-head-to-head-in-supreme-court-race/",
-              "type": "news",
-              "title": "Sanders-appointed justice and lawyer in Arkansas library case go head to head in Supreme Court race",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/about",
-              "type": "website",
-              "title": "About John | Support Fair Justice Today",
-              "last_accessed": "2026-04-07T09:38:35.352412+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Healthcare": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.johnforjustice.org/issues",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Issues",
-              "last_accessed": "2026-04-07T09:39:45.140122+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/issue",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Issue",
-              "last_accessed": "2026-04-07T09:39:45.140122+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/policy",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Policy",
-              "last_accessed": "2026-04-07T09:39:45.140122+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/policies",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Policies",
-              "last_accessed": "2026-04-07T09:39:45.140122+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/priorities",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Priorities",
-              "last_accessed": "2026-04-07T09:39:45.140122+00:00"
-            },
-            {
-              "url": "https://www.johnforjustice.org/platform",
-              "type": "campaign page",
-              "title": "John Adams for Justice - Platform",
-              "last_accessed": "2026-04-07T09:39:45.140122+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        }
-      }
+      "website": "https://www.johnforjustice.org/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/johnforjustice2026/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-07T09:39:45.140122+00:00",
+  "updated_utc": "2026-06-20T03:16:17.072809+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3-flash-preview",
-    "grok-3-mini"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-04-07T09:40:14.622954+00:00",
+      "reviewed_at": "2026-04-07T09:40:14.622954Z",
       "verdict": "needs_revision",
       "score": 72,
       "flags": [
@@ -608,7 +870,7 @@
         },
         {
           "field": "candidates[0].incumbent",
-          "concern": "Nicholas Bronni is labeled 'incumbent: true,' but the profile's own description states that state law barred appointed justices from running for re-election 'to the same seat,' forcing two incumbent appointees to run for 'each other's seats.' The profile does not clarify whether Bronni is technically an incumbent justice (yes) or whether he is running for his own seat (no \u2014 he is running for Adams's seat). This creates ambiguity about what 'incumbent' means in this context.",
+          "concern": "Nicholas Bronni is labeled 'incumbent: true,' but the profile's own description states that state law barred appointed justices from running for re-election 'to the same seat,' forcing two incumbent appointees to run for 'each other's seats.' The profile does not clarify whether Bronni is technically an incumbent justice (yes) or whether he is running for his own seat (no — he is running for Adams's seat). This creates ambiguity about what 'incumbent' means in this context.",
           "suggestion": "Either: (1) add a clarifying note in the candidate summary or a new field explaining the seat-swap situation, or (2) revise the 'incumbent' label with additional context (e.g., 'incumbent justice, running for different seat'). This is important for readers to understand the race's unusual legal constraint.",
           "severity": "info"
         },
@@ -653,7 +915,7 @@
     },
     {
       "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-07T09:40:04.741130+00:00",
+      "reviewed_at": "2026-04-07T09:40:04.741130Z",
       "verdict": "approved",
       "score": 94,
       "flags": [
@@ -674,7 +936,7 @@
     },
     {
       "model": "grok-3-mini",
-      "reviewed_at": "2026-04-07T09:39:59.765825+00:00",
+      "reviewed_at": "2026-04-07T09:39:59.765825Z",
       "verdict": "approved",
       "score": 91,
       "flags": [
@@ -695,33 +957,58 @@
     "summary": "Validated by 2/3 reviewers with an average score of 86/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 2072248,
-    "completion_tokens": 177980,
-    "total_tokens": 2250228,
-    "estimated_usd": 0.3477,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3283,
+    "completion_tokens": 192,
+    "total_tokens": 3475,
+    "cost_usd": 0.0087835,
+    "cost_source": "provider",
+    "estimated_usd": 0.011088,
     "model_breakdown": {
-      "gpt-5.4-mini": {
-        "prompt_tokens": 690732,
-        "completion_tokens": 9578
-      },
-      "gpt-5-nano": {
-        "prompt_tokens": 1329681,
-        "completion_tokens": 162292
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 15401,
-        "completion_tokens": 410
-      },
-      "gemini-3-flash-preview": {
-        "prompt_tokens": 18558,
-        "completion_tokens": 936
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 17876,
-        "completion_tokens": 4764
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3283,
+        "completion_tokens": 192
       }
     },
-    "duration_s": 1705.1
-  }
+    "duration_s": 5.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2970,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0028,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nicholas Bronni",
+    "predicted_winner_party": "Nonpartisan",
+    "win_probability": 0.67,
+    "party_probabilities": {
+      "Other": 1.0
+    },
+    "margin_estimate": 6.0,
+    "rating": "other",
+    "confidence": "low",
+    "rationale": "This is a nonpartisan Arkansas Supreme Court race with no public polling, so the forecast relies on limited structural indicators rather than direct voter data. Bronni appears to hold a modest edge because he is an incumbent justice, has higher visible fundraising in the provided data, and has ties to prominent statewide Republican legal networks through his prior service as solicitor general and appointment to the court. Adams presents a credible challenge and the race drew unusual attention, which keeps uncertainty elevated; without polls, the estimated advantage should be treated as tentative rather than decisive.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:16.263515Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "schema_version": "0.3",
+  "ballotpedia_url": null,
+  "register_to_vote_url": null,
+  "how_to_vote_url": null
 }

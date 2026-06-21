@@ -103,7 +103,7 @@
       "links": [
         {
           "url": "https://ballotpedia.org/Ron_Estes_(U.S._Representative_from_Kansas)",
-          "title": "Ballotpedia \u2013 Ron Estes",
+          "title": "Ballotpedia – Ron Estes",
           "type": "other"
         }
       ],
@@ -362,7 +362,7 @@
         {
           "url": "https://drew4kansas.com/",
           "type": "website",
-          "title": "Drew Cranmer for Congress \u2014 Kansas 4th District",
+          "title": "Drew Cranmer for Congress — Kansas 4th District",
           "description": null,
           "last_accessed": "2026-06-11T00:00:00Z",
           "published_at": null,
@@ -468,7 +468,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kansas%27_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:01:27.483917+00:00",
+  "updated_utc": "2026-06-20T15:20:43.197261+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -482,18 +482,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 264136,
-    "completion_tokens": 9624,
-    "total_tokens": 273760,
-    "cost_usd": 0.01915544,
+    "prompt_tokens": 16913,
+    "completion_tokens": 1742,
+    "total_tokens": 18655,
+    "cost_usd": 0.001998906,
     "cost_source": "provider",
-    "estimated_usd": 0.027772,
+    "estimated_usd": 0.001836,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 264136,
-        "completion_tokens": 9624
+        "prompt_tokens": 16913,
+        "completion_tokens": 1742
       }
     },
-    "duration_s": 142.0
+    "duration_s": 23.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9818,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0094,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ron Estes",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Other": 0.01
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, reducing precision. However, the structural factors are clear and consistent: Kansas's 4th District has been held by Republicans since 1994; incumbent Ron Estes (first elected 2017) is seeking re-election on a conservative platform with committee seniority (Ways and Means, Budget); and major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) uniformly rate the race as 'Solid R' or 'Safe R.' The Democratic primary remains unsettled among three candidates (Carmichael, Tyndell, Gilbert) ahead of the August 4 primary, with no single dominant fundraiser or clear nominee—though Tyndell showed some early fundraising strength. A Libertarian candidate is also running but has no demonstrated path to victory. Given the district's long Republican alignment, incumbency advantage, forecaster consensus, and lack of data suggesting a shift, Republicans remain overwhelming favorites. The medium confidence reflects the absence of polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:39.190522Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

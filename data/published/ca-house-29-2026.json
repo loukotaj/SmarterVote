@@ -6,7 +6,7 @@
   "state": "California",
   "district": "29th Congressional District",
   "election_date": "2026-11-03",
-  "description": "California's 29th Congressional District, covering parts of the San Fernando Valley including Arleta, Pacoima, San Fernando, Sylmar, and Van Nuys, holds a general election on November 3, 2026. Under California's top-two primary system, both candidates who advanced are Democrats, meaning the seat is guaranteed to remain in Democratic hands. Incumbent Luz Maria Rivas, first elected in 2024, faces a progressive challenge from community organizer Ang\u00e9lica Mar\u00eda Due\u00f1as, who has run for this seat multiple times. The Cook Political Report rated the district as Solidly Democratic for the general election.",
+  "description": "California's 29th Congressional District, covering parts of the San Fernando Valley including Arleta, Pacoima, San Fernando, Sylmar, and Van Nuys, holds a general election on November 3, 2026. Under California's top-two primary system, both candidates who advanced are Democrats, meaning the seat is guaranteed to remain in Democratic hands. Incumbent Luz Maria Rivas, first elected in 2024, faces a progressive challenge from community organizer Angélica María Dueñas, who has run for this seat multiple times. The Cook Political Report rated the district as Solidly Democratic for the general election.",
   "polling": [],
   "polling_note": "No public opinion polls were found for the 2026 general election in California's 29th Congressional District. The Cook Political Report rated the race as Solidly Democratic.",
   "candidates": [
@@ -130,15 +130,15 @@
       "withdrawal_reason": null
     },
     {
-      "name": "Ang\u00e9lica Mar\u00eda Due\u00f1as",
+      "name": "Angélica María Dueñas",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Ang\u00e9lica Mar\u00eda Due\u00f1as is a progressive Democratic candidate and community organizer running for U.S. House in California's 29th Congressional District. A Human Resources specialist and Sun Valley Area Neighborhood Council member, she has run for this seat multiple times since 2020. Her platform emphasizes abolishing ICE, Medicare for All, national rent control, and rejecting corporate PAC and AIPAC money.",
+      "summary": "Angélica María Dueñas is a progressive Democratic candidate and community organizer running for U.S. House in California's 29th Congressional District. A Human Resources specialist and Sun Valley Area Neighborhood Council member, she has run for this seat multiple times since 2020. Her platform emphasizes abolishing ICE, Medicare for All, national rent control, and rejecting corporate PAC and AIPAC money.",
       "summary_sources": [
         {
           "url": "https://angelica4congress.com/",
           "type": "website",
-          "title": "Ang\u00e9lica Due\u00f1as for Congress",
+          "title": "Angélica Dueñas for Congress",
           "description": null,
           "last_accessed": "2026-06-13T18:00:00Z",
           "published_at": null,
@@ -149,7 +149,7 @@
         {
           "url": "https://www.ocregister.com/2026/05/04/angelica-maria-duenas-ca-29-candidate-2026-primary-election-questionnaire/",
           "type": "news",
-          "title": "Ang\u00e9lica Mar\u00eda Due\u00f1as, CA-29 candidate, 2026 primary election questionnaire",
+          "title": "Angélica María Dueñas, CA-29 candidate, 2026 primary election questionnaire",
           "description": null,
           "last_accessed": "2026-06-13T18:00:00Z",
           "published_at": null,
@@ -160,7 +160,7 @@
         {
           "url": "https://www.ballotready.org/people/angelica-maria-duenas-c15075d9-d40f-4d5e-b273-1d85f1721574",
           "type": "website",
-          "title": "Ang\u00e9lica Mar\u00eda Due\u00f1as - BallotReady",
+          "title": "Angélica María Dueñas - BallotReady",
           "description": null,
           "last_accessed": "2026-06-13T18:00:00Z",
           "published_at": null,
@@ -254,7 +254,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_29th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:54:12.577277+00:00",
+  "updated_utc": "2026-06-20T15:24:44.267726+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -268,18 +268,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 168971,
-    "completion_tokens": 6727,
-    "total_tokens": 175698,
-    "cost_usd": 0.013963922,
+    "prompt_tokens": 11823,
+    "completion_tokens": 2114,
+    "total_tokens": 13937,
+    "cost_usd": 0.001572998,
     "cost_source": "provider",
-    "estimated_usd": 0.017878,
+    "estimated_usd": 0.001445,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 168971,
-        "completion_tokens": 6727
+        "prompt_tokens": 11823,
+        "completion_tokens": 2114
       }
     },
-    "duration_s": 105.0
+    "duration_s": 30.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6900,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Luz Maria Rivas",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.8,
+    "party_probabilities": {
+      "Democratic": 1.0,
+      "Republican": 0.0,
+      "Independent": 0.0,
+      "Other": 0.0
+    },
+    "margin_estimate": 12.0,
+    "rating": "safe_d",
+    "confidence": "low",
+    "rationale": "California's top-two primary produced two Democratic finalists, guaranteeing the seat stays in Democratic hands — hence safe_d rating and 100% Democratic party probability. Within the all-Democratic matchup, incumbent Luz Maria Rivas (first elected 2024, former state assemblymember, MIT/Harvard background) starts as the clear favorite against Angélica María Dueñas (progressive community organizer who has run unsuccessfully for this seat multiple times since 2020). However, no public general-election polling exists, and intraparty contests can be unpredictable, so confidence in the candidate-level forecast is low. The 12-point margin estimate is a rough baseline reflecting incumbency advantage and the district's solidly Democratic lean, but the actual margin could vary significantly without polling to guide it.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:39.211715Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

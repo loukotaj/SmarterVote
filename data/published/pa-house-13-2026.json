@@ -165,7 +165,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania_House_of_Representatives_District_13",
-  "updated_utc": "2026-06-13T21:49:38.103865+00:00",
+  "updated_utc": "2026-06-20T15:37:54.562430+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -179,18 +179,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 212209,
-    "completion_tokens": 5390,
-    "total_tokens": 217599,
-    "cost_usd": 0.016940794,
+    "prompt_tokens": 10304,
+    "completion_tokens": 1943,
+    "total_tokens": 12247,
+    "cost_usd": 0.00139062,
     "cost_source": "provider",
-    "estimated_usd": 0.021853,
+    "estimated_usd": 0.001277,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 212209,
-        "completion_tokens": 5390
+        "prompt_tokens": 10304,
+        "completion_tokens": 1943
       }
     },
-    "duration_s": 127.7
+    "duration_s": 32.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5902,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0056,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "John A. Lawrence",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.73,
+    "party_probabilities": {
+      "Republican": 0.73,
+      "Democratic": 0.27
+    },
+    "margin_estimate": 6.0,
+    "rating": "lean_r",
+    "confidence": "low",
+    "rationale": "No district-specific public polling exists for this race as of mid-2026, so this forecast relies on structural factors rather than direct voter measurement. The district has a Republican lean of R+4.7 based on 2024 presidential results. Incumbent John Lawrence has held the seat since 2010, adding a meaningful incumbency advantage through 16 years of service, committee leadership (Commerce Chair, Agriculture & Rural Affairs Vice Chair), and demonstrated electoral durability. Democratic challenger Madelyn Alvarino is a credible candidate with several endorsements, and the district is described as potentially competitive, which tempers the Republican rating. However, absent polling and in a district with a clear Republican structural edge plus a long-serving incumbent, Republicans hold a meaningful advantage. The low confidence reflects the absence of polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:47.347262Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

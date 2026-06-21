@@ -14,7 +14,7 @@
       "name": "Joe Mitchell",
       "party": "Republican Party",
       "incumbent": false,
-      "summary": "Joe Mitchell is a former Iowa state representative (2019\u20132023) who won the Republican nomination for Iowa's 2nd Congressional District on June 2, 2026, defeating state senator Charlie McClintock. At 29, he is the youngest candidate in the race, and his campaign emphasizes fiscal conservatism, reducing government spending, and supporting Trump's agenda. He previously served as a Regional Administrator for the U.S. Department of Housing and Urban Development and as Chief of Staff at the Federal Housing Finance Agency under the Trump administration.",
+      "summary": "Joe Mitchell is a former Iowa state representative (2019–2023) who won the Republican nomination for Iowa's 2nd Congressional District on June 2, 2026, defeating state senator Charlie McClintock. At 29, he is the youngest candidate in the race, and his campaign emphasizes fiscal conservatism, reducing government spending, and supporting Trump's agenda. He previously served as a Regional Administrator for the U.S. Department of Housing and Urban Development and as Chief of Staff at the Federal Housing Finance Agency under the Trump administration.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Joe_Mitchell_(politician)",
@@ -102,7 +102,7 @@
       "name": "Lindsay James",
       "party": "Democratic Party",
       "incumbent": false,
-      "summary": "Lindsay James is an Iowa state representative (2019\u2013present) and Presbyterian minister who won the Democratic nomination for Iowa's 2nd Congressional District on June 2, 2026. She defeated primary challengers Clint Twedt-Ball and Kathy Dolter with 57.3% of the vote. Her campaign focuses on lowering healthcare and housing costs, protecting reproductive rights, and expanding access to affordable insulin. She has served as Minority Whip in the Iowa House and previously worked as a chaplain and adjunct professor at the University of Dubuque.",
+      "summary": "Lindsay James is an Iowa state representative (2019–present) and Presbyterian minister who won the Democratic nomination for Iowa's 2nd Congressional District on June 2, 2026. She defeated primary challengers Clint Twedt-Ball and Kathy Dolter with 57.3% of the vote. Her campaign focuses on lowering healthcare and housing costs, protecting reproductive rights, and expanding access to affordable insulin. She has served as Minority Whip in the Iowa House and previously worked as a chaplain and adjunct professor at the University of Dubuque.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Lindsay_James_(politician)",
@@ -285,7 +285,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Iowa%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:48:31.686176+00:00",
+  "updated_utc": "2026-06-20T15:25:13.299191+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -299,18 +299,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 252542,
-    "completion_tokens": 7580,
-    "total_tokens": 260122,
-    "cost_usd": 0.02140254,
+    "prompt_tokens": 19906,
+    "completion_tokens": 2800,
+    "total_tokens": 22706,
+    "cost_usd": 0.002439684,
     "cost_source": "provider",
-    "estimated_usd": 0.026235,
+    "estimated_usd": 0.002296,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 252542,
-        "completion_tokens": 7580
+        "prompt_tokens": 19906,
+        "completion_tokens": 2800
       }
     },
-    "duration_s": 127.3
+    "duration_s": 59.3,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8978,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0086,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Joe Mitchell",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.81,
+    "party_probabilities": {
+      "Republican": 0.81,
+      "Democratic": 0.18,
+      "Independent": 0.01
+    },
+    "margin_estimate": 5.0,
+    "rating": "likely_r",
+    "confidence": "low",
+    "rationale": "No public general-election polling is available for this open-seat race, so confidence is low and the forecast relies entirely on non-polling indicators. Cook Political Report rates the race as Likely Republican, which provides the strongest directional signal. Republicans have held the district since 2021, and the seat has a recent GOP lean. However, the open-seat nature and the strong Democratic nominee (state Representative Lindsay James, who won her primary with 57.3%) prevent the race from tilting safer. Republican nominee Joe Mitchell is a former state representative and Trump administration appointee who won a competitive primary. Independent Dave Bushaw is on the ballot but shows no indication of contending for first place. The likely_r rating (roughly 80-94% Republican win probability) with a win probability of 0.81 reflects a clear Republican advantage tempered by the open seat, credible Democratic opposition, and the absence of any polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:03.890659Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

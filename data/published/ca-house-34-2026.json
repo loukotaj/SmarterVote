@@ -134,7 +134,7 @@
         {
           "url": "https://www.angela4congress.com/about",
           "type": "website",
-          "title": "About \u2014 Angela Gonzales-Torres for Congress",
+          "title": "About — Angela Gonzales-Torres for Congress",
           "description": null,
           "last_accessed": "2025-06-13T00:00:00Z",
           "published_at": null,
@@ -230,7 +230,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_34th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:09:25.183835+00:00",
+  "updated_utc": "2026-06-20T15:32:07.210409+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -244,18 +244,52 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 194786,
-    "completion_tokens": 7853,
-    "total_tokens": 202639,
-    "cost_usd": 0.01684428,
+    "prompt_tokens": 11456,
+    "completion_tokens": 2461,
+    "total_tokens": 13917,
+    "cost_usd": 0.00154514,
     "cost_source": "provider",
-    "estimated_usd": 0.020628,
+    "estimated_usd": 0.001474,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 194786,
-        "completion_tokens": 7853
+        "prompt_tokens": 11456,
+        "completion_tokens": 2461
       }
     },
-    "duration_s": 121.6
+    "duration_s": 48.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6770,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jimmy Gomez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Democratic": 1.0
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "California's 34th Congressional District has a Cook PVI of D+28 and is rated 'Solidly Democratic' by the Cook Political Report. Both general-election candidates are Democrats — seven-term incumbent Jimmy Gomez faces progressive challenger Angela Gonzales-Torres (endorsed by Justice Democrats). No public general-election polls are available. At the party level, a Democratic win is certain (100%), as there is no Republican or third-party candidate on the ballot. At the candidate level, incumbent Jimmy Gomez holds advantages in seniority, name recognition, institutional support, and committee position (Ways and Means), though Gonzales-Torres has an organized progressive campaign. The absence of direct candidate-level polling limits precision, but the district's fundamentals and incumbency favor Gomez.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:01.054523Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

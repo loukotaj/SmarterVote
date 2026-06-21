@@ -219,7 +219,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_20th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:36:26.919834+00:00",
+  "updated_utc": "2026-06-20T15:39:50.465076+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -233,18 +233,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 185674,
-    "completion_tokens": 6088,
-    "total_tokens": 191762,
-    "cost_usd": 0.012540276,
+    "prompt_tokens": 10772,
+    "completion_tokens": 1946,
+    "total_tokens": 12718,
+    "cost_usd": 0.001437072,
     "cost_source": "provider",
-    "estimated_usd": 0.019389,
+    "estimated_usd": 0.00132,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 185674,
-        "completion_tokens": 6088
+        "prompt_tokens": 10772,
+        "completion_tokens": 1946
       }
     },
-    "duration_s": 132.3
+    "duration_s": 28.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6352,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Paul Tonko",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No recent public opinion polls are available for this race, so the forecast rests entirely on structural indicators. Those indicators are strongly favorable to Democrats: Paul Tonko is a well-established 10-term incumbent first elected in 2008, the district (Capital Region) has been reliably Democratic in recent cycles, and Cook Political Report rates the seat 'Solid D.' Republican challenger Ralph Ambrosio is a credible candidate with law enforcement, legal, and military experience, but the district's Democratic lean presents a steep challenge. With zero polling data and primaries still three days away (June 23, 2026), confidence is medium rather than high, but Democrats remain overwhelming favorites in this seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:45.481752Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

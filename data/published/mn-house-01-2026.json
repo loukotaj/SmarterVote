@@ -51,7 +51,7 @@
       "name": "Brad Finstad",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Brad Finstad is the incumbent U.S. Representative for Minnesota's 1st Congressional District, first elected in a 2022 special election and re-elected in 2022 and 2024. A fourth-generation farmer from New Ulm, he previously served in the Minnesota House of Representatives (2003\u20132009) and as Minnesota state director of USDA Rural Development under President Trump (2017\u20132021). Finstad serves on the House Agriculture, Armed Services, and Small Business committees, and chairs the Agriculture Subcommittee on Nutrition, Foreign Agriculture, and Horticulture.",
+      "summary": "Brad Finstad is the incumbent U.S. Representative for Minnesota's 1st Congressional District, first elected in a 2022 special election and re-elected in 2022 and 2024. A fourth-generation farmer from New Ulm, he previously served in the Minnesota House of Representatives (2003–2009) and as Minnesota state director of USDA Rural Development under President Trump (2017–2021). Finstad serves on the House Agriculture, Armed Services, and Small Business committees, and chairs the Agriculture Subcommittee on Nutrition, Foreign Agriculture, and Horticulture.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Brad_Finstad",
@@ -415,7 +415,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:48:12.815026+00:00",
+  "updated_utc": "2026-06-20T15:46:15.917844+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -429,18 +429,57 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 322642,
-    "completion_tokens": 18693,
-    "total_tokens": 341335,
-    "cost_usd": 0.023960888,
+    "prompt_tokens": 17864,
+    "completion_tokens": 2643,
+    "total_tokens": 20507,
+    "cost_usd": 0.0022687000000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.035283,
+    "estimated_usd": 0.002083,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 322642,
-        "completion_tokens": 18693
+        "prompt_tokens": 17864,
+        "completion_tokens": 2643
       }
     },
-    "duration_s": 202.4
+    "duration_s": 35.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10571,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0101,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brad Finstad",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.83,
+    "party_probabilities": {
+      "Republican": 0.83,
+      "Democratic": 0.16,
+      "Independent": 0.01
+    },
+    "margin_estimate": 6.5,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "Incumbent Republican Brad Finstad is favored for re-election in this Republican-leaning southern Minnesota district (Trump +7 in 2020; Finstad won 58.5% in 2024) but the race has become genuinely competitive. The two available polls — Ragnar Research (R client, March 2026) showing Finstad +10 and Public Policy Polling (D/Johnson campaign, Feb 2026) showing Finstad +3 — both place Finstad ahead, averaging about a 6–7 point lead, but with a significant spread indicating uncertainty. Challenger Jake Johnson is a credible, well-funded DFL candidate with key endorsements (Buttigieg, Sen. Smith, NEA, state DFL party), and national analysts have shifted the rating from Safe R to Likely R. However, only two partisan-sponsored polls exist, the August 11 primary has yet to occur (general election matchups are not fully settled), and this is a historically Republican district with an incumbent who has consistently outperformed the top of the ticket. Independent candidate Oliver Morlan adds a minor wildcard.",
+    "based_on_poll_count": 2,
+    "generated_at": "2026-06-20T15:46:10.534565Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://punchbowl.news/wp-content/uploads/CFA_MN-CD-1_Benchmark_Analysis_v1.0_260323.pdf",
+      "https://www.postbulletin.com/news/local/new-poll-fundraising-shows-jake-johnson-within-striking-distance-of-brad-finstad"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

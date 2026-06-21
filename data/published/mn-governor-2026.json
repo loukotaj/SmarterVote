@@ -789,10 +789,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T23:17:01.415154+00:00",
+  "updated_utc": "2026-06-20T03:17:04.933060+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://www.sos.mn.gov/elections-voting/register-to-vote/",
   "how_to_vote_url": "https://www.sos.mn.gov/elections-voting/",
@@ -880,21 +879,56 @@
     "summary": "Validated by 3/3 reviewers with an average score of 91/100."
   },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 76784,
-    "completion_tokens": 9282,
-    "total_tokens": 86066,
-    "cost_usd": 0.0055072,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3398,
+    "completion_tokens": 203,
+    "total_tokens": 3601,
+    "cost_usd": 0.009236,
     "cost_source": "provider",
-    "estimated_usd": 0.007552,
+    "estimated_usd": 0.01154,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 76784,
-        "completion_tokens": 9282
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3398,
+        "completion_tokens": 203
       }
     },
-    "duration_s": 81.3
+    "duration_s": 8.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2940,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0028,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.58,
+    "party_probabilities": {
+      "Democratic": 0.58,
+      "Republican": 0.42
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "There is no usable public head-to-head polling in the provided race data, and the current candidate list includes only Republican candidates while no Democratic general-election candidate is established here. With sparse race-specific evidence, confidence must be low. Minnesota has been a competitive but generally Democratic-leaning statewide environment in recent cycles, and the incumbent governor is a Democrat, though the provided data does not establish that he is seeking reelection. Given that party context modestly favors Democrats but the field is incomplete and polling is absent, the most defensible informational rating is Tilt Democratic.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:04.085253Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

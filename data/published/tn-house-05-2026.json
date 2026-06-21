@@ -114,7 +114,7 @@
       "name": "Charlie Hatcher",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Former Tennessee Commissioner of Agriculture (2019\u20132025) appointed by Governor Bill Lee, running to challenge incumbent Andy Ogles in the Republican primary. Hatcher is a veterinarian, tenth-generation American farmer, and fifth-generation Tennessee farmer who previously served as a member of the Tennessee State Board of Education.",
+      "summary": "Former Tennessee Commissioner of Agriculture (2019–2025) appointed by Governor Bill Lee, running to challenge incumbent Andy Ogles in the Republican primary. Hatcher is a veterinarian, tenth-generation American farmer, and fifth-generation Tennessee farmer who previously served as a member of the Tennessee State Board of Education.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Charlie_Hatcher",
@@ -467,7 +467,7 @@
       "withdrawal_reason": null
     },
     {
-      "name": "Miche\u00e1l O'Leary",
+      "name": "Micheál O'Leary",
       "party": "Independent",
       "incumbent": false,
       "summary": "Independent candidate running for U.S. House in Tennessee's 5th Congressional District. O'Leary is a former California official who joined the race in early 2026 and will appear on the general election ballot.",
@@ -513,7 +513,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Tennessee%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:54:18.413310+00:00",
+  "updated_utc": "2026-06-20T15:32:42.908848+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -527,18 +527,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 242197,
-    "completion_tokens": 10304,
-    "total_tokens": 252501,
-    "cost_usd": 0.016429833999999997,
+    "prompt_tokens": 12753,
+    "completion_tokens": 1493,
+    "total_tokens": 14246,
+    "cost_usd": 0.001482518,
     "cost_source": "provider",
-    "estimated_usd": 0.025755,
+    "estimated_usd": 0.001417,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 242197,
-        "completion_tokens": 10304
+        "prompt_tokens": 12753,
+        "completion_tokens": 1493
       }
     },
-    "duration_s": 159.7
+    "duration_s": 22.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9844,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0094,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Andy Ogles",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which limits confidence. However, major election forecasters rate this seat as Solid/Safe Republican under the dramatically redrawn map that removed heavily Democratic Davidson County (Nashville) and stretches into more rural/suburban territory. The structural partisan lean of the new district overwhelmingly favors Republicans. Incumbent Andy Ogles faces a primary challenge from Charlie Hatcher, and Democrats have a competitive multi-candidate primary, but neither primary introduces evidence sufficient to overcome the district's strong Republican baseline. The general election is not expected to be competitive under the current map configuration.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:35.629946Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

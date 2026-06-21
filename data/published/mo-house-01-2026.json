@@ -1042,7 +1042,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:14:02.227224+00:00",
+  "updated_utc": "2026-06-20T15:35:53.957884+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -1187,28 +1187,58 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 170588,
-    "completion_tokens": 11577,
-    "total_tokens": 182165,
-    "cost_usd": 0.012628539999999999,
+    "prompt_tokens": 32213,
+    "completion_tokens": 4647,
+    "total_tokens": 36860,
+    "cost_usd": 0.004067686,
     "cost_source": "provider",
-    "estimated_usd": 0.016064,
+    "estimated_usd": 0.003736,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 104032,
-        "completion_tokens": 10152
-      },
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 66556,
-        "completion_tokens": 1425
+        "prompt_tokens": 32213,
+        "completion_tokens": 4647
       }
     },
-    "duration_s": 126.1
+    "duration_s": 66.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 20718,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0198,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "schema_version": "0.3",
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Missouri's_1st_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Wesley Bell",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 25.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available, so the forecast relies on district partisanship, incumbency, fundraising data, and candidate context rather than survey data. Missouri's 1st District is a safe Democratic-leaning St. Louis seat (historical PVI ~D+20+); the central contest is the Democratic primary rematch between incumbent Wesley Bell and former Rep. Cori Bush. The general election is non-competitive — Republican candidates have no meaningful fundraising or profile data — making Democratic party control near-certain (~97%). Within the primary, Bell benefits from incumbency, a decisive 2024 primary victory over Bush, and a commanding fundraising advantage ($1.27M raised vs. ~$7.4K for Bush in the current cycle), making him the clear favorite. However, Bush is a well-known former incumbent with national progressive support and a motivated base, and the complete absence of polling precludes a higher individual confidence. Win probability of 0.72 reflects Bell's expected primary advantage plus a near-automatic general election. Confidence is medium due to the absence of polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:42.941124Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

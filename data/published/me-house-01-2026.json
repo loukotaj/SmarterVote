@@ -178,7 +178,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Maine%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:21:07.882390+00:00",
+  "updated_utc": "2026-06-20T15:22:52.591034+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -192,18 +192,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 250956,
-    "completion_tokens": 5783,
-    "total_tokens": 256739,
-    "cost_usd": 0.016072628,
+    "prompt_tokens": 7450,
+    "completion_tokens": 1926,
+    "total_tokens": 9376,
+    "cost_usd": 0.001107596,
     "cost_source": "provider",
-    "estimated_usd": 0.025727,
+    "estimated_usd": 0.001017,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 250956,
-        "completion_tokens": 5783
+        "prompt_tokens": 7450,
+        "completion_tokens": 1926
       }
     },
-    "duration_s": 168.5
+    "duration_s": 28.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3793,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0036,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Chellie Pingree",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polls are available for this race (based_on_poll_count=0), so the forecast relies entirely on fundamentals. Democratic incumbent Chellie Pingree has represented Maine's 1st District since 2008, seeking a tenth term, and has consistently won re-election by comfortable margins in a district encompassing Portland and the southern Maine coast — an area that leans Democratic. Major nonpartisan election forecasters rate this seat Safe/Solid Democratic. Republican nominee Ronald Russell is a credible challenger (West Point graduate, Army veteran, defeated an opponent 53.7%–46.3% in the June 9 primary), but he lost to Pingree in 2024 and faces a long-tenured incumbent in a district with a strong Democratic lean. Without any general-election polling or indicators of a shift in competitiveness, the fundamentals point to an overwhelming Democratic advantage. Confidence is medium rather than high due to the complete absence of general-election polling, introducing greater uncertainty about the current state of the race.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:48.651083Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

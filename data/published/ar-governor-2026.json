@@ -1271,10 +1271,9 @@
       ]
     }
   ],
-  "updated_utc": "2026-06-13T20:49:56.090000+00:00",
+  "updated_utc": "2026-06-20T03:16:27.375893+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -1884,31 +1883,67 @@
     }
   ],
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 57930,
-    "completion_tokens": 6889,
-    "total_tokens": 64819,
-    "cost_usd": 0.004471299999999999,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3251,
+    "completion_tokens": 244,
+    "total_tokens": 3495,
+    "cost_usd": 0.0094835,
     "cost_source": "provider",
-    "estimated_usd": 0.005652,
+    "estimated_usd": 0.011787,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 57930,
-        "completion_tokens": 6889
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3251,
+        "completion_tokens": 244
       }
     },
-    "duration_s": 67.4
+    "duration_s": 16.2,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3015,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0029,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
   },
   "polling_note": "No public polling found for this race as of 2026-06-13.",
   "validation_grade": {
     "grade": "A",
     "score": 92,
     "passed": true,
-    "summary": "Validated by 3/4 reviewers with an average score of 92/100."
+    "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "ballotpedia_url": "https://ballotpedia.org/Arkansas_gubernatorial_election,_2026",
   "register_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
   "how_to_vote_url": "https://www.sos.arkansas.gov/elections/for-voters",
-  "schema_version": "0.3"
+  "schema_version": "0.3",
+  "forecast": {
+    "predicted_winner_name": "Sarah Huckabee Sanders",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.93,
+    "party_probabilities": {
+      "Republican": 0.93,
+      "Democratic": 0.06,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 18,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which limits confidence. Even so, the available race data points to a substantial Republican advantage: Sanders is the incumbent governor, appears to have a well-funded reelection operation, and Arkansas has been a strongly Republican state in recent statewide politics. The Democratic nominee, Fred Love, is a credible state legislator but the provided data does not indicate fundraising or broader statewide strength comparable to the incumbent. The Libertarian candidate is unlikely to be competitive for first place. Because this forecast relies on incumbency, state partisan context, and candidate strength rather than polling, it remains less certain than a poll-backed rating; that keeps the race at Likely Republican rather than Safe Republican.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:26.330160+00:00",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

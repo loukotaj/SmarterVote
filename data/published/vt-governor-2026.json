@@ -200,35 +200,69 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T20:50:40.464231+00:00",
+  "updated_utc": "2026-06-20T03:17:17.695025+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 56604,
-    "completion_tokens": 3492,
-    "total_tokens": 60096,
-    "cost_usd": 0.00280428,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2545,
+    "completion_tokens": 222,
+    "total_tokens": 2767,
+    "cost_usd": 0.0096925,
     "cost_source": "provider",
-    "estimated_usd": 0.004227,
+    "estimated_usd": 0.009692,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 56604,
-        "completion_tokens": 3492
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2545,
+        "completion_tokens": 222
       }
     },
-    "duration_s": 43.6
+    "duration_s": 8.0,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2312,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0022,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Vermont_gubernatorial_election,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Phil Scott",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Republican": 0.88,
+      "Democratic": 0.12
+    },
+    "margin_estimate": 12.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "With no recent numeric polling available in the profile, this forecast relies primarily on non-polling indicators already in the race data. Republican incumbent Phil Scott is a long-tenured sitting governor seeking reelection, which gives him a clear structural advantage in Vermont despite the state’s usual Democratic lean in federal races. The Democratic challenger, Amanda Janoo, appears to be an early-stage candidate and the race description suggests issue contrast but does not provide evidence of a strongly consolidated or well-tested anti-incumbent environment. Because the available polling is stale and contains no matchup numbers here, uncertainty remains meaningful, so confidence is kept at medium rather than high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:16.905805Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

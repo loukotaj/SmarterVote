@@ -230,7 +230,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:47:06.916246+00:00",
+  "updated_utc": "2026-06-20T15:20:54.861242+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -241,18 +241,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 265584,
-    "completion_tokens": 6348,
-    "total_tokens": 271932,
-    "cost_usd": 0.016039440000000002,
+    "prompt_tokens": 11599,
+    "completion_tokens": 1370,
+    "total_tokens": 12969,
+    "cost_usd": 0.001405222,
     "cost_source": "provider",
-    "estimated_usd": 0.027271,
+    "estimated_usd": 0.001291,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 265584,
-        "completion_tokens": 6348
+        "prompt_tokens": 11599,
+        "completion_tokens": 1370
       }
     },
-    "duration_s": 119.4
+    "duration_s": 25.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6741,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brian Jack",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists for this race, which tempers confidence. However, the available structural indicators are overwhelming: first-term Republican incumbent Brian Jack won the open seat with 66.3% in 2024, the district is rated Solidly Republican by nonpartisan analysts (Cook Political Report), Keller is the same Democratic nominee who lost to Jack in 2024, and Jack ran unopposed in his primary. The district's 15 counties in west-central Georgia reliably favor Republicans at the federal level. Absent any contrary data, Republican hold is extremely probable, consistent with a safe-r rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:49.890361+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

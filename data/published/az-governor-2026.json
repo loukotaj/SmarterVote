@@ -2966,10 +2966,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arizona_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T20:50:10.347279+00:00",
+  "updated_utc": "2026-06-20T03:16:24.653572+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://azsos.gov/elections/voters/registering-vote",
   "how_to_vote_url": "https://azsos.gov/elections/voters/voting-elections",
@@ -3088,21 +3087,60 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 217885,
-    "completion_tokens": 8369,
-    "total_tokens": 226254,
-    "cost_usd": 0.00878137,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 9330,
+    "completion_tokens": 289,
+    "total_tokens": 9619,
+    "cost_usd": 0.018444,
     "cost_source": "provider",
-    "estimated_usd": 0.014242,
+    "estimated_usd": 0.02766,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 217885,
-        "completion_tokens": 8369
+      "openai/gpt-5.4": {
+        "prompt_tokens": 9330,
+        "completion_tokens": 289
       }
     },
-    "duration_s": 82.2
+    "duration_s": 12.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 7078,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
   },
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Katie Hobbs",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.58,
+    "party_probabilities": {
+      "Democratic": 0.58,
+      "Republican": 0.4,
+      "Other": 0.02
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_d",
+    "confidence": "medium",
+    "rationale": "Two public general-election polls, both relatively early, show incumbent Democrat Katie Hobbs ahead in tested matchups against the leading Republican contenders: 44-43 and 45-40 versus Andy Biggs, and 44-39 in both polls versus David Schweikert. That points to a small but consistent Democratic edge. Arizona remains closely divided in statewide politics, and the Republican field is still unsettled, which leaves room for the eventual nominee, campaign environment, and turnout dynamics to shift. Hobbs also benefits from incumbency, but the polling is sparse and her leads are modest rather than decisive, so the race currently looks like a narrow Democratic advantage rather than a clear favorite.",
+    "based_on_poll_count": 2,
+    "generated_at": "2026-06-20T03:16:21.540550Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://emersoncollegepolling.com/arizona-2026-governor/",
+      "https://www.noblepredictiveinsights.com/post/azgov-biggs-benefits-from-field-consolidation-hobbs-holds-early-edge"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

@@ -14,7 +14,7 @@
       "name": "Joyce Beatty",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Joyce Beatty is the incumbent Democratic U.S. Representative for Ohio's 3rd Congressional District, first elected in 2012 and serving since 2013. She previously served in the Ohio House of Representatives (1999\u20132008) and was Senior Vice President for Outreach and Engagement at Ohio State University. Beatty is a former chair of the Congressional Black Caucus and focuses on voting rights, economic development, healthcare, and education.",
+      "summary": "Joyce Beatty is the incumbent Democratic U.S. Representative for Ohio's 3rd Congressional District, first elected in 2012 and serving since 2013. She previously served in the Ohio House of Representatives (1999–2008) and was Senior Vice President for Outreach and Engagement at Ohio State University. Beatty is a former chair of the Congressional Black Caucus and focuses on voting rights, economic development, healthcare, and education.",
       "summary_sources": [
         {
           "url": "https://awpc.cattcenter.iastate.edu/directory/joyce-beatty",
@@ -236,7 +236,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:17:19.011410+00:00",
+  "updated_utc": "2026-06-20T15:26:33.635320+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -250,18 +250,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 202614,
-    "completion_tokens": 6995,
-    "total_tokens": 209609,
-    "cost_usd": 0.014238392,
+    "prompt_tokens": 12526,
+    "completion_tokens": 1887,
+    "total_tokens": 14413,
+    "cost_usd": 0.0015974000000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.021227,
+    "estimated_usd": 0.001467,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 202614,
-        "completion_tokens": 6995
+        "prompt_tokens": 12526,
+        "completion_tokens": 1887
       }
     },
-    "duration_s": 192.7
+    "duration_s": 29.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7219,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Joyce Beatty",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling was found as of mid-2026, which increases uncertainty. However, the race description explicitly states that all three major nonpartisan election forecasters (Cook Political Report, Inside Elections, and Sabato's Crystal Ball) rate this seat as safely Democratic after the 2025 redistricting. Incumbent Joyce Beatty is a seven-term incumbent, former chair of the Congressional Black Caucus, and represents a Columbus/Franklin County-anchored district with a strong Democratic lean. The Republican nominee, Cleophus Dulaney, ran unopposed in the primary and previously lost this seat in 2020. Independent Michelle Bird is running an anti-corruption campaign but faces structural disadvantages as a third-party candidate in a safely Democratic seat. Given the expert ratings, incumbency, and district partisan baseline, Democrats have an overwhelming advantage, though confidence is medium due to the absence of public opinion polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:28.339616Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

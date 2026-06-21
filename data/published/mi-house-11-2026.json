@@ -358,7 +358,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_11th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:47:00.318674+00:00",
+  "updated_utc": "2026-06-20T15:31:17.973290+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -369,18 +369,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 270693,
-    "completion_tokens": 9893,
-    "total_tokens": 280586,
-    "cost_usd": 0.019141886,
+    "prompt_tokens": 15757,
+    "completion_tokens": 2535,
+    "total_tokens": 18292,
+    "cost_usd": 0.002041046,
     "cost_source": "provider",
-    "estimated_usd": 0.028467,
+    "estimated_usd": 0.001874,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 270693,
-        "completion_tokens": 9893
+        "prompt_tokens": 15757,
+        "completion_tokens": 2535
       }
     },
-    "duration_s": 158.9
+    "duration_s": 41.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9303,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0089,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jeremy Moss",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.68,
+    "party_probabilities": {
+      "Democratic": 0.68,
+      "Republican": 0.32
+    },
+    "margin_estimate": 5,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "No public general-election polling exists as of mid-2026 (Democratic primary still pending). This forecast relies entirely on district fundamentals. MI-11 voted for Joe Biden in 2020 and has been represented by Democrats since 2019, suggesting a modest Democratic lean in central Oakland County. The open-seat nature eliminates incumbency advantage, keeping the race competitive. On the Democratic side, a competitive four-candidate primary means the eventual nominee will emerge from a contested race; frontrunner Jeremy Moss has strong endorsements (e.g., Gov. Whitmer) and legislative experience. Republicans are unified behind Troy Mayor Ethan Baker, a credible candidate running unopposed in the primary. However, the lack of any polling, uncertainty about which Democrat emerges and whether the primary is divisive, and the description of the district as a key House battleground all limit confidence. Lean Democratic is the most appropriate rating given the district's Democratic-leaning fundamentals, but confidence is low due to the absence of direct vote data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:10.420772+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

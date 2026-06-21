@@ -6,7 +6,7 @@
   "state": "Missouri",
   "district": "2nd Congressional District",
   "election_date": "2026-11-03",
-  "description": "The race for Missouri's 2nd Congressional District pits 13-term Republican incumbent Rep. Ann Wagner against multiple primary challengers from both parties, with the general election winner to be determined after the August 4, 2026 primary. The Democratic Congressional Campaign Committee placed this district on its target list for 2026, the first time it has targeted Wagner since 2020, citing shifting suburban voting patterns. The Democratic primary features three candidates \u2014 veteran and podcast host Fred Wellman, teacher Joan VonDras, and physician Tim Bilash \u2014 while Wagner faces Republican primary challenges from Elizabeth Sparks-Holmes, Peter Pfeifer, Ryan Sheridan, and Brandon Wilkinson. The district covers St. Louis's western and southern suburbs plus Franklin County, and a 2025 redistricting map signed by Gov. Mike Kehoe has made the seat somewhat more Republican-leaning, though the map faces ongoing legal challenges.",
+  "description": "The race for Missouri's 2nd Congressional District pits 13-term Republican incumbent Rep. Ann Wagner against multiple primary challengers from both parties, with the general election winner to be determined after the August 4, 2026 primary. The Democratic Congressional Campaign Committee placed this district on its target list for 2026, the first time it has targeted Wagner since 2020, citing shifting suburban voting patterns. The Democratic primary features three candidates — veteran and podcast host Fred Wellman, teacher Joan VonDras, and physician Tim Bilash — while Wagner faces Republican primary challenges from Elizabeth Sparks-Holmes, Peter Pfeifer, Ryan Sheridan, and Brandon Wilkinson. The district covers St. Louis's western and southern suburbs plus Franklin County, and a 2025 redistricting map signed by Gov. Mike Kehoe has made the seat somewhat more Republican-leaning, though the map faces ongoing legal challenges.",
   "candidates": [
     {
       "name": "Ann Wagner",
@@ -572,7 +572,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:21:14.767452+00:00",
+  "updated_utc": "2026-06-20T15:38:55.051056+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -586,7 +586,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Missouri's_2nd_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -594,30 +594,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 305428,
-    "completion_tokens": 15780,
-    "total_tokens": 321208,
-    "cost_usd": 0.054836728,
+    "prompt_tokens": 27741,
+    "completion_tokens": 2464,
+    "total_tokens": 30205,
+    "cost_usd": 0.003201562,
     "cost_source": "provider",
-    "estimated_usd": 0.056025,
+    "estimated_usd": 0.00294,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 305428,
-        "completion_tokens": 15780
+        "prompt_tokens": 27741,
+        "completion_tokens": 2464
       }
     },
-    "duration_s": 256.4,
-    "serper_calls": 23,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 55118,
+    "duration_s": 37.7,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 12036,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0526,
-    "context_deduplicated_results": 102,
+    "max_context_utilization": 0.0115,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ann Wagner",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Republican": 0.88,
+      "Democratic": 0.12
+    },
+    "margin_estimate": 10.0,
+    "rating": "likely_r",
+    "confidence": "low",
+    "rationale": "No general election polls are available for this race, resulting in low confidence. Republican incumbent Ann Wagner is a 13-term incumbent with significant advantages: $4.5 million cash on hand, 54.5% of the vote in 2024, and strong institutional support. The Republican primary field includes challengers, but none appear to seriously threaten Wagner given her fundraising and name recognition. On the Democratic side, the DCCC placed this district on its target list for the first time since 2020, citing shifting suburban voting patterns in St. Louis's western and southern suburbs. However, the 2025 redistricting map made the seat somewhat more Republican-leaning (though the map faces legal challenges). The Democratic primary features three credible candidates (Wellman, VonDras, Bilash), but the general election opponent is unknown until after the August 4 primary. Without any polling data, the forecast relies on incumbency, fundraising, recent election results (Wagner won with 54.5% in 2024), and district fundamentals, which collectively point to a Republican advantage but with notable uncertainty.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:44.679351Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

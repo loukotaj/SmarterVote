@@ -14,7 +14,7 @@
       "name": "Henry Cuellar",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Henry Cuellar has represented Texas's 28th Congressional District since 2005 and is considered one of the most conservative Democrats in the House. A Laredo native, he previously served in the Texas House of Representatives (1987\u20132001) and as Texas Secretary of State (2001). Cuellar was indicted on federal bribery and money laundering charges in 2024, but President Donald Trump pardoned him in December 2025 before the case went to trial. He won the 2026 Democratic primary with 58.1% of the vote.",
+      "summary": "Henry Cuellar has represented Texas's 28th Congressional District since 2005 and is considered one of the most conservative Democrats in the House. A Laredo native, he previously served in the Texas House of Representatives (1987–2001) and as Texas Secretary of State (2001). Cuellar was indicted on federal bribery and money laundering charges in 2024, but President Donald Trump pardoned him in December 2025 before the case went to trial. He won the 2026 Democratic primary with 58.1% of the vote.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Henry_Cuellar",
@@ -218,7 +218,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_28th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:36:19.989771+00:00",
+  "updated_utc": "2026-06-20T15:30:18.437880+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -232,18 +232,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 264767,
-    "completion_tokens": 4683,
-    "total_tokens": 269450,
-    "cost_usd": 0.01816897,
+    "prompt_tokens": 11837,
+    "completion_tokens": 2031,
+    "total_tokens": 13868,
+    "cost_usd": 0.001498198,
     "cost_source": "provider",
-    "estimated_usd": 0.026865,
+    "estimated_usd": 0.001431,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 264767,
-        "completion_tokens": 4683
+        "prompt_tokens": 11837,
+        "completion_tokens": 2031
       }
     },
-    "duration_s": 103.4
+    "duration_s": 32.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6825,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Henry Cuellar",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.67,
+    "party_probabilities": {
+      "Democratic": 0.67,
+      "Republican": 0.33
+    },
+    "margin_estimate": 3.0,
+    "rating": "lean_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polls exist for TX-28 as of June 2026, so the forecast is based entirely on non-polling indicators. Incumbent Henry Cuellar (D) has represented the district since 2005, giving him deep name recognition and institutional advantages, and Cook Political Report rates the race 'Lean Democratic.' Cuellar won his 2026 primary with 58.1%, while Republican Tano Tijerina won his primary decisively with 74.3% and has Trump's endorsement. The district in South Texas has been trending rightward, and Tijerina is a credible local officeholder (Webb County Judge) who switched parties in 2024. Cuellar's 2024 federal bribery indictment—pardoned by Trump in December 2025—adds an unusual cross-current that could either neutralize the issue or create voter confusion. Without polling to resolve these competing dynamics, Democrats appear moderately favored but the race remains competitive.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:12.209206Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

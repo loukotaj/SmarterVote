@@ -6,7 +6,7 @@
   "state": "Alabama",
   "district": "6th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Alabama's 6th congressional district election has been shaped by mid-decade redistricting after the U.S. Supreme Court narrowed the Voting Rights Act's Section 2, allowing the state to revert to a 2023 legislatively-drawn map. This triggered a special primary election on August 11, 2026, in addition to the May 19 primary that was later nullified. The district covers parts of central Alabama including Birmingham's suburbs and is considered safely Republican with a Cook PVI of R+28. Incumbent Republican Gary Palmer, first elected in 2014 and a former chair of the House Republican Policy Committee, faces a primary challenge from physical therapist assistant Case Dixon, while four Democrats\u2014Jacob Bouma-Sims, Ashtyn Kennedy, Maurice Mercer, and Keith Pilkington\u2014compete in their party's primary.",
+  "description": "Alabama's 6th congressional district election has been shaped by mid-decade redistricting after the U.S. Supreme Court narrowed the Voting Rights Act's Section 2, allowing the state to revert to a 2023 legislatively-drawn map. This triggered a special primary election on August 11, 2026, in addition to the May 19 primary that was later nullified. The district covers parts of central Alabama including Birmingham's suburbs and is considered safely Republican with a Cook PVI of R+28. Incumbent Republican Gary Palmer, first elected in 2014 and a former chair of the House Republican Policy Committee, faces a primary challenge from physical therapist assistant Case Dixon, while four Democrats—Jacob Bouma-Sims, Ashtyn Kennedy, Maurice Mercer, and Keith Pilkington—compete in their party's primary.",
   "polling": [],
   "polling_note": "No reliable public opinion polls were found for the 2026 general election in Alabama's 6th congressional district. The primary elections remain unsettled with a special primary scheduled for August 11, 2026.",
   "candidates": [
@@ -94,7 +94,7 @@
         {
           "url": "https://yellowhammernews.com/case-dixon-announces-candidacy-for-alabamas-6th-congressional-district-will-challenge-incumbent-gary-palmer/",
           "type": "news",
-          "title": "Case Dixon announces candidacy for Alabama\u2019s 6th Congressional District",
+          "title": "Case Dixon announces candidacy for Alabama’s 6th Congressional District",
           "description": null,
           "last_accessed": "2026-06-12T00:00:00Z",
           "published_at": null,
@@ -387,7 +387,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:07:51.873382+00:00",
+  "updated_utc": "2026-06-20T15:20:24.173312+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -401,18 +401,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 222055,
-    "completion_tokens": 9462,
-    "total_tokens": 231517,
-    "cost_usd": 0.01430087,
+    "prompt_tokens": 8408,
+    "completion_tokens": 1433,
+    "total_tokens": 9841,
+    "cost_usd": 0.001104852,
     "cost_source": "provider",
-    "estimated_usd": 0.023616,
+    "estimated_usd": 0.001015,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 222055,
-        "completion_tokens": 9462
+        "prompt_tokens": 8408,
+        "completion_tokens": 1433
       }
     },
-    "duration_s": 174.0
+    "duration_s": 26.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4333,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0041,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Gary Palmer",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No reliable general-election polling exists in the dataset. The forecast relies on structural factors: this district has a Cook PVI of R+28 and is explicitly described as safely Republican. Incumbent Gary Palmer has held the seat since 2014 and chaired the House Republican Policy Committee. While the primary process is unsettled (a May 2026 primary was nullified; a special primary is set for August 11, 2026), the district's deeply Republican partisan makeup makes a Republican general-election win overwhelmingly likely regardless of which candidate emerges from either primary. The four Democratic candidates (Mercer, Pilkington, Kennedy, Bouma-Sims) face extreme structural headwinds in this R+28 district. Confidence is medium due to the complete absence of polling and the unsettled primary schedule introducing minor uncertainty about the exact general-election matchup.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:19.293328Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

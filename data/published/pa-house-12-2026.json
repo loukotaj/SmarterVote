@@ -201,7 +201,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:45:24.661654+00:00",
+  "updated_utc": "2026-06-20T15:38:19.396303+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -215,18 +215,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 282077,
-    "completion_tokens": 6367,
-    "total_tokens": 288444,
-    "cost_usd": 0.015313238,
+    "prompt_tokens": 11123,
+    "completion_tokens": 1522,
+    "total_tokens": 12645,
+    "cost_usd": 0.0013883659999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.028891,
+    "estimated_usd": 0.001275,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 282077,
-        "completion_tokens": 6367
+        "prompt_tokens": 11123,
+        "completion_tokens": 1522
       }
     },
-    "duration_s": 147.4
+    "duration_s": 27.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6407,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Summer Lee",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race (based_on_poll_count=0), limiting confidence to medium. However, strong structural factors drive the forecast: incumbent Democrat Summer Lee won her primary with 81.2% and is seeking a third term in a district with a D+19.2 Cook Partisan Voting Index. Cook Political Report rates the seat 'Solid Democratic.' The district covers most of Pittsburgh and its eastern suburbs, a heavily Democratic-leaning area. Republican nominee James Hayes is a credible candidate with a business/economics background, and midterm turnout dynamics could modestly affect the margin, but the district's fundamentals point to an overwhelmingly Democratic advantage. The 24-point margin estimate and 96% Democratic win probability reflect safe_d classification consistent with the district's structural lean and incumbency advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:14.407925Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

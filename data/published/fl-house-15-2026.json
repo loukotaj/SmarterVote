@@ -14,7 +14,7 @@
       "name": "Laurel Lee",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Laurel Lee is the incumbent U.S. Representative for Florida's 15th Congressional District, first elected in 2022 and re-elected in 2024. She previously served as Florida Secretary of State (2019\u20132022) and as a circuit court judge in Hillsborough County (2013\u20132019). She is running for re-election in the 2026 cycle and faces no announced Republican primary challenger.",
+      "summary": "Laurel Lee is the incumbent U.S. Representative for Florida's 15th Congressional District, first elected in 2022 and re-elected in 2024. She previously served as Florida Secretary of State (2019–2022) and as a circuit court judge in Hillsborough County (2013–2019). She is running for re-election in the 2026 cycle and faces no announced Republican primary challenger.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Laurel_Lee",
@@ -277,7 +277,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_15th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:13:20.075730+00:00",
+  "updated_utc": "2026-06-20T15:21:43.318314+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -291,18 +291,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 274070,
-    "completion_tokens": 9060,
-    "total_tokens": 283130,
-    "cost_usd": 0.020727291999999998,
+    "prompt_tokens": 7707,
+    "completion_tokens": 1326,
+    "total_tokens": 9033,
+    "cost_usd": 0.0009552779999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.028635,
+    "estimated_usd": 0.000932,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 274070,
-        "completion_tokens": 9060
+        "prompt_tokens": 7707,
+        "completion_tokens": 1326
       }
     },
-    "duration_s": 149.5
+    "duration_s": 23.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3750,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0036,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Laurel Lee",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public opinion polls are available for this race, which tempers confidence. However, the non-polling signals are consistently very strong: incumbent Republican Rep. Laurel Lee is running unopposed in her primary; the district was redrawn in April 2026 under a map expected to favor Republicans; Cook Political Report rates the race as 'Solid R'; and the Democratic primary field features three candidates (Engell, Irizarry, People) who, based on available summaries, have minimal fundraising (People under $9k, Engell no reported financial activity) and no clearly top-tier challenger. The combination of incumbency, a favorable map, a strong national rating, and a weak opposition field supports a safe Republican advantage, but the complete absence of polling data introduces enough uncertainty to warrant medium rather than high confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:34.619564Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

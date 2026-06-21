@@ -113,7 +113,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:24:18.110817+00:00",
+  "updated_utc": "2026-06-20T15:34:29.822243+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -127,7 +127,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Texas'_32nd_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -135,30 +135,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 241903,
-    "completion_tokens": 5695,
-    "total_tokens": 247598,
-    "cost_usd": 0.03746489,
+    "prompt_tokens": 7792,
+    "completion_tokens": 1475,
+    "total_tokens": 9267,
+    "cost_usd": 0.001002796,
     "cost_source": "provider",
-    "estimated_usd": 0.038823,
+    "estimated_usd": 0.000967,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 241903,
-        "completion_tokens": 5695
+        "prompt_tokens": 7792,
+        "completion_tokens": 1475
       }
     },
-    "duration_s": 170.5,
-    "serper_calls": 14,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 55938,
+    "duration_s": 25.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5167,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0533,
-    "context_deduplicated_results": 45,
+    "max_context_utilization": 0.0049,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jace Yarbrough",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.93,
+    "party_probabilities": {
+      "Democratic": 0.07,
+      "Republican": 0.93
+    },
+    "margin_estimate": 14.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists in this race, limiting quantitative confidence. Structurally, however, the district was redrawn in August 2025 from D+22 to R+17, a massive 39-point swing toward Republicans. The incumbent Democratic representative opted to run in the neighboring 33rd district rather than defend this redrawn seat, leaving this an open seat. The Republican nominee Jace Yarbrough has received endorsements from President Donald Trump and other major conservative figures, while the Democratic nominee Dan Barrios is a Richardson City Councilmember. The race description explicitly calls this a top Republican pickup opportunity. An R+17 lean combined with strong incumbency/endorsement signals gives Republicans a clear structural advantage. However, absence of any polling and the inherent uncertainty of a newly configured district caution against a safe rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:18.828654Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

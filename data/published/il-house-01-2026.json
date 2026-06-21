@@ -169,7 +169,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:20:21.379739+00:00",
+  "updated_utc": "2026-06-20T15:32:20.862319+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -183,18 +183,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 188359,
-    "completion_tokens": 4407,
-    "total_tokens": 192766,
-    "cost_usd": 0.010057802,
+    "prompt_tokens": 10829,
+    "completion_tokens": 1636,
+    "total_tokens": 12465,
+    "cost_usd": 0.001321994,
     "cost_source": "provider",
-    "estimated_usd": 0.019323,
+    "estimated_usd": 0.001269,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 188359,
-        "completion_tokens": 4407
+        "prompt_tokens": 10829,
+        "completion_tokens": 1636
       }
     },
-    "duration_s": 113.0
+    "duration_s": 27.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6213,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jonathan Jackson",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public district-specific polls exist (0 polls). However, the fundamentals are overwhelmingly clear: incumbent Jonathan Jackson won re-election in 2024 with 65.8% of the vote in a Chicago South Side district rated 'Solid D' by Cook, 'Safe D' by Sabato's Crystal Ball, and 'Solid D' by Inside Elections. Republican challenger Christian Maxwell is a first-time candidate with no prior political office. The district's Democratic lean, Jackson's incumbency and name recognition, and the consensus of major nonpartisan forecasters all point to a safe Democratic hold. The 28-point margin estimate is consistent with Jackson's 2024 performance (~66% of the two-party vote). Confidence is medium due to the absence of any 2026 cycle polling, which limits direct measurement of current voter sentiment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:13.175606Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

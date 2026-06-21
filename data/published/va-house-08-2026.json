@@ -199,7 +199,7 @@
         {
           "url": "https://www.duffin4va.com/about",
           "type": "website",
-          "title": "About \u2014 duffin4va.com",
+          "title": "About — duffin4va.com",
           "description": null,
           "last_accessed": "2026-06-16T00:00:00Z",
           "published_at": null,
@@ -465,7 +465,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:32:33.612769+00:00",
+  "updated_utc": "2026-06-20T15:28:44.466877+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -479,18 +479,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 297270,
-    "completion_tokens": 11496,
-    "total_tokens": 308766,
-    "cost_usd": 0.021930828,
+    "prompt_tokens": 16514,
+    "completion_tokens": 1799,
+    "total_tokens": 18313,
+    "cost_usd": 0.0019709759999999997,
     "cost_source": "provider",
-    "estimated_usd": 0.031386,
+    "estimated_usd": 0.00181,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 297270,
-        "completion_tokens": 11496
+        "prompt_tokens": 16514,
+        "completion_tokens": 1799
       }
     },
-    "duration_s": 167.0
+    "duration_s": 27.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9772,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Don Beyer",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which limits quantitative certainty. However, the structural fundamentals strongly favor the Democratic nominee in the general election: VA-08 has a Cook PVI of D+26, making it one of the most Democratic districts in the country. Incumbent Don Beyer has held the seat since 2014 and is seeking a seventh term. The district boundaries remain unchanged after the Virginia Supreme Court struck down a mid-decade redistricting referendum in May 2026. While Beyer faces a competitive four-way Democratic primary on August 4, 2026, the general election environment is overwhelmingly favorable to the Democratic nominee over Republican Tony Sabio in this D+26 district. Cook Political Report rates the race as Solid Democratic.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:39.924721Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

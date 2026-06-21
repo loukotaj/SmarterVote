@@ -197,7 +197,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:47:23.840599+00:00",
+  "updated_utc": "2026-06-20T15:37:03.264257+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -211,18 +211,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 232115,
-    "completion_tokens": 5090,
-    "total_tokens": 237205,
-    "cost_usd": 0.017155542,
+    "prompt_tokens": 10888,
+    "completion_tokens": 1517,
+    "total_tokens": 12405,
+    "cost_usd": 0.001304452,
     "cost_source": "provider",
-    "estimated_usd": 0.023745,
+    "estimated_usd": 0.001253,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 232115,
-        "completion_tokens": 5090
+        "prompt_tokens": 10888,
+        "completion_tokens": 1517
       }
     },
-    "duration_s": 95.2
+    "duration_s": 26.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6274,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brad Schneider",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available for this race, so confidence is capped at medium and the forecast is driven entirely by district fundamentals. Illinois's 10th district carries a Cook PVI of D+12 and is rated Solidly Democratic by the Cook Political Report, reflecting a strong Democratic lean following leftward shifts in this historically swingy North Shore district. Incumbent Brad Schneider is a six-term Democratic congressman and chair of the New Democrat Coalition who won his primary with 78.8% of the vote. Republican challenger Carl Lambrecht was uncontested in his primary and has no elected office experience, having previously run unsuccessfully for the Illinois House. Without any contrary polling evidence, the combination of a D+12 partisan baseline, entrenched six-term incumbency, and a relatively unknown challenger supports a safe Democratic outcome.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:57.623042Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

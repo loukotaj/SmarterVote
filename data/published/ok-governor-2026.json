@@ -6,7 +6,7 @@
   "state": "Oklahoma",
   "district": null,
   "election_date": "2026-11-03",
-  "description": "The 2026 Oklahoma gubernatorial election is an open-seat race to elect the next governor of Oklahoma. Incumbent Republican Governor Kevin Stitt is term-limited and cannot seek a third term. Oklahoma is a deeply red state where Democrats have not won a statewide race since 2006, and the Republican primary is widely viewed as the most competitive contest for the office. The Republican field features four leading candidates \u2014 Attorney General Gentner Drummond, former state senator Mike Mazzei (endorsed by Donald Trump), former House Speaker Charles McCall, and former Secretary of Public Safety Chip Keating \u2014 while the Democratic primary includes House Minority Leader Cyndi Munson, former state senator Connie Johnson, and securities trader Arya Azma. The primary election is scheduled for June 16, 2026, and the general election will be held on November 3, 2026.",
+  "description": "The 2026 Oklahoma gubernatorial election is an open-seat race to elect the next governor of Oklahoma. Incumbent Republican Governor Kevin Stitt is term-limited and cannot seek a third term. Oklahoma is a deeply red state where Democrats have not won a statewide race since 2006, and the Republican primary is widely viewed as the most competitive contest for the office. The Republican field features four leading candidates — Attorney General Gentner Drummond, former state senator Mike Mazzei (endorsed by Donald Trump), former House Speaker Charles McCall, and former Secretary of Public Safety Chip Keating — while the Democratic primary includes House Minority Leader Cyndi Munson, former state senator Connie Johnson, and securities trader Arya Azma. The primary election is scheduled for June 16, 2026, and the general election will be held on November 3, 2026.",
   "polling": [
     {
       "pollster": "JMC Analytics (R)",
@@ -672,10 +672,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oklahoma_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:05:23.963919+00:00",
+  "updated_utc": "2026-06-20T03:17:09.977003+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -684,20 +683,58 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 382907,
-    "completion_tokens": 13999,
-    "total_tokens": 396906,
-    "cost_usd": 0.033269906,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5287,
+    "completion_tokens": 270,
+    "total_tokens": 5557,
+    "cost_usd": 0.0126595,
     "cost_source": "provider",
-    "estimated_usd": 0.040269,
+    "estimated_usd": 0.017267,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 382907,
-        "completion_tokens": 13999
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5287,
+        "completion_tokens": 270
       }
     },
-    "duration_s": 211.9
+    "duration_s": 8.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4286,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0041,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Gentner Drummond",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Republican": 0.92,
+      "Democratic": 0.08
+    },
+    "margin_estimate": 20.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "This is an open-seat race in a deeply Republican state, and the provided race description notes Democrats have not won a statewide race in Oklahoma since 2006. There are no public general-election polls in the data, so this forecast relies heavily on state partisan context, the solid-Republican race ratings cited in the description, and candidate field strength. Republican primary polling shows a competitive GOP nomination with Gentner Drummond generally running strongly, making him the likeliest individual winner if nominated, but the lack of head-to-head general-election polling and uncertainty about the eventual Republican nominee keep this just below safe Republican.",
+    "based_on_poll_count": 3,
+    "generated_at": "2026-06-20T03:17:09.131053Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election",
+      "https://nondoc.com/2026/05/26/oklahoma-governor-polling-superintendent-primary-tight-ai-ads-unpopular/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

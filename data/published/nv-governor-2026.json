@@ -1308,10 +1308,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Nevada_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T23:10:44.345284+00:00",
+  "updated_utc": "2026-06-20T03:17:34.289494+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://www.nvsos.gov/elections/voters/registering-to-vote",
   "how_to_vote_url": "https://www.nvsos.gov/elections",
@@ -1436,21 +1435,61 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 77276,
-    "completion_tokens": 8554,
-    "total_tokens": 85830,
-    "cost_usd": 0.0067151599999999995,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5567,
+    "completion_tokens": 340,
+    "total_tokens": 5907,
+    "cost_usd": 0.0190175,
     "cost_source": "provider",
-    "estimated_usd": 0.007285,
+    "estimated_usd": 0.019017,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 77276,
-        "completion_tokens": 8554
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5567,
+        "completion_tokens": 340
       }
     },
-    "duration_s": 73.4
+    "duration_s": 9.6,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4408,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0042,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Joe Lombardo",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.52,
+    "party_probabilities": {
+      "Democratic": 0.48,
+      "Republican": 0.52
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "medium",
+    "rationale": "Nevada is a closely divided swing state, and the available public polling shows an essentially tied race between incumbent Republican Joe Lombardo and Democratic Attorney General Aaron Ford. Three candidate-level polls/averages listed here show Lombardo up 1 point, tied, and tied, while the RealClearPolitics average also shows a margin of just 0.5 points. That polling supports no clear favorite. Lombardo gets a slight edge because he is the incumbent and appears to have a substantial fundraising advantage, but those factors are not enough to move the race out of tossup given Nevada’s narrow statewide margins and the consistently razor-close polling. Confidence is only medium because the polling is still limited and early for a 2026 general election.",
+    "based_on_poll_count": 4,
+    "generated_at": "2026-06-20T03:17:31.856497Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://www.noblepredictiveinsights.com/post/nvgov-lombardo-keeps-pace-with-ford-as-undecideds-hold-the-balance",
+      "https://www.emersoncollegepolling.com/nevada-2026-poll/",
+      "https://emersoncollegepolling.com/nevada-2026-poll/",
+      "https://www.realclearpolling.com/polls/governor/general/2026/nevada/lombardo-vs-ford"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

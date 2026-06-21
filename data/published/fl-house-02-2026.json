@@ -320,7 +320,7 @@
         {
           "url": "https://yenbaileyforcongress.com/about-me/",
           "type": "website",
-          "title": "About Me \u2013 Yen Bailey for Congress",
+          "title": "About Me – Yen Bailey for Congress",
           "description": null,
           "last_accessed": "2026-05-20T12:00:00Z",
           "published_at": null,
@@ -606,7 +606,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:21:32.865482+00:00",
+  "updated_utc": "2026-06-20T15:23:41.502451+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -620,18 +620,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 204187,
-    "completion_tokens": 10601,
-    "total_tokens": 214788,
-    "cost_usd": 0.016187578,
+    "prompt_tokens": 33744,
+    "completion_tokens": 2522,
+    "total_tokens": 36266,
+    "cost_usd": 0.0037413200000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.022088,
+    "estimated_usd": 0.003491,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 204187,
-        "completion_tokens": 10601
+        "prompt_tokens": 33744,
+        "completion_tokens": 2522
       }
     },
-    "duration_s": 147.3
+    "duration_s": 40.1,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 19626,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0187,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Republican": 0.88,
+      "Democratic": 0.12
+    },
+    "margin_estimate": 16.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race (based_on_poll_count=0). The forecast relies entirely on the structural and contextual data provided. Florida's 2nd Congressional District covers a large swath of the Florida Panhandle and is described in the race data as a reliably Republican stronghold. Incumbent Neal Dunn (R) won re-election here in 2024, and the district's fundamentals strongly favor the GOP. However, the seat is open (Dunn announced retirement in January 2026), which increases uncertainty, and both parties have competitive multi-candidate primaries scheduled for August 18, 2026, with no nominee yet selected. The Republican primary field includes prominent figures like state party chair Evan Power, while the Democratic field includes well-funded candidates such as Nic Zateslo ($325K raised) and the 2024 nominee Yen Bailey. Given the district's strong Republican lean but the additional uncertainty from an open seat, competitive primaries, and zero polling, a likely Republican rating (80-94% win probability) with medium confidence and a 16-point margin estimate is appropriate.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:31.478354Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

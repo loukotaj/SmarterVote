@@ -6,7 +6,7 @@
   "state": "Virginia",
   "district": "5th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Virginia's 5th Congressional District will determine who represents the district covering much of rural Southside Virginia including Charlottesville, Danville, and Lynchburg. Incumbent Republican John McGuire, first elected in 2024 after defeating then-incumbent Bob Good in a competitive primary, faces a Republican primary challenge from Marine Corps veteran and real estate business owner Melanie Lucero. On the Democratic side, former U.S. Representative Tom Perriello (2009\u20132011) is seeking a comeback and faces family physician Suzanne Krzyzanowski and writer and commentator Rob Tracinski in the August 4 primary. The race takes place under Virginia's current congressional map after a state Supreme Court ruling blocked a redistricting amendment, and the district is rated as leaning Republican by nonpartisan analysts.",
+  "description": "The 2026 election for Virginia's 5th Congressional District will determine who represents the district covering much of rural Southside Virginia including Charlottesville, Danville, and Lynchburg. Incumbent Republican John McGuire, first elected in 2024 after defeating then-incumbent Bob Good in a competitive primary, faces a Republican primary challenge from Marine Corps veteran and real estate business owner Melanie Lucero. On the Democratic side, former U.S. Representative Tom Perriello (2009–2011) is seeking a comeback and faces family physician Suzanne Krzyzanowski and writer and commentator Rob Tracinski in the August 4 primary. The race takes place under Virginia's current congressional map after a state Supreme Court ruling blocked a redistricting amendment, and the district is rated as leaning Republican by nonpartisan analysts.",
   "polling": [],
   "polling_note": "No publicly available opinion polls were found for this race as of June 2026.",
   "candidates": [
@@ -14,7 +14,7 @@
       "name": "John McGuire",
       "party": "Republican",
       "incumbent": true,
-      "summary": "John McGuire is the incumbent U.S. Representative for Virginia's 5th Congressional District, first elected in 2024 after defeating incumbent Bob Good in a hotly contested primary. A former U.S. Navy SEAL and business owner, McGuire previously served in the Virginia Senate (2024\u20132025) and Virginia House of Delegates (2018\u20132024). His campaign focuses on tax cuts, affordability, and his work on the Wintergreen Emergency Egress Act and the American Dream Act.",
+      "summary": "John McGuire is the incumbent U.S. Representative for Virginia's 5th Congressional District, first elected in 2024 after defeating incumbent Bob Good in a hotly contested primary. A former U.S. Navy SEAL and business owner, McGuire previously served in the Virginia Senate (2024–2025) and Virginia House of Delegates (2018–2024). His campaign focuses on tax cuts, affordability, and his work on the Wintergreen Emergency Egress Act and the American Dream Act.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/John_McGuire_(Virginia_politician)",
@@ -176,7 +176,7 @@
       "name": "Tom Perriello",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Tom Perriello is a former U.S. Representative for Virginia's 5th Congressional District (2009\u20132011) and a former U.S. Special Envoy for Sudan (2024\u20132025) under President Joe Biden. A Yale-educated attorney and diplomat, Perriello also ran for governor of Virginia in 2017. He is running on a platform of economic relief for working families and criticizing incumbent John McGuire's voting record.",
+      "summary": "Tom Perriello is a former U.S. Representative for Virginia's 5th Congressional District (2009–2011) and a former U.S. Special Envoy for Sudan (2024–2025) under President Joe Biden. A Yale-educated attorney and diplomat, Perriello also ran for governor of Virginia in 2017. He is running on a platform of economic relief for working families and criticizing incumbent John McGuire's voting record.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Tom_Perriello",
@@ -520,7 +520,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:16:32.875428+00:00",
+  "updated_utc": "2026-06-20T15:33:21.926339+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -534,18 +534,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 285836,
-    "completion_tokens": 12972,
-    "total_tokens": 298808,
-    "cost_usd": 0.022177864000000002,
+    "prompt_tokens": 18446,
+    "completion_tokens": 2138,
+    "total_tokens": 20584,
+    "cost_usd": 0.002166852,
     "cost_source": "provider",
-    "estimated_usd": 0.030554,
+    "estimated_usd": 0.002045,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 285836,
-        "completion_tokens": 12972
+        "prompt_tokens": 18446,
+        "completion_tokens": 2138
       }
     },
-    "duration_s": 190.2
+    "duration_s": 32.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 11242,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0107,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "John McGuire",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.74,
+    "party_probabilities": {
+      "Republican": 0.74,
+      "Democratic": 0.24,
+      "Independent": 0.02
+    },
+    "margin_estimate": 7.0,
+    "rating": "lean_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race as of June 2026, so confidence is low and the forecast relies entirely on non-polling indicators. The district is rated as leaning Republican by nonpartisan analysts, and Republicans hold incumbency with John McGuire, who won the seat in 2024. McGuire faces a primary challenge from Melanie Lucero, but as the incumbent with legislative experience he retains the structural advantage. Democrats have a potentially credible candidate in former U.S. Rep. Tom Perriello (who represented this exact district 2009-2011), but Perriello must first win a three-way August 4 primary against a family physician and a writer/commentator, adding uncertainty. Two independent candidates are on the ballot but appear non-competitive. The fundamental district lean and incumbency support a Lean Republican forecast, but the absence of voter polling data and contested primaries on both sides keep confidence low.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:16.244532Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

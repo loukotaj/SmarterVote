@@ -413,10 +413,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Idaho_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:03:25.555037+00:00",
+  "updated_utc": "2026-06-20T03:16:44.007472+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -425,20 +424,58 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 248376,
-    "completion_tokens": 7440,
-    "total_tokens": 255816,
-    "cost_usd": 0.017113008,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3526,
+    "completion_tokens": 211,
+    "total_tokens": 3737,
+    "cost_usd": 0.008524,
     "cost_source": "provider",
-    "estimated_usd": 0.025799,
+    "estimated_usd": 0.01198,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 248376,
-        "completion_tokens": 7440
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3526,
+        "completion_tokens": 211
       }
     },
-    "duration_s": 118.4
+    "duration_s": 15.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2955,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0028,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brad Little",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01,
+      "Libertarian": 0.0,
+      "Constitution": 0.0
+    },
+    "margin_estimate": 25.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available, which limits confidence. Even so, the race environment strongly favors Republicans: Brad Little is the incumbent governor, he won a crowded Republican primary decisively, and the race description identifies Idaho as a safe Republican stronghold with a Cook PVI of R+36.5. Idaho has not elected a Democrat to statewide office since 2002, and while independent and minor-party candidates could draw some votes, the available race data still points to Little as an overwhelming favorite.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:43.268015Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

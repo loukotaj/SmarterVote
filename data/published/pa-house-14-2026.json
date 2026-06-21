@@ -131,7 +131,7 @@
       "name": "Alan Bradstock",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Alan Bradstock is the Democratic nominee for Pennsylvania's 14th Congressional District. He served eight years in the U.S. Army as an aviation officer, deploying to the Middle East during Operation Desert Storm, followed by 20 years as an FBI Special Agent. His FBI career included assignments in counterterrorism, drug trafficking investigations, and serving as Deputy Legal Attach\u00e9 at the U.S. Embassy in Ottawa. Bradstock holds a Bachelor's in Accounting from Washington & Jefferson College and a Master's in International Relations from Troy State University.",
+      "summary": "Alan Bradstock is the Democratic nominee for Pennsylvania's 14th Congressional District. He served eight years in the U.S. Army as an aviation officer, deploying to the Middle East during Operation Desert Storm, followed by 20 years as an FBI Special Agent. His FBI career included assignments in counterterrorism, drug trafficking investigations, and serving as Deputy Legal Attaché at the U.S. Embassy in Ottawa. Bradstock holds a Bachelor's in Accounting from Washington & Jefferson College and a Master's in International Relations from Troy State University.",
       "summary_sources": [
         {
           "url": "https://www.bradstockforcongress.com/about",
@@ -175,7 +175,7 @@
           "organization": "Federal Bureau of Investigation",
           "start_year": 2000,
           "end_year": 2020,
-          "description": "20 years of service including counterterrorism, drug trafficking investigations, and Deputy Legal Attach\u00e9 in Ottawa",
+          "description": "20 years of service including counterterrorism, drug trafficking investigations, and Deputy Legal Attaché in Ottawa",
           "source": null
         },
         {
@@ -250,7 +250,7 @@
         {
           "url": "https://thecandidate.com/candidates/adam-scott-halfhill-pa-house-14",
           "type": "website",
-          "title": "HALFHILL, ADAM SCOTT \u2014 U.S. House \u2014 PA-14",
+          "title": "HALFHILL, ADAM SCOTT — U.S. House — PA-14",
           "description": null,
           "last_accessed": "2026-06-16T00:00:00Z",
           "published_at": null,
@@ -298,7 +298,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:20:19.073351+00:00",
+  "updated_utc": "2026-06-20T15:42:20.843128+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -312,7 +312,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Pennsylvania's_14th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -320,30 +320,48 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 183463,
-    "completion_tokens": 7310,
-    "total_tokens": 190773,
-    "cost_usd": 0.03344917,
+    "prompt_tokens": 18939,
+    "completion_tokens": 1369,
+    "total_tokens": 20308,
+    "cost_usd": 0.002064442,
     "cost_source": "provider",
-    "estimated_usd": 0.034412,
+    "estimated_usd": 0.001951,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 183463,
-        "completion_tokens": 7310
+        "prompt_tokens": 18939,
+        "completion_tokens": 1369
       }
     },
-    "duration_s": 203.5,
-    "serper_calls": 15,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 46414,
+    "duration_s": 30.3,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8133,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0443,
-    "context_deduplicated_results": 52,
+    "max_context_utilization": 0.0078,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Guy Reschenthaler",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.025,
+      "Other": 0.005
+    },
+    "margin_estimate": 25.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No candidate-level polling exists for this race as of June 2026, which constrains confidence. However, structural indicators are exceptionally strong for Republican incumbent Guy Reschenthaler. The Cook Political Report rates Pennsylvania's 14th District as Solidly Republican. Reschenthaler is a well-established four-term incumbent and House Chief Deputy Whip, and the district (covering Washington, Fayette, Greene, and parts of several southwestern Pennsylvania counties) has a strong Republican lean. Democratic nominee Alan Bradstock has a credible background as an Army veteran and former FBI agent, but no polling, fundraising, or competitiveness signals are present in the available data to suggest the race is competitive. American Independent Party candidate Adam Halfhill has very limited public profile and is unlikely to be a factor. The safe_r rating reflects the overwhelming structural advantage for Republicans in this district.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:42:15.111918Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

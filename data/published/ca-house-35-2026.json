@@ -6,7 +6,7 @@
   "state": "California",
   "district": "35th Congressional District",
   "election_date": "2026-11-03",
-  "description": "California's 35th Congressional District, located in the Inland Empire and parts of eastern Los Angeles County and western San Bernardino County, is holding a general election on November 3, 2026. Incumbent Democrat Norma Torres, first elected in 2014, faces Republican challenger Mike Cargile in a rematch of their 2020, 2022, and 2024 contests. The district has been reliably Democratic \u2014 Torres won with over 65% in previous cycles \u2014 and Cook Political Report rates the race as \"Solid Democratic.\" Key issues include immigration, border security, inflation, public safety, and abortion rights, with Torres emphasizing her record of delivering federal funding for the district and Cargile campaigning as an America First conservative.",
+  "description": "California's 35th Congressional District, located in the Inland Empire and parts of eastern Los Angeles County and western San Bernardino County, is holding a general election on November 3, 2026. Incumbent Democrat Norma Torres, first elected in 2014, faces Republican challenger Mike Cargile in a rematch of their 2020, 2022, and 2024 contests. The district has been reliably Democratic — Torres won with over 65% in previous cycles — and Cook Political Report rates the race as \"Solid Democratic.\" Key issues include immigration, border security, inflation, public safety, and abortion rights, with Torres emphasizing her record of delivering federal funding for the district and Cargile campaigning as an America First conservative.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race. Cook Political Report rates the district as Solid Democratic, indicating a low probability of a competitive general election.",
   "candidates": [
@@ -220,7 +220,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_35th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:11:37.705176+00:00",
+  "updated_utc": "2026-06-20T15:41:00.633666+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -234,18 +234,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 237865,
-    "completion_tokens": 5615,
-    "total_tokens": 243480,
-    "cost_usd": 0.016693678,
+    "prompt_tokens": 6971,
+    "completion_tokens": 1036,
+    "total_tokens": 8007,
+    "cost_usd": 0.000836294,
     "cost_source": "provider",
-    "estimated_usd": 0.024411,
+    "estimated_usd": 0.000814,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 237865,
-        "completion_tokens": 5615
+        "prompt_tokens": 6971,
+        "completion_tokens": 1036
       }
     },
-    "duration_s": 129.7
+    "duration_s": 22.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3522,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Norma Torres",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race in the 2026 cycle, so direct vote-intent data is unavailable. However, non-polling signals are uniformly strong for Democrats: Norma Torres is a six-term incumbent who first won the seat in 2014; she has defeated the same Republican challenger, Mike Cargile, in each of the last three cycles (2020, 2022, 2024) with margins exceeding 65%; the district is described as reliably Democratic; and Cook Political Report rates the race as Solid Democratic. The absence of any polling or event data suggesting a shift reduces confidence to medium, but the structural advantage is clear. Absent a major change in conditions, Torres is all but certain to hold the seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:51.618602Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

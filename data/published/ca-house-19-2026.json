@@ -260,7 +260,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_19th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:11:48.960374+00:00",
+  "updated_utc": "2026-06-20T15:23:06.045289+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -274,18 +274,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 286739,
-    "completion_tokens": 5969,
-    "total_tokens": 292708,
-    "cost_usd": 0.017329482,
+    "prompt_tokens": 11583,
+    "completion_tokens": 1356,
+    "total_tokens": 12939,
+    "cost_usd": 0.001341006,
     "cost_source": "provider",
-    "estimated_usd": 0.02927,
+    "estimated_usd": 0.001287,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 286739,
-        "completion_tokens": 5969
+        "prompt_tokens": 11583,
+        "completion_tokens": 1356
       }
     },
-    "duration_s": 150.4
+    "duration_s": 29.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6732,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jimmy Panetta",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available, which limits confidence. However, the available race data strongly favors Democrats: incumbent Jimmy Panetta has held the seat since 2016; Democrats have held the district continuously since 1977; Cook Political Report rated the race Solidly Democratic ahead of the primary; and Panetta won the top-two primary convincingly with 58.6% of the vote while Republican challenger Peter Coe Verbica advanced with only 20.4%. These structural and electoral factors indicate an overwhelming Democratic advantage despite the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:56.291401Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

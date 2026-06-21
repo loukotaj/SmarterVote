@@ -253,7 +253,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_39th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:28:04.329426+00:00",
+  "updated_utc": "2026-06-20T15:24:24.638409+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -267,18 +267,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 270404,
-    "completion_tokens": 5276,
-    "total_tokens": 275680,
-    "cost_usd": 0.017659512,
+    "prompt_tokens": 4150,
+    "completion_tokens": 1351,
+    "total_tokens": 5501,
+    "cost_usd": 0.0005417040000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.027534,
+    "estimated_usd": 0.000617,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 270404,
-        "completion_tokens": 5276
+        "prompt_tokens": 4150,
+        "completion_tokens": 1351
       }
     },
-    "duration_s": 142.2
+    "duration_s": 21.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2733,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0026,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mark Takano",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No independent public polling exists for the general election, which lowers confidence. However, the race fundamentals strongly favor the incumbent Democrat. Mark Takano is a long-serving incumbent first elected in 2012, the district has a Democratic lean of D+7 by Cook PVI, Cook Political Report rates the race 'Solid D', and Takano won the top-two primary with 61.0% to Republican Steve Manos's 39.0% on June 2, 2026. These indicators collectively point to an overwhelming Democratic advantage consistent with a safe_d rating, though the complete absence of general-election survey data warrants medium rather than high confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:20.348050Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

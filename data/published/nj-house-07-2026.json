@@ -248,7 +248,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:37:03.209655+00:00",
+  "updated_utc": "2026-06-20T15:31:14.082216+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -262,18 +262,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 262083,
-    "completion_tokens": 6301,
-    "total_tokens": 268384,
-    "cost_usd": 0.018193114,
+    "prompt_tokens": 13248,
+    "completion_tokens": 2655,
+    "total_tokens": 15903,
+    "cost_usd": 0.001818684,
     "cost_source": "provider",
-    "estimated_usd": 0.026919,
+    "estimated_usd": 0.00167,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 262083,
-        "completion_tokens": 6301
+        "prompt_tokens": 13248,
+        "completion_tokens": 2655
       }
     },
-    "duration_s": 133.7
+    "duration_s": 35.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7876,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0075,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Thomas Kean Jr.",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.44,
+      "Republican": 0.56
+    },
+    "margin_estimate": 1.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "This is a highly competitive race with very sparse data. The only identified poll (June 2026, from a Democratic-aligned source) shows Rebecca Bennett ahead of incumbent Thomas Kean Jr. by 4 points (47%-43%), suggesting genuine vulnerability for the two-term Republican. However, with only one partisan-aligned poll and no independent or GOP polling available, the polling picture is incomplete. The district has a slight Republican voter registration edge, and Kean is an incumbent, but his prolonged absence from Congress since March 2026 due to an undisclosed medical condition is a significant liability that has eroded his incumbency advantage. National analysts have shifted the race to 'Lean R' or 'Toss Up.' Bennett has strong fundraising ($2.7M without corporate PAC money) and a compelling personal story. On balance, the district's underlying Republican tilt gives Kean a narrow edge, but the race is highly uncertain and could easily flip given the sparse data and unusual circumstances.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:31:07.437072Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.insidernj.com/press-release/new-poll-engineer-and-healthcare-leader-rebecca-bennett-leads-republican-tom-kean-jr-in-new-jerseys-7th-congressional-district/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -6,9 +6,9 @@
   "state": "Georgia",
   "district": null,
   "election_date": "2026-11-03",
-  "description": "Georgia voters will elect a governor in 2026 in an open-seat race because Republican Gov. Brian Kemp is term-limited and cannot run again. The contest is expected to be a major test of partisan control in a closely divided state that has been competitive in recent statewide elections. Major issues in the race include taxes, health care, education, and the state's broader political direction, based on candidates' campaign messaging. The eventual nominees will also be shaped by the state's recent history of narrow statewide margins and intense turnout battles.",
+  "description": "Georgia voters will elect a governor on November 3, 2026, in an open-seat race because Republican incumbent Brian Kemp is term-limited. The general election pits Democrat Keisha Lance Bottoms, the former Atlanta mayor, against Republican Rick Jackson, a billionaire healthcare CEO who defeated Trump-endorsed Lt. Gov. Burt Jones in a June 16 primary runoff after spending more than $100 million of his own money. The contest is a major test of partisan control in a closely divided swing state that has not elected a Democratic governor since 1998, though Democrats showed new strength by winning two statewide Public Service Commission seats in 2025 (Georgia Recorder) and, for the first time since 2006, exceeding Republican turnout in the 2026 primary by drawing more than 1 million ballots to the GOP's nearly 940,000 (Georgia Recorder). Key contrasts include Bottoms' support for Medicaid expansion and public education investment versus Jackson's emphasis on tax cuts, public safety, and his self-funded outsider status.",
   "polling": [],
-  "polling_note": null,
+  "polling_note": "No public polling found for this race as of 2026-06-19.",
   "candidates": [
     {
       "name": "Keisha Lance Bottoms",
@@ -291,39 +291,63 @@
           ]
         }
       },
-      "career_history": [
-        {
-          "title": "Mayor",
-          "organization": "City of Atlanta",
-          "start_year": 2018,
-          "end_year": 2022,
-          "description": "Served as mayor of Atlanta.",
-          "source": null
-        },
-        {
-          "title": "Senior Advisor for Public Engagement",
-          "organization": "White House",
-          "start_year": 2022,
-          "end_year": 2022,
-          "description": "Served in the Biden administration as Senior Advisor for Public Engagement.",
-          "source": null
-        }
-      ],
+      "career_history": [],
       "education": [
         {
           "institution": "Florida A&M University",
-          "degree": "Bachelor of Science",
-          "field": "criminology",
-          "year": null,
+          "degree": "Bachelor of Arts",
+          "field": "Communications (Broadcast Journalism)",
+          "year": 1991,
+          "source": null
+        },
+        {
+          "institution": "Georgia State University College of Law",
+          "degree": "Juris Doctor",
+          "field": null,
+          "year": 1994,
           "source": null
         }
       ],
-      "voting_summary": "Keisha Lance Bottoms has not held legislative office, so there is no legislative voting record. As mayor of Atlanta, she issued budget and housing policy actions, including the city's Housing Affordability Action Plan, which is the best available public record of her governing approach. Sources: https://www.atlantaga.gov/government/mayor-s-office/executive-offices/office-of-communications/press-releases/-os-firetvykoFeHSy/-ref-app/-arch-1/-npage-63, https://www.investatlanta.com/impact-insights/mayor-keisha-lance-bottoms-releases-housing-affordability-action-plan, https://www.keishaforgovernor.com/record",
-      "voting_source_url": "https://www.atlantaga.gov/government/mayor-s-office/executive-offices/office-of-communications/press-releases/-os-firetvykoFeHSy/-ref-app/-arch-1/-npage-63",
+      "voting_summary": "Has never held legislative office. As Mayor of Atlanta (2018–2022), she signed a cash bond reform ordinance limiting cash bail, raised over $700 million to build or preserve more than 7,000 affordable housing units, and prioritized equity and public safety. Her campaign platform includes early childhood education, economic opportunity, and environmental health.",
+      "voting_source_url": "https://www.keishaforgovernor.com/record",
       "voting_sources": [],
-      "donor_summary": "No current 2026 campaign finance summary was found in the public sources reviewed. Her profile is currently supported by older fundraising and expenditure records tied to her prior Atlanta mayoral committee, but those do not establish a 2026 gubernatorial fundraising total.",
-      "donor_source_url": "https://www.followthemoney.org/entity-details?eid=44335509&default=contributor",
-      "donor_sources": [],
+      "donor_summary": "Raised approximately $1.1M through mid-2025, including a $200,000 personal loan, with fundraising largely through ActBlue indicating a grassroots base. Detailed industry breakdown not publicly available, but she has emphasized early childhood education, affordable housing, and economic opportunity in her platform.",
+      "donor_source_url": "https://southeastpolitics.com/keisha-lance-bottoms-with-a-little-help-from-her-own-cash-exceeds-1m-raised-for-governors-race/",
+      "donor_sources": [
+        {
+          "url": "https://southeastpolitics.com/keisha-lance-bottoms-with-a-little-help-from-her-own-cash-exceeds-1m-raised-for-governors-race/",
+          "type": "news",
+          "title": "Keisha Lance Bottoms, with a little help from her own cash, exceeds $1M raised for Governor’s race",
+          "description": null,
+          "last_accessed": "2026-06-19T20:49:05.763891Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://secure.actblue.com/donate/keishaforga",
+          "type": "finance",
+          "title": "Keisha Bottoms — Donate via ActBlue",
+          "description": null,
+          "last_accessed": "2026-06-19T20:49:05.763891Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.transparencyusa.org/ga/candidate/keisha-l-bottoms",
+          "type": "finance",
+          "title": "Keisha L Bottoms - Georgia Candidate - Transparency USA",
+          "description": null,
+          "last_accessed": "2026-06-19T20:49:05.763891Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
         {
           "url": "https://ballotpedia.org/Keisha_Lance_Bottoms",
@@ -364,6 +388,16 @@
           "url": "https://www.keishaforgovernor.com/bio",
           "title": "About — Keisha for Governor",
           "type": "official"
+        },
+        {
+          "url": "https://georgiarecorder.com/2026/05/19/former-atlanta-mayor-keisha-lance-bottoms-wins-democratic-nomination-for-georgia-governor/",
+          "title": "Former Atlanta Mayor Keisha Lance Bottoms wins Democratic nomination for Georgia governor",
+          "type": "news"
+        },
+        {
+          "url": "https://southeastpolitics.com/keisha-lance-bottoms-with-a-little-help-from-her-own-cash-exceeds-1m-raised-for-governors-race/",
+          "title": "Keisha Lance Bottoms, with a little help from her own cash, exceeds $1M raised for Governor’s race",
+          "type": "news"
         }
       ],
       "website": "https://www.keishaforgovernor.com/",
@@ -381,85 +415,782 @@
       "name": "Rick Jackson",
       "party": "Republican",
       "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
-      "issues": {},
-      "career_history": [],
+      "summary": "Rick Jackson is a billionaire healthcare executive and founder of Jackson Healthcare who is the Republican nominee for governor of Georgia in 2026. He grew up in foster care in Atlanta and later built a healthcare staffing company generating over $3 billion in annual revenue. Jackson defeated Trump-endorsed Lt. Gov. Burt Jones in a primary runoff after spending more than $100 million of his own money, and will face Democrat Keisha Lance Bottoms in the general election.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Rick_Jackson_(businessman)",
+          "type": "website",
+          "title": "Rick Jackson (businessman) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-19T20:47:29.248087Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://rickjackson.com/about/",
+          "type": "website",
+          "title": "About Rick - Rick Jackson for Governor",
+          "description": null,
+          "last_accessed": "2026-06-19T20:47:29.248095Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://apnews.com/article/rick-jackson-republican-governor-georgia-jones-trump-66a33ab0de0c92cdf5ccc50f26ef7418",
+          "type": "news",
+          "title": "Business owner Rick Jackson enters Georgia GOP governor's race",
+          "description": null,
+          "last_accessed": "2026-06-19T20:47:29.248100Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://rickjackson.com/wp-content/uploads/2026/04/rick-event.png",
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "The plan prioritizes affordability and economic growth by freezing property taxes immediately to halt rising assessments and cutting the state income tax by 50% within four years, with the goal of eliminating it within eight years. It also calls for using technology and AI to reduce waste in government and freezing tuition, room, and board at public colleges to curb rising education costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://rickjackson.com/action-plan/",
+              "type": "website",
+              "title": "Action Plan - Rick Jackson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-19T20:34:15.747483Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Rick Jackson advocates for strict immigration enforcement, including deportation or removal of unauthorized immigrants who commit violent crimes. He supports ending sanctuary policies and enhancing border enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.theguardian.com/us-news/2026/apr/13/rick-jackson-georgia-anti-immigration-ads",
+              "type": "news",
+              "title": "'Deported or departed’: Georgia candidate targets immigrants in ad blitz - The Guardian",
+              "description": null,
+              "last_accessed": "2026-06-19T20:34:19.986611Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.foxnews.com/politics/gop-gubernatorial-hopeful-blasted-critics-lying-stage-about-illegal-immigrant-hires",
+              "type": "news",
+              "title": "Georgia GOP candidate Rick Jackson accused by opponents of lying about illegal immigrant hires",
+              "description": null,
+              "last_accessed": "2026-06-19T20:34:19.986636Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Pro-Second Amendment; supports protecting gun owners’ rights in Georgia and has sponsored real legislation to defend those rights in the state.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.instagram.com/p/DY-iIElmY1o/",
+              "type": "social_media",
+              "title": "Grateful for the @ga2aorg endorsement. To me, standing for the 2nd ...",
+              "description": null,
+              "last_accessed": "2026-06-19T20:34:54.678718Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ajc.com/opinion/2026/06/rick-jackson-my-vision-for-ga-protects-children-pocketbooks-public-safety/",
+              "type": "website",
+              "title": "Rick Jackson: My vision for Ga. protects children, pocketbooks, public safety",
+              "description": null,
+              "last_accessed": "2026-06-19T20:34:54.678732Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Rick Jackson has publicly expressed support for Israel and Georgia's Jewish community; he frames foreign policy alignment as supporting strong U.S.-Israel relations and opposing divisive DEI policies at home, emphasizing 'Georgians first' and domestic priorities while maintaining America's ally relationships.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.foxnews.com/politics/georgia-gop-gubernatorial-hopeful-vows-ban-dei-state-his-own-nonprofit-urged-ceos-invest",
+              "type": "news",
+              "title": "Georgia GOP gubernatorial hopeful vows to 'ban DEI' in state but his nonprofit launched a 2021 initiative urging CEOs to use ...",
+              "description": null,
+              "last_accessed": "2026-06-19T20:35:42.026138Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.instagram.com/p/DOwKhQegGCa/",
+              "type": "social_media",
+              "title": "Thank you Georgia Solidarity Network for having me this ... I'm proud to stand in unwavering support of Israel and Georgia's Jewish community as we work together to continue the important relationship ...",
+              "description": null,
+              "last_accessed": "2026-06-19T20:35:42.026149Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Rick Jackson pledges to ban Diversity, Equity, and Inclusion (DEI) initiatives in Georgia, including DEI programs in state government, public universities, and K-12 classrooms, and has stated he would criminalize what he characterizes as reverse discrimination. He frames this as returning to merit-based policies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.foxnews.com/politics/georgia-gubernatorial-hopeful-vows-ban-dei-his-own-company-touted-diversity-inclusion",
+              "type": "news",
+              "title": "Georgia candidate Rick Jackson backed DEI at company, now-former executive says",
+              "description": null,
+              "last_accessed": "2026-06-19T20:55:02.565428Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wfmd.com/2026/05/15/georgia-gop-gubernatorial-hopeful-vows-to-ban-dei-in-state-but-his-own-nonprofit-urged-ceos-to-invest-in-it/",
+              "type": "news",
+              "title": "Georgia GOP gubernatorial hopeful vows to 'ban DEI' in state but his own nonprofit urged CEOs to invest in it",
+              "description": null,
+              "last_accessed": "2026-06-19T20:55:02.565436Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.aol.com/articles/georgia-gop-gubernatorial-hopeful-vows-184351168.html",
+              "type": "news",
+              "title": "Georgia GOP gubernatorial hopeful vows to 'ban DEI' in state but his own nonprofit urged CEOs to invest in it",
+              "description": null,
+              "last_accessed": "2026-06-19T20:55:02.565441Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Rick Jackson will use technology and artificial intelligence to eliminate wasteful spending and improve government services. He aims to integrate AI into state operations to increase efficiency and accountability.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://rickjackson.com/action-plan/",
+              "type": "government",
+              "title": "Action Plan - Rick Jackson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-19T20:36:35.369119Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ajc.com/politics/2026/03/rick-jackson-looks-to-ai-to-give-his-campaign-a-country-music-boost/",
+              "type": "website",
+              "title": "Rick Jackson looks to AI to give his campaign a country-music boost",
+              "description": null,
+              "last_accessed": "2026-06-19T20:36:35.369135Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Rick Jackson opposes Medicaid expansion in Georgia, a position shared by the entire Republican gubernatorial field. He has pointed to his background as founder and CEO of Jackson Healthcare, a healthcare staffing company that has held millions in state contracts, as evidence of his ability to address healthcare challenges.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://georgiademocrat.org/new-billionaire-rick-jackson-opposes-medicaid-expansion-supports-georgias-extreme-abortion-ban-as-his-gov-campaign-races-to-the-right/",
+              "type": "news",
+              "title": "NEW: Billionaire Rick Jackson Opposes Medicaid Expansion, Supports Georgia's Extreme Abortion Ban",
+              "description": null,
+              "last_accessed": "2026-06-19T20:47:29.248739Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://democraticgovernors.org/updates/rick-jackson-announces-opposition-to-medicaid-expansion/",
+              "type": "news",
+              "title": "Rick Jackson Announces Opposition to Medicaid Expansion - DGA",
+              "description": null,
+              "last_accessed": "2026-06-19T20:47:29.248745Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.healthbeat.org/atlanta/2026/02/27/rick-jackson-georgia-governor-state-contracts/",
+              "type": "news",
+              "title": "Georgia GOP governor candidate Rick Jackson's health care company has had millions in state contracts - Healthbeat",
+              "description": null,
+              "last_accessed": "2026-06-19T20:47:29.248750Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Rick Jackson's Local Issues plan emphasizes reducing the cost of living in Georgia by freezing property taxes immediately to halt rising local assessments and by cutting the state income tax in half within four years (with a goal to eliminate it within eight). He also aims to curb government waste through audits and technology, ban DEI programs in state government and classrooms, strengthen parental rights in schools, and support law enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://rickjackson.com/action-plan/",
+              "type": "website",
+              "title": "Action Plan - Rick Jackson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-19T20:37:55.247389Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Education: Rick Jackson will make college more affordable by freezing tuition, room, and board at public colleges and technical schools. He has also championed the Fostering Success Act to allow foster youth to attend public colleges tuition-free, expanding access to higher education for Georgians.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://rickjackson.com/action-plan/",
+              "type": "website",
+              "title": "Action Plan - Rick Jackson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-19T20:39:00.948237Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://imprintnews.org/top-stories/who-is-rick-jackson-billionaire-with-foster-care-backstory-runs-for-georgia-governor/274610",
+              "type": "news",
+              "title": "Billionaire With Foster Care Backstory Runs for GA Governor",
+              "description": null,
+              "last_accessed": "2026-06-19T20:39:00.948408Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://imprintnews.org/news-brief/campaigning-on-foster-youth-backstory-rick-jackson-heads-to-a-runoff-as-georgia-governors-race-tightens/274820",
+              "type": "news",
+              "title": "Campaigning on Foster Youth Backstory, Rick Jackson Heads To a Runoff as Georgia Governor’s Race Tightens",
+              "description": null,
+              "last_accessed": "2026-06-19T20:39:00.948452Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Rick Jackson says he is pro-life and intends to defend Georgia's current Heartbeat-law framework, supporting its six-week limit with exceptions for rape, incest, and the life of the mother, and pledges to defend the law as governor. He has acknowledged scrutiny over comments about rape exceptions, but campaign statements emphasize adherence to the existing policy rather than broad expansion or rolling back protections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cbsnews.com/atlanta/news/audio-recordings-reveal-georgia-gop-gubernatorial-candidate-rick-jacksons-views-on-abortion-exceptions/",
+              "type": "news",
+              "title": "Rick Jackson disputes abortion comments, says he supports Georgia's current Heartbeat law (CBS News)",
+              "description": null,
+              "last_accessed": "2026-06-19T20:39:23.470014Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.huffpost.com/entry/leaked-audio-shows-gop-candidate-agreeing-that-women-should-prove-rape-to-access-abortion_n_6a0f1637e4b0bb04cec3cc88",
+              "type": "news",
+              "title": "Leaked Audio Shows GOP Candidate Agreeing That Women Should Prove Rape to Access Abortion (HuffPost)",
+              "description": null,
+              "last_accessed": "2026-06-19T20:39:23.470023Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Jackson frames Georgia's elections around security and integrity, endorsing measures to safeguard elections; he has publicly echoed claims that Georgia's 2020 election was stolen, which election officials and courts have rejected.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.democracydocket.com/news-alerts/election-denier-rick-jackson-wins-georgia-gop-governor-primary-runoff/",
+              "type": "website",
+              "title": "Election denier Rick Jackson wins Georgia GOP governor primary runoff",
+              "description": null,
+              "last_accessed": "2026-06-19T20:55:08.507615Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/georgia-governor-midterm-primary-election-winner-jackson-rcna350030",
+              "type": "website",
+              "title": "Billionaire Rick Jackson defeats Trump-backed Burt Jones for the GOP nomination in Georgia governor's race",
+              "description": null,
+              "last_accessed": "2026-06-19T20:55:08.507623Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found on climate or energy policy after repeated research. Jackson has stated that data centers should be a local community decision rather than a state-level issue, but has not articulated a comprehensive climate or energy platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.wrdw.com/2026/06/02/rick-jackson-meet-with-voters-columbia-county/",
+              "type": "news",
+              "title": "Rick Jackson meets with voters in Columbia County",
+              "description": null,
+              "last_accessed": "2026-06-19T20:47:29.249148Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
+      "career_history": [
+        {
+          "title": "Founder and CEO",
+          "organization": "Jackson Healthcare",
+          "start_year": 2000,
+          "end_year": null,
+          "description": "Founded and leads a healthcare staffing and services company based in Alpharetta, Georgia, which generates over $3 billion in annual revenue.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "LocumTenens.com",
+          "start_year": 1995,
+          "end_year": null,
+          "description": "Founded a locum tenens physician staffing agency.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "Jackson Acquisitions (SPAC)",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Co-established a special-purpose acquisition company with Jeb Bush; dissolved in 2023.",
+          "source": null
+        }
+      ],
       "education": [],
-      "voting_summary": null,
-      "voting_source_url": null,
+      "voting_summary": "Has never held elected office and has no public voting record. As founder and CEO of Jackson Healthcare, he has not served in a legislative or executive government position. His campaign platform focuses on making Georgia the most affordable state through a property tax freeze, gas tax suspension, and reducing regulations, as detailed on his campaign website.",
+      "voting_source_url": "https://rickjackson.com/action-plan/",
       "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": null,
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Burt Jones",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
-      "issues": {},
-      "career_history": [],
-      "education": [],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": null,
+      "donor_summary": "A billionaire healthcare executive, Jackson has self-funded his campaign, spending over $100 million of his own money, largely through a personal loan structure. His company, Jackson Healthcare, also held millions of dollars in state contracts. No significant outside donor contributions have been reported due to the heavy reliance on self-funding.",
+      "donor_source_url": "https://www.forbes.com/sites/christopherhelman/2026/06/17/meet-the-staffing-billionaire-who-just-won-the-republican-gubernatorial-runoff-in-georgia/",
+      "donor_sources": [
+        {
+          "url": "https://www.forbes.com/sites/christopherhelman/2026/06/17/meet-the-staffing-billionaire-who-just-won-the-republican-gubernatorial-runoff-in-georgia/",
+          "type": "news",
+          "title": "Meet The Staffing Billionaire Who Just Won The Republican Gubernatorial Runoff In Georgia",
+          "description": null,
+          "last_accessed": "2026-06-19T20:49:05.763891Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.healthbeat.org/atlanta/2026/02/27/rick-jackson-georgia-governor-state-contracts/",
+          "type": "news",
+          "title": "Georgia GOP governor candidate Rick Jackson's health care company has had millions in state contracts",
+          "description": null,
+          "last_accessed": "2026-06-19T20:49:05.763891Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.facebook.com/ajc/posts/billionaire-rick-jackson-spent-more-than-100-million-of-his-own-money-to-defeat-/1524525409714763/",
+          "type": "news",
+          "title": "Billionaire Rick Jackson spent more than $100 million of his own money",
+          "description": null,
+          "last_accessed": "2026-06-19T20:49:05.763891Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Rick_Jackson_(Georgia)",
+          "title": "Rick Jackson (Georgia) - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rick_Jackson_(businessman)",
+          "title": "Rick Jackson (businessman) - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.forbes.com/sites/christopherhelman/2026/06/17/meet-the-staffing-billionaire-who-just-won-the-republican-gubernatorial-runoff-in-georgia/",
+          "title": "Meet The Staffing Billionaire Who Just Won The Republican Gubernatorial Runoff In Georgia",
+          "type": "news"
+        },
+        {
+          "url": "https://www.healthbeat.org/atlanta/2026/02/27/rick-jackson-georgia-governor-state-contracts/",
+          "title": "Georgia GOP governor candidate Rick Jackson's health care company has had millions in state contracts",
+          "type": "news"
+        },
+        {
+          "url": "https://rickjackson.com/action-plan/",
+          "title": "Action Plan - Rick Jackson for Governor",
+          "type": "official"
+        },
+        {
+          "url": "https://georgiarecorder.com/2026/05/19/jackson-jones-advance-to-a-gop-primary-runoff-in-race-to-be-georgias-next-governor/",
+          "title": "Jackson, Jones advance to a GOP primary runoff in race to be Georgia's next governor",
+          "type": "news"
+        }
+      ],
+      "website": "https://rickjackson.com/",
       "social_media": {},
       "withdrawn": false,
       "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-14T23:32:16.006857+00:00",
+  "updated_utc": "2026-06-20T03:17:24.363743+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
-  "register_to_vote_url": "https://georgia.gov/register-vote",
+  "register_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-registering-vote",
   "how_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-voting",
   "schema_version": "0.3",
-  "reviews": [],
-  "validation_grade": null,
+  "reviews": [
+    {
+      "model": "anthropic/claude-haiku-4.5",
+      "reviewed_at": "2026-06-19T20:59:22.506918Z",
+      "verdict": "approved",
+      "score": 87,
+      "flags": [
+        {
+          "field": "candidates[1].issues.Election Policy.stance",
+          "concern": "The stance describes Jackson as having 'publicly echoed claims that Georgia's 2020 election was stolen, which election officials and courts have rejected.' While the sources cited (Democracy Docket, NBC News) are credible, the phrasing 'which election officials and courts have rejected' is a factual assertion about the outcome of those proceedings. The sources should be verified to confirm they explicitly state this rejection, rather than relying on the profile's editorial framing. This is a high-stakes claim and warrants explicit source confirmation.",
+          "suggestion": "Verify that the cited sources (Democracy Docket and NBC News articles) explicitly document the rejection by election officials and courts, or reframe as: 'Jackson has publicly echoed claims about Georgia's 2020 election; election officials and courts have rejected these claims (per [source]).'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.stance",
+          "concern": "The stance uses the phrase 'fight to restore a woman's right to choose' — this is candidate framing language from Bottoms' campaign. For consistency and neutrality, compare against Jackson's stance which uses 'pro-life' and 'Heartbeat-law framework' (his framing). Both are appropriately attributed to the candidates' own language, but the profile should ensure this asymmetry is intentional and consistent across all issues.",
+          "suggestion": "Confirm this reflects the candidates' own campaign language (which it appears to do based on the source URLs to their official sites). If so, this is acceptable as it represents each candidate's self-description. No change needed if this is intentional.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.stance",
+          "concern": "The stance cites three sources, but two of them appear to be duplicates or near-duplicates (both titled 'Georgia GOP gubernatorial hopeful vows to 'ban DEI' in state but his own nonprofit urged CEOs to invest in it' from different domains: wfmd.com and aol.com). The third source is from Fox News. While the position is well-documented, the redundancy suggests the research agent may have over-counted sources. This is a minor issue but worth noting for source deduplication.",
+          "suggestion": "Consolidate duplicate sources in the sources array to avoid inflating source count. Retain the most authoritative version (likely the original reporting outlet).",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "Education entries lack source attribution (source field is null for both degrees). While the information is plausible and consistent with public biographical records, the profile should ideally cite where this education information was verified (e.g., Ballotpedia, official biography, news profile).",
+          "suggestion": "Add source URLs or citations for education credentials, or note that these were verified against a specific authoritative source (e.g., Ballotpedia profile).",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].career_history",
+          "concern": "Career history entries also lack source attribution (source field is null for all three entries). The Jackson Acquisitions SPAC co-founding with Jeb Bush is a specific factual claim that should be sourced, particularly given its potential relevance to conflict-of-interest or business scrutiny.",
+          "suggestion": "Add source URLs for career history items, particularly the SPAC founding and dissolution date (2023). This could be verified against SEC filings, news reports, or business databases.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The race description states 'Democrats showed new strength by winning two statewide Public Service Commission seats in 2025 (Georgia Recorder) and, for the first time since 2006, exceeding Republican turnout in the 2026 primary by drawing more than 1 million ballots to the GOP's nearly 940,000 (Georgia Recorder).' The turnout figures are specific and attributed to Georgia Recorder, but the profile does not include a direct link to this source in the race-level links section. This is a factual claim about primary turnout that should be independently verifiable.",
+          "suggestion": "Verify the specific turnout figures (1M+ Democratic vs. ~940K Republican in 2026 primary) against Georgia Recorder reporting or official Georgia Secretary of State data. Add a source link if available.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-sourced, comprehensive profile of the 2026 Georgia gubernatorial race. Both candidates' positions are documented with citations to official campaign websites, credible news outlets, and public records. The profile demonstrates strong internal consistency: Bottoms' stances on abortion, healthcare, education, and climate are all sourced to her official campaign site; Jackson's positions on tax policy, DEI, and healthcare are sourced to his campaign site and reputable news outlets (Forbes, NBC News, Democracy Docket). Background information is accurate and properly attributed. Language is generally neutral across both candidates, with appropriate use of candidate framing (e.g., 'pro-life' for Jackson, 'pro-choice' language for Bottoms) without asymmetric loading. The profile appropriately documents gaps (e.g., 'no public position found' on foreign policy for Bottoms, limited climate detail for Jackson) rather than fabricating positions. Donor summaries are well-documented with specific figures and source attribution."
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "reviewed_at": "2026-06-19T20:59:01.119943Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[1].issues.Abortion & Reproductive Health.stance",
+          "concern": "The stance mentions 'extreme abortion ban' in a source title (georgiademocrat.org). While the profile itself uses neutral language, the source title contains loaded terminology.",
+          "suggestion": "No action required as the profile's own summary remains neutral, but be mindful of source titles when selecting citations.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Election Policy.stance",
+          "concern": "The stance uses the term 'election denier'. While this is a common journalistic descriptor, it can be perceived as non-neutral.",
+          "suggestion": "Consider rephrasing to 'has echoed claims that the 2020 election was stolen' to maintain a strictly descriptive tone, though the current phrasing is supported by the cited source.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.stance",
+          "concern": "The stance uses the term 'illegal immigrant'.",
+          "suggestion": "Ensure consistency in terminology across the profile; consider using 'unauthorized immigrants' or 'undocumented immigrants' to align with neutral standards, though the current usage is common in political reporting.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is exceptionally well-researched and balanced. It provides a comprehensive, neutral overview of both candidates, utilizing high-quality, diverse sources including official campaign platforms, reputable news outlets, and financial transparency records. The contrastive analysis between the candidates is handled with professional neutrality, and the documentation of the race's context is thorough and well-sourced."
+    },
+    {
+      "model": "x-ai/grok-4.3",
+      "reviewed_at": "2026-06-19T20:59:02.652833Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [],
+      "summary": "Strong sourcing across all 12 issues for both candidates with high-confidence citations from official campaign sites (keishaforgovernor.com, rickjackson.com), Ballotpedia, Forbes, CBS News, and Georgia Recorder. Issue stances are internally consistent with the cited sources, language remains neutral and symmetric, and candidate backgrounds (Bottoms' mayoral record and Jackson's Jackson Healthcare career) align directly with the linked materials. Low-confidence fields are properly documented after searches."
+    },
+    {
+      "model": "automated-link-validator",
+      "reviewed_at": "2026-06-19T20:59:25.143357Z",
+      "verdict": "approved",
+      "score": null,
+      "flags": [],
+      "summary": "Scanned 50 source links. Found 0 dead link(s)."
+    },
+    {
+      "model": "automated-profile-quality",
+      "reviewed_at": "2026-06-19T20:59:25.146593Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Firearms & Second Amendment.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Foreign Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Healthcare.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Tech & AI.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[7]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[9]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Healthcare.sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[3]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Healthcare.sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        }
+      ],
+      "summary": "Found 24 profile quality issue(s)."
+    }
+  ],
+  "validation_grade": {
+    "grade": "A",
+    "score": 90,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 90/100."
+  },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 685268,
-    "completion_tokens": 14445,
-    "total_tokens": 699713,
-    "cost_usd": 0.108371676,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3838,
+    "completion_tokens": 273,
+    "total_tokens": 4111,
+    "cost_usd": 0.01369,
     "cost_source": "provider",
-    "estimated_usd": 0.110987,
+    "estimated_usd": 0.01369,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 685268,
-        "completion_tokens": 14445
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3838,
+        "completion_tokens": 273
       }
     },
-    "duration_s": 395.1,
-    "serper_calls": 41,
-    "context_requests": 32,
-    "max_estimated_context_tokens": 83202,
-    "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0793,
-    "context_deduplicated_results": 73,
+    "duration_s": 8.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3437,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0033,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
     "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
   },
   "post_run_analysis": null,
@@ -468,9 +1199,55 @@
     "remaining_candidates": [],
     "remaining_steps": [],
     "completed_units": [
+      "discovery.metadata",
       "discovery.roster_sync",
       "discovery.roster_verify",
-      "discovery.metadata"
+      "issues:Keisha Lance Bottoms:Abortion & Reproductive Health",
+      "issues:Keisha Lance Bottoms:Civil Rights & Equality",
+      "issues:Keisha Lance Bottoms:Climate/Energy",
+      "issues:Keisha Lance Bottoms:Economy",
+      "issues:Keisha Lance Bottoms:Education",
+      "issues:Keisha Lance Bottoms:Election Policy",
+      "issues:Keisha Lance Bottoms:Firearms & Second Amendment",
+      "issues:Keisha Lance Bottoms:Foreign Policy",
+      "issues:Keisha Lance Bottoms:Healthcare",
+      "issues:Keisha Lance Bottoms:Immigration",
+      "issues:Keisha Lance Bottoms:Local Issues",
+      "issues:Keisha Lance Bottoms:Tech & AI",
+      "issues:Rick Jackson:Abortion & Reproductive Health",
+      "issues:Rick Jackson:Civil Rights & Equality",
+      "issues:Rick Jackson:Economy",
+      "issues:Rick Jackson:Education",
+      "issues:Rick Jackson:Election Policy",
+      "issues:Rick Jackson:Firearms & Second Amendment",
+      "issues:Rick Jackson:Foreign Policy",
+      "issues:Rick Jackson:Healthcare",
+      "issues:Rick Jackson:Immigration",
+      "issues:Rick Jackson:Local Issues",
+      "issues:Rick Jackson:Tech & AI",
+      "issues:Rick Jackson:Climate/Energy",
+      "refinement:Keisha Lance Bottoms",
+      "refinement:Rick Jackson",
+      "refinement:meta",
+      "iteration:1:Keisha Lance Bottoms",
+      "iteration:1:Rick Jackson"
     ]
+  },
+  "forecast": {
+    "predicted_winner_name": "Rick Jackson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.44,
+      "Republican": 0.56
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No public polling is available, so this forecast relies on non-polling indicators and carries substantial uncertainty. Georgia remains a closely divided swing state, but Republicans retain a modest baseline edge in a gubernatorial race and the state has not elected a Democratic governor since 1998. This is also an open-seat contest, which reduces incumbency advantages and keeps the race competitive. Democrats have meaningful positive signals in the provided race data, including winning two statewide Public Service Commission seats in 2025 and surpassing Republican turnout in the 2026 primary, suggesting real competitiveness. At the same time, Jackson's massive self-funding, high visibility after a hard-fought primary, and the GOP's longer-term statewide gubernatorial strength support a slight Republican edge. With no public polling and both nominees lacking prior statewide elected-office experience, the most defensible informational rating is a narrow Republican advantage with low confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:23.521048Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
   }
 }

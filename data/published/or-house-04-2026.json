@@ -212,7 +212,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oregon%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:15:10.748182+00:00",
+  "updated_utc": "2026-06-20T15:22:26.354325+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -226,18 +226,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 208290,
-    "completion_tokens": 4984,
-    "total_tokens": 213274,
-    "cost_usd": 0.014460388,
+    "prompt_tokens": 8923,
+    "completion_tokens": 1457,
+    "total_tokens": 10380,
+    "cost_usd": 0.001100122,
     "cost_source": "provider",
-    "estimated_usd": 0.021389,
+    "estimated_usd": 0.001065,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 208290,
-        "completion_tokens": 4984
+        "prompt_tokens": 8923,
+        "completion_tokens": 1457
       }
     },
-    "duration_s": 106.5
+    "duration_s": 23.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6190,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Val Hoyle",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 0.72,
+      "Republican": 0.28
+    },
+    "margin_estimate": 5.0,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "No public 2026 general-election polling exists for this rematch, so confidence is low. Incumbent Democratic Rep. Val Hoyle defeated Republican Monique DeSpain by nearly 8 points in 2024, the district has a slight Democratic lean, and Hoyle holds the advantages of incumbency and name recognition from two prior cycles. These factors point to a meaningful but not overwhelming Democratic advantage. The absence of current polling and the district's only modest partisan lean prevent a stronger rating than Lean Democratic.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:18.301977Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

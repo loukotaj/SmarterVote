@@ -19,7 +19,7 @@
         {
           "url": "https://fernandez.house.gov/about/",
           "type": "government",
-          "title": "Meet Teresa | Congresswoman Teresa Leger Fern\u00e1ndez",
+          "title": "Meet Teresa | Congresswoman Teresa Leger Fernández",
           "description": null,
           "last_accessed": "2026-07-16T00:00:00Z",
           "published_at": null,
@@ -159,7 +159,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Mexico%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:54:38.190353+00:00",
+  "updated_utc": "2026-06-20T15:26:22.688065+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -173,18 +173,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 273408,
-    "completion_tokens": 5131,
-    "total_tokens": 278539,
-    "cost_usd": 0.0176659,
+    "prompt_tokens": 10526,
+    "completion_tokens": 2840,
+    "total_tokens": 13366,
+    "cost_usd": 0.001588188,
     "cost_source": "provider",
-    "estimated_usd": 0.0278,
+    "estimated_usd": 0.001459,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 273408,
-        "completion_tokens": 5131
+        "prompt_tokens": 10526,
+        "completion_tokens": 2840
       }
     },
-    "duration_s": 134.7
+    "duration_s": 35.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6008,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0057,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Teresa Leger Fernandez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.91,
+    "party_probabilities": {
+      "Democratic": 0.91,
+      "Republican": 0.09
+    },
+    "margin_estimate": 10.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race, so the forecast relies entirely on structural factors. Incumbent Teresa Leger Fernandez is a three-term Democratic incumbent in a district rated D+3 on the Cook PVI, and nonpartisan forecasters categorize the seat as Solid D. The challenger, Martin Zamora, is a credible Republican state legislator and farmer from Clovis, but the district's northern New Mexico composition—anchored by Santa Fe—favors Democrats in a midterm environment. The D+3 PVI and lack of polling caution against a 'safe' rating, but incumbency advantage, the Solid D consensus, and the absence of any recent strong Republican performance in the district point to a clear Democratic advantage in the range of 80-94% win probability. Confidence is medium due to zero polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:18.110452Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

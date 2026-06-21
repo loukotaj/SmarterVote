@@ -512,10 +512,9 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:13:31.043249+00:00",
+  "updated_utc": "2026-06-20T03:16:59.494367+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -692,32 +691,64 @@
   ],
   "polling_note": "No polls published after 2026-04-01 were found in the available sources during this update.",
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 73748,
-    "completion_tokens": 14118,
-    "total_tokens": 87866,
-    "cost_usd": 0.008097268,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2622,
+    "completion_tokens": 201,
+    "total_tokens": 2823,
+    "cost_usd": 0.007266,
     "cost_source": "provider",
-    "estimated_usd": 0.009955,
+    "estimated_usd": 0.00957,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 58353,
-        "completion_tokens": 13539
-      },
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 15395,
-        "completion_tokens": 579
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2622,
+        "completion_tokens": 201
       }
     },
-    "duration_s": 116.4
+    "duration_s": 7.9,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2315,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0022,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Iowa_gubernatorial_election,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.57,
+    "party_probabilities": {
+      "Democratic": 0.43,
+      "Republican": 0.57,
+      "Other": 0.0
+    },
+    "margin_estimate": 2.5,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No candidate-level polling is available in the provided race data, and no polls have been published after 2026-04-01 in the available sources, so this forecast is highly uncertain. Iowa has leaned Republican in recent statewide elections, which gives the GOP a modest baseline advantage even in an open-seat race. However, the lack of a settled Republican nominee and the presence of Democratic statewide officeholder Rob Sand, who appears to be a credible and established candidate, keep the race competitive rather than clearly favoring either party.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:58.126982Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

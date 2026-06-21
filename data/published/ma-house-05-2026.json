@@ -304,7 +304,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:27:27.369313+00:00",
+  "updated_utc": "2026-06-20T15:28:45.552824+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -318,18 +318,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 337170,
-    "completion_tokens": 8192,
-    "total_tokens": 345362,
-    "cost_usd": 0.019302884,
+    "prompt_tokens": 19496,
+    "completion_tokens": 2848,
+    "total_tokens": 22344,
+    "cost_usd": 0.002408912,
     "cost_source": "provider",
-    "estimated_usd": 0.034648,
+    "estimated_usd": 0.002267,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 337170,
-        "completion_tokens": 8192
+        "prompt_tokens": 19496,
+        "completion_tokens": 2848
       }
     },
-    "duration_s": 121.7
+    "duration_s": 39.1,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8507,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0081,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Katherine Clark",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Independent": 0.015,
+      "Republican": 0.005
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which moderates confidence. However, the structural fundamentals overwhelmingly favor a Democratic hold: MA-05 has a Cook PVI of D+24, has been held by Democrats since 1975, and no Republican candidate filed to run. Incumbent Katherine Clark is House Minority Whip (the second-ranking House Democrat) and has raised nearly $2 million for her re-election, far outpacing her primary challengers. Her two Democratic primary opponents (Jonathan Paz, a former Waltham city councilor, and Tarik Samman, a 27-year-old Harvard researcher) are lower-profile challengers running from the left. The general election independent candidate (Derek Fleming) faces steep odds in a D+24 district against the Democratic nominee. While the September 1 Democratic primary introduces some nominal uncertainty, Clark is the prohibitive favorite. The Democratic nominee will be an overwhelming favorite in the general election, making this a safe Democratic seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:40.551250Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -14,7 +14,7 @@
       "name": "Troy Downing",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Troy Downing is the incumbent U.S. Representative for Montana's 2nd Congressional District, first elected in 2024. He previously served as Montana State Auditor (2021\u20132025) and is a businessman, Air Force veteran, and former state auditor. Downing is running for a second term on a platform of conservative economic and national security policies.",
+      "summary": "Troy Downing is the incumbent U.S. Representative for Montana's 2nd Congressional District, first elected in 2024. He previously served as Montana State Auditor (2021–2025) and is a businessman, Air Force veteran, and former state auditor. Downing is running for a second term on a platform of conservative economic and national security policies.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Troy_Downing",
@@ -297,7 +297,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Montana%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:35:26.628049+00:00",
+  "updated_utc": "2026-06-20T15:29:29.247954+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -311,18 +311,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 341006,
-    "completion_tokens": 7547,
-    "total_tokens": 348553,
-    "cost_usd": 0.024045192,
+    "prompt_tokens": 13109,
+    "completion_tokens": 1374,
+    "total_tokens": 14483,
+    "cost_usd": 0.001553986,
     "cost_source": "provider",
-    "estimated_usd": 0.034898,
+    "estimated_usd": 0.001427,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 341006,
-        "completion_tokens": 7547
+        "prompt_tokens": 13109,
+        "completion_tokens": 1374
       }
     },
-    "duration_s": 130.0
+    "duration_s": 24.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7440,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0071,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Troy Downing",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Libertarian": 0.005,
+      "Independent": 0.005
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race (0 polls found as of June 2026), so the forecast relies entirely on non-polling fundamentals. The district is described as safely Republican and covers eastern Montana (Billings, Great Falls, Hi-Line). Incumbent Republican Rep. Troy Downing is seeking a second term. Cook Political Report rates MT-02 as 'Solidly Republican.' The Democratic nominee Brian Miller won a competitive primary (55.5%) but faces an uphill race in a district with a strong Republican lean. Libertarian and independent candidates are also on the ballot but have limited electoral pathways. With incumbency, strong district partisan lean, and no contrary evidence, Republicans hold an overwhelming advantage, though the absence of polling tempers confidence from high to medium.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:24.521744Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

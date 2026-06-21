@@ -1,614 +1,222 @@
 {
   "id": "ut-senate-2026",
-  "title": "2026 Utah State Senate Elections",
-  "office": "Utah State Senator",
+  "title": "2026 United States Senate election in Utah",
+  "office": "United States Senate",
   "jurisdiction": "Utah",
   "state": "Utah",
   "district": null,
   "election_date": "2026-11-03",
-  "description": "Fifteen of the 29 seats in the Utah State Senate are up for election on November 3, 2026. Republicans currently hold a 22-6 supermajority with one Forward Party member. The election will determine control of the chamber for the 67th Legislature convening in January 2027. Key races include open seats in Districts 5 and 6 due to Republican retirements, and competitive primaries in several districts. The chamber is rated Safe Republican by forecasters.",
+  "description": "This race is for one of Utah's two seats in the United States Senate. Ballotpedia did not return a candidate roster for this race, so the candidate list here is limited to contenders corroborated by Utah's official 2026 candidate filings and other published sources. Incumbent Republican Mike Lee is an active federal candidate according to the FEC, while Democrat Brian King is included based on published candidate references and public biography sources, though the available official Utah filing page text fetched for this run did not expose the U.S. Senate subsection. Utah is a Republican-leaning state, so the contest's baseline dynamics start with the incumbent advantage, but the race still matters for control and composition of the Senate.",
   "candidates": [
     {
-      "name": "J. Stuart Adams",
-      "party": "Republican",
+      "name": "Mike Lee",
+      "party": "Republican Party",
       "incumbent": true,
-      "summary": "J. Stuart Adams has served as President of the Utah State Senate since 2019 and represents District 7 in Salt Lake County. He was first elected to the Senate in 2010 after serving in the Utah House of Representatives. Adams is an attorney and business owner who has focused on economic development, education funding, and water policy during his legislative career.",
+      "summary": "Mike Lee is the incumbent U.S. senator from Utah, first elected in 2010 and serving since 2011. His Senate biography says he previously worked as an attorney, assistant U.S. attorney, law clerk, and counsel to then-Gov. Jon Huntsman. FEC records show he has filed as an incumbent candidate for Utah Senate in the current cycle.",
       "summary_sources": [
         {
-          "url": "https://en.wikipedia.org/wiki/J._Stuart_Adams",
-          "type": "website",
-          "title": "J. Stuart Adams - Wikipedia",
+          "url": "https://www.lee.senate.gov/about-mike",
+          "type": "government",
+          "title": "About Mike - Mike Lee US Senator for Utah",
           "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
+          "last_accessed": "2026-06-20T00:00:00Z",
           "published_at": null,
           "checksum": null,
           "is_fresh": false,
           "is_official_campaign": null
         },
         {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
+          "url": "https://www.fec.gov/data/candidate/S0UT00165/",
           "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
+          "title": "LEE, MIKE - Candidate overview | FEC",
           "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://leeforsenate.com/",
+          "type": "website",
+          "title": "Mike Lee for Senate",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
           "published_at": null,
           "checksum": null,
           "is_fresh": false,
           "is_official_campaign": null
         }
       ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Utah_Senate_President_Stuart_Adams_-_2022_%28cropped%29.jpg/120px-Utah_Senate_President_Stuart_Adams_-_2022_%28cropped%29.jpg",
+      "image_url": null,
       "issues": {},
       "career_history": [
         {
-          "title": "President of the Utah State Senate",
-          "organization": "Utah State Legislature",
-          "start_year": 2019,
+          "title": "United States Senator",
+          "organization": "United States Senate",
+          "start_year": 2011,
           "end_year": null,
-          "description": "Leads the Senate and sets legislative priorities",
+          "description": "Represents Utah in the U.S. Senate.",
           "source": null
         },
         {
-          "title": "State Senator, District 7",
-          "organization": "Utah State Legislature",
-          "start_year": 2010,
+          "title": "General Counsel",
+          "organization": "Office of Utah Gov. Jon Huntsman",
+          "start_year": null,
           "end_year": null,
-          "description": "Represents Salt Lake County",
+          "description": "Served as general counsel to then-Gov. Jon Huntsman.",
           "source": null
         },
         {
-          "title": "State Representative",
+          "title": "Assistant U.S. Attorney",
+          "organization": "U.S. Attorney's Office in Salt Lake City",
+          "start_year": null,
+          "end_year": null,
+          "description": "Argued cases before the U.S. Court of Appeals for the Tenth Circuit.",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Sidley & Austin",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on appellate and Supreme Court litigation.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Brigham Young University",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": 1994,
+          "source": null
+        },
+        {
+          "institution": "Brigham Young University Law School",
+          "degree": "JD",
+          "field": "Law",
+          "year": 1997,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.lee.senate.gov/about-mike",
+          "title": "Senate biography",
+          "type": "other"
+        },
+        {
+          "url": "https://leeforsenate.com/",
+          "title": "Campaign website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S0UT00165/",
+          "title": "FEC candidate profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://leeforsenate.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brian King",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Brian King is a Utah Democrat who served in the Utah House of Representatives from 2009 to 2024 and became chair of the Utah Democratic Party in 2025. Public biography sources say he also practiced law and previously served as Utah House minority leader. He is included here as an active published candidate reference for this race, but the official Utah filings page content fetched in this run did not clearly expose the U.S. Senate section for independent confirmation in the extracted text.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brian_King",
+          "type": "website",
+          "title": "Brian King - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Brian_King_(politician)",
+          "type": "news",
+          "title": "Brian King (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kingforutah.com/",
+          "type": "website",
+          "title": "Brian King",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Brian_King.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Chair",
+          "organization": "Utah Democratic Party",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Elected chair of the Utah Democratic Party in 2025.",
+          "source": null
+        },
+        {
+          "title": "Member",
           "organization": "Utah House of Representatives",
-          "start_year": 2002,
-          "end_year": 2010,
-          "description": "Served in the Utah House before moving to the Senate",
-          "source": null
-        }
-      ],
-      "education": [
-        {
-          "institution": "Brigham Young University",
-          "degree": "Juris Doctor",
-          "field": "Law",
-          "year": 1995,
+          "start_year": 2009,
+          "end_year": 2024,
+          "description": "Represented Utah House districts 28 and later 23.",
           "source": null
         },
         {
-          "institution": "Brigham Young University",
-          "degree": "Bachelor of Arts",
-          "field": "Political Science",
-          "year": 1992,
-          "source": null
-        }
-      ],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": "https://stuartadams.com/",
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Daniel McCay",
-      "party": "Republican",
-      "incumbent": true,
-      "summary": "Daniel McCay represents District 18 covering parts of Salt Lake and Utah Counties. First elected in 2018, he serves as Senate Majority Whip. McCay is an attorney who has sponsored legislation on religious liberty, election integrity, and government transparency.",
-      "summary_sources": [
-        {
-          "url": "https://en.wikipedia.org/wiki/Daniel_McCay",
-          "type": "website",
-          "title": "Daniel McCay - Wikipedia",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        },
-        {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
-          "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        }
-      ],
-      "image_url": null,
-      "issues": {},
-      "career_history": [
-        {
-          "title": "State Senator, District 18",
-          "organization": "Utah State Legislature",
-          "start_year": 2018,
-          "end_year": null,
-          "description": "Represents Salt Lake and Utah Counties; serves as Senate Majority Whip",
-          "source": null
-        },
-        {
-          "title": "Attorney",
-          "organization": "Private Practice",
-          "start_year": 2008,
-          "end_year": null,
-          "description": "Practices law in Utah",
-          "source": null
-        }
-      ],
-      "education": [
-        {
-          "institution": "Brigham Young University",
-          "degree": "Juris Doctor",
-          "field": "Law",
-          "year": 2008,
-          "source": null
-        },
-        {
-          "institution": "Brigham Young University",
-          "degree": "Bachelor of Arts",
-          "field": "Political Science",
-          "year": 2005,
-          "source": null
-        }
-      ],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": "https://danielmccay.com/",
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Kirk Cullimore Jr.",
-      "party": "Republican",
-      "incumbent": true,
-      "summary": "Kirk Cullimore Jr. represents District 19 in Salt Lake County. First elected in 2018, he is an attorney who has focused on legal reform, business regulation, and public safety legislation. He serves on the Judiciary and Law Enforcement committees.",
-      "summary_sources": [
-        {
-          "url": "https://en.wikipedia.org/wiki/Kirk_Cullimore_Jr.",
-          "type": "website",
-          "title": "Kirk Cullimore Jr. - Wikipedia",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        },
-        {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
-          "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        }
-      ],
-      "image_url": null,
-      "issues": {},
-      "career_history": [
-        {
-          "title": "State Senator, District 19",
-          "organization": "Utah State Legislature",
-          "start_year": 2018,
-          "end_year": null,
-          "description": "Represents Salt Lake County",
-          "source": null
-        },
-        {
-          "title": "Attorney",
-          "organization": "Cullimore Law",
-          "start_year": 2006,
-          "end_year": null,
-          "description": "Practices civil litigation and business law",
-          "source": null
-        }
-      ],
-      "education": [
-        {
-          "institution": "University of Utah",
-          "degree": "Juris Doctor",
-          "field": "Law",
-          "year": 2006,
-          "source": null
-        },
-        {
-          "institution": "Brigham Young University",
-          "degree": "Bachelor of Arts",
-          "field": "Spanish",
-          "year": 2003,
-          "source": null
-        }
-      ],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": "https://kirkcullimore.com/",
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Ronald M. Winterton",
-      "party": "Republican",
-      "incumbent": true,
-      "summary": "Ronald Winterton represents District 20, a large rural district covering Daggett, Duchesne, Summit, Uintah, and Wasatch Counties. First elected in 2018, he is a rancher and businessman who focuses on natural resources, water rights, and rural economic development.",
-      "summary_sources": [
-        {
-          "url": "https://en.wikipedia.org/wiki/Ronald_Winterton",
-          "type": "website",
-          "title": "Ronald Winterton - Wikipedia",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        },
-        {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
-          "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        }
-      ],
-      "image_url": null,
-      "issues": {},
-      "career_history": [
-        {
-          "title": "State Senator, District 20",
-          "organization": "Utah State Legislature",
-          "start_year": 2018,
-          "end_year": null,
-          "description": "Represents five rural counties in eastern Utah",
-          "source": null
-        },
-        {
-          "title": "Rancher/Business Owner",
-          "organization": "Winterton Ranches",
-          "start_year": 1980,
-          "end_year": null,
-          "description": "Family ranching operation in Uintah County",
-          "source": null
-        }
-      ],
-      "education": [
-        {
-          "institution": "Utah State University",
-          "degree": "Bachelor of Science",
-          "field": "Animal Science",
-          "year": 1978,
-          "source": null
-        }
-      ],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": null,
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Jen Plumb",
-      "party": "Democratic",
-      "incumbent": true,
-      "summary": "Jen Plumb represents District 9 in Salt Lake County. First elected in 2022, she is a pediatrician who advocates for healthcare access, education funding, and child welfare policies. She serves on the Health and Human Services and Education committees.",
-      "summary_sources": [
-        {
-          "url": "https://en.wikipedia.org/wiki/Jen_Plumb",
-          "type": "website",
-          "title": "Jen Plumb - Wikipedia",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        },
-        {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
-          "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        }
-      ],
-      "image_url": null,
-      "issues": {},
-      "career_history": [
-        {
-          "title": "State Senator, District 9",
-          "organization": "Utah State Legislature",
-          "start_year": 2022,
-          "end_year": null,
-          "description": "Represents Salt Lake County; pediatrician",
-          "source": null
-        },
-        {
-          "title": "Pediatrician",
-          "organization": "University of Utah Health",
-          "start_year": 2005,
-          "end_year": null,
-          "description": "Practices pediatric medicine",
-          "source": null
-        }
-      ],
-      "education": [
-        {
-          "institution": "University of Utah School of Medicine",
-          "degree": "Doctor of Medicine",
-          "field": "Medicine",
-          "year": 2005,
-          "source": null
-        },
-        {
-          "institution": "University of Utah",
-          "degree": "Bachelor of Science",
-          "field": "Biology",
-          "year": 2001,
-          "source": null
-        }
-      ],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": "https://jenplumb.com/",
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Karen Kwan",
-      "party": "Democratic",
-      "incumbent": true,
-      "summary": "Karen Kwan represents District 12 in Salt Lake County. First elected in 2022, she is a professor of psychology at Salt Lake Community College. Kwan focuses on mental health policy, education, and criminal justice reform. She is the first Chinese American to serve in the Utah Legislature.",
-      "summary_sources": [
-        {
-          "url": "https://en.wikipedia.org/wiki/Karen_Kwan_(politician)",
-          "type": "website",
-          "title": "Karen Kwan (politician) - Wikipedia",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        },
-        {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
-          "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        }
-      ],
-      "image_url": null,
-      "issues": {},
-      "career_history": [
-        {
-          "title": "State Senator, District 12",
-          "organization": "Utah State Legislature",
-          "start_year": 2022,
-          "end_year": null,
-          "description": "Represents Salt Lake County",
-          "source": null
-        },
-        {
-          "title": "Professor of Psychology",
-          "organization": "Salt Lake Community College",
-          "start_year": 2000,
-          "end_year": null,
-          "description": "Teaches psychology and behavioral science",
-          "source": null
-        }
-      ],
-      "education": [
-        {
-          "institution": "University of Utah",
-          "degree": "Doctor of Philosophy",
-          "field": "Psychology",
-          "year": 1999,
-          "source": null
-        },
-        {
-          "institution": "University of Utah",
-          "degree": "Master of Science",
-          "field": "Psychology",
-          "year": 1995,
-          "source": null
-        },
-        {
-          "institution": "University of Utah",
-          "degree": "Bachelor of Science",
-          "field": "Psychology",
-          "year": 1993,
-          "source": null
-        }
-      ],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": "https://karenkwan.com/",
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Claudia Bigler",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Claudia Bigler is the Democratic candidate for District 1, which covers Box Elder, Cache, and Tooele Counties. She is challenging incumbent Republican Scott Sandall in a heavily Republican district (R+54.8 in the 2024 presidential election). Bigler is a community organizer and former educator.",
-      "summary_sources": [
-        {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
-          "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        },
-        {
-          "url": "https://en.wikipedia.org/wiki/2026_Utah_Senate_election",
-          "type": "website",
-          "title": "2026 Utah Senate election - Wikipedia",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        }
-      ],
-      "image_url": null,
-      "issues": {},
-      "career_history": [
-        {
-          "title": "Community Organizer",
-          "organization": "Various nonprofits",
+          "title": "Minority Leader",
+          "organization": "Utah House of Representatives",
           "start_year": 2015,
+          "end_year": 2023,
+          "description": "Led House Democrats in the Utah Legislature.",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
           "end_year": null,
-          "description": "Works on civic engagement and community issues in northern Utah",
-          "source": null
-        },
-        {
-          "title": "Educator",
-          "organization": "Cache County School District",
-          "start_year": 2005,
-          "end_year": 2015,
-          "description": "Taught in public schools",
-          "source": null
-        }
-      ],
-      "education": [
-        {
-          "institution": "Utah State University",
-          "degree": "Master of Education",
-          "field": "Education",
-          "year": 2005,
-          "source": null
-        },
-        {
-          "institution": "Utah State University",
-          "degree": "Bachelor of Arts",
-          "field": "English",
-          "year": 2002,
-          "source": null
-        }
-      ],
-      "voting_summary": null,
-      "voting_source_url": null,
-      "voting_sources": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
-      "links": [],
-      "website": null,
-      "social_media": {},
-      "withdrawn": false,
-      "withdrawal_reason": null
-    },
-    {
-      "name": "Mackenzie Miller",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Mackenzie Miller is the Democratic candidate for District 11, which covers parts of Salt Lake and Tooele Counties. She is challenging Forward Party incumbent Emily Buss and Republican Brooks Benson in a district that voted Republican by 34.9 points in the 2024 presidential election. Miller is a public policy advocate.",
-      "summary_sources": [
-        {
-          "url": "https://vote.utah.gov/2026-candidate-filings/",
-          "type": "government",
-          "title": "2026 Candidate Filings - Utah Voter Information",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        },
-        {
-          "url": "https://en.wikipedia.org/wiki/2026_Utah_Senate_election",
-          "type": "website",
-          "title": "2026 Utah Senate election - Wikipedia",
-          "description": null,
-          "last_accessed": "2026-06-15T00:00:00Z",
-          "published_at": null,
-          "checksum": null,
-          "is_fresh": false,
-          "is_official_campaign": null
-        }
-      ],
-      "image_url": null,
-      "issues": {},
-      "career_history": [
-        {
-          "title": "Public Policy Advocate",
-          "organization": "Nonprofit sector",
-          "start_year": 2018,
-          "end_year": null,
-          "description": "Works on healthcare access and social services policy",
+          "description": "Practiced law with a focus including ERISA-related civil litigation, according to biography sources.",
           "source": null
         }
       ],
       "education": [
         {
           "institution": "University of Utah",
-          "degree": "Master of Public Policy",
-          "field": "Public Policy",
-          "year": 2018,
+          "degree": "BS",
+          "field": "Economics",
+          "year": null,
           "source": null
         },
         {
-          "institution": "Brigham Young University",
-          "degree": "Bachelor of Arts",
-          "field": "Political Science",
-          "year": 2015,
+          "institution": "University of Utah S.J. Quinney College of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
           "source": null
         }
       ],
@@ -618,18 +226,53 @@
       "donor_summary": null,
       "donor_source_url": null,
       "donor_sources": [],
-      "links": [],
-      "website": null,
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Brian_King",
+          "title": "Ballotpedia profile",
+          "type": "other"
+        },
+        {
+          "url": "https://www.kingforutah.com/",
+          "title": "Campaign/political website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Brian_King_(politician)",
+          "title": "Biography summary",
+          "type": "news"
+        }
+      ],
+      "website": "https://www.kingforutah.com/",
       "social_media": {},
       "withdrawn": false,
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:13:22.999759+00:00",
+  "updated_utc": "2026-06-20T03:18:16.427867+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
+  "forecast": {
+    "predicted_winner_name": "Mike Lee",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.05
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "There are no published numeric polls in the provided race data, which limits confidence. Still, the available information points strongly toward Republicans: Utah is described here as a Republican-leaning state, Mike Lee is the incumbent senator, and he is confirmed as an active federal candidate. The listed Democratic contender, Brian King, has prior state-level experience, but the prompt notes weaker official filing confirmation in the extracted text. With no polling to contradict the baseline, the race appears to start from a strong Republican advantage, though confidence is reduced by the absence of polls and the limited candidate-field data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:18:15.387100Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Utah,_2026",
+  "reviews": [],
+  "validation_grade": null,
   "pipeline_state": {
     "complete": true,
     "remaining_candidates": [],
@@ -639,42 +282,35 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "reviews": [],
-  "validation_grade": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 303835,
-    "completion_tokens": 15586,
-    "total_tokens": 319421,
-    "cost_usd": 0.078409864,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 91607,
+    "completion_tokens": 2338,
+    "total_tokens": 93945,
+    "cost_usd": 0.2528955,
     "cost_source": "provider",
-    "estimated_usd": 0.079241,
+    "estimated_usd": 0.277087,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 260942,
-        "completion_tokens": 9437
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 42893,
-        "completion_tokens": 6149
+      "openai/gpt-5.4": {
+        "prompt_tokens": 91607,
+        "completion_tokens": 2338
       }
     },
-    "duration_s": 269.6,
-    "serper_calls": 15,
-    "context_requests": 15,
-    "max_estimated_context_tokens": 52985,
-    "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0505,
-    "context_deduplicated_results": 56,
+    "duration_s": 66.7,
+    "serper_calls": 13,
+    "context_requests": 11,
+    "max_estimated_context_tokens": 33735,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0321,
+    "context_deduplicated_results": 20,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 2,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
   }
 }

@@ -267,7 +267,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arkansas%27_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:44:05.782814+00:00",
+  "updated_utc": "2026-06-20T15:20:22.773049+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -281,18 +281,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 282069,
-    "completion_tokens": 6637,
-    "total_tokens": 288706,
-    "cost_usd": 0.016982782000000002,
+    "prompt_tokens": 7065,
+    "completion_tokens": 1187,
+    "total_tokens": 8252,
+    "cost_usd": 0.000925022,
     "cost_source": "provider",
-    "estimated_usd": 0.028944,
+    "estimated_usd": 0.00085,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 282069,
-        "completion_tokens": 6637
+        "prompt_tokens": 7065,
+        "completion_tokens": 1187
       }
     },
-    "duration_s": 118.5
+    "duration_s": 22.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3570,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Bruce Westerman",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.03,
+      "Republican": 0.97
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists for this race as of mid-2026, keeping confidence at medium rather than high. However, the race data strongly favors the Republican incumbent: Bruce Westerman is a long-serving incumbent seeking a seventh term who chairs the House Natural Resources Committee; Arkansas has held all four U.S. House seats as Republican since 2013; and multiple nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate this district as Solid R / Safe R. The Democratic nominee, James 'Rus' Russell, won his primary with 53% but faces an uphill race in a heavily Republican district covering southern and western Arkansas. This is an informational Safe Republican forecast grounded in incumbency, district fundamentals, and third-party ratings rather than direct voter polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:17.123144Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

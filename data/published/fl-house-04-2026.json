@@ -14,7 +14,7 @@
       "name": "Aaron Bean",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Aaron Bean is the incumbent U.S. Representative for Florida's 4th Congressional District, first elected in 2022. A former member of the Florida Senate (2012\u20132020) and Florida House of Representatives (2000\u20132008), he served as Florida Senate President Pro Tempore and chaired multiple committees. He is a small business owner and holds a degree from the University of North Florida.",
+      "summary": "Aaron Bean is the incumbent U.S. Representative for Florida's 4th Congressional District, first elected in 2022. A former member of the Florida Senate (2012–2020) and Florida House of Representatives (2000–2008), he served as Florida Senate President Pro Tempore and chaired multiple committees. He is a small business owner and holds a degree from the University of North Florida.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Aaron_Bean",
@@ -334,7 +334,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:40:00.971421+00:00",
+  "updated_utc": "2026-06-20T15:40:26.195369+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -348,18 +348,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 184580,
-    "completion_tokens": 9813,
-    "total_tokens": 194393,
-    "cost_usd": 0.014540956,
+    "prompt_tokens": 14440,
+    "completion_tokens": 1564,
+    "total_tokens": 16004,
+    "cost_usd": 0.001721664,
     "cost_source": "provider",
-    "estimated_usd": 0.020012,
+    "estimated_usd": 0.001581,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 184580,
-        "completion_tokens": 9813
+        "prompt_tokens": 14440,
+        "completion_tokens": 1564
       }
     },
-    "duration_s": 121.4
+    "duration_s": 28.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8108,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0077,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": null,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": null,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which limits certainty. However, the structural indicators are unambiguous: Republican incumbent Aaron Bean is seeking a third term in a district where Donald Trump won by 12 points in 2024. Major nonpartisan forecasters rate this seat as Solid or Safe Republican. Democrats face a contested three-way primary (August 18, 2026) and have not yet nominated a general-election challenger, while the NPA candidate (Todd Schaefer) has no visible pathway to competitiveness from available data. Given zero polling, confidence remains medium, but the combination of incumbency, a strongly Republican-leaning district, and unified forecaster consensus supports a Safe Republican rating with a high-90s win probability for the GOP.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:19.549382Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

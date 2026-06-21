@@ -353,7 +353,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:23:27.697948+00:00",
+  "updated_utc": "2026-06-20T15:37:56.872588+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -367,18 +367,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 296337,
-    "completion_tokens": 7915,
-    "total_tokens": 304252,
-    "cost_usd": 0.021307246,
+    "prompt_tokens": 14836,
+    "completion_tokens": 2001,
+    "total_tokens": 16837,
+    "cost_usd": 0.001846124,
     "cost_source": "provider",
-    "estimated_usd": 0.030592,
+    "estimated_usd": 0.001695,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 296337,
-        "completion_tokens": 7915
+        "prompt_tokens": 14836,
+        "completion_tokens": 2001
       }
     },
-    "duration_s": 153.2
+    "duration_s": 29.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8829,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0084,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Kweisi Mfume",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 52.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls are available for this race (based_on_poll_count=0). The forecast relies on race context: Maryland's 7th is a heavily Democratic district (Cook Political Report: Solid D), making a Democratic general-election win virtually certain. The decisive contest is the Democratic primary on June 23, 2026 — 3 days from now. Incumbent Kweisi Mfume holds strong advantages from incumbency, name recognition, prior service (1987-1996 and since 2020), and institutional support. His primary challengers include a city councilmember (Conway), a school bus driver/activist (Gillespie), and a candidate with minimal public profile (Davis). None appear to have the resources or profile to seriously threaten a well-known incumbent. On the Republican side, Scott Collier is a perennial candidate who has lost previous general elections by wide margins. However, the complete absence of any polling data — even internal or partisan — means this assessment relies entirely on qualitative and structural factors, which keeps confidence at medium rather than high. The 0.97 Democratic win probability reflects the near-certainty that a Democrat will hold the seat, with a tiny residual risk of an unforeseen event.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:51.991915Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

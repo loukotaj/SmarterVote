@@ -232,7 +232,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:13:13.432989+00:00",
+  "updated_utc": "2026-06-20T15:35:23.963704+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -246,18 +246,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 227974,
-    "completion_tokens": 6606,
-    "total_tokens": 234580,
-    "cost_usd": 0.016307972,
+    "prompt_tokens": 17687,
+    "completion_tokens": 1564,
+    "total_tokens": 19251,
+    "cost_usd": 0.00203987,
     "cost_source": "provider",
-    "estimated_usd": 0.023636,
+    "estimated_usd": 0.001873,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 227974,
-        "completion_tokens": 6606
+        "prompt_tokens": 17687,
+        "completion_tokens": 1564
       }
     },
-    "duration_s": 135.2
+    "duration_s": 27.9,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 7720,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0074,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Melissa Bean",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 16.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No general election matchup polling is available (based_on_poll_count=0), so this forecast relies entirely on non-polling race fundamentals. The district has been redrawn to be solidly Democratic per the race description, and Cook Political Report rates the race as Solid D / Solidly Democratic. Democrat Melissa Bean is a well-known former three-term U.S. Representative for this district (2005–2011) with high name recognition, significant institutional support (over $7M in outside spending, including from major pro-Israel groups), and she won a competitive eight-candidate primary with 32% — emerging as the clear party standard-bearer. Republican Jennifer Davis is a political outsider with no elected experience who won a less competitive primary. In a strongly Democratic district with a well-funded, experienced Democratic nominee, the race presents an overwhelming Democratic advantage. Confidence is set to 'medium' rather than 'high' due to the complete absence of district-specific general election polling, the open-seat dynamic (no incumbent), and the potential for national political headwinds to shift. Margin estimate of ~16 points reflects a typical safe Democratic district spread given the fundamentals.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:17.563819Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

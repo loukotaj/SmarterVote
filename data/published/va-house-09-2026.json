@@ -6,7 +6,7 @@
   "state": "Virginia",
   "district": "9th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Virginia's 9th Congressional District covers most of rural Southwest Virginia, including the New River Valley and the Virginia side of the Tri-Cities area. This is a safely Republican district (Cook PVI R+22) where incumbent Republican Rep. Morgan Griffith, first elected in 2010, is seeking re-election. Three Democrats \u2014 Douglas Crockett, Adam Murphy, and Joy Powers \u2014 are competing in the August 4, 2026 Democratic primary to challenge Griffith, while Michael Jackson is running as an independent. The district's political dynamics center on economic concerns such as the cost of living, healthcare access, and rural infrastructure, with the candidates offering contrasting visions on how to address these issues.",
+  "description": "Virginia's 9th Congressional District covers most of rural Southwest Virginia, including the New River Valley and the Virginia side of the Tri-Cities area. This is a safely Republican district (Cook PVI R+22) where incumbent Republican Rep. Morgan Griffith, first elected in 2010, is seeking re-election. Three Democrats — Douglas Crockett, Adam Murphy, and Joy Powers — are competing in the August 4, 2026 Democratic primary to challenge Griffith, while Michael Jackson is running as an independent. The district's political dynamics center on economic concerns such as the cost of living, healthcare access, and rural infrastructure, with the candidates offering contrasting visions on how to address these issues.",
   "polling": [],
   "polling_note": "No public opinion polls were found for the 2026 Virginia's 9th Congressional District general election as of the research date.",
   "candidates": [
@@ -321,7 +321,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:11:20.052133+00:00",
+  "updated_utc": "2026-06-20T15:33:47.524120+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -332,18 +332,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 270481,
-    "completion_tokens": 10232,
-    "total_tokens": 280713,
-    "cost_usd": 0.021384034,
+    "prompt_tokens": 14522,
+    "completion_tokens": 2121,
+    "total_tokens": 16643,
+    "cost_usd": 0.001838872,
     "cost_source": "provider",
-    "estimated_usd": 0.028513,
+    "estimated_usd": 0.001689,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 270481,
-        "completion_tokens": 10232
+        "prompt_tokens": 14522,
+        "completion_tokens": 2121
       }
     },
-    "duration_s": 177.7
+    "duration_s": 35.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8599,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0082,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "H. Morgan Griffith",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 32,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available for this race, so confidence is constrained to medium. However, the structural factors are decisive: Virginia's 9th District has a Cook PVI of R+22 (safely Republican), and incumbent Rep. Morgan Griffith has held the seat since 2010, winning 72.5% in his most recent re-election. Democrats have a contested three-way primary (August 4, 2026) with no nominee yet, and all three Democratic candidates are first-time federal office seekers with limited name recognition. Independent Michael Jackson is running but has no demonstrated districtwide strength. Given the district's deep Republican baseline, the incumbent's long tenure and strong electoral track record, and a fractured opposition still selecting a nominee, this remains a Safe Republican race.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:40.548428+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

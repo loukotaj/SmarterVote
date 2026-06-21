@@ -14,7 +14,7 @@
       "name": "Brad Knott",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Brad Knott is the incumbent Republican U.S. Representative for North Carolina's 13th Congressional District, first elected in 2024. A former federal prosecutor in the Eastern District of North Carolina (2016\u20132023), Knott serves on the House Judiciary, Homeland Security, and Transportation and Infrastructure Committees. He identifies as pro-life, supports Second Amendment rights, and focuses on border security and immigration enforcement.",
+      "summary": "Brad Knott is the incumbent Republican U.S. Representative for North Carolina's 13th Congressional District, first elected in 2024. A former federal prosecutor in the Eastern District of North Carolina (2016–2023), Knott serves on the House Judiciary, Homeland Security, and Transportation and Infrastructure Committees. He identifies as pro-life, supports Second Amendment rights, and focuses on border security and immigration enforcement.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Brad_Knott",
@@ -306,7 +306,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_13th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:34:27.987944+00:00",
+  "updated_utc": "2026-06-20T15:35:56.927999+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -320,18 +320,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 200932,
-    "completion_tokens": 8990,
-    "total_tokens": 209922,
-    "cost_usd": 0.014354752000000002,
+    "prompt_tokens": 10979,
+    "completion_tokens": 1455,
+    "total_tokens": 12434,
+    "cost_usd": 0.0013611220000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.021453,
+    "estimated_usd": 0.00125,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 200932,
-        "completion_tokens": 8990
+        "prompt_tokens": 10979,
+        "completion_tokens": 1455
       }
     },
-    "duration_s": 150.3
+    "duration_s": 24.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7936,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0076,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brad Knott",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.04,
+      "Other": 0.01
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race, so the forecast relies entirely on non-polling indicators. Those indicators point overwhelmingly to Republican retention: (1) Incumbent Rep. Brad Knott already holds the seat after winning it in 2024 and won his 2026 GOP primary with 89.9% of the vote. (2) Cook Political Report rates the district 'Solid R,' reflecting its strongly Republican partisan lean across Raleigh-exurb counties. (3) The district's composition (parts of Wake, Johnston, Lee, Harnett, Franklin, Caswell, Person, and Granville counties) is exurban and leans right. (4) Democrat Paul Barringer is a credible nominee, but no polling or other contrary evidence in the race file suggests the seat is competitive. (5) Third-party candidates (Green and Libertarian) are on the ballot but are not favored to win. Without polling, confidence is medium despite the strong structural indicators.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:47.448844Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

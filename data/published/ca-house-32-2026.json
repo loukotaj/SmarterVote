@@ -248,7 +248,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_32nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:46:06.108757+00:00",
+  "updated_utc": "2026-06-20T15:40:04.144875+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -262,18 +262,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 199938,
-    "completion_tokens": 6276,
-    "total_tokens": 206214,
-    "cost_usd": 0.015971796,
+    "prompt_tokens": 12312,
+    "completion_tokens": 1678,
+    "total_tokens": 13990,
+    "cost_usd": 0.00147556,
     "cost_source": "provider",
-    "estimated_usd": 0.020824,
+    "estimated_usd": 0.00141,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 199938,
-        "completion_tokens": 6276
+        "prompt_tokens": 12312,
+        "completion_tokens": 1678
       }
     },
-    "duration_s": 160.6
+    "duration_s": 30.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7316,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.007,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brad Sherman",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 23.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists, limiting confidence. However, structural factors are overwhelming: Cook Partisan Voting Index of D+14, over 46% Democratic voter registration, and the seat is rated Solid D by the Cook Political Report. Incumbent Brad Sherman is a 15-term Democrat with deep incumbency advantages who has held this seat for nearly three decades. Republican Larry Thompson is a credible candidate who was unanimously endorsed by the California GOP and advanced from the top-two primary, but he lost to Sherman in the 2024 general election. Sherman faced a competitive intra-party primary challenge, but that contest involved another Democrat and does not significantly alter the general-election calculus. Absent contrary polling or major structural changes, this remains an overwhelmingly Democratic seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:57.583674Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

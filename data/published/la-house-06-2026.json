@@ -375,7 +375,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:14:47.689134+00:00",
+  "updated_utc": "2026-06-20T15:22:19.626702+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -389,18 +389,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 275210,
-    "completion_tokens": 10016,
-    "total_tokens": 285226,
-    "cost_usd": 0.021685332,
+    "prompt_tokens": 12517,
+    "completion_tokens": 1843,
+    "total_tokens": 14360,
+    "cost_usd": 0.00152799,
     "cost_source": "provider",
-    "estimated_usd": 0.028934,
+    "estimated_usd": 0.001458,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 275210,
-        "completion_tokens": 10016
+        "prompt_tokens": 12517,
+        "completion_tokens": 1843
       }
     },
-    "duration_s": 195.1
+    "duration_s": 30.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9757,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": 0.58,
+    "party_probabilities": {
+      "Democratic": 0.42,
+      "Republican": 0.58
+    },
+    "margin_estimate": 2.5,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race, so confidence is low and the forecast relies entirely on structural and contextual factors. The April 2026 Supreme Court ruling (Louisiana v. Callais) struck down the previous map as an unconstitutional racial gerrymander, and Republican state lawmakers subsequently passed a new map that eliminates the second majority-Black district that underpinned Fields' 2024 victory. This fundamentally alters the district's partisan composition, likely shifting it toward Republicans. However, Fields is a well-known incumbent with deep political experience in Louisiana, and the open primary system (Nov. 3, with a potential Dec. 12 runoff) features four Republican candidates who could split the GOP vote, potentially allowing Fields to advance with a plurality. In a one-on-one runoff, the redrawn district's likely Republican lean would give the GOP candidate an edge. With no polling and competing structural forces (incumbency + open primary fragmentation vs. unfavorable new district lines), the race carries high uncertainty, but the net effect of the redistricting change modestly favors Republicans.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:10.842956Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -199,39 +199,69 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:10:33.967101+00:00",
+  "updated_utc": "2026-06-20T03:17:10.410492+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 53635,
-    "completion_tokens": 3934,
-    "total_tokens": 57569,
-    "cost_usd": 0.003616698,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2458,
+    "completion_tokens": 203,
+    "total_tokens": 2661,
+    "cost_usd": 0.00919,
     "cost_source": "provider",
-    "estimated_usd": 0.004769,
+    "estimated_usd": 0.00919,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 41075,
-        "completion_tokens": 3497
-      },
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 12560,
-        "completion_tokens": 437
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2458,
+        "completion_tokens": 203
       }
     },
-    "duration_s": 67.1
+    "duration_s": 8.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2245,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0021,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Hawaii_gubernatorial_election,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Josh Green",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "Hawaii is described in the race data as strongly favorable to Democrats and has voted reliably blue in recent statewide elections. Incumbent Gov. Josh Green is eligible to run again, giving Democrats the advantages of incumbency and a well-established statewide profile. The Republican field shown here appears comparatively less proven statewide. However, there are no numeric public matchup polls in the provided data, so this forecast relies primarily on the state’s partisan baseline, incumbency, and the race description rather than direct voter measurement, which lowers confidence somewhat despite the strong Democratic lean.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:09.496121Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

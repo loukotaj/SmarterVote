@@ -345,7 +345,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York's_1st_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T22:01:05.122379+00:00",
+  "updated_utc": "2026-06-20T15:43:28.395528+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -359,18 +359,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 251841,
-    "completion_tokens": 8220,
-    "total_tokens": 260061,
-    "cost_usd": 0.016896593999999997,
+    "prompt_tokens": 14619,
+    "completion_tokens": 3246,
+    "total_tokens": 17865,
+    "cost_usd": 0.002008974,
     "cost_source": "provider",
-    "estimated_usd": 0.026292,
+    "estimated_usd": 0.0019,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 251841,
-        "completion_tokens": 8220
+        "prompt_tokens": 14619,
+        "completion_tokens": 3246
       }
     },
-    "duration_s": 150.9
+    "duration_s": 44.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8454,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0081,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nick LaLota",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.85,
+    "party_probabilities": {
+      "Republican": 0.85,
+      "Democratic": 0.14,
+      "Independent": 0.01
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "Incumbent Rep. Nick LaLota (R) is seeking a third term in a district Cook Political Report rates as Solid Republican. He won re-election in 2024 with 55.5% of the vote, a clear but not overwhelming margin. The only available poll is a single nonpartisan-grade survey from December 2025 commissioned by a Democratic-aligned group (House Majority PAC), showing LaLota ahead of Democrat Chris Gallant 41%-38% with 20% undecided — suggesting potential competitiveness but with notable caveats: the poll is 6 months old, sponsor-aligned, and taken before the Democratic nominee was determined. The Democratic primary (June 23, 2026) is still 3 days away, with two candidates (Chris Gallant and Lukas Ventouras) competing; the eventual nominee's strength is unknown. With only 1 poll from a partisan source, a large undecided share, and an unsettled general election field, there is meaningful uncertainty. However, LaLota's incumbency, his 55.5% performance in 2024, the district's Republican lean in recent cycles, and the Cook rating all point to a clear Republican advantage — enough for a 'likely_r' rating (roughly 80-94% range) rather than safe_r, but not narrow enough for a tossup or lean given available evidence.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:43:19.850873Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-nick-lalota-vulnerable-in-november"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

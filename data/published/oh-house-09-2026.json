@@ -334,7 +334,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:03:39.882952+00:00",
+  "updated_utc": "2026-06-20T15:29:35.605264+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -348,18 +348,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 230321,
-    "completion_tokens": 8087,
-    "total_tokens": 238408,
-    "cost_usd": 0.015520350000000002,
+    "prompt_tokens": 13537,
+    "completion_tokens": 2284,
+    "total_tokens": 15821,
+    "cost_usd": 0.00177429,
     "cost_source": "provider",
-    "estimated_usd": 0.024157,
+    "estimated_usd": 0.001629,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 230321,
-        "completion_tokens": 8087
+        "prompt_tokens": 13537,
+        "completion_tokens": 2284
       }
     },
-    "duration_s": 156.4
+    "duration_s": 36.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7667,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0073,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Derek Merrin",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.53,
+    "party_probabilities": {
+      "Democratic": 0.46,
+      "Republican": 0.53,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "This race is a true tossup with a very narrow Republican lean based on the available evidence. The only public general-election poll is a Republican internal (NRCC, May 2026) showing Merrin +4 (47-43), but internal polls typically overstate their candidate's position and the poll lacks a reported sample size. The district was redrawn in October 2025 to be more Republican-leaning, and Merrin came within ~2,400 votes in 2024 — both structural advantages for the GOP. However, Marcy Kaptur is a 44-year incumbent with strong crossover appeal and has repeatedly outperformed expectations in competitive cycles. No independent or Democratic polling exists to corroborate or challenge the single GOP internal. With sparse and partisan-leaning data, the race is best rated as a Tossup — the most uncertain rating band — with only a marginal Republican edge. Control of the U.S. House could hinge on this seat, which further underscores the race's volatility.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:29:25.232206Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.nrcc.org/2026/05/15/nrcc-releases-battleground-polling-in-oh-09/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

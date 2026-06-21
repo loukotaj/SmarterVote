@@ -6,7 +6,7 @@
   "state": "New York",
   "district": "7th Congressional District",
   "election_date": "2026-11-03",
-  "description": "New York's 7th Congressional District, covering parts of western Queens and north Brooklyn (including Long Island City, Greenpoint, and Williamsburg), is holding an open-seat election following the retirement of 16-term Democratic incumbent Nydia Vel\u00e1zquez. The Democratic primary, scheduled for June 23, 2026, is a competitive four-way contest between Brooklyn Borough President Antonio Reynoso, Assembly Member Claire Valdez, City Council Member Julie Won, and public defender Vichal Kumar. The winner will be heavily favored in the general election in this solidly Democratic district, which has long been a progressive stronghold. The Republican candidate, community activist Melvin Rivera, advanced unopposed from the Republican primary.",
+  "description": "New York's 7th Congressional District, covering parts of western Queens and north Brooklyn (including Long Island City, Greenpoint, and Williamsburg), is holding an open-seat election following the retirement of 16-term Democratic incumbent Nydia Velázquez. The Democratic primary, scheduled for June 23, 2026, is a competitive four-way contest between Brooklyn Borough President Antonio Reynoso, Assembly Member Claire Valdez, City Council Member Julie Won, and public defender Vichal Kumar. The winner will be heavily favored in the general election in this solidly Democratic district, which has long been a progressive stronghold. The Republican candidate, community activist Melvin Rivera, advanced unopposed from the Republican primary.",
   "polling": [
     {
       "pollster": "Emerson College Polling/PIX11/The Hill",
@@ -37,7 +37,7 @@
       "name": "Antonio Reynoso",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Antonio Reynoso is the Brooklyn Borough President and a former New York City Council Member representing District 34. The son of Dominican immigrants, he was born and raised in Williamsburg and has emphasized affordable housing, maternal health, and environmental justice in his tenure. He has secured endorsements from the New York Working Families Party, 32BJ SEIU, and outgoing Congresswoman Nydia Vel\u00e1zquez.",
+      "summary": "Antonio Reynoso is the Brooklyn Borough President and a former New York City Council Member representing District 34. The son of Dominican immigrants, he was born and raised in Williamsburg and has emphasized affordable housing, maternal health, and environmental justice in his tenure. He has secured endorsements from the New York Working Families Party, 32BJ SEIU, and outgoing Congresswoman Nydia Velázquez.",
       "summary_sources": [
         {
           "url": "https://www.brooklynbp.nyc.gov/about-bkbpreynoso/",
@@ -53,7 +53,7 @@
         {
           "url": "https://www.reynosoforcongress.com/about",
           "type": "website",
-          "title": "About Antonio \u2014 Antonio Reynoso 2026",
+          "title": "About Antonio — Antonio Reynoso 2026",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -64,7 +64,7 @@
         {
           "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
           "type": "news",
-          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Velázquez",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -149,7 +149,7 @@
         {
           "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
           "type": "news",
-          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Velázquez",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -224,7 +224,7 @@
         {
           "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
           "type": "news",
-          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Velázquez",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -307,7 +307,7 @@
         {
           "url": "https://www.fox5ny.com/election/ny-7-congressional-race-candidates",
           "type": "news",
-          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Vel\u00e1zquez",
+          "title": "NY-7 congressional race: Meet the candidates running to replace Nydia Velázquez",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -425,7 +425,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:57:54.940567+00:00",
+  "updated_utc": "2026-06-20T15:25:32.617719+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -439,18 +439,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 318599,
-    "completion_tokens": 8152,
-    "total_tokens": 326751,
-    "cost_usd": 0.024463886,
+    "prompt_tokens": 16526,
+    "completion_tokens": 2216,
+    "total_tokens": 18742,
+    "cost_usd": 0.0020538839999999997,
     "cost_source": "provider",
-    "estimated_usd": 0.03282,
+    "estimated_usd": 0.001886,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 318599,
-        "completion_tokens": 8152
+        "prompt_tokens": 16526,
+        "completion_tokens": 2216
       }
     },
-    "duration_s": 167.7
+    "duration_s": 32.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9513,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0091,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Claire Valdez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 38.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "This open-seat race is in New York's 7th Congressional District, described as a solidly Democratic, progressive stronghold, making the Democratic nominee heavily favored in the general election regardless of the primary outcome. The only available poll (Emerson College, May 2026) surveys the Democratic primary — not the general election — and shows a close contest between Claire Valdez (23%) and Antonio Reynoso (21%), with Julie Won at 13%, Vichal Kumar at 1%, and a very large 43% undecided. With the Democratic primary just three days away (June 23, 2026), the nominee remains genuinely unsettled, but the district's strong Democratic lean means the eventual nominee will have an overwhelming advantage over Republican Melvin Rivera, who advanced unopposed. No general-election polling exists, so confidence is medium. The margin estimate reflects the typical Democratic performance in this deep-blue seat.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:25:26.355866Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://emersoncollegepolling.com/new-york-city-2026-congressional-polling-ny-07-ny-10-ny-12/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

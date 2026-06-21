@@ -204,7 +204,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_20th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:34:07.031814+00:00",
+  "updated_utc": "2026-06-20T15:24:12.188185+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -218,18 +218,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 226632,
-    "completion_tokens": 6039,
-    "total_tokens": 232671,
-    "cost_usd": 0.01725342,
+    "prompt_tokens": 10887,
+    "completion_tokens": 1461,
+    "total_tokens": 12348,
+    "cost_usd": 0.001293378,
     "cost_source": "provider",
-    "estimated_usd": 0.023394,
+    "estimated_usd": 0.001243,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 226632,
-        "completion_tokens": 6039
+        "prompt_tokens": 10887,
+        "completion_tokens": 1461
       }
     },
-    "duration_s": 117.8
+    "duration_s": 24.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6275,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Vince Fong",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public district-level polls exist for this race, reducing precision. However, the district is rated Solidly Republican by the Cook Political Report, and incumbent Vince Fong won the seat in 2024 to succeed former Speaker Kevin McCarthy in this historically conservative Central Valley district. The Democratic challenger, Sandra Van Scotter, is a disability advocate and first-time congressional candidate with no indication of strong fundraising or electoral history that would offset the district's partisan lean. Given the strongly Republican district context and no contrary evidence, the race is a Safe Republican hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:07.025919Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

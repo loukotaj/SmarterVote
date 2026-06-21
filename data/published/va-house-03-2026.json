@@ -274,7 +274,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:42:54.931446+00:00",
+  "updated_utc": "2026-06-20T15:34:20.821550+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -288,18 +288,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 219684,
-    "completion_tokens": 12082,
-    "total_tokens": 231766,
-    "cost_usd": 0.016139536,
+    "prompt_tokens": 13179,
+    "completion_tokens": 1442,
+    "total_tokens": 14621,
+    "cost_usd": 0.0015142699999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.023897,
+    "estimated_usd": 0.001446,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 219684,
-        "completion_tokens": 12082
+        "prompt_tokens": 13179,
+        "completion_tokens": 1442
       }
     },
-    "duration_s": 178.4
+    "duration_s": 26.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7589,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Robert C. \"Bobby\" Scott",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.015,
+      "Libertarian": 0.003,
+      "Independent": 0.002
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available, so confidence is medium rather than high. However, the race data strongly favors Democrats: incumbent Bobby Scott has held the seat since 1993, won re-election with approximately 70% in 2024, faces no Democratic primary opposition, and the district is rated Safe/Solid Democratic by major nonpartisan forecasters. The Republican nominee (Edwin Rivera), Libertarian nominee (Hailey Dollar), and independent candidate (James Taylor) lack comparable districtwide electoral strength. Given the district's strong Democratic partisan lean and Scott's long incumbency, Democrats hold an overwhelming advantage consistent with a safe_d rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:15.510856Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

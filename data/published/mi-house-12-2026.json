@@ -329,7 +329,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:28:42.703700+00:00",
+  "updated_utc": "2026-06-20T15:35:11.216004+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -343,18 +343,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 221350,
-    "completion_tokens": 7850,
-    "total_tokens": 229200,
-    "cost_usd": 0.016671412,
+    "prompt_tokens": 14575,
+    "completion_tokens": 2613,
+    "total_tokens": 17188,
+    "cost_usd": 0.0019404980000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.023231,
+    "estimated_usd": 0.001782,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 221350,
-        "completion_tokens": 7850
+        "prompt_tokens": 14575,
+        "completion_tokens": 2613
       }
     },
-    "duration_s": 154.7
+    "duration_s": 36.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8738,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0083,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rashida Tlaib",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for either the primary or the general election, so the forecast relies on district fundamentals rather than direct voter measurement. Michigan's 12th has a Cook PVI of D+21, making it one of the most Democratic seats in the state. The Democratic nominee is overwhelmingly favored in the general election regardless of primary outcome. The Democratic primary is genuinely competitive — incumbent Rashida Tlaib (seeking a fifth term) faces credible challenger Mayor Byron Nolen of Inkster, who is running as a more mainstream alternative critical of Tlaib's 2024 presidential endorsement stance, and former state representative Shanelle Jackson. Tlaib remains the frontrunner due to incumbency, high name recognition among the district's large Arab American and progressive base, and a four-term voting record. The Republican field features James Hooper, a perennial candidate who finished second in the 2022 Republican primary, in a district where no Republican has been competitive. Despite primary-side uncertainty, the Democratic party probability is estimated at approximately 97% given the district's strong partisan lean, with the roughly 30-point margin estimate reflecting the D+21 PVI adjusted for incumbency advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:05.301149Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

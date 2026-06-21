@@ -14,7 +14,7 @@
       "name": "Riley Moore",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Riley Moore is the incumbent U.S. Representative for West Virginia's 2nd Congressional District, first elected in 2024. He previously served as West Virginia State Treasurer (2021\u20132025) and as a member of the West Virginia House of Delegates (2017\u20132019). A Republican, Moore sits on the House Appropriations Committee and is a member of the Republican Study Committee.",
+      "summary": "Riley Moore is the incumbent U.S. Representative for West Virginia's 2nd Congressional District, first elected in 2024. He previously served as West Virginia State Treasurer (2021–2025) and as a member of the West Virginia House of Delegates (2017–2019). A Republican, Moore sits on the House Appropriations Committee and is a member of the Republican Study Committee.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Riley_Moore",
@@ -318,7 +318,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/West_Virginia%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:09:12.194579+00:00",
+  "updated_utc": "2026-06-20T15:30:28.598039+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -332,18 +332,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 232730,
-    "completion_tokens": 7424,
-    "total_tokens": 240154,
-    "cost_usd": 0.017473524,
+    "prompt_tokens": 10613,
+    "completion_tokens": 931,
+    "total_tokens": 11544,
+    "cost_usd": 0.001152662,
     "cost_source": "provider",
-    "estimated_usd": 0.024263,
+    "estimated_usd": 0.001123,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 232730,
-        "completion_tokens": 7424
+        "prompt_tokens": 10613,
+        "completion_tokens": 931
       }
     },
-    "duration_s": 193.0
+    "duration_s": 19.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7753,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0074,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Riley Moore",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race (based_on_poll_count=0), which lowers confidence to medium. However, the available race data strongly favors Republicans: Riley Moore is the first-term incumbent in a district described as reliably Republican in recent cycles, and Cook Political Report rates the race as Solidly Republican. The Democratic nominee, Ace Parsi, won a competitive three-way primary on May 12, 2026, but no information suggests unusual Republican vulnerability in the general election. Two independent candidates (Patrick Carney, Christopher Whitcomb) are on the ballot but lack visible resources or competitive signals. Given the strong structural Republican advantage and absence of contrary indicators, a safe Republican hold is the most probable outcome.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:21.880826Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

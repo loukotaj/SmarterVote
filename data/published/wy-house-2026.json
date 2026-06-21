@@ -29,7 +29,7 @@
       "name": "Jillian Balow",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Jillian Balow is a former Wyoming Superintendent of Public Instruction (2015\u20132022) and former Virginia Superintendent of Public Instruction (2022\u20132023), appointed by Governor Glenn Youngkin. A Gillette native, she was elected statewide twice in Wyoming and has focused her campaign on education, local control, and conservative governance. Balow holds a BA from the University of Wyoming and an MEd from Regis University.",
+      "summary": "Jillian Balow is a former Wyoming Superintendent of Public Instruction (2015–2022) and former Virginia Superintendent of Public Instruction (2022–2023), appointed by Governor Glenn Youngkin. A Gillette native, she was elected statewide twice in Wyoming and has focused her campaign on education, local control, and conservative governance. Balow holds a BA from the University of Wyoming and an MEd from Regis University.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Jillian_Balow",
@@ -114,7 +114,7 @@
       "name": "Bo Biteman",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Bo Biteman is the President of the Wyoming Senate (2025\u2013present), representing the 21st Senate district since 2019. He has been a prominent conservative voice in the state legislature and is now seeking the open U.S. House seat, emphasizing his legislative leadership and experience in state government. Biteman's campaign focuses on energy independence, conservative fiscal policy, and Wyoming's interests in Washington.",
+      "summary": "Bo Biteman is the President of the Wyoming Senate (2025–present), representing the 21st Senate district since 2019. He has been a prominent conservative voice in the state legislature and is now seeking the open U.S. House seat, emphasizing his legislative leadership and experience in state government. Biteman's campaign focuses on energy independence, conservative fiscal policy, and Wyoming's interests in Washington.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_election_in_Wyoming",
@@ -292,7 +292,7 @@
       "name": "Lisa F. Kinney",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Lisa F. Kinney is a former Wyoming State Senator who served for a decade, including as Minority Leader, and is the presumptive Democratic nominee for Wyoming's at-large U.S. House seat. An attorney, former librarian, and former president of the Albany County Chamber of Commerce, she runs on an affordability-focused platform that includes cutting payroll taxes for lower earners and raising taxes on higher incomes \u2014 an approach she calls 'Congressional Robin Hood.' Kinney emphasizes that her campaign is built on input from Wyoming professionals and residents rather than wealthy donors or national party endorsements.",
+      "summary": "Lisa F. Kinney is a former Wyoming State Senator who served for a decade, including as Minority Leader, and is the presumptive Democratic nominee for Wyoming's at-large U.S. House seat. An attorney, former librarian, and former president of the Albany County Chamber of Commerce, she runs on an affordability-focused platform that includes cutting payroll taxes for lower earners and raising taxes on higher incomes — an approach she calls 'Congressional Robin Hood.' Kinney emphasizes that her campaign is built on input from Wyoming professionals and residents rather than wealthy donors or national party endorsements.",
       "summary_sources": [
         {
           "url": "https://www.yourwyominglink.com/news/local/congressional-robin-hood-democrat-lisa-kinney-outlines-u-s-house-bid/article_4b6bb41a-c8d1-4bbb-b569-9d2981c537c2.html",
@@ -467,7 +467,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_House_of_Representatives_election_in_Wyoming,_2026",
-  "updated_utc": "2026-06-13T21:09:13.803986+00:00",
+  "updated_utc": "2026-06-20T15:33:10.994581+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -481,18 +481,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 180847,
-    "completion_tokens": 10724,
-    "total_tokens": 191571,
-    "cost_usd": 0.015671566,
+    "prompt_tokens": 17974,
+    "completion_tokens": 2703,
+    "total_tokens": 20677,
+    "cost_usd": 0.002231336,
     "cost_source": "provider",
-    "estimated_usd": 0.019825,
+    "estimated_usd": 0.002104,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 180847,
-        "completion_tokens": 10724
+        "prompt_tokens": 17974,
+        "completion_tokens": 2703
       }
     },
-    "duration_s": 166.7
+    "duration_s": 40.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10751,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0103,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "Wyoming's at-large House seat is an open-seat contest following Rep. Hageman's Senate run. The district is described as safely Republican, and the winner of the competitive August 18 Republican primary is heavily favored in November. No general-election polling exists in the data — the two listed polls (Fabrizio, Lee & Associates and Peak Insights) are Republican primary polls with empty matchup arrays and provide no general-election head-to-head numbers. The Democratic nominee (likely former state Sen. Lisa Kinney) is a credible candidate, but Wyoming's partisan lean is extreme: the state has not elected a Democrat to the U.S. House since 2008, and Republicans typically win by 35–40 percentage points in federal races. A Libertarian candidate is also running but is not competitive. Confidence is medium because the Republican nominee is not yet determined and no general-election polling is available to validate the margin estimate, though the structural partisan advantage is unambiguous.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:04.714414Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

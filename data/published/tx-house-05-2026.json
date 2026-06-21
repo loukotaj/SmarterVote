@@ -14,7 +14,7 @@
       "name": "Lance Gooden",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Lance Gooden is the incumbent Republican U.S. Representative for Texas's 5th congressional district, first elected in 2018. He previously served three terms in the Texas House of Representatives (2011\u20132015) and worked for 10 years in the insurance industry. In the 119th Congress, he sits on the House Judiciary Committee and the House Armed Services Committee.",
+      "summary": "Lance Gooden is the incumbent Republican U.S. Representative for Texas's 5th congressional district, first elected in 2018. He previously served three terms in the Texas House of Representatives (2011–2015) and worked for 10 years in the insurance industry. In the 119th Congress, he sits on the House Judiciary Committee and the House Armed Services Committee.",
       "summary_sources": [
         {
           "url": "https://gooden.house.gov/about",
@@ -218,7 +218,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:27:09.489998+00:00",
+  "updated_utc": "2026-06-20T15:41:57.575366+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -232,18 +232,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 173541,
-    "completion_tokens": 6597,
-    "total_tokens": 180138,
-    "cost_usd": 0.011570814,
+    "prompt_tokens": 4418,
+    "completion_tokens": 989,
+    "total_tokens": 5407,
+    "cost_usd": 0.000566904,
     "cost_source": "provider",
-    "estimated_usd": 0.0183,
+    "estimated_usd": 0.000576,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 173541,
-        "completion_tokens": 6597
+        "prompt_tokens": 4418,
+        "completion_tokens": 989
       }
     },
-    "duration_s": 117.0
+    "duration_s": 19.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2995,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0029,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Lance Gooden",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 26.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling is available, so the forecast relies entirely on structural factors. The race description states the district 'voted heavily Republican in recent cycles.' Incumbent Lance Gooden is seeking a fifth term with key committee assignments and no indicated vulnerability. Democratic nominee Chelsey Hockett is a first-time candidate with a limited public profile who won a primary runoff, and independent Dea Foy has no evident organized support. In the absence of contrary data, the district's strong Republican lean and incumbency advantage point to an overwhelming GOP hold. The lack of polling keeps confidence at medium rather than high, but the available evidence strongly supports a safe Republican rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:52.753607Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -1,0 +1,1670 @@
+{
+  "id": "me-governor-2026",
+  "title": "2026 Maine Gubernatorial Election",
+  "office": "Governor of Maine",
+  "jurisdiction": "Maine",
+  "state": "Maine",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Maine gubernatorial election on November 3, 2026, is an open-seat race to succeed term-limited Democratic Governor Janet Mills in a state that has not elected consecutive governors from the same party since 1952. Primary elections on June 9 used ranked-choice voting; after five days of tabulation, former State House Speaker Hannah Pingree clinched the Democratic nomination by defeating former Maine CDC Director Nirav Shah 56%-44% in the final round, while attorney and former federal official Bobby Charles secured the Republican nomination after six rounds of tabulation. State Senator Rick Bennett qualified as an independent candidate, setting up a three-way general election contest that will be decided by plurality vote, not ranked-choice voting. Maine has voted Democratic in every presidential election since 1992 and is considered moderately blue, yet a Republican has not won a majority in a gubernatorial race since 1962, keeping the race highly competitive.",
+  "candidates": [
+    {
+      "name": "Hannah Pingree",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Hannah Pingree is the Democratic nominee for governor after winning a five-way ranked-choice primary on June 19, 2026. She served as Speaker of the Maine House of Representatives from 2008 to 2010 and most recently as director of Governor Janet Mills' Office of Policy Innovation and the Future. Her campaign emphasizes affordable housing, clean energy, holding utilities accountable, and making the tax code more progressive with a millionaire's tax and increased Homestead Exemption.",
+      "summary_sources": [
+        {
+          "url": "https://mainemorningstar.com/2026/06/19/pingree-clinches-democratic-nomination-for-governor-after-lengthy-ranked-choice-tally/",
+          "type": "news",
+          "title": "Pingree clinches Democratic nomination for governor after lengthy ranked-choice tally",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.317964Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.mainepublic.org/politics/2026-06-19/bobby-charles-hannah-pingree-win-nominations-in-maine-race-for-governor",
+          "type": "news",
+          "title": "Bobby Charles, Hannah Pingree win nominations in Maine race for governor",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.317983Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hannah_Pingree",
+          "type": "website",
+          "title": "Hannah Pingree - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.317994Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://mainemorningstar.com/wp-content/uploads/2026/03/55080232793_99b6f412e9_k-e1774288996172-846x1024.jpg",
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Pingree\u2019s economic plan centers on affordability to raise wages and lower living costs by investing $100 million per year in affordable housing. It also includes measures to lower energy and health-care costs, expand access to childcare, and grow wages through workforce training and targeted rural economic development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://hannahforgovernor.com/affordability/",
+              "type": "website",
+              "title": "Maine\u2019s Next Chapter: A State You Can Afford to Call Home",
+              "description": null,
+              "last_accessed": "2026-06-20T02:29:20.360676Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.mainepublic.org/politics/2026-04-14/democratic-gubernatorial-candidate-hannah-pingree-unveils-affordability-plan",
+              "type": "news",
+              "title": "Democratic gubernatorial candidate Hannah Pingree unveils affordability plan",
+              "description": null,
+              "last_accessed": "2026-06-20T02:29:20.360683Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://spectrumlocalnews.com/me/maine/politics/2025/11/13/pingree-unveils-plan-proposing-to-spend--100m-a-year-to-address-housing-crisis",
+              "type": "news",
+              "title": "Pingree unveils plan proposing to spend $100M a year to address housing crisis",
+              "description": null,
+              "last_accessed": "2026-06-20T02:29:20.360687Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Pingree supports moving Maine toward universal health care by establishing a public option to reduce the uninsured rate and improve access, while safeguarding federal Medicaid/ACA funding and strengthening rural health care delivery.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pressherald.com/2026/04/10/democratic-candidates-for-maine-governor-discuss-reforming-health-care",
+              "type": "website",
+              "title": "Democratic candidates for Maine governor discuss reforming health care",
+              "description": null,
+              "last_accessed": "2026-06-17T03:20:14.915825Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://spectrumlocalnews.com/me/maine/politics/2026/03/18/maine-candidates-for-governor-pitch-ideas-for-improving-health-care",
+              "type": "website",
+              "title": "Maine candidates for governor pitch health care ideas",
+              "description": null,
+              "last_accessed": "2026-06-17T03:20:14.915846Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Deliver clean energy solutions that lower costs for Maine families by holding utilities accountable, expanding homegrown clean energy, and accelerating a 100% clean energy transition by 2040; modernize clean energy permitting, invest in the clean energy workforce, and target benefits for moderate- and low-income households.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://hannahforgovernor.com/climate/",
+              "type": "website",
+              "title": "A Climate and Energy Plan That Protects Maine and Lowers Costs",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:03.505378Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.givegreen.com/candidates/hannah-pingree",
+              "type": "website",
+              "title": "GiveGreen: Hannah Pingree",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:03.505401Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://maineaudubon.org/2026-gubernatorial-candidate-survey/",
+              "type": "website",
+              "title": "2026 Gubernatorial Candidate Survey - Maine Audubon",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:03.505408Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mainemorningstar.com/briefs/with-rare-primary-endorsement-environmental-pac-backs-hannah-pingree-for-maine-governor/",
+              "type": "website",
+              "title": "With rare primary endorsement, environmental PAC backs Hannah Pingree for Maine governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:03.505416Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Hannah Pingree supports protecting reproductive rights and ensuring access to comprehensive reproductive health care in Maine, including access to abortion and contraception, and opposes state bans or restrictions that limit timely care; she believes policy should reduce barriers for rural residents and low-income patients.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.youtube.com/watch?v=db2ZKrAng-4",
+              "type": "website",
+              "title": "Hannah Pingree on reproductive rights and access to care",
+              "description": null,
+              "last_accessed": "2026-06-17T03:26:07.368048Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Hannah Pingree supports strong, common-sense gun-safety measures and gun-violence prevention policies, including backing reforms to keep firearms out of dangerous hands. She is publicly aligned with gun-safety advocacy and has been endorsed by the Maine Gun Safety Coalition as a Gun Safety Champion in the governor's race.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://hannahforgovernor.com/gun-safety-coalition-primary-election-endorsements/",
+              "type": "website",
+              "title": "Gun Safety Coalition Primary Election Endorsements - Hannah Pingree for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:26:53.311399Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.mainegunsafety.org/2026-endorsements",
+              "type": "website",
+              "title": "2026 Endorsements - Maine Gun Safety Coalition",
+              "description": null,
+              "last_accessed": "2026-06-17T03:26:53.311440Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.newscentermaine.com/article/news/politics/maine-politics/maine-democratic-gubernatorial-candidates-gun-safety-lgbtq-protections-primary-election/97-65db3297-1d3b-4bea-961a-b7d2c9275dc6",
+              "type": "news",
+              "title": "Maine Democratic candidates spotlight gun safety, LGBTQ+ protections",
+              "description": null,
+              "last_accessed": "2026-06-17T03:26:53.311447Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports ranked-choice voting (RCV) for Maine elections. In May 2026 Pingree joined Shenna Bellows and Troy Jackson to form a ranked-choice alliance in the gubernatorial primary, signaling endorsement of RCV.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mainepublic.org/politics/2026-05-22/shenna-bellows-troy-jackson-and-hannah-pingree-form-ranked-choice-alliance-in-gubernatorial-primary",
+              "type": "news",
+              "title": "Shenna Bellows, Troy Jackson and Hannah Pingree form ranked-choice alliance in gubernatorial primary",
+              "description": null,
+              "last_accessed": "2026-06-17T03:28:18.632054Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://fairvote.org/how-ranked-choice-voting-is-impacting-the-maine-primary/",
+              "type": "website",
+              "title": "How ranked choice voting is impacting the Maine primary",
+              "description": null,
+              "last_accessed": "2026-06-17T03:28:18.632076Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Hannah Pingree prioritizes addressing Maine's housing affordability crisis as a central Local Issues priority: she would invest $100 million annually to finance new construction and preservation of affordable housing and take on private equity and corporate landlords to protect tenants. She would streamline state permitting to a 90-day processing window and invest in a trained workforce (including permanently funded free community college and pre-apprenticeships) to speed housing production and reduce evictions and homelessness.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://hannahforgovernor.com/housing-plan/",
+              "type": "website",
+              "title": "Housing Plan - Hannah Pingree for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:28:42.880455Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Universal public pre-K for all four-year-olds, expanded affordable child care, and funding for public schools that reduces property-tax pressure while maintaining high quality will be central to education. I will raise starting teacher pay to $50,000, expand teacher pipelines through apprenticeships and accelerated licensure, invest in literacy and math through the science of reading, strengthen special education, and expand hands-on, work-based learning opportunities for students.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://hannahforgovernor.com/education/",
+              "type": "website",
+              "title": "Building Maine's Future Through Great Public Schools - Education policy (Hannah Pingree for Governor)",
+              "description": null,
+              "last_accessed": "2026-06-17T03:29:07.670121Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://hannahforgovernor.com/hannah-pingree-releases-bold-education-agenda-for-maine/",
+              "type": "website",
+              "title": "Hannah Pingree Releases Bold Education Agenda for Maine (June 4, 2026)",
+              "description": null,
+              "last_accessed": "2026-06-17T03:29:07.670167Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.mainepublic.org/politics/2026-04-17/your-vote-2026-profile-hannah-pingree-democrat-for-governor",
+              "type": "website",
+              "title": "Your Vote 2026 profile: Hannah Pingree, Democrat for governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:29:07.670175Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=h0gJGmN3dJY",
+              "type": "website",
+              "title": "Hannah Pingree full interview | Your Vote 2026",
+              "description": null,
+              "last_accessed": "2026-06-17T03:29:07.670181Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
+      "career_history": [
+        {
+          "title": "Director, Office of Policy Innovation and the Future",
+          "organization": "Office of Governor Janet Mills",
+          "start_year": 2019,
+          "end_year": 2025,
+          "description": "Led policy development on climate, economy, and innovation",
+          "source": null
+        },
+        {
+          "title": "Speaker of the House",
+          "organization": "Maine House of Representatives",
+          "start_year": 2008,
+          "end_year": 2010,
+          "description": "Youngest House Speaker in Maine history at age 32",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Maine House of Representatives",
+          "start_year": 2002,
+          "end_year": 2010,
+          "description": "Represented North Haven and surrounding islands",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Brown University",
+          "degree": "BA",
+          "field": "American Civilization",
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": "Hannah Pingree served as a state representative from 2004 to 2012 and was Speaker of the Maine House of Representatives from 2008 to 2012. During her tenure, she was a key architect of Maine's climate and energy policies, including the state's landmark renewable energy goals. Her legislative voting record aligns with progressive priorities on environmental protection, affordable housing, and health care expansion.",
+      "voting_source_url": "https://www.mainepublic.org/politics/2026-04-17/your-vote-2026-profile-hannah-pingree-democrat-for-governor",
+      "voting_sources": [],
+      "donor_summary": "Hannah Pingree has raised over $1.3 million as of early 2026, making her one of the top fundraisers in the Democratic primary. Her donors include a broad base of individual contributions, with significant support from environmental advocates and labor unions, though detailed sector breakdowns are not publicly available in the sources reviewed.",
+      "donor_source_url": "https://mainemorningstar.com/2026/01/16/a-look-at-how-maines-gubernatorial-candidates-fundraising-stacks-up/",
+      "donor_sources": [
+        {
+          "url": "https://mainemorningstar.com/2026/01/16/a-look-at-how-maines-gubernatorial-candidates-fundraising-stacks-up/",
+          "type": "news",
+          "title": "A look at how Maine's gubernatorial candidates' fundraising stacks up",
+          "description": null,
+          "last_accessed": "2026-06-20T02:36:57.901688Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.pressherald.com/2026/04/28/who-is-raising-the-most-money-in-the-maine-governors-race/",
+          "type": "news",
+          "title": "Pingree, Bush lead fundraising in Maine governor's race ahead of primaries",
+          "description": null,
+          "last_accessed": "2026-06-20T02:36:57.901688Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://hannahforgovernor.com/hannah-pingree-raises-more-than-525000-in-first-20-days-of-campaign/",
+          "type": "news",
+          "title": "Hannah Pingree Raises More Than $525,000 in First 20 Days of Campaign",
+          "description": null,
+          "last_accessed": "2026-06-20T02:36:57.901688Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Hannah_Pingree",
+          "title": "Hannah Pingree - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hannah_Pingree",
+          "title": "Hannah Pingree - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://hannahforgovernor.com/",
+          "title": "Hannah Pingree for Governor - Official Campaign Site",
+          "type": "official"
+        },
+        {
+          "url": "https://www.mainecampaignfinancedisclosure.com/public/filers/f_01k89h8gcjegf9qpwdk7sh8g2x",
+          "title": "Hannah Pingree - Maine Campaign Finance Disclosure",
+          "type": "other"
+        },
+        {
+          "url": "https://www.pressherald.com/2026/04/28/who-is-raising-the-most-money-in-the-maine-governors-race/",
+          "title": "Pingree leads Democratic fundraising",
+          "type": "news"
+        },
+        {
+          "url": "https://hannahforgovernor.com/climate/",
+          "title": "A Climate and Energy Plan That Protects Maine and Lowers Costs",
+          "type": "official"
+        },
+        {
+          "url": "https://www.mainepublic.org/politics/2026-04-17/your-vote-2026-profile-hannah-pingree-democrat-for-governor",
+          "title": "Your Vote 2026 profile: Hannah Pingree",
+          "type": "news"
+        }
+      ],
+      "website": "https://hannahpingree.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Robert \"Bobby\" Charles",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Robert \"Bobby\" Charles is the Republican nominee for governor after winning an eight-way ranked-choice primary on June 19, 2026. An attorney and Leeds resident, he served as Assistant Secretary of State for International Narcotics and Law Enforcement Affairs under President George W. Bush and earlier worked in the Reagan and George H.W. Bush White Houses. Charles has run a Trump-style campaign emphasizing border security, cutting taxes and regulation, and has been a vocal opponent of ranked-choice voting.",
+      "summary_sources": [
+        {
+          "url": "https://mainemorningstar.com/2026/06/19/bobby-charles-secures-republican-nomination-for-governor/",
+          "type": "news",
+          "title": "Bobby Charles secures Republican nomination for governor",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.318574Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.pressherald.com/2026/06/19/bobby-charles-holds-lead-to-win-republican-primary-for-governor-after-rcv-runoff/",
+          "type": "news",
+          "title": "Bobby Charles holds lead to win Republican primary for governor after RCV runoff",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.318579Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.mainepublic.org/politics/2026-06-19/bobby-charles-hannah-pingree-win-nominations-in-maine-race-for-governor",
+          "type": "news",
+          "title": "Bobby Charles, Hannah Pingree win nominations in Maine race for governor",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.318583Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://ballotpedia.org/api/v2/image/Bobby_Charles.jpg",
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Economy: Bobby Charles advocates reducing Maine's taxes and trimming state government spending, arguing that a lower tax burden and a leaner government will spur economic growth and job creation; he also supports cutting regulatory barriers to help businesses expand.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pressherald.com/2026/06/09/bobby-charles-surges-to-the-top-of-republican-governor-primary/",
+              "type": "news",
+              "title": "Bobby Charles surges to the top of Republican governor primary",
+              "description": null,
+              "last_accessed": "2026-06-17T03:53:03.124401Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.newscentermaine.com/article/news/politics/elections/candidates/republican-gubernatorial-candidate-bobby-charles-maine-governor-election/97-13f86456-bab8-4277-b0c5-5dad2bdb9480",
+              "type": "news",
+              "title": "Republican gubernatorial candidate Bobby Charles aims to reduce state budget, taxes, and crime",
+              "description": null,
+              "last_accessed": "2026-06-17T03:53:03.124425Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mainepolicy.org/podcast/episode-47-the-candidate-bobby-charles/",
+              "type": "website",
+              "title": "Episode 47: The Candidate: Bobby Charles",
+              "description": null,
+              "last_accessed": "2026-06-17T03:53:03.124439Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Advocates an all-of-the-above energy strategy to cut electricity costs by expanding natural gas, preserving hydropower, and exploring small modular nuclear reactors; biomass is emphasized as a promising resource. He also favors reducing or ending certain renewable subsidies to protect ratepayers and relies on expert oversight at the Public Utility Commission.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mainepublic.org/politics/2026-05-27/what-maines-republican-candidates-for-governor-are-saying-about-housing",
+              "type": "news",
+              "title": "What Maine's Republican candidates for governor are saying about housing",
+              "description": null,
+              "last_accessed": "2026-06-17T03:58:27.050139Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://themainewire.com/2026/04/bobby-charles-calls-maine-in-peril-promises-sweeping-reforms-in-speech-to-gop-convention/",
+              "type": "news",
+              "title": "Bobby Charles Calls Maine \u201cIn Peril,\u201d Promises Sweeping Reforms in Speech to GOP Convention",
+              "description": null,
+              "last_accessed": "2026-06-17T03:58:27.050159Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://mainemorningstar.com/2026/05/13/gop-candidates-for-governor-align-on-energy-housing-and-against-bobby-charles/",
+              "type": "news",
+              "title": "GOP candidates for governor align on energy, housing \u2014 and against Bobby Charles",
+              "description": null,
+              "last_accessed": "2026-06-17T03:58:27.050164Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.facebook.com/BobbyCharlesMaine/videos/maines-energy-costs-didnt-skyrocket-out-of-nowhere-augusta-democrats-have-spent-/1199655258999715/",
+              "type": "social_media",
+              "title": "Bobby Charles energy plan video (Facebook)",
+              "description": null,
+              "last_accessed": "2026-06-17T03:58:27.050169Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Supports constitutional carry and opposes red-flag laws. Advocates rolling back red-flag provisions and expanding gun safety training and hunter education for Maine youth.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/BobbyCharlesMaine/videos/when-im-governor-i-will-protect-constitutional-carry-roll-back-red-flag-laws-and/1690487605431305/",
+              "type": "social_media",
+              "title": "When I\u2019m Governor, I will protect constitutional carry, roll back red flag laws, and bring back proper gun safety and hunter training for our youth.",
+              "description": null,
+              "last_accessed": "2026-06-17T04:05:37.665563Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.themainewire.com/2024/04/red-flag-laws-are-a-set-up-for-gun-confiscation-bobby-charles/",
+              "type": "website",
+              "title": "Red Flag Laws Are a Set Up for Gun Confiscation: Bobby Charles",
+              "description": null,
+              "last_accessed": "2026-06-17T04:05:37.665602Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.instagram.com/p/DPg1O1Qjkys/",
+              "type": "social_media",
+              "title": "I still believe in responsible gun ownership.",
+              "description": null,
+              "last_accessed": "2026-06-17T04:05:37.665610Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Local Issues": {
+          "issue": "Local Issues",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
+      "career_history": [
+        {
+          "title": "Assistant Secretary of State for International Narcotics and Law Enforcement Affairs",
+          "organization": "U.S. Department of State",
+          "start_year": 2003,
+          "end_year": 2005,
+          "description": "Served under President George W. Bush",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 1990,
+          "end_year": null,
+          "description": "Legal career focusing on national security and law enforcement",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": "Robert 'Bobby' Charles has never held elected office and therefore has no legislative voting record. He served as Assistant Secretary of State for International Narcotics and Law Enforcement Affairs under President George W. Bush. His campaign platform emphasizes cutting crime, abolishing the state income tax, and restoring 'common sense' to education, as detailed on his campaign website.",
+      "voting_source_url": "https://www.bobbyformaine.com/issues",
+      "voting_sources": [],
+      "donor_summary": "No detailed campaign finance data for Bobby Charles was found in public searches of OpenSecrets, FollowTheMoney, or state disclosure portals as of June 2026. News reports indicate he has been outspent by opponents but has maintained a lead in Republican primary polls; specific dollar amounts and donor sectors are not available in the sources reviewed.",
+      "donor_source_url": "https://www.pressherald.com/2026/04/28/who-is-raising-the-most-money-in-the-maine-governors-race/",
+      "donor_sources": [
+        {
+          "url": "https://www.instagram.com/reel/DY26j5RjehO/",
+          "type": "news",
+          "title": "Instagram reel referencing Charles campaign finance",
+          "description": null,
+          "last_accessed": "2026-06-20T02:36:57.901688Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Bobby_Charles",
+          "title": "Bobby Charles - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Robert_B._Charles",
+          "title": "Robert B. Charles - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.bobbyformaine.com/",
+          "title": "Bobby Charles for Maine Governor - Official Campaign Site",
+          "type": "official"
+        },
+        {
+          "url": "https://themainemonitor.org/bobby-charles-foreign-policy-record/",
+          "title": "Bobby Charles' foreign policy record",
+          "type": "news"
+        },
+        {
+          "url": "https://www.pressherald.com/2026/06/09/bobby-charles-surges-to-the-top-of-republican-governor-primary/",
+          "title": "Bobby Charles surges to top of GOP primary",
+          "type": "news"
+        },
+        {
+          "url": "https://www.bobbyformaine.com/issues",
+          "title": "Bobby on the Issues",
+          "type": "official"
+        },
+        {
+          "url": "https://mainemorningstar.com/briefs/ethics-commission-to-investigate-bobby-charles-alleged-ties-to-site-attacking-primary-opponent/",
+          "title": "Ethics Commission to investigate website attacking gubernatorial candidate",
+          "type": "news"
+        },
+        {
+          "url": "https://fedsoc.org/bio/robert-charles",
+          "title": "Robert Charles - Federalist Society",
+          "type": "other"
+        }
+      ],
+      "website": "https://bobbycharlesformaine.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rick Bennett",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Rick Bennett is an independent candidate for governor, a State Senator representing District 18, and former chair of the Maine Republican Party. He qualified for the general election ballot by submitting petition signatures, setting up a three-way contest against Democratic nominee Hannah Pingree and Republican nominee Bobby Charles. Bennett has positioned himself as a centrist alternative focused on energy affordability, childcare, and health care cost reduction.",
+      "summary_sources": [
+        {
+          "url": "https://www.mainepublic.org/politics/2026-06-04/independent-qualifies-for-ballot-setting-up-3-way-race-for-maine-governor",
+          "type": "news",
+          "title": "Independent qualifies for ballot, setting up 3-way race for Maine governor",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.319383Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://spectrumlocalnews.com/me/maine/politics/2026/06/19/charles--pingree-advance-to-maine-s-fall-governor-s-race-",
+          "type": "news",
+          "title": "Charles, Pingree advance to Maine's fall governor's race",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.319391Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rick_Bennett_(Maine_politician)",
+          "type": "website",
+          "title": "Rick Bennett (Maine politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:45.319396Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rick_Bennett.jpg",
+      "issues": {
+        "Economy": {
+          "issue": null,
+          "stance": "Rick Bennett supports a four-part energy affordability plan to boost Maine's economy by lowering delivery costs and reducing energy costs for heritage industries; the plan also includes weatherizing homes with a $30 million investment and creating a Maine Generation Authority to stabilize supply costs and keep renewable benefits in-state.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wabi.tv/2026/05/07/independent-gubernatorial-candidate-rick-bennett-announces-his-priorities-maine-energy/",
+              "type": "news",
+              "title": "Independent gubernatorial candidate Rick Bennett announces his priorities for Maine energy",
+              "description": null,
+              "last_accessed": "2026-06-17T04:24:08.935998Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wmtw.com/article/independent-candidate-governor-announces-energy-policy-proposal/71244403",
+              "type": "news",
+              "title": "Independent candidate for governor announces energy policy proposal",
+              "description": null,
+              "last_accessed": "2026-06-17T04:24:08.936021Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Rick Bennett supports making early childhood education and child care more affordable for Maine families. He unveiled a childcare affordability plan aimed at reducing out-of-pocket costs and expanding access to high-quality early childhood education.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wgme.com/news/beyond-the-podium/independent-gubernatorial-candidate-rick-bennett-unveils-childcare-affordability-plan-maine-portland",
+              "type": "news",
+              "title": "Independent gubernatorial candidate Rick Bennett unveils childcare affordability plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:28:51.738122Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.yahoo.com/news/politics/articles/independent-rick-bennett-details-affordable-220159299.html",
+              "type": "news",
+              "title": "Independent Rick Bennett details affordable child care plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:28:51.738150Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Rick Bennett's Health Care Affordability Plan centers on reducing costs and expanding access. It comprises four priorities, including launching a Medical Debt Relief Program and committing to a Path to Universal Care for Every Mainer.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/RickBennettForGovernor/videos/the-fourth-priority-of-my-health-care-affordability-plan-commit-to-a-path-to-uni/786698374324341/",
+              "type": "social_media",
+              "title": "The fourth priority of my Health Care Affordability plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:30:38.113869Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.facebook.com/RickBennettForGovernor/videos/the-third-priority-of-my-health-care-affordability-plan-launch-the-medical-debt-/819933777822282/",
+              "type": "social_media",
+              "title": "The third priority of my Health Care Affordability plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:30:38.113892Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.newscentermaine.com/article/news/local/independent-candidate-for-maine-governor-rick-bennett-offers-health-care-affordability-plan/97-9f4793b6-41d5-40e0-aee9-01d14e88d103",
+              "type": "news",
+              "title": "Independent candidate for Maine governor Rick Bennett offers health care affordability plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:30:38.113916Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wmtw.com/article/maine-facing-affordability-crisis-independent-candidate-governor-announces-health-care-plans/70761257",
+              "type": "news",
+              "title": "Maine facing affordability crisis: independent candidate governor announces health care plans",
+              "description": null,
+              "last_accessed": "2026-06-17T04:30:38.113922Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=rki4rW1PSh0",
+              "type": "website",
+              "title": "Rick Bennett releases healthcare affordability plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:30:38.113931Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Rick Bennett endorses a four-part energy affordability plan to reduce Maine's energy costs and stabilize the market. The plan includes reforming utility compensation, funding home weatherization, boosting in-state renewable energy, and creating a Maine Generation Authority to keep benefits in-state.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wabi.tv/2026/05/07/independent-gubernatorial-candidate-rick-bennett-announces-his-priorities-maine-energy/",
+              "type": "news",
+              "title": "Independent gubernatorial candidate Rick Bennett announces his priorities for Maine energy",
+              "description": null,
+              "last_accessed": "2026-06-17T04:30:53.233965Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wmtw.com/article/independent-candidate-governor-announces-energy-policy-proposal/71244403",
+              "type": "news",
+              "title": "Independent candidate for governor announces energy policy proposal",
+              "description": null,
+              "last_accessed": "2026-06-17T04:30:53.233987Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Rick Bennett supports a moratorium on new AI data centers in Maine until robust protections and guardrails are in place to protect energy ratepayers and grid reliability; he advocates evaluating AI development with safeguards and ensuring accountability and transparency.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.instagram.com/p/DXMmfV0i3VZ/",
+              "type": "social_media",
+              "title": "Here in Maine, we're telling big corporations our water and electric ... moratorium on AI data centers",
+              "description": null,
+              "last_accessed": "2026-06-17T04:33:09.894350Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.instagram.com/p/DW4476UlaUX/",
+              "type": "social_media",
+              "title": "Maine Senate Democrats: I'll call for a moratorium on AI data centers until guardrails are in place",
+              "description": null,
+              "last_accessed": "2026-06-17T04:33:09.894376Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Rick Bennett supports a four-point housing affordability plan to increase Maine's housing supply and reduce costs for Maine families. The plan was unveiled to address Maine's housing affordability and supply challenges.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://spectrumlocalnews.com/me/maine/politics/2026/02/18/independent-candidate-for-governor-rick-bennett-unveils-housing-affordability-plan",
+              "type": "news",
+              "title": "Independent candidate for governor Rick Bennett unveils housing affordability plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:35:04.796332Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.newscentermaine.com/video/news/politics/maine-politics/independent-gubernatorial-candidate-rick-bennett-housing-plan/97-5d783bad-d771-44d3-83d3-83e90b0f01fa",
+              "type": "website",
+              "title": "Independent gubernatorial candidate Rick Bennett unveils housing plan",
+              "description": null,
+              "last_accessed": "2026-06-17T04:35:04.796383Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.bangordailynews.com/2026/03/06/opinion/letters/letter-rick-bennett-housing-affordability-plan-joam40zk0w/",
+              "type": "website",
+              "title": "Letter: Rick Bennett housing affordability plan is spot on",
+              "description": null,
+              "last_accessed": "2026-06-17T04:35:04.796412Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": "Abortion & Reproductive Health",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": "Firearms & Second Amendment",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": "Civil Rights & Equality",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Maine Senate",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Represents District 18 (Oxford County)",
+          "source": null
+        },
+        {
+          "title": "Chair",
+          "organization": "Maine Republican Party",
+          "start_year": 2013,
+          "end_year": 2015,
+          "description": "Led state party organization",
+          "source": null
+        },
+        {
+          "title": "Senate Republican Leader",
+          "organization": "Maine Senate",
+          "start_year": 2014,
+          "end_year": 2016,
+          "description": "Led Republican caucus in the Senate",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Maine",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": 1985,
+          "source": null
+        },
+        {
+          "institution": "University of Maine School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": 1988,
+          "source": null
+        }
+      ],
+      "voting_summary": "Rick Bennett has served as a state senator since 2023 and previously from 2008 to 2012, compiling a generally conservative voting record. Notable votes include supporting a bill to modernize Maine's income tax (2025) and opposing a bill to codify gender-affirming care access (2025). He also voted to reject legislation banning transgender girls from school sports.",
+      "voting_source_url": "https://www.billtrack50.com/public/scorecard/legislator/65ytIn01ukW2Fvs1pPQEKw/24975",
+      "voting_sources": [],
+      "donor_summary": "Rick Bennett's campaign finance data is limited; he was not among the top fundraisers reported in early 2026, suggesting he raised less than $1 million. His FollowTheMoney profile shows contributions primarily from individual donors and some business interests, but no specific industry breakdown or total is available for the current cycle.",
+      "donor_source_url": "https://www.followthemoney.org/entity-details?eid=1112942&default=candidate",
+      "donor_sources": [
+        {
+          "url": "https://www.followthemoney.org/entity-details?eid=1112942&default=candidate",
+          "type": "finance",
+          "title": "BENNETT, RICHARD A - FollowTheMoney",
+          "description": null,
+          "last_accessed": "2026-06-20T02:36:57.901688Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://mainemorningstar.com/2026/01/16/a-look-at-how-maines-gubernatorial-candidates-fundraising-stacks-up/",
+          "type": "news",
+          "title": "A look at how Maine's gubernatorial candidates' fundraising stacks up",
+          "description": null,
+          "last_accessed": "2026-06-20T02:36:57.901688Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Rick_Bennett",
+          "title": "Rick Bennett - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rick_Bennett_(Maine_politician)",
+          "title": "Rick Bennett - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.mainepublic.org/politics/2026-06-04/independent-qualifies-for-ballot-setting-up-3-way-race-for-maine-governor",
+          "title": "Independent qualifies for ballot",
+          "type": "news"
+        },
+        {
+          "url": "https://www.billtrack50.com/public/scorecard/legislator/hIH-xHoVFEGynYu5LstWVA/24975/embed",
+          "title": "Rick Bennett - BillTrack50 Voting Record",
+          "type": "other"
+        },
+        {
+          "url": "https://scorecard.maineaflcio.org/legislators/richard-bennett",
+          "title": "Rick Bennett - Maine AFL-CIO Scorecard",
+          "type": "other"
+        },
+        {
+          "url": "https://mainemorningstar.com/2025/06/24/republican-sen-rick-bennett-announces-independent-bid-for-maine-governor/",
+          "title": "Bennett announces independent bid",
+          "type": "news"
+        },
+        {
+          "url": "https://bennettforgovernor.com/",
+          "title": "Rick Bennett for Governor",
+          "type": "official"
+        },
+        {
+          "url": "https://www.billtrack50.com/legislatordetail/24975",
+          "title": "State Senator Rick Bennett - BillTrack50",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.bangordailynews.com/2026/06/05/politics/elections/maine-rick-bennett-ballot-qualification-independent-governor-race/",
+          "title": "Maine is guaranteed a 3-way contest for governor",
+          "type": "news"
+        }
+      ],
+      "website": "https://rickbennettformaine.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-20T02:56:04.632413+00:00",
+  "generator": [
+    "openai/gpt-5.4"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": [
+      "discovery.metadata",
+      "discovery.roster_sync",
+      "discovery.roster_verify",
+      "issues:Hannah Pingree:Abortion & Reproductive Health",
+      "issues:Hannah Pingree:Climate/Energy",
+      "issues:Hannah Pingree:Economy",
+      "issues:Hannah Pingree:Education",
+      "issues:Hannah Pingree:Firearms & Second Amendment",
+      "issues:Hannah Pingree:Foreign Policy",
+      "issues:Hannah Pingree:Healthcare",
+      "issues:Hannah Pingree:Immigration",
+      "iteration:1:Ben Midgley",
+      "iteration:1:Hannah Pingree",
+      "iteration:1:Jonathan Bush",
+      "iteration:1:Nirav D. Shah",
+      "iteration:1:Rick Bennett",
+      "iteration:1:Robert \"Bobby\" Charles",
+      "iteration:1:Shenna Bellows",
+      "iteration:1:Troy Jackson",
+      "refinement:Ben Midgley",
+      "refinement:Hannah Pingree",
+      "refinement:Jonathan Bush",
+      "refinement:Nirav D. Shah",
+      "refinement:Rick Bennett",
+      "refinement:Robert \"Bobby\" Charles",
+      "refinement:Shenna Bellows",
+      "refinement:Troy Jackson",
+      "refinement:meta",
+      "issues:Hannah Pingree:Civil Rights & Equality",
+      "issues:Hannah Pingree:Tech & AI",
+      "issues:Hannah Pingree:Election Policy",
+      "issues:Hannah Pingree:Local Issues",
+      "issues:Robert \"Bobby\" Charles:Healthcare",
+      "issues:Robert \"Bobby\" Charles:Economy",
+      "issues:Robert \"Bobby\" Charles:Climate/Energy",
+      "issues:Robert \"Bobby\" Charles:Abortion & Reproductive Health",
+      "issues:Robert \"Bobby\" Charles:Immigration",
+      "issues:Robert \"Bobby\" Charles:Firearms & Second Amendment",
+      "issues:Robert \"Bobby\" Charles:Foreign Policy",
+      "issues:Robert \"Bobby\" Charles:Civil Rights & Equality",
+      "issues:Robert \"Bobby\" Charles:Education",
+      "issues:Robert \"Bobby\" Charles:Tech & AI",
+      "issues:Robert \"Bobby\" Charles:Election Policy",
+      "issues:Robert \"Bobby\" Charles:Local Issues",
+      "issues:Rick Bennett:Healthcare",
+      "issues:Rick Bennett:Economy",
+      "issues:Rick Bennett:Climate/Energy",
+      "issues:Rick Bennett:Abortion & Reproductive Health",
+      "issues:Rick Bennett:Immigration",
+      "issues:Rick Bennett:Firearms & Second Amendment",
+      "issues:Rick Bennett:Foreign Policy",
+      "issues:Rick Bennett:Civil Rights & Equality",
+      "issues:Rick Bennett:Education",
+      "issues:Rick Bennett:Tech & AI",
+      "issues:Rick Bennett:Election Policy",
+      "issues:Rick Bennett:Local Issues"
+    ]
+  },
+  "polling": [],
+  "ballotpedia_url": "https://ballotpedia.org/Maine_gubernatorial_election,_2026",
+  "register_to_vote_url": "https://registertovote.sos.maine.gov/",
+  "how_to_vote_url": "https://www.maine.gov/sos/elections-voting",
+  "reviews": [
+    {
+      "model": "anthropic/claude-haiku-4.5",
+      "reviewed_at": "2026-06-20T02:38:39.980431Z",
+      "verdict": "approved",
+      "score": 87,
+      "flags": [
+        {
+          "field": "candidates[0].career_history[*].source",
+          "concern": "Career history entries for Hannah Pingree (Speaker of the House 2008\u20132010, State Representative 2002\u20132010, Director of Policy Innovation 2019\u20132025) have null source fields. While these facts are well-known and appear in the summary_sources (Wikipedia, Ballotpedia), the individual career entries lack direct citations. This is a minor documentation gap rather than a factual error.",
+          "suggestion": "Add source URLs to career_history entries, or note that they are drawn from Wikipedia/Ballotpedia links already cited in the profile.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].career_history[1]",
+          "concern": "The career entry states Hannah Pingree was 'Youngest House Speaker in Maine history at age 32' with tenure 2008\u20132010. My training data indicates she became Speaker in 2009 (not 2008) and served until 2012 (not 2010). However, the profile's summary_sources include Wikipedia and Ballotpedia, which are authoritative on this point. Per the epistemological rule, the sourced profile takes precedence. Please verify the exact years against the cited sources to confirm accuracy.",
+          "suggestion": "Cross-check the start and end years (2008 vs. 2009; 2010 vs. 2012) against Wikipedia or Ballotpedia to ensure consistency.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].career_history[0]",
+          "concern": "Bobby Charles' career entry lists 'Assistant Secretary of State for International Narcotics and Law Enforcement Affairs' with tenure 2003\u20132005 under President George W. Bush, but no source is cited. The summary_sources include Wikipedia, which should document this. Verify that the dates and title are accurate against the cited sources.",
+          "suggestion": "Add source URL to this career entry, or confirm it matches the Wikipedia/Ballotpedia citations already in the profile.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Firearms & Second Amendment.stance",
+          "concern": "The stance is sourced to Facebook and Instagram social media posts. While these are direct primary sources, they are less formal than official campaign policy pages. The stance itself ('constitutional carry,' 'roll back red flag laws') is clearly stated and consistent across the cited sources. No factual error, but note the reliance on social media for a major policy position.",
+          "suggestion": "If available, cross-reference with official campaign website policy pages for additional corroboration.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].career_history[*].source",
+          "concern": "Rick Bennett's career history entries (State Senator since 2020, Maine Republican Party Chair 2013\u20132015, Senate Republican Leader 2014\u20132016) have null source fields. These are documented in the summary_sources (Wikipedia, Ballotpedia, BillTrack50), but individual entries lack direct citations.",
+          "suggestion": "Add source URLs to career_history entries.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Tech & AI.stance",
+          "concern": "Rick Bennett's Tech & AI stance is sourced to Instagram posts only. While the posts are primary sources, they are brief social media statements. The stance (moratorium on AI data centers) is clearly stated but lacks a more formal policy document or news article elaborating on the position.",
+          "suggestion": "If available, seek additional sourcing from news coverage or official campaign materials to provide more context.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].voting_summary",
+          "concern": "The voting_summary for Hannah Pingree states she 'served as a state representative from 2004 to 2012' but the career_history shows 2002\u20132010. This is an internal inconsistency within the profile itself. My training data suggests she served from 2004 onwards, but the profile contains conflicting dates. This needs clarification against authoritative sources.",
+          "suggestion": "Reconcile the dates: verify whether her House service began in 2002 or 2004, and ended in 2010 or 2012, using Wikipedia or Ballotpedia.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].voting_summary",
+          "concern": "The voting_summary also states she was 'Speaker of the Maine House of Representatives from 2008 to 2012,' but the career_history lists 2008\u20132010. This is another internal date conflict that must be resolved.",
+          "suggestion": "Confirm the correct years of her speakership against cited sources and update both fields consistently.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].donor_summary",
+          "concern": "Bobby Charles' donor_summary states 'No detailed campaign finance data for Bobby Charles was found in public searches of OpenSecrets, FollowTheMoney, or state disclosure portals as of June 2026.' However, the donor_sources include only an Instagram reel reference, which is not a finance disclosure source. This suggests a genuine data gap rather than a research failure, but the summary is appropriately cautious.",
+          "suggestion": "No action needed; the profile correctly documents the absence of detailed finance data.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.stance vs. candidates[1].issues.Abortion & Reproductive Health.stance",
+          "concern": "Hannah Pingree's abortion stance is described with active, positive framing: 'supports protecting reproductive rights and ensuring access to comprehensive reproductive health care' and 'opposes state bans or restrictions.' Bobby Charles has a 'low confidence' stance with 'No public position found.' This is not bias in the profile itself\u2014it reflects a genuine asymmetry in candidate transparency\u2014but it creates an appearance of imbalance. The profile correctly documents the absence of a public position for Charles rather than inferring one.",
+          "suggestion": "Consider adding a note in the race description or methodology that some candidates have not publicly stated positions on certain issues, to contextualize the asymmetry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.stance vs. candidates[1].issues.Climate/Energy.stance",
+          "concern": "Hannah Pingree's climate stance is described with detailed, active language: 'Deliver clean energy solutions,' 'holding utilities accountable,' 'accelerating a 100% clean energy transition by 2040.' Bobby Charles' stance uses more cautious language: 'Advocates an all-of-the-above energy strategy' with emphasis on natural gas, hydropower, and nuclear. Rick Bennett's stance focuses on 'affordability' and 'weatherization.' The framing differences reflect genuine policy differences rather than editorial bias, but the density of detail favors Pingree. This is acceptable given that her campaign has released more detailed policy documents.",
+          "suggestion": "No action required; the asymmetry reflects candidate transparency levels, not editorial bias.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].summary",
+          "concern": "The summary describes Pingree as having 'won a five-way ranked-choice primary on June 19, 2026' and emphasizes her campaign priorities. The summary is accurate and well-sourced, but it is notably more detailed and positive in tone than the summaries for Charles and Bennett. This reflects the profile's greater coverage of Pingree's campaign, which may reflect her higher fundraising and media presence rather than editorial bias.",
+          "suggestion": "No action required; the asymmetry is proportional to candidate transparency and media coverage.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile demonstrates strong sourcing and internal consistency across all three candidates in the 2026 Maine gubernatorial race. The candidate backgrounds are well-documented with credible news sources and official campaign sites. Issue stances are clearly sourced with high-confidence citations from campaign materials, news outlets, and advocacy organizations. The profile appropriately documents gaps in public positions (marked as 'low confidence' with 'No public position found' after research attempts) rather than fabricating stances. Language is generally neutral and nonpartisan across all three candidates. The race description is accurate and contextually rich. Minor asymmetries in coverage depth reflect genuine differences in candidate transparency rather than editorial bias."
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "reviewed_at": "2026-06-20T02:38:15.766992Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[0].career_history",
+          "concern": "The career history for Hannah Pingree lists her as Speaker of the House until 2010, but the summary and voting_summary mention 2012. My training data suggests her tenure as Speaker ended in 2010, though I cannot definitively verify the 2012 date without further local records.",
+          "suggestion": "Verify the end date of the Speakership and ensure consistency across the career_history, summary, and voting_summary fields.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].career_history",
+          "concern": "The career history for Bobby Charles is sparse regarding his post-2005 activities. While the profile notes he is an attorney, there is limited detail on his private practice work.",
+          "suggestion": "If available, add brief context regarding his legal focus or professional activities between 2005 and his 2026 campaign.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].voting_summary",
+          "concern": "The voting_summary states Rick Bennett has served as a state senator 'since 2023 and previously from 2008 to 2012'. My training data suggests he served in the Maine Senate during different periods (e.g., 1990s and 2020s). Please verify the specific years of his legislative service.",
+          "suggestion": "Cross-reference the legislative service dates with the Maine Legislature's official member records.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is exceptionally well-researched, providing a balanced and neutral overview of a complex three-way gubernatorial race. The sourcing is robust, with clear links to official campaign platforms and reputable news outlets for all major policy positions. The candidate backgrounds are detailed and internally consistent with the provided sources."
+    },
+    {
+      "model": "x-ai/grok-4.3",
+      "reviewed_at": "2026-06-20T02:38:17.903691Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [],
+      "summary": "Strong sourcing across all candidates with high-confidence citations from official campaign sites, Ballotpedia, Maine Public, Press Herald, and FollowTheMoney. Candidate backgrounds, education, and issue stances are internally consistent with the cited sources. Language is neutral and balanced with no asymmetric framing or loaded terminology between Pingree, Charles, and Bennett. Low-confidence issues are properly documented as 'no public position found after repeated research attempts.'"
+    },
+    {
+      "model": "automated-link-validator",
+      "reviewed_at": "2026-06-20T02:38:46.360901Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Firearms & Second Amendment.sources[2].url",
+          "concern": "Cited source URL (https://www.newscentermaine.com/article/news/politics/maine-politics/maine-democratic-gubernatorial-candidates-gun-safety-lgbtq-protections-primary-election/97-65db3297-1d3b-4bea-961a-b7d2c9275dc6) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Economy.sources[1].url",
+          "concern": "Cited source URL (https://www.newscentermaine.com/article/news/politics/elections/candidates/republican-gubernatorial-candidate-bobby-charles-maine-governor-election/97-13f86456-bab8-4277-b0c5-5dad2bdb9480) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.sources[2].url",
+          "concern": "Cited source URL (https://www.newscentermaine.com/article/news/local/independent-candidate-for-maine-governor-rick-bennett-offers-health-care-affordability-plan/97-9f4793b6-41d5-40e0-aee9-01d14e88d103) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[1].url",
+          "concern": "Cited source URL (https://www.newscentermaine.com/video/news/politics/maine-politics/independent-gubernatorial-candidate-rick-bennett-housing-plan/97-5d783bad-d771-44d3-83d3-83e90b0f01fa) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Scanned 61 source links. Found 4 dead link(s)."
+    },
+    {
+      "model": "automated-profile-quality",
+      "reviewed_at": "2026-06-20T02:38:46.364455Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[5]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Climate/Energy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[6]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Education.sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].summary_sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[0].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Economy.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Climate/Energy.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Economy.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[2].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Immigration.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Tech & AI.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Healthcare.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Abortion & Reproductive Health.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Education.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Election Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Local Issues.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Abortion & Reproductive Health.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Immigration.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Firearms & Second Amendment.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Civil Rights & Equality.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Election Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Found 30 profile quality issue(s)."
+    }
+  ],
+  "validation_grade": {
+    "grade": "A",
+    "score": 90,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 90/100."
+  },
+  "schema_version": "0.3",
+  "polling_note": "No public polling found for this race as of 2026-06-20.",
+  "agent_metrics": {
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3895,
+    "completion_tokens": 258,
+    "total_tokens": 4153,
+    "cost_usd": 0.010151499999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.013607,
+    "model_breakdown": {
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3895,
+        "completion_tokens": 258
+      }
+    },
+    "duration_s": 10.6,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3536,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Hannah Pingree",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.57,
+    "party_probabilities": {
+      "Democratic": 0.57,
+      "Republican": 0.33,
+      "Independent": 0.1
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "With no public polling available, this forecast relies on non-polling fundamentals only. Maine is a moderately Democratic-leaning state at the presidential level and Democrats hold the governorship, which gives Democratic nominee Hannah Pingree a narrow structural edge in an open-seat race. However, Maine has a long history of competitive gubernatorial elections, the state has not elected consecutive governors from the same party since 1952, and this is a three-way plurality contest with independent Rick Bennett on the ballot, all of which increase uncertainty and create a plausible Republican path for Bobby Charles. Pingree appears to be the strongest-positioned candidate on paper given Democratic baseline strength and fundraising, but the lack of polling and the volatility of a three-candidate race keep the contest close.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T02:56:03.535979Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  }
+}

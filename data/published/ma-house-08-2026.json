@@ -261,7 +261,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:33:18.231651+00:00",
+  "updated_utc": "2026-06-20T15:39:45.221394+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -275,18 +275,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 296756,
-    "completion_tokens": 6551,
-    "total_tokens": 303307,
-    "cost_usd": 0.0175755597,
+    "prompt_tokens": 11897,
+    "completion_tokens": 2141,
+    "total_tokens": 14038,
+    "cost_usd": 0.0015256380000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.030366,
+    "estimated_usd": 0.001456,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 296756,
-        "completion_tokens": 6551
+        "prompt_tokens": 11897,
+        "completion_tokens": 2141
       }
     },
-    "duration_s": 182.0
+    "duration_s": 33.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6948,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Stephen Lynch",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 27.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, so the forecast relies on structural factors rather than direct voter measurement. The district has a Cook PVI of D+15, making it a safely Democratic seat. Incumbent Stephen Lynch has held the seat since 2001 and has consistently won re-election by wide margins. While Lynch faces a Democratic primary challenge from Patrick Roath, the Democratic nominee — whether Lynch or Roath — will be heavily favored in the general election. The Republican candidate Walter Grochowski has limited public information and minimal apparent campaign infrastructure. The lack of polling keeps confidence at medium rather than high, but the district's partisan lean, incumbency advantage, and candidate-field strength strongly indicate an overwhelming Democratic advantage in the general election.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:41.010156Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

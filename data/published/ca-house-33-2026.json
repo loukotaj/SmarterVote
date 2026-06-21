@@ -174,7 +174,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_33rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:33:19.916673+00:00",
+  "updated_utc": "2026-06-20T15:23:53.564048+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -185,18 +185,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 219860,
-    "completion_tokens": 6668,
-    "total_tokens": 226528,
-    "cost_usd": 0.011731032,
+    "prompt_tokens": 18373,
+    "completion_tokens": 2390,
+    "total_tokens": 20763,
+    "cost_usd": 0.002268994,
     "cost_source": "provider",
-    "estimated_usd": 0.022853,
+    "estimated_usd": 0.002084,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 219860,
-        "completion_tokens": 6668
+        "prompt_tokens": 18373,
+        "completion_tokens": 2390
       }
     },
-    "duration_s": 115.4
+    "duration_s": 40.2,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 9942,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0095,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Pete Aguilar",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 24,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No independent general-election polls exist for this race. The forecast is based on district fundamentals and primary results. California's 33rd District has a Cook PVI of D+7 and is rated 'Solid D' by Cook Political Report. Incumbent Pete Aguilar is a well-established 11-year representative and House Democratic Caucus Chair (the No. 3 House Democrat). In the June 2, 2026 top-two primary, Aguilar received 53.5% of the vote versus Republican challenger Stephanie M. Vargas's 17.5%, with the remainder of the vote spread across other candidates in a field that heavily favors Democrats given the district's partisan lean. The strong incumbency advantage, favorable district fundamentals, and lopsided primary result all point to a very strong Democratic advantage. However, the absence of any general-election polling limits confidence below high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:41.396698+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

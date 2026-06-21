@@ -6,15 +6,15 @@
   "state": "Indiana",
   "district": "7th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 general election for Indiana's 7th Congressional District pits Democratic incumbent U.S. Rep. Andr\u00e9 Carson, seeking a tenth term, against Republican nominee Patrick McAuley, a commercial real estate developer. The district covers all of Marion County, including Indianapolis, and is the most racially diverse congressional district in Indiana, with nearly one-third of residents identifying as Black and 16% as Hispanic. The primaries took place on May 5, 2026; Carson defeated three Democratic challengers and McAuley won the Republican primary. The Cook Political Report rates the race as Solidly Democratic, but the contest follows a high-profile 2025 attempt by President Donald Trump and Indiana Republicans to redraw the district's boundaries to favor Republicans, a plan that ultimately failed in the state Senate.",
+  "description": "The 2026 general election for Indiana's 7th Congressional District pits Democratic incumbent U.S. Rep. André Carson, seeking a tenth term, against Republican nominee Patrick McAuley, a commercial real estate developer. The district covers all of Marion County, including Indianapolis, and is the most racially diverse congressional district in Indiana, with nearly one-third of residents identifying as Black and 16% as Hispanic. The primaries took place on May 5, 2026; Carson defeated three Democratic challengers and McAuley won the Republican primary. The Cook Political Report rates the race as Solidly Democratic, but the contest follows a high-profile 2025 attempt by President Donald Trump and Indiana Republicans to redraw the district's boundaries to favor Republicans, a plan that ultimately failed in the state Senate.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of June 2026. The Cook Political Report rates the district as Solidly Democratic.",
   "candidates": [
     {
-      "name": "Andr\u00e9 Carson",
+      "name": "André Carson",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Andr\u00e9 Carson is the incumbent U.S. Representative for Indiana's 7th Congressional District, first elected in a 2008 special election to succeed his grandmother, Rep. Julia Carson. He serves on the House Intelligence Committee and the Transportation and Infrastructure Committee, and is a Senior Whip for the House Democratic Caucus. Before Congress, he served on the Indianapolis City-County Council, worked in law enforcement, and served at the Indiana Intelligence Fusion Center focusing on counter-terrorism.",
+      "summary": "André Carson is the incumbent U.S. Representative for Indiana's 7th Congressional District, first elected in a 2008 special election to succeed his grandmother, Rep. Julia Carson. He serves on the House Intelligence Committee and the Transportation and Infrastructure Committee, and is a Senior Whip for the House Democratic Caucus. Before Congress, he served on the Indianapolis City-County Council, worked in law enforcement, and served at the Indiana Intelligence Fusion Center focusing on counter-terrorism.",
       "summary_sources": [
         {
           "url": "http://carson.house.gov/about/biography",
@@ -30,7 +30,7 @@
         {
           "url": "https://www.congressweb.com/aacrao/legislators/info/mbr_id/185",
           "type": "government",
-          "title": "Rep. Andr\u00e9 Carson (D-IN-07)",
+          "title": "Rep. André Carson (D-IN-07)",
           "description": null,
           "last_accessed": "2026-06-13T12:00:00Z",
           "published_at": null,
@@ -41,7 +41,7 @@
         {
           "url": "https://www.wfyi.org/statewide/2026-05-05/watch-results-come-in-for-indianas-u-s-house-primary-races",
           "type": "news",
-          "title": "Andr\u00e9 Carson wins Democratic primary. See results in other U.S. House elections",
+          "title": "André Carson wins Democratic primary. See results in other U.S. House elections",
           "description": null,
           "last_accessed": "2026-06-13T12:00:00Z",
           "published_at": null,
@@ -171,7 +171,7 @@
         {
           "url": "https://www.wfyi.org/statewide/2026-05-05/watch-results-come-in-for-indianas-u-s-house-primary-races",
           "type": "news",
-          "title": "Andr\u00e9 Carson wins Democratic primary. See results in other U.S. House elections",
+          "title": "André Carson wins Democratic primary. See results in other U.S. House elections",
           "description": null,
           "last_accessed": "2026-06-13T12:00:00Z",
           "published_at": null,
@@ -209,7 +209,7 @@
           "source": null
         },
         {
-          "institution": "Indiana University\u2013Purdue University Indianapolis (IUPUI)",
+          "institution": "Indiana University–Purdue University Indianapolis (IUPUI)",
           "degree": null,
           "field": null,
           "year": null,
@@ -237,7 +237,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana's_7th_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T22:47:33.537397+00:00",
+  "updated_utc": "2026-06-20T15:37:02.294680+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -251,18 +251,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 183627,
-    "completion_tokens": 5785,
-    "total_tokens": 189412,
-    "cost_usd": 0.012400090000000002,
+    "prompt_tokens": 11730,
+    "completion_tokens": 1753,
+    "total_tokens": 13483,
+    "cost_usd": 0.001493128,
     "cost_source": "provider",
-    "estimated_usd": 0.019129,
+    "estimated_usd": 0.001371,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 183627,
-        "completion_tokens": 5785
+        "prompt_tokens": 11730,
+        "completion_tokens": 1753
       }
     },
-    "duration_s": 101.9
+    "duration_s": 29.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6897,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "André Carson",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, which limits confidence. However, structural factors strongly favor Democrats: Carson is a nine-term incumbent with deep local roots in Indianapolis/Marion County; the district is Indiana's most racially diverse (roughly one-third Black, 16% Hispanic) and reliably Democratic. Cook Political Report rates it Solidly Democratic. The failed 2025 GOP redistricting effort further confirms the current lines are heavily Democratic. Carson has won recent cycles by 27–31 points. Without polling to validate, the forecast relies on incumbency, district partisanship, and the race context provided.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:59.003075Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

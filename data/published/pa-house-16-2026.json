@@ -171,7 +171,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_16th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:49:59.244080+00:00",
+  "updated_utc": "2026-06-20T15:38:30.512160+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -185,18 +185,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 186902,
-    "completion_tokens": 8064,
-    "total_tokens": 194966,
-    "cost_usd": 0.011497954,
+    "prompt_tokens": 4129,
+    "completion_tokens": 1130,
+    "total_tokens": 5259,
+    "cost_usd": 0.0005562340000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.019897,
+    "estimated_usd": 0.000575,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 186902,
-        "completion_tokens": 8064
+        "prompt_tokens": 4129,
+        "completion_tokens": 1130
       }
     },
-    "duration_s": 143.5
+    "duration_s": 18.8,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2817,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0027,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Kelly",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which tempers confidence. However, the available structural data strongly points to a safe Republican hold: the district carries a Cook PVI of R+11, seven-term incumbent Mike Kelly (first elected in 2010) holds seniority on the Ways and Means Committee, and the race description itself characterizes the seat as safe Republican. Democratic challenger Justin Wagner is a credible U.S. Army veteran and engineer, but the district's partisan lean and Kelly's entrenched incumbency provide no contrary signal. Without any polling evidence, the forecast relies on these fundamentals, which overwhelmingly favor the Republican incumbent.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:25.116772Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

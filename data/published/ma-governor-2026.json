@@ -6,7 +6,7 @@
   "state": "Massachusetts",
   "district": null,
   "election_date": "2026-11-03",
-  "description": "The 2026 Massachusetts gubernatorial election is scheduled for November 3, 2026, with the primary on September 1, 2026. Incumbent Democratic Governor Maura Healey is seeking a second term, having assumed office in January 2023 after defeating Republican nominee Geoff Diehl in the 2022 general election. Massachusetts has no gubernatorial term limits. The Republican field narrowed to two candidates\u2014former Abiomed CEO Mike Minogue and former MBTA chief administrator Brian Shortsleeve\u2014after the April 2026 state GOP convention, where Minogue won the party endorsement with over 70% of delegate votes. This race is being closely watched as a test of Democratic strength in a reliably blue state, with early polling showing Healey holding double-digit leads over both potential Republican opponents.",
+  "description": "The 2026 Massachusetts gubernatorial election is scheduled for November 3, 2026, with the primary on September 1, 2026. Incumbent Democratic Governor Maura Healey is seeking a second term, having assumed office in January 2023 after defeating Republican nominee Geoff Diehl in the 2022 general election. Massachusetts has no gubernatorial term limits. The Republican field narrowed to two candidates—former Abiomed CEO Mike Minogue and former MBTA chief administrator Brian Shortsleeve—after the April 2026 state GOP convention, where Minogue won the party endorsement with over 70% of delegate votes. This race is being closely watched as a test of Democratic strength in a reliably blue state, with early polling showing Healey holding double-digit leads over both potential Republican opponents.",
   "polling": [
     {
       "pollster": "Suffolk University",
@@ -380,10 +380,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Massachusetts_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:04:09.030533+00:00",
+  "updated_utc": "2026-06-20T03:17:23.796885+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -392,20 +391,57 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 268100,
-    "completion_tokens": 9002,
-    "total_tokens": 277102,
-    "cost_usd": 0.019471919999999997,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4189,
+    "completion_tokens": 236,
+    "total_tokens": 4425,
+    "cost_usd": 0.0140125,
     "cost_source": "provider",
-    "estimated_usd": 0.028038,
+    "estimated_usd": 0.014012,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 268100,
-        "completion_tokens": 9002
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4189,
+        "completion_tokens": 236
       }
     },
-    "duration_s": 160.4
+    "duration_s": 8.8,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3414,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0033,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Maura Healey",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Democratic": 0.92,
+      "Republican": 0.08
+    },
+    "margin_estimate": 24.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "Available general-election polling consistently shows incumbent Democrat Maura Healey leading both Republican contenders by double digits to high double digits in a strongly Democratic state. Across four Healey-vs-Republican matchup polls from April to May, Healey leads Mike Minogue by 20 and 27 points and Brian Shortsleeve by 22 and 29 points. Healey also benefits from incumbency and Massachusetts' recent Democratic lean. Confidence is reduced somewhat because the general-election polling is limited in quantity, the Republican nominee is not yet finalized, and the race is still months from the primary and general election.",
+    "based_on_poll_count": 4,
+    "generated_at": "2026-06-20T03:17:22.921657Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://www.270towin.com/2026-governor-polls/massachusetts"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

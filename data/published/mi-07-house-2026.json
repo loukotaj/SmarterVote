@@ -1285,7 +1285,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:12:21.979171+00:00",
+  "updated_utc": "2026-06-20T15:36:47.272632+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -1369,27 +1369,60 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 153857,
-    "completion_tokens": 6097,
-    "total_tokens": 159954,
-    "cost_usd": 0.00878711,
+    "prompt_tokens": 61685,
+    "completion_tokens": 2648,
+    "total_tokens": 64333,
+    "cost_usd": 0.006384426,
     "cost_source": "provider",
-    "estimated_usd": 0.013041,
+    "estimated_usd": 0.006028,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 87188,
-        "completion_tokens": 4672
-      },
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 66669,
-        "completion_tokens": 1425
+        "prompt_tokens": 61685,
+        "completion_tokens": 2648
       }
     },
-    "duration_s": 96.8
+    "duration_s": 44.6,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 38822,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.037,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "schema_version": "0.3",
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Michigan's_7th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Tom Barrett",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.44,
+      "Republican": 0.56
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No usable head-to-head polling data exists for this race (both PPP entries have empty matchups). The seat is held by Republican Tom Barrett, giving Republicans an incumbency advantage. However, Democrats field multiple credible challengers: Bridget Brink (former U.S. ambassador, >$2.2M raised) and Matt Maasdam (former Navy SEAL/White House aide, >$1M raised), both with significant fundraising. The Democratic primary is competitive, and the general election outlook is uncertain without polling. Incumbency is the strongest observable signal, suggesting a narrow Republican edge, but the sparse data prevents higher confidence. The Public Policy Polling article title (\"Democrats should swing for the fences in 2026\") hints that the district is seen as potentially competitive.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:36.353814Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.publicpolicypolling.com/polls/democrats-should-swing-for-the-fences-in-2026/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

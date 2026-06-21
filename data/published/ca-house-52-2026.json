@@ -100,7 +100,7 @@
         {
           "url": "https://www.belleforcongress.com/",
           "type": "website",
-          "title": "Jeff Belle for Congress \u2013 CD 52",
+          "title": "Jeff Belle for Congress – CD 52",
           "last_accessed": "2026-06-13T18:00:00Z"
         },
         {
@@ -155,7 +155,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_52nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:14:50.208153+00:00",
+  "updated_utc": "2026-06-20T15:22:07.192157+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -166,18 +166,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 192492,
-    "completion_tokens": 4613,
-    "total_tokens": 197105,
-    "cost_usd": 0.013288748,
+    "prompt_tokens": 10046,
+    "completion_tokens": 1246,
+    "total_tokens": 11292,
+    "cost_usd": 0.00116882,
     "cost_source": "provider",
-    "estimated_usd": 0.019768,
+    "estimated_usd": 0.001128,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 192492,
-        "completion_tokens": 4613
+        "prompt_tokens": 10046,
+        "completion_tokens": 1246
       }
     },
-    "duration_s": 110.6
+    "duration_s": 23.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5567,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0053,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Juan Vargas",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 22,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which caps confidence at medium. However, available structural data overwhelmingly favors the Democratic incumbent. The district has a Cook PVI of D+13, has been held by incumbent Democrat Juan Vargas since 2013 (10+ terms), and the June 2 top-two primary saw Vargas win 56.9% vs. Republican Jeff Belle's 33.5% — a 23.4-point lead with a third candidate eliminated. Cook Political Report rates the race Solid Democratic. These factors together indicate an overwhelming Democratic advantage well above the 95% threshold for a safe rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:01.528967+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

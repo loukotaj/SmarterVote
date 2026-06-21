@@ -2,7 +2,7 @@
   "id": "ca-house-09-2026",
   "title": "2026 U.S. House of Representatives Election in California's 9th Congressional District",
   "office": "United States House of Representatives",
-  "jurisdiction": "California's 9th Congressional District \u2014 San Joaquin County (Stockton, Tracy, Manteca, Lodi) and parts of Contra Costa and Stanislaus counties",
+  "jurisdiction": "California's 9th Congressional District — San Joaquin County (Stockton, Tracy, Manteca, Lodi) and parts of Contra Costa and Stanislaus counties",
   "state": "California",
   "district": "9th Congressional District",
   "election_date": "2026-11-03",
@@ -47,7 +47,7 @@
           "organization": "United States House of Representatives",
           "start_year": 2019,
           "end_year": null,
-          "description": "Representing California's 10th district (2019\u20132023) and 9th district (2023\u2013present). Serves on the House Appropriations Committee.",
+          "description": "Representing California's 10th district (2019–2023) and 9th district (2023–present). Serves on the House Appropriations Committee.",
           "source": null
         },
         {
@@ -194,7 +194,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:22:03.274074+00:00",
+  "updated_utc": "2026-06-20T15:29:01.069620+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -208,18 +208,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 277608,
-    "completion_tokens": 5983,
-    "total_tokens": 283591,
-    "cost_usd": 0.020970124,
+    "prompt_tokens": 11368,
+    "completion_tokens": 1755,
+    "total_tokens": 13123,
+    "cost_usd": 0.001458044,
     "cost_source": "provider",
-    "estimated_usd": 0.028378,
+    "estimated_usd": 0.001339,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 277608,
-        "completion_tokens": 5983
+        "prompt_tokens": 11368,
+        "completion_tokens": 1755
       }
     },
-    "duration_s": 125.5
+    "duration_s": 25.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6528,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Josh Harder",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 13.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polls are available (based_on_poll_count=0), which constrains confidence to medium. Structural indicators are strongly favorable to Democrats: incumbent Josh Harder has held the seat since 2018, Cook PVI rates the district D+8, and Cook Political Report rates the race 'Solid Democratic.' Harder serves on the House Appropriations Committee and has a strong incumbency advantage, while Republican challenger John McBride is a lower-profile candidate (strength and conditioning coach) without prior elected office. The district's partisan lean, incumbency, and outside expert ratings all point to a Safe Democratic outcome, but the absence of any head-to-head polling prevents high confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:54.095886Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

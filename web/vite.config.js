@@ -10,7 +10,11 @@ function suppressSvelteKitUntrackWarning() {
     options(opts) {
       const original = opts.onwarn;
       opts.onwarn = (warning, warn) => {
-        if (warning.code === "MISSING_EXPORT" && warning.message?.includes("untrack")) return;
+        if (
+          warning.code === "MISSING_EXPORT" &&
+          warning.message?.includes("untrack")
+        )
+          return;
         if (original) original(warning, warn);
         else warn(warning);
       };

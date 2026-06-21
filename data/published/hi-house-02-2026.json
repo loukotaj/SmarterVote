@@ -198,7 +198,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Hawaii%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:05:05.704762+00:00",
+  "updated_utc": "2026-06-20T15:36:16.509773+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -212,18 +212,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 250574,
-    "completion_tokens": 7274,
-    "total_tokens": 257848,
-    "cost_usd": 0.016796676,
+    "prompt_tokens": 12025,
+    "completion_tokens": 1747,
+    "total_tokens": 13772,
+    "cost_usd": 0.001520862,
     "cost_source": "provider",
-    "estimated_usd": 0.025982,
+    "estimated_usd": 0.001397,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 250574,
-        "completion_tokens": 7274
+        "prompt_tokens": 12025,
+        "completion_tokens": 1747
       }
     },
-    "duration_s": 126.3
+    "duration_s": 29.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6723,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jill Tokuda",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available for this race, which tempers confidence in the exact margin. However, the district's structural fundamentals are overwhelming: Cook PVI of D+12, all major nonpartisan forecasters rate it Safe/Solid Democratic, and incumbent Democrat Jill Tokuda won re-election in 2024 with 66.5% of the vote. Republican challenger Brenton Awa is a credible candidate (state Senate Minority Leader) with a distinct profile, but the district's strong Democratic lean, Tokuda's incumbency advantage, and the lack of any recent competitive performance for Republicans in this seat make a Democratic hold virtually certain. The margin estimate of ~24 points reflects a slight moderation from 2024's 33-point margin due to Awa's potential appeal on local issues (foreign land ownership, Maui recovery) but still reflects a very safe Democratic seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:10.919520Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -222,7 +222,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:34:38.858182+00:00",
+  "updated_utc": "2026-06-20T15:23:26.870493+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -236,18 +236,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 194258,
-    "completion_tokens": 5272,
-    "total_tokens": 199530,
-    "cost_usd": 0.01443962,
+    "prompt_tokens": 6664,
+    "completion_tokens": 1229,
+    "total_tokens": 7893,
+    "cost_usd": 0.000834052,
     "cost_source": "provider",
-    "estimated_usd": 0.020071,
+    "estimated_usd": 0.000821,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 194258,
-        "completion_tokens": 5272
+        "prompt_tokens": 6664,
+        "completion_tokens": 1229
       }
     },
-    "duration_s": 123.3
+    "duration_s": 20.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3366,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0032,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Victoria Spartz",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.05
+    },
+    "margin_estimate": 17.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which fundamentally limits statistical confidence. However, the non-polling indicators are exceptionally consistent: Republican Victoria Spartz is the two-term incumbent seeking a fourth term; the district has been held by Republicans for 34 consecutive years; and Cook Political Report rates it Solid Republican. Democrat J.D. Ford is a credible state-senator nominee with a competitive primary win, but nothing in the available race data suggests the district's longstanding Republican lean has materially eroded. Given the total absence of polling, the forecast relies entirely on structural and contextual factors, warranting medium confidence and a safe Republican rating with a very high but not certain win probability.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:19.775912Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

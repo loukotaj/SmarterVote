@@ -44,7 +44,7 @@
           "organization": "Various media outlets",
           "start_year": 1990,
           "end_year": 2020,
-          "description": "Worked as a journalist and anchor for networks including Telemundo and CNN en Espa\u00f1ol",
+          "description": "Worked as a journalist and anchor for networks including Telemundo and CNN en Español",
           "source": null
         }
       ],
@@ -130,7 +130,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_27th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:23:13.376431+00:00",
+  "updated_utc": "2026-06-20T15:41:26.909441+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -144,18 +144,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 226681,
-    "completion_tokens": 5598,
-    "total_tokens": 232279,
-    "cost_usd": 0.016081942000000002,
+    "prompt_tokens": 9455,
+    "completion_tokens": 1747,
+    "total_tokens": 11202,
+    "cost_usd": 0.001269002,
     "cost_source": "provider",
-    "estimated_usd": 0.023312,
+    "estimated_usd": 0.001165,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 226681,
-        "completion_tokens": 5598
+        "prompt_tokens": 9455,
+        "completion_tokens": 1747
       }
     },
-    "duration_s": 234.1
+    "duration_s": 28.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5092,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0049,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Maria Elvira Salazar",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.58,
+    "party_probabilities": {
+      "Republican": 0.58,
+      "Democratic": 0.42
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race as of June 2026. The forecast relies entirely on district context and candidate backgrounds. Florida's 27th is a competitive Miami-Dade seat described as leaning Republican but with a history of close races and Democratic competitiveness in recent cycles. Incumbent Maria Elvira Salazar (R) benefits from incumbency and two re-election wins (2022, 2024) in a district with a slight Republican lean. Challenger Lucia Baez-Geller (D), a former school board member, ran here in 2022 and lost by ~14 points. The absence of polling, combined with a midterm cycle whose national environment is difficult to assess this far out, results in very high uncertainty. The narrow Republican edge reflects incumbency and district lean, but the margin of uncertainty is large.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:21.928573Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

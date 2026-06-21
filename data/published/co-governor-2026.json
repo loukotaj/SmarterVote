@@ -550,10 +550,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Colorado_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:04:19.884814+00:00",
+  "updated_utc": "2026-06-20T03:18:43.776353+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -562,20 +561,57 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 239862,
-    "completion_tokens": 10652,
-    "total_tokens": 250514,
-    "cost_usd": 0.015670172,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4479,
+    "completion_tokens": 301,
+    "total_tokens": 4780,
+    "cost_usd": 0.0088005,
     "cost_source": "provider",
-    "estimated_usd": 0.025594,
+    "estimated_usd": 0.015713,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 239862,
-        "completion_tokens": 10652
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4479,
+        "completion_tokens": 301
       }
     },
-    "duration_s": 172.7
+    "duration_s": 8.0,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3823,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0036,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Michael Bennet",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 7.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "This is an open-seat race, but Colorado’s recent statewide partisan trend gives Democrats a structural advantage: Democrats have won every gubernatorial election in the state since 2006 and Colorado has voted Democratic in every presidential election since 2008. The Democratic field also appears stronger on paper, with high-profile statewide figures led by U.S. Senator Michael Bennet and Attorney General Phil Weiser. Limited available primary polling suggests Bennet is currently the strongest candidate in the race, while the Republican side appears likely to nominate Victor Marx based on a single GOP primary poll conducted for a pro-Marx independent expenditure committee. However, general-election polling is absent, the available polling is sparse and partly non-independent, and the primary is still pending, so uncertainty remains meaningful. Given Colorado’s blue lean and the apparent Democratic field strength, Democrats are favored but not to a safe degree.",
+    "based_on_poll_count": 3,
+    "generated_at": "2026-06-20T03:18:43.032680Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://www.coloradoan.com/story/news/politics/2026/05/28/colorado-primary-election-polls/90285710007/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

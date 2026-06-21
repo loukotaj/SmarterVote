@@ -513,7 +513,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_25th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:45:06.660844+00:00",
+  "updated_utc": "2026-06-20T15:26:53.379175+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -527,18 +527,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 280015,
-    "completion_tokens": 9332,
-    "total_tokens": 289347,
-    "cost_usd": 0.019945486,
+    "prompt_tokens": 19095,
+    "completion_tokens": 2060,
+    "total_tokens": 21155,
+    "cost_usd": 0.002215166,
     "cost_source": "provider",
-    "estimated_usd": 0.029271,
+    "estimated_usd": 0.002089,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 280015,
-        "completion_tokens": 9332
+        "prompt_tokens": 19095,
+        "completion_tokens": 2060
       }
     },
-    "duration_s": 122.1
+    "duration_s": 29.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 11178,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0107,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jared Moskowitz",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.52,
+    "party_probabilities": {
+      "Democratic": 0.52,
+      "Republican": 0.48
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race as of mid-2026, so confidence is low. The district was significantly redrawn in May 2026 from a Biden +1 seat to a Trump +9 seat, giving Republicans a meaningful structural advantage. However, the Democratic nominee will almost certainly be Jared Moskowitz — a sitting U.S. Representative with $1.22 million cash on hand, high name recognition in the area, and a track record of bipartisan work (including serving as Florida's emergency management director under Governor DeSantis). On the Republican side, a crowded primary field of five candidates (Franzese, Moraitis, Singer, Harrison, Villatoro) remains unresolved ahead of the August 18 primary, creating uncertainty about nominee strength and potential intraparty divisions. Both Cook Political Report and Sabato's Crystal Ball rate this open-seat race a toss-up. The best informational forecast is a near-even contest with a very slight edge to Moskowitz given his demonstrated fundraising strength and established profile, partially offsetting the district's redder partisan baseline.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:46.841166Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

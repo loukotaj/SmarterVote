@@ -207,7 +207,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Connecticut%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:05:45.790190+00:00",
+  "updated_utc": "2026-06-20T15:25:47.557269+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -221,18 +221,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 208931,
-    "completion_tokens": 4408,
-    "total_tokens": 213339,
-    "cost_usd": 0.014280517999999999,
+    "prompt_tokens": 11382,
+    "completion_tokens": 1886,
+    "total_tokens": 13268,
+    "cost_usd": 0.001425188,
     "cost_source": "provider",
-    "estimated_usd": 0.021339,
+    "estimated_usd": 0.001364,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 208931,
-        "completion_tokens": 4408
+        "prompt_tokens": 11382,
+        "completion_tokens": 1886
       }
     },
-    "duration_s": 112.2
+    "duration_s": 33.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6447,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Joe Courtney",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_d",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race, so the forecast relies entirely on non-polling indicators with low confidence. Incumbent Democrat Joe Courtney has represented the district since 2007 (10 terms), has secured renomination after his primary challenger failed to reach the 15% threshold, and benefits from strong incumbency advantages including name recognition, fundraising, and party infrastructure. The district has been held by a Democrat for nearly 20 years. On the Republican side, the nomination is unsettled — George Austin and Sean Randall face off in an August 11 primary, leaving the eventual general-election challenger unknown and limiting the GOP's ability to consolidate resources early. The race description notes Republican optimism driven by national political headwinds, which tempers the Democratic rating from 'safe' to 'likely.' Courtney's recent general-election margins (roughly 5–10 points) support an estimated 8-point margin. With zero polls and an unresolved GOP primary, confidence remains low, but Courtney is a clear favorite.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:43.084916Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

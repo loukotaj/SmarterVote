@@ -199,7 +199,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:40:45.703582+00:00",
+  "updated_utc": "2026-06-20T15:29:55.271208+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -213,18 +213,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 296685,
-    "completion_tokens": 5361,
-    "total_tokens": 302046,
-    "cost_usd": 0.020191806,
+    "prompt_tokens": 11113,
+    "completion_tokens": 1391,
+    "total_tokens": 12504,
+    "cost_usd": 0.001301806,
     "cost_source": "provider",
-    "estimated_usd": 0.030126,
+    "estimated_usd": 0.001251,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 296685,
-        "completion_tokens": 5361
+        "prompt_tokens": 11113,
+        "completion_tokens": 1391
       }
     },
-    "duration_s": 115.3
+    "duration_s": 25.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6417,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Virginia Foxx",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 16.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race (0 polls as of mid-2026), which reduces confidence and means the forecast relies on structural factors rather than direct voter-intent data. The district has a Cook PVI of R+9 and backed Trump by 18 points in 2024, placing it among the more Republican-leaning seats nationally. Incumbent Virginia Foxx is seeking an 11th term and chairs the House Rules Committee, a powerful institutional position. Her opponent, Chuck Hubbard, is a repeat challenger who previously lost to Foxx in 2024 and also ran unsuccessfully for a state legislative seat in 2022. The district was redrawn in October 2025, which introduces some redistricting uncertainty, though the structural partisan lean of the area (northwestern NC, from the Appalachians to Greensboro suburbs) has been consistently Republican. Given the incumbency advantage, committee chair status, district partisanship, and lack of competitive historical signal in this district, Republicans hold an overwhelming advantage consistent with a safe_r rating (~95%+ win probability).",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:48.346265Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

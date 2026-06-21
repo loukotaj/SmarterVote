@@ -6,7 +6,7 @@
   "state": "Kansas",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Kansas's 1st Congressional District (the \"Big First\") will determine who represents the sprawling western and central Kansas district. Incumbent Republican Rep. Tracey Mann, first elected in 2020 and re-elected with 69.1% in 2024, is seeking a fourth term. Two Democrats\u2014Colin McRoberts, a University of Kansas business law professor, and Lauren Reinhold, a former Social Security Administration attorney\u2014are competing in the August 4 Democratic primary, while Libertarian Steven Jacob and United Kansas Party candidate Craig Musser are also slated to appear on the general election ballot. The district, which covers 60 counties and includes Lawrence, Manhattan, Salina, and Dodge City, has not elected a Democrat since 1952 and is rated Solid/Safe Republican by major forecasters.",
+  "description": "The 2026 election for Kansas's 1st Congressional District (the \"Big First\") will determine who represents the sprawling western and central Kansas district. Incumbent Republican Rep. Tracey Mann, first elected in 2020 and re-elected with 69.1% in 2024, is seeking a fourth term. Two Democrats—Colin McRoberts, a University of Kansas business law professor, and Lauren Reinhold, a former Social Security Administration attorney—are competing in the August 4 Democratic primary, while Libertarian Steven Jacob and United Kansas Party candidate Craig Musser are also slated to appear on the general election ballot. The district, which covers 60 counties and includes Lawrence, Manhattan, Salina, and Dodge City, has not elected a Democrat since 1952 and is rated Solid/Safe Republican by major forecasters.",
   "polling": [],
   "polling_note": "No independent public opinion polls were found for this race as of mid-2026. The district is rated Solid Republican (Cook, Inside Elections, Sabato's Crystal Ball), and general election polling is not yet available.",
   "candidates": [
@@ -387,7 +387,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kansas%27_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:07:39.451825+00:00",
+  "updated_utc": "2026-06-20T15:30:45.724203+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -401,18 +401,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 212683,
-    "completion_tokens": 9371,
-    "total_tokens": 222054,
-    "cost_usd": 0.017278306,
+    "prompt_tokens": 26403,
+    "completion_tokens": 2053,
+    "total_tokens": 28456,
+    "cost_usd": 0.0029299779999999997,
     "cost_source": "provider",
-    "estimated_usd": 0.02268,
+    "estimated_usd": 0.002746,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 212683,
-        "completion_tokens": 9371
+        "prompt_tokens": 26403,
+        "completion_tokens": 2053
       }
     },
-    "duration_s": 153.1
+    "duration_s": 35.2,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 14863,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0142,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Tracey Mann",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Other": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No independent public polling is available for this race, so confidence is medium due to the lack of direct voter opinion data. However, district fundamentals overwhelmingly favor a Republican hold: incumbent Rep. Tracey Mann is seeking a fourth term after winning re-election with 69.1% in 2024. The district has not elected a Democrat since 1952, is rated Solid/Safe Republican by Cook, Inside Elections, and Sabato's Crystal Ball, and covers 60 heavily rural counties across western and central Kansas. Democrats have a contested August 4 primary between Colin McRoberts and Lauren Reinhold, which may further complicate Democratic general election coordination. Libertarian Steven Jacob and United Kansas Party candidate Craig Musser are also on the general election ballot but are not expected to significantly alter the race dynamics. The combination of incumbency, strong prior performance, favorable partisanship, and absence of any polling suggesting competitiveness supports a safe Republican rating with a high win probability, tempered only by the complete lack of survey data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:36.201290Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

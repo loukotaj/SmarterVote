@@ -11,7 +11,9 @@ afterEach(() => {
 describe("DurableAdminAgentTab", () => {
   it("creates a persisted conversation and submits work", async () => {
     vi.resetModules();
-    const { default: DurableAdminAgentTab } = await import("./DurableAdminAgentTab.svelte");
+    const { default: DurableAdminAgentTab } = await import(
+      "./DurableAdminAgentTab.svelte"
+    );
     const api = {
       createAdminAgentConversation: vi.fn().mockResolvedValue({
         conversation_id: "conversation-1",
@@ -45,20 +47,30 @@ describe("DurableAdminAgentTab", () => {
           status: "active",
           created_at: "2026-06-13T00:00:00Z",
           updated_at: "2026-06-13T00:00:00Z",
-        }
+        },
       ]),
     } as unknown as PipelineApiService;
 
-    const { component, getByPlaceholderText, getByText } = render(DurableAdminAgentTab, { props: { apiService: api } });
+    const { component, getByPlaceholderText, getByText } = render(
+      DurableAdminAgentTab,
+      { props: { apiService: api } }
+    );
     await component.initialize();
-    await waitFor(() => expect(getByText("SmarterVote AI Admin Agent")).toBeTruthy());
+    await waitFor(() =>
+      expect(getByText("SmarterVote AI Admin Agent")).toBeTruthy()
+    );
 
     await fireEvent.input(getByPlaceholderText("Ask the admin agent..."), {
       target: { value: "Review stale races" },
     });
     await fireEvent.click(getByText("Send"));
 
-    expect(api.submitAdminAgentMessage).toHaveBeenCalledWith("conversation-1", "Review stale races");
-    expect(localStorage.getItem("smartervote-admin-agent-conversation")).toBe("conversation-1");
+    expect(api.submitAdminAgentMessage).toHaveBeenCalledWith(
+      "conversation-1",
+      "Review stale races"
+    );
+    expect(localStorage.getItem("smartervote-admin-agent-conversation")).toBe(
+      "conversation-1"
+    );
   });
 });

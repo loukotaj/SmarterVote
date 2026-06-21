@@ -167,7 +167,7 @@
         {
           "url": "https://tx3dnews.com/jason-pearce-candidate-for-u-s-house-tx-04/",
           "type": "news",
-          "title": "Jason Pearce \u2014 Candidate for U.S. House (TX-04)",
+          "title": "Jason Pearce — Candidate for U.S. House (TX-04)",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -252,7 +252,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:29:29.766100+00:00",
+  "updated_utc": "2026-06-20T15:32:46.697133+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -266,18 +266,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 302587,
-    "completion_tokens": 6955,
-    "total_tokens": 309542,
-    "cost_usd": 0.02084301,
+    "prompt_tokens": 11778,
+    "completion_tokens": 1564,
+    "total_tokens": 13342,
+    "cost_usd": 0.001400884,
     "cost_source": "provider",
-    "estimated_usd": 0.031017,
+    "estimated_usd": 0.001342,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 302587,
-        "completion_tokens": 6955
+        "prompt_tokens": 11778,
+        "completion_tokens": 1564
       }
     },
-    "duration_s": 124.2
+    "duration_s": 29.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6809,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Pat Fallon",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists (only generic Texas-wide ballot polls, which are not applicable), limiting confidence. However, the structural fundamentals overwhelmingly favor Republicans: the district has a Cook PVI of R+16 and is rated 'Solid R' by Cook Political Report. Incumbent Republican Rep. Pat Fallon, first elected in 2020 and holding key committee roles (Armed Services subcommittee chair, Intelligence, Oversight), is seeking a fourth term. The Democratic challenger, Jason Pearce, is a first-time candidate with no elected office experience. The 2025 mid-decade redistricting, upheld by the U.S. Supreme Court, preserved the district's heavily Republican character. Without any contrary district-level evidence, Fallon holds an overwhelming structural advantage, though the complete absence of polling prevents high confidence and keeps the margin estimate approximate.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:39.177501Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

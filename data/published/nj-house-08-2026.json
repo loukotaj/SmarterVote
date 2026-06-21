@@ -303,7 +303,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:28:35.921248+00:00",
+  "updated_utc": "2026-06-20T15:44:28.713131+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -317,18 +317,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 277579,
-    "completion_tokens": 8540,
-    "total_tokens": 286119,
-    "cost_usd": 0.020809509999999996,
+    "prompt_tokens": 13771,
+    "completion_tokens": 2277,
+    "total_tokens": 16048,
+    "cost_usd": 0.00179585,
     "cost_source": "provider",
-    "estimated_usd": 0.028877,
+    "estimated_usd": 0.001649,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 277579,
-        "completion_tokens": 8540
+        "prompt_tokens": 13771,
+        "completion_tokens": 2277
       }
     },
-    "duration_s": 138.7
+    "duration_s": 38.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7926,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0076,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rob Menendez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.99,
+    "party_probabilities": {
+      "Democratic": 0.99,
+      "Independent": 0.01,
+      "Other": 0.0
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_d",
+    "confidence": "high",
+    "rationale": "NJ-08 is a heavily Democratic district with a 52-point Democratic voter registration advantage. No Republican candidate qualified for the primary ballot; instead, GOP county chairs are backing independent Aristotle Eliopoulos, a teacher and union official. Incumbent Democrat Rob Menendez won his June 2026 primary decisively with ~68.8% of the vote. All major nonpartisan forecasters (Cook, Inside Elections, Sabato's) rate the seat Safe/Solid Democratic. While there is no district-specific general election polling, the structural fundamentals overwhelmingly favor the Democratic incumbent. The independent and third-party candidates (Eliopoulos, Honts, Hughey) face severe headwinds in a district where Democrats hold a voter registration advantage of more than 2-to-1. The most likely outcome is a comfortable Democratic hold in the 30+ point margin range.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:44:18.266789Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -269,7 +269,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:52:40.638877+00:00",
+  "updated_utc": "2026-06-20T15:38:25.827642+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -283,18 +283,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 225678,
-    "completion_tokens": 7197,
-    "total_tokens": 232875,
-    "cost_usd": 0.015410064000000001,
+    "prompt_tokens": 5124,
+    "completion_tokens": 1808,
+    "total_tokens": 6932,
+    "cost_usd": 0.000786632,
     "cost_source": "provider",
-    "estimated_usd": 0.023527,
+    "estimated_usd": 0.000787,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 225678,
-        "completion_tokens": 7197
+        "prompt_tokens": 5124,
+        "completion_tokens": 1808
       }
     },
-    "duration_s": 160.7
+    "duration_s": 27.0,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3581,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brian Fitzpatrick",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Republican": 0.72,
+      "Democratic": 0.28
+    },
+    "margin_estimate": 4.0,
+    "rating": "lean_r",
+    "confidence": "medium",
+    "rationale": "Fitzpatrick is the incumbent with a well-established moderate/bipartisan brand in a purple suburban swing district, and Cook Political Report rates the seat 'Likely Republican.' The only available polls are two Harvie campaign internal surveys — an Oct 2025 PPP poll showing 41-41 tie and a Mar 2026 Global Strategy Group poll showing Fitzpatrick ahead 48-42. Internal polls should be treated cautiously (potential house effects favoring the client), and the absence of any independent public polling limits confidence. Harvie is a credible, locally successful challenger who flipped the Bucks County Commission, and Democrats view this as a top pickup opportunity nationally — both factors keeping the race competitive. On balance, the existing evidence (incumbency, Cook rating, and the later internal poll showing a Fitzpatrick lead) points to a Republican advantage consistent with 'lean R,' but sparse and partisan-sourced polling prevents a higher-confidence rating.",
+    "based_on_poll_count": 2,
+    "generated_at": "2026-06-20T15:38:19.946005Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.notus.org/campaigns/brian-fitzpatrick-democratic-challenger-bob-harvie-poll-race",
+      "https://politicspa.com/can-bob-harvie-end-brian-fitzpatricks-tenure-in-congress/146005/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

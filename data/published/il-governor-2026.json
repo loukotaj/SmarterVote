@@ -213,10 +213,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:03:39.932899+00:00",
+  "updated_utc": "2026-06-20T03:17:23.211188+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -225,20 +224,55 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 226027,
-    "completion_tokens": 5274,
-    "total_tokens": 231301,
-    "cost_usd": 0.014767838000000002,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2842,
+    "completion_tokens": 219,
+    "total_tokens": 3061,
+    "cost_usd": 0.01039,
     "cost_source": "provider",
-    "estimated_usd": 0.023184,
+    "estimated_usd": 0.01039,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 226027,
-        "completion_tokens": 5274
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2842,
+        "completion_tokens": 219
       }
     },
-    "duration_s": 132.7
+    "duration_s": 8.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2551,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0024,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "JB Pritzker",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Democratic": 0.92,
+      "Republican": 0.08
+    },
+    "margin_estimate": 13.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "With no general-election polling available, this forecast relies on non-polling fundamentals in the race description. Pritzker is the incumbent governor seeking a third term in a state where Democrats have held the governorship in all but one term since 2002, and this is a rematch of the 2022 contest that Pritzker previously won. Bailey has statewide name recognition as the prior Republican nominee and won his primary decisively, but Illinois’ recent partisan environment and incumbency advantages give Democrats a clear edge. The absence of current head-to-head polling reduces confidence and argues against a stronger rating than likely Democratic.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:22.536327Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

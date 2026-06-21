@@ -30,7 +30,7 @@
         {
           "url": "https://www.kellyforcongress.org/about",
           "type": "website",
-          "title": "About \u2014 Kelly Morrison for Congress",
+          "title": "About — Kelly Morrison for Congress",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -286,7 +286,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:26:12.782068+00:00",
+  "updated_utc": "2026-06-20T15:23:35.149637+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -300,18 +300,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 250244,
-    "completion_tokens": 10254,
-    "total_tokens": 260498,
-    "cost_usd": 0.016589632,
+    "prompt_tokens": 7604,
+    "completion_tokens": 1540,
+    "total_tokens": 9144,
+    "cost_usd": 0.001047032,
     "cost_source": "provider",
-    "estimated_usd": 0.026534,
+    "estimated_usd": 0.000962,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 250244,
-        "completion_tokens": 10254
+        "prompt_tokens": 7604,
+        "completion_tokens": 1540
       }
     },
-    "duration_s": 188.4
+    "duration_s": 27.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3868,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0037,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Kelly Morrison",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 15.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists, which tempers confidence, but the non-polling evidence is decisively favorable for Democrats. Incumbent Kelly Morrison won the seat in 2024 with 58.4% of the vote in a district that has shifted leftward after decades of Republican control prior to 2018. Cook Political Report rates the race 'Solid D,' Inside Elections rates it 'Solid D,' and Sabato's Crystal Ball rates it 'Safe D.' The Republican primary (August 11, 2026) features two non-incumbent, first-time candidates (Tyler Bass and Quentin Wittrock) with no prior elected office, suggesting a weak general-election challenge. Given Morrison's strong 2024 margin (roughly 17 points), the district's continued leftward trend, and the absence of any polling suggesting competitiveness, Democrats hold an overwhelming advantage. The safe_d rating reflects a ~95%+ win probability consistent with the consensus of independent election analysts.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:30.054816Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -244,7 +244,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/South_Carolina%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:58:33.654487+00:00",
+  "updated_utc": "2026-06-20T15:23:45.938859+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -258,18 +258,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 204440,
-    "completion_tokens": 6999,
-    "total_tokens": 211439,
-    "cost_usd": 0.016135372,
+    "prompt_tokens": 7681,
+    "completion_tokens": 1149,
+    "total_tokens": 8830,
+    "cost_usd": 0.0009180379999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.021407,
+    "estimated_usd": 0.000898,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 204440,
-        "completion_tokens": 6999
+        "prompt_tokens": 7681,
+        "completion_tokens": 1149
       }
     },
-    "duration_s": 115.8
+    "duration_s": 20.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3954,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0038,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sheri Biggs",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.025,
+      "Other": 0.005
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race, so the forecast relies entirely on district fundamentals. South Carolina's 3rd is described as the state's most conservative district and has not elected a Democrat to Congress in decades. Incumbent Republican Sheri Biggs, first elected in 2024, benefits from freshman incumbency in a heavily Republican seat with a strong Republican voting history. Democratic nominee Eunice Lehmacher is a credible candidate with healthcare and community credentials, but faces severe structural headwinds in a district where the Republican baseline is overwhelming. Libertarian Brian Corriea may draw a small protest vote. Given the district's entrenched Republican lean and incumbency advantage, Republicans have an overwhelming edge (~97% win probability), but confidence is only medium due to the complete absence of race-specific polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:39.286995Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

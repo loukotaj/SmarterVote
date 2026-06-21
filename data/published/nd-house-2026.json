@@ -577,7 +577,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:12:28.936380+00:00",
+  "updated_utc": "2026-06-20T15:27:49.116723+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -698,27 +698,58 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 116135,
-    "completion_tokens": 5969,
-    "total_tokens": 122104,
-    "cost_usd": 0.006937242,
+    "prompt_tokens": 23145,
+    "completion_tokens": 2297,
+    "total_tokens": 25442,
+    "cost_usd": 0.002718422,
     "cost_source": "provider",
-    "estimated_usd": 0.009592,
+    "estimated_usd": 0.002497,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 83413,
-        "completion_tokens": 5122
-      },
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 32722,
-        "completion_tokens": 847
+        "prompt_tokens": 23145,
+        "completion_tokens": 2297
       }
     },
-    "duration_s": 101.9
+    "duration_s": 36.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 14724,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.014,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "schema_version": "0.3",
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/North_Dakota's_at-large_Congressional_District_election,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Julie Fedorchak",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Republican": 0.92,
+      "Democratic": 0.08
+    },
+    "margin_estimate": 25.0,
+    "rating": "likely_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race, so confidence is low. However, the structural factors strongly favor the Republican incumbent. North Dakota is a deeply Republican state — Trump won it by roughly 35 points in 2024, and the at-large House seat has been held by Republicans since 2011. Incumbent Julie Fedorchak, first elected in 2024 with about 67% of the vote, has the advantages of incumbency and prior statewide experience (12 years on the North Dakota Public Service Commission). Her Democratic-NPL challenger, Trygve Hammer, has no detailed public profile or donor data available in the race file, suggesting limited campaign infrastructure. A Republican primary challenger (Alex Balazs) is listed but poses minimal general-election risk. Given the district's strong Republican lean and incumbency advantage, Republicans are clearly favored, though the absence of any public polling prevents a 'safe' classification.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:39.008582Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

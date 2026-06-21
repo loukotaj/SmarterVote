@@ -232,7 +232,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Missouri%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:41:17.898758+00:00",
+  "updated_utc": "2026-06-20T15:33:55.202307+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -246,18 +246,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 270686,
-    "completion_tokens": 6747,
-    "total_tokens": 277433,
-    "cost_usd": 0.019153576,
+    "prompt_tokens": 11965,
+    "completion_tokens": 1664,
+    "total_tokens": 13629,
+    "cost_usd": 0.00143881,
     "cost_source": "provider",
-    "estimated_usd": 0.02785,
+    "estimated_usd": 0.001376,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 270686,
-        "completion_tokens": 6747
+        "prompt_tokens": 11965,
+        "completion_tokens": 1664
       }
     },
-    "duration_s": 141.7
+    "duration_s": 28.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6622,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Eric Burlison",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public opinion polls exist for this race, limiting confidence, but structural factors overwhelmingly favor Republicans. Missouri's 7th Congressional District has a Cook Partisan Voting Index of R+21 and is rated 'Solid R' by the Cook Political Report. Incumbent Republican Eric Burlison, first elected in 2022, is seeking a third term and faces two long-shot primary challengers (John Casey and Grayson Hunt) in the August 4 primary. Democratic nominee Missi Hesketh, who also ran in 2024, faces an uphill battle in this heavily Republican district covering Springfield and Joplin. The district's strong GOP baseline and Burlison's incumbency make a Republican general election victory virtually certain regardless of primary outcome.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:50.049040Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

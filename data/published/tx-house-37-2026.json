@@ -6,7 +6,7 @@
   "state": "Texas",
   "district": "37th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Texas's 37th Congressional District, based in Austin, was reshaped by mid-decade redistricting that drew Democratic incumbents Lloyd Doggett and Greg Casar into the same seat. Doggett opted to retire rather than face a divisive primary, clearing the path for Casar to become the Democratic nominee. The district remains heavily Democratic \u2014 rated Solid D by the Cook Political Report \u2014 making the general election a contest between progressive Democrat Greg Casar and Republican nominee Lauren B. Pe\u00f1a, a trafficking survivor and conservative activist. The race tests whether national political trends or the district's deep-blue lean will determine the outcome in a newly configured Austin-based seat.",
+  "description": "The 2026 election for Texas's 37th Congressional District, based in Austin, was reshaped by mid-decade redistricting that drew Democratic incumbents Lloyd Doggett and Greg Casar into the same seat. Doggett opted to retire rather than face a divisive primary, clearing the path for Casar to become the Democratic nominee. The district remains heavily Democratic — rated Solid D by the Cook Political Report — making the general election a contest between progressive Democrat Greg Casar and Republican nominee Lauren B. Peña, a trafficking survivor and conservative activist. The race tests whether national political trends or the district's deep-blue lean will determine the outcome in a newly configured Austin-based seat.",
   "polling": [],
   "polling_note": "No district-specific public opinion polls were found for this race. Cook Political Report rates the seat as 'Solid D,' indicating a strong Democratic lean.",
   "candidates": [
@@ -107,15 +107,15 @@
       "withdrawal_reason": null
     },
     {
-      "name": "Lauren B. Pe\u00f1a",
+      "name": "Lauren B. Peña",
       "party": "Republican Party",
       "incumbent": false,
-      "summary": "Lauren B. Pe\u00f1a is the Republican nominee for Texas's 37th Congressional District, having won the May 26, 2026, primary runoff against Ge'Nell Gary with 58.2% of the vote. She is a human trafficking survivor, mother of six, and political newcomer who describes herself as a constitutional conservative. Her campaign focuses on combating human trafficking, border security, and making Austin affordable, and she has proposed the SAFE NIGHTS Act and SODA Act as signature legislative priorities.",
+      "summary": "Lauren B. Peña is the Republican nominee for Texas's 37th Congressional District, having won the May 26, 2026, primary runoff against Ge'Nell Gary with 58.2% of the vote. She is a human trafficking survivor, mother of six, and political newcomer who describes herself as a constitutional conservative. Her campaign focuses on combating human trafficking, border security, and making Austin affordable, and she has proposed the SAFE NIGHTS Act and SODA Act as signature legislative priorities.",
       "summary_sources": [
         {
           "url": "https://www.lauren4congress.com/",
           "type": "website",
-          "title": "Lauren B. Pe\u00f1a for Congress | Texas CD-37",
+          "title": "Lauren B. Peña for Congress | Texas CD-37",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -137,7 +137,7 @@
         {
           "url": "https://www.kvue.com/video/news/state/lauren-pena-republican-nominee-for-texas-congressional-district-37-against-greg-casar-former/269-bb9bf5bf-58a9-4b67-b300-3c14daf4da5b",
           "type": "news",
-          "title": "Lauren Pe\u00f1a wins Republican nomination for Texas's 37th Congressional District - KVUE",
+          "title": "Lauren Peña wins Republican nomination for Texas's 37th Congressional District - KVUE",
           "description": null,
           "last_accessed": "2026-06-12T12:00:00Z",
           "published_at": null,
@@ -173,7 +173,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_37th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:30:13.507586+00:00",
+  "updated_utc": "2026-06-20T15:40:45.459694+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -187,18 +187,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 260954,
-    "completion_tokens": 8529,
-    "total_tokens": 269483,
-    "cost_usd": 0.017450872,
+    "prompt_tokens": 11063,
+    "completion_tokens": 1660,
+    "total_tokens": 12723,
+    "cost_usd": 0.001409534,
     "cost_source": "provider",
-    "estimated_usd": 0.027245,
+    "estimated_usd": 0.001294,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 260954,
-        "completion_tokens": 8529
+        "prompt_tokens": 11063,
+        "completion_tokens": 1660
       }
     },
-    "duration_s": 145.1
+    "duration_s": 29.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6076,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0058,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Greg Casar",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available, which limits certainty. However, the Austin-based district is described as heavily Democratic and is rated Solid D by Cook Political Report. Casar is an established two-term incumbent (albeit from the old TX-35), chairs the Congressional Progressive Caucus, and won his primary with over 80% of the vote. Peña is a political newcomer who won a primary runoff with 58.2%. The district's strong Democratic baseline — Austin is among the most liberal major cities in Texas — makes Democrats overwhelming favorites despite the lack of polling data and the fact this is a newly configured seat due to redistricting.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:39.470421Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -229,7 +229,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:37:31.599211+00:00",
+  "updated_utc": "2026-06-20T15:26:21.971759+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -243,18 +243,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 190450,
-    "completion_tokens": 6342,
-    "total_tokens": 196792,
-    "cost_usd": 0.012319291999999999,
+    "prompt_tokens": 12285,
+    "completion_tokens": 2423,
+    "total_tokens": 14708,
+    "cost_usd": 0.0016189339999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.019907,
+    "estimated_usd": 0.001542,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 190450,
-        "completion_tokens": 6342
+        "prompt_tokens": 12285,
+        "completion_tokens": 2423
       }
     },
-    "duration_s": 123.1
+    "duration_s": 33.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7474,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0071,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Andrew Garbarino",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.9,
+    "party_probabilities": {
+      "Republican": 0.9,
+      "Democratic": 0.1
+    },
+    "margin_estimate": 10.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No independent public district-level polls exist for NY-02 as of June 2026, so this forecast relies entirely on structural indicators. The district has a Cook Partisan Voting Index of R+6 and nonpartisan analysts rate the race as 'Solid Republican.' Incumbent Andrew Garbarino has held the seat since 2020 and chairs the House Homeland Security Committee. His moderate, occasionally bipartisan record may help retain crossover support in this Long Island district. Democratic nominee Patrick Halpin is a former Suffolk County Executive and a credible local figure, which prevents the race from being a pure safe seat, but he faces an uphill race in a district that leans 6 points more Republican than the national average. Without any district-level polling, confidence remains medium. The rating of 'likely_r' (approximately 90% Republican win probability) reflects a clear but not overwhelming Republican advantage, factoring in incumbency, the R+6 lean, and Halpin's local stature.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:17.644407Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

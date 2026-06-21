@@ -133,7 +133,7 @@
         {
           "url": "https://www.multistate.us/elections/candidate?id=131680&st=WY",
           "type": "website",
-          "title": "Curt Blake \u2014 MultiState Elections",
+          "title": "Curt Blake — MultiState Elections",
           "description": null,
           "last_accessed": "2026-06-13T23:00:00Z",
           "published_at": null,
@@ -438,10 +438,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Wyoming_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:05:21.779008+00:00",
+  "updated_utc": "2026-06-20T03:17:19.916009+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -450,20 +449,55 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 413837,
-    "completion_tokens": 8175,
-    "total_tokens": 422012,
-    "cost_usd": 0.034700278,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3426,
+    "completion_tokens": 173,
+    "total_tokens": 3599,
+    "cost_usd": 0.007704,
     "cost_source": "provider",
-    "estimated_usd": 0.042158,
+    "estimated_usd": 0.01116,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 413837,
-        "completion_tokens": 8175
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3426,
+        "completion_tokens": 173
       }
     },
-    "duration_s": 211.6
+    "duration_s": 8.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2953,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0028,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": null,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available, so this forecast relies on Wyoming’s very strong Republican baseline, the open-seat nature of the race, and the fact that the only listed Democrat is a lone candidate in a state the race description itself characterizes as deeply and reliably Republican. The Republican primary appears genuinely competitive, but the general election environment strongly favors whichever Republican nominee emerges. Because there are no race-specific polls, confidence is reduced from high to medium despite the state’s clear partisan lean.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:17.604346Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

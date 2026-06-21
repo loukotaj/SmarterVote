@@ -341,7 +341,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_13th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:33:16.110926+00:00",
+  "updated_utc": "2026-06-20T15:42:46.957732+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -355,18 +355,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 228675,
-    "completion_tokens": 10232,
-    "total_tokens": 238907,
-    "cost_usd": 0.014152070000000001,
+    "prompt_tokens": 23906,
+    "completion_tokens": 3421,
+    "total_tokens": 27327,
+    "cost_usd": 0.0029534,
     "cost_source": "provider",
-    "estimated_usd": 0.024416,
+    "estimated_usd": 0.002767,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 228675,
-        "completion_tokens": 10232
+        "prompt_tokens": 23906,
+        "completion_tokens": 3421
       }
     },
-    "duration_s": 177.9
+    "duration_s": 51.5,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 13299,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0127,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Shri Thanedar",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.63,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.03,
+      "Independent": 0.02
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race. The district covers heavily Democratic Detroit and Downriver communities and is described as safely Democratic, giving the Democratic nominee an overwhelming general-election advantage regardless of who wins the primary. Incumbent Shri Thanedar is the predicted winner but faces a competitive Democratic primary against state Representative Donavan McKinney (backed by progressive/labor groups), which adds meaningful uncertainty at the candidate level. The lone Republican candidate, T.P. Nykoriak, has a federal conviction for stealing savings bonds from a church and has never won elected office, making him a very weak general-election opponent. Independent Maurice Morton is a credible candidate (attorney, former prosecutor) but faces steep odds in a heavily Democratic district. The Democratic party's general-election dominance is very clear despite the primary uncertainty and absence of polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:42:34.746958Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

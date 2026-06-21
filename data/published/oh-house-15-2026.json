@@ -159,7 +159,7 @@
         {
           "url": "https://donforohio.com/bio",
           "type": "website",
-          "title": "Bio \u2014 Don Leonard for US Congress",
+          "title": "Bio — Don Leonard for US Congress",
           "description": null,
           "last_accessed": "2026-06-15T00:00:00Z",
           "published_at": null,
@@ -362,7 +362,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_15th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:58:49.419372+00:00",
+  "updated_utc": "2026-06-20T15:27:35.373497+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -376,18 +376,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 266975,
-    "completion_tokens": 7673,
-    "total_tokens": 274648,
-    "cost_usd": 0.023064834000000003,
+    "prompt_tokens": 13906,
+    "completion_tokens": 2545,
+    "total_tokens": 16451,
+    "cost_usd": 0.001861608,
     "cost_source": "provider",
-    "estimated_usd": 0.027667,
+    "estimated_usd": 0.00171,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 266975,
-        "completion_tokens": 7673
+        "prompt_tokens": 13906,
+        "completion_tokens": 2545
       }
     },
-    "duration_s": 138.5
+    "duration_s": 32.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8473,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0081,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Carey",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Other": 0.01
+    },
+    "margin_estimate": 15.0,
+    "rating": "safe_r",
+    "confidence": "low",
+    "rationale": "Cook Political Report rates Ohio's 15th CD as 'Solid Republican,' and that expert rating is the strongest signal in the data. However, no independent general-election polls exist for this race as of mid-2026, and the district was redrawn under Ohio's October 2025 map, injecting genuine uncertainty about the new electorate's partisan composition. Incumbent Mike Carey holds key committee seats and has represented the district since 2021, while Democratic challenger Don Leonard is a first-time candidate who won a competitive primary. The Libertarian candidate is on the ballot but has limited visible infrastructure. Given the Cook 'Solid Republican' rating, the Republican advantage appears overwhelming, but the absence of polling and the untested new map mean this forecast rests on limited empirical evidence — hence low confidence despite the safe rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:31.549277Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

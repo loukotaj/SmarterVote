@@ -179,7 +179,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Nevada%27s_3rd_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:18:43.201688+00:00",
+  "updated_utc": "2026-06-20T15:23:00.438686+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -193,18 +193,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 196889,
-    "completion_tokens": 7175,
-    "total_tokens": 204064,
-    "cost_usd": 0.013313261999999998,
+    "prompt_tokens": 11143,
+    "completion_tokens": 1956,
+    "total_tokens": 13099,
+    "cost_usd": 0.001415486,
     "cost_source": "provider",
-    "estimated_usd": 0.020701,
+    "estimated_usd": 0.001355,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 196889,
-        "completion_tokens": 7175
+        "prompt_tokens": 11143,
+        "completion_tokens": 1956
       }
     },
-    "duration_s": 134.0
+    "duration_s": 29.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6421,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Susie Lee",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.68,
+    "party_probabilities": {
+      "Democratic": 0.68,
+      "Republican": 0.32
+    },
+    "margin_estimate": 3.0,
+    "rating": "lean_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists, so this forecast relies entirely on contextual factors. Democratic incumbent Susie Lee has won this swing district in three consecutive cycles, most recently by 2.8 points in 2024 while Donald Trump narrowly carried the district — demonstrating crossover appeal that is important in a presidential-year electorate. The Cook Political Report rates the race Lean Democratic, consistent with Lee's incumbency advantage, bipartisan reputation (ranked most bipartisan member of Congress), and seat on the Appropriations Committee. Republican nominee Marty O'Donnell is a high-profile first-time candidate (video game composer with Trump endorsement) who won a competitive primary with 42.3%, but lacks political experience and moved to Nevada only in 2021. 2026 is a presidential election year, which may reduce ticket-splitting compared to 2024, but the district's swing nature and Republican targeting make it genuinely competitive. Lee retains a modest but meaningful advantage; confidence is medium due to the complete absence of any public polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:55.949831Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

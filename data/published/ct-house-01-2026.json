@@ -380,7 +380,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Connecticut%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:10:46.484509+00:00",
+  "updated_utc": "2026-06-20T15:22:43.572460+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -391,18 +391,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 274527,
-    "completion_tokens": 11275,
-    "total_tokens": 285802,
-    "cost_usd": 0.020826826,
+    "prompt_tokens": 16111,
+    "completion_tokens": 1809,
+    "total_tokens": 17920,
+    "cost_usd": 0.0018735380000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.029114,
+    "estimated_usd": 0.001776,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 274527,
-        "completion_tokens": 11275
+        "prompt_tokens": 16111,
+        "completion_tokens": 1809
       }
     },
-    "duration_s": 150.1
+    "duration_s": 29.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9529,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0091,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 24,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available, so this forecast relies on the district's structural partisan lean and the race description rather than survey data. Connecticut's 1st Congressional District is rated Solid/Safe Democratic by major nonpartisan forecasters and has been held by Democrats without interruption for decades. The Democratic primary on August 11, 2026, is highly competitive — 14-term incumbent John Larson was upset at the May convention by former Hartford mayor Luke Bronin (51.2%), with state Rep. Jillian Gilchrest also qualifying — but any Democratic nominee will be heavily favored in the general election. Republican nominee Dr. Amy Chai is a credible candidate but faces severe structural headwinds in this strongly Democratic district. With no polls available and the primary outcome still uncertain, confidence is reduced from high to medium despite the strong Democratic baseline.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:37.683280+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

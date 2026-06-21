@@ -6,7 +6,7 @@
   "state": "Virginia",
   "district": "10th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Virginia's 10th Congressional District election will be held on November 3, 2026, to elect the U.S. representative for this Northern Virginia district covering all of Loudoun County, Fauquier County, Rappahannock County, and parts of Prince William and Fairfax counties, as well as the cities of Manassas and Manassas Park. Incumbent Democrat Suhas Subramanyam, first elected in 2024 with 52.3% of the vote, is seeking a second term. The Republican primary on August 4, 2026, features three active candidates\u2014Dave Beckwith, Julie Perry, and Anthony Suttles\u2014after Sam Wong withdrew. Cook Political Report rates the general election as Likely Democratic, reflecting the district's partisan lean (D+6 Cook PVI).",
+  "description": "Virginia's 10th Congressional District election will be held on November 3, 2026, to elect the U.S. representative for this Northern Virginia district covering all of Loudoun County, Fauquier County, Rappahannock County, and parts of Prince William and Fairfax counties, as well as the cities of Manassas and Manassas Park. Incumbent Democrat Suhas Subramanyam, first elected in 2024 with 52.3% of the vote, is seeking a second term. The Republican primary on August 4, 2026, features three active candidates—Dave Beckwith, Julie Perry, and Anthony Suttles—after Sam Wong withdrew. Cook Political Report rates the general election as Likely Democratic, reflecting the district's partisan lean (D+6 Cook PVI).",
   "polling": [],
   "polling_note": "No public opinion polls were found for this specific race as of June 2026.",
   "candidates": [
@@ -14,7 +14,7 @@
       "name": "Suhas Subramanyam",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Suhas Subramanyam is the incumbent U.S. Representative for Virginia's 10th Congressional District, first elected in 2024. Before Congress, he served in the Virginia House of Delegates (2020\u20132024) and State Senate (2024), and was a White House technology policy advisor under President Obama. Subramanyam is a lawyer, small business owner, and former volunteer EMT and firefighter.",
+      "summary": "Suhas Subramanyam is the incumbent U.S. Representative for Virginia's 10th Congressional District, first elected in 2024. Before Congress, he served in the Virginia House of Delegates (2020–2024) and State Senate (2024), and was a White House technology policy advisor under President Obama. Subramanyam is a lawyer, small business owner, and former volunteer EMT and firefighter.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Suhas_Subramanyam",
@@ -327,7 +327,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:38:08.984791+00:00",
+  "updated_utc": "2026-06-20T15:23:05.175576+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -341,18 +341,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 208089,
-    "completion_tokens": 8119,
-    "total_tokens": 216208,
-    "cost_usd": 0.01410667,
+    "prompt_tokens": 20023,
+    "completion_tokens": 2292,
+    "total_tokens": 22315,
+    "cost_usd": 0.002411486,
     "cost_source": "provider",
-    "estimated_usd": 0.021984,
+    "estimated_usd": 0.002215,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 208089,
-        "completion_tokens": 8119
+        "prompt_tokens": 20023,
+        "completion_tokens": 2292
       }
     },
-    "duration_s": 139.7
+    "duration_s": 35.1,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8382,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.008,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Suhas Subramanyam",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 7.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which inherently limits confidence and forces reliance on structural indicators. Incumbent Democrat Suhas Subramanyam (first elected 2024 with 52.3%) holds a D+6 district (Cook PVI), and Cook Political Report rates the general election as Likely Democratic. The Republican primary remains unsettled — three active candidates (Beckwith, Perry, Suttles) compete in the August 4 primary with no clear frontrunner — which could yield a nominee with limited name recognition or resources against an incumbent. These structural factors (incumbency, favorable PVI, contested GOP primary, Cook rating) point to a clear Democratic advantage consistent with a \"likely Democratic\" rating. However, the absence of any race-specific polling and the fact that Subramanyam won by only ~4-5 points in 2024 means the race is not completely safe, keeping uncertainty at a medium level.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:56.543118Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

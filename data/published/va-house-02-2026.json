@@ -542,7 +542,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:37:04.044473+00:00",
+  "updated_utc": "2026-06-20T15:34:36.101841+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -556,18 +556,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 226499,
-    "completion_tokens": 12457,
-    "total_tokens": 238956,
-    "cost_usd": 0.01958657,
+    "prompt_tokens": 31841,
+    "completion_tokens": 2123,
+    "total_tokens": 33964,
+    "cost_usd": 0.003536526,
     "cost_source": "provider",
-    "estimated_usd": 0.024638,
+    "estimated_usd": 0.003248,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 226499,
-        "completion_tokens": 12457
+        "prompt_tokens": 31841,
+        "completion_tokens": 2123
       }
     },
-    "duration_s": 169.8
+    "duration_s": 42.0,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 18166,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0173,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jennifer Kiggans",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.52,
+    "party_probabilities": {
+      "Republican": 0.52,
+      "Democratic": 0.465,
+      "Independent": 0.015
+    },
+    "margin_estimate": 1.5,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "No public general-election polling exists for this race, and the Democratic primary (featuring four candidates including former Rep. Elaine Luria) remains unsettled as of June 20, 2026 — both factors compelling low confidence. The district is described as 'one of the most competitive House seats in the nation' and has flipped between parties repeatedly. Cook Political Report rates it 'Tossup' (May 2026). Incumbent Jen Kiggans holds a narrow edge from incumbency and prior success (defeated Luria in 2022 and won re-election in 2024), but Luria — a former two-term representative who previously held the seat — is a strong potential general-election challenger. With zero polling, a competitive primary still unfolding, and a closely divided district sensitive to national headwinds (military/veteran/federal workforce), neither party has a clear advantage, making Tossup the appropriate rating with only a slight Republican lean for incumbency.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:22.538273Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -284,7 +284,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:20:24.289840+00:00",
+  "updated_utc": "2026-06-20T15:26:23.938536+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -298,7 +298,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/New_York's_14th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -306,34 +306,50 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 312977,
-    "completion_tokens": 9878,
-    "total_tokens": 322855,
-    "cost_usd": 0.072263256,
+    "prompt_tokens": 24030,
+    "completion_tokens": 2411,
+    "total_tokens": 26441,
+    "cost_usd": 0.002767592,
     "cost_source": "provider",
-    "estimated_usd": 0.073476,
+    "estimated_usd": 0.002597,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 274420,
-        "completion_tokens": 6680
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 38557,
-        "completion_tokens": 3198
+        "prompt_tokens": 24030,
+        "completion_tokens": 2411
       }
     },
-    "duration_s": 219.8,
-    "serper_calls": 18,
-    "context_requests": 15,
-    "max_estimated_context_tokens": 47798,
+    "duration_s": 34.0,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 12719,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0456,
-    "context_deduplicated_results": 56,
+    "max_context_utilization": 0.0121,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 3,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Alexandria Ocasio-Cortez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, so confidence is capped at medium despite strong fundamentals. NY-14 is a heavily Democratic district spanning parts of the Bronx and Queens. Incumbent Alexandria Ocasio-Cortez won re-election in 2024 with 68.9% of the vote, has nearly $15 million cash on hand, and is a nationally known figure seeking a fourth term. Her two Democratic primary challengers (Marty Dolan and Felipe Garcia) have negligible campaign funds — approximately $8,000 and $4,000 respectively — compared to her war chest. The Democratic primary is three days away (June 23, 2026), and AOC is overwhelmingly favored based on resources, incumbency, name recognition, and her 2022 primary performance (~80% of the vote). The Republican general election nominee, Diamant Hysenaj, raised $288,000 but faces extreme structural disadvantages in a district that voted nearly 69% for the Democrat in the last presidential-aligned cycle. A Democratic hold is virtually certain regardless of which Democrat emerges from the primary.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:13.972663Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://ballotpedia.org/Alexandria_Ocasio-Cortez",
+      "https://ballotpedia.org/New_York's_14th_Congressional_District"
+    ]
   }
 }

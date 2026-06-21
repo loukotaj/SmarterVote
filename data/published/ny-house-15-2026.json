@@ -91,7 +91,7 @@
       "name": "Michael Blake",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Michael Blake is a former New York State Assemblymember (2015\u20132021) and former Vice Chair of the Democratic National Committee. He is the CEO of Atlas Strategy Group and the Kairos Democracy Project, and previously worked as a staffer for President Barack Obama. Blake is challenging Torres from the left, emphasizing affordability, cost of living, and a more progressive stance on Israel and Gaza.",
+      "summary": "Michael Blake is a former New York State Assemblymember (2015–2021) and former Vice Chair of the Democratic National Committee. He is the CEO of Atlas Strategy Group and the Kairos Democracy Project, and previously worked as a staffer for President Barack Obama. Blake is challenging Torres from the left, emphasizing affordability, cost of living, and a more progressive stance on Israel and Gaza.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Michael_Blake",
@@ -299,7 +299,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_15th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:10:43.516203+00:00",
+  "updated_utc": "2026-06-20T15:34:59.887753+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -313,18 +313,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 273481,
-    "completion_tokens": 9820,
-    "total_tokens": 283301,
-    "cost_usd": 0.016225890000000003,
+    "prompt_tokens": 14089,
+    "completion_tokens": 2025,
+    "total_tokens": 16114,
+    "cost_usd": 0.0017277020000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.028726,
+    "estimated_usd": 0.001633,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 273481,
-        "completion_tokens": 9820
+        "prompt_tokens": 14089,
+        "completion_tokens": 2025
       }
     },
-    "duration_s": 156.0
+    "duration_s": 33.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8119,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0077,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": null,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": null,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "NY-15 has a Cook PVI of D+27 and is described as a heavily Democratic South Bronx district where the Democratic primary is effectively the decisive contest. The Democratic primary is three days away (June 23, 2026) and is competitive between incumbent Ritchie Torres, Michael Blake, and Jose Vega. Regardless of which Democrat emerges, the general election strongly favors the Democratic nominee given the district's partisan makeup. The Republican (Stylo A. Sapaskis) advanced without a primary and the independent (Andre Easton) faces long odds. Zero general-election polls exist. Confidence is medium rather than high because the primary outcome is uncertain and could affect turnout dynamics or margin, though not the overall party winner. The margin estimate of 45 points reflects typical D+27 district performance.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:54.194241Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

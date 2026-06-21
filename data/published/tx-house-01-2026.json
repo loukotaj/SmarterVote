@@ -6,7 +6,7 @@
   "state": "Texas",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 general election for Texas's 1st Congressional District pits incumbent Republican U.S. Representative Nathaniel Moran against Democratic nominee Yolanda Prince. The district covers much of East Texas, including Tyler, Longview, Nacogdoches, and Texarkana, and has been a Republican stronghold for decades\u2014Donald Trump won the district with 74.3% in 2024. The race takes place amid mid-decade redistricting that was upheld by the U.S. Supreme Court in December 2025 after being challenged as a racial gerrymander. Moran, a conservative former Smith County judge, is heavily favored in the Solid R district, while Prince, a first-time candidate and personnel assistant, is campaigning on affordability, rural healthcare access, and Medicare for All.",
+  "description": "The 2026 general election for Texas's 1st Congressional District pits incumbent Republican U.S. Representative Nathaniel Moran against Democratic nominee Yolanda Prince. The district covers much of East Texas, including Tyler, Longview, Nacogdoches, and Texarkana, and has been a Republican stronghold for decades—Donald Trump won the district with 74.3% in 2024. The race takes place amid mid-decade redistricting that was upheld by the U.S. Supreme Court in December 2025 after being challenged as a racial gerrymander. Moran, a conservative former Smith County judge, is heavily favored in the Solid R district, while Prince, a first-time candidate and personnel assistant, is campaigning on affordability, rural healthcare access, and Medicare for All.",
   "polling": [],
   "polling_note": "No district-specific opinion polls for Texas's 1st Congressional District were found. The only available polling is generic congressional ballot surveys for the entire state of Texas.",
   "candidates": [
@@ -197,7 +197,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:25:03.483085+00:00",
+  "updated_utc": "2026-06-20T15:28:37.569189+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -211,18 +211,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 195807,
-    "completion_tokens": 5390,
-    "total_tokens": 201197,
-    "cost_usd": 0.013706006,
+    "prompt_tokens": 10992,
+    "completion_tokens": 1819,
+    "total_tokens": 12811,
+    "cost_usd": 0.00143374,
     "cost_source": "provider",
-    "estimated_usd": 0.020246,
+    "estimated_usd": 0.001317,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 195807,
-        "completion_tokens": 5390
+        "prompt_tokens": 10992,
+        "completion_tokens": 1819
       }
     },
-    "duration_s": 141.1
+    "duration_s": 27.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6325,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nathaniel Moran",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.02
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists (only generic Texas congressional ballot surveys), which limits direct measurement of voter sentiment. However, the race data paints a very clear picture: Texas's 1st District is described as a long-running Republican stronghold (Solid R), Donald Trump carried it with 74.3% in 2024, and incumbent Nathaniel Moran won re-election in 2024 with approximately 78% of the vote. He is a two-term incumbent on the House Ways and Means Committee, while Democratic nominee Yolanda Prince is a first-time candidate. Mid-decade redistricting was upheld by the U.S. Supreme Court in December 2025, maintaining the district's strong Republican lean. Given the extreme partisan baseline, incumbency advantage, and absence of any countervailing district-level polling or fundraising data suggesting competitiveness, the race carries an overwhelming Republican advantage. The absence of direct district-level polling reduces confidence from 'high' to 'medium'.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:33.278813Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

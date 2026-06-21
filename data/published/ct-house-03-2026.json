@@ -199,7 +199,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Connecticut's_3rd_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T22:36:41.143975+00:00",
+  "updated_utc": "2026-06-20T15:24:53.173315+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -213,18 +213,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 209453,
-    "completion_tokens": 6187,
-    "total_tokens": 215640,
-    "cost_usd": 0.016287781999999997,
+    "prompt_tokens": 10621,
+    "completion_tokens": 2037,
+    "total_tokens": 12658,
+    "cost_usd": 0.001380206,
     "cost_source": "provider",
-    "estimated_usd": 0.021739,
+    "estimated_usd": 0.001323,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 209453,
-        "completion_tokens": 6187
+        "prompt_tokens": 10621,
+        "completion_tokens": 2037
       }
     },
-    "duration_s": 105.8
+    "duration_s": 29.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6008,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0057,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rosa DeLauro",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available, which caps confidence at medium. However, the race data paint a clear picture: Connecticut's 3rd District (New Haven area) is strongly Democratic and has not elected a Republican to Congress since the 1980s. Rosa DeLauro is a 36-year incumbent who consistently wins by wide margins, holds seniority as Ranking Member of Appropriations, and dominated her party's convention with 87% of delegate votes. Christopher Lancia is a credible challenger with Coast Guard and federal law enforcement background, but district fundamentals and DeLauro's entrenched incumbency give Democrats an overwhelming advantage. Without polling evidence of a shift, safe_d is the appropriate rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:49.185124Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

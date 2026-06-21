@@ -206,7 +206,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_13th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:25:20.033653+00:00",
+  "updated_utc": "2026-06-20T15:44:44.653863+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -220,18 +220,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 236509,
-    "completion_tokens": 6162,
-    "total_tokens": 242671,
-    "cost_usd": 0.016208738,
+    "prompt_tokens": 11181,
+    "completion_tokens": 1621,
+    "total_tokens": 12802,
+    "cost_usd": 0.00135355,
     "cost_source": "provider",
-    "estimated_usd": 0.024386,
+    "estimated_usd": 0.001298,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 236509,
-        "completion_tokens": 6162
+        "prompt_tokens": 11181,
+        "completion_tokens": 1621
       }
     },
-    "duration_s": 124.7
+    "duration_s": 27.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6406,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nikki Budzinski",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.83,
+    "party_probabilities": {
+      "Democratic": 0.83,
+      "Republican": 0.17
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available for this race, so confidence is limited and the forecast relies on structural factors from the provided race data. Illinois's 13th District has a Cook PVI of D+5, providing a Democratic baseline advantage. Incumbent Nikki Budzinski has won two elections, including a 16-point victory in 2024, demonstrating strong personal vote share above the district's baseline. Republican challenger Jeff Wilson is a credible candidate with county board service, military background, and a degree from UIUC, and is running on Trump-aligned themes. However, in a D+5 district with an entrenched incumbent who has overperformed the baseline, Democrats hold a clear but not overwhelming advantage. Without polling, the forecast is structurally grounded and moderately confident.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:44:38.894368Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

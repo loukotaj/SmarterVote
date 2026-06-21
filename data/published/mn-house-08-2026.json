@@ -401,7 +401,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:46:42.956887+00:00",
+  "updated_utc": "2026-06-20T15:32:53.188880+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -415,18 +415,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 227749,
-    "completion_tokens": 8272,
-    "total_tokens": 236021,
-    "cost_usd": 0.015074922000000001,
+    "prompt_tokens": 15845,
+    "completion_tokens": 1906,
+    "total_tokens": 17751,
+    "cost_usd": 0.001866482,
     "cost_source": "provider",
-    "estimated_usd": 0.023941,
+    "estimated_usd": 0.001769,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 227749,
-        "completion_tokens": 8272
+        "prompt_tokens": 15845,
+        "completion_tokens": 1906
       }
     },
-    "duration_s": 138.4
+    "duration_s": 33.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9279,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0088,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Pete Stauber",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Republican": 0.82,
+      "Democratic": 0.18
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race. Incumbent Republican Pete Stauber, first elected in 2018, is seeking a fifth term in a district that has trended Republican in recent presidential elections. Nonpartisan forecasters describe the general election as leaning or likely Republican. Stauber faces only a minor primary challenge (farmer Anthony Hamilton), while Democrats have a crowded primary field of at least six candidates vying for the nomination ahead of the August 11 primary. The DFL-endorsed candidate, Trina Swanson, has a strong background but faces a divided primary that could delay general-election consolidation. The district's competitive history and the complete absence of polling temper confidence, but incumbency, district trends, and the fragmented Democratic primary point to a clear Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:48.844988Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

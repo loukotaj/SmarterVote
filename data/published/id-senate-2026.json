@@ -481,36 +481,70 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:12:29.639454+00:00",
+  "updated_utc": "2026-06-20T03:17:08.769058+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 51816,
-    "completion_tokens": 2556,
-    "total_tokens": 54372,
-    "cost_usd": 0.00213288,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3652,
+    "completion_tokens": 189,
+    "total_tokens": 3841,
+    "cost_usd": 0.008509,
     "cost_source": "provider",
-    "estimated_usd": 0.003613,
+    "estimated_usd": 0.011965,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 51816,
-        "completion_tokens": 2556
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3652,
+        "completion_tokens": 189
       }
     },
-    "duration_s": 34.5
+    "duration_s": 7.2,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3126,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.003,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Jim Risch",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "There is no public polling for this race, which limits certainty and lowers confidence. Still, the available race data describes Idaho as strongly Republican, and the contest features an incumbent Republican senator seeking reelection against little-documented primary and general election opposition. Given Idaho’s strong Republican baseline, incumbency, and the absence of evidence in the provided data of a unusually competitive challenger, Republicans hold an overwhelming informational advantage in both the primary and general election outlook.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:08.029445Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

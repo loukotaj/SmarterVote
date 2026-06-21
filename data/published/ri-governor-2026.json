@@ -561,10 +561,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Rhode_Island_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:04:32.231471+00:00",
+  "updated_utc": "2026-06-20T03:17:12.984382+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -573,20 +572,58 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 155121,
-    "completion_tokens": 9113,
-    "total_tokens": 164234,
-    "cost_usd": 0.013763174,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4208,
+    "completion_tokens": 297,
+    "total_tokens": 4505,
+    "cost_usd": 0.014975,
     "cost_source": "provider",
-    "estimated_usd": 0.016988,
+    "estimated_usd": 0.014975,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 155121,
-        "completion_tokens": 9113
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4208,
+        "completion_tokens": 297
       }
     },
-    "duration_s": 160.0
+    "duration_s": 8.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3584,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Helena Foulkes",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.78,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.13,
+      "Independent": 0.03
+    },
+    "margin_estimate": 8.0,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "Rhode Island remains a Democratic-leaning state for statewide federal elections, which gives the Democratic nominee a structural advantage in a gubernatorial general election. The only available 2026 poll is a Democratic primary survey showing former CVS executive Helena Foulkes leading incumbent Gov. Dan McKee 40%-20%, indicating meaningful uncertainty about who the Democratic nominee will be and some vulnerability for the incumbent. However, there are no general-election matchup polls, the Republican field appears unsettled and less proven statewide, and independent Ken Block has some past visibility but no current polling evidence showing he is positioned to win. Because the forecast must rely on a single primary poll and broader party context rather than direct general-election data, the Democratic Party is favored but not overwhelmingly so, and confidence is low.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T03:17:12.139006Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://emersoncollegepolling.com/rhode-island-2026-helena-foulkes-leads-incumbent-governor-mckee-in-democratic-primary/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

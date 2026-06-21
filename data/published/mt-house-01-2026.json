@@ -270,7 +270,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Montana%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:31:24.383326+00:00",
+  "updated_utc": "2026-06-20T15:33:59.996294+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -284,18 +284,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 326051,
-    "completion_tokens": 7327,
-    "total_tokens": 333378,
-    "cost_usd": 0.023734561999999997,
+    "prompt_tokens": 13365,
+    "completion_tokens": 2216,
+    "total_tokens": 15581,
+    "cost_usd": 0.001684202,
     "cost_source": "provider",
-    "estimated_usd": 0.033389,
+    "estimated_usd": 0.001602,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 326051,
-        "completion_tokens": 7327
+        "prompt_tokens": 13365,
+        "completion_tokens": 2216
       }
     },
-    "duration_s": 167.3
+    "duration_s": 37.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7595,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Aaron Flint",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Republican": 0.82,
+      "Democratic": 0.17,
+      "Other": 0.01
+    },
+    "margin_estimate": 6.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling is available as of mid-June 2026, so this forecast is based on district fundamentals and carries higher uncertainty than a poll-driven assessment. Montana's 1st District has a Cook PVI of R+5 and is rated 'Likely Republican' by Cook Political Report. Republican nominee Aaron Flint, endorsed by President Trump, won a competitive primary with a clear majority (50.1%). Democrat Sam Forstag, a smokejumper and union leader, won a four-way primary with 37.4% and represents a credible challenge in an open-seat contest where the district has been closely contested in recent cycles. Libertarian Nick Sheedy is also on the ballot. With no public general-election surveys yet, the Republican advantage is clear but not overwhelming, tempered by the uncertainties of an open seat and a Democrat with a compelling local profile.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:53.291171Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

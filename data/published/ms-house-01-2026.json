@@ -19,7 +19,7 @@
         {
           "url": "https://trentkelly.house.gov/biography/",
           "type": "government",
-          "title": "Biography \u2013 Congressman Trent Kelly",
+          "title": "Biography – Congressman Trent Kelly",
           "description": null,
           "last_accessed": "2026-06-08T12:00:00Z",
           "published_at": null,
@@ -41,7 +41,7 @@
         {
           "url": "https://ballotpedia.org/Trent_Kelly",
           "type": "website",
-          "title": "Trent Kelly \u2013 Ballotpedia",
+          "title": "Trent Kelly – Ballotpedia",
           "description": null,
           "last_accessed": "2026-06-08T12:00:00Z",
           "published_at": null,
@@ -160,7 +160,7 @@
         {
           "url": "https://www.macarthurjustice.org/team_member/cliff-johnson/",
           "type": "website",
-          "title": "Cliff Johnson \u2013 MacArthur Justice Center",
+          "title": "Cliff Johnson – MacArthur Justice Center",
           "description": null,
           "last_accessed": "2026-06-08T12:00:00Z",
           "published_at": null,
@@ -297,7 +297,7 @@
         {
           "url": "https://ballotpedia.org/Johnny_Baucom_(Mississippi)",
           "type": "website",
-          "title": "Johnny Baucom (Mississippi) \u2013 Ballotpedia",
+          "title": "Johnny Baucom (Mississippi) – Ballotpedia",
           "description": null,
           "last_accessed": "2026-06-08T12:00:00Z",
           "published_at": null,
@@ -308,7 +308,7 @@
         {
           "url": "https://www.desotocountyms.gov/CivicAlerts.aspx?AID=1016",
           "type": "government",
-          "title": "November 3, 2026 Election Candidates \u2013 DeSoto County, MS",
+          "title": "November 3, 2026 Election Candidates – DeSoto County, MS",
           "description": null,
           "last_accessed": "2026-06-08T12:00:00Z",
           "published_at": null,
@@ -335,7 +335,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Mississippi%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:53:52.127057+00:00",
+  "updated_utc": "2026-06-20T15:39:56.118328+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -349,18 +349,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 247391,
-    "completion_tokens": 6822,
-    "total_tokens": 254213,
-    "cost_usd": 0.016675701999999997,
+    "prompt_tokens": 4541,
+    "completion_tokens": 887,
+    "total_tokens": 5428,
+    "cost_usd": 0.00061887,
     "cost_source": "provider",
-    "estimated_usd": 0.025581,
+    "estimated_usd": 0.000568,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 247391,
-        "completion_tokens": 6822
+        "prompt_tokens": 4541,
+        "completion_tokens": 887
       }
     },
-    "duration_s": 118.6
+    "duration_s": 16.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3084,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0029,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Trent Kelly",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.025,
+      "Other": 0.005
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, so confidence is capped at medium. However, the fundamentals overwhelmingly favor Republicans: incumbent Trent Kelly has held the seat since 2015 and won 69.8% in 2024; the district (northeastern Mississippi) is strongly Republican-leaning; and every major nonpartisan forecaster (Cook, Inside Elections, Sabato's Crystal Ball) rates it Safe/Solid Republican. Cliff Johnson is a credible Democratic nominee with a civil-rights background, but the district's partisan baseline and Kelly's incumbency make a Democratic win extremely unlikely. The Libertarian candidate Johnny Baucom is not a competitive factor.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:51.993241Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -218,7 +218,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California's_21st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:24:39.427598+00:00",
+  "updated_utc": "2026-06-20T15:39:31.710394+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -232,18 +232,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 283941,
-    "completion_tokens": 6581,
-    "total_tokens": 290522,
-    "cost_usd": 0.022476733999999998,
+    "prompt_tokens": 11200,
+    "completion_tokens": 2072,
+    "total_tokens": 13272,
+    "cost_usd": 0.001443808,
     "cost_source": "provider",
-    "estimated_usd": 0.029116,
+    "estimated_usd": 0.001381,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 283941,
-        "completion_tokens": 6581
+        "prompt_tokens": 11200,
+        "completion_tokens": 2072
       }
     },
-    "duration_s": 251.0
+    "duration_s": 31.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6473,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jim Costa",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Democratic": 0.82,
+      "Republican": 0.18
+    },
+    "margin_estimate": 6.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, so the forecast relies on district fundamentals. CA-21 has a Democratic voter registration edge (40.8% to 27.5% R) and a Cook PVI of D+5, indicating a Democratic-leaning Central Valley district. Incumbent Jim Costa (first elected 2004) brings long tenure, high name recognition, and a moderate Blue Dog profile suited to this agricultural district. Republican Kyle Kirkland is a credible businessman and political outsider with sufficient resources to compete, but lacks the partisan baseline advantage or name recognition of the incumbent. Without race-specific polling, confidence is medium, but the combination of incumbency, Democratic lean, and registration advantage makes Costa a clear favorite. Expected margin in the mid-to-high single digits.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:26.593968Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

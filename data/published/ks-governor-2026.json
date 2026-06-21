@@ -10,36 +10,14 @@
       "pollster": "SurveyUSA",
       "date": "2026-01-08",
       "sample_size": 600,
-      "matchups": [
-        {
-          "candidates": [
-            "Cindy Holscher",
-            "Ethan Corson"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://kansasreflector.com/2026/01/15/early-poll-of-democratic-primary-race-for-kansas-governor-reveals-most-voters-undecided/"
     },
     {
       "pollster": "SurveyUSA",
       "date": "2026-01-08",
       "sample_size": 600,
-      "matchups": [
-        {
-          "candidates": [
-            "Cindy Holscher",
-            "Ethan Corson"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.cjonline.com/story/news/politics/state/2026/01/15/kansas-sen-cindy-holscher-holds-the-lead-in-polling-over-ethan-corson/88184633007/"
     }
   ],
@@ -1053,10 +1031,9 @@
       "voting_sources": []
     }
   ],
-  "updated_utc": "2026-06-13T20:51:42.872410+00:00",
+  "updated_utc": "2026-06-20T03:16:59.337042+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -1206,27 +1183,58 @@
   ],
   "polling_note": "No polls were found in the last 90 days for this race in the sources reviewed.",
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 145925,
-    "completion_tokens": 6168,
-    "total_tokens": 152093,
-    "cost_usd": 0.010180870000000002,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3681,
+    "completion_tokens": 224,
+    "total_tokens": 3905,
+    "cost_usd": 0.0091065,
     "cost_source": "provider",
-    "estimated_usd": 0.011713,
+    "estimated_usd": 0.012562,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 97423,
-        "completion_tokens": 5978
-      },
-      "nvidia/nemotron-3-super-120b-a12b": {
-        "prompt_tokens": 48502,
-        "completion_tokens": 190
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3681,
+        "completion_tokens": 224
       }
     },
-    "duration_s": 91.8
+    "duration_s": 7.6,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3024,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0029,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
-  "schema_version": "0.3"
+  "schema_version": "0.3",
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.44,
+      "Republican": 0.56
+    },
+    "margin_estimate": 2.5,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "This open-seat Kansas gubernatorial race currently leans slightly Republican, but uncertainty is high. There are no usable numeric general-election polls in the provided data, and the only listed polling is an early January Democratic primary survey with no percentages reported and no recent polls within the last 90 days. That leaves the forecast to rely mainly on Kansas's underlying partisan tendency and the fact that Republicans have a larger visible candidate field with multiple statewide officeholders in the race, while Democrats are defending an office currently held by a term-limited incumbent from their party. Still, Democrats have shown recent competitiveness in Kansas statewide races, so the Republican edge appears modest rather than decisive.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:58.295755+00:00",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "ballotpedia_url": "https://ballotpedia.org/Kansas_gubernatorial_election,_2026",
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

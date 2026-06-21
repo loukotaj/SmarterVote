@@ -122,7 +122,7 @@
         {
           "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-5th-district-dems/",
           "type": "news",
-          "title": "U.S. House \u2013 5th District - Dems | Voter Guide: 2026 Primary Election - Kentucky Lantern",
+          "title": "U.S. House – 5th District - Dems | Voter Guide: 2026 Primary Election - Kentucky Lantern",
           "description": null,
           "last_accessed": "2025-07-14T00:00:00Z",
           "published_at": null,
@@ -195,7 +195,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:18:10.417791+00:00",
+  "updated_utc": "2026-06-20T15:34:57.260478+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -209,18 +209,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 266504,
-    "completion_tokens": 6182,
-    "total_tokens": 272686,
-    "cost_usd": 0.018942504,
+    "prompt_tokens": 8848,
+    "completion_tokens": 1368,
+    "total_tokens": 10216,
+    "cost_usd": 0.001075328,
     "cost_source": "provider",
-    "estimated_usd": 0.027329,
+    "estimated_usd": 0.001043,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 266504,
-        "completion_tokens": 6182
+        "prompt_tokens": 8848,
+        "completion_tokens": 1368
       }
     },
-    "duration_s": 145.4
+    "duration_s": 26.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6239,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Hal Rogers",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.03,
+      "Republican": 0.97
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public district polling exists for this race, reducing precision. However, the broader race data is unambiguous: nonpartisan forecasters (including Cook Political Report) rate Kentucky's 5th as 'Solid R', and Hal Rogers is a 23-term incumbent, Dean of the U.S. House, endorsed by President Trump, and has represented this district since 1981. The district covers 33 counties in eastern and south-central Kentucky, a heavily Republican region. Democratic challenger Ned Pillersdorf has a potentially resonant local message on Medicaid and food assistance cuts in a district where roughly half the population relies on Medicaid, which could shave some points off the margin. But without any polling evidence of a competitive shift, Rogers retains an overwhelming structural advantage consistent with a safe Republican seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:47.207151Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

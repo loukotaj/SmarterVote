@@ -6,7 +6,7 @@
   "state": "Arizona",
   "district": "5th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Arizona's 5th Congressional District is an open-seat race following the decision of incumbent Republican Rep. Andy Biggs to run for governor rather than seek re-election. The district, which covers parts of the East Valley including Chandler, Gilbert, Queen Creek, and Apache Junction, is rated as Solid Republican by nonpartisan analysts. Three Democrats \u2014 Brian Hualde, Chris James, and Elizabeth Lee \u2014 are competing in the July 21 Democratic primary, while former Pinal County Sheriff Mark Lamb and small-business owner Daniel Keenan are vying for the Republican nomination. The outcome will determine who succeeds Biggs in representing this conservative-leaning district in the U.S. House.",
+  "description": "The 2026 election for Arizona's 5th Congressional District is an open-seat race following the decision of incumbent Republican Rep. Andy Biggs to run for governor rather than seek re-election. The district, which covers parts of the East Valley including Chandler, Gilbert, Queen Creek, and Apache Junction, is rated as Solid Republican by nonpartisan analysts. Three Democrats — Brian Hualde, Chris James, and Elizabeth Lee — are competing in the July 21 Democratic primary, while former Pinal County Sheriff Mark Lamb and small-business owner Daniel Keenan are vying for the Republican nomination. The outcome will determine who succeeds Biggs in representing this conservative-leaning district in the U.S. House.",
   "polling": [],
   "polling_note": "No specific public opinion polls with numeric results were found for this race as of mid-2026. The New York Times maintains a poll tracker for Arizona's 5th District but had not yet reported any polls meeting its inclusion criteria. Prediction markets and news reports suggest the race leans Republican.",
   "candidates": [
@@ -305,7 +305,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arizona%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:13:58.348523+00:00",
+  "updated_utc": "2026-06-20T15:21:23.073628+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -316,18 +316,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 274725,
-    "completion_tokens": 8757,
-    "total_tokens": 283482,
-    "cost_usd": 0.019783614,
+    "prompt_tokens": 11468,
+    "completion_tokens": 1579,
+    "total_tokens": 13047,
+    "cost_usd": 0.0013734440000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.028639,
+    "estimated_usd": 0.001316,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 274725,
-        "completion_tokens": 8757
+        "prompt_tokens": 11468,
+        "completion_tokens": 1579
       }
     },
-    "duration_s": 206.7
+    "duration_s": 26.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8706,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0083,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mark Lamb",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 22,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No numeric public opinion polls exist for this race as of mid-2026, so confidence is medium rather than high. However, the strongest available signal is the district's underlying partisan baseline: nonpartisan analysts rate AZ-05 as Solid Republican, and it is an open seat previously held by a Republican incumbent. This overwhelming partisan advantage points to a strong Republican favorite in the general election regardless of which candidate emerges from either primary. Among Republican candidates, Mark Lamb has the strongest profile — former Pinal County Sheriff, the 2024 Republican U.S. Senate primary nominee, and endorsed by Donald Trump — making him the most likely nominee and general-election winner. The predicted margin of roughly 22 points is consistent with a safe Republican district. This forecast is informational and reflects data available as of June 20, 2026, before the July 21 primaries.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:12.213871+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

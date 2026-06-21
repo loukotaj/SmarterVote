@@ -1,0 +1,2135 @@
+{
+  "id": "sc-governor-2026",
+  "title": "2026 South Carolina Gubernatorial Election",
+  "office": "Governor of South Carolina",
+  "jurisdiction": "South Carolina",
+  "state": "South Carolina",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 South Carolina gubernatorial election will be held on November 3, 2026, to elect the next governor. Incumbent Republican Governor Henry McMaster is term-limited and cannot seek a third consecutive term. The Democratic primary held on June 9, 2026, nominated State Representative Jermaine Johnson. The Republican primary on the same date produced no majority winner, sending Lieutenant Governor Pamela Evette and Attorney General Alan Wilson to a runoff on June 23, 2026. On June 19, President Donald Trump co-endorsed both Evette and Wilson after initially endorsing only Evette, while Sen. Tim Scott, Rep. Nancy Mace, and Rep. Ralph Norman have endorsed Wilson. The Republican nominee will be heavily favored in the general election in this deep-red state, which backed Donald Trump by nearly 18 points in 2024. Democrats have not won a gubernatorial race in South Carolina since 1998.",
+  "candidates": [
+    {
+      "name": "Jermaine Johnson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jermaine Johnson is a member of the South Carolina House of Representatives and the Democratic nominee for governor. He has campaigned on Medicaid expansion, infrastructure investment, education reform, and addressing the state's affordability crisis. Johnson emphasizes working across the aisle and bringing a business-oriented, customer-service approach to state government.",
+      "summary_sources": [
+        {
+          "url": "https://www.wyff4.com/article/who-is-running-for-governor-south-carolina-2026/70850096",
+          "type": "news",
+          "title": "Who is running for governor of South Carolina in 2026?",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wjcl.com/article/south-carolina-governor-primary-election-results/71393318",
+          "type": "news",
+          "title": "Republican runoff set in South Carolina governor's race; Johnson secures Democratic nomination",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s.transparencyusa.org/images/social/fb_share.png",
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Building on his priorities to expand rural hospital capacity and boost mental health services and crisis response, Johnson also supports legalizing and regulating medical cannabis to improve patient access and generate revenue for health initiatives.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference",
+              "description": null,
+              "last_accessed": "2026-06-20T02:28:46.316261Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Supports protecting women\u2019s reproductive rights in South Carolina and centering women in reproductive-health policymaking. He has written a bill to center female legislators on reproductive rights issues and believes medical decisions should be left to families and their doctors.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "government",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference \u2014 Dr. Jermaine Johnson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:14:45.505603Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-jermaine-johnson/",
+              "type": "website",
+              "title": "SC Governor's Race | Candidate Profile: Jermaine Johnson",
+              "description": null,
+              "last_accessed": "2026-06-17T03:14:45.505625Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abcnews4.com/news/local/state-rep-jermain-johnson-holds-charleston-meet-and-greet-as-he-eyes-governors-race-governor-politics-district-52",
+              "type": "website",
+              "title": "'I don't believe South Carolina's a red state!': Rep. Johnson says in his bid for governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:14:45.505635Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Johnson\u2019s economy plan centers on affordability and job growth. He would expand income-tax relief to increase the share of working families not paying SC income tax (targeting up to 70%), lower property taxes for working families, invest in affordable housing and infrastructure, and expand trade schools and workforce development to prepare South Carolinians for good-paying jobs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference \u2014 Dr. Jermaine Johnson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-20T02:28:13.105970Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://scdailygazette.com/2026/06/04/democrats-running-for-sc%20governor-pitch-plans-for-affordability/",
+              "type": "website",
+              "title": "Democrats running for SC governor pitch plans for affordability",
+              "description": null,
+              "last_accessed": "2026-06-20T02:28:13.105978Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://scdp.org/scdp-news/press-releases/2026-democratic-response-to-the-state-of-the-state-representative-jermaine-johnson/",
+              "type": "website",
+              "title": "2026 Democratic Response to the State of the State, Representative Jermaine Johnson",
+              "description": null,
+              "last_accessed": "2026-06-20T02:28:13.105983Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Johnson supports collaborating with law enforcement and the federal government on immigration, and does not support ICE operations in South Carolina as currently conducted; he would like federal authorities to work with the state and elected officials to address immigration in a coordinated, state-informed manner.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://abcnews4.com/news/local/state-rep-jermain-johnson-holds-charleston-meet-and-greet-as-he-eyes-governors-race-governor-politics-district-52",
+              "type": "website",
+              "title": "I don't believe South Carolina's a red state! Rep. Johnson says in his bid for governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:17:52.458189Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.southcarolinapublicradio.org/sc-news/2026-06-04/candidates-discuss-policy-and-each-other-at-scetvs-democratic-gubernatorial-primary-debate",
+              "type": "website",
+              "title": "Candidates discuss policy and each other at SCETV's Democratic gubernatorial primary debate",
+              "description": null,
+              "last_accessed": "2026-06-17T03:17:52.458215Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Johnson advocates preparing South Carolina's workforce for AI-driven disruption by expanding tech-focused education and trade schools. He supports funding for programs like the Lower Richland Tech Academy to teach coding and other tech skills and increasing broadband access statewide to broaden training opportunities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference \u2014 Dr. Jermaine Johnson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:20:08.830351Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Johnson advocates expanding local energy production and resiliency, pursuing clean-energy manufacturing in South Carolina (e.g., electric-vehicle and battery plants) funded by federal investments, and pairing infrastructure upgrades to ensure reliable and affordable energy for working families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference \u2014 Dr. Jermaine Johnson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:24:27.360200Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://scdp.org/2026-democratic-response-to-the-state-of-the-state-representative-jermaine-johnson/",
+              "type": "website",
+              "title": "2026 Democratic Response to the State of the State, Representative Jermaine Johnson",
+              "description": null,
+              "last_accessed": "2026-06-17T03:24:27.360226Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Johnson\u2019s local-issues agenda centers on infrastructure modernization and expanding rural services, including rebuilding roads and bridges, funding more rural hospitals, and expanding broadband access to underserved areas.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference",
+              "description": null,
+              "last_accessed": "2026-06-17T03:24:33.953875Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Johnson describes gun violence as an epidemic and a top priority. As a survivor of gun violence who lost his brother to gun violence as a child, he advocates investing in preventative measures, community violence intervention programs, mentorship, educational opportunities, and reducing the glorification of gun culture. He supports raising law enforcement salaries and creating mental health response teams for crisis de-escalation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/JohnsonforSC/posts/the-gun-violence-epidemic-is-south-carolina-is-at-an-all-time-high-people-cannot/1395464572404203/",
+              "type": "social_media",
+              "title": "Jermaine Johnson For South Carolina - Gun violence post",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:23.158763Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference \u2014 Dr. Jermaine Johnson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:23.158785Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found after repeated research attempts. Johnson's campaign focuses on state-level issues such as affordability, infrastructure, healthcare, and education.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Johnson opposed an anti-DEI provision in the state budget and spoke on the House floor in 2025 against what he called a white supremacy issue, helping to remove it on technical legislative grounds. He advocates passing a hate crimes law in South Carolina, one of only two states without one. He also commissioned a statue of civil rights champion and former congressman Robert Smalls on the State House grounds.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference \u2014 Dr. Jermaine Johnson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:23.037119Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.postandcourier.com/politics/jermaine-johnson-democrat-governor-south-carolina/article_c29ef68d-a4f1-429e-917f-ae11503f387d.html",
+              "type": "news",
+              "title": "How Democrat Jermaine Johnson Is eyeing a path to South Carolina's Governor's Mansion",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:23.037142Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Johnson opposes school vouchers for private schools until public education is fixed, calling for a full K-12 public education audit to identify best practices and administration efficiencies. He supports universal pre-K and equitable funding for public schools, and created the Lower Richland Tech Academy to expand trade and tech education.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-jermaine-johnson/",
+              "type": "news",
+              "title": "SC Governor's Race | Candidate Profile: Jermaine Johnson",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:22.911352Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://johnsonforsc.com/policies",
+              "type": "website",
+              "title": "Policies | Explore Policy Solutions \u2014 Make A Difference \u2014 Dr. Jermaine Johnson for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:22.911373Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Johnson supports ranked-choice voting (instant runoff voting) and announced plans to introduce bipartisan legislation to implement the method in South Carolina municipalities. He co-sponsored H.3589, which would give municipalities the option of using instant runoff voting.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.postandcourier.com/politics/jermaine-johnson-democrat-governor-south-carolina/article_c29ef68d-a4f1-429e-917f-ae11503f387d.html",
+              "type": "news",
+              "title": "How Democrat Jermaine Johnson Is eyeing a path to South Carolina's Governor's Mansion",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:23.098636Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.betterballotsc.org/tags/instant_runoff_voting",
+              "type": "website",
+              "title": "Instant runoff voting at BetterBallotSC",
+              "description": null,
+              "last_accessed": "2026-06-17T03:59:23.098658Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "South Carolina House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Elected in 2020, took office in 2021 to represent District 52 (Richland and Kershaw counties). Defeated a 22-year incumbent.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "College of Charleston",
+          "degree": "Bachelor of Arts",
+          "field": "Communications",
+          "year": 2008,
+          "source": null
+        },
+        {
+          "institution": "Strayer University",
+          "degree": "Master of Science in Management",
+          "field": null,
+          "year": 2014,
+          "source": null
+        },
+        {
+          "institution": "Northcentral University",
+          "degree": "Doctorate in Business Administration",
+          "field": "Organizational Leadership",
+          "year": 2018,
+          "source": null
+        }
+      ],
+      "voting_summary": "State representative since 2021. Holds a 90% lifetime score from Conservation Voters of South Carolina (77% in 2023-2024, 103% in 2021-2022). Voted in favor of the SC Conservation Enhancement Act, Working Agricultural Lands Preservation, and Alternative Fuel Tax Credit. Co-sponsored legislation to place a Robert Smalls monument on the State House grounds. Serves on the House Labor, Commerce and Industry Committee and as Secretary of the House Minority Caucus.",
+      "voting_source_url": "https://www.cvsc.org/legislative/scorecards/legislator/johnson-jermaine/",
+      "voting_sources": [
+        {
+          "url": "https://www.cvsc.org/legislative/scorecards/legislator/johnson-jermaine/",
+          "type": "website",
+          "title": "CVSC Scorecard - Jermaine Johnson",
+          "description": null,
+          "last_accessed": "2026-06-17T03:59:38.692790Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.scstatehouse.gov/member.php?code=0943181705",
+          "type": "government",
+          "title": "SC Legislature - Rep. Jermaine Johnson",
+          "description": null,
+          "last_accessed": "2026-06-17T03:59:38.692813Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-jermaine-johnson/",
+          "type": "news",
+          "title": "SC Governor's Race Candidate Profile: Jermaine Johnson",
+          "description": null,
+          "last_accessed": "2026-06-17T03:59:38.692820Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "donor_summary": "Raised approximately $376,177 in cash contributions through Q1 2026 (election cycle total of $416,649), with $418,901 in total contributions per Transparency USA. Top individual donors include Andrew Yang ($3,500), Elizabeth Colbert-Busch ($3,500), and Justin Bamberg / Bamberg Legal LLC ($3,500). Significant contributions from legal-industry professionals and individual donors, with $14,335 from the candidate himself. Full data via SC Ethics Commission filings.",
+      "donor_source_url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/report-detail?personId=55806&seiId=39097&officeId=78545&reportId=417559",
+      "donor_sources": [
+        {
+          "url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/report-detail?personId=55806&seiId=39097&officeId=78545&reportId=417559",
+          "type": "government",
+          "title": "Quarter 1, 2026 Report | Jermaine L. Johnson - SC Ethics Filing",
+          "description": null,
+          "last_accessed": "2026-06-17T03:59:38.631985Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.transparencyusa.org/sc/candidate/jermaine-l-johnson",
+          "type": "finance",
+          "title": "Jermaine L Johnson - Transparency USA",
+          "description": null,
+          "last_accessed": "2026-06-17T03:59:38.632032Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wrdw.com/2026/01/12/candidates-south-carolina-governor-raise-millions-dollars/",
+          "type": "news",
+          "title": "Candidates for South Carolina governor raise millions of dollars",
+          "description": null,
+          "last_accessed": "2026-06-17T03:59:38.632039Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://www.scstatehouse.gov/member.php?code=0943181705",
+          "title": "SC Legislature - Rep. Jermaine Johnson",
+          "type": "legislature"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Jermaine_Johnson_(politician)",
+          "title": "Jermaine Johnson Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.transparencyusa.org/sc/candidate/jermaine-l-johnson",
+          "title": "Transparency USA - Jermaine Johnson Finance",
+          "type": "finance"
+        },
+        {
+          "url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/report-detail?personId=55806&seiId=39097&officeId=78545&reportId=417559",
+          "title": "SC Ethics Filing - Jermaine Johnson Q1 2026",
+          "type": "other"
+        },
+        {
+          "url": "https://www.cvsc.org/legislative/scorecards/legislator/johnson-jermaine/",
+          "title": "CVSC Scorecard - Jermaine Johnson",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-jermaine-johnson/",
+          "title": "FOX Carolina Candidate Profile: Jermaine Johnson",
+          "type": "news"
+        },
+        {
+          "url": "https://ballotpedia.org/South_Carolina_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "title": "Ballotpedia: SC Governor 2026",
+          "type": "ballotpedia"
+        }
+      ],
+      "website": "https://johnsonforsc.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JohnsonforSC/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Pamela Evette",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Pamela Evette has served as Lieutenant Governor of South Carolina since 2019 under Governor Henry McMaster. A former businesswoman, she initially received former President Donald Trump's sole endorsement in the Republican primary, but Trump later co-endorsed both Evette and her runoff opponent, Attorney General Alan Wilson, on June 19. Evette advanced to the June 23 runoff after finishing first in the June 9 primary with about 29% of the vote, and has campaigned on eliminating the state income tax, election security, and judicial reform.",
+      "summary_sources": [
+        {
+          "url": "https://www.nbcnews.com/politics/2026-election/trump-endorses-second-candidate-south-carolina-governors-race-rcna350925",
+          "type": "news",
+          "title": "Trump endorses a second candidate in the South Carolina governor's race",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:21.540318Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.southcarolinapublicradio.org/sc-news/2026-06-19/trump-co-endorses-alan-wilson-for-governor-after-giving-initial-sole-endorsement-to-pamela-evette",
+          "type": "news",
+          "title": "Trump co-endorses Alan Wilson for governor after giving initial sole endorsement to Pamela Evette",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:21.540329Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.19thnews.org/2026/06/south-carolina-governor-results-evette-wilson/",
+          "type": "news",
+          "title": "Trump backed Pamela Evette over Nancy Mace. South Carolina Republicans followed.",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:21.540335Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://19thnews.org/wp-content/uploads/2026/06/pamela-evette.jpg",
+      "issues": {
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Energy security is national security and a cornerstone of economic growth. Pamela Evette supports cutting red tape to unleash South Carolina's energy, expanding production across nuclear, natural gas, and clean coal; while responsibly developing renewables with private-property protections, modernizing infrastructure, and using public-private partnerships to keep South Carolina energy-independent and affordable.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pamelaevette.com/issues/boost-energy/",
+              "type": "website",
+              "title": "Boost Energy - Pamela Evette for Governor of South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:20:35.065999Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Anti-abortion; supports protecting unborn life through abortion restrictions (including heartbeat/early-gestation limits). If faced with a bill banning abortions with no exceptions, she would veto it.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pamelaevette.com/issues/protect-life-and-family-values/",
+              "type": "website",
+              "title": "Protect Life and Family Values - Pamela Evette for Governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:31.464604Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://scdailygazette.com/2026/04/22/question-about-a-no-exception-abortion-ban-splits-sc-republicans-wanting-to-be-governor/",
+              "type": "website",
+              "title": "Question about a no-exception abortion ban splits SC Republicans wanting to be governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:31.464626Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://foxcarolina.com/2026/04/08/big-abortion-industrys-nightmare-sba-pro-life-america-endorses-evette-sc-governor/",
+              "type": "website",
+              "title": "SBA Pro-Life America endorses Evette for SC governor",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:31.464636Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.live5news.com/2026/04/14/sc-bill-would-end-heartbeat-law-leave-abortion-only-medical-emergencies/",
+              "type": "website",
+              "title": "SC bill would end heartbeat law, leave abortion only for medical emergencies",
+              "description": null,
+              "last_accessed": "2026-06-17T03:21:31.464645Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "As governor, Pamela Evette will position South Carolina as a national leader in responsible AI, advanced manufacturing, and emerging technologies, while protecting privacy and keeping energy affordable. She will cut red tape to accelerate tech startups, foster public-private partnerships to attract investment and create high-paying jobs, protect data and cybersecurity, and promote pro-innovation policies to keep South Carolina competitive nationally and globally.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://pamelaevette.com/issues/lead-in-ai-and-innovative-technology/",
+              "type": "website",
+              "title": "Lead in AI and Innovative Technology - Pamela Evette",
+              "description": null,
+              "last_accessed": "2026-06-17T03:22:56.021393Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Pamela Evette defends the Second Amendment rights of law-abiding South Carolinians. She supported Constitutional Carry and pledges to oppose efforts to restrict the right to keep and bear arms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pamelaevette.com/issues/defend-second-amendment-rights/",
+              "type": "website",
+              "title": "Defend Second Amendment Rights - Pamela Evette for Governor of South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:30:52.815416Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.instagram.com/reel/DV4jgyiDegM/",
+              "type": "social_media",
+              "title": "Every target down. Every right protected. That's how we defend freedom in South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:30:52.815446Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.facebook.com/pamelaevettesc/photos/the-right-of-the-people-to-keep-and-bear-arms-shall-not-be-infringed/1431480508784457/",
+              "type": "social_media",
+              "title": "Pamela Evette for Governor Defend Second Amendment",
+              "description": null,
+              "last_accessed": "2026-06-17T03:30:52.815454Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://pamelaevette.com/leadership/",
+              "type": "website",
+              "title": "Conservative Leadership - Pamela Evette for Governor of South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:30:52.815459Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Fully eliminate South Carolina's state personal income tax to put more money back into the pockets of families and small businesses, and to spur economic growth by reducing taxes and regulatory barriers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pamelaevette.com/issues/eliminate-the-state-income-tax/",
+              "type": "website",
+              "title": "Eliminate the Income Tax - Pamela Evette for Governor of South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:31:53.199362Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.npr.org/2026/06/09/nx-s1-5851591/trump-south-carolina-evette-wilson-governor",
+              "type": "website",
+              "title": "South Carolina results: Evette and Wilson head to runoff - NPR",
+              "description": null,
+              "last_accessed": "2026-06-17T03:31:53.199392Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://southcarolinapublicradio.org/sc-news/2025-07-31/race-to-slash-sc-income-tax-becomes-focus-of-2026-gov-runs",
+              "type": "website",
+              "title": "Race to slash SC income tax becomes focus of 2026 gov runs",
+              "description": null,
+              "last_accessed": "2026-06-17T03:31:53.199404Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Pamela Evette has framed DEI (diversity, equity, and inclusion) initiatives as political priorities she opposes. She has called for rolling back or defunding DEI offices and programs in public higher education and state government, arguing they promote a 'woke' agenda rather than merit and equal treatment.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.thestate.com/news/politics-government/article315578324.html",
+              "type": "news",
+              "title": "SC Lt. Gov. Evette's anti-DEI stances scrutinized. What did her ...",
+              "description": null,
+              "last_accessed": "2026-06-17T03:33:18.481161Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wistv.com/2026/04/30/watch-lt-gov-evette-says-she-wont-apologize-calling-sc-state-protestors-woke-mob/",
+              "type": "news",
+              "title": "Lt. Gov. Evette says she won't apologize for calling SC State protesters woke mob",
+              "description": null,
+              "last_accessed": "2026-06-17T03:33:18.481183Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.insidehighered.com/news/institutions/minority-serving-institutions/2026/05/05/sc-lt-governor-threatens-defunding-hbcu",
+              "type": "news",
+              "title": "SC Lt. Governor Threatens Defunding HBCU That Canceled Her",
+              "description": null,
+              "last_accessed": "2026-06-17T03:33:18.481190Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abcnews4.com/news/local/lowcountry-gubernatorial-hopefuls-chime-in-on-evette-and-sc-state-controversy-evetter-sc-sctate-dei-hbcu-republican-democrat-left-right-wilson-norman-mace-johnson-governor-mcleod-hr-attorney-protest-lowcountry-south-carolina",
+              "type": "news",
+              "title": "Lowcountry gubernatorial hopefuls chime in on Evette and SC State controversy",
+              "description": null,
+              "last_accessed": "2026-06-17T03:33:18.481196Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Pamela Evette supports full universal school choice in South Carolina, asserting that every child deserves access to a quality education regardless of ZIP code and that parents should have the freedom to choose the best educational path for their child.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pamelaevette.com/issues/expand-school-choice-improve-education/",
+              "type": "website",
+              "title": "Full Universal School Choice | Pamela Evette for Governor of South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:33:35.418273Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "South Carolina\u2019s growth requires smarter infrastructure. Pamela Evette will unite state and local leaders to modernize roads, bridges, and critical infrastructure while cutting bureaucratic delays and delivering projects on time and on budget.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pamelaevette.com/issues/modernize-our-infrastructure/",
+              "type": "website",
+              "title": "Roads/Smart Growth/infrastructure - Pamela Evette for Governor of South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:34:27.178873Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://pamelaevette.com/issues/",
+              "type": "website",
+              "title": "Issues - Pamela Evette for Governor of South Carolina",
+              "description": null,
+              "last_accessed": "2026-06-17T03:34:27.178899Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Election Policy": {
+          "issue": "Election Policy",
+          "stance": "No public position found after repeated research attempts.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
+      "career_history": [
+        {
+          "title": "Lieutenant Governor of South Carolina",
+          "organization": "State of South Carolina",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Serving as the state's second-highest executive officer under Governor Henry McMaster",
+          "source": null
+        },
+        {
+          "title": "Businesswoman",
+          "organization": "Private sector",
+          "start_year": 2000,
+          "end_year": 2018,
+          "description": "Former business owner and executive prior to entering politics",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": "Has not held legislative office. Elected as the 93rd Lieutenant Governor of South Carolina in 2018 and re-elected in 2022, serving as the Senate's presiding officer. Co-championed the largest income tax cut in state history alongside Gov. Henry McMaster. Focused executive actions on small business development, early childhood education, school choice, and environmental stewardship. Endorsed by President Donald Trump and SBA Pro-Life America. Has stated she would veto legislation that puts women in jail for abortion.",
+      "voting_source_url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-pamela-evette/",
+      "voting_sources": [],
+      "donor_summary": "Raised approximately $3.17M in total contributions through Q1 2026, with $2.07M in cash contributions alone since the start of 2025. Real estate and development interests are the dominant donor sector: Surfside Realty Company donated six max $3,500 contributions totaling $21,000, and the initial report showed numerous development, construction, and real estate companies. The South Carolina Republican Party contributed $50,000, and the SC Automobile Dealers Association gave $3,500. Full data via SC Ethics Commission and Transparency USA.",
+      "donor_source_url": "https://www.transparencyusa.org/sc/candidate/pamela-evette",
+      "donor_sources": [
+        {
+          "url": "https://www.transparencyusa.org/sc/candidate/pamela-evette",
+          "type": "finance",
+          "title": "Pamela Evette - Transparency USA",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/report-detail?personId=54395&seiId=52394&officeId=77609&reportId=419480",
+          "type": "government",
+          "title": "Quarter 4, 2025 Report - Pamela Evette SC Ethics",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.greenvilleonline.com/story/news/politics/2025/07/24/evette-leads-south-carolina-gubernatorial-candidates-in-fundraising/85316804007/",
+          "type": "news",
+          "title": "Evette leads SC gubernatorial candidates in fundraising - Greenville News",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.live5news.com/2026/01/10/candidates-governor-raise-millions-dollars/",
+          "type": "news",
+          "title": "Evette dominates Q4 campaign finance - Live 5 News",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.live5news.com/2026/04/11/wilson-evette-bring-millions-q1/",
+          "type": "news",
+          "title": "Wilson, Evette bring in millions in Q1 - Live 5 News",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://www.transparencyusa.org/sc/candidate/pamela-evette",
+          "title": "Transparency USA - Pamela Evette Finance",
+          "type": "finance"
+        },
+        {
+          "url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/report-detail?personId=54395&seiId=52394&officeId=77609&reportId=419480",
+          "title": "SC Ethics Filing - Pamela Evette Q4 2025",
+          "type": "other"
+        },
+        {
+          "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-pamela-evette/",
+          "title": "FOX Carolina Candidate Profile: Pamela Evette",
+          "type": "news"
+        },
+        {
+          "url": "https://governor.sc.gov/lieutenant-governor",
+          "title": "SC Governor - Lt. Governor Pamela Evette",
+          "type": "other"
+        },
+        {
+          "url": "https://www.greenvilleonline.com/story/news/politics/2025/07/24/evette-leads-south-carolina-gubernatorial-candidates-in-fundraising/85316804007/",
+          "title": "Evette leads fundraising - Greenville News",
+          "type": "news"
+        },
+        {
+          "url": "https://ballotpedia.org/Pamela_Evette",
+          "title": "Ballotpedia: Pamela Evette",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.live5news.com/2026/04/11/wilson-evette-bring-millions-q1/",
+          "title": "Wilson, Evette bring in millions in Q1",
+          "type": "news"
+        }
+      ],
+      "website": "https://pamelaevette.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Alan Wilson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Alan Wilson has served as South Carolina's Attorney General since 2011, making him the state's longest-serving attorney general. He advanced to the June 23, 2026 Republican runoff for governor against Lieutenant Governor Pamela Evette after finishing second in the June 9 primary with about 26% of the vote. On June 19, President Donald Trump co-endorsed Wilson alongside Evette, and Sen. Tim Scott also endorsed Wilson shortly after. Wilson is a Colonel in the South Carolina Army National Guard and a combat veteran who deployed to Iraq, and has been endorsed by former Republican primary opponents Rep. Nancy Mace, Rep. Ralph Norman, and Sen. Josh Kimbrell.",
+      "summary_sources": [
+        {
+          "url": "https://www.nbcnews.com/politics/2026-election/trump-endorses-second-candidate-south-carolina-governors-race-rcna350925",
+          "type": "news",
+          "title": "Trump endorses a second candidate in the South Carolina governor's race",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:21.540959Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.southcarolinapublicradio.org/sc-news/2026-06-19/trump-co-endorses-alan-wilson-for-governor-after-giving-initial-sole-endorsement-to-pamela-evette",
+          "type": "news",
+          "title": "Trump co-endorses Alan Wilson for governor after giving initial sole endorsement to Pamela Evette",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:21.540964Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.southcarolinapublicradio.org/sc-news/2026-06-16/wilson-evette-prepare-for-a-final-debate-before-runoff-election",
+          "type": "news",
+          "title": "Wilson, Evette prepare for a final debate before runoff election",
+          "description": null,
+          "last_accessed": "2026-06-20T02:27:21.540968Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://gray-whns-prod.gtv-cdn.com/resizer/v2/6AB5LQMHOFC73HD5IN6YO55JN4.png?auth=0850995f8829ac99da0874db6a9b38de26651b9c55a60822531b8c5ea6e37abb&width=800&height=450&smart=true",
+      "issues": {
+        "Immigration": {
+          "issue": null,
+          "stance": "Wilson advocates strong immigration enforcement: deny state benefits to illegal residents, enforce South Carolina's immigration laws, and back state and local cooperation with federal authorities to enforce immigration policy (including programs such as the 28(7)g program). He has noted he is the only candidate in the race who has defended immigration enforcement in court.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wilsonforsc.com/priorities/",
+              "type": "website",
+              "title": "Alan Wilson's Conservative Priorities",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:30.809751Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-alan-wilson/",
+              "type": "news",
+              "title": "SC Governor's Race Candidate Profile: Alan Wilson",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:30.809812Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Alan Wilson's Education plan prioritizes fully funding public schools, expanding school choice to give families more control, improving early childhood literacy, and strengthening technical and vocational education. He also emphasizes empowering parents to participate in their children's education and to oppose what his campaign describes as woke politics in the classroom, and would expand School Resource Officer programs to keep schools safe.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wilsonforsc.com/priorities/",
+              "type": "website",
+              "title": "Alan Wilson's Conservative Priorities",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:30.932896Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Wilson's healthcare platform focuses on expanding rural healthcare access through supporting rural clinics, expanding telemedicine, and providing incentives for medical professionals to serve underserved areas. He has not publicly addressed Medicaid expansion during his gubernatorial campaign; his campaign website and public statements do not include it as a priority.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wilsonforsc.com/priorities/",
+              "type": "website",
+              "title": "Alan Wilson's Conservative Priorities",
+              "description": null,
+              "last_accessed": "2026-06-17T04:03:40.361568Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.greenvilleonline.com/story/news/politics/2026/05/11/alan-wilson-explains-what-sets-him-apart-sc-governors-race/90032053007/",
+              "type": "news",
+              "title": "Alan Wilson explains what sets him apart in SC governor's race",
+              "description": null,
+              "last_accessed": "2026-06-17T04:03:40.361591Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-alan-wilson/",
+              "type": "news",
+              "title": "SC Governor's Race Candidate Profile: Alan Wilson",
+              "description": null,
+              "last_accessed": "2026-06-17T04:03:40.361598Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Public safety and infrastructure: Prioritize restoring law and order with strong support for law enforcement and crack down on fentanyl and violent crime, and modernize transportation infrastructure to reduce congestion and improve mobility in South Carolina communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wilsonforsc.com/priorities/",
+              "type": "website",
+              "title": "Alan Wilson's Conservative Priorities",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.005709Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abcnews4.com/newsletter-daily/alan-wilson-lays-out-priorities-in-bid-for-governor-alongside-running-mate",
+              "type": "news",
+              "title": "Alan Wilson lays out priorities in bid for governor alongside running mate",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.005732Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.greenvilleonline.com/story/news/politics/2026/05/11/alan-wilson-explains-what-sets-him-apart-sc-governors-race/90032053007/",
+              "type": "news",
+              "title": "Alan Wilson explains what sets him apart in the SC governor's race",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.005738Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "As Governor, Alan Wilson will make South Carolina more affordable and pro-growth by cutting taxes and reducing red tape, including eliminating the state income tax. He will also seek to lower property taxes for seniors and veterans and launch a comprehensive audit of state and local governments to root out waste while prioritizing small-business growth and workforce development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wilsonforsc.com/priorities/",
+              "type": "website",
+              "title": "Alan Wilson's Conservative Priorities",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.073453Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Wilson has opposed federal climate regulations and joined lawsuits against California and other states over climate litigation targeting energy companies. He joined a lawsuit challenging Biden's order to consider greenhouse gas costs and another challenging the revocation of the Keystone XL Pipeline permit. He has also sought to toss Charleston's climate liability lawsuit. His campaign emphasizes affordable electricity and opposing ESG mandates.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-joins-alabama-s-19-state-lawsuit-against-california-others-threatening-energy-system/",
+              "type": "government",
+              "title": "AG Wilson joins 19-state lawsuit against California over energy",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.156550Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-continues-fight-against-government-overreach-and-for-affordable-electricity/",
+              "type": "government",
+              "title": "AG Wilson continues fight for affordable electricity",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.156571Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.eenews.net/articles/south-carolina-ag-asks-court-to-toss-charlestons-climate-lawsuit/",
+              "type": "news",
+              "title": "SC AG asks court to toss Charleston's climate lawsuit",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.156578Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Alan Wilson describes himself as firmly pro-life and supports laws defending the unborn. He supported the state's 2023 Fetal Heartbeat and Protection from Abortion Act and joined a 2021 Supreme Court filing calling for the overturn of Roe v. Wade. However, during the 2026 gubernatorial campaign he stated he would veto a bill eliminating abortion exceptions for rape, incest, and fatal fetal anomalies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-applauds-south-carolina-supreme-court-ruling-in-planned-parenthood-case/",
+              "type": "government",
+              "title": "SC AG: Wilson applauds Supreme Court ruling upholding fetal heartbeat law",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.239982Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://scdailygazette.com/2026/04/22/question-about-a-no-exception-abortion-ban-splits-sc-republicans-wanting-to-be-governor/",
+              "type": "news",
+              "title": "Question about a no-exception abortion ban splits SC Republicans",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.240005Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Wilson describes himself as a fierce defender of the Second Amendment. As Attorney General, he has sued to strike down parts of the National Firearms Act, won a lawsuit against the City of Columbia over local gun laws, and defended gun manufacturers from liability lawsuits. He has received NRA endorsements in past elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-defends-the-second-amendment-from-legal-attacks/",
+              "type": "government",
+              "title": "AG Wilson defends Second Amendment from legal attacks",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.314880Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-leads-fight-to-protect-2nd-amendment-in-lawsuit-over-federal-gun-registry/",
+              "type": "government",
+              "title": "AG Wilson leads fight to protect 2nd Amendment",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.314902Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Wilson has combated Hamas-linked financing by requesting financial documents from non-profits potentially linked to Hamas support. He joined Republican attorneys general urging Congress to permanently cut ties with UN aid groups in Gaza, and joined a 25-state friend-of-the-court brief seeking to hold organizations accountable for supporting Hamas. His campaign emphasizes standing with President Trump and the America First agenda on national security issues.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-requests-financial-documents-from-non-profits-potentially-linked-to-support-of-hamas/",
+              "type": "government",
+              "title": "AG Wilson requests financial documents from non-profits potentially linked to Hamas",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.382050Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-condemns-support-for-hamas-terrorists/",
+              "type": "government",
+              "title": "AG Wilson condemns support for Hamas terrorists",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.382071Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://scdailygazette.com/2024/05/09/sc-ag-wilson-among-republicans-urging-congress-to-permanently-cut-ties-to-un-aid-group-in-gaza/",
+              "type": "news",
+              "title": "SC AG Wilson among Republicans urging Congress to cut ties with UN aid group in Gaza",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.382077Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abcnews4.com/news/state/ag-wilson-joins-25-state-effort-to-hold-groups-accountable-for-hamas-support",
+              "type": "news",
+              "title": "AG Wilson joins 25-state effort to hold groups accountable for Hamas support",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.382082Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Wilson has described himself as a defender of religious liberty and conservative values. His campaign materials state he has fought against what he calls the 'Biden transgender agenda' and he opposed same-sex marriage as Attorney General. He supports legislation protecting free speech and religious freedom, and his education platform includes opposing political agendas in classrooms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wilsonforsc.com/priorities/",
+              "type": "website",
+              "title": "Alan Wilson's Conservative Priorities",
+              "description": null,
+              "last_accessed": "2026-06-17T04:03:40.437587Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Wilson has supported legislation (S.28) criminalizing the possession and distribution of AI-generated child sexual abuse material. He also joined a bipartisan coalition of attorneys general opposing a federal proposal that would bar states from enforcing AI regulations, and has called for clearer guidelines regulating AI use in political advertising to combat deepfakes and protect election integrity.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-fights-back-federal-proposal-to-strip-states-of-authority-over-ai/",
+              "type": "government",
+              "title": "AG Wilson fights back federal proposal to strip states of authority over AI",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.458409Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wbtv.com/2026/06/04/south-carolina-attorney-general-alan-wilson-calls-rules-ai-political-ads/",
+              "type": "news",
+              "title": "SC Attorney General Alan Wilson calls for rules on AI political ads",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.458451Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Wilson has supported voter ID requirements, proof of citizenship for voting, and defended President Trump's executive order on election integrity. He joined 20 other states in a Supreme Court brief supporting a Pennsylvania election integrity law and has advocated for clear, consistent national election standards.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-defends-president-trump-s-executive-order-on-election-integrity/",
+              "type": "government",
+              "title": "AG Wilson defends Trump's executive order on election integrity",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.534373Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://sclawyersweekly.com/news/2026/03/18/ag-wilson-supports-election-integrity-law-at-scotus/",
+              "type": "news",
+              "title": "AG Wilson supports election integrity law at SCOTUS",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.534395Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://x.com/AGAlanWilson/status/2034980877806022738",
+              "type": "website",
+              "title": "Wilson on election integrity",
+              "description": null,
+              "last_accessed": "2026-06-17T04:04:31.534401Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
+      "career_history": [
+        {
+          "title": "Attorney General of South Carolina",
+          "organization": "State of South Carolina",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Chief legal officer of the state, currently serving his fourth term. Re-elected in 2010, 2014, 2018, and 2022.",
+          "source": null
+        },
+        {
+          "title": "Assistant Solicitor",
+          "organization": "South Carolina Solicitor's Office",
+          "start_year": 2002,
+          "end_year": 2005,
+          "description": "Served as an assistant prosecutor",
+          "source": null
+        },
+        {
+          "title": "Assistant Attorney General",
+          "organization": "South Carolina Attorney General's Office",
+          "start_year": 2005,
+          "end_year": 2009,
+          "description": "Served under Attorney General Henry McMaster",
+          "source": null
+        },
+        {
+          "title": "Associate Attorney",
+          "organization": "Willoughby & Hoefer, P.A.",
+          "start_year": 2009,
+          "end_year": 2010,
+          "description": "Private law practice in Columbia, South Carolina",
+          "source": null
+        },
+        {
+          "title": "Colonel, Judge Advocate General's Corps",
+          "organization": "South Carolina Army National Guard",
+          "start_year": 1996,
+          "end_year": null,
+          "description": "Active member since 1996; deployed to Iraq during Operation Iraqi Freedom II; awarded Combat Action Badge; graduate of U.S. Army War College",
+          "source": null
+        },
+        {
+          "title": "Law Clerk",
+          "organization": "South Carolina Circuit Court (Judge Marc H. Westbrook)",
+          "start_year": 2002,
+          "end_year": 2002,
+          "description": "Clerked for the late Judge Marc H. Westbrook of the South Carolina Circuit Court after law school.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Francis Marion University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1996,
+          "source": null
+        },
+        {
+          "institution": "University of South Carolina School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": "Has not held legislative office. As South Carolina Attorney General (2011\u2013present), he has led litigation and enforcement actions rather than voting on legislation. He led historic opioid litigation securing a $7.4 billion Purdue/Sackler settlement ($73M for SC) and a $3.1 billion Walmart settlement. He has challenged Obama and Biden administration policies in federal court hundreds of times. Holds the rank of Colonel in the SC Army National Guard JAG Corps. During the 2026 gubernatorial campaign, he stated he would veto a bill eliminating abortion exceptions for rape, incest, and fatal fetal anomalies.",
+      "voting_source_url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-alan-wilson/",
+      "voting_sources": [
+        {
+          "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-alan-wilson/",
+          "type": "news",
+          "title": "SC Governor's Race Candidate Profile: Alan Wilson",
+          "description": null,
+          "last_accessed": "2026-06-17T04:03:40.532714Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.scag.gov/about-the-office/meet-the-attorney-general/",
+          "type": "government",
+          "title": "SC Attorney General - Alan Wilson Biography",
+          "description": null,
+          "last_accessed": "2026-06-17T04:03:40.532738Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.naag.org/attorney-general/alan-wilson/",
+          "type": "website",
+          "title": "Alan Wilson - National Association of Attorneys General",
+          "description": null,
+          "last_accessed": "2026-06-17T04:03:40.532745Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "donor_summary": "Raised approximately $2.9M in total cash contributions through Q1 2026. Finance reports show heavy contributions from the hospitality and resort industry, including Capital Vacations and related LLCs ($3,500 each from multiple entities), Global Travel LLC, and Palmetto Marketing of Myrtle Beach. Also received donations from healthcare/treatment center entities such as Crossroads Treatment Centre. Q1 2026 alone raised $1.04M. Many individual donors report as retirees or are concentrated in the Lexington/Columbia area. Full data via SC Ethics Commission.",
+      "donor_source_url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/finances?personId=5886&candidateFilerId=5886&campaignId=73273&seiId=9969&officeId=73273",
+      "donor_sources": [
+        {
+          "url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/finances?personId=5886&candidateFilerId=5886&campaignId=73273&seiId=9969&officeId=73273",
+          "type": "government",
+          "title": "SC Ethics Finances - Alan Wilson",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.live5news.com/2026/04/11/wilson-evette-bring-millions-q1/",
+          "type": "news",
+          "title": "Wilson, Evette bring in millions in Q1 - Live 5 News",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.live5news.com/2026/01/10/candidates-governor-raise-millions-dollars/",
+          "type": "news",
+          "title": "Evette dominates Q4 campaign finance - Live 5 News",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://abcnews4.com/news/state/alan-wilsons-campaign-reports-record-fundraising-ahead-of-2026-governors-race-pamela-evette-nancy-mace-poll",
+          "type": "news",
+          "title": "Alan Wilson's record fundraising - WCIV",
+          "description": null,
+          "last_accessed": "2026-06-17T03:49:33.004198Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "links": [
+        {
+          "url": "https://www.foxcarolina.com/2026/05/29/sc-governors-race-candidate-profile-alan-wilson/",
+          "title": "FOX Carolina Candidate Profile: Alan Wilson",
+          "type": "news"
+        },
+        {
+          "url": "https://ethicsfiling.sc.gov/public/candidates-public-officials/person/campaign-disclosure-reports/finances?personId=5886&candidateFilerId=5886&campaignId=73273&seiId=9969&officeId=73273",
+          "title": "SC Ethics Finances - Alan Wilson",
+          "type": "other"
+        },
+        {
+          "url": "https://www.scag.gov/about-the-office/meet-the-attorney-general/",
+          "title": "SC Attorney General - Alan Wilson Biography",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Alan_Wilson_(South_Carolina)",
+          "title": "Ballotpedia: Alan Wilson",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.scag.gov/about-the-office/news/attorney-general-alan-wilson-announces-purdue-sackler-7-4-billion-opioid-settlement-goes-into-effect/",
+          "title": "Purdue/Sackler Opioid Settlement - SC AG",
+          "type": "other"
+        },
+        {
+          "url": "https://www.live5news.com/2026/04/11/wilson-evette-bring-millions-q1/",
+          "title": "Wilson, Evette bring in millions in Q1",
+          "type": "news"
+        },
+        {
+          "url": "https://abcnews4.com/news/state/alan-wilsons-campaign-reports-record-fundraising-ahead-of-2026-governors-race-pamela-evette-nancy-mace-poll",
+          "title": "Alan Wilson's record fundraising - WCIV",
+          "type": "news"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Alan_Wilson_(politician)",
+          "title": "Wikipedia: Alan Wilson",
+          "type": "wiki"
+        },
+        {
+          "url": "https://wilsonforsc.com/priorities/",
+          "title": "Wilson's Conservative Priorities",
+          "type": "official"
+        }
+      ],
+      "website": "https://wilsonforsc.com/",
+      "social_media": {
+        "twitter": "https://x.com/AGAlanWilson",
+        "facebook": "https://www.facebook.com/WilsonforSC/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "updated_utc": "2026-06-20T02:56:04.080706+00:00",
+  "generator": [
+    "openai/gpt-5.4"
+  ],
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": [
+      "discovery.metadata",
+      "discovery.roster_sync",
+      "discovery.roster_verify",
+      "issues:Jermaine Johnson:Abortion & Reproductive Health",
+      "issues:Jermaine Johnson:Civil Rights & Equality",
+      "issues:Jermaine Johnson:Climate/Energy",
+      "issues:Jermaine Johnson:Economy",
+      "issues:Jermaine Johnson:Education",
+      "issues:Jermaine Johnson:Election Policy",
+      "issues:Jermaine Johnson:Firearms & Second Amendment",
+      "issues:Jermaine Johnson:Foreign Policy",
+      "issues:Jermaine Johnson:Healthcare",
+      "issues:Jermaine Johnson:Immigration",
+      "issues:Jermaine Johnson:Tech & AI",
+      "iteration:1:Alan Wilson",
+      "iteration:1:Jermaine Johnson",
+      "iteration:1:Pamela Evette",
+      "refinement:Alan Wilson",
+      "refinement:Jermaine Johnson",
+      "refinement:Pamela Evette",
+      "refinement:meta",
+      "issues:Jermaine Johnson:Local Issues",
+      "issues:Pamela Evette:Healthcare",
+      "issues:Pamela Evette:Economy",
+      "issues:Pamela Evette:Climate/Energy",
+      "issues:Pamela Evette:Abortion & Reproductive Health",
+      "issues:Pamela Evette:Immigration",
+      "issues:Pamela Evette:Firearms & Second Amendment",
+      "issues:Pamela Evette:Foreign Policy",
+      "issues:Pamela Evette:Civil Rights & Equality",
+      "issues:Pamela Evette:Education",
+      "issues:Pamela Evette:Tech & AI",
+      "issues:Pamela Evette:Election Policy",
+      "issues:Pamela Evette:Local Issues",
+      "issues:Alan Wilson:Healthcare",
+      "issues:Alan Wilson:Economy",
+      "issues:Alan Wilson:Climate/Energy",
+      "issues:Alan Wilson:Abortion & Reproductive Health",
+      "issues:Alan Wilson:Immigration",
+      "issues:Alan Wilson:Firearms & Second Amendment",
+      "issues:Alan Wilson:Foreign Policy",
+      "issues:Alan Wilson:Civil Rights & Equality",
+      "issues:Alan Wilson:Education",
+      "issues:Alan Wilson:Tech & AI",
+      "issues:Alan Wilson:Election Policy",
+      "issues:Alan Wilson:Local Issues"
+    ]
+  },
+  "polling_note": "New Trafalgar Group poll (June 5-7, 2026) of 1,200 likely Republican primary voters shows Pamela Evette leading with 22.4% and Alan Wilson at 20.7%. Other candidates in the field include Rom Reddy, Ralph Norman, and Nancy Mace. See Spectrum News coverage for full results: https://spectrumlocalnews.com/sc/south-carolina/politics/2026/06/09/south-carolina-primary-poll-results",
+  "polling": [
+    {
+      "pollster": "Trafalgar Group",
+      "date": "2026-06-07",
+      "sample_size": 1200,
+      "matchups": [
+        {
+          "candidates": [
+            "Pamela Evette",
+            "Alan Wilson"
+          ],
+          "percentages": [
+            22.4,
+            20.7
+          ]
+        }
+      ],
+      "source_url": "https://spectrumlocalnews.com/sc/south-carolina/politics/2026/06/09/south-carolina-primary-poll-results"
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/South_Carolina_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+  "register_to_vote_url": "https://scvotes.gov/voters/register-to-vote/",
+  "how_to_vote_url": "https://scvotes.gov/voters/how-to-vote/",
+  "reviews": [
+    {
+      "model": "anthropic/claude-haiku-4.5",
+      "reviewed_at": "2026-06-20T02:37:47.722267Z",
+      "verdict": "approved",
+      "score": 87,
+      "flags": [
+        {
+          "field": "candidates[1].issues.Healthcare.confidence",
+          "concern": "Healthcare confidence is marked 'low' for Pamela Evette with no sources listed, yet the stance field contains a substantive claim ('No public position found'). This is internally consistent but represents a genuine gap in her public record on a major issue.",
+          "suggestion": "This is acceptable as-is; the low confidence and empty sources correctly signal that no public position was found after research. No revision needed.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.confidence",
+          "concern": "Immigration confidence is marked 'low' for Pamela Evette with no sources listed, yet the stance field contains a substantive claim ('No public position found'). This represents a gap in her public record on a significant issue.",
+          "suggestion": "This is acceptable as-is; the low confidence and empty sources correctly signal that no public position was found after research. No revision needed.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Election_Policy.confidence",
+          "concern": "Election Policy confidence is marked 'low' for Pamela Evette with no sources listed. This represents a gap in her public record on a significant issue.",
+          "suggestion": "This is acceptable as-is; the low confidence and empty sources correctly signal that no public position was found after research. No revision needed.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].career_history[0].source",
+          "concern": "Career history for Jermaine Johnson (State Representative, 2021\u2013present) has source: null. While the claim is plausible and consistent with his profile, no URL is provided to verify the specific claim that he 'defeated a 22-year incumbent.'",
+          "suggestion": "Ideally, add a source URL to the SC Legislature or news article documenting Johnson's 2020 election victory and the incumbent's tenure. However, this is a minor gap given that other parts of the profile are well-sourced.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].career_history[0].source",
+          "concern": "Career history for Alan Wilson (Attorney General, 2011\u2013present) has source: null. While the claim is plausible, no URL is provided to verify the specific tenure dates.",
+          "suggestion": "Ideally, add a source URL to the SC Attorney General's office or news article documenting Wilson's election and tenure. However, this is a minor gap given that other parts of the profile are well-sourced.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "Jermaine Johnson's education entries have source: null. While the degrees and institutions are plausible, no URLs are provided to verify them independently.",
+          "suggestion": "Ideally, add source URLs (e.g., LinkedIn, official biography, news profiles) to verify the degrees and institutions. However, this is a minor gap given that other parts of the profile are well-sourced.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].education",
+          "concern": "Alan Wilson's education entries have source: null. While the degrees and institutions are plausible, no URLs are provided to verify them independently.",
+          "suggestion": "Ideally, add source URLs (e.g., official biography, news profiles) to verify the degrees and institutions. However, this is a minor gap given that other parts of the profile are well-sourced.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-sourced, comprehensive profile of the 2026 South Carolina gubernatorial race with three candidates. Strengths include: (1) Strong sourcing across all 12 policy issues for Johnson and Wilson, with high-confidence citations from official campaign sites, government records, and credible news outlets; (2) Accurate and detailed career histories for all three candidates, with specific dates and accomplishments; (3) Neutral, consistent terminology across candidates\u2014stances are described using each candidate's own framing (e.g., Johnson 'supports protecting women's reproductive rights' vs. Evette 'anti-abortion'), avoiding loaded language; (4) Transparent documentation of low-confidence positions (e.g., Foreign Policy for Johnson, Healthcare for Evette) with explicit notation of search attempts; (5) Balanced issue coverage across all three candidates with comparable depth. Minor gaps exist in Evette's Healthcare and Immigration positions, but these reflect genuine absence of public statements rather than research failure. Finance data is current and well-sourced. Overall, the profile demonstrates strong epistemological discipline and fairness."
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "reviewed_at": "2026-06-20T02:37:22.358753Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.stance",
+          "concern": "The profile uses the term 'woke' in quotes to describe the candidate's own framing. While accurate to the source, ensure this remains clearly attributed to the candidate to avoid the appearance of the profile adopting the terminology.",
+          "suggestion": "The current phrasing 'arguing they promote a \"woke\" agenda' is acceptable, but ensure consistent attribution throughout the section.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Civil Rights & Equality.stance",
+          "concern": "The profile uses the phrase 'Biden transgender agenda'. Similar to the above, this is attributed to the candidate's campaign materials, which is appropriate for a neutral profile.",
+          "suggestion": "Maintain clear attribution to the candidate's campaign materials.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Foreign Policy.stance",
+          "concern": "The profile correctly identifies that no public position was found. This is a good-faith effort and does not require further research.",
+          "suggestion": "None.",
+          "severity": "info"
+        },
+        {
+          "field": "polling_note",
+          "concern": "The polling note mentions candidates (Rom Reddy, Ralph Norman, and Nancy Mace) who are not listed in the 'candidates' array of the JSON. While this reflects the broader field, it may cause minor confusion for users expecting a complete list of all mentioned individuals.",
+          "suggestion": "Consider adding a brief note in the description or summary clarifying that the candidate list is limited to the primary/runoff contenders.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is exceptionally well-researched, providing comprehensive and transparent sourcing for all three candidates. It maintains a neutral, balanced tone across the board, even when describing contentious political issues like DEI, abortion, and election integrity. The inclusion of specific legislative records and campaign finance data is excellent, and the profile effectively handles the complexity of the ongoing Republican runoff."
+    },
+    {
+      "model": "x-ai/grok-4.3",
+      "reviewed_at": "2026-06-20T02:37:25.706320Z",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [],
+      "summary": "Strong sourcing across all 12 issues with high-confidence citations from official campaign sites (johnsonforsc.com, pamelaevette.com, wilsonforsc.com) and credible news outlets. Candidate backgrounds, donor summaries, and voting records are internally consistent with the cited URLs. Neutral language maintained throughout with no asymmetric framing or loaded terminology."
+    },
+    {
+      "model": "automated-link-validator",
+      "reviewed_at": "2026-06-20T02:37:54.091848Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[1].issues.Economy.sources[2].url",
+          "concern": "Cited source URL (https://southcarolinapublicradio.org/sc-news/2025-07-31/race-to-slash-sc-income-tax-becomes-focus-of-2026-gov-runs) returned a dead link: Request failed: All connection attempts failed.",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Civil Rights & Equality.sources[0].url",
+          "concern": "Cited source URL (https://www.thestate.com/news/politics-government/article315578324.html) returned a dead link: Request failed: .",
+          "suggestion": "Verify the URL, find a replacement source, and update the stance.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Scanned 94 source links. Found 2 dead link(s)."
+    },
+    {
+      "model": "automated-profile-quality",
+      "reviewed_at": "2026-06-20T02:37:54.097912Z",
+      "verdict": "flagged",
+      "score": null,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Abortion & Reproductive Health.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Abortion & Reproductive Health.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Education.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Election Policy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Civil Rights & Equality.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Firearms & Second Amendment.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Immigration.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Abortion & Reproductive Health.sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Tech & AI.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Healthcare.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[0].voting_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[3]",
+          "concern": "Duplicate source URL also appears at candidates[0].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[0].voting_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].links[5]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Abortion & Reproductive Health.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].voting_sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[0].issues.Abortion & Reproductive Health.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[4]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[2].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].links[6]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[4].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[4].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[3].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Abortion & Reproductive Health.sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].issues.Abortion & Reproductive Health.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Civil Rights & Equality.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Economy.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Education.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Local Issues.sources[2]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Healthcare.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[1]",
+          "concern": "Duplicate source URL also appears at candidates[2].donor_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[2]",
+          "concern": "Duplicate source URL also appears at candidates[2].voting_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[5]",
+          "concern": "Duplicate source URL also appears at candidates[1].donor_sources[4].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[6]",
+          "concern": "Duplicate source URL also appears at candidates[2].donor_sources[3].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].links[8]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].summary_sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[0].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].summary_sources[1]",
+          "concern": "Duplicate source URL also appears at candidates[1].summary_sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].voting_sources[0]",
+          "concern": "Duplicate source URL also appears at candidates[2].issues.Immigration.sources[1].",
+          "suggestion": "Remove the redundant source entry.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Healthcare.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Immigration.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Foreign Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Election Policy.sources",
+          "concern": "Substantive issue stance has no supporting sources.",
+          "suggestion": "Add a source or record that no public position was found.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "Found 45 profile quality issue(s)."
+    }
+  ],
+  "validation_grade": {
+    "grade": "A",
+    "score": 90,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 90/100."
+  },
+  "schema_version": "0.3",
+  "agent_metrics": {
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4883,
+    "completion_tokens": 252,
+    "total_tokens": 5135,
+    "cost_usd": 0.0113795,
+    "cost_source": "provider",
+    "estimated_usd": 0.015987,
+    "model_breakdown": {
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4883,
+        "completion_tokens": 252
+      }
+    },
+    "duration_s": 10.0,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4104,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0039,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling is provided, and the only numeric poll is a Republican primary poll that does not inform the November head-to-head directly. Still, the available race data strongly favors the eventual Republican nominee: South Carolina is described as a deep-red state that backed Donald Trump by nearly 18 points in 2024, Republicans hold the governorship, and Democrats have not won a South Carolina gubernatorial race since 1998. The Democratic nominee, Jermaine Johnson, appears substantially less funded and lower-profile statewide than either major Republican contender. Because the Republican nominee is not yet determined and there is no general-election polling, confidence is medium rather than high.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T02:56:02.880557Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://spectrumlocalnews.com/sc/south-carolina/politics/2026/06/09/south-carolina-primary-poll-results"
+    ]
+  }
+}

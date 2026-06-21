@@ -478,7 +478,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:14:11.554529+00:00",
+  "updated_utc": "2026-06-20T15:30:57.505787+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -492,7 +492,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Florida's_13th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -500,34 +500,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 187162,
-    "completion_tokens": 8960,
-    "total_tokens": 196122,
-    "cost_usd": 0.069083564,
+    "prompt_tokens": 13485,
+    "completion_tokens": 1686,
+    "total_tokens": 15171,
+    "cost_usd": 0.0016519859999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.062574,
+    "estimated_usd": 0.001517,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 164384,
-        "completion_tokens": 4047
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 22778,
-        "completion_tokens": 4913
+        "prompt_tokens": 13485,
+        "completion_tokens": 1686
       }
     },
-    "duration_s": 318.6,
-    "serper_calls": 22,
-    "context_requests": 15,
-    "max_estimated_context_tokens": 29556,
+    "duration_s": 32.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10942,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0282,
-    "context_deduplicated_results": 77,
+    "max_context_utilization": 0.0104,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 3,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Anna Paulina Luna",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.7,
+    "party_probabilities": {
+      "Republican": 0.7,
+      "Democratic": 0.3
+    },
+    "margin_estimate": 5.0,
+    "rating": "lean_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race, so the forecast rests entirely on structural indicators. Republican incumbent Anna Paulina Luna is seeking a third term in a district with an R+5 partisan lean and has raised over $550K, suggesting strong donor confidence. However, Democrats view FL-13 as a top pickup opportunity and have a competitive five-candidate primary field — including retired Brigadier General Leela Gray with EMILY's List backing — which injects meaningful uncertainty. The August 18 primary outcome will significantly shape the general election picture. Until a Democratic nominee is selected and/or general-election polling becomes available, the incumbent Republican is the informational favorite given the district's modest GOP lean and Luna's two prior wins, but confidence is low due to the complete absence of direct voter measurement data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:46.614735Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

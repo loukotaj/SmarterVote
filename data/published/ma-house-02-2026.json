@@ -119,7 +119,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:52:22.911903+00:00",
+  "updated_utc": "2026-06-20T15:41:52.609590+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -133,18 +133,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 228017,
-    "completion_tokens": 5111,
-    "total_tokens": 233128,
-    "cost_usd": 0.014910942,
+    "prompt_tokens": 9496,
+    "completion_tokens": 1839,
+    "total_tokens": 11335,
+    "cost_usd": 0.0012311479999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.023347,
+    "estimated_usd": 0.001186,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 228017,
-        "completion_tokens": 5111
+        "prompt_tokens": 9496,
+        "completion_tokens": 1839
       }
     },
-    "duration_s": 130.2
+    "duration_s": 29.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5422,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0052,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "James P. McGovern",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.99,
+    "party_probabilities": {
+      "Democratic": 0.99,
+      "Republican": 0.01
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which tempers confidence. However, non-polling signals are extraordinarily one-sided: incumbent Jim McGovern is a 30-year incumbent and ranking member of the House Rules Committee; the district has a D+13 Cook PVI and is rated 'Solid D' by all major nonpartisan forecasters (Cook, Inside Elections, Sabato's Crystal Ball); and critically, no Republican candidates filed for the primary ballot, indicating no organized major-party opposition. Given these structural factors, the Democratic hold is virtually certain, with any Republican or third-party challenge facing an insurmountable disadvantage in this heavily Democratic district.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:47.147475Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -14,7 +14,7 @@
       "name": "James Comer",
       "party": "Republican Party",
       "incumbent": true,
-      "summary": "James Comer is the incumbent U.S. Representative for Kentucky's 1st Congressional District, first elected in 2016. He serves as Chairman of the House Committee on Oversight and Accountability and previously served as Kentucky's Agriculture Commissioner (2012\u20132016) and in the Kentucky House of Representatives (2001\u20132012). He holds a BS in Agriculture from Western Kentucky University and operates a family farm in Monroe County.",
+      "summary": "James Comer is the incumbent U.S. Representative for Kentucky's 1st Congressional District, first elected in 2016. He serves as Chairman of the House Committee on Oversight and Accountability and previously served as Kentucky's Agriculture Commissioner (2012–2016) and in the Kentucky House of Representatives (2001–2012). He holds a BS in Agriculture from Western Kentucky University and operates a family farm in Monroe County.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/James_Comer_Jr.",
@@ -203,7 +203,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_1st_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:18:09.233013+00:00",
+  "updated_utc": "2026-06-20T15:23:29.648608+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -217,18 +217,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 282995,
-    "completion_tokens": 7936,
-    "total_tokens": 290931,
-    "cost_usd": 0.018126853999999998,
+    "prompt_tokens": 9025,
+    "completion_tokens": 1388,
+    "total_tokens": 10413,
+    "cost_usd": 0.001096594,
     "cost_source": "provider",
-    "estimated_usd": 0.029289,
+    "estimated_usd": 0.001062,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 282995,
-        "completion_tokens": 7936
+        "prompt_tokens": 9025,
+        "completion_tokens": 1388
       }
     },
-    "duration_s": 143.3
+    "duration_s": 23.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6313,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "James Comer",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available for this race. However, structural indicators strongly favor Republicans: incumbent Rep. James Comer has held the seat since 2016 and chairs the House Oversight Committee. The district has a Cook PVI of R+23 and is rated \"Solid Republican\" by the Cook Political Report. Democratic challenger John \"Drew\" Williams previously lost a state legislative race in 2018 and faces extremely long odds in this heavily Republican district. Given the absence of polling, the forecast relies on incumbency, the district's strong partisan lean, and consensus race ratings. These factors point to a safe Republican hold, though the lack of public polls introduces some uncertainty.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:20.875647Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

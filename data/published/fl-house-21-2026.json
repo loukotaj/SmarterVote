@@ -267,7 +267,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:24:00.113698+00:00",
+  "updated_utc": "2026-06-20T15:39:28.982725+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -281,7 +281,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Florida's_21st_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -289,30 +289,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 242330,
-    "completion_tokens": 7416,
-    "total_tokens": 249746,
-    "cost_usd": 0.043423268,
+    "prompt_tokens": 12268,
+    "completion_tokens": 1225,
+    "total_tokens": 13493,
+    "cost_usd": 0.0013824599999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.044202,
+    "estimated_usd": 0.001325,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 242330,
-        "completion_tokens": 7416
+        "prompt_tokens": 12268,
+        "completion_tokens": 1225
       }
     },
-    "duration_s": 171.7,
-    "serper_calls": 19,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 52674,
+    "duration_s": 21.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7200,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0502,
-    "context_deduplicated_results": 76,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brian Mast",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Republican": 0.84,
+      "Democratic": 0.16
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_r",
+    "confidence": "low",
+    "rationale": "No polling data exists for this race. The forecast relies entirely on structural factors: incumbent Brian Mast has held the seat since 2016, serves as Chair of the House Foreign Affairs Committee (substantial name-recognition and fundraising advantages), and the district leans Republican overall. The 2026 redistricting made the district marginally more competitive, but not enough to offset Mast's incumbency. Democrats face a contested primary between James Martin and Bernard Taylor with no clear frontrunner evident in the data, and no public polling or comparative fundraising data is available to gauge challenger strength. These factors point to a clear Republican advantage (consistent with a 'likely_r' rating at ~84% probability), but the complete absence of polling data keeps confidence low.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:22.832461Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

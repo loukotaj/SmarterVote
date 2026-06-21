@@ -292,7 +292,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/South_Carolina%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:22:44.125906+00:00",
+  "updated_utc": "2026-06-20T15:40:39.128423+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -306,18 +306,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 320296,
-    "completion_tokens": 8145,
-    "total_tokens": 328441,
-    "cost_usd": 0.020695124000000002,
+    "prompt_tokens": 13391,
+    "completion_tokens": 1613,
+    "total_tokens": 15004,
+    "cost_usd": 0.0016284660000000003,
     "cost_source": "provider",
-    "estimated_usd": 0.032985,
+    "estimated_usd": 0.001496,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 320296,
-        "completion_tokens": 8145
+        "prompt_tokens": 13391,
+        "completion_tokens": 1613
       }
     },
-    "duration_s": 231.8
+    "duration_s": 26.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7741,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0074,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Wes Climer",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Other": 0.01
+    },
+    "margin_estimate": 26.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race as of mid-June 2026. The forecast therefore relies on structural factors: the district is a Republican stronghold held by the GOP since 2010, outgoing Rep. Ralph Norman won 63.5% in 2024, and nonpartisan forecasters (e.g., Cook Political Report) rate the seat as Solidly Republican. Republican nominee Wes Climer is a sitting state senator who faced no primary opposition. Democratic nominee Mallory Dittmer won a competitive primary with 55.8%, but the district's heavy Republican lean gives Climer an overwhelming advantage. The open-seat status and absence of polling reduce confidence below high, but the structural data strongly supports a safe Republican hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:34.380955Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

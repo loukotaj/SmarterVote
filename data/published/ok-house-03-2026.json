@@ -385,7 +385,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oklahoma%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:33:47.895566+00:00",
+  "updated_utc": "2026-06-20T15:38:52.046463+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -399,18 +399,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 329535,
-    "completion_tokens": 9881,
-    "total_tokens": 339416,
-    "cost_usd": 0.021431618,
+    "prompt_tokens": 14647,
+    "completion_tokens": 1797,
+    "total_tokens": 16444,
+    "cost_usd": 0.0017277140000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.034231,
+    "estimated_usd": 0.001642,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 329535,
-        "completion_tokens": 9881
+        "prompt_tokens": 14647,
+        "completion_tokens": 1797
       }
     },
-    "duration_s": 135.1
+    "duration_s": 30.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8585,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0082,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Frank D. Lucas",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.02
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race as of June 2026, which necessarily limits confidence. However, the structural fundamentals are overwhelming: Oklahoma's 3rd District carries a Cook PVI of R+23, making it one of the most Republican districts nationally. Donald Trump received 72% of the district's vote in 2024. Incumbent Frank Lucas has held the seat since 1994 and has not faced a competitive general election in decades. Cook Political Report rates the seat as 'Solid R.' The Democratic nominee, whether Suzie Byrd or Jules Roberson after the primary, will face an extreme uphill climb in a district this heavily Republican. While the incumbent is being primaried by Wade Burleson for the second cycle, the general election remains safely Republican regardless of the primary outcome.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:45.463843Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://ballotpedia.org/Oklahoma%27s_3rd_Congressional_District_election,_2026"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

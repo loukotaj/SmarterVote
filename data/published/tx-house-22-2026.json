@@ -6,7 +6,7 @@
   "state": "Texas",
   "district": "22nd Congressional District",
   "election_date": "2026-11-03",
-  "description": "Texas's 22nd Congressional District is an open-seat contest following the retirement of incumbent Republican Rep. Troy Nehls, who declined to seek re-election in 2026. The district, which covers portions of Fort Bend, Brazoria, and Harris counties south of Houston, is rated 'Solidly Republican' by the Cook Political Report. The general election pits Republican nominee Trever Nehls\u2014Troy Nehls' identical twin brother and a retired Army colonel\u2014against Democratic nominee Marquette Greene-Scott, an attorney, former teacher, and Mayor Pro Tem of Iowa Colony who previously challenged Troy Nehls in 2024. The race will determine whether the seat remains in GOP hands or flips amid a competitive open-seat environment.",
+  "description": "Texas's 22nd Congressional District is an open-seat contest following the retirement of incumbent Republican Rep. Troy Nehls, who declined to seek re-election in 2026. The district, which covers portions of Fort Bend, Brazoria, and Harris counties south of Houston, is rated 'Solidly Republican' by the Cook Political Report. The general election pits Republican nominee Trever Nehls—Troy Nehls' identical twin brother and a retired Army colonel—against Democratic nominee Marquette Greene-Scott, an attorney, former teacher, and Mayor Pro Tem of Iowa Colony who previously challenged Troy Nehls in 2024. The race will determine whether the seat remains in GOP hands or flips amid a competitive open-seat environment.",
   "polling": [],
   "polling_note": "No public opinion polls were found specifically for the Texas 22nd Congressional District general election as of June 2026.",
   "candidates": [
@@ -248,7 +248,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_22nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:20:10.523279+00:00",
+  "updated_utc": "2026-06-20T15:31:26.651878+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -262,18 +262,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 201049,
-    "completion_tokens": 6009,
-    "total_tokens": 207058,
-    "cost_usd": 0.01539935,
+    "prompt_tokens": 12259,
+    "completion_tokens": 1559,
+    "total_tokens": 13818,
+    "cost_usd": 0.001447042,
     "cost_source": "provider",
-    "estimated_usd": 0.020881,
+    "estimated_usd": 0.001384,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 201049,
-        "completion_tokens": 6009
+        "prompt_tokens": 12259,
+        "completion_tokens": 1559
       }
     },
-    "duration_s": 119.0
+    "duration_s": 28.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7148,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0068,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Trever Nehls",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.05
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific general-election polling exists for TX-22 as of June 2026, so this forecast relies on district fundamentals and candidate context. The Cook Political Report rates this district 'Solidly Republican,' and the previous matchup (2024) resulted in a 62%-38% GOP victory—a 24-point margin. The open seat features Republican nominee Trever Nehls, the identical twin brother of retiring Rep. Troy Nehls, providing strong name recognition and continuity. Democratic nominee Marquette Greene-Scott is a credible candidate with local elected experience and has run this district before, but the Republican baseline remains overwhelming in this district. The absence of polling limits confidence to medium rather than high, but the available structural evidence points to a safe Republican hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:21.049487Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

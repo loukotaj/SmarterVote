@@ -55,7 +55,7 @@
       "career_history": [
         {
           "title": "United States Representative",
-          "organization": "U.S. House of Representatives \u2014 California's 37th District",
+          "organization": "U.S. House of Representatives — California's 37th District",
           "start_year": 2023,
           "end_year": null,
           "description": "Incumbent representing CA-37; serves on multiple committees",
@@ -63,7 +63,7 @@
         },
         {
           "title": "California State Senator",
-          "organization": "California State Senate \u2014 30th District",
+          "organization": "California State Senate — 30th District",
           "start_year": 2021,
           "end_year": 2022,
           "description": "Appointed and then elected to fill vacancy; served until election to Congress",
@@ -71,7 +71,7 @@
         },
         {
           "title": "California State Assemblymember",
-          "organization": "California State Assembly \u2014 54th District",
+          "organization": "California State Assembly — 54th District",
           "start_year": 2018,
           "end_year": 2021,
           "description": "Won special election and subsequently re-elected; focused on racial equity and criminal justice reform",
@@ -96,7 +96,7 @@
       ],
       "education": [
         {
-          "institution": "Carnegie Mellon University \u2014 Heinz College",
+          "institution": "Carnegie Mellon University — Heinz College",
           "degree": "Master of Arts",
           "field": "Arts Management and Public Policy",
           "year": null,
@@ -212,7 +212,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_37th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:36:49.115913+00:00",
+  "updated_utc": "2026-06-20T15:35:12.149957+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -226,18 +226,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 231244,
-    "completion_tokens": 5804,
-    "total_tokens": 237048,
-    "cost_usd": 0.017389768,
+    "prompt_tokens": 17243,
+    "completion_tokens": 2449,
+    "total_tokens": 19692,
+    "cost_usd": 0.002169818,
     "cost_source": "provider",
-    "estimated_usd": 0.023799,
+    "estimated_usd": 0.001993,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 231244,
-        "completion_tokens": 5804
+        "prompt_tokens": 17243,
+        "completion_tokens": 2449
       }
     },
-    "duration_s": 103.8
+    "duration_s": 43.2,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 7564,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sydney Kamlager-Dove",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Democratic": 1.0,
+      "Republican": 0.0,
+      "Independent": 0.0,
+      "Other": 0.0
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "A Democratic winner is absolutely certain because both general election candidates are Democrats under California's top-two primary system (Democratic party probability = 1.0). Within that same-party contest, incumbent Sydney Kamlager-Dove is strongly favored over first-time candidate Samantha Mota based on incumbency advantage, prior electoral success in this seat (since 2023), and a far more extensive elected-office resume (State Senate, State Assembly, community college board) compared to Mota's municipal commission background. However, no public polling exists for this matchup, and no fundraising data is available to independently verify candidate strength, warranting medium confidence rather than high. The district's D+34 Cook PVI reinforces that the seat is safely Democratic regardless of which Democrat prevails.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:03.536427Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

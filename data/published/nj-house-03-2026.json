@@ -91,7 +91,7 @@
           "source": null
         },
         {
-          "institution": "Rutgers School of Law\u2014Newark",
+          "institution": "Rutgers School of Law—Newark",
           "degree": "Juris Doctor",
           "field": "Law",
           "year": null,
@@ -234,7 +234,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:43:27.751868+00:00",
+  "updated_utc": "2026-06-20T15:26:06.316503+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -248,18 +248,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 258568,
-    "completion_tokens": 7367,
-    "total_tokens": 265935,
-    "cost_usd": 0.021472108000000004,
+    "prompt_tokens": 11784,
+    "completion_tokens": 1576,
+    "total_tokens": 13360,
+    "cost_usd": 0.0014038240000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.026784,
+    "estimated_usd": 0.001344,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 258568,
-        "completion_tokens": 7367
+        "prompt_tokens": 11784,
+        "completion_tokens": 1576
       }
     },
-    "duration_s": 138.4
+    "duration_s": 26.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6940,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Herb Conaway",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.05
+    },
+    "margin_estimate": 9.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available for this race. The forecast relies entirely on structural factors: a first-term Democratic incumbent (Herb Conaway) in a D+5 PVI district that voted for Kamala Harris by 8 points in 2024. Cook Political Report rates the race 'Solid D.' While the challenger Michael McGuire is a credible Marine Corps veteran and attorney who won the GOP primary on June 2, 2026, the district's Democratic lean and incumbency advantage point to a strong Democratic advantage. Confidence is medium due to the absence of direct polling and Conaway being a first-term incumbent, but the structural fundamentals are clear enough for a safe Democratic rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:01.711576Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

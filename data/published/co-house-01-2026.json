@@ -491,7 +491,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:16:25.931341+00:00",
+  "updated_utc": "2026-06-20T15:25:22.086172+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -505,18 +505,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 196156,
-    "completion_tokens": 12388,
-    "total_tokens": 208544,
-    "cost_usd": 0.015840648,
+    "prompt_tokens": 5390,
+    "completion_tokens": 1066,
+    "total_tokens": 6456,
+    "cost_usd": 0.000617348,
     "cost_source": "provider",
-    "estimated_usd": 0.021651,
+    "estimated_usd": 0.000677,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 196156,
-        "completion_tokens": 12388
+        "prompt_tokens": 5390,
+        "completion_tokens": 1066
       }
     },
-    "duration_s": 194.3
+    "duration_s": 17.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3851,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0037,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Diana DeGette",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Libertarian": 0.005,
+      "Unity": 0.005
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No general-election polls are available for this race; the forecast relies entirely on structural indicators. Colorado's 1st District covers almost all of Denver and is rated Safe/Solid Democratic by major nonpartisan forecasters per the race description. Democrats have held this seat continuously since 1997, and the incumbent Diana DeGette has been in office since 1996. The Republican nominee (Christy Peterson) is running unopposed in her primary but faces a district with a strong Democratic lean. Minor-party candidates (Libertarian Chad Humphrey, Unity's Critter Milton) have no demonstrated path to winning. The more competitive race is the Democratic primary (June 30), but regardless of whether DeGette prevails or a challenger emerges, the Democratic nominee is heavily favored in November. Confidence is medium because zero general-election polls were provided, so the forecast rests on district partisanship, incumbency, and the race description rather than direct polling measurement.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:18.552151Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

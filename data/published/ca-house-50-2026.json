@@ -225,7 +225,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_50th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:26:33.677508+00:00",
+  "updated_utc": "2026-06-20T15:33:46.423850+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -239,18 +239,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 135603,
-    "completion_tokens": 5982,
-    "total_tokens": 141585,
-    "cost_usd": 0.011845757999999998,
+    "prompt_tokens": 11050,
+    "completion_tokens": 1704,
+    "total_tokens": 12754,
+    "cost_usd": 0.0013569800000000003,
     "cost_source": "provider",
-    "estimated_usd": 0.014462,
+    "estimated_usd": 0.001301,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 135603,
-        "completion_tokens": 5982
+        "prompt_tokens": 11050,
+        "completion_tokens": 1704
       }
     },
-    "duration_s": 123.2
+    "duration_s": 26.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6372,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Scott Peters",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public general-election polling was found, so this forecast rests entirely on non-polling fundamentals. Scott Peters is a seven-term Democratic incumbent in a district where registered Democrats outnumber Republicans by nearly 2-to-1. Cook Political Report rated the race 'Solid Democratic' before the June 2 primary. The Republican challenger, Steve Cohen, is a former TV news director and first-time candidate with no elected office experience. These factors combine to indicate an overwhelming Democratic advantage. Confidence remains medium rather than high due to the complete absence of published general-election matchup polls, which introduces more uncertainty than a polled race would carry.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:43.084325Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

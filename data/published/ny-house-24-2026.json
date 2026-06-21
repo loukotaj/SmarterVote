@@ -506,7 +506,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_24th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:17:58.480904+00:00",
+  "updated_utc": "2026-06-20T15:28:54.786634+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -520,18 +520,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 228892,
-    "completion_tokens": 10390,
-    "total_tokens": 239282,
-    "cost_usd": 0.016959888,
+    "prompt_tokens": 16940,
+    "completion_tokens": 2736,
+    "total_tokens": 19676,
+    "cost_usd": 0.002136472,
     "cost_source": "provider",
-    "estimated_usd": 0.024468,
+    "estimated_usd": 0.002017,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 228892,
-        "completion_tokens": 10390
+        "prompt_tokens": 16940,
+        "completion_tokens": 2736
       }
     },
-    "duration_s": 132.0
+    "duration_s": 38.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10158,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0097,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Claudia Tenney",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.9,
+    "party_probabilities": {
+      "Republican": 0.9,
+      "Democratic": 0.08,
+      "Independent": 0.02
+    },
+    "margin_estimate": 18.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No independent scientific polling exists for this race; the forecast rests entirely on race fundamentals. NY-24 is described as reliably Republican, and incumbent Claudia Tenney benefits from incumbency, uncontested GOP primary status (no primary challenger), and a fractured opposition field. The Democratic primary is still pending (scheduled June 23, 2026), preventing early general-election consolidation for the challenger. Three independent candidates (Todd Sloan/Upstate Party, Tony Macula, Ken Estes) are likely to further split the anti-Tenney vote. The district's structural Republican lean and Tenney's advantages point to a clear Republican advantage. However, with zero public polls and the Democratic nominee still unsettled, confidence is medium and the rating remains in likely_r rather than safe_r territory.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:47.245949Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -118,7 +118,7 @@
         {
           "url": "https://www.votejustinearly.com/about",
           "type": "website",
-          "title": "Meet Justin \u2014 Justin Early for Congress",
+          "title": "Meet Justin — Justin Early for Congress",
           "description": null,
           "last_accessed": "2026-06-13T22:00:00Z",
           "published_at": null,
@@ -205,7 +205,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_31st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:37:54.052160+00:00",
+  "updated_utc": "2026-06-20T15:33:47.939132+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -219,18 +219,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 208700,
-    "completion_tokens": 6722,
-    "total_tokens": 215422,
-    "cost_usd": 0.012065664,
+    "prompt_tokens": 11203,
+    "completion_tokens": 1640,
+    "total_tokens": 12843,
+    "cost_usd": 0.001419334,
     "cost_source": "provider",
-    "estimated_usd": 0.02177,
+    "estimated_usd": 0.001303,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 208700,
-        "completion_tokens": 6722
+        "prompt_tokens": 11203,
+        "completion_tokens": 1640
       }
     },
-    "duration_s": 133.1
+    "duration_s": 35.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6514,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "John Carter",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist in the provided race data. The forecast is based solely on structural factors: Cook Political Report rates the race Solid Republican, the district has a Partisan Voting Index of R+11, and incumbent John Carter has held the seat for 24 years (since the district's creation in 2003). Carter won a crowded primary with nearly 60% of the vote, indicating durable base support. Democrat Justin Early is a credible challenger (Army veteran, cybersecurity professional) and won his primary with 57.6%, but faces steep structural headwinds in a district that has not elected a Democrat to Congress. The incumbent's age (84) introduces some uncertainty not captured by fundamentals alone, but absent any polling or race-specific evidence of vulnerability, the district's Republican lean and long incumbency make a GOP hold overwhelming. Confidence is medium rather than high due to zero public polling and the unusual age factor.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:42.186296Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

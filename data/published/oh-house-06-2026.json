@@ -216,7 +216,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:45:47.340250+00:00",
+  "updated_utc": "2026-06-20T15:38:51.259402+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -230,18 +230,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 350420,
-    "completion_tokens": 6956,
-    "total_tokens": 357376,
-    "cost_usd": 0.025351128,
+    "prompt_tokens": 19249,
+    "completion_tokens": 2163,
+    "total_tokens": 21412,
+    "cost_usd": 0.00226043,
     "cost_source": "provider",
-    "estimated_usd": 0.035705,
+    "estimated_usd": 0.002122,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 350420,
-        "completion_tokens": 6956
+        "prompt_tokens": 19249,
+        "completion_tokens": 2163
       }
     },
-    "duration_s": 125.7
+    "duration_s": 39.1,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 10209,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0097,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Michael Rulli",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race, so the forecast relies entirely on non-polling indicators, which warrants medium confidence. The available race data strongly favors Republicans: Cook Political Report rates Ohio's 6th District as Solidly Republican; incumbent Michael Rulli won both the June 2024 special election and the November 2024 general election; and Democratic challenger Elizabeth Kirtley is a first-time candidate who won a six-candidate primary with just 31.5% of the vote. The district's entrenched partisan lean, combined with incumbency and the challenger's lack of electoral track record, supports a Safe Republican rating. However, the absence of any polling data introduces meaningful uncertainty about the true state of the race, preventing a high confidence assessment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:42.600401Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

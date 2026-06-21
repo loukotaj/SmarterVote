@@ -285,7 +285,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:43:35.019243+00:00",
+  "updated_utc": "2026-06-20T15:29:24.969749+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -299,18 +299,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 245203,
-    "completion_tokens": 6063,
-    "total_tokens": 251266,
-    "cost_usd": 0.02094509,
+    "prompt_tokens": 10113,
+    "completion_tokens": 1105,
+    "total_tokens": 11218,
+    "cost_usd": 0.001087846,
     "cost_source": "provider",
-    "estimated_usd": 0.025218,
+    "estimated_usd": 0.001109,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 245203,
-        "completion_tokens": 6063
+        "prompt_tokens": 10113,
+        "completion_tokens": 1105
       }
     },
-    "duration_s": 134.7
+    "duration_s": 23.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7548,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Bill Keating",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race as of mid-2026, so the forecast relies on structural factors. The Cook Political Report rates the district as Solid Democratic. Incumbent Bill Keating has held the seat since 2010 and serves on key committees (Foreign Affairs, Armed Services). While this is considered the least liberal Democratic-held district in Massachusetts, the Democratic lean remains substantial. The Democratic primary challenge from Craig Swallow introduces some nomination uncertainty but does not materially affect the general-election outlook. Republican Tyler MacAllister is running but faces long odds in a heavily Democratic district. Without polling, the safe D rating reflects institutional and historical advantages but carries medium confidence due to the absence of direct voter-intent data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:15.557593Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

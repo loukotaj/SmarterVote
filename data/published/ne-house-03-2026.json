@@ -128,7 +128,7 @@
         {
           "url": "https://www.beckystille2026.com/about",
           "type": "website",
-          "title": "About \u2014 BeckyStille2026.com",
+          "title": "About — BeckyStille2026.com",
           "description": null,
           "last_accessed": "2026-06-08T14:00:00Z",
           "published_at": null,
@@ -255,7 +255,7 @@
         {
           "url": "https://www.markfornebraska.org/press",
           "type": "website",
-          "title": "Press \u2014 Mark for Nebraska",
+          "title": "Press — Mark for Nebraska",
           "description": null,
           "last_accessed": "2026-06-08T14:00:00Z",
           "published_at": null,
@@ -401,7 +401,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Nebraska%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:19:15.426563+00:00",
+  "updated_utc": "2026-06-20T15:26:08.373463+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -415,18 +415,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 279790,
-    "completion_tokens": 9337,
-    "total_tokens": 289127,
-    "cost_usd": 0.018716352,
+    "prompt_tokens": 8385,
+    "completion_tokens": 1852,
+    "total_tokens": 10237,
+    "cost_usd": 0.001184722,
     "cost_source": "provider",
-    "estimated_usd": 0.029249,
+    "estimated_usd": 0.001088,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 279790,
-        "completion_tokens": 9337
+        "prompt_tokens": 8385,
+        "completion_tokens": 1852
       }
     },
-    "duration_s": 169.5
+    "duration_s": 29.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4138,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0039,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Adrian Smith",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.015,
+      "Independent": 0.004,
+      "Other": 0.001
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_r",
+    "confidence": "high",
+    "rationale": "No public polling exists for this race, but structural factors are decisive. Nebraska's 3rd District has a Cook PVI of R+27, making it one of the most Republican-leaning districts nationally. Incumbent Adrian Smith has held the seat since 2006, consistently winning re-election with over 70% of the vote. The Cook Political Report rates the race 'Solidly Republican.' The opposition is fragmented among a Democrat, a third-party candidate, and two independents, none of whom has a comparable electoral track record. The district's extreme Republican lean and Smith's entrenched incumbency make a Republican hold virtually certain, supporting a Safe Republican forecast despite the absence of polls.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:04.163805Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

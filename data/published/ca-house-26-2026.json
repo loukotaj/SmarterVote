@@ -191,7 +191,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_26th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:47:45.114229+00:00",
+  "updated_utc": "2026-06-20T15:21:00.094576+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -205,18 +205,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 216088,
-    "completion_tokens": 7061,
-    "total_tokens": 223149,
-    "cost_usd": 0.016051012000000003,
+    "prompt_tokens": 11132,
+    "completion_tokens": 1409,
+    "total_tokens": 12541,
+    "cost_usd": 0.0013671,
     "cost_source": "provider",
-    "estimated_usd": 0.022561,
+    "estimated_usd": 0.001255,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 216088,
-        "completion_tokens": 7061
+        "prompt_tokens": 11132,
+        "completion_tokens": 1409
       }
     },
-    "duration_s": 139.5
+    "duration_s": 23.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6586,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jacqui Irwin",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.05
+    },
+    "margin_estimate": 12.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No independent general-election head-to-head polling exists for this race as of June 2026, so confidence is capped at medium and the forecast relies on structural and contextual indicators. Those indicators point strongly toward a Democratic hold: the district has a Cook PVI of D+9, Cook Political Report rates it 'Solid Democratic,' and it has been represented by a Democrat for more than a decade. In California's top-two primary (June 2, 2026), Democrat Jacqui Irwin—a sitting State Assemblymember and former Thousand Oaks mayor—finished first, advancing past seven other candidates. Republican Sam Gallucci, a pastor and former business executive with no elected office experience, placed second. While the open-seat dynamic and broader midterm concerns (cost of living, healthcare, immigration, wildfire resilience) introduce some uncertainty, the district's strong Democratic partisan baseline, Irwin's substantial local elected experience, and primary placement suggest an overwhelming Democratic advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:56.520797Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

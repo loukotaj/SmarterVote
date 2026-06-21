@@ -119,3 +119,5 @@ class ChamberForecastsPayload(BaseModel):
     house_narrative: str
     senate_narrative: str
     governors_narrative: str
+    chambers: Optional[Dict[str, Any]] = None
+    schema_version: Optional[str] = None

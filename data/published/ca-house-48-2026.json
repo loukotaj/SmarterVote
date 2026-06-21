@@ -262,7 +262,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_48th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:47:16.800010+00:00",
+  "updated_utc": "2026-06-20T15:29:03.489797+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -276,18 +276,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 330625,
-    "completion_tokens": 5714,
-    "total_tokens": 336339,
-    "cost_usd": 0.024146218000000004,
+    "prompt_tokens": 12240,
+    "completion_tokens": 1976,
+    "total_tokens": 14216,
+    "cost_usd": 0.001586816,
     "cost_source": "provider",
-    "estimated_usd": 0.033521,
+    "estimated_usd": 0.001457,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 330625,
-        "completion_tokens": 5714
+        "prompt_tokens": 12240,
+        "completion_tokens": 1976
       }
     },
-    "duration_s": 124.2
+    "duration_s": 28.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7261,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Marni von Wilpert",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.54,
+    "party_probabilities": {
+      "Democratic": 0.54,
+      "Republican": 0.46
+    },
+    "margin_estimate": 1.5,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "No general-election head-to-head polling exists as of mid-June 2026, so uncertainty is high. This is an open-seat race in a newly redrawn district with slightly more registered Democrats than Republicans, providing Democrats a modest structural edge. Both nominees are credible local elected officials with notable endorsements (Desmond endorsed by Trump and Issa; von Wilpert by EMILYs List and DCCC Red to Blue). Cook Political Report rates the race as Toss Up / Lean Democratic. With zero direct matchup polling and only a slight Democratic registration advantage, the most defensible informational forecast is a tossup with a narrow Democratic lean.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:59.638279Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

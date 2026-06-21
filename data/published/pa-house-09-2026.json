@@ -228,7 +228,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:24:28.032721+00:00",
+  "updated_utc": "2026-06-20T15:40:42.952858+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -242,18 +242,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 173737,
-    "completion_tokens": 5570,
-    "total_tokens": 179307,
-    "cost_usd": 0.011368762000000001,
+    "prompt_tokens": 7054,
+    "completion_tokens": 871,
+    "total_tokens": 7925,
+    "cost_usd": 0.000862008,
     "cost_source": "provider",
-    "estimated_usd": 0.018118,
+    "estimated_usd": 0.000792,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 173737,
-        "completion_tokens": 5570
+        "prompt_tokens": 7054,
+        "completion_tokens": 871
       }
     },
-    "duration_s": 140.5
+    "duration_s": 19.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3623,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0035,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Dan Meuser",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists (based_on_poll_count=0), which tempers confidence. However, the non-polling data is overwhelmingly one-sided: four-term Republican incumbent Dan Meuser faces Democratic challenger Rachel Wallace in a district that Donald Trump carried by 38 points in 2024. The Cook Political Report rates the race as Solidly Republican. The district's strong Republican partisan baseline, combined with Meuser's incumbency advantage and lack of any contrary polling or credible threat signals in the race data, points to an extremely high likelihood of a Republican hold. Without polling, the margin estimate is approximate but consistent with the 38-point presidential baseline and a safe-r rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:35.353156Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

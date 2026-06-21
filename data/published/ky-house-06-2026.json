@@ -249,7 +249,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:14:44.692142+00:00",
+  "updated_utc": "2026-06-20T15:37:02.551831+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -263,7 +263,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Kentucky's_6th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -271,30 +271,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 228400,
-    "completion_tokens": 5939,
-    "total_tokens": 234339,
-    "cost_usd": 0.040630316,
+    "prompt_tokens": 11874,
+    "completion_tokens": 1476,
+    "total_tokens": 13350,
+    "cost_usd": 0.001452948,
     "cost_source": "provider",
-    "estimated_usd": 0.042547,
+    "estimated_usd": 0.001334,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 228400,
-        "completion_tokens": 5939
+        "prompt_tokens": 11874,
+        "completion_tokens": 1476
       }
     },
-    "duration_s": 162.0,
-    "serper_calls": 19,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 43873,
+    "duration_s": 29.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6851,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0418,
-    "context_deduplicated_results": 51,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ralph Alvarado",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.62,
+    "party_probabilities": {
+      "Republican": 0.62,
+      "Democratic": 0.38
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No public numeric polls exist for this race, yielding substantial uncertainty. Republicans have held KY-06 since 2013, and the district has an underlying Republican lean, giving the GOP a modest structural edge even in an open-seat contest. Ralph Alvarado is a credible nominee with a Trump endorsement and prior statewide profile. However, Democrat Zach Dembo is a strong recruit — a former federal prosecutor and Navy JAG officer with endorsement from popular Gov. Andy Beshear, who carried this district in 2023. Lexington's Democratic lean and the open-seat nature keep Democrats competitive. Without polling to measure whether the open-seat dynamics have shifted the district's partisan baseline, the most defensible forecast is a narrow Republican advantage with low confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:57.517841Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

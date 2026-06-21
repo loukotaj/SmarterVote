@@ -342,7 +342,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:23:14.272107+00:00",
+  "updated_utc": "2026-06-20T15:34:53.798240+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -356,18 +356,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 218835,
-    "completion_tokens": 8347,
-    "total_tokens": 227182,
-    "cost_usd": 0.014615409999999999,
+    "prompt_tokens": 14435,
+    "completion_tokens": 1823,
+    "total_tokens": 16258,
+    "cost_usd": 0.0017120339999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.023082,
+    "estimated_usd": 0.001627,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 218835,
-        "completion_tokens": 8347
+        "prompt_tokens": 14435,
+        "completion_tokens": 1823
       }
     },
-    "duration_s": 132.2
+    "duration_s": 29.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8586,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0082,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Gus Bilirakis",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.86,
+    "party_probabilities": {
+      "Republican": 0.86,
+      "Democratic": 0.13,
+      "Other": 0.01
+    },
+    "margin_estimate": 10.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polls are available for this race, so the forecast relies on non-polling indicators and carries meaningful uncertainty. The new CD-12 voted for Trump by 14 percentage points in 2024 per Cook Political Report, indicating a continued Republican lean even after mid-decade redistricting made the seat more competitive. Incumbent Gus Bilirakis (first elected 2006) brings strong name recognition, seniority, and a record as the most effective Republican in the Florida delegation. His primary challenger, Samantha June, has limited institutional or fundraising profile and is unlikely to alter the general-election outlook. Democrat Kimberly Overman is a credible candidate — a former Hillsborough County Commissioner — but faces an uphill climb in a district with a double-digit Republican baseline. An NPA candidate (Branden Scrivener) is also on the ballot but has no significant campaign infrastructure evident. Given the partisan baseline and incumbency advantage, Republicans remain clear favorites, but the absence of polling and the redrawn boundaries keep this in the 'likely' rather than 'safe' category.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:49.240874Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

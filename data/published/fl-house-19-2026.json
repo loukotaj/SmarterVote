@@ -439,7 +439,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_19th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:13:58.565720+00:00",
+  "updated_utc": "2026-06-20T15:30:38.676468+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -453,18 +453,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 261871,
-    "completion_tokens": 12402,
-    "total_tokens": 274273,
-    "cost_usd": 0.01860935,
+    "prompt_tokens": 17137,
+    "completion_tokens": 1822,
+    "total_tokens": 18959,
+    "cost_usd": 0.002036538,
     "cost_source": "provider",
-    "estimated_usd": 0.028094,
+    "estimated_usd": 0.00187,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 261871,
-        "completion_tokens": 12402
+        "prompt_tokens": 17137,
+        "completion_tokens": 1822
       }
     },
-    "duration_s": 187.2
+    "duration_s": 25.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9900,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0094,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 25.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for FL-19 as of June 2026, so the forecast relies entirely on structural factors. The district has a Cook PVI of R+14 and Trump carried it with 64% in 2024, indicating a strong Republican lean. This is an open seat following Rep. Byron Donalds's gubernatorial run, removing any incumbent advantage. The Republican primary is crowded (11 candidates, including former Reps. Madison Cawthorn and Chris Collins, as well as Catalina Lauf and Jim Oberweis), but the eventual nominee will be heavily favored in November. The Democratic primary has three lesser-known candidates. An independent candidate (Seth Haskin) also qualified. Despite the open seat and uncertainties about which Republican will emerge, the district's underlying partisan composition makes the general election extremely uncompetitive for Democrats. Confidence is medium due to the absence of district-specific polling and the unresolved primary.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:33.640031Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -394,7 +394,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:39:47.149418+00:00",
+  "updated_utc": "2026-06-20T15:27:04.647459+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -408,18 +408,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 398744,
-    "completion_tokens": 12063,
-    "total_tokens": 410807,
-    "cost_usd": 0.026904556,
+    "prompt_tokens": 15140,
+    "completion_tokens": 1822,
+    "total_tokens": 16962,
+    "cost_usd": 0.0017809279999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.041441,
+    "estimated_usd": 0.001691,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 398744,
-        "completion_tokens": 12063
+        "prompt_tokens": 15140,
+        "completion_tokens": 1822
       }
     },
-    "duration_s": 195.7
+    "duration_s": 28.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8782,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0084,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Johnny Olszewski",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists for this race (0 polls found). The general election forecast therefore rests entirely on structural indicators: Maryland's 2nd District has a Cook PVI of D+10, incumbent Democrat Johnny Olszewski won the seat in 2024 with 58.2% of the vote, and all three major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate it as 'Solid D'. The Republican contenders (Nnabu Eze and Dave Wallace) are perennial candidates who have run unsuccessfully for multiple offices, which does not suggest an unusually strong challenge. The Democratic primary is scheduled for June 23, 2026 (3 days from today); incumbent Olszewski faces primary challenger Clint Spellman Jr., but the district's Democratic lean and Olszewski's incumbency make him the overwhelming favorite to advance and win the general election. Confidence remains medium rather than high due to the complete absence of 2026 polling data and the fact that the primary has not yet concluded.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:58.862858Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

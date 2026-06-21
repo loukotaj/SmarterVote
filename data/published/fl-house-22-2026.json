@@ -396,7 +396,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_22nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:12:32.266276+00:00",
+  "updated_utc": "2026-06-20T15:34:55.383112+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -410,18 +410,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 326162,
-    "completion_tokens": 11957,
-    "total_tokens": 338119,
-    "cost_usd": 0.02939532,
+    "prompt_tokens": 16304,
+    "completion_tokens": 1849,
+    "total_tokens": 18153,
+    "cost_usd": 0.0017804840000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.034307,
+    "estimated_usd": 0.0018,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 326162,
-        "completion_tokens": 11957
+        "prompt_tokens": 16304,
+        "completion_tokens": 1849
       }
     },
-    "duration_s": 197.9
+    "duration_s": 29.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9413,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.009,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 0.28,
+      "Republican": 0.72
+    },
+    "margin_estimate": 6.0,
+    "rating": "lean_r",
+    "confidence": "medium",
+    "rationale": "No general-election polls exist for this open seat. The strongest signals are the district's presidential voting history and independent race ratings. The newly drawn 22nd District voted for Trump by 11 points in 2024 (55%-44%), though the same territory narrowly backed Biden in 2020 (51%-48%), indicating a rightward shift. Cook Political Report rates the race 'Lean Republican.' Both parties face competitive August primaries: Democrats have well-funded Pia Dandiya ($1.2M raised) alongside lesser-known Kaysia Earley; Republicans have a four-way field including wealthy self-funders Casey Askar (assets $80M-$400M) and Michael Carbonara ($2.3M self-loaned), plus Deborah Adeimy (2024 recount candidate) and Michael Thompson (former Lee County GOP chair). With no incumbency advantage, an open seat, shifting district lines, and sparse polling data, Republicans hold a meaningful but not dominant advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:50.414115Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

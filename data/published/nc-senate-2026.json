@@ -11,6 +11,7 @@
     {
       "pollster": "Carolina Journal / Harper Polling",
       "date": "2026-05-10",
+      "sample_size": 600,
       "matchups": [
         {
           "candidates": [
@@ -18,13 +19,12 @@
             "Michael Whatley"
           ],
           "percentages": [
-            50,
-            39
+            50.0,
+            39.0
           ]
         }
       ],
-      "source_url": "https://www.carolinajournal.com/cooper-opens-double-digit-lead-over-whatley-in-us-senate-race/",
-      "sample_size": 600
+      "source_url": "https://www.carolinajournal.com/cooper-opens-double-digit-lead-over-whatley-in-us-senate-race/"
     },
     {
       "pollster": "Opinion Diagnostics",
@@ -37,8 +37,8 @@
             "Michael Whatley"
           ],
           "percentages": [
-            50,
-            41
+            50.0,
+            41.0
           ]
         }
       ],
@@ -55,8 +55,8 @@
             "Michael Whatley"
           ],
           "percentages": [
-            50,
-            42
+            50.0,
+            42.0
           ]
         },
         {
@@ -65,8 +65,8 @@
             "Michael Whatley"
           ],
           "percentages": [
-            49,
-            39
+            49.0,
+            39.0
           ]
         }
       ],
@@ -76,18 +76,7 @@
       "pollster": "WRAL / Opinion Diagnostics",
       "date": "2026-04-01",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Roy Cooper",
-            "Michael Whatley"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://www.wral.com/news/nccapitol/cooper-leads-whatley-in-us-senate-race-new-nc-polls-april-2026/"
     },
     {
@@ -121,27 +110,342 @@
           "url": "https://roycooper.com/about/",
           "type": "website",
           "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://roycooper.com/make-stuff-cost-less/",
           "type": "website",
           "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
           "type": "website",
           "title": "United States Senate election in North Carolina, 2026 - Ballotpedia",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Roy_Cooper.jpg",
-      "website": null,
-      "social_media": {
-        "facebook": "https://www.facebook.com/roycoopernc",
-        "x": "https://x.com/RoyCooperNC",
-        "instagram": "https://www.instagram.com/roycoopernc/"
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Roy Cooper says he would work to make health care more affordable by expanding access, protecting ACA tax credits, and reducing surprise billing and other insurance-company practices that raise costs. His campaign points to North Carolina's Medicaid expansion as part of his record and says he would take that approach to the Senate.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://roycooper.com/make-stuff-cost-less/",
+              "type": "website",
+              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://roycooper.com/about/",
+              "type": "website",
+              "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Roy Cooper's economic message centers on lowering everyday costs for families. His campaign says he would target grocery, housing, child care, and energy prices, including by opposing anti-competitive mergers and tariffs that raise costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://roycooper.com/make-stuff-cost-less/",
+              "type": "website",
+              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Roy Cooper says he would lower energy bills while modernizing the grid and supporting cleaner energy solutions. His campaign platform emphasizes reducing utility costs, protecting consumers during extreme weather, and making large power users pay their share of system costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://roycooper.com/make-stuff-cost-less/",
+              "type": "website",
+              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Roy Cooper supports abortion rights and access and has opposed major abortion restrictions. As governor, he vetoed North Carolina's 12-week abortion ban, and his campaign has been endorsed by reproductive-rights groups.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://governor.nc.gov/news/press-releases/2023/05/13/governor-cooper-vetoes-sb20",
+              "type": "government",
+              "title": "Governor Roy Cooper vetoes SB20",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.npr.org/2023/05/14/1176064846/north-carolinas-governor-vetoed-a-12-week-abortion-ban-setting-up-an-override-fight",
+              "type": "news",
+              "title": "North Carolina's governor vetoed a 12-week abortion ban, setting up an override fight",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.plannedparenthoodaction.org/pressroom/in-first-endorsements-of-2026-planned-parenthood-action-fund-backs-ossoff-cooper-pappas-and-brown",
+              "type": "website",
+              "title": "Planned Parenthood Action Fund endorses Cooper for Senate (2026)",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Roy Cooper has said federal immigration enforcement should focus on violent criminals and public safety rather than broad sweeps of non-criminal immigrants. He has also backed conditions on Homeland Security funding to add safeguards and reduce chaos.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ncnewsline.com/2026/01/26/roy-cooper-backs-conditions-on-homeland-security-funding-after-minnesota-shootings/",
+              "type": "website",
+              "title": "Roy Cooper backs conditions on Homeland Security funding after Minnesota shootings",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wral.com/news/local/senate-race-cooper-whatley-charlotte-immigration-crackdown-nov-2025/",
+              "type": "website",
+              "title": "As Senate race looms, Cooper and Whatley weigh-in on Charlotte immigration crackdown",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Roy Cooper supports gun-safety measures, including background checks for handgun sales. As governor, he vetoed legislation that would have eliminated sheriff's background checks on handguns.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://governor.nc.gov/news/press-releases/2023/03/24/governor-cooper-vetoes-legislation-eliminating-sheriffs-background-checks-handguns",
+              "type": "government",
+              "title": "Governor Cooper vetoes legislation eliminating sheriff's background checks on handguns",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://abc11.com/post/politics-no-background-check-handguns-gov-cooper-vetoes-senate-bill-41/13006636/",
+              "type": "news",
+              "title": "Gov. Cooper vetoes bill eliminating handgun background checks in NC",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Roy Cooper has said he does not support efforts to block U.S. aid to Israel and would review related legislation on its merits. Reporting on his Senate campaign says he favors pressuring Israel on humanitarian issues while opposing broad aid cutoffs.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://jewishinsider.com/2025/08/democrats-top-senate-recruit-roy-cooper-rejects-effort-to-block-aid-to-israel/",
+              "type": "news",
+              "title": "Democrats’ top Senate recruit Roy Cooper rejects effort to block aid to Israel",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Roy Cooper says he supports stronger public education funding, including higher teacher pay and early childhood education, and opposes diverting public funds to private school vouchers. His campaign also highlights his record of boosting public education in North Carolina.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ncae.org/about-ncae/media-center/press-releases/ncae-nea-endorse-roy-cooper-us-senate",
+              "type": "government",
+              "title": "NCAE, NEA Endorse Roy Cooper for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://roycooper.com/about/",
+              "type": "website",
+              "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Roy Cooper's campaign says it would ban algorithms used to set grocery prices and strengthen antitrust enforcement against digital tools that coordinate prices or reduce competition. The policy is part of his broader affordability agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://roycooper.com/make-stuff-cost-less/",
+              "type": "website",
+              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Roy Cooper's campaign centers on a 'Make Stuff Cost Less' agenda focused on lowering grocery, housing, child care, health care, and utility costs for North Carolina families. The platform also emphasizes protecting consumers from anti-competitive practices and tariffs that raise prices.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://roycooper.com/",
+              "type": "website",
+              "title": "Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://roycooper.com/make-stuff-cost-less/",
+              "type": "website",
+              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found on a detailed election-policy platform beyond general support for fair access to the ballot and voting rights.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://roycooper.com/",
+              "type": "website",
+              "title": "Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Roy Cooper has emphasized equal opportunity and public service, and his record as governor included support for voting rights and anti-discrimination efforts. Publicly available campaign materials do not provide a detailed civil-rights platform, but his broader record and allied endorsements point to support for equal protections.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://roycooper.com/about/",
+              "type": "website",
+              "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ontheissues.org/domestic/Roy_Cooper_Civil_Rights.htm",
+              "type": "website",
+              "title": "OnTheIssues: Roy Cooper Civil Rights",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -149,21 +453,25 @@
           "organization": "State of North Carolina",
           "start_year": 2017,
           "end_year": 2025,
-          "description": "Served two terms as governor of North Carolina."
+          "description": "Served two terms as governor of North Carolina.",
+          "source": null
         },
         {
           "title": "Attorney General",
           "organization": "State of North Carolina",
           "start_year": 2001,
           "end_year": 2017,
-          "description": "Served as North Carolina attorney general before becoming governor."
+          "description": "Served as North Carolina attorney general before becoming governor.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "Roy Cooper’s 2026 Senate campaign reported about $8.41M in total receipts through March 31, 2026, with $2.53M cash on hand. Public reporting says his fundraising was driven by broad Democratic donor support and large-scale small-dollar and committee money, but the FEC page does not break out top industries on the summary view; OpenSecrets and news coverage indicate he held a major fundraising lead in the race. Sources: https://www.fec.gov/data/candidate/S6NC00415/ , https://ncnewsline.com/2026/02/02/cooper-reports-sizable-lead-in-fundraising-for-2026-u-s-senate-race/",
-      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00415/",
       "voting_summary": "Cooper is a former North Carolina governor, not a legislator, so there is no legislative voting record to report. His comparable governing record comes from executive actions as governor, including vetoes and policy decisions during his two terms; news and advocacy coverage describe him as using the governor’s office to shape state policy rather than cast votes. Sources: https://www.theassemblync.com/politics/roy-cooper-legacy-governor-north-carolina/ , https://en.wikipedia.org/wiki/Roy_Cooper",
       "voting_source_url": "https://www.theassemblync.com/politics/roy-cooper-legacy-governor-north-carolina/",
+      "voting_sources": [],
+      "donor_summary": "Roy Cooper’s 2026 Senate campaign reported about $8.41M in total receipts through March 31, 2026, with $2.53M cash on hand. Public reporting says his fundraising was driven by broad Democratic donor support and large-scale small-dollar and committee money, but the FEC page does not break out top industries on the summary view; OpenSecrets and news coverage indicate he held a major fundraising lead in the race. Sources: https://www.fec.gov/data/candidate/S6NC00415/ , https://ncnewsline.com/2026/02/02/cooper-reports-sizable-lead-in-fundraising-for-2026-u-s-senate-race/",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00415/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Roy_Cooper",
@@ -206,202 +514,14 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Roy Cooper says he would work to make health care more affordable by expanding access, protecting ACA tax credits, and reducing surprise billing and other insurance-company practices that raise costs. His campaign points to North Carolina's Medicaid expansion as part of his record and says he would take that approach to the Senate.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "website",
-              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://roycooper.com/about/",
-              "type": "website",
-              "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Roy Cooper's economic message centers on lowering everyday costs for families. His campaign says he would target grocery, housing, child care, and energy prices, including by opposing anti-competitive mergers and tariffs that raise costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "website",
-              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Roy Cooper says he would lower energy bills while modernizing the grid and supporting cleaner energy solutions. His campaign platform emphasizes reducing utility costs, protecting consumers during extreme weather, and making large power users pay their share of system costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "website",
-              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Roy Cooper supports abortion rights and access and has opposed major abortion restrictions. As governor, he vetoed North Carolina's 12-week abortion ban, and his campaign has been endorsed by reproductive-rights groups.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://governor.nc.gov/news/press-releases/2023/05/13/governor-cooper-vetoes-sb20",
-              "type": "government",
-              "title": "Governor Roy Cooper vetoes SB20",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://www.npr.org/2023/05/14/1176064846/north-carolinas-governor-vetoed-a-12-week-abortion-ban-setting-up-an-override-fight",
-              "type": "news",
-              "title": "North Carolina's governor vetoed a 12-week abortion ban, setting up an override fight",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://www.plannedparenthoodaction.org/pressroom/in-first-endorsements-of-2026-planned-parenthood-action-fund-backs-ossoff-cooper-pappas-and-brown",
-              "type": "website",
-              "title": "Planned Parenthood Action Fund endorses Cooper for Senate (2026)",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Roy Cooper has said federal immigration enforcement should focus on violent criminals and public safety rather than broad sweeps of non-criminal immigrants. He has also backed conditions on Homeland Security funding to add safeguards and reduce chaos.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://ncnewsline.com/2026/01/26/roy-cooper-backs-conditions-on-homeland-security-funding-after-minnesota-shootings/",
-              "type": "website",
-              "title": "Roy Cooper backs conditions on Homeland Security funding after Minnesota shootings",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://www.wral.com/news/local/senate-race-cooper-whatley-charlotte-immigration-crackdown-nov-2025/",
-              "type": "website",
-              "title": "As Senate race looms, Cooper and Whatley weigh-in on Charlotte immigration crackdown",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Roy Cooper supports gun-safety measures, including background checks for handgun sales. As governor, he vetoed legislation that would have eliminated sheriff's background checks on handguns.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://governor.nc.gov/news/press-releases/2023/03/24/governor-cooper-vetoes-legislation-eliminating-sheriffs-background-checks-handguns",
-              "type": "government",
-              "title": "Governor Cooper vetoes legislation eliminating sheriff's background checks on handguns",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://abc11.com/post/politics-no-background-check-handguns-gov-cooper-vetoes-senate-bill-41/13006636/",
-              "type": "news",
-              "title": "Gov. Cooper vetoes bill eliminating handgun background checks in NC",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Roy Cooper has said he does not support efforts to block U.S. aid to Israel and would review related legislation on its merits. Reporting on his Senate campaign says he favors pressuring Israel on humanitarian issues while opposing broad aid cutoffs.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://jewishinsider.com/2025/08/democrats-top-senate-recruit-roy-cooper-rejects-effort-to-block-aid-to-israel/",
-              "type": "news",
-              "title": "Democrats’ top Senate recruit Roy Cooper rejects effort to block aid to Israel",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Roy Cooper says he supports stronger public education funding, including higher teacher pay and early childhood education, and opposes diverting public funds to private school vouchers. His campaign also highlights his record of boosting public education in North Carolina.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ncae.org/about-ncae/media-center/press-releases/ncae-nea-endorse-roy-cooper-us-senate",
-              "type": "government",
-              "title": "NCAE, NEA Endorse Roy Cooper for U.S. Senate",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://roycooper.com/about/",
-              "type": "website",
-              "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Roy Cooper's campaign says it would ban algorithms used to set grocery prices and strengthen antitrust enforcement against digital tools that coordinate prices or reduce competition. The policy is part of his broader affordability agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "website",
-              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Roy Cooper's campaign centers on a 'Make Stuff Cost Less' agenda focused on lowering grocery, housing, child care, health care, and utility costs for North Carolina families. The platform also emphasizes protecting consumers from anti-competitive practices and tariffs that raise prices.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://roycooper.com/",
-              "type": "website",
-              "title": "Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://roycooper.com/make-stuff-cost-less/",
-              "type": "website",
-              "title": "Make Stuff Cost Less | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found on a detailed election-policy platform beyond general support for fair access to the ballot and voting rights.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://roycooper.com/",
-              "type": "website",
-              "title": "Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Roy Cooper has emphasized equal opportunity and public service, and his record as governor included support for voting rights and anti-discrimination efforts. Publicly available campaign materials do not provide a detailed civil-rights platform, but his broader record and allied endorsements point to support for equal protections.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://roycooper.com/about/",
-              "type": "website",
-              "title": "Meet Roy Cooper | Roy Cooper for North Carolina",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://www.ontheissues.org/domestic/Roy_Cooper_Civil_Rights.htm",
-              "type": "website",
-              "title": "OnTheIssues: Roy Cooper Civil Rights",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        }
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/roycoopernc",
+        "x": "https://x.com/RoyCooperNC",
+        "instagram": "https://www.instagram.com/roycoopernc/"
       },
-      "donor_sources": [],
-      "voting_sources": []
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Michael Whatley",
@@ -413,28 +533,419 @@
           "url": "https://www.michaelwhatley.com/",
           "type": "government",
           "title": "Home | Whatley for Senate",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.fec.gov/data/candidate/S6NC00415/",
           "type": "government",
           "title": "WHATLEY, MICHAEL - Candidate overview - FEC",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Michael_Whatley",
           "type": "website",
           "title": "Michael Whatley - Ballotpedia",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Whatley_20251119_123603.jpg",
-      "website": null,
-      "social_media": {
-        "facebook": "https://www.facebook.com/whatleyfornc",
-        "x": "https://x.com/WhatleyNC",
-        "instagram": "https://www.instagram.com/whatleyfornc/",
-        "youtube": "https://www.youtube.com/@WhatleyforNC"
+      "issues": {
+        "Immigration": {
+          "issue": null,
+          "stance": "Whatley advocates strict immigration enforcement and stronger border security; he frames North Carolina as a border state and backs robust law-enforcement measures to deter illegal entrants and remove offenders, opposing 'soft-on-crime' approaches.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.thecentersquare.com/north_carolina/article_73d26f2d-fb2c-4ba5-8fcd-40a81508e3d5.html",
+              "type": "news",
+              "title": "Whatley: Illegal immigration hurting 'border state' North Carolina",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.charlotteobserver.com/news/politics-government/article312259172.html",
+              "type": "news",
+              "title": "Fact check: What data show about GOP NC Senate candidate’s ‘zero’ immigration claim",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ncnewsline.com/2026/03/04/michael-whatley-vows-to-put-dangerous-criminals-behind-bars-as-u-s-senate-race-gets-underway/",
+              "type": "news",
+              "title": "Michael Whatley vows to ‘put dangerous criminals behind bars’ as U.S. Senate race gets underway",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Healthcare": {
+          "issue": null,
+          "stance": "Stance: Supports market-based health care with a smaller federal role, including repealing ACA subsidies and replacing with market-driven solutions. Whatley has backed Medicaid funding cuts, which critics warn could reduce coverage and threaten rural hospitals.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ncnewsline.com/briefs/dems-blast-impact-of-medicaid-cuts-on-rural-healthcare-spotlight-2026-senate-race/",
+              "type": "website",
+              "title": "Dems blast impact of Medicaid cuts on rural healthcare, spotlight 2026 Senate race",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ncvoices.com/michael-whatley-has-repeatedly-championed-republicans-efforts-to-raise-health-care-costs-on-north-carolinians/",
+              "type": "website",
+              "title": "Michael Whatley has repeatedly championed Republicans' efforts to raise health care costs on North Carolinians",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ncdp.org/media/reminder-dc-insider-michael-whatley-repeatedly-championed-policies-that-raise-health-care-costs-for-north-carolina-families/",
+              "type": "government",
+              "title": "Reminder: DC Insider Michael Whatley 'Repeatedly Championed' Policies That Raise Health Care Costs for North Carolina Families",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Whatley's economy platform centers on affordability for North Carolinians, focusing on lowering the cost of living (including housing and energy) and expanding opportunities to buy a home and improve living standards through pro-growth policies that support families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.michaelwhatley.com/",
+              "type": "government",
+              "title": "Whatley for Senate - Home",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.dailytarheel.com/article/city-michael-whatley-senate-campaign-kickoff-20260310",
+              "type": "news",
+              "title": "Former RNC chair Michael Whatley focuses on affordability, safety in Senate campaign",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wral.com/news/nccapitol/cooper-whatley-affordability-triangle-april-2026/",
+              "type": "news",
+              "title": "Cooper, Whatley affordability focus in NC Senate race",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Supports expanding domestic energy production with a focus on fossil fuels to lower energy costs and ensure energy independence; advocates American Energy Dominance, including offshore drilling, and seeks to reduce or roll back federal climate regulations that he argues raise energy prices and constrain energy development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.politico.com/newsletters/power-switch/2025/09/12/n-c-senate-race-puts-energy-dominance-to-the-test-00560025",
+              "type": "news",
+              "title": "NC Senate race puts ‘energy dominance’ to the test",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.theassemblync.com/news/politics/elections/michael-whatley-helene-czar-senate-2026/",
+              "type": "news",
+              "title": "Michael Whatley’s ‘Recovery Czar’ Title Hangs Over His Senate Bid",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.michaelwhatley.com/",
+              "type": "website",
+              "title": "Home | Whatley for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Whatley supports and defends gun rights under the Second Amendment; he has publicly pledged to unapologetically defend the constitutional right to keep and bear arms and has publicly received NRA endorsement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://x.com/WhatleyNC/status/2021231886450733436",
+              "type": "social_media",
+              "title": "Michael Whatley on X: NRA endorsement and defense of Second Amendment",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.instagram.com/p/DUlL036DrVy/",
+              "type": "social_media",
+              "title": "Michael Whatley on Instagram: NRA endorsement and defense of Second Amendment",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.michaelwhatley.com/",
+              "type": "government",
+              "title": "Home | Whatley for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Stance: Pro-life. Whatley has celebrated North Carolina's abortion ban (with limited exceptions) and has publicly supported a national abortion ban that would ban abortion nationwide.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.ncdp.org/media/new-dc-insider-michael-whatley-supports-national-abortion-ban-endorsed-by-dark-money-anti-abortion-group/",
+              "type": "news",
+              "title": "NEW: DC Insider Michael Whatley Supports National Abortion Ban, Endorsed By Dark Money Anti-Abortion Group",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.propublica.org/article/north-carolina-abortion-ban-whatley-morrow-brown-denying-women-lifesaving-care",
+              "type": "news",
+              "title": "ProPublica: North Carolina’s Abortion Ban – Supported By Whatley, Morrow, Brown – Is Denying Women Lifesaving Care",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.ontheissues.org/social/Michael_Whatley_Abortion.htm",
+              "type": "website",
+              "title": "Michael Whatley on Abortion",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Whatley’s campaign says he supports education freedom and school choice, including giving families more options in K-12 education rather than expanding federal control.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://nsjonline.com/article/2026/02/whatley-hits-priorities-contrast-with-cooper-ahead-of-march-primary/",
+              "type": "news",
+              "title": "Whatley strikes contrast with Cooper ahead of March primary",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.michaelwhatley.com/",
+              "type": "government",
+              "title": "Home | Whatley for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Stance: Prioritizes public safety and cost-of-living affordability. He advocates stronger crime penalties and federal support for law enforcement, including a federal version of Iryna's Law and tougher pretrial release standards, while promoting market-based, pro-growth policies to address housing and consumer costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wral.com/news/nccapitol/us-senate-cooper-whatley-north-carolina-campaigns-march-2026/",
+              "type": "news",
+              "title": "WRAL: Cooper targets affordability, Whatley focuses on safety as US Senate campaigns ramp up",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ncnewsline.com/2026/03/04/michael-whatley-vows-to-put-dangerous-criminals-behind-bars-as-u-s-senate-race-gets-underway/",
+              "type": "news",
+              "title": "NC Newsline: Whatley vows to put dangerous criminals behind bars",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cbs17.com/news/north-carolina-news/us-senate-candidates-whatley-cooper-discuss-plans-to-improve-affordability/",
+              "type": "news",
+              "title": "CBS17: US Senate candidates Whatley, Cooper discuss plans to improve affordability",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.michaelwhatley.com/",
+              "type": "government",
+              "title": "Home | Whatley for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Whatley has emphasized election security and has aligned himself with President Trump’s election-related agenda, but no detailed public Senate policy platform on election administration was found in the campaign materials reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.michaelwhatley.com/",
+              "type": "government",
+              "title": "Home | Whatley for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/Michael_Whatley",
+              "type": "website",
+              "title": "Michael Whatley - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.michaelwhatley.com/",
+              "type": "government",
+              "title": "Home | Whatley for Senate",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -442,14 +953,17 @@
           "organization": "Republican National Committee",
           "start_year": 2024,
           "end_year": 2025,
-          "description": "Served as chair of the Republican National Committee before running for U.S. Senate."
+          "description": "Served as chair of the Republican National Committee before running for U.S. Senate.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "Michael Whatley’s Senate campaign reported $8.41 million in total receipts through March 31, 2026, with $2.53 million cash on hand and $666,374 in debts/loans owed by the committee. The FEC candidate page shows the campaign’s authorized committees and financial totals; news coverage also reported a $5 million first-quarter haul and a $71 million outside-spending commitment from the Senate Leadership Fund.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00415/",
       "voting_summary": "Whatley has not held legislative office, so there is no legislative voting record to report. His public record is primarily as a party official and lobbyist/advocate, and his campaign website frames his governing approach around border security, affordability, and Trump-aligned priorities rather than prior roll-call votes. Sources: https://www.michaelwhatley.com/ , https://en.wikipedia.org/wiki/Michael_Whatley",
       "voting_source_url": "https://www.michaelwhatley.com/",
+      "voting_sources": [],
+      "donor_summary": "Michael Whatley’s Senate campaign reported $8.41 million in total receipts through March 31, 2026, with $2.53 million cash on hand and $666,374 in debts/loans owed by the committee. The FEC candidate page shows the campaign’s authorized committees and financial totals; news coverage also reported a $5 million first-quarter haul and a $71 million outside-spending commitment from the Senate Leadership Fund.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00415/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/Michael_Whatley",
@@ -492,244 +1006,15 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Immigration": {
-          "stance": "Whatley advocates strict immigration enforcement and stronger border security; he frames North Carolina as a border state and backs robust law-enforcement measures to deter illegal entrants and remove offenders, opposing 'soft-on-crime' approaches.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.thecentersquare.com/north_carolina/article_73d26f2d-fb2c-4ba5-8fcd-40a81508e3d5.html",
-              "type": "news",
-              "title": "Whatley: Illegal immigration hurting 'border state' North Carolina",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.charlotteobserver.com/news/politics-government/article312259172.html",
-              "type": "news",
-              "title": "Fact check: What data show about GOP NC Senate candidate’s ‘zero’ immigration claim",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.ncnewsline.com/2026/03/04/michael-whatley-vows-to-put-dangerous-criminals-behind-bars-as-u-s-senate-race-gets-underway/",
-              "type": "news",
-              "title": "Michael Whatley vows to ‘put dangerous criminals behind bars’ as U.S. Senate race gets underway",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "Stance: Supports market-based health care with a smaller federal role, including repealing ACA subsidies and replacing with market-driven solutions. Whatley has backed Medicaid funding cuts, which critics warn could reduce coverage and threaten rural hospitals.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://ncnewsline.com/briefs/dems-blast-impact-of-medicaid-cuts-on-rural-healthcare-spotlight-2026-senate-race/",
-              "type": "website",
-              "title": "Dems blast impact of Medicaid cuts on rural healthcare, spotlight 2026 Senate race",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://ncvoices.com/michael-whatley-has-repeatedly-championed-republicans-efforts-to-raise-health-care-costs-on-north-carolinians/",
-              "type": "website",
-              "title": "Michael Whatley has repeatedly championed Republicans' efforts to raise health care costs on North Carolinians",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.ncdp.org/media/reminder-dc-insider-michael-whatley-repeatedly-championed-policies-that-raise-health-care-costs-for-north-carolina-families/",
-              "type": "government",
-              "title": "Reminder: DC Insider Michael Whatley 'Repeatedly Championed' Policies That Raise Health Care Costs for North Carolina Families",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Whatley's economy platform centers on affordability for North Carolinians, focusing on lowering the cost of living (including housing and energy) and expanding opportunities to buy a home and improve living standards through pro-growth policies that support families.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.michaelwhatley.com/",
-              "type": "government",
-              "title": "Whatley for Senate - Home",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.dailytarheel.com/article/city-michael-whatley-senate-campaign-kickoff-20260310",
-              "type": "news",
-              "title": "Former RNC chair Michael Whatley focuses on affordability, safety in Senate campaign",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.wral.com/news/nccapitol/cooper-whatley-affordability-triangle-april-2026/",
-              "type": "news",
-              "title": "Cooper, Whatley affordability focus in NC Senate race",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Supports expanding domestic energy production with a focus on fossil fuels to lower energy costs and ensure energy independence; advocates American Energy Dominance, including offshore drilling, and seeks to reduce or roll back federal climate regulations that he argues raise energy prices and constrain energy development.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.politico.com/newsletters/power-switch/2025/09/12/n-c-senate-race-puts-energy-dominance-to-the-test-00560025",
-              "type": "news",
-              "title": "NC Senate race puts ‘energy dominance’ to the test",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.theassemblync.com/news/politics/elections/michael-whatley-helene-czar-senate-2026/",
-              "type": "news",
-              "title": "Michael Whatley’s ‘Recovery Czar’ Title Hangs Over His Senate Bid",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.michaelwhatley.com/",
-              "type": "website",
-              "title": "Home | Whatley for Senate",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "Whatley supports and defends gun rights under the Second Amendment; he has publicly pledged to unapologetically defend the constitutional right to keep and bear arms and has publicly received NRA endorsement.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://x.com/WhatleyNC/status/2021231886450733436",
-              "type": "social_media",
-              "title": "Michael Whatley on X: NRA endorsement and defense of Second Amendment",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.instagram.com/p/DUlL036DrVy/",
-              "type": "social_media",
-              "title": "Michael Whatley on Instagram: NRA endorsement and defense of Second Amendment",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.michaelwhatley.com/",
-              "type": "government",
-              "title": "Home | Whatley for Senate",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Stance: Pro-life. Whatley has celebrated North Carolina's abortion ban (with limited exceptions) and has publicly supported a national abortion ban that would ban abortion nationwide.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.ncdp.org/media/new-dc-insider-michael-whatley-supports-national-abortion-ban-endorsed-by-dark-money-anti-abortion-group/",
-              "type": "news",
-              "title": "NEW: DC Insider Michael Whatley Supports National Abortion Ban, Endorsed By Dark Money Anti-Abortion Group",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.propublica.org/article/north-carolina-abortion-ban-whatley-morrow-brown-denying-women-lifesaving-care",
-              "type": "news",
-              "title": "ProPublica: North Carolina’s Abortion Ban – Supported By Whatley, Morrow, Brown – Is Denying Women Lifesaving Care",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.ontheissues.org/social/Michael_Whatley_Abortion.htm",
-              "type": "website",
-              "title": "Michael Whatley on Abortion",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Whatley’s campaign says he supports education freedom and school choice, including giving families more options in K-12 education rather than expanding federal control.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://nsjonline.com/article/2026/02/whatley-hits-priorities-contrast-with-cooper-ahead-of-march-primary/",
-              "type": "news",
-              "title": "Whatley strikes contrast with Cooper ahead of March primary",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.michaelwhatley.com/",
-              "type": "government",
-              "title": "Home | Whatley for Senate",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Stance: Prioritizes public safety and cost-of-living affordability. He advocates stronger crime penalties and federal support for law enforcement, including a federal version of Iryna's Law and tougher pretrial release standards, while promoting market-based, pro-growth policies to address housing and consumer costs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.wral.com/news/nccapitol/us-senate-cooper-whatley-north-carolina-campaigns-march-2026/",
-              "type": "news",
-              "title": "WRAL: Cooper targets affordability, Whatley focuses on safety as US Senate campaigns ramp up",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://ncnewsline.com/2026/03/04/michael-whatley-vows-to-put-dangerous-criminals-behind-bars-as-u-s-senate-race-gets-underway/",
-              "type": "news",
-              "title": "NC Newsline: Whatley vows to put dangerous criminals behind bars",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.cbs17.com/news/north-carolina-news/us-senate-candidates-whatley-cooper-discuss-plans-to-improve-affordability/",
-              "type": "news",
-              "title": "CBS17: US Senate candidates Whatley, Cooper discuss plans to improve affordability",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.michaelwhatley.com/",
-              "type": "government",
-              "title": "Home | Whatley for Senate",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Whatley has emphasized election security and has aligned himself with President Trump’s election-related agenda, but no detailed public Senate policy platform on election administration was found in the campaign materials reviewed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.michaelwhatley.com/",
-              "type": "government",
-              "title": "Home | Whatley for Senate",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Michael_Whatley",
-              "type": "website",
-              "title": "Michael Whatley - Ballotpedia",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.michaelwhatley.com/",
-              "type": "government",
-              "title": "Home | Whatley for Senate",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        }
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/whatleyfornc",
+        "x": "https://x.com/WhatleyNC",
+        "instagram": "https://www.instagram.com/whatleyfornc/",
+        "youtube": "https://www.youtube.com/@WhatleyforNC"
       },
-      "donor_sources": [],
-      "voting_sources": []
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Brian McGinnis",
@@ -741,24 +1026,215 @@
           "url": "https://brianmcginnis.org/",
           "type": "government",
           "title": "Brian McGinnis",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Brian_McGinnis_(North_Carolina)",
           "type": "website",
           "title": "Brian McGinnis (North Carolina) - Ballotpedia",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": null,
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Supports a single-payer Medicare for All system and says healthcare should be a human right, with coverage prioritized over corporate profits.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Supports an Economic Bill of Rights, including living wages, safe workplaces, the right to organize, and policies that favor local economies, small businesses, and worker-owned enterprises. He also supports financial reforms such as public banking and limits on large financial institutions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Supports a green transition centered on renewable energy, green infrastructure, and environmentally responsible industries, paired with job creation and protection of natural resources.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Supports diplomacy and peaceful resolution of international conflicts, says military action should be a last resort, and favors reducing excessive military spending.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.wfae.org/politics/2026-03-05/marine-veteran-n-c-candidate-for-senate-removed-from-senate-hearing-after-protest-over-iran",
+              "type": "news",
+              "title": "Marine veteran, N.C. candidate for Senate, removed from Senate hearing after protest over Iran",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Supports fully funded public education from early childhood through college, including tuition-free public education and student debt relief.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Supports civil liberties and constitutional rights, including freedom of speech, privacy, and protection from unnecessary government surveillance.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Supports strengthening voting rights, expanding democratic participation, and reducing the influence of money in politics, including equal ballot access and transparency in elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Supports expanding affordable housing, preventing unnecessary foreclosures and evictions, and investing in infrastructure such as transportation and high-speed internet for rural communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://brianmcginnis.org/platform",
+              "type": "government",
+              "title": "Brian McGinnis Platform",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": []
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": "Brian McGinnis’s FEC filing shows $64,450 in total receipts through March 31, 2026, with $62,674 cash on hand and no party-committee or other-committee money listed in the summary. The available FEC summary indicates the campaign is funded entirely by individual contributions at a relatively small scale, with no large PAC or industry totals visible on the summary page. Sources: https://www.fec.gov/data/candidate/S6NC00464/",
-      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00464/",
       "voting_summary": "McGinnis has not held legislative office, so there is no legislative voting record to report. Publicly available material instead shows a campaign identity built around his service as a Marine veteran and Raleigh firefighter, with platform statements emphasizing working-class voters and opposition to corporate influence. Sources: https://brianmcginnis.org/ , https://brianmcginnis.org/platform",
       "voting_source_url": "https://brianmcginnis.org/platform",
+      "voting_sources": [],
+      "donor_summary": "Brian McGinnis’s FEC filing shows $64,450 in total receipts through March 31, 2026, with $62,674 cash on hand and no party-committee or other-committee money listed in the summary. The available FEC summary indicates the campaign is funded entirely by individual contributions at a relatively small scale, with no large PAC or industry totals visible on the summary page. Sources: https://www.fec.gov/data/candidate/S6NC00464/",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00464/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
@@ -801,128 +1277,10 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Supports a single-payer Medicare for All system and says healthcare should be a human right, with coverage prioritized over corporate profits.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Supports an Economic Bill of Rights, including living wages, safe workplaces, the right to organize, and policies that favor local economies, small businesses, and worker-owned enterprises. He also supports financial reforms such as public banking and limits on large financial institutions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Supports a green transition centered on renewable energy, green infrastructure, and environmentally responsible industries, paired with job creation and protection of natural resources.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Supports diplomacy and peaceful resolution of international conflicts, says military action should be a last resort, and favors reducing excessive military spending.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.wfae.org/politics/2026-03-05/marine-veteran-n-c-candidate-for-senate-removed-from-senate-hearing-after-protest-over-iran",
-              "type": "news",
-              "title": "Marine veteran, N.C. candidate for Senate, removed from Senate hearing after protest over Iran",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Supports fully funded public education from early childhood through college, including tuition-free public education and student debt relief.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Civil Rights & Equality": {
-          "stance": "Supports civil liberties and constitutional rights, including freedom of speech, privacy, and protection from unnecessary government surveillance.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Supports strengthening voting rights, expanding democratic participation, and reducing the influence of money in politics, including equal ballot access and transparency in elections.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Supports expanding affordable housing, preventing unnecessary foreclosures and evictions, and investing in infrastructure such as transportation and high-speed internet for rural communities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://brianmcginnis.org/platform",
-              "type": "government",
-              "title": "Brian McGinnis Platform",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low"
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Shannon Bray",
@@ -934,30 +1292,351 @@
           "url": "https://www.shannonbray.us/",
           "type": "government",
           "title": "Shannon W. Bray",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.shannonbray.us/about",
           "type": "government",
           "title": "About - Shannon Bray",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Shannon_Bray",
           "type": "website",
           "title": "Shannon Bray - Ballotpedia",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ShannonBray.jpg",
-      "website": "https://www.shannonbray.us/",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Bray says he supports affordable, patient-centered healthcare and lower prescription drug costs, emphasizing cost reduction and patient choice rather than expanded federal control.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.northcarolinahealthnews.org/govpack_profiles/shannon-bray-2/",
+              "type": "news",
+              "title": "Shannon Bray - North Carolina Health News",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.shannonbray.us/",
+              "type": "government",
+              "title": "Shannon W. Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Bray supports lower and simpler taxes, reduced federal spending, and less regulation, reflecting a libertarian, pro-market approach.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/issues",
+              "type": "government",
+              "title": "Political Views and Goals - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.shannonbray.us/_issues_economy",
+              "type": "government",
+              "title": "Economy & Taxes - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Bray supports market-based energy policy, including nuclear and next-generation energy, and opposes carbon taxes and other mandates.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/_issues_energy",
+              "type": "government",
+              "title": "Energy & Environment - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Bray supports a gestational framework that allows abortion up to 16 weeks, with limited exceptions later in pregnancy for rape, incest, fetal abnormalities, or the life of the mother.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.northcarolinahealthnews.org/govpack_profiles/shannon-bray-2/",
+              "type": "news",
+              "title": "Shannon Bray - North Carolina Health News",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.shannonbray.us/about",
+              "type": "government",
+              "title": "About - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Bray supports securing the border, enforcing immigration laws, and using a merit-based legal immigration system.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/_issues_immigration",
+              "type": "government",
+              "title": "Immigration - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/Shannon_Bray",
+              "type": "website",
+              "title": "Shannon Bray - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Shannon_Bray",
+              "type": "website",
+              "title": "Shannon Bray - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Bray emphasizes individual liberty, privacy, and limited government in his public materials; no more detailed civil-rights platform was found in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/about",
+              "type": "government",
+              "title": "About - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/Shannon_Bray",
+              "type": "website",
+              "title": "Shannon Bray - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Bray supports local control of education, reduced federal involvement, and school choice/parental involvement themes in his campaign materials.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/issues",
+              "type": "government",
+              "title": "Political Views and Goals - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Bray’s public materials emphasize cybersecurity, digital assets, privacy, and modern government, but no specific AI policy was found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/",
+              "type": "government",
+              "title": "Shannon W. Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.shannonbray.us/_issues_digital-assets",
+              "type": "government",
+              "title": "Digital Assets & Financial Freedom - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Bray supports election security, transparency, and verifiability, describing elections as critical national infrastructure and emphasizing digital trust and resilience.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/election_security_digital_trust_national_resilience",
+              "type": "government",
+              "title": "Election Security, Digital Trust & National Resilience - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.shannonbray.us/_issues_election-security",
+              "type": "government",
+              "title": "Election Integrity & Technology - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Bray advocates a restraint-oriented foreign policy that avoids undeclared wars and overseas entanglements and emphasizes bringing U.S. troops home when possible.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/_issues_foreign-policy",
+              "type": "government",
+              "title": "Foreign Policy - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Bray favors local control over policy decisions and a limited federal role, including on education and other local government matters.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.shannonbray.us/issues",
+              "type": "government",
+              "title": "Political Views and Goals - Shannon Bray",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://ballotpedia.org/Shannon_Bray",
+              "type": "website",
+              "title": "Shannon Bray - Ballotpedia",
+              "description": null,
+              "last_accessed": "2026-05-17T01:34:18.453871Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": "The public FEC candidate overview for Shannon Bray currently shows no active 2025–2026 fundraising totals in its summary view, so there is no disclosed cycle total to summarize from that page. The best available public record here is that the FEC candidate page exists but does not yet provide a fundraising summary for the current cycle.",
-      "donor_source_url": "https://www.fec.gov/data/candidate/S0NC00335/",
       "voting_summary": "Bray has not held legislative office, so there is no legislative voting record to report. Vote Smart indicates no executive-branch records for him, and his campaign site presents policy positions on privacy, taxes, digital assets, and government accountability instead of prior votes. Sources: https://justfacts.votesmart.org/candidate/186258/shannon-bray , https://www.shannonbray.us/",
       "voting_source_url": "https://justfacts.votesmart.org/candidate/186258/shannon-bray",
+      "voting_sources": [],
+      "donor_summary": "The public FEC candidate overview for Shannon Bray currently shows no active 2025–2026 fundraising totals in its summary view, so there is no disclosed cycle total to summarize from that page. The best available public record here is that the FEC candidate page exists but does not yet provide a fundraising summary for the current cycle.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S0NC00335/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
@@ -1005,202 +1684,10 @@
           "type": "news"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Bray says he supports affordable, patient-centered healthcare and lower prescription drug costs, emphasizing cost reduction and patient choice rather than expanded federal control.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.northcarolinahealthnews.org/govpack_profiles/shannon-bray-2/",
-              "type": "news",
-              "title": "Shannon Bray - North Carolina Health News",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://www.shannonbray.us/",
-              "type": "government",
-              "title": "Shannon W. Bray",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Bray supports lower and simpler taxes, reduced federal spending, and less regulation, reflecting a libertarian, pro-market approach.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/issues",
-              "type": "government",
-              "title": "Political Views and Goals - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.shannonbray.us/_issues_economy",
-              "type": "government",
-              "title": "Economy & Taxes - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Bray supports market-based energy policy, including nuclear and next-generation energy, and opposes carbon taxes and other mandates.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/_issues_energy",
-              "type": "government",
-              "title": "Energy & Environment - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "Bray supports a gestational framework that allows abortion up to 16 weeks, with limited exceptions later in pregnancy for rape, incest, fetal abnormalities, or the life of the mother.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.northcarolinahealthnews.org/govpack_profiles/shannon-bray-2/",
-              "type": "news",
-              "title": "Shannon Bray - North Carolina Health News",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://www.shannonbray.us/about",
-              "type": "government",
-              "title": "About - Shannon Bray",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Bray supports securing the border, enforcing immigration laws, and using a merit-based legal immigration system.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/_issues_immigration",
-              "type": "government",
-              "title": "Immigration - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "website",
-              "title": "Shannon Bray - Ballotpedia",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "website",
-              "title": "Shannon Bray - Ballotpedia",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Bray emphasizes individual liberty, privacy, and limited government in his public materials; no more detailed civil-rights platform was found in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/about",
-              "type": "government",
-              "title": "About - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "website",
-              "title": "Shannon Bray - Ballotpedia",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Bray supports local control of education, reduced federal involvement, and school choice/parental involvement themes in his campaign materials.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/issues",
-              "type": "government",
-              "title": "Political Views and Goals - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Bray’s public materials emphasize cybersecurity, digital assets, privacy, and modern government, but no specific AI policy was found.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/",
-              "type": "government",
-              "title": "Shannon W. Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.shannonbray.us/_issues_digital-assets",
-              "type": "government",
-              "title": "Digital Assets & Financial Freedom - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "Bray supports election security, transparency, and verifiability, describing elections as critical national infrastructure and emphasizing digital trust and resilience.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/election_security_digital_trust_national_resilience",
-              "type": "government",
-              "title": "Election Security, Digital Trust & National Resilience - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://www.shannonbray.us/_issues_election-security",
-              "type": "government",
-              "title": "Election Integrity & Technology - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Bray advocates a restraint-oriented foreign policy that avoids undeclared wars and overseas entanglements and emphasizes bringing U.S. troops home when possible.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/_issues_foreign-policy",
-              "type": "government",
-              "title": "Foreign Policy - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Bray favors local control over policy decisions and a limited federal role, including on education and other local government matters.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.shannonbray.us/issues",
-              "type": "government",
-              "title": "Political Views and Goals - Shannon Bray",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Shannon_Bray",
-              "type": "website",
-              "title": "Shannon Bray - Ballotpedia",
-              "last_accessed": "2026-05-17T01:34:18.453871+00:00"
-            }
-          ]
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": "https://www.shannonbray.us/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Shaunesi Deberry",
@@ -1212,30 +1699,307 @@
           "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
           "type": "website",
           "title": "United States Senate election in North Carolina, 2026 - Ballotpedia",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://shaunesi.wixsite.com/shaunesi",
           "type": "website",
           "title": "The Official Website of Shaunesi",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
           "type": "website",
           "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
-          "last_accessed": "2026-06-13T23:09:30.328041+00:00"
+          "description": null,
+          "last_accessed": "2026-06-13T23:09:30.328041Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Shaunesi_Deberry_20250716_034549.jpeg",
-      "website": "https://shaunesi.wixsite.com/shaunesi",
-      "social_media": {},
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Deberry has said investing in mental wellness is a priority, and her campaign materials emphasize access to self-help resources and community support. No detailed, comprehensive healthcare platform was found in the sources reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.youtube.com/shorts/TijI3gwJgYw",
+              "type": "website",
+              "title": "N.C. Senate Candidate On Why Investing In Mental Wellness Is Key | RAISING AMERICA",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
+              "type": "website",
+              "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found on climate or energy policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found on firearms or Second Amendment policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Deberry’s campaign materials describe her as a human rights activist and include civil rights and education advocacy pages. The available sources indicate she frames her candidacy around equal opportunity and anti-discrimination themes, but they do not provide a detailed issue platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi/education-advocacy",
+              "type": "website",
+              "title": "Civil Rights/Education Advocacy | shaunesi",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Deberry’s campaign materials include a civil rights and education advocacy page, indicating education access is part of her public messaging. No detailed education policy proposal was found in the sources reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi/education-advocacy",
+              "type": "website",
+              "title": "Civil Rights/Education Advocacy | shaunesi",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "No public position found on the economy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "No public position found on abortion or reproductive health policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found on immigration policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "No public position found on foreign policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found on technology or artificial intelligence policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found on election administration, voting rules, or election policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Deberry has emphasized transparency and self-help resources in her campaign appearances, but no detailed North Carolina local-issues agenda was found in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
+              "type": "website",
+              "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://shaunesi.wixsite.com/shaunesi",
+              "type": "website",
+              "title": "The Official Website of Shaunesi DeBerry",
+              "description": null,
+              "last_accessed": "2026-05-17T01:36:37.972663Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
+      },
       "career_history": [],
       "education": [],
-      "donor_summary": "Shaunesi Deberry’s FEC page does not show 2025–2026 fundraising totals in the summary view, so there is no disclosed total raised to report from the public FEC summary. The available public record therefore does not yet identify dominant donor industries or large disclosed contributions for this campaign. Sources: https://www.fec.gov/data/candidate/S6NC00381/",
-      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00381/",
       "voting_summary": "Deberry has not held legislative office, so there is no legislative voting record to report. Publicly available material instead consists of campaign and media appearances describing her as an independent Senate candidate; no prior elected or executive office was found in the sources reviewed. Sources: https://shaunesi.wixsite.com/shaunesi , https://www.youtube.com/watch?v=GxCb5lz04FM",
       "voting_source_url": "https://shaunesi.wixsite.com/shaunesi",
+      "voting_sources": [],
+      "donor_summary": "Shaunesi Deberry’s FEC page does not show 2025–2026 fundraising totals in the summary view, so there is no disclosed total raised to report from the public FEC summary. The available public record therefore does not yet identify dominant donor industries or large disclosed contributions for this campaign. Sources: https://www.fec.gov/data/candidate/S6NC00381/",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6NC00381/",
+      "donor_sources": [],
       "links": [
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
@@ -1273,185 +2037,16 @@
           "type": "official"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Deberry has said investing in mental wellness is a priority, and her campaign materials emphasize access to self-help resources and community support. No detailed, comprehensive healthcare platform was found in the sources reviewed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.youtube.com/shorts/TijI3gwJgYw",
-              "type": "website",
-              "title": "N.C. Senate Candidate On Why Investing In Mental Wellness Is Key | RAISING AMERICA",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
-              "type": "website",
-              "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found on climate or energy policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Firearms & Second Amendment": {
-          "stance": "No public position found on firearms or Second Amendment policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Civil Rights & Equality": {
-          "stance": "Deberry’s campaign materials describe her as a human rights activist and include civil rights and education advocacy pages. The available sources indicate she frames her candidacy around equal opportunity and anti-discrimination themes, but they do not provide a detailed issue platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi/education-advocacy",
-              "type": "website",
-              "title": "Civil Rights/Education Advocacy | shaunesi",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Deberry’s campaign materials include a civil rights and education advocacy page, indicating education access is part of her public messaging. No detailed education policy proposal was found in the sources reviewed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi/education-advocacy",
-              "type": "website",
-              "title": "Civil Rights/Education Advocacy | shaunesi",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "No public position found on the economy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Abortion & Reproductive Health": {
-          "stance": "No public position found on abortion or reproductive health policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found on immigration policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found on foreign policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found on technology or artificial intelligence policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Election Policy": {
-          "stance": "No public position found on election administration, voting rules, or election policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Deberry has emphasized transparency and self-help resources in her campaign appearances, but no detailed North Carolina local-issues agenda was found in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.youtube.com/watch?v=GxCb5lz04FM",
-              "type": "website",
-              "title": "2026 Midterms: North Carolina Senate Candidate Shaunesi Deberry | RAISING AMERICA",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            },
-            {
-              "url": "https://shaunesi.wixsite.com/shaunesi",
-              "type": "website",
-              "title": "The Official Website of Shaunesi DeBerry",
-              "last_accessed": "2026-05-17T01:36:37.972663+00:00"
-            }
-          ]
-        }
-      },
-      "donor_sources": [],
-      "voting_sources": []
+      "website": "https://shaunesi.wixsite.com/shaunesi",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
-  "updated_utc": "2026-06-13T23:10:18.964691+00:00",
+  "updated_utc": "2026-06-20T03:16:50.312969+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://www.ncsbe.gov/registering/how-register",
   "how_to_vote_url": "https://www.ncsbe.gov/voting",
@@ -1459,7 +2054,7 @@
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-05-17T01:36:58.398732+00:00",
+      "reviewed_at": "2026-05-17T01:36:58.398732Z",
       "verdict": "approved",
       "score": 87,
       "flags": [
@@ -1504,7 +2099,7 @@
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-05-17T01:36:40.519104+00:00",
+      "reviewed_at": "2026-05-17T01:36:40.519104Z",
       "verdict": "approved",
       "score": 92,
       "flags": [
@@ -1531,7 +2126,7 @@
     },
     {
       "model": "grok-4-1-fast-non-reasoning",
-      "reviewed_at": "2026-05-17T01:36:42.545726+00:00",
+      "reviewed_at": "2026-05-17T01:36:42.545726Z",
       "verdict": "approved",
       "score": 92,
       "flags": [
@@ -1564,20 +2159,62 @@
     "summary": "Validated by 3/3 reviewers with an average score of 90/100."
   },
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 74421,
-    "completion_tokens": 5591,
-    "total_tokens": 80012,
-    "cost_usd": 0.0045520099999999996,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 6277,
+    "completion_tokens": 316,
+    "total_tokens": 6593,
+    "cost_usd": 0.0204325,
     "cost_source": "provider",
-    "estimated_usd": 0.005957,
+    "estimated_usd": 0.020432,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 74421,
-        "completion_tokens": 5591
+      "openai/gpt-5.4": {
+        "prompt_tokens": 6277,
+        "completion_tokens": 316
       }
     },
-    "duration_s": 48.9
+    "duration_s": 14.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 5048,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0048,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Roy Cooper",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 0.72,
+      "Republican": 0.26,
+      "Green": 0.01,
+      "Libertarian": 0.005,
+      "Independent": 0.005
+    },
+    "margin_estimate": 4.5,
+    "rating": "lean_d",
+    "confidence": "medium",
+    "rationale": "Available public polling consistently shows Roy Cooper ahead of Michael Whatley by high single digits to low double digits, giving Democrats an early edge in this open-seat race. Cooper also brings strong statewide name recognition and a recent two-term governorship, which is a meaningful candidate-strength advantage. Still, North Carolina has leaned Republican in recent federal elections, the seat is open rather than incumbent-held, and the race is expected to attract heavy outside spending from both sides, all of which argue against a stronger rating. Polling is still relatively early and limited, so uncertainty remains substantial despite the Democratic lead.",
+    "based_on_poll_count": 4,
+    "generated_at": "2026-06-20T03:16:49.236233Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://www.carolinajournal.com/cooper-opens-double-digit-lead-over-whatley-in-us-senate-race/",
+      "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
+      "https://www.realclearpolling.com/polls/senate/general/2026/north-carolina/cooper-vs-whatley"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

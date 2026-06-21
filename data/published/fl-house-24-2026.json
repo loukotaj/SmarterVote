@@ -289,7 +289,7 @@
         {
           "url": "https://floridapolitics.com/archives/780387-rudy-moise-doctor-lawyer-veteran-self-produced-movie-star-files-to-run-in-cd-20/",
           "type": "news",
-          "title": "Rudy Moise \u2014 doctor, lawyer, veteran, self-produced movie star",
+          "title": "Rudy Moise — doctor, lawyer, veteran, self-produced movie star",
           "description": null,
           "last_accessed": "2026-06-14T12:00:00Z",
           "published_at": null,
@@ -525,7 +525,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_24th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:50:43.638768+00:00",
+  "updated_utc": "2026-06-20T15:20:52.748055+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -539,18 +539,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 272842,
-    "completion_tokens": 13189,
-    "total_tokens": 286031,
-    "cost_usd": 0.025234721999999998,
+    "prompt_tokens": 17338,
+    "completion_tokens": 1647,
+    "total_tokens": 18985,
+    "cost_usd": 0.0020219360000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.029324,
+    "estimated_usd": 0.001857,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 272842,
-        "completion_tokens": 13189
+        "prompt_tokens": 17338,
+        "completion_tokens": 1647
       }
     },
-    "duration_s": 218.9
+    "duration_s": 27.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10213,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0097,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which tempers confidence. However, the district has been held by Democrats since 2011 (and by the Meek family before that), is described explicitly as 'heavily Democratic' and 'remains safely Democratic' even under Florida's new Republican-drawn map. The open seat has drawn a crowded Democratic primary of six candidates including state Senator Shevrin Jones, County Commissioner Oliver Gilbert III, and former congressional heir Kendrick Meek Jr., indicating the general election winner will almost certainly be the Democratic nominee. The lone Republican candidate, Patricia Gonzalez, has previously run and lost in this district. The independent candidate, Andy Daro, is a North Bay Village Commissioner with limited name recognition. District fundamentals strongly favor a Democratic victory by a large margin (~28 points, consistent with past performance in this D+28+ district). The primary uncertainty is which Democrat emerges from the primary, not which party wins the general.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:47.496765Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

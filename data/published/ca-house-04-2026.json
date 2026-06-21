@@ -166,7 +166,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:23:55.698741+00:00",
+  "updated_utc": "2026-06-20T15:22:46.379340+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -180,18 +180,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 263353,
-    "completion_tokens": 5295,
-    "total_tokens": 268648,
-    "cost_usd": 0.01535483,
+    "prompt_tokens": 10459,
+    "completion_tokens": 2127,
+    "total_tokens": 12586,
+    "cost_usd": 0.001441874,
     "cost_source": "provider",
-    "estimated_usd": 0.026846,
+    "estimated_usd": 0.001324,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 263353,
-        "completion_tokens": 5295
+        "prompt_tokens": 10459,
+        "completion_tokens": 2127
       }
     },
-    "duration_s": 180.4
+    "duration_s": 31.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5983,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0057,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Thompson",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Democratic": 1.0,
+      "Republican": 0.0,
+      "Independent": 0.0,
+      "Other": 0.0
+    },
+    "margin_estimate": 10.0,
+    "rating": "likely_d",
+    "confidence": "low",
+    "rationale": "This is a same-party general election under California's top-two primary system, so a Democratic victory is guaranteed at the party level. At the candidate level, incumbent Mike Thompson (seeking his 15th term) holds significant advantages: decades of incumbency, establishment endorsements from Gov. Newsom and Sens. Padilla & Schiff, and high name recognition from extensive constituent service. However, several factors depress confidence. No public polling exists for this race. The district was substantially redrawn under Proposition 50, adding roughly 50% new territory, making historical baselines less reliable. Challenger Eric Jones brings a credible progressive challenge with over $5 million in self-funding, endorsements from Our Revolution and Indivisible Yolo, and a platform targeting corporate influence — a potent message in a Democratic primary electorate. With zero polling data and significant redistricting-driven uncertainty, Thompson appears clearly favored but not overwhelmingly so, consistent with a 'likely Democratic' rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:40.012016Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

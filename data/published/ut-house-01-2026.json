@@ -1,6 +1,6 @@
 {
   "id": "ut-house-01-2026",
-  "title": "2026 U.S. House of Representatives Election \u2014 Utah's 1st Congressional District",
+  "title": "2026 U.S. House of Representatives Election — Utah's 1st Congressional District",
   "office": "U.S. House of Representatives",
   "jurisdiction": "Utah's 1st Congressional District",
   "state": "Utah",
@@ -23,7 +23,7 @@
         {
           "url": "https://www.localcandidates.org/politicians/riley-owen/about/d1f7ca6b-d364-4efb-80f8-2b708bc937a5",
           "type": "website",
-          "title": "Riley Owen \u2014 Meet Riley",
+          "title": "Riley Owen — Meet Riley",
           "last_accessed": "2026-06-04T22:00:00Z"
         }
       ],
@@ -118,7 +118,7 @@
       "name": "Ben McAdams",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Ben McAdams is a former U.S. Representative for Utah's 4th Congressional District (2019\u20132021), former Salt Lake County Mayor (2013\u20132019), and former Utah State Senator. He is the most recent Democrat to represent Utah in Congress and is widely considered the more centrist establishment candidate in the Democratic primary field for the open 1st District seat.",
+      "summary": "Ben McAdams is a former U.S. Representative for Utah's 4th Congressional District (2019–2021), former Salt Lake County Mayor (2013–2019), and former Utah State Senator. He is the most recent Democrat to represent Utah in Congress and is widely considered the more centrist establishment candidate in the Democratic primary field for the open 1st District seat.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Ben_McAdams",
@@ -367,7 +367,7 @@
       "issues": {}
     }
   ],
-  "updated_utc": "2026-06-16T01:22:35.527442+00:00",
+  "updated_utc": "2026-06-20T15:32:50.693325+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -385,30 +385,49 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 319269,
-    "completion_tokens": 16290,
-    "total_tokens": 335559,
-    "cost_usd": 0.053922098,
+    "prompt_tokens": 15769,
+    "completion_tokens": 2659,
+    "total_tokens": 18428,
+    "cost_usd": 0.002066526,
     "cost_source": "provider",
-    "estimated_usd": 0.054481,
+    "estimated_usd": 0.001898,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 319269,
-        "completion_tokens": 16290
+        "prompt_tokens": 15769,
+        "completion_tokens": 2659
       }
     },
-    "duration_s": 379.1,
-    "serper_calls": 20,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 62654,
+    "duration_s": 39.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9153,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0598,
-    "context_deduplicated_results": 76,
+    "max_context_utilization": 0.0087,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
-  }
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.15,
+      "Other": 0.01
+    },
+    "margin_estimate": 10,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, capping confidence at medium. However, structural indicators strongly favor Democrats: court-ordered redistricting created a compact Salt Lake City-centered district with a Cook PVI of D+12 — a strong Democratic lean for a U.S. House seat. The Democratic nominee is still unsettled (four-way primary featuring former Rep. Ben McAdams, convention winner Liban Mohamed, state Sen. Nate Blouin, and Michael Farrell), adding some uncertainty about general election electability. The Republican nominee, Riley Owen, is a well-credentialed former White House staffer and Navy Reserve intelligence officer who won his party's convention with 71.2%. Libertarian Jesse West will also appear on the ballot but is unlikely to be competitive. Despite the unsettled Democratic field and absence of polling, the D+12 baseline makes Democrats clear favorites in this open seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:44.183280+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "ballotpedia_url": "https://ballotpedia.org/Utah's_1st_Congressional_District"
 }

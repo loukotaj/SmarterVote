@@ -619,10 +619,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Alaska_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:05:54.048553+00:00",
+  "updated_utc": "2026-06-20T03:16:18.395567+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -631,20 +630,56 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 274013,
-    "completion_tokens": 18777,
-    "total_tokens": 292790,
-    "cost_usd": 0.022127038,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4806,
+    "completion_tokens": 251,
+    "total_tokens": 5057,
+    "cost_usd": 0.007716000000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.030534,
+    "estimated_usd": 0.01578,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 274013,
-        "completion_tokens": 18777
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4806,
+        "completion_tokens": 251
       }
     },
-    "duration_s": 265.4
+    "duration_s": 8.2,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4039,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0038,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.51,
+    "party_probabilities": {
+      "Republican": 0.51,
+      "Democratic": 0.23,
+      "Independent": 0.26
+    },
+    "margin_estimate": 2.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "There is no numeric polling for this race as of June 2026, the top-four primary has not yet occurred, and Alaska’s ranked-choice general election structure adds substantial uncertainty about who will ultimately consolidate support. Republicans retain a modest structural advantage because they currently hold the governorship and Alaska has leaned Republican in many statewide races, but this is an open-seat contest with no incumbent and a very large, fragmented field. Democrats have multiple credible current or former legislators, while former Governor Bill Walker gives independents/nonpartisans a realistic path that is stronger than in a typical governor’s race. With no head-to-head data and no settled general election lineup, the race is best treated as highly competitive, with only a slight Republican edge and no clear favorite outside tossup range.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:16:17.493278Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

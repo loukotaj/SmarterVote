@@ -103,27 +103,55 @@
 </script>
 
 <svelte:head>
-  <title>{candidate?.name ?? "Candidate"} — {race?.title ?? "Loading..."} | Smarter.vote</title>
+  <title
+    >{candidate?.name ?? "Candidate"} — {race?.title ?? "Loading..."} | Smarter.vote</title
+  >
   <meta
     name="description"
-    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ??
+      'candidate'} in {race?.title ?? 'this election'}."
   />
-  <link rel="canonical" href="https://smarter.vote/races/{slug}/{candidateParam}/" />
-  <meta property="og:url" content="https://smarter.vote/races/{slug}/{candidateParam}/" />
-  <meta property="og:title" content="{candidate?.name ?? 'Candidate'} — {race?.title ?? 'Election'} | Smarter.vote" />
+  <link
+    rel="canonical"
+    href="https://smarter.vote/races/{slug}/{candidateParam}/"
+  />
+  <meta
+    property="og:url"
+    content="https://smarter.vote/races/{slug}/{candidateParam}/"
+  />
+  <meta
+    property="og:title"
+    content="{candidate?.name ?? 'Candidate'} — {race?.title ??
+      'Election'} | Smarter.vote"
+  />
   <meta
     property="og:description"
-    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ??
+      'candidate'} in {race?.title ?? 'this election'}."
   />
-  <meta property="og:image" content={candidate?.image_url || "https://smarter.vote/og-image.png"} />
+  <meta
+    property="og:image"
+    content={candidate?.image_url || "https://smarter.vote/og-image.png"}
+  />
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://smarter.vote/races/{slug}/{candidateParam}/" />
-  <meta property="twitter:title" content="{candidate?.name ?? 'Candidate'} — {race?.title ?? 'Election'} | Smarter.vote" />
+  <meta
+    property="twitter:url"
+    content="https://smarter.vote/races/{slug}/{candidateParam}/"
+  />
+  <meta
+    property="twitter:title"
+    content="{candidate?.name ?? 'Candidate'} — {race?.title ??
+      'Election'} | Smarter.vote"
+  />
   <meta
     property="twitter:description"
-    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ??
+      'candidate'} in {race?.title ?? 'this election'}."
   />
-  <meta property="twitter:image" content={candidate?.image_url || "https://smarter.vote/og-image.png"} />
+  <meta
+    property="twitter:image"
+    content={candidate?.image_url || "https://smarter.vote/og-image.png"}
+  />
 </svelte:head>
 
 <div class="container mx-auto px-4 py-6 sm:py-8 max-w-4xl">
@@ -381,7 +409,7 @@
             Sources ({candidate.summary_sources.length})
           </div>
           <ul class="summary-sources-list">
-            {#each (summarySourcesOpen ? candidate.summary_sources : candidate.summary_sources.slice(0, SUMMARY_SOURCE_LIMIT)) as src}
+            {#each summarySourcesOpen ? candidate.summary_sources : candidate.summary_sources.slice(0, SUMMARY_SOURCE_LIMIT) as src}
               <li>
                 {#if isExternalUrl(src.url)}
                   <a
@@ -406,7 +434,8 @@
                     {src.title ?? src.url}
                   </a>
                 {:else}
-                  <span class="summary-source-link">{src.title ?? src.url}</span>
+                  <span class="summary-source-link">{src.title ?? src.url}</span
+                  >
                 {/if}
               </li>
             {/each}
@@ -419,7 +448,9 @@
             >
               {summarySourcesOpen
                 ? "Show fewer"
-                : `Show ${candidate.summary_sources.length - SUMMARY_SOURCE_LIMIT} more`}
+                : `Show ${
+                    candidate.summary_sources.length - SUMMARY_SOURCE_LIMIT
+                  } more`}
             </button>
           {/if}
         </div>

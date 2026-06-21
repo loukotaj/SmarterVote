@@ -6,7 +6,7 @@
   "state": "Virginia",
   "district": "7th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Virginia's 7th Congressional District stretches across 11 localities in central and northern Virginia, including parts of Prince William, Stafford, Spotsylvania, and Culpeper counties. Incumbent Democrat Eugene Vindman, first elected in 2024 by a 2.5-point margin, is seeking a second term. Three Republicans\u2014entrepreneur Philip Harding, retired Army Lieutenant Colonel Doug Ollivant, and pastor/construction owner Ricky Smithers\u2014are competing in the August 4, 2026, primary to challenge him. The race takes place after a failed redistricting amendment was struck down by the Virginia Supreme Court, keeping the current map in place, and is rated 'Solid D' by the Cook Political Report.",
+  "description": "Virginia's 7th Congressional District stretches across 11 localities in central and northern Virginia, including parts of Prince William, Stafford, Spotsylvania, and Culpeper counties. Incumbent Democrat Eugene Vindman, first elected in 2024 by a 2.5-point margin, is seeking a second term. Three Republicans—entrepreneur Philip Harding, retired Army Lieutenant Colonel Doug Ollivant, and pastor/construction owner Ricky Smithers—are competing in the August 4, 2026, primary to challenge him. The race takes place after a failed redistricting amendment was struck down by the Virginia Supreme Court, keeping the current map in place, and is rated 'Solid D' by the Cook Political Report.",
   "polling": [],
   "polling_note": "No independent district-level general election polls were found for VA-07 as of June 2026. The Cook Political Report rates the race 'Solid D' as of May 8, 2026.",
   "candidates": [
@@ -446,7 +446,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:40:46.629871+00:00",
+  "updated_utc": "2026-06-20T15:24:22.418362+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -460,18 +460,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 284205,
-    "completion_tokens": 8356,
-    "total_tokens": 292561,
-    "cost_usd": 0.02076385,
+    "prompt_tokens": 15284,
+    "completion_tokens": 2892,
+    "total_tokens": 18176,
+    "cost_usd": 0.002064664,
     "cost_source": "provider",
-    "estimated_usd": 0.02949,
+    "estimated_usd": 0.001896,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 284205,
-        "completion_tokens": 8356
+        "prompt_tokens": 15284,
+        "completion_tokens": 2892
       }
     },
-    "duration_s": 153.8
+    "duration_s": 35.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9058,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0086,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Eugene Vindman",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Democratic": 0.88,
+      "Republican": 0.12
+    },
+    "margin_estimate": 6.5,
+    "rating": "likely_d",
+    "confidence": "low",
+    "rationale": "No district-level general election polling is available for VA-07, so confidence is low and the forecast relies entirely on non-polling fundamentals. Incumbent Democrat Eugene Vindman won this seat by a narrow 2.5-point margin in 2024 and is seeking a second term. The district map remains in place after the Virginia Supreme Court struck down a redistricting amendment. Cook Political Report rates this seat 'Solid D' as of May 2026, indicating a strong Democratic lean. However, the narrow 2024 margin, the unsettled three-candidate Republican primary (August 4, 2026), and the total absence of polling data introduce meaningful uncertainty. The fundamentals still favor the incumbent, but the margin is unlikely to be as dominant as safer Democratic seats, supporting a 'likely D' rating with a probability in the mid-to-high 80s.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:15.013904Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

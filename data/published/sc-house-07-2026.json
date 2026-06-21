@@ -189,7 +189,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/South_Carolina%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:39:53.440000+00:00",
+  "updated_utc": "2026-06-20T15:29:59.720624+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -203,18 +203,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 223304,
-    "completion_tokens": 7461,
-    "total_tokens": 230765,
-    "cost_usd": 0.015758308,
+    "prompt_tokens": 11071,
+    "completion_tokens": 1578,
+    "total_tokens": 12649,
+    "cost_usd": 0.001394246,
     "cost_source": "provider",
-    "estimated_usd": 0.023346,
+    "estimated_usd": 0.00128,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 223304,
-        "completion_tokens": 7461
+        "prompt_tokens": 11071,
+        "completion_tokens": 1578
       }
     },
-    "duration_s": 117.1
+    "duration_s": 25.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6261,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Russell Fry",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "There are no public general-election polls for this race. The forecast relies on structural factors: Cook Political Report rates the district 'Solid Republican,' the district has not elected a Democrat to Congress in the modern era, and incumbent Russell Fry won 65% of the vote in 2024. Democratic challenger John Vincent is a credible nominee with a compelling personal story, but faces an extremely difficult partisan environment in this heavily Republican district. The absence of polling reduces confidence from high to medium, but the available race data points to an overwhelming Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:54.974405Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

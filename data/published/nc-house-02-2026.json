@@ -362,7 +362,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:29:49.238512+00:00",
+  "updated_utc": "2026-06-20T15:36:29.250951+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -376,18 +376,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 250683,
-    "completion_tokens": 7636,
-    "total_tokens": 258319,
-    "cost_usd": 0.016488934,
+    "prompt_tokens": 14443,
+    "completion_tokens": 1941,
+    "total_tokens": 16384,
+    "cost_usd": 0.0017958499999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.026064,
+    "estimated_usd": 0.001649,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 250683,
-        "completion_tokens": 7636
+        "prompt_tokens": 14443,
+        "completion_tokens": 1941
       }
     },
-    "duration_s": 159.2
+    "duration_s": 30.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8519,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0081,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Deborah K. Ross",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.82,
+    "party_probabilities": {
+      "Democratic": 0.82,
+      "Republican": 0.17,
+      "Other": 0.01
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_d",
+    "confidence": "low",
+    "rationale": "No public general-election polling is available for this race, so the forecast rests on non-polling indicators and should be treated cautiously. Deborah Ross is the three-term incumbent seeking a fourth term, giving her clear advantages in name recognition, fundraising, and institutional support. The district encompasses most of Wake County and much of Raleigh — historically Democratic-leaning suburban and urban territory. However, the district was redrawn in October 2025 via mid-decade redistricting, creating meaningful uncertainty about the exact partisan baseline. In addition, the open U.S. Senate race in North Carolina could alter turnout dynamics. The Republican nominee is a first-time candidate (retired chemistry professor who ran unopposed in the primary), while third-party candidates (Green, Libertarian) may pull small shares. On the available race data, Democrats are favored, but the absence of polling and the redistricting uncertainty preclude a 'safe' rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:21.843503Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

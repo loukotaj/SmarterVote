@@ -172,7 +172,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:38:14.497838+00:00",
+  "updated_utc": "2026-06-20T15:34:27.912596+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -186,18 +186,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 187312,
-    "completion_tokens": 5451,
-    "total_tokens": 192763,
-    "cost_usd": 0.014752460000000002,
+    "prompt_tokens": 10680,
+    "completion_tokens": 2006,
+    "total_tokens": 12686,
+    "cost_usd": 0.001379912,
     "cost_source": "provider",
-    "estimated_usd": 0.019425,
+    "estimated_usd": 0.001322,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 187312,
-        "completion_tokens": 5451
+        "prompt_tokens": 10680,
+        "completion_tokens": 2006
       }
     },
-    "duration_s": 105.0
+    "duration_s": 34.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6029,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0057,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ayanna Pressley",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.99,
+    "party_probabilities": {
+      "Democratic": 0.99,
+      "Independent": 0.01
+    },
+    "margin_estimate": 58.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public district-specific polls are available, limiting confidence from direct survey evidence. However, district fundamentals are overwhelmingly Democratic: MA-07 has a Cook PVI of D+34, one of the highest Democratic lean scores in the country, and is rated 'Solid D' by Cook. Incumbent Ayanna Pressley is a four-term Democratic representative and a well-known figure in the district. The only currently listed general-election opponent is Kelechi Linardon, an independent candidate with very limited public profile, no campaign website, and no donor or career history available. A Democratic primary is scheduled for September 1, 2026, after which additional general election candidates could emerge, but no Republican or other major-party challenger has filed to date. Based on present field strength and district fundamentals, Democrats hold an overwhelming advantage consistent with a safe rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:20.612264Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

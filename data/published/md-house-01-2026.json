@@ -6,7 +6,7 @@
   "state": "Maryland",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Maryland's 1st Congressional District will be decided in a general election on November 3, 2026, following a primary on June 23, 2026. The district covers the entire Eastern Shore of Maryland, including Salisbury, Harford County, and parts of northern Baltimore County. Incumbent Republican Andy Harris, the chair of the House Freedom Caucus who has held the seat since 2011, faces a Republican primary challenge from Chris Bruneau, while four Democrats\u2014Victor Guidice, Dan Schwartz, George Walish, and Randi White\u2014are competing in the Democratic primary. The race is rated 'Solid R' by Cook Political Report due to the district's Republican lean, though Democrats are energized by Harris's role in efforts to overturn the 2020 election results.",
+  "description": "The 2026 election for Maryland's 1st Congressional District will be decided in a general election on November 3, 2026, following a primary on June 23, 2026. The district covers the entire Eastern Shore of Maryland, including Salisbury, Harford County, and parts of northern Baltimore County. Incumbent Republican Andy Harris, the chair of the House Freedom Caucus who has held the seat since 2011, faces a Republican primary challenge from Chris Bruneau, while four Democrats—Victor Guidice, Dan Schwartz, George Walish, and Randi White—are competing in the Democratic primary. The race is rated 'Solid R' by Cook Political Report due to the district's Republican lean, though Democrats are energized by Harris's role in efforts to overturn the 2020 election results.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of June 2026.",
   "candidates": [
@@ -453,7 +453,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:21:26.139605+00:00",
+  "updated_utc": "2026-06-20T15:40:24.688983+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -467,18 +467,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 325655,
-    "completion_tokens": 8720,
-    "total_tokens": 334375,
-    "cost_usd": 0.0236185233,
+    "prompt_tokens": 16225,
+    "completion_tokens": 1651,
+    "total_tokens": 17876,
+    "cost_usd": 0.001913646,
     "cost_source": "provider",
-    "estimated_usd": 0.033623,
+    "estimated_usd": 0.001757,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 325655,
-        "completion_tokens": 8720
+        "prompt_tokens": 16225,
+        "completion_tokens": 1651
       }
     },
-    "duration_s": 186.7
+    "duration_s": 28.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9740,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Andy Harris",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.05
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race as of June 2026, which limits confidence. However, the structural indicators strongly favor the Republican incumbent: Andy Harris has held the seat since 2011 (eight terms), the district is rated 'Solid R' by Cook Political Report, and Harris chairs the House Freedom Caucus. The Democratic field is fragmented among four candidates (Schwartz, White, Guidice, Walish) with no clear consensus leader, and the Republican primary challenger (Bruneau) previously ran and lost in 2024. The district's Eastern Shore geography has a strong Republican baseline. Given incumbency, district partisanship, and a divided Democratic field, Republicans hold an overwhelming advantage—but the complete absence of polling data prevents a high-confidence rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:18.690312Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

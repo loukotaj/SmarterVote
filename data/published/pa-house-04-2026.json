@@ -55,7 +55,7 @@
       "career_history": [
         {
           "title": "United States Representative",
-          "organization": "United States House of Representatives \u2014 Pennsylvania's 4th District",
+          "organization": "United States House of Representatives — Pennsylvania's 4th District",
           "start_year": 2019,
           "end_year": null,
           "description": "Serves on Appropriations and Foreign Affairs Committees; impeachment manager for Trump second impeachment.",
@@ -63,7 +63,7 @@
         },
         {
           "title": "Member of the Pennsylvania House of Representatives",
-          "organization": "Pennsylvania House of Representatives \u2014 153rd District",
+          "organization": "Pennsylvania House of Representatives — 153rd District",
           "start_year": 2012,
           "end_year": 2018,
           "description": "Represented the 153rd district; co-founded PA SAFE Caucus for gun violence prevention.",
@@ -257,7 +257,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:32:20.025781+00:00",
+  "updated_utc": "2026-06-20T15:35:02.377743+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -271,18 +271,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 215903,
-    "completion_tokens": 5893,
-    "total_tokens": 221796,
-    "cost_usd": 0.015853874,
+    "prompt_tokens": 9496,
+    "completion_tokens": 1253,
+    "total_tokens": 10749,
+    "cost_usd": 0.001176196,
     "cost_source": "provider",
-    "estimated_usd": 0.022314,
+    "estimated_usd": 0.00108,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 215903,
-        "completion_tokens": 5893
+        "prompt_tokens": 9496,
+        "completion_tokens": 1253
       }
     },
-    "duration_s": 118.4
+    "duration_s": 21.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7033,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Madeleine Dean",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.05
+    },
+    "margin_estimate": 15.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available, capping confidence at medium. However, the race data overwhelmingly favor Democratic incumbent Rep. Madeleine Dean: she has won three consecutive terms since the current district lines were drawn in 2018, the district carries a D+8 Cook PVI rating ('Solid Democratic'), prediction markets place Democratic hold probability at 94%, and the challenger (Aurora Stuski, a local GOP activist and small-business owner) faces steep structural odds in a district that has consistently elected Democrats at the federal level. With no polling to refine the margin, the 15-point estimate reflects the district's strong Democratic lean and incumbency advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:53.071686Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

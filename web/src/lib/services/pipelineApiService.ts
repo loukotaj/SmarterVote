@@ -8,7 +8,13 @@ import {
   API_TIMEOUT_ARTIFACT,
 } from "$lib/config/constants";
 import { PIPELINE_STEPS } from "$lib/types";
-import type { RunInfo, RunOptions, RunHistoryItem, RaceRecord, RunStep } from "$lib/types";
+import type {
+  RunInfo,
+  RunOptions,
+  RunHistoryItem,
+  RaceRecord,
+  RunStep,
+} from "$lib/types";
 
 export interface AdminChatMessage {
   role: "user" | "assistant";
@@ -61,11 +67,22 @@ export interface AdminAgentMessage {
 export interface AdminAgentTask {
   task_id: string;
   conversation_id: string;
-  status: "queued" | "running" | "waiting_approval" | "completed" | "failed" | "cancelled" | "continued";
+  status:
+    | "queued"
+    | "running"
+    | "waiting_approval"
+    | "completed"
+    | "failed"
+    | "cancelled"
+    | "continued";
   iteration?: number;
   continuation_count?: number;
   approval_summary?: string | null;
-  pending_tool_call?: { id: string; name: string; arguments: Record<string, unknown> } | null;
+  pending_tool_call?: {
+    id: string;
+    name: string;
+    arguments: Record<string, unknown>;
+  } | null;
   error?: string | null;
   created_at: string;
   updated_at: string;
@@ -95,8 +112,17 @@ export interface PublishedRaceSummary {
   state?: string;
   election_date: string;
   updated_utc: string;
-  candidates: { name: string; party?: string; incumbent?: boolean; image_url?: string }[];
-  agent_metrics?: { estimated_usd?: number; model?: string; total_tokens?: number } | null;
+  candidates: {
+    name: string;
+    party?: string;
+    incumbent?: boolean;
+    image_url?: string;
+  }[];
+  agent_metrics?: {
+    estimated_usd?: number;
+    model?: string;
+    total_tokens?: number;
+  } | null;
 }
 
 interface PublishedRacesResponse {
@@ -106,7 +132,13 @@ interface PublishedRacesResponse {
 export interface QueueItem {
   id: string;
   race_id: string;
-  status: "pending" | "running" | "completed" | "failed" | "cancelled" | "continued";
+  status:
+    | "pending"
+    | "running"
+    | "completed"
+    | "failed"
+    | "cancelled"
+    | "continued";
   options: Record<string, unknown>;
   run_id?: string;
   created_at: string;
@@ -156,30 +188,48 @@ export class PipelineApiService {
   private normalizeRun(raw: RunInfo | Record<string, unknown>): RunInfo {
     const r = raw as RunInfo & Record<string, unknown>;
     const runId = String(r.run_id || r.id || "");
-    const payloadRaceId = (r.payload as Record<string, unknown> | undefined)?.race_id;
-    const raceId = typeof r.race_id === "string"
-      ? r.race_id
-      : typeof payloadRaceId === "string"
+    const payloadRaceId = (r.payload as Record<string, unknown> | undefined)
+      ?.race_id;
+    const raceId =
+      typeof r.race_id === "string"
+        ? r.race_id
+        : typeof payloadRaceId === "string"
         ? payloadRaceId
         : undefined;
     const options = r.options ?? {};
     const existingSteps = Array.isArray(r.steps) ? (r.steps as RunStep[]) : [];
-    const enabledSteps = Array.isArray(options.enabled_steps) && options.enabled_steps.length
-      ? options.enabled_steps
-      : PIPELINE_STEPS.map((s) => s.id);
-    const remainingSteps = Array.isArray(r.remaining_steps) ? r.remaining_steps.map(String) : undefined;
-    const currentStep = typeof r.current_step === "string" ? r.current_step : undefined;
-    const currentStepProgress = typeof r.current_step_progress === "number" ? r.current_step_progress : undefined;
+    const enabledSteps =
+      Array.isArray(options.enabled_steps) && options.enabled_steps.length
+        ? options.enabled_steps
+        : PIPELINE_STEPS.map((s) => s.id);
+    const remainingSteps = Array.isArray(r.remaining_steps)
+      ? r.remaining_steps.map(String)
+      : undefined;
+    const currentStep =
+      typeof r.current_step === "string" ? r.current_step : undefined;
+    const currentStepProgress =
+      typeof r.current_step_progress === "number"
+        ? r.current_step_progress
+        : undefined;
     const status = (r.status || "pending") as RunInfo["status"];
     const steps = existingSteps.length
       ? existingSteps
       : PIPELINE_STEPS.map((step) => {
           const enabled = enabledSteps.includes(step.id);
           let stepStatus: RunStep["status"] = enabled ? "pending" : "skipped";
-          if (enabled && remainingSteps && !remainingSteps.includes(step.id) && step.id !== currentStep) {
+          if (
+            enabled &&
+            remainingSteps &&
+            !remainingSteps.includes(step.id) &&
+            step.id !== currentStep
+          ) {
             stepStatus = "completed";
           }
-          if (enabled && step.id === currentStep && (status === "running" || status === "pending")) {
+          if (
+            enabled &&
+            step.id === currentStep &&
+            (status === "running" || status === "pending")
+          ) {
             stepStatus = "running";
           }
           if (status === "completed" && enabled) {
@@ -190,7 +240,10 @@ export class PipelineApiService {
             label: step.label,
             weight: step.weight,
             status: stepStatus,
-            progress_pct: enabled && step.id === currentStep ? currentStepProgress : undefined,
+            progress_pct:
+              enabled && step.id === currentStep
+                ? currentStepProgress
+                : undefined,
           };
         });
 
@@ -202,7 +255,8 @@ export class PipelineApiService {
       payload: r.payload ?? (raceId ? { race_id: raceId } : {}),
       options,
       progress: typeof r.progress === "number" ? r.progress : undefined,
-      progress_message: typeof r.progress_message === "string" ? r.progress_message : undefined,
+      progress_message:
+        typeof r.progress_message === "string" ? r.progress_message : undefined,
       current_step: currentStep ?? null,
       current_step_progress: currentStepProgress,
       remaining_steps: remainingSteps,
@@ -216,28 +270,32 @@ export class PipelineApiService {
    * started_at, completed_at, duration_ms, error, options — but NOT steps[] or logs[].
    */
   async loadRunHistory(): Promise<RunHistoryItem[]> {
-    const res = await fetchWithAuth(`${this.apiBase}/runs`, {}, API_TIMEOUT_SHORT);
+    const res = await fetchWithAuth(
+      `${this.apiBase}/runs`,
+      {},
+      API_TIMEOUT_SHORT
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: RunsResponse = await res.json();
     const runs = data.runs || [];
 
     return runs.map((r: RunInfo, idx: number) => {
       const normalized = this.normalizeRun(r);
-      return ({
+      return {
         ...normalized,
         run_id: normalized.run_id,
         display_id: runs.length - idx,
         updated_at: normalized.completed_at || normalized.started_at,
-      // Firestore runs expose current_step instead of a steps array.
+        // Firestore runs expose current_step instead of a steps array.
         last_step: normalized.current_step ?? undefined,
-      // Fields not present in Firestore run docs — supply safe defaults.
+        // Fields not present in Firestore run docs — supply safe defaults.
         steps: normalized.steps,
         payload: normalized.payload,
         progress: normalized.progress,
         progress_message: normalized.progress_message,
         current_step: normalized.current_step,
         current_step_progress: normalized.current_step_progress,
-      } as RunHistoryItem);
+      } as RunHistoryItem;
     });
   }
 
@@ -275,7 +333,11 @@ export class PipelineApiService {
    * Get run details
    */
   async getRunDetails(runId: string): Promise<RunInfo> {
-    const res = await fetchWithAuth(`${this.apiBase}/runs/${encodeURIComponent(runId)}`, {}, API_TIMEOUT_DEFAULT);
+    const res = await fetchWithAuth(
+      `${this.apiBase}/runs/${encodeURIComponent(runId)}`,
+      {},
+      API_TIMEOUT_DEFAULT
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return this.normalizeRun(await res.json());
   }
@@ -301,7 +363,11 @@ export class PipelineApiService {
    * Load published race summaries
    */
   async loadPublishedRaces(): Promise<PublishedRaceSummary[]> {
-    const res = await fetchWithAuth(`${this.apiBase}/races/summaries`, {}, API_TIMEOUT_SHORT);
+    const res = await fetchWithAuth(
+      `${this.apiBase}/races/summaries`,
+      {},
+      API_TIMEOUT_SHORT
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
   }
@@ -340,7 +406,11 @@ export class PipelineApiService {
    * Load draft race summaries
    */
   async loadDraftRaces(): Promise<PublishedRaceSummary[]> {
-    const res = await fetchWithAuth(`${this.apiBase}/api/races/drafts`, {}, API_TIMEOUT_SHORT);
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/races/drafts`,
+      {},
+      API_TIMEOUT_SHORT
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: PublishedRacesResponse = await res.json();
     return data.races || [];
@@ -393,7 +463,10 @@ export class PipelineApiService {
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
       // Idempotent behavior: treat missing draft as already deleted.
-      if (res.status === 404 && errorText.toLowerCase().includes("draft not found")) {
+      if (
+        res.status === 404 &&
+        errorText.toLowerCase().includes("draft not found")
+      ) {
         return;
       }
       throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
@@ -406,7 +479,11 @@ export class PipelineApiService {
    * Get current queue state
    */
   async loadQueue(): Promise<QueueResponse> {
-    const res = await fetchWithAuth(`${this.apiBase}/api/queue`, {}, API_TIMEOUT_SHORT);
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/queue`,
+      {},
+      API_TIMEOUT_SHORT
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
   }
@@ -434,8 +511,14 @@ export class PipelineApiService {
    * Remove or cancel a queue item. If force=true, skip graceful cancel and force-remove.
    */
   async removeQueueItem(itemId: string, force = false): Promise<void> {
-    const url = `${this.apiBase}/api/queue/${encodeURIComponent(itemId)}${force ? "?force=true" : ""}`;
-    const res = await fetchWithAuth(url, { method: "DELETE" }, API_TIMEOUT_SHORT);
+    const url = `${this.apiBase}/api/queue/${encodeURIComponent(itemId)}${
+      force ? "?force=true" : ""
+    }`;
+    const res = await fetchWithAuth(
+      url,
+      { method: "DELETE" },
+      API_TIMEOUT_SHORT
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   }
 
@@ -536,7 +619,9 @@ export class PipelineApiService {
   /**
    * Recheck race status from storage (recover stuck 'running' races)
    */
-  async recheckRace(raceId: string): Promise<{ race: import("$lib/types").RaceRecord }> {
+  async recheckRace(
+    raceId: string
+  ): Promise<{ race: import("$lib/types").RaceRecord }> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/recheck`,
       { method: "POST" },
@@ -549,7 +634,11 @@ export class PipelineApiService {
   /**
    * Recheck all race statuses from storage and clear stale active runs
    */
-  async recheckAllRaces(): Promise<{ checked: number; updated: number; races: import("$lib/types").RaceRecord[] }> {
+  async recheckAllRaces(): Promise<{
+    checked: number;
+    updated: number;
+    races: import("$lib/types").RaceRecord[];
+  }> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/recheck`,
       { method: "POST" },
@@ -599,12 +688,19 @@ export class PipelineApiService {
   /**
    * Batch publish multiple races at once
    */
-  async batchPublishRaces(raceIds: string[]): Promise<{ published: string[]; errors: Array<{ race_id: string; error: string }> }> {
-    const res = await fetchWithAuth(`${this.apiBase}/api/races/publish`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ race_ids: raceIds }),
-    }, API_TIMEOUT_ARTIFACT);
+  async batchPublishRaces(raceIds: string[]): Promise<{
+    published: string[];
+    errors: Array<{ race_id: string; error: string }>;
+  }> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/races/publish`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ race_ids: raceIds }),
+      },
+      API_TIMEOUT_ARTIFACT
+    );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
       throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
@@ -632,7 +728,9 @@ export class PipelineApiService {
    */
   async listRaceRuns(raceId: string, limit: number = 20): Promise<RunInfo[]> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/runs?limit=${limit}`,
+      `${this.apiBase}/api/races/${encodeURIComponent(
+        raceId
+      )}/runs?limit=${limit}`,
       {},
       API_TIMEOUT_SHORT
     );
@@ -646,7 +744,9 @@ export class PipelineApiService {
    */
   async getRaceRun(raceId: string, runId: string): Promise<RunInfo> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/runs/${encodeURIComponent(runId)}`,
+      `${this.apiBase}/api/races/${encodeURIComponent(
+        raceId
+      )}/runs/${encodeURIComponent(runId)}`,
       {},
       API_TIMEOUT_DEFAULT
     );
@@ -659,7 +759,9 @@ export class PipelineApiService {
    */
   async deleteRaceRun(raceId: string, runId: string): Promise<void> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/runs/${encodeURIComponent(runId)}`,
+      `${this.apiBase}/api/races/${encodeURIComponent(
+        raceId
+      )}/runs/${encodeURIComponent(runId)}`,
       { method: "DELETE" },
       API_TIMEOUT_SHORT
     );
@@ -669,7 +771,10 @@ export class PipelineApiService {
   /**
    * Get full race JSON data (published or draft)
    */
-  async getRaceData(raceId: string, draft: boolean = false): Promise<Record<string, unknown>> {
+  async getRaceData(
+    raceId: string,
+    draft: boolean = false
+  ): Promise<Record<string, unknown>> {
     const params = draft ? "?draft=true" : "";
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/data${params}`,
@@ -697,9 +802,14 @@ export class PipelineApiService {
   /**
    * Get JSON content of a specific retired version
    */
-  async getRaceVersionData(raceId: string, filename: string): Promise<Record<string, unknown>> {
+  async getRaceVersionData(
+    raceId: string,
+    filename: string
+  ): Promise<Record<string, unknown>> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/versions/${encodeURIComponent(filename)}`,
+      `${this.apiBase}/api/races/${encodeURIComponent(
+        raceId
+      )}/versions/${encodeURIComponent(filename)}`,
       {},
       API_TIMEOUT_DEFAULT
     );
@@ -712,7 +822,9 @@ export class PipelineApiService {
    */
   async restoreVersionAsDraft(raceId: string, filename: string): Promise<void> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/versions/${encodeURIComponent(filename)}/restore`,
+      `${this.apiBase}/api/races/${encodeURIComponent(
+        raceId
+      )}/versions/${encodeURIComponent(filename)}/restore`,
       { method: "POST" },
       API_TIMEOUT_DEFAULT
     );
@@ -725,9 +837,7 @@ export class PipelineApiService {
    * Send a chat message to the admin AI assistant.
    * Returns the assistant reply and an optional action to confirm.
    */
-  async adminChat(
-    messages: AdminChatMessage[]
-  ): Promise<AdminChatResponse> {
+  async adminChat(messages: AdminChatMessage[]): Promise<AdminChatResponse> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-chat`,
       {
@@ -744,7 +854,9 @@ export class PipelineApiService {
     return await res.json();
   }
 
-  async createAdminAgentConversation(): Promise<AdminAgentConversation["conversation"]> {
+  async createAdminAgentConversation(): Promise<
+    AdminAgentConversation["conversation"]
+  > {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/conversations`,
       { method: "POST", headers: { "Content-Type": "application/json" } },
@@ -754,9 +866,13 @@ export class PipelineApiService {
     return await res.json();
   }
 
-  async getAdminAgentConversation(conversationId: string): Promise<AdminAgentConversation> {
+  async getAdminAgentConversation(
+    conversationId: string
+  ): Promise<AdminAgentConversation> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(conversationId)}`,
+      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(
+        conversationId
+      )}`,
       {},
       API_TIMEOUT_DEFAULT
     );
@@ -764,9 +880,14 @@ export class PipelineApiService {
     return await res.json();
   }
 
-  async submitAdminAgentMessage(conversationId: string, content: string): Promise<AdminAgentTask> {
+  async submitAdminAgentMessage(
+    conversationId: string,
+    content: string
+  ): Promise<AdminAgentTask> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(conversationId)}/messages`,
+      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(
+        conversationId
+      )}/messages`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -780,7 +901,9 @@ export class PipelineApiService {
 
   async approveAdminAgentTask(taskId: string): Promise<AdminAgentTask> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(taskId)}/approve`,
+      `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(
+        taskId
+      )}/approve`,
       { method: "POST", headers: { "Content-Type": "application/json" } },
       API_TIMEOUT_DEFAULT
     );
@@ -790,7 +913,9 @@ export class PipelineApiService {
 
   async cancelAdminAgentTask(taskId: string): Promise<AdminAgentTask> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(taskId)}/cancel`,
+      `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(
+        taskId
+      )}/cancel`,
       { method: "POST", headers: { "Content-Type": "application/json" } },
       API_TIMEOUT_DEFAULT
     );
@@ -798,7 +923,9 @@ export class PipelineApiService {
     return await res.json();
   }
 
-  async listAdminAgentConversations(): Promise<AdminAgentConversation["conversation"][]> {
+  async listAdminAgentConversations(): Promise<
+    AdminAgentConversation["conversation"][]
+  > {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/conversations`,
       {},
@@ -811,11 +938,12 @@ export class PipelineApiService {
 
   async deleteAdminAgentConversation(conversationId: string): Promise<void> {
     const res = await fetchWithAuth(
-      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(conversationId)}`,
+      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(
+        conversationId
+      )}`,
       { method: "DELETE" },
       API_TIMEOUT_DEFAULT
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
   }
-
 }

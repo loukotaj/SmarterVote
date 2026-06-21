@@ -447,36 +447,69 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:14:22.508701+00:00",
+  "updated_utc": "2026-06-20T03:17:32.565572+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 112082,
-    "completion_tokens": 7139,
-    "total_tokens": 119221,
-    "cost_usd": 0.00522834,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3829,
+    "completion_tokens": 232,
+    "total_tokens": 4061,
+    "cost_usd": 0.0130525,
     "cost_source": "provider",
-    "estimated_usd": 0.00846,
+    "estimated_usd": 0.013052,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 112082,
-        "completion_tokens": 7139
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3829,
+        "completion_tokens": 232
       }
     },
-    "duration_s": 72.3
+    "duration_s": 7.4,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3280,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0031,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Cory Booker",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Democratic": 0.92,
+      "Republican": 0.08
+    },
+    "margin_estimate": 14.0,
+    "rating": "likely_d",
+    "confidence": "low",
+    "rationale": "There is no public general-election polling in the race data, so this forecast relies on non-polling fundamentals and should be treated cautiously. New Jersey is described here as a generally Democratic-leaning state that has recently elected Democrats to statewide federal office, which gives Democrats a structural advantage. That advantage is reinforced by incumbency: Cory Booker is the sitting senator and the best-known candidate in the field. The listed Republican field appears unsettled and, based on the provided summaries, does not yet show a clearly established statewide challenger. Even so, the absence of polling and the early stage of the race reduce confidence, so the race is better characterized as Likely Democratic rather than Safe Democratic.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:31.745401Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

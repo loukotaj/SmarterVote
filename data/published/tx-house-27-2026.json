@@ -166,7 +166,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_27th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:35:41.225921+00:00",
+  "updated_utc": "2026-06-20T15:30:20.831814+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -177,18 +177,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 191306,
-    "completion_tokens": 6043,
-    "total_tokens": 197349,
-    "cost_usd": 0.01425152,
+    "prompt_tokens": 7118,
+    "completion_tokens": 2256,
+    "total_tokens": 9374,
+    "cost_usd": 0.00113974,
     "cost_source": "provider",
-    "estimated_usd": 0.019932,
+    "estimated_usd": 0.001047,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 191306,
-        "completion_tokens": 6043
+        "prompt_tokens": 7118,
+        "completion_tokens": 2256
       }
     },
-    "duration_s": 111.1
+    "duration_s": 35.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3745,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0036,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Michael Cloud",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 22,
+    "rating": "safe_r",
+    "confidence": "low",
+    "rationale": "No district-specific public polls exist for TX-27 in the 2026 cycle. The Cook Political Report rates the district 'Solidly Republican,' which is the strongest Republican rating. Incumbent Michael Cloud (R) is seeking a fifth full term and is a member of the House Freedom Caucus, indicating strong conservative alignment with the district's demonstrated partisan lean. Democratic challenger Tanya Lloyd won a three-way primary with 63.1% but has no reported polling, fundraising advantage, or other quantitative evidence of competitiveness. Recent mid-decade redistricting litigation introduces some uncertainty about boundary effects, and the complete absence of polling reduces confidence in the precise margin estimate. Nonetheless, the Cook rating, incumbency, and district history all point to an overwhelming Republican advantage consistent with the safe_r rating (95%+ GOP win probability).",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:12.076330+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

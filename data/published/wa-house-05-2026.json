@@ -207,7 +207,7 @@
         {
           "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
           "type": "news",
-          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "title": "Nine Candidates for the Fifth … Two Will Advance - The LeClaire Report",
           "description": null,
           "last_accessed": "2026-07-10T00:00:00Z",
           "published_at": null,
@@ -323,7 +323,7 @@
         {
           "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
           "type": "news",
-          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "title": "Nine Candidates for the Fifth … Two Will Advance - The LeClaire Report",
           "description": null,
           "last_accessed": "2026-07-10T00:00:00Z",
           "published_at": null,
@@ -439,7 +439,7 @@
         {
           "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
           "type": "news",
-          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "title": "Nine Candidates for the Fifth … Two Will Advance - The LeClaire Report",
           "description": null,
           "last_accessed": "2026-07-10T00:00:00Z",
           "published_at": null,
@@ -490,7 +490,7 @@
         {
           "url": "https://jerrysindivisible.substack.com/p/nine-candidates-for-the-fifth-two",
           "type": "news",
-          "title": "Nine Candidates for the Fifth \u2026 Two Will Advance - The LeClaire Report",
+          "title": "Nine Candidates for the Fifth … Two Will Advance - The LeClaire Report",
           "description": null,
           "last_accessed": "2026-07-10T00:00:00Z",
           "published_at": null,
@@ -517,7 +517,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington%27s_5th_Congressional_District_election,_2026_(August_4_top-two_primary)",
-  "updated_utc": "2026-06-13T22:26:03.883487+00:00",
+  "updated_utc": "2026-06-20T15:32:02.432775+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -531,18 +531,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 215498,
-    "completion_tokens": 9485,
-    "total_tokens": 224983,
-    "cost_usd": 0.015639623999999998,
+    "prompt_tokens": 17874,
+    "completion_tokens": 2073,
+    "total_tokens": 19947,
+    "cost_usd": 0.00215796,
     "cost_source": "provider",
-    "estimated_usd": 0.022978,
+    "estimated_usd": 0.001982,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 215498,
-        "completion_tokens": 9485
+        "prompt_tokens": 17874,
+        "completion_tokens": 2073
       }
     },
-    "duration_s": 157.7
+    "duration_s": 34.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10312,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0098,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Michael Baumgartner",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Democratic": 0.11,
+      "Republican": 0.88,
+      "Independent": 0.01
+    },
+    "margin_estimate": 17.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, so confidence is limited and the forecast relies entirely on race fundamentals. Those fundamentals consistently favor the Republican Party: this is an R+5 district (Cook PVI) in eastern Washington, incumbent Michael Baumgartner is seeking his second term, and he defeated Democrat Carmela Conroy by a decisive 61%-39% margin (22 points) in the 2024 general election. While the August 4 top-two primary introduces some uncertainty about which Democrat will advance, the district's Republican lean, incumbency advantage, and the scale of the 2024 Republican victory all point to Baumgartner as a clear favorite. The 17-point margin estimate reflects modest regression from the 22-point 2024 margin, accounting for potential national environment shifts and the possibility of a stronger Democratic challenger emerging from the primary field, without any polling data to suggest a different trajectory.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:56.986687Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

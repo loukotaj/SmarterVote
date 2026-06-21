@@ -6,7 +6,7 @@
   "state": "Texas",
   "district": "15th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Texas's 15th Congressional District pits Republican incumbent Rep. Monica De La Cruz against Democratic challenger Bobby Pulido, a Latin Grammy-winning Tejano musician. The district, which stretches from the outskirts of San Antonio down to the U.S.\u2013Mexico border in the Rio Grande Valley, was significantly redrawn by Texas Republicans in 2025 to increase its GOP tilt. De La Cruz, first elected in 2022 and re-elected in 2024, is the first Republican to represent this district since its creation in 1903. National Democrats view Pulido's crossover appeal and moderate profile as giving them their best opportunity to compete in a seat that Donald Trump would have carried by 18 points under the current lines in 2024. The race is rated as \"Likely Republican\" by the Cook Political Report.",
+  "description": "The 2026 election for Texas's 15th Congressional District pits Republican incumbent Rep. Monica De La Cruz against Democratic challenger Bobby Pulido, a Latin Grammy-winning Tejano musician. The district, which stretches from the outskirts of San Antonio down to the U.S.–Mexico border in the Rio Grande Valley, was significantly redrawn by Texas Republicans in 2025 to increase its GOP tilt. De La Cruz, first elected in 2022 and re-elected in 2024, is the first Republican to represent this district since its creation in 1903. National Democrats view Pulido's crossover appeal and moderate profile as giving them their best opportunity to compete in a seat that Donald Trump would have carried by 18 points under the current lines in 2024. The race is rated as \"Likely Republican\" by the Cook Political Report.",
   "polling": [
     {
       "pollster": "House Majority PAC (Democratic)",
@@ -193,7 +193,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_15th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:31:55.767624+00:00",
+  "updated_utc": "2026-06-20T15:38:02.865778+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -207,18 +207,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 236545,
-    "completion_tokens": 5382,
-    "total_tokens": 241927,
-    "cost_usd": 0.015879674,
+    "prompt_tokens": 12502,
+    "completion_tokens": 2069,
+    "total_tokens": 14571,
+    "cost_usd": 0.00163072,
     "cost_source": "provider",
-    "estimated_usd": 0.024236,
+    "estimated_usd": 0.001498,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 236545,
-        "completion_tokens": 5382
+        "prompt_tokens": 12502,
+        "completion_tokens": 2069
       }
     },
-    "duration_s": 113.2
+    "duration_s": 36.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7025,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Monica De La Cruz",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.16,
+      "Republican": 0.84
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "Republican incumbent Monica De La Cruz holds a strong structural advantage in a district redrawn by Texas Republicans in 2025 to be more GOP-friendly, with Donald Trump having carried the current lines by 18 points in 2024. She has won the seat twice (2022, 2024) and is the first Republican to represent this district since 1903. However, the only available poll — a September 2025 House Majority PAC (Democratic-affiliated) survey — shows a close race at 41% De La Cruz to 38% Pulido with 21% undecided, suggesting more competitiveness than the partisan baseline alone would indicate. Democratic challenger Bobby Pulido brings significant name recognition as a Latin Grammy-winning Tejano musician with crossover appeal in the heavily Hispanic district. The poll is nearly 9 months old, partisan-sponsored, and lacks independent corroboration. Given the strong Republican structural edge tempered by Pulido's potential crossover strength and the sparse polling evidence, Likely Republican is the most appropriate rating, with medium confidence due to the limited and dated polling data.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:37:54.967279Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-bobby-pulido-in-close-race-with-monica-de-la-cruz-in-tx-15"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

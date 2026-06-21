@@ -28,7 +28,7 @@
         {
           "url": "https://www.analiliafornj.com/biography",
           "type": "website",
-          "title": "Biography \u2014 Analilia Mej\u00eda for New Jersey",
+          "title": "Biography — Analilia Mejía for New Jersey",
           "description": null,
           "last_accessed": "2026-06-15T23:00:00Z",
           "published_at": null,
@@ -132,7 +132,7 @@
         {
           "url": "https://www.randolphnj.org/directory.aspx?EID=37",
           "type": "government",
-          "title": "Staff Directory \u2022 Joe Hathaway - Randolph Township",
+          "title": "Staff Directory • Joe Hathaway - Randolph Township",
           "description": null,
           "last_accessed": "2026-06-15T23:00:00Z",
           "published_at": null,
@@ -232,7 +232,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:17:05.115866+00:00",
+  "updated_utc": "2026-06-20T15:25:17.548162+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -246,7 +246,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey's_11th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -254,30 +254,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 259223,
-    "completion_tokens": 7953,
-    "total_tokens": 267176,
-    "cost_usd": 0.044614802,
+    "prompt_tokens": 10071,
+    "completion_tokens": 1519,
+    "total_tokens": 11590,
+    "cost_usd": 0.001224778,
     "cost_source": "provider",
-    "estimated_usd": 0.045963,
+    "estimated_usd": 0.00118,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 259223,
-        "completion_tokens": 7953
+        "prompt_tokens": 10071,
+        "completion_tokens": 1519
       }
     },
-    "duration_s": 204.8,
-    "serper_calls": 19,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 46429,
+    "duration_s": 25.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7241,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0443,
-    "context_deduplicated_results": 61,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Analilia Mejia",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Democratic": 0.88,
+      "Republican": 0.12
+    },
+    "margin_estimate": 14.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, limiting statistical confidence. However, the strongest available signal is the April 2026 special election — a head-to-head matchup between the same two candidates just two months ago — which Mejia won by 21 points (60%–39%). She then won her Democratic primary with approximately 82% of the vote, while Hathaway was unopposed in the GOP primary. The district has a recent history of Democratic representation under Mikie Sherrill. Against the same opponent in the same district, the 21-point special election margin provides a meaningful baseline, but special election turnout may differ from general election turnout, and the lack of polling reduces certainty. The rating of Likely Democratic reflects a clear advantage for Mejia without reaching the Safe threshold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:07.407016Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

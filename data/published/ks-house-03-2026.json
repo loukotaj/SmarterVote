@@ -462,7 +462,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kansas%27_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:44:13.276683+00:00",
+  "updated_utc": "2026-06-20T15:40:23.326417+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -476,18 +476,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 160730,
-    "completion_tokens": 9181,
-    "total_tokens": 169911,
-    "cost_usd": 0.011790248,
+    "prompt_tokens": 16422,
+    "completion_tokens": 1740,
+    "total_tokens": 18162,
+    "cost_usd": 0.001890492,
     "cost_source": "provider",
-    "estimated_usd": 0.017551,
+    "estimated_usd": 0.001791,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 160730,
-        "completion_tokens": 9181
+        "prompt_tokens": 16422,
+        "completion_tokens": 1740
       }
     },
-    "duration_s": 124.9
+    "duration_s": 30.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9570,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0091,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sharice Davids",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.66,
+    "party_probabilities": {
+      "Democratic": 0.66,
+      "Republican": 0.33,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 4.0,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race as of June 2026 (primary is August 4, 2026). Forecast relies on district fundamentals: KS-03 has a Cook PVI of D+2, indicating a slight Democratic lean. Incumbent Democrat Sharice Davids has won four consecutive competitive elections since 2018, providing incumbency, name recognition, and proven crossover appeal in this suburban Kansas City district that has shifted away from its once-reliable Republican roots. However, the Republican primary features multiple candidates, meaning the general election opponent is not yet known, and the district remains competitive — Davids has never won by a landslide. A Libertarian candidate (Steve Hohe) is also on the ballot and may draw votes from either major party. The absence of any polling data and the unsettled primary field keep confidence low. Given the D+2 lean and Davids's incumbency record, Democrats hold a meaningful but not overwhelming advantage, consistent with a Lean Democratic rating (~66% win probability, ~4-point margin).",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:17.240369Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

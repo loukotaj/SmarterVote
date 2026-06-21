@@ -6,7 +6,7 @@
   "state": "Florida",
   "district": "17th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Florida's 17th Congressional District, covering parts of Sarasota, Charlotte, and Lee Counties along the southwest Gulf Coast, is holding its regularly scheduled election for the U.S. House of Representatives in 2026. Incumbent Republican Greg Steube, first elected in 2018, is seeking a fifth term in a district rated 'Solid R' by the Cook Political Report. Two Democrats\u2014Matthew Montavon and Allen Spence\u2014are competing in the August 18 Democratic primary to challenge Steube, while Michael Quirk is running as a No Party Affiliation candidate in the general election. The race takes place under a new congressional map signed into law in May 2026 that could shift the partisan balance of several Florida districts.",
+  "description": "Florida's 17th Congressional District, covering parts of Sarasota, Charlotte, and Lee Counties along the southwest Gulf Coast, is holding its regularly scheduled election for the U.S. House of Representatives in 2026. Incumbent Republican Greg Steube, first elected in 2018, is seeking a fifth term in a district rated 'Solid R' by the Cook Political Report. Two Democrats—Matthew Montavon and Allen Spence—are competing in the August 18 Democratic primary to challenge Steube, while Michael Quirk is running as a No Party Affiliation candidate in the general election. The race takes place under a new congressional map signed into law in May 2026 that could shift the partisan balance of several Florida districts.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this specific race as of June 2026.",
   "candidates": [
@@ -299,7 +299,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_17th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:25:41.588305+00:00",
+  "updated_utc": "2026-06-20T15:20:59.521971+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -313,18 +313,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 214360,
-    "completion_tokens": 11303,
-    "total_tokens": 225663,
-    "cost_usd": 0.013927564000000002,
+    "prompt_tokens": 14553,
+    "completion_tokens": 1938,
+    "total_tokens": 16491,
+    "cost_usd": 0.0018060419999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.023223,
+    "estimated_usd": 0.001659,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 214360,
-        "completion_tokens": 11303
+        "prompt_tokens": 14553,
+        "completion_tokens": 1938
       }
     },
-    "duration_s": 217.7
+    "duration_s": 34.6,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8830,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0084,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Greg Steube",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.04,
+      "Other": 0.01
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, so confidence is medium and the forecast relies entirely on non-polling fundamentals in the provided race data. Those fundamentals strongly favor Republicans: incumbent Greg Steube is seeking a fifth term, has held the seat since 2018, and the district is currently rated 'Solid R' by the Cook Political Report. The Democratic field is split between two candidates (Matthew Montavon and Allen Spence) competing in an August 18 primary, making the general election challenger uncertain and giving the Democratic campaign a late start relative to the incumbent. The No Party Affiliation candidate (Michael Quirk) has minimal available background information, limiting any third-party vote-splitting assessment. A new congressional map was signed into law in May 2026 that 'could shift the partisan balance of several Florida districts,' introducing some uncertainty about the exact district contours, but the supplied data does not indicate a change large enough to overcome the district's stated strong Republican baseline and incumbency advantage. The rating of safe_r (roughly 95%+ party win probability) reflects the overwhelming fundamentals-based advantage tempered slightly by the map uncertainty and absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:48.692519Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

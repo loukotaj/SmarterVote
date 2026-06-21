@@ -61,7 +61,9 @@ describe("CandidateCard", () => {
       ],
     };
 
-    const { getByText } = render(CandidateCard, { candidate: candidateWithSources });
+    const { getByText } = render(CandidateCard, {
+      candidate: candidateWithSources,
+    });
     await fireEvent.click(getByText("Show More"));
     await fireEvent.click(getByText("Background"));
 

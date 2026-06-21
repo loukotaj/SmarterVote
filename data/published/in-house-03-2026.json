@@ -14,7 +14,7 @@
       "name": "Marlin Stutzman",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Marlin Stutzman is the incumbent U.S. Representative for Indiana's 3rd Congressional District, first elected in a 2010 special election and serving again since 2025 after a prior tenure from 2010 to 2017. A fourth-generation farmer and business owner from Howe, Indiana, he co-owns Stutzman Farms and a trucking company, and previously served in the Indiana House of Representatives (2003\u20132009) and Indiana Senate (2009\u20132010). In Congress, he serves on the House Financial Services and Budget Committees and is a member of the Freedom Caucus, focusing on fiscal conservatism, agricultural policy, and reducing federal regulations.",
+      "summary": "Marlin Stutzman is the incumbent U.S. Representative for Indiana's 3rd Congressional District, first elected in a 2010 special election and serving again since 2025 after a prior tenure from 2010 to 2017. A fourth-generation farmer and business owner from Howe, Indiana, he co-owns Stutzman Farms and a trucking company, and previously served in the Indiana House of Representatives (2003–2009) and Indiana Senate (2009–2010). In Congress, he serves on the House Financial Services and Budget Committees and is a member of the Freedom Caucus, focusing on fiscal conservatism, agricultural policy, and reducing federal regulations.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Marlin_Stutzman",
@@ -227,7 +227,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:21:23.410952+00:00",
+  "updated_utc": "2026-06-20T15:41:18.499685+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -241,18 +241,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 176372,
-    "completion_tokens": 6282,
-    "total_tokens": 182654,
-    "cost_usd": 0.012874768,
+    "prompt_tokens": 11961,
+    "completion_tokens": 1273,
+    "total_tokens": 13234,
+    "cost_usd": 0.001361782,
     "cost_source": "provider",
-    "estimated_usd": 0.018516,
+    "estimated_usd": 0.001306,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 176372,
-        "completion_tokens": 6282
+        "prompt_tokens": 11961,
+        "completion_tokens": 1273
       }
     },
-    "duration_s": 109.1
+    "duration_s": 21.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6725,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Marlin Stutzman",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, keeping confidence at medium and requiring reliance on structural indicators. Those indicators overwhelmingly favor Republicans: incumbent Marlin Stutzman represents a heavily conservative district, won his primary decisively (68.2%), and the Cook Political Report rates the seat Solidly Republican. Democratic challenger Kelly Thompson, a first-time candidate who ran unopposed in the primary, faces steep structural headwinds in a district where the GOP has a deep voter registration and partisan advantage. Without any polling evidence of a competitive shift, a Stutzman victory remains highly probable.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:15.162464Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -2823,12 +2823,10 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026",
-  "updated_utc": "2026-06-13T20:51:19.056342+00:00",
+  "updated_utc": "2026-06-20T03:17:02.955169+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "register_to_vote_url": "https://vrsws.sos.ky.gov/ovrweb/",
   "how_to_vote_url": "https://elect.ky.gov/Voters/Pages/default.aspx",
   "schema_version": "0.3",
@@ -2934,21 +2932,60 @@
     "summary": "Validated by 3/3 reviewers with an average score of 91/100."
   },
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 77977,
-    "completion_tokens": 9751,
-    "total_tokens": 87728,
-    "cost_usd": 0.0064226100000000005,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 4529,
+    "completion_tokens": 246,
+    "total_tokens": 4775,
+    "cost_usd": 0.0104045,
     "cost_source": "provider",
-    "estimated_usd": 0.007799,
+    "estimated_usd": 0.015012,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 77977,
-        "completion_tokens": 9751
+      "openai/gpt-5.4": {
+        "prompt_tokens": 4529,
+        "completion_tokens": 246
       }
     },
-    "duration_s": 74.7
+    "duration_s": 7.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3703,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0035,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.91,
+    "party_probabilities": {
+      "Republican": 0.91,
+      "Democratic": 0.09,
+      "Independent": 0.0,
+      "Other": 0.0
+    },
+    "margin_estimate": 14.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "The available numeric polling only covers the Republican primary, where Andy Barr leads but the GOP nomination remains unsettled. There is no general-election head-to-head polling in the provided data, so uncertainty is meaningful. Still, the race description states Kentucky remains a strongly Republican state in federal elections and notes Democrats have not won a U.S. Senate race there since 1992. In an open-seat contest, that partisan baseline strongly favors whichever Republican emerges, though the lack of general-election polling and the unsettled primary argue against a safe rating at this stage.",
+    "based_on_poll_count": 2,
+    "generated_at": "2026-06-20T03:17:02.170840Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://emersoncollegepolling.com/kentucky-2026-poll-barr-maintains-edge-in-gop-primary-as-booker-gains-among-democratic-voters/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

@@ -20,11 +20,22 @@
   $: races = data.races || [];
   let headerQuery = "";
   let showSuggestions = false;
-  let matchingCandidates: { name: string; party?: string; raceId: string; raceTitle: string }[] = [];
-  let matchingRaces: { id: string; title: string; office?: string; state?: string }[] = [];
+  let matchingCandidates: {
+    name: string;
+    party?: string;
+    raceId: string;
+    raceTitle: string;
+  }[] = [];
+  let matchingRaces: {
+    id: string;
+    title: string;
+    office?: string;
+    state?: string;
+  }[] = [];
   let activeIndex = -1;
   let searchContainer: HTMLElement;
-  const cloudflareAnalyticsToken = import.meta.env.VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
+  const cloudflareAnalyticsToken = import.meta.env
+    .VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 
   onMount(async () => {
     if (cloudflareAnalyticsToken && !$page.url.pathname.startsWith("/admin")) {
@@ -44,7 +55,9 @@
     } catch (e) {
       console.warn("Failed to read darkMode from localStorage:", e);
     }
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
     const enabled = saved !== null ? saved === "true" : prefersDark;
     darkMode.set(enabled);
     document.documentElement.classList.toggle("dark", enabled);
@@ -64,7 +77,7 @@
   });
 
   function toggleDark() {
-    darkMode.update(d => {
+    darkMode.update((d) => {
       const next = !d;
       document.documentElement.classList.toggle("dark", next);
       try {
@@ -103,7 +116,11 @@
       } else {
         params.delete("q");
       }
-      goto(`/?${params.toString()}`, { replaceState: true, keepFocus: true, noScroll: true });
+      goto(`/?${params.toString()}`, {
+        replaceState: true,
+        keepFocus: true,
+        noScroll: true,
+      });
     }
   }
 
@@ -130,17 +147,20 @@
           id: race.id,
           title: race.title || race.id,
           office: race.office,
-          state: race.state
+          state: race.state,
         });
       }
 
       race.candidates.forEach((cand) => {
-        if (cand.name.toLowerCase().includes(q) || cand.party?.toLowerCase().includes(q)) {
+        if (
+          cand.name.toLowerCase().includes(q) ||
+          cand.party?.toLowerCase().includes(q)
+        ) {
           matchedCandsList.push({
             name: cand.name,
             party: cand.party,
             raceId: race.id,
-            raceTitle: race.title || race.id
+            raceTitle: race.title || race.id,
           });
         }
       });
@@ -174,7 +194,11 @@
     if ($page.url.pathname === "/") {
       const params = new URLSearchParams($page.url.searchParams);
       params.delete("q");
-      goto(`/?${params.toString()}`, { replaceState: true, keepFocus: true, noScroll: true });
+      goto(`/?${params.toString()}`, {
+        replaceState: true,
+        keepFocus: true,
+        noScroll: true,
+      });
     }
   }
 
@@ -225,14 +249,17 @@
     }
   }
 
-  function highlightMatch(text: string, query: string): { text: string; match: boolean }[] {
+  function highlightMatch(
+    text: string,
+    query: string
+  ): { text: string; match: boolean }[] {
     if (!query.trim()) return [{ text, match: false }];
-    const escapedQuery = query.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const escapedQuery = query.trim().replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
     const regex = new RegExp(`(${escapedQuery})`, "gi");
     const parts = text.split(regex);
-    return parts.map(part => ({
+    return parts.map((part) => ({
       text: part,
-      match: part.toLowerCase() === query.trim().toLowerCase()
+      match: part.toLowerCase() === query.trim().toLowerCase(),
     }));
   }
 
@@ -249,32 +276,72 @@
   <!-- Navigation loading bar -->
   {#if $navigating}
     <div class="fixed top-0 left-0 right-0 z-50 h-0.5 overflow-hidden">
-      <div class="h-full bg-blue-600 animate-[navprogress_1.2s_ease-in-out_infinite]"></div>
+      <div
+        class="h-full bg-blue-600 animate-[navprogress_1.2s_ease-in-out_infinite]"
+      />
     </div>
   {/if}
 
   <!-- Navigation -->
-  <nav class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-stroke/50">
+  <nav
+    class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-stroke/50"
+  >
     <div class="container mx-auto px-4 py-3 max-w-7xl">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div
+        class="flex flex-col md:flex-row md:items-center justify-between gap-3"
+      >
         <!-- Top Row (Logo & Navigation/Toggle on mobile) -->
         <div class="flex items-center justify-between w-full md:w-auto">
-          <a href="/" data-sveltekit-reload class="text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-700 whitespace-nowrap">
+          <a
+            href="/"
+            data-sveltekit-reload
+            class="text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-700 whitespace-nowrap"
+          >
             Smarter.vote
           </a>
           <!-- Navigation links on mobile (hidden on desktop) -->
           <div class="flex items-center gap-3 text-sm md:hidden">
-            <a href="/" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/' ? 'font-semibold text-content' : ''}">
+            <a
+              href="/"
+              data-sveltekit-reload
+              class="text-content-muted hover:text-content {$page.url
+                .pathname === '/'
+                ? 'font-semibold text-content'
+                : ''}"
+            >
               Home
             </a>
-            <a href="/about" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
+            <a
+              href="/about"
+              data-sveltekit-reload
+              class="text-content-muted hover:text-content {$page.url
+                .pathname === '/about'
+                ? 'font-semibold text-content'
+                : ''}"
+            >
               About
             </a>
-            <a href="/forecast" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/forecast') ? 'font-semibold text-content' : ''}">
+            <a
+              href="/forecast"
+              data-sveltekit-reload
+              class="text-content-muted hover:text-content {$page.url.pathname.startsWith(
+                '/forecast'
+              )
+                ? 'font-semibold text-content'
+                : ''}"
+            >
               Forecasts
             </a>
             {#if isAuthenticated}
-              <a href="/admin" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">
+              <a
+                href="/admin"
+                data-sveltekit-reload
+                class="text-content-muted hover:text-content {$page.url.pathname.startsWith(
+                  '/admin'
+                )
+                  ? 'font-semibold text-content'
+                  : ''}"
+              >
                 Admin
               </a>
             {/if}
@@ -285,12 +352,32 @@
               title={$darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               {#if $darkMode}
-                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                <svg
+                  class="w-4.5 h-4.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"
+                  />
                 </svg>
               {:else}
-                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                <svg
+                  class="w-4.5 h-4.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  />
                 </svg>
               {/if}
             </button>
@@ -298,11 +385,28 @@
         </div>
 
         <!-- Global Search Bar in Header -->
-        <div class="relative w-full md:max-w-xs lg:max-w-md" bind:this={searchContainer}>
-          <div class="relative shadow-sm hover:shadow-md transition-shadow duration-300 rounded-full">
-            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-              <svg class="h-4 w-4 text-content-subtle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <div
+          class="relative w-full md:max-w-xs lg:max-w-md"
+          bind:this={searchContainer}
+        >
+          <div
+            class="relative shadow-sm hover:shadow-md transition-shadow duration-300 rounded-full"
+          >
+            <div
+              class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none"
+            >
+              <svg
+                class="h-4 w-4 text-content-subtle"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             </div>
             <input
@@ -310,7 +414,7 @@
               bind:this={searchInputEl}
               bind:value={headerQuery}
               on:input={handleSearchInput}
-              on:focus={() => showSuggestions = true}
+              on:focus={() => (showSuggestions = true)}
               on:keydown={handleKeydown}
               placeholder="Search... (Press '/' to focus)"
               class="block w-full pl-9 pr-8 py-1.5 border border-stroke rounded-full text-xs sm:text-sm bg-surface-alt placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-content transition-all duration-300"
@@ -321,8 +425,18 @@
                 class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-content-subtle hover:text-content transition-colors"
                 aria-label="Clear search query"
               >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             {/if}
@@ -330,22 +444,38 @@
 
           <!-- Suggestions Dropdown -->
           {#if showSuggestions && (matchingRaces.length > 0 || matchingCandidates.length > 0)}
-            <div transition:fade={{ duration: 150 }} class="absolute top-full left-0 right-0 mt-2 bg-surface border border-stroke rounded-xl shadow-lg z-50 max-h-96 overflow-y-auto py-2 divide-y divide-stroke backdrop-blur-md bg-surface/95">
+            <div
+              transition:fade={{ duration: 150 }}
+              class="absolute top-full left-0 right-0 mt-2 bg-surface border border-stroke rounded-xl shadow-lg z-50 max-h-96 overflow-y-auto py-2 divide-y divide-stroke backdrop-blur-md bg-surface/95"
+            >
               {#if matchingRaces.length > 0}
                 <div class="p-1.5">
-                  <div class="text-[10px] font-semibold text-content-subtle px-2.5 py-1 uppercase tracking-wider">Races</div>
+                  <div
+                    class="text-[10px] font-semibold text-content-subtle px-2.5 py-1 uppercase tracking-wider"
+                  >
+                    Races
+                  </div>
                   {#each matchingRaces as race, i}
                     <button
                       on:click={() => selectRace(race.id)}
                       class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors flex flex-col gap-0.5
-                        {i === activeIndex ? 'bg-surface-alt text-primary font-medium' : 'text-content hover:bg-surface-alt/60'}"
+                        {i === activeIndex
+                        ? 'bg-surface-alt text-primary font-medium'
+                        : 'text-content hover:bg-surface-alt/60'}"
                     >
                       <span class="truncate">
                         {#each highlightMatch(race.title, headerQuery) as part}
-                          <span class={part.match ? "font-bold text-blue-600 dark:text-blue-400" : ""}>{part.text}</span>
+                          <span
+                            class={part.match
+                              ? "font-bold text-blue-600 dark:text-blue-400"
+                              : ""}>{part.text}</span
+                          >
                         {/each}
                       </span>
-                      <span class="text-[10px] text-content-subtle truncate">{race.office || ''} {race.state ? `· ${race.state}` : ''}</span>
+                      <span class="text-[10px] text-content-subtle truncate"
+                        >{race.office || ""}
+                        {race.state ? `· ${race.state}` : ""}</span
+                      >
                     </button>
                   {/each}
                 </div>
@@ -353,20 +483,32 @@
 
               {#if matchingCandidates.length > 0}
                 <div class="p-1.5">
-                  <div class="text-[10px] font-semibold text-content-subtle px-2.5 py-1 uppercase tracking-wider">Candidates</div>
+                  <div
+                    class="text-[10px] font-semibold text-content-subtle px-2.5 py-1 uppercase tracking-wider"
+                  >
+                    Candidates
+                  </div>
                   {#each matchingCandidates as cand, i}
                     {@const itemIndex = matchingRaces.length + i}
                     <button
                       on:click={() => selectCandidate(cand.raceId, cand.name)}
                       class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors flex flex-col gap-0.5
-                        {itemIndex === activeIndex ? 'bg-surface-alt text-primary font-medium' : 'text-content hover:bg-surface-alt/60'}"
+                        {itemIndex === activeIndex
+                        ? 'bg-surface-alt text-primary font-medium'
+                        : 'text-content hover:bg-surface-alt/60'}"
                     >
                       <span class="truncate">
                         {#each highlightMatch(cand.name, headerQuery) as part}
-                          <span class={part.match ? "font-bold text-blue-600 dark:text-blue-400" : ""}>{part.text}</span>
+                          <span
+                            class={part.match
+                              ? "font-bold text-blue-600 dark:text-blue-400"
+                              : ""}>{part.text}</span
+                          >
                         {/each}
                       </span>
-                      <span class="text-[10px] text-content-subtle truncate">{cand.party || ''} · {cand.raceTitle}</span>
+                      <span class="text-[10px] text-content-subtle truncate"
+                        >{cand.party || ""} · {cand.raceTitle}</span
+                      >
                     </button>
                   {/each}
                 </div>
@@ -377,17 +519,47 @@
 
         <!-- Navigation Links (desktop) -->
         <div class="hidden md:flex items-center gap-4 sm:gap-6 text-sm">
-          <a href="/" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/' ? 'font-semibold text-content' : ''}">
+          <a
+            href="/"
+            data-sveltekit-reload
+            class="text-content-muted hover:text-content {$page.url.pathname ===
+            '/'
+              ? 'font-semibold text-content'
+              : ''}"
+          >
             Home
           </a>
-          <a href="/about" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
+          <a
+            href="/about"
+            data-sveltekit-reload
+            class="text-content-muted hover:text-content {$page.url.pathname ===
+            '/about'
+              ? 'font-semibold text-content'
+              : ''}"
+          >
             About
           </a>
-          <a href="/forecast" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/forecast') ? 'font-semibold text-content' : ''}">
+          <a
+            href="/forecast"
+            data-sveltekit-reload
+            class="text-content-muted hover:text-content {$page.url.pathname.startsWith(
+              '/forecast'
+            )
+              ? 'font-semibold text-content'
+              : ''}"
+          >
             Forecasts
           </a>
           {#if isAuthenticated}
-            <a href="/admin" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">
+            <a
+              href="/admin"
+              data-sveltekit-reload
+              class="text-content-muted hover:text-content {$page.url.pathname.startsWith(
+                '/admin'
+              )
+                ? 'font-semibold text-content'
+                : ''}"
+            >
               Admin
             </a>
           {/if}
@@ -400,13 +572,33 @@
           >
             {#if $darkMode}
               <!-- Sun icon -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"
+                />
               </svg>
             {:else}
               <!-- Moon icon -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                />
               </svg>
             {/if}
           </button>
@@ -424,8 +616,14 @@
   <footer class="bg-surface border-t border-stroke mt-12 sm:mt-16">
     <div class="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
       <div class="text-center text-content-muted text-sm">
-        <p class="mb-2">© {new Date().getFullYear()} Smarter.vote. Analyzing public information to help voters make informed decisions.</p>
-        <p class="text-xs text-content-subtle">Always verify information by visiting candidate websites directly. This tool provides analysis for informational purposes only.</p>
+        <p class="mb-2">
+          © {new Date().getFullYear()} Smarter.vote. Analyzing public information
+          to help voters make informed decisions.
+        </p>
+        <p class="text-xs text-content-subtle">
+          Always verify information by visiting candidate websites directly.
+          This tool provides analysis for informational purposes only.
+        </p>
         <div class="mt-4">
           <a
             href="https://github.com/sponsors/loukotaj"
@@ -433,8 +631,15 @@
             rel="noopener noreferrer"
             class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-pink-300 dark:border-pink-700 text-pink-600 dark:text-pink-400 text-xs font-medium hover:bg-pink-50 dark:hover:bg-pink-950 transition-colors"
           >
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            <svg
+              class="w-3.5 h-3.5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              />
             </svg>
             Sponsor
           </a>

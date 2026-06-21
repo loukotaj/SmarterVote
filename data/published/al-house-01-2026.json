@@ -6,7 +6,7 @@
   "state": "Alabama",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "This is a competitive race for Alabama's 1st Congressional District, which covers all of Mobile, Baldwin, Escambia, Covington, Coffee, Dale, and other counties in southern Alabama. The election has been complicated by mid-cycle redistricting: after the Supreme Court allowed Alabama to revert to its 2023 congressional map, the May 19 primaries in this district were voided and a special primary was scheduled for August 11, 2026. The incumbent, Republican Barry Moore, is running for the U.S. Senate rather than seeking re-election to the House, leaving the seat open. Four Republicans are competing in the special Republican primary \u2014 including former U.S. Rep. Jerry Carl \u2014 while Democrat Clyde W. Jones Jr. is unopposed for the Democratic nomination. The general election in November will determine who succeeds Moore in a district that has been held by Republicans continuously since 1965.",
+  "description": "This is a competitive race for Alabama's 1st Congressional District, which covers all of Mobile, Baldwin, Escambia, Covington, Coffee, Dale, and other counties in southern Alabama. The election has been complicated by mid-cycle redistricting: after the Supreme Court allowed Alabama to revert to its 2023 congressional map, the May 19 primaries in this district were voided and a special primary was scheduled for August 11, 2026. The incumbent, Republican Barry Moore, is running for the U.S. Senate rather than seeking re-election to the House, leaving the seat open. Four Republicans are competing in the special Republican primary — including former U.S. Rep. Jerry Carl — while Democrat Clyde W. Jones Jr. is unopposed for the Democratic nomination. The general election in November will determine who succeeds Moore in a district that has been held by Republicans continuously since 1965.",
   "polling": [],
   "polling_note": "No general election polls are available because the special primary has not yet occurred (August 11, 2026). Primary polling from earlier in the cycle is not applicable to the current race due to redistricting changes.",
   "candidates": [
@@ -14,7 +14,7 @@
       "name": "Jerry Carl",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Jerry Carl is a former U.S. Representative for Alabama's 1st Congressional District (2021\u20132025) and a businessman. He previously served as a Mobile County Commissioner from 2012 to 2020, the last two years as commission president. Carl lost renomination in 2024 to fellow incumbent Barry Moore after redistricting, and is now seeking a return to Congress in this open-seat race. He campaigns as an America First conservative and emphasizes his business background and record on the Appropriations Committee.",
+      "summary": "Jerry Carl is a former U.S. Representative for Alabama's 1st Congressional District (2021–2025) and a businessman. He previously served as a Mobile County Commissioner from 2012 to 2020, the last two years as commission president. Carl lost renomination in 2024 to fellow incumbent Barry Moore after redistricting, and is now seeking a return to Congress in this open-seat race. He campaigns as an America First conservative and emphasizes his business background and record on the Appropriations Committee.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Jerry_Carl",
@@ -169,7 +169,7 @@
       "name": "John Mills",
       "party": "Republican",
       "incumbent": false,
-      "summary": "John Mills is a retired U.S. Navy pilot with 26 years of service and a small business owner running in the Republican special primary. He previously ran for Congress in Florida's 1st District. Mills campaigns as a constitutional conservative focused on election integrity, border security, property rights, military readiness, and limited government. He has emphasized opposition to forced CO\u2082 carbon capture pipelines and defending private property rights.",
+      "summary": "John Mills is a retired U.S. Navy pilot with 26 years of service and a small business owner running in the Republican special primary. He previously ran for Congress in Florida's 1st District. Mills campaigns as a constitutional conservative focused on election integrity, border security, property rights, military readiness, and limited government. He has emphasized opposition to forced CO₂ carbon capture pipelines and defending private property rights.",
       "summary_sources": [
         {
           "url": "https://johnmillsforcongress.com/",
@@ -360,7 +360,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:06:55.281736+00:00",
+  "updated_utc": "2026-06-20T15:20:33.401180+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -374,18 +374,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 251877,
-    "completion_tokens": 7548,
-    "total_tokens": 259425,
-    "cost_usd": 0.021231258,
+    "prompt_tokens": 15274,
+    "completion_tokens": 2363,
+    "total_tokens": 17637,
+    "cost_usd": 0.00196,
     "cost_source": "provider",
-    "estimated_usd": 0.026163,
+    "estimated_usd": 0.0018,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 251877,
-        "completion_tokens": 7548
+        "prompt_tokens": 15274,
+        "completion_tokens": 2363
       }
     },
-    "duration_s": 154.7
+    "duration_s": 35.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9338,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0089,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Republican": 0.92,
+      "Democratic": 0.08
+    },
+    "margin_estimate": 22.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists because the August 11 special primary has not yet occurred and earlier primary polling was voided by redistricting. The forecast therefore relies entirely on fundamentals, which carry real uncertainty. Republicans have held this district continuously since 1965, the Democratic candidate (Clyde Jones) is unopposed in his primary but running in a deeply Republican seat, and the four-candidate GOP field includes a former member of Congress (Jerry Carl), suggesting a strong eventual nominee. However, the seat is open (Barry Moore running for Senate), the redistricting upheaval adds complexity, and the GOP nominee is still unsettled, which modestly tempers confidence. The underlying partisan baseline points to a clear Republican advantage without reaching the overwhelming level needed for safe_r.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:27.510783Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -331,7 +331,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:48:10.704153+00:00",
+  "updated_utc": "2026-06-20T15:38:10.433509+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -345,18 +345,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 313913,
-    "completion_tokens": 10229,
-    "total_tokens": 324142,
-    "cost_usd": 0.024132198,
+    "prompt_tokens": 23618,
+    "completion_tokens": 1885,
+    "total_tokens": 25503,
+    "cost_usd": 0.0026241199999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.032768,
+    "estimated_usd": 0.002465,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 313913,
-        "completion_tokens": 10229
+        "prompt_tokens": 23618,
+        "completion_tokens": 1885
       }
     },
-    "duration_s": 150.9
+    "duration_s": 35.8,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 12772,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0122,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Derrick Van Orden",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.52,
+    "party_probabilities": {
+      "Democratic": 0.48,
+      "Republican": 0.52
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "This race remains a genuine toss-up given the limited and one-sided polling data. The only available poll is a Cooke campaign internal (Impact Research) showing Cooke leading Van Orden 50-46, which suggests Democratic competitiveness but carries inherent bias as an internal survey. No independent or nonpartisan polls have been identified. The Democratic primary between Rebecca Cooke (who lost to Van Orden by less than 3 points in 2024) and Emily Berge is not yet settled, adding uncertainty to any general election forecast. Van Orden holds a modest incumbency advantage as a two-term incumbent in a district rated a toss-up by nonpartisan analysts. With only one internal poll, no independent polling, an unresolved Democratic primary, and a district historically characterized as a key battleground, there is insufficient data to favor either party with confidence.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:37:59.831806Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.wispolitics.com/2026/cooke-campaign-new-poll-rebecca-cooke-grows-lead-over-derrick-van-orden-to-50-46-in-closely-watched-house-race/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

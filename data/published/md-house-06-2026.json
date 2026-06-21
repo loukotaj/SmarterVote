@@ -557,7 +557,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:31:35.925724+00:00",
+  "updated_utc": "2026-06-20T15:30:05.511872+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -571,18 +571,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 299475,
-    "completion_tokens": 10896,
-    "total_tokens": 310371,
-    "cost_usd": 0.020471813999999998,
+    "prompt_tokens": 19181,
+    "completion_tokens": 3256,
+    "total_tokens": 22437,
+    "cost_usd": 0.002517914,
     "cost_source": "provider",
-    "estimated_usd": 0.031484,
+    "estimated_usd": 0.002312,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 299475,
-        "completion_tokens": 10896
+        "prompt_tokens": 19181,
+        "completion_tokens": 3256
       }
     },
-    "duration_s": 147.9
+    "duration_s": 39.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 11890,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0113,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "April McClain Delaney",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.56,
+      "Republican": 0.44
+    },
+    "margin_estimate": 2.5,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "No general-election or primary polls are available, and the June 23 primary is still three days away, so uncertainty is unusually high. The Democratic primary is notably competitive — incumbent April McClain Delaney faces a serious challenge from former Rep. David Trone, a wealthy self-funder who held the seat for three terms. On the Republican side, the field lacks a standout candidate: Marine veteran Chris Burnett is a credible first-time candidate but faces perennial candidate Robin Ficker and two-time prior loser Mariela Roca. Structurally, MD-06 has a D+2 PVI and has been held by Democrats since 2019, with Delaney winning 54-46 in 2024. However, without polling data and with an unsettled nomination on both sides — particularly a divisive D-primary that could weaken or change the Democratic standard-bearer — only a very narrow Democratic edge is justified. This forecast should be revisited once the primary produces nominees and general-election polling becomes available.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:59.193789Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

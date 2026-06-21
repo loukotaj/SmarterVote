@@ -220,7 +220,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:12:58.621940+00:00",
+  "updated_utc": "2026-06-20T15:20:23.610337+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -234,18 +234,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 253213,
-    "completion_tokens": 5681,
-    "total_tokens": 258894,
-    "cost_usd": 0.016753054000000003,
+    "prompt_tokens": 4254,
+    "completion_tokens": 1279,
+    "total_tokens": 5533,
+    "cost_usd": 0.000667576,
     "cost_source": "provider",
-    "estimated_usd": 0.025928,
+    "estimated_usd": 0.000613,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 253213,
-        "completion_tokens": 5681
+        "prompt_tokens": 4254,
+        "completion_tokens": 1279
       }
     },
-    "duration_s": 154.2
+    "duration_s": 23.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2946,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0028,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Rogers",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling is available, so the forecast relies entirely on non-polling structural indicators. Alabama's 3rd has a Cook PVI of R+23, has not elected a Democrat since 2002, and the incumbent is a 12-term Republican committee chair who won his primary with 83.2%. Cook Political Report rates the race 'Solid R.' These factors point to an overwhelming Republican advantage. Confidence is medium rather than high solely because of the absence of district-specific general-election polling, but the non-polling signals are unusually strong for a safe rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:17.348122Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -30,7 +30,7 @@
         {
           "url": "https://www.haynesforcongress.com/about",
           "type": "website",
-          "title": "Who I Am \u2014 HaynesForCongress",
+          "title": "Who I Am — HaynesForCongress",
           "description": null,
           "last_accessed": "2026-07-20T12:00:00Z",
           "published_at": null,
@@ -185,7 +185,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_30th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:46:40.400670+00:00",
+  "updated_utc": "2026-06-20T15:31:23.596843+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -199,18 +199,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 265661,
-    "completion_tokens": 5523,
-    "total_tokens": 271184,
-    "cost_usd": 0.016194789999999997,
+    "prompt_tokens": 11297,
+    "completion_tokens": 1877,
+    "total_tokens": 13174,
+    "cost_usd": 0.001474998,
     "cost_source": "provider",
-    "estimated_usd": 0.027117,
+    "estimated_usd": 0.001355,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 265661,
-        "completion_tokens": 5523
+        "prompt_tokens": 11297,
+        "completion_tokens": 1877
       }
     },
-    "duration_s": 122.1
+    "duration_s": 29.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6444,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Frederick Haynes III",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "Texas's 30th Congressional District has a Cook PVI of D+25, making it one of the most Democratic-leaning districts in Texas. Although this is an open seat following Jasmine Crockett's retirement, Frederick Haynes III won the Democratic primary decisively with 72.4% of the vote and carries Crockett's endorsement as well as his own strong local reputation as a prominent Dallas pastor and civil rights leader. The Republican nominee, Everett Jackson, won a competitive primary runoff but faces an extremely challenging district partisan environment. No district-specific general election polling exists, which tempers confidence. However, the district's strong Democratic baseline (D+25 PVI), consistent Democratic voting history, and the absence of any data suggesting unusual competitiveness make a Democratic victory an overwhelming likelihood. The estimated margin of 35 points reflects the district's deeply Democratic lean, though the exact margin is uncertain due to the lack of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:17.403020Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

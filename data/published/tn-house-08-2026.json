@@ -533,7 +533,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Tennessee%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:08:14.128989+00:00",
+  "updated_utc": "2026-06-20T15:37:33.434340+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -547,18 +547,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 234900,
-    "completion_tokens": 11182,
-    "total_tokens": 246082,
-    "cost_usd": 0.016535776000000002,
+    "prompt_tokens": 17911,
+    "completion_tokens": 1889,
+    "total_tokens": 19800,
+    "cost_usd": 0.002125522,
     "cost_source": "provider",
-    "estimated_usd": 0.025212,
+    "estimated_usd": 0.001952,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 234900,
-        "completion_tokens": 11182
+        "prompt_tokens": 17911,
+        "completion_tokens": 1889
       }
     },
-    "duration_s": 170.2
+    "duration_s": 29.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10573,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0101,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": null,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": null,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists for this race (zero polls found as of June 2026), so confidence is capped at medium and the forecast relies entirely on structural indicators. Those indicators strongly favor the incumbent Republican: (1) Cook Political Report rates the redrawn district as 'Solid R'; (2) the race description explicitly states the district 'still leans heavily Republican'; (3) incumbent David Kustoff is seeking a sixth term with a long tenure and a House Ways and Means Committee seat; (4) four Democrats are competing in an August 6 primary, meaning no unified Democratic challenger has emerged yet, and no Democratic candidate has demonstrated fundraising or name recognition sufficient to suggest a competitive general election; (5) six independent candidates are on the ballot without evidence of significant organization or support. The May 2026 redraw added more of Shelby County (Memphis), which could modestly reduce the Republican margin compared to the previous configuration, but the available data do not indicate the district became competitive. A margin of roughly 20-25 points is consistent with a safe Republican seat of this profile. Given the complete absence of polling and reliance on secondary indicators, the forecast carries meaningful uncertainty around the exact margin, but the directional signal is unambiguous.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:24.500603Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -455,7 +455,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arizona%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:58:46.043914+00:00",
+  "updated_utc": "2026-06-20T15:21:32.802263+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -469,18 +469,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 237391,
-    "completion_tokens": 11129,
-    "total_tokens": 248520,
-    "cost_usd": 0.017288674,
+    "prompt_tokens": 16239,
+    "completion_tokens": 1868,
+    "total_tokens": 18107,
+    "cost_usd": 0.00195755,
     "cost_source": "provider",
-    "estimated_usd": 0.025446,
+    "estimated_usd": 0.001798,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 237391,
-        "completion_tokens": 11129
+        "prompt_tokens": 16239,
+        "completion_tokens": 1868
       }
     },
-    "duration_s": 150.5
+    "duration_s": 27.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9704,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Greg Stanton",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.035,
+      "Independent": 0.015
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists, so confidence is limited. The district is rated Solid Democratic by nonpartisan analysts (Cook Political Report, The Economist). Incumbent Democrat Greg Stanton has strong name recognition from his tenure as Phoenix mayor (2012-2018) and his House service since 2019. The only uncertainty before the July 21, 2026 Democratic primary is the challenge from progressive activist Kai Newkirk; however, Stanton's incumbency advantages and institutional support make him the clear favorite. On the Republican side, physician Zuhdi Jasser is the sole candidate; the two independent candidates (Benoit and Fillmore) lack the infrastructure to seriously contest a district described as strongly Democratic in partisan composition. Even if the primary produces a different Democratic nominee, the district's partisan lean strongly favors the Democratic Party in the general election. A Democratic win probability of ~95% reflects the overwhelming structural advantage while acknowledging the absence of direct polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:28.645738Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

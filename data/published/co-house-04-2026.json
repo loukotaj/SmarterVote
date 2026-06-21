@@ -100,7 +100,7 @@
         {
           "url": "https://www.eileenforcolorado.com/about",
           "type": "website",
-          "title": "About \u2014 Rear Admiral Eileen Laubacher | Democrat for Congress",
+          "title": "About — Rear Admiral Eileen Laubacher | Democrat for Congress",
           "description": null,
           "last_accessed": "2026-06-15T00:00:00Z",
           "published_at": null,
@@ -317,7 +317,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:11:31.972175+00:00",
+  "updated_utc": "2026-06-20T15:43:54.169138+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -331,18 +331,57 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 180634,
-    "completion_tokens": 10148,
-    "total_tokens": 190782,
-    "cost_usd": 0.013471107999999999,
+    "prompt_tokens": 14215,
+    "completion_tokens": 2496,
+    "total_tokens": 16711,
+    "cost_usd": 0.001882286,
     "cost_source": "provider",
-    "estimated_usd": 0.019691,
+    "estimated_usd": 0.001729,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 180634,
-        "completion_tokens": 10148
+        "prompt_tokens": 14215,
+        "completion_tokens": 2496
       }
     },
-    "duration_s": 164.4
+    "duration_s": 33.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8389,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.008,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Lauren Boebert",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Republican": 0.92,
+      "Democratic": 0.07,
+      "Independent": 0.005,
+      "Libertarian": 0.005
+    },
+    "margin_estimate": 12.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No recent public polling exists for this race, so the forecast relies on structural indicators and carries meaningful uncertainty. Cook Political Report rates CO-04 as 'Solid R,' and the district's rural Eastern Plains and exurban Denver composition gives it a strong Republican lean. Incumbent Rep. Lauren Boebert (R) is the presumptive nominee and previously won the district by roughly 12 points in 2024. Democratic challenger Eileen Laubacher is a credible candidate with an impressive military and national security background (retired Navy Rear Admiral), and the race description notes her fundraising advantage and Democratic hopes for competitiveness. However, without polling evidence to substantiate a tighter race, the district's structural Republican advantage is the dominant signal. Third-party/independent candidates (Libertarian Douglas Mangeris, independent Tim Veldhuizen) are factors but are not expected to be competitive for the win.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:43:49.297354Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

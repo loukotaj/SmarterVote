@@ -6,7 +6,7 @@
   "state": "Washington",
   "district": "8th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Washington's 8th Congressional District will determine who represents a competitive swing district covering parts of King, Pierce, Snohomish, Kittitas, Chelan, and Douglas counties \u2014 including the eastern Seattle suburbs of Issaquah and Sammamish, as well as rural central Washington communities. Incumbent Democrat Kim Schrier, a pediatrician first elected in 2018, is seeking a fifth term in a district with a Cook Partisan Voting Index of D+3, which Cook Political Report rates as 'Likely Democratic.' Under Washington's top-two primary system, four Republican challengers \u2014 Andres Valleza, Bob Hagglund, Trinh Ha, and Spencer Meline \u2014 will appear on the same August 4, 2026 primary ballot as Schrier, with the top two vote-getters advancing to the November 3 general election. The race takes place in a midterm cycle where control of the narrowly divided U.S. House could hinge on a handful of competitive districts nationwide.",
+  "description": "The 2026 election for Washington's 8th Congressional District will determine who represents a competitive swing district covering parts of King, Pierce, Snohomish, Kittitas, Chelan, and Douglas counties — including the eastern Seattle suburbs of Issaquah and Sammamish, as well as rural central Washington communities. Incumbent Democrat Kim Schrier, a pediatrician first elected in 2018, is seeking a fifth term in a district with a Cook Partisan Voting Index of D+3, which Cook Political Report rates as 'Likely Democratic.' Under Washington's top-two primary system, four Republican challengers — Andres Valleza, Bob Hagglund, Trinh Ha, and Spencer Meline — will appear on the same August 4, 2026 primary ballot as Schrier, with the top two vote-getters advancing to the November 3 general election. The race takes place in a midterm cycle where control of the narrowly divided U.S. House could hinge on a handful of competitive districts nationwide.",
   "polling": [],
   "polling_note": "No publicly available opinion polling was found for this race as of June 2026. The Cook Political Report rates the race 'Likely D' as of January 8, 2026.",
   "candidates": [
@@ -412,7 +412,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:52:40.779642+00:00",
+  "updated_utc": "2026-06-20T15:33:28.067266+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -426,18 +426,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 309465,
-    "completion_tokens": 7484,
-    "total_tokens": 316949,
-    "cost_usd": 0.021161474,
+    "prompt_tokens": 8905,
+    "completion_tokens": 1536,
+    "total_tokens": 10441,
+    "cost_usd": 0.001043954,
     "cost_source": "provider",
-    "estimated_usd": 0.031794,
+    "estimated_usd": 0.001078,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 309465,
-        "completion_tokens": 7484
+        "prompt_tokens": 8905,
+        "completion_tokens": 1536
       }
     },
-    "duration_s": 116.5
+    "duration_s": 28.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4584,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0044,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Kim Schrier",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 7.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race as of June 2026, so the forecast relies on fundamentals. Incumbent Democrat Kim Schrier, a pediatrician first elected in 2018, is seeking a fifth term in Washington's 8th District (Cook PVI D+3). Cook Political Report rates the race 'Likely Democratic.' Under Washington's top-two primary system, four Republican challengers are running (Valleza, Hagglund, Ha, Meline), but no single GOP candidate has emerged as a clear frontrunner in the available data, adding uncertainty about general election dynamics. Incumbency, the district's modest Democratic lean, and the external race rating point to a clear Democratic advantage. However, this is a midterm cycle where national headwinds could affect the incumbent party, and the lack of any polling data limits precision — keeping confidence at medium rather than high. The 7-point margin estimate reflects the D+3 PVI combined with incumbent advantage, but is highly uncertain without polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:19.456459Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

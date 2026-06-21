@@ -379,35 +379,70 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:16:57.160076+00:00",
+  "updated_utc": "2026-06-20T03:18:26.626155+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 54877,
-    "completion_tokens": 10181,
-    "total_tokens": 65058,
-    "cost_usd": 0.00549145,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2926,
+    "completion_tokens": 233,
+    "total_tokens": 3159,
+    "cost_usd": 0.01081,
     "cost_source": "provider",
-    "estimated_usd": 0.006816,
+    "estimated_usd": 0.01081,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 54877,
-        "completion_tokens": 10181
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2926,
+        "completion_tokens": 233
       }
     },
-    "duration_s": 89.1
+    "duration_s": 8.7,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2607,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0025,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Mississippi,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Cindy Hyde-Smith",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "There is no public polling in the provided race data after 2026-04-01, so this forecast relies on non-polling fundamentals and is necessarily less certain than a poll-driven estimate. Even so, Mississippi is described here as a strongly Republican state, and the race features a Republican incumbent senator seeking reelection against a Democratic nominee and an independent challenger. Incumbency, the state’s strong Republican baseline, and the presence of multiple non-Republican candidates together indicate an overwhelming Republican advantage in the general election. Confidence is medium rather than high because the provided data include no recent numeric polling, fundraising detail, or vote history for the candidates.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:18:25.857087Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

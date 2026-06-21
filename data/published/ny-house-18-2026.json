@@ -205,7 +205,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_18th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:29:27.544874+00:00",
+  "updated_utc": "2026-06-20T15:43:12.980297+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -219,18 +219,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 271239,
-    "completion_tokens": 7918,
-    "total_tokens": 279157,
-    "cost_usd": 0.019537126000000002,
+    "prompt_tokens": 9428,
+    "completion_tokens": 1359,
+    "total_tokens": 10787,
+    "cost_usd": 0.001130404,
     "cost_source": "provider",
-    "estimated_usd": 0.028133,
+    "estimated_usd": 0.001093,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 271239,
-        "completion_tokens": 7918
+        "prompt_tokens": 9428,
+        "completion_tokens": 1359
       }
     },
-    "duration_s": 147.2
+    "duration_s": 27.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6811,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Pat Ryan",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.87,
+    "party_probabilities": {
+      "Democratic": 0.87,
+      "Republican": 0.13
+    },
+    "margin_estimate": 10.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No independent public polls exist for this 2026 general election matchup, limiting direct measurement of voter sentiment. However, the available electoral and contextual data strongly favors Democratic incumbent Pat Ryan. Ryan won re-election in 2024 by a 14-point margin even as Kamala Harris carried the district by only 3 points, demonstrating significant personal electoral strength above the party baseline. Cook Political Report rates the seat as 'Likely Democratic' for 2026. Republican challenger Jackie Auringer is a credible candidate with a moderate messaging platform, but she lacks prior elected office and faces an entrenched two-term incumbent with a proven track record in the district. The combination of strong incumbency, demonstrated crossover appeal, and expert ratings supports a Likely Democratic forecast with a clear advantage for Ryan, though the absence of polling tempers confidence from high to medium.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:43:01.109699Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

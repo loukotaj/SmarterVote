@@ -142,7 +142,7 @@
           "organization": "U.S. Department of State",
           "start_year": 2010,
           "end_year": 2019,
-          "description": "Served as a diplomat under President Obama with postings including Ciudad Ju\u00e1rez (Mexico), Lisbon (Portugal), and Vancouver (Canada)",
+          "description": "Served as a diplomat under President Obama with postings including Ciudad Juárez (Mexico), Lisbon (Portugal), and Vancouver (Canada)",
           "source": null
         }
       ],
@@ -173,7 +173,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:02:38.022225+00:00",
+  "updated_utc": "2026-06-20T15:39:44.354006+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -187,18 +187,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 184872,
-    "completion_tokens": 7627,
-    "total_tokens": 192499,
-    "cost_usd": 0.013442236,
+    "prompt_tokens": 9174,
+    "completion_tokens": 1678,
+    "total_tokens": 10852,
+    "cost_usd": 0.00122794,
     "cost_source": "provider",
-    "estimated_usd": 0.019612,
+    "estimated_usd": 0.001128,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 184872,
-        "completion_tokens": 7627
+        "prompt_tokens": 9174,
+        "completion_tokens": 1678
       }
     },
-    "duration_s": 152.5
+    "duration_s": 24.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6165,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Grace Meng",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.05
+    },
+    "margin_estimate": 16.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No independent public polling is available, so confidence is necessarily limited. Based on the race data provided, Democrats remain strong favorites: incumbent Grace Meng has held the seat since 2012, won 60.7% in 2024, and the district carries a D+6 Cook PVI. The Cook Political Report rates the seat 'Solid D', and the Republican field appears weak (Joseph Chou unopposed in the primary after Juan Pagan withdrew). The major caution flag is the sizable 24-point pro-Trump swing in the district in the 2024 presidential result, which suggests some softening and argues against high confidence. Even so, on the available evidence this still looks like an overwhelmingly Democratic-leaning general election, with Meng the likeliest winner if she secures renomination.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:35.819695Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

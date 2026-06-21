@@ -231,7 +231,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oregon%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:03:24.007602+00:00",
+  "updated_utc": "2026-06-20T15:31:11.663807+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -245,18 +245,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 241643,
-    "completion_tokens": 6549,
-    "total_tokens": 248192,
-    "cost_usd": 0.017696266000000002,
+    "prompt_tokens": 19681,
+    "completion_tokens": 1930,
+    "total_tokens": 21611,
+    "cost_usd": 0.002247114,
     "cost_source": "provider",
-    "estimated_usd": 0.024965,
+    "estimated_usd": 0.002119,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 241643,
-        "completion_tokens": 6549
+        "prompt_tokens": 19681,
+        "completion_tokens": 1930
       }
     },
-    "duration_s": 127.5
+    "duration_s": 31.9,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 10820,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0103,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Cliff Bentz",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 26.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public 2026 general-election polls exist for this race, reducing direct data confidence. However, the structural and historical signals are unambiguous: incumbent Republican Cliff Bentz won the 2024 general election with 64% of the vote, won the 2026 GOP primary with ~80%, and represents a district that has been held by a Republican since 1981. It is the only Oregon congressional district with more registered Republicans than Democrats, and nonpartisan forecasters (Cook Political Report) rate it as 'Solid Republican.' Democratic nominee Chris Beck is a credible former state representative and Obama USDA official but won a competitive six-candidate primary with only 34%, indicating limited consolidation. Given these fundamentals, Republican retention is overwhelming likely.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:01.029343Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

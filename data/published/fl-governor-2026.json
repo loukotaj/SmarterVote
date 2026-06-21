@@ -6,7 +6,7 @@
   "state": "Florida",
   "district": null,
   "election_date": "2026-11-03",
-  "description": "The 2026 Florida gubernatorial election will be held on November 3, 2026, to elect the next governor of Florida. Incumbent Republican Governor Ron DeSantis is term-limited and ineligible to seek a third consecutive term, leaving the race open. Republicans have won every gubernatorial election in Florida since 1998, and the GOP holds a substantial voter registration advantage of nearly 1.5 million voters. The Republican primary is competitive, with U.S. Representative Byron Donalds\u2014endorsed by President Donald Trump\u2014leading in early polls, while the Democratic primary frontrunner is former Republican-turned-Democrat Congressman David Jolly, who has selected former U.S. Representative Gwen Graham as his running mate.",
+  "description": "The 2026 Florida gubernatorial election will be held on November 3, 2026, to elect the next governor of Florida. Incumbent Republican Governor Ron DeSantis is term-limited and ineligible to seek a third consecutive term, leaving the race open. Republicans have won every gubernatorial election in Florida since 1998, and the GOP holds a substantial voter registration advantage of nearly 1.5 million voters. The Republican primary is competitive, with U.S. Representative Byron Donalds—endorsed by President Donald Trump—leading in early polls, while the Democratic primary frontrunner is former Republican-turned-Democrat Congressman David Jolly, who has selected former U.S. Representative Gwen Graham as his running mate.",
   "polling": [
     {
       "pollster": "Emerson College Polling",
@@ -280,7 +280,7 @@
         {
           "url": "https://voterenner.com/about-paul-renner/",
           "type": "website",
-          "title": "Biography \u2013 Paul Renner for Florida Governor",
+          "title": "Biography – Paul Renner for Florida Governor",
           "description": null,
           "last_accessed": "2026-06-11T00:00:00Z",
           "published_at": null,
@@ -561,7 +561,7 @@
         {
           "url": "https://dotiejoseph.com/bio-2/",
           "type": "website",
-          "title": "Bio \u2013 Dotie Joseph for Florida",
+          "title": "Bio – Dotie Joseph for Florida",
           "description": null,
           "last_accessed": "2026-06-11T00:00:00Z",
           "published_at": null,
@@ -796,10 +796,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:05:53.799210+00:00",
+  "updated_utc": "2026-06-20T03:17:07.818967+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -808,20 +807,59 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 393368,
-    "completion_tokens": 15777,
-    "total_tokens": 409145,
-    "cost_usd": 0.029152372000000003,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5474,
+    "completion_tokens": 367,
+    "total_tokens": 5841,
+    "cost_usd": 0.01919,
     "cost_source": "provider",
-    "estimated_usd": 0.041642,
+    "estimated_usd": 0.01919,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 393368,
-        "completion_tokens": 15777
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5474,
+        "completion_tokens": 367
       }
     },
-    "duration_s": 265.0
+    "duration_s": 8.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4413,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0042,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Byron Donalds",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.62,
+    "party_probabilities": {
+      "Republican": 0.62,
+      "Democratic": 0.38
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "This open-seat race begins with a favorable Republican baseline: the GOP has won every Florida gubernatorial election since 1998, and the race description notes a substantial Republican voter registration advantage of nearly 1.5 million. Candidate-level general-election polling is mixed but slightly Republican-leaning overall: one Emerson poll had Byron Donalds ahead of David Jolly by 5 points, one Cherry/Florida Chamber poll had Donalds ahead by 8, and one Change Research poll had Jolly ahead by 4. Donalds also appears to be the Republican primary frontrunner, including in the available GOP primary poll. Still, the polling is sparse, somewhat conflicting, and limited to a prospective Donalds-Jolly matchup months before the election, so uncertainty remains significant and confidence is low.",
+    "based_on_poll_count": 3,
+    "generated_at": "2026-06-20T03:17:07.148879Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://emersoncollegepolling.com/florida-2026-poll-donalds-leads-gop-primary-for-governor-republicans-outpace-democrats-in-florida-elections/",
+      "https://changeresearch.com/florida-governors-race-may-2026/",
+      "https://www.flchamber.com/new-florida-chamber-statewide-poll-shows-ashley-moody-byron-donalds-leading-potential-democratic-opponents-in-november-ballot-test/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

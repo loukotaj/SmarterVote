@@ -255,7 +255,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:50:30.995424+00:00",
+  "updated_utc": "2026-06-20T15:27:59.024889+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -269,18 +269,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 333870,
-    "completion_tokens": 6431,
-    "total_tokens": 340301,
-    "cost_usd": 0.018953816000000002,
+    "prompt_tokens": 12404,
+    "completion_tokens": 1506,
+    "total_tokens": 13910,
+    "cost_usd": 0.001450864,
     "cost_source": "provider",
-    "estimated_usd": 0.03398,
+    "estimated_usd": 0.001387,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 333870,
-        "completion_tokens": 6431
+        "prompt_tokens": 12404,
+        "completion_tokens": 1506
       }
     },
-    "duration_s": 133.5
+    "duration_s": 26.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7080,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0068,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "David Rouzer",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.04,
+      "Libertarian": 0.005,
+      "Independent": 0.005
+    },
+    "margin_estimate": 15.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race, so confidence is medium and the forecast relies entirely on structural factors. Cook PVI R+7 gives Republicans a strong built-in advantage. Incumbent David Rouzer (first elected 2014, seeking a seventh term) has an established electoral record in a district characterized as safely Republican. The Democratic challenger, Kimberly Hardy, is a credible academic and party official but has lost two prior state legislative bids and faces an uphill climb in this district. Libertarian and independent candidates add minor vote-splitting possibilities but are not positioned to contend for the seat. Without any contrary polling signals, incumbency, district partisanship, and the candidate field all point to a clear Republican retention at a roughly 15-point margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:53.508399Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

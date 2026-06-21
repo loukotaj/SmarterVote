@@ -19,7 +19,7 @@
         {
           "url": "https://shaunfinnieforcongress.com/",
           "type": "website",
-          "title": "Shaun Finnie for Congress \u2014 Home",
+          "title": "Shaun Finnie for Congress — Home",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -178,7 +178,7 @@
       "career_history": [
         {
           "title": "Member of the Texas House of Representatives",
-          "organization": "Texas House of Representatives \u2014 District 15",
+          "organization": "Texas House of Representatives — District 15",
           "start_year": 2019,
           "end_year": null,
           "description": "Representing The Woodlands area in Montgomery County. Served on Appropriations Committee.",
@@ -186,7 +186,7 @@
         },
         {
           "title": "Member of the Texas House of Representatives",
-          "organization": "Texas House of Representatives \u2014 District 15",
+          "organization": "Texas House of Representatives — District 15",
           "start_year": 2013,
           "end_year": 2015,
           "description": "Earlier term; authored Second Amendment protection and CSCOPE transparency legislation.",
@@ -232,7 +232,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:19:33.221799+00:00",
+  "updated_utc": "2026-06-20T15:41:59.885720+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -246,18 +246,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 246036,
-    "completion_tokens": 6230,
-    "total_tokens": 252266,
-    "cost_usd": 0.019442047999999996,
+    "prompt_tokens": 16971,
+    "completion_tokens": 1732,
+    "total_tokens": 18703,
+    "cost_usd": 0.001942726,
     "cost_source": "provider",
-    "estimated_usd": 0.025333,
+    "estimated_usd": 0.001839,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 246036,
-        "completion_tokens": 6230
+        "prompt_tokens": 16971,
+        "completion_tokens": 1732
       }
     },
-    "duration_s": 132.7
+    "duration_s": 31.4,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 7392,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.007,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Steve Toth",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polls exist as of June 2026, so this forecast relies entirely on non-polling indicators and carries medium confidence. Cook Political Report rates TX-02 as Solid Republican. The district covers Republican-leaning northern Houston suburbs including The Woodlands, Humble, and Atascocita. Republican nominee Steve Toth is a known quantity as a sitting state representative who unseated a four-term GOP incumbent in the primary, demonstrating strong local organizing strength. Democrat Shaun Finnie is a first-time candidate with a strong professional background but no elected office history in a district that has not supported a Democratic House candidate in recent cycles. The open-seat nature and lack of polling inject some uncertainty, but the structural partisan advantage points to an overwhelming Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:51.776061Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

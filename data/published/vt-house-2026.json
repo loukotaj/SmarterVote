@@ -247,7 +247,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_House_of_Representatives_election_in_Vermont,_2026",
-  "updated_utc": "2026-06-13T21:42:29.174712+00:00",
+  "updated_utc": "2026-06-20T15:39:16.771660+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -261,18 +261,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 240334,
-    "completion_tokens": 6043,
-    "total_tokens": 246377,
-    "cost_usd": 0.017418888,
+    "prompt_tokens": 7031,
+    "completion_tokens": 1600,
+    "total_tokens": 8631,
+    "cost_usd": 0.000942734,
     "cost_source": "provider",
-    "estimated_usd": 0.024737,
+    "estimated_usd": 0.000921,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 240334,
-        "completion_tokens": 6043
+        "prompt_tokens": 7031,
+        "completion_tokens": 1600
       }
     },
-    "duration_s": 170.9
+    "duration_s": 25.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 6635,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Becca Balint",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls are available for this race, so confidence is limited and based on fundamentals rather than direct voter data. Still, the available race information strongly favors Democrats: incumbent Becca Balint is seeking a third term, Vermont is described here as a heavily Democratic state, Republicans have not won this at-large House seat since 1988, and the 2024 Republican nominee Mark Coester received only 30% against Balint. The race description explicitly calls Balint the strong favorite, and the Cook Political Report rating of Safe Democratic aligns with that assessment. Given the absence of polling, some uncertainty remains, but the overall evidence supports an overwhelming Democratic advantage in the general election.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T14:21:39.211549Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

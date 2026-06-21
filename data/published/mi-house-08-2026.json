@@ -6,7 +6,7 @@
   "state": "Michigan",
   "district": "8th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Michigan's 8th Congressional District covers Flint, Saginaw, Bay City, and Midland in east-central Michigan. The incumbent, Democrat Kristen McDonald Rivet, is seeking a second term after flipping the seat in 2024 by a wider margin than presidential results in the district would suggest. The district has a Cook Partisan Voting Index of R+1 and gave Donald Trump a two-point win in 2024, making it a top Republican target for 2026. Three Republicans \u2014 Amir Hassan, Al Lemmo, and Thomas J. Smith \u2014 are competing in the August 4 primary to challenge McDonald Rivet. The race is rated Lean Democratic by the Cook Political Report.",
+  "description": "Michigan's 8th Congressional District covers Flint, Saginaw, Bay City, and Midland in east-central Michigan. The incumbent, Democrat Kristen McDonald Rivet, is seeking a second term after flipping the seat in 2024 by a wider margin than presidential results in the district would suggest. The district has a Cook Partisan Voting Index of R+1 and gave Donald Trump a two-point win in 2024, making it a top Republican target for 2026. Three Republicans — Amir Hassan, Al Lemmo, and Thomas J. Smith — are competing in the August 4 primary to challenge McDonald Rivet. The race is rated Lean Democratic by the Cook Political Report.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this specific race as of June 2026.",
   "candidates": [
@@ -85,7 +85,7 @@
       ],
       "education": [
         {
-          "institution": "University of Michigan\u2013Flint",
+          "institution": "University of Michigan–Flint",
           "degree": "Master of Public Administration",
           "field": "Public Administration and Education",
           "year": 2010
@@ -251,7 +251,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:15:45.383835+00:00",
+  "updated_utc": "2026-06-20T15:33:39.176257+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -262,18 +262,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 239408,
-    "completion_tokens": 7902,
-    "total_tokens": 247310,
-    "cost_usd": 0.014737240000000002,
+    "prompt_tokens": 19000,
+    "completion_tokens": 2075,
+    "total_tokens": 21075,
+    "cost_usd": 0.002208796,
     "cost_source": "provider",
-    "estimated_usd": 0.025011,
+    "estimated_usd": 0.002083,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 239408,
-        "completion_tokens": 7902
+        "prompt_tokens": 19000,
+        "completion_tokens": 2075
       }
     },
-    "duration_s": 130.2
+    "duration_s": 41.6,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8206,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0078,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Kristen McDonald Rivet",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.68,
+    "party_probabilities": {
+      "Democratic": 0.68,
+      "Republican": 0.32
+    },
+    "margin_estimate": 3.0,
+    "rating": "lean_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, so the forecast relies entirely on non-polling fundamentals. Incumbent Democrat Kristen McDonald Rivet is seeking a second term after flipping this R+1 district in 2024 and outperforming the top of the ticket in a district that Donald Trump carried by roughly two points. That prior electoral success, combined with the advantages of incumbency, gives her a meaningful edge. However, the district's Republican lean (Cook PVI R+1, Trump +2 in 2024) keeps it fundamentally competitive. The Republican field is unresolved with three candidates — Amir Hassan, Al Lemmo, and Thomas J. Smith — competing in the August 4 primary, introducing further uncertainty about the eventual GOP nominee's strength. Cook Political Report rates the race Lean Democratic. The incumbent's demonstrated crossover appeal and head start on general election organization tip the scales in her favor, but the underlying partisan baseline prevents a stronger rating and warrants medium confidence given the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:23.865683+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

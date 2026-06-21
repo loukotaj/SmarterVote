@@ -125,7 +125,7 @@
       "name": "Richard Pan",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Dr. Richard Pan is a pediatrician, former California State Senator (2014\u20132022), and former California State Assemblymember (2010\u20132014). He is nationally known for authoring California Senate Bill 277, which eliminated religious and philosophical exemptions for school vaccine requirements after the Disneyland measles outbreak. A graduate of Johns Hopkins University, the University of Pittsburgh School of Medicine, and Harvard School of Public Health, Pan also practiced as a pediatrician and professor at UC Davis before entering politics.",
+      "summary": "Dr. Richard Pan is a pediatrician, former California State Senator (2014–2022), and former California State Assemblymember (2010–2014). He is nationally known for authoring California Senate Bill 277, which eliminated religious and philosophical exemptions for school vaccine requirements after the Disneyland measles outbreak. A graduate of Johns Hopkins University, the University of Pittsburgh School of Medicine, and Harvard School of Public Health, Pan also practiced as a pediatrician and professor at UC Davis before entering politics.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Richard_Pan",
@@ -226,7 +226,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:09:00.500778+00:00",
+  "updated_utc": "2026-06-20T15:22:00.673352+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -240,18 +240,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 221337,
-    "completion_tokens": 6060,
-    "total_tokens": 227397,
-    "cost_usd": 0.01689837,
+    "prompt_tokens": 19582,
+    "completion_tokens": 2423,
+    "total_tokens": 22005,
+    "cost_usd": 0.00233404,
     "cost_source": "provider",
-    "estimated_usd": 0.022879,
+    "estimated_usd": 0.002199,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 221337,
-        "completion_tokens": 6060
+        "prompt_tokens": 19582,
+        "completion_tokens": 2423
       }
     },
-    "duration_s": 107.9
+    "duration_s": 36.6,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 11096,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0106,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Kevin Kiley",
+    "predicted_winner_party": "Independent",
+    "win_probability": 0.55,
+    "party_probabilities": {
+      "Democratic": 0.45,
+      "Independent": 0.55
+    },
+    "margin_estimate": 1.5,
+    "rating": "other",
+    "confidence": "low",
+    "rationale": "No public general election polling is available for this race (poll count = 0), and the district has been dramatically redrawn via mid-decade redistricting under Proposition 50, encompassing parts of Sacramento, Placer, and Yolo counties — which makes prior election patterns largely unreliable for forecasting. The race is explicitly described as a battleground that could help determine House control. Kevin Kiley, the sitting U.S. Representative (from the old CA-03) who recently switched from Republican to No Party Preference, brings name recognition and incumbency resources, but his independent label introduces cross-pressures: it may attract swing voters but could also suppress support from Republicans who preferred a partisan standard-bearer. Richard Pan, a well-known former state senator and pediatrician with a strong public health profile (author of SB 277), has high name ID in the Sacramento area and a clear partisan base. With no polling, a fundamentally unsettled district map, and two credible candidates with different pathways to victory, uncertainty is very high. The most defensible informational forecast is a narrow edge for Kiley on incumbency and name recognition, rated 'other' because an independent outcome is currently the most likely scenario, but with low confidence given the sparse data environment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:50.399047Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

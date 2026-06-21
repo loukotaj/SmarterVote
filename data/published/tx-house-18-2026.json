@@ -164,7 +164,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_18th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:45:12.515446+00:00",
+  "updated_utc": "2026-06-20T15:34:24.507134+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -178,18 +178,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 195136,
-    "completion_tokens": 6089,
-    "total_tokens": 201225,
-    "cost_usd": 0.014396260000000001,
+    "prompt_tokens": 4248,
+    "completion_tokens": 1153,
+    "total_tokens": 5401,
+    "cost_usd": 0.000572404,
     "cost_source": "provider",
-    "estimated_usd": 0.020317,
+    "estimated_usd": 0.00059,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 195136,
-        "completion_tokens": 6089
+        "prompt_tokens": 4248,
+        "completion_tokens": 1153
       }
     },
-    "duration_s": 103.9
+    "duration_s": 19.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2935,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0028,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Christian Menefee",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 34.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race, which reduces precision but does not alter the fundamental structural picture. The district's Cook PVI is D+29, it is rated Solid D by the Cook Political Report, and the Democratic incumbent Christian Menefee faces a Republican challenger, Ronald Whitfield, described as a perennial candidate with little public profile and no reported fundraising or campaign infrastructure. Mid-decade redistricting forced a competitive Democratic primary (Menefee defeated longtime incumbent Al Green), but the general-election configuration remains overwhelmingly Democratic. With no polling available, the forecast relies entirely on these structural factors: the district's deep-blue partisan lean, Menefee's incumbency, and Whitfield's apparent lack of campaign resources. A very high Democratic win probability is warranted, though the absence of polling data caps confidence at medium.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:20.166901Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

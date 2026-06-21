@@ -276,7 +276,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:12:53.331992+00:00",
+  "updated_utc": "2026-06-20T15:30:50.917289+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -290,18 +290,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 282821,
-    "completion_tokens": 8347,
-    "total_tokens": 291168,
-    "cost_usd": 0.019208726,
+    "prompt_tokens": 12708,
+    "completion_tokens": 1704,
+    "total_tokens": 14412,
+    "cost_usd": 0.0015194639999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.029352,
+    "estimated_usd": 0.00145,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 282821,
-        "completion_tokens": 8347
+        "prompt_tokens": 12708,
+        "completion_tokens": 1704
       }
     },
-    "duration_s": 137.8
+    "duration_s": 31.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7496,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0071,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Josh Gottheimer",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public race-specific polling exists as of mid-2026, reducing confidence below 'high.' However, the structural race data strongly favors Democrats: incumbent Josh Gottheimer (first elected 2016) is seeking a sixth term; the district has a Democratic voter registration edge (35% Democratic vs. 26% Republican); Cook Political Report rates the race as Solid Democratic; and Gottheimer is a well-funded, prominent moderate who co-chairs the bipartisan Problem Solvers Caucus. Republican Sean Kirrane is a credible candidate with a business background and a socially moderate pitch, but faces a steep structural climb in a Democratic-leaning district with a strong incumbent. Independent Adam Rueda lacks the resources or profile to seriously compete. Given the incumbency, registration advantage, and national rating, Democrats hold an overwhelming advantage, consistent with a safe_d rating (~95%+ win probability). The lack of direct polling, however, keeps confidence at medium.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:46.188285Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

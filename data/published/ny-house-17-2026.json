@@ -517,7 +517,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_17th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:16:29.587234+00:00",
+  "updated_utc": "2026-06-20T15:34:04.282498+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -531,18 +531,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 291964,
-    "completion_tokens": 8606,
-    "total_tokens": 300570,
-    "cost_usd": 0.02368984,
+    "prompt_tokens": 18194,
+    "completion_tokens": 2259,
+    "total_tokens": 20453,
+    "cost_usd": 0.0022257759999999996,
     "cost_source": "provider",
-    "estimated_usd": 0.030299,
+    "estimated_usd": 0.002044,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 291964,
-        "completion_tokens": 8606
+        "prompt_tokens": 18194,
+        "completion_tokens": 2259
       }
     },
-    "duration_s": 154.6
+    "duration_s": 35.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10887,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0104,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Michael Lawler",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.53,
+    "party_probabilities": {
+      "Democratic": 0.47,
+      "Republican": 0.53
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "NY-17 remains a true toss-up with low confidence due to minimal direct general-election polling. The district is highly competitive — Kamala Harris won it in 2024, but Republican incumbent Mike Lawler has held the seat since 2022 and advanced unopposed through the GOP primary. The only available public poll (Data for Progress, May 2026) tests only the Democratic primary, showing Cait Conley (28%), Beth Davidson (24%), and Effie Phillips-Staley (16%) among three of five candidates, providing no head-to-head general-election evidence. Cook Political Report rates the race a toss-up. With the Democratic primary just three days away (June 23, 2026) and the nominee yet undetermined, the general-election picture is highly unsettled. Incumbency and Lawler's demonstrated crossover appeal give Republicans a narrow edge, but the Democratic presidential lean of the district and strong candidate field keep Democrats competitive. Until the nominee is chosen and general-election polling emerges, the race is a near-even toss-up with a slight edge to the incumbent.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:33:58.066161Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://effieforcongress.com/2026/05/in-the-news-new-poll-shows-pro-palestine-democrat-rising-in-mike-lawlers-district-ny-17/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

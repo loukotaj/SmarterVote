@@ -6,7 +6,7 @@
   "state": "Minnesota",
   "district": "7th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Minnesota's 7th Congressional District will determine who represents the western portion of the state, covering 38 counties from the Canadian border south to Pipestone. Incumbent Republican Michelle Fischbach, first elected in 2020, is seeking a fourth term in a district that is the most conservative in Minnesota \u2014 it voted for Donald Trump by 36 points in 2024 and has a Cook Partisan Voting Index of R+18. Four candidates are competing in the August 11 DFL primary: state Rep. Heather Keeler of Moorhead, economic development coordinator Erik Osberg (who won the party endorsement), educator Jared Adams, and Steve Carlson. On the Republican side, Fischbach faces a primary challenge from retired Air Force Major Dave Hughes. The general election is on November 3, 2026, and the Cook Political Report rates the race as 'Solid Republican.'",
+  "description": "The 2026 election for Minnesota's 7th Congressional District will determine who represents the western portion of the state, covering 38 counties from the Canadian border south to Pipestone. Incumbent Republican Michelle Fischbach, first elected in 2020, is seeking a fourth term in a district that is the most conservative in Minnesota — it voted for Donald Trump by 36 points in 2024 and has a Cook Partisan Voting Index of R+18. Four candidates are competing in the August 11 DFL primary: state Rep. Heather Keeler of Moorhead, economic development coordinator Erik Osberg (who won the party endorsement), educator Jared Adams, and Steve Carlson. On the Republican side, Fischbach faces a primary challenge from retired Air Force Major Dave Hughes. The general election is on November 3, 2026, and the Cook Political Report rates the race as 'Solid Republican.'",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of June 2026. The Cook Political Report rates it 'Solid Republican.'",
   "candidates": [
@@ -533,7 +533,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:09:59.115825+00:00",
+  "updated_utc": "2026-06-20T15:33:52.646499+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -547,18 +547,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 265972,
-    "completion_tokens": 11880,
-    "total_tokens": 277852,
-    "cost_usd": 0.020072434,
+    "prompt_tokens": 18840,
+    "completion_tokens": 1749,
+    "total_tokens": 20589,
+    "cost_usd": 0.0021891239999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.028394,
+    "estimated_usd": 0.00201,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 265972,
-        "completion_tokens": 11880
+        "prompt_tokens": 18840,
+        "completion_tokens": 1749
       }
     },
-    "duration_s": 195.5
+    "duration_s": 31.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 11120,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0106,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Michelle Fischbach",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race. The forecast relies entirely on district fundamentals: Minnesota's 7th is the most conservative district in the state with a Cook PVI of R+18; Donald Trump won it by 36 points in 2024; Cook Political Report rates the race 'Solid Republican.' Incumbent Michelle Fischbach is seeking a fourth term and faces only a primary challenger (Dave Hughes) who has not held elected office. On the Democratic side, a four-candidate DFL primary (August 11) is still unsettled, and none of the candidates have demonstrated the resources or profile to seriously contest a district this Republican-leaning. The structural advantage for Republicans is overwhelming, supporting a safe_r rating. However, the complete absence of any public polling — even internal or partisan surveys — keeps confidence at medium rather than high, as voter sentiment cannot be directly measured.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:45.899388Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

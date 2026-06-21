@@ -222,7 +222,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_36th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:51:12.207309+00:00",
+  "updated_utc": "2026-06-20T15:22:30.417142+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -236,18 +236,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 359084,
-    "completion_tokens": 6428,
-    "total_tokens": 365512,
-    "cost_usd": 0.0208305891,
+    "prompt_tokens": 4054,
+    "completion_tokens": 974,
+    "total_tokens": 5028,
+    "cost_usd": 0.000588196,
     "cost_source": "provider",
-    "estimated_usd": 0.03645,
+    "estimated_usd": 0.00054,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 359084,
-        "completion_tokens": 6428
+        "prompt_tokens": 4054,
+        "completion_tokens": 974
       }
     },
-    "duration_s": 148.6
+    "duration_s": 22.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2768,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0026,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ted W. Lieu",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No independent general-election polling is available, limiting confidence from direct voter data. However, strong structural indicators dominate: the district carries a D+21 Partisan Voting Index, is described as a coastal Democratic stronghold, and features a six-term Democratic incumbent (Ted Lieu) who serves in House leadership. The challenger (Houston Brignano) is a first-time candidate in a strongly Democratic district. Cook Political Report rates the race as Solid Democratic. With no evidence of unusual competitiveness from any available source, Democrats maintain an overwhelming advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:27.022850Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

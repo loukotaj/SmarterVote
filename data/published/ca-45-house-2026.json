@@ -931,7 +931,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:18:06.946500+00:00",
+  "updated_utc": "2026-06-20T15:47:01.181154+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -1033,27 +1033,60 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 75964,
-    "completion_tokens": 19422,
-    "total_tokens": 95386,
-    "cost_usd": 0.011357072,
+    "prompt_tokens": 29188,
+    "completion_tokens": 2793,
+    "total_tokens": 31981,
+    "cost_usd": 0.003347948,
     "cost_source": "provider",
-    "estimated_usd": 0.013284,
+    "estimated_usd": 0.00313,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 36105,
-        "completion_tokens": 18460
-      },
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 39859,
-        "completion_tokens": 962
+        "prompt_tokens": 29188,
+        "completion_tokens": 2793
       }
     },
-    "duration_s": 165.8
+    "duration_s": 42.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 18105,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0173,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "schema_version": "0.3",
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/California's_45th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Derek Tran",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 0.72,
+      "Republican": 0.28
+    },
+    "margin_estimate": 5.5,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "Incumbent Democrat Derek Tran holds a meaningful but uncertain advantage. The only numeric poll available is from September 2024 (21 months old), showing Tran leading former Rep. Michelle Steel 51.0% to 49.5% in what was an extremely close race. Crucially, Steel has since announced she will not run in 2026 (Orange County Register, Aug 2025), leaving a Republican field of four candidates (Chi Nguyen, Chuong V. Vo, Tom Vo, Amy Phan West) who have no donor data, no voting records, and no campaign profiles in the available sources. Tran benefits from incumbency, a $6.44M fundraising cycle, and a fractured opposition without a clear leading challenger. However, CA-45 has been highly competitive (the 2024 margin was ~1.5 points), and there is zero public polling from the last 14 months to measure current voter sentiment. The sparse polling severely limits confidence, preventing a stronger rating despite Tran's structural advantages.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:46:53.982858Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://today.usc.edu/california-house-poll-democrats-hold-slim-leads-in-states-closest-races/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

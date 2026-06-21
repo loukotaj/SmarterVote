@@ -83,7 +83,7 @@
       "name": "Kelly Ayotte",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Kelly Ayotte is the 83rd Governor of New Hampshire, first elected in 2024. She previously served as a U.S. Senator from New Hampshire (2011\u20132017) and as New Hampshire Attorney General (2004\u20132009), and is running for a second two-year term. Ayotte has focused on law-and-order issues, tightening bail laws and restoring retirement benefits for law enforcement, while also vetoing a bill that would have allowed some spaces to segregate based on biological sex.",
+      "summary": "Kelly Ayotte is the 83rd Governor of New Hampshire, first elected in 2024. She previously served as a U.S. Senator from New Hampshire (2011–2017) and as New Hampshire Attorney General (2004–2009), and is running for a second two-year term. Ayotte has focused on law-and-order issues, tightening bail laws and restoring retirement benefits for law enforcement, while also vetoing a bill that would have allowed some spaces to segregate based on biological sex.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Kelly_Ayotte",
@@ -184,7 +184,7 @@
       "name": "Cinde Warmington",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Cinde Warmington is a former New Hampshire Executive Councilor (2021\u20132025) and the presumptive Democratic nominee for governor in 2026. A healthcare attorney with 40 years of experience in laboratory medicine, hospital management, and healthcare regulatory law, she previously ran for governor in the 2024 Democratic primary, finishing second. Warmington has focused her campaign on affordability, public education, healthcare access, and standing up to the Trump administration's policies.",
+      "summary": "Cinde Warmington is a former New Hampshire Executive Councilor (2021–2025) and the presumptive Democratic nominee for governor in 2026. A healthcare attorney with 40 years of experience in laboratory medicine, hospital management, and healthcare regulatory law, she previously ran for governor in the 2024 Democratic primary, finishing second. Warmington has focused her campaign on affordability, public education, healthcare access, and standing up to the Trump administration's policies.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Cinde_Warmington",
@@ -480,10 +480,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Hampshire_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:05:25.282892+00:00",
+  "updated_utc": "2026-06-20T03:17:28.064174+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -492,20 +491,59 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 287644,
-    "completion_tokens": 12516,
-    "total_tokens": 300160,
-    "cost_usd": 0.025101128,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5170,
+    "completion_tokens": 289,
+    "total_tokens": 5459,
+    "cost_usd": 0.01726,
     "cost_source": "provider",
-    "estimated_usd": 0.030642,
+    "estimated_usd": 0.01726,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 287644,
-        "completion_tokens": 12516
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5170,
+        "completion_tokens": 289
       }
     },
-    "duration_s": 236.7
+    "duration_s": 8.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4144,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0039,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Kelly Ayotte",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.77,
+    "party_probabilities": {
+      "Republican": 0.77,
+      "Democratic": 0.2,
+      "Independent": 0.02,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 7.0,
+    "rating": "lean_r",
+    "confidence": "medium",
+    "rationale": "Incumbent Republican Kelly Ayotte holds a consistent advantage in the available candidate-level general-election polling, leading Democrat Cinde Warmington by 8 points in an April 2026 UNH poll and by 7 points in a March 2026 Saint Anselm poll. Ayotte also won the 2024 open-seat race with 53.6%, and New Hampshire has recently been willing to elect Republican governors even while remaining competitive at the presidential level. That said, this is still a swing-state environment and the polling record is fairly sparse, with only two directly relevant Ayotte-Warmington surveys, so the race should not be rated stronger than Lean Republican. Minor-party and independent candidates are on the ballot, but the available data still points to a Republican edge in the major-party contest.",
+    "based_on_poll_count": 2,
+    "generated_at": "2026-06-20T03:17:27.240531Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/2026_New_Hampshire_gubernatorial_election"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

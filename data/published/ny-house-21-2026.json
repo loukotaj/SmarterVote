@@ -372,7 +372,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_21st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:29:58.517776+00:00",
+  "updated_utc": "2026-06-20T15:37:02.120761+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -386,18 +386,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 246645,
-    "completion_tokens": 10232,
-    "total_tokens": 256877,
-    "cost_usd": 0.020975017999999998,
+    "prompt_tokens": 11286,
+    "completion_tokens": 1729,
+    "total_tokens": 13015,
+    "cost_usd": 0.001385008,
     "cost_source": "provider",
-    "estimated_usd": 0.026177,
+    "estimated_usd": 0.001327,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 246645,
-        "completion_tokens": 10232
+        "prompt_tokens": 11286,
+        "completion_tokens": 1729
       }
     },
-    "duration_s": 134.9
+    "duration_s": 29.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8702,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0083,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Anthony Constantino",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.94,
+    "party_probabilities": {
+      "Democratic": 0.06,
+      "Republican": 0.94
+    },
+    "margin_estimate": 20.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, so the forecast relies entirely on district fundamentals. NY-21 is described as a deeply red district spanning 15 counties in the North Country and Mohawk Valley. Republicans have held this seat continuously since 2009 (when a Democrat last won it). The open-seat dynamic created by Stefanik's departure introduces some uncertainty, but the district's strong Republican lean means the eventual GOP nominee — whether institutional candidate Smullen or Trump-endorsed/self-funded Constantino — will be heavily favored in the general election. Democrats are running a contested primary as well, but no Democrat has won here in 17 years. The June 23 primary is just days away, but without any public polling of either primary or general matchups, confidence remains medium and the rating stays at likely_r rather than safe_r.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:51.744756Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

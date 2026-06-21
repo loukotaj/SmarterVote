@@ -429,7 +429,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:16:40.532648+00:00",
+  "updated_utc": "2026-06-20T15:39:46.325878+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -443,7 +443,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Florida's_16th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -451,34 +451,48 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 265522,
-    "completion_tokens": 8618,
-    "total_tokens": 274140,
-    "cost_usd": 0.065532792,
+    "prompt_tokens": 16527,
+    "completion_tokens": 2424,
+    "total_tokens": 18951,
+    "cost_usd": 0.002034846,
     "cost_source": "provider",
-    "estimated_usd": 0.066584,
+    "estimated_usd": 0.001924,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 231692,
-        "completion_tokens": 4593
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 33830,
-        "completion_tokens": 4025
+        "prompt_tokens": 16527,
+        "completion_tokens": 2424
       }
     },
-    "duration_s": 185.1,
-    "serper_calls": 16,
-    "context_requests": 15,
-    "max_estimated_context_tokens": 39517,
+    "duration_s": 42.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9753,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0377,
-    "context_deduplicated_results": 52,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 3,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.85,
+    "party_probabilities": {
+      "Republican": 0.85,
+      "Democratic": 0.14,
+      "Independent": 0.01
+    },
+    "margin_estimate": 12.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "FL-16 is an open seat following the retirement of Republican incumbent Vern Buchanan, who won the district by 19.4 points (59.5% to 40.2%) in 2024. The district is described as reliably Republican, covering Manatee County and portions of southern Hillsborough County. There is zero public polling available, so this forecast relies entirely on district fundamentals. The open-seat dynamic introduces more uncertainty than an incumbent-held race — both parties have competitive multicandidate primaries (three Republicans, four Democrats). Democrats have a credible field including Jan Schneider, who received 40.2% in this district in 2024, along with candidates with military and education backgrounds. However, the district's recent voting record strongly favors Republicans even in an open-seat midterm. The margin is estimated somewhat narrower than 2024's 19.4-point spread due to open-seat compression, but Republicans remain clear favorites. Confidence is medium due to the absence of polling and the competitive primary fields on both sides.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:41.002515Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

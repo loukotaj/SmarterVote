@@ -563,36 +563,69 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:13:52.791442+00:00",
+  "updated_utc": "2026-06-20T03:18:42.039543+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 68971,
-    "completion_tokens": 10462,
-    "total_tokens": 79433,
-    "cost_usd": 0.00618759,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3706,
+    "completion_tokens": 221,
+    "total_tokens": 3927,
+    "cost_usd": 0.012580000000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.007633,
+    "estimated_usd": 0.01258,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 68971,
-        "completion_tokens": 10462
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3706,
+        "completion_tokens": 221
       }
     },
-    "duration_s": 87.7
+    "duration_s": 8.4,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3111,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.003,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
-  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Oregon,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Jeff Merkley",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public head-to-head polling is available, which limits precision and lowers confidence. Even so, the available race description points strongly toward a Democratic advantage: Merkley is a long-serving incumbent seeking reelection, Oregon is described here as a strongly Democratic state, and the Republican field appears composed largely of lesser-known challengers without clear evidence of top-tier strength in the provided data. The race description also notes that multiple nonpartisan ratings classify the contest as safely or solidly Democratic. Given incumbency, state partisanship, and the apparent candidate-strength gap, Democrats are overwhelming favorites, though the absence of polling argues for some caution.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:18:40.695373Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

@@ -52,7 +52,7 @@
         {
           "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-3rd-district-dems/",
           "type": "news",
-          "title": "U.S. House \u2013 3rd District - Dems | Voter Guide: 2026 Primary Election",
+          "title": "U.S. House – 3rd District - Dems | Voter Guide: 2026 Primary Election",
           "description": null,
           "last_accessed": "2026-06-10T00:00:00Z",
           "published_at": null,
@@ -160,7 +160,7 @@
         {
           "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-3rd-district-gop/",
           "type": "news",
-          "title": "U.S. House \u2013 3rd District - GOP | Voter Guide: 2026 Primary Election",
+          "title": "U.S. House – 3rd District - GOP | Voter Guide: 2026 Primary Election",
           "description": null,
           "last_accessed": "2026-06-10T00:00:00Z",
           "published_at": null,
@@ -243,7 +243,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_3rd_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:10:21.095028+00:00",
+  "updated_utc": "2026-06-20T15:38:10.193514+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -257,18 +257,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 167495,
-    "completion_tokens": 5572,
-    "total_tokens": 173067,
-    "cost_usd": 0.013343294,
+    "prompt_tokens": 11075,
+    "completion_tokens": 1509,
+    "total_tokens": 12584,
+    "cost_usd": 0.0013811140000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.017507,
+    "estimated_usd": 0.001268,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 167495,
-        "completion_tokens": 5572
+        "prompt_tokens": 11075,
+        "completion_tokens": 1509
       }
     },
-    "duration_s": 147.1
+    "duration_s": 23.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6295,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Morgan McGarvey",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which tempers confidence. However, the available race data strongly supports a Democratic advantage: incumbent Morgan McGarvey (first elected in 2022) is seeking re-election in a Louisville/Jefferson County-based district that the Cook Political Report rates as Solidly Democratic. McGarvey has significant institutional advantages as the sitting representative, having previously served a decade in the Kentucky State Senate. Rodriguez, a first-time candidate who won a four-way Republican primary in May 2026, faces an uphill battle in a district with a strong Democratic lean. Without any polling to suggest a tighter contest, the baseline expectation is a safe Democratic hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:05.553278Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

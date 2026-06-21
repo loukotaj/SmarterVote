@@ -216,7 +216,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Nevada%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:19:02.522251+00:00",
+  "updated_utc": "2026-06-20T15:26:14.185178+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -230,18 +230,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 276669,
-    "completion_tokens": 6675,
-    "total_tokens": 283344,
-    "cost_usd": 0.020444646000000004,
+    "prompt_tokens": 11485,
+    "completion_tokens": 1804,
+    "total_tokens": 13289,
+    "cost_usd": 0.00141921,
     "cost_source": "provider",
-    "estimated_usd": 0.028422,
+    "estimated_usd": 0.001358,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 276669,
-        "completion_tokens": 6675
+        "prompt_tokens": 11485,
+        "completion_tokens": 1804
       }
     },
-    "duration_s": 152.4
+    "duration_s": 26.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6710,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Steven Horsford",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.83,
+    "party_probabilities": {
+      "Democratic": 0.83,
+      "Republican": 0.17
+    },
+    "margin_estimate": 6.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No general-election head-to-head polls exist for NV-04 (based_on_poll_count=0), so confidence is medium and the forecast relies on race fundamentals and external ratings rather than direct polling. The Cook Political Report rates the race as 'Likely D.' Democratic incumbent Steven Horsford is a well-established four-term congressman with a strong political profile (former state senate Majority Leader, chaired the Congressional Black Caucus, sits on Ways & Means). He has repeatedly demonstrated the ability to outperform the district's presidential lean: Kamala Harris carried NV-04 by just 2 points in 2024, while Horsford outperformed her by roughly 5 points. Republican nominee Cody Whipple, a rancher and small business owner with no prior elected office, won a three-way GOP primary on June 9, 2026, with nearly 62% — a solid but unexceptional primary showing for a non-incumbent. The district's blend of suburban Clark County and rural central Nevada counties keeps it competitive at the presidential level, but Horsford's incumbency, fundraising network, and track record of overperformance give Democrats a clear advantage. An informational Likely Democratic forecast is appropriate, with modest uncertainty due to the complete absence of head-to-head polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:09.545658Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

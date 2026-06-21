@@ -259,7 +259,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Mississippi%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:36:18.952558+00:00",
+  "updated_utc": "2026-06-20T15:41:05.614097+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -273,18 +273,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 320090,
-    "completion_tokens": 8135,
-    "total_tokens": 328225,
-    "cost_usd": 0.018576336,
+    "prompt_tokens": 12310,
+    "completion_tokens": 1341,
+    "total_tokens": 13651,
+    "cost_usd": 0.001469216,
     "cost_source": "provider",
-    "estimated_usd": 0.032963,
+    "estimated_usd": 0.001349,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 320090,
-        "completion_tokens": 8135
+        "prompt_tokens": 12310,
+        "completion_tokens": 1341
       }
     },
-    "duration_s": 144.6
+    "duration_s": 27.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7146,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0068,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Ezell",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.025,
+      "Independent": 0.005
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which limits certainty. However, the available structural indicators are unambiguous: major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) all rate Mississippi's 4th Congressional District as Solid/Safe Republican. Incumbent Mike Ezell, a former Jackson County Sheriff first elected in 2022, is seeking a third term. Democrat Jeffrey Hulum III is a credible challenger—a state representative, 22-year U.S. Army veteran—but faces an uphill climb in a district with a strong Republican lean. Independent Carl Boyanton, previously a Republican primary candidate in 2022 and 2024, offers a conservative-splinter option but does not appear positioned to mount a serious challenge. Without polls to test these assumptions, medium confidence is appropriate, but the district's fundamentals strongly support a Republican hold with a large margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:59.306942Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

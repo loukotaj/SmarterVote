@@ -297,7 +297,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Idaho%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:30:46.178564+00:00",
+  "updated_utc": "2026-06-20T15:21:54.408924+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -308,18 +308,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 271450,
-    "completion_tokens": 7661,
-    "total_tokens": 279111,
-    "cost_usd": 0.021254632000000002,
+    "prompt_tokens": 11031,
+    "completion_tokens": 1105,
+    "total_tokens": 12136,
+    "cost_usd": 0.001237714,
     "cost_source": "provider",
-    "estimated_usd": 0.028104,
+    "estimated_usd": 0.001192,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 271450,
-        "completion_tokens": 7661
+        "prompt_tokens": 11031,
+        "completion_tokens": 1105
       }
     },
-    "duration_s": 162.3
+    "duration_s": 20.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8228,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0078,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Russ Fulcher",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01,
+      "Other": 0.0
+    },
+    "margin_estimate": 35,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists, reducing confidence and requiring reliance on structural factors. Those factors overwhelmingly favor Republicans: incumbent Russ Fulcher is seeking a fourth term in a district rated Safe/Solid Republican by all major nonpartisan analysts (Cook Political Report, Inside Elections, Sabato's Crystal Ball), and Donald Trump carried the district by roughly 45 points in 2024. The Democratic nominee, Kaylee Peterson, has run twice before without any evidence of a shift toward competitiveness. The Constitution Party nominee and independent candidate Sarah Zabel (retired USAF major general) do not appear to have the campaign infrastructure or demonstrated support to make the race genuinely competitive. Given the district's strong partisan baseline, incumbent advantage, and absence of any countervailing structural factors, Republicans retain an overwhelming advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:46.069063+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

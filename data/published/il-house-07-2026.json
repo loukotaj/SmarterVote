@@ -220,7 +220,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:10:38.149365+00:00",
+  "updated_utc": "2026-06-20T15:38:18.384278+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -234,18 +234,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 205197,
-    "completion_tokens": 5421,
-    "total_tokens": 210618,
-    "cost_usd": 0.014862428,
+    "prompt_tokens": 11652,
+    "completion_tokens": 1825,
+    "total_tokens": 13477,
+    "cost_usd": 0.0014396920000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.021172,
+    "estimated_usd": 0.001377,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 205197,
-        "completion_tokens": 5421
+        "prompt_tokens": 11652,
+        "completion_tokens": 1825
       }
     },
-    "duration_s": 122.6
+    "duration_s": 31.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6655,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "La Shawn Ford",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 55.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "Illinois's 7th Congressional District is an open seat following the retirement of longtime Democratic Rep. Danny Davis, but the district is overwhelmingly Democratic with a Cook PVI of D+34. Democratic nominee La Shawn Ford, a state representative endorsed by Davis, won a 13-candidate primary. Republican nominee Chad Koppie faces very long odds in a district that includes Chicago's West Side and heavily Democratic near-western suburbs. No general election polls are available, which reduces precision, but the district's deeply Democratic fundamentals and the Cook Political Report's 'Solid Democratic' rating make Ford the overwhelming favorite. The open-seat nature and lack of polling cap confidence at 'medium' despite the safe rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:13.279495Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -14,7 +14,7 @@
       "name": "Jim Jordan",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Jim Jordan has represented Ohio's 4th Congressional District since 2007 and is a prominent conservative figure in the U.S. House, serving as former chairman of the House Judiciary Committee and the House Freedom Caucus. He previously served in the Ohio House of Representatives (1995\u20132000) and Ohio State Senate (2001\u20132007) before being elected to Congress. Jordan is seeking re-election for an 11th term.",
+      "summary": "Jim Jordan has represented Ohio's 4th Congressional District since 2007 and is a prominent conservative figure in the U.S. House, serving as former chairman of the House Judiciary Committee and the House Freedom Caucus. He previously served in the Ohio House of Representatives (1995–2000) and Ohio State Senate (2001–2007) before being elected to Congress. Jordan is seeking re-election for an 11th term.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Jim_Jordan_(Ohio)",
@@ -212,7 +212,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:59:03.820821+00:00",
+  "updated_utc": "2026-06-20T15:40:51.560367+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -226,18 +226,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 208134,
-    "completion_tokens": 8130,
-    "total_tokens": 216264,
-    "cost_usd": 0.016389588,
+    "prompt_tokens": 7359,
+    "completion_tokens": 990,
+    "total_tokens": 8349,
+    "cost_usd": 0.000915222,
     "cost_source": "provider",
-    "estimated_usd": 0.021991,
+    "estimated_usd": 0.000841,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 208134,
-        "completion_tokens": 8130
+        "prompt_tokens": 7359,
+        "completion_tokens": 990
       }
     },
-    "duration_s": 132.3
+    "duration_s": 19.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3674,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0035,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jim Jordan",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.015,
+      "Independent": 0.005
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available, which lowers confidence. However, the race data strongly favors Republicans: incumbent Jim Jordan has held this seat since 2006, the district has a Cook PVI of R+21, and the Cook Political Report rates it as 'Solid R.' The non-Republican vote is split between a Democratic nominee and an independent candidate who previously ran as a Democrat in 2022 and 2024, further reducing any plausible challenge path. With zero contrary evidence in the provided data, this remains a Safe Republican race despite the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:44.342088Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -220,7 +220,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:20:47.909420+00:00",
+  "updated_utc": "2026-06-20T15:25:44.343186+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -234,18 +234,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 224587,
-    "completion_tokens": 5028,
-    "total_tokens": 229615,
-    "cost_usd": 0.015057734,
+    "prompt_tokens": 8971,
+    "completion_tokens": 1304,
+    "total_tokens": 10275,
+    "cost_usd": 0.001074838,
     "cost_source": "provider",
-    "estimated_usd": 0.022995,
+    "estimated_usd": 0.001042,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 224587,
-        "completion_tokens": 5028
+        "prompt_tokens": 8971,
+        "completion_tokens": 1304
       }
     },
-    "duration_s": 119.4
+    "duration_s": 21.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6449,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Delia Ramirez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race (based_on_poll_count=0), so confidence is capped at medium. However, all available non-polling indicators strongly favor the Democratic candidate: Delia Ramirez is a two-term incumbent in a district described as strongly Democratic-leaning; she ran uncontested in the primary; and all three major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate the seat Safe/Solid D. The Republican challenger, Angel Oakley, has no elected office experience and faces a severe structural disadvantage in a heavily Democratic district covering Chicago neighborhoods like Humboldt Park and Logan Square along with inner-ring suburbs. With no contrary evidence, the Democratic hold is virtually certain.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:38.022983Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

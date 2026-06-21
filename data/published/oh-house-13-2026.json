@@ -8,7 +8,7 @@
   "election_date": "2026-11-03",
   "description": "The general election for Ohio's 13th Congressional District pits two-term Democratic incumbent Emilia Sykes against Republican nominee Carey Coleman, a former radio talk show host and television meteorologist. The district was redrawn in October 2025 by the Ohio Redistricting Commission and now leans Democratic (Cook Partisan Voting Index D+2; Cook Political Report rating Lean D), after previously being considered a toss-up. Sykes defeated Republican Kevin Coughlin by 51.1% in 2024, and the new map prompted Coughlin to withdraw from the 2026 race. The contest will test whether national midterm trends and Republican messaging on the economy and border security can overcome the district's Democratic tilt.",
   "polling": [],
-  "polling_note": "No public opinion polls specific to the Sykes\u2013Coleman general election matchup were found as of June 2026. Prediction markets and election forecasters (Cook Political Report, 270toWin) rate the race as Lean Democratic.",
+  "polling_note": "No public opinion polls specific to the Sykes–Coleman general election matchup were found as of June 2026. Prediction markets and election forecasters (Cook Political Report, 270toWin) rate the race as Lean Democratic.",
   "candidates": [
     {
       "name": "Emilia Sykes",
@@ -212,7 +212,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_13th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:34:13.886980+00:00",
+  "updated_utc": "2026-06-20T15:36:01.007260+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -226,18 +226,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 224313,
-    "completion_tokens": 5940,
-    "total_tokens": 230253,
-    "cost_usd": 0.016667297999999997,
+    "prompt_tokens": 4479,
+    "completion_tokens": 1338,
+    "total_tokens": 5817,
+    "cost_usd": 0.00065127,
     "cost_source": "provider",
-    "estimated_usd": 0.023147,
+    "estimated_usd": 0.000644,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 224313,
-        "completion_tokens": 5940
+        "prompt_tokens": 4479,
+        "completion_tokens": 1338
       }
     },
-    "duration_s": 130.4
+    "duration_s": 22.8,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3195,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.003,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Emilia Sykes",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 0.72,
+      "Republican": 0.28
+    },
+    "margin_estimate": 4.0,
+    "rating": "lean_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polls exist as of June 2026, so this forecast relies entirely on structural factors already described in the race data. The district was redrawn in October 2025 and now carries a Cook PVI of D+2 with outside race raters (Cook Political Report, 270toWin) calling it Lean Democratic. Incumbent Emilia Sykes won re-election with 51.1% in 2024 under a more competitive map; after the redraw, the previous Republican challenger withdrew, and Carey Coleman emerged from a five-way GOP primary. Incumbency, the Democratic-leaning district fundamentals, and the moderate 2024 margin make Sykes a meaningful favorite. However, the absence of polling and the potential for national Republican midterm headwinds (economy, border security messaging cited in the race description) prevent a higher-confidence rating, keeping this at Lean Democratic rather than Likely Democratic.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:56.694242Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

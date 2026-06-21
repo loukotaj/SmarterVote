@@ -1673,7 +1673,7 @@
       "voting_sources": []
     }
   ],
-  "updated_utc": "2026-06-13T23:15:36.197183+00:00",
+  "updated_utc": "2026-06-20T15:22:39.246107+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -1965,24 +1965,57 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 231969,
-    "completion_tokens": 8895,
-    "total_tokens": 240864,
-    "cost_usd": 0.01656993,
+    "prompt_tokens": 78974,
+    "completion_tokens": 1862,
+    "total_tokens": 80836,
+    "cost_usd": 0.008104404,
     "cost_source": "provider",
-    "estimated_usd": 0.020705,
+    "estimated_usd": 0.007443,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 110623,
-        "completion_tokens": 7541
-      },
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 121346,
-        "completion_tokens": 1354
+        "prompt_tokens": 78974,
+        "completion_tokens": 1862
       }
     },
-    "duration_s": 123.1
+    "duration_s": 39.7,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 35149,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0335,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
-  "schema_version": "0.3"
+  "schema_version": "0.3",
+  "forecast": {
+    "predicted_winner_name": "Mike Kennedy",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.04,
+      "Independent": 0.01
+    },
+    "margin_estimate": 25,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "This forecast is based on non-polling indicators as no public polling exists for this race. The court-ordered 2026 congressional map reshaped Utah's 4th District to make the Republican primary the main contest, indicating a heavily Republican-leaning seat. Incumbent Republican Mike Kennedy is a sitting U.S. House member with a significant fundraising advantage ($610K+ in receipts) and an established political profile, while his general election opponents — Democrat Archie Williams III (no campaign finance data available) and independent Steven Burt ($19.5K in contributions) — have minimal financial and organizational resources. The Republican primary (June 23, 2026) features Kennedy against two lesser-known challengers with no reported campaign finance, making Kennedy the heavy favorite for the nomination. In a district designed to favor Republicans, any Republican nominee would be strongly positioned. However, with no polling data and a newly redrawn district, uncertainty is higher than in a well-polled race, warranting medium confidence despite the overwhelming Republican structural advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:29.355392+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "ballotpedia_url": "https://ballotpedia.org/Utah's_4th_Congressional_District",
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

@@ -242,7 +242,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Iowa%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:27:17.844530+00:00",
+  "updated_utc": "2026-06-20T15:43:22.764255+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -256,18 +256,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 161345,
-    "completion_tokens": 9311,
-    "total_tokens": 170656,
-    "cost_usd": 0.012285342000000001,
+    "prompt_tokens": 9920,
+    "completion_tokens": 1482,
+    "total_tokens": 11402,
+    "cost_usd": 0.001262632,
     "cost_source": "provider",
-    "estimated_usd": 0.017637,
+    "estimated_usd": 0.00116,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 161345,
-        "completion_tokens": 9311
+        "prompt_tokens": 9920,
+        "completion_tokens": 1482
       }
     },
-    "duration_s": 192.8
+    "duration_s": 22.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7013,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mariannette Miller-Meeks",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.53,
+    "party_probabilities": {
+      "Republican": 0.53,
+      "Democratic": 0.47
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "No public district-specific 2026 general-election polling is available, so confidence is low. Nonpartisan race context rates this as a Toss Up — Cook Political Report — indicating no clear favorite. The district has a modest Republican structural lean (R+4), and incumbent Mariannette Miller-Meeks has won three times, but her 2024 victory came by only 799 votes after a recount. Democrat Christina Bohannan is a repeat challenger who has kept both of her previous races extremely close. The very slight Republican edge (53%) reflects incumbency and the district's partisan baseline, but the margin of victory is likely to be razor-thin again, consistent with a true tossup.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:43:15.147516Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

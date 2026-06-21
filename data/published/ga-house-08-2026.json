@@ -213,7 +213,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:22:32.246551+00:00",
+  "updated_utc": "2026-06-20T15:27:52.760589+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -227,18 +227,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 216112,
-    "completion_tokens": 5752,
-    "total_tokens": 221864,
-    "cost_usd": 0.018033215999999998,
+    "prompt_tokens": 10786,
+    "completion_tokens": 1498,
+    "total_tokens": 12284,
+    "cost_usd": 0.001290732,
     "cost_source": "provider",
-    "estimated_usd": 0.022306,
+    "estimated_usd": 0.00124,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 216112,
-        "completion_tokens": 5752
+        "prompt_tokens": 10786,
+        "completion_tokens": 1498
       }
     },
-    "duration_s": 127.6
+    "duration_s": 33.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6234,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Austin Scott",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public opinion polling exists for this race, which tempers confidence. However, the available race data strongly supports a safe Republican outcome: Austin Scott is a long-serving eight-term incumbent first elected in 2010; the district covers more than 30 rural counties across middle and south Georgia; and nonpartisan analysts (e.g., Cook Political Report) rate it 'Solid Republican.' Democratic nominee Dr. Kelly Esti is a credible challenger — a Navy veteran, PhD in public policy, and primary winner — but lacks the structural advantages, district partisanship, and incumbency to make the race competitive under current conditions. Given zero polling data, the margin estimate is inferred from the district's partisan baseline and Scott's prior performance.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:44.741451Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -118,7 +118,7 @@
         {
           "url": "https://cd6dfl.com/candidate",
           "type": "website",
-          "title": "Candidates | Join the Campaign\u2014Make a Difference - CD6 DFL",
+          "title": "Candidates | Join the Campaign—Make a Difference - CD6 DFL",
           "description": null,
           "last_accessed": "2026-06-23T12:00:00Z",
           "published_at": null,
@@ -349,7 +349,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:07:08.853067+00:00",
+  "updated_utc": "2026-06-20T15:41:06.743747+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -363,18 +363,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 216988,
-    "completion_tokens": 7572,
-    "total_tokens": 224560,
-    "cost_usd": 0.01616948,
+    "prompt_tokens": 14763,
+    "completion_tokens": 2028,
+    "total_tokens": 16791,
+    "cost_usd": 0.001784358,
     "cost_source": "provider",
-    "estimated_usd": 0.022749,
+    "estimated_usd": 0.001694,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 216988,
-        "completion_tokens": 7572
+        "prompt_tokens": 14763,
+        "completion_tokens": 2028
       }
     },
-    "duration_s": 132.5
+    "duration_s": 36.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8928,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0085,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Tom Emmer",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polling is available (based_on_poll_count=0), which tempers confidence. However, the structural fundamentals overwhelmingly favor the Republican nominee (almost certainly Tom Emmer, the incumbent House Majority Whip). The district has been reliably Republican for over two decades, Cook Political Report rates it Solid Republican for 2026, and Emmer is a well-funded incumbent in House leadership. The contested Republican primary (August 11, 2026) introduces a minor element of uncertainty on the GOP side, but Emmer's incumbency and leadership position make him heavily favored to prevail. The DFL has a credible nominee in Doug Chapin, and the race description notes potential Democratic gains from shifting suburban dynamics, but there is no polling or historical evidence in the current race data suggesting the district is competitive. An unaffiliated candidate (Austin Winkelman) is also on the general election ballot but poses negligible electoral threat. Republican win probability is estimated at approximately 0.96, consistent with a safe rating, with a margin estimate around 18 percentage points.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:57.436389Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

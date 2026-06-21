@@ -14,7 +14,7 @@
       "name": "Warren Davidson",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Warren Davidson has served as the U.S. Representative for Ohio's 8th Congressional District since June 2016, when he won a special election to succeed former House Speaker John Boehner. A U.S. Army veteran (1988\u20132000) who served in the 75th Ranger Regiment and 101st Airborne Division, he is a member of the House Freedom Caucus and serves on the House Financial Services Committee. Before entering Congress, he owned and operated a manufacturing business, Integral Manufacturing, in Troy, Ohio.",
+      "summary": "Warren Davidson has served as the U.S. Representative for Ohio's 8th Congressional District since June 2016, when he won a special election to succeed former House Speaker John Boehner. A U.S. Army veteran (1988–2000) who served in the 75th Ranger Regiment and 101st Airborne Division, he is a member of the House Freedom Caucus and serves on the House Financial Services Committee. Before entering Congress, he owned and operated a manufacturing business, Integral Manufacturing, in Troy, Ohio.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Warren_Davidson",
@@ -118,7 +118,7 @@
         {
           "url": "https://enochforcongress.com/bio/",
           "type": "website",
-          "title": "Biography \u2013 Enoch for Congress",
+          "title": "Biography – Enoch for Congress",
           "description": null,
           "last_accessed": "2026-06-11T00:00:00Z",
           "published_at": null,
@@ -217,7 +217,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:18:48.771677+00:00",
+  "updated_utc": "2026-06-20T15:39:10.299350+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -231,18 +231,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 256053,
-    "completion_tokens": 5858,
-    "total_tokens": 261911,
-    "cost_usd": 0.019532114000000003,
+    "prompt_tokens": 11335,
+    "completion_tokens": 1531,
+    "total_tokens": 12866,
+    "cost_usd": 0.001351002,
     "cost_source": "provider",
-    "estimated_usd": 0.026241,
+    "estimated_usd": 0.001296,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 256053,
-        "completion_tokens": 5858
+        "prompt_tokens": 11335,
+        "completion_tokens": 1531
       }
     },
-    "duration_s": 132.2
+    "duration_s": 28.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6566,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Warren Davidson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No independent public polling exists for this race, which limits direct measurement of current voter sentiment and warrants a medium confidence assessment. However, the structural race data is highly consistent and unambiguous: incumbent Republican Warren Davidson has held this seat since 2016; the district has been reliably Republican for decades; Davidson has won past general elections with roughly two-thirds of the vote; Cook Political Report rated the district as 'Solidly Republican' ahead of the May 2026 primary; and Democratic nominee Vanessa Enoch has been the party's standard-bearer in multiple prior cycles without running competitively. Absent any contrary data or evidence of a district-level shift, Republicans retain an overwhelming and durable advantage consistent with a safe-rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:04.255173Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

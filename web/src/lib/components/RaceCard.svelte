@@ -6,19 +6,53 @@
 
   function formatDate(dateString: string): string {
     const d = new Date(dateString);
-    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   }
 
-  function getOfficeBadge(office: string | undefined): { label: string; cls: string } {
-    if (!office) return { label: "Race", cls: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200" };
+  function getOfficeBadge(office: string | undefined): {
+    label: string;
+    cls: string;
+  } {
+    if (!office)
+      return {
+        label: "Race",
+        cls: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200",
+      };
     const o = office.toLowerCase();
-    if (o.includes("senate")) return { label: "Senate", cls: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200" };
-    if (o.includes("governor") || o.includes("gubernatorial")) return { label: "Governor", cls: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200" };
-    if (o.includes("house") || o.includes("representative")) return { label: "House", cls: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200" };
-    if (o.includes("secretary")) return { label: "Sec. of State", cls: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200" };
-    if (o.includes("attorney")) return { label: "Atty. General", cls: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200" };
+    if (o.includes("senate"))
+      return {
+        label: "Senate",
+        cls: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+      };
+    if (o.includes("governor") || o.includes("gubernatorial"))
+      return {
+        label: "Governor",
+        cls: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+      };
+    if (o.includes("house") || o.includes("representative"))
+      return {
+        label: "House",
+        cls: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+      };
+    if (o.includes("secretary"))
+      return {
+        label: "Sec. of State",
+        cls: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+      };
+    if (o.includes("attorney"))
+      return {
+        label: "Atty. General",
+        cls: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+      };
     // Truncate long office names
-    return { label: office.length > 22 ? office.slice(0, 22) + "…" : office, cls: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200" };
+    return {
+      label: office.length > 22 ? office.slice(0, 22) + "…" : office,
+      cls: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200",
+    };
   }
 
   $: badge = getOfficeBadge(race.office);
@@ -35,11 +69,15 @@
 >
   <!-- Card header: badges + date -->
   <div class="px-4 pt-4 pb-3 flex flex-wrap items-center gap-2">
-    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {badge.cls}">
+    <span
+      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {badge.cls}"
+    >
       {badge.label}
     </span>
     {#if race.jurisdiction}
-      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+      <span
+        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+      >
         {race.jurisdiction}
       </span>
     {/if}
@@ -50,7 +88,9 @@
 
   <!-- Race title -->
   <div class="px-4 pb-3">
-    <h3 class="text-sm font-semibold text-content group-hover:text-blue-600 transition-colors leading-snug line-clamp-2 capitalize">
+    <h3
+      class="text-sm font-semibold text-content group-hover:text-blue-600 transition-colors leading-snug line-clamp-2 capitalize"
+    >
       {race.title ?? `${race.office ?? "Race"} — ${race.jurisdiction ?? ""}`}
     </h3>
   </div>
@@ -66,13 +106,19 @@
               <img
                 src={candidate.image_url}
                 alt={candidate.name}
-                class="w-9 h-9 rounded-full object-cover ring-2 {partyRing(candidate.party)}"
+                class="w-9 h-9 rounded-full object-cover ring-2 {partyRing(
+                  candidate.party
+                )}"
                 loading="lazy"
                 on:error={() => handleImageError(candidate.name)}
               />
             {:else}
               <div
-                class="w-9 h-9 rounded-full ring-2 {partyRing(candidate.party)} {partyInitialBg(candidate.party)} flex items-center justify-center text-white text-sm font-bold"
+                class="w-9 h-9 rounded-full ring-2 {partyRing(
+                  candidate.party
+                )} {partyInitialBg(
+                  candidate.party
+                )} flex items-center justify-center text-white text-sm font-bold"
                 aria-hidden="true"
               >
                 {candidate.name ? candidate.name[0].toUpperCase() : "?"}
@@ -81,9 +127,13 @@
           </div>
           <!-- Name + party -->
           <div class="min-w-0">
-            <p class="text-xs font-medium text-content truncate max-w-[110px]">{candidate.name}</p>
+            <p class="text-xs font-medium text-content truncate max-w-[110px]">
+              {candidate.name}
+            </p>
             {#if candidate.party}
-              <p class="text-xs text-content-subtle">{partyAbbr(candidate.party)}</p>
+              <p class="text-xs text-content-subtle">
+                {partyAbbr(candidate.party)}
+              </p>
             {/if}
           </div>
         </div>
@@ -92,10 +142,22 @@
   </div>
 
   <!-- View race footer -->
-  <div class="px-4 py-2.5 border-t border-stroke flex items-center justify-end gap-1 text-xs font-medium text-blue-500 dark:text-blue-400">
+  <div
+    class="px-4 py-2.5 border-t border-stroke flex items-center justify-end gap-1 text-xs font-medium text-blue-500 dark:text-blue-400"
+  >
     View race
-    <svg class="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+    <svg
+      class="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2.5"
+        d="M9 5l7 7-7 7"
+      />
     </svg>
   </div>
 </a>

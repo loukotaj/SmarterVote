@@ -299,7 +299,7 @@
         {
           "url": "https://salaamforva.com/",
           "type": "website",
-          "title": "Home \u2014 Salaam Bhatti for Congress",
+          "title": "Home — Salaam Bhatti for Congress",
           "description": null,
           "last_accessed": "2026-06-14T12:00:00Z",
           "published_at": null,
@@ -665,7 +665,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:25:40.121528+00:00",
+  "updated_utc": "2026-06-20T15:26:47.891394+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -679,18 +679,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 353433,
-    "completion_tokens": 12112,
-    "total_tokens": 365545,
-    "cost_usd": 0.027006418,
+    "prompt_tokens": 21629,
+    "completion_tokens": 2695,
+    "total_tokens": 24324,
+    "cost_usd": 0.002647862,
     "cost_source": "provider",
-    "estimated_usd": 0.03701,
+    "estimated_usd": 0.002432,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 353433,
-        "completion_tokens": 12112
+        "prompt_tokens": 21629,
+        "completion_tokens": 2695
       }
     },
-    "duration_s": 175.7
+    "duration_s": 38.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 12916,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0123,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rob Wittman",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.69,
+    "party_probabilities": {
+      "Democratic": 0.31,
+      "Republican": 0.69
+    },
+    "margin_estimate": 4.0,
+    "rating": "lean_r",
+    "confidence": "medium",
+    "rationale": "Incumbent Republican Rep. Rob Wittman, first elected in 2007, holds a meaningful advantage rooted in nearly two decades of incumbency, senior committee positions (Vice Chair of Armed Services and Natural Resources), and a district that backed Donald Trump by roughly five points in 2024 — both structural factors favoring the GOP. Cook Political Report rates the race 'Lean Republican,' aligning with this assessment. However, uncertainty is elevated by several factors: only one public poll exists (a Democratic-affiliated PPP survey from August 2025 showing Wittman at 41% vs. Shannon Taylor at 40%, essentially tied), the district also supported Democrat Abigail Spanberger for governor in 2025, and a seven-candidate Democratic primary on August 4, 2026, remains unresolved. Shannon Taylor leads in fundraising ($1.3M) and endorsements, but the eventual nominee is still unknown, introducing additional variability. With the election 4.5 months away and limited polling, the race is competitive but leans Republican.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:26:40.535152Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Virginia#Polling"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

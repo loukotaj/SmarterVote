@@ -279,7 +279,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:13:47.905789+00:00",
+  "updated_utc": "2026-06-20T15:21:18.545055+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -293,18 +293,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 274580,
-    "completion_tokens": 6921,
-    "total_tokens": 281501,
-    "cost_usd": 0.019319692,
+    "prompt_tokens": 11879,
+    "completion_tokens": 1590,
+    "total_tokens": 13469,
+    "cost_usd": 0.0014757820000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.028265,
+    "estimated_usd": 0.001355,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 274580,
-        "completion_tokens": 6921
+        "prompt_tokens": 11879,
+        "completion_tokens": 1590
       }
     },
-    "duration_s": 179.4
+    "duration_s": 22.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6797,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Tim Walberg",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available for this race. The forecast relies on fundamentals: a Cook PVI of R+13, a Cook Political Report rating of 'Solid R,' and a long-serving incumbent Republican (Rep. Tim Walberg, first elected 2010 and currently Chair of House Education and Workforce Committee). The Democratic challenger, Christian Vukasovich, has an academic and union-organizing background but faces a district heavily skewed toward Republicans. These factors together indicate an overwhelming Republican advantage, warranting a 'safe R' rating. Confidence is medium because the lack of any polling leaves room for undetected shifts in candidate quality, fundraising, or national-cycle effects that could modestly alter the margin, though not the expected outcome.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:14.707067Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

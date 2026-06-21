@@ -364,10 +364,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/South_Dakota_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:04:49.511480+00:00",
+  "updated_utc": "2026-06-20T03:17:16.050367+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -376,20 +375,55 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 325756,
-    "completion_tokens": 9647,
-    "total_tokens": 335403,
-    "cost_usd": 0.024409972000000002,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3124,
+    "completion_tokens": 221,
+    "total_tokens": 3345,
+    "cost_usd": 0.008821,
     "cost_source": "provider",
-    "estimated_usd": 0.033815,
+    "estimated_usd": 0.011125,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 325756,
-        "completion_tokens": 9647
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3124,
+        "completion_tokens": 221
       }
     },
-    "duration_s": 179.3
+    "duration_s": 8.4,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2775,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0026,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Larry Rhoden",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.05
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling is available, so this forecast relies on the race description and candidate context rather than numeric head-to-head data. South Dakota is described as a heavily Republican-leaning state with a current Republican trifecta, and it has not elected a Democratic governor since 1974. The GOP is favored to retain the office regardless of whether incumbent Larry Rhoden or runoff challenger Toby Doeden is the eventual nominee, and Rhoden is provisionally listed as the predicted winner because he is the incumbent and remains in the runoff. Confidence is reduced to medium because the Republican nominee is not yet finalized and there are no general-election polls.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:14.994567Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

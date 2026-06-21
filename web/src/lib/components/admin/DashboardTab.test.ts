@@ -62,7 +62,9 @@ describe("DashboardTab basic layout", () => {
     const module = await import("./DashboardTab.svelte");
     return render(module.default, {
       props: {
-        apiService: { listRaces: vi.fn().mockResolvedValue([]) } as unknown as PipelineApiService,
+        apiService: {
+          listRaces: vi.fn().mockResolvedValue([]),
+        } as unknown as PipelineApiService,
       },
     });
   }

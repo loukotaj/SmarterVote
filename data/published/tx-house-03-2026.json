@@ -6,7 +6,7 @@
   "state": "Texas",
   "district": "3rd Congressional District",
   "election_date": "2026-11-03",
-  "description": "Texas's 3rd Congressional District covers much of Collin County \u2014 including McKinney, Allen, and parts of Plano and Frisco \u2014 as well as most of Hunt County in the Dallas-Fort Worth metroplex. The district has a Cook Partisan Voting Index of R+10 and has been held by Republicans since 1968. Incumbent Republican Keith Self, a retired Army lieutenant colonel and former Collin County judge, is seeking a third term. He is being challenged by Democrat Evan Hunt, a retired Air Force lieutenant colonel and defense executive who emphasizes his military service and positions on constitutional integrity, healthcare reform, and public education. The race takes place amid mid-decade redistricting litigation, though the Supreme Court has allowed Texas to use its new Republican-friendly congressional map for the 2026 elections.",
+  "description": "Texas's 3rd Congressional District covers much of Collin County — including McKinney, Allen, and parts of Plano and Frisco — as well as most of Hunt County in the Dallas-Fort Worth metroplex. The district has a Cook Partisan Voting Index of R+10 and has been held by Republicans since 1968. Incumbent Republican Keith Self, a retired Army lieutenant colonel and former Collin County judge, is seeking a third term. He is being challenged by Democrat Evan Hunt, a retired Air Force lieutenant colonel and defense executive who emphasizes his military service and positions on constitutional integrity, healthcare reform, and public education. The race takes place amid mid-decade redistricting litigation, though the Supreme Court has allowed Texas to use its new Republican-friendly congressional map for the 2026 elections.",
   "polling": [],
   "polling_note": "No district-specific opinion polls were found for Texas's 3rd Congressional District. Statewide generic ballot polls from the 2026 cycle show a competitive environment, but no TX-03 head-to-head polling is available.",
   "candidates": [
@@ -217,7 +217,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:35:45.650441+00:00",
+  "updated_utc": "2026-06-20T15:36:40.113071+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -231,18 +231,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 190224,
-    "completion_tokens": 5835,
-    "total_tokens": 196059,
-    "cost_usd": 0.012806795999999999,
+    "prompt_tokens": 9097,
+    "completion_tokens": 1323,
+    "total_tokens": 10420,
+    "cost_usd": 0.0010809259999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.019786,
+    "estimated_usd": 0.001057,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 190224,
-        "completion_tokens": 5835
+        "prompt_tokens": 9097,
+        "completion_tokens": 1323
       }
     },
-    "duration_s": 130.0
+    "duration_s": 23.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6478,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Keith Self",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.9,
+    "party_probabilities": {
+      "Democratic": 0.1,
+      "Republican": 0.9
+    },
+    "margin_estimate": 11.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling is available, so confidence is limited and the forecast relies on district fundamentals rather than head-to-head data. Those fundamentals strongly favor Republicans: TX-03 has a Cook PVI of R+10, has been held by Republicans since 1968, and incumbent Keith Self is seeking a third term in a Republican-friendly map that the Supreme Court allowed Texas to use for 2026. Democrat Evan Hunt is a credible challenger with military and executive credentials, but in an R+10 district without any polling showing a shift, Republicans retain a clear and substantial advantage — though not an overwhelming one, as a strong Democratic wave could theoretically narrow the margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:32.133832Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

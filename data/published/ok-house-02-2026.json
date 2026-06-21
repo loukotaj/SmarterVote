@@ -6,7 +6,7 @@
   "state": "Oklahoma",
   "district": "2nd Congressional District",
   "election_date": "2026-11-03",
-  "description": "Oklahoma's 2nd Congressional District covers 28 counties across eastern Oklahoma, including Green Country and Little Dixie. Incumbent Republican Josh Brecheen, first elected in 2022 and re-elected with 74.2% of the vote in 2024, is seeking a third term. The district is rated as 'Solid Republican' by nonpartisan election forecasters. Brecheen faces a Republican primary challenge from veteran Will Webb on June 16, 2026, while two Democratic candidates \u2014 Erik Terwey and Brandon Wade \u2014 compete for their party's nomination. Independent candidate Ronnie Hopkins is also running in the general election.",
+  "description": "Oklahoma's 2nd Congressional District covers 28 counties across eastern Oklahoma, including Green Country and Little Dixie. Incumbent Republican Josh Brecheen, first elected in 2022 and re-elected with 74.2% of the vote in 2024, is seeking a third term. The district is rated as 'Solid Republican' by nonpartisan election forecasters. Brecheen faces a Republican primary challenge from veteran Will Webb on June 16, 2026, while two Democratic candidates — Erik Terwey and Brandon Wade — compete for their party's nomination. Independent candidate Ronnie Hopkins is also running in the general election.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of mid-2026. The district is rated Safe/Solid Republican by Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
   "candidates": [
@@ -423,7 +423,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oklahoma%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:18:00.510411+00:00",
+  "updated_utc": "2026-06-20T15:36:15.784709+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -437,18 +437,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 253196,
-    "completion_tokens": 10856,
-    "total_tokens": 264052,
-    "cost_usd": 0.018474551999999998,
+    "prompt_tokens": 15440,
+    "completion_tokens": 2291,
+    "total_tokens": 17731,
+    "cost_usd": 0.0019122359999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.026941,
+    "estimated_usd": 0.001802,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 253196,
-        "completion_tokens": 10856
+        "prompt_tokens": 15440,
+        "completion_tokens": 2291
       }
     },
-    "duration_s": 152.0
+    "duration_s": 37.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8871,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0085,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Josh Brecheen",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public opinion polling exists for this race, limiting confidence and requiring reliance on non-polling indicators. Those indicators overwhelmingly favor Republicans: the district is rated Safe/Solid Republican by Cook Political Report, Inside Elections, and Sabato's Crystal Ball. Incumbent Josh Brecheen won re-election with 74.2% in 2024, and the district's 28 counties across eastern Oklahoma (Green Country and Little Dixie) have a strong Republican lean. Brecheen faced a Republican primary challenge (June 16, 2026) from Will Webb, introducing minor near-term uncertainty about the nominee, but the party remains the overwhelming favorite in the general election. The Democratic primary between Erik Terwey and Brandon Wade (who lost to Brecheen 74.2%-21.4% in 2024) and independent candidate Ronnie Hopkins (who also ran in 2024) present no evidence in the data of broad competitiveness. No material shift in district alignment is indicated.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:07.969744Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -288,7 +288,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:57:21.018949+00:00",
+  "updated_utc": "2026-06-20T15:37:32.683637+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -302,18 +302,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 238048,
-    "completion_tokens": 7799,
-    "total_tokens": 245847,
-    "cost_usd": 0.016777876,
+    "prompt_tokens": 13464,
+    "completion_tokens": 1729,
+    "total_tokens": 15193,
+    "cost_usd": 0.0016583560000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.024857,
+    "estimated_usd": 0.001523,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 238048,
-        "completion_tokens": 7799
+        "prompt_tokens": 13464,
+        "completion_tokens": 1729
       }
     },
-    "duration_s": 138.2
+    "duration_s": 28.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7587,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Emily Randall",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.03,
+      "Independent": 0.01,
+      "Other": 0.0
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls are available for this race, which constrains confidence to medium rather than high. However, the structural indicators overwhelmingly favor the incumbent Democrat. Emily Randall won the seat in 2024 with 56.8%, the district has a Cook PVI of D+7, and major nonpartisan forecasters rate it as Solid/Safe Democratic. In the top-two primary, the non-incumbent vote is fragmented among four challengers (Republican Teresa Fox, Independent Brian O'Gorman, nonpartisan Macy Jones, and Trump Republican Party candidate Leon Lawson), with no evidence of a particularly strong challenger. Given Democratic incumbency, favorable district partisanship, the prior result, and the absence of countervailing signals, a Safe Democratic rating with a Democratic win probability above 95% is warranted.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:25.500659Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

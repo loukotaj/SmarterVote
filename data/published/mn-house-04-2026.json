@@ -355,7 +355,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:01:39.393596+00:00",
+  "updated_utc": "2026-06-20T15:40:10.390457+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -369,18 +369,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 259006,
-    "completion_tokens": 9644,
-    "total_tokens": 268650,
-    "cost_usd": 0.019315564,
+    "prompt_tokens": 14655,
+    "completion_tokens": 1525,
+    "total_tokens": 16180,
+    "cost_usd": 0.001675186,
     "cost_source": "provider",
-    "estimated_usd": 0.027273,
+    "estimated_usd": 0.001593,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 259006,
-        "completion_tokens": 9644
+        "prompt_tokens": 14655,
+        "completion_tokens": 1525
       }
     },
-    "duration_s": 152.8
+    "duration_s": 24.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8598,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0082,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Betty McCollum",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, which limits confidence. However, the district (Saint Paul and parts of Ramsey and Washington counties) is heavily Democratic by partisan baseline and is rated Safe Democratic by all major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball). Incumbent Betty McCollum has held the seat since 2000 and has consistently been reelected with comfortable margins. The Republican primary field includes three candidates; the most recent GOP challenger (Rechtzigel in 2020) received only 28.97%. While McCollum faces a primary challenger (Aswar Rahman), the district's Democratic lean, McCollum's seniority and incumbency, and the lack of any competitive general-election dynamic strongly point to an overwhelming Democratic advantage. The absence of polling prevents high confidence, but the structural fundamentals clearly support a safe Democratic rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:06.908512Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

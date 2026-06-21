@@ -6,7 +6,7 @@
   "state": "Wisconsin",
   "district": "8th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Wisconsin's 8th Congressional District pits first-term Republican incumbent Tony Wied against a trio of Democratic primary contenders in a northeast Wisconsin district that includes Green Bay, Appleton, and Door County. The district has a Cook Partisan Voting Index of R+8 and has been held by Republicans since 1999. The Democratic primary \u2014 the party's first competitive primary in this district in nearly 20 years \u2014 features retired Army Lt. Colonel and former Green Bay School Board member Rick Crosson, retired businessman and former teacher Mark Scheffler, and musician Katrina deVille. The primary is set for August 11, 2026, and the general election is November 3, 2026.",
+  "description": "The 2026 election for Wisconsin's 8th Congressional District pits first-term Republican incumbent Tony Wied against a trio of Democratic primary contenders in a northeast Wisconsin district that includes Green Bay, Appleton, and Door County. The district has a Cook Partisan Voting Index of R+8 and has been held by Republicans since 1999. The Democratic primary — the party's first competitive primary in this district in nearly 20 years — features retired Army Lt. Colonel and former Green Bay School Board member Rick Crosson, retired businessman and former teacher Mark Scheffler, and musician Katrina deVille. The primary is set for August 11, 2026, and the general election is November 3, 2026.",
   "polling": [],
   "polling_note": "No specific public opinion polls were found for Wisconsin's 8th Congressional District race in 2026. Cook Political Report rates the district as 'Solid R.'",
   "candidates": [
@@ -375,7 +375,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:45:38.106457+00:00",
+  "updated_utc": "2026-06-20T15:24:58.852549+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -389,18 +389,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 234134,
-    "completion_tokens": 9361,
-    "total_tokens": 243495,
-    "cost_usd": 0.015834224,
+    "prompt_tokens": 11480,
+    "completion_tokens": 1240,
+    "total_tokens": 12720,
+    "cost_usd": 0.00136808,
     "cost_source": "provider",
-    "estimated_usd": 0.02478,
+    "estimated_usd": 0.001256,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 234134,
-        "completion_tokens": 9361
+        "prompt_tokens": 11480,
+        "completion_tokens": 1240
       }
     },
-    "duration_s": 179.3
+    "duration_s": 27.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8733,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0083,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Tony Wied",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public opinion polls exist for this race, which reduces confidence. However, the structural fundamentals are strongly Republican: the district has a Cook PVI of R+8, Republicans have held the seat continuously since 1999, and the incumbent Tony Wied (first elected 2024) is running for re-election. The Democratic side features a contested three-way primary (Crosson, Scheffler, deVille) with no clearly dominant general-election challenger yet established, and the primary isn't until August 11, 2026. Cook Political Report rates the district 'Solid R.' Taken together, the evidence supports Republicans as overwhelming favorites despite the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:49.349305Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

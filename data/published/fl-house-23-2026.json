@@ -325,7 +325,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:13:20.338632+00:00",
+  "updated_utc": "2026-06-20T15:42:41.814825+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -339,7 +339,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Florida's_23rd_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -347,34 +347,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 259886,
-    "completion_tokens": 10384,
-    "total_tokens": 270270,
-    "cost_usd": 0.06508509800000001,
+    "prompt_tokens": 14204,
+    "completion_tokens": 1695,
+    "total_tokens": 15899,
+    "cost_usd": 0.001674292,
     "cost_source": "provider",
-    "estimated_usd": 0.065986,
+    "estimated_usd": 0.001583,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 227167,
-        "completion_tokens": 6769
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 32719,
-        "completion_tokens": 3615
+        "prompt_tokens": 14204,
+        "completion_tokens": 1695
       }
     },
-    "duration_s": 267.0,
-    "serper_calls": 17,
-    "context_requests": 15,
-    "max_estimated_context_tokens": 42531,
+    "duration_s": 27.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8312,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0406,
-    "context_deduplicated_results": 71,
+    "max_context_utilization": 0.0079,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 3,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Lois Frankel",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "This forecast is based on district fundamentals and candidate context, as no public polling exists in the race data. Florida's 23rd CD is rated Solid Democratic with a D+9 partisan lean, and Kamala Harris won over 56% of the vote here in 2024, establishing a strong Democratic baseline. Incumbent Rep. Lois Frankel shifted from the old 22nd District into this new coastal Palm Beach County district centered on her political base of West Palm Beach. She is an established officeholder (serving since 2013, former Mayor of West Palm Beach, former state House Minority Leader) with high name recognition and institutional advantages. While she faces two Democratic primary challengers (Victoria Doyle and Mark Piper), incumbency and fundraising advantages make her the clear favorite to win the August 18 primary. The Republican field (Deborah Adeimy and Paola Branda) shows no signs of unusual strength. The D+9 lean and safe_d rating indicate Democrats are overwhelming favorites in the general election regardless of nominee. Confidence is medium rather than high due to the absence of polling and the fact that redistricting (the district was redrawn in 2026) slightly elevates uncertainty, though the fundamental partisan environment heavily favors the Democratic candidate.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:42:36.305575Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

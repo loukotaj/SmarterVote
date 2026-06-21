@@ -215,7 +215,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:46:14.696140+00:00",
+  "updated_utc": "2026-06-20T15:20:27.729794+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -229,18 +229,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 166739,
-    "completion_tokens": 5604,
-    "total_tokens": 172343,
-    "cost_usd": 0.012287062,
+    "prompt_tokens": 11537,
+    "completion_tokens": 1575,
+    "total_tokens": 13112,
+    "cost_usd": 0.0014393259999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.017439,
+    "estimated_usd": 0.001322,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 166739,
-        "completion_tokens": 5604
+        "prompt_tokens": 11537,
+        "completion_tokens": 1575
       }
     },
-    "duration_s": 107.3
+    "duration_s": 28.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6533,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Dale Strong",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists for this race, which tempers direct empirical confidence. However, the available structural indicators are overwhelmingly clear: the district has a Cook PVI of R+15, is rated Solid Republican by Cook Political Report, and has a two-term Republican incumbent (Dale Strong) seeking a third term. The Democratic nomination was decided by a June 16 runoff between two little-known candidates (Andrew Sneed and Candice Duvieilh), and no data suggests any unusual shift toward competitiveness. The district's anchor in the Huntsville/Redstone Arsenal area aligns well with the incumbent's focus on defense and aerospace. Based on fundamentals alone, this remains a safe Republican seat with a large expected margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:21.774612Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

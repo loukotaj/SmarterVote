@@ -41,7 +41,7 @@
         {
           "url": "https://www.clubforgrowth.org/candidates/jon-bonck/",
           "type": "website",
-          "title": "Jon Bonck \u2013 Club for Growth",
+          "title": "Jon Bonck – Club for Growth",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -192,7 +192,7 @@
         {
           "url": "https://ballotpedia.org/Alex_McMenemy",
           "type": "website",
-          "title": "Alex McMenemy \u2013 Ballotpedia",
+          "title": "Alex McMenemy – Ballotpedia",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -221,7 +221,7 @@
       "name": "William Taggart",
       "party": "Independent",
       "incumbent": false,
-      "summary": "William Taggart (also known as Butch) is an Independent candidate running for U.S. House in Texas' 38th Congressional District. He is an engineer and author of 'Fixing America \u2013 An Engineer's Solution to our Social, Cultural, and Political Problems,' and campaigns as a moderate independent focused on healthcare, housing, energy costs, and tax reform.",
+      "summary": "William Taggart (also known as Butch) is an Independent candidate running for U.S. House in Texas' 38th Congressional District. He is an engineer and author of 'Fixing America – An Engineer's Solution to our Social, Cultural, and Political Problems,' and campaigns as a moderate independent focused on healthcare, housing, energy costs, and tax reform.",
       "summary_sources": [
         {
           "url": "https://williamtaggart.org/",
@@ -237,7 +237,7 @@
         {
           "url": "https://ballotpedia.org/William_Taggart",
           "type": "website",
-          "title": "William Taggart \u2013 Ballotpedia",
+          "title": "William Taggart – Ballotpedia",
           "description": null,
           "last_accessed": "2026-06-13T00:00:00Z",
           "published_at": null,
@@ -262,7 +262,7 @@
           "organization": null,
           "start_year": null,
           "end_year": null,
-          "description": "Author of 'Fixing America \u2013 An Engineer's Solution to our Social, Cultural, and Political Problems.'",
+          "description": "Author of 'Fixing America – An Engineer's Solution to our Social, Cultural, and Political Problems.'",
           "source": null
         }
       ],
@@ -281,7 +281,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_38th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:52:14.400633+00:00",
+  "updated_utc": "2026-06-20T15:32:48.010581+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -295,18 +295,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 367219,
-    "completion_tokens": 7216,
-    "total_tokens": 374435,
-    "cost_usd": 0.022176197999999998,
+    "prompt_tokens": 8173,
+    "completion_tokens": 1651,
+    "total_tokens": 9824,
+    "cost_usd": 0.00112455,
     "cost_source": "provider",
-    "estimated_usd": 0.037402,
+    "estimated_usd": 0.001033,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 367219,
-        "completion_tokens": 7216
+        "prompt_tokens": 8173,
+        "completion_tokens": 1651
       }
     },
-    "duration_s": 132.7
+    "duration_s": 30.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4201,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.004,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jon Bonck",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.035,
+      "Green": 0.008,
+      "Independent": 0.007
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polling exists as of June 2026 (the only available survey was a University of Houston Hobby School poll focused on the Republican primary). Without polling, the forecast relies on structural and contextual factors. TX-38 was designed as a Republican stronghold after the 2020 Census, is rated 'Solid R' by Cook Political Report, and covers affluent and suburban areas of western/northwestern Harris County that lean Republican. The seat became open after Wesley Hunt (R) vacated it for an unsuccessful Senate run, but the district's partisan baseline remains strongly Republican. Jon Bonck secured the Republican nomination in a competitive 10-candidate primary and runoff with endorsements from Trump and Cruz, while Democratic nominee Melissa McDonough is running a moderate 'purple' message. However, in a district drawn to elect Republicans and with no polling evidence of a competitive shift, the Republican candidate holds an overwhelming structural advantage. Third-party candidates (Green, Independent) are on the ballot but not competitive. Confidence is medium due to the absence of any general election polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:40.892142Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

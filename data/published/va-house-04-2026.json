@@ -6,7 +6,7 @@
   "state": "Virginia",
   "district": "4th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Virginia's 4th Congressional District covers the city of Richmond and portions of Southside Virginia along Interstate 95, including Colonial Heights, Emporia, Hopewell, and Petersburg. The incumbent is Democrat Jennifer McClellan, first elected in a 2023 special election and re-elected in 2024 with 67.3% of the vote. The district is rated Solid Democratic by Cook Political Report, Inside Elections, and Sabato's Crystal Ball, making it a safe seat for the incumbent. No Republican candidate filed by the May 25 primary deadline, though the party may nominate a candidate by August 4; two independent candidates \u2014 Jason Brown II and Andre Kersey \u2014 are running in the general election.",
+  "description": "Virginia's 4th Congressional District covers the city of Richmond and portions of Southside Virginia along Interstate 95, including Colonial Heights, Emporia, Hopewell, and Petersburg. The incumbent is Democrat Jennifer McClellan, first elected in a 2023 special election and re-elected in 2024 with 67.3% of the vote. The district is rated Solid Democratic by Cook Political Report, Inside Elections, and Sabato's Crystal Ball, making it a safe seat for the incumbent. No Republican candidate filed by the May 25 primary deadline, though the party may nominate a candidate by August 4; two independent candidates — Jason Brown II and Andre Kersey — are running in the general election.",
   "polling": [],
   "polling_note": "No public opinion polls were found specifically for Virginia's 4th Congressional District in the 2026 cycle as of June 2026.",
   "candidates": [
@@ -251,7 +251,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:38:51.009876+00:00",
+  "updated_utc": "2026-06-20T15:35:51.074926+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -265,18 +265,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 187380,
-    "completion_tokens": 6419,
-    "total_tokens": 193799,
-    "cost_usd": 0.012482803999999998,
+    "prompt_tokens": 12180,
+    "completion_tokens": 2323,
+    "total_tokens": 14503,
+    "cost_usd": 0.001589044,
     "cost_source": "provider",
-    "estimated_usd": 0.019621,
+    "estimated_usd": 0.001514,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 187380,
-        "completion_tokens": 6419
+        "prompt_tokens": 12180,
+        "completion_tokens": 2323
       }
     },
-    "duration_s": 160.7
+    "duration_s": 38.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7009,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jennifer McClellan",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.99,
+    "party_probabilities": {
+      "Democratic": 0.99,
+      "Republican": 0.005,
+      "Independent": 0.005
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling is available for this cycle, so the forecast relies on non-polling indicators. The race is overwhelmingly favorable to Democrats: incumbent Jennifer McClellan won re-election in 2024 with 67.3% of the vote, the district is rated Solid Democratic by Cook Political Report, Inside Elections, and Sabato's Crystal Ball, and no Republican candidate filed by the May 25 primary deadline (though the party could nominate by August 4). The opposition consists of two independent candidates — Jason Brown II (minimal fundraising of $1,481) and Andre Kersey (perennial candidate with no prior electoral success) — neither of whom has demonstrated significant districtwide support. Given the strong Democratic baseline, incumbency advantage, and lack of a major-party opponent as of June 2026, Democrats have an overwhelming advantage, though the absence of polling data introduces some uncertainty.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:41.404336Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

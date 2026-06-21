@@ -234,7 +234,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio's_12th_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T22:43:38.873434+00:00",
+  "updated_utc": "2026-06-20T15:35:25.719102+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -248,18 +248,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 237868,
-    "completion_tokens": 6275,
-    "total_tokens": 244143,
-    "cost_usd": 0.016004644,
+    "prompt_tokens": 7048,
+    "completion_tokens": 1212,
+    "total_tokens": 8260,
+    "cost_usd": 0.000868352,
     "cost_source": "provider",
-    "estimated_usd": 0.024541,
+    "estimated_usd": 0.000852,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 237868,
-        "completion_tokens": 6275
+        "prompt_tokens": 7048,
+        "completion_tokens": 1212
       }
     },
-    "duration_s": 131.3
+    "duration_s": 20.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3501,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0033,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Troy Balderson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race as of June 2026, and non-polling signals are consistent. Troy Balderson is the five-term incumbent in a district that the Cook Political Report rates as 'Solid R' and that remained reliably Republican after the 2025 redistricting. The Democratic challenger, while a credible Navy veteran and grassroots candidate, faces severe structural headwinds in a district not competitive in recent cycles. Without any polling evidence, the forecast relies entirely on incumbency, district fundamentals, and expert ratings, which all point to a safe Republican hold. Confidence is medium due to the complete absence of polling data, but the underlying indicators are unusually consistent.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:21.514932Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

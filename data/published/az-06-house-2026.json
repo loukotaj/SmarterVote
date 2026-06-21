@@ -465,9 +465,9 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T20:49:53.702125+00:00",
+  "updated_utc": "2026-06-20T15:24:24.528661+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
+    "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
   ],
   "reviews": [
@@ -548,25 +548,61 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 69993,
-    "completion_tokens": 6002,
-    "total_tokens": 75995,
-    "cost_usd": 0.00412637,
+    "prompt_tokens": 26222,
+    "completion_tokens": 1786,
+    "total_tokens": 28008,
+    "cost_usd": 0.0028599079999999995,
     "cost_source": "provider",
-    "estimated_usd": 0.0059,
+    "estimated_usd": 0.002681,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 69993,
-        "completion_tokens": 6002
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 26222,
+        "completion_tokens": 1786
       }
     },
-    "duration_s": 65.6
+    "duration_s": 30.0,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 11774,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0112,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "schema_version": "0.3",
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Arizona's_6th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Juan Ciscomani",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Republican": 0.56,
+      "Democratic": 0.42,
+      "Independent": 0.02
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race, so the forecast relies solely on non-polling indicators in the provided race data. The district is described as closely divided and a likely battleground with very close recent presidential results, indicating genuine competitiveness rather than a structural advantage for either major party. Incumbent Republican Juan Ciscomani receives a modest edge from incumbency and from having previously held this narrowly split seat. Democratic challenger JoAnna Mendoza is identified as a leading opponent, providing a clear partisan alternative. Independent candidate Trevor Dickerson has a small early-stage campaign ($19K raised through 9/30/2025, mostly self-loaned) with no PAC support, making an independent win unlikely. Given zero polling data, margin estimate (~2 points) and win probabilities carry high uncertainty, consistent with the low confidence rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:17.689359Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

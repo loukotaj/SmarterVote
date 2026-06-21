@@ -58,7 +58,7 @@
           "organization": "United States House of Representatives",
           "start_year": 2015,
           "end_year": null,
-          "description": "Representing Illinois's 18th District (2015\u20132023) and 16th District (2023\u2013present); serves on Ways and Means, Intelligence, and China Select Committees",
+          "description": "Representing Illinois's 18th District (2015–2023) and 16th District (2023–present); serves on Ways and Means, Intelligence, and China Select Committees",
           "source": null
         },
         {
@@ -217,7 +217,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_16th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:24:04.433663+00:00",
+  "updated_utc": "2026-06-20T15:38:49.923800+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -231,18 +231,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 214320,
-    "completion_tokens": 4964,
-    "total_tokens": 219284,
-    "cost_usd": 0.015866096,
+    "prompt_tokens": 11579,
+    "completion_tokens": 1397,
+    "total_tokens": 12976,
+    "cost_usd": 0.0014085540000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.021976,
+    "estimated_usd": 0.001294,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 214320,
-        "completion_tokens": 4964
+        "prompt_tokens": 11579,
+        "completion_tokens": 1397
       }
     },
-    "duration_s": 105.7
+    "duration_s": 28.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6775,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Darin LaHood",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists for this race as of June 2026, so the forecast rests entirely on non-polling structural indicators — which is why confidence is medium rather than high. Those indicators are remarkably consistent: Darin LaHood is a long-serving incumbent (since 2015) on the powerful Ways and Means and Intelligence Committees; the district has voted Republican in 98 of the last 100 years; major nonpartisan forecasters rate the seat safely Republican; and Democratic challenger Paul Nolley is a first-time candidate with no elected office experience. The combination of a strong incumbent, deeply Republican district history, and a novice challenger points to an overwhelming Republican advantage consistent with a safe_r rating and an estimated win probability well above 95%.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:40.782894Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

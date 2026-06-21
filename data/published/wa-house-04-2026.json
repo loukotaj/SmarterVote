@@ -392,7 +392,7 @@
       "name": "Favian Valencia",
       "party": "Independent",
       "incumbent": false,
-      "summary": "Favian Valencia is an attorney and small business owner running as an independent for Washington's 4th Congressional District. He is the founder and owner of Sunlight Law, a Yakima-based civil rights and litigation firm, and co-owner of Ama Caf\u00e9 in Yakima. Valencia is making his first run for public office.",
+      "summary": "Favian Valencia is an attorney and small business owner running as an independent for Washington's 4th Congressional District. He is the founder and owner of Sunlight Law, a Yakima-based civil rights and litigation firm, and co-owner of Ama Café in Yakima. Valencia is making his first run for public office.",
       "summary_sources": [
         {
           "url": "https://www.spokesman.com/stories/2026/jun/07/trump-looms-large-as-11-candidates-vie-to-replace-/",
@@ -419,7 +419,7 @@
         },
         {
           "title": "Co-owner",
-          "organization": "Ama Caf\u00e9",
+          "organization": "Ama Café",
           "start_year": null,
           "end_year": null,
           "description": "Coffee shop in Yakima",
@@ -617,7 +617,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington's_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:19:23.032471+00:00",
+  "updated_utc": "2026-06-20T15:42:08.348575+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -631,18 +631,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 270759,
-    "completion_tokens": 11242,
-    "total_tokens": 282001,
-    "cost_usd": 0.023526166,
+    "prompt_tokens": 14866,
+    "completion_tokens": 2590,
+    "total_tokens": 17456,
+    "cost_usd": 0.0019645080000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.028738,
+    "estimated_usd": 0.001804,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 270759,
-        "completion_tokens": 11242
+        "prompt_tokens": 14866,
+        "completion_tokens": 2590
       }
     },
-    "duration_s": 169.9
+    "duration_s": 42.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 11788,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0112,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Amanda McKinney",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.5,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race (0 polls). The forecast relies on district fundamentals: Washington's 4th is described as a reliably Republican seat rated Solid Republican by Cook Political Report, and no Democrat has won it since 1992. Even with the seat open, a Republican general-election win is overwhelmingly likely (95%+). The crowded 11-candidate field includes at least 4 credible Republicans, creating significant uncertainty over which candidate emerges from the August 4 top-two primary. Amanda McKinney has the strongest candidate-level indicators (Trump endorsement, leading fundraising), but with no polling and a fragmented field that includes Jerrod Sessler (who won the 2024 primary) and state senator Matt Boehnke, the specific winner is highly uncertain. The sole Democrat could potentially slip into the general via Republican vote-splitting, but the district's partisan lean makes a Democratic general-election win very unlikely. Party-level confidence is solid due to district fundamentals; candidate-level confidence is very low due to zero polling data and a fragmented field.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:53.119954Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -66,36 +66,14 @@
       "pollster": "Somos Votantes/Global Strategy Group",
       "date": "2026-04-01",
       "sample_size": null,
-      "matchups": [
-        {
-          "candidates": [
-            "Greg Abbott",
-            "Gina Hinojosa"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://ginafortexas.com/2026/04/new-three-new-polls-show-abbott-stuck-in-the-40s-as-hinojosa-closes-the-gap-statewide-and-surges-with-latino-voters/"
     },
     {
       "pollster": "YouGov",
       "date": "2026-03-02",
       "sample_size": 1668,
-      "matchups": [
-        {
-          "candidates": [
-            "Greg Abbott",
-            "Gina Hinojosa"
-          ],
-          "percentages": [
-            null,
-            null
-          ]
-        }
-      ],
+      "matchups": [],
       "source_url": "https://en.wikipedia.org/wiki/2026_Texas_gubernatorial_election"
     }
   ],
@@ -111,52 +89,70 @@
           "url": "https://en.wikipedia.org/wiki/Greg_Abbott",
           "type": "news",
           "title": "Greg Abbott - Wikipedia",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://gov.texas.gov/governor-abbott",
           "type": "government",
           "title": "About Gov. Abbott | Office of the Texas Governor",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://www.gregabbott.com/bio/",
           "type": "website",
           "title": "Greg Abbott - Campaign Bio",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Greg_Abbott_in_2024_%28cropped%29.jpg/800px-Greg_Abbott_in_2024_%28cropped%29.jpg",
-      "website": "https://www.gregabbott.com/",
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "Governor of Texas",
           "organization": "State of Texas",
           "start_year": 2015,
           "end_year": null,
-          "description": "48th Governor, currently serving fourth term"
+          "description": "48th Governor, currently serving fourth term",
+          "source": null
         },
         {
           "title": "Attorney General of Texas",
           "organization": "State of Texas",
           "start_year": 2002,
           "end_year": 2015,
-          "description": "50th Attorney General, longest-serving in state history"
+          "description": "50th Attorney General, longest-serving in state history",
+          "source": null
         },
         {
           "title": "Justice",
           "organization": "Supreme Court of Texas",
           "start_year": 1996,
           "end_year": 2001,
-          "description": "Appointed by Governor George W. Bush, elected to full term in 1998"
+          "description": "Appointed by Governor George W. Bush, elected to full term in 1998",
+          "source": null
         },
         {
           "title": "State Trial Judge",
           "organization": "129th District Court, Harris County",
           "start_year": 1993,
           "end_year": 1996,
-          "description": "Presided over civil and criminal cases"
+          "description": "Presided over civil and criminal cases",
+          "source": null
         }
       ],
       "education": [
@@ -164,23 +160,28 @@
           "institution": "Vanderbilt University Law School",
           "degree": "Juris Doctor",
           "field": "Law",
-          "year": 1984
+          "year": 1984,
+          "source": null
         },
         {
           "institution": "University of Texas at Austin",
           "degree": "Bachelor of Business Administration",
           "field": "Finance",
-          "year": 1981
+          "year": 1981,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
       "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://www.gregabbott.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Gina Hinojosa",
@@ -192,52 +193,70 @@
           "url": "https://en.wikipedia.org/wiki/Gina_Hinojosa",
           "type": "news",
           "title": "Gina Hinojosa - Wikipedia",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://house.texas.gov/members/3210/biography",
           "type": "government",
           "title": "Rep. Gina Hinojosa - Texas House of Representatives",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ginafortexas.com/about/",
           "type": "website",
           "title": "Meet Gina - Gina Hinojosa for Texas Governor",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Gina_Hinojosa_at_LBJ_Library_Forum_%283x4_cropped%29.jpg/800px-Gina_Hinojosa_at_LBJ_Library_Forum_%283x4_cropped%29.jpg",
-      "website": "https://ginafortexas.com/",
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "State Representative",
           "organization": "Texas House of Representatives, District 49",
           "start_year": 2017,
           "end_year": null,
-          "description": "Serves on Public Education, Business and Industry, and Select Committee on Educational Opportunity and Enrichment"
+          "description": "Serves on Public Education, Business and Industry, and Select Committee on Educational Opportunity and Enrichment",
+          "source": null
         },
         {
           "title": "Board President",
           "organization": "Austin Independent School District",
           "start_year": 2015,
           "end_year": 2016,
-          "description": "Elected by fellow trustees; led district to balance budget and improve accountability"
+          "description": "Elected by fellow trustees; led district to balance budget and improve accountability",
+          "source": null
         },
         {
           "title": "School Board Member",
           "organization": "Austin Independent School District",
           "start_year": 2012,
           "end_year": 2016,
-          "description": "Elected on platform of saving neighborhood schools from closure"
+          "description": "Elected on platform of saving neighborhood schools from closure",
+          "source": null
         },
         {
           "title": "Civil Rights and Labor Attorney",
           "organization": "Private practice and non-profit organizations",
           "start_year": 1999,
           "end_year": 2012,
-          "description": "Represented union members; worked with Catholic Charities, Texas Rural Legal Aid, and Equal Justice Center"
+          "description": "Represented union members; worked with Catholic Charities, Texas Rural Legal Aid, and Equal Justice Center",
+          "source": null
         }
       ],
       "education": [
@@ -245,23 +264,28 @@
           "institution": "George Washington University Law School",
           "degree": "Juris Doctor",
           "field": "Law",
-          "year": 1999
+          "year": 1999,
+          "source": null
         },
         {
           "institution": "University of Texas at Austin",
           "degree": "Bachelor of Arts",
           "field": "Plan II Honors / Government",
-          "year": 1996
+          "year": 1996,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
       "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://ginafortexas.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Pat Dixon",
@@ -273,52 +297,70 @@
           "url": "https://patdixon.org/bio/",
           "type": "website",
           "title": "Bio - Pat Dixon",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://lp.org/candidate/pat-dixon/",
           "type": "website",
           "title": "Pat Dixon - Libertarian Party",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Pat_Dixon",
           "type": "website",
           "title": "Pat Dixon - Ballotpedia",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://patdixon.org/",
-      "social_media": {},
+      "issues": {},
       "career_history": [
         {
           "title": "President",
           "organization": "DPAS Inc.",
           "start_year": null,
           "end_year": null,
-          "description": "Industrial automation and control consulting firm"
+          "description": "Industrial automation and control consulting firm",
+          "source": null
         },
         {
           "title": "Chair",
           "organization": "Libertarian Party of Texas",
           "start_year": null,
           "end_year": null,
-          "description": "Served 10 years as state party chair"
+          "description": "Served 10 years as state party chair",
+          "source": null
         },
         {
           "title": "Member",
           "organization": "Libertarian National Committee",
           "start_year": null,
           "end_year": null,
-          "description": "Served two terms"
+          "description": "Served two terms",
+          "source": null
         },
         {
           "title": "City Council Member, Place 1",
           "organization": "City of Lago Vista, Texas",
           "start_year": 2005,
           "end_year": 2010,
-          "description": "Elected to two terms"
+          "description": "Elected to two terms",
+          "source": null
         }
       ],
       "education": [
@@ -326,17 +368,21 @@
           "institution": "Miami University",
           "degree": "Engineering Program",
           "field": "Pulp and Paper Industry Engineering",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
       "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://patdixon.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Jenn Mack Raphoon",
@@ -348,60 +394,119 @@
           "url": "https://jennmackfortexas.com/about/",
           "type": "website",
           "title": "About - Jenn Mack for Texas",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Jenn_Mack_Raphoon",
           "type": "website",
           "title": "Jenn Mack Raphoon - Ballotpedia",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://en.wikipedia.org/wiki/2026_Texas_gubernatorial_election",
           "type": "news",
           "title": "2026 Texas gubernatorial election - Wikipedia",
-          "last_accessed": "2026-06-15T00:00:00Z"
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": null,
-      "website": "https://jennmackfortexas.com/",
-      "social_media": {},
+      "issues": {},
       "career_history": [],
       "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
       "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
       "links": [],
-      "issues": {}
+      "website": "https://jennmackfortexas.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:05:05.318066+00:00",
+  "updated_utc": "2026-06-20T03:16:52.529626+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "reviews": [],
   "validation_grade": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 289781,
-    "completion_tokens": 9006,
-    "total_tokens": 298787,
-    "cost_usd": 0.01922125,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5734,
+    "completion_tokens": 393,
+    "total_tokens": 6127,
+    "cost_usd": 0.01447,
     "cost_source": "provider",
-    "estimated_usd": 0.030164,
+    "estimated_usd": 0.02023,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 289781,
-        "completion_tokens": 9006
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5734,
+        "completion_tokens": 393
       }
     },
-    "duration_s": 196.3
-  }
+    "duration_s": 9.5,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4428,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0042,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Greg Abbott",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.76,
+    "party_probabilities": {
+      "Republican": 0.76,
+      "Democratic": 0.22,
+      "Libertarian": 0.01,
+      "Independent": 0.01
+    },
+    "margin_estimate": 5.0,
+    "rating": "lean_r",
+    "confidence": "medium",
+    "rationale": "The available numeric head-to-head polling from March through May consistently shows incumbent Republican Greg Abbott leading Democrat Gina Hinojosa, generally by about 5 to 7 points, with Abbott in the high 40s and Hinojosa in the low 40s. Abbott also has the structural advantages of incumbency and Texas' recent Republican statewide lean. At the same time, the race is not out of reach for Democrats: Abbott is mostly below 50% in the cited polling, Hinojosa appears to be running competitively for a Democrat in Texas, and some listed polls do not provide usable toplines, limiting the evidence base. Third-party and independent candidates are unlikely to win but could modestly affect the final margin. Overall, the data supports a meaningful but not overwhelming Republican advantage.",
+    "based_on_poll_count": 3,
+    "generated_at": "2026-06-20T03:16:51.171936Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://www.tpr.org/podcast/the-source/2026-05-17/polls-show-hinojosa-narrowing-abbotts-lead-in-texas-governors-race",
+      "https://www.realclearpolling.com/polls/governor/general/2026/texas/abbott-vs-hinojosa",
+      "https://ginafortexas.com/2026/04/new-three-new-polls-show-abbott-stuck-in-the-40s-as-hinojosa-closes-the-gap-statewide-and-surges-with-latino-voters/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  },
+  "register_to_vote_url": null,
+  "how_to_vote_url": null
 }

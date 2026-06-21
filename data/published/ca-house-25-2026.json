@@ -233,7 +233,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_25th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:50:07.424562+00:00",
+  "updated_utc": "2026-06-20T15:21:08.997145+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -247,18 +247,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 237868,
-    "completion_tokens": 6226,
-    "total_tokens": 244094,
-    "cost_usd": 0.013479072,
+    "prompt_tokens": 7114,
+    "completion_tokens": 1316,
+    "total_tokens": 8430,
+    "cost_usd": 0.000895204,
     "cost_source": "provider",
-    "estimated_usd": 0.024531,
+    "estimated_usd": 0.000877,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 237868,
-        "completion_tokens": 6226
+        "prompt_tokens": 7114,
+        "completion_tokens": 1316
       }
     },
-    "duration_s": 118.0
+    "duration_s": 24.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3665,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0035,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Raul Ruiz",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 6.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public district-specific polling is available, so this forecast is based on fundamentals only. Democrat Raul Ruiz is a seven-term incumbent in a D+3 Cook PVI district, giving him a clear structural and experience advantage over Republican challenger Joe Males, a Hemet City Council member and first-time congressional candidate. Cook Political Report rates the race 'Likely Democratic.' However, the reported sharp swing toward Donald Trump in the district in 2024 suggests some erosion of Democratic support, keeping uncertainty elevated in the absence of polling. Incumbency and the Democratic lean make Ruiz a solid favorite (roughly 84% win probability), but the district is not as safe as the PVI alone might suggest.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:03.994566Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

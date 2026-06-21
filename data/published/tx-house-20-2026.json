@@ -39,14 +39,14 @@
       "career_history": [
         {
           "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives \u2014 Texas's 20th Congressional District",
+          "organization": "U.S. House of Representatives — Texas's 20th Congressional District",
           "start_year": 2013,
           "end_year": null,
           "description": "Representing San Antonio and Bexar County; serves on House Foreign Affairs and House Intelligence committees."
         },
         {
           "title": "State Representative",
-          "organization": "Texas House of Representatives \u2014 District 125",
+          "organization": "Texas House of Representatives — District 125",
           "start_year": 2002,
           "end_year": 2012,
           "description": "Served five terms; held roles as Vice Chairman of the Higher Education Committee and Democratic Floor Leader."
@@ -97,7 +97,7 @@
         {
           "url": "https://www.drbaezforcongress.com/",
           "type": "website",
-          "title": "Dr. B\u00e1ez For Congress | 20th Congressional District of Texas",
+          "title": "Dr. Báez For Congress | 20th Congressional District of Texas",
           "last_accessed": "2026-06-20T00:00:00Z"
         },
         {
@@ -126,7 +126,7 @@
           "description": "Served as an ICU nurse prior to legal career."
         },
         {
-          "title": "U.S. Army \u2014 Combat Medic, Airborne Paratrooper, Drill Sergeant",
+          "title": "U.S. Army — Combat Medic, Airborne Paratrooper, Drill Sergeant",
           "organization": "United States Army",
           "start_year": null,
           "end_year": null,
@@ -175,7 +175,7 @@
       "issues": {}
     }
   ],
-  "updated_utc": "2026-06-16T01:19:59.424774+00:00",
+  "updated_utc": "2026-06-20T15:30:37.167413+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -193,30 +193,48 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 221448,
-    "completion_tokens": 8704,
-    "total_tokens": 230152,
-    "cost_usd": 0.041920271999999995,
+    "prompt_tokens": 18033,
+    "completion_tokens": 1649,
+    "total_tokens": 19682,
+    "cost_usd": 0.002090438,
     "cost_source": "provider",
-    "estimated_usd": 0.043408,
+    "estimated_usd": 0.00192,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 221448,
-        "completion_tokens": 8704
+        "prompt_tokens": 18033,
+        "completion_tokens": 1649
       }
     },
-    "duration_s": 180.5,
-    "serper_calls": 20,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 47273,
+    "duration_s": 29.5,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 9510,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0451,
-    "context_deduplicated_results": 66,
+    "max_context_utilization": 0.0091,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
-  }
+  },
+  "forecast": {
+    "predicted_winner_name": "Joaquin Castro",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 25,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "TX-20 has a Cook PVI of D+16 and is described as San Antonio's only reliably Democratic congressional district. Incumbent Joaquin Castro is a seven-term Democrat who won his 2026 primary with 88% of the vote. Republican challenger Edgardo Baez is a first-time candidate. There are zero public numeric polls available for this race, which limits confidence. However, the district's strong Democratic partisan lean, combined with Castro's deep incumbency advantage and committee seniority (House Intelligence and Foreign Affairs), creates an overwhelming Democratic advantage. A safe Democratic hold is the most probable outcome, though the absence of polling tempers confidence slightly.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:26.625947+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "ballotpedia_url": "https://ballotpedia.org/Texas'_20th_Congressional_District"
 }

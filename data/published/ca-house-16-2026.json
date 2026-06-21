@@ -6,7 +6,7 @@
   "state": "California",
   "district": "16th Congressional District",
   "election_date": "2026-11-03",
-  "description": "California's 16th Congressional District, covering communities from Half Moon Bay through Silicon Valley to San Jose, will hold its general election on November 3, 2026, under California's top-two primary system. First-term Democratic incumbent Sam Liccardo, a former San Jose mayor, advanced with 75.6% of the vote in the June 2 primary, while Republican investor Peter Sundin Soul\u00e9 finished second at 10.8%. The district leans heavily Democratic, and Cook Political Report rated the general election race as Solidly Democratic before the primary. This contest is part of the broader 2026 midterm battle for control of the U.S. House, where Democrats currently hold 43 of California's 52 seats.",
+  "description": "California's 16th Congressional District, covering communities from Half Moon Bay through Silicon Valley to San Jose, will hold its general election on November 3, 2026, under California's top-two primary system. First-term Democratic incumbent Sam Liccardo, a former San Jose mayor, advanced with 75.6% of the vote in the June 2 primary, while Republican investor Peter Sundin Soulé finished second at 10.8%. The district leans heavily Democratic, and Cook Political Report rated the general election race as Solidly Democratic before the primary. This contest is part of the broader 2026 midterm battle for control of the U.S. House, where Democrats currently hold 43 of California's 52 seats.",
   "polling": [],
   "polling_note": "No public opinion polls were found specifically for the 2026 general election in California's 16th Congressional District. Cook Political Report rates the race as Solidly Democratic.",
   "candidates": [
@@ -14,12 +14,12 @@
       "name": "Sam Liccardo",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Sam Liccardo is the incumbent U.S. Representative for California's 16th Congressional District, first elected in 2024. He previously served two terms as Mayor of San Jose (2015\u20132022) and as a San Jose city councilmember, and built a reputation for tackling homelessness, pension reform, and public safety. In Congress, he has authored bipartisan legislation on housing affordability and health care costs while also challenging Trump administration policies.",
+      "summary": "Sam Liccardo is the incumbent U.S. Representative for California's 16th Congressional District, first elected in 2024. He previously served two terms as Mayor of San Jose (2015–2022) and as a San Jose city councilmember, and built a reputation for tackling homelessness, pension reform, and public safety. In Congress, he has authored bipartisan legislation on housing affordability and health care costs while also challenging Trump administration policies.",
       "summary_sources": [
         {
           "url": "https://www.samliccardo.com/about",
           "type": "website",
-          "title": "Meet Sam \u2014 samliccardo.com",
+          "title": "Meet Sam — samliccardo.com",
           "description": null,
           "last_accessed": "2026-07-17T00:00:00Z",
           "published_at": null,
@@ -140,10 +140,10 @@
       "withdrawal_reason": null
     },
     {
-      "name": "Peter Sundin Soul\u00e9",
+      "name": "Peter Sundin Soulé",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Peter Sundin Soul\u00e9 is a Republican candidate for U.S. House in California's 16th Congressional District. He is an investor by profession and finished second in the June 2, 2026 top-two primary with 10.8% of the vote, advancing to the general election against incumbent Democrat Sam Liccardo. His campaign emphasizes public safety, affordability, and support for President Trump's agenda, drawing on his family's history with Soule Steel, a company founded by his grandfather after the 1906 San Francisco earthquake.",
+      "summary": "Peter Sundin Soulé is a Republican candidate for U.S. House in California's 16th Congressional District. He is an investor by profession and finished second in the June 2, 2026 top-two primary with 10.8% of the vote, advancing to the general election against incumbent Democrat Sam Liccardo. His campaign emphasizes public safety, affordability, and support for President Trump's agenda, drawing on his family's history with Soule Steel, a company founded by his grandfather after the 1906 San Francisco earthquake.",
       "summary_sources": [
         {
           "url": "https://souleforcongress.com/",
@@ -206,7 +206,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_16th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:32:36.445219+00:00",
+  "updated_utc": "2026-06-20T15:24:51.198998+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -220,18 +220,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 202072,
-    "completion_tokens": 9092,
-    "total_tokens": 211164,
-    "cost_usd": 0.015335104000000002,
+    "prompt_tokens": 11156,
+    "completion_tokens": 1502,
+    "total_tokens": 12658,
+    "cost_usd": 0.001327776,
     "cost_source": "provider",
-    "estimated_usd": 0.021585,
+    "estimated_usd": 0.001274,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 202072,
-        "completion_tokens": 9092
+        "prompt_tokens": 11156,
+        "completion_tokens": 1502
       }
     },
-    "duration_s": 165.7
+    "duration_s": 25.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6377,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sam Liccardo",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general-election polling exists, so the forecast relies entirely on non-polling indicators. Those indicators overwhelmingly point to a safe Democratic hold: incumbent Sam Liccardo (D) crushed the June 2 top-two primary with 75.6% of the vote versus 10.8% for Republican Peter Sundin Soulé — a 64.8-point margin; Cook Political Report rates the race Solidly Democratic; and the district (covering Silicon Valley/San Jose) is described as heavily Democratic. Liccardo is a well-known former San José mayor with strong name recognition. The only uncertainty is the absence of direct general-election polling, but the primary result and fundamentals leave no reasonable path for a Republican pickup.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:44.992615Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

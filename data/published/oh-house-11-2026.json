@@ -6,7 +6,7 @@
   "state": "Ohio",
   "district": "11th Congressional District",
   "election_date": "2026-11-03",
-  "description": "Ohio's 11th Congressional District covers portions of Cuyahoga County, including most of Cleveland and its eastern suburbs. Incumbent Democratic U.S. Representative Shontel Brown, first elected in a 2021 special election, is seeking re-election against Republican nominee Mike Kirchner, a retired consulting actuary and mayor of Jeffersonville. The district is heavily Democratic \u2014 Cook Political Report rates it as Safe Democratic \u2014 and has been represented by Democrats since its creation. The race features a contrast between Brown's record on federal investment and social policy and Kirchner's focus on fiscal conservatism.",
+  "description": "Ohio's 11th Congressional District covers portions of Cuyahoga County, including most of Cleveland and its eastern suburbs. Incumbent Democratic U.S. Representative Shontel Brown, first elected in a 2021 special election, is seeking re-election against Republican nominee Mike Kirchner, a retired consulting actuary and mayor of Jeffersonville. The district is heavily Democratic — Cook Political Report rates it as Safe Democratic — and has been represented by Democrats since its creation. The race features a contrast between Brown's record on federal investment and social policy and Kirchner's focus on fiscal conservatism.",
   "polling": [],
   "polling_note": "No public opinion polls were found for the 2026 general election in Ohio's 11th Congressional District. The race is widely considered a safe Democratic seat.",
   "candidates": [
@@ -219,7 +219,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_11th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:41:32.855718+00:00",
+  "updated_utc": "2026-06-20T15:28:09.346018+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -233,18 +233,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 212263,
-    "completion_tokens": 5936,
-    "total_tokens": 218199,
-    "cost_usd": 0.015894958,
+    "prompt_tokens": 10920,
+    "completion_tokens": 1806,
+    "total_tokens": 12726,
+    "cost_usd": 0.0014241359999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.021965,
+    "estimated_usd": 0.001308,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 212263,
-        "completion_tokens": 5936
+        "prompt_tokens": 10920,
+        "completion_tokens": 1806
       }
     },
-    "duration_s": 145.7
+    "duration_s": 27.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6150,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Shontel Brown",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race, which tempers confidence. However, the race data describes Ohio's 11th Congressional District as heavily Democratic (centered on Cleveland and its eastern suburbs), notes that Cook Political Report rates it Safe Democratic, and states the seat has been represented by Democrats since its creation. Incumbent Shontel Brown benefits from strong Democratic partisanship in the district plus incumbency. The Republican challenger, Mike Kirchner, is mayor of Jeffersonville, a village far from the district in southwestern Ohio, and faces steep structural headwinds. Without any contrary evidence, Democrats are overwhelming favorites.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:05.462676Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

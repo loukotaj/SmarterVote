@@ -280,7 +280,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:19:44.683253+00:00",
+  "updated_utc": "2026-06-20T15:33:18.735379+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -294,7 +294,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Georgia's_7th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -302,30 +302,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 229528,
-    "completion_tokens": 7069,
-    "total_tokens": 236597,
-    "cost_usd": 0.038231908,
+    "prompt_tokens": 13310,
+    "completion_tokens": 2391,
+    "total_tokens": 15701,
+    "cost_usd": 0.0017131120000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.039879,
+    "estimated_usd": 0.001628,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 229528,
-        "completion_tokens": 7069
+        "prompt_tokens": 13310,
+        "completion_tokens": 2391
       }
     },
-    "duration_s": 177.7,
-    "serper_calls": 16,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 45581,
+    "duration_s": 34.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7896,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0435,
-    "context_deduplicated_results": 55,
+    "max_context_utilization": 0.0075,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rich McCormick",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.91,
+    "party_probabilities": {
+      "Republican": 0.91,
+      "Democratic": 0.09
+    },
+    "margin_estimate": 17.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No district-level polling exists for this race, which caps confidence and prevents a safe rating. However, the structural signals are strongly Republican: McCormick is the incumbent in a redrawn district that Trump carried by 22 points in 2024, the district has shifted right from its earlier competitive status, and the Democratic nominee (winner of the June 16 runoff between Kozycki and Norton) has yet to consolidate and faces a well-funded incumbent in a Republican-leaning midterm environment. The Trump+22 baseline and incumbency together point to a clear Republican advantage in the 80-94% range, consistent with a likely-r rating. The 17-point margin estimate reflects the Trump+22 baseline tempered by the uncertainty of a newly configured district and the absence of direct survey evidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:14.132778Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

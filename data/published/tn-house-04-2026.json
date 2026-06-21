@@ -364,7 +364,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:20:40.542343+00:00",
+  "updated_utc": "2026-06-20T15:37:16.468810+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -378,7 +378,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Tennessee's_4th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -386,34 +386,48 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 292373,
-    "completion_tokens": 11302,
-    "total_tokens": 303675,
-    "cost_usd": 0.08113607799999999,
+    "prompt_tokens": 14942,
+    "completion_tokens": 2273,
+    "total_tokens": 17215,
+    "cost_usd": 0.0018499200000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.078248,
+    "estimated_usd": 0.001754,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 225763,
-        "completion_tokens": 6700
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 66610,
-        "completion_tokens": 4602
+        "prompt_tokens": 14942,
+        "completion_tokens": 2273
       }
     },
-    "duration_s": 222.2,
-    "serper_calls": 10,
-    "context_requests": 16,
-    "max_estimated_context_tokens": 42679,
+    "duration_s": 34.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8781,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0407,
-    "context_deduplicated_results": 35,
+    "max_context_utilization": 0.0084,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 3,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Scott DesJarlais",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.85,
+    "party_probabilities": {
+      "Republican": 0.85,
+      "Democratic": 0.13,
+      "Independent": 0.02
+    },
+    "margin_estimate": 12.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists in the race data; this forecast is based entirely on structural and candidate factors. The district has a Cook PVI of R+11, and incumbent Scott DesJarlais is a long-serving Republican seeking an eighth term after winning his party's nomination. However, the district has been redrawn to include more urban Nashville voters, which may somewhat shift the baseline. The Democratic field is unsettled — four candidates are competing in the August 6, 2026 primary, so no general election opponent is yet known, adding uncertainty. An independent candidate is also on the ballot. Given the strong GOP structural advantage but absent polling, unresolved Democratic nomination, and redistricting uncertainty, the most defensible rating is Likely Republican with a somewhat tempered win probability.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:11.204976Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

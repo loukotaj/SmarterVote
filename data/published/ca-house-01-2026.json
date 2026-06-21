@@ -221,7 +221,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:15:12.357357+00:00",
+  "updated_utc": "2026-06-20T15:21:38.244697+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -235,18 +235,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 272007,
-    "completion_tokens": 6554,
-    "total_tokens": 278561,
-    "cost_usd": 0.022180501999999998,
+    "prompt_tokens": 11615,
+    "completion_tokens": 2435,
+    "total_tokens": 14050,
+    "cost_usd": 0.001555626,
     "cost_source": "provider",
-    "estimated_usd": 0.027941,
+    "estimated_usd": 0.001484,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 272007,
-        "completion_tokens": 6554
+        "prompt_tokens": 11615,
+        "completion_tokens": 2435
       }
     },
-    "duration_s": 159.4
+    "duration_s": 37.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6752,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike McGuire",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.57,
+    "party_probabilities": {
+      "Democratic": 0.57,
+      "Republican": 0.43
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "No public general-election polls are available (based_on_poll_count=0), so confidence is low and the forecast relies on fundamentals. The district has a Cook PVI of D+7, indicating a structural Democratic advantage. However, Republican James Gallagher won the June 2 special election (concurrent with the primary) and now serves as the incumbent, giving him name recognition, a campaign apparatus, and recent electoral validation in the district. Democrat Mike McGuire is a strong candidate as a former California Senate President pro tempore with deep roots in the Sonoma County areas added to the district. Both candidates are experienced, well-known regional figures with long legislative careers. The D+7 lean suggests a modest Democratic edge in a normal-turnout general election, but Gallagher's special-election win and incumbency introduce significant partisan uncertainty. The race is rated tilt D with narrow Democratic advantage (~57% Democratic win probability), but this is highly uncertain without polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:33.192439Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -20,7 +20,8 @@
     queued: { added: number; errors: string[] };
   }>();
 
-  const API_BASE = import.meta.env.VITE_RACES_API_URL || "http://127.0.0.1:8080";
+  const API_BASE =
+    import.meta.env.VITE_RACES_API_URL || "http://127.0.0.1:8080";
   const apiService = new PipelineApiService(API_BASE);
 
   let cheapMode = true;
@@ -32,8 +33,10 @@
   );
   let researchModel = "";
 
-  let reviewerEnabled: Record<ReviewerKey, boolean> = createDefaultReviewerEnabled(Boolean(stepToggles.review));
-  let reviewerModels: Record<ReviewerKey, string> = createDefaultReviewerModels();
+  let reviewerEnabled: Record<ReviewerKey, boolean> =
+    createDefaultReviewerEnabled(Boolean(stepToggles.review));
+  let reviewerModels: Record<ReviewerKey, string> =
+    createDefaultReviewerModels();
   let queuing = false;
   let error = "";
 
@@ -42,10 +45,13 @@
       save_artifact: true,
       cheap_mode: cheapMode,
       force_fresh: forceFresh,
-      enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map((s) => s.id),
+      enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map(
+        (s) => s.id
+      ),
     };
     if (researchModel) opts.research_model = researchModel;
-    if (maxCandidates !== null && maxCandidates > 0) opts.max_candidates = maxCandidates;
+    if (maxCandidates !== null && maxCandidates > 0)
+      opts.max_candidates = maxCandidates;
     if (targetNoInfo) opts.target_no_info = true;
     return applyReviewerModelOptions(opts, reviewerEnabled, reviewerModels);
   }
@@ -88,11 +94,23 @@
       role="dialog"
     >
       <!-- Header -->
-      <div class="flex items-center justify-between px-5 py-4 border-b border-stroke">
-        <h2 class="text-lg font-bold text-content">Queue {raceIds.length} Races</h2>
-        <button type="button" on:click={handleClose} class="p-1 rounded hover:bg-surface-alt text-content-muted">
+      <div
+        class="flex items-center justify-between px-5 py-4 border-b border-stroke"
+      >
+        <h2 class="text-lg font-bold text-content">
+          Queue {raceIds.length} Races
+        </h2>
+        <button
+          type="button"
+          on:click={handleClose}
+          class="p-1 rounded hover:bg-surface-alt text-content-muted"
+        >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
           </svg>
         </button>
       </div>
@@ -101,17 +119,26 @@
       <div class="px-5 py-4 space-y-5 max-h-[70vh] overflow-y-auto">
         <!-- Race list -->
         <div>
-          <span class="text-xs text-content-muted font-medium">Races to queue</span>
+          <span class="text-xs text-content-muted font-medium"
+            >Races to queue</span
+          >
           <div class="mt-1 flex flex-wrap gap-1.5">
             {#each raceIds as id}
-              <span class="px-2 py-0.5 text-xs font-mono bg-surface-alt rounded text-content">{id}</span>
+              <span
+                class="px-2 py-0.5 text-xs font-mono bg-surface-alt rounded text-content"
+                >{id}</span
+              >
             {/each}
           </div>
         </div>
 
         <!-- Research model -->
         <div>
-          <label for="batchResearchModel" class="block text-sm font-semibold text-content mb-1.5">Research Model</label>
+          <label
+            for="batchResearchModel"
+            class="block text-sm font-semibold text-content mb-1.5"
+            >Research Model</label
+          >
           <select
             id="batchResearchModel"
             bind:value={researchModel}
@@ -125,28 +152,54 @@
 
         <!-- Mode + limits -->
         <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
-          <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer">
-            <input type="checkbox" bind:checked={cheapMode} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
+          <label
+            class="flex items-center gap-2 text-sm text-content-muted cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              bind:checked={cheapMode}
+              class="rounded border-stroke text-blue-600 focus:ring-blue-500"
+            />
             <span>Cheap Mode</span>
           </label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer" title="Ignore existing data and research from scratch">
-            <input type="checkbox" bind:checked={forceFresh} class="rounded border-stroke text-orange-500 focus:ring-orange-500" />
-            <span class="text-orange-600 dark:text-orange-400 font-medium">Fresh Run</span>
+          <label
+            class="flex items-center gap-2 text-sm cursor-pointer"
+            title="Ignore existing data and research from scratch"
+          >
+            <input
+              type="checkbox"
+              bind:checked={forceFresh}
+              class="rounded border-stroke text-orange-500 focus:ring-orange-500"
+            />
+            <span class="text-orange-600 dark:text-orange-400 font-medium"
+              >Fresh Run</span
+            >
           </label>
           <div class="flex items-center gap-2">
-            <label for="batchMax" class="text-xs text-content-muted">Max candidates</label>
+            <label for="batchMax" class="text-xs text-content-muted"
+              >Max candidates</label
+            >
             <input
               id="batchMax"
               type="number"
               min="1"
               placeholder="All"
               value={maxCandidates ?? ""}
-              on:input={(e) => { const v = parseInt(e.currentTarget.value); maxCandidates = isNaN(v) ? null : v; }}
+              on:input={(e) => {
+                const v = parseInt(e.currentTarget.value);
+                maxCandidates = isNaN(v) ? null : v;
+              }}
               class="w-16 px-2 py-1 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500"
             />
           </div>
-          <label class="flex items-center gap-1.5 text-xs text-content-muted cursor-pointer">
-            <input type="checkbox" bind:checked={targetNoInfo} class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5" />
+          <label
+            class="flex items-center gap-1.5 text-xs text-content-muted cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              bind:checked={targetNoInfo}
+              class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5"
+            />
             <span>Prioritize no-info</span>
           </label>
         </div>
@@ -154,10 +207,28 @@
         <!-- Pipeline Steps -->
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-semibold text-content">Pipeline Steps</span>
+            <span class="text-sm font-semibold text-content"
+              >Pipeline Steps</span
+            >
             <div class="flex gap-3 text-xs text-blue-600">
-              <button type="button" on:click={() => { PIPELINE_STEPS.forEach((s) => { stepToggles[s.id] = true; }); stepToggles = stepToggles; }}>All on</button>
-              <button type="button" on:click={() => { PIPELINE_STEPS.forEach((s) => { stepToggles[s.id] = s.id === "discovery"; }); stepToggles = stepToggles; }}>Discovery only</button>
+              <button
+                type="button"
+                on:click={() => {
+                  PIPELINE_STEPS.forEach((s) => {
+                    stepToggles[s.id] = true;
+                  });
+                  stepToggles = stepToggles;
+                }}>All on</button
+              >
+              <button
+                type="button"
+                on:click={() => {
+                  PIPELINE_STEPS.forEach((s) => {
+                    stepToggles[s.id] = s.id === "discovery";
+                  });
+                  stepToggles = stepToggles;
+                }}>Discovery only</button
+              >
             </div>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -165,15 +236,36 @@
               <label
                 class="flex items-center gap-2 px-2.5 py-2 rounded-lg border text-xs font-medium cursor-pointer select-none transition-colors
                   {stepToggles[step.id]
-                    ? 'border-blue-300 bg-blue-50 text-blue-800 dark:border-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
-                    : 'border-stroke bg-surface text-content-muted hover:bg-surface-alt'}
-                  {step.id === 'discovery' ? 'opacity-60 !cursor-not-allowed' : ''}"
+                  ? 'border-blue-300 bg-blue-50 text-blue-800 dark:border-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
+                  : 'border-stroke bg-surface text-content-muted hover:bg-surface-alt'}
+                  {step.id === 'discovery'
+                  ? 'opacity-60 !cursor-not-allowed'
+                  : ''}"
               >
-                <input type="checkbox" bind:checked={stepToggles[step.id]} disabled={step.id === "discovery"} class="sr-only" />
-                <span class="w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors {stepToggles[step.id] ? 'border-blue-500 bg-blue-500' : 'border-stroke'}">
+                <input
+                  type="checkbox"
+                  bind:checked={stepToggles[step.id]}
+                  disabled={step.id === "discovery"}
+                  class="sr-only"
+                />
+                <span
+                  class="w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors {stepToggles[
+                    step.id
+                  ]
+                    ? 'border-blue-500 bg-blue-500'
+                    : 'border-stroke'}"
+                >
                   {#if stepToggles[step.id]}
-                    <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    <svg
+                      class="w-2.5 h-2.5 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                      />
                     </svg>
                   {/if}
                 </span>
@@ -187,13 +279,21 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="text-sm font-semibold text-content">AI Reviewers</span>
-            <span class="text-xs text-content-faint">Each enabled model independently reviews the research</span>
+            <span class="text-xs text-content-faint"
+              >Each enabled model independently reviews the research</span
+            >
           </div>
           <div class="space-y-2.5">
             {#each REVIEWER_DEFS as reviewer}
               <div class="flex items-center gap-3">
-                <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer w-20 shrink-0">
-                  <input type="checkbox" bind:checked={reviewerEnabled[reviewer.key]} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
+                <label
+                  class="flex items-center gap-2 text-sm text-content-muted cursor-pointer w-20 shrink-0"
+                >
+                  <input
+                    type="checkbox"
+                    bind:checked={reviewerEnabled[reviewer.key]}
+                    class="rounded border-stroke text-blue-600 focus:ring-blue-500"
+                  />
                   {reviewer.name}
                 </label>
                 <select
@@ -216,7 +316,9 @@
       </div>
 
       <!-- Footer -->
-      <div class="flex items-center justify-end gap-2 px-5 py-3 border-t border-stroke bg-surface-alt">
+      <div
+        class="flex items-center justify-end gap-2 px-5 py-3 border-t border-stroke bg-surface-alt"
+      >
         <button
           type="button"
           class="px-4 py-2 text-sm border border-stroke rounded-lg text-content hover:bg-surface-alt"
@@ -230,7 +332,9 @@
           disabled={queuing || raceIds.length === 0}
           on:click={handleQueue}
         >
-          {queuing ? "Queuing…" : `Queue ${raceIds.length} Race${raceIds.length !== 1 ? "s" : ""}`}
+          {queuing
+            ? "Queuing…"
+            : `Queue ${raceIds.length} Race${raceIds.length !== 1 ? "s" : ""}`}
         </button>
       </div>
     </div>

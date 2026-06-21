@@ -12,7 +12,7 @@
       "name": "Adriano Espaillat",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Adriano Espaillat has represented New York's 13th Congressional District since 2017. Born in the Dominican Republic, he previously served in the New York State Senate (2011\u20132016) and State Assembly (1997\u20132010). He is the first Dominican-American to serve in Congress and chairs the Congressional Hispanic Caucus's BOLD PAC.",
+      "summary": "Adriano Espaillat has represented New York's 13th Congressional District since 2017. Born in the Dominican Republic, he previously served in the New York State Senate (2011–2016) and State Assembly (1997–2010). He is the first Dominican-American to serve in Congress and chairs the Congressional Hispanic Caucus's BOLD PAC.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Adriano_Espaillat",
@@ -45,7 +45,7 @@
           "organization": "U.S. House of Representatives",
           "start_year": 2017,
           "end_year": null,
-          "description": "Representing NY-13 (115th Congress\u2013present)",
+          "description": "Representing NY-13 (115th Congress–present)",
           "source": null
         },
         {
@@ -309,7 +309,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:17:40.772112+00:00",
+  "updated_utc": "2026-06-20T15:42:49.490935+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -323,7 +323,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/New_York's_13th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -331,34 +331,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 235079,
-    "completion_tokens": 8164,
-    "total_tokens": 243243,
-    "cost_usd": 0.060752455999999996,
+    "prompt_tokens": 13419,
+    "completion_tokens": 3325,
+    "total_tokens": 16744,
+    "cost_usd": 0.001906858,
     "cost_source": "provider",
-    "estimated_usd": 0.061339,
+    "estimated_usd": 0.001806,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 210780,
-        "completion_tokens": 5155
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 24299,
-        "completion_tokens": 3009
+        "prompt_tokens": 13419,
+        "completion_tokens": 3325
       }
     },
-    "duration_s": 167.5,
-    "serper_calls": 20,
-    "context_requests": 15,
-    "max_estimated_context_tokens": 33020,
+    "duration_s": 48.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7695,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0315,
-    "context_deduplicated_results": 92,
+    "max_context_utilization": 0.0073,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 3,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Adriano Espaillat",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.9,
+    "party_probabilities": {
+      "Democratic": 0.999,
+      "Republican": 0.001
+    },
+    "margin_estimate": 55.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No polling exists, so the forecast relies entirely on structural factors. The district is heavily Democratic (D+32, Solid D), has not elected a Republican since 1970, and no Republican candidates have filed for the 2026 cycle — making the Democratic primary winner virtually assured of winning the general election. The Democratic party win probability is therefore near 1.0. At the candidate level, five-term incumbent Adriano Espaillat is the likeliest primary winner, but the primary on June 23, 2026 is described as competitive with four challengers, and the absence of any polling data makes the individual outcome less certain. Confidence is medium: very high for the party outcome, lower for the candidate-level forecast due to the competitive primary and zero polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:42:41.343676Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

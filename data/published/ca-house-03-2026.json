@@ -196,7 +196,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:32:01.479965+00:00",
+  "updated_utc": "2026-06-20T15:25:26.868491+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -210,18 +210,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 257849,
-    "completion_tokens": 7705,
-    "total_tokens": 265554,
-    "cost_usd": 0.02120831,
+    "prompt_tokens": 11027,
+    "completion_tokens": 2044,
+    "total_tokens": 13071,
+    "cost_usd": 0.001421366,
     "cost_source": "provider",
-    "estimated_usd": 0.026779,
+    "estimated_usd": 0.00136,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 257849,
-        "completion_tokens": 7705
+        "prompt_tokens": 11027,
+        "completion_tokens": 2044
       }
     },
-    "duration_s": 145.1
+    "duration_s": 29.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6289,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ami Bera",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 7.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No general-election polling exists for this race, so the forecast relies on structural and contextual signals. The newly redrawn 3rd District covers parts of Nevada, El Dorado, Placer, and Sacramento counties and is described as shifting from a Republican-leaning seat to one Kamala Harris carried by 10 points in 2024. Cook Political Report rates it D+6 (Solid Democratic). The seat is open because incumbent Republican Kevin Kiley is running in the 6th District, removing any GOP incumbency advantage. Democratic nominee Ami Bera is a long-serving U.S. Representative (since 2013) with institutional advantages in fundraising and name recognition, while Republican Robb Tucker is a first-term Nevada County Supervisor with a more limited electoral profile. The Democratic lean of the district and quality of the Democratic nominee point to a clear but not overwhelming advantage. The absence of district-specific polling, the fact that this is a newly configured district, and the possibility that local GOP strength in some portions (e.g., Placer County) could produce a closer-than-expected race keep confidence at medium rather than high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:21.720918Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

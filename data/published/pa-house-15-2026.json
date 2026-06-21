@@ -183,7 +183,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_15th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:05:55.445361+00:00",
+  "updated_utc": "2026-06-20T15:28:20.226106+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -197,18 +197,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 158994,
-    "completion_tokens": 4733,
-    "total_tokens": 163727,
-    "cost_usd": 0.012844952,
+    "prompt_tokens": 10756,
+    "completion_tokens": 1421,
+    "total_tokens": 12177,
+    "cost_usd": 0.0012726999999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.016509,
+    "estimated_usd": 0.001224,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 158994,
-        "completion_tokens": 4733
+        "prompt_tokens": 10756,
+        "completion_tokens": 1421
       }
     },
-    "duration_s": 135.0
+    "duration_s": 24.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6218,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Glenn Thompson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.03,
+      "Republican": 0.97
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public opinion polls exist for this race (based_on_poll_count=0), so the forecast rests entirely on structural and contextual factors. Pennsylvania's 15th District has a Cook PVI of R+19 and is rated Solid Republican by Cook Political Report, indicating an overwhelming Republican baseline. Incumbent Glenn Thompson has held the seat since 2008, chairs the House Agriculture Committee, and faces a Democratic challenger (Ray Bilger) in a district well aligned with Thompson's rural, agriculture-focused profile. While Bilger has a credible national security background, no countervailing dynamics are present in the data that would overcome the district's strong Republican lean. The safe_r rating reflects a ~95%+ Republican win probability, consistent with the structural evidence. Confidence is set to medium rather than high due to the complete absence of district-specific polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:15.562118Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

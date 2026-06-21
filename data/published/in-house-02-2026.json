@@ -242,7 +242,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:44:05.635490+00:00",
+  "updated_utc": "2026-06-20T15:25:47.557798+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -256,18 +256,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 185701,
-    "completion_tokens": 5594,
-    "total_tokens": 191295,
-    "cost_usd": 0.013993618,
+    "prompt_tokens": 11951,
+    "completion_tokens": 1907,
+    "total_tokens": 13858,
+    "cost_usd": 0.00154497,
     "cost_source": "provider",
-    "estimated_usd": 0.019295,
+    "estimated_usd": 0.001419,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 185701,
-        "completion_tokens": 5594
+        "prompt_tokens": 11951,
+        "completion_tokens": 1907
       }
     },
-    "duration_s": 123.2
+    "duration_s": 29.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6904,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rudy Yakym",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Republican": 0.88,
+      "Democratic": 0.12
+    },
+    "margin_estimate": 16.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available for this race as of mid-2026, which limits direct voter-intent signals and requires reliance on structural indicators. Rudy Yakym is the Republican incumbent, first elected in a 2022 special election to succeed fellow Republican Jackie Walorski and re-elected in 2024, demonstrating consistent Republican hold on this seat. The district's partisan lean, Yakym's incumbency advantage, and his prior electoral success point to a clear Republican advantage. Jamee Decio is a credible Democratic nominee with a background as an attorney and former prosecutor, but nothing in the provided race data suggests the district is positioned to flip. Because this assessment rests on incumbency and electoral history rather than voter surveys, confidence is medium rather than high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:43.509133Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

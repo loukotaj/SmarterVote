@@ -3,7 +3,8 @@
 Usage:
     python scripts/pull_from_gcs.py                     # sync all races from bucket
     python scripts/pull_from_gcs.py ga-senate-2026      # download one race
-    python scripts/pull_from_gcs.py --dry-run            # preview without downloading
+    python scripts/pull_from_gcs.py --dry-run            # preview without writing files
+    python scripts/pull_from_gcs.py --no-prune           # keep local files not present in GCS
 
 Bucket name resolution (first match wins):
     1. --bucket flag
@@ -69,7 +70,12 @@ def main():
     parser = argparse.ArgumentParser(description="Pull published races from GCS to data/published/")
     parser.add_argument("race_ids", nargs="*", help="Race IDs to download (omit for all)")
     parser.add_argument("--bucket", help="GCS bucket name (overrides env/terraform)")
-    parser.add_argument("--dry-run", action="store_true", help="Show what would be downloaded without writing files")
+    parser.add_argument("--dry-run", action="store_true", help="Show what would be changed without writing files")
+    parser.add_argument(
+        "--no-prune",
+        action="store_true",
+        help="Keep local published race files that are not present in GCS. By default the folder mirrors GCS.",
+    )
     args = parser.parse_args()
 
     try:
@@ -88,6 +94,8 @@ def main():
         print(f"No race JSON files found in gs://{bucket_name}/{GCS_PREFIX}")
         return
 
+    all_remote_ids = {b.name[len(GCS_PREFIX) : -len(".json")] for b in blobs}
+
     # Filter to requested race IDs if specified
     if args.race_ids:
         requested = {r.lower().strip() for r in args.race_ids}
@@ -100,6 +108,18 @@ def main():
     downloaded = 0
     skipped = 0
     errors = 0
+    pruned = 0
+
+    if not args.race_ids and not args.no_prune:
+        for local_path in sorted(PUBLISHED_DIR.glob("*.json")):
+            if local_path.stem in all_remote_ids:
+                continue
+            if args.dry_run:
+                print(f"  [dry-run]  {local_path.stem}  (would prune local-only file)")
+            else:
+                local_path.unlink()
+                print(f"  [pruned]   {local_path.stem}")
+            pruned += 1
 
     for blob in blobs:
         race_id = blob.name[len(GCS_PREFIX) : -len(".json")]

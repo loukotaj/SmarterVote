@@ -6,7 +6,7 @@
   "state": "Rhode Island",
   "district": "2nd Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 race for Rhode Island's 2nd Congressional District features Democratic incumbent Seth Magaziner seeking a third term against two Republicans competing in a September primary\u2014Victor Mellor and Stephen 'Doc' Skoly\u2014and independent candidate Armando Anzoli. The district, which includes western Rhode Island and parts of Providence, has leaned Democratic and was represented by Jim Langevin for over two decades before Magaziner won the open seat in 2022 by about 3.5 percentage points. Magaziner, a former Rhode Island General Treasurer, has focused on economic development, healthcare, and veterans' issues, while both Republican challengers are campaigning on border security, affordability, and parental rights in education. The primary election is scheduled for September 8, 2026, with the general election on November 3, 2026.",
+  "description": "The 2026 race for Rhode Island's 2nd Congressional District features Democratic incumbent Seth Magaziner seeking a third term against two Republicans competing in a September primary—Victor Mellor and Stephen 'Doc' Skoly—and independent candidate Armando Anzoli. The district, which includes western Rhode Island and parts of Providence, has leaned Democratic and was represented by Jim Langevin for over two decades before Magaziner won the open seat in 2022 by about 3.5 percentage points. Magaziner, a former Rhode Island General Treasurer, has focused on economic development, healthcare, and veterans' issues, while both Republican challengers are campaigning on border security, affordability, and parental rights in education. The primary election is scheduled for September 8, 2026, with the general election on November 3, 2026.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of mid-June 2026. The race is rated as Solid Democratic by major election forecasters.",
   "candidates": [
@@ -314,7 +314,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Rhode_Island%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:50:10.228363+00:00",
+  "updated_utc": "2026-06-20T15:41:58.730128+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -328,18 +328,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 195590,
-    "completion_tokens": 6322,
-    "total_tokens": 201912,
-    "cost_usd": 0.014336660000000001,
+    "prompt_tokens": 22031,
+    "completion_tokens": 2016,
+    "total_tokens": 24047,
+    "cost_usd": 0.002554174,
     "cost_source": "provider",
-    "estimated_usd": 0.020407,
+    "estimated_usd": 0.002346,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 195590,
-        "completion_tokens": 6322
+        "prompt_tokens": 22031,
+        "completion_tokens": 2016
       }
     },
-    "duration_s": 112.8
+    "duration_s": 39.3,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 9761,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Seth Magaziner",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.04,
+      "Independent": 0.01
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, so the forecast relies entirely on structural factors rather than direct voter measurement, limiting confidence to medium. The district leans Democratic historically, was held by Democrats for over two decades before Magaziner, and major nonpartisan forecasters rate it Solid Democratic. Magaziner is the Democratic incumbent seeking a third term, providing advantages in fundraising, name recognition, and constituency services. The Republican field is unsettled by a September 8 primary between Victor Mellor (who faces scrutiny over his Jan. 6 presence and past domestic violence arrests) and Stephen 'Doc' Skoly (an anti-vaccine-mandate activist whose lawsuit was dismissed). Neither appears positioned to mount a broad general-election challenge. Independent Armando Anzoli has a minimal public profile. Magaziner's 2022 open-seat win was narrow (~3.5 points) but as an incumbent in a D-leaning district with a divided opposition, a comfortable victory is the baseline expectation. The best informational estimate is Safe Democratic with an estimated margin around 14 points.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:48.502373Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

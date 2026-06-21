@@ -8,7 +8,7 @@
   "election_date": "2026-11-03",
   "description": "This is the regularly scheduled general election for Georgia's 14th Congressional District. The seat became vacant in January 2026 when Republican Rep. Marjorie Taylor Greene resigned, and Republican Clay Fuller won the subsequent special election runoff in April 2026 to serve the remainder of the term. Fuller now seeks a full term and won the May 2026 Republican primary, while Democrat Shawn Harris, a retired U.S. Army brigadier general and cattle farmer, won the Democratic primary for a rematch. The district, covering 10 counties in northwestern Georgia from the Atlanta suburbs to the Tennessee border, is considered a safe Republican seat, but Harris has run competitive campaigns focused on kitchen-table issues and bipartisan cooperation.",
   "polling": [],
-  "polling_note": "No public opinion polls for the November 2026 general election in Georgia's 14th Congressional District were found as of this writing. Available polling data relates only to the March\u2013April 2026 special election.",
+  "polling_note": "No public opinion polls for the November 2026 general election in Georgia's 14th Congressional District were found as of this writing. Available polling data relates only to the March–April 2026 special election.",
   "candidates": [
     {
       "name": "Clayton Fuller",
@@ -286,7 +286,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_14th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:29:32.964155+00:00",
+  "updated_utc": "2026-06-20T15:25:48.846536+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -300,18 +300,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 212074,
-    "completion_tokens": 6936,
-    "total_tokens": 219010,
-    "cost_usd": 0.014824435999999998,
+    "prompt_tokens": 12752,
+    "completion_tokens": 2114,
+    "total_tokens": 14866,
+    "cost_usd": 0.001604136,
     "cost_source": "provider",
-    "estimated_usd": 0.022143,
+    "estimated_usd": 0.001528,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 212074,
-        "completion_tokens": 6936
+        "prompt_tokens": 12752,
+        "completion_tokens": 2114
       }
     },
-    "duration_s": 154.5
+    "duration_s": 30.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7504,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Clayton Fuller",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race, so the forecast relies entirely on structural factors. Georgia's 14th is one of the most Republican districts in the country (partisan baseline strongly favors the GOP). Republican Clay Fuller is the sitting incumbent, having won the April 2026 special election runoff and the May 2026 GOP primary. Democrat Shawn Harris is a credible challenger—a retired Army brigadier general with prior campaign experience—but the district's heavy Republican lean and Fuller's incumbency make a Democratic victory extremely unlikely. An independent candidate (Rob Ruszkowski) is also on the ballot but has limited visibility. The absence of any general-election polling reduces confidence from high to medium, but the underlying district fundamentals comfortably support a safe Republican rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:41.047719Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

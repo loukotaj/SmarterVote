@@ -184,7 +184,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oregon%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:23:13.911698+00:00",
+  "updated_utc": "2026-06-20T15:29:28.890602+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -198,18 +198,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 220612,
-    "completion_tokens": 4384,
-    "total_tokens": 224996,
-    "cost_usd": 0.01583988,
+    "prompt_tokens": 10423,
+    "completion_tokens": 2092,
+    "total_tokens": 12515,
+    "cost_usd": 0.001381566,
     "cost_source": "provider",
-    "estimated_usd": 0.022479,
+    "estimated_usd": 0.001315,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 220612,
-        "completion_tokens": 4384
+        "prompt_tokens": 10423,
+        "completion_tokens": 2092
       }
     },
-    "duration_s": 96.6
+    "duration_s": 33.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6107,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0058,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Maxine Dexter",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 32.0,
+    "rating": "safe_d",
+    "confidence": "high",
+    "rationale": "No public polls are available for this race, but Oregon's 3rd Congressional District is the most Democratic district in Oregon and is rated Solid/Safe Democratic by all major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball). Incumbent Democrat Maxine Dexter, a physician and former state representative who won the seat in 2024, has the advantages of incumbency, a well-established political profile, and represents a district that consistently delivers large Democratic margins (Blumenauer's 2022 margin was ~35 points). Republican nominee Loran Ayles advanced unopposed in his primary but has limited public biographical information, a thin professional profile, and a prior misdemeanor identity theft conviction. Given the deep Democratic lean of the district and the contrast in candidate profiles, a Democratic hold is virtually certain. The lack of polling does not materially reduce confidence here because the structural partisan fundamentals are overwhelming and well-documented across multiple independent rating sources.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:23.164683Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

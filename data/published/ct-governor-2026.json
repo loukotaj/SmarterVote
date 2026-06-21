@@ -442,35 +442,72 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:15:58.697254+00:00",
+  "updated_utc": "2026-06-20T03:17:33.938205+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 45013,
-    "completion_tokens": 13561,
-    "total_tokens": 58574,
-    "cost_usd": 0.0071451299999999995,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3667,
+    "completion_tokens": 284,
+    "total_tokens": 3951,
+    "cost_usd": 0.013427500000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.007675,
+    "estimated_usd": 0.013428,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 45013,
-        "completion_tokens": 13561
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3667,
+        "completion_tokens": 284
       }
     },
-    "duration_s": 126.8
+    "duration_s": 9.1,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3176,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.003,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Connecticut_gubernatorial_election,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Ned Lamont",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.93,
+    "party_probabilities": {
+      "Democratic": 0.93,
+      "Republican": 0.07
+    },
+    "margin_estimate": 14.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "Connecticut’s incumbent Democratic governor begins with clear structural advantages: incumbency, a state-level Democratic lean, and the race description noting that major rating outlets currently view the general election as safely or solidly Democratic. The Republican field is unsettled and still contested, while Lamont appears strongly favored to win his primary despite a challenge. However, the available polling listed here is sparse and contains no usable head-to-head general-election numbers, so this forecast should be somewhat more cautious than outside race descriptions alone might suggest. On the provided race data, Democrats are clear favorites, with Lamont the most likely winner, but limited direct polling keeps confidence below high and the rating at likely rather than safe.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:32.182635Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
+      "https://www.270towin.com/2026-governor-polls/connecticut"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

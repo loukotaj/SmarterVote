@@ -1672,10 +1672,9 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:14:01.640798+00:00",
+  "updated_utc": "2026-06-20T03:17:08.902381+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -1766,21 +1765,33 @@
     }
   ],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 149595,
-    "completion_tokens": 9241,
-    "total_tokens": 158836,
-    "cost_usd": 0.007720149999999999,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5589,
+    "completion_tokens": 390,
+    "total_tokens": 5979,
+    "cost_usd": 0.015214499999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.011176,
+    "estimated_usd": 0.019822,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 149595,
-        "completion_tokens": 9241
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5589,
+        "completion_tokens": 390
       }
     },
-    "duration_s": 91.6
+    "duration_s": 10.0,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4524,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0043,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": {
     "grade": "A",
@@ -1791,8 +1802,36 @@
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/New_York_gubernatorial_election,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Kathy Hochul",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.9,
+    "party_probabilities": {
+      "Democratic": 0.9,
+      "Republican": 0.1
+    },
+    "margin_estimate": 15.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "Available general-election polling consistently shows incumbent Democrat Kathy Hochul ahead of Republican Bruce Blakeman by double digits, with margins ranging from 13 to 26 points and most clustered in the mid-to-high teens. New York’s strong Democratic lean and Hochul’s incumbency reinforce that advantage. However, the race is not rated safe because the polling is still relatively early, one March poll showed a somewhat narrower 47-34 margin, and the state’s political environment can tighten in a competitive year. Antonio Delgado is described as having ended his primary challenge, reducing apparent Democratic nomination risk in the provided data.",
+    "based_on_poll_count": 5,
+    "generated_at": "2026-06-20T03:17:08.083815Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://sri.siena.edu/2026/02/03/hochul-with-her-best-ever-favorability-rating-49-40-continues-to-hold-commanding-leads-over-blakeman-54-28-among-dems-delgado-64-11/",
+      "https://sri.siena.edu/2026/03/31/hochul-lead-over-still-largely-unknown-blakeman-drops-7-points-to-47-34-from-51-31-her-favorability-approval-ratings-unchanged-in-last-month/",
+      "https://maristpoll.marist.edu/polls/the-state-of-new-york-in-an-election-year-february-2026/",
+      "https://ballotpedia.org/New_York_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

@@ -6,7 +6,7 @@
   "state": "Connecticut",
   "district": "5th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Connecticut's 5th Congressional District will determine who represents northwestern and central Connecticut \u2014 including Waterbury, Danbury, New Britain, and Meriden \u2014 in the U.S. House of Representatives. Incumbent Democrat Jahana Hayes, first elected in 2018 and the first African-American woman to represent Connecticut in Congress, is seeking a fifth term. She faces two Democratic primary challengers and a three-candidate Republican primary field. The district has been competitive in recent cycles: Hayes won by 53.4% in 2024 and 50.4% in 2022 against Republican George Logan, who is not running this cycle. The primaries will be held August 11, 2026, and the general election is November 3, 2026.",
+  "description": "The 2026 election for Connecticut's 5th Congressional District will determine who represents northwestern and central Connecticut — including Waterbury, Danbury, New Britain, and Meriden — in the U.S. House of Representatives. Incumbent Democrat Jahana Hayes, first elected in 2018 and the first African-American woman to represent Connecticut in Congress, is seeking a fifth term. She faces two Democratic primary challengers and a three-candidate Republican primary field. The district has been competitive in recent cycles: Hayes won by 53.4% in 2024 and 50.4% in 2022 against Republican George Logan, who is not running this cycle. The primaries will be held August 11, 2026, and the general election is November 3, 2026.",
   "candidates": [
     {
       "name": "Jahana Hayes",
@@ -385,7 +385,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:12:56.268778+00:00",
+  "updated_utc": "2026-06-20T15:31:51.162433+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -399,7 +399,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Connecticut's_5th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -407,30 +407,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 352323,
-    "completion_tokens": 10698,
-    "total_tokens": 363021,
-    "cost_usd": 0.05549627,
+    "prompt_tokens": 26528,
+    "completion_tokens": 2526,
+    "total_tokens": 29054,
+    "cost_usd": 0.0030349360000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.056624,
+    "estimated_usd": 0.002842,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 352323,
-        "completion_tokens": 10698
+        "prompt_tokens": 26528,
+        "completion_tokens": 2526
       }
     },
-    "duration_s": 242.1,
-    "serper_calls": 20,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 70682,
+    "duration_s": 47.7,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 14809,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0674,
-    "context_deduplicated_results": 64,
+    "max_context_utilization": 0.0141,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jahana Hayes",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.7,
+    "party_probabilities": {
+      "Democratic": 0.7,
+      "Republican": 0.3
+    },
+    "margin_estimate": 4.5,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "No polls exist for this race, so the forecast is based entirely on structural and historical factors; confidence is low. Incumbent Democrat Jahana Hayes has held CT-05 since 2018, winning reelection with 53.4% in 2024 and a very narrow 50.4% in 2022 — both against Republican George Logan, who is not running in 2026. The absence of Logan, who proved a credible challenger, is a meaningful structural advantage for Hayes. The Republican primary field consists of three candidates (Botelho, De Barros, Shea) with no clear frontrunner or proven district-wide vote-getter, and the Democratic primary challengers are not considered serious threats to an incumbent. However, the district's close recent margins (especially the 0.8-point margin in 2022) and the lack of any current polling prevent a stronger rating than lean Democratic. The 2026 midterm environment is also uncertain. Democratic win probability is estimated at ~70%, consistent with a lean-D rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:38.749097Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

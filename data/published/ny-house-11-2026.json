@@ -246,7 +246,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_11th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:21:36.238421+00:00",
+  "updated_utc": "2026-06-20T15:31:45.208001+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -260,18 +260,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 401503,
-    "completion_tokens": 9149,
-    "total_tokens": 410652,
-    "cost_usd": 0.025235986000000002,
+    "prompt_tokens": 12429,
+    "completion_tokens": 2060,
+    "total_tokens": 14489,
+    "cost_usd": 0.001621802,
     "cost_source": "provider",
-    "estimated_usd": 0.04114,
+    "estimated_usd": 0.001489,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 401503,
-        "completion_tokens": 9149
+        "prompt_tokens": 12429,
+        "completion_tokens": 2060
       }
     },
-    "duration_s": 143.7
+    "duration_s": 32.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7389,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.007,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nicole Malliotakis",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.87,
+    "party_probabilities": {
+      "Republican": 0.87,
+      "Democratic": 0.13
+    },
+    "margin_estimate": 10.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public NY-11 general-election polls exist as of June 2026, so the forecast relies entirely on structural and contextual signals. Nicole Malliotakis is the three-term incumbent Republican in a district described as having trended conservative; it remains the only Republican-held U.S. House seat in New York City. The district's existing boundaries were upheld by the U.S. Supreme Court in early 2026, preserving the current configuration rather than shifting to a more Democratic-leaning map. Michael DeCillis is the sole active Democratic candidate and has a compelling personal story (former NYPD, 9/11 first responder, attorney), but no polling, fundraising data, or public evidence of a competitive race is available. Major nonpartisan forecasters rate the contest Likely Republican or Solid Republican. Without district-specific polling, the race falls at the lower end of the \"likely Republican\" band—reflecting a clear Republican structural advantage but tempered by the absence of direct voter data and the distinct possibility that a well-funded Democratic challenger could narrow the margin in a general election environment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:40.174372Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

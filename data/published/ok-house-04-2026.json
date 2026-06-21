@@ -385,7 +385,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:20:15.900565+00:00",
+  "updated_utc": "2026-06-20T15:31:48.501604+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -399,7 +399,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Oklahoma's_4th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -407,30 +407,48 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 234652,
-    "completion_tokens": 9921,
-    "total_tokens": 244573,
-    "cost_usd": 0.041873724,
+    "prompt_tokens": 15270,
+    "completion_tokens": 1564,
+    "total_tokens": 16834,
+    "cost_usd": 0.001803004,
     "cost_source": "provider",
-    "estimated_usd": 0.04394,
+    "estimated_usd": 0.001656,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 234652,
-        "completion_tokens": 9921
+        "prompt_tokens": 15270,
+        "completion_tokens": 1564
       }
     },
-    "duration_s": 201.4,
-    "serper_calls": 19,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 49792,
+    "duration_s": 26.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9059,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0475,
-    "context_deduplicated_results": 73,
+    "max_context_utilization": 0.0086,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
+    "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Tom Cole",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No polls are available in the race data, and the June 16, 2026 primary results are not included in the dataset, so some uncertainty remains. However, the structural fundamentals are overwhelming: Oklahoma's 4th Congressional District is a safely Republican seat; Tom Cole is a 12-term incumbent who chairs the House Appropriations Committee; he faces only a modest intraparty primary challenge and a Democratic field that was still being contested as of June 16. The general election opponent (either Pixley or Jacob) will face severe headwinds in this heavily Republican district, and independent candidate Bonacci lacks the profile for a competitive run. Given Oklahoma's deeply Republican electoral environment, Cole's seniority and institutional power, and the absence of any contrary polling, the race remains Safe Republican.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:42.736787Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

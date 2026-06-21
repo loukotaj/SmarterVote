@@ -298,7 +298,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_26th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:44:40.205002+00:00",
+  "updated_utc": "2026-06-20T15:24:56.414677+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -312,18 +312,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 256784,
-    "completion_tokens": 7115,
-    "total_tokens": 263899,
-    "cost_usd": 0.01744398,
+    "prompt_tokens": 19343,
+    "completion_tokens": 1784,
+    "total_tokens": 21127,
+    "cost_usd": 0.002185374,
     "cost_source": "provider",
-    "estimated_usd": 0.026559,
+    "estimated_usd": 0.002062,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 256784,
-        "completion_tokens": 7115
+        "prompt_tokens": 19343,
+        "completion_tokens": 1784
       }
     },
-    "duration_s": 130.4
+    "duration_s": 30.9,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8583,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0082,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brandon Gill",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.035,
+      "Other": 0.005
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists for this race, which caps confidence. However, the fundamentals strongly favor the Republican incumbent: Brandon Gill is the first-term incumbent in Texas's 26th District, which is described as a strongly conservative district where Donald Trump won by 24 points in 2024. Cook Political Report rates the race as 'Solid Republican.' Gill is a Trump-aligned House Freedom Caucus member with committee assignments on Judiciary, Oversight, and Budget. Democratic nominee Steven Shook is a credible healthcare-focused challenger who won his primary, but faces a significant structural disadvantage in a district that has not elected a Democrat in decades. The Libertarian candidate Phil Gray is a perennial candidate with limited vote share. With zero polling data and strong fundamentals pointing decisively toward the incumbent, a safe Republican rating with medium confidence is the appropriate informational forecast.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:47.834047Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

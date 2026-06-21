@@ -567,7 +567,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Hampshire%27s_1st_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:33:13.362411+00:00",
+  "updated_utc": "2026-06-20T15:27:24.636407+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -581,18 +581,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 340922,
-    "completion_tokens": 10739,
-    "total_tokens": 351661,
-    "cost_usd": 0.027488064,
+    "prompt_tokens": 19628,
+    "completion_tokens": 1777,
+    "total_tokens": 21405,
+    "cost_usd": 0.002271836,
     "cost_source": "provider",
-    "estimated_usd": 0.035515,
+    "estimated_usd": 0.002086,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 340922,
-        "completion_tokens": 10739
+        "prompt_tokens": 19628,
+        "completion_tokens": 1777
       }
     },
-    "duration_s": 240.3
+    "duration_s": 30.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 11618,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0111,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": 0.53,
+    "party_probabilities": {
+      "Democratic": 0.53,
+      "Republican": 0.47
+    },
+    "margin_estimate": 0.5,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "No general-election polling exists for this open-seat race as of June 2026; all polls listed pertain only to the Democratic primary and lack usable head-to-head matchups. The district is a classic swing seat — Harris carried it by roughly 2 points in 2024 — and the departure of incumbent Democrat Chris Pappas (running for Senate) removes any incumbency advantage. The Democratic primary features a well-funded field (Maura Sullivan raised over $2.6M, Stefany Shaheen brings high name recognition) while the GOP primary has two credible but less nationally prominent candidates. However, without any head-to-head polling or a clear general-election nominee from either party, structural uncertainty is very high. The seat is best classified as a tossup with only a marginal Democratic lean based on the district's recent presidential performance.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:18.192043Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_New_Hampshire"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

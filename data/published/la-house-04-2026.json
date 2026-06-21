@@ -422,7 +422,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:28:02.645492+00:00",
+  "updated_utc": "2026-06-20T15:37:26.689412+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -436,18 +436,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 302406,
-    "completion_tokens": 7848,
-    "total_tokens": 310254,
-    "cost_usd": 0.01740606,
+    "prompt_tokens": 12016,
+    "completion_tokens": 1647,
+    "total_tokens": 13663,
+    "cost_usd": 0.001440476,
     "cost_source": "provider",
-    "estimated_usd": 0.031174,
+    "estimated_usd": 0.001378,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 302406,
-        "completion_tokens": 7848
+        "prompt_tokens": 12016,
+        "completion_tokens": 1647
       }
     },
-    "duration_s": 237.6
+    "duration_s": 31.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9303,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0089,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Johnson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.02,
+      "Independent": 0.0,
+      "Other": 0.0
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which depresses confidence. However, the district fundamentals are overwhelming: Cook PVI R+26 makes this one of the most Republican districts in the country. Incumbent Mike Johnson is the sitting Speaker of the House, providing immense advantages in fundraising, name recognition, and institutional support. The two Democratic challengers (Cable, Gromlich) face an extremely uphill climb in a district with this partisan baseline. The Republican primary challengers (Morott, Nichols) are not positioned to seriously threaten an incumbent Speaker. Prediction markets reflect extremely high Republican win probability. Based on district partisanship, incumbency, and candidate field strength, Republicans are overwhelming favorites to hold this seat, with Johnson the clear likeliest winner. Margin estimate of ~35 points reflects the R+26 baseline plus incumbency/Speaker premium, but has higher uncertainty due to zero polling data points.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:17.330322Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -199,7 +199,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:45:39.897347+00:00",
+  "updated_utc": "2026-06-20T15:29:15.488983+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -213,18 +213,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 232323,
-    "completion_tokens": 5397,
-    "total_tokens": 237720,
-    "cost_usd": 0.014829882,
+    "prompt_tokens": 10591,
+    "completion_tokens": 1217,
+    "total_tokens": 11808,
+    "cost_usd": 0.00127645,
     "cost_source": "provider",
-    "estimated_usd": 0.023825,
+    "estimated_usd": 0.001172,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 232323,
-        "completion_tokens": 5397
+        "prompt_tokens": 10591,
+        "completion_tokens": 1217
       }
     },
-    "duration_s": 107.3
+    "duration_s": 23.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6138,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0059,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mark Harris",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No general election polls exist for this race, requiring reliance on structural indicators. Those indicators strongly favor the Republican incumbent: (1) Cook Political Report rates NC-08 as 'Solidly Republican'; (2) Harris faced no primary challenger, reflecting a consolidated GOP base; (3) the district is described as having trended strongly Republican in recent cycles; (4) Harris is the incumbent with committee positions and institutional advantages. Challenger Colby Watson won a three-way Democratic primary with under 50% of the vote, indicating a less consolidated base. Without any polling, the forecast carries moderate uncertainty, but the structural environment points to an overwhelming Republican advantage consistent with the safe_r rating (~95%+ party win probability).",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:09.706135Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

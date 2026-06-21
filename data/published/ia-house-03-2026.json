@@ -321,7 +321,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Iowa%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:12:03.027694+00:00",
+  "updated_utc": "2026-06-20T15:27:06.489305+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -335,18 +335,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 191550,
-    "completion_tokens": 8211,
-    "total_tokens": 199761,
-    "cost_usd": 0.012663624000000002,
+    "prompt_tokens": 14534,
+    "completion_tokens": 2148,
+    "total_tokens": 16682,
+    "cost_usd": 0.001785436,
     "cost_source": "provider",
-    "estimated_usd": 0.020381,
+    "estimated_usd": 0.001695,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 191550,
-        "completion_tokens": 8211
+        "prompt_tokens": 14534,
+        "completion_tokens": 2148
       }
     },
-    "duration_s": 122.5
+    "duration_s": 34.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8451,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0081,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Zach Nunn",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.54,
+    "party_probabilities": {
+      "Republican": 0.54,
+      "Democratic": 0.45,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 2.5,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "This is a highly competitive district rated as a toss-up by Cook Political Report. Only one public named-candidate poll exists (Ragnar Research, March 2026, n=400), showing incumbent Republican Zach Nunn leading Democrat Sarah Trone Garriott 48%-42% — a 6-point lead with room for undecided movement. Nunn benefits from incumbency and won re-election by 4 points in 2024 in a district that narrowly backed Trump. Garriott is a credible Democratic nominee but has limited name recognition beyond her state senate district. The Libertarian candidate faces active ballot-access challenges and is highly unlikely to be competitive. With only one poll from three months ago and a race description emphasizing toss-up dynamics, uncertainty is elevated. The single poll and incumbency suggest a narrow Republican edge, but the margin is within toss-up range and sparse polling prevents higher confidence.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:26:57.905120Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.270towin.com/2026-house-polls/iowa/district-3"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

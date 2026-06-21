@@ -483,7 +483,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:15:48.545589+00:00",
+  "updated_utc": "2026-06-20T15:26:10.170065+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -573,23 +573,58 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 182966,
-    "completion_tokens": 11539,
-    "total_tokens": 194505,
-    "cost_usd": 0.00977798,
+    "prompt_tokens": 6722,
+    "completion_tokens": 1351,
+    "total_tokens": 8073,
+    "cost_usd": 0.000923552,
     "cost_source": "provider",
-    "estimated_usd": 0.013764,
+    "estimated_usd": 0.000848,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 182966,
-        "completion_tokens": 11539
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 6722,
+        "completion_tokens": 1351
       }
     },
-    "duration_s": 101.5
+    "duration_s": 21.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3315,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0032,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "schema_version": "0.3",
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/New_York's_4th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Laura Gillen",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.58,
+    "party_probabilities": {
+      "Democratic": 0.58,
+      "Republican": 0.42
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "No district-specific public polling exists in the race data, and the candidate list includes only incumbent Democrat Laura Gillen (former Hempstead town supervisor, in office since Jan. 2025), with Republican Anthony D'Esposito widely expected but not formally announced. NY-04 is described as a politically competitive Nassau County district, and the race is expected to be a rematch of the 2024 contest Gillen won narrowly, suggesting a closely divided electorate. Gillen's incumbency provides a modest structural edge, but the absence of polling and the lack of a formally listed major-party challenger reduce confidence. The forecast reflects a narrow Democratic advantage consistent with a competitive district where Gillen holds the seat, but the margin of error is large and the race could shift to tossup as more information emerges.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:03.484872Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

@@ -353,7 +353,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:27:12.526152+00:00",
+  "updated_utc": "2026-06-20T15:42:33.294079+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -367,18 +367,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 293667,
-    "completion_tokens": 7703,
-    "total_tokens": 301370,
-    "cost_usd": 0.022371842000000003,
+    "prompt_tokens": 21141,
+    "completion_tokens": 1622,
+    "total_tokens": 22763,
+    "cost_usd": 0.0023897299999999996,
     "cost_source": "provider",
-    "estimated_usd": 0.030289,
+    "estimated_usd": 0.002195,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 293667,
-        "completion_tokens": 7703
+        "prompt_tokens": 21141,
+        "completion_tokens": 1622
       }
     },
-    "duration_s": 223.0
+    "duration_s": 34.8,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 9025,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0086,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Laurie Buckhout",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.52,
+    "party_probabilities": {
+      "Democratic": 0.47,
+      "Republican": 0.52,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 0.5,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "The race is highly uncertain due to very limited polling. The only 2026 general election poll is an NRCC internal survey from late April showing Buckhout and Davis tied at 41-41 — a single partisan poll with limited independent weight. Structural factors are mixed: the district was redrawn in 2025 to favor Republicans, Cook rates it Lean Republican, and Buckhout lost by only ~1.5 points in 2024. However, Davis is a two-term moderate Democratic incumbent who has won the district before, and the Libertarian candidate (Tom Bailey) could slightly affect the margin. With only one partisan poll and divergent structural signals, the race is best characterized as a tossup with a very narrow Republican lean.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:42:25.413489Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.nrcc.org/wp-content/uploads/2026/05/NRCC-NC-01-Survey-Memo-1.pdf"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

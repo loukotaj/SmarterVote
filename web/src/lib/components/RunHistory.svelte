@@ -54,7 +54,9 @@
 </script>
 
 <div class="card p-0">
-  <div class="px-4 py-3 border-b border-stroke flex items-center justify-between">
+  <div
+    class="px-4 py-3 border-b border-stroke flex items-center justify-between"
+  >
     <h3 class="text-sm font-semibold text-content">Recent Runs</h3>
     <button
       on:click={handleRefresh}
@@ -62,9 +64,25 @@
       class="text-xs text-blue-600 hover:text-blue-500 disabled:text-content-faint flex items-center gap-1"
     >
       {#if isRefreshing}
-        <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-          <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        <svg
+          class="animate-spin h-3 w-3"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
         </svg>
       {/if}
       <span>Refresh</span>
@@ -75,24 +93,32 @@
     {#each runHistory.slice(0, 20) as run}
       <button
         type="button"
-        class="w-full text-left px-4 py-2.5 transition-colors duration-150 {selectedRunId === run.run_id
+        class="w-full text-left px-4 py-2.5 transition-colors duration-150 {selectedRunId ===
+        run.run_id
           ? 'bg-blue-100 dark:bg-blue-900/20 border-l-2 border-l-blue-500'
           : 'hover:bg-surface-alt'}"
         on:click={() => handleRunSelect(run)}
       >
         <div class="flex items-center gap-2">
-          <span class="text-xs font-mono font-medium text-content flex-1 truncate" title={raceId(run)}>
+          <span
+            class="text-xs font-mono font-medium text-content flex-1 truncate"
+            title={raceId(run)}
+          >
             {raceId(run)}
           </span>
-          <span class="text-xs px-1.5 py-0.5 rounded-full flex-shrink-0 {getStatusClass(run.status || 'unknown')}">
+          <span
+            class="text-xs px-1.5 py-0.5 rounded-full flex-shrink-0 {getStatusClass(
+              run.status || 'unknown'
+            )}"
+          >
             {run.status ?? "unknown"}
           </span>
           <button
             type="button"
             class="text-content-faint hover:text-content-muted flex-shrink-0 text-xs"
             on:click={(e) => handleRunDetails(run, e)}
-            title="View run details"
-          >↗</button>
+            title="View run details">↗</button
+          >
         </div>
         <div class="flex items-center gap-2 mt-0.5 text-xs text-content-faint">
           <span>{timeAgo(run.started_at)}</span>

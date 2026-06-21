@@ -972,7 +972,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:16:51.993550+00:00",
+  "updated_utc": "2026-06-20T15:41:22.374728+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -1123,27 +1123,58 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 133606,
-    "completion_tokens": 6213,
-    "total_tokens": 139819,
-    "cost_usd": 0.008898163999999998,
+    "prompt_tokens": 30402,
+    "completion_tokens": 2035,
+    "total_tokens": 32437,
+    "cost_usd": 0.003378256,
     "cost_source": "provider",
-    "estimated_usd": 0.011808,
+    "estimated_usd": 0.003102,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 69006,
-        "completion_tokens": 3967
-      },
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 64600,
-        "completion_tokens": 2246
+        "prompt_tokens": 30402,
+        "completion_tokens": 2035
       }
     },
-    "duration_s": 91.1
+    "duration_s": 38.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 19655,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0187,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "schema_version": "0.3",
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Washington's_1st_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Suzan DelBene",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, limiting confidence. However, the race context is compelling: incumbent Democrat Suzan DelBene has held the seat since 2012, has raised over $2.74M through Q1 2026, and faces only a single same-party primary challenger (Benjamin Kincaid) who has no reported FEC funding. No Republican candidate is listed in the field as of June 2026. Under Washington's top-two primary system, the general election could feature two Democrats, guaranteeing Democratic retention of the seat. Even if a Republican were to emerge, WA-01 has been a reliably Democratic district held by Democrats since 2012. The Democratic party retain probability is set at approximately 98%, reflecting incumbency, fundraising dominance, and the absence of any Republican opponent, with a small residual uncertainty due to the lack of polling and the possibility of late candidate entries.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:15.929516Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

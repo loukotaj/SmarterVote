@@ -278,7 +278,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington%27s_3rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:10:57.085603+00:00",
+  "updated_utc": "2026-06-20T15:31:50.594341+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -292,18 +292,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 254995,
-    "completion_tokens": 6286,
-    "total_tokens": 261281,
-    "cost_usd": 0.021089789999999997,
+    "prompt_tokens": 13325,
+    "completion_tokens": 2394,
+    "total_tokens": 15719,
+    "cost_usd": 0.00171517,
     "cost_source": "provider",
-    "estimated_usd": 0.026222,
+    "estimated_usd": 0.00163,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 254995,
-        "completion_tokens": 6286
+        "prompt_tokens": 13325,
+        "completion_tokens": 2394
       }
     },
-    "duration_s": 140.5
+    "duration_s": 37.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7689,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0073,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Marie Gluesenkamp Perez",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.55,
+    "party_probabilities": {
+      "Democratic": 0.55,
+      "Republican": 0.44,
+      "Other": 0.01
+    },
+    "margin_estimate": 1.0,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "Washington's 3rd is a genuine battleground: the district has a slight Republican baseline (Cook PVI R+2) and voted for Donald Trump in 2024, making it a prime GOP target. But incumbent Democrat Marie Gluesenkamp Perez has already demonstrated unusual crossover appeal here, winning in 2022 and again in 2024 with 51.7% despite the district's Republican tilt, and incumbency gives her a modest structural advantage. Republicans appear to have a credible top challenger in John Braun, a well-known state legislative leader with significant fundraising and a Trump endorsement, so the race cannot be rated beyond a narrow edge. With no credible public polling, this forecast relies on fundamentals rather than direct voter measurement, which keeps confidence low and suggests only the slightest Democratic advantage at this stage. The August 4 top-two primary will provide the first real electoral signal on candidate strength and turnout dynamics.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:31:44.670645Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

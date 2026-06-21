@@ -194,7 +194,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Mexico%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:28:22.611025+00:00",
+  "updated_utc": "2026-06-20T15:32:39.037139+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -208,18 +208,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 307729,
-    "completion_tokens": 6390,
-    "total_tokens": 314119,
-    "cost_usd": 0.019668698,
+    "prompt_tokens": 10770,
+    "completion_tokens": 1761,
+    "total_tokens": 12531,
+    "cost_usd": 0.001340712,
     "cost_source": "provider",
-    "estimated_usd": 0.03141,
+    "estimated_usd": 0.001286,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 307729,
-        "completion_tokens": 6390
+        "prompt_tokens": 10770,
+        "completion_tokens": 1761
       }
     },
-    "duration_s": 138.0
+    "duration_s": 28.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6055,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0058,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Melanie Ann Stansbury",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.05
+    },
+    "margin_estimate": 13.0,
+    "rating": "safe_d",
+    "confidence": "high",
+    "rationale": "No public polling exists for this race. However, structural indicators are overwhelmingly favorable for Democrats: incumbent Rep. Melanie Stansbury won re-election in 2024 with 56.4% of the vote (a ~13-point margin), nonpartisan forecasters rate the district 'Solid D,' and the incumbent has held the seat since 2021. The Republican challenger, Ndidiamaka 'Didi' Okpareke, is a political newcomer (pharmacist and small business owner) with no prior elected office. The district (central New Mexico, including most of Albuquerque) has been reliably Democratic in recent cycles. Given the strong and consistent structural evidence—incumbency, previous margin, and nonpartisan rating—confidence is high despite the absence of current polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:34.358607Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

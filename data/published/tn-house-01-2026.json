@@ -439,7 +439,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Tennessee%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:42:56.573421+00:00",
+  "updated_utc": "2026-06-20T15:42:46.129429+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -453,18 +453,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 224759,
-    "completion_tokens": 11012,
-    "total_tokens": 235771,
-    "cost_usd": 0.014400414,
+    "prompt_tokens": 16740,
+    "completion_tokens": 1567,
+    "total_tokens": 18307,
+    "cost_usd": 0.001947652,
     "cost_source": "provider",
-    "estimated_usd": 0.024185,
+    "estimated_usd": 0.001789,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 224759,
-        "completion_tokens": 11012
+        "prompt_tokens": 16740,
+        "completion_tokens": 1567
       }
     },
-    "duration_s": 172.3
+    "duration_s": 29.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9717,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0093,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Diana Harshbarger",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.025,
+      "Independent": 0.005
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_r",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race, which necessarily suppresses confidence. However, the structural evidence is exceptionally strong: the district is described as heavily Republican, has not elected a Democrat to Congress since the 19th century, and all major election forecasters rate it a Safe/Solid Republican seat. The May 2026 redistricting left the 1st District largely intact. Incumbent Republican Diana Harshbarger (seeking a fourth term) benefits from incumbency, name recognition, and a district with a deeply entrenched GOP lean. The Democratic primary field consists of three first-time candidates (Kristi Burke, Hernan H. Garcia, David S. Kerr Jr.) who will compete in an August 6 primary against each other, and four independent candidates are also on the general election ballot — none show evidence in the provided data of fundraising or organizational strength sufficient to meaningfully contest the seat. Given the district's partisan composition and historical voting patterns, an overwhelming Republican advantage is virtually certain even though no direct polling corroboration exists.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:42:38.244704Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

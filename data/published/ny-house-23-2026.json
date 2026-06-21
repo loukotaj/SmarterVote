@@ -6,7 +6,7 @@
   "state": "New York",
   "district": "23rd Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for New York's 23rd Congressional District pits incumbent Republican Rep. Nick Langworthy against either Democrat Aaron Gies or Kevin Stocker, who are competing in the June 23 Democratic primary. The district covers Western New York and the Southern Tier, including all of Allegany, Cattaraugus, Chautauqua, Chemung, and Tioga counties and parts of Erie, Schuyler, and Steuben counties. This is a reliably Republican district \u2014 Donald Trump carried it by 21 points in 2024 \u2014 and the Cook Political Report rates the general election as Solid R. The race has centered on affordability, rural economic development, and Langworthy's voting record and constituent engagement.",
+  "description": "The 2026 election for New York's 23rd Congressional District pits incumbent Republican Rep. Nick Langworthy against either Democrat Aaron Gies or Kevin Stocker, who are competing in the June 23 Democratic primary. The district covers Western New York and the Southern Tier, including all of Allegany, Cattaraugus, Chautauqua, Chemung, and Tioga counties and parts of Erie, Schuyler, and Steuben counties. This is a reliably Republican district — Donald Trump carried it by 21 points in 2024 — and the Cook Political Report rates the general election as Solid R. The race has centered on affordability, rural economic development, and Langworthy's voting record and constituent engagement.",
   "polling": [],
   "polling_note": "No publicly available opinion polls were found for the NY-23 2026 general or primary elections.",
   "candidates": [
@@ -265,7 +265,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_23rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:27:22.975615+00:00",
+  "updated_utc": "2026-06-20T15:28:05.721974+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -279,18 +279,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 295500,
-    "completion_tokens": 7111,
-    "total_tokens": 302611,
-    "cost_usd": 0.019250548,
+    "prompt_tokens": 12177,
+    "completion_tokens": 1537,
+    "total_tokens": 13714,
+    "cost_usd": 0.0014346939999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.030353,
+    "estimated_usd": 0.001373,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 295500,
-        "completion_tokens": 7111
+        "prompt_tokens": 12177,
+        "completion_tokens": 1537
       }
     },
-    "duration_s": 142.6
+    "duration_s": 25.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7105,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0068,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nick Langworthy",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for the general or primary elections, which limits confidence. However, structural indicators are exceptionally strong for Republicans: Nick Langworthy is the incumbent, faces no primary opposition, and represents a reliably Republican district that Donald Trump carried by 21 points in 2024. The Cook Political Report rates the race as Solid R. The Democratic nominee has not yet been determined (primary is June 23, 2026), and both Democratic candidates are first-time congressional candidates facing an uphill battle in a district that has shown little recent competitiveness. Given the overwhelming structural advantage, Republicans are nearly certain to hold this seat, though the total absence of polling data prevents a high confidence assessment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:00.614220Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://langworthy.house.gov/about",
+      "https://www.cookpolitical.com/house/race/483686"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

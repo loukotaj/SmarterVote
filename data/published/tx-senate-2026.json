@@ -1418,10 +1418,9 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:11:46.939262+00:00",
+  "updated_utc": "2026-06-20T03:19:10.702500+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -1500,25 +1499,33 @@
     }
   ],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 236810,
-    "completion_tokens": 10556,
-    "total_tokens": 247366,
-    "cost_usd": 0.015171875999999999,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 5620,
+    "completion_tokens": 393,
+    "total_tokens": 6013,
+    "cost_usd": 0.019945,
     "cost_source": "provider",
-    "estimated_usd": 0.020222,
+    "estimated_usd": 0.019945,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 144181,
-        "completion_tokens": 9148
-      },
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 92629,
-        "completion_tokens": 1408
+      "openai/gpt-5.4": {
+        "prompt_tokens": 5620,
+        "completion_tokens": 393
       }
     },
-    "duration_s": 136.7
+    "duration_s": 8.8,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 4487,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0043,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": {
     "grade": "A",
@@ -1530,8 +1537,36 @@
   "state": null,
   "district": null,
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Ken Paxton",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.58,
+    "party_probabilities": {
+      "Republican": 0.58,
+      "Democratic": 0.41,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": 2.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "Texas remains a Republican-leaning statewide battleground, but the available polling suggests a competitive general election rather than a clearly safe GOP race. Head-to-head polls show James Talarico close to both Republicans: an Emerson poll had Talarico trailing John Cornyn 47-44 and tied Ken Paxton 46-46 in January, while a March PPP poll showed Talarico narrowly ahead of both Cornyn and Paxton. At the same time, Republican primary polling from Emerson shows Paxton leading Cornyn, so Paxton appears somewhat more likely than Cornyn to be the GOP nominee based on the current race data. Because the general-election polling is sparse, mixed, and fairly early, confidence is low. The state’s underlying Republican lean and the GOP’s long hold on this seat still give Republicans a narrow edge overall, but only by a small margin.",
+    "based_on_poll_count": 4,
+    "generated_at": "2026-06-20T03:19:09.852063Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": [
+      "https://emersoncollegepolling.com/texas-2026-poll/",
+      "https://emersoncollegepolling.com/texas-2026-primary-poll-talarico-paxton-with-narrow-edges-in-senate-primaries/",
+      "https://www.houstonpublicmedia.org/articles/news/politics/election-2026/2026/03/10/545755/as-republicans-await-trumps-endorsement-democrats-float-poll-showing-talarico-tied-with-cornyn-and-paxton/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

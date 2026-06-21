@@ -14,24 +14,24 @@
       "name": "Valerie Foushee",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Valerie Foushee is the Democratic incumbent representing North Carolina's 4th Congressional District, first elected in 2022. She previously served in the North Carolina State Senate (2013\u20132022), North Carolina State House (2012\u20132013), as chair of the Orange County Board of Commissioners (2004\u20132012), and on the Chapel Hill-Carrboro City Schools Board (1997\u20132004). She worked as an administrative officer for the Chapel Hill Police Department from 1987 to 2008. Foushee is the first African American and first woman to represent the 4th District in Congress. She earned a B.A. in Political Science and African and Afro-American Studies from the University of North Carolina at Chapel Hill in 2008.",
+      "summary": "Valerie Foushee is the Democratic incumbent representing North Carolina's 4th Congressional District, first elected in 2022. She previously served in the North Carolina State Senate (2013–2022), North Carolina State House (2012–2013), as chair of the Orange County Board of Commissioners (2004–2012), and on the Chapel Hill-Carrboro City Schools Board (1997–2004). She worked as an administrative officer for the Chapel Hill Police Department from 1987 to 2008. Foushee is the first African American and first woman to represent the 4th District in Congress. She earned a B.A. in Political Science and African and Afro-American Studies from the University of North Carolina at Chapel Hill in 2008.",
       "summary_sources": [
         {
           "url": "https://foushee.house.gov/about",
           "type": "government",
-          "title": "About \u2013 U.S. Congresswoman Valerie Foushee",
+          "title": "About – U.S. Congresswoman Valerie Foushee",
           "last_accessed": "2026-06-12T15:00:00Z"
         },
         {
           "url": "https://valeriefoushee.com/valeries-story/",
           "type": "website",
-          "title": "Valerie's Story \u2013 Foushee for Congress",
+          "title": "Valerie's Story – Foushee for Congress",
           "last_accessed": "2026-06-12T15:00:00Z"
         },
         {
           "url": "https://ballotpedia.org/Valerie_Foushee",
           "type": "website",
-          "title": "Valerie Foushee \u2013 Ballotpedia",
+          "title": "Valerie Foushee – Ballotpedia",
           "last_accessed": "2026-06-12T15:00:00Z"
         }
       ],
@@ -108,19 +108,19 @@
         {
           "url": "https://maxforcongress.com/about",
           "type": "website",
-          "title": "About \u2013 Max for Congress",
+          "title": "About – Max for Congress",
           "last_accessed": "2026-06-12T15:00:00Z"
         },
         {
           "url": "https://ballotpedia.org/Mahesh_Ganorkar",
           "type": "website",
-          "title": "Mahesh Ganorkar \u2013 Ballotpedia",
+          "title": "Mahesh Ganorkar – Ballotpedia",
           "last_accessed": "2026-06-12T15:00:00Z"
         },
         {
           "url": "https://vote-usa.org/intro.aspx?state=nc&id=ncganorkarmahesh",
           "type": "website",
-          "title": "Mahesh 'Max' Ganorkar \u2013 Vote-USA",
+          "title": "Mahesh 'Max' Ganorkar – Vote-USA",
           "last_accessed": "2026-06-12T15:00:00Z"
         }
       ],
@@ -176,19 +176,19 @@
         {
           "url": "https://guy4nc.org/meet/us-house-district-4/",
           "type": "website",
-          "title": "US House District 4 \u2013 Guy Meilleur for Congress",
+          "title": "US House District 4 – Guy Meilleur for Congress",
           "last_accessed": "2026-06-12T15:00:00Z"
         },
         {
           "url": "https://www.northcarolinahealthnews.org/govpack_profiles/guy-meilleur/",
           "type": "news",
-          "title": "Guy Meilleur \u2013 North Carolina Health News",
+          "title": "Guy Meilleur – North Carolina Health News",
           "last_accessed": "2026-06-12T15:00:00Z"
         },
         {
           "url": "https://ballotpedia.org/Guy_Meilleur",
           "type": "website",
-          "title": "Guy Meilleur \u2013 Ballotpedia",
+          "title": "Guy Meilleur – Ballotpedia",
           "last_accessed": "2026-06-12T15:00:00Z"
         }
       ],
@@ -223,7 +223,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:29:56.516598+00:00",
+  "updated_utc": "2026-06-20T15:44:02.784936+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -234,18 +234,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 223736,
-    "completion_tokens": 6703,
-    "total_tokens": 230439,
-    "cost_usd": 0.013405675999999998,
+    "prompt_tokens": 21439,
+    "completion_tokens": 1908,
+    "total_tokens": 23347,
+    "cost_usd": 0.00247499,
     "cost_source": "provider",
-    "estimated_usd": 0.02324,
+    "estimated_usd": 0.002273,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 223736,
-        "completion_tokens": 6703
+        "prompt_tokens": 21439,
+        "completion_tokens": 1908
       }
     },
-    "duration_s": 158.0
+    "duration_s": 30.4,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 11438,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0109,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Valerie Foushee",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.015,
+      "Other": 0.005
+    },
+    "margin_estimate": 27,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race, which limits direct measurement of voter preferences and keeps confidence at medium rather than high. However, the structural signals are overwhelmingly clear: North Carolina's 4th District has a Cook PVI of D+23, Cook Political Report rates the race 'Solid D,' and the seat covers the heavily Democratic Research Triangle (Durham, Chapel Hill, Cary). Incumbent Valerie Foushee (D) benefits from incumbency, a strong local political history, and a district that remained strongly Democratic after the October 2025 redistricting. The Republican nominee (Mahesh Ganorkar) and Libertarian nominee (Guy Meilleur) face an extremely uphill challenge in a D+23 district. Based on the available district fundamentals, Democrats are overwhelming favorites to retain this seat, consistent with the safe D rating (95%+ party win probability). The margin estimate of ~27 points reflects the D+23 baseline plus incumbency advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:43:51.813070+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

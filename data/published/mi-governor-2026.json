@@ -3381,13 +3381,9 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T02:13:20.612492+00:00",
+  "updated_utc": "2026-06-20T03:17:25.910632+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano",
-    "anthropic/claude-haiku-4.5",
-    "google/gemini-3.1-flash-lite-preview",
-    "x-ai/grok-4.3"
+    "openai/gpt-5.4"
   ],
   "reviews": [
     {
@@ -4088,85 +4084,39 @@
   ],
   "polling_note": "April 2026 IPPSR/MSU poll shows Jocelyn Benson with a slight lead but no clear frontrunner; the poll did not publish numeric candidate percentages in this source. Source: https://ippsr.msu.edu/news/msu-governors-poll-shows-slight-benson-lead-no-clear-cut-frontrunner",
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 105253,
-    "completion_tokens": 3835,
-    "total_tokens": 109088,
-    "cost_usd": 0.10159285,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 7456,
+    "completion_tokens": 257,
+    "total_tokens": 7713,
+    "cost_usd": 0.022495,
     "cost_source": "provider",
-    "estimated_usd": 0.101727,
+    "estimated_usd": 0.022495,
     "model_breakdown": {
-      "x-ai/grok-4.3": {
-        "prompt_tokens": 31733,
-        "completion_tokens": 393
-      },
-      "google/gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 37328,
-        "completion_tokens": 473
-      },
-      "anthropic/claude-haiku-4.5": {
-        "prompt_tokens": 36192,
-        "completion_tokens": 2969
+      "openai/gpt-5.4": {
+        "prompt_tokens": 7456,
+        "completion_tokens": 257
       }
     },
-    "duration_s": 55.3,
+    "duration_s": 8.8,
     "serper_calls": 0,
-    "context_requests": 0,
-    "max_estimated_context_tokens": 0,
-    "max_context_window_tokens": 0,
-    "max_context_utilization": 0.0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 6027,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0057,
     "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
     "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
-    "retry_provider_failures": 0,
-    "retry_deadline_exits": 0,
-    "review": {
-      "whole_profile": true,
-      "configured_providers": [
-        "claude",
-        "gemini",
-        "grok"
-      ],
-      "packet_revisions": 1,
-      "packet_chars": 119575,
-      "packet_estimated_tokens": 29893,
-      "calls": 3,
-      "providers": {
-        "grok": {
-          "model": "x-ai/grok-4.3",
-          "calls": 1,
-          "prompt_tokens": 31733,
-          "completion_tokens": 393,
-          "provider_cost_usd": 0.04051435,
-          "estimated_cost_usd": 0.04064875
-        },
-        "gemini": {
-          "model": "google/gemini-3.1-flash-lite-preview",
-          "calls": 1,
-          "prompt_tokens": 37328,
-          "completion_tokens": 473,
-          "provider_cost_usd": 0.0100415,
-          "estimated_cost_usd": 0.0100415
-        },
-        "claude": {
-          "model": "anthropic/claude-haiku-4.5",
-          "calls": 1,
-          "prompt_tokens": 36192,
-          "completion_tokens": 2969,
-          "provider_cost_usd": 0.051037,
-          "estimated_cost_usd": 0.051037
-        }
-      }
-    }
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": {
     "grade": "A",
     "score": 92,
     "passed": true,
-    "summary": "Validated by 2/4 reviewers with an average score of 92/100."
+    "summary": "Validated by 2/2 reviewers with an average score of 92/100."
   },
   "schema_version": "0.3",
   "state": null,
@@ -4276,5 +4226,23 @@
       "refinement:Anthony Hudson",
       "refinement:meta"
     ]
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.51,
+    "party_probabilities": {
+      "Democratic": 0.51,
+      "Republican": 0.47,
+      "Libertarian": 0.02
+    },
+    "margin_estimate": 1.0,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "This remains an open-seat battleground race with only very limited polling evidence. The only 2026 poll cited in the provided data is an April IPPSR/MSU survey describing Jocelyn Benson as having only a slight lead and explicitly saying there was no clear frontrunner; no numeric candidate percentages are available, so the polling cannot support more than a minimal edge. Democrats have some candidate-strength advantages in the current field, especially Benson's statewide office profile and stronger Democratic fundraising, while Republicans also have multiple credible and well-funded contenders in a state Donald Trump carried in 2024. Because the nomination picture is still unsettled and the available polling is sparse and non-numeric, the race is best treated as a tossup with a very slight Democratic edge rather than a clearly favored party.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:24.889410Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
   }
 }

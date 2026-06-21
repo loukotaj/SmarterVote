@@ -227,7 +227,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_23rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:12:50.406604+00:00",
+  "updated_utc": "2026-06-20T15:42:25.182558+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -241,18 +241,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 309509,
-    "completion_tokens": 6699,
-    "total_tokens": 316208,
-    "cost_usd": 0.022389718000000003,
+    "prompt_tokens": 13191,
+    "completion_tokens": 2410,
+    "total_tokens": 15601,
+    "cost_usd": 0.0017650780000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.031645,
+    "estimated_usd": 0.001621,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 309509,
-        "completion_tokens": 6699
+        "prompt_tokens": 13191,
+        "completion_tokens": 2410
       }
     },
-    "duration_s": 122.9
+    "duration_s": 37.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7573,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brandon Herrera",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.68,
+    "party_probabilities": {
+      "Democratic": 0.32,
+      "Republican": 0.68
+    },
+    "margin_estimate": 4.0,
+    "rating": "lean_r",
+    "confidence": "medium",
+    "rationale": "Republicans are favored in TX-23 due to the district's strong GOP lean (Trump +15 in 2024, district made more Republican in redistricting), but not overwhelmingly so. The seat is open after incumbent Tony Gonzales resigned amid scandal, and the GOP nominee Brandon Herrera is a controversial gun-rights YouTube personality who could underperform the partisan baseline. The only available general-election poll — from a Democratic super PAC and now three months old — shows a narrow 42-40 race with 18% undecided, suggesting a competitive contest, but this is a single partisan survey with no sample size reported and no independent or nonpartisan polls to corroborate it. Herrera's endorsement by Trump and strong primary performance in a GOP-leaning district provide structural advantages, while Democrat Katy Padilla Stout has a strong institutional backing (EMILY's List, CHC BOLD PAC, Texas AFL-CIO) and hopes to leverage Herrera's controversial profile in a district that has shown some competitiveness (Herrera lost to Gonzales by under 400 votes in the 2024 GOP runoff). Overall, the GOP baseline and the open-seat dynamics with a controversial nominee balance out to a Lean Republican race with meaningful but not commanding Republican advantage.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:42:15.109247Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-tx-23-is-in-play-for-democrats"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

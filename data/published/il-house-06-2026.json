@@ -263,7 +263,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:16:57.560832+00:00",
+  "updated_utc": "2026-06-20T15:30:33.535931+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -277,18 +277,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 293993,
-    "completion_tokens": 7034,
-    "total_tokens": 301027,
-    "cost_usd": 0.020545434,
+    "prompt_tokens": 17068,
+    "completion_tokens": 1923,
+    "total_tokens": 18991,
+    "cost_usd": 0.002049572,
     "cost_source": "provider",
-    "estimated_usd": 0.03019,
+    "estimated_usd": 0.001882,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 293993,
-        "completion_tokens": 7034
+        "prompt_tokens": 17068,
+        "completion_tokens": 1923
       }
     },
-    "duration_s": 126.8
+    "duration_s": 32.6,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 7384,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.007,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sean Casten",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.94,
+    "party_probabilities": {
+      "Democratic": 0.94,
+      "Republican": 0.06
+    },
+    "margin_estimate": 9.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race. The forecast is based on non-polling indicators: incumbent Democrat Sean Casten (first elected 2018) represents a D+3 district encompassing Chicago's southwestern suburbs. All three major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate this seat Solid/Safe Democratic. Prediction markets (Polymarket) show approximately 94% Democratic win probability. This is a rematch of the 2024 contest, which Casten won. The absence of district-level polling and the D+3 PVI (narrower than typical safe seats) temper confidence, but the consistent external ratings and incumbency advantage point to a clear Democratic advantage consistent with the safe_d rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:21.630008Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

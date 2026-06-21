@@ -160,7 +160,7 @@
         {
           "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-2nd-district-dems/",
           "type": "news",
-          "title": "U.S. House \u2013 2nd District \u2014 Dems | Voter Guide",
+          "title": "U.S. House – 2nd District — Dems | Voter Guide",
           "description": null,
           "last_accessed": "2026-06-18T00:00:00Z",
           "published_at": null,
@@ -226,7 +226,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:45:53.890977+00:00",
+  "updated_utc": "2026-06-20T15:25:17.074454+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -240,18 +240,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 248470,
-    "completion_tokens": 5371,
-    "total_tokens": 253841,
-    "cost_usd": 0.018993048,
+    "prompt_tokens": 11151,
+    "completion_tokens": 1712,
+    "total_tokens": 12863,
+    "cost_usd": 0.001368446,
     "cost_source": "provider",
-    "estimated_usd": 0.025403,
+    "estimated_usd": 0.001312,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 248470,
-        "completion_tokens": 5371
+        "prompt_tokens": 11151,
+        "completion_tokens": 1712
       }
     },
-    "duration_s": 106.2
+    "duration_s": 27.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6309,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Brett Guthrie",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.02,
+      "Republican": 0.98
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race (based_on_poll_count=0), so the forecast relies entirely on structural fundamentals. Incumbent Brett Guthrie is a 17-term Republican, chairs the House Energy and Commerce Committee, and won re-election with 73.1% in 2024. The district (west-central Kentucky, including Bowling Green and Owensboro) is described as safely Republican and is rated Solid R / Safe R by nonpartisan analysts. Democratic challenger Megan Wingfield is a first-time candidate running on a progressive platform. The absence of polling introduces some uncertainty, but the district's fundamentals — incumbency, past vote share, committee leadership, and partisan lean — point to an overwhelming Republican advantage consistent with the safe_r rating and a 98% Republican win probability.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:12.922913Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

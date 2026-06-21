@@ -266,7 +266,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:36:30.352178+00:00",
+  "updated_utc": "2026-06-20T15:29:08.889456+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -280,18 +280,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 163212,
-    "completion_tokens": 7314,
-    "total_tokens": 170526,
-    "cost_usd": 0.012516192,
+    "prompt_tokens": 10049,
+    "completion_tokens": 1253,
+    "total_tokens": 11302,
+    "cost_usd": 0.001170486,
     "cost_source": "provider",
-    "estimated_usd": 0.017428,
+    "estimated_usd": 0.00113,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 163212,
-        "completion_tokens": 7314
+        "prompt_tokens": 10049,
+        "completion_tokens": 1253
       }
     },
-    "duration_s": 196.3
+    "duration_s": 22.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7398,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0071,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Steve Scalise",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.02
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which limits quantitative certainty. However, the district is described in the race data as a safe Republican seat and is rated Solid/Safe Republican by Cook Political Report, Inside Elections, and Sabato's Crystal Ball. Incumbent Steve Scalise is a long-serving officeholder and House Majority Leader, a high-ranking leadership position that reinforces a strong Republican advantage. While Scalise faces a Republican primary challenger (Randall Arrington), the general election in Louisiana's heavily Republican 1st District strongly favors the eventual Republican nominee, with Scalise as the clear likely winner. Given the absence of polling, confidence is set to medium to reflect reliance on structural and qualitative indicators rather than survey data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:00.537481Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

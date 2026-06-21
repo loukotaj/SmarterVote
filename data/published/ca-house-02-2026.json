@@ -183,7 +183,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:57:52.601816+00:00",
+  "updated_utc": "2026-06-20T15:22:55.144506+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -197,18 +197,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 200698,
-    "completion_tokens": 6585,
-    "total_tokens": 207283,
-    "cost_usd": 0.011943512,
+    "prompt_tokens": 10758,
+    "completion_tokens": 2301,
+    "total_tokens": 13059,
+    "cost_usd": 0.00150528,
     "cost_source": "provider",
-    "estimated_usd": 0.020959,
+    "estimated_usd": 0.001382,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 200698,
-        "completion_tokens": 6585
+        "prompt_tokens": 10758,
+        "completion_tokens": 2301
       }
     },
-    "duration_s": 146.5
+    "duration_s": 34.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6269,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.006,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jared Huffman",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race. The forecast rests entirely on non-polling structural indicators: Cook Political Report rates the district as 'Solidly Democratic'; seven-term incumbent Jared Huffman (Ranking Member on House Natural Resources Committee) faces Republican challenger Robin Littau, a school board trustee and Coast Guard veteran with no prior congressional or high-profile elected experience; and the 2nd District (North Coast CA, from the Golden Gate Bridge to Oregon) has a heavily Democratic partisan composition. Huffman won re-election by ~32 points in 2022 and ~34 points in 2024. The combination of deep-blue district, entrenched incumbency, and significant candidate-quality gap makes Democratic victory virtually certain. Confidence is medium (not high) due to the complete absence of public polling data, though the structural signal is extremely strong.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:49.755951Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

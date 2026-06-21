@@ -254,7 +254,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arizona%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:33:48.748175+00:00",
+  "updated_utc": "2026-06-20T15:28:58.053275+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -268,18 +268,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 219732,
-    "completion_tokens": 8293,
-    "total_tokens": 228025,
-    "cost_usd": 0.016320124,
+    "prompt_tokens": 12127,
+    "completion_tokens": 1541,
+    "total_tokens": 13668,
+    "cost_usd": 0.001490482,
     "cost_source": "provider",
-    "estimated_usd": 0.023159,
+    "estimated_usd": 0.001369,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 219732,
-        "completion_tokens": 8293
+        "prompt_tokens": 12127,
+        "completion_tokens": 1541
       }
     },
-    "duration_s": 126.2
+    "duration_s": 25.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6963,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Abraham Hamadeh",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.05,
+      "Republican": 0.95
+    },
+    "margin_estimate": 14.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which keeps confidence at medium rather than high. However, the structural fundamentals strongly favor Republicans: incumbent Abraham Hamadeh (first elected in 2024) is seeking re-election in a district rated 'Solid R' by Cook Political Report with a PVI of R+8. The district has remained reliably Republican in recent cycles, and the two Democratic candidates are still competing in a July 21 primary, meaning the general-election opposition is not yet unified. The district's West Valley Phoenix suburbs have a durable GOP lean. Given the incumbency advantage, district baseline, and lack of contrary signals, Republicans hold an overwhelming structural advantage consistent with the safe_r rating (~95%+ win probability). The margin estimate of 14 points reflects an R+8 baseline plus typical incumbency boost, though this is an approximation in the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:52.267647Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

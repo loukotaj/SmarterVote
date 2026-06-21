@@ -209,7 +209,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_47th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:07:53.280946+00:00",
+  "updated_utc": "2026-06-20T15:22:35.829848+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -220,18 +220,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 238237,
-    "completion_tokens": 8061,
-    "total_tokens": 246298,
-    "cost_usd": 0.01616123,
+    "prompt_tokens": 11682,
+    "completion_tokens": 1674,
+    "total_tokens": 13356,
+    "cost_usd": 0.0014729399999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.024927,
+    "estimated_usd": 0.001353,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 238237,
-        "completion_tokens": 8061
+        "prompt_tokens": 11682,
+        "completion_tokens": 1674
       }
     },
-    "duration_s": 201.0
+    "duration_s": 25.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6874,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Dave Min",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.84,
+    "party_probabilities": {
+      "Democratic": 0.84,
+      "Republican": 0.16
+    },
+    "margin_estimate": 6,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No general-election polling is available for this race as of mid-June 2026, so this forecast is based on non-polling structural indicators. Democrats hold a clear built-in advantage: the district has a Democratic voter registration edge (36% D, 32% R, 25% NPP), a Cook Partisan Voting Index of D+6, and an incumbent Democratic representative in Dave Min, who first won this seat in 2024. Cook Political Report rates the contest as 'Likely Democratic.' However, Min is a freshman incumbent, the Democratic registration advantage is modest (4 points), and the district was competitive in 2024, which prevents this from reaching 'safe' territory. With no public general-election polls yet and the election about 4.5 months away, confidence is medium. These factors together support a 'likely Democratic' rating with approximately 84% Democratic win probability and a margin estimate of about 6 points.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:33.266548+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

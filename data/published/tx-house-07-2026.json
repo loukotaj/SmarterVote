@@ -204,7 +204,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:27:42.326880+00:00",
+  "updated_utc": "2026-06-20T15:29:40.740604+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -218,18 +218,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 261681,
-    "completion_tokens": 4960,
-    "total_tokens": 266641,
-    "cost_usd": 0.016832578,
+    "prompt_tokens": 11024,
+    "completion_tokens": 1821,
+    "total_tokens": 12845,
+    "cost_usd": 0.001377364,
     "cost_source": "provider",
-    "estimated_usd": 0.026617,
+    "estimated_usd": 0.00132,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 261681,
-        "completion_tokens": 4960
+        "prompt_tokens": 11024,
+        "completion_tokens": 1821
       }
     },
-    "duration_s": 112.0
+    "duration_s": 30.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6402,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Lizzie Pannill Fletcher",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 17.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific public polling exists for this race, limiting confidence and requiring reliance on structural indicators. The Cook Political Report rates this seat as D+13 PVI (Solid Democratic). Incumbent Rep. Lizzie Fletcher is a four-term Democrat who first flipped this seat in 2018 and has held it through multiple cycles. The Republican nominee, Alexander Hale, is a political newcomer and first-time candidate who won a competitive primary runoff in May 2026. The district was redrawn in 2025 amid a Supreme Court redistricting controversy, adding some uncertainty about exact district composition that cannot be resolved without polling. Nonetheless, the D+13 partisan lean combined with Fletcher's demonstrated incumbency advantage in a favorable presidential-year turnout environment points to an overwhelming Democratic advantage. A small but non-negligible probability is assigned to a Republican upset given the redrawn lines, the absence of any survey data, and the possibility of a national environment shift. Rating: Safe Democratic (medium confidence due to zero polling and recent redistricting).",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:34.098426Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

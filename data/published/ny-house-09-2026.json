@@ -125,7 +125,7 @@
         {
           "url": "https://www.mikeforbrooklyn.org/press",
           "type": "website",
-          "title": "News \u2014 mikeforbrooklyn",
+          "title": "News — mikeforbrooklyn",
           "description": null,
           "last_accessed": "2026-05-26T12:00:00Z",
           "published_at": null,
@@ -310,7 +310,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_9th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:29:09.109147+00:00",
+  "updated_utc": "2026-06-20T15:32:49.251860+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -324,18 +324,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 241439,
-    "completion_tokens": 6791,
-    "total_tokens": 248230,
-    "cost_usd": 0.015127866,
+    "prompt_tokens": 13739,
+    "completion_tokens": 2576,
+    "total_tokens": 16315,
+    "cost_usd": 0.0017914139999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.024992,
+    "estimated_usd": 0.0017,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 241439,
-        "completion_tokens": 6791
+        "prompt_tokens": 13739,
+        "completion_tokens": 2576
       }
     },
-    "duration_s": 156.0
+    "duration_s": 38.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7906,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0075,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Yvette D. Clarke",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available for either the primary or general election, which limits confidence. The district has a Cook PVI of D+22, making it heavily Democratic and rendering a Republican general election victory highly unlikely regardless of national environment. The decisive contest is the Democratic primary, where incumbent Yvette D. Clarke — first elected in 2006 and serving the 9th District since 2013 — holds substantial advantages in name recognition, institutional support, and organizational infrastructure. Her primary challengers are Michael Goldfarb (a fintech executive and former Blackstone employee) and Joshua Bristol (a democratic socialist organizer), but without any polling data the relative strength of their campaigns is uncertain. Based on the district's strong Democratic baseline and Clarke's long incumbency, Democrats are overwhelming favorites to hold the seat; Clarke is the most probable winner but the contested primary and absence of polling introduce meaningful uncertainty, warranting medium confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:32:42.193842Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

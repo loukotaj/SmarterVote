@@ -6,15 +6,15 @@
   "state": "California",
   "district": "44th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 general election for California's 44th Congressional District pits Democratic incumbent Nanette Barrag\u00e1n against Republican challenger Genevieve Angel. The district covers parts of South Los Angeles, southeastern Los Angeles County, and the Harbor Area, including communities such as Carson, San Pedro, and South Gate. Barrag\u00e1n, first elected in 2016, is seeking a sixth term in a solidly Democratic district where registered Democrats outnumber Republicans by more than three to one. Angel, a healthcare executive and family nurse practitioner, advanced from the top-two primary alongside Barrag\u00e1n and is running on a platform of economic affordability, public safety, and healthcare reform.",
+  "description": "The 2026 general election for California's 44th Congressional District pits Democratic incumbent Nanette Barragán against Republican challenger Genevieve Angel. The district covers parts of South Los Angeles, southeastern Los Angeles County, and the Harbor Area, including communities such as Carson, San Pedro, and South Gate. Barragán, first elected in 2016, is seeking a sixth term in a solidly Democratic district where registered Democrats outnumber Republicans by more than three to one. Angel, a healthcare executive and family nurse practitioner, advanced from the top-two primary alongside Barragán and is running on a platform of economic affordability, public safety, and healthcare reform.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this specific race as of June 2026.",
   "candidates": [
     {
-      "name": "Nanette Barrag\u00e1n",
+      "name": "Nanette Barragán",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Nanette Barrag\u00e1n is the Democratic incumbent representing California's 44th Congressional District, first elected in 2016. She serves on the House Energy and Commerce Committee and is a co-chair of the House Democratic Steering and Policy Committee. Her legislative priorities include environmental justice, healthcare access, and immigration reform.",
+      "summary": "Nanette Barragán is the Democratic incumbent representing California's 44th Congressional District, first elected in 2016. She serves on the House Energy and Commerce Committee and is a co-chair of the House Democratic Steering and Policy Committee. Her legislative priorities include environmental justice, healthcare access, and immigration reform.",
       "summary_sources": [
         {
           "url": "https://barragan.house.gov/about/",
@@ -112,7 +112,7 @@
         {
           "url": "https://www.angelforcongress.com/about",
           "type": "website",
-          "title": "Meet Genevieve \u2014 Angel for Congress",
+          "title": "Meet Genevieve — Angel for Congress",
           "description": null,
           "last_accessed": "2026-06-13T23:00:00Z",
           "published_at": null,
@@ -200,7 +200,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_44th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:39:41.198141+00:00",
+  "updated_utc": "2026-06-20T15:23:05.818365+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -214,18 +214,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 181406,
-    "completion_tokens": 4380,
-    "total_tokens": 185786,
-    "cost_usd": 0.013644532000000001,
+    "prompt_tokens": 10515,
+    "completion_tokens": 1458,
+    "total_tokens": 11973,
+    "cost_usd": 0.001256334,
     "cost_source": "provider",
-    "estimated_usd": 0.018636,
+    "estimated_usd": 0.001209,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 181406,
-        "completion_tokens": 4380
+        "prompt_tokens": 10515,
+        "completion_tokens": 1458
       }
     },
-    "duration_s": 131.6
+    "duration_s": 25.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5971,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0057,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nanette Barragán",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 35.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which caps confidence at medium. However, the structural fundamentals are overwhelming: Barragán is a six-term Democratic incumbent in a district where registered Democrats outnumber Republicans by more than three to one, and the district is described as solidly Democratic. Barragán won her 2024 race with 72.5% of the vote. The Republican challenger, Genevieve Angel, is a credible candidate with a healthcare background, but faces severe structural headwinds in a district that has not been competitive for a decade. In the absence of any contrary evidence or unusual developments, Democrats remain overwhelming favorites.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:01.255243Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

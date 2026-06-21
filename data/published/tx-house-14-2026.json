@@ -242,7 +242,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_14th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:50:05.172985+00:00",
+  "updated_utc": "2026-06-20T15:36:26.092262+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -256,18 +256,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 273664,
-    "completion_tokens": 6474,
-    "total_tokens": 280138,
-    "cost_usd": 0.020669863999999996,
+    "prompt_tokens": 12533,
+    "completion_tokens": 1581,
+    "total_tokens": 14114,
+    "cost_usd": 0.001478206,
     "cost_source": "provider",
-    "estimated_usd": 0.028088,
+    "estimated_usd": 0.001413,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 273664,
-        "completion_tokens": 6474
+        "prompt_tokens": 12533,
+        "completion_tokens": 1581
       }
     },
-    "duration_s": 134.6
+    "duration_s": 28.8,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 7404,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0071,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Randy Weber",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 20.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists for this race, which constrains confidence. However, the fundamentals overwhelmingly favor Republican incumbent Randy Weber: he is a seven-term incumbent, the district has a Cook PVI of R+12 (reliably Republican), the Cook Political Report rates the race 'Solid Republican,' statewide generic ballot data shows a modest Republican edge, and the district covers heavily Republican areas (Galveston, Brazoria County, and parts of Southeast Texas). Democratic nominee Thurman Bill Bartie (former Port Arthur mayor) has local executive experience but faces long structural odds in an R+12 district with a well-entrenched incumbent. Barring an unexpected major shift, Weber is all but certain to win reelection by a comfortable double-digit margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:16.766545Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

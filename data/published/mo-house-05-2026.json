@@ -57,7 +57,7 @@
       ],
       "education": [
         {
-          "institution": "University of Missouri\u2013Kansas City",
+          "institution": "University of Missouri–Kansas City",
           "degree": "Bachelor of Arts",
           "field": "Sociology",
           "year": 1972
@@ -141,7 +141,7 @@
         {
           "url": "https://brettformissouri.com/",
           "type": "website",
-          "title": "Brett For Missouri \u2014 Official Campaign Site",
+          "title": "Brett For Missouri — Official Campaign Site",
           "last_accessed": "2026-06-12T23:00:00Z"
         }
       ],
@@ -432,7 +432,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Missouri%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:55:27.983309+00:00",
+  "updated_utc": "2026-06-20T15:38:49.083205+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -443,18 +443,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 274681,
-    "completion_tokens": 8869,
-    "total_tokens": 283550,
-    "cost_usd": 0.018253733999999997,
+    "prompt_tokens": 17366,
+    "completion_tokens": 2310,
+    "total_tokens": 19676,
+    "cost_usd": 0.002094724,
     "cost_source": "provider",
-    "estimated_usd": 0.028657,
+    "estimated_usd": 0.001979,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 274681,
-        "completion_tokens": 8869
+        "prompt_tokens": 17366,
+        "completion_tokens": 2310
       }
     },
-    "duration_s": 130.6
+    "duration_s": 39.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10171,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0097,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Emanuel Cleaver II",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.56,
+    "party_probabilities": {
+      "Democratic": 0.56,
+      "Republican": 0.42,
+      "Libertarian": 0.02
+    },
+    "margin_estimate": 2,
+    "rating": "tilt_d",
+    "confidence": "low",
+    "rationale": "No public polling exists for this race, so the forecast is based on non-polling factors and carries low confidence. Emanuel Cleaver II has represented the district since 2005 and retains strong name recognition and an established base in the Kansas City portion of the district. However, the newly enacted Republican-drawn map (upheld by the Missouri Supreme Court in May 2026) adds significant rural and conservative territory, making the seat materially more competitive. The Republican primary field of six candidates is unsettled ahead of the August 4 primary, adding further uncertainty about the eventual nominee's strength and general-election appeal. A Libertarian candidate is also on the ballot, potentially drawing votes from either major party. Without any polling data and with a dramatically redrawn district, Cleaver's incumbency provides only a narrow edge rather than a clear advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:38:40.081682+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

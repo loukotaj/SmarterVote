@@ -179,7 +179,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:13:54.420057+00:00",
+  "updated_utc": "2026-06-20T15:40:14.313761+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -190,18 +190,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 160159,
-    "completion_tokens": 6951,
-    "total_tokens": 167110,
-    "cost_usd": 0.011666618,
+    "prompt_tokens": 11291,
+    "completion_tokens": 1503,
+    "total_tokens": 12794,
+    "cost_usd": 0.0013412019999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.017058,
+    "estimated_usd": 0.001287,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 160159,
-        "completion_tokens": 6951
+        "prompt_tokens": 11291,
+        "completion_tokens": 1503
       }
     },
-    "duration_s": 124.8
+    "duration_s": 27.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6381,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jim Baird",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 28,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public district-level general-election polling exists for this race (based_on_poll_count = 0), so the forecast relies entirely on structural and historical factors rather than direct voter measurement, which reduces confidence to medium. Those structural factors overwhelmingly favor Republicans: Indiana's 4th has a Cook PVI of R+18, major nonpartisan forecasters rate the district as safely Republican, and incumbent Rep. Jim Baird has won every general election here since 2018 with at least 64% of the vote. Baird also won his 2026 primary decisively (60.5%) against a challenger. Conversely, Democratic nominee Drew Cox emerged from a crowded eight-candidate primary with just 30.3% of the vote and faces a steep uphill climb in a district that has not been competitive for Democrats. Given the absence of polling, the extreme partisan lean of the district, and Baird's consistent track record, a safe Republican rating (approximately 97% win probability, ~28-point margin estimate) is the most evidence-based assessment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:08.244582+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

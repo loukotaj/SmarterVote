@@ -289,7 +289,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:15:20.097170+00:00",
+  "updated_utc": "2026-06-20T15:43:44.561254+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -303,18 +303,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 266827,
-    "completion_tokens": 8611,
-    "total_tokens": 275438,
-    "cost_usd": 0.016944258,
+    "prompt_tokens": 10220,
+    "completion_tokens": 1472,
+    "total_tokens": 11692,
+    "cost_usd": 0.0012900720000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.027837,
+    "estimated_usd": 0.001185,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 266827,
-        "completion_tokens": 8611
+        "prompt_tokens": 10220,
+        "completion_tokens": 1472
       }
     },
-    "duration_s": 146.6
+    "duration_s": 25.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7469,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0071,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Rick W. Allen",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.93,
+    "party_probabilities": {
+      "Republican": 0.93,
+      "Democratic": 0.07
+    },
+    "margin_estimate": 14.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No recent public polling exists for this race, which limits confidence and keeps the forecast fundamentals-based. Georgia's 12th District carries an R+7 Cook PVI and is rated 'Solid R' by the Cook Political Report, indicating a strong Republican structural advantage. Incumbent Rep. Rick Allen has held the seat since 2015 and won the May 19 Republican primary with over 83% of the vote, demonstrating unified party support. On the Democratic side, the nominee was still being determined by a June 16 primary runoff between Ceretta Smith (33% in the primary) and Traci George (27% in the primary), meaning the Democratic campaign organization and general-election message were still taking shape as of mid-year. These factors—strong district partisanship, entrenched incumbency, and an unsettled Democratic field—combine to make Allen a clear favorite. However, the complete absence of polling data prevents a 'Safe R' designation; 'Likely R' captures the strong but not certain Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:43:35.113309Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

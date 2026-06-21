@@ -290,7 +290,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_28th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:34:40.900209+00:00",
+  "updated_utc": "2026-06-20T15:25:39.778013+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -304,18 +304,58 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 250984,
-    "completion_tokens": 5703,
-    "total_tokens": 256687,
-    "cost_usd": 0.016299308,
+    "prompt_tokens": 12255,
+    "completion_tokens": 1648,
+    "total_tokens": 13903,
+    "cost_usd": 0.001523998,
     "cost_source": "provider",
-    "estimated_usd": 0.025714,
+    "estimated_usd": 0.0014,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 250984,
-        "completion_tokens": 5703
+        "prompt_tokens": 12255,
+        "completion_tokens": 1648
       }
     },
-    "duration_s": 107.4
+    "duration_s": 26.5,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7009,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Judy Chu",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general-election polling exists, so confidence is medium despite overwhelmingly strong fundamentals. The district has a massive Democratic registration advantage (45% Democratic vs. 23% Republican), a D+14 Cook PVI, and Cook rates the race 'Solid D.' Incumbent Judy Chu (first elected 2009) won the June 2 top-two primary decisively with 62.2% to Republican April Verlato's 32.1%. Mid-decade redistricting under Proposition 50 introduces minor boundary uncertainty, but the structural partisan advantage and primary performance point to an extremely safe Democratic hold.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:34.820659Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/Judy_Chu",
+      "https://ballotpedia.org/Judy_Chu",
+      "https://ballotpedia.org/California%27s_28th_Congressional_District_election,_2026",
+      "https://www.cookpolitical.com/house/race/481956"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

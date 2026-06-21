@@ -108,7 +108,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arizona's_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:02:43.755315+00:00",
+  "updated_utc": "2026-06-20T15:22:04.384163+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -122,18 +122,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 257445,
-    "completion_tokens": 7736,
-    "total_tokens": 265181,
-    "cost_usd": 0.017999882000000002,
+    "prompt_tokens": 9219,
+    "completion_tokens": 1681,
+    "total_tokens": 10900,
+    "cost_usd": 0.0012329379999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.026746,
+    "estimated_usd": 0.001132,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 257445,
-        "completion_tokens": 7736
+        "prompt_tokens": 9219,
+        "completion_tokens": 1681
       }
     },
-    "duration_s": 164.2
+    "duration_s": 25.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5025,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0048,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Eli Crane",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.85,
+    "party_probabilities": {
+      "Republican": 0.85,
+      "Democratic": 0.15
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race (zero polls as of June 2026), which limits precision. Incumbent Republican Eli Crane holds clear structural advantages: the district has a Cook PVI of R+7, Crane is the incumbent, and he defeated the same Democratic challenger, Jonathan Nez, in 2024 with 54.5% of the vote. Nez is a credible and previously tested opponent, preventing a 'safe' rating, but the district's partisan lean, coupled with Crane's incumbency and demonstrated electoral performance against Nez, gives the Republican a clear advantage. A 'likely R' rating (approximately 85% win probability, ~8-point margin) best reflects these conditions given the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:00.284212Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

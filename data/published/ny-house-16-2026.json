@@ -95,7 +95,7 @@
         },
         {
           "title": "Marketing Executive",
-          "organization": "Hospitality Industry (Nestl\u00e9, ITT subsidiaries)",
+          "organization": "Hospitality Industry (Nestlé, ITT subsidiaries)",
           "start_year": null,
           "end_year": null,
           "description": "Worked for two decades in marketing for hospitality organizations",
@@ -262,7 +262,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_16th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:31:18.567726+00:00",
+  "updated_utc": "2026-06-20T15:34:37.284465+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -276,18 +276,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 243611,
-    "completion_tokens": 6121,
-    "total_tokens": 249732,
-    "cost_usd": 0.016936634000000002,
+    "prompt_tokens": 12227,
+    "completion_tokens": 1396,
+    "total_tokens": 13623,
+    "cost_usd": 0.001411958,
     "cost_source": "provider",
-    "estimated_usd": 0.025074,
+    "estimated_usd": 0.001352,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 243611,
-        "completion_tokens": 6121
+        "prompt_tokens": 12227,
+        "completion_tokens": 1396
       }
     },
-    "duration_s": 103.1
+    "duration_s": 22.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6841,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0065,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "George Latimer",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "New York's 16th Congressional District has a Cook PVI of D+18, making it one of the most Democratic-leaning districts in the country. Incumbent Democrat George Latimer is seeking a second term after defeating then-incumbent Jamaal Bowman in the 2024 primary. The district is rated Solid D by Cook Political Report. No public opinion polls are available for this race, which tempers confidence, but the fundamentals are overwhelmingly favorable for Democrats: a D+18 PVI, an incumbent with extensive local political experience (former Westchester County Executive and state legislator), and Republican/independent challengers who do not appear to have the profile or resources to overcome this structural advantage. The Democratic nominee holds an overwhelming advantage in this safely Democratic seat.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:33.267634Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

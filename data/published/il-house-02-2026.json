@@ -279,7 +279,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Illinois%27_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:23:03.707322+00:00",
+  "updated_utc": "2026-06-20T15:40:22.095912+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -293,18 +293,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 165057,
-    "completion_tokens": 6663,
-    "total_tokens": 171720,
-    "cost_usd": 0.012000318,
+    "prompt_tokens": 12782,
+    "completion_tokens": 1558,
+    "total_tokens": 14340,
+    "cost_usd": 0.0014981,
     "cost_source": "provider",
-    "estimated_usd": 0.017482,
+    "estimated_usd": 0.001431,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 165057,
-        "completion_tokens": 6663
+        "prompt_tokens": 12782,
+        "completion_tokens": 1558
       }
     },
-    "duration_s": 115.4
+    "duration_s": 26.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7264,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Donna Miller",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling is available, which limits precision. However, the district is heavily Democratic, has not elected a Republican to Congress since the 1950s, and this is an open seat created by a Democratic incumbent seeking higher office — not a sign of partisan realignment. Democratic nominee Donna Miller is an elected Cook County Commissioner who emerged from an 11-candidate competitive primary, demonstrating significant organizational strength. Republican nominee Mike Noack is a political outsider who was unopposed in the primary, and independent candidate Ashley Banks faces very long odds in a strongly Democratic district. The partisan baseline points to an overwhelming Democratic advantage, with confidence held to medium due to the absence of polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:40:15.884754Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

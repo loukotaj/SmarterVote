@@ -250,7 +250,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_10th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:56:14.991383+00:00",
+  "updated_utc": "2026-06-20T15:30:07.780587+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -264,18 +264,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 262137,
-    "completion_tokens": 6549,
-    "total_tokens": 268686,
-    "cost_usd": 0.022637196,
+    "prompt_tokens": 12444,
+    "completion_tokens": 1963,
+    "total_tokens": 14407,
+    "cost_usd": 0.001544356,
     "cost_source": "provider",
-    "estimated_usd": 0.026973,
+    "estimated_usd": 0.001473,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 262137,
-        "completion_tokens": 6549
+        "prompt_tokens": 12444,
+        "completion_tokens": 1963
       }
     },
-    "duration_s": 110.1
+    "duration_s": 31.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7029,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Scott Perry",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.52,
+    "party_probabilities": {
+      "Democratic": 0.48,
+      "Republican": 0.52
+    },
+    "margin_estimate": 0.5,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "This is a pure toss-up with very limited polling data. Incumbent Scott Perry (R) defeated Janelle Stelson (D) by just 1.2 points (50.6%-49.4%) in 2024, making this one of the nation's most competitive House seats. The only public 2026 general-election poll is a single Democratic internal (Normington Petts, April 2026, n=400) showing Stelson up 51%-45%; this should be treated with caution as campaign-sponsored polls often lean toward the sponsoring candidate. Cook Political Report rates the district a toss-up, and national Democrats are heavily targeting Perry. Perry's seven-term incumbency and narrow prior win give him a marginal structural edge, but Stelson's strong 2024 performance and name recognition from 26 years as a local TV news anchor keep this highly competitive. With only one poll and a razor-thin recent result, uncertainty is high and no clear favorite exists.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:30:01.942527Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.inquirer.com/politics/election/live/pennsylvania-primary-election-2026-results-house-20260520.html"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -227,7 +227,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:17:24.407217+00:00",
+  "updated_utc": "2026-06-20T15:34:21.376262+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -241,7 +241,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina's_9th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -249,30 +249,47 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 287264,
-    "completion_tokens": 5425,
-    "total_tokens": 292689,
-    "cost_usd": 0.041027076,
+    "prompt_tokens": 7691,
+    "completion_tokens": 1329,
+    "total_tokens": 9020,
+    "cost_usd": 0.0010142019999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.042215,
+    "estimated_usd": 0.000931,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 287264,
-        "completion_tokens": 5425
+        "prompt_tokens": 7691,
+        "completion_tokens": 1329
       }
     },
-    "duration_s": 187.0,
-    "serper_calls": 13,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 54129,
+    "duration_s": 23.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4058,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0516,
-    "context_deduplicated_results": 35,
+    "max_context_utilization": 0.0039,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Richard Hudson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.05
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "There are zero district-level polls in the record, so this forecast is based entirely on structural and contextual factors already present in the race data. Richard Hudson is a seven-term Republican incumbent and serves as NRCC chairman, giving him unmatched fundraising and institutional advantages. The district was redrawn under a new Republican-drawn map enacted in October 2025, and Cook Political Report rated the seat 'Solidly Republican' ahead of the primaries. Richard Ojeda is a credible Democratic nominee with a strong military background (retired Army Major, two Bronze Stars) and a populist message, but he is a recent transplant from West Virginia and lacks established in-district political ties. The district's partisan composition under the new map, combined with Hudson's incumbency and NRCC chairmanship, makes a Republican hold overwhelming. Confidence is medium (not high) because zero polls exist in the record and the district operates under a relatively new map whose precise partisan effects are still being observed.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:13.700410Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

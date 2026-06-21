@@ -272,7 +272,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:28:34.196172+00:00",
+  "updated_utc": "2026-06-20T15:36:21.634564+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -286,18 +286,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 201864,
-    "completion_tokens": 6717,
-    "total_tokens": 208581,
-    "cost_usd": 0.01400058,
+    "prompt_tokens": 13482,
+    "completion_tokens": 1633,
+    "total_tokens": 15115,
+    "cost_usd": 0.0016413040000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.021099,
+    "estimated_usd": 0.001507,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 201864,
-        "completion_tokens": 6717
+        "prompt_tokens": 13482,
+        "completion_tokens": 1633
       }
     },
-    "duration_s": 118.6
+    "duration_s": 25.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7776,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0074,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": null,
+    "win_probability": null,
+    "party_probabilities": {
+      "Democratic": 0.66,
+      "Republican": 0.33,
+      "Libertarian": 0.01
+    },
+    "margin_estimate": null,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "The incumbent Democrat Greg Landsman has a narrow but meaningful advantage based on available evidence, though uncertainty is substantial. The only public poll — an internal Landsman campaign poll by Impact Research from November 2025 — shows a 49%-43% lead over Republican Eric Conroy, a 6-point margin. Cook Political Report rates the seat as 'Lean Democratic,' and Landsman has incumbency advantage. However, this is a single, campaign-sponsored poll over seven months old. The district was redrawn in October 2025 under a bipartisan compromise that added Republican-leaning Clinton County, making the seat more competitive. Conroy is a credible challenger (former CIA/Air Force) with Trump and Vance endorsements who won the primary with 71.9%. The Libertarian candidate John Hancock suspended his campaign after a legal issue but remains on the ballot, representing a minor factor. With only one dated internal poll and a newly competitive district, confidence is low, but the available signals point to a modest Democratic edge consistent with a lean D rating.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:36:17.035405Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://warrencountypost.com/g/lebanon-oh/n/364195/landsman-leads-republican-initial-polling-20-percent-independent-voters"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

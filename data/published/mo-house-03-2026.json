@@ -6,7 +6,7 @@
   "state": "Missouri",
   "district": "3rd Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Missouri's 3rd Congressional District will determine who represents this east-central Missouri district \u2014 which includes parts of St. Charles County, Jefferson City, and surrounding areas \u2014 in the U.S. House of Representatives. First-term Republican incumbent Bob Onder, a physician and attorney elected in 2024, is seeking re-election in a district rated Solid Republican by the Cook Political Report (R+10). The Democratic primary features three contenders \u2014 Bethany Mann, Tommy Holstein, and Paul T. Wilson \u2014 while the Republican primary pits Onder against challenger John G. Fraser. Independent candidate Theodis Brown Sr. and Libertarian Jim Higgins are also on the ballot. The race takes place against the backdrop of ongoing legal challenges to Missouri's newly redrawn congressional map.",
+  "description": "The 2026 election for Missouri's 3rd Congressional District will determine who represents this east-central Missouri district — which includes parts of St. Charles County, Jefferson City, and surrounding areas — in the U.S. House of Representatives. First-term Republican incumbent Bob Onder, a physician and attorney elected in 2024, is seeking re-election in a district rated Solid Republican by the Cook Political Report (R+10). The Democratic primary features three contenders — Bethany Mann, Tommy Holstein, and Paul T. Wilson — while the Republican primary pits Onder against challenger John G. Fraser. Independent candidate Theodis Brown Sr. and Libertarian Jim Higgins are also on the ballot. The race takes place against the backdrop of ongoing legal challenges to Missouri's newly redrawn congressional map.",
   "candidates": [
     {
       "name": "Bob Onder",
@@ -506,7 +506,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:29:20.380123+00:00",
+  "updated_utc": "2026-06-20T15:43:49.842070+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -520,7 +520,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Missouri's_3rd_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -528,34 +528,49 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 303404,
-    "completion_tokens": 11650,
-    "total_tokens": 315054,
-    "cost_usd": 0.07648695,
+    "prompt_tokens": 28529,
+    "completion_tokens": 2315,
+    "total_tokens": 30844,
+    "cost_usd": 0.0031896779999999996,
     "cost_source": "provider",
-    "estimated_usd": 0.081492,
+    "estimated_usd": 0.002984,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 255715,
-        "completion_tokens": 7612
-      },
-      "nvidia/nemotron-3-ultra-550b-a55b": {
-        "prompt_tokens": 47689,
-        "completion_tokens": 4038
+        "prompt_tokens": 28529,
+        "completion_tokens": 2315
       }
     },
-    "duration_s": 190.2,
-    "serper_calls": 21,
-    "context_requests": 15,
-    "max_estimated_context_tokens": 58455,
+    "duration_s": 37.2,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 16353,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0557,
-    "context_deduplicated_results": 84,
+    "max_context_utilization": 0.0156,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 2,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Bob Onder",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.005,
+      "Libertarian": 0.005
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No published polls exist in the race data (based_on_poll_count=0), so this forecast is driven entirely by district fundamentals. Missouri's 3rd District is rated Solid Republican with a Cook PVI of R+10, providing a strong structural GOP advantage. Incumbent Bob Onder (R) is seeking a second term after winning in 2024; while first-term incumbents can be slightly more vulnerable than entrenched ones, the district's partisan lean is formidable. The Democratic primary field has three contenders (Mann, Holstein, Wilson) but no candidate has demonstrated top-tier fundraising or national support based on available data. The Republican primary challenger (Fraser) is a CPA with no indication of a serious threat to Onder. Minor-party candidates (Libertarian Higgins, Independent Brown) are perennial or long-shot candidates. Ongoing legal challenges to Missouri's redrawn congressional map inject some uncertainty about district lines, but no specific court ruling altering the configuration is reflected in the current race data. With no polling and only fundamentals to rely on, confidence is medium, but the Republican advantage appears overwhelming.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:43:40.716450Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

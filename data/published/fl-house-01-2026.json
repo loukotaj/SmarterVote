@@ -6,7 +6,7 @@
   "state": "Florida",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "Florida's 1st Congressional District spans the western Panhandle, including Escambia, Santa Rosa, Okaloosa, and Walton counties. The seat is currently held by Republican Rep. Jimmy Patronis, who won a 2025 special election to replace former Rep. Matt Gaetz. Patronis faces a competitive Republican primary challenge from Navy veteran Doug Chico and former Green Beret John Frankman, while Democrat Gay Valimont\u2014a two-time nominee in this strongly Republican district\u2014is running for a third time. The August 18, 2026 primary will determine each party's general election nominee, though the district's heavy Republican tilt (53% GOP voter registration) makes it consistently rated 'Solid Republican' by major election forecasters.",
+  "description": "Florida's 1st Congressional District spans the western Panhandle, including Escambia, Santa Rosa, Okaloosa, and Walton counties. The seat is currently held by Republican Rep. Jimmy Patronis, who won a 2025 special election to replace former Rep. Matt Gaetz. Patronis faces a competitive Republican primary challenge from Navy veteran Doug Chico and former Green Beret John Frankman, while Democrat Gay Valimont—a two-time nominee in this strongly Republican district—is running for a third time. The August 18, 2026 primary will determine each party's general election nominee, though the district's heavy Republican tilt (53% GOP voter registration) makes it consistently rated 'Solid Republican' by major election forecasters.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of mid-2026. The district is considered Safe/Solid Republican by all major ratings outlets (Cook Political Report, Inside Elections, Sabato's Crystal Ball).",
   "candidates": [
@@ -14,7 +14,7 @@
       "name": "Jimmy Patronis",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Jimmy Patronis is the incumbent U.S. Representative for Florida's 1st Congressional District, first elected in an April 2025 special election to replace Matt Gaetz. He previously served as Florida's Chief Financial Officer (2017\u20132025), a statewide elected cabinet position, and earlier served eight years in the Florida House of Representatives. Patronis is a fourth-generation Floridian and former small business owner who has emphasized conservative fiscal policy, support for President Trump's agenda, and opposition to ESG investing.",
+      "summary": "Jimmy Patronis is the incumbent U.S. Representative for Florida's 1st Congressional District, first elected in an April 2025 special election to replace Matt Gaetz. He previously served as Florida's Chief Financial Officer (2017–2025), a statewide elected cabinet position, and earlier served eight years in the Florida House of Representatives. Patronis is a fourth-generation Floridian and former small business owner who has emphasized conservative fiscal policy, support for President Trump's agenda, and opposition to ESG investing.",
       "summary_sources": [
         {
           "url": "https://www.cookpolitical.com/house/race/482516",
@@ -338,7 +338,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:38:42.003301+00:00",
+  "updated_utc": "2026-06-20T15:21:48.406769+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -352,18 +352,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 188973,
-    "completion_tokens": 8875,
-    "total_tokens": 197848,
-    "cost_usd": 0.013719334,
+    "prompt_tokens": 4974,
+    "completion_tokens": 1402,
+    "total_tokens": 6376,
+    "cost_usd": 0.000762244,
     "cost_source": "provider",
-    "estimated_usd": 0.020259,
+    "estimated_usd": 0.0007,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 188973,
-        "completion_tokens": 8875
+        "prompt_tokens": 4974,
+        "completion_tokens": 1402
       }
     },
-    "duration_s": 113.4
+    "duration_s": 21.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3422,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0033,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jimmy Patronis",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available, so confidence is necessarily medium and this forecast relies on the race description and candidate context provided. Florida's 1st District is described as heavily Republican, with 53% GOP voter registration, and all major rating outlets (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate it Safe/Solid Republican. Incumbent Jimmy Patronis already won the 2025 special election, has prior statewide and legislative experience, and holds a massive fundraising advantage (~$3.1M) over Democrat Gay Valimont (~$37K). While there is a competitive Republican primary with three candidates, the district's strong Republican baseline makes the GOP the overwhelming favorite in the general election regardless of who emerges as the nominee.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:21:43.332129Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

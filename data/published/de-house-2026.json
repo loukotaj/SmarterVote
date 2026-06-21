@@ -197,7 +197,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_House_of_Representatives_election_in_Delaware,_2026",
-  "updated_utc": "2026-06-13T22:08:48.901565+00:00",
+  "updated_utc": "2026-06-20T15:35:32.445890+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -211,18 +211,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 304308,
-    "completion_tokens": 7129,
-    "total_tokens": 311437,
-    "cost_usd": 0.021734668000000002,
+    "prompt_tokens": 11003,
+    "completion_tokens": 2802,
+    "total_tokens": 13805,
+    "cost_usd": 0.001627486,
     "cost_source": "provider",
-    "estimated_usd": 0.031219,
+    "estimated_usd": 0.001495,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 304308,
-        "completion_tokens": 7129
+        "prompt_tokens": 11003,
+        "completion_tokens": 2802
       }
     },
-    "duration_s": 174.8
+    "duration_s": 37.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6367,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Sarah McBride",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, reducing quantitative certainty. However, the fundamentals are exceptionally strong for Democrats: Delaware's at-large district has a Cook PVI of D+50 and is described as Solid Democratic; incumbent Sarah McBride won the seat in 2024 with 57.9% of the vote; the district has consistently elected Democrats at the federal level; and Republican challenger Earl Cooper is a first-time general-election candidate who previously ran as a Democrat in the 2024 primary and received only 16.2%. Absent any countervailing polling evidence, Democrats hold an overwhelming structural advantage. Confidence is set to medium because the forecast relies entirely on fundamentals and historical signals rather than current race-specific polling.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:35:25.102175Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

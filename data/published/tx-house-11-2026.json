@@ -227,7 +227,7 @@
         {
           "url": "https://txroundtable.com/elections/",
           "type": "website",
-          "title": "Elections \u2013 Candidates on the Ballot | Texas Business Roundtable",
+          "title": "Elections – Candidates on the Ballot | Texas Business Roundtable",
           "description": null,
           "last_accessed": "2026-06-18T12:00:00Z",
           "published_at": null,
@@ -254,7 +254,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_11th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:40:42.445763+00:00",
+  "updated_utc": "2026-06-20T15:33:31.213047+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -268,18 +268,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 350215,
-    "completion_tokens": 6656,
-    "total_tokens": 356871,
-    "cost_usd": 0.02050987,
+    "prompt_tokens": 7821,
+    "completion_tokens": 1291,
+    "total_tokens": 9112,
+    "cost_usd": 0.0010194940000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.035626,
+    "estimated_usd": 0.000936,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 350215,
-        "completion_tokens": 6656
+        "prompt_tokens": 7821,
+        "completion_tokens": 1291
       }
     },
-    "duration_s": 162.5
+    "duration_s": 22.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4024,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0038,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "August Pfluger",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.98,
+      "Democratic": 0.015,
+      "Independent": 0.005
+    },
+    "margin_estimate": 30.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, so confidence is limited (medium) and the forecast relies on structural indicators rather than direct voter measurement. Those indicators overwhelmingly favor the Republican incumbent: August Pfluger is a three-term incumbent running unopposed in the primary in Texas's 11th Congressional District, which is rated Solidly Republican by Cook Political Report with a PVI of R+17 and a nearly 10-to-1 Republican voter registration advantage. The Democratic nominee, Claire Reynolds, won a contested primary (57.6%) but faces extremely unfavorable partisan terrain; independent Sean Benson has minimal public information and organizational strength. Given the district's deep Republican baseline, strong incumbency advantage, and absence of any countervailing indicators, Republicans hold an overwhelming advantage and the seat is Safe Republican.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:21.417625Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

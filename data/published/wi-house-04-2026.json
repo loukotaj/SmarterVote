@@ -395,7 +395,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:24:15.712399+00:00",
+  "updated_utc": "2026-06-20T15:34:23.235111+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -409,7 +409,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Wisconsin's_4th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -417,30 +417,48 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 185071,
-    "completion_tokens": 11542,
-    "total_tokens": 196613,
-    "cost_usd": 0.03777747,
+    "prompt_tokens": 8873,
+    "completion_tokens": 1638,
+    "total_tokens": 10511,
+    "cost_usd": 0.001190602,
     "cost_source": "provider",
-    "estimated_usd": 0.038399,
+    "estimated_usd": 0.001093,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 185071,
-        "completion_tokens": 11542
+        "prompt_tokens": 8873,
+        "completion_tokens": 1638
       }
     },
-    "duration_s": 205.1,
-    "serper_calls": 18,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 35421,
+    "duration_s": 29.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4655,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0338,
-    "context_deduplicated_results": 66,
+    "max_context_utilization": 0.0044,
+    "context_deduplicated_results": 0,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Gwen Moore",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "Wisconsin's 4th Congressional District is characterized as Safe/Solid Democratic by major election forecasters and has not elected a Republican since 2004. Incumbent Democrat Gwen Moore, first elected in 2004 and seeking a 12th term, enjoys a significant incumbency and name-recognition advantage. The district encompasses Milwaukee County and northern Milwaukee suburbs — a strongly Democratic-leaning constituency. The Republican primary is uncontested, and the Republican candidate (Purnima Nath) is a perennial candidate with no indication of general-election competitiveness. Multiple independent candidates are on the ballot but have limited profiles and campaign infrastructure. No candidate-level polling is available in the race data, and the Democratic primary (August 11, 2026) has two challengers to Moore, but neither appears to pose a serious threat to the incumbent. Given the absence of polling, confidence is medium despite the very strong structural Democratic advantage, which underpins a safe Democratic rating and a high Democratic win probability.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:18.055894Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
   }
 }

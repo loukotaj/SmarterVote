@@ -536,7 +536,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_2nd_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:09:15.980422+00:00",
+  "updated_utc": "2026-06-20T15:20:43.069975+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -550,18 +550,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 213985,
-    "completion_tokens": 9655,
-    "total_tokens": 223640,
-    "cost_usd": 0.013697598000000002,
+    "prompt_tokens": 17899,
+    "completion_tokens": 2474,
+    "total_tokens": 20373,
+    "cost_usd": 0.002239006,
     "cost_source": "provider",
-    "estimated_usd": 0.022863,
+    "estimated_usd": 0.002056,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 213985,
-        "completion_tokens": 9655
+        "prompt_tokens": 17899,
+        "completion_tokens": 2474
       }
     },
-    "duration_s": 131.7
+    "duration_s": 42.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10757,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0103,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Shomari Figures",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.5,
+    "party_probabilities": {
+      "Democratic": 0.5,
+      "Republican": 0.5
+    },
+    "margin_estimate": 0.5,
+    "rating": "tossup",
+    "confidence": "low",
+    "rationale": "No general-election polling exists for this race, so the forecast is based entirely on structural factors and carries low confidence. Incumbent Democrat Shomari Figures won a competitive 2024 race under a court-ordered map with a ~49% Black Voting Age Population. The Supreme Court's Louisiana v. Callais ruling allowed Alabama to revert to a 2023 map that reduces the district's BVAP to under 40%, making it significantly more favorable to Republicans in a strongly Republican state. However, Figures has clear incumbency advantages and a strong campaign background. The Republican nomination is unsettled—a six-candidate special primary on August 11, 2026, with no clear frontrunner—adding further uncertainty. Given the countervailing forces of a weakened Democratic map vs. incumbent quality, the lack of polling, and the unresolved GOP field, the race is a pure tossup at this stage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:33.140374Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

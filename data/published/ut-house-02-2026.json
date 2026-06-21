@@ -14,7 +14,7 @@
       "name": "Blake Moore",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Blake Moore is a U.S. Representative who has represented Utah's 1st Congressional District since 2021 and is now running in the newly redrawn 2nd District due to court-ordered redistricting. He serves as Vice Chair of the House Republican Conference\u2014the first Utahn ever elected to House or Senate leadership\u2014and sits on the House Ways and Means and Budget Committees. Moore emphasizes his leadership role and track record of passing legislation, including bills related to tax policy, public lands, and military modernization.",
+      "summary": "Blake Moore is a U.S. Representative who has represented Utah's 1st Congressional District since 2021 and is now running in the newly redrawn 2nd District due to court-ordered redistricting. He serves as Vice Chair of the House Republican Conference—the first Utahn ever elected to House or Senate leadership—and sits on the House Ways and Means and Budget Committees. Moore emphasizes his leadership role and track record of passing legislation, including bills related to tax policy, public lands, and military modernization.",
       "summary_sources": [
         {
           "url": "https://blakemoore.house.gov/about",
@@ -381,7 +381,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Utah%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:37:21.628194+00:00",
+  "updated_utc": "2026-06-20T15:30:35.183847+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -395,18 +395,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 288453,
-    "completion_tokens": 13595,
-    "total_tokens": 302048,
-    "cost_usd": 0.022256918,
+    "prompt_tokens": 8941,
+    "completion_tokens": 2579,
+    "total_tokens": 11520,
+    "cost_usd": 0.0013217980000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.030933,
+    "estimated_usd": 0.001269,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 288453,
-        "completion_tokens": 13595
+        "prompt_tokens": 8941,
+        "completion_tokens": 2579
       }
     },
-    "duration_s": 172.0
+    "duration_s": 42.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4793,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0046,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Blake Moore",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.04,
+      "Other": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "low",
+    "rationale": "No general election polling is available (based_on_poll_count=0), so this assessment relies entirely on structural and contextual indicators. The newly drawn northern Utah district encompasses Davis, Weber, Box Elder, Cache, and Rich counties — a heavily Republican region in a state where the GOP holds all four U.S. House seats and the presidential margin was approximately +20 points in 2024. The Republican primary (June 23) between incumbent Blake Moore and state Rep. Karianne Lisonbee is described as highly competitive, but the general election winner regardless of the primary outcome is overwhelmingly expected to be Republican. The Democratic nominee, Peter Crosby, advanced without a primary and has limited statewide profile. Third-party and unaffiliated candidates (Libertarian Daniel Cottam, Independent American Carlton Bowen, Robert Moesinger) are further marginal. Key uncertainties: (1) the Republican primary is unresolved as of this writing; (2) the court-ordered map is new, so exact partisan composition is not validated by prior election results in this precise configuration; and (3) zero polling exists. The safe_r rating (≈95%+ Republican win probability) reflects Utah's strong Republican lean and the weakness of the Democratic and minor-party field, while low confidence acknowledges the absence of polling and the untested district lines.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:28.915436Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

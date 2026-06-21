@@ -197,7 +197,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_30th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:53:15.969673+00:00",
+  "updated_utc": "2026-06-20T15:23:26.757882+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -211,18 +211,50 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 228065,
-    "completion_tokens": 5981,
-    "total_tokens": 234046,
-    "cost_usd": 0.01449711,
+    "prompt_tokens": 16038,
+    "completion_tokens": 1767,
+    "total_tokens": 17805,
+    "cost_usd": 0.001858152,
     "cost_source": "provider",
-    "estimated_usd": 0.023523,
+    "estimated_usd": 0.001761,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 228065,
-        "completion_tokens": 5981
+        "prompt_tokens": 16038,
+        "completion_tokens": 1767
       }
     },
-    "duration_s": 109.2
+    "duration_s": 30.7,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 7074,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0067,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Laura Friedman",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {},
+    "margin_estimate": 28.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this contest, which limits confidence. However, the district is described as a Democratic stronghold where registered Democrats outnumber Republicans by roughly three to one. Incumbent Democrat Laura Friedman is seeking a second term after winning the seat in 2024, and the district has a long history of Democratic representation (previously held by Adam Schiff). Republican challenger Scott Meyers advanced from a seven-candidate top-two primary as the runner-up, but the district's fundamentals—a roughly 3:1 Democratic registration advantage combined with incumbency—point to an overwhelming Democratic advantage. In the absence of polling counter-signals, a safe Democratic rating is warranted, though confidence remains medium due to the polling gap.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:20.448068Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

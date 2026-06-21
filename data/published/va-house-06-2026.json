@@ -109,7 +109,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:24:03.750662+00:00",
+  "updated_utc": "2026-06-20T15:36:53.903655+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -120,18 +120,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 378445,
-    "completion_tokens": 8577,
-    "total_tokens": 387022,
-    "cost_usd": 0.026398526,
+    "prompt_tokens": 15035,
+    "completion_tokens": 2649,
+    "total_tokens": 17684,
+    "cost_usd": 0.001992634,
     "cost_source": "provider",
-    "estimated_usd": 0.038769,
+    "estimated_usd": 0.00183,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 378445,
-        "completion_tokens": 8577
+        "prompt_tokens": 15035,
+        "completion_tokens": 2649
       }
     },
-    "duration_s": 157.1
+    "duration_s": 36.5,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 6718,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0064,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ben Cline",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.91,
+    "party_probabilities": {
+      "Republican": 0.91,
+      "Democratic": 0.09
+    },
+    "margin_estimate": 17,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No head-to-head general election polling is available, so confidence is necessarily medium. The district fundamentals still strongly favor the incumbent Republican: the Virginia Supreme Court struck down a 2026 referendum that would have redrawn lines to favor Democrats, leaving the current Republican-leaning boundaries intact; Donald Trump won the district by 24 points in 2024; and Ben Cline was re-elected by 28 points. Cline is a four-term incumbent with a long pre-Congress career in the district (Virginia House of Delegates 2002–2018). The Democratic challenger, Beth Macy, is a best-selling author and first-time candidate described as well-funded with a message of economic populism, but there is no polling to test whether that message is moving voters. A G. Elliot Morris MRP analysis (Cardinal News, April 2026) estimated Trump's district-level approval at 48.3% approve vs. 51.7% disapprove — a modestly negative net approval despite the +24 vote margin, which hints at possible softness but is not a direct vote-choice signal. Without head-to-head polling, the strong recent Republican voting record anchors the forecast in likely Republican territory rather than safe, as a well-funded challenger in a shifting environment could narrow the margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:48.363169+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

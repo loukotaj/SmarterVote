@@ -80,7 +80,8 @@
   // ---- scroll management ---------------------------------------------------
   function onScroll() {
     if (!scrollEl) return;
-    const atBottom = scrollEl.scrollHeight - scrollEl.scrollTop - scrollEl.clientHeight < 60;
+    const atBottom =
+      scrollEl.scrollHeight - scrollEl.scrollTop - scrollEl.clientHeight < 60;
     userScrolledUp = !atBottom;
   }
 
@@ -101,9 +102,12 @@
       parts.push(`steps: ${(opts.enabled_steps as string[]).join(", ")}`);
     }
     if (opts.research_model) parts.push(`model: ${opts.research_model}`);
-    if (opts.max_candidates) parts.push(`max candidates: ${opts.max_candidates}`);
+    if (opts.max_candidates)
+      parts.push(`max candidates: ${opts.max_candidates}`);
     if (Array.isArray(opts.candidate_names) && opts.candidate_names.length) {
-      parts.push(`candidates: ${(opts.candidate_names as string[]).join(", ")}`);
+      parts.push(
+        `candidates: ${(opts.candidate_names as string[]).join(", ")}`
+      );
     }
     if (opts.target_no_info) parts.push("target no-info candidates");
     if (opts.note) parts.push(`note: \u201c${opts.note}\u201d`);
@@ -111,28 +115,42 @@
   }
 
   function gradeColor(grade?: string): string {
-    if (!grade) return "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400";
-    if (grade === "A") return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
-    if (grade === "B") return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300";
-    if (grade === "C") return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300";
-    if (grade === "D") return "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300";
+    if (!grade)
+      return "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400";
+    if (grade === "A")
+      return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
+    if (grade === "B")
+      return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300";
+    if (grade === "C")
+      return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300";
+    if (grade === "D")
+      return "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300";
     return "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300";
   }
 
   function freshnessColor(f?: string): string {
-    if (!f) return "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400";
-    if (f === "fresh") return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
-    if (f === "recent") return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300";
-    if (f === "aging") return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300";
+    if (!f)
+      return "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400";
+    if (f === "fresh")
+      return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
+    if (f === "recent")
+      return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300";
+    if (f === "aging")
+      return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300";
     return "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300";
   }
 
   function statusColor(s: string): string {
-    if (s === "published") return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
-    if (s === "draft") return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300";
-    if (s === "queued") return "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300";
-    if (s === "running") return "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300";
-    if (s === "failed") return "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300";
+    if (s === "published")
+      return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
+    if (s === "draft")
+      return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300";
+    if (s === "queued")
+      return "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300";
+    if (s === "running")
+      return "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300";
+    if (s === "failed")
+      return "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300";
     return "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400";
   }
 
@@ -141,8 +159,12 @@
     try {
       await navigator.clipboard.writeText(content);
       copiedTs = ts;
-      setTimeout(() => { copiedTs = null; }, 1500);
-    } catch { /* ignore */ }
+      setTimeout(() => {
+        copiedTs = null;
+      }, 1500);
+    } catch {
+      /* ignore */
+    }
   }
 
   function formatTs(ts: number): string {
@@ -155,23 +177,38 @@
   function renderContent(text: string): string {
     // Step 1: extract fenced code blocks and protect them from further processing
     const codeBlocks: string[] = [];
-    let s = text.replace(/```([^\n]*)\n?([\s\S]*?)```/g, (_m, lang: string, inner: string) => {
-      const langLabel = lang.trim()
-        ? `<div class="text-[10px] text-content-subtle mb-1 font-mono">${escapeHtml(lang.trim())}</div>`
-        : "";
-      const placeholder = `\x00CODE${codeBlocks.length}\x00`;
-      codeBlocks.push(`<pre class="my-2 p-2.5 rounded-lg bg-surface-alt text-xs overflow-x-auto border border-stroke leading-relaxed">${langLabel}<code>${escapeHtml(inner.replace(/\n$/, ""))}</code></pre>`);
-      return placeholder;
-    });
+    let s = text.replace(
+      /```([^\n]*)\n?([\s\S]*?)```/g,
+      (_m, lang: string, inner: string) => {
+        const langLabel = lang.trim()
+          ? `<div class="text-[10px] text-content-subtle mb-1 font-mono">${escapeHtml(
+              lang.trim()
+            )}</div>`
+          : "";
+        const placeholder = `@@CODE${codeBlocks.length}@@`;
+        codeBlocks.push(
+          `<pre class="my-2 p-2.5 rounded-lg bg-surface-alt text-xs overflow-x-auto border border-stroke leading-relaxed">${langLabel}<code>${escapeHtml(
+            inner.replace(/\n$/, "")
+          )}</code></pre>`
+        );
+        return placeholder;
+      }
+    );
 
     // Step 2: escape HTML in remaining text
     s = escapeHtml(s);
 
     // Step 3: restore code block placeholders (already escaped inside)
-    s = s.replace(/\x00CODE(\d+)\x00/g, (_m, idx: string) => codeBlocks[Number(idx)]);
+    s = s.replace(
+      /@@CODE(\d+)@@/g,
+      (_m, idx: string) => codeBlocks[Number(idx)]
+    );
 
     // Inline code
-    s = s.replace(/`([^`\n]+)`/g, '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>');
+    s = s.replace(
+      /`([^`\n]+)`/g,
+      '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>'
+    );
 
     // Bold + italic (order matters: *** before ** before *)
     s = s.replace(/\*\*\*([\s\S]*?)\*\*\*/g, "<strong><em>$1</em></strong>");
@@ -183,8 +220,10 @@
     s = s.replace(/~~([\s\S]*?)~~/g, "<del>$1</del>");
 
     // Links [text](url)
-    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
-      '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80">$1</a>');
+    s = s.replace(
+      /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80">$1</a>'
+    );
 
     // Process lines for block-level elements
     const lines = s.split("\n");
@@ -194,7 +233,10 @@
     const listStack: ListFrame[] = [];
 
     function closeListsToIndent(targetIndent: number) {
-      while (listStack.length > 0 && listStack[listStack.length - 1].indent > targetIndent) {
+      while (
+        listStack.length > 0 &&
+        listStack[listStack.length - 1].indent > targetIndent
+      ) {
         out.push(`</${listStack.pop()!.tag}>`);
       }
     }
@@ -208,7 +250,9 @@
 
     function flushParagraph() {
       if (paraLines.length > 0) {
-        out.push(`<p class="mb-1 leading-relaxed">${paraLines.join("<br>")}</p>`);
+        out.push(
+          `<p class="mb-1 leading-relaxed">${paraLines.join("<br>")}</p>`
+        );
         paraLines = [];
       }
     }
@@ -232,9 +276,10 @@
         flushParagraph();
         closeAllLists();
         const lvl = hMatch[1].length;
-        const cls = lvl === 1
-          ? "text-base font-bold mt-3 mb-1"
-          : lvl === 2
+        const cls =
+          lvl === 1
+            ? "text-base font-bold mt-3 mb-1"
+            : lvl === 2
             ? "text-sm font-bold mt-2 mb-0.5"
             : "text-sm font-semibold mt-1";
         out.push(`<p class="${cls}">${hMatch[2]}</p>`);
@@ -256,27 +301,56 @@
       if (bqMatch) {
         flushParagraph();
         closeAllLists();
-        out.push(`<blockquote class="border-l-2 border-blue-400 pl-3 my-1 text-content-muted italic text-sm">${bqMatch[1]}</blockquote>`);
+        out.push(
+          `<blockquote class="border-l-2 border-blue-400 pl-3 my-1 text-content-muted italic text-sm">${bqMatch[1]}</blockquote>`
+        );
         i++;
         continue;
       }
 
       // Table detection (line starts with |)
-      if (trimmed.startsWith("|") && i + 1 < lines.length && /^\|[\s|:-]+\|/.test(lines[i + 1].trim())) {
+      if (
+        trimmed.startsWith("|") &&
+        i + 1 < lines.length &&
+        /^\|[\s|:-]+\|/.test(lines[i + 1].trim())
+      ) {
         flushParagraph();
         closeAllLists();
         // Parse header row
-        const headerCells = trimmed.split("|").filter((_, idx, arr) => idx > 0 && idx < arr.length - 1).map(c => c.trim());
+        const headerCells = trimmed
+          .split("|")
+          .filter((_, idx, arr) => idx > 0 && idx < arr.length - 1)
+          .map((c) => c.trim());
         i += 2; // skip header + separator
         const rows: string[][] = [];
         while (i < lines.length && lines[i].trim().startsWith("|")) {
-          const cells = lines[i].trim().split("|").filter((_, idx, arr) => idx > 0 && idx < arr.length - 1).map(c => c.trim());
+          const cells = lines[i]
+            .trim()
+            .split("|")
+            .filter((_, idx, arr) => idx > 0 && idx < arr.length - 1)
+            .map((c) => c.trim());
           rows.push(cells);
           i++;
         }
-        const thead = `<thead class="bg-surface-alt"><tr>${headerCells.map(c => `<th class="px-2 py-1 text-left text-xs font-semibold text-content-muted border-b border-stroke">${c}</th>`).join("")}</tr></thead>`;
-        const tbody = `<tbody>${rows.map(row => `<tr class="border-b border-stroke/50 hover:bg-surface-alt/50">${row.map(c => `<td class="px-2 py-1 text-xs text-content">${c}</td>`).join("")}</tr>`).join("")}</tbody>`;
-        out.push(`<div class="overflow-x-auto my-2"><table class="w-full text-left border border-stroke rounded-lg overflow-hidden text-xs">${thead}${tbody}</table></div>`);
+        const thead = `<thead class="bg-surface-alt"><tr>${headerCells
+          .map(
+            (c) =>
+              `<th class="px-2 py-1 text-left text-xs font-semibold text-content-muted border-b border-stroke">${c}</th>`
+          )
+          .join("")}</tr></thead>`;
+        const tbody = `<tbody>${rows
+          .map(
+            (row) =>
+              `<tr class="border-b border-stroke/50 hover:bg-surface-alt/50">${row
+                .map(
+                  (c) => `<td class="px-2 py-1 text-xs text-content">${c}</td>`
+                )
+                .join("")}</tr>`
+          )
+          .join("")}</tbody>`;
+        out.push(
+          `<div class="overflow-x-auto my-2"><table class="w-full text-left border border-stroke rounded-lg overflow-hidden text-xs">${thead}${tbody}</table></div>`
+        );
         continue;
       }
 
@@ -297,7 +371,11 @@
         closeListsToIndent(indent);
 
         // Open new list if needed at this indent
-        if (listStack.length === 0 || listStack[listStack.length - 1].indent < indent || listStack[listStack.length - 1].tag !== tag) {
+        if (
+          listStack.length === 0 ||
+          listStack[listStack.length - 1].indent < indent ||
+          listStack[listStack.length - 1].tag !== tag
+        ) {
           out.push(`<${tag} ${tag === "ul" ? ulCls : olCls}>`);
           listStack.push({ tag, indent });
         }
@@ -361,7 +439,10 @@
     if (!text) {
       input = "";
       await tick();
-      if (textareaEl) { textareaEl.style.height = "auto"; textareaEl.style.height = "42px"; }
+      if (textareaEl) {
+        textareaEl.style.height = "auto";
+        textareaEl.style.height = "42px";
+      }
     }
 
     messages = [...messages, { role: "user", content: msg, ts: Date.now() }];
@@ -379,7 +460,10 @@
     try {
       const history: AdminChatMessage[] = messages
         .filter((m) => m.role === "user" || m.role === "assistant")
-        .map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
+        .map((m) => ({
+          role: m.role as "user" | "assistant",
+          content: m.content,
+        }));
 
       // Show a brief "fetching race data" label update after a short pause
       const labelTimer = setTimeout(() => {
@@ -391,23 +475,33 @@
 
       const thinkingSteps = res.thinking_steps ?? [];
 
-      messages = [...messages, {
-        role: "assistant",
-        content: res.reply,
-        ts: Date.now(),
-        thinkingSteps: thinkingSteps.length ? thinkingSteps : undefined,
-      }];
+      messages = [
+        ...messages,
+        {
+          role: "assistant",
+          content: res.reply,
+          ts: Date.now(),
+          thinkingSteps: thinkingSteps.length ? thinkingSteps : undefined,
+        },
+      ];
 
       if (res.action?.type === "queue_run") {
         pendingAction = res.action;
-        pendingActionDescription = res.action.description || "Queue a pipeline run";
+        pendingActionDescription =
+          res.action.description || "Queue a pipeline run";
         pendingRaceRecords = res.race_records ?? [];
         editCheapMode = res.action.options?.cheap_mode !== false;
         editCandidateNames = Array.isArray(res.action.options?.candidate_names)
           ? (res.action.options!.candidate_names as string[]).join(", ")
           : "";
-        editNote = typeof res.action.options?.note === "string" ? res.action.options.note : "";
-        editGoal = typeof res.action.options?.goal === "string" ? res.action.options.goal : "";
+        editNote =
+          typeof res.action.options?.note === "string"
+            ? res.action.options.note
+            : "";
+        editGoal =
+          typeof res.action.options?.goal === "string"
+            ? res.action.options.goal
+            : "";
         selectedRaceIds = new Set(res.action.race_ids ?? []);
       } else if (res.question) {
         pendingQuestion = res.question;
@@ -487,14 +581,22 @@
     input = "";
     userScrolledUp = false;
     showAdvancedEdit = false;
-    try { sessionStorage.removeItem(SESSION_KEY); } catch { /* ignore */ }
+    try {
+      sessionStorage.removeItem(SESSION_KEY);
+    } catch {
+      /* ignore */
+    }
     scrollToBottom(true);
   }
 
   $: showSuggestions = messages.length <= 1 && !sending;
 
   // Persist conversation to sessionStorage whenever messages change
-  $: try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(messages)); } catch { /* ignore */ }
+  $: try {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(messages));
+  } catch {
+    /* ignore */
+  }
 
   onMount(() => scrollToBottom(true));
 </script>
@@ -503,9 +605,22 @@
   <!-- Header bar -->
   <div class="flex items-center justify-between">
     <div class="flex items-center gap-2">
-      <div class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center" aria-hidden="true">
-        <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+      <div
+        class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center"
+        aria-hidden="true"
+      >
+        <svg
+          class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
+          />
         </svg>
       </div>
       <span class="text-sm font-medium text-content">Admin Agent</span>
@@ -539,21 +654,45 @@
             {@html renderContent(msg.content)}
           </div>
         </div>
-
       {:else if msg.role === "assistant"}
         <div class="flex justify-start items-start gap-2.5 group">
-          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm" aria-hidden="true">
-            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3"/>
+          <div
+            class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm"
+            aria-hidden="true"
+          >
+            <svg
+              class="w-3.5 h-3.5 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3"
+              />
             </svg>
           </div>
           <div class="max-w-[78%] flex flex-col gap-1">
             {#if msg.thinkingSteps && msg.thinkingSteps.length}
               <div class="flex flex-wrap gap-1 mb-0.5">
                 {#each msg.thinkingSteps as step}
-                  <span class="text-[10px] text-content-subtle border border-stroke rounded-full px-2 py-0.5 bg-surface flex items-center gap-1">
-                    <svg class="w-2.5 h-2.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  <span
+                    class="text-[10px] text-content-subtle border border-stroke rounded-full px-2 py-0.5 bg-surface flex items-center gap-1"
+                  >
+                    <svg
+                      class="w-2.5 h-2.5 text-blue-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     {step}
                   </span>
@@ -574,24 +713,45 @@
               aria-label="Copy message"
             >
               {#if copiedTs === msg.ts}
-                <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                <svg
+                  class="w-3 h-3 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="2.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
                 <span class="text-green-500">Copied</span>
               {:else}
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                <svg
+                  class="w-3 h-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
                 </svg>
                 Copy
               {/if}
             </button>
           </div>
         </div>
-
       {:else}
         <!-- System / status pill -->
         <div class="flex justify-center">
-          <span class="text-xs text-content-subtle bg-surface border border-stroke rounded-full px-3 py-1 flex items-center gap-1.5">
+          <span
+            class="text-xs text-content-subtle bg-surface border border-stroke rounded-full px-3 py-1 flex items-center gap-1.5"
+          >
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderContent(msg.content)}
           </span>
@@ -602,16 +762,34 @@
     <!-- Typing indicator -->
     {#if sending}
       <div class="flex justify-start items-center gap-2.5">
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-sm" aria-hidden="true">
-          <svg class="w-3.5 h-3.5 text-white animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-            <circle cx="10" cy="10" r="4"/>
+        <div
+          class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-sm"
+          aria-hidden="true"
+        >
+          <svg
+            class="w-3.5 h-3.5 text-white animate-pulse"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <circle cx="10" cy="10" r="4" />
           </svg>
         </div>
-        <div class="bg-surface border border-stroke rounded-2xl rounded-bl-none px-4 py-3 flex items-center gap-2">
+        <div
+          class="bg-surface border border-stroke rounded-2xl rounded-bl-none px-4 py-3 flex items-center gap-2"
+        >
           <span class="inline-flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce" style="animation-delay:0ms"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce" style="animation-delay:150ms"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce" style="animation-delay:300ms"></span>
+            <span
+              class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce"
+              style="animation-delay:0ms"
+            />
+            <span
+              class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce"
+              style="animation-delay:150ms"
+            />
+            <span
+              class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce"
+              style="animation-delay:300ms"
+            />
           </span>
           <span class="text-xs text-content-subtle">{thinkingLabel}</span>
         </div>
@@ -636,15 +814,31 @@
 
   <!-- Pending action card -->
   {#if pendingAction}
-    <div class="rounded-xl border border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-950/30 p-4 space-y-3">
+    <div
+      class="rounded-xl border border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-950/30 p-4 space-y-3"
+    >
       <!-- Header -->
       <div class="flex items-center gap-2">
-        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        <svg
+          class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+          />
         </svg>
-        <p class="text-sm font-semibold text-blue-900 dark:text-blue-100">Awaiting your approval</p>
+        <p class="text-sm font-semibold text-blue-900 dark:text-blue-100">
+          Awaiting your approval
+        </p>
       </div>
-      <p class="text-sm text-blue-700 dark:text-blue-300">{pendingActionDescription}</p>
+      <p class="text-sm text-blue-700 dark:text-blue-300">
+        {pendingActionDescription}
+      </p>
 
       <!-- Race metadata: compact table for large batches, cards for small batches -->
       {#if pendingRaceRecords.length > 0}
@@ -652,36 +846,80 @@
           <!-- Large batch: scrollable table with per-row checkboxes -->
           <div>
             <div class="flex items-center justify-between mb-1.5 px-0.5">
-              <span class="text-xs text-content-subtle">{selectedRaceIds.size} of {pendingRaceRecords.length} selected</span>
+              <span class="text-xs text-content-subtle"
+                >{selectedRaceIds.size} of {pendingRaceRecords.length} selected</span
+              >
               <div class="flex gap-3">
-                <button type="button" class="text-xs text-blue-600 dark:text-blue-400 hover:underline"
-                  on:click={() => { selectedRaceIds = new Set(pendingRaceRecords.map(r => r.race_id)); }}>Select all</button>
-                <button type="button" class="text-xs text-content-subtle hover:underline"
-                  on:click={() => { selectedRaceIds = new Set(); }}>Deselect all</button>
+                <button
+                  type="button"
+                  class="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                  on:click={() => {
+                    selectedRaceIds = new Set(
+                      pendingRaceRecords.map((r) => r.race_id)
+                    );
+                  }}>Select all</button
+                >
+                <button
+                  type="button"
+                  class="text-xs text-content-subtle hover:underline"
+                  on:click={() => {
+                    selectedRaceIds = new Set();
+                  }}>Deselect all</button
+                >
               </div>
             </div>
-            <div class="max-h-64 overflow-y-auto rounded-lg border border-blue-200 dark:border-blue-800 text-xs">
+            <div
+              class="max-h-64 overflow-y-auto rounded-lg border border-blue-200 dark:border-blue-800 text-xs"
+            >
               <table class="w-full">
                 <thead class="bg-blue-50 dark:bg-blue-900/30 sticky top-0">
                   <tr>
                     <th class="w-8 px-2 py-1.5 text-left">
-                      <input type="checkbox"
-                        checked={selectedRaceIds.size === pendingRaceRecords.length && pendingRaceRecords.length > 0}
-                        on:change={(e) => { selectedRaceIds = e.currentTarget.checked ? new Set(pendingRaceRecords.map(r => r.race_id)) : new Set(); }}
+                      <input
+                        type="checkbox"
+                        checked={selectedRaceIds.size ===
+                          pendingRaceRecords.length &&
+                          pendingRaceRecords.length > 0}
+                        on:change={(e) => {
+                          selectedRaceIds = e.currentTarget.checked
+                            ? new Set(pendingRaceRecords.map((r) => r.race_id))
+                            : new Set();
+                        }}
                         class="rounded"
                       />
                     </th>
-                    <th class="px-2 py-1.5 text-left font-medium text-content-subtle">Race</th>
-                    <th class="px-2 py-1.5 text-left font-medium text-content-subtle">Grade</th>
-                    <th class="px-2 py-1.5 text-left font-medium text-content-subtle">Fresh</th>
-                    <th class="px-2 py-1.5 text-left font-medium text-content-subtle">Status</th>
+                    <th
+                      class="px-2 py-1.5 text-left font-medium text-content-subtle"
+                      >Race</th
+                    >
+                    <th
+                      class="px-2 py-1.5 text-left font-medium text-content-subtle"
+                      >Grade</th
+                    >
+                    <th
+                      class="px-2 py-1.5 text-left font-medium text-content-subtle"
+                      >Fresh</th
+                    >
+                    <th
+                      class="px-2 py-1.5 text-left font-medium text-content-subtle"
+                      >Status</th
+                    >
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-blue-100 dark:divide-blue-900 bg-white dark:bg-blue-950/10">
+                <tbody
+                  class="divide-y divide-blue-100 dark:divide-blue-900 bg-white dark:bg-blue-950/10"
+                >
                   {#each pendingRaceRecords as rec}
-                    <tr class="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-opacity {!selectedRaceIds.has(rec.race_id) ? 'opacity-40' : ''}">
+                    <tr
+                      class="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-opacity {!selectedRaceIds.has(
+                        rec.race_id
+                      )
+                        ? 'opacity-40'
+                        : ''}"
+                    >
                       <td class="px-2 py-1.5">
-                        <input type="checkbox"
+                        <input
+                          type="checkbox"
                           checked={selectedRaceIds.has(rec.race_id)}
                           on:change={(e) => {
                             const next = new Set(selectedRaceIds);
@@ -693,21 +931,41 @@
                         />
                       </td>
                       <td class="px-2 py-1.5">
-                        <div class="font-mono font-medium text-blue-800 dark:text-blue-200">{rec.race_id}</div>
-                        {#if rec.title}<div class="text-content-subtle truncate max-w-[180px]">{rec.title}</div>{/if}
+                        <div
+                          class="font-mono font-medium text-blue-800 dark:text-blue-200"
+                        >
+                          {rec.race_id}
+                        </div>
+                        {#if rec.title}<div
+                            class="text-content-subtle truncate max-w-[180px]"
+                          >
+                            {rec.title}
+                          </div>{/if}
                       </td>
                       <td class="px-2 py-1.5">
                         {#if rec.quality_grade}
-                          <span class="rounded px-1.5 py-0.5 font-semibold {gradeColor(rec.quality_grade)}">{rec.quality_grade}</span>
+                          <span
+                            class="rounded px-1.5 py-0.5 font-semibold {gradeColor(
+                              rec.quality_grade
+                            )}">{rec.quality_grade}</span
+                          >
                         {/if}
                       </td>
                       <td class="px-2 py-1.5">
                         {#if rec.freshness}
-                          <span class="rounded px-1.5 py-0.5 {freshnessColor(rec.freshness)}">{rec.freshness}</span>
+                          <span
+                            class="rounded px-1.5 py-0.5 {freshnessColor(
+                              rec.freshness
+                            )}">{rec.freshness}</span
+                          >
                         {/if}
                       </td>
                       <td class="px-2 py-1.5">
-                        <span class="rounded px-1.5 py-0.5 {statusColor(rec.status)}">{rec.status}</span>
+                        <span
+                          class="rounded px-1.5 py-0.5 {statusColor(
+                            rec.status
+                          )}">{rec.status}</span
+                        >
                       </td>
                     </tr>
                   {/each}
@@ -719,29 +977,51 @@
           <!-- Small batch: card layout -->
           <div class="flex flex-wrap gap-2 max-h-52 overflow-y-auto pr-0.5">
             {#each pendingRaceRecords as rec}
-              <div class="flex-1 min-w-[180px] rounded-lg border border-blue-200 dark:border-blue-800 bg-white dark:bg-blue-950/20 p-2.5 text-xs space-y-1.5">
-                <div class="font-mono font-semibold text-blue-800 dark:text-blue-200 truncate">{rec.race_id}</div>
+              <div
+                class="flex-1 min-w-[180px] rounded-lg border border-blue-200 dark:border-blue-800 bg-white dark:bg-blue-950/20 p-2.5 text-xs space-y-1.5"
+              >
+                <div
+                  class="font-mono font-semibold text-blue-800 dark:text-blue-200 truncate"
+                >
+                  {rec.race_id}
+                </div>
                 {#if rec.title}
                   <div class="text-content-muted truncate">{rec.title}</div>
                 {/if}
                 <div class="flex flex-wrap gap-1">
                   {#if rec.discovery_only}
-                    <span class="rounded px-1.5 py-0.5 text-xs font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 border border-violet-300 dark:border-violet-700">
+                    <span
+                      class="rounded px-1.5 py-0.5 text-xs font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 border border-violet-300 dark:border-violet-700"
+                    >
                       discovery only
                     </span>
                   {/if}
                   {#if rec.quality_grade}
-                    <span class="rounded px-1.5 py-0.5 font-semibold {gradeColor(rec.quality_grade)}">
+                    <span
+                      class="rounded px-1.5 py-0.5 font-semibold {gradeColor(
+                        rec.quality_grade
+                      )}"
+                    >
                       Grade {rec.quality_grade}
                     </span>
                   {/if}
                   {#if rec.freshness}
-                    <span class="rounded px-1.5 py-0.5 {freshnessColor(rec.freshness)}">{rec.freshness}</span>
+                    <span
+                      class="rounded px-1.5 py-0.5 {freshnessColor(
+                        rec.freshness
+                      )}">{rec.freshness}</span
+                    >
                   {/if}
-                  <span class="rounded px-1.5 py-0.5 {statusColor(rec.status)}">{rec.status}</span>
+                  <span class="rounded px-1.5 py-0.5 {statusColor(rec.status)}"
+                    >{rec.status}</span
+                  >
                 </div>
                 {#if rec.candidate_count}
-                  <div class="text-content-subtle">{rec.candidate_count} candidate{rec.candidate_count !== 1 ? 's' : ''}</div>
+                  <div class="text-content-subtle">
+                    {rec.candidate_count} candidate{rec.candidate_count !== 1
+                      ? "s"
+                      : ""}
+                  </div>
                 {/if}
               </div>
             {/each}
@@ -749,8 +1029,10 @@
         {/if}
       {:else}
         <div class="flex flex-wrap gap-1.5">
-          {#each (pendingAction.race_ids ?? []) as raceId}
-            <span class="text-xs font-mono bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 rounded px-1.5 py-0.5 border border-blue-200 dark:border-blue-800">
+          {#each pendingAction.race_ids ?? [] as raceId}
+            <span
+              class="text-xs font-mono bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 rounded px-1.5 py-0.5 border border-blue-200 dark:border-blue-800"
+            >
               {raceId}
             </span>
           {/each}
@@ -758,25 +1040,39 @@
       {/if}
 
       <!-- Editable run options -->
-      <div class="border border-blue-200 dark:border-blue-800 rounded-lg bg-white dark:bg-blue-950/10 divide-y divide-blue-100 dark:divide-blue-900">
+      <div
+        class="border border-blue-200 dark:border-blue-800 rounded-lg bg-white dark:bg-blue-950/10 divide-y divide-blue-100 dark:divide-blue-900"
+      >
         <!-- cheap_mode toggle — always shown -->
-        <label class="flex items-center justify-between px-3 py-2.5 gap-3 cursor-pointer select-none">
+        <label
+          class="flex items-center justify-between px-3 py-2.5 gap-3 cursor-pointer select-none"
+        >
           <div>
             <span class="text-xs font-medium text-content">Quality mode</span>
             <p class="text-[10px] text-content-subtle mt-0.5">
-              {editCheapMode ? "Fast & cheap (default) — good for most cases" : "High quality — slower, uses better models, costs more"}
+              {editCheapMode
+                ? "Fast & cheap (default) — good for most cases"
+                : "High quality — slower, uses better models, costs more"}
             </p>
           </div>
           <div class="flex items-center gap-1.5 flex-shrink-0">
-            <span class="text-[10px] text-content-subtle">{editCheapMode ? "Fast" : "High-Q"}</span>
+            <span class="text-[10px] text-content-subtle"
+              >{editCheapMode ? "Fast" : "High-Q"}</span
+            >
             <button
               type="button"
               role="switch"
               aria-checked={!editCheapMode}
-              class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/30 {!editCheapMode ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'}"
-              on:click={() => editCheapMode = !editCheapMode}
+              class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/30 {!editCheapMode
+                ? 'bg-blue-600'
+                : 'bg-gray-300 dark:bg-gray-600'}"
+              on:click={() => (editCheapMode = !editCheapMode)}
             >
-              <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform {!editCheapMode ? 'translate-x-4' : 'translate-x-0.5'}"></span>
+              <span
+                class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform {!editCheapMode
+                  ? 'translate-x-4'
+                  : 'translate-x-0.5'}"
+              />
             </button>
           </div>
         </label>
@@ -785,18 +1081,33 @@
         <button
           type="button"
           class="w-full flex items-center justify-between px-3 py-2 text-xs text-content-subtle hover:text-content hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-          on:click={() => showAdvancedEdit = !showAdvancedEdit}
+          on:click={() => (showAdvancedEdit = !showAdvancedEdit)}
         >
           <span>Advanced options</span>
-          <svg class="w-3.5 h-3.5 transition-transform {showAdvancedEdit ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+          <svg
+            class="w-3.5 h-3.5 transition-transform {showAdvancedEdit
+              ? 'rotate-180'
+              : ''}"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </button>
 
         {#if showAdvancedEdit}
           <div class="px-3 py-2.5 space-y-2.5">
             <div>
-              <label for="edit-candidate-names" class="block text-[10px] font-medium text-content-subtle mb-1">
+              <label
+                for="edit-candidate-names"
+                class="block text-[10px] font-medium text-content-subtle mb-1"
+              >
                 Candidate names (comma-separated, leave blank for all)
               </label>
               <input
@@ -808,7 +1119,11 @@
               />
             </div>
             <div>
-              <label for="edit-note" class="block text-[10px] font-medium text-content-subtle mb-1">Note</label>
+              <label
+                for="edit-note"
+                class="block text-[10px] font-medium text-content-subtle mb-1"
+                >Note</label
+              >
               <input
                 id="edit-note"
                 type="text"
@@ -818,7 +1133,11 @@
               />
             </div>
             <div>
-              <label for="edit-goal" class="block text-[10px] font-medium text-content-subtle mb-1">Goal</label>
+              <label
+                for="edit-goal"
+                class="block text-[10px] font-medium text-content-subtle mb-1"
+                >Goal</label
+              >
               <input
                 id="edit-goal"
                 type="text"
@@ -839,7 +1158,11 @@
       <!-- Action buttons -->
       <div class="flex items-center gap-2">
         {#if actionResult}
-          <span class="text-sm font-medium {actionResult.startsWith('\u2713') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
+          <span
+            class="text-sm font-medium {actionResult.startsWith('\u2713')
+              ? 'text-green-600 dark:text-green-400'
+              : 'text-red-600 dark:text-red-400'}"
+          >
             {actionResult}
           </span>
         {:else}
@@ -850,15 +1173,44 @@
             disabled={confirmingAction || selectedRaceIds.size === 0}
           >
             {#if confirmingAction}
-              <svg class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+              <svg
+                class="w-3.5 h-3.5 animate-spin"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                />
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
               </svg>
               Queuing\u2026
             {:else}
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               Approve &amp; queue
             {/if}
@@ -878,12 +1230,26 @@
 
   <!-- Pending question card -->
   {#if pendingQuestion}
-    <div class="rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 p-4 space-y-3">
+    <div
+      class="rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 p-4 space-y-3"
+    >
       <div class="flex items-start gap-2">
-        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01"/>
+        <svg
+          class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01"
+          />
         </svg>
-        <p class="text-sm text-amber-900 dark:text-amber-100">{pendingQuestion}</p>
+        <p class="text-sm text-amber-900 dark:text-amber-100">
+          {pendingQuestion}
+        </p>
       </div>
       <button
         type="button"
@@ -903,16 +1269,19 @@
       on:keydown={handleKeydown}
       on:input={() => {
         if (textareaEl) {
-          textareaEl.style.height = 'auto';
-          textareaEl.style.height = Math.min(textareaEl.scrollHeight, 160) + 'px';
+          textareaEl.style.height = "auto";
+          textareaEl.style.height =
+            Math.min(textareaEl.scrollHeight, 160) + "px";
         }
       }}
       rows="1"
       style="min-height: 42px;"
-      placeholder={sending ? "Thinking\u2026" : "Ask about races or request a run\u2026 (Enter to send, Shift+Enter for newline)"}
+      placeholder={sending
+        ? "Thinking\u2026"
+        : "Ask about races or request a run\u2026 (Enter to send, Shift+Enter for newline)"}
       class="flex-1 resize-none rounded-xl border border-stroke bg-surface px-3.5 py-2.5 text-sm text-content placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-colors disabled:opacity-50"
       disabled={sending}
-    ></textarea>
+    />
     <button
       type="button"
       class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium transition-colors flex items-center gap-1.5 shadow-sm"
@@ -921,12 +1290,33 @@
     >
       {#if sending}
         <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+          />
         </svg>
       {:else}
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+          />
         </svg>
       {/if}
       Send

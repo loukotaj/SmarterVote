@@ -19,7 +19,7 @@
         {
           "url": "https://www.croisantforcongress.com/",
           "type": "website",
-          "title": "Croisant for Congress \u2014 Home",
+          "title": "Croisant for Congress — Home",
           "description": null,
           "last_accessed": "2026-06-02T00:00:00Z",
           "published_at": null,
@@ -93,7 +93,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oklahoma%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:57:09.863932+00:00",
+  "updated_utc": "2026-06-20T15:34:03.696675+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -107,18 +107,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 292662,
-    "completion_tokens": 10729,
-    "total_tokens": 303391,
-    "cost_usd": 0.02459368,
+    "prompt_tokens": 9029,
+    "completion_tokens": 2010,
+    "total_tokens": 11039,
+    "cost_usd": 0.0012788019999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.030784,
+    "estimated_usd": 0.001174,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 292662,
-        "completion_tokens": 10729
+        "prompt_tokens": 9029,
+        "completion_tokens": 2010
       }
     },
-    "duration_s": 150.4
+    "duration_s": 30.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 5061,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0048,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.96
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists, limiting confidence. This is an open seat (incumbent Kevin Hern running for Senate) in a heavily Republican district (Cook PVI: R+14). The Democratic nominee, John Croisant, was uncontested in his primary, while the Republican primary (June 16, 2026) featured 12 candidates with a potential August 25 runoff if no candidate exceeded 50%. Even with the unsettled GOP nomination, the district's strong partisan baseline (rated Solid Republican by most nonpartisan forecasters) overwhelmingly favors a Republican victory. The margin estimate of 22 points reflects the R+14 baseline plus open-seat dynamics and lack of a Democratic electoral track record in the district.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:59.312796Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

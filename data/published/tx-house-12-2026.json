@@ -127,7 +127,7 @@
         {
           "url": "https://www.helifortexas.com/bio",
           "type": "website",
-          "title": "Meet Heli \u2014 Heli For Congress TX-12",
+          "title": "Meet Heli — Heli For Congress TX-12",
           "description": null,
           "last_accessed": "2026-07-17T00:00:00Z",
           "published_at": null,
@@ -206,7 +206,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:41:48.726601+00:00",
+  "updated_utc": "2026-06-20T15:26:30.657706+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -220,18 +220,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 285336,
-    "completion_tokens": 5266,
-    "total_tokens": 290602,
-    "cost_usd": 0.021057784,
+    "prompt_tokens": 9219,
+    "completion_tokens": 1352,
+    "total_tokens": 10571,
+    "cost_usd": 0.00110855,
     "cost_source": "provider",
-    "estimated_usd": 0.028995,
+    "estimated_usd": 0.001073,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 285336,
-        "completion_tokens": 5266
+        "prompt_tokens": 9219,
+        "completion_tokens": 1352
       }
     },
-    "duration_s": 140.6
+    "duration_s": 25.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6494,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0062,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Craig Goldman",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-level polling exists, reducing quantitative confidence. However, race fundamentals strongly favor Republicans: incumbent Craig Goldman holds the seat; Cook Political Report rates it Solid Republican; the district has a PVI of R+11 and backed Trump by 24 points in 2024. The district was redrawn under new 2025 maps that were challenged but upheld by the Supreme Court, though the provided data does not indicate a material shift in the district's partisan lean. Rodriguez Prilliman is a credible Democratic nominee who won her primary with 59.8%, but there is no district-specific evidence of a competitive race. The safe Republican rating reflects the overwhelming structural advantage in this district.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:26:18.361889Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

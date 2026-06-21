@@ -6,7 +6,7 @@
   "state": "New York",
   "district": "25th Congressional District",
   "election_date": "2026-11-03",
-  "description": "New York's 25th Congressional District, covering all of Monroe County and parts of Ontario County, is a safely Democratic seat (Cook PVI D+10). Incumbent Rep. Joseph Morelle (D), first elected in 2018 after the death of Rep. Louise Slaughter, is seeking a fifth full term. He faces two Democratic primary challengers \u2014 former Greece School Board member Sherita Traywick and former Brighton Town Board member Robin Wilt, who previously ran against Morelle in 2018 and 2020. The Republican nominee is Monroe County Legislator Virginia McIntyre, and independent candidate Kloud Walton is also on the general election ballot. Key issues include immigration enforcement, affordability, and the Trump administration's policies.",
+  "description": "New York's 25th Congressional District, covering all of Monroe County and parts of Ontario County, is a safely Democratic seat (Cook PVI D+10). Incumbent Rep. Joseph Morelle (D), first elected in 2018 after the death of Rep. Louise Slaughter, is seeking a fifth full term. He faces two Democratic primary challengers — former Greece School Board member Sherita Traywick and former Brighton Town Board member Robin Wilt, who previously ran against Morelle in 2018 and 2020. The Republican nominee is Monroe County Legislator Virginia McIntyre, and independent candidate Kloud Walton is also on the general election ballot. Key issues include immigration enforcement, affordability, and the Trump administration's policies.",
   "polling": [],
   "polling_note": "No public opinion polls were found for this race as of the current date. The Democratic primary on June 23, 2026 will determine the general election frontrunner in this heavily Democratic district.",
   "candidates": [
@@ -393,7 +393,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_25th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:52:03.561982+00:00",
+  "updated_utc": "2026-06-20T15:34:33.288697+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -407,18 +407,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 254381,
-    "completion_tokens": 8702,
-    "total_tokens": 263083,
-    "cost_usd": 0.022721201999999996,
+    "prompt_tokens": 15282,
+    "completion_tokens": 1924,
+    "total_tokens": 17206,
+    "cost_usd": 0.0018148359999999998,
     "cost_source": "provider",
-    "estimated_usd": 0.026635,
+    "estimated_usd": 0.001722,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 254381,
-        "completion_tokens": 8702
+        "prompt_tokens": 15282,
+        "completion_tokens": 1924
       }
     },
-    "duration_s": 123.9
+    "duration_s": 32.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8841,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0084,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Joseph Morelle",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 16.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "New York's 25th Congressional District has a Cook PVI of D+10, indicating a strong Democratic lean. Incumbent Rep. Joseph Morelle (D) is seeking a fifth full term and faces two Democratic primary challengers (Sherita Traywick and Robin Wilt), but as the incumbent with a long political career and past primary victories over Wilt, he is heavily favored to win the primary on June 23. The Republican nominee is Monroe County Legislator Virginia McIntyre, and independent Kloud Walton is also on the general election ballot. No public polling exists for this race. The general election, in a D+10 district with an incumbent Democrat, strongly favors the Democratic nominee. Confidence is medium due to the absence of polling and the primary being only three days away, but structural factors (district partisanship, incumbency, candidate field strength) point to an overwhelming Democratic advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:28.612968Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

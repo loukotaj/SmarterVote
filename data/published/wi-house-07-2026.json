@@ -83,7 +83,7 @@
       "name": "Fred Clark",
       "party": "Democratic Party",
       "incumbent": false,
-      "summary": "Fred Clark is a former Wisconsin State Assembly member (2009\u20132015), a professional forester, conservation leader, and small business owner. He previously represented the Baraboo area and now lives in Bayfield, in the 7th District. Clark is running on a platform of rebuilding the rural economy, achieving universal healthcare, protecting the Constitution and rule of law, and responsible immigration and border policy.",
+      "summary": "Fred Clark is a former Wisconsin State Assembly member (2009–2015), a professional forester, conservation leader, and small business owner. He previously represented the Baraboo area and now lives in Bayfield, in the 7th District. Clark is running on a platform of rebuilding the rural economy, achieving universal healthcare, protecting the Constitution and rule of law, and responsible immigration and border policy.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Fred_Clark",
@@ -591,7 +591,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:34:32.452240+00:00",
+  "updated_utc": "2026-06-20T15:28:34.343925+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -605,18 +605,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 252697,
-    "completion_tokens": 12785,
-    "total_tokens": 265482,
-    "cost_usd": 0.017326102,
+    "prompt_tokens": 9580,
+    "completion_tokens": 1161,
+    "total_tokens": 10741,
+    "cost_usd": 0.001166396,
     "cost_source": "provider",
-    "estimated_usd": 0.02727,
+    "estimated_usd": 0.001071,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 252697,
-        "completion_tokens": 12785
+        "prompt_tokens": 9580,
+        "completion_tokens": 1161
       }
     },
-    "duration_s": 195.9
+    "duration_s": 24.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4935,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0047,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": null,
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.05,
+      "Republican": 0.95
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race as of mid-June 2026, so the forecast is driven entirely by district fundamentals. Wisconsin's 7th District has been reliably Republican since 2011, and outgoing Rep. Tom Tiffany won his last two elections by 24–27 points. The district's strong conservative lean leads the race description to note that the Republican nominee is \"expected to be heavily favored.\" While it is an open seat (Tiffany is running for governor) and a competitive eight-candidate primary is underway, nothing in the provided data suggests a fundamental shift in the district's partisan orientation. The Republican primary field includes Trump-endorsed Michael Alfonso (son-in-law of former Rep. Sean Duffy) and several other conservative candidates, while Democratic contenders include a former state assembly member and other credible entrants. Without any polling, confidence is reduced to medium, but the underlying district fundamentals overwhelmingly favor Republicans, supporting a safe_r rating and an estimated margin around 22 points (slightly below Tiffany's recent margins due to open-seat uncertainty).",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:25.741225Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

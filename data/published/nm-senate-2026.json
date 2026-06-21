@@ -298,35 +298,69 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-13T23:13:46.569810+00:00",
+  "updated_utc": "2026-06-20T03:17:08.197059+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "reviews": [],
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 173103,
-    "completion_tokens": 13241,
-    "total_tokens": 186344,
-    "cost_usd": 0.00884243,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2644,
+    "completion_tokens": 211,
+    "total_tokens": 2855,
+    "cost_usd": 0.007471,
     "cost_source": "provider",
-    "estimated_usd": 0.013952,
+    "estimated_usd": 0.009775,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 173103,
-        "completion_tokens": 13241
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2644,
+        "completion_tokens": 211
       }
     },
-    "duration_s": 119.4
+    "duration_s": 7.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2330,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0022,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
   "validation_grade": null,
   "schema_version": "0.3",
   "state": null,
   "district": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_New_Mexico,_2026",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Ben Ray Luján",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.93,
+    "party_probabilities": {
+      "Democratic": 0.93,
+      "Republican": 0.07
+    },
+    "margin_estimate": 17.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "There is no public polling for this race, which limits confidence. Still, the available race data points to a clear Democratic advantage: Ben Ray Luján is the incumbent senator, is the best-known candidate in the field, and the race description says recent state voting history and current race ratings favor Democrats. The Republican side also appears unusually weak at this stage, with only a write-in candidate after the party did not secure a standard ballot nominee. Given the lack of polls this should not be rated at the highest confidence level, but the existing data supports Democrats as clear favorites.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:07.380203Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

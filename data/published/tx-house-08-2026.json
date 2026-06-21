@@ -1,14 +1,14 @@
 {
   "id": "tx-house-08-2026",
-  "title": "2026 U.S. House General Election \u2014 Texas's 8th Congressional District",
+  "title": "2026 U.S. House General Election — Texas's 8th Congressional District",
   "office": "U.S. House of Representatives",
   "jurisdiction": "Texas's 8th Congressional District",
   "state": "Texas",
   "district": "8th Congressional District",
   "election_date": "2026-11-03",
-  "description": "An open-seat race for Texas's 8th Congressional District, as two-term Republican incumbent Morgan Luttrell is retiring. The district covers the northern Houston exurbs \u2014 including portions of Montgomery, Harris, Waller, and Walker counties \u2014 and has a strong Republican lean (Cook PVI R+13, with Donald Trump winning it by over 30 points in 2024). Republican nominee Jessica Steinmann, a former Trump Justice Department official and Ted Cruz aide, easily won the March 3, 2026 primary with 68% of the vote. Democratic nominee Laura Jones, a small business owner and Army mom, won her primary with 66%. Given the district's partisan makeup, Steinmann is considered the heavy favorite in the general election.",
+  "description": "An open-seat race for Texas's 8th Congressional District, as two-term Republican incumbent Morgan Luttrell is retiring. The district covers the northern Houston exurbs — including portions of Montgomery, Harris, Waller, and Walker counties — and has a strong Republican lean (Cook PVI R+13, with Donald Trump winning it by over 30 points in 2024). Republican nominee Jessica Steinmann, a former Trump Justice Department official and Ted Cruz aide, easily won the March 3, 2026 primary with 68% of the vote. Democratic nominee Laura Jones, a small business owner and Army mom, won her primary with 66%. Given the district's partisan makeup, Steinmann is considered the heavy favorite in the general election.",
   "polling": [],
-  "polling_note": "No district-specific opinion polls were found for Texas's 8th Congressional District in 2026. Statewide generic-ballot polls from the Texas Politics Project and Texas A&M/ReconMR showed Republican leads of 1\u20136 points, but these are not precinct-level and do not reflect TX-08 specifically.",
+  "polling_note": "No district-specific opinion polls were found for Texas's 8th Congressional District in 2026. Statewide generic-ballot polls from the Texas Politics Project and Texas A&M/ReconMR showed Republican leads of 1–6 points, but these are not precinct-level and do not reflect TX-08 specifically.",
   "candidates": [
     {
       "name": "Jessica Steinmann",
@@ -19,7 +19,7 @@
         {
           "url": "https://www.jessicasteinmann.com/about",
           "type": "website",
-          "title": "About \u2014 Jessica Steinmann",
+          "title": "About — Jessica Steinmann",
           "last_accessed": "2026-06-14T18:00:00Z"
         },
         {
@@ -151,7 +151,7 @@
       "links": [
         {
           "url": "https://www.houstonvotersguide.org/us-house-of-rep-dem/Laura-Jones",
-          "title": "Houston Voters Guide \u2014 Laura Jones Q&A",
+          "title": "Houston Voters Guide — Laura Jones Q&A",
           "type": "other"
         }
       ],
@@ -165,7 +165,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:52:45.680697+00:00",
+  "updated_utc": "2026-06-20T15:23:18.373727+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -176,18 +176,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 281153,
-    "completion_tokens": 6401,
-    "total_tokens": 287554,
-    "cost_usd": 0.018204582,
+    "prompt_tokens": 11421,
+    "completion_tokens": 1401,
+    "total_tokens": 12822,
+    "cost_usd": 0.001393854,
     "cost_source": "provider",
-    "estimated_usd": 0.028808,
+    "estimated_usd": 0.00128,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 281153,
-        "completion_tokens": 6401
+        "prompt_tokens": 11421,
+        "completion_tokens": 1401
       }
     },
-    "duration_s": 134.1
+    "duration_s": 31.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6649,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jessica Steinmann",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.03
+    },
+    "margin_estimate": 24,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No district-specific polling exists for TX-08, so this forecast relies entirely on structural and historical factors. The district has a Cook PVI of R+13 and Donald Trump carried it by over 30 points in 2024 — a deeply Republican seat. Both candidates won their primaries decisively (Steinmann 68%, Jones 66%), but the district's partisan foundation gives the Republican nominee an overwhelming structural advantage. The open-seat nature introduces modest uncertainty vs. an incumbent race, but not enough to move this from a Safe Republican rating. Confidence is medium because of the total absence of district-level polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:10.950481+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

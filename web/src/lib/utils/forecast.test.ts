@@ -70,7 +70,7 @@ describe("forecast utilities", () => {
 
     const aggregate = aggregateForecasts(races, "senate");
     expect(aggregate.projected.Democratic).toBe(36);
-    expect(aggregate.projected.Republican).toBe(31);
+    expect(aggregate.projected.Republican).toBe(32);
     expect(aggregate.ratingCounts.tilt_d).toBe(1);
   });
 

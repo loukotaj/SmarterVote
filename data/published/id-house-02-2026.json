@@ -443,7 +443,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Idaho%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:42:38.357238+00:00",
+  "updated_utc": "2026-06-20T15:30:24.115288+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -457,18 +457,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 189955,
-    "completion_tokens": 8651,
-    "total_tokens": 198606,
-    "cost_usd": 0.014570386000000001,
+    "prompt_tokens": 16856,
+    "completion_tokens": 1414,
+    "total_tokens": 18270,
+    "cost_usd": 0.0019290320000000002,
     "cost_source": "provider",
-    "estimated_usd": 0.020311,
+    "estimated_usd": 0.001772,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 189955,
-        "completion_tokens": 8651
+        "prompt_tokens": 16856,
+        "completion_tokens": 1414
       }
     },
-    "duration_s": 174.8
+    "duration_s": 25.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9860,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0094,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mike Simpson",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.007,
+      "Libertarian": 0.002,
+      "Constitution": 0.001
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No independent public polling exists for this race, which caps confidence at medium. However, the structural indicators are overwhelming: Idaho's 2nd is an R+13 district, major nonpartisan forecasters (Cook, Inside Elections, Sabato) all rate it Solid/Safe Republican, and 14-term incumbent Mike Simpson has won general elections by wide margins for decades while chairing a powerful Appropriations subcommittee. Simpson raised over $900,000, defeated primary challengers with 63.3%, and faces a Democratic opponent (Elinor Gilbreath) who ran unopposed in her primary in a district with a deep Republican lean. The field also includes multiple minor-party and independent candidates, which may further dilute the Democratic vote share. All available evidence points to an overwhelming Republican advantage.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:19.247483Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -105,7 +105,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_4th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:41:08.469677+00:00",
+  "updated_utc": "2026-06-20T15:27:33.636418+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -119,18 +119,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 196008,
-    "completion_tokens": 4035,
-    "total_tokens": 200043,
-    "cost_usd": 0.014056594,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "cost_usd": 0.0,
     "cost_source": "provider",
-    "estimated_usd": 0.02,
+    "estimated_usd": 0.0,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 196008,
-        "completion_tokens": 4035
+        "prompt_tokens": 0,
+        "completion_tokens": 0
       }
     },
-    "duration_s": 121.0
+    "duration_s": 8.0,
+    "serper_calls": 0,
+    "context_requests": 1,
+    "max_estimated_context_tokens": 2113,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.002,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Bill Huizenga",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.61,
+    "party_probabilities": {
+      "Democratic": 0.39,
+      "Republican": 0.61
+    },
+    "margin_estimate": 3.0,
+    "rating": "tilt_r",
+    "confidence": "low",
+    "rationale": "No public polling is available for this race, so this informational forecast relies on non-polling factors in the provided race data. Bill Huizenga benefits from incumbency and long congressional experience, which gives Republicans a modest structural edge. However, the district is described as competitive and politically shifting, and the Democratic challenger is a credible major-party nominee, which limits the strength of any Republican advantage. With sparse evidence and no polling to validate the race environment, the contest is best characterized as narrowly favoring Republicans.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T14:16:52.646801Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

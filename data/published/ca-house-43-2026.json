@@ -228,7 +228,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_43rd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:48:57.388622+00:00",
+  "updated_utc": "2026-06-20T15:24:14.956669+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -242,18 +242,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 220558,
-    "completion_tokens": 6953,
-    "total_tokens": 227511,
-    "cost_usd": 0.015389632,
+    "prompt_tokens": 9115,
+    "completion_tokens": 1298,
+    "total_tokens": 10413,
+    "cost_usd": 0.001147678,
     "cost_source": "provider",
-    "estimated_usd": 0.022977,
+    "estimated_usd": 0.001054,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 220558,
-        "completion_tokens": 6953
+        "prompt_tokens": 9115,
+        "completion_tokens": 1298
       }
     },
-    "duration_s": 117.7
+    "duration_s": 21.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6411,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Maxine Waters",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 40.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists, limiting direct voter-intent data. However, multiple non-polling indicators strongly point to a safe Democratic hold: Maxine Waters is an 18-term incumbent with deep district roots; the district is heavily Democratic (57.89% registered Democrats); Cook Political Report rates it 'Solid D'; and the top-two primary saw Waters dominate with 63.8% versus Morales's 16.9%. Given the district's partisan baseline, incumbency advantage, and primary result, a Democratic victory is overwhelmingly likely.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:24:07.162699Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

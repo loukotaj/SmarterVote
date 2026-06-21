@@ -180,10 +180,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Mexico_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-  "updated_utc": "2026-06-13T21:04:16.062426+00:00",
+  "updated_utc": "2026-06-20T03:17:58.491521+00:00",
   "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "schema_version": "0.3",
   "register_to_vote_url": null,
@@ -192,20 +191,55 @@
   "validation_grade": null,
   "post_run_analysis": null,
   "agent_metrics": {
-    "model": "deepseek/deepseek-v4-flash",
-    "model_profile": "economy",
-    "prompt_tokens": 277110,
-    "completion_tokens": 6221,
-    "total_tokens": 283331,
-    "cost_usd": 0.0254408,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 2835,
+    "completion_tokens": 250,
+    "total_tokens": 3085,
+    "cost_usd": 0.0108375,
     "cost_source": "provider",
-    "estimated_usd": 0.028376,
+    "estimated_usd": 0.010837,
     "model_breakdown": {
-      "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 277110,
-        "completion_tokens": 6221
+      "openai/gpt-5.4": {
+        "prompt_tokens": 2835,
+        "completion_tokens": 250
       }
     },
-    "duration_s": 144.8
+    "duration_s": 9.3,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2549,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0024,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Deb Haaland",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.72,
+    "party_probabilities": {
+      "Democratic": 0.72,
+      "Republican": 0.28
+    },
+    "margin_estimate": 5.0,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "This is an open-seat race with no general-election head-to-head polling available, which materially increases uncertainty. Still, the available race context gives Democrats an edge: New Mexico has trended Democratic in recent presidential elections, Democrats currently hold the governorship, and Deb Haaland enters the general election as a prominent statewide figure after serving as U.S. Secretary of the Interior and winning her primary decisively. Gregg Hull appears to be a credible Republican nominee with executive experience as Rio Rancho mayor, so the race is not out of reach for Republicans, especially in an open-seat contest centered on crime, the economy, and education. With no direct general-election polling, this forecast relies primarily on state partisan lean, candidate profile, and the overall race description rather than measured voter preference.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:57.598061Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -213,7 +213,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:56:48.412603+00:00",
+  "updated_utc": "2026-06-20T15:27:54.636279+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -227,18 +227,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 239827,
-    "completion_tokens": 6378,
-    "total_tokens": 246205,
-    "cost_usd": 0.018023918,
+    "prompt_tokens": 11089,
+    "completion_tokens": 1387,
+    "total_tokens": 12476,
+    "cost_usd": 0.001358574,
     "cost_source": "provider",
-    "estimated_usd": 0.024753,
+    "estimated_usd": 0.001248,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 239827,
-        "completion_tokens": 6378
+        "prompt_tokens": 11089,
+        "completion_tokens": 1387
       }
     },
-    "duration_s": 149.1
+    "duration_s": 23.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6383,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Addison McDowell",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.05,
+      "Republican": 0.95
+    },
+    "margin_estimate": 12.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling exists for this race, which caps confidence. However, the structural indicators are overwhelming: the district was redrawn in October 2025 by the Republican-controlled legislature from a competitive seat to one with a Cook PVI of R+9; Cook Political Report rates the race as 'Solid Republican'; McDowell is the first-term incumbent running unopposed in his primary; and Jefferson, though a credible mayor of High Point, won his primary with only 39.2% of the vote in a four-way race. The district's strong conservative lean, incumbency advantage, and absence of any countervailing evidence point to McDowell as an overwhelming favorite.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:48.525017Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -185,7 +185,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/California%27s_17th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:08:42.311991+00:00",
+  "updated_utc": "2026-06-20T15:23:53.365100+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -199,18 +199,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 206483,
-    "completion_tokens": 6347,
-    "total_tokens": 212830,
-    "cost_usd": 0.012403889999999999,
+    "prompt_tokens": 11034,
+    "completion_tokens": 1722,
+    "total_tokens": 12756,
+    "cost_usd": 0.0013589399999999999,
     "cost_source": "provider",
-    "estimated_usd": 0.021479,
+    "estimated_usd": 0.001303,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 206483,
-        "completion_tokens": 6347
+        "prompt_tokens": 11034,
+        "completion_tokens": 1722
       }
     },
-    "duration_s": 134.7
+    "duration_s": 25.8,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6349,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0061,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ro Khanna",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 38.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No general-election polling is available for CA-17, requiring reliance on structural indicators. The race data strongly favors Democrats: incumbent Ro Khanna (first elected 2016) seeks a sixth term in a Silicon Valley district rated Solidly Democratic by Cook Political Report. In the June 2 top-two primary, Khanna won 62.3% while Republican Ritesh Tandon advanced with just 14.8% — a 47.5-point gap in a multi-candidate field. The district's strong Democratic lean, Khanna's incumbency advantage, and the primary blowout all point to an overwhelming Democratic advantage. The lack of polling warrants medium confidence, as no direct general-election survey data exists to validate these structural signals.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:48.662145Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

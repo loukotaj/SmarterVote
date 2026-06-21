@@ -149,7 +149,7 @@
         {
           "url": "https://www.localcandidates.org/politicians/rachel-grage/about/5dbe8082-b6bb-4521-be4e-189c72fe989f",
           "type": "website",
-          "title": "Rachel Grage \u2014 About Rachel - Local Candidates",
+          "title": "Rachel Grage — About Rachel - Local Candidates",
           "description": null,
           "last_accessed": "2026-06-15T23:00:00Z",
           "published_at": null,
@@ -377,7 +377,7 @@
       "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-06-16T01:24:03.211382+00:00",
+  "updated_utc": "2026-06-20T15:24:02.500973+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -391,7 +391,7 @@
   "polling": [],
   "schema_version": "0.3",
   "polling_note": null,
-  "ballotpedia_url": null,
+  "ballotpedia_url": "https://ballotpedia.org/Florida's_5th_Congressional_District",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
   "reviews": [],
@@ -399,30 +399,51 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 194827,
-    "completion_tokens": 7446,
-    "total_tokens": 202273,
-    "cost_usd": 0.036514126,
+    "prompt_tokens": 19879,
+    "completion_tokens": 2306,
+    "total_tokens": 22185,
+    "cost_usd": 0.002340214,
     "cost_source": "provider",
-    "estimated_usd": 0.037552,
+    "estimated_usd": 0.002204,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 194827,
-        "completion_tokens": 7446
+        "prompt_tokens": 19879,
+        "completion_tokens": 2306
       }
     },
-    "duration_s": 142.7,
-    "serper_calls": 17,
-    "context_requests": 14,
-    "max_estimated_context_tokens": 47118,
+    "duration_s": 34.7,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 8660,
     "max_context_window_tokens": 1048576,
-    "max_context_utilization": 0.0449,
-    "context_deduplicated_results": 43,
+    "max_context_utilization": 0.0083,
+    "context_deduplicated_results": 1,
     "context_compacted_results": 0,
     "context_truncated_results": 0,
-    "context_dropped_tool_turns": 1,
+    "context_dropped_tool_turns": 0,
     "retry_rate_limits": 0,
     "retry_provider_failures": 1,
     "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "John Rutherford",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.04
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling is available for this race, which tempers confidence. However, the race fundamentals overwhelmingly favor Republicans: the district is consistently rated as Solid/Safe Republican by nonpartisan forecasters, the new 2026 congressional map is expected to preserve a strong Republican advantage, and incumbent John Rutherford is a well-established four-term officeholder and former Jacksonville Sheriff who has dominated fundraising (over $500K raised). The Republican primary challenge from conservative radio host Mark Kaye introduces some nomination uncertainty, but both Republican contenders would be heavily favored in this Republican-leaning district covering portions of Duval and St. Johns Counties. The Democratic primary features two first-time candidates (Rachel Grage and Mark Heggestad) with no elected office experience. Given the structural stronghold and incumbency, a Republican general-election victory remains near-certain, justifying a safe_r rating with 96% projected Republican win probability and an estimated margin of roughly 22 points, consistent with recent district performance.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:23:54.699086Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/John_Rutherford_(Florida_politician)",
+      "https://www.fec.gov/data/candidate/H6FL05201/",
+      "https://floridapolitics.com/archives/791510-john-rutherford-continues-to-dominate-cd-5-fundraising/"
+    ]
   }
 }

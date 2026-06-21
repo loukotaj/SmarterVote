@@ -827,10 +827,9 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
-  "updated_utc": "2026-06-13T20:51:13.783069+00:00",
+  "updated_utc": "2026-06-20T03:17:01.231411+00:00",
   "generator": [
-    "nvidia/nemotron-3-super-120b-a12b",
-    "openai/gpt-5-nano"
+    "openai/gpt-5.4"
   ],
   "register_to_vote_url": "https://ova.elections.il.gov/",
   "how_to_vote_url": "https://www.elections.il.gov/VotingAndRegistrationSystems/VotingInformation.aspx",
@@ -931,21 +930,57 @@
     "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "nvidia/nemotron-3-super-120b-a12b",
-    "model_profile": "economy",
-    "prompt_tokens": 92723,
-    "completion_tokens": 7734,
-    "total_tokens": 100457,
-    "cost_usd": 0.0061284700000000004,
+    "model": "openai/gpt-5.4",
+    "model_profile": "quality",
+    "prompt_tokens": 3098,
+    "completion_tokens": 247,
+    "total_tokens": 3345,
+    "cost_usd": 0.009146,
     "cost_source": "provider",
-    "estimated_usd": 0.00773,
+    "estimated_usd": 0.01145,
     "model_breakdown": {
-      "openai/gpt-5-nano": {
-        "prompt_tokens": 92723,
-        "completion_tokens": 7734
+      "openai/gpt-5.4": {
+        "prompt_tokens": 3098,
+        "completion_tokens": 247
       }
     },
-    "duration_s": 77.9
+    "duration_s": 10.0,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 2813,
+    "max_context_window_tokens": 1050000,
+    "max_context_utilization": 0.0027,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
   },
-  "post_run_analysis": null
+  "post_run_analysis": null,
+  "forecast": {
+    "predicted_winner_name": "Juliana Stratton",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.95,
+      "Republican": 0.03,
+      "Other": 0.02
+    },
+    "margin_estimate": 16.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "This is an open-seat race in a state described in the race profile as having a strong Democratic lean. The listed Democratic nominee, Juliana Stratton, is a statewide elected official with substantial fundraising support, while the only other listed nominee is a Constitution Party candidate with no evident financial base or prior elected profile. Public polling in the race is very limited and the available poll referenced here focused on the Democratic primary rather than a general-election matchup, so the forecast relies mainly on Illinois’s partisan context and the relative strength of the listed candidates rather than direct general-election polling. That supports a strong Democratic advantage, though confidence is reduced somewhat by sparse general-election data and the possibility of an eventual Republican nominee not reflected in the current candidate list.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T03:17:00.446094Z",
+    "model": "openai/gpt-5.4",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
+  }
 }

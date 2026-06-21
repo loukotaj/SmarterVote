@@ -243,7 +243,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_6th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:30:14.291215+00:00",
+  "updated_utc": "2026-06-20T15:27:12.784705+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -257,18 +257,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 331900,
-    "completion_tokens": 8065,
-    "total_tokens": 339965,
-    "cost_usd": 0.024102972,
+    "prompt_tokens": 9103,
+    "completion_tokens": 1313,
+    "total_tokens": 10416,
+    "cost_usd": 0.00101965,
     "cost_source": "provider",
-    "estimated_usd": 0.034107,
+    "estimated_usd": 0.001056,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 331900,
-        "completion_tokens": 8065
+        "prompt_tokens": 9103,
+        "completion_tokens": 1313
       }
     },
-    "duration_s": 194.4
+    "duration_s": 22.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6576,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0063,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Frank Pallone Jr.",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available for this race, which limits confidence. However, structural indicators are overwhelming: the district has roughly a 2-to-1 Democratic voter registration advantage, Cook Political Report rates it Solidly Democratic, and 38-year incumbent Frank Pallone Jr. (Ranking Member on House Energy and Commerce Committee) enjoys deep name recognition against a first-time Republican challenger. The combination of extreme partisan lean, long incumbency, and no evidence of competitive dynamics makes this a safe Democratic hold with a wide expected margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:27:02.148878Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

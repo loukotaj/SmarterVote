@@ -6,7 +6,7 @@
   "state": "Michigan",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "Michigan's 1st Congressional District, encompassing the entire Upper Peninsula and northern Lower Peninsula (roughly 44% of the state's landmass), is an R+13 district. Incumbent Republican Rep. Jack Bergman, first elected in 2016 and a retired Marine Corps lieutenant general, is seeking a sixth term. The Democratic primary features three candidates \u2014 Callie Barr (an attorney and veteran advocate who was the 2024 nominee), architect and Iron Mountain city councilmember Kyle Blomquist, and industrial designer Wayne Stiles. Bergman faces two primary challengers from the right, Matthew DenOtter and Justin Michal. Independent candidate Zebulon Featherly is also running in the general election. The primary will be held on August 4, 2026.",
+  "description": "Michigan's 1st Congressional District, encompassing the entire Upper Peninsula and northern Lower Peninsula (roughly 44% of the state's landmass), is an R+13 district. Incumbent Republican Rep. Jack Bergman, first elected in 2016 and a retired Marine Corps lieutenant general, is seeking a sixth term. The Democratic primary features three candidates — Callie Barr (an attorney and veteran advocate who was the 2024 nominee), architect and Iron Mountain city councilmember Kyle Blomquist, and industrial designer Wayne Stiles. Bergman faces two primary challengers from the right, Matthew DenOtter and Justin Michal. Independent candidate Zebulon Featherly is also running in the general election. The primary will be held on August 4, 2026.",
   "polling": [],
   "polling_note": "No publicly available opinion polls were found for this race as of June 2026.",
   "candidates": [
@@ -591,7 +591,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Michigan%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:34:41.155185+00:00",
+  "updated_utc": "2026-06-20T15:25:47.052876+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -605,18 +605,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 271014,
-    "completion_tokens": 10586,
-    "total_tokens": 281600,
-    "cost_usd": 0.019149428,
+    "prompt_tokens": 8963,
+    "completion_tokens": 1052,
+    "total_tokens": 10015,
+    "cost_usd": 0.001034646,
     "cost_source": "provider",
-    "estimated_usd": 0.028634,
+    "estimated_usd": 0.000996,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 271014,
-        "completion_tokens": 10586
+        "prompt_tokens": 8963,
+        "completion_tokens": 1052
       }
     },
-    "duration_s": 131.8
+    "duration_s": 19.2,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 4587,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0044,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Jack Bergman",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Democratic": 0.04,
+      "Republican": 0.95,
+      "Independent": 0.01
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race, which tempers confidence. However, the available race data strongly points to a Republican advantage: the district is rated R+13, and Rep. Jack Bergman is a long-serving incumbent first elected in 2016, now seeking a sixth term. The Democratic primary is contested among three candidates (including the 2024 nominee Callie Barr), which may delay general-election consolidation. Bergman faces two primary challengers from the right, but neither appears to have a strong basis to unseat a well-established incumbent. Independent candidate Zebulon Featherly is running but has no evidence of significant support. Given the district's strong Republican lean and incumbency advantage, Republicans are overwhelming favorites, though the absence of polling data precludes high confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:39.869823Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -259,7 +259,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Nevada%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:16:46.488884+00:00",
+  "updated_utc": "2026-06-20T15:36:34.757997+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -273,18 +273,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 388254,
-    "completion_tokens": 6921,
-    "total_tokens": 395175,
-    "cost_usd": 0.026685792000000007,
+    "prompt_tokens": 12549,
+    "completion_tokens": 2222,
+    "total_tokens": 14771,
+    "cost_usd": 0.00160541,
     "cost_source": "provider",
-    "estimated_usd": 0.039405,
+    "estimated_usd": 0.001529,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 388254,
-        "completion_tokens": 6921
+        "prompt_tokens": 12549,
+        "completion_tokens": 2222
       }
     },
-    "duration_s": 180.7
+    "duration_s": 39.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7217,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "David Flippo",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Republican": 0.88,
+      "Democratic": 0.12
+    },
+    "margin_estimate": 9.0,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polls exist for this race, so the forecast relies entirely on structural and historical factors. Nevada's 2nd District has a Cook PVI of R+7, and Donald Trump carried it by 14 points in 2024 — a strong recent Republican baseline. The district has never elected a Democrat to Congress. However, this is an open-seat contest due to Rep. Mark Amodei's retirement, and Democrat Teresa Benitez-Thompson is a credible recruit with state legislative leadership experience. Republican David Flippo won a crowded primary with Trump's endorsement and ran on a conservative platform. Without polling to test the race's competitiveness, the district's underlying partisanship makes Flippo the clear favorite, but Benitez-Thompson's profile and the open-seat nature prevent this from being rated safe. Confidence is medium due to the absence of any public polling data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:27.697408Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

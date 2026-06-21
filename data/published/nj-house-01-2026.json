@@ -212,7 +212,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:47:23.407887+00:00",
+  "updated_utc": "2026-06-20T15:33:09.485619+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -226,18 +226,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 278343,
-    "completion_tokens": 12903,
-    "total_tokens": 291246,
-    "cost_usd": 0.02188929,
+    "prompt_tokens": 7000,
+    "completion_tokens": 1128,
+    "total_tokens": 8128,
+    "cost_usd": 0.0009070880000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.029807,
+    "estimated_usd": 0.000833,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 278343,
-        "completion_tokens": 12903
+        "prompt_tokens": 7000,
+        "completion_tokens": 1128
       }
     },
-    "duration_s": 159.7
+    "duration_s": 20.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3527,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0034,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Donald Norcross",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 24.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general-election polls exist, limiting granular confidence. However, the race fundamentals overwhelmingly favor Democrats: NJ-01 is a heavily Democratic district with a 44% to 19% Democratic registration advantage; incumbent Donald Norcross has held the seat since 2014 with strong union and labor ties; and all major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate the race as Solid/Safe Democratic. Republican challenger Damon Galdo is a first-time general-election nominee who failed to secure the nomination in his two prior primary attempts. With no contrary evidence in the supplied data, Democrats remain prohibitive favorites.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:00.896904Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

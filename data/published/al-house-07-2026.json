@@ -217,7 +217,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:47:27.518424+00:00",
+  "updated_utc": "2026-06-20T15:22:29.038084+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -228,18 +228,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 258584,
-    "completion_tokens": 7327,
-    "total_tokens": 265911,
-    "cost_usd": 0.019289324,
+    "prompt_tokens": 12403,
+    "completion_tokens": 1725,
+    "total_tokens": 14128,
+    "cost_usd": 0.00149369,
     "cost_source": "provider",
-    "estimated_usd": 0.026777,
+    "estimated_usd": 0.001427,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 258584,
-        "completion_tokens": 7327
+        "prompt_tokens": 12403,
+        "completion_tokens": 1725
       }
     },
-    "duration_s": 114.9
+    "duration_s": 26.3,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7081,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0068,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Terri A. Sewell",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.03
+    },
+    "margin_estimate": 35,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general election polling exists as of June 2026, and the Republican nominee has not yet been determined (special primary is August 11, 2026). The forecast relies entirely on structural and historical factors. The race description explicitly states the district \"remains safely Democratic\" under the reinstated 2023 map, despite a slight reduction in Black voting-age population. Incumbent Terri Sewell, first elected in 2010 and unopposed in the Democratic special primary, is a well-established figure serving on the House Ways and Means Committee and as Chief Deputy Whip. She has won her previous general elections by large margins (roughly 26-34 points). The Republican field consists of two first-time congressional candidates, neither of whom has held elected office, and they must first compete in a primary. Given the district's Democratic lean, Sewell's incumbency advantage, and the lack of any contrary indicators, Democrats hold an overwhelming advantage. However, absence of polling and the ongoing redistricting uncertainty keep confidence at medium rather than high.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:22:24.119653+00:00",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -100,7 +100,7 @@
           "source": null
         },
         {
-          "institution": "Rutgers University\u2013New Brunswick",
+          "institution": "Rutgers University–New Brunswick",
           "degree": null,
           "field": null,
           "year": null,
@@ -270,7 +270,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_9th_congressional_district_election,_2026",
-  "updated_utc": "2026-06-13T21:26:06.429118+00:00",
+  "updated_utc": "2026-06-20T15:26:04.618624+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -284,18 +284,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 233939,
-    "completion_tokens": 6902,
-    "total_tokens": 240841,
-    "cost_usd": 0.017050398,
+    "prompt_tokens": 10561,
+    "completion_tokens": 1599,
+    "total_tokens": 12160,
+    "cost_usd": 0.001228574,
     "cost_source": "provider",
-    "estimated_usd": 0.024279,
+    "estimated_usd": 0.001238,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 233939,
-        "completion_tokens": 6902
+        "prompt_tokens": 10561,
+        "completion_tokens": 1599
       }
     },
-    "duration_s": 172.3
+    "duration_s": 24.4,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7571,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0072,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nellie Pou",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.7,
+    "party_probabilities": {
+      "Democratic": 0.7,
+      "Republican": 0.27,
+      "Independent": 0.03
+    },
+    "margin_estimate": 4.0,
+    "rating": "lean_d",
+    "confidence": "low",
+    "rationale": "No district-specific public polling exists, so this forecast relies entirely on non-polling indicators and carries low confidence. Incumbent Democrat Nellie Pou holds the advantages of incumbency and extensive legislative experience, and the race is rated 'Lean Democratic' by Cook Political Report. However, the district is described as markedly more competitive and narrowly backed Donald Trump in the 2024 presidential election, indicating a genuine Republican opportunity. Republican nominee Rosie Pino is a credible challenger with local elected experience, and an independent anti-abortion candidate (Terrisa Bukovinac) is on the ballot. The independent may draw slightly more votes from the Republican-leaning anti-abortion bloc, which could marginally advantage Pou. With zero polls, uncertainty is substantial, supporting a Lean Democratic forecast with low confidence and a narrow single-digit margin.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:25:56.315143Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -277,7 +277,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_18th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:13:43.745499+00:00",
+  "updated_utc": "2026-06-20T15:34:45.834107+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -291,18 +291,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 236171,
-    "completion_tokens": 7158,
-    "total_tokens": 243329,
-    "cost_usd": 0.011848078000000001,
+    "prompt_tokens": 12439,
+    "completion_tokens": 1123,
+    "total_tokens": 13562,
+    "cost_usd": 0.00143913,
     "cost_source": "provider",
-    "estimated_usd": 0.024548,
+    "estimated_usd": 0.001322,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 236171,
-        "completion_tokens": 7158
+        "prompt_tokens": 12439,
+        "completion_tokens": 1123
       }
     },
-    "duration_s": 124.8
+    "duration_s": 23.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7142,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0068,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Scott Franklin",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.03,
+      "Independent": 0.01
+    },
+    "margin_estimate": 22.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race, limiting confidence in specific margin estimates. However, the structural indicators are unambiguous: incumbent Scott Franklin (R) is a two-term incumbent seeking re-election in a district drawn under a map signed by Gov. Ron DeSantis that is expected to favor Republicans. The district is rated Safe/Solid Republican by major nonpartisan forecasters. Democratic nominee Curtis Gibson is a former Lake Wales city commissioner with a lower statewide profile, and independent Deva Simmons (No Party Affiliation) faces steep structural headwinds in a heavily Republican district. Absent any contrary polling or evidence of competitiveness, the race overwhelmingly favors the Republican incumbent.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:34:40.871881Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

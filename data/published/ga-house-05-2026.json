@@ -181,7 +181,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:45:14.497456+00:00",
+  "updated_utc": "2026-06-20T15:31:00.770805+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -195,18 +195,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 221775,
-    "completion_tokens": 4831,
-    "total_tokens": 226606,
-    "cost_usd": 0.016380922,
+    "prompt_tokens": 6804,
+    "completion_tokens": 1197,
+    "total_tokens": 8001,
+    "cost_usd": 0.0008415,
     "cost_source": "provider",
-    "estimated_usd": 0.022681,
+    "estimated_usd": 0.000828,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 221775,
-        "completion_tokens": 4831
+        "prompt_tokens": 6804,
+        "completion_tokens": 1197
       }
     },
-    "duration_s": 95.9
+    "duration_s": 26.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3377,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0032,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nikema Williams",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.02
+    },
+    "margin_estimate": 65.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "Georgia's 5th Congressional District is a safely Democratic Atlanta-anchored district (Cook Political Report: Solid Democratic). Incumbent Nikema Williams (D) is the successor to John Lewis, served as chair of the Georgia Democratic Party until 2025, and has held the seat since 2020. Republican challenger John \"Bongo\" Salvesen lost to Williams by a massive margin (~86% to ~14%) in the 2024 rematch of this same matchup. No public polling exists for this race, which tempers confidence, but the district's strong Democratic lean, the incumbent's political stature, and Salvesen's poor 2024 performance all point to an overwhelming Democratic advantage. Expected margin is consistent with the 2024 result adjusted for a midterm environment.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:30:57.161771Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

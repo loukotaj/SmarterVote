@@ -508,7 +508,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:59:57.585373+00:00",
+  "updated_utc": "2026-06-20T15:37:50.162161+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -522,18 +522,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 259784,
-    "completion_tokens": 13627,
-    "total_tokens": 273411,
-    "cost_usd": 0.020302268000000002,
+    "prompt_tokens": 17991,
+    "completion_tokens": 2077,
+    "total_tokens": 20068,
+    "cost_usd": 0.00212029,
     "cost_source": "provider",
-    "estimated_usd": 0.02813,
+    "estimated_usd": 0.001993,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 259784,
-        "completion_tokens": 13627
+        "prompt_tokens": 17991,
+        "completion_tokens": 2077
       }
     },
-    "duration_s": 171.8
+    "duration_s": 33.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 10744,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0102,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Ilhan Omar",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Democratic": 0.97,
+      "Republican": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 38.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race (0 polls found as of June 2026). The forecast relies entirely on district fundamentals. Minnesota's 5th Congressional District encompasses Minneapolis and strongly Democratic inner-ring suburbs; it is rated Safe Democratic by major nonpartisan forecasters. Incumbent Ilhan Omar (DFL) has held the seat since 2018 and is seeking re-election. While she faces a competitive Democratic primary from Julie Le and Latonya Reeves, the general election is not competitive between parties — the Democratic nominee (regardless of primary outcome) is overwhelmingly favored in this D+30+ district. The Republican field (Al-Aqidi, Nagel, Windhauser) and an independent candidate (Jackson) face a very unfavorable district environment. Confidence is medium due to the complete absence of polling data and the presence of a contested primary that could shift turnout dynamics, though the structural advantage for Democrats is clear.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:37:44.932197Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

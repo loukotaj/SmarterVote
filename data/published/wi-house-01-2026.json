@@ -6,7 +6,7 @@
   "state": "Wisconsin",
   "district": "1st Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for Wisconsin's 1st Congressional District will determine who represents southeastern Wisconsin\u2014including Racine, Kenosha, and Janesville\u2014in the U.S. House. Incumbent Republican Rep. Bryan Steil, first elected in 2018, is seeking a fifth term and chairs the House Administration Committee. The district has been held by Republicans since 1994 and is rated as Likely Republican by The Cook Political Report, though a crowded Democratic primary field sees the seat as a potential flip opportunity. The Democratic primary on August 11, 2026, will determine who challenges Steil in the general election, with candidates emphasizing health care, affordability, and labor issues.",
+  "description": "The 2026 election for Wisconsin's 1st Congressional District will determine who represents southeastern Wisconsin—including Racine, Kenosha, and Janesville—in the U.S. House. Incumbent Republican Rep. Bryan Steil, first elected in 2018, is seeking a fifth term and chairs the House Administration Committee. The district has been held by Republicans since 1994 and is rated as Likely Republican by The Cook Political Report, though a crowded Democratic primary field sees the seat as a potential flip opportunity. The Democratic primary on August 11, 2026, will determine who challenges Steil in the general election, with candidates emphasizing health care, affordability, and labor issues.",
   "polling": [
     {
       "pollster": "Ragnar Research Partners (R)",
@@ -626,7 +626,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:30:17.438646+00:00",
+  "updated_utc": "2026-06-20T15:27:01.051749+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -640,18 +640,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 221917,
-    "completion_tokens": 12765,
-    "total_tokens": 234682,
-    "cost_usd": 0.017870030000000002,
+    "prompt_tokens": 20847,
+    "completion_tokens": 2673,
+    "total_tokens": 23520,
+    "cost_usd": 0.0025070100000000005,
     "cost_source": "provider",
-    "estimated_usd": 0.02425,
+    "estimated_usd": 0.002357,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 221917,
-        "completion_tokens": 12765
+        "prompt_tokens": 20847,
+        "completion_tokens": 2673
       }
     },
-    "duration_s": 218.1
+    "duration_s": 53.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 12476,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0119,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Bryan Steil",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.83,
+    "party_probabilities": {
+      "Republican": 0.83,
+      "Democratic": 0.16,
+      "Other": 0.01
+    },
+    "margin_estimate": 7.5,
+    "rating": "likely_r",
+    "confidence": "medium",
+    "rationale": "Incumbent Republican Bryan Steil is favored for a fifth term in this southeastern Wisconsin district, which has been held by Republicans since 1994. Steil won re-election in 2024 with 54.0% of the vote, and Cook Political Report rates the district as Likely Republican. The only available poll — a March 2026 Republican-commissioned survey of 400 voters — showed Steil leading Democrat Mitchell Berman 50% to 41% (9% undecided), consistent with a clear but not overwhelming GOP advantage. However, confidence is medium because: (1) the single poll comes from a partisan Republican firm with potential house effects, (2) the Democratic primary (August 11, 2026) is highly competitive with six candidates, so the eventual general election opponent is unknown, and (3) no independent or Democratic-commissioned polling exists to corroborate these numbers. Steil faces a primary challenger (Connor Walleck) but is expected to prevail easily. The margin estimate of 7.5 points reflects a slight downward adjustment from the poll's 9-point lead, accounting for the poll's partisan source and undecided voters who may break disproportionately toward the challenger in an uncertain environment.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:26:54.370672Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

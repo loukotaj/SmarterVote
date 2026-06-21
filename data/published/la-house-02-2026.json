@@ -218,7 +218,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_2nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:30:44.307150+00:00",
+  "updated_utc": "2026-06-20T15:39:14.647336+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -232,18 +232,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 241015,
-    "completion_tokens": 9061,
-    "total_tokens": 250076,
-    "cost_usd": 0.017258466,
+    "prompt_tokens": 18539,
+    "completion_tokens": 2384,
+    "total_tokens": 20923,
+    "cost_usd": 0.002224182,
     "cost_source": "provider",
-    "estimated_usd": 0.025395,
+    "estimated_usd": 0.002098,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 241015,
-        "completion_tokens": 9061
+        "prompt_tokens": 18539,
+        "completion_tokens": 2384
       }
     },
-    "duration_s": 153.2
+    "duration_s": 41.5,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 10136,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0097,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Troy Carter",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.92,
+    "party_probabilities": {
+      "Democratic": 0.92,
+      "Republican": 0.06,
+      "Other": 0.02
+    },
+    "margin_estimate": 20.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No public polling exists for this race. The Supreme Court's April 2026 ruling in Louisiana v. Callais struck down the current congressional map as an unconstitutional racial gerrymander, forcing a redraw. The May 2026 primary was suspended by Gov. Jeff Landry, leaving the candidate field, district lines, and election calendar uncertain. Despite this procedural turbulence, the district's core — anchored in heavily Democratic areas of New Orleans and Baton Rouge — has been rated Solid/Safe Democratic by major nonpartisan forecasters. Incumbent Democrat Troy Carter is the strongest candidate in the field, while his only listed challenger (Renada Collins, also a Democrat) ran an unsuccessful independent mayoral bid in 2025. No Republican candidates have filed. However, a redrawn map could shift district boundaries in ways that modestly alter the partisan composition, tempering confidence. Democrats remain clear favorites with a likely-d rating, as the district is almost certain to stay Democratic regardless of map changes, but the redistricting process injects meaningful uncertainty that prevents a safe-d rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:39:04.973232Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

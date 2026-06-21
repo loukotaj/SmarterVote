@@ -6,7 +6,7 @@
   "state": "New York",
   "district": "8th Congressional District",
   "election_date": "2026-11-03",
-  "description": "The 2026 election for New York's 8th congressional district will be held on November 3, 2026, with a primary election on June 23, 2026. The district covers portions of central Brooklyn, including neighborhoods such as Bedford-Stuyvesant, Crown Heights, Brownsville, and East New York. Incumbent Democrat Hakeem Jeffries, the House Minority Leader, is seeking re-election and faces a Democratic primary challenge from New York City Council Member Chi Oss\u00e9, a democratic socialist, as well as a challenge from progressive activist Vance Bostic. The district is overwhelmingly Democratic and is rated \"Safe D\" by major nonpartisan forecasters, making the Democratic primary the de facto competitive contest in this cycle.",
+  "description": "The 2026 election for New York's 8th congressional district will be held on November 3, 2026, with a primary election on June 23, 2026. The district covers portions of central Brooklyn, including neighborhoods such as Bedford-Stuyvesant, Crown Heights, Brownsville, and East New York. Incumbent Democrat Hakeem Jeffries, the House Minority Leader, is seeking re-election and faces a Democratic primary challenge from New York City Council Member Chi Ossé, a democratic socialist, as well as a challenge from progressive activist Vance Bostic. The district is overwhelmingly Democratic and is rated \"Safe D\" by major nonpartisan forecasters, making the Democratic primary the de facto competitive contest in this cycle.",
   "polling": [
     {
       "pollster": "Private poll (cited by City & State NY)",
@@ -38,7 +38,7 @@
         {
           "url": "https://jeffries.house.gov/",
           "type": "government",
-          "title": "Congressman Hakeem Jeffries \u2013 Proudly Representing the 8th District of New York",
+          "title": "Congressman Hakeem Jeffries – Proudly Representing the 8th District of New York",
           "description": null,
           "last_accessed": "2026-06-12T00:00:00Z",
           "published_at": null,
@@ -218,7 +218,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:54:22.693299+00:00",
+  "updated_utc": "2026-06-20T15:32:56.734836+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -232,18 +232,55 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 265682,
-    "completion_tokens": 9127,
-    "total_tokens": 274809,
-    "cost_usd": 0.017941567999999998,
+    "prompt_tokens": 12654,
+    "completion_tokens": 2018,
+    "total_tokens": 14672,
+    "cost_usd": 0.00163562,
     "cost_source": "provider",
-    "estimated_usd": 0.027826,
+    "estimated_usd": 0.001502,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 265682,
-        "completion_tokens": 9127
+        "prompt_tokens": 12654,
+        "completion_tokens": 2018
       }
     },
-    "duration_s": 137.5
+    "duration_s": 34.9,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7208,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0069,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Hakeem Jeffries",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.99,
+    "party_probabilities": {
+      "Democratic": 0.99,
+      "Republican": 0.01
+    },
+    "margin_estimate": 50.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "New York's 8th Congressional District is overwhelmingly Democratic, with major nonpartisan forecasters rating it \"Safe D.\" Incumbent Hakeem Jeffries is the House Minority Leader and has represented the district since 2013, giving him enormous structural advantages in name recognition, fundraising, and institutional support. The only identified polling is a private October 2025 survey showing Jeffries with a 50-point lead over primary challenger Chi Ossé. No general election polling exists because the race is broadly viewed as noncompetitive. Two Republican candidates (Lewis Mizrahi and Richard Simmons) have limited public profiles in this heavily Democratic district covering central Brooklyn. The Democratic primary on June 23, 2026 — three days from now — is the de facto competitive contest, but Jeffries' incumbency and leadership position make his nomination nearly certain. In the general election, Democrats hold an overwhelming advantage. Confidence is set to medium because the forecast relies on structural district characteristics and candidate strength rather than direct public general-election polling.",
+    "based_on_poll_count": 1,
+    "generated_at": "2026-06-20T15:32:50.954336Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.cityandstateny.com/politics/2025/10/private-poll-shows-hakeem-jeffries-50-point-lead-over-chi-osse-hypothetical-congressional-primary/408870/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

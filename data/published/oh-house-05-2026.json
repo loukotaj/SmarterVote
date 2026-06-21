@@ -317,7 +317,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_5th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:33:30.831937+00:00",
+  "updated_utc": "2026-06-20T15:28:42.064263+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -331,18 +331,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 300268,
-    "completion_tokens": 7301,
-    "total_tokens": 307569,
-    "cost_usd": 0.018367276000000002,
+    "prompt_tokens": 4810,
+    "completion_tokens": 1198,
+    "total_tokens": 6008,
+    "cost_usd": 0.000706188,
     "cost_source": "provider",
-    "estimated_usd": 0.030857,
+    "estimated_usd": 0.000649,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 300268,
-        "completion_tokens": 7301
+        "prompt_tokens": 4810,
+        "completion_tokens": 1198
       }
     },
-    "duration_s": 125.7
+    "duration_s": 19.2,
+    "serper_calls": 0,
+    "context_requests": 2,
+    "max_estimated_context_tokens": 3467,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0033,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Bob Latta",
+    "predicted_winner_party": "Republican Party",
+    "win_probability": 0.97,
+    "party_probabilities": {
+      "Republican": 0.97,
+      "Democratic": 0.02,
+      "Independent": 0.01
+    },
+    "margin_estimate": 28.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public general-election polling is available; forecast relies on structural factors. Cook Political Report rates OH-05 as Solidly Republican even after the 2025 redistricting. Incumbent Bob Latta is a 10-term Republican with senior Energy and Commerce Committee leadership, a strong incumbency advantage, and no evidence of a competitive challenge. Democratic nominee Brian Shaver won a divided 4-way primary with only 28.68% of the vote, indicating limited organizational strength. Independent Dalton Franklin lacks a structural base in a district with a strong Republican lean. Based on district partisanship, incumbency, and candidate field strength, the race presents an overwhelming Republican advantage. Confidence is medium rather than high due to the absence of direct voter survey data.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:38.144760Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

@@ -80,7 +80,7 @@
       ],
       "education": [
         {
-          "institution": "Rutgers University\u2013Camden",
+          "institution": "Rutgers University–Camden",
           "degree": "MBA",
           "field": "Business Administration",
           "year": 2018,
@@ -108,7 +108,7 @@
           "source": null
         },
         {
-          "institution": "Rutgers University\u2013New Brunswick",
+          "institution": "Rutgers University–New Brunswick",
           "degree": "BS",
           "field": "Biology / Pre-Medicine",
           "year": 1994,
@@ -158,7 +158,7 @@
         {
           "url": "https://www.dailyprincetonian.com/article/2026/04/gregg-mele-interview",
           "type": "news",
-          "title": "Gregg Mele, lone Republican running to represent N.J.\u201312, discusses ICE, 'parental rights'",
+          "title": "Gregg Mele, lone Republican running to represent N.J.–12, discusses ICE, 'parental rights'",
           "description": null,
           "last_accessed": "2026-06-11T12:00:00Z",
           "published_at": null,
@@ -265,7 +265,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_12th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:31:31.003705+00:00",
+  "updated_utc": "2026-06-20T15:28:05.613467+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -279,18 +279,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 291000,
-    "completion_tokens": 5180,
-    "total_tokens": 296180,
-    "cost_usd": 0.018291296,
+    "prompt_tokens": 11844,
+    "completion_tokens": 1206,
+    "total_tokens": 13050,
+    "cost_usd": 0.001348526,
     "cost_source": "provider",
-    "estimated_usd": 0.029533,
+    "estimated_usd": 0.001283,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 291000,
-        "completion_tokens": 5180
+        "prompt_tokens": 11844,
+        "completion_tokens": 1206
       }
     },
-    "duration_s": 167.6
+    "duration_s": 25.0,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 6928,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0066,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Adam Hamawy",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Democratic": 0.96,
+      "Republican": 0.04
+    },
+    "margin_estimate": 26.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No independent general-election polls exist for this race as of June 2026. The forecast relies entirely on district fundamentals: New Jersey's 12th Congressional District is rated Solid D by Cook Political Report and has been held by a Democrat since 2015. The district's strong Democratic lean (covering parts of Mercer, Middlesex, Somerset, and Union counties) provides a high baseline advantage. Democratic nominee Adam Hamawy won a competitive 13-candidate primary with 27.4% of the vote, while Republican Gregg Mele — a seven-time prior candidate who has never won elected office — ran unopposed in the GOP primary. The open-seat nature and complete absence of polling reduce confidence, but the district's partisan fundamentals overwhelmingly favor the Democratic candidate. A safe Democratic rating with ~96% win probability is appropriate.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:28:00.668390Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

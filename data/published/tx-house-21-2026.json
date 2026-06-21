@@ -316,7 +316,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_21st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:49:57.752415+00:00",
+  "updated_utc": "2026-06-20T15:41:06.539755+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -330,18 +330,56 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 220024,
-    "completion_tokens": 8327,
-    "total_tokens": 228351,
-    "cost_usd": 0.016664908,
+    "prompt_tokens": 21340,
+    "completion_tokens": 2119,
+    "total_tokens": 23459,
+    "cost_usd": 0.002456724,
     "cost_source": "provider",
-    "estimated_usd": 0.023194,
+    "estimated_usd": 0.002302,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 220024,
-        "completion_tokens": 8327
+        "prompt_tokens": 21340,
+        "completion_tokens": 2119
       }
     },
-    "duration_s": 226.6
+    "duration_s": 39.2,
+    "serper_calls": 0,
+    "context_requests": 4,
+    "max_estimated_context_tokens": 9555,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0091,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mark Teixeira",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.95,
+    "party_probabilities": {
+      "Republican": 0.95,
+      "Democratic": 0.04,
+      "Independent": 0.01
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "Texas's 21st Congressional District is a heavily Republican district where Donald Trump won by 23 points in 2024. Although incumbent Chip Roy vacated the seat to run for Attorney General, Republican nominee Mark Teixeira — a former MLB All-Star with endorsements from President Trump and Governor Abbott — offers strong name recognition and crossover appeal. Democratic nominee Kristin Hook is a credible candidate with a PhD and prior experience as the 2024 nominee, but faces a severe structural disadvantage in this district. Independent Dan McQueen's brief 37-day mayoral tenure and lack of organized campaign infrastructure make a third-party breakthrough unlikely. No public opinion polls exist for this race as of mid-2026, which tempers confidence, but the district's strong Republican baseline and candidate environment support a safe Republican rating.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:00.292024Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": [
+      "https://www.ksat.com/vote-2026/2026/03/03/election-results-texas-21st-congressional-district-race-in-march-2026-primary/"
+    ]
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

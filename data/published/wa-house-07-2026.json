@@ -291,7 +291,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington%27s_7th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:54:32.977958+00:00",
+  "updated_utc": "2026-06-20T15:36:35.977295+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -305,18 +305,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 286107,
-    "completion_tokens": 6250,
-    "total_tokens": 292357,
-    "cost_usd": 0.021845374,
+    "prompt_tokens": 13583,
+    "completion_tokens": 2171,
+    "total_tokens": 15754,
+    "cost_usd": 0.001696746,
     "cost_source": "provider",
-    "estimated_usd": 0.029263,
+    "estimated_usd": 0.001613,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 286107,
-        "completion_tokens": 6250
+        "prompt_tokens": 13583,
+        "completion_tokens": 2171
       }
     },
-    "duration_s": 140.5
+    "duration_s": 33.1,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7907,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0075,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Pramila Jayapal",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.98,
+    "party_probabilities": {
+      "Democratic": 0.98,
+      "Republican": 0.015,
+      "Other": 0.005
+    },
+    "margin_estimate": 45.0,
+    "rating": "safe_d",
+    "confidence": "medium",
+    "rationale": "No public opinion polling exists for this race. The forecast relies entirely on structural factors: Washington's 7th District encompasses most of Seattle and nearby suburbs, making it one of the most Democratic districts in the nation (Cook PVI D+34). Incumbent Pramila Jayapal is a well-established six-term incumbent and former chair of the Congressional Progressive Caucus. Her general-election opponents are a Republican challenger (Nirav Sheth) and a minor-party candidate (David Blomstrom of the Fifth Republic Party), plus a fellow Democrat (Gwen Kirkland) in the top-two primary. Nonpartisan forecasters rate the seat Safe D. The district has not been competitive in any recent cycle. Confidence is tempered to medium only due to the complete absence of polling data; in all other respects the Democratic advantage is overwhelming.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:36:31.348277Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

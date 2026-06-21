@@ -137,7 +137,7 @@
         {
           "url": "https://www.maryallenforcongress.com/meetmary",
           "type": "website",
-          "title": "Meet Mary \u2014 Mary Allen for Congress",
+          "title": "Meet Mary — Mary Allen for Congress",
           "description": null,
           "last_accessed": "2026-06-10T12:00:00Z",
           "published_at": null,
@@ -317,7 +317,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Indiana%27s_8th_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T22:38:45.645535+00:00",
+  "updated_utc": "2026-06-20T15:29:38.172679+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -331,18 +331,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 222429,
-    "completion_tokens": 7649,
-    "total_tokens": 230078,
-    "cost_usd": 0.014910686,
+    "prompt_tokens": 13115,
+    "completion_tokens": 1728,
+    "total_tokens": 14843,
+    "cost_usd": 0.001623958,
     "cost_source": "provider",
-    "estimated_usd": 0.023297,
+    "estimated_usd": 0.001491,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 222429,
-        "completion_tokens": 7649
+        "prompt_tokens": 13115,
+        "completion_tokens": 1728
       }
     },
-    "duration_s": 123.0
+    "duration_s": 27.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 7715,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0074,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Mark Messmer",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.96,
+    "party_probabilities": {
+      "Republican": 0.96,
+      "Democratic": 0.035,
+      "Independent": 0.005
+    },
+    "margin_estimate": 18.0,
+    "rating": "safe_r",
+    "confidence": "medium",
+    "rationale": "No public polls exist for this race as of June 2026, limiting confidence. The forecast relies on structural indicators: incumbent Republican Mark Messmer holds a strongly conservative district (Cook Political Report rates it Solidly Republican), and he benefits from incumbency and a recent 2024 open-seat win following retiring Rep. Larry Bucshon. Democratic nominee Mary Allen is a credible challenger with city council and military experience, and the race description notes increased Democratic enthusiasm in 2026; however, no polling or fundraising data suggests a shift toward competitiveness. Independent James Burke has a minimal public profile and is unlikely to be a factor. Given the district's conservative lean, incumbency, and absence of contrary signals, Republican retention is highly probable.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:29:32.554569Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

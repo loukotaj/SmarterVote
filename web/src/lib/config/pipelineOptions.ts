@@ -19,8 +19,14 @@ export const REVIEWER_DEFS: {
     key: "gemini",
     name: "Gemini",
     options: [
-      { value: "google/gemini-3.1-pro-preview", label: "Gemini 3.1 Pro (Preview)" },
-      { value: "google/gemini-3.1-flash-lite-preview", label: "Gemini 3.1 Flash Lite" },
+      {
+        value: "google/gemini-3.1-pro-preview",
+        label: "Gemini 3.1 Pro (Preview)",
+      },
+      {
+        value: "google/gemini-3.1-flash-lite-preview",
+        label: "Gemini 3.1 Flash Lite",
+      },
     ],
   },
   {
@@ -37,10 +43,15 @@ export const RESEARCH_MODELS = [
   { value: "", label: "Auto (profile selects)" },
   { value: "openai/gpt-5.4", label: "GPT-5.4 - best quality" },
   { value: "openai/gpt-5.4-mini", label: "GPT-5.4 mini - fast & smart" },
-  { value: "openai/gpt-5-nano", label: "GPT-5 nano - advanced low-cost override" },
+  {
+    value: "openai/gpt-5-nano",
+    label: "GPT-5 nano - advanced low-cost override",
+  },
 ];
 
-export function createDefaultReviewerEnabled(reviewEnabled: boolean = false): Record<ReviewerKey, boolean> {
+export function createDefaultReviewerEnabled(
+  reviewEnabled: boolean = false
+): Record<ReviewerKey, boolean> {
   if (reviewEnabled) {
     return { claude: true, gemini: true, grok: true };
   }
@@ -60,9 +71,9 @@ export function applyReviewerModelOptions(
   reviewerEnabled: Record<ReviewerKey, boolean>,
   reviewerModels: Record<ReviewerKey, string>
 ): RunOptions {
-  opts.review_providers = REVIEWER_DEFS
-    .map((reviewer) => reviewer.key)
-    .filter((key) => reviewerEnabled[key]);
+  opts.review_providers = REVIEWER_DEFS.map((reviewer) => reviewer.key).filter(
+    (key) => reviewerEnabled[key]
+  );
   if (reviewerEnabled.claude) opts.claude_model = reviewerModels.claude;
   if (reviewerEnabled.gemini) opts.gemini_model = reviewerModels.gemini;
   if (reviewerEnabled.grok) opts.grok_model = reviewerModels.grok;

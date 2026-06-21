@@ -342,7 +342,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_House_of_Representatives_election_in_Alaska,_2026",
-  "updated_utc": "2026-06-13T21:59:53.219947+00:00",
+  "updated_utc": "2026-06-20T15:20:35.538371+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -356,18 +356,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 183571,
-    "completion_tokens": 8975,
-    "total_tokens": 192546,
-    "cost_usd": 0.013429186,
+    "prompt_tokens": 14046,
+    "completion_tokens": 2256,
+    "total_tokens": 16302,
+    "cost_usd": 0.001818684,
     "cost_source": "provider",
-    "estimated_usd": 0.019749,
+    "estimated_usd": 0.00167,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 183571,
-        "completion_tokens": 8975
+        "prompt_tokens": 14046,
+        "completion_tokens": 2256
       }
     },
-    "duration_s": 161.0
+    "duration_s": 37.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 8299,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0079,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 0,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Nick Begich III",
+    "predicted_winner_party": "Republican",
+    "win_probability": 0.66,
+    "party_probabilities": {
+      "Republican": 0.66,
+      "Democratic": 0.27,
+      "Independent": 0.07
+    },
+    "margin_estimate": 5.0,
+    "rating": "lean_r",
+    "confidence": "low",
+    "rationale": "No public opinion polls exist for the 2026 Alaska U.S. House race as of mid-2026, so the forecast relies wholly on structural and historical factors. Incumbent Republican Nick Begich III won this statewide seat in 2024 by defeating Democratic incumbent Mary Peltola, giving him a meaningful built-in advantage. The challenger field is fragmented — two Democrats (pastor Matt Schultz and perennial fringe candidate Eric Hafner, a federal prisoner) plus a credible independent (Bill Hill, former Alaska Superintendent of the Year). Alaska's top-four nonpartisan primary and ranked-choice general election can complicate vote consolidation against an incumbent but also allow ranked ballots to coalesce behind a single alternative. The seat has a recent history of competitiveness and partisanship-switching (Peltola D 2022–2024, Begich R 2024–present), limiting confidence in any safe categorization. With zero polls and limited evidence about challenger fundraising or voter sentiment, Begich appears favored but not dominant, justifying a low-confidence lean Republican forecast.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:20:28.107719Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

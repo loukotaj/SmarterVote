@@ -181,7 +181,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_York%27s_22nd_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:24:08.448421+00:00",
+  "updated_utc": "2026-06-20T15:33:26.548909+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -195,18 +195,53 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 284459,
-    "completion_tokens": 8298,
-    "total_tokens": 292757,
-    "cost_usd": 0.020847262000000002,
+    "prompt_tokens": 7166,
+    "completion_tokens": 1929,
+    "total_tokens": 9095,
+    "cost_usd": 0.0010803520000000001,
     "cost_source": "provider",
-    "estimated_usd": 0.029503,
+    "estimated_usd": 0.000992,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 284459,
-        "completion_tokens": 8298
+        "prompt_tokens": 7166,
+        "completion_tokens": 1929
       }
     },
-    "duration_s": 179.5
+    "duration_s": 30.7,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 3638,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0035,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "John Mannion",
+    "predicted_winner_party": "Democratic",
+    "win_probability": 0.88,
+    "party_probabilities": {
+      "Democratic": 0.88,
+      "Republican": 0.12
+    },
+    "margin_estimate": 8.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No independent public general election polls exist for NY-22 as of mid-June 2026. The forecast relies on structural indicators: a D+4 Cook PVI gives Democrats a modest built-in advantage; first-term Democratic incumbent John Mannion flipped this seat from Republican control in 2024; both primaries were uncontested, suggesting organized party support on each side; and Cook Political Report rates the race as 'Solid D,' indicating analysts see a strong Democratic hold. However, given the absence of any current polling and that Mannion is a freshman incumbent in a district with a history of partisan swings, the appropriate rating is likely_d (80-94% range) rather than safe_d, with medium confidence.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:33:21.311976Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }

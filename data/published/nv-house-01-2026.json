@@ -14,7 +14,7 @@
       "name": "Dina Titus",
       "party": "Democratic Party",
       "incumbent": true,
-      "summary": "Dina Titus is the incumbent U.S. Representative for Nevada's 1st Congressional District, first elected in 2012 after previously serving one term in the 3rd district (2009\u20132011). She spent 20 years in the Nevada Senate and was the Democratic nominee for governor in 2006. A former political science professor at UNLV, Titus focuses on healthcare, education, and consumer protection, and is expected to become the dean of Nevada's congressional delegation in 2027.",
+      "summary": "Dina Titus is the incumbent U.S. Representative for Nevada's 1st Congressional District, first elected in 2012 after previously serving one term in the 3rd district (2009–2011). She spent 20 years in the Nevada Senate and was the Democratic nominee for governor in 2006. A former political science professor at UNLV, Titus focuses on healthcare, education, and consumer protection, and is expected to become the dean of Nevada's congressional delegation in 2027.",
       "summary_sources": [
         {
           "url": "https://en.wikipedia.org/wiki/Dina_Titus",
@@ -418,7 +418,7 @@
     }
   ],
   "ballotpedia_url": "https://ballotpedia.org/Nevada%27s_1st_Congressional_District_election,_2026",
-  "updated_utc": "2026-06-13T21:29:07.484459+00:00",
+  "updated_utc": "2026-06-20T15:42:02.059861+00:00",
   "generator": [
     "deepseek/deepseek-v4-flash",
     "openai/gpt-5-nano"
@@ -432,18 +432,54 @@
   "agent_metrics": {
     "model": "deepseek/deepseek-v4-flash",
     "model_profile": "economy",
-    "prompt_tokens": 262119,
-    "completion_tokens": 7918,
-    "total_tokens": 270037,
-    "cost_usd": 0.020470438,
+    "prompt_tokens": 16754,
+    "completion_tokens": 2589,
+    "total_tokens": 19343,
+    "cost_usd": 0.002149336,
     "cost_source": "provider",
-    "estimated_usd": 0.02724,
+    "estimated_usd": 0.001974,
     "model_breakdown": {
       "deepseek/deepseek-v4-flash": {
-        "prompt_tokens": 262119,
-        "completion_tokens": 7918
+        "prompt_tokens": 16754,
+        "completion_tokens": 2589
       }
     },
-    "duration_s": 173.4
+    "duration_s": 39.6,
+    "serper_calls": 0,
+    "context_requests": 3,
+    "max_estimated_context_tokens": 9871,
+    "max_context_window_tokens": 1048576,
+    "max_context_utilization": 0.0094,
+    "context_deduplicated_results": 0,
+    "context_compacted_results": 0,
+    "context_truncated_results": 0,
+    "context_dropped_tool_turns": 0,
+    "retry_rate_limits": 0,
+    "retry_provider_failures": 1,
+    "retry_deadline_exits": 0
+  },
+  "forecast": {
+    "predicted_winner_name": "Dina Titus",
+    "predicted_winner_party": "Democratic Party",
+    "win_probability": 0.8,
+    "party_probabilities": {
+      "Democratic": 0.8,
+      "Republican": 0.19,
+      "Other": 0.01
+    },
+    "margin_estimate": 5.0,
+    "rating": "likely_d",
+    "confidence": "medium",
+    "rationale": "No district-specific general-election polls exist for NV-01 as of mid-2026, so this forecast relies on non-polling indicators and carries medium confidence. Democratic incumbent Dina Titus has held the seat since 2013 and won re-election with 52.0% in 2024—a solid but not commanding margin in a district that has become more competitive. Republican Carrie Buck is a credible challenger who flipped a state Senate seat from D to R in 2020 and is described as well-funded; she could keep the race close. However, outside race ratings from Cook (Likely D), Sabato's Crystal Ball (Likely D), and Inside Elections (Lean D) all favor Democrats, and Titus's long incumbency and experience provide a structural advantage. The presence of four nonpartisan candidates is unlikely to materially shift the two-party contest. With no polling data to sharpen the estimate, a 'likely D' rating (Democratic win probability ~80%) and a moderate single-digit margin reflect the best assessment of the available information.",
+    "based_on_poll_count": 0,
+    "generated_at": "2026-06-20T15:41:55.862619Z",
+    "model": "deepseek/deepseek-v4-flash",
+    "source_urls": []
+  },
+  "pipeline_state": {
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": []
   }
 }
