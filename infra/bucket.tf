@@ -89,16 +89,11 @@ resource "google_storage_bucket_object" "folders" {
   content = " " # Empty content to create folder structure
 }
 
-# Public static frontend reads are limited to published race data.
-# Drafts, retired versions, artifacts, and checkpoints remain private.
+# Public static frontend reads use the published race data in this bucket.
+# GCS does not allow conditional IAM bindings on allUsers, so this grants
+# public objectViewer access at the bucket level.
 resource "google_storage_bucket_iam_member" "published_races_public_reader" {
   bucket = google_storage_bucket.sv_data.name
   role   = "roles/storage.objectViewer"
   member = "allUsers"
-
-  condition {
-    title       = "published-races-public-read"
-    description = "Allow public reads only for objects under races/."
-    expression  = "resource.name.startsWith(\"projects/_/buckets/${google_storage_bucket.sv_data.name}/objects/races/\")"
-  }
 }
