@@ -10,14 +10,8 @@ export const load: LayoutLoad = async ({ fetch }) => {
   try {
     const races = await getRaceSummaries(fetch);
     return { races };
-  } catch (error) {
-    console.error("Failed to load layout data in layout load function:", error);
-    let races: RaceSummary[] = [];
-    try {
-      races = await getRaceSummaries(fetch);
-    } catch (_) {
-      // Keep the shell renderable when the API is unavailable.
-    }
-    return { races };
+  } catch {
+    // Keep the shell renderable when local fast builds do not have an API or GCS data URL.
+    return { races: [] as RaceSummary[] };
   }
 };
