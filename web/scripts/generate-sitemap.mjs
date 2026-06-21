@@ -32,24 +32,34 @@ function urlEntry(loc, lastmod, changefreq, priority) {
   return lines.join("\n");
 }
 
-const summariesUrl = PUBLIC_DATA_URL
-  ? `${PUBLIC_DATA_URL.replace(/\/$/, "")}/summaries.json`
-  : API_BASE
-  ? `${API_BASE.replace(/\/$/, "")}/races/summaries`
-  : null;
+let races;
+const localPath = path.resolve("..", "data", "published", "summaries.json");
+try {
+  const content = await fs.readFile(localPath, "utf8");
+  races = JSON.parse(content);
+  console.log(`Loaded ${races.length} races from local path ${localPath} for sitemap.`);
+} catch (err) {
+  console.log(`Could not read local sitemap source: ${err.message}. Fetching from network...`);
 
-if (!summariesUrl) {
-  throw new Error(
-    "Set VITE_PUBLIC_DATA_URL or VITE_RACES_API_URL to generate the sitemap from published race data."
-  );
+  const summariesUrl = PUBLIC_DATA_URL
+    ? `${PUBLIC_DATA_URL.replace(/\/$/, "")}/summaries.json`
+    : API_BASE
+    ? `${API_BASE.replace(/\/$/, "")}/races/summaries`
+    : null;
+
+  if (!summariesUrl) {
+    throw new Error(
+      "Set VITE_PUBLIC_DATA_URL or VITE_RACES_API_URL to generate the sitemap from published race data."
+    );
+  }
+
+  const res = await fetch(summariesUrl);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch race summaries for sitemap: ${res.status}`);
+  }
+
+  races = await res.json();
 }
-
-const res = await fetch(summariesUrl);
-if (!res.ok) {
-  throw new Error(`Failed to fetch race summaries for sitemap: ${res.status}`);
-}
-
-const races = await res.json();
 const entries = [
   urlEntry(`${SITE_URL}/`, new Date().toISOString(), "weekly", "1.0"),
   urlEntry(`${SITE_URL}/about/`, new Date().toISOString(), "monthly", "0.8"),

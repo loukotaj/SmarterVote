@@ -52,8 +52,10 @@ jobs:
             curl -sSfL "$API_URL/races/summaries" -o data/published/summaries.json
             curl -sSfL "$API_URL/races/chamber_forecasts" -o data/published/chamber_forecasts.json
           else
-            echo "Set repository variable VITE_PUBLIC_DATA_URL or RACES_API_URL for Cloudflare deployment."
-            exit 1
+            echo "Warning: VITE_PUBLIC_DATA_URL and RACES_API_URL are empty. Falling back to dev API endpoint."
+            DATA_URL="https://races-api-dev-ddsvfazica-uc.a.run.app"
+            curl -sSfL "$DATA_URL/races/summaries" -o data/published/summaries.json
+            curl -sSfL "$DATA_URL/races/chamber_forecasts" -o data/published/chamber_forecasts.json
           fi
 
       - name: Generate SvelteKit files
