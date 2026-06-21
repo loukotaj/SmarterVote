@@ -37,7 +37,7 @@ cd web && npm ci && npm run check && npm run build && npm run test:unit -- --run
 cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate
 ```
 
-CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. CD auto-deploys on `main` via Terraform.
+CI (`.github/workflows/ci.yaml`) runs on push/PR. Infrastructure CD deploys through `.github/workflows/terraform-deploy.yaml`; the static web frontend deploys through `.github/workflows/cloudflare-deploy.yaml`.
 
 ## Python Conventions
 
@@ -56,9 +56,9 @@ CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. C
 - Components in `web/src/lib/components/`; routes use `+page.svelte` / `+page.ts`
 - **Prettier + ESLint** for formatting; **TailwindCSS** with semantic design tokens (`--sv-page`, `--sv-text`, etc.)
 - Unused variables prefixed with `_` (ESLint `@typescript-eslint/no-unused-vars` pattern `^_`)
-- Frontend env vars use `VITE_` prefix: `VITE_API_BASE`, `VITE_RACES_API_URL`, `VITE_PUBLIC_DATA_URL`
+- Frontend env vars use `VITE_` prefix: `VITE_RACES_API_URL`, `VITE_PUBLIC_DATA_URL`, `VITE_AUTH0_AUDIENCE`
 - Static-site traffic uses Cloudflare Web Analytics; do not infer public traffic from `races-api` request counts
-- Static adapter for GitHub Pages (`web/svelte.config.js`)
+- Static adapter for Cloudflare Pages (`web/svelte.config.js`)
 
 ## Testing Gotchas
 

@@ -7,12 +7,12 @@ Thanks for helping improve Smarter.vote. This document covers how to open issues
 ### Before you open an issue
 
 1. **Search first.** Check [open and closed issues](https://github.com/loukotaj/SmarterVote/issues?q=is%3Aissue) before submitting. Duplicate issues will be closed without action.
-2. **Use the right template.** Pick the template that matches your report — it collects the information needed to act on it quickly.
+2. **Use the right template.** Pick the template that matches your report - it collects the information needed to act on it quickly.
 3. **One issue per topic.** Don't bundle multiple requests or bugs into a single issue. Open separate issues so each can be tracked and closed independently.
 
 ### Race requests
 
-You don't need to sponsor or do anything special to request a race — just open an issue using the **Race Request** template. Requests are prioritized based on election timeline, competitiveness, and available data.
+You don't need to sponsor or do anything special to request a race - just open an issue using the **Race Request** template. Requests are prioritized based on election timeline, competitiveness, and available data.
 
 Race ID format: `state-office-year`
 

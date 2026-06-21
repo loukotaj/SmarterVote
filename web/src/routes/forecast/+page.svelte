@@ -19,6 +19,7 @@
     parseForecastTab,
     type ForecastTab,
     INCUMBENT_FALLBACKS,
+    groupSeatDistribution,
   } from "$lib/utils/forecast";
   import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "$lib/utils/holdovers";
 
@@ -50,6 +51,8 @@
   let expandedRaceIds = new Set<string>();
   let expandedRaceTab: ForecastTab = activeTab;
 
+  let activeChartType: "buckets" | "histogram" | "curve" = "buckets";
+
   $: races = ($page.data.races as RaceSummary[] | undefined) ?? [];
   $: activeTab = browser
     ? parseForecastTab($page.url.searchParams.get("tab"))
@@ -71,6 +74,60 @@
     expandedRaceIds = expandedRaceIds;
     expandedRaceTab = activeTab;
   }
+
+  $: seatBuckets = groupSeatDistribution(chamberSummary?.seat_distribution ?? {});
+  $: sortedOutcomes = Object.entries(chamberSummary?.seat_distribution ?? {})
+    .map(([key, prob]) => {
+      const matchD = key.match(/(\d+)D/);
+      const matchR = key.match(/(\d+)R/);
+      const d = matchD ? parseInt(matchD[1], 10) : 50;
+      const r = matchR ? parseInt(matchR[1], 10) : 50;
+      return { key, probability: prob, dSeats: d, rSeats: r };
+    })
+    .sort((a, b) => b.dSeats - a.dSeats);
+  $: maxProbability = Math.max(...sortedOutcomes.map(o => o.probability), 0.01);
+  $: svgData = (() => {
+    if (sortedOutcomes.length === 0) return { fillPath: "", strokePath: "", points: [], tieX: 150, minD: 45, maxD: 55 };
+    const minD = Math.min(...sortedOutcomes.map(o => o.dSeats));
+    const maxD = Math.max(...sortedOutcomes.map(o => o.dSeats));
+    const span = (maxD - minD) || 1;
+    const maxP = Math.max(...sortedOutcomes.map(o => o.probability), 0.01);
+
+    const points = sortedOutcomes.map(o => {
+      const pctX = (o.dSeats - minD) / span;
+      const pctY = o.probability / maxP;
+      return {
+        x: 15 + pctX * 270, // 300px wide
+        y: 85 - pctY * 75,  // 100px high
+        dSeats: o.dSeats,
+        rSeats: o.rSeats,
+        prob: o.probability
+      };
+    });
+
+    let fillPath = "";
+    let strokePath = "";
+    if (points.length > 0) {
+      fillPath = `M ${points[0].x} 85 `;
+      strokePath = `M ${points[0].x} ${points[0].y} `;
+      for (const pt of points) {
+        fillPath += `L ${pt.x} ${pt.y} `;
+        strokePath += `L ${pt.x} ${pt.y} `;
+      }
+      fillPath += `L ${points[points.length - 1].x} 85 Z`;
+    }
+
+    let tieX = 150;
+    if (50 >= minD && 50 <= maxD) {
+      tieX = 15 + ((50 - minD) / span) * 270;
+    } else if (50 < minD) {
+      tieX = 15;
+    } else {
+      tieX = 285;
+    }
+
+    return { fillPath, strokePath, points, tieX, minD, maxD };
+  })();
 
   $: projectedSeats = chamberSummary?.projected_seats ?? aggregate.projected;
   $: expectedSeats = chamberSummary?.expected_seats;
@@ -691,13 +748,13 @@
           <div class="flex items-center justify-between">
             <span
               class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
-              >Chamber Control Probabilities</span
+              >{activeTab === "governors" ? "Control Probabilities" : "Chamber Control Probabilities"}</span
             >
             {#if activeTab === "senate" && outcomeProbabilities?.tie_50_50}
               <span
-                class="text-[10px] font-semibold text-red-600 dark:text-red-400 bg-red-500/5 px-2 py-0.5 rounded-md border border-red-500/10"
+                class="text-[10px] font-semibold text-content-subtle bg-surface-alt px-2 py-0.5 rounded-md border border-stroke/60"
               >
-                50-50 Tie Probability: {probability(
+                50-50 Tie: {probability(
                   outcomeProbabilities.tie_50_50
                 )}
               </span>
@@ -752,7 +809,7 @@
               </div>
 
               <!-- Callout Note -->
-              {#if activeTab === "senate" && outcomeProbabilities.tie_50_50}
+              {#if activeTab === "senate" && outcomeProbabilities.tie_50_50 && !(projectedSeats.Democratic === 50 && projectedSeats.Republican === 50)}
                 <div
                   class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
                 >
@@ -772,11 +829,9 @@
                   <p
                     class="text-xs text-content-muted leading-relaxed font-medium"
                   >
-                    Republicans are favored because 50-50 outcomes are counted
-                    as Republican control under the VP tie-break assumption.
-                    This includes a <span class="font-extrabold text-content"
-                      >{probability(outcomeProbabilities.tie_50_50)}</span
-                    > probability of a 50-50 tie.
+                    A {probability(outcomeProbabilities.tie_50_50)} 50-50 tie probability is
+                    counted as Republican control via VP tie-break, contributing to the Republican
+                    control advantage shown above.
                   </p>
                 </div>
               {/if}
@@ -886,13 +941,13 @@
               </div>
             </div>
 
-            <!-- 50-50 tie-break warning/alert for Senate -->
+            <!-- 50-50 tie-break note for Senate -->
             {#if activeTab === "senate" && projectedSeats.Democratic === 50 && projectedSeats.Republican === 50}
               <div
-                class="bg-red-500/5 border border-red-500/20 rounded-xl p-2.5 text-center text-xs text-red-600 dark:text-red-400 font-bold flex items-center justify-center gap-2 animate-pulse"
+                class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
               >
                 <svg
-                  class="w-4 h-4 text-red-600 dark:text-red-400 shrink-0"
+                  class="w-4 h-4 text-content-subtle shrink-0 mt-0.5"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
@@ -900,14 +955,16 @@
                   stroke-linejoin="round"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                  />
-                  <line x1="12" y1="9" x2="12" y2="13" />
-                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
-                Projected 50-50 seat split. Republican control projected under the
-                VP tie-break assumption.
+                <p class="text-xs text-content-muted leading-relaxed font-medium">
+                  The most likely outcome is a 50-50 seat split. Under the current VP tie-break assumption, this projects to Republican control.
+                  {#if outcomeProbabilities?.tie_50_50}
+                    The 50-50 scenario has a <span class="font-bold text-content">{probability(outcomeProbabilities.tie_50_50)}</span> probability.
+                  {/if}
+                </p>
               </div>
             {/if}
           </div>
@@ -1147,7 +1204,7 @@
               on:click={clearStateFilter}
               class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold flex items-center gap-1 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-lg border border-blue-200/50 dark:border-blue-900/50"
             >
-              Clear Map Filter: {selectedState} Ã—
+              Clear Map Filter: {selectedState} x
             </button>
           {/if}
         </div>
@@ -1374,6 +1431,204 @@
           </div>
         </div>
 
+        {#if activeTab === "senate" && chamberSummary?.seat_distribution}
+          <!-- Seat Outcome Distribution Card -->
+          <div
+            class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
+          >
+            <div class="flex items-center justify-between mb-4 border-b border-stroke/40 pb-3">
+              <div>
+                <h3 class="text-sm font-black uppercase text-content-subtle tracking-wider">
+                  Seat Outcome Distribution
+                </h3>
+                <p class="text-[10px] text-content-subtle font-medium mt-0.5">
+                  Probability of final Republican/Democratic seat splits
+                </p>
+              </div>
+            </div>
+
+            <!-- Chart Tab Toggle -->
+            <div class="flex gap-1 bg-surface-alt/60 p-1 rounded-lg border border-stroke/45 mb-4">
+              <button
+                on:click={() => (activeChartType = "buckets")}
+                class={`flex-1 text-center py-1 text-[11px] font-bold rounded-md transition-all ${
+                  activeChartType === "buckets"
+                    ? "bg-surface text-content shadow-sm border border-stroke/20"
+                    : "text-content-subtle hover:text-content"
+                }`}
+              >
+                Groups
+              </button>
+              <button
+                on:click={() => (activeChartType = "histogram")}
+                class={`flex-1 text-center py-1 text-[11px] font-bold rounded-md transition-all ${
+                  activeChartType === "histogram"
+                    ? "bg-surface text-content shadow-sm border border-stroke/20"
+                    : "text-content-subtle hover:text-content"
+                }`}
+              >
+                Histogram
+              </button>
+              <button
+                on:click={() => (activeChartType = "curve")}
+                class={`flex-1 text-center py-1 text-[11px] font-bold rounded-md transition-all ${
+                  activeChartType === "curve"
+                    ? "bg-surface text-content shadow-sm border border-stroke/20"
+                    : "text-content-subtle hover:text-content"
+                }`}
+              >
+                Curve
+              </button>
+            </div>
+
+            <!-- Chart Content Area -->
+            <div class="min-h-[160px] flex flex-col justify-center">
+              {#if activeChartType === "buckets"}
+                <div class="space-y-4">
+                  <!-- Visual Stacked Bar -->
+                  <div class="h-8 rounded-lg overflow-hidden flex border border-stroke/60">
+                    {#each seatBuckets as bucket}
+                      {#if bucket.probability > 0}
+                        <div
+                          class={`${bucket.colorClass} transition-all duration-500 flex items-center justify-center text-[10px] font-bold text-white shadow-inner relative group cursor-pointer`}
+                          style={`width: ${bucket.probability * 100}%`}
+                        >
+                          <!-- Tooltip -->
+                          <div class="absolute bottom-full mb-2 hidden group-hover:block z-50 bg-surface border border-stroke p-2 rounded-lg shadow-md text-xs font-semibold text-content w-40 text-center pointer-events-none">
+                            <div class="font-bold">{bucket.label}</div>
+                            <div class="text-blue-600 dark:text-blue-400 mt-1">{(bucket.probability * 100).toFixed(1)}% probability</div>
+                          </div>
+
+                          {#if bucket.probability > 0.08}
+                            {Math.round(bucket.probability * 100)}%
+                          {/if}
+                        </div>
+                      {/if}
+                    {/each}
+                  </div>
+
+                  <!-- Legend & Details -->
+                  <div class="grid grid-cols-1 gap-2.5">
+                    {#each seatBuckets as bucket}
+                      {#if bucket.probability > 0}
+                        <div class="flex items-center justify-between text-xs">
+                          <div class="flex items-center gap-2">
+                            <span class={`w-3.5 h-3.5 rounded ${bucket.colorClass} border border-stroke/20`} />
+                            <span class="font-bold text-content">{bucket.label}</span>
+                          </div>
+                          <span class="font-black text-content-muted">{(bucket.probability * 100).toFixed(1)}%</span>
+                        </div>
+                      {/if}
+                    {/each}
+                  </div>
+                </div>
+              {:else if activeChartType === "histogram"}
+                <div class="space-y-2 max-h-[280px] overflow-y-auto pr-1 select-none">
+                  {#each sortedOutcomes as outcome}
+                    {@const isTie = outcome.dSeats === 50}
+                    {@const isDem = outcome.dSeats >= 51}
+                    <div class="flex items-center gap-3 text-xs">
+                      <!-- Label e.g. "52D - 48R" -->
+                      <span class="w-18 font-mono font-bold text-[10px] text-content-subtle shrink-0">
+                        {outcome.dSeats}D - {outcome.rSeats}R
+                      </span>
+                      <!-- Bar track -->
+                      <div class="flex-1 bg-surface-alt rounded-full h-3 overflow-hidden border border-stroke/40 relative">
+                        <div
+                          class={`h-full rounded-full transition-all duration-300 ${
+                            isTie
+                              ? "bg-slate-400 dark:bg-slate-500"
+                              : isDem
+                              ? "bg-blue-500 dark:bg-blue-600"
+                              : "bg-red-500 dark:bg-red-600"
+                          }`}
+                          style={`width: ${(outcome.probability / maxProbability) * 100}%`}
+                        />
+                      </div>
+                      <!-- Value -->
+                      <span class="w-10 text-right font-black font-mono text-[10px] text-content-muted shrink-0">
+                        {(outcome.probability * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                  {/each}
+                </div>
+              {:else if activeChartType === "curve"}
+                <div class="relative w-full h-[180px] select-none flex flex-col justify-between">
+                  <!-- SVG Area Chart -->
+                  <svg viewBox="0 0 300 100" class="w-full h-[140px] overflow-visible">
+                    <defs>
+                      <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(59, 130, 246, 0.4)" />
+                        <stop offset="100%" stop-color="rgba(239, 68, 68, 0.4)" />
+                      </linearGradient>
+                      <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#ef4444" />
+                      </linearGradient>
+                    </defs>
+
+                    <!-- Grid lines -->
+                    <line x1="15" y1="85" x2="285" y2="85" stroke="currentColor" class="text-stroke/60" stroke-width="0.75" />
+                    <line x1="15" y1="10" x2="285" y2="10" stroke="currentColor" class="text-stroke/20" stroke-dasharray="2 2" stroke-width="0.5" />
+
+                    <!-- Area Path -->
+                    {#if svgData.fillPath}
+                      <path d={svgData.fillPath} fill="url(#curveGradient)" />
+                      <path d={svgData.strokePath} stroke="url(#lineGradient)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                    {/if}
+
+                    <!-- Tie break line -->
+                    <line
+                      x1={svgData.tieX}
+                      y1="10"
+                      x2={svgData.tieX}
+                      y2="85"
+                      stroke="currentColor"
+                      class="text-slate-400 dark:text-slate-500"
+                      stroke-width="1"
+                      stroke-dasharray="3 3"
+                    />
+
+                    <!-- Hoverable Points -->
+                    {#each svgData.points as pt}
+                      <g class="group/point cursor-pointer">
+                        <circle
+                          cx={pt.x}
+                          cy={pt.y}
+                          r="3.5"
+                          fill="currentColor"
+                          class="text-blue-600 dark:text-blue-400 scale-0 group-hover/point:scale-120 transition-transform origin-center"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                        />
+                        <circle
+                          cx={pt.x}
+                          cy={pt.y}
+                          r="7"
+                          fill="transparent"
+                        />
+                        <foreignObject x={Math.max(10, pt.x - 55)} y={Math.max(0, pt.y - 38)} width="110" height="35" class="pointer-events-none hidden group-hover/point:block overflow-visible z-50">
+                          <div class="bg-surface border border-stroke p-1 rounded shadow-md text-[8px] font-black text-center leading-tight">
+                            <div>{pt.dSeats}D - {pt.rSeats}R</div>
+                            <div class="text-blue-500 mt-0.5">{(pt.prob * 100).toFixed(1)}% prob</div>
+                          </div>
+                        </foreignObject>
+                      </g>
+                    {/each}
+                  </svg>
+
+                  <!-- X-axis Labels -->
+                  <div class="flex justify-between text-[9px] font-bold text-content-subtle px-2 border-t border-stroke/20 pt-1.5 mt-1">
+                    <span>{svgData.minD}D (Min)</span>
+                    <span class="text-slate-400 dark:text-slate-500">50-50 Tie Threshold</span>
+                    <span>{svgData.maxD}D (Max)</span>
+                  </div>
+                </div>
+              {/if}
+            </div>
+          </div>
+        {/if}
+
         <!-- Ratings Counts Grid Card -->
         <div
           class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
@@ -1558,7 +1813,7 @@
                   on:click={clearStateFilter}
                   class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-xl border border-blue-200/50"
                 >
-                  State: {selectedState} Ã—
+                  State: {selectedState} x
                 </button>
               {/if}
 

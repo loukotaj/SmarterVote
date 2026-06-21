@@ -11,7 +11,7 @@ from google.api_core.exceptions import NotFound, PreconditionFailed
 # Resolved once at startup; can be overridden in tests.
 _GCS_BUCKET = os.getenv("GCS_BUCKET", "")
 
-# Module-level singleton â€” tests can patch _get_gcs_admin to return a mock.
+# Module-level singleton; tests can patch _get_gcs_admin to return a mock.
 _gcs_admin_client = None
 
 

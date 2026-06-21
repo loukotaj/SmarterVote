@@ -1,243 +1,141 @@
-# SmarterVote Infrastructure Deployment & Rollback Guide
+# SmarterVote Deployment Guide
 
-This guide covers the enhanced Terraform deployment system with state management, lifecycle protection, and automated rollback capabilities.
+This guide covers the current deployment path for infrastructure, backend services, Cloud Functions, and the static web frontend.
 
-## 🚀 Quick Start
+## Deployment Model
 
-### Deploy Infrastructure
+Production uses two GitHub Actions workflows after `CI - Quality Gates` passes on `main`:
 
-```powershell
-# Plan changes (safe, no modifications)
-.\scripts\deploy.ps1 -Environment dev -Action plan
+- `.github/workflows/terraform-deploy.yaml` builds the `races-api` container, packages Cloud Function source zips, syncs secrets, and runs Terraform.
+- `.github/workflows/cloudflare-deploy.yaml` pulls published static JSON from GCS, builds the SvelteKit static site, deploys to Cloudflare Pages, and optionally submits IndexNow URLs.
 
-# Apply changes to development
-.\scripts\deploy.ps1 -Environment dev -Action apply
+The normal backend flow is:
 
-# Deploy to production
-.\scripts\deploy.ps1 -Environment prod -Action apply
+```text
+web admin -> races-api -> Firestore pipeline_queue
+  -> Eventarc -> functions/agent -> AgentHandler -> GCS drafts/
+  -> admin publish -> GCS races/ + races/summaries.json
 ```
 
-### Emergency Rollback
+The durable admin agent follows:
+
+```text
+web admin agent -> races-api -> Firestore admin_agent_tasks
+  -> Eventarc -> functions/admin_agent -> authenticated races-api tools
+```
+
+The legacy `pipeline-client` Cloud Run service is disabled by default and should stay disabled for normal deployments.
+
+## Required GitHub Configuration
+
+Repository variables:
+
+- `GCP_PROJECT_ID`
+- `AUTH0_DOMAIN`
+- `AUTH0_AUDIENCE`
+- `CLOUDFLARE_ANALYTICS_ACCOUNT_TAG`
+- `CLOUDFLARE_ANALYTICS_SITE_TAG`
+- `RACES_API_URL` for the frontend build
+- `VITE_PUBLIC_DATA_URL` for static GCS race reads
+- `VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN`
+- `CLOUDFLARE_PROJECT_NAME` and `CLOUDFLARE_ACCOUNT_ID` when not using defaults
+- `ENVIRONMENT` for the Cloudflare static data bucket, defaulting to `dev`
+
+Repository secrets:
+
+- `GCP_SA_KEY`
+- `OPENROUTER_API_KEY`
+- `SERPER_API_KEY`
+- `ADMIN_API_KEY`
+- `CLOUDFLARE_ANALYTICS_API_TOKEN`
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID` when not configured as a variable
+- `INDEXNOW_KEY` if IndexNow submission is enabled
+
+## Deploy Infrastructure
+
+Use the helper script to trigger the Terraform workflow:
 
 ```powershell
-# Rollback to previous commit
-.\scripts\rollback.ps1 -Environment prod
+.\scripts\deploy.ps1 -Environment dev -Action plan
+.\scripts\deploy.ps1 -Environment dev -Action apply
+```
 
-# Rollback to specific commit
+The script requires `gh` authentication and triggers `terraform-deploy.yaml`. On `main`, a successful CI run also triggers an `apply` to the default `dev` environment.
+
+Manual Terraform remains available for local validation or emergency work:
+
+```bash
+cd infra
+terraform init
+terraform plan -var-file=secrets.tfvars
+terraform apply -var-file=secrets.tfvars
+```
+
+Before manual apply, build the function source zips or use the GitHub Actions workflow, which creates:
+
+- `infra/functions-agent-source.zip`
+- `infra/functions-admin-agent-source.zip`
+
+## Deploy Web
+
+Cloudflare Pages deploys from `.github/workflows/cloudflare-deploy.yaml` after CI passes on `main`, or by manual dispatch.
+
+The workflow:
+
+1. Authenticates to GCP.
+2. Copies `gs://<project>-sv-data-<env>/races/*.json` into `web/static/`.
+3. Runs `npm run build:cloudflare`.
+4. Deploys `web/build` with Wrangler.
+5. Submits IndexNow URLs if `INDEXNOW_KEY` is configured.
+
+## Validate
+
+```powershell
+.\scripts\validate-infra.ps1 -Environment dev
+```
+
+Useful direct checks:
+
+```bash
+curl "$(terraform -chdir=infra output -raw races_api_url)/health"
+curl "$(terraform -chdir=infra output -raw races_api_url)/health/ready"
+```
+
+For local gates before pushing:
+
+```powershell
+.\scripts\run-ci-gates.ps1
+```
+
+## Rollback
+
+Trigger a workflow rollback:
+
+```powershell
+.\scripts\deploy.ps1 -Environment dev -Action rollback
+```
+
+For emergency branch-based rollback:
+
+```powershell
+.\scripts\rollback.ps1 -Environment prod
 .\scripts\rollback.ps1 -Environment prod -ToCommit abc123f
 ```
 
-### Validate Infrastructure
+Production rollback requires typing `ROLLBACK-PROD`. The rollback script creates a rollback branch, restores `infra/` from the target commit, commits it, pushes it, and triggers an apply from that branch.
 
-```powershell
-# Check all components are healthy
-.\scripts\validate-infra.ps1 -Environment prod
-```
+## State And Artifacts
 
-## 🔧 Key Features
+- Terraform remote state is stored in `gs://smartervote-terraform-state`.
+- The deploy workflow creates the state bucket if needed and enables versioning.
+- Plan artifacts are uploaded for `plan` actions.
+- State backup artifacts are uploaded when available.
+- Generated Terraform plans, state files, and `secrets.tfvars` must not be committed; CI rejects tracked copies.
 
-### ✅ **Resource Protection**
-
-- **Prevent Destroy**: Production resources cannot be accidentally deleted
-- **Lifecycle Management**: Smart update detection prevents unnecessary recreations
-- **Create Before Destroy**: Zero-downtime updates for Cloud Run services
-
-### 🔄 **State Management**
-
-- **Remote State**: Stored in Google Cloud Storage with versioning
-- **State Locking**: Prevents concurrent modifications
-- **Backup & Recovery**: Automatic state backups before changes
-
-### 🛡️ **Automatic Rollback**
-
-- **Failure Detection**: Automatically rollback on Terraform apply failures
-- **Git-based Recovery**: Rollback to previous working commit
-- **Manual Override**: Emergency rollback capabilities
-
-### 📊 **Change Detection**
-
-- **Version Tracking**: Git SHA included in resource metadata
-- **Smart Updates**: Only redeploy when actual changes detected
-- **Ignore Patterns**: Skip updates for metadata-only changes
-
-## 🏗️ Infrastructure Components Protected
-
-| Component          | Lifecycle Rules           | Rollback Support    |
-| ------------------ | ------------------------- | ------------------- |
-| Cloud Run Services | ✅ Create Before Destroy  | ✅ Git-based        |
-| Storage Buckets    | ✅ Prevent Destroy (prod) | ✅ State backup     |
-| Cloud Run Jobs     | ✅ Ignore annotations     | ✅ Version tracking |
-| Secrets            | ✅ Version management     | ✅ Automatic        |
-| Pub/Sub            | ✅ Standard protection    | ✅ Configuration    |
-
-## 📋 Deployment Workflow
-
-### 1. **Planning Phase**
-
-```bash
-# Triggered automatically on PR
-Action: plan
-Result: Shows what will change
-Artifacts: terraform-plan.json
-```
-
-### 2. **Apply Phase**
-
-```bash
-# Triggered on main branch push
-Action: apply
-Steps:
-  1. Backup current state
-  2. Validate configuration
-  3. Apply changes with monitoring
-  4. Auto-rollback on failure
-```
-
-### 3. **Rollback Phase**
-
-```bash
-# Manual trigger or auto on failure
-Action: rollback
-Steps:
-  1. Identify target commit
-  2. Create rollback branch
-  3. Apply previous configuration
-  4. Validate restoration
-```
-
-## 🔐 Environment Configuration
-
-### Development
-
-- **State**: `smartervote-terraform-state/dev/`
-- **Protection**: Standard lifecycle rules
-- **Rollback**: Automatic on failure
-
-### Staging
-
-- **State**: `smartervote-terraform-state/staging/`
-- **Protection**: Enhanced monitoring
-- **Rollback**: Manual approval required
-
-### Production
-
-- **State**: `smartervote-terraform-state/prod/`
-- **Protection**: `prevent_destroy = true`
-- **Rollback**: Emergency procedures + approvals
-
-## 🛠️ Manual Operations
-
-### Initialize Remote State (First Time)
-
-```bash
-# Create state bucket manually first
-gsutil mb -p YOUR_PROJECT_ID gs://smartervote-terraform-state
-
-# Then run terraform with remote backend
-cd infra
-terraform init
-```
-
-### Force Resource Update
-
-```bash
-# Add to terraform variables
-
-# Or target specific resource
-terraform apply -target=google_cloud_run_v2_service.races_api
-```
-
-### View State History
-
-```bash
-# List state versions
-gsutil ls -l gs://smartervote-terraform-state/terraform/state/
-
-# Download specific version
-gsutil cp gs://smartervote-terraform-state/terraform/state/default.tfstate.1234567890 ./
-```
-
-## 🚨 Emergency Procedures
-
-### Complete Infrastructure Failure
-
-1. **Assess Impact**
-
-   ```powershell
-   .\scripts\validate-infra.ps1 -Environment prod
-   ```
-
-2. **Emergency Rollback**
-
-   ```powershell
-   .\scripts\rollback.ps1 -Environment prod
-   ```
-
-3. **Manual Recovery** (if needed)
-
-   ```bash
-   # Switch to known good commit
-   git checkout LAST_KNOWN_GOOD_COMMIT
-
-   # Force apply
-   cd infra
-   terraform apply -var-file=github-actions.tfvars
-   ```
-
-### Terraform State Corruption
-
-1. **Download State Backup**
-
-   ```bash
-   # Get from GitHub Actions artifacts
-   gh run download --name terraform-state-backup-prod
-   ```
-
-2. **Restore State**
-
-   ```bash
-   # Copy backup to current state
-   cp terraform-state-backup.json terraform.tfstate
-
-   # Verify and refresh
-   terraform refresh
-   ```
-
-## 📝 Best Practices
-
-### ✅ **Do**
-
-- Always run `plan` before `apply`
-- Review GitHub Actions logs before proceeding
-- Test changes in `dev` environment first
-- Validate infrastructure after deployment
-- Keep commit messages descriptive for rollback reference
-
-### ❌ **Don't**
-
-- Skip validation steps in production
-- Force apply without understanding changes
-- Delete state files manually
-- Ignore lifecycle rule warnings
-- Deploy to prod without staging validation
-
-## 🔗 Related Documentation
+## Related Documentation
 
 - [Architecture Overview](architecture.md)
 - [Local Development](local-development.md)
 - [Infrastructure README](../infra/README.md)
-
-## 🆘 Support
-
-If you encounter issues:
-
-1. **Check Infrastructure Status**
-
-   ```powershell
-   .\scripts\validate-infra.ps1 -Environment ENVIRONMENT
-   ```
-
-2. **Review Terraform Output**
-   ```bash
-   terraform plan -var-file=secrets.tfvars
-   ```
+- [IndexNow](indexnow.md)

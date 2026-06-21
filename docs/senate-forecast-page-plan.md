@@ -1,20 +1,21 @@
 # Senate Forecast Page Refinement Plan
 
+Last reviewed: 2026-06-21.
+
+Status: Partially complete. The public forecast page now uses static-first chamber forecast data, honors the published chamber `control_party`, keeps expanded race analysis state stable, and has MCP support for audit/rerun/refresh/validate/publish/verify workflows. Remaining work is mostly product hardening: richer chamber forecast payload fields, stronger map semantics, and final live QA.
+
 ## Goal
 
 Make the Senate forecast page feel like a real published forecast product, not a generic race browser.
 
 The Senate tab should display a coherent chamber-level projection from static published forecast data, then let users inspect the races driving that projection. The public page should not depend on browser API calls for forecast summary data.
 
-## Current Problems To Fix
+## Remaining Problems To Fix
 
-- The deployed page can display a narrative that says Republican control is projected while the control widget says `No clear control`.
-- Chamber-level probabilities are not visible enough, so users cannot see how likely each control outcome is.
+- Chamber-level probabilities are present when the static payload includes them, but the payload should be audited for complete probability and seat-distribution fields before final publish.
 - The current narrative is mechanically correct but not compelling as an outlook or analysis.
-- Race cards waste horizontal space and can truncate projected winner names.
-- The expand-analysis button behavior has been fragile.
-- The map is not yet carrying enough forecast meaning.
-- The data pipeline is under-specified: final publish needs to define when to rerun Senate race forecasts, when to regenerate chamber forecasts, and which MCP tools perform each step.
+- The map can show active races and holdovers, but it still needs stronger forecast meaning and shared helper coverage.
+- Final publish still needs a documented live QA pass using the MCP tools and Cloudflare deployment workflow.
 
 ## Product Principles
 
@@ -409,7 +410,7 @@ Final publish should produce or update:
 
 The chamber forecast should be regenerated after race forecast publication, not before. Otherwise the chamber call can be built from stale race-level probabilities.
 
-## MCP Tooling Needed
+## MCP Tooling Available
 
 Existing useful tools:
 
@@ -426,9 +427,9 @@ Existing useful tools:
 - `get_run_logs`
 - `list_active_runs`
 - `clear_races_api_cache`
-- `trigger_web_deploy`
+- `trigger_web_deploy` (triggers `.github/workflows/cloudflare-deploy.yaml`)
 
-Tools already added or planned in this work should be formalized and exposed in the installed MCP server:
+Forecast-specific tools now exposed in the installed MCP server:
 
 - `refresh_static_race_summaries`
 
@@ -443,11 +444,6 @@ Tools already added or planned in this work should be formalized and exposed in 
 - `refresh_static_forecast_data`
 
   - Run summary refresh and chamber forecast generation together.
-
-- `publish_static_chamber_forecasts`
-  - Publish the structured chamber forecast payload to the races API/GCS storage.
-
-Additional MCP tools needed:
 
 - `audit_senate_forecast_data`
 
@@ -526,7 +522,7 @@ Required MCP checks:
    - Confirm projected Senate seats sum to 100.
    - Confirm 50-50 Senate maps to Republican control when `vp_tiebreak_party` is Republican.
    - Confirm control probabilities, expected seats, seat distribution, key races, and structured analysis fields exist.
-9. `publish_static_forecast_bundle` or `publish_static_chamber_forecasts`
+9. `publish_static_forecast_bundle` or `publish_chamber_forecasts`
    - Dry-run first.
    - Publish only after validation succeeds.
 10. `verify_live_forecast_page_data`
@@ -581,7 +577,7 @@ PR / CI validation:
 Deploy and automated live verification:
 
 - Deploy only from the commit that passed CI.
-- Use `trigger_web_deploy` or the Cloudflare Pages workflow if deployment is not automatic for the verified commit.
+- Use `trigger_web_deploy` or `.github/workflows/cloudflare-deploy.yaml` if deployment is not automatic for the verified commit.
 - Run `verify_live_forecast_page_data` after deploy completes.
 - Confirm the live static artifacts contain the same `source_summary_hash`, `updated_at`, projected control, and probability fields validated locally.
 - Confirm network behavior with an automated browser check before manual QA:

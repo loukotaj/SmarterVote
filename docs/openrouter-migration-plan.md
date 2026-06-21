@@ -27,12 +27,12 @@ Current defaults:
 
 | Profile    | Primary research                   | Small/subagent                     | Review defaults                           |
 | ---------- | ---------------------------------- | ---------------------------------- | ----------------------------------------- |
-| `economy`  | `openai/gpt-5.4-mini`              | `openai/gpt-5.4-mini`              | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
-| `balanced` | `openai/gpt-5.4`                   | `openai/gpt-5.4-mini`              | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
-| `quality`  | `openai/gpt-5.4`                   | `openai/gpt-5.4`                   | Claude Sonnet, Gemini Pro, Grok 4.20      |
+| `economy`  | `deepseek/deepseek-v4-flash`       | `openai/gpt-5-nano`                | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
+| `balanced` | `google/gemini-2.5-flash`          | `meta-llama/llama-3.3-70b-instruct` | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
+| `quality`  | `google/gemini-2.5-flash`          | `google/gemini-2.5-flash`          | Claude Sonnet, Gemini Pro, Grok 4.20      |
 | `custom`   | Balanced default unless overridden | Balanced default unless overridden | Balanced default unless overridden        |
 
-Nano remains available as an explicit advanced override, but economy mode no longer defaults issue subagents to nano.
+Nano remains available and is the economy profile's small/subagent default. Exact model IDs are centralized in `PROFILE_DEFAULTS`.
 
 ## Run Options
 
@@ -84,6 +84,15 @@ Compatibility rules:
 | `grok-4.20-0309-reasoning`      | `x-ai/grok-4.20`                       |
 | `grok-4-1-fast-non-reasoning`   | `x-ai/grok-4.3`                        |
 | `grok-3-mini`                   | `x-ai/grok-4.3`                        |
+| `deepseek-v4-flash`             | `deepseek/deepseek-v4-flash`           |
+| `nemotron-3-super`              | `nvidia/nemotron-3-super-120b-a12b`    |
+| `nemotron-3-ultra`              | `nvidia/nemotron-3-ultra-550b-a55b`    |
+| `llama-3.3-70b`                 | `meta-llama/llama-3.3-70b-instruct`    |
+| `deepseek-v3-0324`              | `deepseek/deepseek-chat-v3-0324`       |
+| `gemini-2.5-flash`              | `google/gemini-2.5-flash`              |
+| `gemini-3.1-flash-lite`         | `google/gemini-3.1-flash-lite`         |
+| `gemini-3.5-flash`              | `google/gemini-3.5-flash`              |
+| `deepseek-r1`                   | `deepseek/deepseek-r1`                 |
 
 ## Updated Run Kickoff Paths
 

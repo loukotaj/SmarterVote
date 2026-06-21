@@ -5,6 +5,7 @@ import {
   isRaceInForecastTab,
   officeGroup,
   parseForecastTab,
+  groupSeatDistribution,
 } from "./forecast";
 
 const baseRace = {
@@ -98,5 +99,40 @@ describe("forecast utilities", () => {
     expect(aggregate.races).toHaveLength(0);
     expect(aggregate.projected.Republican).toBe(8);
     expect(isRaceInForecastTab(races[0], "governors")).toBe(false);
+  });
+
+  it("groups seat distribution into buckets correctly", () => {
+    const dist = {
+      "54D-46R": 0.05,
+      "53D-47R": 0.10,
+      "52D-48R": 0.15,
+      "51D-49R": 0.20,
+      "50R-50D": 0.25,
+      "51R-49D": 0.15,
+      "52R-48D": 0.08,
+      "53R-47D": 0.02,
+    };
+    const buckets = groupSeatDistribution(dist);
+    expect(buckets).toHaveLength(5);
+
+    // Strong D (53D+) should sum 54D and 53D: 0.05 + 0.10 = 0.15
+    expect(buckets[0].label).toBe("Strong D (53D+)");
+    expect(buckets[0].probability).toBe(0.15);
+
+    // Narrow D (51-52D) should sum 52D and 51D: 0.15 + 0.20 = 0.35
+    expect(buckets[1].label).toBe("Narrow D (51-52D)");
+    expect(buckets[1].probability).toBe(0.35);
+
+    // Tie (50-50): 0.25
+    expect(buckets[2].label).toBe("Tie (50-50)");
+    expect(buckets[2].probability).toBe(0.25);
+
+    // Narrow R (51-52R) should sum 51R (49D) and 52R (48D): 0.15 + 0.08 = 0.23
+    expect(buckets[3].label).toBe("Narrow R (51-52R)");
+    expect(buckets[3].probability).toBe(0.23);
+
+    // Strong R (53R+) should sum 53R (47D): 0.02
+    expect(buckets[4].label).toBe("Strong R (53R+)");
+    expect(buckets[4].probability).toBe(0.02);
   });
 });

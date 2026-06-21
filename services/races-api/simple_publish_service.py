@@ -1,4 +1,4 @@
-﻿"""
+"""
 Simple publish service for races API.
 This service handles reading race data from both local files and cloud storage,
 providing smooth access regardless of the data source.
@@ -97,7 +97,7 @@ class SimplePublishService:
             self.gcs_client = storage.Client()
             logger.info("Initialized GCS client for bucket: %s", self.gcs_bucket_name)
         except ImportError:
-            logger.warning("google-cloud-storage not installed â€” disabling cloud mode")
+            logger.warning("google-cloud-storage not installed - disabling cloud mode")
             self.cloud_configured = False  # permanent: package missing
         except Exception as e:
             logger.warning("GCS client init failed (will retry on next request): %s", e, exc_info=True)
@@ -377,7 +377,7 @@ class SimplePublishService:
             if data:
                 self._cache_set_race(race_id, data)
                 return data
-            # GCS miss â€” fall back to local (e.g. bootstrap data baked into image)
+            # GCS miss - fall back to local (e.g. bootstrap data baked into image)
             logger.debug("GCS miss for %s, falling back to local", race_id)
 
         return self._get_race_data_local(race_id)
@@ -398,7 +398,7 @@ class SimplePublishService:
                 logger.warning(f"Error reading local file for race {race_id}: {e}")
                 return None
 
-        # File not found by direct ID â€” scan for a pipeline-result wrapper containing this race_id
+        # File not found by direct ID - scan for a pipeline-result wrapper containing this race_id
         if self.data_directory.exists():
             for candidate_path in self.data_directory.glob("*.json"):
                 if candidate_path.name == "summaries.json":

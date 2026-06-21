@@ -277,30 +277,7 @@ def summarize_chamber(
     control_party = _projected_control(projected, chamber)
     dem_expected = expected["Democratic"]
     rep_expected = expected["Republican"]
-    if chamber == "senate":
-        tie_probability = max(0.0, 1.0 - abs(dem_expected - 50.0) / 4.0) * 0.08
-        dem_control_probability = 0.5 + (dem_expected - 50.0) / 14.0 - tie_probability
-    else:
-        dem_control_probability = 0.5 + (dem_expected - THRESHOLDS[chamber]) / 20.0
-        tie_probability = 0.0
-    dem_control_probability = max(0.01, min(0.99, dem_control_probability))
-    republican_probability = max(0.01, min(0.99, 1.0 - dem_control_probability))
-    if control_party == "Republican":
-        control_probability = republican_probability
-    elif control_party == "Democratic":
-        control_probability = dem_control_probability
-    else:
-        control_probability = max(dem_control_probability, republican_probability)
 
-    default_narrative = (
-        f"{control_party} control is projected for the {chamber}, with "
-        f"{projected['Democratic']} Democratic seats and {projected['Republican']} Republican seats. "
-        f"The model identifies {tossups} toss-up races and {len(competitive)} broadly competitive races."
-    )
-    if chamber == "senate" and projected["Democratic"] == 50 and projected["Republican"] == 50:
-        default_narrative += " A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican."
-
-    # Compute seat distribution for Senate
     seat_distribution = {}
     if chamber == "senate":
         rep_probs = []
@@ -322,6 +299,11 @@ def summarize_chamber(
                 next_dp[j + 1] += val * p
             dp = next_dp
 
+        # Exact control and tie probabilities from DP
+        dem_control_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j <= 49)
+        tie_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j == 50)
+        republican_probability = sum(prob for j, prob in enumerate(dp) if rep_holdovers + j >= 50)
+
         # Populate seat distribution keys e.g. "51R-49D"
         for j, prob in enumerate(dp):
             r_seats = rep_holdovers + j
@@ -334,6 +316,28 @@ def summarize_chamber(
                 key = "50R-50D"
             if prob > 0.0005:  # Keep only non-trivial probabilities to limit payload size
                 seat_distribution[key] = round(prob, 4)
+    else:
+        dem_control_probability = 0.5 + (dem_expected - THRESHOLDS[chamber]) / 20.0
+        tie_probability = 0.0
+        republican_probability = 1.0 - dem_control_probability
+
+    dem_control_probability = max(0.01, min(0.99, dem_control_probability))
+    republican_probability = max(0.01, min(0.99, republican_probability))
+
+    if control_party == "Republican":
+        control_probability = republican_probability
+    elif control_party == "Democratic":
+        control_probability = dem_control_probability
+    else:
+        control_probability = max(dem_control_probability, republican_probability)
+
+    default_narrative = (
+        f"{control_party} control is projected for the {chamber}, with "
+        f"{projected['Democratic']} Democratic seats and {projected['Republican']} Republican seats. "
+        f"The model identifies {tossups} toss-up races and {len(competitive)} broadly competitive races."
+    )
+    if chamber == "senate" and projected["Democratic"] == 50 and projected["Republican"] == 50:
+        default_narrative += " A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican."
 
     # Prepare structured fallback analysis fields
     favored_party = control_party

@@ -13,7 +13,7 @@ Best for development and small-scale use.
 - Published profiles written to `data/published/` as JSON files
 - Drafts written to `data/drafts/` before publish
 - Races API reads directly from local files
-- Frontend polls the pipeline API every few seconds for progress
+- Frontend targets `services/races-api` for admin/public behavior; direct runner debugging can use the local pipeline API.
 
 **Setup**:
 
@@ -32,7 +32,7 @@ pip install -e shared/
 # Pipeline backend
 python -m uvicorn pipeline_client.backend.main:app --port 8001 --reload
 # Races API
-cd services/races-api && python main.py
+python -m uvicorn main:app --app-dir services/races-api --host 0.0.0.0 --port 8080 --reload
 ```
 
 ## Cloud Function Mode (Production)
@@ -45,10 +45,10 @@ The primary cloud architecture. Admin triggers runs via `races-api`; the pipelin
 - `races-api` creates a document in Firestore `pipeline_queue`
 - Firestore Eventarc trigger invokes the gen2 Cloud Function (`functions/agent/main.py`)
 - CF imports `AgentHandler` from `pipeline_client.backend.handlers.agent`
-- Agent runs all pipeline steps; progress + logs stream to Firestore `pipeline_runs/`
+- Agent runs the configured pipeline steps; progress + logs stream to Firestore `pipeline_runs/`
 - If CF nears the 60-min wall-clock limit, it saves a checkpoint to GCS and enqueues a continuation item (`HandoffTriggered`)
 - Draft saved to GCS `drafts/{race_id}.json`; admin publishes via `races-api` (writing `{race_id}.json` to GCS `races/` and updating the central `races/summaries.json` index)
-- Frontend polls `races-api /runs/{run_id}` + `/runs/{run_id}/logs?since=N` every 2–3 seconds (or fetches published files statically from GCS if configured)
+- Frontend polls `races-api /runs/{run_id}` + `/runs/{run_id}/logs?since=N` every 2-3 seconds (or fetches published files statically from GCS if configured)
 
 **Setup** (Terraform):
 
@@ -87,7 +87,7 @@ storage = LocalStorageBackend(base_path="data/published")
 storage = GCPStorageBackend(bucket_name="sv-data")
 ```
 
-Switch by setting `STORAGE_BACKEND=gcp` environment variable.
+Switch by setting `STORAGE_MODE=gcp` and configuring `GCS_BUCKET_NAME`/`FIRESTORE_PROJECT`.
 
 ## Search Caching
 
@@ -97,6 +97,16 @@ To avoid redundant Serper API calls and reduce costs, web search results and fet
 - **Local Mode**: Cached in a local SQLite database (`data/cache/search_cache.db`).
 - **Cloud Mode**: Cached in Firestore collections (`search_cache` and `page_cache`). This is critical because Cloud Function instances are ephemeral and trigger continuation handoffs; the shared Firestore cache ensures subsequent invocations don't re-run expensive Serper searches.
 - **Activation**: Automatically chooses Firestore if `STORAGE_MODE=gcp`, `FIRESTORE_PROJECT` is set, or running in Cloud Run/Functions. Otherwise falls back to SQLite. You can force-enable the Firestore backend in any environment by setting `SEARCH_CACHE_BACKEND=firestore` (requires `google-cloud-firestore` installed).
+
+## Pipeline Steps
+
+The current ordered step set is:
+
+```text
+discovery -> images -> issues -> finance -> refinement -> polling -> forecast -> voter_resources -> review -> iteration
+```
+
+The `/steps` endpoint returns the same order with labels and progress weights from `shared/pipeline_config.py`.
 
 ## Output
 

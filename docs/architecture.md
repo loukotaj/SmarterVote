@@ -59,16 +59,20 @@ The admin dashboard should target `services/races-api`.
 
 | Method | Path                                                        | Purpose                                          |
 | ------ | ----------------------------------------------------------- | ------------------------------------------------ |
+| GET    | `/steps`                                                    | List configured pipeline steps and weights       |
 | GET    | `/api/races`                                                | List Firestore race records                      |
 | GET    | `/api/races/{race_id}`                                      | Get one Firestore race record                    |
 | DELETE | `/api/races/{race_id}`                                      | Delete race record and associated GCS JSON       |
 | POST   | `/api/races/queue`                                          | Queue one or more races                          |
+| POST   | `/api/races/recheck`                                        | Reconcile all race records from Firestore/GCS    |
 | POST   | `/api/races/{race_id}/run`                                  | Queue a single race                              |
 | POST   | `/api/races/{race_id}/cancel`                               | Cancel queued/running race                       |
 | POST   | `/api/races/{race_id}/recheck`                              | Reconcile status from Firestore/GCS              |
 | GET    | `/runs`                                                     | List recent pipeline runs                        |
+| GET    | `/runs/active`                                              | List currently pending/running runs              |
 | GET    | `/runs/{run_id}`                                            | Get run details                                  |
 | GET    | `/runs/{run_id}/logs`                                       | Get run logs                                     |
+| DELETE | `/runs`                                                     | Prune terminal pipeline runs                     |
 | DELETE | `/runs/{run_id}`                                            | Cancel or delete a run                           |
 | GET    | `/api/queue`                                                | List queue items                                 |
 | DELETE | `/api/queue/{item_id}`                                      | Cancel/remove a queue item                       |
@@ -81,13 +85,34 @@ The admin dashboard should target `services/races-api`.
 | POST   | `/api/races/publish`                                        | Batch publish drafts                             |
 | GET    | `/api/races/{race_id}/data?draft=true`                      | Get draft or published JSON                      |
 | GET    | `/api/races/{race_id}/versions`                             | List retired versions                            |
+| GET    | `/api/races/{race_id}/versions/{filename}`                  | Read a retired version JSON file                 |
+| POST   | `/api/races/{race_id}/versions/{filename}/restore`          | Restore a retired version as the active draft    |
+| GET    | `/api/races/{race_id}/runs`                                 | List run history for one race                    |
+| GET    | `/api/races/{race_id}/runs/{run_id}`                        | Get one race run                                 |
+| DELETE | `/api/races/{race_id}/runs/{run_id}`                        | Cancel or delete one race run                    |
+| POST   | `/api/races/chamber_forecasts`                              | Save chamber forecast draft JSON                 |
+| GET    | `/api/races/chamber_forecasts/draft`                        | Get chamber forecast draft JSON                  |
+| POST   | `/api/races/chamber_forecasts/generate`                     | Generate chamber forecast draft from race data   |
+| POST   | `/api/races/chamber_forecasts/publish`                      | Publish chamber forecast draft                   |
+| GET    | `/pipeline/metrics`                                         | Get pipeline metrics                             |
+| GET    | `/pipeline/metrics/summary`                                 | Get summarized pipeline metrics                  |
+| GET    | `/alerts`                                                   | List operational alerts                          |
+| POST   | `/alerts/{alert_id}/acknowledge`                            | Acknowledge one alert                            |
+| POST   | `/alerts/acknowledge-all`                                   | Acknowledge all active alerts                    |
+| POST   | `/api/admin-chat`                                           | Legacy synchronous admin chat endpoint           |
 | POST   | `/api/admin-agent/conversations`                            | Create a durable admin-agent conversation        |
+| GET    | `/api/admin-agent/conversations`                            | List durable admin-agent conversations           |
 | GET    | `/api/admin-agent/conversations/{conversation_id}`          | Load messages and recent tasks                   |
+| DELETE | `/api/admin-agent/conversations/{conversation_id}`          | Delete one conversation and its messages/tasks   |
 | POST   | `/api/admin-agent/conversations/{conversation_id}/messages` | Queue an asynchronous agent task                 |
 | GET    | `/api/admin-agent/tasks/{task_id}`                          | Get agent task status                            |
 | POST   | `/api/admin-agent/tasks/{task_id}/approve`                  | Approve a protected tool call and continue       |
 | POST   | `/api/admin-agent/tasks/{task_id}/cancel`                   | Cancel queued, running, or approval-blocked work |
+| POST   | `/cache/clear`                                              | Clear the races API in-memory public data cache  |
+| GET    | `/analytics/overview`                                       | Races API request analytics summary              |
 | GET    | `/analytics/traffic`                                        | Cloudflare static-site traffic summary           |
+| GET    | `/analytics/races`                                          | Races API request counts by race                 |
+| GET    | `/analytics/timeseries`                                     | Races API request counts over time               |
 
 Legacy admin aliases were removed; frontend code should use the routes above.
 
@@ -105,6 +130,7 @@ creates missing `races/{race_id}` documents when a race already exists in GCS.
 | ------ | ------------------ | --------------------------------------------------------- |
 | GET    | `/races`           | List published race IDs from `races/summaries.json`       |
 | GET    | `/races/summaries` | List published race summaries from `races/summaries.json` |
+| GET    | `/races/chamber_forecasts` | Get published chamber forecast narratives         |
 | GET    | `/races/{race_id}` | Get full published race data                              |
 | GET    | `/health`          | Liveness                                                  |
 | GET    | `/health/ready`    | Readiness                                                 |
@@ -120,7 +146,7 @@ result for the admin dashboard. API request analytics remain separate and descri
 ## Agent Phases
 
 ```text
-DISCOVERY -> IMAGES -> ISSUES -> FINANCE -> REFINEMENT -> REVIEW -> ITERATION
+DISCOVERY -> IMAGES -> ISSUES -> FINANCE -> REFINEMENT -> POLLING -> FORECAST -> VOTER_RESOURCES -> REVIEW -> ITERATION
 ```
 
 Update/rerun mode adds roster and metadata synchronization before re-researching an existing race.

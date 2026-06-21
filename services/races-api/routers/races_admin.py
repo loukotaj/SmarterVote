@@ -606,7 +606,7 @@ async def generate_chamber_forecasts_endpoint(
 ) -> Dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM and save them to drafts."""
     from pipeline_client.agent.llm import _call_openrouter
-    from shared.forecast_summary import build_chamber_forecasts
+    from shared.forecast_summary import build_chamber_forecasts, summarize_chamber
 
     service = request.app.state.publish_service
     summaries = service.get_race_summaries()
@@ -628,7 +628,11 @@ async def generate_chamber_forecasts_endpoint(
         elif "governor" in office or "gubernatorial" in office:
             governor_races.append(r)
 
-    def build_chamber_context(races: list[dict[str, Any]], name: str) -> str:
+    senate_summary = summarize_chamber(summaries, "senate")
+    house_summary = summarize_chamber(summaries, "house")
+    governors_summary = summarize_chamber(summaries, "governors")
+
+    def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[str, Any]) -> str:
         if not races:
             return f"No published races found for the {name}."
         dem_wins = 0
@@ -661,14 +665,40 @@ async def generate_chamber_forecasts_endpoint(
                     dem_wins += 1
                 elif "r" in winner_party:
                     gop_wins += 1
+
+        expected_d = summary.get("expected_seats", {}).get("Democratic", 0.0)
+        expected_r = summary.get("expected_seats", {}).get("Republican", 0.0)
+        projected_d = summary.get("projected_seats", {}).get("Democratic", 0)
+        projected_r = summary.get("projected_seats", {}).get("Republican", 0)
+        control_party = summary.get("control_party", "Other")
+        control_prob = summary.get("control_probability", 0.5)
+        outcome_probs = summary.get("outcome_probabilities", {})
+        tie_prob = outcome_probs.get("tie_50_50", 0.0) if name == "US Senate" else 0.0
+
         lines = [
             f"Chamber: {name}",
             f"Total Published Races: {len(races)}",
             f"Toss-up Races: {toss_ups}",
             f"Projected Democratic Wins (among published non-tossups): {dem_wins}",
             f"Projected Republican Wins (among published non-tossups): {gop_wins}",
-            "\nCompetitive/Notable Races Detail:",
+            "",
+            "Aggregated Mathematical Model Results:",
+            f"- Projected Control: {control_party} control projected (prob: {control_prob * 100:.1f}%)",
+            f"- Projected Seats: {projected_d} Democratic, {projected_r} Republican",
+            f"- Expected (Mean) Seats: {expected_d:.1f} Democratic, {expected_r:.1f} Republican",
         ]
+
+        if name == "US Senate":
+            lines.append(
+                f"- Probability of a 50-50 tie: {tie_prob * 100:.1f}% (Note: 50-50 tie results in Republican control via VP tie-break)"
+            )
+            dist = summary.get("seat_distribution", {})
+            if dist:
+                sorted_dist = sorted(dist.items(), key=lambda x: x[1], reverse=True)
+                top_outcomes = [f"{k} ({v * 100:.1f}%)" for k, v in sorted_dist[:4]]
+                lines.append(f"- Top 4 most likely seat outcomes: {', '.join(top_outcomes)}")
+
+        lines.append("\nCompetitive/Notable Races Detail:")
         lines.extend(competitive_list[:30])
         return "\n".join(lines)
 
@@ -714,9 +744,9 @@ async def generate_chamber_forecasts_endpoint(
                 "key_uncertainty": "Uncertainty remains high due to limited polling in key races.",
             }
 
-    senate_analysis = await get_analysis("US Senate", build_chamber_context(senate_races, "US Senate"))
-    house_analysis = await get_analysis("US House", build_chamber_context(house_races, "US House"))
-    governors_analysis = await get_analysis("Governors", build_chamber_context(governor_races, "Governors"))
+    senate_analysis = await get_analysis("US Senate", build_chamber_context(senate_races, "US Senate", senate_summary))
+    house_analysis = await get_analysis("US House", build_chamber_context(house_races, "US House", house_summary))
+    governors_analysis = await get_analysis("Governors", build_chamber_context(governor_races, "Governors", governors_summary))
 
     forecast_data = build_chamber_forecasts(
         summaries,

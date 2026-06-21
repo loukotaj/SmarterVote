@@ -9,7 +9,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 ### Security Model
 
 - **Frontend Authentication**: Auth0 login required for `/admin/*` routes
-- **API Authentication**: JWT token verification for all sensitive admin endpoints
+- **API Authentication**: JWT token verification or `X-Admin-Key` for protected endpoints
 - **Cloud Run Access**: Public at infrastructure level, secured at application level
 - **CORS**: Configured to allow credentials for auth headers
 
@@ -26,7 +26,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 
 - **Location**: `services/races-api`
 - **Implementation**: JWT verification using `python-jose`
-- **Protected Endpoints**: Admin race, queue, run, analytics, and durable agent endpoints use `dependencies=[Depends(verify_token)]`
+- **Protected Endpoints**: Admin race, queue, run, analytics, durable agent, and public race data endpoints use `dependencies=[Depends(verify_token)]`
 - **Live Updates**: Frontend polls `/runs/{run_id}` and `/runs/{run_id}/logs?since=N`
 
 #### 3. Pipeline Client (Local Runner)
@@ -49,6 +49,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 # Production (.env.production)
 VITE_AUTH0_DOMAIN=dev-t37rz-ur.auth0.com
 VITE_AUTH0_CLIENT_ID=KNkBhmyIGEvjkKDthMzyYe6YFevGoJIy
+VITE_AUTH0_AUDIENCE=your-api-audience
 VITE_RACES_API_URL=https://races-api-dev-ddsvfazica-uc.a.run.app
 ```
 
@@ -68,6 +69,7 @@ The protected APIs use environment variables set by Terraform:
 - `AUTH0_DOMAIN`: Auth0 tenant domain
 - `AUTH0_AUDIENCE`: API audience identifier
 - `ALLOWED_ORIGINS`: CORS allowed origins (comma-separated)
+- `ADMIN_API_KEY`: Optional service/admin key accepted via `X-Admin-Key`
 
 ## Authentication Flow
 
@@ -82,33 +84,35 @@ The protected APIs use environment variables set by Terraform:
 
 ## Protected Endpoints
 
-All sensitive pipeline endpoints require authentication:
+Protected routes require authentication:
 
 ```python
-@app.post("/api/run", dependencies=[Depends(verify_token)])
+@router.post("/api/races/queue", dependencies=[Depends(verify_token)])
 @app.get("/runs", dependencies=[Depends(verify_token)])
 # ... and more endpoints
 ```
 
+The public race read endpoints (`/races`, `/races/summaries`, `/races/chamber_forecasts`, and `/races/{race_id}`) are also protected by the same dependency when served through `races-api`. In production public traffic normally bypasses these FastAPI routes and reads static JSON from GCS through `VITE_PUBLIC_DATA_URL`.
+
 ### Unprotected Endpoints
 
 - `/health` - Health checks
-- `/` - Root documentation page
 - `/docs`, `/redoc` - API documentation
 
 ## Development vs Production
 
 ### Local Development
 
-- Auth0 variables not set → `verify_token` returns empty dict
-- Allows local development without Auth0 configuration
-- Frontend can still test UI components
+- Set `SKIP_AUTH=true` in the root `.env` to bypass verification.
+- Without `SKIP_AUTH=true`, missing `AUTH0_DOMAIN` or `AUTH0_AUDIENCE` returns `503`.
+- Non-browser tools can use `X-Admin-Key` when `ADMIN_API_KEY` is configured.
+- Frontend UI components can still be tested without Auth0 by using local dev mode.
 
 ### Production Deployment
 
-- Auth0 variables set via Terraform
-- JWT verification enforced
-- All admin functionality requires authentication
+- Auth0 variables are set via Terraform.
+- JWT verification is enforced unless `X-Admin-Key` matches `ADMIN_API_KEY`.
+- `SKIP_AUTH` must not be enabled in deployed environments.
 
 ## Security Features
 
@@ -116,17 +120,16 @@ All sensitive pipeline endpoints require authentication:
 2. **Token Expiry**: Automatic token refresh in frontend
 3. **CORS Security**: Credentials allowed only for specified origins
 4. **Polling Auth**: Run status and log polling use the same bearer token
-5. **Graceful Degradation**: Local development works without auth setup
+5. **Local Bypass**: Local development works with `SKIP_AUTH=true`
 
 ## Testing Authentication
 
-Run the integration test to verify configuration:
+Run the relevant tests:
 
-```bash
-python /tmp/auth_integration_test.py
+```powershell
+$env:PYTHONPATH = "."
+python -m pytest services/races-api/test_races_api.py tests/test_races_api_admin.py -v
 ```
-
-Expected output: All tests pass (4/4) ✅
 
 ## Troubleshooting
 
@@ -135,7 +138,7 @@ Expected output: All tests pass (4/4) ✅
 1. **Auth0 Redirect Blocked**: Normal in sandboxed environments
 2. **CORS Errors**: Check `allowed_origins` configuration
 3. **Token Expired**: Frontend handles automatic refresh
-4. **Local Development**: Auth0 variables not needed for local testing
+4. **Local Development**: Set `SKIP_AUTH=true` for local API testing without Auth0
 
 ### Verification Steps
 

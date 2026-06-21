@@ -357,3 +357,94 @@ export function formatNet(value: number): string {
   if (value > 0) return `+${value}`;
   return String(value);
 }
+
+export interface SeatOutcome {
+  key: string;
+  probability: number;
+  dSeats: number;
+  rSeats: number;
+}
+
+export interface GroupedSeatBucket {
+  label: string;
+  probability: number;
+  colorClass: string;
+  outcomes: SeatOutcome[];
+}
+
+export function parseSeatDistributionKey(key: string): { dSeats: number; rSeats: number } {
+  const matchD = key.match(/(\d+)D/);
+  const matchR = key.match(/(\d+)R/);
+  const dSeats = matchD ? parseInt(matchD[1], 10) : 50;
+  const rSeats = matchR ? parseInt(matchR[1], 10) : 50;
+  return { dSeats, rSeats };
+}
+
+export function groupSeatDistribution(dist: Record<string, number>): GroupedSeatBucket[] {
+  if (!dist) return [];
+
+  const outcomes: SeatOutcome[] = Object.entries(dist).map(([key, probability]) => {
+    const { dSeats, rSeats } = parseSeatDistributionKey(key);
+    return { key, probability, dSeats, rSeats };
+  });
+
+  outcomes.sort((a, b) => b.dSeats - a.dSeats);
+
+  const buckets: GroupedSeatBucket[] = [
+    {
+      label: "Strong D (53D+)",
+      probability: 0,
+      colorClass: "bg-blue-600 dark:bg-blue-700",
+      outcomes: [],
+    },
+    {
+      label: "Narrow D (51-52D)",
+      probability: 0,
+      colorClass: "bg-blue-400 dark:bg-blue-500",
+      outcomes: [],
+    },
+    {
+      label: "Tie (50-50)",
+      probability: 0,
+      colorClass: "bg-slate-400 dark:bg-slate-500",
+      outcomes: [],
+    },
+    {
+      label: "Narrow R (51-52R)",
+      probability: 0,
+      colorClass: "bg-red-400 dark:bg-red-500",
+      outcomes: [],
+    },
+    {
+      label: "Strong R (53R+)",
+      probability: 0,
+      colorClass: "bg-red-600 dark:bg-red-700",
+      outcomes: [],
+    },
+  ];
+
+  for (const outcome of outcomes) {
+    if (outcome.dSeats >= 53) {
+      buckets[0].probability += outcome.probability;
+      buckets[0].outcomes.push(outcome);
+    } else if (outcome.dSeats >= 51) {
+      buckets[1].probability += outcome.probability;
+      buckets[1].outcomes.push(outcome);
+    } else if (outcome.dSeats === 50) {
+      buckets[2].probability += outcome.probability;
+      buckets[2].outcomes.push(outcome);
+    } else if (outcome.dSeats >= 48) {
+      buckets[3].probability += outcome.probability;
+      buckets[3].outcomes.push(outcome);
+    } else {
+      buckets[4].probability += outcome.probability;
+      buckets[4].outcomes.push(outcome);
+    }
+  }
+
+  buckets.forEach((b) => {
+    b.probability = Math.round(b.probability * 10000) / 10000;
+  });
+
+  return buckets;
+}

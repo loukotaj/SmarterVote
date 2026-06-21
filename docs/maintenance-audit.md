@@ -1,6 +1,6 @@
 # Maintenance Audit
 
-Last reviewed: 2026-06-12.
+Last reviewed: 2026-06-21.
 
 ## Cleaned
 
@@ -13,6 +13,7 @@ Last reviewed: 2026-06-12.
 - OpenRouter migration completed: all LLM runtime calls use `OPENROUTER_API_KEY`; legacy provider keys and Terraform resources were removed.
 - GCS Static JSON Hosting completed: Configured CORS and public read access strictly for the GCS bucket `races/` folder. SvelteKit frontend supports static data loading via the new `VITE_PUBLIC_DATA_URL` setting. Publishing/unpublishing from the admin API automatically rebuilds the central `races/summaries.json` index in GCS.
 - Race catalog split completed: admin race listings now read Firestore catalog metadata, while public listings use the published GCS `races/summaries.json` index and full GCS race JSON payloads.
+- Documentation refresh completed: architecture/API inventory, local development setup, deployment guide, Auth0 behavior, and pipeline modes were reconciled with the current source tree.
 
 ## Intentional Compatibility
 

@@ -73,11 +73,19 @@ npm run build
 npm run test:unit -- --run
 ```
 
+For the broad local gate sequence, run:
+
+```powershell
+.\scripts\run-ci-gates.ps1
+```
+
 ## Docs
 
 - [Architecture](docs/architecture.md)
 - [Local Development](docs/local-development.md)
 - [Deployment](docs/deployment-guide.md)
+- [Auth0 Configuration](docs/auth0-configuration.md)
+- [IndexNow](docs/indexnow.md)
 - [Pipeline Modes](PIPELINE_MODES.md)
 - [OpenRouter Migration](docs/openrouter-migration-plan.md)
 - [Maintenance Audit](docs/maintenance-audit.md)

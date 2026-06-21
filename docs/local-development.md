@@ -30,6 +30,7 @@ Edit `.env` and set at minimum:
 ```env
 OPENROUTER_API_KEY=sk-or-your-key-here
 SERPER_API_KEY=your-serper-key-here
+SKIP_AUTH=true
 ```
 
 Frontend environment variables (configured under `web/` in `.env` or `.env.production`):
@@ -111,7 +112,7 @@ The separate `.venv-mcp` keeps MCP SDK dependency updates from changing the pinn
 
 For local admin tools, start `races-api` with `SKIP_AUTH=true`, or set `SMARTERVOTE_RACES_API_TOKEN`
 to a valid Auth0 bearer token for a deployed API. `SMARTERVOTE_RACES_API_ADMIN_KEY` is also forwarded
-as `X-Admin-Key` for legacy admin-key endpoints such as analytics/cache operations.
+as `X-Admin-Key`; the races API accepts either a valid Auth0 bearer token or the configured admin key.
 
 For a long-running local HTTP MCP endpoint instead of stdio, set:
 
@@ -195,6 +196,12 @@ npm ci
 npm run check
 npm run build
 npm run test:unit -- --run
+```
+
+To run the same broad local gate sequence used by maintainers:
+
+```powershell
+.\scripts\run-ci-gates.ps1
 ```
 
 ## Troubleshooting

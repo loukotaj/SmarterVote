@@ -158,15 +158,14 @@ async def list_unpublished_drafts() -> list[dict[str, Any]]:
 
 @mcp.tool()
 async def trigger_web_deploy() -> dict[str, Any]:
-    """Trigger the WebDeploy.yml GitHub Actions workflow using the local gh CLI.
-    This redeploys the static site to smarter.vote.
-    """
+    """Trigger the Cloudflare Pages GitHub Actions workflow using the local gh CLI."""
     import subprocess
 
+    workflow = "cloudflare-deploy.yaml"
     try:
-        result = subprocess.run(["gh", "workflow", "run", "WebDeploy.yml"], capture_output=True, text=True, check=False)
+        result = subprocess.run(["gh", "workflow", "run", workflow], capture_output=True, text=True, check=False)
         if result.returncode == 0:
-            return {"success": True, "message": "Successfully triggered WebDeploy.yml workflow."}
+            return {"success": True, "message": f"Successfully triggered {workflow} workflow."}
         else:
             return {
                 "success": False,

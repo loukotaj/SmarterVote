@@ -1,6 +1,8 @@
 # Cloudflare Pages Migration Plan
 
-Last reviewed: 2026-06-14.
+Last reviewed: 2026-06-21.
+
+Status: Complete. Cloudflare Pages is now the production web deployment path via [/.github/workflows/cloudflare-deploy.yaml](../.github/workflows/cloudflare-deploy.yaml). This document is retained as the completed migration record and validation checklist.
 
 ## Objective
 
@@ -18,9 +20,9 @@ This plan covers the web frontend, CI/CD, DNS, SEO metadata, and validation. It 
 ## Current State
 
 - The frontend uses SvelteKit static output via [web/svelte.config.js](../web/svelte.config.js).
-- The web package still has GitHub Pages deployment scripts in [web/package.json](../web/package.json).
+- The web package exposes Cloudflare-oriented build helpers in [web/package.json](../web/package.json), including `build:cloudflare`.
 - CI currently validates the web app in [/.github/workflows/ci.yaml](../.github/workflows/ci.yaml).
-- Deployment to GitHub Pages is handled in [/.github/workflows/WebDeploy.yml](../.github/workflows/WebDeploy.yml).
+- Deployment to Cloudflare Pages is handled in [/.github/workflows/cloudflare-deploy.yaml](../.github/workflows/cloudflare-deploy.yaml).
 - The site already ships SEO assets such as [web/static/robots.txt](../web/static/robots.txt) and [web/static/sitemap.xml](../web/static/sitemap.xml).
 
 ## Target State
@@ -52,12 +54,12 @@ Acceptance:
 
 ### 2. CI/CD Cutover
 
-Goal: replace the current GitHub Pages deploy workflow with a Cloudflare Pages deploy workflow.
+Goal: keep the Cloudflare Pages deploy workflow as the authoritative web deployment path.
 
 Tasks:
 
-- Remove or retire [/.github/workflows/WebDeploy.yml](../.github/workflows/WebDeploy.yml).
-- Add a new Cloudflare Pages deployment workflow.
+- Keep retired GitHub Pages workflows out of the repository.
+- Maintain the Cloudflare Pages deployment workflow.
 - Keep CI checks in [/.github/workflows/ci.yaml](../.github/workflows/ci.yaml) as the gate before deployment.
 - Configure the deploy workflow to run only after the main branch CI succeeds or from an explicit manual trigger.
 - Pass the same production env vars used by the current web build, including API and analytics values.
@@ -71,8 +73,8 @@ Recommended deploy flow:
 
 Acceptance:
 
-- The old GitHub Pages deploy path is no longer authoritative.
-- The new workflow is reproducible and reviewable in GitHub.
+- The old GitHub Pages deploy path is no longer present or authoritative.
+- The Cloudflare workflow is reproducible and reviewable in GitHub.
 - Deployment failures are visible in CI/CD logs before any DNS switch.
 
 ### 3. Cloudflare Setup
