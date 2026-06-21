@@ -630,10 +630,8 @@
         </div>
 
         {#if forecast.party_probabilities}
-          {@const demProbability =
-            forecast.party_probabilities.Democratic ?? 0}
-          {@const repProbability =
-            forecast.party_probabilities.Republican ?? 0}
+          {@const demProbability = forecast.party_probabilities.Democratic ?? 0}
+          {@const repProbability = forecast.party_probabilities.Republican ?? 0}
           <div
             class="forecast-probability-bar"
             aria-label="Party probabilities"
