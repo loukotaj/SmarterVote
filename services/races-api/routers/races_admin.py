@@ -697,8 +697,7 @@ async def generate_chamber_forecasts_endpoint(
                 sorted_dist = sorted(dist.items(), key=lambda x: x[1], reverse=True)
                 top_outcomes = [f"{k} ({v * 100:.1f}%)" for k, v in sorted_dist[:4]]
                 lines.append(f"- Top 4 most likely seat outcomes: {', '.join(top_outcomes)}")
-
-        lines.append("\nCompetitive/Notable Races Detail:")
+        lines.append("\nCompetitive/Notable Races Detail:")
         lines.extend(competitive_list[:30])
         return "\n".join(lines)
 
@@ -707,8 +706,14 @@ async def generate_chamber_forecasts_endpoint(
             "You are a professional, nonpartisan, highly analytical election forecaster (like Cook Political Report, FiveThirtyEight, or Split Ticket). "
             f"Your goal is to output a JSON object containing a detailed forecast analysis for the {chamber_name} "
             "in the 2026 election cycle, based on the forecast data provided. "
+            "Your writing must sound like a short, sharp election analyst note, not an AI-generated report. "
+            "Avoid generic filler phrases and AI boilerplate such as 'model assessment,' 'structured analysis,' "
+            "'available indicators,' 'based on the data,' or generic caveats about uncertainty. "
+            "Be specific, concise, and non-repetitive.\n\n"
             "The JSON object must have EXACTLY the following keys, with string values:\n"
-            "- 'narrative': A concise, 2-3 sentence overview narrative summarizing the battle for control of the chamber.\n"
+            "- 'narrative': A concise, 2-4 sentence overview narrative summarizing the battle for control of the chamber. "
+            "It must explain: (1) the projected control outcome, (2) how close the chamber is, (3) the key races or categories "
+            "driving uncertainty, and (4) what could realistically change the forecast.\n"
             "- 'bottom_line': A one-sentence bottom line summarizing the projection.\n"
             "- 'why_party_favored': An objective, analytical explanation of why the favored party is projected to win or control the chamber.\n"
             "- 'opposing_party_path': An objective explanation of the most realistic path for the opposing party to win control.\n"

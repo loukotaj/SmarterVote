@@ -52,6 +52,7 @@
   let expandedRaceTab: ForecastTab = activeTab;
 
   let activeChartType: "buckets" | "histogram" | "curve" = "buckets";
+  let visibleRaceCount = 9;
 
   $: races = ($page.data.races as RaceSummary[] | undefined) ?? [];
   $: activeTab = browser
@@ -68,6 +69,12 @@
   $: chamberSummary = chamberForecasts?.chambers?.[activeTab];
   $: chamberNarrative =
     chamberSummary?.narrative || chamberForecasts?.[activeTab] || "";
+
+  $: {
+    // Reset visible race count on tab or filter change
+    activeTab, selectedState, filterRating, filterParty;
+    visibleRaceCount = 9;
+  }
 
   $: if (activeTab !== expandedRaceTab) {
     expandedRaceIds.clear();
@@ -681,24 +688,94 @@
       {/each}
     </div>
 
-    <!-- Forecast Above-The-Fold Layout -->
+    <!-- Forecast Above-The-Fold Layout: Election Summary -->
     <div
-      class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md space-y-6 animate-fade-in"
+      class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md animate-fade-in"
     >
-      <!-- Forecast Header -->
-      <div
-        class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stroke/20 pb-4"
-      >
-        <div class="space-y-1">
-          <h2 class="text-2xl font-black text-content tracking-tight">
-            2026 {activeTab === "house"
-              ? "House"
-              : activeTab === "senate"
-              ? "Senate"
-              : "Governor"} Forecast
-          </h2>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <!-- Left Column: Narrative / Analyst Note -->
+        <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h2 class="text-2xl font-black text-content tracking-tight">
+                2026 {activeTab === "house"
+                  ? "House"
+                  : activeTab === "senate"
+                  ? "Senate"
+                  : "Governor"} Election Summary
+              </h2>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-1.5">
+              <!-- Control Status Badge -->
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-extrabold shadow-sm border
+              {controlParty === 'Democratic'
+                  ? 'bg-blue-500/10 text-blue-700 border-blue-500/20 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/40'
+                  : controlParty === 'Republican'
+                  ? 'bg-red-500/10 text-red-700 border-red-500/20 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/40'
+                  : 'bg-slate-500/10 text-slate-700 border-slate-500/20 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700/40'}"
+              >
+                <span
+                  class="w-2 h-2 rounded-full
+                {controlParty === 'Democratic'
+                    ? 'bg-blue-600 dark:bg-blue-500 animate-pulse'
+                    : controlParty === 'Republican'
+                    ? 'bg-red-600 dark:bg-red-500 animate-pulse'
+                    : 'bg-slate-500 dark:bg-slate-400'}"
+                />
+                {#if controlParty === "Other"}
+                  No clear control projected
+                {:else}
+                  {controlParty} control projected
+                  {#if chamberSummary?.control_probability}
+                    ({probability(chamberSummary.control_probability)})
+                  {/if}
+                {/if}
+              </span>
+
+              <!-- VP Tie-break Note -->
+              {#if activeTab === "senate" && chamberSummary?.vp_tiebreak_party}
+                <span
+                  class="text-[10px] text-content-subtle font-semibold bg-surface-alt px-2.5 py-0.5 rounded-full border border-stroke/60 italic"
+                >
+                  Includes 50-50 tie-break via VP
+                </span>
+              {/if}
+            </div>
+          </div>
+
+          <!-- Analyst Note Narrative Box -->
           <div
-            class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-content-subtle font-medium"
+            class="bg-surface-alt/10 border border-stroke/40 rounded-2xl p-5 relative overflow-hidden flex-1 flex flex-col justify-center min-h-[160px]"
+          >
+            <div
+              class="absolute top-3 left-4 flex items-center gap-1.5 text-[10px] font-black uppercase text-blue-600 dark:text-blue-400 tracking-wider"
+            >
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              Election Analyst Note
+            </div>
+            <p class="text-sm font-semibold text-content leading-relaxed mt-3">
+              {chamberNarrative ||
+                "Projections indicate a highly competitive cycle for this chamber."}
+            </p>
+          </div>
+
+          <!-- Method & Updated info -->
+          <div
+            class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-content-subtle font-semibold"
           >
             <span
               >Method: <span class="font-bold text-content"
@@ -719,118 +796,229 @@
           </div>
         </div>
 
-        <div class="flex flex-col gap-1.5 items-start md:items-end">
-          <!-- Control Status Badge -->
-          <span
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-extrabold shadow-sm border
-          {controlParty === 'Democratic'
-              ? 'bg-blue-500/10 text-blue-700 border-blue-500/20 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/40'
-              : controlParty === 'Republican'
-              ? 'bg-red-500/10 text-red-700 border-red-500/20 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/40'
-              : 'bg-slate-500/10 text-slate-700 border-slate-500/20 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700/40'}"
-          >
-            <span
-              class="w-2.5 h-2.5 rounded-full
-            {controlParty === 'Democratic'
-                ? 'bg-blue-600 dark:bg-blue-500 animate-pulse'
-                : controlParty === 'Republican'
-                ? 'bg-red-600 dark:bg-red-500 animate-pulse'
-                : 'bg-slate-500 dark:bg-slate-400'}"
-            />
-            {#if controlParty === "Other"}
-              No clear control projected
-            {:else}
-              {controlParty} control projected
-              {#if chamberSummary?.control_probability}
-                ({probability(chamberSummary.control_probability)})
-              {/if}
-            {/if}
-          </span>
-
-          <!-- VP Tie-break Note -->
-          {#if activeTab === "senate" && chamberSummary?.vp_tiebreak_party}
-            <span class="text-[10px] text-content-subtle font-semibold italic">
-              Includes 50-50 tie-break with {chamberSummary.vp_tiebreak_party} Vice
-              President
-            </span>
-          {/if}
-        </div>
-      </div>
-
-      <!-- Control Probability and Seats Projection Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Control Probability Panel -->
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span
-              class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
-              >{activeTab === "governors"
-                ? "Control Probabilities"
-                : "Chamber Control Probabilities"}</span
-            >
-            {#if activeTab === "senate" && outcomeProbabilities?.tie_50_50}
+        <!-- Right Column: Charts / Stats -->
+        <div
+          class="lg:col-span-6 flex flex-col justify-between space-y-6 bg-surface-alt/25 border border-stroke/60 rounded-2xl p-6"
+        >
+          <!-- Control Probability Panel -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
               <span
-                class="text-[10px] font-semibold text-content-subtle bg-surface-alt px-2 py-0.5 rounded-md border border-stroke/60"
+                class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
+                >{activeTab === "governors"
+                  ? "Control Probabilities"
+                  : "Chamber Control Probabilities"}</span
               >
-                50-50 Tie: {probability(outcomeProbabilities.tie_50_50)}
-              </span>
-            {/if}
-          </div>
+              {#if activeTab === "senate" && outcomeProbabilities?.tie_50_50}
+                <span
+                  class="text-[10px] font-semibold text-content-subtle bg-surface-alt px-2 py-0.5 rounded-md border border-stroke/60"
+                >
+                  50-50 Tie: {probability(outcomeProbabilities.tie_50_50)}
+                </span>
+              {/if}
+            </div>
 
-          {#if outcomeProbabilities}
-            {@const demProb = outcomeProbabilities.Democratic ?? 0}
-            {@const gopProb = outcomeProbabilities.Republican ?? 0}
-            {@const otherProb = outcomeProbabilities.Other ?? 0}
-            <div class="space-y-3">
-              <div
-                class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 relative shadow-inner"
-              >
-                {#if demProb > 0}
+            {#if outcomeProbabilities}
+              {@const demProb = outcomeProbabilities.Democratic ?? 0}
+              {@const gopProb = outcomeProbabilities.Republican ?? 0}
+              {@const tieProb = outcomeProbabilities.tie_50_50 ?? 0}
+              {@const otherProb = outcomeProbabilities.Other ?? 0}
+              <div class="space-y-3">
+                <div
+                  class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 relative shadow-inner"
+                >
+                  {#if demProb > 0}
+                    <div
+                      class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
+                      style="width: {demProb * 100}%"
+                      title="Democratic control probability: {probability(
+                        demProb
+                      )}"
+                    >
+                      {#if demProb > 0.15}
+                        Democratic {probability(demProb)}
+                      {/if}
+                    </div>
+                  {/if}
+                  {#if activeTab === "governors" && tieProb > 0}
+                    <div
+                      class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
+                      style="width: {tieProb * 100}%"
+                      title="Split / Tie probability: {probability(tieProb)}"
+                    >
+                      {#if tieProb > 0.15}
+                        Tie {probability(tieProb)}
+                      {/if}
+                    </div>
+                  {/if}
+                  {#if otherProb > 0}
+                    <div
+                      class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
+                      style="width: {otherProb * 100}%"
+                      title="Other control probability: {probability(
+                        otherProb
+                      )}"
+                    >
+                      {#if otherProb > 0.15}
+                        Other {probability(otherProb)}
+                      {/if}
+                    </div>
+                  {/if}
+                  {#if gopProb > 0}
+                    <div
+                      class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs ml-auto"
+                      style="width: {gopProb * 100}%"
+                      title="Republican control probability: {probability(
+                        gopProb
+                      )}"
+                    >
+                      {#if gopProb > 0.15}
+                        Republican {probability(gopProb)}
+                      {/if}
+                    </div>
+                  {/if}
+                </div>
+
+                <!-- Callout Note -->
+                {#if activeTab === "senate" && outcomeProbabilities.tie_50_50 && !(projectedSeats.Democratic === 50 && projectedSeats.Republican === 50)}
                   <div
-                    class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
-                    style="width: {demProb * 100}%"
-                    title="Democratic control probability: {probability(
-                      demProb
-                    )}"
+                    class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
                   >
-                    {#if demProb > 0.15}
-                      Democratic {probability(demProb)}
-                    {/if}
-                  </div>
-                {/if}
-                {#if otherProb > 0}
-                  <div
-                    class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
-                    style="width: {otherProb * 100}%"
-                    title="Other control probability: {probability(otherProb)}"
-                  >
-                    {#if otherProb > 0.15}
-                      Other {probability(otherProb)}
-                    {/if}
-                  </div>
-                {/if}
-                {#if gopProb > 0}
-                  <div
-                    class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs ml-auto"
-                    style="width: {gopProb * 100}%"
-                    title="Republican control probability: {probability(
-                      gopProb
-                    )}"
-                  >
-                    {#if gopProb > 0.15}
-                      Republican {probability(gopProb)}
-                    {/if}
+                    <svg
+                      class="w-5 h-5 text-content-subtle shrink-0 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="16" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12.01" y2="8" />
+                    </svg>
+                    <p
+                      class="text-xs text-content-muted leading-relaxed font-medium"
+                    >
+                      A {probability(outcomeProbabilities.tie_50_50)} 50-50 tie probability
+                      is counted as Republican control via VP tie-break, contributing
+                      to the Republican control advantage shown above.
+                    </p>
                   </div>
                 {/if}
               </div>
+            {:else}
+              <div
+                class="p-4 border border-stroke border-dashed rounded-xl text-center text-xs text-content-subtle"
+              >
+                Control probabilities are not available for this projection.
+              </div>
+            {/if}
+          </div>
 
-              <!-- Callout Note -->
-              {#if activeTab === "senate" && outcomeProbabilities.tie_50_50 && !(projectedSeats.Democratic === 50 && projectedSeats.Republican === 50)}
+          <!-- Seats Projection Bar -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span
+                class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
+                >Projected Seats</span
+              >
+              {#if expectedSeats}
+                <span class="text-[10px] text-content-subtle font-semibold">
+                  Expected seats: D {oneDecimal(expectedSeats.Democratic)} | R {oneDecimal(
+                    expectedSeats.Republican
+                  )}
+                  {#if expectedSeats.Other}
+                    | Other {oneDecimal(expectedSeats.Other)}{/if}
+                </span>
+              {/if}
+            </div>
+
+            <div class="space-y-3">
+              <div class="space-y-2">
+                <div class="relative">
+                  <div
+                    class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 shadow-inner"
+                  >
+                    <!-- Dem segment -->
+                    <div
+                      class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
+                      style="width: {((projectedSeats.Democratic ?? 0) /
+                        totalSeats) *
+                        100}%"
+                    >
+                      {#if (projectedSeats.Democratic ?? 0) > totalSeats * 0.12}
+                        D: {projectedSeats.Democratic}
+                      {/if}
+                    </div>
+                    <!-- Other segment -->
+                    {#if projectedSeats.Other}
+                      <div
+                        class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
+                        style="width: {((projectedSeats.Other ?? 0) /
+                          totalSeats) *
+                          100}%"
+                      >
+                        {projectedSeats.Other}
+                      </div>
+                    {/if}
+                    <!-- Rep segment -->
+                    <div
+                      class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white ml-auto"
+                      style="width: {((projectedSeats.Republican ?? 0) /
+                        totalSeats) *
+                        100}%"
+                    >
+                      {#if (projectedSeats.Republican ?? 0) > totalSeats * 0.12}
+                        R: {projectedSeats.Republican}
+                      {/if}
+                    </div>
+                  </div>
+
+                  <!-- Threshold Marker Line -->
+                  <div
+                    class="absolute top-0 bottom-0 w-0.5 bg-yellow-500 dark:bg-yellow-400 z-10"
+                    style="left: {(threshold / totalSeats) * 100}%"
+                  >
+                    <span
+                      class="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-1 bg-yellow-500 dark:bg-yellow-400 text-[8px] font-black text-white dark:text-slate-950 px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
+                    >
+                      Majority ({threshold})
+                    </span>
+                  </div>
+
+                  <!-- Senate 50-50 Line -->
+                  {#if activeTab === "senate"}
+                    <div
+                      class="absolute top-0 bottom-0 w-0.5 bg-slate-400/80 dark:bg-slate-500/80 z-10"
+                      style="left: 50%"
+                    >
+                      <span
+                        class="absolute top-full left-1/2 transform -translate-x-1/2 translate-y-1 bg-slate-500 text-[8px] font-black text-white px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
+                      >
+                        50-50 Split
+                      </span>
+                    </div>
+                  {/if}
+                </div>
+
+                <div
+                  class="flex justify-between text-[10px] text-content-subtle px-1 pt-1.5 font-semibold"
+                >
+                  <span>Total: {totalSeats} seats</span>
+                  <span class="font-bold text-yellow-600 dark:text-yellow-400"
+                    >Majority threshold: {threshold} seats</span
+                  >
+                </div>
+              </div>
+
+              <!-- 50-50 tie-break note for Senate -->
+              {#if activeTab === "senate" && projectedSeats.Democratic === 50 && projectedSeats.Republican === 50}
                 <div
                   class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
                 >
                   <svg
-                    class="w-5 h-5 text-content-subtle shrink-0 mt-0.5"
+                    class="w-4 h-4 text-content-subtle shrink-0 mt-0.5"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
@@ -845,155 +1033,121 @@
                   <p
                     class="text-xs text-content-muted leading-relaxed font-medium"
                   >
-                    A {probability(outcomeProbabilities.tie_50_50)} 50-50 tie probability
-                    is counted as Republican control via VP tie-break, contributing
-                    to the Republican control advantage shown above.
+                    The most likely outcome is a 50-50 seat split. Under the
+                    current VP tie-break assumption, this projects to Republican
+                    control.
+                    {#if outcomeProbabilities?.tie_50_50}
+                      The 50-50 scenario has a <span
+                        class="font-bold text-content"
+                        >{probability(outcomeProbabilities.tie_50_50)}</span
+                      > probability.
+                    {/if}
                   </p>
                 </div>
               {/if}
             </div>
-          {:else}
-            <div
-              class="p-4 border border-stroke border-dashed rounded-xl text-center text-xs text-content-subtle"
-            >
-              Control probabilities are not available for this projection.
-            </div>
-          {/if}
-        </div>
-
-        <!-- Seats Projection Bar -->
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span
-              class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
-              >Projected Seats</span
-            >
-            {#if expectedSeats}
-              <span class="text-[10px] text-content-subtle font-semibold">
-                Expected seats: D {oneDecimal(expectedSeats.Democratic)} | R {oneDecimal(
-                  expectedSeats.Republican
-                )}
-                {#if expectedSeats.Other}
-                  | Other {oneDecimal(expectedSeats.Other)}{/if}
-              </span>
-            {/if}
-          </div>
-
-          <div class="space-y-3">
-            <div class="space-y-2">
-              <div class="relative">
-                <div
-                  class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 shadow-inner"
-                >
-                  <!-- Dem segment -->
-                  <div
-                    class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
-                    style="width: {((projectedSeats.Democratic ?? 0) /
-                      totalSeats) *
-                      100}%"
-                  >
-                    {#if (projectedSeats.Democratic ?? 0) > totalSeats * 0.12}
-                      D: {projectedSeats.Democratic}
-                    {/if}
-                  </div>
-                  <!-- Other segment -->
-                  {#if projectedSeats.Other}
-                    <div
-                      class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
-                      style="width: {((projectedSeats.Other ?? 0) /
-                        totalSeats) *
-                        100}%"
-                    >
-                      {projectedSeats.Other}
-                    </div>
-                  {/if}
-                  <!-- Rep segment -->
-                  <div
-                    class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white ml-auto"
-                    style="width: {((projectedSeats.Republican ?? 0) /
-                      totalSeats) *
-                      100}%"
-                  >
-                    {#if (projectedSeats.Republican ?? 0) > totalSeats * 0.12}
-                      R: {projectedSeats.Republican}
-                    {/if}
-                  </div>
-                </div>
-
-                <!-- Threshold Marker Line -->
-                <div
-                  class="absolute top-0 bottom-0 w-0.5 bg-yellow-500 dark:bg-yellow-400 z-10"
-                  style="left: {(threshold / totalSeats) * 100}%"
-                >
-                  <span
-                    class="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-1 bg-yellow-500 dark:bg-yellow-400 text-[8px] font-black text-white dark:text-slate-950 px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
-                  >
-                    Majority ({threshold})
-                  </span>
-                </div>
-
-                <!-- Senate 50-50 Line -->
-                {#if activeTab === "senate"}
-                  <div
-                    class="absolute top-0 bottom-0 w-0.5 bg-slate-400/80 dark:bg-slate-500/80 z-10"
-                    style="left: 50%"
-                  >
-                    <span
-                      class="absolute top-full left-1/2 transform -translate-x-1/2 translate-y-1 bg-slate-500 text-[8px] font-black text-white px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
-                    >
-                      50-50 Split
-                    </span>
-                  </div>
-                {/if}
-              </div>
-
-              <div
-                class="flex justify-between text-[10px] text-content-subtle px-1 pt-1.5 font-semibold"
-              >
-                <span>Total: {totalSeats} seats</span>
-                <span class="font-bold text-yellow-600 dark:text-yellow-400"
-                  >Majority threshold: {threshold} seats</span
-                >
-              </div>
-            </div>
-
-            <!-- 50-50 tie-break note for Senate -->
-            {#if activeTab === "senate" && projectedSeats.Democratic === 50 && projectedSeats.Republican === 50}
-              <div
-                class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
-              >
-                <svg
-                  class="w-4 h-4 text-content-subtle shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  viewBox="0 0 24 24"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="16" x2="12" y2="12" />
-                  <line x1="12" y1="8" x2="12.01" y2="8" />
-                </svg>
-                <p
-                  class="text-xs text-content-muted leading-relaxed font-medium"
-                >
-                  The most likely outcome is a 50-50 seat split. Under the
-                  current VP tie-break assumption, this projects to Republican
-                  control.
-                  {#if outcomeProbabilities?.tie_50_50}
-                    The 50-50 scenario has a <span
-                      class="font-bold text-content"
-                      >{probability(outcomeProbabilities.tie_50_50)}</span
-                    > probability.
-                  {/if}
-                </p>
-              </div>
-            {/if}
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Races That Matter Most Section -->
+    {#if keyRacesList.length > 0}
+      <section class="space-y-4">
+        <div
+          class="flex items-center justify-between border-b border-stroke/20 pb-2"
+        >
+          <h3 class="text-base font-bold uppercase text-content tracking-wider">
+            Races That Matter Most
+          </h3>
+          <span class="text-xs text-content-subtle font-semibold">
+            Key battlegrounds driving chamber control
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {#each keyRacesList as race}
+            {@const rating = race.forecast?.rating}
+            {@const party = normalizeForecastParty(
+              race.forecast?.predicted_winner_party
+            )}
+            {@const isExpanded = expandedRaceIds.has(race.id)}
+            <div
+              class="bg-surface border border-stroke rounded-2xl p-5 shadow-sm flex flex-col justify-between transition-all hover:shadow-md relative overflow-hidden"
+            >
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <a
+                    href={browser ? raceHref(race.id) : undefined}
+                    class="font-black text-sm text-content hover:text-blue-600 dark:hover:text-blue-400"
+                  >
+                    {race.state ||
+                      race.title?.replace("2026 U.S. Senate election in ", "")}
+                  </a>
+                  {#if rating}
+                    <span
+                      class={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${ratingClass(
+                        rating
+                      )}`}
+                    >
+                      {formatRating(rating)}
+                    </span>
+                  {/if}
+                </div>
+
+                <p
+                  class="text-xs text-content-muted leading-relaxed mb-4 font-semibold"
+                >
+                  {race.forecast?.takeaway ||
+                    race.forecast?.rationale ||
+                    "No takeaway available."}
+                </p>
+              </div>
+
+              <div
+                class="border-t border-stroke/40 pt-3 mt-auto flex items-center justify-between"
+              >
+                <a
+                  href={browser ? raceHref(race.id) : undefined}
+                  class="text-[10px] text-blue-600 dark:text-blue-400 font-bold hover:underline"
+                >
+                  View Profiles &rarr;
+                </a>
+                {#if race.forecast?.rationale}
+                  <button
+                    on:click={() => toggleExpand(race.id)}
+                    class="text-[10px] text-content-subtle hover:text-content font-bold flex items-center gap-0.5"
+                  >
+                    {isExpanded ? "Hide Details ^" : "Expand Details v"}
+                  </button>
+                {/if}
+              </div>
+
+              {#if isExpanded && race.forecast?.rationale}
+                <div
+                  class="mt-4 text-[11px] text-content-subtle leading-relaxed bg-surface-alt/40 border border-stroke/40 rounded-xl p-3 animate-fade-in font-medium space-y-2"
+                >
+                  <p>{race.forecast.rationale}</p>
+                  {#if race.forecast.key_reasons && race.forecast.key_reasons.length > 0}
+                    <div class="space-y-1">
+                      <span
+                        class="font-bold text-[10px] uppercase text-content-subtle block"
+                        >Key Drivers:</span
+                      >
+                      <ul class="list-disc pl-4 space-y-1">
+                        {#each race.forecast.key_reasons as reason}
+                          <li>{reason}</li>
+                        {/each}
+                      </ul>
+                    </div>
+                  {/if}
+                </div>
+              {/if}
+            </div>
+          {/each}
+        </div>
+      </section>
+    {/if}
 
     <!-- Outlook & Analysis Section -->
     <section class="space-y-4">
@@ -1157,49 +1311,6 @@
                     : "House"
                 }.`}
             </p>
-          </div>
-        </div>
-      {/if}
-
-      <!-- Races That Matter Most -->
-      {#if keyRacesList.length > 0}
-        <div class="bg-surface-alt/20 border border-stroke/60 rounded-2xl p-5">
-          <h4
-            class="text-xs font-black uppercase text-content-subtle tracking-wider mb-3"
-          >
-            Races That Matter Most
-          </h4>
-          <div class="flex flex-wrap gap-2">
-            {#each keyRacesList as race}
-              {@const rating = race.forecast?.rating}
-              {@const party = normalizeForecastParty(
-                race.forecast?.predicted_winner_party
-              )}
-              <a
-                href={browser ? raceHref(race.id) : undefined}
-                class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface hover:bg-surface-alt border border-stroke/80 rounded-xl transition-all shadow-sm"
-              >
-                <span class="text-xs font-extrabold text-content"
-                  >{race.state ||
-                    race.title?.replace(
-                      "2026 U.S. Senate election in ",
-                      ""
-                    )}</span
-                >
-                {#if rating}
-                  <span
-                    class="w-1.5 h-1.5 rounded-full {party === 'Democratic'
-                      ? 'bg-blue-600 animate-pulse'
-                      : party === 'Republican'
-                      ? 'bg-red-600 animate-pulse'
-                      : 'bg-slate-400'}"
-                  />
-                  <span class="text-[10px] font-bold text-content-subtle"
-                    >{formatRating(rating)}</span
-                  >
-                {/if}
-              </a>
-            {/each}
           </div>
         </div>
       {/if}
@@ -1766,70 +1877,6 @@
       </div>
     </section>
 
-    <!-- Seats Not Up in 2026 section -->
-    {#if activeTab !== "house"}
-      <section
-        class="bg-surface border border-stroke rounded-2xl shadow-sm overflow-hidden"
-      >
-        <!-- Toggle header -->
-        <button
-          on:click={() => (showHoldovers = !showHoldovers)}
-          class="w-full px-5 py-4 border-b border-stroke/40 flex items-center justify-between text-left hover:bg-surface-alt/30 transition-colors"
-        >
-          <div class="flex items-center gap-3">
-            <h2 class="text-base font-bold text-content">
-              {activeTab === "governors"
-                ? "Governor Seats Not Up in 2026"
-                : "Senate Seats Not Up in 2026"}
-            </h2>
-            <span
-              class="bg-surface-alt text-content-muted font-bold text-xs px-2.5 py-0.5 rounded-full border border-stroke/60"
-            >
-              {aggregate.holdovers.length}
-              {activeTab === "governors" ? "states" : "seats"}
-            </span>
-          </div>
-          <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">
-            {showHoldovers ? "Hide List ^" : "Show List v"}
-          </span>
-        </button>
-
-        {#if showHoldovers}
-          <div class="p-5 bg-surface-alt/10">
-            <p class="text-xs text-content-subtle mb-4">
-              These seats are not up for election in 2026 and are factored into
-              our control calculations based on current incumbent party
-              representation.
-            </p>
-            <div
-              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"
-            >
-              {#each aggregate.holdovers as h}
-                <div
-                  class="bg-surface border border-stroke/60 rounded-xl px-3 py-2 flex items-center justify-between shadow-sm"
-                >
-                  <span class="text-xs font-bold text-content truncate pr-1"
-                    >{h.state}</span
-                  >
-                  <span
-                    class={`text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded-md border ${
-                      h.party === "Democratic"
-                        ? "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400"
-                        : "bg-red-500/10 text-red-600 border-red-500/20 dark:bg-red-500/20 dark:text-red-400"
-                    }`}
-                  >
-                    {h.party === "Democratic" ? "D" : "R"}{h.count > 1
-                      ? ` x${h.count}`
-                      : ""}
-                  </span>
-                </div>
-              {/each}
-            </div>
-          </div>
-        {/if}
-      </section>
-    {/if}
-
     <!-- Active competitive/active races list -->
     <section
       class="bg-surface border border-stroke rounded-2xl shadow-sm overflow-hidden"
@@ -1960,7 +2007,7 @@
         <div
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-surface-alt/10"
         >
-          {#each sortedRaces as race (race.id)}
+          {#each sortedRaces.slice(0, visibleRaceCount) as race (race.id)}
             {@const party = normalizeForecastParty(
               race.forecast.predicted_winner_party
             )}
@@ -2209,6 +2256,18 @@
             </article>
           {/each}
         </div>
+        {#if sortedRaces.length > visibleRaceCount}
+          <div
+            class="p-5 text-center border-t border-stroke/40 bg-surface-alt/5"
+          >
+            <button
+              on:click={() => (visibleRaceCount += 12)}
+              class="px-5 py-2.5 bg-surface hover:bg-surface-alt border border-stroke/80 rounded-xl text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-all shadow-sm"
+            >
+              Show More Races ({sortedRaces.length - visibleRaceCount} remaining)
+            </button>
+          </div>
+        {/if}
       {/if}
     </section>
 
@@ -2276,6 +2335,70 @@
             </tbody>
           </table>
         </div>
+      </section>
+    {/if}
+
+    <!-- Seats Not Up in 2026 section -->
+    {#if activeTab !== "house"}
+      <section
+        class="bg-surface border border-stroke rounded-2xl shadow-sm overflow-hidden mt-6"
+      >
+        <!-- Toggle header -->
+        <button
+          on:click={() => (showHoldovers = !showHoldovers)}
+          class="w-full px-5 py-4 border-b border-stroke/40 flex items-center justify-between text-left hover:bg-surface-alt/30 transition-colors"
+        >
+          <div class="flex items-center gap-3">
+            <h2 class="text-base font-bold text-content">
+              {activeTab === "governors"
+                ? "Governor Seats Not Up in 2026"
+                : "Senate Seats Not Up in 2026"}
+            </h2>
+            <span
+              class="bg-surface-alt text-content-muted font-bold text-xs px-2.5 py-0.5 rounded-full border border-stroke/60"
+            >
+              {aggregate.holdovers.length}
+              {activeTab === "governors" ? "states" : "seats"}
+            </span>
+          </div>
+          <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">
+            {showHoldovers ? "Hide List ^" : "Show List v"}
+          </span>
+        </button>
+
+        {#if showHoldovers}
+          <div class="p-5 bg-surface-alt/10">
+            <p class="text-xs text-content-subtle mb-4">
+              These seats are not up for election in 2026 and are factored into
+              our control calculations based on current incumbent party
+              representation.
+            </p>
+            <div
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"
+            >
+              {#each aggregate.holdovers as h}
+                <div
+                  class="bg-surface border border-stroke/60 rounded-xl px-3 py-2 flex items-center justify-between shadow-sm"
+                >
+                  <span class="text-xs font-bold text-content truncate pr-1"
+                    >{h.state}</span
+                  >
+                  <span
+                    class={`text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded-md border ${
+                      h.party === "Democratic"
+                        ? "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400"
+                        : "bg-red-500/10 text-red-600 border-red-500/20 dark:bg-red-500/20 dark:text-red-400"
+                    }`}
+                  >
+                    {h.party === "Democratic" ? "D" : "R"}{h.count > 1
+                      ? ` x${h.count}`
+                      : ""}
+                  </span>
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/if}
       </section>
     {/if}
   {/if}

@@ -482,6 +482,27 @@
           />
         </svg>
       </a>
+      {#if race.forecast}
+        <a
+          href="#forecast"
+          class="voter-resource-btn voter-resource-btn--forecast bg-purple-500/10 text-purple-700 border border-purple-500/30 hover:bg-purple-500/20 dark:bg-purple-950/20 dark:text-purple-300 dark:border-purple-900/30 font-semibold text-sm transition-all duration-200 no-underline shadow-sm"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+          Jump to Forecast
+        </a>
+      {/if}
     </div>
 
     <!-- Race Overview -->
@@ -583,134 +604,6 @@
       </div>
     </Card>
 
-    <!-- Race Forecast -->
-    {#if race.forecast}
-      {@const forecast = race.forecast}
-      {@const forecastParty = normalizeForecastParty(
-        forecast.predicted_winner_party
-      )}
-      {@const forecastClass = forecastPartyClass(
-        forecast.predicted_winner_party
-      )}
-      <Card class="forecast-card">
-        <div class="forecast-header">
-          <div>
-            <p class="forecast-eyebrow">Race Forecast</p>
-            <h2 class="forecast-title">
-              {forecast.predicted_winner_name || forecastParty} favored
-            </h2>
-          </div>
-          <span class="forecast-rating forecast-rating-{forecastClass}">
-            {forecastRatingLabel(forecast.rating)}
-          </span>
-        </div>
-
-        <div class="forecast-grid">
-          <div class="forecast-metric">
-            <span class="forecast-metric-label">Win Probability</span>
-            <span class="forecast-metric-value"
-              >{probability(forecast.win_probability)}</span
-            >
-          </div>
-          <div class="forecast-metric">
-            <span class="forecast-metric-label">Estimated Margin</span>
-            <span class="forecast-metric-value"
-              >{signedMargin(forecast.margin_estimate)}</span
-            >
-          </div>
-          <div class="forecast-metric">
-            <span class="forecast-metric-label">Polling Inputs</span>
-            <span class="forecast-metric-value"
-              >{forecast.based_on_poll_count} poll{forecast.based_on_poll_count ===
-              1
-                ? ""
-                : "s"}</span
-            >
-          </div>
-        </div>
-
-        {#if forecast.party_probabilities}
-          {@const demProbability = forecast.party_probabilities.Democratic ?? 0}
-          {@const repProbability = forecast.party_probabilities.Republican ?? 0}
-          <div
-            class="forecast-probability-bar"
-            aria-label="Party probabilities"
-          >
-            {#if demProbability > 0}
-              <div
-                class="forecast-probability-segment forecast-probability-segment-dem"
-                style="width: {Math.max(2, demProbability * 100)}%"
-              >
-                {#if demProbability > 0.12}D {probability(demProbability)}{/if}
-              </div>
-            {/if}
-            {#if repProbability > 0}
-              <div
-                class="forecast-probability-segment forecast-probability-segment-rep"
-                style="width: {Math.max(2, repProbability * 100)}%"
-              >
-                {#if repProbability > 0.12}R {probability(repProbability)}{/if}
-              </div>
-            {/if}
-          </div>
-        {/if}
-
-        <div class="forecast-body">
-          <p class="forecast-takeaway">
-            {forecast.takeaway || forecast.rationale}
-          </p>
-          {#if forecast.key_reasons?.length}
-            <div class="forecast-detail-block">
-              <h3>Key Drivers</h3>
-              <ul>
-                {#each forecast.key_reasons as reason}
-                  <li>{reason}</li>
-                {/each}
-              </ul>
-            </div>
-          {/if}
-          {#if forecast.uncertainty}
-            <div class="forecast-detail-block">
-              <h3>Uncertainty</h3>
-              <p>{forecast.uncertainty}</p>
-            </div>
-          {/if}
-          {#if forecast.rationale && forecast.takeaway}
-            <div class="forecast-detail-block">
-              <h3>Model Rationale</h3>
-              <p>{forecast.rationale}</p>
-            </div>
-          {/if}
-        </div>
-
-        <div class="forecast-meta">
-          <span>Confidence: {forecast.confidence}</span>
-          {#if forecast.model}
-            <span>Model: {formatModelName(forecast.model)}</span>
-          {/if}
-          {#if forecast.generated_at}
-            <span
-              >Generated: {new Date(
-                forecast.generated_at
-              ).toLocaleDateString()}</span
-            >
-          {/if}
-        </div>
-
-        {#if forecast.source_urls?.length}
-          <div class="forecast-sources">
-            {#each forecast.source_urls as url}
-              {#if isExternalUrl(url)}
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {hostName(url)}
-                </a>
-              {/if}
-            {/each}
-          </div>
-        {/if}
-      </Card>
-    {/if}
-
     <!-- Fallback Data Notice -->
     {#if usingFallbackData}
       <div class="fallback-notice">
@@ -793,6 +686,134 @@
           </div>
         {/if}
       </section>
+    {/if}
+
+    <!-- Race Forecast -->
+    {#if race.forecast}
+      {@const forecast = race.forecast}
+      {@const forecastParty = normalizeForecastParty(
+        forecast.predicted_winner_party
+      )}
+      {@const forecastClass = forecastPartyClass(
+        forecast.predicted_winner_party
+      )}
+      <Card id="forecast" class="forecast-card scroll-mt-6">
+        <div class="forecast-header">
+          <div>
+            <p class="forecast-eyebrow">Race Forecast</p>
+            <h2 class="forecast-title">
+              {forecast.predicted_winner_name || forecastParty} favored
+            </h2>
+          </div>
+          <span class="forecast-rating forecast-rating-{forecastClass}">
+            {forecastRatingLabel(forecast.rating)}
+          </span>
+        </div>
+
+        <div class="forecast-grid">
+          <div class="forecast-metric">
+            <span class="forecast-metric-label">Win Probability</span>
+            <span class="forecast-metric-value"
+              >{probability(forecast.win_probability)}</span
+            >
+          </div>
+          <div class="forecast-metric">
+            <span class="forecast-metric-label">Estimated Margin</span>
+            <span class="forecast-metric-value"
+              >{signedMargin(forecast.margin_estimate)}</span
+            >
+          </div>
+          <div class="forecast-metric">
+            <span class="forecast-metric-label">Polling Inputs</span>
+            <span class="forecast-metric-value"
+              >{forecast.based_on_poll_count} poll{forecast.based_on_poll_count ===
+              1
+                ? ""
+                : "s"}</span
+            >
+          </div>
+        </div>
+
+        {#if forecast.party_probabilities}
+          {@const demProbability = forecast.party_probabilities.Democratic ?? 0}
+          {@const repProbability = forecast.party_probabilities.Republican ?? 0}
+          <div
+            class="forecast-probability-bar"
+            aria-label="Party probabilities"
+          >
+            {#if demProbability > 0}
+              <div
+                class="forecast-probability-segment forecast-probability-segment-dem"
+                style="width: {Math.max(2, demProbability * 100)}%"
+              >
+                {#if demProbability > 0.12}D {probability(demProbability)}{/if}
+              </div>
+            {/if}
+            {#if repProbability > 0}
+              <div
+                class="forecast-probability-segment forecast-probability-segment-rep"
+                style="width: {Math.max(2, repProbability * 100)}%"
+              >
+                {#if repProbability > 0.12}R {probability(repProbability)}{/if}
+              </div>
+            {/if}
+          </div>
+        {/if}
+
+        <div class="forecast-body">
+          <p class="forecast-takeaway font-semibold leading-relaxed mb-4">
+            {forecast.takeaway || forecast.rationale}
+          </p>
+          {#if forecast.key_reasons?.length}
+            <div class="forecast-detail-block">
+              <h3>Key Drivers</h3>
+              <ul>
+                {#each forecast.key_reasons as reason}
+                  <li>{reason}</li>
+                {/each}
+              </ul>
+            </div>
+          {/if}
+          {#if forecast.uncertainty}
+            <div class="forecast-detail-block">
+              <h3>Uncertainty</h3>
+              <p>{forecast.uncertainty}</p>
+            </div>
+          {/if}
+          {#if forecast.rationale && forecast.takeaway}
+            <div class="forecast-detail-block">
+              <h3>Model Rationale</h3>
+              <p>{forecast.rationale}</p>
+            </div>
+          {/if}
+        </div>
+
+        <div class="forecast-meta">
+          <span>Confidence: {forecast.confidence}</span>
+          {#if forecast.model}
+            <span>Model: {formatModelName(forecast.model)}</span>
+          {/if}
+          {#if forecast.generated_at}
+            <span
+              >Generated: {new Date(
+                forecast.generated_at
+              ).toLocaleDateString()}</span
+            >
+          {/if}
+        </div>
+
+        {#if forecast.source_urls?.length}
+          <div class="forecast-sources">
+            {#each forecast.source_urls as url}
+              {#if isExternalUrl(url)}
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {hostName(url)}
+                </a>
+              {/if}
+            {/each}
+          </div>
+        {/if}
+      </Card>
     {/if}
 
     <!-- Detailed Polls Section -->

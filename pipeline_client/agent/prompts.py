@@ -329,7 +329,7 @@ polls exist, source_urls may be empty and based_on_poll_count should be 0.
 Write like a concise, expert election analyst. Avoid repetitive boilerplate openings, "AI says", and excessive caveat phrasing.
 Be sure to populate the following structured fields in set_forecast:
 - rationale: A concise nonpartisan explanation (maximum 2 sentences).
-- takeaway: A single concise sentence summarizing the main forecast takeaway, when available.
+- takeaway: A single concise sentence summarizing the main forecast takeaway (MUST be exactly one sentence under 25 words).
 - key_reasons: A list of the 2-3 most important analytical reasons for the forecast, when available.
 - uncertainty: A single sentence outlining the key caveats or sources of uncertainty, when available."""
 

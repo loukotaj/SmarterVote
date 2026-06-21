@@ -76,6 +76,21 @@ GOVERNOR_HOLDOVERS: Dict[str, Party] = {
     "West Virginia": "Republican",
 }
 
+INCUMBENT_FALLBACKS: Dict[Chamber, Dict[str, Party]] = {
+    "governors": {
+        "Illinois": "Democratic",
+        "New York": "Democratic",
+        "Vermont": "Republican",
+        "Wisconsin": "Democratic",
+    },
+    "senate": {
+        "Virginia": "Democratic",
+        "West Virginia": "Republican",
+    },
+    "house": {},
+}
+
+
 EXPECTED_TOTALS: Dict[Chamber, int] = {"house": 435, "senate": 100, "governors": 50}
 THRESHOLDS: Dict[Chamber, int] = {"house": 218, "senate": 51, "governors": 26}
 ABBR_TO_STATE = {
@@ -173,8 +188,13 @@ def fallback_party_for_race(race: Dict[str, Any]) -> Party:
             return "Democratic"
         if party_counts["Republican"] > party_counts["Democratic"]:
             return "Republican"
+
+    chamber = office_group(race)
     state = race_state(race)
-    if state and state in SENATE_HOLDOVERS:
+    if chamber and state and state in INCUMBENT_FALLBACKS.get(chamber, {}):
+        return INCUMBENT_FALLBACKS[chamber][state]
+
+    if chamber == "senate" and state and state in SENATE_HOLDOVERS:
         return SENATE_HOLDOVERS[state][-1]
     return "Other"
 
@@ -267,6 +287,14 @@ def summarize_chamber(
             expected[fallback_party] += 1
             continue
         party = normalize_party(forecast.get("predicted_winner_party"))
+        if party == "Other":
+            probs = _race_party_probabilities(forecast)
+            if probs.get("Democratic", 0.0) > probs.get("Republican", 0.0):
+                party = "Democratic"
+            elif probs.get("Republican", 0.0) > probs.get("Democratic", 0.0):
+                party = "Republican"
+            else:
+                party = fallback_party_for_race(race)
         projected[party] += 1
         for key, value in _race_party_probabilities(forecast).items():
             expected[key] += value
