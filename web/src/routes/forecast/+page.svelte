@@ -75,7 +75,9 @@
     expandedRaceTab = activeTab;
   }
 
-  $: seatBuckets = groupSeatDistribution(chamberSummary?.seat_distribution ?? {});
+  $: seatBuckets = groupSeatDistribution(
+    chamberSummary?.seat_distribution ?? {}
+  );
   $: sortedOutcomes = Object.entries(chamberSummary?.seat_distribution ?? {})
     .map(([key, prob]) => {
       const matchD = key.match(/(\d+)D/);
@@ -85,23 +87,34 @@
       return { key, probability: prob, dSeats: d, rSeats: r };
     })
     .sort((a, b) => b.dSeats - a.dSeats);
-  $: maxProbability = Math.max(...sortedOutcomes.map(o => o.probability), 0.01);
+  $: maxProbability = Math.max(
+    ...sortedOutcomes.map((o) => o.probability),
+    0.01
+  );
   $: svgData = (() => {
-    if (sortedOutcomes.length === 0) return { fillPath: "", strokePath: "", points: [], tieX: 150, minD: 45, maxD: 55 };
-    const minD = Math.min(...sortedOutcomes.map(o => o.dSeats));
-    const maxD = Math.max(...sortedOutcomes.map(o => o.dSeats));
-    const span = (maxD - minD) || 1;
-    const maxP = Math.max(...sortedOutcomes.map(o => o.probability), 0.01);
+    if (sortedOutcomes.length === 0)
+      return {
+        fillPath: "",
+        strokePath: "",
+        points: [],
+        tieX: 150,
+        minD: 45,
+        maxD: 55,
+      };
+    const minD = Math.min(...sortedOutcomes.map((o) => o.dSeats));
+    const maxD = Math.max(...sortedOutcomes.map((o) => o.dSeats));
+    const span = maxD - minD || 1;
+    const maxP = Math.max(...sortedOutcomes.map((o) => o.probability), 0.01);
 
-    const points = sortedOutcomes.map(o => {
+    const points = sortedOutcomes.map((o) => {
       const pctX = (o.dSeats - minD) / span;
       const pctY = o.probability / maxP;
       return {
         x: 15 + pctX * 270, // 300px wide
-        y: 85 - pctY * 75,  // 100px high
+        y: 85 - pctY * 75, // 100px high
         dSeats: o.dSeats,
         rSeats: o.rSeats,
-        prob: o.probability
+        prob: o.probability,
       };
     });
 
@@ -748,15 +761,15 @@
           <div class="flex items-center justify-between">
             <span
               class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
-              >{activeTab === "governors" ? "Control Probabilities" : "Chamber Control Probabilities"}</span
+              >{activeTab === "governors"
+                ? "Control Probabilities"
+                : "Chamber Control Probabilities"}</span
             >
             {#if activeTab === "senate" && outcomeProbabilities?.tie_50_50}
               <span
                 class="text-[10px] font-semibold text-content-subtle bg-surface-alt px-2 py-0.5 rounded-md border border-stroke/60"
               >
-                50-50 Tie: {probability(
-                  outcomeProbabilities.tie_50_50
-                )}
+                50-50 Tie: {probability(outcomeProbabilities.tie_50_50)}
               </span>
             {/if}
           </div>
@@ -829,9 +842,9 @@
                   <p
                     class="text-xs text-content-muted leading-relaxed font-medium"
                   >
-                    A {probability(outcomeProbabilities.tie_50_50)} 50-50 tie probability is
-                    counted as Republican control via VP tie-break, contributing to the Republican
-                    control advantage shown above.
+                    A {probability(outcomeProbabilities.tie_50_50)} 50-50 tie probability
+                    is counted as Republican control via VP tie-break, contributing
+                    to the Republican control advantage shown above.
                   </p>
                 </div>
               {/if}
@@ -959,10 +972,17 @@
                   <line x1="12" y1="16" x2="12" y2="12" />
                   <line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
-                <p class="text-xs text-content-muted leading-relaxed font-medium">
-                  The most likely outcome is a 50-50 seat split. Under the current VP tie-break assumption, this projects to Republican control.
+                <p
+                  class="text-xs text-content-muted leading-relaxed font-medium"
+                >
+                  The most likely outcome is a 50-50 seat split. Under the
+                  current VP tie-break assumption, this projects to Republican
+                  control.
                   {#if outcomeProbabilities?.tie_50_50}
-                    The 50-50 scenario has a <span class="font-bold text-content">{probability(outcomeProbabilities.tie_50_50)}</span> probability.
+                    The 50-50 scenario has a <span
+                      class="font-bold text-content"
+                      >{probability(outcomeProbabilities.tie_50_50)}</span
+                    > probability.
                   {/if}
                 </p>
               </div>
@@ -1436,9 +1456,13 @@
           <div
             class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
           >
-            <div class="flex items-center justify-between mb-4 border-b border-stroke/40 pb-3">
+            <div
+              class="flex items-center justify-between mb-4 border-b border-stroke/40 pb-3"
+            >
               <div>
-                <h3 class="text-sm font-black uppercase text-content-subtle tracking-wider">
+                <h3
+                  class="text-sm font-black uppercase text-content-subtle tracking-wider"
+                >
                   Seat Outcome Distribution
                 </h3>
                 <p class="text-[10px] text-content-subtle font-medium mt-0.5">
@@ -1448,7 +1472,9 @@
             </div>
 
             <!-- Chart Tab Toggle -->
-            <div class="flex gap-1 bg-surface-alt/60 p-1 rounded-lg border border-stroke/45 mb-4">
+            <div
+              class="flex gap-1 bg-surface-alt/60 p-1 rounded-lg border border-stroke/45 mb-4"
+            >
               <button
                 on:click={() => (activeChartType = "buckets")}
                 class={`flex-1 text-center py-1 text-[11px] font-bold rounded-md transition-all ${
@@ -1486,7 +1512,9 @@
               {#if activeChartType === "buckets"}
                 <div class="space-y-4">
                   <!-- Visual Stacked Bar -->
-                  <div class="h-8 rounded-lg overflow-hidden flex border border-stroke/60">
+                  <div
+                    class="h-8 rounded-lg overflow-hidden flex border border-stroke/60"
+                  >
                     {#each seatBuckets as bucket}
                       {#if bucket.probability > 0}
                         <div
@@ -1494,9 +1522,14 @@
                           style={`width: ${bucket.probability * 100}%`}
                         >
                           <!-- Tooltip -->
-                          <div class="absolute bottom-full mb-2 hidden group-hover:block z-50 bg-surface border border-stroke p-2 rounded-lg shadow-md text-xs font-semibold text-content w-40 text-center pointer-events-none">
+                          <div
+                            class="absolute bottom-full mb-2 hidden group-hover:block z-50 bg-surface border border-stroke p-2 rounded-lg shadow-md text-xs font-semibold text-content w-40 text-center pointer-events-none"
+                          >
                             <div class="font-bold">{bucket.label}</div>
-                            <div class="text-blue-600 dark:text-blue-400 mt-1">{(bucket.probability * 100).toFixed(1)}% probability</div>
+                            <div class="text-blue-600 dark:text-blue-400 mt-1">
+                              {(bucket.probability * 100).toFixed(1)}%
+                              probability
+                            </div>
                           </div>
 
                           {#if bucket.probability > 0.08}
@@ -1513,27 +1546,39 @@
                       {#if bucket.probability > 0}
                         <div class="flex items-center justify-between text-xs">
                           <div class="flex items-center gap-2">
-                            <span class={`w-3.5 h-3.5 rounded ${bucket.colorClass} border border-stroke/20`} />
-                            <span class="font-bold text-content">{bucket.label}</span>
+                            <span
+                              class={`w-3.5 h-3.5 rounded ${bucket.colorClass} border border-stroke/20`}
+                            />
+                            <span class="font-bold text-content"
+                              >{bucket.label}</span
+                            >
                           </div>
-                          <span class="font-black text-content-muted">{(bucket.probability * 100).toFixed(1)}%</span>
+                          <span class="font-black text-content-muted"
+                            >{(bucket.probability * 100).toFixed(1)}%</span
+                          >
                         </div>
                       {/if}
                     {/each}
                   </div>
                 </div>
               {:else if activeChartType === "histogram"}
-                <div class="space-y-2 max-h-[280px] overflow-y-auto pr-1 select-none">
+                <div
+                  class="space-y-2 max-h-[280px] overflow-y-auto pr-1 select-none"
+                >
                   {#each sortedOutcomes as outcome}
                     {@const isTie = outcome.dSeats === 50}
                     {@const isDem = outcome.dSeats >= 51}
                     <div class="flex items-center gap-3 text-xs">
                       <!-- Label e.g. "52D - 48R" -->
-                      <span class="w-18 font-mono font-bold text-[10px] text-content-subtle shrink-0">
+                      <span
+                        class="w-18 font-mono font-bold text-[10px] text-content-subtle shrink-0"
+                      >
                         {outcome.dSeats}D - {outcome.rSeats}R
                       </span>
                       <!-- Bar track -->
-                      <div class="flex-1 bg-surface-alt rounded-full h-3 overflow-hidden border border-stroke/40 relative">
+                      <div
+                        class="flex-1 bg-surface-alt rounded-full h-3 overflow-hidden border border-stroke/40 relative"
+                      >
                         <div
                           class={`h-full rounded-full transition-all duration-300 ${
                             isTie
@@ -1542,39 +1587,90 @@
                               ? "bg-blue-500 dark:bg-blue-600"
                               : "bg-red-500 dark:bg-red-600"
                           }`}
-                          style={`width: ${(outcome.probability / maxProbability) * 100}%`}
+                          style={`width: ${
+                            (outcome.probability / maxProbability) * 100
+                          }%`}
                         />
                       </div>
                       <!-- Value -->
-                      <span class="w-10 text-right font-black font-mono text-[10px] text-content-muted shrink-0">
+                      <span
+                        class="w-10 text-right font-black font-mono text-[10px] text-content-muted shrink-0"
+                      >
                         {(outcome.probability * 100).toFixed(1)}%
                       </span>
                     </div>
                   {/each}
                 </div>
               {:else if activeChartType === "curve"}
-                <div class="relative w-full h-[180px] select-none flex flex-col justify-between">
+                <div
+                  class="relative w-full h-[180px] select-none flex flex-col justify-between"
+                >
                   <!-- SVG Area Chart -->
-                  <svg viewBox="0 0 300 100" class="w-full h-[140px] overflow-visible">
+                  <svg
+                    viewBox="0 0 300 100"
+                    class="w-full h-[140px] overflow-visible"
+                  >
                     <defs>
-                      <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(59, 130, 246, 0.4)" />
-                        <stop offset="100%" stop-color="rgba(239, 68, 68, 0.4)" />
+                      <linearGradient
+                        id="curveGradient"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="0%"
+                          stop-color="rgba(59, 130, 246, 0.4)"
+                        />
+                        <stop
+                          offset="100%"
+                          stop-color="rgba(239, 68, 68, 0.4)"
+                        />
                       </linearGradient>
-                      <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                      <linearGradient
+                        id="lineGradient"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="0"
+                      >
                         <stop offset="0%" stop-color="#3b82f6" />
                         <stop offset="100%" stop-color="#ef4444" />
                       </linearGradient>
                     </defs>
 
                     <!-- Grid lines -->
-                    <line x1="15" y1="85" x2="285" y2="85" stroke="currentColor" class="text-stroke/60" stroke-width="0.75" />
-                    <line x1="15" y1="10" x2="285" y2="10" stroke="currentColor" class="text-stroke/20" stroke-dasharray="2 2" stroke-width="0.5" />
+                    <line
+                      x1="15"
+                      y1="85"
+                      x2="285"
+                      y2="85"
+                      stroke="currentColor"
+                      class="text-stroke/60"
+                      stroke-width="0.75"
+                    />
+                    <line
+                      x1="15"
+                      y1="10"
+                      x2="285"
+                      y2="10"
+                      stroke="currentColor"
+                      class="text-stroke/20"
+                      stroke-dasharray="2 2"
+                      stroke-width="0.5"
+                    />
 
                     <!-- Area Path -->
                     {#if svgData.fillPath}
                       <path d={svgData.fillPath} fill="url(#curveGradient)" />
-                      <path d={svgData.strokePath} stroke="url(#lineGradient)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                      <path
+                        d={svgData.strokePath}
+                        stroke="url(#lineGradient)"
+                        stroke-width="1.5"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
                     {/if}
 
                     <!-- Tie break line -->
@@ -1601,16 +1697,21 @@
                           stroke="currentColor"
                           stroke-width="1.5"
                         />
-                        <circle
-                          cx={pt.x}
-                          cy={pt.y}
-                          r="7"
-                          fill="transparent"
-                        />
-                        <foreignObject x={Math.max(10, pt.x - 55)} y={Math.max(0, pt.y - 38)} width="110" height="35" class="pointer-events-none hidden group-hover/point:block overflow-visible z-50">
-                          <div class="bg-surface border border-stroke p-1 rounded shadow-md text-[8px] font-black text-center leading-tight">
+                        <circle cx={pt.x} cy={pt.y} r="7" fill="transparent" />
+                        <foreignObject
+                          x={Math.max(10, pt.x - 55)}
+                          y={Math.max(0, pt.y - 38)}
+                          width="110"
+                          height="35"
+                          class="pointer-events-none hidden group-hover/point:block overflow-visible z-50"
+                        >
+                          <div
+                            class="bg-surface border border-stroke p-1 rounded shadow-md text-[8px] font-black text-center leading-tight"
+                          >
                             <div>{pt.dSeats}D - {pt.rSeats}R</div>
-                            <div class="text-blue-500 mt-0.5">{(pt.prob * 100).toFixed(1)}% prob</div>
+                            <div class="text-blue-500 mt-0.5">
+                              {(pt.prob * 100).toFixed(1)}% prob
+                            </div>
                           </div>
                         </foreignObject>
                       </g>
@@ -1618,9 +1719,13 @@
                   </svg>
 
                   <!-- X-axis Labels -->
-                  <div class="flex justify-between text-[9px] font-bold text-content-subtle px-2 border-t border-stroke/20 pt-1.5 mt-1">
+                  <div
+                    class="flex justify-between text-[9px] font-bold text-content-subtle px-2 border-t border-stroke/20 pt-1.5 mt-1"
+                  >
                     <span>{svgData.minD}D (Min)</span>
-                    <span class="text-slate-400 dark:text-slate-500">50-50 Tie Threshold</span>
+                    <span class="text-slate-400 dark:text-slate-500"
+                      >50-50 Tie Threshold</span
+                    >
                     <span>{svgData.maxD}D (Max)</span>
                   </div>
                 </div>

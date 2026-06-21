@@ -372,7 +372,10 @@ export interface GroupedSeatBucket {
   outcomes: SeatOutcome[];
 }
 
-export function parseSeatDistributionKey(key: string): { dSeats: number; rSeats: number } {
+export function parseSeatDistributionKey(key: string): {
+  dSeats: number;
+  rSeats: number;
+} {
   const matchD = key.match(/(\d+)D/);
   const matchR = key.match(/(\d+)R/);
   const dSeats = matchD ? parseInt(matchD[1], 10) : 50;
@@ -380,13 +383,17 @@ export function parseSeatDistributionKey(key: string): { dSeats: number; rSeats:
   return { dSeats, rSeats };
 }
 
-export function groupSeatDistribution(dist: Record<string, number>): GroupedSeatBucket[] {
+export function groupSeatDistribution(
+  dist: Record<string, number>
+): GroupedSeatBucket[] {
   if (!dist) return [];
 
-  const outcomes: SeatOutcome[] = Object.entries(dist).map(([key, probability]) => {
-    const { dSeats, rSeats } = parseSeatDistributionKey(key);
-    return { key, probability, dSeats, rSeats };
-  });
+  const outcomes: SeatOutcome[] = Object.entries(dist).map(
+    ([key, probability]) => {
+      const { dSeats, rSeats } = parseSeatDistributionKey(key);
+      return { key, probability, dSeats, rSeats };
+    }
+  );
 
   outcomes.sort((a, b) => b.dSeats - a.dSeats);
 

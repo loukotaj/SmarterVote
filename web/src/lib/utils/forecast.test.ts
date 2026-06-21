@@ -104,9 +104,9 @@ describe("forecast utilities", () => {
   it("groups seat distribution into buckets correctly", () => {
     const dist = {
       "54D-46R": 0.05,
-      "53D-47R": 0.10,
+      "53D-47R": 0.1,
       "52D-48R": 0.15,
-      "51D-49R": 0.20,
+      "51D-49R": 0.2,
       "50R-50D": 0.25,
       "51R-49D": 0.15,
       "52R-48D": 0.08,
