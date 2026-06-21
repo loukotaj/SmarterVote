@@ -137,3 +137,9 @@ variable "billing_account_id" {
   type        = string
   default     = ""
 }
+
+variable "developer_gcp_identities" {
+  description = "List of developer GCP emails (e.g. user:email@example.com) allowed to impersonate service accounts locally"
+  type        = list(string)
+  default     = []
+}

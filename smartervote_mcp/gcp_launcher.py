@@ -96,16 +96,19 @@ def configure_cloud_run_identity_token_from_gcp() -> None:
     """
     if os.getenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN") or os.getenv("SMARTERVOTE_RACES_API_ID_TOKEN"):
         return
-    use_cloud_run_id_token = os.getenv("SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN", "").lower() in {
-        "1",
-        "true",
-        "yes",
-    }
-    if not use_cloud_run_id_token and not os.getenv("SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT"):
-        return
 
     audience = _cloud_run_audience()
     if not audience:
+        return
+
+    use_cloud_run_id_token_env = os.getenv("SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN")
+    if use_cloud_run_id_token_env is not None:
+        use_cloud_run_id_token = use_cloud_run_id_token_env.lower() in {"1", "true", "yes"}
+    else:
+        # Default to True if it is a Cloud Run audience URL
+        use_cloud_run_id_token = True
+
+    if not use_cloud_run_id_token and not os.getenv("SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT"):
         return
 
     args = ["auth", "print-identity-token", f"--audiences={audience}"]
@@ -119,14 +122,39 @@ def configure_cloud_run_identity_token_from_gcp() -> None:
     os.environ["SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN"] = token
 
 
+def _is_localhost(url: str) -> bool:
+    """Check if the given URL points to a local address."""
+    if not url:
+        return True
+    try:
+        parsed = urlparse(url)
+        return parsed.hostname in {"localhost", "127.0.0.1", "::1", None}
+    except Exception:
+        return False
+
+
 def main() -> None:
     """Configure auth and run the MCP server."""
+    url = os.getenv("SMARTERVOTE_RACES_API_URL") or os.getenv("RACES_API_URL") or "http://127.0.0.1:8080"
+    is_local = _is_localhost(url)
+
     try:
         configure_admin_key_from_gcp()
+    except Exception as exc:
+        if is_local:
+            print(f"Warning: Failed to configure SmarterVote MCP GCP admin key (targeting localhost): {exc}", file=sys.stderr)
+        else:
+            print(f"Failed to configure SmarterVote MCP GCP admin key: {exc}", file=sys.stderr)
+            raise SystemExit(1) from exc
+
+    try:
         configure_cloud_run_identity_token_from_gcp()
     except Exception as exc:
-        print(f"Failed to configure SmarterVote MCP GCP auth: {exc}", file=sys.stderr)
-        raise SystemExit(1) from exc
+        if is_local:
+            print(f"Warning: Failed to configure SmarterVote MCP GCP identity token (targeting localhost): {exc}", file=sys.stderr)
+        else:
+            print(f"Failed to configure SmarterVote MCP GCP identity token: {exc}", file=sys.stderr)
+            raise SystemExit(1) from exc
 
     from smartervote_mcp.server import main as server_main
 

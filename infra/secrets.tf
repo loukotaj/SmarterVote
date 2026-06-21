@@ -253,3 +253,11 @@ resource "google_project_iam_member" "github_actions_firestore_owner" {
   role    = "roles/datastore.owner"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
+
+# Allow developers to impersonate the races-api service account locally for MCP
+resource "google_service_account_iam_member" "races_api_impersonation" {
+  for_each           = toset(var.developer_gcp_identities)
+  service_account_id = google_service_account.races_api.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = each.value
+}
