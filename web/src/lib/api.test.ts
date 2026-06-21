@@ -12,7 +12,7 @@ describe("API Fallback Functionality", () => {
     vi.restoreAllMocks();
   });
 
-  it("should return live data when API is available", async () => {
+  it("should return live data when static file is available", async () => {
     const mockFetch = vi.fn().mockResolvedValue({
       ok: true,
       json: () =>
@@ -26,11 +26,7 @@ describe("API Fallback Functionality", () => {
     const result = await getRace("test-race", mockFetch);
 
     expect(result.title).toBe("Live Data Race");
-    expect(mockFetch).toHaveBeenCalledWith(
-      expect.stringMatching(
-        /^http:\/\/(localhost|127\.0\.0\.1):8080\/races\/test-race$/
-      )
-    );
+    expect(mockFetch).toHaveBeenCalledWith("/test-race.json");
   });
 
   it("should fallback to sample data when API fails", async () => {
