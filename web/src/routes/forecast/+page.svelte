@@ -2,6 +2,7 @@
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import { slide } from "svelte/transition";
   import TabButton from "$lib/components/TabButton.svelte";
   import USMap from "$lib/components/USMap.svelte";
   import type { ForecastRating, RaceSummary } from "$lib/types";
@@ -965,7 +966,7 @@
 
             <!-- Expandable Drawer Content -->
             {#if isExpanded}
-              <div class="mt-1 pt-4 border-t border-stroke/30 grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs bg-surface-alt/10 rounded-xl p-4 shadow-inner">
+              <div transition:slide class="mt-1 pt-4 border-t border-stroke/30 grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs bg-surface-alt/10 rounded-xl p-4 shadow-inner">
                 <!-- Left Column: Key Drivers & Uncertainty -->
                 <div class="space-y-3">
                   <div>

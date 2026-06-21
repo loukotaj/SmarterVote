@@ -8,6 +8,7 @@
   import { candidateSlug } from "$lib/utils/format";
   import { browser } from "$app/environment";
   import type { LayoutData } from "./$types";
+  import { fade } from "svelte/transition";
 
   export let data: LayoutData;
 
@@ -210,6 +211,31 @@
     }
   }
 
+  let searchInputEl: HTMLInputElement;
+
+  function handleGlobalKeydown(e: KeyboardEvent) {
+    if (
+      e.key === "/" &&
+      document.activeElement?.tagName !== "INPUT" &&
+      document.activeElement?.tagName !== "TEXTAREA"
+    ) {
+      e.preventDefault();
+      searchInputEl?.focus();
+      searchInputEl?.select();
+    }
+  }
+
+  function highlightMatch(text: string, query: string): { text: string; match: boolean }[] {
+    if (!query.trim()) return [{ text, match: false }];
+    const escapedQuery = query.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const regex = new RegExp(`(${escapedQuery})`, "gi");
+    const parts = text.split(regex);
+    return parts.map(part => ({
+      text: part,
+      match: part.toLowerCase() === query.trim().toLowerCase()
+    }));
+  }
+
   function handleWindowClick(e: MouseEvent) {
     if (searchContainer && !searchContainer.contains(e.target as Node)) {
       showSuggestions = false;
@@ -217,7 +243,7 @@
   }
 </script>
 
-<svelte:window on:click={handleWindowClick} />
+<svelte:window on:click={handleWindowClick} on:keydown={handleGlobalKeydown} />
 
 <div class="min-h-screen bg-page overflow-x-hidden">
   <!-- Navigation loading bar -->
@@ -228,7 +254,7 @@
   {/if}
 
   <!-- Navigation -->
-  <nav class="bg-surface shadow-sm border-b border-stroke">
+  <nav class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-stroke/50">
     <div class="container mx-auto px-4 py-3 max-w-7xl">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <!-- Top Row (Logo & Navigation/Toggle on mobile) -->
@@ -281,11 +307,12 @@
             </div>
             <input
               type="text"
+              bind:this={searchInputEl}
               bind:value={headerQuery}
               on:input={handleSearchInput}
               on:focus={() => showSuggestions = true}
               on:keydown={handleKeydown}
-              placeholder="Search candidates, races, states..."
+              placeholder="Search... (Press '/' to focus)"
               class="block w-full pl-9 pr-8 py-1.5 border border-stroke rounded-full text-xs sm:text-sm bg-surface-alt placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-content transition-all duration-300"
             />
             {#if headerQuery.trim()}
@@ -303,7 +330,7 @@
 
           <!-- Suggestions Dropdown -->
           {#if showSuggestions && (matchingRaces.length > 0 || matchingCandidates.length > 0)}
-            <div class="absolute top-full left-0 right-0 mt-2 bg-surface border border-stroke rounded-xl shadow-lg z-50 max-h-96 overflow-y-auto py-2 divide-y divide-stroke backdrop-blur-md bg-surface/95">
+            <div transition:fade={{ duration: 150 }} class="absolute top-full left-0 right-0 mt-2 bg-surface border border-stroke rounded-xl shadow-lg z-50 max-h-96 overflow-y-auto py-2 divide-y divide-stroke backdrop-blur-md bg-surface/95">
               {#if matchingRaces.length > 0}
                 <div class="p-1.5">
                   <div class="text-[10px] font-semibold text-content-subtle px-2.5 py-1 uppercase tracking-wider">Races</div>
@@ -313,7 +340,11 @@
                       class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors flex flex-col gap-0.5
                         {i === activeIndex ? 'bg-surface-alt text-primary font-medium' : 'text-content hover:bg-surface-alt/60'}"
                     >
-                      <span class="truncate">{race.title}</span>
+                      <span class="truncate">
+                        {#each highlightMatch(race.title, headerQuery) as part}
+                          <span class={part.match ? "font-bold text-blue-600 dark:text-blue-400" : ""}>{part.text}</span>
+                        {/each}
+                      </span>
                       <span class="text-[10px] text-content-subtle truncate">{race.office || ''} {race.state ? `· ${race.state}` : ''}</span>
                     </button>
                   {/each}
@@ -330,7 +361,11 @@
                       class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors flex flex-col gap-0.5
                         {itemIndex === activeIndex ? 'bg-surface-alt text-primary font-medium' : 'text-content hover:bg-surface-alt/60'}"
                     >
-                      <span class="truncate">{cand.name}</span>
+                      <span class="truncate">
+                        {#each highlightMatch(cand.name, headerQuery) as part}
+                          <span class={part.match ? "font-bold text-blue-600 dark:text-blue-400" : ""}>{part.text}</span>
+                        {/each}
+                      </span>
                       <span class="text-[10px] text-content-subtle truncate">{cand.party || ''} · {cand.raceTitle}</span>
                     </button>
                   {/each}

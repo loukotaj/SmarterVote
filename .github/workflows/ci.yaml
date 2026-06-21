@@ -65,6 +65,12 @@ jobs:
           --ignore=tests/test_agent_cloud_function.py \
           --ignore=tests/test_races_api_admin.py
 
+    - name: Check Python formatting
+      run: |
+        python -m pip install black isort
+        python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts
+        python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts
+
   test-apis:
     name: Test API Services
     runs-on: ubuntu-latest
@@ -133,6 +139,10 @@ jobs:
     - name: Type check
       run: |
         cd web && npm run check
+
+    - name: Lint
+      run: |
+        cd web && npm run lint
 
     - name: Build SvelteKit
       env:

@@ -1,3 +1,7 @@
 node_modules
 .svelte-kit
 build
+.pytest_cache
+test-results
+vite.config.js.timestamp-*.mjs
+static/states-10m.json

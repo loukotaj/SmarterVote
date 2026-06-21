@@ -5,6 +5,8 @@
   import ReviewPanel from "$lib/components/ReviewPanel.svelte";
   import ValidationGradeBadge from "$lib/components/ValidationGradeBadge.svelte";
   import Card from "$lib/components/Card.svelte";
+  import ElectionCountdown from "$lib/components/ElectionCountdown.svelte";
+  import { fade } from "svelte/transition";
   import type { Race } from "$lib/types";
   import { getRace, getDraftRace } from "$lib/api";
   import { formatModelName, candidateSlug } from "$lib/utils/format";
@@ -200,6 +202,13 @@
         </div>
       </div>
     </Card>
+
+    <!-- Election Countdown -->
+    {#if race.election_date}
+      <div class="mb-6 sm:mb-8">
+        <ElectionCountdown electionDate={race.election_date} />
+      </div>
+    {/if}
 
     <!-- Voter Resources -->
     <div class="voter-resources">
@@ -441,7 +450,7 @@
 
     <!-- Compare sticky drawer -->
     {#if selectedCandidates.size > 0}
-      <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-surface/95 backdrop-blur-md border border-stroke py-4 px-6 shadow-2xl rounded-2xl flex items-center justify-between gap-6 max-w-md w-[calc(100%-2rem)] transition-all duration-300">
+      <div transition:fade={{ duration: 200 }} class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-surface/95 backdrop-blur-md border border-stroke py-4 px-6 shadow-2xl rounded-2xl flex items-center justify-between gap-6 max-w-md w-[calc(100%-2rem)] transition-all duration-300">
         <div class="flex items-center gap-3">
           <span class="inline-flex items-center justify-center bg-blue-600 text-white font-bold rounded-full w-6 h-6 text-xs">{selectedCandidates.size}</span>
           <span class="text-sm font-semibold text-content">Selected to compare</span>

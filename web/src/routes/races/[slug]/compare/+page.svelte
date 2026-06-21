@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
   import ConfidenceIndicator from "$lib/components/ConfidenceIndicator.svelte";
   import SourceLink from "$lib/components/SourceLink.svelte";
   import type { Race, Candidate } from "$lib/types";
@@ -20,6 +21,11 @@
 
   let slug: string;
   $: slug = $page.params.slug as string;
+
+  // Reactively re-run hydrateCandidates whenever the URL searchParams change
+  $: if (race && $page) {
+    hydrateCandidates();
+  }
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
@@ -65,6 +71,32 @@
     }
   }
 
+  function toggleSelection(candName: string) {
+    if (!race) return;
+    const cSlug = candidateSlug(candName);
+    const params = new URLSearchParams($page.url.searchParams);
+    const candidatesParam = params.get("candidates");
+    let currentSlugs = candidatesParam ? candidatesParam.split(",") : [];
+
+    if (currentSlugs.length === 0) {
+      currentSlugs = race.candidates.filter(c => !c.withdrawn).slice(0, 2).map(c => candidateSlug(c.name));
+    }
+
+    if (currentSlugs.includes(cSlug)) {
+      if (currentSlugs.length > 1) {
+        currentSlugs = currentSlugs.filter(s => s !== cSlug);
+      }
+    } else {
+      currentSlugs.push(cSlug);
+    }
+
+    params.set("candidates", currentSlugs.join(","));
+    goto(`/races/${slug}/compare?${params.toString()}`, {
+      replaceState: true,
+      keepFocus: true,
+      noScroll: true
+    });
+  }
 </script>
 
 <svelte:head>
@@ -143,11 +175,33 @@
       </a>
     </div>
   {:else if race}
+    <!-- Candidate Selector Filter Bar -->
+    <div class="mb-6 p-4 bg-surface border border-stroke rounded-2xl shadow-sm flex flex-col gap-3">
+      <span class="text-xs font-extrabold uppercase text-content-subtle tracking-wider">Choose candidates to compare:</span>
+      <div class="flex flex-wrap gap-2.5">
+        {#each race.candidates.filter(c => !c.withdrawn) as c}
+          {@const isChecked = candidates.some(selected => selected.name === c.name)}
+          <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-stroke bg-surface-alt/40 hover:bg-surface-alt transition-colors cursor-pointer text-xs sm:text-sm font-semibold text-content select-none">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              on:change={() => toggleSelection(c.name)}
+              class="w-4 h-4 cursor-pointer text-blue-600 border-stroke rounded focus:ring-blue-500 bg-surface"
+            />
+            {c.name}
+            {#if c.party}
+              <span class="text-[10px] text-content-subtle font-bold">({partyAbbr(c.party)})</span>
+            {/if}
+          </label>
+        {/each}
+      </div>
+    </div>
+
     <!-- Main comparison dashboard -->
     <div class="overflow-x-auto border border-stroke rounded-2xl shadow-sm bg-surface">
       <div class="min-w-[768px]">
         <!-- Sticky Candidate Names/Avatars Row -->
-        <div class="sticky top-0 z-30 w-full min-w-full bg-surface/95 backdrop-blur-md border-b border-stroke py-4 shadow-sm">
+        <div class="sticky top-[57px] md:top-[65px] z-30 w-full min-w-full bg-surface/95 backdrop-blur-md border-b border-stroke py-4 shadow-sm">
           <div class="grid items-center" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
             <div class="sticky left-0 z-40 bg-surface/95 px-6 font-bold text-xs uppercase tracking-wider text-content-subtle border-r border-stroke">
               Compare Directory

@@ -151,8 +151,9 @@
   }
 
   .state-path {
-    transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease, stroke-width 0.2s ease;
+    transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease, stroke-width 0.2s ease, transform 0.2s ease;
     cursor: default;
+    transform-origin: 487.5px 305px;
   }
 
   .state-path.clickable {
@@ -160,7 +161,8 @@
   }
 
   .state-path.clickable:hover {
-    filter: brightness(1.1) drop-shadow(0 4px 12px rgba(59, 130, 246, 0.2));
+    filter: brightness(1.15) drop-shadow(0 6px 16px rgba(59, 130, 246, 0.4));
+    transform: scale(1.012);
   }
 
   .state-path:focus {
