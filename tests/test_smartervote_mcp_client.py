@@ -100,7 +100,7 @@ def test_configure_cloud_run_identity_token_from_gcp(monkeypatch):
     assert os.environ["SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN"] == "token"
 
 
-def test_configure_cloud_run_identity_token_is_opt_in(monkeypatch):
+def test_configure_cloud_run_identity_token_is_opt_out(monkeypatch):
     calls = []
 
     def fake_run_gcloud(args):
@@ -108,7 +108,7 @@ def test_configure_cloud_run_identity_token_is_opt_in(monkeypatch):
         return "token"
 
     monkeypatch.setenv("SMARTERVOTE_RACES_API_URL", "https://races-api-dev-ddsvfazica-uc.a.run.app")
-    monkeypatch.delenv("SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN", raising=False)
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN", "false")
     monkeypatch.delenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN", raising=False)
     monkeypatch.delenv("SMARTERVOTE_RACES_API_ID_TOKEN", raising=False)
     monkeypatch.delenv("SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT", raising=False)
