@@ -580,29 +580,32 @@ export interface RaceRecord {
   updated_at: string;
 }
 
+export interface ChamberForecastDetails {
+  narrative: string;
+  control_party: "Democratic" | "Republican" | "Other";
+  control_probability: number;
+  outcome_probabilities: Record<string, number>;
+  projected_seats: Record<string, number>;
+  expected_seats: Record<string, number>;
+  threshold: number;
+  total_seats: number;
+  tossup_count: number;
+  competitive_race_count?: number;
+  competitive_races: string[];
+  method: string;
+  vp_tiebreak_party?: string;
+  seat_distribution?: Record<string, number>;
+  bottom_line?: string;
+  why_party_favored?: string;
+  opposing_party_path?: string;
+  key_uncertainty?: string;
+}
+
 export interface ChamberForecasts {
   house: string;
   senate: string;
   governors: string;
   schema_version?: string;
-  chambers?: Partial<
-    Record<
-      "house" | "senate" | "governors",
-      {
-        narrative: string;
-        control_party: "Democratic" | "Republican" | "Other";
-        control_probability: number;
-        outcome_probabilities: Record<string, number>;
-        projected_seats: Record<string, number>;
-        expected_seats: Record<string, number>;
-        threshold: number;
-        total_seats: number;
-        tossup_count: number;
-        competitive_race_count?: number;
-        competitive_races: string[];
-        method: string;
-      }
-    >
-  >;
+  chambers?: Partial<Record<"house" | "senate" | "governors", ChamberForecastDetails>>;
   updated_at?: string;
 }

@@ -96,6 +96,9 @@
   }
 
   function getFill(name: string): string {
+    if (selectedState && name !== selectedState) {
+      return "var(--map-inactive)";
+    }
     if (stateColors[name]) return stateColors[name];
     if (name === selectedState) return "var(--map-selected)";
     if (activeStates.has(name)) return "var(--map-active)";

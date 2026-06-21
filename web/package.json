@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build --mode fast",
-    "build:crawl": "vite build",
+    "build:crawl": "npm run generate:sitemap && vite build --mode crawl",
     "build:fast": "vite build --mode fast",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",

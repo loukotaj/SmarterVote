@@ -39,11 +39,12 @@ def _transactional(func):
 
 def _conversation_messages(db: Any, conversation_id: str, limit: int = 200) -> list[Dict[str, Any]]:
     docs = db.collection(_MESSAGES).where("conversation_id", "==", conversation_id).limit(1000).stream()
-    messages = [_plain(doc) for doc in docs]
-    return sorted(
-        (message for message in messages if message is not None),
-        key=lambda message: (str(message.get("created_at") or ""), str(message.get("message_id") or "")),
+    messages = [(index, _plain(doc)) for index, doc in enumerate(docs)]
+    ordered = sorted(
+        (item for item in messages if item[1] is not None),
+        key=lambda item: (str(item[1].get("created_at") or ""), item[0]),
     )[-limit:]
+    return [message for _, message in ordered]
 
 
 def _conversation_tasks(db: Any, conversation_id: str, limit: int = 20) -> list[Dict[str, Any]]:

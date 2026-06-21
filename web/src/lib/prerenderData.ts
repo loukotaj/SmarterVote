@@ -10,7 +10,7 @@ export function publicApiBase(): string {
 }
 
 function shouldPrerenderDynamicRoutes(): boolean {
-  return import.meta.env.MODE !== "fast" || import.meta.env.VITE_PRERENDER_RACES === "true";
+  return import.meta.env.MODE === "crawl" || import.meta.env.VITE_PRERENDER_RACES === "true";
 }
 
 export async function fetchPublishedRaceSummaries(fetchFn: typeof fetch = fetch): Promise<RaceSummary[]> {

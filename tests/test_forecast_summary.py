@@ -1,4 +1,4 @@
-import json
+﻿import json
 from pathlib import Path
 
 from shared.forecast_summary import build_chamber_forecasts
@@ -44,3 +44,53 @@ def test_chamber_forecast_counts_senate_tie_as_republican_control():
     assert senate["control_party"] == "Republican"
     assert "50-50 Senate" in senate["narrative"]
     assert senate["competitive_race_count"] >= len(senate["competitive_races"])
+
+
+def test_new_chamber_forecast_fields():
+    summaries = [
+        {
+            "id": "ga-senate-2026",
+            "office": "United States Senate",
+            "state": "Georgia",
+            "forecast": {
+                "predicted_winner_party": "Democratic",
+                "win_probability": 0.60,
+                "rating": "tilt_d",
+                "party_probabilities": {"Democratic": 0.60, "Republican": 0.40},
+            },
+        },
+        {
+            "id": "tx-senate-2026",
+            "office": "United States Senate",
+            "state": "Texas",
+            "forecast": {
+                "predicted_winner_party": "Republican",
+                "win_probability": 0.70,
+                "rating": "lean_r",
+                "party_probabilities": {"Democratic": 0.30, "Republican": 0.70},
+            },
+        },
+    ]
+
+    forecast = build_chamber_forecasts(
+        summaries,
+        analyses={
+            "senate": {
+                "bottom_line": "Custom bottom line.",
+                "why_party_favored": "Custom why favored.",
+                "opposing_party_path": "Custom opposing path.",
+                "key_uncertainty": "Custom uncertainty.",
+            }
+        },
+    )
+    senate = forecast["chambers"]["senate"]
+
+    assert senate["vp_tiebreak_party"] == "Republican"
+    assert senate["bottom_line"] == "Custom bottom line."
+    assert senate["why_party_favored"] == "Custom why favored."
+    assert senate["opposing_party_path"] == "Custom opposing path."
+    assert senate["key_uncertainty"] == "Custom uncertainty."
+    assert len(senate["seat_distribution"]) > 0
+    for key, val in senate["seat_distribution"].items():
+        assert "R-" in key or "D-" in key or key == "50R-50D"
+        assert 0.0 <= val <= 1.0

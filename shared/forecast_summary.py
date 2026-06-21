@@ -233,7 +233,9 @@ def _projected_control(projected: Dict[Party, int], chamber: Chamber) -> Party:
     return "Other"
 
 
-def summarize_chamber(summaries: list[Dict[str, Any]], chamber: Chamber, narrative: str | None = None) -> Dict[str, Any]:
+def summarize_chamber(
+    summaries: list[Dict[str, Any]], chamber: Chamber, narrative: str | None = None, analysis: Dict[str, Any] | None = None
+) -> Dict[str, Any]:
     races = _chamber_races(summaries, chamber)
     active_states = {state for race in races if (state := race_state(race))}
     projected: Dict[Party, int] = {"Democratic": 0, "Republican": 0, "Other": 0}
@@ -241,12 +243,15 @@ def summarize_chamber(summaries: list[Dict[str, Any]], chamber: Chamber, narrati
     tossups = 0
     competitive: list[str] = []
 
+    rep_holdovers = 0
     if chamber == "senate":
         for state, parties in SENATE_HOLDOVERS.items():
             seats = parties[:1] if state in active_states else parties
             for party in seats:
                 projected[party] += 1
                 expected[party] += 1
+                if party == "Republican":
+                    rep_holdovers += 1
     elif chamber == "governors":
         for party in GOVERNOR_HOLDOVERS.values():
             projected[party] += 1
@@ -295,7 +300,54 @@ def summarize_chamber(summaries: list[Dict[str, Any]], chamber: Chamber, narrati
     if chamber == "senate" and projected["Democratic"] == 50 and projected["Republican"] == 50:
         default_narrative += " A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican."
 
-    return {
+    # Compute seat distribution for Senate
+    seat_distribution = {}
+    if chamber == "senate":
+        rep_probs = []
+        for race in races:
+            forecast = race.get("forecast") if isinstance(race.get("forecast"), dict) else None
+            if forecast:
+                probs = _race_party_probabilities(forecast)
+                rep_probs.append(probs.get("Republican", 0.0))
+            else:
+                fallback_party = fallback_party_for_race(race)
+                rep_probs.append(1.0 if fallback_party == "Republican" else 0.0)
+
+        # Exact Poisson binomial distribution using dynamic programming
+        dp = [1.0]
+        for p in rep_probs:
+            next_dp = [0.0] * (len(dp) + 1)
+            for j, val in enumerate(dp):
+                next_dp[j] += val * (1.0 - p)
+                next_dp[j + 1] += val * p
+            dp = next_dp
+
+        # Populate seat distribution keys e.g. "51R-49D"
+        for j, prob in enumerate(dp):
+            r_seats = rep_holdovers + j
+            d_seats = 100 - r_seats
+            if r_seats > 50:
+                key = f"{r_seats}R-{d_seats}D"
+            elif r_seats < 50:
+                key = f"{d_seats}D-{r_seats}R"
+            else:
+                key = "50R-50D"
+            if prob > 0.0005:  # Keep only non-trivial probabilities to limit payload size
+                seat_distribution[key] = round(prob, 4)
+
+    # Prepare structured fallback analysis fields
+    favored_party = control_party
+    opposing_party = "Democratic" if favored_party == "Republican" else "Republican"
+
+    default_bottom_line = f"{favored_party} control is projected for the {chamber} with {projected['Democratic']} Democratic seats and {projected['Republican']} Republican seats."
+    if chamber == "senate" and projected["Democratic"] == 50 and projected["Republican"] == 50:
+        default_bottom_line += " A 50-50 Senate counts as Republican control under the VP tie-break assumption."
+
+    default_why_favored = f"The model projects {projected[favored_party]} seats for the {favored_party} party, giving them a {round(control_probability * 100)}% control probability."
+    default_opposing_path = f"The {opposing_party} party needs to win competitive races to reach the majority threshold of {THRESHOLDS[chamber]} seats."
+    default_uncertainty = f"The forecast depends on {tossups} toss-up races and {len(competitive)} competitive contests where outcomes remain highly uncertain."
+
+    res = {
         "narrative": narrative or default_narrative,
         "control_party": control_party,
         "control_probability": round(control_probability, 3),
@@ -313,13 +365,31 @@ def summarize_chamber(summaries: list[Dict[str, Any]], chamber: Chamber, narrati
         "competitive_race_count": len(competitive),
         "competitive_races": competitive[:12],
         "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break.",
+        "bottom_line": (analysis or {}).get("bottom_line") or default_bottom_line,
+        "why_party_favored": (analysis or {}).get("why_party_favored") or default_why_favored,
+        "opposing_party_path": (analysis or {}).get("opposing_party_path") or default_opposing_path,
+        "key_uncertainty": (analysis or {}).get("key_uncertainty") or default_uncertainty,
     }
 
+    if chamber == "senate":
+        res["vp_tiebreak_party"] = "Republican"
+        res["seat_distribution"] = seat_distribution
+    else:
+        res["seat_distribution"] = {}
 
-def build_chamber_forecasts(summaries: list[Dict[str, Any]], narratives: Dict[Chamber, str] | None = None) -> Dict[str, Any]:
+    return res
+
+
+def build_chamber_forecasts(
+    summaries: list[Dict[str, Any]],
+    narratives: Dict[Chamber, str] | None = None,
+    analyses: Dict[Chamber, Dict[str, Any]] | None = None,
+) -> Dict[str, Any]:
     narratives = narratives or {}
+    analyses = analyses or {}
     chambers = {
-        chamber: summarize_chamber(summaries, chamber, narratives.get(chamber)) for chamber in ("house", "senate", "governors")
+        chamber: summarize_chamber(summaries, chamber, narratives.get(chamber), analyses.get(chamber))
+        for chamber in ("house", "senate", "governors")
     }
     return {
         "schema_version": "chamber_forecasts.v2",

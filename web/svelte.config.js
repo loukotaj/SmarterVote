@@ -3,6 +3,9 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 const isFastBuild =
   process.env.FAST_BUILD === "true" ||
+  process.env.npm_lifecycle_event === "build" ||
+  process.env.npm_lifecycle_event === "build:fast" ||
+  process.env.npm_lifecycle_event === "build:cloudflare" ||
   process.argv.includes("fast") ||
   process.argv.includes("--mode=fast");
 

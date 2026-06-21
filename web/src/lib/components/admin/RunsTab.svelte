@@ -643,22 +643,20 @@
                 </div>
               </div>
             </div>
-            <div on:click|stopPropagation>
-              <button
-                type="button"
-                class="px-2.5 py-1 text-xs border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded transition-colors font-medium whitespace-nowrap flex items-center gap-1"
-                disabled={cancellingRunId === run.run_id}
-                on:click={(e) => handleCancelRun(run.run_id, e)}
-              >
-                {#if cancellingRunId === run.run_id}
-                  <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                {/if}
-                Cancel
-              </button>
-            </div>
+            <button
+              type="button"
+              class="px-2.5 py-1 text-xs border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded transition-colors font-medium whitespace-nowrap flex items-center gap-1"
+              disabled={cancellingRunId === run.run_id}
+              on:click={(e) => handleCancelRun(run.run_id, e)}
+            >
+              {#if cancellingRunId === run.run_id}
+                <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+              {/if}
+              Cancel
+            </button>
           </div>
         {/each}
       </div>

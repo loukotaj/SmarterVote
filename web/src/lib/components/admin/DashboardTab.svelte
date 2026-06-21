@@ -43,7 +43,7 @@
   let loading = true;
   let error = "";
   let refreshTimer: ReturnType<typeof setInterval> | null = null;
-  let refreshInFlight = false;
+  let refreshInFlight: Promise<void> | null = null;
 
   const TIME_RANGES = [
     { label: "1h", value: 1 },
@@ -122,52 +122,55 @@
   }
 
   async function loadData(hours = selectedHours) {
-    if (refreshInFlight) return;
-    refreshInFlight = true;
-    try {
-      const [overviewRes, trafficRes, alertsRes] = await Promise.allSettled([
-        analyticsService.getOverview(hours),
-        analyticsService.getTraffic(hours),
-        analyticsService.getAlerts(),
-      ]);
+    if (refreshInFlight) return refreshInFlight;
+    refreshInFlight = (async () => {
+      try {
+        const [overviewRes, trafficRes, alertsRes] = await Promise.allSettled([
+          analyticsService.getOverview(hours),
+          analyticsService.getTraffic(hours),
+          analyticsService.getAlerts(),
+        ]);
 
-      if (overviewRes.status === "fulfilled") overview = overviewRes.value;
-      if (trafficRes.status === "fulfilled") {
-        traffic = trafficRes.value;
-      } else {
-        traffic = {
-          configured: false,
-          provider: "cloudflare",
-          hours,
-          pageviews: 0,
-          visits: 0,
-          pages_per_visit: 0,
-          timeseries: [],
-          top_pages: [],
-          top_referrers: [],
-          countries: [],
-          devices: [],
-          fetched_at: null,
-          error: String(trafficRes.reason),
-        };
+        if (overviewRes.status === "fulfilled") overview = overviewRes.value;
+        if (trafficRes.status === "fulfilled") {
+          traffic = trafficRes.value;
+        } else {
+          traffic = {
+            configured: false,
+            provider: "cloudflare",
+            hours,
+            pageviews: 0,
+            visits: 0,
+            pages_per_visit: 0,
+            timeseries: [],
+            top_pages: [],
+            top_referrers: [],
+            countries: [],
+            devices: [],
+            fetched_at: null,
+            error: String(trafficRes.reason),
+          };
+        }
+        if (alertsRes.status === "fulfilled") alerts = alertsRes.value.alerts;
+
+        const failed = [overviewRes, alertsRes].filter((result) => result.status === "rejected").length;
+        if (failed > 0) error = `${failed} dashboard request${failed === 1 ? "" : "s"} failed`;
+
+        if (apiService) {
+          try {
+            allRaces = await apiService.listRaces();
+          } catch {
+            /* non-critical */
+          }
+        }
+      } catch (e) {
+        error = String(e);
+      } finally {
+        refreshInFlight = null;
+        loading = false;
       }
-      if (alertsRes.status === "fulfilled") alerts = alertsRes.value.alerts;
-
-      const failed = [overviewRes, alertsRes].filter(
-        (result) => result.status === "rejected"
-      ).length;
-      if (failed > 0) error = `${failed} dashboard request${failed === 1 ? "" : "s"} failed`;
-
-      // Load race list for discovery-only count
-      if (apiService) {
-        try { allRaces = await apiService.listRaces(); } catch { /* non-critical */ }
-      }
-    } catch (e) {
-      error = String(e);
-    } finally {
-      refreshInFlight = false;
-      loading = false;
-    }
+    })();
+    return refreshInFlight;
   }
 
   async function handleRangeChange(hours: number) {
