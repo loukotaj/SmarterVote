@@ -1068,9 +1068,6 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {#each keyRacesList as race}
             {@const rating = race.forecast?.rating}
-            {@const party = normalizeForecastParty(
-              race.forecast?.predicted_winner_party
-            )}
             {@const isExpanded = expandedRaceIds.has(race.id)}
             <div
               class="bg-surface border border-stroke rounded-2xl p-5 shadow-sm flex flex-col justify-between transition-all hover:shadow-md relative overflow-hidden"
