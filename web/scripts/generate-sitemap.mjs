@@ -37,9 +37,13 @@ const localPath = path.resolve("..", "data", "published", "summaries.json");
 try {
   const content = await fs.readFile(localPath, "utf8");
   races = JSON.parse(content);
-  console.log(`Loaded ${races.length} races from local path ${localPath} for sitemap.`);
+  console.log(
+    `Loaded ${races.length} races from local path ${localPath} for sitemap.`
+  );
 } catch (err) {
-  console.log(`Could not read local sitemap source: ${err.message}. Fetching from network...`);
+  console.log(
+    `Could not read local sitemap source: ${err.message}. Fetching from network...`
+  );
 
   const summariesUrl = PUBLIC_DATA_URL
     ? `${PUBLIC_DATA_URL.replace(/\/$/, "")}/summaries.json`
@@ -55,7 +59,9 @@ try {
 
   const res = await fetch(summariesUrl);
   if (!res.ok) {
-    throw new Error(`Failed to fetch race summaries for sitemap: ${res.status}`);
+    throw new Error(
+      `Failed to fetch race summaries for sitemap: ${res.status}`
+    );
   }
 
   races = await res.json();
