@@ -91,7 +91,9 @@
 </div>
 
 <style lang="postcss">
-  .voting-container { @apply space-y-4; }
+  .voting-container {
+    @apply space-y-4;
+  }
 
   .voting-summary {
     background-color: rgb(var(--sv-surface-alt));

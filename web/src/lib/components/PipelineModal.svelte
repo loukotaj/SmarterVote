@@ -60,7 +60,9 @@
                 />
               </svg>
               <div>
-                <h4 class="text-xs font-medium text-yellow-800 dark:text-yellow-200">
+                <h4
+                  class="text-xs font-medium text-yellow-800 dark:text-yellow-200"
+                >
                   Large Content
                 </h4>
                 <p class="text-xs text-yellow-700 dark:text-yellow-300 mt-1">

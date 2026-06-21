@@ -37,8 +37,12 @@
     aria-label="Validation Grade: {grade.grade}"
   >
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
     </svg>
     <span class="grade-letter">{grade.grade}</span>
     <span class="grade-label">Validation</span>
@@ -47,23 +51,35 @@
   {#if showPopover}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="popover-backdrop" on:click={() => (showPopover = false)}></div>
+    <div class="popover-backdrop" on:click={() => (showPopover = false)} />
     <div class="popover" role="tooltip">
       <div class="popover-header">
         <span class="popover-title">AI Validation Grade</span>
-        <span class="popover-grade {gradeColor(grade.grade)}">{grade.grade}</span>
+        <span class="popover-grade {gradeColor(grade.grade)}"
+          >{grade.grade}</span
+        >
       </div>
       <p class="popover-score">Score: {grade.score}/100</p>
       <p class="popover-summary">{grade.summary}</p>
       <p class="popover-explain">
-        Multiple AI models independently review each race profile for factual accuracy,
-        source quality, completeness, and neutrality. The grade reflects the average score
-        across all reviewers.
+        Multiple AI models independently review each race profile for factual
+        accuracy, source quality, completeness, and neutrality. The grade
+        reflects the average score across all reviewers.
       </p>
       <button class="popover-link" on:click={scrollToReview}>
         View Full Review
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        <svg
+          class="w-3.5 h-3.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
         </svg>
       </button>
     </div>

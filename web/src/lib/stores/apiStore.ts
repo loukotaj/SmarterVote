@@ -65,7 +65,12 @@ export async function fetchWithAuth(
     try {
       const auth0Client: Auth0Client = currentAuth0 ?? (await getAuth0Client());
       currentToken = await auth0Client.getTokenSilently();
-      apiStore.update((state) => ({ ...state, auth0: auth0Client, token: currentToken, isAuthenticated: true }));
+      apiStore.update((state) => ({
+        ...state,
+        auth0: auth0Client,
+        token: currentToken,
+        isAuthenticated: true,
+      }));
     } catch (error) {
       logger.error("Failed to refresh token:", error);
       throw new Error("Authentication token refresh failed");
@@ -115,9 +120,13 @@ export async function fetchWithAuth(
       const timeoutText = actualTimeout
         ? `after ${actualTimeout / 1000} seconds`
         : "due to abort signal";
-      throw new Error(`Request timed out ${timeoutText}: ${options.method ?? "GET"} ${url}`);
+      throw new Error(
+        `Request timed out ${timeoutText}: ${options.method ?? "GET"} ${url}`
+      );
     }
     const message = error instanceof Error ? error.message : String(error);
-    throw new Error(`Network request failed: ${options.method ?? "GET"} ${url}. ${message}`);
+    throw new Error(
+      `Network request failed: ${options.method ?? "GET"} ${url}. ${message}`
+    );
   }
 }

@@ -8,13 +8,41 @@
 import { writable } from "svelte/store";
 
 type PipelineEvent =
-  | { type: "log"; level: string; message: string; timestamp?: string; run_id?: string }
+  | {
+      type: "log";
+      level: string;
+      message: string;
+      timestamp?: string;
+      run_id?: string;
+    }
   | { type: "run_started"; run_id: string; step: string }
-  | { type: "run_progress"; run_id: string; progress?: number; message?: string }
-  | { type: "run_completed"; run_id: string; result?: unknown; artifact_id?: string; duration_ms?: number }
+  | {
+      type: "run_progress";
+      run_id: string;
+      progress?: number;
+      message?: string;
+    }
+  | {
+      type: "run_completed";
+      run_id: string;
+      result?: unknown;
+      artifact_id?: string;
+      duration_ms?: number;
+    }
   | { type: "run_failed"; run_id: string; error?: string }
-  | { type: "run_status"; data: { run_id: string; status: string; [key: string]: unknown } }
-  | { type: "buffered_logs"; data: { level: string; message: string; timestamp?: string; run_id?: string }[] };
+  | {
+      type: "run_status";
+      data: { run_id: string; status: string; [key: string]: unknown };
+    }
+  | {
+      type: "buffered_logs";
+      data: {
+        level: string;
+        message: string;
+        timestamp?: string;
+        run_id?: string;
+      }[];
+    };
 
 interface PollingState {
   connected: boolean;
@@ -32,14 +60,19 @@ export const runPollingStore = writable<PollingState>(initialState);
 
 let apiBase = "";
 let token = "";
-const watchedRuns = new Map<string, {
-  runPollTimer: ReturnType<typeof setInterval> | null;
-  logPollTimer: ReturnType<typeof setInterval> | null;
-  logsSeen: number;
-}>();
+const watchedRuns = new Map<
+  string,
+  {
+    runPollTimer: ReturnType<typeof setInterval> | null;
+    logPollTimer: ReturnType<typeof setInterval> | null;
+    logsSeen: number;
+  }
+>();
 
 let onMessage: ((event: PipelineEvent) => void) | null = null;
-let onLog: ((level: string, msg: string, ts?: string, run_id?: string) => void) | null = null;
+let onLog:
+  | ((level: string, msg: string, ts?: string, run_id?: string) => void)
+  | null = null;
 
 function isPageHidden(): boolean {
   return typeof document !== "undefined" && document.hidden;
@@ -62,31 +95,47 @@ async function pollRunStatus(runId: string): Promise<void> {
     const status: string = run.status ?? "";
     const progress: number = run.progress ?? 0;
     const currentStep: string | undefined = run.current_step ?? undefined;
-    const progressMessage: string | undefined = run.progress_message ?? undefined;
+    const progressMessage: string | undefined =
+      run.progress_message ?? undefined;
 
     onMessage?.({
       type: "run_progress",
       run_id: runId,
       progress,
-      message: progressMessage ?? (currentStep ? `Running: ${currentStep}` : undefined),
+      message:
+        progressMessage ??
+        (currentStep ? `Running: ${currentStep}` : undefined),
     });
 
     onMessage?.({
       type: "run_status",
-      data: { run_id: runId, status, progress, current_step: currentStep ?? null, ...run },
+      data: {
+        run_id: runId,
+        status,
+        progress,
+        current_step: currentStep ?? null,
+        ...run,
+      },
     });
 
     if (status === "completed") {
       stopPolling(runId);
       onMessage?.({ type: "run_completed", run_id: runId, result: run });
-      if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
+      if (watchedRuns.size === 0)
+        runPollingStore.update((s) => ({ ...s, connected: false }));
     } else if (status === "failed") {
       stopPolling(runId);
-      onMessage?.({ type: "run_failed", run_id: runId, error: run.error ?? "Run failed" });
-      if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
+      onMessage?.({
+        type: "run_failed",
+        run_id: runId,
+        error: run.error ?? "Run failed",
+      });
+      if (watchedRuns.size === 0)
+        runPollingStore.update((s) => ({ ...s, connected: false }));
     } else if (status === "cancelled" || status === "continued") {
       stopPolling(runId);
-      if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
+      if (watchedRuns.size === 0)
+        runPollingStore.update((s) => ({ ...s, connected: false }));
     }
   } catch {
     // Transient poll failures are expected during deploys and cold starts.
@@ -98,20 +147,32 @@ async function pollLogs(runId: string): Promise<void> {
   const watched = watchedRuns.get(runId);
   if (!watched) return;
   try {
-    const res = await fetch(`${apiBase}/runs/${runId}/logs?since=${watched.logsSeen}`, {
-      headers: authHeaders(),
-      signal: AbortSignal.timeout(8000),
-    });
+    const res = await fetch(
+      `${apiBase}/runs/${runId}/logs?since=${watched.logsSeen}`,
+      {
+        headers: authHeaders(),
+        signal: AbortSignal.timeout(8000),
+      }
+    );
     if (!res.ok) return;
     const data = await res.json();
-    const entries: { level?: string; message?: string; timestamp?: string; run_id?: string }[] =
-      data.logs ?? [];
+    const entries: {
+      level?: string;
+      message?: string;
+      timestamp?: string;
+      run_id?: string;
+    }[] = data.logs ?? [];
     if (entries.length === 0) return;
 
     watched.logsSeen += entries.length;
 
     for (const entry of entries) {
-      onLog?.(entry.level ?? "info", entry.message ?? "", entry.timestamp, entry.run_id ?? runId);
+      onLog?.(
+        entry.level ?? "info",
+        entry.message ?? "",
+        entry.timestamp,
+        entry.run_id ?? runId
+      );
     }
   } catch {
     // Transient poll failures are expected during deploys and cold starts.
@@ -141,7 +202,11 @@ export const runPollingActions = {
   connect(nextApiBase: string, nextToken: string) {
     apiBase = nextApiBase;
     token = nextToken;
-    runPollingStore.update((s) => ({ ...s, connected: true, reconnectAttempts: 0 }));
+    runPollingStore.update((s) => ({
+      ...s,
+      connected: true,
+      reconnectAttempts: 0,
+    }));
     onLog?.("info", "Live updates active (polling mode)");
   },
 
@@ -155,7 +220,11 @@ export const runPollingActions = {
   watchRun(runId: string) {
     if (watchedRuns.has(runId)) return;
     runPollingStore.update((s) => ({ ...s, connected: true }));
-    watchedRuns.set(runId, { runPollTimer: null, logPollTimer: null, logsSeen: 0 });
+    watchedRuns.set(runId, {
+      runPollTimer: null,
+      logPollTimer: null,
+      logsSeen: 0,
+    });
     void pollRunStatus(runId);
     void pollLogs(runId);
     const watched = watchedRuns.get(runId);

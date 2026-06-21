@@ -1,0 +1,159 @@
+{
+  "schema_version": "chamber_forecasts.v2",
+  "house": "The battle for control of the U.S. House of Representatives in 2026 appears to favor the Republican Party, though a significant number of toss-up races indicate a competitive landscape. While Democrats have a path to victory, it relies heavily on winning a disproportionate share of these highly contested districts. The current projections suggest Republicans are better positioned to secure the majority.",
+  "senate": "The battle for the Senate in 2026 appears to favor Republicans, who are projected to hold a comfortable lead in non-toss-up races. Democrats face an uphill battle, needing to sweep the competitive races and flip at least one Lean Republican seat to gain control. The current landscape suggests a challenging cycle for the Democratic party.",
+  "governors": "The 2026 gubernatorial elections feature 36 races, with Republicans currently holding a slight edge in projected non-toss-up wins. The battle for control will largely hinge on the outcomes of three highly competitive toss-up races, alongside several lean and likely contests. While neither party is projected to achieve a dominant majority, Republicans appear to be in a stronger position to maintain or slightly expand their current gubernatorial footprint.",
+  "chambers": {
+    "house": {
+      "narrative": "The battle for control of the U.S. House of Representatives in 2026 appears to favor the Republican Party, though a significant number of toss-up races indicate a competitive landscape. While Democrats have a path to victory, it relies heavily on winning a disproportionate share of these highly contested districts. The current projections suggest Republicans are better positioned to secure the majority.",
+      "control_party": "Republican",
+      "control_probability": 0.683,
+      "outcome_probabilities": {
+        "Democratic": 0.317,
+        "Republican": 0.683,
+        "Other": 0.0,
+        "tie_50_50": 0.0
+      },
+      "projected_seats": {
+        "Democratic": 203,
+        "Republican": 222,
+        "Other": 10
+      },
+      "expected_seats": {
+        "Democratic": 214.3,
+        "Republican": 218.5,
+        "Other": 2.2
+      },
+      "threshold": 218,
+      "total_seats": 435,
+      "tossup_count": 19,
+      "competitive_race_count": 67,
+      "competitive_races": [
+        "Alaska's At-Large Congressional District Election, 2026",
+        "Alabama's 2nd Congressional District Election, 2026",
+        "2026 U.S. House race for Arizona's 1st Congressional District",
+        "2026 U.S. House election in Arizona's 6th Congressional District",
+        "California's 13th Congressional District election, 2026",
+        "California's 45th Congressional District election, 2026",
+        "2026 U.S. House of Representatives election in California's 1st Congressional District",
+        "California's 7th Congressional District General Election, 2026",
+        "California's 12th Congressional District general election, 2026",
+        "California's 22nd Congressional District election, 2026",
+        "California's 27th Congressional District general election, 2026",
+        "California's 48th Congressional District General Election, 2026"
+      ],
+      "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break.",
+      "bottom_line": "Republicans are favored to win control of the U.S. House of Representatives in 2026.",
+      "why_party_favored": "The Republican Party is favored due to a higher number of projected wins in non-toss-up races (200 for Republicans vs. 181 for Democrats). This provides them with a stronger baseline before accounting for the 19 toss-up districts. Their advantage in 'Likely' and 'Lean' categories gives them more pathways to reach the 218-seat majority.",
+      "opposing_party_path": "For Democrats to win control, they would need to win nearly all of the 19 toss-up races, in addition to holding all of their currently projected wins. This would require a significant shift in voter sentiment or campaign performance in these highly competitive districts, potentially fueled by a favorable national environment or strong candidate recruitment.",
+      "key_uncertainty": "The key uncertainty lies in the outcome of the 19 toss-up races, which collectively represent the margin of control for the chamber. The final distribution of these seats will determine whether Republicans secure a comfortable majority, a narrow one, or if Democrats can pull off an upset.",
+      "seat_distribution": {}
+    },
+    "senate": {
+      "narrative": "The battle for the Senate in 2026 appears to favor Republicans, who are projected to hold a comfortable lead in non-toss-up races. Democrats face an uphill battle, needing to sweep the competitive races and flip at least one Lean Republican seat to gain control. The current landscape suggests a challenging cycle for the Democratic party.",
+      "control_party": "Republican",
+      "control_probability": 0.625,
+      "outcome_probabilities": {
+        "Democratic": 0.375,
+        "Republican": 0.625,
+        "Other": 0.0,
+        "tie_50_50": 0.063
+      },
+      "projected_seats": {
+        "Democratic": 50,
+        "Republican": 50,
+        "Other": 0
+      },
+      "expected_seats": {
+        "Democratic": 49.1,
+        "Republican": 50.3,
+        "Other": 0.5
+      },
+      "threshold": 51,
+      "total_seats": 100,
+      "tossup_count": 3,
+      "competitive_race_count": 11,
+      "competitive_races": [
+        "2026 U.S. Senate election in Alaska",
+        "2026 U.S. Senate election in Georgia",
+        "2026 U.S. Senate election in Maine",
+        "2026 U.S. Senate election in Michigan",
+        "2026 U.S. Senate election in Minnesota",
+        "2026 U.S. Senate election in Montana",
+        "2026 U.S. Senate election in North Carolina",
+        "2026 U.S. Senate election in Nebraska",
+        "2026 U.S. Senate election in New Hampshire",
+        "2026 Ohio U.S. Senate special election",
+        "2026 U.S. Senate election in Texas"
+      ],
+      "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break.",
+      "bottom_line": "Republicans are favored to control the Senate in 2026, with a clear path to a majority.",
+      "why_party_favored": "Republicans are favored due to a stronger starting position, with 16 projected wins compared to 11 for Democrats among non-toss-up races. They also hold a Lean Republican advantage in Montana, further solidifying their position. This allows them to lose all toss-up races and still maintain control.",
+      "opposing_party_path": "For Democrats to win control, they would need to win all three toss-up races (Alaska, Michigan, Ohio) and successfully defend their Lean Democratic seats in Maine, Minnesota, and North Carolina. Additionally, they would likely need to flip the Lean Republican seat in Montana, which currently favors the GOP.",
+      "key_uncertainty": "The primary uncertainty lies in the outcomes of the three toss-up races (Alaska, Michigan, Ohio), which could shift the balance of power, and the potential for a national political environment swing that could impact the Lean Democratic and Lean Republican races.",
+      "vp_tiebreak_party": "Republican",
+      "seat_distribution": {
+        "56D-44R": 0.0014,
+        "55D-45R": 0.0058,
+        "54D-46R": 0.019,
+        "53D-47R": 0.049,
+        "52D-48R": 0.0994,
+        "51D-49R": 0.158,
+        "50R-50D": 0.1966,
+        "51R-49D": 0.1907,
+        "52R-48D": 0.1435,
+        "53R-47D": 0.0833,
+        "54R-46D": 0.0369,
+        "55R-45D": 0.0123,
+        "56R-44D": 0.0031,
+        "57R-43D": 0.0006
+      }
+    },
+    "governors": {
+      "narrative": "The 2026 gubernatorial elections feature 36 races, with Republicans currently holding a slight edge in projected non-toss-up wins. The battle for control will largely hinge on the outcomes of three highly competitive toss-up races, alongside several lean and likely contests. While neither party is projected to achieve a dominant majority, Republicans appear to be in a stronger position to maintain or slightly expand their current gubernatorial footprint.",
+      "control_party": "Republican",
+      "control_probability": 0.624,
+      "outcome_probabilities": {
+        "Democratic": 0.376,
+        "Republican": 0.624,
+        "Other": 0.0,
+        "tie_50_50": 0.0
+      },
+      "projected_seats": {
+        "Democratic": 23,
+        "Republican": 27,
+        "Other": 0
+      },
+      "expected_seats": {
+        "Democratic": 23.5,
+        "Republican": 26.0,
+        "Other": 0.5
+      },
+      "threshold": 26,
+      "total_seats": 50,
+      "tossup_count": 3,
+      "competitive_race_count": 16,
+      "competitive_races": [
+        "2026 Alaska Gubernatorial Election",
+        "Arizona Governor Election, 2026",
+        "2026 Florida Gubernatorial Election",
+        "2026 Georgia gubernatorial election",
+        "2026 Iowa gubernatorial election",
+        "2026 Kansas Governor Election",
+        "2026 Maine Gubernatorial Election",
+        "2026 Michigan gubernatorial election",
+        "2026 Minnesota gubernatorial election",
+        "2026 New Hampshire Gubernatorial Election",
+        "2026 New Mexico Gubernatorial Election",
+        "2026 Nevada gubernatorial election"
+      ],
+      "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break.",
+      "bottom_line": "Republicans are favored to maintain control of a plurality of governorships, with the final balance dependent on a few key toss-up races.",
+      "why_party_favored": "Republicans are favored due to a higher number of projected wins in non-toss-up races (11 Republican vs. 9 Democratic). They also hold a lean advantage in significant states like Texas and New Hampshire, which contribute to their overall stronger position. The current landscape suggests a slight structural advantage for the GOP in the states up for election.",
+      "opposing_party_path": "For Democrats to gain control or significantly improve their standing, they would need to win all three toss-up races (Alaska, Michigan, Nevada) and successfully defend their lean Democratic seats in New Mexico and Rhode Island. Additionally, they would need to flip at least one of the lean Republican states, such as New Hampshire or Texas, which currently show a notable Republican advantage.",
+      "key_uncertainty": "The primary uncertainty lies in the outcomes of the three toss-up races (Alaska, Michigan, Nevada), as well as the potential for shifts in voter sentiment or candidate quality to impact the lean and likely races.",
+      "seat_distribution": {}
+    }
+  },
+  "updated_at": "2026-06-21T03:10:58.473392+00:00"
+}

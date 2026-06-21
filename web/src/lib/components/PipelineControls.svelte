@@ -95,7 +95,9 @@
       </div>
 
       {#if selectedRun}
-        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-md p-3">
+        <div
+          class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-md p-3"
+        >
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-blue-900 dark:text-blue-200">
@@ -121,7 +123,9 @@
           </div>
         </div>
       {:else}
-        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-md p-3">
+        <div
+          class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-md p-3"
+        >
           <p class="text-sm font-medium text-green-900 dark:text-green-200">
             Ready to start new run
           </p>
@@ -138,7 +142,8 @@
     <div>
       <label
         for="inputJson"
-        class="block text-sm font-medium text-content-muted mb-2">Input JSON</label
+        class="block text-sm font-medium text-content-muted mb-2"
+        >Input JSON</label
       >
       <textarea
         id="inputJson"

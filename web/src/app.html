@@ -7,25 +7,25 @@
 
     <!-- Dark mode inline detection (fixes mobile blank screen / theme flash) -->
     <script>
-      (function() {
+      (function () {
         let enabled = false;
         try {
-          const saved = localStorage.getItem('darkMode');
+          const saved = localStorage.getItem("darkMode");
           if (saved !== null) {
-            enabled = saved === 'true';
+            enabled = saved === "true";
           } else {
-            enabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            enabled = window.matchMedia("(prefers-color-scheme: dark)").matches;
           }
         } catch (e) {
           try {
-            enabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            enabled = window.matchMedia("(prefers-color-scheme: dark)").matches;
           } catch (err) {}
         }
         try {
           if (enabled) {
-            document.documentElement.classList.add('dark');
+            document.documentElement.classList.add("dark");
           } else {
-            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove("dark");
           }
         } catch (e) {}
       })();

@@ -62,19 +62,30 @@
     </div>
   </div>
 
-  <div class="flex-1 overflow-auto custom-scrollbar bg-surface-alt" role="log" aria-live="polite" aria-label="Pipeline execution logs">
+  <div
+    class="flex-1 overflow-auto custom-scrollbar bg-surface-alt"
+    role="log"
+    aria-live="polite"
+    aria-label="Pipeline execution logs"
+  >
     <div class="min-h-full">
       {#each filteredLogs as log}
         <div class="log-line {getLogClass(log.level)}">
           <span class="text-content-subtle">
-            [{log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ""}]
+            [{log.timestamp
+              ? new Date(log.timestamp).toLocaleTimeString()
+              : ""}]
           </span>
-          <span class="font-medium">[{(log.level ?? "info").toUpperCase()}]</span>
+          <span class="font-medium"
+            >[{(log.level ?? "info").toUpperCase()}]</span
+          >
           {log.message}
         </div>
       {/each}
       {#if filteredLogs.length === 0}
-        <div class="p-4 text-center text-content-subtle text-sm">No logs yet</div>
+        <div class="p-4 text-center text-content-subtle text-sm">
+          No logs yet
+        </div>
       {/if}
     </div>
   </div>

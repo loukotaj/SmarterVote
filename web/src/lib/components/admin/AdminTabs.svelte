@@ -11,7 +11,7 @@
     { id: "agent", label: "Agent" },
   ] as const;
 
-  type TabId = typeof tabs[number]["id"];
+  type TabId = (typeof tabs)[number]["id"];
   const VALID_TABS = new Set<string>(tabs.map((t) => t.id));
 
   function selectTab(id: TabId) {
@@ -43,8 +43,8 @@
         type="button"
         class="relative px-5 py-3 text-sm font-medium transition-colors rounded-t-lg focus:outline-none
           {activeTab === tab.id
-            ? 'border-b-2 border-blue-600 dark:border-blue-400 text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/20'
-            : 'text-content-subtle hover:text-content-muted hover:bg-surface-alt'}"
+          ? 'border-b-2 border-blue-600 dark:border-blue-400 text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/20'
+          : 'text-content-subtle hover:text-content-muted hover:bg-surface-alt'}"
         on:click={() => selectTab(tab.id)}
         aria-selected={activeTab === tab.id}
         role="tab"
@@ -53,7 +53,9 @@
         {#if tab.id === "dashboard" && alertCount > 0}
           <span
             class="ml-1.5 inline-flex items-center justify-center w-5 h-5 text-xs font-bold rounded-full
-              {alertCount > 0 ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-600'}"
+              {alertCount > 0
+              ? 'bg-red-500 text-white'
+              : 'bg-gray-200 text-gray-600'}"
           >
             {alertCount > 99 ? "99+" : alertCount}
           </span>

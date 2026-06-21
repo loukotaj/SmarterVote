@@ -1,10 +1,14 @@
-<script lang="ts">
+﻿<script lang="ts">
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import TabButton from "$lib/components/TabButton.svelte";
   import USMap from "$lib/components/USMap.svelte";
-  import type { ForecastRating, RaceSummary } from "$lib/types";
+  import type {
+    ChamberForecasts,
+    ForecastRating,
+    RaceSummary,
+  } from "$lib/types";
   import {
     aggregateForecasts,
     formatNet,
@@ -42,8 +46,9 @@
 
   let filterRating: string = "all";
   let filterParty: string = "all";
-  let sortBy: string = "competitiveness";
+  let sortBy: string = "control_relevance";
   let expandedRaceIds = new Set<string>();
+  let expandedRaceTab: ForecastTab = activeTab;
 
   $: races = ($page.data.races as RaceSummary[] | undefined) ?? [];
   $: activeTab = browser
@@ -54,20 +59,35 @@
     : null;
   $: aggregate = aggregateForecasts(races, activeTab);
 
-  $: chamberForecasts = $page.data.chamberForecasts;
-  $: chamberNarrative = chamberForecasts?.[activeTab] || "";
+  $: chamberForecasts = $page.data.chamberForecasts as
+    | ChamberForecasts
+    | undefined;
+  $: chamberSummary = chamberForecasts?.chambers?.[activeTab];
+  $: chamberNarrative =
+    chamberSummary?.narrative || chamberForecasts?.[activeTab] || "";
 
-  $: if (activeTab) {
+  $: if (activeTab !== expandedRaceTab) {
     expandedRaceIds.clear();
     expandedRaceIds = expandedRaceIds;
+    expandedRaceTab = activeTab;
   }
 
+  $: projectedSeats = chamberSummary?.projected_seats ?? aggregate.projected;
+  $: expectedSeats = chamberSummary?.expected_seats;
+  $: outcomeProbabilities = chamberSummary?.outcome_probabilities;
+  $: totalSeats = chamberSummary?.total_seats ?? aggregate.totalExpected;
+  $: threshold = chamberSummary?.threshold ?? aggregate.threshold;
   $: controlParty =
-    (aggregate.projected.Democratic ?? 0) >= aggregate.threshold
+    chamberSummary?.control_party ??
+    (activeTab === "senate" &&
+    (aggregate.projected.Democratic ?? 0) === 50 &&
+    (aggregate.projected.Republican ?? 0) === 50
+      ? "Republican"
+      : (aggregate.projected.Democratic ?? 0) >= aggregate.threshold
       ? "Democratic"
       : (aggregate.projected.Republican ?? 0) >= aggregate.threshold
       ? "Republican"
-      : "No clear control";
+      : "Other");
 
   // Filter active states for the map click handler
   $: activeStates = new Set(
@@ -78,12 +98,20 @@
   );
 
   // Dynamic colors and tooltips for the map
+  type StateTooltip = {
+    title: string;
+    subtitle?: string;
+    badge?: string;
+    badgeClass?: string;
+    details?: string[];
+  };
+
   let stateColors: Record<string, string> = {};
-  let stateTooltips: Record<string, any> = {};
+  let stateTooltips: Record<string, StateTooltip> = {};
 
   $: {
     const colors: Record<string, string> = {};
-    const tooltips: Record<string, any> = {};
+    const tooltips: Record<string, StateTooltip> = {};
 
     const activeRaces = races.filter((r) => isRaceInForecastTab(r, activeTab));
 
@@ -331,31 +359,72 @@
     expandedRaceIds = expandedRaceIds;
   }
 
-  function getRatingGroup(rating: ForecastRating): "safe" | "likely" | "lean" | "tossup" | "other" {
-    const r = rating.toLowerCase();
-    if (r.startsWith("safe")) return "safe";
-    if (r.startsWith("likely")) return "likely";
-    if (r.startsWith("lean") || r.startsWith("tilt")) return "lean";
-    if (r.includes("tossup") || r.includes("toss-up")) return "tossup";
-    return "other";
+  function getControlRelevanceScore(race: RaceSummary): number {
+    const title = race.title || "";
+    const id = race.id || "";
+    const isKey = chamberSummary?.competitive_races?.some(
+      (t) => t === title || title.includes(t) || id.includes(t)
+    );
+
+    let ratingPriority = 4;
+    if (race.forecast) {
+      const r = race.forecast.rating.toLowerCase();
+      if (r.includes("tossup") || r.includes("toss-up")) {
+        ratingPriority = 0;
+      } else if (r.includes("tilt")) {
+        ratingPriority = 1;
+      } else if (r.includes("lean")) {
+        ratingPriority = 2;
+      } else if (r.includes("likely")) {
+        ratingPriority = 3;
+      } else if (r.includes("safe")) {
+        ratingPriority = 4;
+      }
+    }
+
+    const winProb = race.forecast?.win_probability ?? 0.5;
+    const closeness = Math.abs(winProb - 0.5);
+
+    const keyWeight = isKey ? 0 : 1000;
+    const ratingWeight = ratingPriority * 100;
+    const closenessWeight = closeness * 10;
+
+    return keyWeight + ratingWeight + closenessWeight;
+  }
+
+  function getHostname(urlString: string): string {
+    try {
+      return new URL(urlString).hostname.replace("www.", "");
+    } catch (e) {
+      return "Source Link";
+    }
   }
 
   $: filteredRaces = aggregate.races
     .filter((race) => {
-      // Apply map filter
       if (selectedState && getRaceState(race) !== selectedState) return false;
 
-      // Apply rating filter
       if (filterRating !== "all") {
-        const group = getRatingGroup(race.forecast.rating);
-        if (group !== filterRating) return false;
+        const rating = race.forecast.rating.toLowerCase();
+        if (filterRating === "tossup" && !rating.includes("tossup"))
+          return false;
+        if (filterRating === "tilt" && !rating.startsWith("tilt_"))
+          return false;
+        if (filterRating === "lean" && !rating.startsWith("lean_"))
+          return false;
+        if (
+          filterRating === "likely_safe" &&
+          !rating.startsWith("likely_") &&
+          !rating.startsWith("safe_")
+        )
+          return false;
       }
 
-      // Apply party filter
       if (filterParty !== "all") {
-        const party = normalizeForecastParty(race.forecast.predicted_winner_party);
-        if (filterParty === "democrat" && party !== "Democratic") return false;
-        if (filterParty === "republican" && party !== "Republican") return false;
+        const party = normalizeForecastParty(
+          race.forecast.predicted_winner_party
+        );
+        if (filterParty !== party) return false;
       }
 
       return true;
@@ -365,6 +434,11 @@
         const stateA = getRaceState(a) || "";
         const stateB = getRaceState(b) || "";
         return stateA.localeCompare(stateB);
+      }
+      if (sortBy === "rating") {
+        const indexA = ratingOrder.indexOf(a.forecast.rating);
+        const indexB = ratingOrder.indexOf(b.forecast.rating);
+        return indexA - indexB;
       }
       if (sortBy === "probability") {
         const probA = a.forecast.win_probability ?? 0;
@@ -376,11 +450,34 @@
         const marginB = Math.abs(b.forecast.margin_estimate ?? 0);
         return marginB - marginA;
       }
-      // default: competitiveness (probability closest to 50% first)
-      const diffA = Math.abs((a.forecast.win_probability ?? 0.5) - 0.5);
-      const diffB = Math.abs((b.forecast.win_probability ?? 0.5) - 0.5);
-      return diffA - diffB;
+      if (sortBy === "dem_pickup") {
+        const demProbA = a.forecast.party_probabilities?.Democratic ?? 0;
+        const demProbB = b.forecast.party_probabilities?.Democratic ?? 0;
+        return demProbB - demProbA;
+      }
+      if (sortBy === "gop_pickup") {
+        const gopProbA = a.forecast.party_probabilities?.Republican ?? 0;
+        const gopProbB = b.forecast.party_probabilities?.Republican ?? 0;
+        return gopProbB - gopProbA;
+      }
+      if (sortBy === "competitiveness") {
+        const diffA = Math.abs((a.forecast.win_probability ?? 0.5) - 0.5);
+        const diffB = Math.abs((b.forecast.win_probability ?? 0.5) - 0.5);
+        return diffA - diffB;
+      }
+      return getControlRelevanceScore(a) - getControlRelevanceScore(b);
     });
+
+  $: sortedRaces = filteredRaces;
+
+  $: keyRacesList = races.filter((r) => {
+    if (!isRaceInForecastTab(r, activeTab)) return false;
+    const title = r.title || "";
+    const id = r.id || "";
+    return chamberSummary?.competitive_races?.some(
+      (t) => t === title || title.includes(t) || id.includes(t)
+    );
+  });
 
   $: filteredMissingRaces = selectedState
     ? aggregate.missingForecasts.filter(
@@ -405,6 +502,11 @@
   function probability(value?: number): string {
     if (value === undefined || value === null) return "n/a";
     return `${Math.round(value * 100)}%`;
+  }
+
+  function oneDecimal(value?: number): string {
+    if (value === undefined || value === null) return "n/a";
+    return value.toFixed(1);
   }
 
   function clearStateFilter() {
@@ -442,7 +544,8 @@
           2026 Election Forecast
         </h1>
         <p class="mt-2 text-base text-content-muted max-w-3xl">
-          Nonpartisan model projections, interactive maps, and structured analysis for the 2026 House, Senate, and Governor races.
+          Nonpartisan model projections, interactive maps, and structured
+          analysis for the 2026 House, Senate, and Governor races.
         </p>
       </div>
       <div
@@ -473,44 +576,443 @@
     {/each}
   </div>
 
-  <!-- Forecast at a glance narrative and quick metrics -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- Chamber Narrative Block -->
-    <div class="lg:col-span-2 bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between">
-      <div>
-        <h2 class="text-xs font-bold uppercase text-content-subtle tracking-wider mb-2">Chamber Outlook & Analysis</h2>
-        <p class="text-base font-medium text-content leading-relaxed">
-          {chamberNarrative || `Projections indicate a highly competitive cycle for the ${activeTab === 'governors' ? 'Governors' : activeTab === 'senate' ? 'Senate' : 'House'}.`}
-        </p>
+  <!-- Forecast Above-The-Fold Layout -->
+  <div
+    class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md space-y-6 animate-fade-in"
+  >
+    <!-- Forecast Header -->
+    <div
+      class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stroke/20 pb-4"
+    >
+      <div class="space-y-1">
+        <h2 class="text-2xl font-black text-content tracking-tight">
+          2026 {activeTab === "house"
+            ? "House"
+            : activeTab === "senate"
+            ? "Senate"
+            : "Governor"} Forecast
+        </h2>
+        <div
+          class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-content-subtle font-medium"
+        >
+          <span
+            >Method: <span class="font-bold text-content"
+              >{chamberSummary?.method ||
+                "Static published SmarterVote projection"}</span
+            ></span
+          >
+          {#if chamberForecasts?.updated_at}
+            <span class="w-1.5 h-1.5 rounded-full bg-stroke/60" />
+            <span
+              >Updated: <span class="font-bold text-content"
+                >{new Date(
+                  chamberForecasts.updated_at
+                ).toLocaleDateString()}</span
+              ></span
+            >
+          {/if}
+        </div>
       </div>
-      <div class="mt-4 flex items-center justify-between text-[10px] text-content-subtle border-t border-stroke/20 pt-3">
-        <span>SmarterVote Nonpartisan Forecasting Model</span>
-        {#if chamberForecasts?.updated_at}
-          <span>Updated: {new Date(chamberForecasts.updated_at).toLocaleDateString()}</span>
+
+      <div class="flex flex-col gap-1.5 items-start md:items-end">
+        <!-- Control Status Badge -->
+        <span
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-extrabold shadow-sm border
+          {controlParty === 'Democratic'
+            ? 'bg-blue-500/10 text-blue-700 border-blue-500/20 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/40'
+            : controlParty === 'Republican'
+            ? 'bg-red-500/10 text-red-700 border-red-500/20 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/40'
+            : 'bg-slate-500/10 text-slate-700 border-slate-500/20 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700/40'}"
+        >
+          <span
+            class="w-2.5 h-2.5 rounded-full
+            {controlParty === 'Democratic'
+              ? 'bg-blue-600 dark:bg-blue-500 animate-pulse'
+              : controlParty === 'Republican'
+              ? 'bg-red-600 dark:bg-red-500 animate-pulse'
+              : 'bg-slate-500 dark:bg-slate-400'}"
+          />
+          {#if controlParty === "Other"}
+            No clear control projected
+          {:else}
+            {controlParty} control projected
+            {#if chamberSummary?.control_probability}
+              ({probability(chamberSummary.control_probability)})
+            {/if}
+          {/if}
+        </span>
+
+        <!-- VP Tie-break Note -->
+        {#if activeTab === "senate" && chamberSummary?.vp_tiebreak_party}
+          <span class="text-[10px] text-content-subtle font-semibold italic">
+            Includes 50-50 tie-break with {chamberSummary.vp_tiebreak_party} Vice
+            President
+          </span>
         {/if}
       </div>
     </div>
 
-    <!-- Quick Stats Grid -->
-    <div class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md grid grid-cols-2 gap-4">
-      <div class="flex flex-col justify-center border-b border-stroke/20 pb-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected Control</span>
-        <span class={`text-lg font-black mt-1 ${partyClass(controlParty)}`}>{controlParty}</span>
+    <!-- Control Probability and Seats Projection Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Control Probability Panel -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span
+            class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
+            >Chamber Control Probabilities</span
+          >
+          {#if activeTab === "senate" && outcomeProbabilities?.tie_50_50}
+            <span
+              class="text-[10px] font-semibold text-red-600 dark:text-red-400 bg-red-500/5 px-2 py-0.5 rounded-md border border-red-500/10"
+            >
+              50-50 Tie Probability: {probability(
+                outcomeProbabilities.tie_50_50
+              )}
+            </span>
+          {/if}
+        </div>
+
+        {#if outcomeProbabilities}
+          {@const demProb = outcomeProbabilities.Democratic ?? 0}
+          {@const gopProb = outcomeProbabilities.Republican ?? 0}
+          {@const otherProb = outcomeProbabilities.Other ?? 0}
+          <div class="space-y-3">
+            <div
+              class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 relative shadow-inner"
+            >
+              {#if demProb > 0}
+                <div
+                  class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
+                  style="width: {demProb * 100}%"
+                  title="Democratic control probability: {probability(demProb)}"
+                >
+                  {#if demProb > 0.15}
+                    Democratic {probability(demProb)}
+                  {/if}
+                </div>
+              {/if}
+              {#if otherProb > 0}
+                <div
+                  class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
+                  style="width: {otherProb * 100}%"
+                  title="Other control probability: {probability(otherProb)}"
+                >
+                  {#if otherProb > 0.15}
+                    Other {probability(otherProb)}
+                  {/if}
+                </div>
+              {/if}
+              {#if gopProb > 0}
+                <div
+                  class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs ml-auto"
+                  style="width: {gopProb * 100}%"
+                  title="Republican control probability: {probability(gopProb)}"
+                >
+                  {#if gopProb > 0.15}
+                    Republican {probability(gopProb)}
+                  {/if}
+                </div>
+              {/if}
+            </div>
+
+            <!-- Callout Note -->
+            {#if activeTab === "senate" && outcomeProbabilities.tie_50_50}
+              <div
+                class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
+              >
+                <span class="text-lg leading-none select-none mt-0.5">i</span>
+                <p
+                  class="text-xs text-content-muted leading-relaxed font-medium"
+                >
+                  Republicans are favored because 50-50 outcomes are counted as
+                  Republican control under the VP tie-break assumption. This
+                  includes a <span class="font-extrabold text-content"
+                    >{probability(outcomeProbabilities.tie_50_50)}</span
+                  > probability of a 50-50 tie.
+                </p>
+              </div>
+            {/if}
+          </div>
+        {:else}
+          <div
+            class="p-4 border border-stroke border-dashed rounded-xl text-center text-xs text-content-subtle"
+          >
+            Control probabilities are not available for this projection.
+          </div>
+        {/if}
       </div>
-      <div class="flex flex-col justify-center border-b border-stroke/20 pb-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Toss-up Seats</span>
-        <span class="text-lg font-black mt-1 text-content">{aggregate.ratingCounts.tossup || 0}</span>
-      </div>
-      <div class="flex flex-col justify-center pt-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected Dem</span>
-        <span class="text-lg font-black mt-1 text-blue-600 dark:text-blue-400">{aggregate.projected.Democratic ?? 0}</span>
-      </div>
-      <div class="flex flex-col justify-center pt-2">
-        <span class="text-[10px] font-bold uppercase text-content-subtle tracking-wider">Projected GOP</span>
-        <span class="text-lg font-black mt-1 text-red-600 dark:text-red-400">{aggregate.projected.Republican ?? 0}</span>
+
+      <!-- Seats Projection Bar -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span
+            class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
+            >Projected Seats</span
+          >
+          {#if expectedSeats}
+            <span class="text-[10px] text-content-subtle font-semibold">
+              Expected seats: D {oneDecimal(expectedSeats.Democratic)} | R {oneDecimal(
+                expectedSeats.Republican
+              )}
+              {#if expectedSeats.Other}
+                | Other {oneDecimal(expectedSeats.Other)}{/if}
+            </span>
+          {/if}
+        </div>
+
+        <div class="space-y-3">
+          <div class="space-y-2">
+            <div class="relative">
+              <div
+                class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 shadow-inner"
+              >
+                <!-- Dem segment -->
+                <div
+                  class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
+                  style="width: {((projectedSeats.Democratic ?? 0) /
+                    totalSeats) *
+                    100}%"
+                >
+                  {#if (projectedSeats.Democratic ?? 0) > totalSeats * 0.12}
+                    D: {projectedSeats.Democratic}
+                  {/if}
+                </div>
+                <!-- Other segment -->
+                {#if projectedSeats.Other}
+                  <div
+                    class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
+                    style="width: {((projectedSeats.Other ?? 0) / totalSeats) *
+                      100}%"
+                  >
+                    {projectedSeats.Other}
+                  </div>
+                {/if}
+                <!-- Rep segment -->
+                <div
+                  class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white ml-auto"
+                  style="width: {((projectedSeats.Republican ?? 0) /
+                    totalSeats) *
+                    100}%"
+                >
+                  {#if (projectedSeats.Republican ?? 0) > totalSeats * 0.12}
+                    R: {projectedSeats.Republican}
+                  {/if}
+                </div>
+              </div>
+
+              <!-- Threshold Marker Line -->
+              <div
+                class="absolute top-0 bottom-0 w-0.5 bg-yellow-500 dark:bg-yellow-400 z-10"
+                style="left: {(threshold / totalSeats) * 100}%"
+              >
+                <span
+                  class="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-1 bg-yellow-500 dark:bg-yellow-400 text-[8px] font-black text-white dark:text-slate-950 px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
+                >
+                  Majority ({threshold})
+                </span>
+              </div>
+
+              <!-- Senate 50-50 Line -->
+              {#if activeTab === "senate"}
+                <div
+                  class="absolute top-0 bottom-0 w-0.5 bg-slate-400/80 dark:bg-slate-500/80 z-10"
+                  style="left: 50%"
+                >
+                  <span
+                    class="absolute top-full left-1/2 transform -translate-x-1/2 translate-y-1 bg-slate-500 text-[8px] font-black text-white px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
+                  >
+                    50-50 Split
+                  </span>
+                </div>
+              {/if}
+            </div>
+
+            <div
+              class="flex justify-between text-[10px] text-content-subtle px-1 pt-1.5 font-semibold"
+            >
+              <span>Total: {totalSeats} seats</span>
+              <span class="font-bold text-yellow-600 dark:text-yellow-400"
+                >Majority threshold: {threshold} seats</span
+              >
+            </div>
+          </div>
+
+          <!-- 50-50 tie-break warning/alert for Senate -->
+          {#if activeTab === "senate" && projectedSeats.Democratic === 50 && projectedSeats.Republican === 50}
+            <div
+              class="bg-red-500/5 border border-red-500/20 rounded-xl p-2.5 text-center text-xs text-red-600 dark:text-red-400 font-bold flex items-center justify-center gap-2 animate-pulse"
+            >
+              <span>!</span>
+              Projected 50-50 seat split. Republican control projected under the
+              VP tie-break assumption.
+            </div>
+          {/if}
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Outlook & Analysis Section -->
+  <section class="space-y-4">
+    <div
+      class="flex items-center justify-between border-b border-stroke/20 pb-2"
+    >
+      <h3 class="text-base font-bold uppercase text-content tracking-wider">
+        Outlook & Analysis
+      </h3>
+      <span class="text-xs text-content-subtle font-semibold"
+        >Structured assessment of the {activeTab === "house"
+          ? "House"
+          : activeTab === "senate"
+          ? "Senate"
+          : "Governor"} map</span
+      >
+    </div>
+
+    {#if chamberSummary?.bottom_line || chamberSummary?.why_party_favored || chamberSummary?.opposing_party_path || chamberSummary?.key_uncertainty}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Bottom Line -->
+        {#if chamberSummary.bottom_line}
+          <div
+            class="bg-surface/80 border-2 border-blue-500/30 dark:border-blue-500/20 rounded-2xl p-5 shadow-sm relative overflow-hidden backdrop-blur-md"
+          >
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 dark:bg-blue-500/10 rounded-bl-full pointer-events-none"
+            />
+            <h4
+              class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2 flex items-center gap-1.5"
+            >
+              <span>Target</span> The Bottom Line
+            </h4>
+            <p class="text-sm font-semibold text-content leading-relaxed">
+              {chamberSummary.bottom_line}
+            </p>
+          </div>
+        {/if}
+
+        <!-- Why Favored -->
+        {#if chamberSummary.why_party_favored}
+          <div
+            class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
+          >
+            <h4
+              class="text-xs font-black uppercase text-red-600 dark:text-red-400 tracking-widest mb-2 flex items-center gap-1.5"
+            >
+              <span>Trend</span> Why {chamberSummary.control_party ===
+              "Democratic"
+                ? "Democrats"
+                : "Republicans"} Are Favored
+            </h4>
+            <p
+              class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
+            >
+              {chamberSummary.why_party_favored}
+            </p>
+          </div>
+        {/if}
+
+        <!-- Opposing Path -->
+        {#if chamberSummary.opposing_party_path}
+          <div
+            class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
+          >
+            <h4
+              class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2 flex items-center gap-1.5"
+            >
+              <span>Path</span>
+              {chamberSummary.control_party === "Democratic"
+                ? "Republican"
+                : "Democratic"} Path to Control
+            </h4>
+            <p
+              class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
+            >
+              {chamberSummary.opposing_party_path}
+            </p>
+          </div>
+        {/if}
+
+        <!-- Key Uncertainty -->
+        {#if chamberSummary.key_uncertainty}
+          <div
+            class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
+          >
+            <h4
+              class="text-xs font-black uppercase text-yellow-600 dark:text-yellow-400 tracking-widest mb-2 flex items-center gap-1.5"
+            >
+              <span>?</span> Key Risk & Uncertainty
+            </h4>
+            <p
+              class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
+            >
+              {chamberSummary.key_uncertainty}
+            </p>
+          </div>
+        {/if}
+      </div>
+    {:else}
+      <!-- Fallback narrative card -->
+      <div
+        class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between"
+      >
+        <div>
+          <p class="text-sm font-medium text-content leading-relaxed">
+            {chamberNarrative ||
+              `Projections indicate a highly competitive cycle for the ${
+                activeTab === "governors"
+                  ? "Governors"
+                  : activeTab === "senate"
+                  ? "Senate"
+                  : "House"
+              }.`}
+          </p>
+        </div>
+      </div>
+    {/if}
+
+    <!-- Races That Matter Most -->
+    {#if keyRacesList.length > 0}
+      <div class="bg-surface-alt/20 border border-stroke/60 rounded-2xl p-5">
+        <h4
+          class="text-xs font-black uppercase text-content-subtle tracking-wider mb-3"
+        >
+          Races That Matter Most
+        </h4>
+        <div class="flex flex-wrap gap-2">
+          {#each keyRacesList as race}
+            {@const rating = race.forecast?.rating}
+            {@const party = normalizeForecastParty(
+              race.forecast?.predicted_winner_party
+            )}
+            <a
+              href={browser ? raceHref(race.id) : undefined}
+              class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface hover:bg-surface-alt border border-stroke/80 rounded-xl transition-all shadow-sm"
+            >
+              <span class="text-xs font-extrabold text-content"
+                >{race.state ||
+                  race.title?.replace(
+                    "2026 U.S. Senate election in ",
+                    ""
+                  )}</span
+              >
+              {#if rating}
+                <span
+                  class="w-1.5 h-1.5 rounded-full {party === 'Democratic'
+                    ? 'bg-blue-600 animate-pulse'
+                    : party === 'Republican'
+                    ? 'bg-red-600 animate-pulse'
+                    : 'bg-slate-400'}"
+                />
+                <span class="text-[10px] font-bold text-content-subtle"
+                  >{formatRating(rating)}</span
+                >
+              {/if}
+            </a>
+          {/each}
+        </div>
+      </div>
+    {/if}
+  </section>
 
   <!-- Interactive Map & Statistics Dashboard Grid -->
   <section
@@ -534,7 +1036,7 @@
             on:click={clearStateFilter}
             class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold flex items-center gap-1 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-lg border border-blue-200/50 dark:border-blue-900/50"
           >
-            Clear Map Filter: {selectedState} ×
+            Clear Map Filter: {selectedState} Ã—
           </button>
         {/if}
       </div>
@@ -551,7 +1053,9 @@
 
       <!-- Map Colors Legend -->
       <div class="border-t border-stroke/40 pt-4 mt-4 space-y-3">
-        <span class="text-xs font-semibold text-content-muted block">Map Legend</span>
+        <span class="text-xs font-semibold text-content-muted block"
+          >Map Legend</span
+        >
         <div
           class="flex flex-wrap gap-x-4 gap-y-2 justify-center lg:justify-start"
         >
@@ -593,12 +1097,14 @@
           {#if activeTab !== "house"}
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
-                class="w-3.5 h-3.5 rounded bg-blue-500/20 dark:bg-blue-500/30 block border border-blue-500/30 border-dashed"
+                class="w-3.5 h-3.5 rounded block border border-blue-500/30 border-dashed"
+                style="background-color: var(--color-holdover-d);"
               /> Dem Holdover
             </div>
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
-                class="w-3.5 h-3.5 rounded bg-red-500/20 dark:bg-red-500/30 block border border-red-500/30 border-dashed"
+                class="w-3.5 h-3.5 rounded block border border-red-500/30 border-dashed"
+                style="background-color: var(--color-holdover-r);"
               /> GOP Holdover
             </div>
           {/if}
@@ -621,11 +1127,15 @@
         <h3
           class="mt-3 text-3xl font-extrabold text-content flex items-baseline gap-2"
         >
-          <span class={partyClass(controlParty)}>{controlParty} Projected</span>
+          <span class={partyClass(controlParty)}>
+            {controlParty === "Other"
+              ? "No Clear Control"
+              : `${controlParty} Control`}
+          </span>
         </h3>
 
         <p class="mt-1 text-xs text-content-subtle font-medium">
-          {aggregate.threshold} seats needed for majority
+          {chamberSummary?.threshold ?? aggregate.threshold} seats needed for majority
         </p>
 
         <!-- Seat Distribution Bar Chart -->
@@ -633,8 +1143,8 @@
           <div
             class="flex items-center justify-between text-xs font-bold text-content-muted"
           >
-            <span>Democrat: {aggregate.projected.Democratic ?? 0}</span>
-            <span>Republican: {aggregate.projected.Republican ?? 0}</span>
+            <span>Democrat: {projectedSeats.Democratic ?? 0}</span>
+            <span>Republican: {projectedSeats.Republican ?? 0}</span>
           </div>
 
           <div
@@ -644,41 +1154,38 @@
               class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center text-[10px] font-bold text-white shadow-inner"
               style={`width: ${Math.min(
                 100,
-                ((aggregate.projected.Democratic ?? 0) /
-                  aggregate.totalExpected) *
+                ((projectedSeats.Democratic ?? 0) / aggregate.totalExpected) *
                   100
               )}%`}
               title="Democratic projected seats"
             >
-              {#if (aggregate.projected.Democratic ?? 0) > 20}
-                {aggregate.projected.Democratic}
+              {#if (projectedSeats.Democratic ?? 0) > 20}
+                {projectedSeats.Democratic}
               {/if}
             </div>
-            {#if aggregate.projected.Other}
+            {#if projectedSeats.Other}
               <div
                 class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center text-[10px] font-bold text-white shadow-inner"
                 style={`width: ${Math.min(
                   100,
-                  ((aggregate.projected.Other ?? 0) / aggregate.totalExpected) *
-                    100
+                  ((projectedSeats.Other ?? 0) / aggregate.totalExpected) * 100
                 )}%`}
                 title="Other projected seats"
               >
-                {aggregate.projected.Other}
+                {projectedSeats.Other}
               </div>
             {/if}
             <div
               class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center text-[10px] font-bold text-white shadow-inner ml-auto"
               style={`width: ${Math.min(
                 100,
-                ((aggregate.projected.Republican ?? 0) /
-                  aggregate.totalExpected) *
+                ((projectedSeats.Republican ?? 0) / aggregate.totalExpected) *
                   100
               )}%`}
               title="Republican projected seats"
             >
-              {#if (aggregate.projected.Republican ?? 0) > 20}
-                {aggregate.projected.Republican}
+              {#if (projectedSeats.Republican ?? 0) > 20}
+                {projectedSeats.Republican}
               {/if}
             </div>
           </div>
@@ -687,8 +1194,46 @@
             class="flex justify-between text-[10px] text-content-subtle px-1"
           >
             <span>Total: {aggregate.totalExpected}</span>
-            <span>Majority Line: {aggregate.threshold}</span>
+            <span
+              >Majority Line: {chamberSummary?.threshold ??
+                aggregate.threshold}</span
+            >
           </div>
+          {#if outcomeProbabilities}
+            <div class="mt-4 grid grid-cols-2 gap-2 text-xs">
+              <div
+                class="rounded-lg border border-blue-500/20 bg-blue-500/10 px-3 py-2"
+              >
+                <div class="font-bold text-blue-700 dark:text-blue-300">
+                  {probability(outcomeProbabilities.Democratic)}
+                </div>
+                <div
+                  class="text-[10px] text-content-subtle font-semibold uppercase tracking-wider"
+                >
+                  Dem control
+                </div>
+              </div>
+              <div
+                class="rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-right"
+              >
+                <div class="font-bold text-red-700 dark:text-red-300">
+                  {probability(outcomeProbabilities.Republican)}
+                </div>
+                <div
+                  class="text-[10px] text-content-subtle font-semibold uppercase tracking-wider"
+                >
+                  GOP control
+                </div>
+              </div>
+            </div>
+          {/if}
+          {#if expectedSeats}
+            <p class="mt-3 text-[10px] text-content-subtle">
+              Expected seats: D {oneDecimal(expectedSeats.Democratic)}, R {oneDecimal(
+                expectedSeats.Republican
+              )}
+            </p>
+          {/if}
         </div>
 
         <!-- Net Seats Change Grid -->
@@ -703,7 +1248,7 @@
                 {party.slice(0, 3)}
               </div>
               <div class={`text-xl font-black mt-1 ${partyClass(party)}`}>
-                {aggregate.projected[party] ?? 0}
+                {projectedSeats[party] ?? 0}
               </div>
               <div
                 class="text-[10px] text-content-subtle font-semibold tabular-nums mt-0.5"
@@ -763,18 +1308,21 @@
           <span
             class="bg-surface-alt text-content-muted font-bold text-xs px-2.5 py-0.5 rounded-full border border-stroke/60"
           >
-            {aggregate.holdovers.length} {activeTab === "governors" ? "states" : "seats"}
+            {aggregate.holdovers.length}
+            {activeTab === "governors" ? "states" : "seats"}
           </span>
         </div>
         <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">
-          {showHoldovers ? "Hide List ▲" : "Show List ▼"}
+          {showHoldovers ? "Hide List ^" : "Show List v"}
         </span>
       </button>
 
       {#if showHoldovers}
         <div class="p-5 bg-surface-alt/10">
           <p class="text-xs text-content-subtle mb-4">
-            These seats are not up for election in 2026 and are factored into our control calculations based on current incumbent party representation.
+            These seats are not up for election in 2026 and are factored into
+            our control calculations based on current incumbent party
+            representation.
           </p>
           <div
             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"
@@ -810,55 +1358,103 @@
     class="bg-surface border border-stroke rounded-2xl shadow-sm overflow-hidden"
   >
     <!-- Filter and Sort Header bar -->
-    <div class="px-5 py-4 border-b border-stroke/40 bg-surface-alt/10 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex flex-wrap items-center gap-3">
-        <!-- Filter by Rating -->
-        <div class="flex items-center gap-1.5">
-          <label for="rating-filter" class="text-xs font-semibold text-content-subtle">Rating:</label>
-          <select id="rating-filter" bind:value={filterRating} class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500">
-            <option value="all">All Ratings</option>
-            <option value="tossup">Toss-ups</option>
-            <option value="lean">Lean/Tilt</option>
-            <option value="likely">Likely</option>
-            <option value="safe">Safe</option>
-          </select>
+    <div
+      class="px-5 py-5 border-b border-stroke/40 bg-surface-alt/10 space-y-4"
+    >
+      <div class="flex flex-col md:flex-row justify-between gap-4">
+        <!-- Pills Filter block -->
+        <div class="space-y-2.5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span
+              class="text-xs font-bold text-content-subtle uppercase tracking-wider w-16"
+              >Rating:</span
+            >
+            {#each [{ id: "all", label: "All Ratings" }, { id: "tossup", label: "Toss-ups" }, { id: "tilt", label: "Tilt" }, { id: "lean", label: "Lean" }, { id: "likely_safe", label: "Likely/Safe" }] as pill}
+              <button
+                type="button"
+                on:click={() => (filterRating = pill.id)}
+                class="text-xs px-3 py-1.5 rounded-full font-bold transition-all border
+                  {filterRating === pill.id
+                  ? 'bg-blue-600 text-white border-blue-600 dark:bg-blue-500 dark:border-blue-500'
+                  : 'bg-surface border-stroke hover:bg-surface-alt/50 text-content-muted'}"
+              >
+                {pill.label}
+              </button>
+            {/each}
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <span
+              class="text-xs font-bold text-content-subtle uppercase tracking-wider w-16"
+              >Favored:</span
+            >
+            {#each [{ id: "all", label: "All Parties" }, { id: "Democratic", label: "Democratic" }, { id: "Republican", label: "Republican" }] as pill}
+              <button
+                type="button"
+                on:click={() => (filterParty = pill.id)}
+                class="text-xs px-3 py-1.5 rounded-full font-bold transition-all border
+                  {filterParty === pill.id
+                  ? pill.id === 'Democratic'
+                    ? 'bg-blue-600 text-white border-blue-600 dark:bg-blue-500 dark:border-blue-500'
+                    : 'bg-red-600 text-white border-red-600 dark:bg-red-500 dark:border-red-500'
+                  : 'bg-surface border-stroke hover:bg-surface-alt/50 text-content-muted'}"
+              >
+                {pill.label}
+              </button>
+            {/each}
+          </div>
         </div>
 
-        <!-- Filter by Party -->
-        <div class="flex items-center gap-1.5">
-          <label for="party-filter" class="text-xs font-semibold text-content-subtle">Favored:</label>
-          <select id="party-filter" bind:value={filterParty} class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500">
-            <option value="all">All Parties</option>
-            <option value="democrat">Democratic</option>
-            <option value="republican">Republican</option>
-          </select>
+        <!-- Sort block -->
+        <div
+          class="flex flex-row md:flex-col md:items-end justify-between md:justify-start gap-4"
+        >
+          <div class="flex items-center gap-2.5">
+            <label
+              for="sort-by"
+              class="text-xs font-bold text-content-subtle uppercase tracking-wider"
+              >Sort by:</label
+            >
+            <select
+              id="sort-by"
+              bind:value={sortBy}
+              class="text-xs bg-surface border border-stroke/60 rounded-xl px-3 py-1.5 text-content font-bold focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="control_relevance"
+                >Most likely to decide control</option
+              >
+              <option value="competitiveness">Most competitive</option>
+              <option value="dem_pickup"
+                >Highest Democratic pickup chance</option
+              >
+              <option value="gop_pickup"
+                >Highest Republican hold/pickup chance</option
+              >
+              <option value="probability">Win Probability</option>
+              <option value="margin">Margin Estimate</option>
+              <option value="state">State</option>
+              <option value="rating">Rating</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-2.5 text-xs">
+            {#if selectedState}
+              <button
+                type="button"
+                on:click={clearStateFilter}
+                class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-xl border border-blue-200/50"
+              >
+                State: {selectedState} Ã—
+              </button>
+            {/if}
+
+            <span
+              class="text-xs text-content-subtle font-extrabold bg-surface-alt px-2.5 py-1 rounded-xl border border-stroke/60"
+            >
+              {filteredRaces.length} races
+            </span>
+          </div>
         </div>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <!-- Sort By -->
-        <div class="flex items-center gap-1.5">
-          <label for="sort-by" class="text-xs font-semibold text-content-subtle">Sort by:</label>
-          <select id="sort-by" bind:value={sortBy} class="text-xs bg-surface border border-stroke/60 rounded-lg px-2 py-1 text-content font-medium focus:outline-none focus:ring-1 focus:ring-blue-500">
-            <option value="competitiveness">Competitiveness</option>
-            <option value="probability">Win Probability</option>
-            <option value="margin">Margin Estimate</option>
-            <option value="state">State</option>
-          </select>
-        </div>
-
-        {#if selectedState}
-          <button
-            on:click={clearStateFilter}
-            class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold bg-blue-50 dark:bg-blue-950/40 px-2 py-1 rounded-lg border border-blue-200/50"
-          >
-            State: {selectedState} ×
-          </button>
-        {/if}
-
-        <span class="text-xs text-content-subtle font-semibold">
-          {filteredRaces.length} races
-        </span>
       </div>
     </div>
 
@@ -868,9 +1464,14 @@
         <p class="text-base text-content-muted font-semibold">
           No forecasts found matching the selected filters.
         </p>
-        {#if selectedState || filterRating !== 'all' || filterParty !== 'all'}
+        {#if selectedState || filterRating !== "all" || filterParty !== "all"}
           <button
-            on:click={() => { clearStateFilter(); filterRating = 'all'; filterParty = 'all'; }}
+            type="button"
+            on:click={() => {
+              clearStateFilter();
+              filterRating = "all";
+              filterParty = "all";
+            }}
             class="mt-3 text-xs text-blue-600 hover:underline dark:text-blue-400 font-semibold"
           >
             Clear all filters
@@ -879,135 +1480,254 @@
       </div>
     {:else}
       <!-- Responsive Card Feed -->
-      <div class="divide-y divide-stroke/30">
-        {#each filteredRaces as race (race.id)}
-          {@const party = normalizeForecastParty(race.forecast.predicted_winner_party)}
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-surface-alt/10"
+      >
+        {#each sortedRaces as race (race.id)}
+          {@const party = normalizeForecastParty(
+            race.forecast.predicted_winner_party
+          )}
           {@const rating = race.forecast.rating}
           {@const isExpanded = expandedRaceIds.has(race.id)}
 
-          <div class="p-5 hover:bg-surface-alt/10 transition-colors flex flex-col gap-4">
-            <!-- Card Header: Title, Rating, and Details Link -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div class="flex flex-col">
-                <a
-                  href={browser ? raceHref(race.id) : undefined}
-                  class="text-base font-extrabold text-content hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  {race.title ?? race.id}
-                </a>
-                <span class="text-xs text-content-subtle mt-0.5 font-medium">
-                  {race.jurisdiction ?? race.state ?? race.office}
-                </span>
+          <article
+            class="bg-surface border border-stroke/70 rounded-xl p-5 shadow-sm hover:border-blue-400/50 dark:hover:border-blue-500/50 transition-colors flex flex-col justify-between gap-4"
+          >
+            <div class="space-y-4">
+              <!-- Card Header: Title, Rating, and Details Link -->
+              <div class="flex flex-col gap-1.5">
+                <div class="flex items-start justify-between gap-2">
+                  <a
+                    href={browser ? raceHref(race.id) : undefined}
+                    class="text-base font-extrabold text-content hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    {race.title ?? race.id}
+                  </a>
+                  <a
+                    href={browser ? raceHref(race.id) : undefined}
+                    class="text-[10px] text-content-subtle hover:text-blue-600 dark:hover:text-blue-400 font-extrabold bg-surface border border-stroke/60 px-2 py-0.5 rounded-md transition-all whitespace-nowrap self-start"
+                  >
+                    Details ->
+                  </a>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="text-xs text-content-subtle font-medium">
+                    {race.jurisdiction ?? race.state ?? race.office}
+                  </span>
+                  <span class="w-1 h-1 rounded-full bg-stroke/60" />
+                  <span
+                    class={`inline-flex border rounded-full px-2 py-0.5 text-[10px] font-black leading-none ${ratingClass(
+                      rating
+                    )}`}
+                  >
+                    {formatRating(rating)}
+                  </span>
+                </div>
               </div>
 
-              <div class="flex items-center gap-2 self-start sm:self-center">
-                <span class={`inline-flex border rounded-full px-2.5 py-0.5 text-xs font-bold leading-none ${ratingClass(rating)}`}>
-                  {formatRating(rating)}
-                </span>
-                <a
-                  href={browser ? raceHref(race.id) : undefined}
-                  class="text-xs text-content-subtle hover:text-blue-600 dark:hover:text-blue-400 font-bold bg-surface border border-stroke/60 px-2.5 py-1 rounded-lg transition-all"
+              <!-- Card Metrics Dashboard -->
+              <div
+                class="grid grid-cols-3 gap-2 bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center"
+              >
+                <div
+                  class="flex flex-col justify-center border-r border-stroke/30 min-w-0 pr-1"
                 >
-                  Details →
-                </a>
-              </div>
-            </div>
-
-            <!-- Card Metrics Dashboard -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-              <!-- Forecast Projections -->
-              <div class="grid grid-cols-3 gap-2 bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center shadow-inner">
-                <div class="flex flex-col justify-center border-r border-stroke/30 pr-1">
-                  <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Projected</span>
-                  <span class={`text-xs font-extrabold mt-0.5 truncate ${partyClass(party)}`}>
+                  <span
+                    class="text-[9px] font-bold text-content-subtle uppercase tracking-wider"
+                    >Projected</span
+                  >
+                  <span
+                    class={`text-xs font-black mt-0.5 leading-tight break-words truncate ${partyClass(
+                      party
+                    )}`}
+                    title={race.forecast.predicted_winner_name || party}
+                  >
                     {race.forecast.predicted_winner_name || party}
                   </span>
                 </div>
-                <div class="flex flex-col justify-center border-r border-stroke/30">
-                  <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Win Prob.</span>
-                  <span class="text-xs font-black mt-0.5 text-content tabular-nums">
+                <div
+                  class="flex flex-col justify-center border-r border-stroke/30"
+                >
+                  <span
+                    class="text-[9px] font-bold text-content-subtle uppercase tracking-wider"
+                    >Win Prob.</span
+                  >
+                  <span
+                    class="text-xs font-black mt-0.5 text-content tabular-nums"
+                  >
                     {probability(race.forecast.win_probability)}
                   </span>
                 </div>
                 <div class="flex flex-col justify-center pl-1">
-                  <span class="text-[9px] font-bold text-content-subtle uppercase tracking-wider">Est. Margin</span>
-                  <span class="text-xs font-extrabold mt-0.5 text-content tabular-nums">
-                    {race.forecast.margin_estimate === undefined || race.forecast.margin_estimate === null
+                  <span
+                    class="text-[9px] font-bold text-content-subtle uppercase tracking-wider"
+                    >Est. Margin</span
+                  >
+                  <span
+                    class="text-xs font-black mt-0.5 text-content tabular-nums"
+                  >
+                    {race.forecast.margin_estimate === undefined ||
+                    race.forecast.margin_estimate === null
                       ? "n/a"
-                      : `${race.forecast.margin_estimate.toFixed(1)}%`}
+                      : `${
+                          race.forecast.margin_estimate > 0 ? "+" : ""
+                        }${race.forecast.margin_estimate.toFixed(1)}%`}
                   </span>
                 </div>
               </div>
 
+              <!-- D vs R Split details -->
+              {#if race.forecast.party_probabilities}
+                <div
+                  class="text-[10px] text-content-subtle flex justify-between font-bold px-1.5"
+                >
+                  <span class="text-blue-600 dark:text-blue-400"
+                    >Dem: {probability(
+                      race.forecast.party_probabilities.Democratic
+                    )}</span
+                  >
+                  <span class="text-red-600 dark:text-red-400"
+                    >GOP: {probability(
+                      race.forecast.party_probabilities.Republican
+                    )}</span
+                  >
+                </div>
+              {/if}
+
               <!-- Takeaway Text -->
-              <div class="md:col-span-2 flex flex-col justify-center">
-                <span class="text-[10px] font-bold text-content-subtle uppercase tracking-wider mb-0.5">Key Takeaway</span>
-                <p class="text-xs text-content-muted leading-relaxed font-medium">
-                  {race.forecast.takeaway || (race.forecast.rationale ? race.forecast.rationale.split(/[.!?]/)[0] + "." : "No summary narrative available.")}
+              <div
+                class="flex flex-col justify-center border-t border-stroke/20 pt-2.5"
+              >
+                <span
+                  class="text-[9px] font-bold text-content-subtle uppercase tracking-wider mb-1"
+                  >Key Takeaway</span
+                >
+                <p
+                  class="text-xs text-content-muted leading-relaxed font-medium"
+                >
+                  {race.forecast.takeaway ||
+                    (race.forecast.rationale
+                      ? race.forecast.rationale.split(/[.!?]/)[0] + "."
+                      : "No summary narrative available.")}
                 </p>
               </div>
             </div>
 
             <!-- Card Accordion Toggle -->
-            <div class="flex items-center justify-between border-t border-stroke/10 pt-3">
-              <button
-                on:click={() => toggleExpand(race.id)}
-                class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold flex items-center gap-1 focus:outline-none"
+            <div>
+              <div
+                class="flex items-center justify-between border-t border-stroke/10 pt-3"
               >
-                <span class="inline-block transition-transform duration-200" style={isExpanded ? "transform: rotate(180deg);" : ""}>▼</span>
-                {isExpanded ? "Hide Analysis" : "Expand Analysis"}
-              </button>
+                <button
+                  type="button"
+                  on:click={() => toggleExpand(race.id)}
+                  class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold flex items-center gap-1 focus:outline-none"
+                >
+                  <span
+                    class="inline-block transition-transform duration-200"
+                    style={isExpanded ? "transform: rotate(180deg);" : ""}
+                    >v</span
+                  >
+                  {isExpanded ? "Hide Analysis" : "Expand Analysis"}
+                </button>
 
-              <span class="text-[10px] text-content-subtle font-medium">
-                {race.forecast.based_on_poll_count} poll{race.forecast.based_on_poll_count === 1 ? "" : "s"} analyzed
-              </span>
-            </div>
+                <span class="text-[10px] text-content-subtle font-medium">
+                  {race.forecast.based_on_poll_count} poll{race.forecast
+                    .based_on_poll_count === 1
+                    ? ""
+                    : "s"} analyzed
+                </span>
+              </div>
 
-            <!-- Expandable Drawer Content -->
-            {#if isExpanded}
-              <div class="mt-1 pt-4 border-t border-stroke/30 grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs bg-surface-alt/10 rounded-xl p-4 shadow-inner">
-                <!-- Left Column: Key Drivers & Uncertainty -->
-                <div class="space-y-3">
+              <!-- Expandable Drawer Content -->
+              {#if isExpanded}
+                <div
+                  class="mt-3 pt-3 border-t border-stroke/30 flex flex-col gap-3 text-xs bg-surface-alt/10 rounded-xl p-4 shadow-inner"
+                >
+                  <!-- Full Rationale -->
                   <div>
-                    <span class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1">Key Drivers</span>
-                    {#if race.forecast.key_reasons && race.forecast.key_reasons.length > 0}
-                      <ul class="list-disc list-inside space-y-1 text-content-muted font-medium pl-1">
+                    <span
+                      class="font-bold text-content uppercase tracking-wider text-[9px] block mb-1"
+                      >Full Assessment</span
+                    >
+                    <p
+                      class="text-content-muted leading-relaxed font-medium whitespace-pre-wrap"
+                    >
+                      {race.forecast.rationale}
+                    </p>
+                  </div>
+
+                  <!-- Key Drivers -->
+                  {#if race.forecast.key_reasons && race.forecast.key_reasons.length > 0}
+                    <div class="pt-2 border-t border-stroke/20">
+                      <span
+                        class="font-bold text-content uppercase tracking-wider text-[9px] block mb-1"
+                        >Key Drivers</span
+                      >
+                      <ul
+                        class="list-disc list-inside space-y-1 text-content-muted font-medium pl-1"
+                      >
                         {#each race.forecast.key_reasons as reason}
                           <li>{reason}</li>
                         {/each}
                       </ul>
-                    {:else}
-                      <p class="text-content-subtle font-medium italic">No structured key drivers specified. Refer to the full assessment.</p>
-                    {/if}
-                  </div>
-
-                  {#if race.forecast.uncertainty}
-                    <div class="pt-2 border-t border-stroke/20">
-                      <span class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1">Risk Factors & Uncertainty</span>
-                      <p class="text-content-muted font-medium leading-relaxed">{race.forecast.uncertainty}</p>
                     </div>
                   {/if}
-                </div>
 
-                <!-- Right Column: Full Rationale and Metadata -->
-                <div class="space-y-3 flex flex-col justify-between">
-                  <div>
-                    <span class="font-bold text-content uppercase tracking-wider text-[10px] block mb-1">Full Assessment</span>
-                    <p class="text-content-muted leading-relaxed font-medium whitespace-pre-wrap">{race.forecast.rationale}</p>
-                  </div>
+                  <!-- Uncertainty -->
+                  {#if race.forecast.uncertainty}
+                    <div class="pt-2 border-t border-stroke/20">
+                      <span
+                        class="font-bold text-content uppercase tracking-wider text-[9px] block mb-1"
+                        >Risk Factors & Uncertainty</span
+                      >
+                      <p class="text-content-muted font-medium leading-relaxed">
+                        {race.forecast.uncertainty}
+                      </p>
+                    </div>
+                  {/if}
 
-                  <div class="pt-2 border-t border-stroke/20 flex flex-wrap items-center justify-between gap-2 text-[10px] text-content-subtle font-medium">
+                  <!-- Source Links -->
+                  {#if race.forecast.source_urls && race.forecast.source_urls.length > 0}
+                    <div class="pt-2 border-t border-stroke/20">
+                      <span
+                        class="font-bold text-content uppercase tracking-wider text-[9px] block mb-1"
+                        >Source Documentation</span
+                      >
+                      <div class="flex flex-wrap gap-1.5">
+                        {#each race.forecast.source_urls as url}
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center text-[10px] text-blue-600 dark:text-blue-400 hover:underline bg-surface border border-stroke px-2 py-0.5 rounded-md truncate max-w-[180px]"
+                          >
+                            {getHostname(url)} ->
+                          </a>
+                        {/each}
+                      </div>
+                    </div>
+                  {/if}
+
+                  <!-- Metadata -->
+                  <div
+                    class="pt-2 border-t border-stroke/20 flex flex-wrap items-center justify-between gap-2 text-[9px] text-content-subtle font-bold"
+                  >
                     {#if race.forecast.model}
                       <span>Model: {race.forecast.model}</span>
                     {/if}
                     {#if race.forecast.generated_at}
-                      <span>Run date: {new Date(race.forecast.generated_at).toLocaleDateString()}</span>
+                      <span
+                        >Generated: {new Date(
+                          race.forecast.generated_at
+                        ).toLocaleDateString()}</span
+                      >
                     {/if}
                   </div>
                 </div>
-              </div>
-            {/if}
-          </div>
+              {/if}
+            </div>
+          </article>
         {/each}
       </div>
     {/if}

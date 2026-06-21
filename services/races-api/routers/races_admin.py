@@ -959,11 +959,14 @@ async def restore_version_as_draft(race_id: str, filename: str) -> Dict[str, Any
 async def save_chamber_forecasts_endpoint(payload: ChamberForecastsPayload) -> Dict[str, Any]:
     """Save chamber-level forecast narratives to GCS or local file."""
     data = {
+        "schema_version": payload.schema_version or "chamber_forecasts.v1",
         "house": payload.house_narrative,
         "senate": payload.senate_narrative,
         "governors": payload.governors_narrative,
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
+    if payload.chambers:
+        data["chambers"] = payload.chambers
     try:
         gcs_helpers.save_chamber_forecasts(data)
     except Exception as exc:

@@ -4,6 +4,7 @@ Contains Pydantic models used across pipeline and services.
 """
 
 from .models import (
+    LEGACY_ISSUE_NAMES,
     AgentReview,
     Candidate,
     CandidateLink,
@@ -12,7 +13,6 @@ from .models import (
     ConfidenceLevel,
     EducationEntry,
     IssueStance,
-    LEGACY_ISSUE_NAMES,
     RaceJSON,
     ReviewFlag,
     Source,

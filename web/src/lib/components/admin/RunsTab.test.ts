@@ -1,7 +1,11 @@
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/svelte";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { PipelineApiService } from "$lib/services/pipelineApiService";
-import type { PipelineMetricsSummary, PipelineRunRecord, RunHistoryItem } from "$lib/types";
+import type {
+  PipelineMetricsSummary,
+  PipelineRunRecord,
+  RunHistoryItem,
+} from "$lib/types";
 
 const records: PipelineRunRecord[] = [
   {
@@ -129,7 +133,9 @@ describe("RunsTab", () => {
     const runRow = getByText("mn-governor-2026");
     await fireEvent.click(runRow);
 
-    await waitFor(() => expect(apiService.getRunDetails).toHaveBeenCalledWith("run-newest"));
+    await waitFor(() =>
+      expect(apiService.getRunDetails).toHaveBeenCalledWith("run-newest")
+    );
     expect(apiService.getRunLogs).toHaveBeenCalledWith("run-newest", 0);
 
     // Expect drawer content to be displayed

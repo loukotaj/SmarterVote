@@ -27,6 +27,9 @@ class RaceForecastSummary(BaseModel):
     rating: str | None = None
     confidence: str | None = None
     rationale: str | None = None
+    takeaway: str | None = None
+    key_reasons: List[str] = Field(default_factory=list)
+    uncertainty: str | None = None
     based_on_poll_count: int = 0
     generated_at: str | None = None
     model: str | None = None
