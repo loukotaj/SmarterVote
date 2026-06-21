@@ -20,5 +20,10 @@ allowed_origins = [
   "http://localhost:4173",
 ]
 
+# Developers allowed to impersonate the races-api service account locally (for MCP token generation)
+developer_gcp_identities = [
+  "user:jacobloukota@gmail.com",
+]
+
 # Note: project_id and API keys are set in secrets.tfvars
 # Copy secrets.tfvars.example to secrets.tfvars and fill in your values
