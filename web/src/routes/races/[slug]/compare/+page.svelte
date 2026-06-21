@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
+  import { browser } from "$app/environment";
   import ConfidenceIndicator from "$lib/components/ConfidenceIndicator.svelte";
   import SourceLink from "$lib/components/SourceLink.svelte";
   import type { Race, Candidate } from "$lib/types";
@@ -14,7 +15,7 @@
   export let data: { prerenderedRace?: Race };
 
   let race: Race | null = data.prerenderedRace ?? null;
-  let candidates: Candidate[] = [];
+  let candidates: Candidate[] = race ? race.candidates.filter((c) => !c.withdrawn).slice(0, 2) : [];
   let loading = !race;
   let error: string | null = null;
   let isDraftPreview = false;
@@ -23,7 +24,7 @@
   $: slug = $page.params.slug as string;
 
   // Reactively re-run hydrateCandidates whenever the URL searchParams change
-  $: if (race && $page) {
+  $: if (browser && race && $page) {
     hydrateCandidates();
   }
 
@@ -58,6 +59,7 @@
 
   function hydrateCandidates() {
     if (!race) return;
+    if (!browser) return;
     const candidatesParam = $page.url.searchParams.get("candidates");
     if (candidatesParam) {
       const slugs = candidatesParam.split(",");
