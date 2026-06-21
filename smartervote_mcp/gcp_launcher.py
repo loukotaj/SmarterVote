@@ -151,7 +151,10 @@ def main() -> None:
         configure_cloud_run_identity_token_from_gcp()
     except Exception as exc:
         if is_local:
-            print(f"Warning: Failed to configure SmarterVote MCP GCP identity token (targeting localhost): {exc}", file=sys.stderr)
+            print(
+                f"Warning: Failed to configure SmarterVote MCP GCP identity token (targeting localhost): {exc}",
+                file=sys.stderr,
+            )
         else:
             print(f"Failed to configure SmarterVote MCP GCP identity token: {exc}", file=sys.stderr)
             raise SystemExit(1) from exc
