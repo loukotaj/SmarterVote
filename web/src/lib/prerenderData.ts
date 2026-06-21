@@ -24,7 +24,7 @@ function shouldPrerenderDynamicRoutes(): boolean {
 }
 
 export async function fetchPublishedRaceSummaries(
-  fetchFn: typeof fetch = fetch,
+  fetchFn: typeof fetch = fetch
 ): Promise<RaceSummary[]> {
   summariesCache ??= (async () => {
     const staticBase = publicDataBase();
@@ -42,7 +42,7 @@ export async function fetchPublishedRaceSummaries(
 
 export async function fetchPublishedRace(
   id: string,
-  fetchFn: typeof fetch = fetch,
+  fetchFn: typeof fetch = fetch
 ): Promise<Race> {
   const cached = raceCache.get(id);
   if (cached) return cached;

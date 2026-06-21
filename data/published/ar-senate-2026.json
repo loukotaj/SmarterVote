@@ -1343,9 +1343,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Arkansas,_2026",
   "updated_utc": "2026-06-20T03:16:25.844890+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
   "how_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information",
   "schema_version": "0.3",

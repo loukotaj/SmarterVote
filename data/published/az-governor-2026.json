@@ -14,24 +14,12 @@
       "sample_size": 850,
       "matchups": [
         {
-          "candidates": [
-            "Katie Hobbs",
-            "Andy Biggs"
-          ],
-          "percentages": [
-            44.0,
-            43.0
-          ]
+          "candidates": ["Katie Hobbs", "Andy Biggs"],
+          "percentages": [44.0, 43.0]
         },
         {
-          "candidates": [
-            "Katie Hobbs",
-            "David Schweikert"
-          ],
-          "percentages": [
-            44.0,
-            39.0
-          ]
+          "candidates": ["Katie Hobbs", "David Schweikert"],
+          "percentages": [44.0, 39.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/arizona-2026-governor/"
@@ -42,24 +30,12 @@
       "sample_size": 1023,
       "matchups": [
         {
-          "candidates": [
-            "Katie Hobbs",
-            "Andy Biggs"
-          ],
-          "percentages": [
-            45.0,
-            40.0
-          ]
+          "candidates": ["Katie Hobbs", "Andy Biggs"],
+          "percentages": [45.0, 40.0]
         },
         {
-          "candidates": [
-            "Katie Hobbs",
-            "David Schweikert"
-          ],
-          "percentages": [
-            44.0,
-            39.0
-          ]
+          "candidates": ["Katie Hobbs", "David Schweikert"],
+          "percentages": [44.0, 39.0]
         }
       ],
       "source_url": "https://www.noblepredictiveinsights.com/post/azgov-biggs-benefits-from-field-consolidation-hobbs-holds-early-edge"
@@ -2967,9 +2943,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Arizona_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:16:24.653572+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://azsos.gov/elections/voters/registering-vote",
   "how_to_vote_url": "https://azsos.gov/elections/voters/voting-elections",
   "schema_version": "0.3",

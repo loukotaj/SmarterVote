@@ -790,9 +790,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:04.933060+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://www.sos.mn.gov/elections-voting/register-to-vote/",
   "how_to_vote_url": "https://www.sos.mn.gov/elections-voting/",
   "schema_version": "0.3",

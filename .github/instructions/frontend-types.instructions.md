@@ -28,6 +28,7 @@ Do not add, rename, or remove canonical issue values without updating both files
 ## Validation
 
 After changes, run:
+
 ```bash
 cd web && npm run check   # TypeScript type errors
 PYTHONPATH=. python -m pytest tests/test_pipeline.py -v   # Python model validation

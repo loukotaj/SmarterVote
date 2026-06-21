@@ -7,6 +7,7 @@ The SmarterVote pipeline supports local development and cloud production modes.
 Best for development and small-scale use.
 
 **How it works**:
+
 - Agent runs via `pipeline_client/backend/main.py` (FastAPI, port 8001)
 - Web search results cached in SQLite (`data/cache/`)
 - Published profiles written to `data/published/` as JSON files
@@ -15,6 +16,7 @@ Best for development and small-scale use.
 - Frontend polls the pipeline API every few seconds for progress
 
 **Setup**:
+
 ```powershell
 # Install dependencies
 pip install -r requirements.txt
@@ -38,6 +40,7 @@ cd services/races-api && python main.py
 The primary cloud architecture. Admin triggers runs via `races-api`; the pipeline runs inside a gen2 Cloud Function invoked by Firestore Eventarc.
 
 **How it works**:
+
 - Admin queues a race via `races-api POST /api/races/queue` (Auth0 authenticated)
 - `races-api` creates a document in Firestore `pipeline_queue`
 - Firestore Eventarc trigger invokes the gen2 Cloud Function (`functions/agent/main.py`)
@@ -48,6 +51,7 @@ The primary cloud architecture. Admin triggers runs via `races-api`; the pipelin
 - Frontend polls `races-api /runs/{run_id}` + `/runs/{run_id}/logs?since=N` every 2–3 seconds (or fetches published files statically from GCS if configured)
 
 **Setup** (Terraform):
+
 ```bash
 cd infra
 # enable_agent_function is true by default in variables.tf
@@ -55,6 +59,7 @@ terraform apply
 ```
 
 Environment variables set automatically by Terraform:
+
 - `STORAGE_MODE=gcp`
 - `GCS_BUCKET_NAME=smartervote-sv-data-{env}`
 - `FIRESTORE_PROJECT=smartervote`
@@ -64,11 +69,11 @@ Environment variables set automatically by Terraform:
 
 The pipeline auto-detects storage mode based on environment:
 
-| Variable | Indicates |
-|----------|-----------|
+| Variable               | Indicates  |
+| ---------------------- | ---------- |
 | `GOOGLE_CLOUD_PROJECT` | Cloud mode |
-| `K_SERVICE` | Cloud Run |
-| None of above | Local mode |
+| `K_SERVICE`            | Cloud Run  |
+| None of above          | Local mode |
 
 ## Storage Abstraction
 
@@ -87,6 +92,7 @@ Switch by setting `STORAGE_BACKEND=gcp` environment variable.
 ## Search Caching
 
 To avoid redundant Serper API calls and reduce costs, web search results and fetched page contents are cached:
+
 - **TTL**: 7 days for search queries, 24 hours for fetched page text content.
 - **Local Mode**: Cached in a local SQLite database (`data/cache/search_cache.db`).
 - **Cloud Mode**: Cached in Firestore collections (`search_cache` and `page_cache`). This is critical because Cloud Function instances are ephemeral and trigger continuation handoffs; the shared Firestore cache ensures subsequent invocations don't re-run expensive Serper searches.
@@ -95,6 +101,7 @@ To avoid redundant Serper API calls and reduce costs, web search results and fet
 ## Output
 
 All modes produce identical RaceJSON v0.3 files:
+
 - `{race-id}.json` with candidates, issues, sources
 - `races/summaries.json` central index (built and served statically in GCS production environment)
 - 12 canonical issues per candidate

@@ -227,10 +227,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Washington%27s_10th_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:36:53.377496+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

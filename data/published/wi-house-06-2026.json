@@ -14,24 +14,12 @@
       "sample_size": null,
       "matchups": [
         {
-          "candidates": [
-            "Glenn Grothman",
-            "Mike Thurow"
-          ],
-          "percentages": [
-            55.0,
-            45.0
-          ]
+          "candidates": ["Glenn Grothman", "Mike Thurow"],
+          "percentages": [55.0, 45.0]
         },
         {
-          "candidates": [
-            "Glenn Grothman",
-            "Brad Smith"
-          ],
-          "percentages": [
-            61.0,
-            39.0
-          ]
+          "candidates": ["Glenn Grothman", "Brad Smith"],
+          "percentages": [61.0, 39.0]
         }
       ],
       "source_url": "https://www.wispolitics.com/2026/thurow-campaign-new-polls-show-mike-thurow-cuts-grothmans-lead-in-half-in-wi-06/"
@@ -42,14 +30,8 @@
       "sample_size": null,
       "matchups": [
         {
-          "candidates": [
-            "Glenn Grothman",
-            "Mike Thurow"
-          ],
-          "percentages": [
-            42.0,
-            38.0
-          ]
+          "candidates": ["Glenn Grothman", "Mike Thurow"],
+          "percentages": [42.0, 38.0]
         }
       ],
       "source_url": "https://www.wispolitics.com/2026/thurow-campaign-new-polls-show-mike-thurow-cuts-grothmans-lead-in-half-in-wi-06/"
@@ -60,14 +42,8 @@
       "sample_size": null,
       "matchups": [
         {
-          "candidates": [
-            "Glenn Grothman",
-            "Mike Thurow"
-          ],
-          "percentages": [
-            39.0,
-            46.0
-          ]
+          "candidates": ["Glenn Grothman", "Mike Thurow"],
+          "percentages": [39.0, 46.0]
         }
       ],
       "source_url": "https://www.wispolitics.com/2026/thurow-campaign-new-polls-show-mike-thurow-cuts-grothmans-lead-in-half-in-wi-06/"
@@ -643,10 +619,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_6th_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:29:05.484694+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

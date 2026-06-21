@@ -16,15 +16,16 @@ You don't need to sponsor or do anything special to request a race — just open
 
 Race ID format: `state-office-year`
 
-| Race type | Example |
-|---|---|
-| U.S. Senate | `ga-senate-2026` |
-| Governor | `tx-governor-2026` |
-| U.S. House | `ca-house-12-2026` |
+| Race type   | Example            |
+| ----------- | ------------------ |
+| U.S. Senate | `ga-senate-2026`   |
+| Governor    | `tx-governor-2026` |
+| U.S. House  | `ca-house-12-2026` |
 
 ### Bug reports
 
 Include:
+
 - What you expected to happen
 - What actually happened
 - Which page or component is affected

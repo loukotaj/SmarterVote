@@ -1,0 +1,6 @@
+.venv-mcp/
+.venv/
+build/
+web/build/
+web/.svelte-kit/
+.svelte-kit/

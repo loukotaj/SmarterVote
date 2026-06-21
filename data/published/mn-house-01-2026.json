@@ -14,14 +14,8 @@
       "sample_size": 400,
       "matchups": [
         {
-          "candidates": [
-            "Brad Finstad",
-            "Jake Johnson"
-          ],
-          "percentages": [
-            52.0,
-            42.0
-          ]
+          "candidates": ["Brad Finstad", "Jake Johnson"],
+          "percentages": [52.0, 42.0]
         }
       ],
       "source_url": "https://punchbowl.news/wp-content/uploads/CFA_MN-CD-1_Benchmark_Analysis_v1.0_260323.pdf"
@@ -32,14 +26,8 @@
       "sample_size": 708,
       "matchups": [
         {
-          "candidates": [
-            "Brad Finstad",
-            "Jake Johnson"
-          ],
-          "percentages": [
-            44.0,
-            41.0
-          ]
+          "candidates": ["Brad Finstad", "Jake Johnson"],
+          "percentages": [44.0, 41.0]
         }
       ],
       "source_url": "https://www.postbulletin.com/news/local/new-poll-fundraising-shows-jake-johnson-within-striking-distance-of-brad-finstad"
@@ -416,10 +404,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_1st_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:46:15.917844+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

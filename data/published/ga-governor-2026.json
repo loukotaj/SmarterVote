@@ -909,9 +909,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:24.363743+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-registering-vote",
   "how_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-voting",
   "schema_version": "0.3",

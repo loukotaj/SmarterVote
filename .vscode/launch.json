@@ -1,88 +1,83 @@
 {
-    "version": "0.2.0",
-    "configurations": [
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Races API",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/services/races-api/main.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/services/races-api",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}",
+        "DATA_DIR": "../../data/published"
+      },
+      "justMyCode": false,
+      "stopOnEntry": false
+    },
+    {
+      "name": "Debug Pipeline Dev API",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pipeline_client.run",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
+      "justMyCode": false,
+      "stopOnEntry": false
+    },
+    {
+      "name": "Debug Tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
+      "args": ["-v", "${file}"],
+      "justMyCode": false,
+      "stopOnEntry": false
+    },
+    {
+      "name": "Debug Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "cwd": "${fileDirname}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
+      "justMyCode": false,
+      "stopOnEntry": false
+    },
+    {
+      "name": "Attach to Races API Process",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "pathMappings": [
         {
-            "name": "Debug Races API",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/services/races-api/main.py",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/services/races-api",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}",
-                "DATA_DIR": "../../data/published"
-            },
-            "justMyCode": false,
-            "stopOnEntry": false
-        },
-        {
-            "name": "Debug Pipeline Dev API",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "pipeline_client.run",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            },
-            "justMyCode": false,
-            "stopOnEntry": false
-        },
-        {
-            "name": "Debug Tests",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "pytest",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            },
-            "args": [
-                "-v",
-                "${file}"
-            ],
-            "justMyCode": false,
-            "stopOnEntry": false
-        },
-        {
-            "name": "Debug Current File",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
-            "cwd": "${fileDirname}",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            },
-            "justMyCode": false,
-            "stopOnEntry": false
-        },
-        {
-            "name": "Attach to Races API Process",
-            "type": "debugpy",
-            "request": "attach",
-            "connect": {
-                "host": "localhost",
-                "port": 5678
-            },
-            "pathMappings": [
-                {
-                    "localRoot": "${workspaceFolder}",
-                    "remoteRoot": "."
-                }
-            ],
-            "justMyCode": false
+          "localRoot": "${workspaceFolder}",
+          "remoteRoot": "."
         }
-    ],
-    "compounds": [
-        {
-            "name": "Debug Full Stack",
-            "configurations": [
-                "Debug Races API"
-            ],
-            "stopAll": true,
-            "preLaunchTask": "Start Web Frontend Only"
-        }
-    ]
+      ],
+      "justMyCode": false
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Full Stack",
+      "configurations": ["Debug Races API"],
+      "stopAll": true,
+      "preLaunchTask": "Start Web Frontend Only"
+    }
+  ]
 }

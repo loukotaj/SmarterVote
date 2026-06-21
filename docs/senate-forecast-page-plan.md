@@ -374,15 +374,17 @@ Recommended sequence:
 8. Hydrate summary forecasts from full published race records when the summary index lags.
 9. Generate the chamber forecast payload from static summaries.
 10. Validate the chamber payload:
-   - all Senate summaries have forecasts
-   - projected Senate seats sum to 100
-   - 50-50 counts as Republican control
-   - control probabilities are present
-   - seat distribution is present
-   - top key races are present
-   - narrative references the same control party as `control_party`
-   - `control_probability` matches `outcome_probabilities[control_party]`
-   - no active Senate race is counted twice with holdovers
+
+- all Senate summaries have forecasts
+- projected Senate seats sum to 100
+- 50-50 counts as Republican control
+- control probabilities are present
+- seat distribution is present
+- top key races are present
+- narrative references the same control party as `control_party`
+- `control_probability` matches `outcome_probabilities[control_party]`
+- no active Senate race is counted twice with holdovers
+
 11. Publish static chamber forecast data.
 12. Run local validation.
 13. Push code and checked-in static data changes.
@@ -390,10 +392,11 @@ Recommended sequence:
 15. Deploy from the verified commit after CI is green.
 16. Run automated live/static verification.
 17. Perform manual human verification:
-   - no browser API call to races API forecast endpoints
-   - projected control agrees with narrative
-   - probability panel agrees with published payload
-   - race cards and map agree with static data
+
+- no browser API call to races API forecast endpoints
+- projected control agrees with narrative
+- probability panel agrees with published payload
+- race cards and map agree with static data
 
 ### Publish Artifacts
 
@@ -428,14 +431,17 @@ Existing useful tools:
 Tools already added or planned in this work should be formalized and exposed in the installed MCP server:
 
 - `refresh_static_race_summaries`
+
   - Fetch published summaries and write `data/published/summaries.json`.
   - Hydrate missing Senate forecast summaries from full published RaceJSON records.
 
 - `generate_static_chamber_forecasts`
+
   - Generate `data/published/chamber_forecasts.json` from static summaries.
   - Should not publish by itself.
 
 - `refresh_static_forecast_data`
+
   - Run summary refresh and chamber forecast generation together.
 
 - `publish_static_chamber_forecasts`
@@ -444,29 +450,35 @@ Tools already added or planned in this work should be formalized and exposed in 
 Additional MCP tools needed:
 
 - `audit_senate_forecast_data`
+
   - Return Senate race count, forecast count, missing forecast race ids, stale forecast race ids, projected control, expected seats, and top competitive races.
 
 - `queue_senate_forecast_reruns`
+
   - Queue only the forecast step for selected Senate races.
   - Should accept `race_ids`, `force_fresh`, `model_profile`, and `note`.
   - Should default to draft-only output.
   - Should return run ids for monitoring.
 
 - `monitor_senate_forecast_reruns`
+
   - Poll selected run ids.
   - Return completed, failed, and still-running ids.
   - Surface forecast-step errors directly.
 
 - `review_senate_forecast_drafts`
+
   - Summarize forecast changes before publish.
   - Show old published forecast versus new draft forecast.
   - Flag large probability/rating swings.
 
 - `validate_static_chamber_forecasts`
+
   - Validate local static chamber forecast JSON before publish.
   - Should fail loudly on missing Senate forecasts, invalid probabilities, missing seat distribution, or 50-50 control mishandling.
 
 - `publish_static_forecast_bundle`
+
   - Publish both refreshed summaries and chamber forecasts as a coherent static bundle.
   - Should include a dry-run mode.
 
@@ -518,8 +530,9 @@ Required MCP checks:
    - Dry-run first.
    - Publish only after validation succeeds.
 10. `verify_live_forecast_page_data`
-   - Confirm live/static forecast data is available for the deployed page.
-   - Confirm no browser races API calls are required for the forecast tab.
+
+- Confirm live/static forecast data is available for the deployed page.
+- Confirm no browser races API calls are required for the forecast tab.
 
 If no Senate race forecasts are stale or missing, record the audit output and skip reruns. Do not rerun forecasts just to churn model outputs.
 
@@ -595,25 +608,32 @@ Manual QA:
 ## Priority Order
 
 1. Fix projected control source of truth.
+
    - Use published chamber forecast `control_party` whenever available.
    - Never derive `No clear control` from 50-50 Senate seat math.
 
 2. Add chamber probability and seat projection modules.
+
    - Display control probabilities, expected seats, projected seats, and tie-break probability.
 
 3. Expand chamber forecast payload.
+
    - Add structured analysis and seat distribution.
 
 4. Redesign Senate race cards.
+
    - Multi-column grid, better use of space, no winner truncation, richer metrics.
 
 5. Improve expand drawer.
+
    - Full rationale, reasons, uncertainty, sources, generated metadata.
 
 6. Improve Senate map.
+
    - Active race coloring, holdover treatment, forecast tooltips, state filtering.
 
 7. Harden MCP pipeline.
+
    - Audit, rerun, hydrate, generate, validate, publish, verify.
 
 8. Final publish.

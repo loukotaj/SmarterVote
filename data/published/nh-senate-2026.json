@@ -12,44 +12,20 @@
       "sample_size": 2053,
       "matchups": [
         {
-          "candidates": [
-            "Chris Pappas",
-            "John E. Sununu"
-          ],
-          "percentages": [
-            50.0,
-            45.0
-          ]
+          "candidates": ["Chris Pappas", "John E. Sununu"],
+          "percentages": [50.0, 45.0]
         },
         {
-          "candidates": [
-            "Chris Pappas",
-            "Scott Brown"
-          ],
-          "percentages": [
-            52.0,
-            42.0
-          ]
+          "candidates": ["Chris Pappas", "Scott Brown"],
+          "percentages": [52.0, 42.0]
         },
         {
-          "candidates": [
-            "John E. Sununu",
-            "Scott Brown"
-          ],
-          "percentages": [
-            48.0,
-            25.0
-          ]
+          "candidates": ["John E. Sununu", "Scott Brown"],
+          "percentages": [48.0, 25.0]
         },
         {
-          "candidates": [
-            "Chris Pappas",
-            "Karishma Manzur"
-          ],
-          "percentages": [
-            65.0,
-            11.0
-          ]
+          "candidates": ["Chris Pappas", "Karishma Manzur"],
+          "percentages": [65.0, 11.0]
         }
       ],
       "source_url": "https://scholars.unh.edu/survey_center_polls/922/"
@@ -60,34 +36,16 @@
       "sample_size": 1491,
       "matchups": [
         {
-          "candidates": [
-            "Chris Pappas",
-            "John E. Sununu"
-          ],
-          "percentages": [
-            46.0,
-            43.0
-          ]
+          "candidates": ["Chris Pappas", "John E. Sununu"],
+          "percentages": [46.0, 43.0]
         },
         {
-          "candidates": [
-            "Chris Pappas",
-            "Scott Brown"
-          ],
-          "percentages": [
-            47.0,
-            38.0
-          ]
+          "candidates": ["Chris Pappas", "Scott Brown"],
+          "percentages": [47.0, 38.0]
         },
         {
-          "candidates": [
-            "John E. Sununu",
-            "Scott Brown"
-          ],
-          "percentages": [
-            49.0,
-            28.0
-          ]
+          "candidates": ["John E. Sununu", "Scott Brown"],
+          "percentages": [49.0, 28.0]
         }
       ],
       "source_url": "https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858"
@@ -98,34 +56,16 @@
       "sample_size": 1000,
       "matchups": [
         {
-          "candidates": [
-            "Chris Pappas",
-            "John E. Sununu"
-          ],
-          "percentages": [
-            45.0,
-            44.0
-          ]
+          "candidates": ["Chris Pappas", "John E. Sununu"],
+          "percentages": [45.0, 44.0]
         },
         {
-          "candidates": [
-            "Chris Pappas",
-            "Scott Brown"
-          ],
-          "percentages": [
-            48.0,
-            39.0
-          ]
+          "candidates": ["Chris Pappas", "Scott Brown"],
+          "percentages": [48.0, 39.0]
         },
         {
-          "candidates": [
-            "John E. Sununu",
-            "Scott Brown"
-          ],
-          "percentages": [
-            48.0,
-            19.0
-          ]
+          "candidates": ["John E. Sununu", "Scott Brown"],
+          "percentages": [48.0, 19.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/"
@@ -136,14 +76,8 @@
       "sample_size": 1100,
       "matchups": [
         {
-          "candidates": [
-            "John E. Sununu",
-            "Chris Pappas"
-          ],
-          "percentages": [
-            45.0,
-            47.0
-          ]
+          "candidates": ["John E. Sununu", "Chris Pappas"],
+          "percentages": [45.0, 47.0]
         }
       ],
       "source_url": "https://scholars.unh.edu/survey_center_polls/922/"
@@ -2139,9 +2073,7 @@
     }
   ],
   "updated_utc": "2026-06-20T03:16:53.808588+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",

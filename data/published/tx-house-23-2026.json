@@ -14,14 +14,8 @@
       "sample_size": null,
       "matchups": [
         {
-          "candidates": [
-            "Katy Padilla Stout",
-            "Brandon Herrera"
-          ],
-          "percentages": [
-            40.0,
-            42.0
-          ]
+          "candidates": ["Katy Padilla Stout", "Brandon Herrera"],
+          "percentages": [40.0, 42.0]
         }
       ],
       "source_url": "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-tx-23-is-in-play-for-democrats"
@@ -228,10 +222,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_23rd_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:42:25.182558+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

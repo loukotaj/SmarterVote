@@ -7,6 +7,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 ## Architecture
 
 ### Security Model
+
 - **Frontend Authentication**: Auth0 login required for `/admin/*` routes
 - **API Authentication**: JWT token verification for all sensitive admin endpoints
 - **Cloud Run Access**: Public at infrastructure level, secured at application level
@@ -15,23 +16,27 @@ This document describes the Auth0 authentication implementation for the SmarterV
 ### Components
 
 #### 1. Frontend (SvelteKit Web App)
+
 - **Location**: `web/src/lib/auth.ts`
 - **Implementation**: Auth0 SPA SDK integration
 - **Protected Routes**: `/admin` and `/admin/pipeline`
 - **Token Management**: Automatic token refresh with `getTokenSilently()`
 
 #### 2. Races API (FastAPI Backend)
+
 - **Location**: `services/races-api`
 - **Implementation**: JWT verification using `python-jose`
 - **Protected Endpoints**: Admin race, queue, run, analytics, and durable agent endpoints use `dependencies=[Depends(verify_token)]`
 - **Live Updates**: Frontend polls `/runs/{run_id}` and `/runs/{run_id}/logs?since=N`
 
 #### 3. Pipeline Client (Local Runner)
+
 - **Location**: `pipeline_client/backend/main.py`
 - **Implementation**: Same Auth0 helper, normally disabled locally with `SKIP_AUTH=true`
 - **Protected Endpoints**: Local runner/debug endpoints only
 
 #### 4. Infrastructure (Terraform)
+
 - **Location**: `infra/races-api.tf`
 - **Environment Variables**: `AUTH0_DOMAIN`, `AUTH0_AUDIENCE`, `ALLOWED_ORIGINS`
 - **CORS Configuration**: Supports credentials for auth headers
@@ -39,6 +44,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 ## Configuration
 
 ### Frontend Environment Variables
+
 ```bash
 # Production (.env.production)
 VITE_AUTH0_DOMAIN=dev-t37rz-ur.auth0.com
@@ -47,6 +53,7 @@ VITE_RACES_API_URL=https://races-api-dev-ddsvfazica-uc.a.run.app
 ```
 
 ### Terraform Variables
+
 ```hcl
 # secrets.tfvars
 auth0_domain   = "your-auth0-domain"
@@ -55,7 +62,9 @@ allowed_origins = ["https://your-frontend-domain.com"]
 ```
 
 ### API Settings
+
 The protected APIs use environment variables set by Terraform:
+
 - `AUTH0_DOMAIN`: Auth0 tenant domain
 - `AUTH0_AUDIENCE`: API audience identifier
 - `ALLOWED_ORIGINS`: CORS allowed origins (comma-separated)
@@ -82,6 +91,7 @@ All sensitive pipeline endpoints require authentication:
 ```
 
 ### Unprotected Endpoints
+
 - `/health` - Health checks
 - `/` - Root documentation page
 - `/docs`, `/redoc` - API documentation
@@ -89,11 +99,13 @@ All sensitive pipeline endpoints require authentication:
 ## Development vs Production
 
 ### Local Development
+
 - Auth0 variables not set → `verify_token` returns empty dict
 - Allows local development without Auth0 configuration
 - Frontend can still test UI components
 
 ### Production Deployment
+
 - Auth0 variables set via Terraform
 - JWT verification enforced
 - All admin functionality requires authentication
@@ -119,12 +131,14 @@ Expected output: All tests pass (4/4) ✅
 ## Troubleshooting
 
 ### Common Issues
+
 1. **Auth0 Redirect Blocked**: Normal in sandboxed environments
 2. **CORS Errors**: Check `allowed_origins` configuration
 3. **Token Expired**: Frontend handles automatic refresh
 4. **Local Development**: Auth0 variables not needed for local testing
 
 ### Verification Steps
+
 1. Check Terraform outputs for service URLs
 2. Verify environment variables in Cloud Run console
 3. Test API endpoints return 401 without valid token
@@ -133,6 +147,7 @@ Expected output: All tests pass (4/4) ✅
 ## Screenshots
 
 The Auth0 integration is working correctly as evidenced by:
+
 - Admin pages automatically redirect to Auth0 for authentication
 - Browser security correctly blocks external redirects in sandboxed environments
 - This behavior confirms the authentication flow is properly implemented

@@ -73,16 +73,16 @@ Queue a race through the admin UI or `races-api`; a new Firestore document in `p
 
 ## Components
 
-| Component | Default | Purpose |
-|-----------|---------|---------|
-| races-api | enabled | Public race API and admin queue/draft/publish API |
-| Agent Cloud Function | enabled | Processes Firestore `pipeline_queue` documents |
-| Admin Agent Cloud Function | enabled | Processes durable `admin_agent_tasks` with tool calling and continuation |
-| Eventarc trigger | enabled | Invokes the function for each new queue document |
-| Firestore | enabled | Queue items, run records, logs, race metadata |
-| GCS bucket | enabled | Drafts, published races (configured with CORS & IAM rules allowing direct public read access to `races/` folder resources for static serving), checkpoints, retired versions |
-| Secret Manager | enabled | API keys and admin secrets |
-| pipeline-client Cloud Run | disabled | Legacy/debug-only local pipeline server |
+| Component                  | Default  | Purpose                                                                                                                                                                      |
+| -------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| races-api                  | enabled  | Public race API and admin queue/draft/publish API                                                                                                                            |
+| Agent Cloud Function       | enabled  | Processes Firestore `pipeline_queue` documents                                                                                                                               |
+| Admin Agent Cloud Function | enabled  | Processes durable `admin_agent_tasks` with tool calling and continuation                                                                                                     |
+| Eventarc trigger           | enabled  | Invokes the function for each new queue document                                                                                                                             |
+| Firestore                  | enabled  | Queue items, run records, logs, race metadata                                                                                                                                |
+| GCS bucket                 | enabled  | Drafts, published races (configured with CORS & IAM rules allowing direct public read access to `races/` folder resources for static serving), checkpoints, retired versions |
+| Secret Manager             | enabled  | API keys and admin secrets                                                                                                                                                   |
+| pipeline-client Cloud Run  | disabled | Legacy/debug-only local pipeline server                                                                                                                                      |
 
 ## File Structure
 

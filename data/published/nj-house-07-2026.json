@@ -14,14 +14,8 @@
       "sample_size": 0,
       "matchups": [
         {
-          "candidates": [
-            "Rebecca Bennett",
-            "Thomas Kean Jr."
-          ],
-          "percentages": [
-            47.0,
-            43.0
-          ]
+          "candidates": ["Rebecca Bennett", "Thomas Kean Jr."],
+          "percentages": [47.0, 43.0]
         }
       ],
       "source_url": "https://www.insidernj.com/press-release/new-poll-engineer-and-healthcare-leader-rebecca-bennett-leads-republican-tom-kean-jr-in-new-jerseys-7th-congressional-district/"
@@ -249,10 +243,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_7th_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:31:14.082216+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

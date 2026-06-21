@@ -14,14 +14,8 @@
       "sample_size": 836,
       "matchups": [
         {
-          "candidates": [
-            "Josh Shapiro",
-            "Stacy Garrity"
-          ],
-          "percentages": [
-            55.0,
-            37.0
-          ]
+          "candidates": ["Josh Shapiro", "Stacy Garrity"],
+          "percentages": [55.0, 37.0]
         }
       ],
       "source_url": "https://poll.qu.edu/images/polling/pa/pa02252026_pdkl34.pdf"
@@ -32,14 +26,8 @@
       "sample_size": null,
       "matchups": [
         {
-          "candidates": [
-            "Josh Shapiro",
-            "Stacy Garrity"
-          ],
-          "percentages": [
-            53.7,
-            33.7
-          ]
+          "candidates": ["Josh Shapiro", "Stacy Garrity"],
+          "percentages": [53.7, 33.7]
         }
       ],
       "source_url": "https://www.realclearpolling.com/polls/governor/general/2026/pennsylvania/shapiro-vs-garrity"
@@ -990,9 +978,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:31.351293+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://www.pa.gov/agencies/vote/voter-registration",
   "how_to_vote_url": "https://www.pa.gov/agencies/vote",
   "schema_version": "0.3",

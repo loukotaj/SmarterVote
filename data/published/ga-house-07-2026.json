@@ -281,10 +281,7 @@
     }
   ],
   "updated_utc": "2026-06-20T15:33:18.735379+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "pipeline_state": {
     "complete": true,
     "remaining_candidates": [],

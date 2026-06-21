@@ -14,14 +14,8 @@
       "sample_size": 1018,
       "matchups": [
         {
-          "candidates": [
-            "Greg Abbott",
-            "Gina Hinojosa"
-          ],
-          "percentages": [
-            48.0,
-            43.0
-          ]
+          "candidates": ["Greg Abbott", "Gina Hinojosa"],
+          "percentages": [48.0, 43.0]
         }
       ],
       "source_url": "https://www.tpr.org/podcast/the-source/2026-05-17/polls-show-hinojosa-narrowing-abbotts-lead-in-texas-governors-race"
@@ -32,14 +26,8 @@
       "sample_size": null,
       "matchups": [
         {
-          "candidates": [
-            "Greg Abbott",
-            "Gina Hinojosa"
-          ],
-          "percentages": [
-            48.3,
-            41.5
-          ]
+          "candidates": ["Greg Abbott", "Gina Hinojosa"],
+          "percentages": [48.3, 41.5]
         }
       ],
       "source_url": "https://www.realclearpolling.com/polls/governor/general/2026/texas/abbott-vs-hinojosa"
@@ -50,14 +38,8 @@
       "sample_size": null,
       "matchups": [
         {
-          "candidates": [
-            "Greg Abbott",
-            "Gina Hinojosa"
-          ],
-          "percentages": [
-            48.3,
-            41.6
-          ]
+          "candidates": ["Greg Abbott", "Gina Hinojosa"],
+          "percentages": [48.3, 41.6]
         }
       ],
       "source_url": "https://ginafortexas.com/2026/04/new-three-new-polls-show-abbott-stuck-in-the-40s-as-hinojosa-closes-the-gap-statewide-and-surges-with-latino-voters/"
@@ -443,9 +425,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:16:52.529626+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "schema_version": "0.3",
   "reviews": [],
   "validation_grade": null,

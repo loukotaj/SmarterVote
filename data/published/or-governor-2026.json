@@ -14,14 +14,8 @@
       "sample_size": 1065,
       "matchups": [
         {
-          "candidates": [
-            "Tina Kotek",
-            "Christine Drazan"
-          ],
-          "percentages": [
-            45.0,
-            40.0
-          ]
+          "candidates": ["Tina Kotek", "Christine Drazan"],
+          "percentages": [45.0, 40.0]
         }
       ],
       "source_url": "https://www.newsweek.com/christine-drazan-tina-kotek-oregon-governor-race-poll-11972614"
@@ -32,14 +26,8 @@
       "sample_size": 603,
       "matchups": [
         {
-          "candidates": [
-            "Tina Kotek",
-            "Christine Drazan"
-          ],
-          "percentages": [
-            45.0,
-            45.0
-          ]
+          "candidates": ["Tina Kotek", "Christine Drazan"],
+          "percentages": [45.0, 45.0]
         }
       ],
       "source_url": "https://www.newsweek.com/christine-drazan-tina-kotek-oregon-governor-race-poll-11972614"
@@ -281,9 +269,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oregon_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:36.696138+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

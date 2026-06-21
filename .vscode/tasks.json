@@ -1,210 +1,208 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Run All Tests",
-            "type": "shell",
-            "command": "python",
-            "args": ["-m", "pytest", "-v"],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": ["$python"],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Run Pipeline Tests",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "-m",
-                "pytest",
-                "tests",
-                "-v",
-                "--ignore=tests/test_agent_cloud_function.py",
-                "--ignore=tests/test_races_api_admin.py"
-            ],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
-            },
-            "problemMatcher": ["$python"],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Run Service Tests",
-            "type": "shell",
-            "command": "python",
-            "args": ["-m", "pytest", "services/", "-v"],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
-            },
-            "problemMatcher": ["$python"],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Run Integration Tests",
-            "type": "shell",
-            "command": "python",
-            "args": ["-m", "pytest", "tests/", "-v"],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
-            },
-            "problemMatcher": ["$python"],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Run Tests with Coverage",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "-m", "pytest",
-                "--cov=pipeline_client",
-                "--cov=services",
-                "--cov=shared",
-                "--cov-report=html",
-                "--cov-report=term",
-                "-v"
-            ],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
-            },
-            "problemMatcher": ["$python"],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Start Pipeline Client",
-            "type": "shell",
-            "command": "powershell",
-            "args": [
-                "-ExecutionPolicy", "Bypass",
-                "-File", ".\\start.ps1"
-            ],
-            "group": "build",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": true,
-                "panel": "new"
-            },
-            "options": {
-                "cwd": "${workspaceFolder}\\pipeline_client"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Start All Services",
-            "type": "shell",
-            "dependsOn": [
-                "Start Pipeline Client",
-                "Start Web Frontend Only",
-                "Start Races API Only"
-            ],
-            "group": "build",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
-            },
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Start Races API Only",
-            "type": "shell",
-            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-            "args": ["main.py"],
-            "group": "build",
-            "isBackground": true,
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new"
-            },
-            "options": {
-                "cwd": "${workspaceFolder}/services/races-api",
-                "env": {
-                    "PYTHONPATH": "${workspaceFolder}",
-                    "DATA_DIR": "${workspaceFolder}\\data\\published"
-                }
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "Start Web Frontend Only",
-            "type": "shell",
-            "command": "npm",
-            "args": ["run", "dev"],
-            "group": "build",
-            "isBackground": true,
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new"
-            },
-            "options": {
-                "cwd": "${workspaceFolder}/web"
-            },
-            "runOptions": {
-                "instanceLimit": 1
-            }
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run All Tests",
+      "type": "shell",
+      "command": "python",
+      "args": ["-m", "pytest", "-v"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$python"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Run Pipeline Tests",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "-m",
+        "pytest",
+        "tests",
+        "-v",
+        "--ignore=tests/test_agent_cloud_function.py",
+        "--ignore=tests/test_races_api_admin.py"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": ["$python"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Run Service Tests",
+      "type": "shell",
+      "command": "python",
+      "args": ["-m", "pytest", "services/", "-v"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": ["$python"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Run Integration Tests",
+      "type": "shell",
+      "command": "python",
+      "args": ["-m", "pytest", "tests/", "-v"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": ["$python"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Run Tests with Coverage",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "-m",
+        "pytest",
+        "--cov=pipeline_client",
+        "--cov=services",
+        "--cov=shared",
+        "--cov-report=html",
+        "--cov-report=term",
+        "-v"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": ["$python"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Start Pipeline Client",
+      "type": "shell",
+      "command": "powershell",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", ".\\start.ps1"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}\\pipeline_client"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Start All Services",
+      "type": "shell",
+      "dependsOn": [
+        "Start Pipeline Client",
+        "Start Web Frontend Only",
+        "Start Races API Only"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Start Races API Only",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["main.py"],
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/services/races-api",
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}",
+          "DATA_DIR": "${workspaceFolder}\\data\\published"
         }
-    ]
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Start Web Frontend Only",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "dev"],
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/web"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    }
+  ]
 }

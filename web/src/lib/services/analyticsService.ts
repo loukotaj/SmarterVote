@@ -19,12 +19,12 @@ const API_BASE = racesApiBase();
 
 async function fetchAdmin<T>(
   path: string,
-  params?: Record<string, string | number>,
+  params?: Record<string, string | number>
 ): Promise<T> {
   const url = new URL(`${API_BASE}${path}`);
   if (params) {
     Object.entries(params).forEach(([k, v]) =>
-      url.searchParams.set(k, String(v)),
+      url.searchParams.set(k, String(v))
     );
   }
   const resp = await fetchWithAuth(url.toString(), {
@@ -46,17 +46,17 @@ export const analyticsService = {
   },
 
   async getRaces(
-    hours = 24,
+    hours = 24
   ): Promise<{ races: RaceAnalytics[]; hours: number }> {
     return fetchAdmin<{ races: RaceAnalytics[]; hours: number }>(
       "/analytics/races",
-      { hours },
+      { hours }
     );
   },
 
   async getTimeseries(
     hours = 24,
-    bucket = 60,
+    bucket = 60
   ): Promise<{ timeseries: { time: string; requests: number }[] }> {
     return fetchAdmin("/analytics/timeseries", { hours, bucket });
   },
@@ -75,7 +75,7 @@ export const analyticsService = {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-      },
+      }
     );
     if (!resp.ok) throw new Error(`Acknowledge failed ${resp.status}`);
   },
@@ -90,20 +90,20 @@ export const analyticsService = {
   },
 
   async getPipelineMetrics(
-    limit = 50,
+    limit = 50
   ): Promise<{ records: PipelineRunRecord[]; count: number }> {
     return fetchAdmin<{ records: PipelineRunRecord[]; count: number }>(
       "/pipeline/metrics",
-      { limit },
+      { limit }
     );
   },
 
   async getPipelineMetricsSummary(
-    hours?: number,
+    hours?: number
   ): Promise<PipelineMetricsSummary> {
     return fetchAdmin<PipelineMetricsSummary>(
       "/pipeline/metrics/summary",
-      hours ? { hours } : undefined,
+      hours ? { hours } : undefined
     );
   },
 };

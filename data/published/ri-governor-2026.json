@@ -14,14 +14,8 @@
       "sample_size": 565,
       "matchups": [
         {
-          "candidates": [
-            "Helena Foulkes",
-            "Dan McKee"
-          ],
-          "percentages": [
-            40.0,
-            20.0
-          ]
+          "candidates": ["Helena Foulkes", "Dan McKee"],
+          "percentages": [40.0, 20.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/rhode-island-2026-helena-foulkes-leads-incumbent-governor-mckee-in-democratic-primary/"
@@ -562,9 +556,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Rhode_Island_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:12.984382+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

@@ -231,10 +231,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_3rd_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:20:54.861242+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "reviews": [],
   "validation_grade": null,

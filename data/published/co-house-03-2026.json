@@ -14,14 +14,8 @@
       "sample_size": 400,
       "matchups": [
         {
-          "candidates": [
-            "Jeff Hurd",
-            "Alex Kelloff"
-          ],
-          "percentages": [
-            46.0,
-            41.0
-          ]
+          "candidates": ["Jeff Hurd", "Alex Kelloff"],
+          "percentages": [46.0, 41.0]
         }
       ],
       "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado"
@@ -32,14 +26,8 @@
       "sample_size": 400,
       "matchups": [
         {
-          "candidates": [
-            "Jeff Hurd",
-            "Alex Kelloff"
-          ],
-          "percentages": [
-            48.0,
-            39.0
-          ]
+          "candidates": ["Jeff Hurd", "Alex Kelloff"],
+          "percentages": [48.0, 39.0]
         }
       ],
       "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado"
@@ -461,10 +449,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_3rd_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:24:30.878968+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

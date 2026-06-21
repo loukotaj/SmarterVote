@@ -17,18 +17,18 @@ You are a specialized agent for editing the SmarterVote AI research pipeline. Yo
 
 ## Your World
 
-| File | Purpose |
-|------|---------|
-| `pipeline_client/agent/agent.py` | Main agent loop — phase orchestration |
-| `pipeline_client/agent/prompts.py` | All LLM prompt templates |
-| `pipeline_client/agent/tools.py` | Tool definitions fed to the LLM |
-| `pipeline_client/agent/handlers.py` | LLM request/response parsing |
-| `pipeline_client/agent/review.py` | Multi-LLM review (Claude/Gemini/Grok) |
-| `pipeline_client/agent/images.py` | Candidate image resolution |
-| `pipeline_client/agent/ballotpedia.py` | Ballotpedia scraping |
-| `pipeline_client/agent/search_cache.py` | SQLite search cache (7-day TTL) |
-| `pipeline_client/agent/cost.py` | Token counting and cost tracking |
-| `shared/models.py` | RaceJSON v0.3 Pydantic models |
+| File                                    | Purpose                               |
+| --------------------------------------- | ------------------------------------- |
+| `pipeline_client/agent/agent.py`        | Main agent loop — phase orchestration |
+| `pipeline_client/agent/prompts.py`      | All LLM prompt templates              |
+| `pipeline_client/agent/tools.py`        | Tool definitions fed to the LLM       |
+| `pipeline_client/agent/handlers.py`     | LLM request/response parsing          |
+| `pipeline_client/agent/review.py`       | Multi-LLM review (Claude/Gemini/Grok) |
+| `pipeline_client/agent/images.py`       | Candidate image resolution            |
+| `pipeline_client/agent/ballotpedia.py`  | Ballotpedia scraping                  |
+| `pipeline_client/agent/search_cache.py` | SQLite search cache (7-day TTL)       |
+| `pipeline_client/agent/cost.py`         | Token counting and cost tracking      |
+| `shared/models.py`                      | RaceJSON v0.3 Pydantic models         |
 
 ## Key Rules
 

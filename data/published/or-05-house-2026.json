@@ -950,10 +950,7 @@
     }
   ],
   "updated_utc": "2026-06-20T15:21:04.491001+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
@@ -1080,9 +1077,7 @@
     "based_on_poll_count": 0,
     "generated_at": "2026-06-20T15:20:56.233641Z",
     "model": "deepseek/deepseek-v4-flash",
-    "source_urls": [
-      "https://www.cookpolitical.com/house/race/483901"
-    ]
+    "source_urls": ["https://www.cookpolitical.com/house/race/483901"]
   },
   "pipeline_state": {
     "complete": true,

@@ -14,14 +14,8 @@
       "sample_size": 400,
       "matchups": [
         {
-          "candidates": [
-            "Janelle Stelson",
-            "Scott Perry"
-          ],
-          "percentages": [
-            51.0,
-            45.0
-          ]
+          "candidates": ["Janelle Stelson", "Scott Perry"],
+          "percentages": [51.0, 45.0]
         }
       ],
       "source_url": "https://www.inquirer.com/politics/election/live/pennsylvania-primary-election-2026-results-house-20260520.html"
@@ -251,10 +245,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_10th_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:30:07.780587+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

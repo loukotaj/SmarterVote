@@ -1441,9 +1441,7 @@
     }
   ],
   "updated_utc": "2026-06-20T02:56:03.009834+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "pipeline_state": {
     "complete": true,
     "remaining_candidates": [],
@@ -1504,16 +1502,8 @@
       "sample_size": 670,
       "matchups": [
         {
-          "candidates": [
-            "Jim Pillen",
-            "Lynne Walz",
-            "Rick Beard"
-          ],
-          "percentages": [
-            38.0,
-            33.0,
-            12.0
-          ]
+          "candidates": ["Jim Pillen", "Lynne Walz", "Rick Beard"],
+          "percentages": [38.0, 33.0, 12.0]
         }
       ],
       "source_url": "https://journalstar.com/news/state-regional/government-politics/article_5e6da6c8-4a2e-5ffa-b575-7beb4228ac16.html?mode=nowapp"

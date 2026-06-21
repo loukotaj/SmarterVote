@@ -828,9 +828,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
   "updated_utc": "2026-06-20T03:17:01.231411+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://ova.elections.il.gov/",
   "how_to_vote_url": "https://www.elections.il.gov/VotingAndRegistrationSystems/VotingInformation.aspx",
   "schema_version": "0.3",

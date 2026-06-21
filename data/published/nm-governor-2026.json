@@ -181,9 +181,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/New_Mexico_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:58.491521+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

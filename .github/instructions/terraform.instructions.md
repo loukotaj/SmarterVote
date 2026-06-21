@@ -29,6 +29,7 @@ applyTo: "infra/**/*.tf"
 Every push to `main` auto-deploys via CD workflow. For manual deploys see `docs/deployment-guide.md`.
 
 Validate before committing:
+
 ```bash
 cd infra && terraform fmt -recursive && terraform init -backend=false && terraform validate
 ```

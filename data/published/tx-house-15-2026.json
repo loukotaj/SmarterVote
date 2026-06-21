@@ -14,14 +14,8 @@
       "sample_size": 600,
       "matchups": [
         {
-          "candidates": [
-            "Bobby Pulido",
-            "Monica De La Cruz"
-          ],
-          "percentages": [
-            38.0,
-            41.0
-          ]
+          "candidates": ["Bobby Pulido", "Monica De La Cruz"],
+          "percentages": [38.0, 41.0]
         }
       ],
       "source_url": "https://www.thehousemajoritypac.com/news/new-hmp-polling-shows-bobby-pulido-in-close-race-with-monica-de-la-cruz-in-tx-15"
@@ -194,10 +188,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_15th_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:38:02.865778+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

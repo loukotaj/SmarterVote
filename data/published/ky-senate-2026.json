@@ -14,16 +14,8 @@
       "sample_size": 1050,
       "matchups": [
         {
-          "candidates": [
-            "Andy Barr",
-            "Daniel Cameron",
-            "Nate Morris"
-          ],
-          "percentages": [
-            28.0,
-            21.0,
-            15.0
-          ]
+          "candidates": ["Andy Barr", "Daniel Cameron", "Nate Morris"],
+          "percentages": [28.0, 21.0, 15.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/kentucky-2026-poll-barr-maintains-edge-in-gop-primary-as-booker-gains-among-democratic-voters/"
@@ -34,16 +26,8 @@
       "sample_size": 600,
       "matchups": [
         {
-          "candidates": [
-            "Andy Barr",
-            "Daniel Cameron",
-            "Nate Morris"
-          ],
-          "percentages": [
-            28.0,
-            21.0,
-            18.0
-          ]
+          "candidates": ["Andy Barr", "Daniel Cameron", "Nate Morris"],
+          "percentages": [28.0, 21.0, 18.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/kentucky-2026-poll-barr-maintains-edge-in-gop-primary-as-booker-gains-among-democratic-voters/"
@@ -2824,9 +2808,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026",
   "updated_utc": "2026-06-20T03:17:02.955169+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://vrsws.sos.ky.gov/ovrweb/",
   "how_to_vote_url": "https://elect.ky.gov/Voters/Pages/default.aspx",
   "schema_version": "0.3",

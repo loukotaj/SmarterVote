@@ -14,14 +14,8 @@
       "sample_size": 585,
       "matchups": [
         {
-          "candidates": [
-            "Brian Fitzpatrick",
-            "Bob Harvie"
-          ],
-          "percentages": [
-            41.0,
-            41.0
-          ]
+          "candidates": ["Brian Fitzpatrick", "Bob Harvie"],
+          "percentages": [41.0, 41.0]
         }
       ],
       "source_url": "https://www.notus.org/campaigns/brian-fitzpatrick-democratic-challenger-bob-harvie-poll-race"
@@ -32,14 +26,8 @@
       "sample_size": 400,
       "matchups": [
         {
-          "candidates": [
-            "Brian Fitzpatrick",
-            "Bob Harvie"
-          ],
-          "percentages": [
-            48.0,
-            42.0
-          ]
+          "candidates": ["Brian Fitzpatrick", "Bob Harvie"],
+          "percentages": [48.0, 42.0]
         }
       ],
       "source_url": "https://politicspa.com/can-bob-harvie-end-brian-fitzpatricks-tenure-in-congress/146005/"
@@ -270,10 +258,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_1st_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:38:25.827642+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

@@ -250,9 +250,7 @@
     }
   ],
   "updated_utc": "2026-06-20T03:18:16.427867+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "forecast": {
     "predicted_winner_name": "Mike Lee",
     "predicted_winner_party": "Republican Party",

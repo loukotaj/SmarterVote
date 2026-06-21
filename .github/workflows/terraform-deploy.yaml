@@ -9,23 +9,23 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to deploy (dev/staging/prod)'
+        description: "Environment to deploy (dev/staging/prod)"
         required: true
-        default: 'dev'
+        default: "dev"
         type: choice
         options:
-        - dev
-        - staging
-        - prod
+          - dev
+          - staging
+          - prod
       action:
-        description: 'Action to perform'
+        description: "Action to perform"
         required: true
-        default: 'plan'
+        default: "plan"
         type: choice
         options:
-        - plan
-        - apply
-        - rollback
+          - plan
+          - apply
+          - rollback
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -48,46 +48,46 @@ jobs:
             dockerfile: services/races-api/Dockerfile
             context: .
     steps:
-    - uses: actions/checkout@v5
-      with:
-        ref: ${{ env.DEPLOY_SHA }}
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.DEPLOY_SHA }}
 
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v3
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: Setup Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v3
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
 
-    - name: Configure Docker for Artifact Registry
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+      - name: Configure Docker for Artifact Registry
+        if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
-    - name: Ensure Artifact Registry repository exists
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      run: |
-        if ! gcloud artifacts repositories describe smartervote-${{ env.ENVIRONMENT }} \
-             --location=${{ env.REGION }} --project=${{ env.PROJECT_ID }} > /dev/null 2>&1; then
-          echo "Creating Artifact Registry repository smartervote-${{ env.ENVIRONMENT }}..."
-          gcloud artifacts repositories create smartervote-${{ env.ENVIRONMENT }} \
-            --repository-format=docker \
-            --location=${{ env.REGION }} \
-            --project=${{ env.PROJECT_ID }} \
-            --description="SmarterVote container images for ${{ env.ENVIRONMENT }} environment"
-        else
-          echo "Artifact Registry repository smartervote-${{ env.ENVIRONMENT }} already exists."
-        fi
+      - name: Ensure Artifact Registry repository exists
+        if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+        run: |
+          if ! gcloud artifacts repositories describe smartervote-${{ env.ENVIRONMENT }} \
+               --location=${{ env.REGION }} --project=${{ env.PROJECT_ID }} > /dev/null 2>&1; then
+            echo "Creating Artifact Registry repository smartervote-${{ env.ENVIRONMENT }}..."
+            gcloud artifacts repositories create smartervote-${{ env.ENVIRONMENT }} \
+              --repository-format=docker \
+              --location=${{ env.REGION }} \
+              --project=${{ env.PROJECT_ID }} \
+              --description="SmarterVote container images for ${{ env.ENVIRONMENT }} environment"
+          else
+            echo "Artifact Registry repository smartervote-${{ env.ENVIRONMENT }} already exists."
+          fi
 
-    - name: Build and Push ${{ matrix.container.name }}
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      run: |
-        docker build -f ${{ matrix.container.dockerfile }} \
-                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }} \
-                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest \
-                     ${{ matrix.container.context }}
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }}
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest
+      - name: Build and Push ${{ matrix.container.name }}
+        if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+        run: |
+          docker build -f ${{ matrix.container.dockerfile }} \
+                       -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }} \
+                       -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest \
+                       ${{ matrix.container.context }}
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }}
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest
 
   deploy-terraform:
     name: Deploy Infrastructure
@@ -111,227 +111,227 @@ jobs:
       TF_VAR_cloudflare_analytics_site_tag: ${{ vars.CLOUDFLARE_ANALYTICS_SITE_TAG }}
 
     steps:
-    - uses: actions/checkout@v5
-      with:
-        ref: ${{ env.DEPLOY_SHA }}
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.DEPLOY_SHA }}
 
-    - name: Validate required secrets
-      env:
-        REQUIRED_GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
-        REQUIRED_GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-        REQUIRED_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        REQUIRED_SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
-        REQUIRED_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
-        REQUIRED_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
-        REQUIRED_ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
-        REQUIRED_CLOUDFLARE_ANALYTICS_API_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
-        REQUIRED_CLOUDFLARE_ANALYTICS_ACCOUNT_TAG: ${{ vars.CLOUDFLARE_ANALYTICS_ACCOUNT_TAG }}
-        REQUIRED_CLOUDFLARE_ANALYTICS_SITE_TAG: ${{ vars.CLOUDFLARE_ANALYTICS_SITE_TAG }}
-      run: |
-        MISSING=()
-        [ -z "$REQUIRED_GCP_PROJECT_ID" ]    && MISSING+=("GCP_PROJECT_ID")
-        [ -z "$REQUIRED_GCP_SA_KEY" ]        && MISSING+=("GCP_SA_KEY")
-        [ -z "$REQUIRED_OPENROUTER_API_KEY" ] && MISSING+=("OPENROUTER_API_KEY")
-        [ -z "$REQUIRED_SERPER_API_KEY" ]    && MISSING+=("SERPER_API_KEY")
-        [ -z "$REQUIRED_AUTH0_DOMAIN" ]      && MISSING+=("AUTH0_DOMAIN")
-        [ -z "$REQUIRED_AUTH0_AUDIENCE" ]    && MISSING+=("AUTH0_AUDIENCE")
-        [ -z "$REQUIRED_ADMIN_API_KEY" ]      && MISSING+=("ADMIN_API_KEY")
-        [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_API_TOKEN" ] && MISSING+=("CLOUDFLARE_ANALYTICS_API_TOKEN")
-        [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_ACCOUNT_TAG" ] && MISSING+=("CLOUDFLARE_ANALYTICS_ACCOUNT_TAG")
-        [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_SITE_TAG" ] && MISSING+=("CLOUDFLARE_ANALYTICS_SITE_TAG")
+      - name: Validate required secrets
+        env:
+          REQUIRED_GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          REQUIRED_GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          REQUIRED_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          REQUIRED_SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+          REQUIRED_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          REQUIRED_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          REQUIRED_ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+          REQUIRED_CLOUDFLARE_ANALYTICS_API_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
+          REQUIRED_CLOUDFLARE_ANALYTICS_ACCOUNT_TAG: ${{ vars.CLOUDFLARE_ANALYTICS_ACCOUNT_TAG }}
+          REQUIRED_CLOUDFLARE_ANALYTICS_SITE_TAG: ${{ vars.CLOUDFLARE_ANALYTICS_SITE_TAG }}
+        run: |
+          MISSING=()
+          [ -z "$REQUIRED_GCP_PROJECT_ID" ]    && MISSING+=("GCP_PROJECT_ID")
+          [ -z "$REQUIRED_GCP_SA_KEY" ]        && MISSING+=("GCP_SA_KEY")
+          [ -z "$REQUIRED_OPENROUTER_API_KEY" ] && MISSING+=("OPENROUTER_API_KEY")
+          [ -z "$REQUIRED_SERPER_API_KEY" ]    && MISSING+=("SERPER_API_KEY")
+          [ -z "$REQUIRED_AUTH0_DOMAIN" ]      && MISSING+=("AUTH0_DOMAIN")
+          [ -z "$REQUIRED_AUTH0_AUDIENCE" ]    && MISSING+=("AUTH0_AUDIENCE")
+          [ -z "$REQUIRED_ADMIN_API_KEY" ]      && MISSING+=("ADMIN_API_KEY")
+          [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_API_TOKEN" ] && MISSING+=("CLOUDFLARE_ANALYTICS_API_TOKEN")
+          [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_ACCOUNT_TAG" ] && MISSING+=("CLOUDFLARE_ANALYTICS_ACCOUNT_TAG")
+          [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_SITE_TAG" ] && MISSING+=("CLOUDFLARE_ANALYTICS_SITE_TAG")
 
-        if [ ${#MISSING[@]} -ne 0 ]; then
-          echo "::error::Required GitHub secrets are missing: ${MISSING[*]}"
-          echo "These secrets must be set in GitHub repo settings before deploying."
-          echo "Missing secrets would cause Cloud Run services to start without"
-          echo "required env vars, leading to silent fallbacks or crashes."
-          exit 1
-        fi
-        echo "✅ All required secrets are configured"
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v4
-      with:
-        terraform_version: 1.9.0
-
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v3
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-    - name: Setup Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v3
-
-    - name: Sync API keys to Secret Manager
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      env:
-        OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
-        ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
-        CLOUDFLARE_ANALYTICS_API_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
-      run: |
-        sync_secret() {
-          local name="$1"
-          local value="$2"
-          if [ -z "$value" ]; then
-            echo "Skipping $name (not set)"
-            return
+          if [ ${#MISSING[@]} -ne 0 ]; then
+            echo "::error::Required GitHub secrets are missing: ${MISSING[*]}"
+            echo "These secrets must be set in GitHub repo settings before deploying."
+            echo "Missing secrets would cause Cloud Run services to start without"
+            echo "required env vars, leading to silent fallbacks or crashes."
+            exit 1
           fi
-          if ! gcloud secrets describe "$name" --project=${{ env.PROJECT_ID }} >/dev/null 2>&1; then
-            echo "$name does not exist yet; Terraform will create it"
-            return
+          echo "✅ All required secrets are configured"
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.9.0
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Sync API keys to Secret Manager
+        if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+          ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+          CLOUDFLARE_ANALYTICS_API_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
+        run: |
+          sync_secret() {
+            local name="$1"
+            local value="$2"
+            if [ -z "$value" ]; then
+              echo "Skipping $name (not set)"
+              return
+            fi
+            if ! gcloud secrets describe "$name" --project=${{ env.PROJECT_ID }} >/dev/null 2>&1; then
+              echo "$name does not exist yet; Terraform will create it"
+              return
+            fi
+            # Get the current latest value and compare
+            current=$(gcloud secrets versions access latest --secret="$name" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
+            if [ "$current" = "$value" ]; then
+              echo "$name is already up to date"
+            else
+              echo "Updating $name..."
+              echo -n "$value" | gcloud secrets versions add "$name" --data-file=- --project=${{ env.PROJECT_ID }}
+            fi
+          }
+          sync_secret "openrouter-api-key-${{ env.ENVIRONMENT }}" "$OPENROUTER_API_KEY"
+          sync_secret "serper-api-key-${{ env.ENVIRONMENT }}"   "$SERPER_API_KEY"
+          sync_secret "races-api-admin-key-${{ env.ENVIRONMENT }}" "$ADMIN_API_KEY"
+          sync_secret "cloudflare-analytics-api-token-${{ env.ENVIRONMENT }}" "$CLOUDFLARE_ANALYTICS_API_TOKEN"
+
+      - name: Check if state bucket exists
+        run: |
+          if ! gsutil ls -b gs://smartervote-terraform-state >/dev/null 2>&1; then
+            echo "Creating Terraform state bucket..."
+            gsutil mb -p ${{ env.PROJECT_ID }} -l ${{ env.REGION }} gs://smartervote-terraform-state
+            gsutil versioning set on gs://smartervote-terraform-state
           fi
-          # Get the current latest value and compare
-          current=$(gcloud secrets versions access latest --secret="$name" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
-          if [ "$current" = "$value" ]; then
-            echo "$name is already up to date"
-          else
-            echo "Updating $name..."
-            echo -n "$value" | gcloud secrets versions add "$name" --data-file=- --project=${{ env.PROJECT_ID }}
+
+      - name: Diagnose IAM identity and permissions
+        run: |
+          echo "=== Active identity ==="
+          gcloud auth list
+
+          ACTIVE=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
+          echo "Active account: $ACTIVE"
+
+          echo ""
+          echo "=== IAM roles bound to active account ==="
+          gcloud projects get-iam-policy ${{ env.PROJECT_ID }} \
+            --flatten="bindings[].members" \
+            --filter="bindings.members:$ACTIVE" \
+            --format="table(bindings.role)"
+
+      - name: Build Cloud Function source zip
+        run: |
+          STAGING=$(mktemp -d)
+          cp functions/agent/main.py "$STAGING/"
+          cp functions/agent/requirements.txt "$STAGING/"
+          # Copy pipeline_client and shared packages (these are imported by the CF at runtime)
+          cp -r pipeline_client "$STAGING/pipeline_client"
+          cp -r shared "$STAGING/shared"
+          # Strip compiled artifacts and runtime-only dirs to keep the zip lean
+          find "$STAGING" -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+          find "$STAGING" -name "*.pyc" -delete
+          find "$STAGING" -name "*.egg-info" -type d -exec rm -rf {} + 2>/dev/null || true
+          rm -rf "$STAGING/pipeline_client/artifacts" "$STAGING/pipeline_client/runs" 2>/dev/null || true
+          # Create zip in infra/ so Terraform can reference it with path.module
+          (cd "$STAGING" && zip -qr "$GITHUB_WORKSPACE/infra/functions-agent-source.zip" .)
+          rm -rf "$STAGING"
+          echo "✅ CF source zip built: $(du -h "$GITHUB_WORKSPACE/infra/functions-agent-source.zip" | cut -f1)"
+
+      - name: Build Admin Agent Function source zip
+        run: |
+          STAGING=$(mktemp -d)
+          cp functions/admin_agent/main.py "$STAGING/"
+          cp functions/admin_agent/requirements.txt "$STAGING/"
+          (cd "$STAGING" && zip -qr "$GITHUB_WORKSPACE/infra/functions-admin-agent-source.zip" .)
+          rm -rf "$STAGING"
+          echo "Admin agent function source zip built"
+
+      - name: Terraform Init
+        run: |
+          cd infra
+          terraform init -reconfigure
+
+      - name: Store Current State (for rollback)
+        if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
+        run: |
+          cd infra
+          if [ -f "terraform.tfstate" ]; then
+            BACKUP_FILE="terraform-state-backup-$(date +%Y%m%d-%H%M%S).json"
+            terraform show -json > "../$BACKUP_FILE"
+            echo "BACKUP_FILE=$BACKUP_FILE" >> $GITHUB_ENV
           fi
-        }
-        sync_secret "openrouter-api-key-${{ env.ENVIRONMENT }}" "$OPENROUTER_API_KEY"
-        sync_secret "serper-api-key-${{ env.ENVIRONMENT }}"   "$SERPER_API_KEY"
-        sync_secret "races-api-admin-key-${{ env.ENVIRONMENT }}" "$ADMIN_API_KEY"
-        sync_secret "cloudflare-analytics-api-token-${{ env.ENVIRONMENT }}" "$CLOUDFLARE_ANALYTICS_API_TOKEN"
 
-    - name: Check if state bucket exists
-      run: |
-        if ! gsutil ls -b gs://smartervote-terraform-state >/dev/null 2>&1; then
-          echo "Creating Terraform state bucket..."
-          gsutil mb -p ${{ env.PROJECT_ID }} -l ${{ env.REGION }} gs://smartervote-terraform-state
-          gsutil versioning set on gs://smartervote-terraform-state
-        fi
+      - name: Terraform Validate
+        run: |
+          cd infra
+          terraform validate
 
-    - name: Diagnose IAM identity and permissions
-      run: |
-        echo "=== Active identity ==="
-        gcloud auth list
+      - name: Terraform Plan
+        if: env.ACTION != 'rollback'
+        run: |
+          cd infra
+          terraform plan -out=tfplan
+          terraform show -json tfplan > ../terraform-plan.json
 
-        ACTIVE=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
-        echo "Active account: $ACTIVE"
+      - name: Upload Plan Artifact
+        if: env.ACTION == 'plan'
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan-${{ env.ENVIRONMENT }}
+          path: terraform-plan.json
+          retention-days: 30
 
-        echo ""
-        echo "=== IAM roles bound to active account ==="
-        gcloud projects get-iam-policy ${{ env.PROJECT_ID }} \
-          --flatten="bindings[].members" \
-          --filter="bindings.members:$ACTIVE" \
-          --format="table(bindings.role)"
+      - name: Terraform Apply
+        if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
+        run: |
+          cd infra
+          terraform apply -auto-approve tfplan
 
-    - name: Build Cloud Function source zip
-      run: |
-        STAGING=$(mktemp -d)
-        cp functions/agent/main.py "$STAGING/"
-        cp functions/agent/requirements.txt "$STAGING/"
-        # Copy pipeline_client and shared packages (these are imported by the CF at runtime)
-        cp -r pipeline_client "$STAGING/pipeline_client"
-        cp -r shared "$STAGING/shared"
-        # Strip compiled artifacts and runtime-only dirs to keep the zip lean
-        find "$STAGING" -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
-        find "$STAGING" -name "*.pyc" -delete
-        find "$STAGING" -name "*.egg-info" -type d -exec rm -rf {} + 2>/dev/null || true
-        rm -rf "$STAGING/pipeline_client/artifacts" "$STAGING/pipeline_client/runs" 2>/dev/null || true
-        # Create zip in infra/ so Terraform can reference it with path.module
-        (cd "$STAGING" && zip -qr "$GITHUB_WORKSPACE/infra/functions-agent-source.zip" .)
-        rm -rf "$STAGING"
-        echo "✅ CF source zip built: $(du -h "$GITHUB_WORKSPACE/infra/functions-agent-source.zip" | cut -f1)"
+      - name: Manual Rollback
+        if: env.ACTION == 'rollback'
+        run: |
+          cd infra
+          echo "🔄 Performing manual rollback..."
+          PREV_COMMIT=$(git log --oneline -n 2 --format="%H" -- . | tail -n 1)
+          git checkout $PREV_COMMIT -- .
+          terraform init -reconfigure
+          terraform plan -out=rollback-plan
+          terraform apply -auto-approve rollback-plan
 
-    - name: Build Admin Agent Function source zip
-      run: |
-        STAGING=$(mktemp -d)
-        cp functions/admin_agent/main.py "$STAGING/"
-        cp functions/admin_agent/requirements.txt "$STAGING/"
-        (cd "$STAGING" && zip -qr "$GITHUB_WORKSPACE/infra/functions-admin-agent-source.zip" .)
-        rm -rf "$STAGING"
-        echo "Admin agent function source zip built"
+      - name: Upload State Backup
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-state-backup-${{ env.ENVIRONMENT }}-${{ env.DEPLOY_SHA }}
+          path: terraform-state-backup-*.json
+          retention-days: 30
+          if-no-files-found: ignore
 
-    - name: Terraform Init
-      run: |
-        cd infra
-        terraform init -reconfigure
-
-    - name: Store Current State (for rollback)
-      if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
-      run: |
-        cd infra
-        if [ -f "terraform.tfstate" ]; then
-          BACKUP_FILE="terraform-state-backup-$(date +%Y%m%d-%H%M%S).json"
-          terraform show -json > "../$BACKUP_FILE"
-          echo "BACKUP_FILE=$BACKUP_FILE" >> $GITHUB_ENV
-        fi
-
-    - name: Terraform Validate
-      run: |
-        cd infra
-        terraform validate
-
-    - name: Terraform Plan
-      if: env.ACTION != 'rollback'
-      run: |
-        cd infra
-        terraform plan -out=tfplan
-        terraform show -json tfplan > ../terraform-plan.json
-
-    - name: Upload Plan Artifact
-      if: env.ACTION == 'plan'
-      uses: actions/upload-artifact@v4
-      with:
-        name: terraform-plan-${{ env.ENVIRONMENT }}
-        path: terraform-plan.json
-        retention-days: 30
-
-    - name: Terraform Apply
-      if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
-      run: |
-        cd infra
-        terraform apply -auto-approve tfplan
-
-    - name: Manual Rollback
-      if: env.ACTION == 'rollback'
-      run: |
-        cd infra
-        echo "🔄 Performing manual rollback..."
-        PREV_COMMIT=$(git log --oneline -n 2 --format="%H" -- . | tail -n 1)
-        git checkout $PREV_COMMIT -- .
-        terraform init -reconfigure
-        terraform plan -out=rollback-plan
-        terraform apply -auto-approve rollback-plan
-
-    - name: Upload State Backup
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: terraform-state-backup-${{ env.ENVIRONMENT }}-${{ env.DEPLOY_SHA }}
-        path: terraform-state-backup-*.json
-        retention-days: 30
-        if-no-files-found: ignore
-
-    - name: Output Infrastructure Summary
-      if: always()
-      run: |
-        cd infra
-        echo "## 🚀 SmarterVote Infrastructure Deployment" >> $GITHUB_STEP_SUMMARY
-        echo "- **Environment**: ${{ env.ENVIRONMENT }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Action**: ${{ env.ACTION }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Project**: ${{ env.PROJECT_ID }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Region**: ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Version**: ${{ env.TF_VAR_app_version }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Timestamp**: $(date -u)" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-
-        if [ "${{ env.ACTION }}" = "apply" ] || [ "${{ env.ACTION }}" = "rollback" ]; then
-          echo "### 📋 Infrastructure Outputs" >> $GITHUB_STEP_SUMMARY
-          terraform output -json | jq -r 'to_entries[] | "- **\(.key)**: \(.value.value)"' >> $GITHUB_STEP_SUMMARY || echo "- No outputs available" >> $GITHUB_STEP_SUMMARY
+      - name: Output Infrastructure Summary
+        if: always()
+        run: |
+          cd infra
+          echo "## 🚀 SmarterVote Infrastructure Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: ${{ env.ENVIRONMENT }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action**: ${{ env.ACTION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Project**: ${{ env.PROJECT_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Region**: ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ env.TF_VAR_app_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Timestamp**: $(date -u)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          echo "### 🔗 Quick Links" >> $GITHUB_STEP_SUMMARY
-          echo "- [GCP Console](https://console.cloud.google.com/home/dashboard?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-          echo "- [Cloud Run Services](https://console.cloud.google.com/run?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-          echo "- [Storage Buckets](https://console.cloud.google.com/storage/browser?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-          echo "- [Terraform State](https://console.cloud.google.com/storage/browser/smartervote-terraform-state?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-        fi
+          if [ "${{ env.ACTION }}" = "apply" ] || [ "${{ env.ACTION }}" = "rollback" ]; then
+            echo "### 📋 Infrastructure Outputs" >> $GITHUB_STEP_SUMMARY
+            terraform output -json | jq -r 'to_entries[] | "- **\(.key)**: \(.value.value)"' >> $GITHUB_STEP_SUMMARY || echo "- No outputs available" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
 
-    - name: Clean up secrets
-      run: |
-        cd infra
-        rm -f github-actions.tfvars
+            echo "### 🔗 Quick Links" >> $GITHUB_STEP_SUMMARY
+            echo "- [GCP Console](https://console.cloud.google.com/home/dashboard?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+            echo "- [Cloud Run Services](https://console.cloud.google.com/run?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+            echo "- [Storage Buckets](https://console.cloud.google.com/storage/browser?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+            echo "- [Terraform State](https://console.cloud.google.com/storage/browser/smartervote-terraform-state?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Clean up secrets
+        run: |
+          cd infra
+          rm -f github-actions.tfvars

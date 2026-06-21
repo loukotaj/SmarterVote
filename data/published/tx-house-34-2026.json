@@ -14,14 +14,8 @@
       "sample_size": 777,
       "matchups": [
         {
-          "candidates": [
-            "Eric Flores",
-            "Vicente Gonzalez"
-          ],
-          "percentages": [
-            41.0,
-            40.0
-          ]
+          "candidates": ["Eric Flores", "Vicente Gonzalez"],
+          "percentages": [41.0, 40.0]
         }
       ],
       "source_url": "https://www.nrcc.org/wp-content/uploads/2026/05/NRCC-TX-34-Survey-Memo-1.pdf"
@@ -249,10 +243,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Texas%27_34th_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:24:12.447993+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

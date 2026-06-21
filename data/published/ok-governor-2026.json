@@ -34,12 +34,7 @@
             "Chip Keating",
             "Mike Mazzei"
           ],
-          "percentages": [
-            36.0,
-            14.0,
-            13.0,
-            13.0
-          ]
+          "percentages": [36.0, 14.0, 13.0, 13.0]
         }
       ],
       "source_url": "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election"
@@ -56,12 +51,7 @@
             "Chip Keating",
             "Mike Mazzei"
           ],
-          "percentages": [
-            31.0,
-            20.0,
-            5.0,
-            1.0
-          ]
+          "percentages": [31.0, 20.0, 5.0, 1.0]
         }
       ],
       "source_url": "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election"
@@ -78,12 +68,7 @@
             "Chip Keating",
             "Mike Mazzei"
           ],
-          "percentages": [
-            37.0,
-            6.0,
-            3.0,
-            1.0
-          ]
+          "percentages": [37.0, 6.0, 3.0, 1.0]
         }
       ],
       "source_url": "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election"
@@ -673,9 +658,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Oklahoma_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:09.977003+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

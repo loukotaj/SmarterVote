@@ -1280,10 +1280,7 @@
     }
   ],
   "updated_utc": "2026-06-20T15:23:12.340632+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
@@ -1429,9 +1426,7 @@
     "based_on_poll_count": 0,
     "generated_at": "2026-06-20T15:23:05.602374Z",
     "model": "deepseek/deepseek-v4-flash",
-    "source_urls": [
-      "https://www.cookpolitical.com/house/race/481881"
-    ]
+    "source_urls": ["https://www.cookpolitical.com/house/race/481881"]
   },
   "ballotpedia_url": "https://ballotpedia.org/California's_13th_Congressional_District",
   "pipeline_state": {

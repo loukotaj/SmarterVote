@@ -18,10 +18,7 @@
             "Debbie Wasserman Schultz",
             "Sheila Cherfilus-McCormick"
           ],
-          "percentages": [
-            48.0,
-            16.0
-          ]
+          "percentages": [48.0, 16.0]
         }
       ],
       "source_url": "https://floridapolitics.com/archives/798629-poll-debbie-wasserman-schultz-leads-cd-20-contest-remains-popular-with-black-caribbean-voters/"
@@ -550,10 +547,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Florida%27s_20th_Congressional_District_election,_2026",
   "updated_utc": "2026-06-20T15:35:33.973190+00:00",
-  "generator": [
-    "deepseek/deepseek-v4-flash",
-    "openai/gpt-5-nano"
-  ],
+  "generator": ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,

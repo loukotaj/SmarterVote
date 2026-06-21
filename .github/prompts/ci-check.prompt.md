@@ -31,11 +31,11 @@ cd infra && terraform fmt -check -recursive && terraform init -backend=false && 
 
 After running all steps, produce a summary table:
 
-| Step | Status | Failures |
-|------|--------|----------|
-| Python pipeline tests | ✅ / ❌ | ... |
-| Races-API tests | ✅ / ❌ | ... |
-| Frontend (check+build+test) | ✅ / ❌ | ... |
-| Terraform validate | ✅ / ❌ | ... |
+| Step                        | Status  | Failures |
+| --------------------------- | ------- | -------- |
+| Python pipeline tests       | ✅ / ❌ | ...      |
+| Races-API tests             | ✅ / ❌ | ...      |
+| Frontend (check+build+test) | ✅ / ❌ | ...      |
+| Terraform validate          | ✅ / ❌ | ...      |
 
 If any step fails, show the relevant error output and suggest a fix.

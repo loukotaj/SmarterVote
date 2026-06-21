@@ -25,12 +25,12 @@ pipeline_client/agent/model_registry.py
 
 Current defaults:
 
-| Profile | Primary research | Small/subagent | Review defaults |
-| --- | --- | --- | --- |
-| `economy` | `openai/gpt-5.4-mini` | `openai/gpt-5.4-mini` | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
-| `balanced` | `openai/gpt-5.4` | `openai/gpt-5.4-mini` | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
-| `quality` | `openai/gpt-5.4` | `openai/gpt-5.4` | Claude Sonnet, Gemini Pro, Grok 4.20 |
-| `custom` | Balanced default unless overridden | Balanced default unless overridden | Balanced default unless overridden |
+| Profile    | Primary research                   | Small/subagent                     | Review defaults                           |
+| ---------- | ---------------------------------- | ---------------------------------- | ----------------------------------------- |
+| `economy`  | `openai/gpt-5.4-mini`              | `openai/gpt-5.4-mini`              | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
+| `balanced` | `openai/gpt-5.4`                   | `openai/gpt-5.4-mini`              | Claude Haiku, Gemini Flash Lite, Grok 4.3 |
+| `quality`  | `openai/gpt-5.4`                   | `openai/gpt-5.4`                   | Claude Sonnet, Gemini Pro, Grok 4.20      |
+| `custom`   | Balanced default unless overridden | Balanced default unless overridden | Balanced default unless overridden        |
 
 Nano remains available as an explicit advanced override, but economy mode no longer defaults issue subagents to nano.
 
@@ -69,21 +69,21 @@ Compatibility rules:
 
 ## Legacy Alias Mapping
 
-| Legacy model | OpenRouter model |
-| --- | --- |
-| `gpt-5.4` | `openai/gpt-5.4` |
-| `gpt-5.4-mini` | `openai/gpt-5.4-mini` |
-| `gpt-5-nano` | `openai/gpt-5-nano` |
-| `claude-sonnet-4-6` | `anthropic/claude-sonnet-4.6` |
-| `claude-haiku-4-5-20251001` | `anthropic/claude-haiku-4.5` |
-| `claude-3-5-sonnet-20241022` | `anthropic/claude-sonnet-4.6` |
-| `claude-3-haiku-20240307` | `anthropic/claude-haiku-4.5` |
-| `gemini-3.1-pro-preview` | `google/gemini-3.1-pro-preview` |
+| Legacy model                    | OpenRouter model                       |
+| ------------------------------- | -------------------------------------- |
+| `gpt-5.4`                       | `openai/gpt-5.4`                       |
+| `gpt-5.4-mini`                  | `openai/gpt-5.4-mini`                  |
+| `gpt-5-nano`                    | `openai/gpt-5-nano`                    |
+| `claude-sonnet-4-6`             | `anthropic/claude-sonnet-4.6`          |
+| `claude-haiku-4-5-20251001`     | `anthropic/claude-haiku-4.5`           |
+| `claude-3-5-sonnet-20241022`    | `anthropic/claude-sonnet-4.6`          |
+| `claude-3-haiku-20240307`       | `anthropic/claude-haiku-4.5`           |
+| `gemini-3.1-pro-preview`        | `google/gemini-3.1-pro-preview`        |
 | `gemini-3.1-flash-lite-preview` | `google/gemini-3.1-flash-lite-preview` |
-| `gemini-3-flash-preview` | `google/gemini-3-flash-preview` |
-| `grok-4.20-0309-reasoning` | `x-ai/grok-4.20` |
-| `grok-4-1-fast-non-reasoning` | `x-ai/grok-4.3` |
-| `grok-3-mini` | `x-ai/grok-4.3` |
+| `gemini-3-flash-preview`        | `google/gemini-3-flash-preview`        |
+| `grok-4.20-0309-reasoning`      | `x-ai/grok-4.20`                       |
+| `grok-4-1-fast-non-reasoning`   | `x-ai/grok-4.3`                        |
+| `grok-3-mini`                   | `x-ai/grok-4.3`                        |
 
 ## Updated Run Kickoff Paths
 

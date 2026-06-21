@@ -40,16 +40,8 @@
       "sample_size": 500,
       "matchups": [
         {
-          "candidates": [
-            "Mallory McMorrow",
-            "Haley Stevens",
-            "Abdul El-Sayed"
-          ],
-          "percentages": [
-            22.0,
-            17.0,
-            16.0
-          ]
+          "candidates": ["Mallory McMorrow", "Haley Stevens", "Abdul El-Sayed"],
+          "percentages": [22.0, 17.0, 16.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/"
@@ -60,46 +52,20 @@
       "sample_size": 1000,
       "matchups": [
         {
-          "candidates": [
-            "Mallory McMorrow",
-            "Haley Stevens",
-            "Abdul El-Sayed"
-          ],
-          "percentages": [
-            21.0,
-            18.0,
-            17.0
-          ]
+          "candidates": ["Mallory McMorrow", "Haley Stevens", "Abdul El-Sayed"],
+          "percentages": [21.0, 18.0, 17.0]
         },
         {
-          "candidates": [
-            "Mallory McMorrow",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            44.0,
-            40.0
-          ]
+          "candidates": ["Mallory McMorrow", "Mike Rogers"],
+          "percentages": [44.0, 40.0]
         },
         {
-          "candidates": [
-            "Haley Stevens",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            46.0,
-            39.0
-          ]
+          "candidates": ["Haley Stevens", "Mike Rogers"],
+          "percentages": [46.0, 39.0]
         },
         {
-          "candidates": [
-            "Abdul El-Sayed",
-            "Mike Rogers"
-          ],
-          "percentages": [
-            41.0,
-            43.0
-          ]
+          "candidates": ["Abdul El-Sayed", "Mike Rogers"],
+          "percentages": [41.0, 43.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/"
@@ -2097,9 +2063,7 @@
     }
   ],
   "updated_utc": "2026-06-20T03:17:25.393923+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "reviews": [
     {
       "model": "anthropic/claude-haiku-4.5",

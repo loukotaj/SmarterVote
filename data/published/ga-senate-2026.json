@@ -14,14 +14,8 @@
       "sample_size": 1000,
       "matchups": [
         {
-          "candidates": [
-            "Jon Ossoff",
-            "Mike Collins"
-          ],
-          "percentages": [
-            48.0,
-            43.0
-          ]
+          "candidates": ["Jon Ossoff", "Mike Collins"],
+          "percentages": [48.0, 43.0]
         }
       ],
       "source_url": "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/"
@@ -1843,9 +1837,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026",
   "updated_utc": "2026-06-20T03:17:09.849690+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "register_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-registering-vote",
   "how_to_vote_url": "https://sos.ga.gov/how-to-guide/how-guide-voting",
   "reviews": [

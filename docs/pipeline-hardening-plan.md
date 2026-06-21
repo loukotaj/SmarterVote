@@ -251,12 +251,12 @@ Before every model call, search call, page fetch, review call, and retry sleep:
 
 Replace the twelve-retry default with phase-configurable policies. Suggested starting values:
 
-| Operation | Attempts | Maximum Total Wait |
-|---|---:|---:|
-| LLM 429 | 3 | 90 seconds |
-| LLM 5xx/timeout | 3 | 60 seconds |
-| Serper | 2 | 15 seconds |
-| Page fetch | 2 direct plus one fallback | 30 seconds |
+| Operation       |                   Attempts | Maximum Total Wait |
+| --------------- | -------------------------: | -----------------: |
+| LLM 429         |                          3 |         90 seconds |
+| LLM 5xx/timeout |                          3 |         60 seconds |
+| Serper          |                          2 |         15 seconds |
+| Page fetch      | 2 direct plus one fallback |         30 seconds |
 
 Use jittered exponential backoff. Respect `Retry-After` only up to the remaining budget.
 
@@ -478,6 +478,7 @@ Status: Complete.
 
 Polling research and voter resource links (`register_to_vote_url`, `how_to_vote_url`, `ballotpedia_url`) are currently gathered during the Discovery and Refinement phases.
 Because polling data is highly volatile and voter registration resources are static per jurisdiction, bundling them with candidate/issue research causes:
+
 - Overloaded LLM prompts and bloated context windows during Discovery and Refinement.
 - Wasted API tokens and execution time, as operators must trigger full candidate/issue research passes (which run expensive candidate loops) just to update dynamic polling numbers or correct static voter links.
 - Poor name-matching in matchups (e.g., the LLM adding poll entries with misspelled or mismatched candidate names that fail schema validation).
@@ -595,14 +596,14 @@ Black and isort checks: passed
 
 ### Target Ownership
 
-| Concern | Production Owner |
-|---|---|
-| Queue creation/cancel/list | `services/races-api` |
-| Queue claim and continuation | `functions/agent` plus shared queue repository |
-| Run status/progress/log metadata | shared pipeline run repository |
-| Race metadata | shared race repository |
-| Draft/published JSON | shared GCS repository |
-| Local debug orchestration | `pipeline_client/backend` adapters |
+| Concern                          | Production Owner                               |
+| -------------------------------- | ---------------------------------------------- |
+| Queue creation/cancel/list       | `services/races-api`                           |
+| Queue claim and continuation     | `functions/agent` plus shared queue repository |
+| Run status/progress/log metadata | shared pipeline run repository                 |
+| Race metadata                    | shared race repository                         |
+| Draft/published JSON             | shared GCS repository                          |
+| Local debug orchestration        | `pipeline_client/backend` adapters             |
 
 ### Implementation
 
@@ -807,14 +808,14 @@ Active logs grow without a cap, each line can become a Firestore document, and a
 
 Suggested retention starting point:
 
-| Data | Retention |
-|---|---:|
-| Live run logs | 30 days |
-| Completed queue items | 14 days |
-| Debug artifacts | 30 days |
-| Continuation checkpoints | 7 days |
-| Search cache | 7 days |
-| Page cache | 24 hours |
+| Data                       |                              Retention |
+| -------------------------- | -------------------------------------: |
+| Live run logs              |                                30 days |
+| Completed queue items      |                                14 days |
+| Debug artifacts            |                                30 days |
+| Continuation checkpoints   |                                 7 days |
+| Search cache               |                                 7 days |
+| Page cache                 |                               24 hours |
 | Published/retired RaceJSON | Product policy, no automatic short TTL |
 
 ### Acceptance Criteria

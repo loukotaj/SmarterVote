@@ -14,14 +14,8 @@
       "sample_size": 1015,
       "matchups": [
         {
-          "candidates": [
-            "Amy Acton",
-            "Vivek Ramaswamy"
-          ],
-          "percentages": [
-            50.0,
-            49.0
-          ]
+          "candidates": ["Amy Acton", "Vivek Ramaswamy"],
+          "percentages": [50.0, 49.0]
         }
       ],
       "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
@@ -32,14 +26,8 @@
       "sample_size": 413,
       "matchups": [
         {
-          "candidates": [
-            "Amy Acton",
-            "Vivek Ramaswamy"
-          ],
-          "percentages": [
-            44.0,
-            49.0
-          ]
+          "candidates": ["Amy Acton", "Vivek Ramaswamy"],
+          "percentages": [44.0, 49.0]
         }
       ],
       "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
@@ -50,14 +38,8 @@
       "sample_size": 1000,
       "matchups": [
         {
-          "candidates": [
-            "Amy Acton",
-            "Vivek Ramaswamy"
-          ],
-          "percentages": [
-            47.0,
-            48.0
-          ]
+          "candidates": ["Amy Acton", "Vivek Ramaswamy"],
+          "percentages": [47.0, 48.0]
         }
       ],
       "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
@@ -68,14 +50,8 @@
       "sample_size": 809,
       "matchups": [
         {
-          "candidates": [
-            "Amy Acton",
-            "Vivek Ramaswamy"
-          ],
-          "percentages": [
-            46.0,
-            45.0
-          ]
+          "candidates": ["Amy Acton", "Vivek Ramaswamy"],
+          "percentages": [46.0, 45.0]
         }
       ],
       "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
@@ -86,14 +62,8 @@
       "sample_size": 1343,
       "matchups": [
         {
-          "candidates": [
-            "Amy Acton",
-            "Vivek Ramaswamy"
-          ],
-          "percentages": [
-            53.0,
-            43.0
-          ]
+          "candidates": ["Amy Acton", "Vivek Ramaswamy"],
+          "percentages": [53.0, 43.0]
         }
       ],
       "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
@@ -434,9 +404,7 @@
   ],
   "ballotpedia_url": "https://ballotpedia.org/Ohio_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
   "updated_utc": "2026-06-20T03:17:09.539861+00:00",
-  "generator": [
-    "openai/gpt-5.4"
-  ],
+  "generator": ["openai/gpt-5.4"],
   "schema_version": "0.3",
   "register_to_vote_url": null,
   "how_to_vote_url": null,
@@ -488,9 +456,7 @@
     "based_on_poll_count": 5,
     "generated_at": "2026-06-20T03:17:08.582384Z",
     "model": "openai/gpt-5.4",
-    "source_urls": [
-      "https://www.270towin.com/2026-governor-polls/ohio"
-    ]
+    "source_urls": ["https://www.270towin.com/2026-governor-polls/ohio"]
   },
   "pipeline_state": {
     "complete": true,

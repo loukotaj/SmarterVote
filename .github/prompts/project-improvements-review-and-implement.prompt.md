@@ -16,6 +16,7 @@ Run a two-phase improvement workflow for this repository.
 ## Phase 1: Review and Proposal (no code changes)
 
 Perform an exhaustive deep review across the codebase (not a quick sample), including:
+
 - `pipeline_client/`
 - `services/races-api/`
 - `web/`
@@ -26,6 +27,7 @@ Perform an exhaustive deep review across the codebase (not a quick sample), incl
 Produce a ranked proposal list with 5-10 items.
 
 For each item include:
+
 - Title
 - Category (cost/performance/maintainability/quality/security/reliability/devex)
 - Why it matters
@@ -39,6 +41,7 @@ Then ask the user to approve by item number (for example: "Approve 1, 3, 5").
 ## Phase 2: Implement Approved Items
 
 After explicit approval:
+
 - Implement all approved items, including medium/high-risk and medium/large efforts when approved.
 - Keep changes minimal and targeted.
 - Preserve existing architecture and conventions unless the approved item requires change.
