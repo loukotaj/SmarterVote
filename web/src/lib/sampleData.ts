@@ -214,7 +214,11 @@ export const sampleRace: Race = {
   office: "U.S. Senate",
   jurisdiction: "Sample State",
   updated_utc: "2025-01-15T12:00:00Z",
-  generator: ["openai/gpt-5.4-mini", "anthropic/claude-haiku-4.5", "x-ai/grok-4.3"],
+  generator: [
+    "openai/gpt-5.4-mini",
+    "anthropic/claude-haiku-4.5",
+    "x-ai/grok-4.3",
+  ],
   candidates: [
     {
       name: "Senator Sarah Johnson",
@@ -350,11 +354,21 @@ export const sampleRace: Race = {
           ]),
         },
       },
-      donor_summary: "Top contributors include Koch Industries PAC ($25K), Chamber of Commerce PAC ($20K), Club for Growth PAC ($18K), National Rifle Association PAC ($15K), and American Energy Alliance ($12K). Funding is heavily oriented toward energy, business advocacy, and conservative economic groups.",
-      donor_source_url: "https://www.fec.gov/data/receipts/?committee_id=example",
+      donor_summary:
+        "Top contributors include Koch Industries PAC ($25K), Chamber of Commerce PAC ($20K), Club for Growth PAC ($18K), National Rifle Association PAC ($15K), and American Energy Alliance ($12K). Funding is heavily oriented toward energy, business advocacy, and conservative economic groups.",
+      donor_source_url:
+        "https://www.fec.gov/data/receipts/?committee_id=example",
       links: [
-        { url: "https://www.fec.gov/data/receipts/example", title: "FEC Campaign Finance Data", type: "finance" },
-        { url: "https://ballotpedia.org/Sarah_Johnson", title: "Ballotpedia - Sarah Johnson", type: "ballotpedia" },
+        {
+          url: "https://www.fec.gov/data/receipts/example",
+          title: "FEC Campaign Finance Data",
+          type: "finance",
+        },
+        {
+          url: "https://ballotpedia.org/Sarah_Johnson",
+          title: "Ballotpedia - Sarah Johnson",
+          type: "ballotpedia",
+        },
       ],
       career_history: [],
       education: [],
@@ -494,11 +508,21 @@ export const sampleRace: Race = {
           ]),
         },
       },
-      donor_summary: "Top contributors include EMILY's List ($28K), AFL-CIO PAC ($22K), SEIU PAC ($20K), League of Conservation Voters ($18K), Planned Parenthood Action Fund ($15K), and Human Rights Campaign PAC ($12K). Funding skews toward labor unions, women's advocacy, and environmental groups.",
-      donor_source_url: "https://www.fec.gov/data/receipts/?committee_id=example2",
+      donor_summary:
+        "Top contributors include EMILY's List ($28K), AFL-CIO PAC ($22K), SEIU PAC ($20K), League of Conservation Voters ($18K), Planned Parenthood Action Fund ($15K), and Human Rights Campaign PAC ($12K). Funding skews toward labor unions, women's advocacy, and environmental groups.",
+      donor_source_url:
+        "https://www.fec.gov/data/receipts/?committee_id=example2",
       links: [
-        { url: "https://www.fec.gov/data/receipts/example2", title: "FEC Campaign Finance Data", type: "finance" },
-        { url: "https://ballotpedia.org/Maria_Rodriguez", title: "Ballotpedia - Maria Rodriguez", type: "ballotpedia" },
+        {
+          url: "https://www.fec.gov/data/receipts/example2",
+          title: "FEC Campaign Finance Data",
+          type: "finance",
+        },
+        {
+          url: "https://ballotpedia.org/Maria_Rodriguez",
+          title: "Ballotpedia - Maria Rodriguez",
+          type: "ballotpedia",
+        },
       ],
       career_history: [],
       education: [],
@@ -636,11 +660,21 @@ export const sampleRace: Race = {
           ]),
         },
       },
-      donor_summary: "Top contributors include Veterans for Thompson ($8.5K), Clean Energy PAC ($7.8K), Small Business Coalition ($6.2K), and Good Government Fund ($5K). Funding reflects a mix of veteran advocacy, clean energy, and small business interests.",
-      donor_source_url: "https://www.fec.gov/data/receipts/?committee_id=example3",
+      donor_summary:
+        "Top contributors include Veterans for Thompson ($8.5K), Clean Energy PAC ($7.8K), Small Business Coalition ($6.2K), and Good Government Fund ($5K). Funding reflects a mix of veteran advocacy, clean energy, and small business interests.",
+      donor_source_url:
+        "https://www.fec.gov/data/receipts/?committee_id=example3",
       links: [
-        { url: "https://www.fec.gov/data/receipts/example3", title: "FEC Campaign Finance Data", type: "finance" },
-        { url: "https://ballotpedia.org/Michael_Thompson", title: "Ballotpedia - Michael Thompson", type: "ballotpedia" },
+        {
+          url: "https://www.fec.gov/data/receipts/example3",
+          title: "FEC Campaign Finance Data",
+          type: "finance",
+        },
+        {
+          url: "https://ballotpedia.org/Michael_Thompson",
+          title: "Ballotpedia - Michael Thompson",
+          type: "ballotpedia",
+        },
       ],
       career_history: [],
       education: [],

@@ -16,12 +16,19 @@ import type {
 
 const API_BASE = import.meta.env.VITE_RACES_API_URL || "http://127.0.0.1:8080";
 
-async function fetchAdmin<T>(path: string, params?: Record<string, string | number>): Promise<T> {
+async function fetchAdmin<T>(
+  path: string,
+  params?: Record<string, string | number>
+): Promise<T> {
   const url = new URL(`${API_BASE}${path}`);
   if (params) {
-    Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, String(v)));
+    Object.entries(params).forEach(([k, v]) =>
+      url.searchParams.set(k, String(v))
+    );
   }
-  const resp = await fetchWithAuth(url.toString(), { headers: { "Content-Type": "application/json" } });
+  const resp = await fetchWithAuth(url.toString(), {
+    headers: { "Content-Type": "application/json" },
+  });
   if (!resp.ok) {
     throw new Error(`Analytics API error ${resp.status}: ${await resp.text()}`);
   }
@@ -37,23 +44,38 @@ export const analyticsService = {
     return fetchAdmin<TrafficAnalytics>("/analytics/traffic", { hours });
   },
 
-  async getRaces(hours = 24): Promise<{ races: RaceAnalytics[]; hours: number }> {
-    return fetchAdmin<{ races: RaceAnalytics[]; hours: number }>("/analytics/races", { hours });
+  async getRaces(
+    hours = 24
+  ): Promise<{ races: RaceAnalytics[]; hours: number }> {
+    return fetchAdmin<{ races: RaceAnalytics[]; hours: number }>(
+      "/analytics/races",
+      { hours }
+    );
   },
 
-  async getTimeseries(hours = 24, bucket = 60): Promise<{ timeseries: { time: string; requests: number }[] }> {
+  async getTimeseries(
+    hours = 24,
+    bucket = 60
+  ): Promise<{ timeseries: { time: string; requests: number }[] }> {
     return fetchAdmin("/analytics/timeseries", { hours, bucket });
   },
 
-  async getAlerts(): Promise<{ alerts: Alert[]; total: number; unacknowledged: number }> {
+  async getAlerts(): Promise<{
+    alerts: Alert[];
+    total: number;
+    unacknowledged: number;
+  }> {
     return fetchAdmin("/alerts");
   },
 
   async acknowledgeAlert(alertId: string): Promise<void> {
-    const resp = await fetchWithAuth(`${API_BASE}/alerts/${encodeURIComponent(alertId)}/acknowledge`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
+    const resp = await fetchWithAuth(
+      `${API_BASE}/alerts/${encodeURIComponent(alertId)}/acknowledge`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     if (!resp.ok) throw new Error(`Acknowledge failed ${resp.status}`);
   },
 
@@ -66,11 +88,21 @@ export const analyticsService = {
     return resp.json();
   },
 
-  async getPipelineMetrics(limit = 50): Promise<{ records: PipelineRunRecord[]; count: number }> {
-    return fetchAdmin<{ records: PipelineRunRecord[]; count: number }>("/pipeline/metrics", { limit });
+  async getPipelineMetrics(
+    limit = 50
+  ): Promise<{ records: PipelineRunRecord[]; count: number }> {
+    return fetchAdmin<{ records: PipelineRunRecord[]; count: number }>(
+      "/pipeline/metrics",
+      { limit }
+    );
   },
 
-  async getPipelineMetricsSummary(hours?: number): Promise<PipelineMetricsSummary> {
-    return fetchAdmin<PipelineMetricsSummary>("/pipeline/metrics/summary", hours ? { hours } : undefined);
+  async getPipelineMetricsSummary(
+    hours?: number
+  ): Promise<PipelineMetricsSummary> {
+    return fetchAdmin<PipelineMetricsSummary>(
+      "/pipeline/metrics/summary",
+      hours ? { hours } : undefined
+    );
   },
 };

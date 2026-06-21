@@ -14,12 +14,17 @@ export function partyAbbr(party: string | undefined): string {
 
 /** Tailwind badge classes for a party pill (bg + text, light & dark). */
 export function partyBadgeClass(party: string | undefined): string {
-  if (!party) return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
+  if (!party)
+    return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
   const p = party.toLowerCase();
-  if (p.includes("democrat")) return "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200";
-  if (p.includes("republican")) return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200";
-  if (p.includes("libertarian")) return "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200";
-  if (p.includes("green")) return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
+  if (p.includes("democrat"))
+    return "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200";
+  if (p.includes("republican"))
+    return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200";
+  if (p.includes("libertarian"))
+    return "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200";
+  if (p.includes("green"))
+    return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
   return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
 }
 

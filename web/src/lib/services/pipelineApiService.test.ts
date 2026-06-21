@@ -10,13 +10,19 @@ vi.mock("$lib/stores/apiStore", () => ({
 
 import { PipelineApiService } from "./pipelineApiService";
 
-function jsonResponse(body: unknown, ok = true, status = 200, statusText = "OK") {
+function jsonResponse(
+  body: unknown,
+  ok = true,
+  status = 200,
+  statusText = "OK"
+) {
   return {
     ok,
     status,
     statusText,
     json: () => Promise.resolve(body),
-    text: () => Promise.resolve(typeof body === "string" ? body : JSON.stringify(body)),
+    text: () =>
+      Promise.resolve(typeof body === "string" ? body : JSON.stringify(body)),
   } as Response;
 }
 
@@ -45,7 +51,11 @@ describe("PipelineApiService production admin API contract", () => {
     const api = new PipelineApiService("https://api.example.test");
     const drafts = await api.loadDraftRaces();
 
-    expect(fetchWithAuth).toHaveBeenCalledWith("https://api.example.test/api/races/drafts", {}, expect.any(Number));
+    expect(fetchWithAuth).toHaveBeenCalledWith(
+      "https://api.example.test/api/races/drafts",
+      {},
+      expect.any(Number)
+    );
     expect(drafts).toHaveLength(1);
     expect(drafts[0].id).toBe("az-senate-2026");
     expect(drafts[0].candidates[0].name).toBe("Alice Example");
@@ -67,19 +77,22 @@ describe("PipelineApiService production admin API contract", () => {
       grok_model: "grok-test",
     });
 
-    expect(fetchWithAuth).toHaveBeenCalledWith("https://api.example.test/api/races/queue", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        race_ids: ["az-senate-2026"],
-        options: {
-          cheap_mode: false,
-          enabled_steps: ["review", "iteration"],
-          gemini_model: "gemini-test",
-          grok_model: "grok-test",
-        },
-      }),
-    });
+    expect(fetchWithAuth).toHaveBeenCalledWith(
+      "https://api.example.test/api/races/queue",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          race_ids: ["az-senate-2026"],
+          options: {
+            cheap_mode: false,
+            enabled_steps: ["review", "iteration"],
+            gemini_model: "gemini-test",
+            grok_model: "grok-test",
+          },
+        }),
+      }
+    );
   });
 
   it("publishes drafts through the production race publish endpoint", async () => {
@@ -125,7 +138,9 @@ describe("PipelineApiService production admin API contract", () => {
     );
 
     const api = new PipelineApiService("https://api.example.test");
-    const result = await api.adminChat([{ role: "user", content: "Refresh Arizona" }]);
+    const result = await api.adminChat([
+      { role: "user", content: "Refresh Arizona" },
+    ]);
 
     expect(result.action?.type).toBe("queue_run");
     expect(result.action?.race_ids).toEqual(["az-senate-2026"]);
@@ -151,12 +166,18 @@ describe("PipelineApiService production admin API contract", () => {
     const api = new PipelineApiService("https://api.example.test");
     const run = await api.getRunDetails("run-1");
 
-    expect(fetchWithAuth).toHaveBeenCalledWith("https://api.example.test/runs/run-1", {}, expect.any(Number));
+    expect(fetchWithAuth).toHaveBeenCalledWith(
+      "https://api.example.test/runs/run-1",
+      {},
+      expect.any(Number)
+    );
     expect(run.current_step).toBe("issues");
     expect(run.progress).toBe(20);
     expect(run.progress_message).toBe("Issues checkpoint - Alice - Healthcare");
     expect(run.current_step_progress).toBe(37);
-    expect(run.steps?.find((s) => s.name === "discovery")?.status).toBe("completed");
+    expect(run.steps?.find((s) => s.name === "discovery")?.status).toBe(
+      "completed"
+    );
     expect(run.steps?.find((s) => s.name === "issues")?.status).toBe("running");
     expect(run.steps?.find((s) => s.name === "issues")?.progress_pct).toBe(37);
     expect(run.steps?.find((s) => s.name === "images")?.status).toBe("skipped");

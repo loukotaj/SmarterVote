@@ -483,9 +483,7 @@ async def refresh_static_race_summaries() -> dict[str, Any]:
     output_path = _published_data_dir() / "summaries.json"
     output_path.write_text(json.dumps(summaries, indent=2) + "\n", encoding="utf-8")
     senate_forecast_count = sum(
-        1
-        for race in summaries
-        if "senate" in str(race.get("office") or "").lower() and race.get("forecast")
+        1 for race in summaries if "senate" in str(race.get("office") or "").lower() and race.get("forecast")
     )
     return {
         "success": True,
@@ -533,6 +531,7 @@ async def generate_chamber_forecasts(
 ) -> dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM over published race summaries and save them."""
     import logging
+
     logger = logging.getLogger("smartervote_mcp.generate")
 
     # 1. Fetch all published race summaries
@@ -576,7 +575,6 @@ async def generate_chamber_forecasts(
                 toss_ups += 1
                 competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob*100:.1f}%)")
             elif "lean" in rating:
-
                 competitive_list.append(f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
                 if "d" in winner_party:
                     dem_wins += 1
@@ -600,7 +598,7 @@ async def generate_chamber_forecasts(
             f"Toss-up Races: {toss_ups}",
             f"Projected Democratic Wins (among published non-tossups): {dem_wins}",
             f"Projected Republican Wins (among published non-tossups): {gop_wins}",
-            "\nCompetitive/Notable Races Detail:"
+            "\nCompetitive/Notable Races Detail:",
         ]
         lines.extend(competitive_list[:30])
         return "\n".join(lines)
@@ -623,10 +621,7 @@ async def generate_chamber_forecasts(
         )
         user_prompt = f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"
 
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ]
+        messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
 
         try:
             resp = await _call_openrouter(messages=messages, model=model)
@@ -640,6 +635,7 @@ async def generate_chamber_forecasts(
                 content = "\n".join(lines).strip()
 
             import json
+
             data = json.loads(content)
             required_keys = ["narrative", "bottom_line", "why_party_favored", "opposing_party_path", "key_uncertainty"]
             validated = {}
@@ -653,7 +649,7 @@ async def generate_chamber_forecasts(
                 "bottom_line": f"Control of the {chamber_name} remains highly competitive.",
                 "why_party_favored": "The favored party benefits from favorable seat splits and baseline fundamentals.",
                 "opposing_party_path": "The opposing party needs to win key toss-up and lean districts/states.",
-                "key_uncertainty": "Uncertainty remains high due to limited polling in key races."
+                "key_uncertainty": "Uncertainty remains high due to limited polling in key races.",
             }
 
     senate_analysis = await get_analysis("US Senate", build_chamber_context(senate_races, "US Senate"))
@@ -673,7 +669,7 @@ async def generate_chamber_forecasts(
             "house": house_analysis,
             "senate": senate_analysis,
             "governors": governors_analysis,
-        }
+        },
     )
 
     # 4. Save via POST endpoint
@@ -686,11 +682,7 @@ async def generate_chamber_forecasts(
     }
 
     save_res = await client.post("/api/races/chamber_forecasts", json=payload)
-    return {
-        "success": True,
-        "forecast": forecast_data,
-        "save_response": save_res
-    }
+    return {"success": True, "forecast": forecast_data, "save_response": save_res}
 
 
 @mcp.tool()
@@ -702,10 +694,7 @@ async def audit_senate_forecast_data() -> dict[str, Any]:
     if not isinstance(summaries, list):
         return {"success": False, "error": "Invalid summaries from API"}
 
-    senate_races = [
-        r for r in summaries
-        if "senate" in str(r.get("office") or "").lower()
-    ]
+    senate_races = [r for r in summaries if "senate" in str(r.get("office") or "").lower()]
 
     missing_forecast = []
     stale_forecast = []
@@ -744,10 +733,7 @@ async def audit_senate_forecast_data() -> dict[str, Any]:
 
 @mcp.tool()
 async def queue_senate_forecast_reruns(
-    race_ids: list[str],
-    force_fresh: bool | None = None,
-    model_profile: str | None = None,
-    note: str | None = None
+    race_ids: list[str], force_fresh: bool | None = None, model_profile: str | None = None, note: str | None = None
 ) -> dict[str, Any]:
     """Queue only the forecast step for selected Senate races (defaults to draft-only output)."""
     return await queue_races(
@@ -756,7 +742,7 @@ async def queue_senate_forecast_reruns(
         force_fresh=force_fresh,
         enabled_steps=["forecast"],
         model_profile=model_profile,
-        note=note or "Senate Forecast Rerun"
+        note=note or "Senate Forecast Rerun",
     )
 
 
@@ -780,12 +766,7 @@ async def monitor_senate_forecast_reruns(run_ids: list[str]) -> dict[str, Any]:
         except Exception as e:
             failed.append({"run_id": rid, "error": str(e)})
 
-    return {
-        "completed": completed,
-        "running": running,
-        "failed": failed,
-        "all_finished": len(running) == 0
-    }
+    return {"completed": completed, "running": running, "failed": failed, "all_finished": len(running) == 0}
 
 
 @mcp.tool()
@@ -795,10 +776,7 @@ async def review_senate_forecast_drafts() -> dict[str, Any]:
     if not isinstance(summaries, list):
         return {"success": False, "error": "Invalid summaries from API"}
 
-    senate_races = [
-        r for r in summaries
-        if "senate" in str(r.get("office") or "").lower()
-    ]
+    senate_races = [r for r in summaries if "senate" in str(r.get("office") or "").lower()]
 
     comparisons = []
     for r in senate_races:
@@ -810,33 +788,35 @@ async def review_senate_forecast_drafts() -> dict[str, Any]:
             draft_fc = draft_data.get("forecast") or {}
             pub_fc = published_data.get("forecast") or {}
 
-            if draft_fc.get("rating") != pub_fc.get("rating") or draft_fc.get("win_probability") != pub_fc.get("win_probability"):
-                comparisons.append({
-                    "race_id": race_id,
-                    "published": {
-                        "winner_party": pub_fc.get("predicted_winner_party"),
-                        "win_probability": pub_fc.get("win_probability"),
-                        "rating": pub_fc.get("rating"),
-                    },
-                    "draft": {
-                        "winner_party": draft_fc.get("predicted_winner_party"),
-                        "win_probability": draft_fc.get("win_probability"),
-                        "rating": draft_fc.get("rating"),
+            if draft_fc.get("rating") != pub_fc.get("rating") or draft_fc.get("win_probability") != pub_fc.get(
+                "win_probability"
+            ):
+                comparisons.append(
+                    {
+                        "race_id": race_id,
+                        "published": {
+                            "winner_party": pub_fc.get("predicted_winner_party"),
+                            "win_probability": pub_fc.get("win_probability"),
+                            "rating": pub_fc.get("rating"),
+                        },
+                        "draft": {
+                            "winner_party": draft_fc.get("predicted_winner_party"),
+                            "win_probability": draft_fc.get("win_probability"),
+                            "rating": draft_fc.get("rating"),
+                        },
                     }
-                })
+                )
         except Exception:
             continue
 
-    return {
-        "changed_races_count": len(comparisons),
-        "comparisons": comparisons
-    }
+    return {"changed_races_count": len(comparisons), "comparisons": comparisons}
 
 
 @mcp.tool()
 async def validate_static_chamber_forecasts() -> dict[str, Any]:
     """Validate the local static chamber_forecasts.json file before publishing."""
     import json
+
     path = _published_data_dir() / "chamber_forecasts.json"
     if not path.exists():
         return {"success": False, "error": f"File does not exist at {path}"}
@@ -860,7 +840,14 @@ async def validate_static_chamber_forecasts() -> dict[str, Any]:
             if senate.get("control_party") != "Republican":
                 return {"success": False, "error": "Senate 50-50 projected split must result in Republican control"}
 
-        required_fields = ["vp_tiebreak_party", "seat_distribution", "bottom_line", "why_party_favored", "opposing_party_path", "key_uncertainty"]
+        required_fields = [
+            "vp_tiebreak_party",
+            "seat_distribution",
+            "bottom_line",
+            "why_party_favored",
+            "opposing_party_path",
+            "key_uncertainty",
+        ]
         for f in required_fields:
             if f not in senate:
                 return {"success": False, "error": f"Senate chamber forecast missing required field: {f}"}
@@ -883,18 +870,14 @@ async def publish_static_forecast_bundle(dry_run: bool = False) -> dict[str, Any
         return {"success": True, "message": "Dry-run validation successful. Bundle not published.", "refresh": refresh_res}
 
     pub_res = await publish_static_chamber_forecasts()
-    return {
-        "success": True,
-        "refresh": refresh_res,
-        "validation": val_res,
-        "publish": pub_res
-    }
+    return {"success": True, "refresh": refresh_res, "validation": val_res, "publish": pub_res}
 
 
 @mcp.tool()
 async def verify_live_forecast_page_data() -> dict[str, Any]:
     """Check deployed or local live static endpoints and verify forecast bundle properties."""
     import httpx
+
     base_url = os.getenv("VITE_RACES_API_URL") or "https://races-api-dev-ddsvfazica-uc.a.run.app"
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
@@ -910,7 +893,7 @@ async def verify_live_forecast_page_data() -> dict[str, Any]:
                 "schema_version": schema,
                 "senate_control_party": senate.get("control_party"),
                 "senate_expected_seats": senate.get("expected_seats"),
-                "vp_tiebreak_party": senate.get("vp_tiebreak_party")
+                "vp_tiebreak_party": senate.get("vp_tiebreak_party"),
             }
     except Exception as e:
         return {"success": False, "error": f"Failed to connect to API: {e}"}

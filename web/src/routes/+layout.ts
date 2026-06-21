@@ -15,7 +15,9 @@ export const load: LayoutLoad = async ({ fetch }) => {
     let races: RaceSummary[] = [];
     try {
       races = await getRaceSummaries(fetch);
-    } catch (_) {}
+    } catch (_) {
+      // Keep the shell renderable when the API is unavailable.
+    }
     return { races };
   }
 };

@@ -1,8 +1,17 @@
 <script lang="ts">
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
   import { getStatusClass, getLogClass } from "$lib/utils/pipelineUtils";
-  import type { RunHistoryItem, PipelineMetricsSummary, PipelineRunRecord, LogEntry, RunInfo } from "$lib/types";
-  import type { QueueItem, PipelineApiService } from "$lib/services/pipelineApiService";
+  import type {
+    RunHistoryItem,
+    PipelineMetricsSummary,
+    PipelineRunRecord,
+    LogEntry,
+    RunInfo,
+  } from "$lib/types";
+  import type {
+    QueueItem,
+    PipelineApiService,
+  } from "$lib/services/pipelineApiService";
   import { analyticsService } from "$lib/services/analyticsService";
 
   export let runs: RunHistoryItem[] = [];
@@ -26,7 +35,9 @@
     { label: "30d", value: 720 },
   ];
   let selectedHours = 24;
-  $: rangeLabel = TIME_RANGES.find((r) => r.value === selectedHours)?.label ?? `${selectedHours}h`;
+  $: rangeLabel =
+    TIME_RANGES.find((r) => r.value === selectedHours)?.label ??
+    `${selectedHours}h`;
 
   let pipelineSummary: PipelineMetricsSummary | null = null;
   let pipelineRecords: PipelineRunRecord[] = [];
@@ -56,9 +67,20 @@
   let cancellingRunId: string | null = null;
   let clearingQueue = false;
 
+  type RunMetricFields = RunHistoryItem & {
+    estimated_usd?: number;
+    prompt_tokens?: number;
+    completion_tokens?: number;
+    total_tokens?: number;
+    invocation_run_ids?: string[];
+  };
+
   $: filteredDrawerLogs = drawerLogs.filter((log) => {
-    const matchesLevel = drawerLogFilter === "all" || log.level === drawerLogFilter;
-    const matchesQuery = !logSearchQuery || log.message.toLowerCase().includes(logSearchQuery.toLowerCase());
+    const matchesLevel =
+      drawerLogFilter === "all" || log.level === drawerLogFilter;
+    const matchesQuery =
+      !logSearchQuery ||
+      log.message.toLowerCase().includes(logSearchQuery.toLowerCase());
     return matchesLevel && matchesQuery;
   });
 
@@ -74,7 +96,9 @@
   // cleared externally resets local clearing state
   $: if (!pendingQueue.length) clearingQueue = false;
 
-  $: selectedMetricsRecord = pipelineRecords.find(r => r.run_id === selectedRunId);
+  $: selectedMetricsRecord = pipelineRecords.find(
+    (r) => r.run_id === selectedRunId
+  );
   $: _isPruningPlaceholder = isPruning;
 
   // Dynamic list of specific models present in history
@@ -147,7 +171,10 @@
         lastLogIndex = drawerLogs.length;
 
         // If status is running or pending, start polling
-        if (selectedRunDetail.status === "running" || selectedRunDetail.status === "pending") {
+        if (
+          selectedRunDetail.status === "running" ||
+          selectedRunDetail.status === "pending"
+        ) {
           const currentTimer = setInterval(async () => {
             if (selectedRunId !== runId) {
               clearInterval(currentTimer);
@@ -159,13 +186,19 @@
             try {
               if (apiService) {
                 selectedRunDetail = await apiService.getRunDetails(runId);
-                const newLogsRes = await apiService.getRunLogs(runId, lastLogIndex);
+                const newLogsRes = await apiService.getRunLogs(
+                  runId,
+                  lastLogIndex
+                );
                 if (newLogsRes.logs && newLogsRes.logs.length > 0) {
                   drawerLogs = [...drawerLogs, ...newLogsRes.logs];
                   lastLogIndex = lastLogIndex + newLogsRes.logs.length;
                 }
 
-                if (selectedRunDetail.status !== "running" && selectedRunDetail.status !== "pending") {
+                if (
+                  selectedRunDetail.status !== "running" &&
+                  selectedRunDetail.status !== "pending"
+                ) {
                   clearInterval(currentTimer);
                   if (logPollTimer === currentTimer) {
                     logPollTimer = null;
@@ -200,7 +233,14 @@
   }
 
   async function handleClearQueue() {
-    if (!confirm(`Remove all ${pendingQueue.length} pending item${pendingQueue.length !== 1 ? 's' : ''} from the queue?`)) return;
+    if (
+      !confirm(
+        `Remove all ${pendingQueue.length} pending item${
+          pendingQueue.length !== 1 ? "s" : ""
+        } from the queue?`
+      )
+    )
+      return;
     clearingQueue = true;
     dispatch("clear-queue");
   }
@@ -225,7 +265,12 @@
     }
   }
 
-  function sumStepTokens(run: RunHistoryItem | RunInfo): { prompt: number, completion: number, total: number, cost: number } {
+  function sumStepTokens(run: RunHistoryItem | RunInfo): {
+    prompt: number;
+    completion: number;
+    total: number;
+    cost: number;
+  } {
     let prompt = 0;
     let completion = 0;
     let cost = 0;
@@ -240,13 +285,22 @@
   }
 
   function getRunMetrics(run: RunHistoryItem | RunInfo) {
-    const record = pipelineRecords.find(r => r.run_id === run.run_id);
+    const record = pipelineRecords.find((r) => r.run_id === run.run_id);
     const stepSum = sumStepTokens(run);
+    const runMetrics = run as RunMetricFields;
 
-    const cost = record ? (record.cost_usd ?? record.estimated_usd) : (stepSum.cost || (run as any).estimated_usd || 0);
-    const prompt = record ? record.prompt_tokens : (stepSum.prompt || (run as any).prompt_tokens || 0);
-    const completion = record ? record.completion_tokens : (stepSum.completion || (run as any).completion_tokens || 0);
-    const total = record ? record.total_tokens : (stepSum.total || (run as any).total_tokens || 0);
+    const cost = record
+      ? record.cost_usd ?? record.estimated_usd
+      : stepSum.cost || runMetrics.estimated_usd || 0;
+    const prompt = record
+      ? record.prompt_tokens
+      : stepSum.prompt || runMetrics.prompt_tokens || 0;
+    const completion = record
+      ? record.completion_tokens
+      : stepSum.completion || runMetrics.completion_tokens || 0;
+    const total = record
+      ? record.total_tokens
+      : stepSum.total || runMetrics.total_tokens || 0;
     const serper = (record ? record.serper_calls : run.serper_calls) ?? 0;
 
     return { cost, prompt, completion, total, serper };
@@ -292,11 +346,15 @@
 
   function formatDate(s?: string) {
     if (!s) return "-";
-    return new Date(s).toLocaleString(undefined, { dateStyle: "short", timeStyle: "short" });
+    return new Date(s).toLocaleString(undefined, {
+      dateStyle: "short",
+      timeStyle: "short",
+    });
   }
 
   function raceId(run: RunHistoryItem | QueueItem): string {
-    if ("payload" in run) return (run.payload?.race_id as string) ?? run.run_id ?? "—";
+    if ("payload" in run)
+      return (run.payload?.race_id as string) ?? run.run_id ?? "—";
     return run.race_id ?? "—";
   }
 
@@ -317,44 +375,73 @@
   }
 
   $: liveRunIds = new Set(
-    queueItems.filter((q) => q.status === "running" || q.status === "pending").map((q) => q.run_id).filter(Boolean)
+    queueItems
+      .filter((q) => q.status === "running" || q.status === "pending")
+      .map((q) => q.run_id)
+      .filter(Boolean)
   );
-  $: continuationParentRunIds = new Set(queueItems.map((q) => q.parent_run_id).filter(Boolean));
+  $: continuationParentRunIds = new Set(
+    queueItems.map((q) => q.parent_run_id).filter(Boolean)
+  );
   $: activeQueueItems = queueItems.filter(
-    (q) => (q.status === "running" || q.status === "pending") && !continuationParentRunIds.has(q.run_id)
+    (q) =>
+      (q.status === "running" || q.status === "pending") &&
+      !continuationParentRunIds.has(q.run_id)
   );
 
   $: activeQueueRuns = activeQueueItems
-    .filter((q) => (q.status === "running" || q.status === "pending") && q.run_id && !runs.some((r) => r.run_id === q.run_id))
-    .map((q, idx) => ({
-      run_id: q.run_id!,
-      race_id: q.race_id,
-      status: q.status,
-      progress: 0,
-      progress_message: q.is_continuation ? "Waiting for continuation" : undefined,
-      current_step: q.status,
-      payload: { race_id: q.race_id },
-      options: q.options ?? {},
-      started_at: q.started_at ?? q.created_at,
-      updated_at: q.started_at ?? q.created_at,
-      display_id: -(idx + 1),
-      steps: [],
-    } as RunHistoryItem));
+    .filter(
+      (q) =>
+        (q.status === "running" || q.status === "pending") &&
+        q.run_id &&
+        !runs.some((r) => r.run_id === q.run_id)
+    )
+    .map(
+      (q, idx) =>
+        ({
+          run_id: q.run_id!,
+          race_id: q.race_id,
+          status: q.status,
+          progress: 0,
+          progress_message: q.is_continuation
+            ? "Waiting for continuation"
+            : undefined,
+          current_step: q.status,
+          payload: { race_id: q.race_id },
+          options: q.options ?? {},
+          started_at: q.started_at ?? q.created_at,
+          updated_at: q.started_at ?? q.created_at,
+          display_id: -(idx + 1),
+          steps: [],
+        } as RunHistoryItem)
+    );
 
-  $: activeRuns = [...runs.filter(
-    (r) => (r.status === "running" || r.status === "pending" || liveRunIds.has(r.run_id)) && !continuationParentRunIds.has(r.run_id)
-  ), ...activeQueueRuns];
+  $: activeRuns = [
+    ...runs.filter(
+      (r) =>
+        (r.status === "running" ||
+          r.status === "pending" ||
+          liveRunIds.has(r.run_id)) &&
+        !continuationParentRunIds.has(r.run_id)
+    ),
+    ...activeQueueRuns,
+  ];
   $: pendingQueue = activeQueueItems.filter((q) => q.status === "pending");
   $: historicalRuns = runs.filter(
-    (r) => r.status !== "running" && r.status !== "pending" && !liveRunIds.has(r.run_id)
+    (r) =>
+      r.status !== "running" &&
+      r.status !== "pending" &&
+      !liveRunIds.has(r.run_id)
   );
 
   // Filtered lists
-  $: filteredHistoricalRuns = historicalRuns.filter(r => {
+  $: filteredHistoricalRuns = historicalRuns.filter((r) => {
     // 1. Search Query
     if (runSearchQuery) {
       const q = runSearchQuery.toLowerCase();
-      const matchRace = r.race_id?.toLowerCase().includes(q) || (r.payload?.race_id as string)?.toLowerCase().includes(q);
+      const matchRace =
+        r.race_id?.toLowerCase().includes(q) ||
+        (r.payload?.race_id as string)?.toLowerCase().includes(q);
       const matchRun = r.run_id?.toLowerCase().includes(q);
       if (!matchRace && !matchRun) return false;
     }
@@ -375,10 +462,12 @@
     return true;
   });
 
-  $: filteredActiveRuns = activeRuns.filter(r => {
+  $: filteredActiveRuns = activeRuns.filter((r) => {
     if (runSearchQuery) {
       const q = runSearchQuery.toLowerCase();
-      const matchRace = r.race_id?.toLowerCase().includes(q) || (r.payload?.race_id as string)?.toLowerCase().includes(q);
+      const matchRace =
+        r.race_id?.toLowerCase().includes(q) ||
+        (r.payload?.race_id as string)?.toLowerCase().includes(q);
       const matchRun = r.run_id?.toLowerCase().includes(q);
       if (!matchRace && !matchRun) return false;
     }
@@ -408,15 +497,22 @@
       cost: totalCost,
       avgDurationMs: durationCount > 0 ? totalDurationMs / durationCount : 0,
       tokens: totalTokens,
-      searches: totalSearches
+      searches: totalSearches,
     };
   })();
 
   // Lineage path calculation
   $: lineageRunIds = (() => {
     if (!selectedRunId) return [];
-    const matchingRun = runs.find(r => r.run_id === selectedRunId || (r as any).invocation_run_ids?.includes(selectedRunId));
-    return (matchingRun as any)?.invocation_run_ids || [];
+    const activeRunId = selectedRunId;
+    const matchingRun = runs.find((r) => {
+      const runWithLineage = r as RunMetricFields;
+      return (
+        r.run_id === activeRunId ||
+        runWithLineage.invocation_run_ids?.includes(activeRunId)
+      );
+    }) as RunMetricFields | undefined;
+    return matchingRun?.invocation_run_ids || [];
   })();
 
   onMount(() => {
@@ -439,7 +535,9 @@
         </p>
       {/if}
       <p class="text-xs text-content-muted mt-0.5">
-        {runs.length} run{runs.length !== 1 ? "s" : ""}{pendingQueue.length > 0 ? ` · ${pendingQueue.length} queued` : ""}
+        {runs.length} run{runs.length !== 1 ? "s" : ""}{pendingQueue.length > 0
+          ? ` · ${pendingQueue.length} queued`
+          : ""}
       </p>
     </div>
     <div class="flex items-center gap-2">
@@ -450,13 +548,39 @@
           class="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 disabled:opacity-50 transition-colors"
         >
           {#if clearingQueue}
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-              <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            <svg
+              class="animate-spin h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              />
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
             </svg>
           {:else}
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            <svg
+              class="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
             </svg>
           {/if}
           Clear Queue ({pendingQueue.length})
@@ -468,13 +592,39 @@
         class="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-stroke text-content-muted hover:text-content hover:bg-surface-alt disabled:opacity-50 transition-colors"
       >
         {#if isRefreshing}
-          <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-            <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          <svg
+            class="animate-spin h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            />
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
           </svg>
         {:else}
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
           </svg>
         {/if}
         Refresh
@@ -485,15 +635,19 @@
   <!-- Time range selector & Metrics Section -->
   <div class="border-t border-stroke pt-4 space-y-4">
     <div class="flex items-center justify-between">
-      <h3 class="text-xs font-semibold uppercase tracking-wider text-content-muted">Pipeline Performance Metrics</h3>
+      <h3
+        class="text-xs font-semibold uppercase tracking-wider text-content-muted"
+      >
+        Pipeline Performance Metrics
+      </h3>
       <div class="flex items-center gap-1 bg-surface-alt rounded-lg p-1">
         {#each TIME_RANGES as range}
           <button
             type="button"
             class="px-2 py-0.5 rounded text-xs font-medium transition-colors
               {selectedHours === range.value
-                ? 'bg-surface text-content shadow-sm'
-                : 'text-content-subtle hover:text-content-muted'}"
+              ? 'bg-surface text-content shadow-sm'
+              : 'text-content-subtle hover:text-content-muted'}"
             on:click={() => handleRangeChange(range.value)}
           >
             {range.label}
@@ -507,14 +661,18 @@
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
         {#each Array(4) as _}
           <div class="card p-4 space-y-2">
-            <div class="h-3 bg-surface-alt rounded w-2/3"></div>
-            <div class="h-6 bg-surface-alt rounded w-1/2"></div>
+            <div class="h-3 bg-surface-alt rounded w-2/3" />
+            <div class="h-6 bg-surface-alt rounded w-1/2" />
           </div>
         {/each}
       </div>
     {:else if metricsError}
-      <div class="card p-4 flex flex-col items-center justify-center text-center space-y-3">
-        <p class="text-sm text-red-600">Failed to load pipeline analytics: {metricsError}</p>
+      <div
+        class="card p-4 flex flex-col items-center justify-center text-center space-y-3"
+      >
+        <p class="text-sm text-red-600">
+          Failed to load pipeline analytics: {metricsError}
+        </p>
         <button
           type="button"
           class="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium shadow-sm"
@@ -527,47 +685,85 @@
       <!-- Metrics cards -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="card p-4">
-          <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Total Runs ({rangeLabel})</p>
-          <p class="mt-1 text-2xl font-bold text-content">{pipelineSummary ? pipelineSummary.total_runs.toLocaleString() : "-"}</p>
+          <p
+            class="text-xs font-medium text-content-subtle uppercase tracking-wide"
+          >
+            Total Runs ({rangeLabel})
+          </p>
+          <p class="mt-1 text-2xl font-bold text-content">
+            {pipelineSummary
+              ? pipelineSummary.total_runs.toLocaleString()
+              : "-"}
+          </p>
         </div>
         <div class="card p-4">
-          <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg Cost / Run</p>
+          <p
+            class="text-xs font-medium text-content-subtle uppercase tracking-wide"
+          >
+            Avg Cost / Run
+          </p>
           {#if pipelineSummary && (pipelineSummary.cheap_runs > 0 || pipelineSummary.full_runs > 0)}
             <div class="space-y-1">
               {#if pipelineSummary.cheap_runs > 0}
                 <div class="flex items-center justify-between">
-                  <span class="text-xs px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">cheap</span>
-                  <span class="text-sm font-bold text-content">{formatUsd(pipelineSummary.avg_cheap_usd)}</span>
+                  <span
+                    class="text-xs px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                    >cheap</span
+                  >
+                  <span class="text-sm font-bold text-content"
+                    >{formatUsd(pipelineSummary.avg_cheap_usd)}</span
+                  >
                 </div>
               {/if}
               {#if pipelineSummary.full_runs > 0}
                 <div class="flex items-center justify-between">
-                  <span class="text-xs px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">full</span>
-                  <span class="text-sm font-bold text-content">{formatUsd(pipelineSummary.avg_full_usd)}</span>
+                  <span
+                    class="text-xs px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
+                    >full</span
+                  >
+                  <span class="text-sm font-bold text-content"
+                    >{formatUsd(pipelineSummary.avg_full_usd)}</span
+                  >
                 </div>
               {/if}
             </div>
           {:else}
-            <p class="mt-1 text-2xl font-bold text-content">{pipelineSummary ? formatUsd(pipelineSummary.avg_usd) : "-"}</p>
+            <p class="mt-1 text-2xl font-bold text-content">
+              {pipelineSummary ? formatUsd(pipelineSummary.avg_usd) : "-"}
+            </p>
           {/if}
         </div>
         <div class="card p-4">
-          <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg Cost / Candidate</p>
+          <p
+            class="text-xs font-medium text-content-subtle uppercase tracking-wide"
+          >
+            Avg Cost / Candidate
+          </p>
           <p class="mt-1 text-2xl font-bold text-content">
             {pipelineSummary && pipelineSummary.avg_usd_per_candidate > 0
               ? formatUsd(pipelineSummary.avg_usd_per_candidate)
               : "-"}
           </p>
           {#if pipelineSummary && pipelineSummary.avg_usd_per_candidate > 0}
-            <p class="mt-1 text-xs text-content-faint">across runs with candidates</p>
+            <p class="mt-1 text-xs text-content-faint">
+              across runs with candidates
+            </p>
           {:else}
-            <p class="mt-1 text-xs text-content-faint">available after next run</p>
+            <p class="mt-1 text-xs text-content-faint">
+              available after next run
+            </p>
           {/if}
         </div>
         <div class="card p-4">
-          <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Success Rate</p>
+          <p
+            class="text-xs font-medium text-content-subtle uppercase tracking-wide"
+          >
+            Success Rate
+          </p>
           <p class="mt-1 text-2xl font-bold text-content">
-            {pipelineSummary ? `${(pipelineSummary.success_rate * 100).toFixed(1)}%` : "-"}
+            {pipelineSummary
+              ? `${(pipelineSummary.success_rate * 100).toFixed(1)}%`
+              : "-"}
           </p>
         </div>
       </div>
@@ -579,20 +775,30 @@
           {#if pipelineSummary.cheap_runs > 0}
             <div class="flex items-center gap-1.5">
               <span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block" />
-              <span class="text-xs text-content-muted"><strong>{pipelineSummary.cheap_runs}</strong> cheap ({formatUsd(pipelineSummary.avg_cheap_usd)} avg)</span>
+              <span class="text-xs text-content-muted"
+                ><strong>{pipelineSummary.cheap_runs}</strong> cheap ({formatUsd(
+                  pipelineSummary.avg_cheap_usd
+                )} avg)</span
+              >
             </div>
           {/if}
           {#if pipelineSummary.full_runs > 0}
             <div class="flex items-center gap-1.5">
               <span class="w-2.5 h-2.5 rounded-sm bg-purple-500 inline-block" />
-              <span class="text-xs text-content-muted"><strong>{pipelineSummary.full_runs}</strong> full ({formatUsd(pipelineSummary.avg_full_usd)} avg)</span>
+              <span class="text-xs text-content-muted"
+                ><strong>{pipelineSummary.full_runs}</strong> full ({formatUsd(
+                  pipelineSummary.avg_full_usd
+                )} avg)</span
+              >
             </div>
           {/if}
           {#if topModels.length > 0}
             <div class="ml-auto flex items-center gap-2 flex-wrap">
               <span class="text-xs text-content-faint">Models:</span>
               {#each topModels as [model, count]}
-                <span class="text-xs px-1.5 py-0.5 rounded bg-surface-alt text-content-muted font-mono">
+                <span
+                  class="text-xs px-1.5 py-0.5 rounded bg-surface-alt text-content-muted font-mono"
+                >
                   {model} x{count}
                 </span>
               {/each}
@@ -606,7 +812,9 @@
   <!-- Active / running runs -->
   {#if filteredActiveRuns.length > 0}
     <section>
-      <h3 class="text-xs font-semibold uppercase tracking-wider text-content-muted mb-2">
+      <h3
+        class="text-xs font-semibold uppercase tracking-wider text-content-muted mb-2"
+      >
         Active
       </h3>
       <div class="card p-0 divide-y divide-stroke">
@@ -617,29 +825,72 @@
             role="button"
             tabindex="0"
             on:click={() => openRunDrawer(run.run_id, raceId(run))}
-            on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openRunDrawer(run.run_id, raceId(run)); } }}
+            on:keydown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openRunDrawer(run.run_id, raceId(run));
+              }
+            }}
           >
             <div class="flex-1 min-w-0 mr-4">
               <div class="flex items-center gap-3">
                 {#if run.status === "running"}
-                  <svg class="animate-spin h-4 w-4 text-blue-500 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  <svg
+                    class="animate-spin h-4 w-4 text-blue-500 shrink-0"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    />
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
                   </svg>
                 {/if}
-                <span class="font-mono text-sm font-medium text-content flex-1 truncate">{raceId(run)}</span>
-                <span class="text-xs text-content-subtle capitalize truncate max-w-40">{currentStepLabel(run)}</span>
-                <span class="text-xs font-mono text-content-muted w-10 text-right">{runProgress(run)}%</span>
-                <span class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(run.status)}">{run.status}</span>
+                <span
+                  class="font-mono text-sm font-medium text-content flex-1 truncate"
+                  >{raceId(run)}</span
+                >
+                <span
+                  class="text-xs text-content-subtle capitalize truncate max-w-40"
+                  >{currentStepLabel(run)}</span
+                >
+                <span
+                  class="text-xs font-mono text-content-muted w-10 text-right"
+                  >{runProgress(run)}%</span
+                >
+                <span
+                  class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(
+                    run.status
+                  )}">{run.status}</span
+                >
               </div>
               <div class="mt-2 grid grid-cols-[1fr_auto] items-center gap-3">
                 <div class="h-1.5 rounded-full bg-surface-alt overflow-hidden">
-                  <div class="h-full rounded-full bg-blue-500 transition-all duration-500" style="width: {runProgress(run)}%"></div>
+                  <div
+                    class="h-full rounded-full bg-blue-500 transition-all duration-500"
+                    style="width: {runProgress(run)}%"
+                  />
                 </div>
-                <div class="text-xs text-content-faint whitespace-nowrap font-mono">
+                <div
+                  class="text-xs text-content-faint whitespace-nowrap font-mono"
+                >
                   {modelLabel(run)}
-                  {#if m.total > 0} · {formatTokens(m.prompt)}/{formatTokens(m.completion)} tokens{/if}
-                  {#if m.cost > 0} · <span class="font-semibold text-content-muted">{formatUsd(m.cost)}</span>{/if}
+                  {#if m.total > 0}
+                    · {formatTokens(m.prompt)}/{formatTokens(m.completion)} tokens{/if}
+                  {#if m.cost > 0}
+                    · <span class="font-semibold text-content-muted"
+                      >{formatUsd(m.cost)}</span
+                    >{/if}
                 </div>
               </div>
             </div>
@@ -650,9 +901,25 @@
               on:click={(e) => handleCancelRun(run.run_id, e)}
             >
               {#if cancellingRunId === run.run_id}
-                <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                <svg
+                  class="animate-spin h-3 w-3"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  />
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
                 </svg>
               {/if}
               Cancel
@@ -666,18 +933,41 @@
   <!-- Queued (pending without a run_id yet) -->
   {#if pendingQueue.length > 0}
     <section>
-      <h3 class="text-xs font-semibold uppercase tracking-wider text-content-muted mb-2">
+      <h3
+        class="text-xs font-semibold uppercase tracking-wider text-content-muted mb-2"
+      >
         Queued ({pendingQueue.length})
       </h3>
       <div class="card p-0 divide-y divide-stroke">
         {#each pendingQueue as item}
-          <div class="px-4 py-3 flex items-center gap-3 hover:bg-surface-alt transition-colors">
-            <svg class="h-4 w-4 text-content-faint shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div
+            class="px-4 py-3 flex items-center gap-3 hover:bg-surface-alt transition-colors"
+          >
+            <svg
+              class="h-4 w-4 text-content-faint shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
-            <span class="font-mono text-sm font-medium text-content flex-1 truncate">{item.race_id}</span>
-            <span class="text-xs px-2 py-0.5 rounded-full border {getStatusClass('pending')}">pending</span>
-            <span class="text-xs text-content-faint">{timeAgo(item.created_at)}</span>
+            <span
+              class="font-mono text-sm font-medium text-content flex-1 truncate"
+              >{item.race_id}</span
+            >
+            <span
+              class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(
+                'pending'
+              )}">pending</span
+            >
+            <span class="text-xs text-content-faint"
+              >{timeAgo(item.created_at)}</span
+            >
           </div>
         {/each}
       </div>
@@ -687,13 +977,17 @@
   <!-- History section with Filters & Aggregations -->
   <section class="space-y-4">
     <div class="flex items-center justify-between">
-      <h3 class="text-xs font-semibold uppercase tracking-wider text-content-muted">
+      <h3
+        class="text-xs font-semibold uppercase tracking-wider text-content-muted"
+      >
         History ({filteredHistoricalRuns.length})
       </h3>
     </div>
 
     <!-- Runs Filters -->
-    <div class="flex items-center gap-3 flex-wrap bg-surface-alt p-3 rounded-lg border border-stroke text-sm">
+    <div
+      class="flex items-center gap-3 flex-wrap bg-surface-alt p-3 rounded-lg border border-stroke text-sm"
+    >
       <div class="flex-1 min-w-[200px]">
         <input
           type="search"
@@ -740,22 +1034,34 @@
 
     <!-- Aggregations Bar -->
     {#if filteredHistoricalRuns.length > 0}
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-3 bg-surface border border-stroke rounded-lg text-xs">
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-4 p-3 bg-surface border border-stroke rounded-lg text-xs"
+      >
         <div>
           <span class="text-content-faint block">Matched Cost:</span>
-          <span class="font-bold text-content text-sm">{formatUsd(aggregations.cost)}</span>
+          <span class="font-bold text-content text-sm"
+            >{formatUsd(aggregations.cost)}</span
+          >
         </div>
         <div>
           <span class="text-content-faint block">Avg Duration:</span>
-          <span class="font-bold text-content text-sm">{aggregations.avgDurationMs ? formatMs(aggregations.avgDurationMs) : "—"}</span>
+          <span class="font-bold text-content text-sm"
+            >{aggregations.avgDurationMs
+              ? formatMs(aggregations.avgDurationMs)
+              : "—"}</span
+          >
         </div>
         <div>
           <span class="text-content-faint block">Total Tokens:</span>
-          <span class="font-bold text-content text-sm">{formatTokens(aggregations.tokens)}</span>
+          <span class="font-bold text-content text-sm"
+            >{formatTokens(aggregations.tokens)}</span
+          >
         </div>
         <div>
           <span class="text-content-faint block">Total Searches:</span>
-          <span class="font-bold text-content text-sm">{aggregations.searches}</span>
+          <span class="font-bold text-content text-sm"
+            >{aggregations.searches}</span
+          >
         </div>
       </div>
     {/if}
@@ -773,26 +1079,53 @@
             role="button"
             tabindex="0"
             on:click={() => openRunDrawer(run.run_id, raceId(run))}
-            on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openRunDrawer(run.run_id, raceId(run)); } }}
+            on:keydown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openRunDrawer(run.run_id, raceId(run));
+              }
+            }}
           >
             <div class="flex items-center gap-3">
-              <span class="font-mono text-sm font-medium text-content flex-1 truncate">{raceId(run)}</span>
-              <span class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(run.status)}">{run.status}</span>
+              <span
+                class="font-mono text-sm font-medium text-content flex-1 truncate"
+                >{raceId(run)}</span
+              >
+              <span
+                class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(
+                  run.status
+                )}">{run.status}</span
+              >
             </div>
-            <div class="mt-1 flex items-center gap-3 text-xs text-content-faint flex-wrap">
+            <div
+              class="mt-1 flex items-center gap-3 text-xs text-content-faint flex-wrap"
+            >
               <span>{timeAgo(run.started_at)}</span>
-              {#if run.duration_ms}<span>· {formatMs(run.duration_ms)}</span>{/if}
+              {#if run.duration_ms}<span>· {formatMs(run.duration_ms)}</span
+                >{/if}
               <span>· {modelLabel(run)}</span>
               {#if metrics.total > 0}
-                <span>· {formatTokens(metrics.prompt)} / {formatTokens(metrics.completion)} tokens</span>
+                <span
+                  >· {formatTokens(metrics.prompt)} / {formatTokens(
+                    metrics.completion
+                  )} tokens</span
+                >
               {/if}
               {#if metrics.cost > 0}
-                <span class="font-semibold text-content-muted">· {formatUsd(metrics.cost)}</span>
+                <span class="font-semibold text-content-muted"
+                  >· {formatUsd(metrics.cost)}</span
+                >
               {/if}
               {#if metrics.serper > 0}
-                <span>· {metrics.serper} search{metrics.serper === 1 ? '' : 'es'}</span>
+                <span
+                  >· {metrics.serper} search{metrics.serper === 1
+                    ? ""
+                    : "es"}</span
+                >
               {/if}
-              {#if run.options?.goal}<span class="text-content-subtle truncate">· {run.options.goal}</span>{/if}
+              {#if run.options?.goal}<span class="text-content-subtle truncate"
+                  >· {run.options.goal}</span
+                >{/if}
             </div>
           </div>
         {/each}
@@ -803,17 +1136,25 @@
 
 <!-- Logs / Details Side Drawer -->
 {#if selectedRunId}
-  <div class="fixed inset-y-0 right-0 w-full max-w-2xl bg-surface border-l border-stroke shadow-2xl z-50 flex flex-col transition-transform duration-300">
+  <div
+    class="fixed inset-y-0 right-0 w-full max-w-2xl bg-surface border-l border-stroke shadow-2xl z-50 flex flex-col transition-transform duration-300"
+  >
     <!-- Drawer Header -->
-    <div class="p-4 border-b border-stroke flex items-center justify-between bg-surface-alt/20">
+    <div
+      class="p-4 border-b border-stroke flex items-center justify-between bg-surface-alt/20"
+    >
       <div>
-        <h3 class="text-md font-bold text-content truncate max-w-md">Run Logs: {selectedRunId}</h3>
+        <h3 class="text-md font-bold text-content truncate max-w-md">
+          Run Logs: {selectedRunId}
+        </h3>
         {#if selectedRunRaceId}
-          <p class="text-xs text-content-subtle font-mono">{selectedRunRaceId}</p>
+          <p class="text-xs text-content-subtle font-mono">
+            {selectedRunRaceId}
+          </p>
         {/if}
       </div>
       <div class="flex items-center gap-2">
-        {#if selectedRunDetail && (selectedRunDetail.status === 'running' || selectedRunDetail.status === 'pending')}
+        {#if selectedRunDetail && (selectedRunDetail.status === "running" || selectedRunDetail.status === "pending")}
           <button
             type="button"
             class="px-2.5 py-1 text-xs border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded transition-colors font-medium whitespace-nowrap flex items-center gap-1"
@@ -821,9 +1162,25 @@
             on:click={() => handleCancelRun(selectedRunId ?? "")}
           >
             {#if cancellingRunId === selectedRunId}
-              <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              <svg
+                class="animate-spin h-3 w-3"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                />
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
               </svg>
             {/if}
             Cancel Run
@@ -834,8 +1191,18 @@
           class="p-1.5 rounded-lg hover:bg-surface-alt text-content-muted hover:text-content transition-colors"
           on:click={closeRunDrawer}
         >
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>
@@ -843,14 +1210,19 @@
 
     <!-- Lineage Graph -->
     {#if lineageRunIds.length > 1}
-      <div class="px-4 py-2 bg-surface-alt border-b border-stroke flex items-center gap-1.5 flex-wrap text-[11px] font-mono">
+      <div
+        class="px-4 py-2 bg-surface-alt border-b border-stroke flex items-center gap-1.5 flex-wrap text-[11px] font-mono"
+      >
         <span class="text-content-faint font-sans">Lineage:</span>
         {#each lineageRunIds as id, idx}
           {#if idx > 0}
             <span class="text-content-faint">➔</span>
           {/if}
           {#if id === selectedRunId}
-            <span class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded font-bold">{id}</span>
+            <span
+              class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded font-bold"
+              >{id}</span
+            >
           {:else}
             <button
               type="button"
@@ -868,24 +1240,37 @@
     <div class="flex-1 overflow-y-auto p-4 space-y-4">
       {#if loadingDrawerDetails}
         <div class="animate-pulse space-y-4">
-          <div class="h-20 bg-surface-alt rounded"></div>
-          <div class="h-10 bg-surface-alt rounded w-1/3"></div>
+          <div class="h-20 bg-surface-alt rounded" />
+          <div class="h-10 bg-surface-alt rounded w-1/3" />
           <div class="space-y-2">
-            <div class="h-4 bg-surface-alt rounded"></div>
-            <div class="h-4 bg-surface-alt rounded w-5/6"></div>
+            <div class="h-4 bg-surface-alt rounded" />
+            <div class="h-4 bg-surface-alt rounded w-5/6" />
           </div>
         </div>
       {:else if drawerError}
-        <div class="p-4 flex flex-col items-center justify-center text-center space-y-2 border border-red-200 bg-red-50 dark:bg-red-950/20 text-red-700 dark:text-red-200 rounded-lg">
-          <svg class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div
+          class="p-4 flex flex-col items-center justify-center text-center space-y-2 border border-red-200 bg-red-50 dark:bg-red-950/20 text-red-700 dark:text-red-200 rounded-lg"
+        >
+          <svg
+            class="h-8 w-8 text-red-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
           <span class="text-sm font-semibold">Failed to load run details</span>
           <p class="text-xs opacity-80">{drawerError}</p>
           <button
             type="button"
             class="px-3 py-1.5 text-xs bg-red-600 hover:bg-red-700 text-white rounded transition-colors font-medium shadow-sm"
-            on:click={() => openRunDrawer(selectedRunId ?? "", selectedRunRaceId)}
+            on:click={() =>
+              openRunDrawer(selectedRunId ?? "", selectedRunRaceId)}
           >
             Retry
           </button>
@@ -896,25 +1281,44 @@
         <div class="card p-3 grid grid-cols-2 gap-3 text-xs">
           <div>
             <span class="text-content-faint">Status:</span>
-            <span class="ml-1 px-1.5 py-0.5 rounded font-medium {getStatusClass(selectedRunDetail.status)}">
+            <span
+              class="ml-1 px-1.5 py-0.5 rounded font-medium {getStatusClass(
+                selectedRunDetail.status
+              )}"
+            >
               {selectedRunDetail.status}
             </span>
           </div>
           <div>
             <span class="text-content-faint">Model:</span>
-            <span class="ml-1 text-content font-mono">{selectedRunDetail.options?.research_model || (selectedRunDetail.options?.cheap_mode ? 'mini' : 'full')}</span>
+            <span class="ml-1 text-content font-mono"
+              >{selectedRunDetail.options?.research_model ||
+                (selectedRunDetail.options?.cheap_mode ? "mini" : "full")}</span
+            >
           </div>
           <div>
             <span class="text-content-faint">Duration:</span>
-            <span class="ml-1 text-content">{selectedRunDetail.duration_ms ? formatMs(selectedRunDetail.duration_ms) : (selectedMetricsRecord?.duration_s ? `${selectedMetricsRecord.duration_s}s` : '—')}</span>
+            <span class="ml-1 text-content"
+              >{selectedRunDetail.duration_ms
+                ? formatMs(selectedRunDetail.duration_ms)
+                : selectedMetricsRecord?.duration_s
+                ? `${selectedMetricsRecord.duration_s}s`
+                : "—"}</span
+            >
           </div>
           <div>
             <span class="text-content-faint">Cost:</span>
-            <span class="ml-1 text-content font-semibold">{formatExactUsd(m.cost)}</span>
+            <span class="ml-1 text-content font-semibold"
+              >{formatExactUsd(m.cost)}</span
+            >
           </div>
           <div>
             <span class="text-content-faint">Tokens:</span>
-            <span class="ml-1 text-content font-mono">{formatTokens(m.prompt)} / {formatTokens(m.completion)} ({formatTokens(m.total)} total)</span>
+            <span class="ml-1 text-content font-mono"
+              >{formatTokens(m.prompt)} / {formatTokens(m.completion)} ({formatTokens(
+                m.total
+              )} total)</span
+            >
           </div>
           <div>
             <span class="text-content-faint">Searches:</span>
@@ -922,12 +1326,18 @@
           </div>
           <div class="col-span-2">
             <span class="text-content-faint">Time:</span>
-            <span class="ml-1 text-content">{formatDate(selectedRunDetail.started_at)}</span>
+            <span class="ml-1 text-content"
+              >{formatDate(selectedRunDetail.started_at)}</span
+            >
           </div>
           {#if selectedRunDetail.options?.goal}
             <div class="col-span-2">
               <span class="text-content-faint">Goal:</span>
-              <p class="mt-1 p-2 bg-surface-alt rounded text-content text-[11px] font-mono whitespace-pre-wrap">{selectedRunDetail.options.goal}</p>
+              <p
+                class="mt-1 p-2 bg-surface-alt rounded text-content text-[11px] font-mono whitespace-pre-wrap"
+              >
+                {selectedRunDetail.options.goal}
+              </p>
             </div>
           {/if}
         </div>
@@ -935,16 +1345,24 @@
         <!-- Execution Steps -->
         {#if selectedRunDetail.steps && selectedRunDetail.steps.length > 0}
           <div>
-            <h4 class="text-xs font-semibold text-content-muted mb-2">Execution Steps</h4>
+            <h4 class="text-xs font-semibold text-content-muted mb-2">
+              Execution Steps
+            </h4>
             <div class="space-y-1.5">
               {#each selectedRunDetail.steps as step}
-                <div class="flex items-center justify-between text-xs p-2 rounded bg-surface border border-stroke">
+                <div
+                  class="flex items-center justify-between text-xs p-2 rounded bg-surface border border-stroke"
+                >
                   <div class="flex flex-col">
-                    <span class="font-medium capitalize">{step.label || step.name.replaceAll('_', ' ')}</span>
+                    <span class="font-medium capitalize"
+                      >{step.label || step.name.replaceAll("_", " ")}</span
+                    >
                     <span class="text-[10px] text-content-faint mt-0.5">
                       {#if step.duration_ms}{formatMs(step.duration_ms)}{/if}
                       {#if step.prompt_tokens || step.completion_tokens}
-                        · {formatTokens(step.prompt_tokens)}/{formatTokens(step.completion_tokens)} tokens
+                        · {formatTokens(step.prompt_tokens)}/{formatTokens(
+                          step.completion_tokens
+                        )} tokens
                       {/if}
                       {#if step.estimated_usd}
                         · {formatUsd(step.estimated_usd)}
@@ -952,10 +1370,16 @@
                     </span>
                   </div>
                   <div class="flex items-center gap-2">
-                    {#if step.progress_pct !== undefined && step.status === 'running'}
-                      <span class="text-[10px] text-content-faint">{step.progress_pct}%</span>
+                    {#if step.progress_pct !== undefined && step.status === "running"}
+                      <span class="text-[10px] text-content-faint"
+                        >{step.progress_pct}%</span
+                      >
                     {/if}
-                    <span class="px-1.5 py-0.5 rounded-full text-[10px] border {getStatusClass(step.status)}">{step.status}</span>
+                    <span
+                      class="px-1.5 py-0.5 rounded-full text-[10px] border {getStatusClass(
+                        step.status
+                      )}">{step.status}</span
+                    >
                   </div>
                 </div>
               {/each}
@@ -967,7 +1391,9 @@
       <!-- Logs -->
       <div class="border-t border-stroke pt-3 flex flex-col h-[380px]">
         <div class="flex items-center gap-2 justify-between mb-2">
-          <h4 class="text-xs font-semibold text-content-muted">Execution Logs</h4>
+          <h4 class="text-xs font-semibold text-content-muted">
+            Execution Logs
+          </h4>
           <div class="flex items-center gap-2">
             <!-- Log Search Input -->
             <input
@@ -991,16 +1417,32 @@
           </div>
         </div>
 
-        <div bind:this={logContainer} class="flex-1 overflow-auto rounded-lg bg-surface-alt border border-stroke p-2 font-mono text-[11px] space-y-1" role="log">
+        <div
+          bind:this={logContainer}
+          class="flex-1 overflow-auto rounded-lg bg-surface-alt border border-stroke p-2 font-mono text-[11px] space-y-1"
+          role="log"
+        >
           {#each filteredDrawerLogs as log}
-            <div class="py-1 px-2 border-b border-stroke/40 whitespace-pre-wrap rounded-sm border-l-4 {getLogClass(log.level)}">
-              <span class="text-content-faint">[{log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ''}]</span>
-              <span class="font-semibold text-[10px]">[{(log.level ?? 'info').toUpperCase()}]</span>
+            <div
+              class="py-1 px-2 border-b border-stroke/40 whitespace-pre-wrap rounded-sm border-l-4 {getLogClass(
+                log.level
+              )}"
+            >
+              <span class="text-content-faint"
+                >[{log.timestamp
+                  ? new Date(log.timestamp).toLocaleTimeString()
+                  : ""}]</span
+              >
+              <span class="font-semibold text-[10px]"
+                >[{(log.level ?? "info").toUpperCase()}]</span
+              >
               {log.message}
             </div>
           {/each}
           {#if filteredDrawerLogs.length === 0}
-            <div class="py-12 text-center text-content-faint text-xs">No logs found</div>
+            <div class="py-12 text-center text-content-faint text-xs">
+              No logs found
+            </div>
           {/if}
         </div>
       </div>
@@ -1008,5 +1450,16 @@
   </div>
 
   <!-- Overlay Backdrop -->
-  <div class="fixed inset-0 bg-black/45 backdrop-blur-sm z-40" on:click={closeRunDrawer} on:keydown={(e) => { if (e.key === 'Escape') { closeRunDrawer(); } }} role="button" tabindex="-1" aria-label="Close drawer"></div>
+  <div
+    class="fixed inset-0 bg-black/45 backdrop-blur-sm z-40"
+    on:click={closeRunDrawer}
+    on:keydown={(e) => {
+      if (e.key === "Escape") {
+        closeRunDrawer();
+      }
+    }}
+    role="button"
+    tabindex="-1"
+    aria-label="Close drawer"
+  />
 {/if}

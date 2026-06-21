@@ -68,7 +68,9 @@
         </button>
       </li>
     {:else}
-      <li class="text-center text-content-subtle text-sm py-4">No artifacts yet</li>
+      <li class="text-center text-content-subtle text-sm py-4">
+        No artifacts yet
+      </li>
     {/each}
   </ul>
 </div>

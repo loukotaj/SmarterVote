@@ -76,41 +76,61 @@
     selectedCandidates = new Set();
   }
 
-  $: activeCandidates = race?.candidates?.filter(c => !c.withdrawn) ?? [];
-  $: withdrawnCandidates = race?.candidates?.filter(c => c.withdrawn) ?? [];
-  $: candidateCount = activeCandidates.length;
-  $: incumbents = activeCandidates.filter(c => c.incumbent);
-  $: parties = [...new Set(activeCandidates.map(c => c.party).filter(Boolean))];
+  $: activeCandidates = race?.candidates?.filter((c) => !c.withdrawn) ?? [];
+  $: withdrawnCandidates = race?.candidates?.filter((c) => c.withdrawn) ?? [];
   let withdrawnExpanded = false;
   $: polls = race?.polling ?? [];
   $: latestPoll = polls.length > 0 ? polls[0] : null;
-  $: latestMatchup = latestPoll?.matchups?.find(matchup => Array.isArray(matchup.candidates) && matchup.candidates.length > 0) ?? null;
-  $: discoveryOnly = activeCandidates.length > 0 &&
-    activeCandidates.every(c => !c.issues || Object.keys(c.issues).length === 0 ||
-      Object.values(c.issues).every(i => !i?.stance));
+  $: latestMatchup =
+    latestPoll?.matchups?.find(
+      (matchup) =>
+        Array.isArray(matchup.candidates) && matchup.candidates.length > 0
+    ) ?? null;
+  $: discoveryOnly =
+    activeCandidates.length > 0 &&
+    activeCandidates.every(
+      (c) =>
+        !c.issues ||
+        Object.keys(c.issues).length === 0 ||
+        Object.values(c.issues).every((i) => !i?.stance)
+    );
 
   // Derive ballotpedia URL: race-level field first, then fall back to any candidate link
-  $: ballotpediaUrl = race?.ballotpedia_url ??
-    race?.candidates?.flatMap(c => c.links ?? []).find(l => l.type === 'ballotpedia')?.url ?? null;
+  $: ballotpediaUrl =
+    race?.ballotpedia_url ??
+    race?.candidates
+      ?.flatMap((c) => c.links ?? [])
+      .find((l) => l.type === "ballotpedia")?.url ??
+    null;
 
   // Derive voter action URLs: race-level fields first, then fall back to vote.gov
-  $: registerToVoteUrl = race?.register_to_vote_url ?? 'https://vote.gov/register';
-  $: howToVoteUrl = race?.how_to_vote_url ?? 'https://vote.gov/';
+  $: registerToVoteUrl =
+    race?.register_to_vote_url ?? "https://vote.gov/register";
+  $: howToVoteUrl = race?.how_to_vote_url ?? "https://vote.gov/";
 
   function partyClassForName(name: string): string {
-    const candidate = race?.candidates?.find(c => c.name === name);
+    const candidate = race?.candidates?.find((c) => c.name === name);
     return partySlug(candidate?.party);
   }
 
-  function matchupPercentages(matchup: { percentages?: number[] | null }): number[] {
+  function matchupPercentages(matchup: {
+    percentages?: number[] | null;
+  }): number[] {
     return Array.isArray(matchup.percentages) ? matchup.percentages : [];
   }
 
-  function matchupHasPercentages(matchup: { percentages?: number[] | null }): boolean {
-    return matchupPercentages(matchup).some(value => typeof value === "number");
+  function matchupHasPercentages(matchup: {
+    percentages?: number[] | null;
+  }): boolean {
+    return matchupPercentages(matchup).some(
+      (value) => typeof value === "number"
+    );
   }
 
-  function percentageAt(matchup: { percentages?: number[] | null }, index: number): number | null {
+  function percentageAt(
+    matchup: { percentages?: number[] | null },
+    index: number
+  ): number | null {
     const value = matchupPercentages(matchup)[index];
     return typeof value === "number" ? value : null;
   }
@@ -120,22 +140,31 @@
   <title>{race?.title || "Loading..."} | Smarter.vote</title>
   <meta
     name="description"
-    content="Compare candidates for {race?.title || 'this election'} on key issues using analysis from traceable public sources."
+    content="Compare candidates for {race?.title ||
+      'this election'} on key issues using analysis from traceable public sources."
   />
   <link rel="canonical" href="https://smarter.vote/races/{slug}/" />
   <meta property="og:url" content="https://smarter.vote/races/{slug}/" />
-  <meta property="og:title" content="{race?.title || 'Election'} | Smarter.vote" />
+  <meta
+    property="og:title"
+    content="{race?.title || 'Election'} | Smarter.vote"
+  />
   <meta
     property="og:description"
-    content="Compare candidates for {race?.title || 'this election'} on key issues using analysis from traceable public sources."
+    content="Compare candidates for {race?.title ||
+      'this election'} on key issues using analysis from traceable public sources."
   />
   <meta property="og:image" content="https://smarter.vote/og-image.png" />
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://smarter.vote/races/{slug}/" />
-  <meta property="twitter:title" content="{race?.title || 'Election'} | Smarter.vote" />
+  <meta
+    property="twitter:title"
+    content="{race?.title || 'Election'} | Smarter.vote"
+  />
   <meta
     property="twitter:description"
-    content="Compare candidates for {race?.title || 'this election'} on key issues using analysis from traceable public sources."
+    content="Compare candidates for {race?.title ||
+      'this election'} on key issues using analysis from traceable public sources."
   />
   <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
@@ -156,17 +185,64 @@
     </div>
   {:else if race}
     {#if isDraftPreview}
-      <div class="mb-4 rounded-lg border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-600 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-center gap-2">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
-        <span><strong>Draft Preview</strong> — This data has not been published. Only admins can see this page.</span>
+      <div
+        class="mb-4 rounded-lg border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-600 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-center gap-2"
+      >
+        <svg
+          class="w-5 h-5 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+          /></svg
+        >
+        <span
+          ><strong>Draft Preview</strong> — This data has not been published. Only
+          admins can see this page.</span
+        >
       </div>
     {/if}
     {#if discoveryOnly}
-      <div class="mb-4 rounded-lg border-2 border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600 px-4 py-3 text-sm text-blue-800 dark:text-blue-200 flex items-start gap-3">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <div
+        class="mb-4 rounded-lg border-2 border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600 px-4 py-3 text-sm text-blue-800 dark:text-blue-200 flex items-start gap-3"
+      >
+        <svg
+          class="w-5 h-5 flex-shrink-0 mt-0.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          /></svg
+        >
         <div>
           <p class="font-semibold">Limited Data — Discovery Only</p>
-          <p class="mt-1 text-blue-700 dark:text-blue-300">This race has basic candidate information but detailed issue positions have not been researched yet. Want detailed data on this race? <a href="https://github.com/loukotaj/SmarterVote/issues/new/choose" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">Request a research run</a> or <a href="https://github.com/sponsors/loukotaj" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">sponsor to help fund it</a>!</p>
+          <p class="mt-1 text-blue-700 dark:text-blue-300">
+            This race has basic candidate information but detailed issue
+            positions have not been researched yet. Want detailed data on this
+            race? <a
+              href="https://github.com/loukotaj/SmarterVote/issues/new/choose"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100"
+              >Request a research run</a
+            >
+            or
+            <a
+              href="https://github.com/sponsors/loukotaj"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100"
+              >sponsor to help fund it</a
+            >!
+          </p>
         </div>
       </div>
     {/if}
@@ -180,23 +256,63 @@
       </div>
       <div class="header-meta">
         <div class="info-row">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
           </svg>
-          <span>Election: {new Date(race.election_date).toLocaleDateString()}</span>
+          <span
+            >Election: {new Date(race.election_date).toLocaleDateString()}</span
+          >
         </div>
         <div class="info-row">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+            />
           </svg>
-          <span>{race.office}{race.district ? ` (${race.district})` : ''} &bull; {race.jurisdiction}</span>
+          <span
+            >{race.office}{race.district ? ` (${race.district})` : ""} &bull; {race.jurisdiction}</span
+          >
         </div>
         <div class="info-row">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
-          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span>
+          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span
+          >
         </div>
       </div>
     </Card>
@@ -204,32 +320,107 @@
     <!-- Voter Resources -->
     <div class="voter-resources">
       {#if ballotpediaUrl}
-        <a href={ballotpediaUrl} target="_blank" rel="noopener noreferrer" class="voter-resource-btn voter-resource-btn--ballotpedia">
-          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <a
+          href={ballotpediaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="voter-resource-btn voter-resource-btn--ballotpedia"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            />
           </svg>
           Election on Ballotpedia
-          <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          <svg
+            class="w-3.5 h-3.5 shrink-0 opacity-60"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
           </svg>
         </a>
       {/if}
-      <a href={registerToVoteUrl} target="_blank" rel="noopener noreferrer" class="voter-resource-btn voter-resource-btn--register">
-        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+      <a
+        href={registerToVoteUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="voter-resource-btn voter-resource-btn--register"
+      >
+        <svg
+          class="w-5 h-5 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+          />
         </svg>
         Register to Vote
-        <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        <svg
+          class="w-3.5 h-3.5 shrink-0 opacity-60"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          />
         </svg>
       </a>
-      <a href={howToVoteUrl} target="_blank" rel="noopener noreferrer" class="voter-resource-btn voter-resource-btn--howtovote">
-        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      <a
+        href={howToVoteUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="voter-resource-btn voter-resource-btn--howtovote"
+      >
+        <svg
+          class="w-5 h-5 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+          />
         </svg>
         How to Vote
-        <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        <svg
+          class="w-3.5 h-3.5 shrink-0 opacity-60"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          />
         </svg>
       </a>
     </div>
@@ -244,13 +435,30 @@
           {/if}
           <div class="overview-candidates">
             {#each activeCandidates as candidate}
-              <a href="/races/{race.id}/{candidateSlug(candidate.name)}{isDraftPreview ? '?draft=true' : ''}" class="overview-candidate-chip">
+              <a
+                href="/races/{race.id}/{candidateSlug(
+                  candidate.name
+                )}{isDraftPreview ? '?draft=true' : ''}"
+                class="overview-candidate-chip"
+              >
                 {#if candidate.image_url}
-                  <img src={candidate.image_url} alt="" class="chip-avatar" on:error={(e) => { if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = 'none'; }} />
+                  <img
+                    src={candidate.image_url}
+                    alt=""
+                    class="chip-avatar"
+                    on:error={(e) => {
+                      if (e.currentTarget instanceof HTMLImageElement)
+                        e.currentTarget.style.display = "none";
+                    }}
+                  />
                 {/if}
                 <span class="chip-name">{candidate.name}</span>
                 {#if candidate.party}
-                  <span class="chip-party chip-party-{partyClassForName(candidate.name)}">{partyAbbr(candidate.party)}</span>
+                  <span
+                    class="chip-party chip-party-{partyClassForName(
+                      candidate.name
+                    )}">{partyAbbr(candidate.party)}</span
+                  >
                 {/if}
                 {#if candidate.incumbent}
                   <span class="chip-incumbent">Incumbent</span>
@@ -264,26 +472,50 @@
         {#if latestPoll && latestMatchup}
           <a href="#polls" class="poll-snapshot">
             <div class="poll-snapshot-header">
-              <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              <svg
+                class="w-4 h-4 text-blue-500 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
               </svg>
               <span class="poll-snapshot-title">Latest Poll</span>
             </div>
-            <p class="poll-snapshot-meta">{latestPoll.pollster}{latestPoll.date ? ` · ${new Date(latestPoll.date).toLocaleDateString('en-US', {month:'short', day:'numeric'})}` : ''}</p>
+            <p class="poll-snapshot-meta">
+              {latestPoll.pollster}{latestPoll.date
+                ? ` · ${new Date(latestPoll.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}`
+                : ""}
+            </p>
             <div class="poll-snapshot-bars">
               {#each latestMatchup.candidates as name, i}
                 {@const pct = percentageAt(latestMatchup, i)}
                 <div class="poll-snap-row">
-                  <span class="poll-snap-name">{name.split(' ').pop()}</span>
+                  <span class="poll-snap-name">{name.split(" ").pop()}</span>
                   <div class="poll-snap-bar-wrap">
-                    <div class="poll-snap-bar {partyClassForName(name)}" style="width:{Math.min(pct ?? 0, 100)}%"></div>
+                    <div
+                      class="poll-snap-bar {partyClassForName(name)}"
+                      style="width:{Math.min(pct ?? 0, 100)}%"
+                    />
                   </div>
-                  <span class="poll-snap-pct">{pct !== null ? `${pct}%` : "n/a"}</span>
+                  <span class="poll-snap-pct"
+                    >{pct !== null ? `${pct}%` : "n/a"}</span
+                  >
                 </div>
               {/each}
             </div>
             {#if polls.length > 1}
-              <span class="poll-snapshot-more">{polls.length} polls total — view all ↓</span>
+              <span class="poll-snapshot-more"
+                >{polls.length} polls total — view all ↓</span
+              >
             {:else}
               <span class="poll-snapshot-more">View detailed results ↓</span>
             {/if}
@@ -296,12 +528,25 @@
     {#if usingFallbackData}
       <div class="fallback-notice">
         <div class="fallback-content">
-          <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          <svg
+            class="w-5 h-5 text-yellow-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+            />
           </svg>
           <div>
             <p class="fallback-title">Using Sample Data</p>
-            <p class="fallback-text">Live data is currently unavailable. The information shown below is sample data for demonstration purposes.</p>
+            <p class="fallback-text">
+              Live data is currently unavailable. The information shown below is
+              sample data for demonstration purposes.
+            </p>
           </div>
         </div>
       </div>
@@ -332,15 +577,31 @@
           on:click={() => (withdrawnExpanded = !withdrawnExpanded)}
           aria-expanded={withdrawnExpanded}
         >
-          <svg class="w-4 h-4 transition-transform {withdrawnExpanded ? 'rotate-90' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          <svg
+            class="w-4 h-4 transition-transform {withdrawnExpanded
+              ? 'rotate-90'
+              : ''}"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            />
           </svg>
           Withdrawn / Not Running ({withdrawnCandidates.length})
         </button>
         {#if withdrawnExpanded}
           <div class="candidate-grid mt-3 opacity-60">
             {#each withdrawnCandidates as candidate}
-              <CandidateCard {candidate} raceId={race.id} draft={isDraftPreview} />
+              <CandidateCard
+                {candidate}
+                raceId={race.id}
+                draft={isDraftPreview}
+              />
             {/each}
           </div>
         {/if}
@@ -358,16 +619,24 @@
                 <div>
                   <span class="poll-card-pollster">{poll.pollster}</span>
                   {#if poll.date}
-                    <span class="poll-card-date">{new Date(poll.date).toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'})}</span>
+                    <span class="poll-card-date"
+                      >{new Date(poll.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}</span
+                    >
                   {/if}
                 </div>
                 {#if poll.sample_size}
-                  <span class="poll-card-sample">n={poll.sample_size.toLocaleString()}</span>
+                  <span class="poll-card-sample"
+                    >n={poll.sample_size.toLocaleString()}</span
+                  >
                 {/if}
               </div>
 
-              {#each (poll.matchups ?? []) as matchup, mi}
-                {#if mi > 0}<div class="poll-matchup-divider"></div>{/if}
+              {#each poll.matchups ?? [] as matchup, mi}
+                {#if mi > 0}<div class="poll-matchup-divider" />{/if}
                 <div class="poll-matchup">
                   {#each matchup.candidates as name, i}
                     {@const pc = partyClassForName(name)}
@@ -375,22 +644,45 @@
                     <div class="poll-bar-row">
                       <span class="poll-bar-name">{name}</span>
                       <div class="poll-bar-track">
-                        <div class="poll-bar-fill {pc}" class:poll-bar-fill--missing={pct === null} style="width:{Math.min(pct ?? 0, 100)}%">
-                          <span class="poll-bar-label">{pct !== null ? `${pct}%` : "n/a"}</span>
+                        <div
+                          class="poll-bar-fill {pc}"
+                          class:poll-bar-fill--missing={pct === null}
+                          style="width:{Math.min(pct ?? 0, 100)}%"
+                        >
+                          <span class="poll-bar-label"
+                            >{pct !== null ? `${pct}%` : "n/a"}</span
+                          >
                         </div>
                       </div>
                     </div>
                   {/each}
                   {#if !matchupHasPercentages(matchup)}
-                    <p class="poll-missing-note">Candidate matchup reported without percentage values.</p>
+                    <p class="poll-missing-note">
+                      Candidate matchup reported without percentage values.
+                    </p>
                   {/if}
                 </div>
               {/each}
 
               {#if isExternalUrl(poll.source_url)}
-                <a href={poll.source_url.trim()} target="_blank" rel="noopener noreferrer" class="poll-card-source">
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <a
+                  href={poll.source_url.trim()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="poll-card-source"
+                >
+                  <svg
+                    class="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
                   </svg>
                   Source
                 </a>
@@ -403,12 +695,20 @@
 
     <!-- Data Note -->
     <div class="data-note">
-      <p class="data-note-title">{usingFallbackData ? "Sample Data Information" : "Data Analysis Information"}</p>
+      <p class="data-note-title">
+        {usingFallbackData
+          ? "Sample Data Information"
+          : "Data Analysis Information"}
+      </p>
       <p class="data-note-text">
         {#if usingFallbackData}
-          This is sample data for demonstration purposes. The actual race data is currently unavailable.
+          This is sample data for demonstration purposes. The actual race data
+          is currently unavailable.
         {:else}
-          Data compiled from public sources and analyzed using AI. Last updated {new Date(race.updated_utc).toLocaleDateString()}. Visit candidate websites for the most current information.
+          Data compiled from public sources and analyzed using AI. Last updated {new Date(
+            race.updated_utc
+          ).toLocaleDateString()}. Visit candidate websites for the most current
+          information.
         {/if}
       </p>
     </div>
@@ -419,8 +719,18 @@
     <!-- Models used to generate this race -->
     {#if race.generator && race.generator.length > 0}
       <div class="model-label">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
         </svg>
         <span>Models:</span>
         {#each race.generator as model}
@@ -431,9 +741,22 @@
 
     <!-- Back to Top -->
     <div class="back-to-top">
-      <button class="back-to-top-link" on:click={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      <button
+        class="back-to-top-link"
+        on:click={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 10l7-7m0 0l7 7m-7-7v18"
+          />
         </svg>
         Back to Top
       </button>
@@ -441,16 +764,29 @@
 
     <!-- Compare sticky drawer -->
     {#if selectedCandidates.size > 0}
-      <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-surface/95 backdrop-blur-md border border-stroke py-4 px-6 shadow-2xl rounded-2xl flex items-center justify-between gap-6 max-w-md w-[calc(100%-2rem)] transition-all duration-300">
+      <div
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-surface/95 backdrop-blur-md border border-stroke py-4 px-6 shadow-2xl rounded-2xl flex items-center justify-between gap-6 max-w-md w-[calc(100%-2rem)] transition-all duration-300"
+      >
         <div class="flex items-center gap-3">
-          <span class="inline-flex items-center justify-center bg-blue-600 text-white font-bold rounded-full w-6 h-6 text-xs">{selectedCandidates.size}</span>
-          <span class="text-sm font-semibold text-content">Selected to compare</span>
+          <span
+            class="inline-flex items-center justify-center bg-blue-600 text-white font-bold rounded-full w-6 h-6 text-xs"
+            >{selectedCandidates.size}</span
+          >
+          <span class="text-sm font-semibold text-content"
+            >Selected to compare</span
+          >
         </div>
         <div class="flex items-center gap-3">
-          <button on:click={clearSelection} class="text-xs text-content-muted hover:text-content font-medium transition-colors">Clear</button>
+          <button
+            on:click={clearSelection}
+            class="text-xs text-content-muted hover:text-content font-medium transition-colors"
+            >Clear</button
+          >
           {#if selectedCandidates.size >= 2}
             <a
-              href="/races/{race.id}/compare?candidates={[...selectedCandidates].join(',')}{isDraftPreview ? '&draft=true' : ''}"
+              href="/races/{race.id}/compare?candidates={[
+                ...selectedCandidates,
+              ].join(',')}{isDraftPreview ? '&draft=true' : ''}"
               class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors no-underline shadow-sm"
             >
               Compare Now &rarr;
@@ -589,8 +925,12 @@
   .chip-party {
     @apply text-xs font-semibold;
   }
-  .chip-party-dem { @apply text-blue-600; }
-  .chip-party-rep { @apply text-red-600; }
+  .chip-party-dem {
+    @apply text-blue-600;
+  }
+  .chip-party-rep {
+    @apply text-red-600;
+  }
 
   .chip-incumbent {
     @apply bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs px-1.5 py-0.5 rounded-full;
@@ -634,8 +974,12 @@
   .poll-snap-bar {
     @apply h-full rounded-full bg-content-faint;
   }
-  .poll-snap-bar.dem { @apply bg-blue-500; }
-  .poll-snap-bar.rep { @apply bg-red-500; }
+  .poll-snap-bar.dem {
+    @apply bg-blue-500;
+  }
+  .poll-snap-bar.rep {
+    @apply bg-red-500;
+  }
 
   .poll-snap-pct {
     @apply text-xs font-bold text-content-muted w-8 text-right shrink-0;
@@ -710,9 +1054,15 @@
   .poll-bar-fill {
     @apply h-full rounded-full bg-content-faint flex items-center justify-end pr-2 min-w-[2rem] transition-all duration-300;
   }
-  .poll-bar-fill.dem { @apply bg-blue-500; }
-  .poll-bar-fill.rep { @apply bg-red-500; }
-  .poll-bar-fill--missing { @apply bg-content-faint; }
+  .poll-bar-fill.dem {
+    @apply bg-blue-500;
+  }
+  .poll-bar-fill.rep {
+    @apply bg-red-500;
+  }
+  .poll-bar-fill--missing {
+    @apply bg-content-faint;
+  }
 
   .poll-bar-label {
     @apply text-xs font-bold text-white;

@@ -75,7 +75,9 @@ export async function getRaceSummaries(
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<RaceSummary[]> {
   if (!publicDataBase()) {
-    const staticRaceSummaries = await import("../../../data/published/summaries.json");
+    const staticRaceSummaries = await import(
+      "../../../data/published/summaries.json"
+    );
     return staticRaceSummaries.default as RaceSummary[];
   }
 
@@ -121,11 +123,7 @@ export async function getAllRaces(
 ): Promise<Race[]> {
   logger.warn("getAllRaces is deprecated, use getRaceSummaries instead");
   try {
-    return await fetchPublicJson<Race[]>(
-      "summaries.json",
-      "/races",
-      fetchFn
-    );
+    return await fetchPublicJson<Race[]>("summaries.json", "/races", fetchFn);
   } catch (error) {
     // If fallback is enabled, return all sample races
     if (useFallback) {
@@ -146,7 +144,11 @@ export async function getAllRaces(
  * Used for admin preview of un-published races via ?draft=true query param.
  */
 export async function getDraftRace(id: string): Promise<Race> {
-  const res = await fetchWithAuth(`${API_BASE}/api/races/${encodeURIComponent(id)}/data?draft=true`, {}, 15000);
+  const res = await fetchWithAuth(
+    `${API_BASE}/api/races/${encodeURIComponent(id)}/data?draft=true`,
+    {},
+    15000
+  );
   if (!res.ok) {
     throw new Error(`Failed to fetch draft race: ${res.status}`);
   }
@@ -158,7 +160,9 @@ export async function getChamberForecasts(
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<ChamberForecasts> {
   if (!publicDataBase()) {
-    const staticChamberForecasts = await import("../../../data/published/chamber_forecasts.json");
+    const staticChamberForecasts = await import(
+      "../../../data/published/chamber_forecasts.json"
+    );
     return staticChamberForecasts.default as ChamberForecasts;
   }
 
@@ -175,9 +179,12 @@ export async function getChamberForecasts(
         error
       );
       return {
-        house: "The Republican party is currently projected to maintain a narrow majority in the US House, though key suburban districts remain highly competitive.",
-        senate: "Democrats face a challenging map but have key paths to holding their majority, with crucial toss-up races in key battleground states.",
-        governors: "Gubernatorial contests are expected to largely favor incumbents, though open seats present critical opportunities for both parties to gain ground.",
+        house:
+          "The Republican party is currently projected to maintain a narrow majority in the US House, though key suburban districts remain highly competitive.",
+        senate:
+          "Democrats face a challenging map but have key paths to holding their majority, with crucial toss-up races in key battleground states.",
+        governors:
+          "Gubernatorial contests are expected to largely favor incumbents, though open seats present critical opportunities for both parties to gain ground.",
         updated_at: new Date().toISOString(),
       };
     }

@@ -231,7 +231,7 @@ export function aggregateForecasts(
 
   // Initialize baseline holdovers
   if (tab === "governors") {
-    for (const [state, party] of Object.entries(GOVERNOR_HOLDOVERS)) {
+    for (const party of Object.values(GOVERNOR_HOLDOVERS)) {
       projected[party] = (projected[party] ?? 0) + 1;
     }
   } else if (tab === "senate") {

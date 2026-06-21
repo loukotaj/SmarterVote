@@ -22,7 +22,8 @@ def _init_storage_backend() -> StorageBackend:
 
 @runtime_checkable
 class StepHandler(Protocol):
-    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any: ...
+    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
+        ...
 
 
 _STORAGE_BACKEND = _init_storage_backend()

@@ -11,7 +11,10 @@ export const load: PageLoad = async ({ params, fetch }) => {
       prerenderedRace: await fetchPublishedRace(params.slug, fetch),
     };
   } catch (error) {
-    console.error(`Failed to load prerendered race ${params.slug} for compare:`, error);
+    console.error(
+      `Failed to load prerendered race ${params.slug} for compare:`,
+      error
+    );
     return {
       prerenderedRace: null,
     };

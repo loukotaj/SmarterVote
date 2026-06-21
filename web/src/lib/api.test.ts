@@ -43,12 +43,10 @@ describe("API Fallback Functionality", () => {
 
   it("uses static race data only when VITE_PUBLIC_DATA_URL is configured", async () => {
     vi.stubEnv("VITE_PUBLIC_DATA_URL", "https://static.example/races");
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({ id: "test-race", candidates: [] }),
-      });
+    const mockFetch = vi.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ id: "test-race", candidates: [] }),
+    });
 
     const result = await getRace("test-race", mockFetch, false);
 
@@ -61,9 +59,7 @@ describe("API Fallback Functionality", () => {
 
   it("throws when static summaries are unavailable in GCS mode", async () => {
     vi.stubEnv("VITE_PUBLIC_DATA_URL", "https://static.example/races");
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce({ ok: false, status: 404 });
+    const mockFetch = vi.fn().mockResolvedValueOnce({ ok: false, status: 404 });
 
     await expect(getRaceSummaries(mockFetch, false)).rejects.toThrow(
       "Static data request failed: 404"

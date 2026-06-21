@@ -606,6 +606,8 @@ export interface ChamberForecasts {
   senate: string;
   governors: string;
   schema_version?: string;
-  chambers?: Partial<Record<"house" | "senate" | "governors", ChamberForecastDetails>>;
+  chambers?: Partial<
+    Record<"house" | "senate" | "governors", ChamberForecastDetails>
+  >;
   updated_at?: string;
 }

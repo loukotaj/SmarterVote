@@ -10,10 +10,15 @@ export function publicApiBase(): string {
 }
 
 function shouldPrerenderDynamicRoutes(): boolean {
-  return import.meta.env.MODE === "crawl" || import.meta.env.VITE_PRERENDER_RACES === "true";
+  return (
+    import.meta.env.MODE === "crawl" ||
+    import.meta.env.VITE_PRERENDER_RACES === "true"
+  );
 }
 
-export async function fetchPublishedRaceSummaries(fetchFn: typeof fetch = fetch): Promise<RaceSummary[]> {
+export async function fetchPublishedRaceSummaries(
+  fetchFn: typeof fetch = fetch
+): Promise<RaceSummary[]> {
   summariesCache ??= (async () => {
     const res = await fetchFn(`${publicApiBase()}/races/summaries`);
     if (!res.ok) {
@@ -24,12 +29,17 @@ export async function fetchPublishedRaceSummaries(fetchFn: typeof fetch = fetch)
   return summariesCache;
 }
 
-export async function fetchPublishedRace(id: string, fetchFn: typeof fetch = fetch): Promise<Race> {
+export async function fetchPublishedRace(
+  id: string,
+  fetchFn: typeof fetch = fetch
+): Promise<Race> {
   const cached = raceCache.get(id);
   if (cached) return cached;
 
   const racePromise = (async () => {
-    const res = await fetchFn(`${publicApiBase()}/races/${encodeURIComponent(id)}`);
+    const res = await fetchFn(
+      `${publicApiBase()}/races/${encodeURIComponent(id)}`
+    );
     if (!res.ok) {
       throw new Error(`Failed to fetch race ${id}: ${res.status}`);
     }
@@ -48,7 +58,9 @@ export async function raceEntries(): Promise<Array<{ slug: string }>> {
   return summaries.map((race) => ({ slug: race.id }));
 }
 
-export async function candidateEntries(): Promise<Array<{ slug: string; candidate: string }>> {
+export async function candidateEntries(): Promise<
+  Array<{ slug: string; candidate: string }>
+> {
   if (!shouldPrerenderDynamicRoutes()) return [];
   const summaries = await fetchPublishedRaceSummaries().catch((error) => {
     console.warn("Skipping candidate prerender entries:", error);
