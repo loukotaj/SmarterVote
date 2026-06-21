@@ -785,30 +785,41 @@ async def publish_chamber_forecasts_endpoint(request: Request) -> Dict[str, Any]
     if schema_version != "chamber_forecasts.v2":
         raise HTTPException(status_code=400, detail=f"Expected schema_version chamber_forecasts.v2, got {schema_version}")
 
-    senate = data.get("chambers", {}).get("senate", {})
-    if not senate:
-        raise HTTPException(status_code=400, detail="Senate chamber forecast missing")
-
-    projected = senate.get("projected_seats", {})
-    total_projected = sum(projected.values())
-    if total_projected != 100:
-        raise HTTPException(status_code=400, detail=f"Senate projected seats must sum to 100, got {total_projected}")
-
-    if projected.get("Democratic") == 50 and projected.get("Republican") == 50:
-        if senate.get("control_party") != "Republican":
-            raise HTTPException(status_code=400, detail="Senate 50-50 projected split must result in Republican control")
-
+    chambers = data.get("chambers", {})
+    expected_totals = {"house": 435, "senate": 100, "governors": 50}
     required_fields = [
-        "vp_tiebreak_party",
         "seat_distribution",
         "bottom_line",
         "why_party_favored",
         "opposing_party_path",
         "key_uncertainty",
     ]
-    for f in required_fields:
-        if f not in senate:
-            raise HTTPException(status_code=400, detail=f"Senate chamber forecast missing required field: {f}")
+    for chamber_id, expected_total in expected_totals.items():
+        chamber = chambers.get(chamber_id, {})
+        if not chamber:
+            raise HTTPException(status_code=400, detail=f"{chamber_id} chamber forecast missing")
+
+        projected = chamber.get("projected_seats", {})
+        total_projected = sum(projected.values())
+        if total_projected != expected_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{chamber_id} projected seats must sum to {expected_total}, got {total_projected}",
+            )
+
+        for f in required_fields:
+            if f not in chamber:
+                raise HTTPException(status_code=400, detail=f"{chamber_id} chamber forecast missing required field: {f}")
+        if not chamber.get("seat_distribution"):
+            raise HTTPException(status_code=400, detail=f"{chamber_id} chamber forecast must include seat_distribution data")
+
+    senate = chambers["senate"]
+    if senate.get("vp_tiebreak_party") != "Republican":
+        raise HTTPException(status_code=400, detail="Senate chamber forecast missing Republican VP tie-break assumption")
+    projected = senate.get("projected_seats", {})
+    if projected.get("Democratic") == 50 and projected.get("Republican") == 50:
+        if senate.get("control_party") != "Republican":
+            raise HTTPException(status_code=400, detail="Senate 50-50 projected split must result in Republican control")
 
     try:
         gcs_helpers.save_chamber_forecasts(data, draft=False)

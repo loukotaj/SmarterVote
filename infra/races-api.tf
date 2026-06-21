@@ -171,3 +171,11 @@ resource "google_cloud_run_v2_service" "races_api" {
     google_secret_manager_secret_iam_member.races_api_cloudflare_analytics,
   ]
 }
+
+resource "google_cloud_run_v2_service_iam_member" "races_api_public_invoker" {
+  project  = var.project_id
+  location = var.region
+  name     = google_cloud_run_v2_service.races_api.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}

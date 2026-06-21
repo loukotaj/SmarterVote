@@ -475,16 +475,34 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
         "senate_narrative": "Senate is Lean D",
         "governors_narrative": "Governors is Safe R",
         "chambers": {
+            "house": {
+                "projected_seats": {"Democratic": 217, "Republican": 218},
+                "control_party": "Republican",
+                "seat_distribution": {"218R-217D": 1.0},
+                "bottom_line": "House is narrowly Republican",
+                "why_party_favored": "Seat math",
+                "opposing_party_path": "Win one more seat",
+                "key_uncertainty": "Close districts",
+            },
             "senate": {
                 "projected_seats": {"Democratic": 50, "Republican": 50},
                 "control_party": "Republican",
                 "vp_tiebreak_party": "Republican",
-                "seat_distribution": [{"Democratic": 50, "Republican": 50, "probability": 1.0}],
+                "seat_distribution": {"50R-50D": 1.0},
                 "bottom_line": "Senate is 50-50",
                 "why_party_favored": "Fundamentals",
                 "opposing_party_path": "Path",
                 "key_uncertainty": "Uncertainty",
-            }
+            },
+            "governors": {
+                "projected_seats": {"Democratic": 24, "Republican": 26},
+                "control_party": "Republican",
+                "seat_distribution": {"26R-24D": 1.0},
+                "bottom_line": "Governors are narrowly Republican",
+                "why_party_favored": "Holdover map",
+                "opposing_party_path": "Flip two states",
+                "key_uncertainty": "Open seats",
+            },
         },
     }
     resp = client.post(

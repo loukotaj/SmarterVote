@@ -153,7 +153,7 @@ codex mcp add smartervote-races `
   -- .venv-mcp\Scripts\python.exe -m smartervote_mcp.gcp_launcher
 ```
 
-The launcher requires local `gcloud` auth with access to `races-api-admin-key-dev`.
+The launcher requires local `gcloud` auth with access to `races-api-admin-key-dev`. The deployed `races-api` service is publicly invokable at the Cloud Run layer and protected by FastAPI/Auth0/admin-key checks inside the app. If a future environment disables public invocation, set `SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN=true`; the active `gcloud` account will also need `roles/iam.serviceAccountTokenCreator` on `races-api-dev@smartervote.iam.gserviceaccount.com`, or set `SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT` to another invoker service account with that grant.
 
 ## Using the App
 

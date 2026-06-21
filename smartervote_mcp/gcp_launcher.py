@@ -72,6 +72,21 @@ def _cloud_run_audience() -> str | None:
     return f"{parsed.scheme}://{parsed.netloc}"
 
 
+def _cloud_run_impersonation_service_account() -> str | None:
+    """Return the service account to impersonate for Cloud Run identity tokens."""
+    configured = os.getenv("SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT")
+    if configured:
+        return configured
+
+    audience = _cloud_run_audience()
+    if not audience:
+        return None
+
+    environment = os.getenv("SMARTERVOTE_GCP_ENVIRONMENT", "dev")
+    project = os.getenv("SMARTERVOTE_GCP_PROJECT") or _gcloud_project()
+    return f"races-api-{environment}@{project}.iam.gserviceaccount.com"
+
+
 def configure_cloud_run_identity_token_from_gcp() -> None:
     """Populate a Cloud Run identity token unless already configured.
 
@@ -81,12 +96,24 @@ def configure_cloud_run_identity_token_from_gcp() -> None:
     """
     if os.getenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN") or os.getenv("SMARTERVOTE_RACES_API_ID_TOKEN"):
         return
+    use_cloud_run_id_token = os.getenv("SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN", "").lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if not use_cloud_run_id_token and not os.getenv("SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT"):
+        return
 
     audience = _cloud_run_audience()
     if not audience:
         return
 
-    token = _run_gcloud(["auth", "print-identity-token", f"--audiences={audience}"])
+    args = ["auth", "print-identity-token", f"--audiences={audience}"]
+    impersonate_service_account = _cloud_run_impersonation_service_account()
+    if impersonate_service_account:
+        args.append(f"--impersonate-service-account={impersonate_service_account}")
+
+    token = _run_gcloud(args)
     if not token:
         raise RuntimeError(f"gcloud returned an empty identity token for audience {audience}")
     os.environ["SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN"] = token

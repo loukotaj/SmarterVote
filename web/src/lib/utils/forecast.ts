@@ -477,7 +477,7 @@ export function groupSeatDistribution(
         test: (o) => o.dSeats >= 218 && o.dSeats <= 224,
       },
       {
-        label: "Near Tie (215-217)",
+        label: "Near Tie (212-217D)",
         colorClass: "bg-slate-400 dark:bg-slate-500",
         test: (o) => o.dSeats >= 212 && o.dSeats <= 217,
       },

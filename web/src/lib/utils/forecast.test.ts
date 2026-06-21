@@ -135,4 +135,19 @@ describe("forecast utilities", () => {
     expect(buckets[4].label).toBe("Strong R (53R+)");
     expect(buckets[4].probability).toBe(0.02);
   });
+
+  it("uses House-specific distribution labels", () => {
+    const buckets = groupSeatDistribution(
+      {
+        "218R-217D": 0.6,
+        "223D-212R": 0.4,
+      },
+      "house"
+    );
+
+    expect(buckets[1].label).toBe("Narrow D (218-224D)");
+    expect(buckets[1].probability).toBe(0.4);
+    expect(buckets[2].label).toBe("Near Tie (212-217D)");
+    expect(buckets[2].probability).toBe(0.6);
+  });
 });

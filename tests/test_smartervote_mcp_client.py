@@ -79,8 +79,12 @@ def test_configure_cloud_run_identity_token_from_gcp(monkeypatch):
         return "token"
 
     monkeypatch.setenv("SMARTERVOTE_RACES_API_URL", "https://races-api-dev-ddsvfazica-uc.a.run.app")
+    monkeypatch.setenv("SMARTERVOTE_GCP_PROJECT", "smartervote")
+    monkeypatch.setenv("SMARTERVOTE_GCP_ENVIRONMENT", "dev")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN", "true")
     monkeypatch.delenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN", raising=False)
     monkeypatch.delenv("SMARTERVOTE_RACES_API_ID_TOKEN", raising=False)
+    monkeypatch.delenv("SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT", raising=False)
     monkeypatch.setattr("smartervote_mcp.gcp_launcher._run_gcloud", fake_run_gcloud)
 
     configure_cloud_run_identity_token_from_gcp()
@@ -90,6 +94,27 @@ def test_configure_cloud_run_identity_token_from_gcp(monkeypatch):
             "auth",
             "print-identity-token",
             "--audiences=https://races-api-dev-ddsvfazica-uc.a.run.app",
+            "--impersonate-service-account=races-api-dev@smartervote.iam.gserviceaccount.com",
         ]
     ]
     assert os.environ["SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN"] == "token"
+
+
+def test_configure_cloud_run_identity_token_is_opt_in(monkeypatch):
+    calls = []
+
+    def fake_run_gcloud(args):
+        calls.append(args)
+        return "token"
+
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_URL", "https://races-api-dev-ddsvfazica-uc.a.run.app")
+    monkeypatch.delenv("SMARTERVOTE_RACES_API_USE_CLOUD_RUN_ID_TOKEN", raising=False)
+    monkeypatch.delenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN", raising=False)
+    monkeypatch.delenv("SMARTERVOTE_RACES_API_ID_TOKEN", raising=False)
+    monkeypatch.delenv("SMARTERVOTE_RACES_API_IMPERSONATE_SERVICE_ACCOUNT", raising=False)
+    monkeypatch.setattr("smartervote_mcp.gcp_launcher._run_gcloud", fake_run_gcloud)
+
+    configure_cloud_run_identity_token_from_gcp()
+
+    assert calls == []
+    assert "SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN" not in os.environ

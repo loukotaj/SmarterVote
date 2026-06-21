@@ -387,6 +387,8 @@ async def update_chamber_forecasts(
     house_narrative: str,
     senate_narrative: str,
     governors_narrative: str,
+    chambers: dict[str, Any] | None = None,
+    schema_version: str | None = None,
 ) -> dict[str, Any]:
     """Manually update the chamber-level forecast narratives."""
     payload = {
@@ -394,6 +396,10 @@ async def update_chamber_forecasts(
         "senate_narrative": senate_narrative,
         "governors_narrative": governors_narrative,
     }
+    if chambers is not None:
+        payload["chambers"] = chambers
+    if schema_version is not None:
+        payload["schema_version"] = schema_version
     return await _client().post("/api/races/chamber_forecasts", json=payload)
 
 
@@ -698,43 +704,69 @@ async def validate_static_chamber_forecasts() -> dict[str, Any]:
 
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
-        schema_version = data.get("schema_version")
-        if schema_version != "chamber_forecasts.v2":
-            return {"success": False, "error": f"Expected schema_version chamber_forecasts.v2, got {schema_version}"}
-
-        senate = data.get("chambers", {}).get("senate", {})
-        if not senate:
-            return {"success": False, "error": "Senate chamber forecast missing"}
-
-        projected = senate.get("projected_seats", {})
-        total_projected = sum(projected.values())
-        if total_projected != 100:
-            return {"success": False, "error": f"Senate projected seats must sum to 100, got {total_projected}"}
-
-        if projected.get("Democratic") == 50 and projected.get("Republican") == 50:
-            if senate.get("control_party") != "Republican":
-                return {"success": False, "error": "Senate 50-50 projected split must result in Republican control"}
-
-        required_fields = [
-            "vp_tiebreak_party",
-            "seat_distribution",
-            "bottom_line",
-            "why_party_favored",
-            "opposing_party_path",
-            "key_uncertainty",
-        ]
-        for f in required_fields:
-            if f not in senate:
-                return {"success": False, "error": f"Senate chamber forecast missing required field: {f}"}
-
-        return {"success": True, "message": "Chamber forecasts validation passed successfully."}
+        return _validate_chamber_forecast_payload(data)
     except Exception as e:
         return {"success": False, "error": f"Validation error: {e}"}
 
 
+def _validate_chamber_forecast_payload(data: dict[str, Any]) -> dict[str, Any]:
+    schema_version = data.get("schema_version")
+    if schema_version != "chamber_forecasts.v2":
+        return {"success": False, "error": f"Expected schema_version chamber_forecasts.v2, got {schema_version}"}
+
+    chambers = data.get("chambers", {})
+    expected_totals = {"house": 435, "senate": 100, "governors": 50}
+    required_fields = [
+        "seat_distribution",
+        "bottom_line",
+        "why_party_favored",
+        "opposing_party_path",
+        "key_uncertainty",
+    ]
+
+    summary: dict[str, Any] = {}
+    for chamber_id, expected_total in expected_totals.items():
+        chamber = chambers.get(chamber_id, {})
+        if not chamber:
+            return {"success": False, "error": f"{chamber_id} chamber forecast missing"}
+
+        projected = chamber.get("projected_seats", {})
+        total_projected = sum(projected.values())
+        if total_projected != expected_total:
+            return {
+                "success": False,
+                "error": f"{chamber_id} projected seats must sum to {expected_total}, got {total_projected}",
+            }
+
+        for field in required_fields:
+            if field not in chamber:
+                return {"success": False, "error": f"{chamber_id} chamber forecast missing required field: {field}"}
+        if not chamber.get("seat_distribution"):
+            return {"success": False, "error": f"{chamber_id} chamber forecast must include seat_distribution data"}
+
+        summary[chamber_id] = {
+            "control_party": chamber.get("control_party"),
+            "projected_seats": projected,
+            "expected_seats": chamber.get("expected_seats"),
+            "seat_distribution_count": len(chamber.get("seat_distribution") or {}),
+        }
+
+    senate = chambers["senate"]
+    if senate.get("vp_tiebreak_party") != "Republican":
+        return {"success": False, "error": "Senate chamber forecast missing Republican VP tie-break assumption"}
+    senate_projected = senate.get("projected_seats", {})
+    if senate_projected.get("Democratic") == 50 and senate_projected.get("Republican") == 50:
+        if senate.get("control_party") != "Republican":
+            return {"success": False, "error": "Senate 50-50 projected split must result in Republican control"}
+
+    return {"success": True, "message": "Chamber forecasts validation passed successfully.", "chambers": summary}
+
+
 @mcp.tool()
 async def publish_static_forecast_bundle(dry_run: bool = False) -> dict[str, Any]:
-    """Refreshes static summaries, validates forecasts, and publishes the chamber forecast bundle to GCS."""
+    """Refresh static summaries, save the generated chamber forecast as a remote draft, and publish it."""
+    import json
+
     refresh_res = await refresh_static_forecast_data()
     val_res = await validate_static_chamber_forecasts()
 
@@ -744,32 +776,33 @@ async def publish_static_forecast_bundle(dry_run: bool = False) -> dict[str, Any
     if dry_run:
         return {"success": True, "message": "Dry-run validation successful. Bundle not published.", "refresh": refresh_res}
 
+    path = _published_data_dir() / "chamber_forecasts.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    draft_res = await update_chamber_forecasts(
+        house_narrative=str(data.get("house") or ""),
+        senate_narrative=str(data.get("senate") or ""),
+        governors_narrative=str(data.get("governors") or ""),
+        chambers=data.get("chambers"),
+        schema_version=str(data.get("schema_version") or "chamber_forecasts.v2"),
+    )
     pub_res = await publish_chamber_forecasts()
-    return {"success": True, "refresh": refresh_res, "validation": val_res, "publish": pub_res}
+    return {"success": True, "refresh": refresh_res, "validation": val_res, "draft": draft_res, "publish": pub_res}
 
 
 @mcp.tool()
 async def verify_live_forecast_page_data() -> dict[str, Any]:
     """Check deployed or local live static endpoints and verify forecast bundle properties."""
-    import httpx
-
-    base_url = os.getenv("VITE_RACES_API_URL") or "https://races-api-dev-ddsvfazica-uc.a.run.app"
     try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            resp = await client.get(f"{base_url}/races/chamber_forecasts")
-            if resp.status_code != 200:
-                return {"success": False, "error": f"Endpoint returned status code {resp.status_code}"}
-            data = resp.json()
-            schema = data.get("schema_version")
-            senate = data.get("chambers", {}).get("senate", {})
-
-            return {
-                "success": True,
-                "schema_version": schema,
-                "senate_control_party": senate.get("control_party"),
-                "senate_expected_seats": senate.get("expected_seats"),
-                "vp_tiebreak_party": senate.get("vp_tiebreak_party"),
-            }
+        data = await _client().get("/races/chamber_forecasts")
+        validation = _validate_chamber_forecast_payload(data)
+        if not validation.get("success"):
+            return validation
+        return {
+            "success": True,
+            "schema_version": data.get("schema_version"),
+            "updated_at": data.get("updated_at"),
+            "chambers": validation.get("chambers"),
+        }
     except Exception as e:
         return {"success": False, "error": f"Failed to connect to API: {e}"}
 

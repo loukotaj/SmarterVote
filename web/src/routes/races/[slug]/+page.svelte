@@ -136,6 +136,56 @@
     const value = matchupPercentages(matchup)[index];
     return typeof value === "number" ? value : null;
   }
+
+  function normalizeForecastParty(
+    party?: string | null
+  ): "Democratic" | "Republican" | "Other" {
+    const value = (party || "").toLowerCase();
+    if (value.includes("democrat") || value === "dfl") return "Democratic";
+    if (value.includes("republican") || value === "gop") return "Republican";
+    return "Other";
+  }
+
+  function forecastPartyClass(party?: string | null): string {
+    const normalized = normalizeForecastParty(party);
+    if (normalized === "Democratic") return "dem";
+    if (normalized === "Republican") return "rep";
+    return "other";
+  }
+
+  function forecastRatingLabel(rating?: string): string {
+    const labels: Record<string, string> = {
+      safe_d: "Safe D",
+      likely_d: "Likely D",
+      lean_d: "Lean D",
+      tilt_d: "Tilt D",
+      tossup: "Toss-up",
+      tilt_r: "Tilt R",
+      lean_r: "Lean R",
+      likely_r: "Likely R",
+      safe_r: "Safe R",
+      other: "Other",
+    };
+    return rating ? labels[rating] ?? rating.replace(/_/g, " ") : "Unrated";
+  }
+
+  function probability(value?: number | null): string {
+    if (typeof value !== "number") return "n/a";
+    return `${Math.round(value * 100)}%`;
+  }
+
+  function signedMargin(value?: number | null): string {
+    if (typeof value !== "number") return "n/a";
+    return `${value > 0 ? "+" : ""}${value.toFixed(1)} pts`;
+  }
+
+  function hostName(urlString: string): string {
+    try {
+      return new URL(urlString).hostname.replace(/^www\./, "");
+    } catch {
+      return "Source";
+    }
+  }
 </script>
 
 <svelte:head>
@@ -532,6 +582,136 @@
         {/if}
       </div>
     </Card>
+
+    <!-- Race Forecast -->
+    {#if race.forecast}
+      {@const forecast = race.forecast}
+      {@const forecastParty = normalizeForecastParty(
+        forecast.predicted_winner_party
+      )}
+      {@const forecastClass = forecastPartyClass(
+        forecast.predicted_winner_party
+      )}
+      <Card class="forecast-card">
+        <div class="forecast-header">
+          <div>
+            <p class="forecast-eyebrow">Race Forecast</p>
+            <h2 class="forecast-title">
+              {forecast.predicted_winner_name || forecastParty} favored
+            </h2>
+          </div>
+          <span class="forecast-rating forecast-rating-{forecastClass}">
+            {forecastRatingLabel(forecast.rating)}
+          </span>
+        </div>
+
+        <div class="forecast-grid">
+          <div class="forecast-metric">
+            <span class="forecast-metric-label">Win Probability</span>
+            <span class="forecast-metric-value"
+              >{probability(forecast.win_probability)}</span
+            >
+          </div>
+          <div class="forecast-metric">
+            <span class="forecast-metric-label">Estimated Margin</span>
+            <span class="forecast-metric-value"
+              >{signedMargin(forecast.margin_estimate)}</span
+            >
+          </div>
+          <div class="forecast-metric">
+            <span class="forecast-metric-label">Polling Inputs</span>
+            <span class="forecast-metric-value"
+              >{forecast.based_on_poll_count} poll{forecast.based_on_poll_count ===
+              1
+                ? ""
+                : "s"}</span
+            >
+          </div>
+        </div>
+
+        {#if forecast.party_probabilities}
+          {@const demProbability =
+            forecast.party_probabilities.Democratic ?? 0}
+          {@const repProbability =
+            forecast.party_probabilities.Republican ?? 0}
+          <div
+            class="forecast-probability-bar"
+            aria-label="Party probabilities"
+          >
+            {#if demProbability > 0}
+              <div
+                class="forecast-probability-segment forecast-probability-segment-dem"
+                style="width: {Math.max(2, demProbability * 100)}%"
+              >
+                {#if demProbability > 0.12}D {probability(demProbability)}{/if}
+              </div>
+            {/if}
+            {#if repProbability > 0}
+              <div
+                class="forecast-probability-segment forecast-probability-segment-rep"
+                style="width: {Math.max(2, repProbability * 100)}%"
+              >
+                {#if repProbability > 0.12}R {probability(repProbability)}{/if}
+              </div>
+            {/if}
+          </div>
+        {/if}
+
+        <div class="forecast-body">
+          <p class="forecast-takeaway">
+            {forecast.takeaway || forecast.rationale}
+          </p>
+          {#if forecast.key_reasons?.length}
+            <div class="forecast-detail-block">
+              <h3>Key Drivers</h3>
+              <ul>
+                {#each forecast.key_reasons as reason}
+                  <li>{reason}</li>
+                {/each}
+              </ul>
+            </div>
+          {/if}
+          {#if forecast.uncertainty}
+            <div class="forecast-detail-block">
+              <h3>Uncertainty</h3>
+              <p>{forecast.uncertainty}</p>
+            </div>
+          {/if}
+          {#if forecast.rationale && forecast.takeaway}
+            <div class="forecast-detail-block">
+              <h3>Model Rationale</h3>
+              <p>{forecast.rationale}</p>
+            </div>
+          {/if}
+        </div>
+
+        <div class="forecast-meta">
+          <span>Confidence: {forecast.confidence}</span>
+          {#if forecast.model}
+            <span>Model: {formatModelName(forecast.model)}</span>
+          {/if}
+          {#if forecast.generated_at}
+            <span
+              >Generated: {new Date(
+                forecast.generated_at
+              ).toLocaleDateString()}</span
+            >
+          {/if}
+        </div>
+
+        {#if forecast.source_urls?.length}
+          <div class="forecast-sources">
+            {#each forecast.source_urls as url}
+              {#if isExternalUrl(url)}
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {hostName(url)}
+                </a>
+              {/if}
+            {/each}
+          </div>
+        {/if}
+      </Card>
+    {/if}
 
     <!-- Fallback Data Notice -->
     {#if usingFallbackData}
@@ -997,6 +1177,103 @@
 
   .poll-snapshot-more {
     @apply text-xs text-blue-600 font-medium mt-1;
+  }
+
+  /* Forecast */
+  :global(.forecast-card) {
+    @apply p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm;
+  }
+
+  .forecast-header {
+    @apply flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4;
+  }
+
+  .forecast-eyebrow {
+    @apply text-xs font-bold uppercase tracking-wide text-content-subtle mb-1;
+  }
+
+  .forecast-title {
+    @apply text-xl sm:text-2xl font-semibold text-content;
+  }
+
+  .forecast-rating {
+    @apply inline-flex self-start rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wide;
+  }
+  .forecast-rating-dem {
+    @apply bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-200 dark:border-blue-800;
+  }
+  .forecast-rating-rep {
+    @apply bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-200 dark:border-red-800;
+  }
+  .forecast-rating-other {
+    @apply bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800/40 dark:text-slate-200 dark:border-slate-700;
+  }
+
+  .forecast-grid {
+    @apply grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4;
+  }
+
+  .forecast-metric {
+    @apply rounded-xl border border-stroke bg-page px-4 py-3;
+  }
+
+  .forecast-metric-label {
+    @apply block text-xs font-semibold uppercase tracking-wide text-content-subtle;
+  }
+
+  .forecast-metric-value {
+    @apply mt-1 block text-lg font-bold text-content;
+  }
+
+  .forecast-probability-bar {
+    @apply mb-4 flex h-8 overflow-hidden rounded-xl border border-stroke bg-surface-alt;
+  }
+
+  .forecast-probability-segment {
+    @apply flex items-center justify-center text-xs font-bold text-white transition-all duration-300;
+  }
+  .forecast-probability-segment-dem {
+    @apply bg-blue-600;
+  }
+  .forecast-probability-segment-rep {
+    @apply bg-red-600 ml-auto;
+  }
+
+  .forecast-body {
+    @apply space-y-4;
+  }
+
+  .forecast-takeaway {
+    @apply text-sm sm:text-base font-medium leading-relaxed text-content;
+  }
+
+  .forecast-detail-block {
+    @apply rounded-xl border border-stroke bg-page p-4;
+  }
+
+  .forecast-detail-block h3 {
+    @apply mb-2 text-xs font-bold uppercase tracking-wide text-content-subtle;
+  }
+
+  .forecast-detail-block p,
+  .forecast-detail-block li {
+    @apply text-sm leading-relaxed text-content-muted;
+  }
+
+  .forecast-detail-block ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+
+  .forecast-meta {
+    @apply mt-4 flex flex-wrap gap-x-3 gap-y-1 border-t border-stroke pt-3 text-xs text-content-subtle;
+  }
+
+  .forecast-sources {
+    @apply mt-3 flex flex-wrap gap-2;
+  }
+
+  .forecast-sources a {
+    @apply rounded-full border border-stroke bg-page px-3 py-1 text-xs font-medium text-blue-600 hover:border-blue-300 hover:bg-blue-50 dark:text-blue-400;
   }
 
   /* Candidates */
