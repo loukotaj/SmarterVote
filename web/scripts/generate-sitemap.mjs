@@ -33,7 +33,7 @@ function urlEntry(loc, lastmod, changefreq, priority) {
 }
 
 let races;
-const localPath = path.resolve("..", "data", "published", "summaries.json");
+const localPath = path.resolve("static", "summaries.json");
 try {
   const content = await fs.readFile(localPath, "utf8");
   races = JSON.parse(content);

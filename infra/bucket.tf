@@ -88,12 +88,3 @@ resource "google_storage_bucket_object" "folders" {
   bucket  = google_storage_bucket.sv_data.name
   content = " " # Empty content to create folder structure
 }
-
-# Public static frontend reads use the published race data in this bucket.
-# GCS does not allow conditional IAM bindings on allUsers, so this grants
-# public objectViewer access at the bucket level.
-resource "google_storage_bucket_iam_member" "published_races_public_reader" {
-  bucket = google_storage_bucket.sv_data.name
-  role   = "roles/storage.objectViewer"
-  member = "allUsers"
-}

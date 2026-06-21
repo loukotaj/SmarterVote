@@ -1,4 +1,4 @@
-﻿"""GCS helpers for the races-api admin backend."""
+"""GCS helpers for the races-api admin backend."""
 
 import json
 import logging
@@ -316,13 +316,14 @@ def publish_race_to_gcs(race_id: str, data: Dict[str, Any]) -> None:
 _publish_race_gcs = publish_race_to_gcs
 
 
-def save_chamber_forecasts(data: Dict[str, Any]) -> None:
+def save_chamber_forecasts(data: Dict[str, Any], draft: bool = False) -> None:
     """Save chamber forecasts to GCS or local file."""
+    prefix = "drafts" if draft else "races"
     if _GCS_BUCKET:
         client = _get_gcs_admin()
         if client is not None:
             bucket = client.bucket(_GCS_BUCKET)
-            bucket.blob("races/chamber_forecasts.json").upload_from_string(
+            bucket.blob(f"{prefix}/chamber_forecasts.json").upload_from_string(
                 json.dumps(data, indent=2), content_type="application/json"
             )
             return
@@ -331,20 +332,22 @@ def save_chamber_forecasts(data: Dict[str, Any]) -> None:
 
     from config import DATA_DIR
 
-    local_path = Path(DATA_DIR) / "chamber_forecasts.json"
+    filename = "chamber_forecasts_draft.json" if draft else "chamber_forecasts.json"
+    local_path = Path(DATA_DIR) / filename
     local_path.parent.mkdir(parents=True, exist_ok=True)
     with open(local_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
 
-def load_chamber_forecasts() -> Optional[Dict[str, Any]]:
+def load_chamber_forecasts(draft: bool = False) -> Optional[Dict[str, Any]]:
     """Load chamber forecasts from GCS or local file."""
+    prefix = "drafts" if draft else "races"
     if _GCS_BUCKET:
         client = _get_gcs_admin()
         if client is not None:
             try:
                 bucket = client.bucket(_GCS_BUCKET)
-                blob = bucket.blob("races/chamber_forecasts.json")
+                blob = bucket.blob(f"{prefix}/chamber_forecasts.json")
                 if blob.exists():
                     return json.loads(blob.download_as_text())
             except Exception as e:
@@ -354,7 +357,8 @@ def load_chamber_forecasts() -> Optional[Dict[str, Any]]:
 
     from config import DATA_DIR
 
-    local_path = Path(DATA_DIR) / "chamber_forecasts.json"
+    filename = "chamber_forecasts_draft.json" if draft else "chamber_forecasts.json"
+    local_path = Path(DATA_DIR) / filename
     if local_path.exists():
         try:
             with open(local_path, "r", encoding="utf-8") as f:

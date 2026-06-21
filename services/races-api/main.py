@@ -160,7 +160,7 @@ def readiness():
     return {"ready": True, "race_count": len(races)}
 
 
-@app.get("/races", response_model=List[str])
+@app.get("/races", response_model=List[str], dependencies=[Depends(verify_token)])
 @limiter.limit("60/minute")
 def list_races(request: Request, response: Response) -> List[str]:
     """List available race IDs."""
@@ -168,7 +168,7 @@ def list_races(request: Request, response: Response) -> List[str]:
     return publish_service.get_published_races()
 
 
-@app.get("/races/summaries", response_model=List[schemas.RaceSummary])
+@app.get("/races/summaries", response_model=List[schemas.RaceSummary], dependencies=[Depends(verify_token)])
 @limiter.limit("30/minute")
 def get_race_summaries(request: Request, response: Response) -> List[schemas.RaceSummary]:
     """Get summaries of all races for search and listing."""
@@ -176,7 +176,7 @@ def get_race_summaries(request: Request, response: Response) -> List[schemas.Rac
     return publish_service.get_race_summaries()
 
 
-@app.get("/races/chamber_forecasts")
+@app.get("/races/chamber_forecasts", dependencies=[Depends(verify_token)])
 @limiter.limit("60/minute")
 def get_chamber_forecasts(request: Request, response: Response):
     """Retrieve overall chamber-level forecasts (narratives) from GCS or local file."""
@@ -187,7 +187,7 @@ def get_chamber_forecasts(request: Request, response: Response):
     return data
 
 
-@app.get("/races/{race_id}")
+@app.get("/races/{race_id}", dependencies=[Depends(verify_token)])
 @limiter.limit("60/minute")
 def get_race(request: Request, response: Response, race_id: str):
     """Retrieve race data by ID."""

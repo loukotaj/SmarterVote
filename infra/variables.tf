@@ -131,3 +131,9 @@ variable "create_firestore_database" {
   type        = bool
   default     = false
 }
+
+variable "billing_account_id" {
+  description = "GCP Billing Account ID. If empty, the budget alert resource is not created."
+  type        = string
+  default     = ""
+}

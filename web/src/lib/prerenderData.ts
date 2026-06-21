@@ -27,10 +27,8 @@ export async function fetchPublishedRaceSummaries(
   fetchFn: typeof fetch = fetch
 ): Promise<RaceSummary[]> {
   summariesCache ??= (async () => {
-    const staticBase = publicDataBase();
-    const url = staticBase
-      ? `${staticBase}/summaries.json`
-      : `${publicApiBase()}/races/summaries`;
+    const staticBase = publicDataBase() || "";
+    const url = staticBase ? `${staticBase}/summaries.json` : `/summaries.json`;
     const res = await fetchFn(url);
     if (!res.ok) {
       throw new Error(`Failed to fetch race summaries: ${res.status}`);
@@ -48,10 +46,10 @@ export async function fetchPublishedRace(
   if (cached) return cached;
 
   const racePromise = (async () => {
-    const staticBase = publicDataBase();
+    const staticBase = publicDataBase() || "";
     const url = staticBase
       ? `${staticBase}/${encodeURIComponent(id)}.json`
-      : `${publicApiBase()}/races/${encodeURIComponent(id)}`;
+      : `/${encodeURIComponent(id)}.json`;
     const res = await fetchFn(url);
     if (!res.ok) {
       throw new Error(`Failed to fetch race ${id}: ${res.status}`);

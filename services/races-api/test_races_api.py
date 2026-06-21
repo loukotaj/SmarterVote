@@ -41,10 +41,29 @@ def _load_main_module(data_dir: str, monkeypatch) -> Any:
 
     import importlib
 
+    # Reload modules in order of dependency to avoid using stale DATA_DIR
+    import constants
+
+    importlib.reload(constants)
+
     import config as cfg_mod
-    import main as main_mod
 
     importlib.reload(cfg_mod)
+
+    import gcs_helpers
+
+    importlib.reload(gcs_helpers)
+
+    import firestore_helpers
+
+    importlib.reload(firestore_helpers)
+
+    import routers.races_admin
+
+    importlib.reload(routers.races_admin)
+
+    import main as main_mod
+
     main_mod = importlib.reload(main_mod)
     setattr(main_mod, "publish_service", main_mod.SimplePublishService(data_directory=data_dir))
     main_mod.limiter.reset()
@@ -93,6 +112,9 @@ def data_dir(sample_race):
 def client(data_dir, monkeypatch):
     """Create a test client with DATA_DIR pointed at the temp directory."""
     main_mod = _load_main_module(data_dir, monkeypatch)
+    from auth import verify_token
+
+    main_mod.app.dependency_overrides[verify_token] = lambda: {"auth": "test"}
     with TestClient(main_mod.app) as c:
         yield c
 
@@ -143,6 +165,9 @@ def test_list_races_empty(monkeypatch):
     """GET /races returns empty list when no data directory exists."""
     with tempfile.TemporaryDirectory() as tmpdir:
         main_mod = _load_main_module(tmpdir, monkeypatch)
+        from auth import verify_token
+
+        main_mod.app.dependency_overrides[verify_token] = lambda: {"auth": "test"}
         test_client = TestClient(main_mod.app)
         resp = test_client.get("/races")
         assert resp.status_code == 200
@@ -365,6 +390,7 @@ def test_analytics_timeseries_correct_key(client):
 
 def test_analytics_no_key_or_auth_configured(client, monkeypatch):
     """When neither admin key nor Auth0 is configured, admin endpoints return 503."""
+    client.app.dependency_overrides.clear()
     import main as main_mod
 
     original = main_mod._ADMIN_API_KEY
@@ -380,6 +406,7 @@ def test_analytics_no_key_or_auth_configured(client, monkeypatch):
 
 def test_analytics_no_key_falls_back_to_bearer_auth(client, monkeypatch):
     """When Auth0 is configured, missing bearer credentials return 401."""
+    client.app.dependency_overrides.clear()
     import main as main_mod
 
     original = main_mod._ADMIN_API_KEY
@@ -447,6 +474,18 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
         "house_narrative": "House is Tilt R",
         "senate_narrative": "Senate is Lean D",
         "governors_narrative": "Governors is Safe R",
+        "chambers": {
+            "senate": {
+                "projected_seats": {"Democratic": 50, "Republican": 50},
+                "control_party": "Republican",
+                "vp_tiebreak_party": "Republican",
+                "seat_distribution": [{"Democratic": 50, "Republican": 50, "probability": 1.0}],
+                "bottom_line": "Senate is 50-50",
+                "why_party_favored": "Fundamentals",
+                "opposing_party_path": "Path",
+                "key_uncertainty": "Uncertainty",
+            }
+        },
     }
     resp = client.post(
         "/api/races/chamber_forecasts",
@@ -455,6 +494,10 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
     )
     assert resp.status_code == 200
     assert "updated_at" in resp.json()
+
+    # Publish draft so it becomes public
+    publish_resp = client.post("/api/races/chamber_forecasts/publish", headers={"X-Admin-Key": "secret"})
+    assert publish_resp.status_code == 200
 
     # GET should now return 200 and the saved data
     resp = client.get("/races/chamber_forecasts")

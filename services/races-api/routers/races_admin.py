@@ -565,6 +565,234 @@ async def recheck_all_race_statuses() -> Dict[str, Any]:
     return {"message": f"Rechecked {len(races)} races", "checked": len(races), "updated": updated, "races": races}
 
 
+from pydantic import BaseModel, Field
+
+
+class GenerateForecastsRequest(BaseModel):
+    model: str = Field(default="google/gemini-2.5-flash")
+
+
+@router.post("/api/races/chamber_forecasts", dependencies=[Depends(verify_token)])
+async def save_chamber_forecasts_endpoint(payload: ChamberForecastsPayload) -> Dict[str, Any]:
+    """Save chamber-level forecast narratives to GCS or local file as draft."""
+    data = {
+        "schema_version": payload.schema_version or "chamber_forecasts.v2",
+        "house": payload.house_narrative,
+        "senate": payload.senate_narrative,
+        "governors": payload.governors_narrative,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    if payload.chambers:
+        data["chambers"] = payload.chambers
+    try:
+        gcs_helpers.save_chamber_forecasts(data, draft=True)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to save chamber forecasts draft: {exc}")
+    return {"message": "Chamber forecasts draft saved successfully", "updated_at": data["updated_at"]}
+
+
+@router.get("/api/races/chamber_forecasts/draft", dependencies=[Depends(verify_token)])
+async def get_chamber_forecasts_draft_endpoint() -> Dict[str, Any]:
+    """Retrieve overall chamber-level forecasts draft from GCS or local file."""
+    data = gcs_helpers.load_chamber_forecasts(draft=True)
+    if not data:
+        raise HTTPException(status_code=404, detail="Chamber forecasts draft not found")
+    return data
+
+
+@router.post("/api/races/chamber_forecasts/generate", dependencies=[Depends(verify_token)])
+async def generate_chamber_forecasts_endpoint(
+    request: Request, payload: GenerateForecastsRequest = GenerateForecastsRequest()
+) -> Dict[str, Any]:
+    """Automatically generate chamber-level forecast narratives using an LLM and save them to drafts."""
+    from pipeline_client.agent.llm import _call_openrouter
+    from shared.forecast_summary import build_chamber_forecasts
+
+    service = request.app.state.publish_service
+    summaries = service.get_race_summaries()
+
+    if not isinstance(summaries, list):
+        raise HTTPException(status_code=500, detail=f"Invalid summaries from publish service: {type(summaries)}")
+
+    # Group races by chamber
+    senate_races = []
+    house_races = []
+    governor_races = []
+
+    for r in summaries:
+        office = (r.get("office") or "").lower()
+        if "senate" in office:
+            senate_races.append(r)
+        elif "house" in office or "representative" in office:
+            house_races.append(r)
+        elif "governor" in office or "gubernatorial" in office:
+            governor_races.append(r)
+
+    def build_chamber_context(races: list[dict[str, Any]], name: str) -> str:
+        if not races:
+            return f"No published races found for the {name}."
+        dem_wins = 0
+        gop_wins = 0
+        toss_ups = 0
+        competitive_list = []
+        for r in races:
+            forecast = r.get("forecast") or {}
+            rating = (forecast.get("rating") or "").lower()
+            winner_party = (forecast.get("predicted_winner_party") or "").lower()
+            prob = forecast.get("win_probability") or 0.5
+            title = r.get("title") or r.get("id")
+            if "toss-up" in rating or "tossup" in rating:
+                toss_ups += 1
+                competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob*100:.1f}%)")
+            elif "lean" in rating:
+                competitive_list.append(f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
+                if "d" in winner_party:
+                    dem_wins += 1
+                elif "r" in winner_party:
+                    gop_wins += 1
+            elif "likely" in rating:
+                competitive_list.append(f"- {title}: Likely {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
+                if "d" in winner_party:
+                    dem_wins += 1
+                elif "r" in winner_party:
+                    gop_wins += 1
+            elif "safe" in rating:
+                if "d" in winner_party:
+                    dem_wins += 1
+                elif "r" in winner_party:
+                    gop_wins += 1
+        lines = [
+            f"Chamber: {name}",
+            f"Total Published Races: {len(races)}",
+            f"Toss-up Races: {toss_ups}",
+            f"Projected Democratic Wins (among published non-tossups): {dem_wins}",
+            f"Projected Republican Wins (among published non-tossups): {gop_wins}",
+            "\nCompetitive/Notable Races Detail:",
+        ]
+        lines.extend(competitive_list[:30])
+        return "\n".join(lines)
+
+    async def get_analysis(chamber_name: str, context_text: str) -> dict[str, str]:
+        system_prompt = (
+            "You are a professional, nonpartisan, highly analytical election forecaster (like Cook Political Report, FiveThirtyEight, or Split Ticket). "
+            f"Your goal is to output a JSON object containing a detailed forecast analysis for the {chamber_name} "
+            "in the 2026 election cycle, based on the forecast data provided. "
+            "The JSON object must have EXACTLY the following keys, with string values:\n"
+            "- 'narrative': A concise, 2-3 sentence overview narrative summarizing the battle for control of the chamber.\n"
+            "- 'bottom_line': A one-sentence bottom line summarizing the projection.\n"
+            "- 'why_party_favored': An objective, analytical explanation of why the favored party is projected to win or control the chamber.\n"
+            "- 'opposing_party_path': An objective explanation of the most realistic path for the opposing party to win control.\n"
+            "- 'key_uncertainty': A short summary of the key uncertainty or risk factors in this chamber's forecast.\n\n"
+            "Output ONLY the JSON object, with no markdown code blocks, no backticks, and no extra text. Do not mention that you are an AI."
+        )
+        user_prompt = f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"
+        messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
+        try:
+            resp = await _call_openrouter(messages=messages, model=payload.model)
+            content = resp.choices[0].message.content.strip()
+            if content.startswith("```"):
+                lines = content.splitlines()
+                if lines[0].startswith("```"):
+                    lines = lines[1:]
+                if lines and lines[-1].startswith("```"):
+                    lines = lines[:-1]
+                content = "\n".join(lines).strip()
+            import json
+
+            data = json.loads(content)
+            required_keys = ["narrative", "bottom_line", "why_party_favored", "opposing_party_path", "key_uncertainty"]
+            validated = {}
+            for k in required_keys:
+                validated[k] = str(data.get(k) or "").strip()
+            return validated
+        except Exception as e:
+            return {
+                "narrative": f"Model projections indicate a highly competitive battle for control of the {chamber_name}.",
+                "bottom_line": f"Control of the {chamber_name} remains highly competitive.",
+                "why_party_favored": "The favored party benefits from favorable seat splits and baseline fundamentals.",
+                "opposing_party_path": "The opposing party needs to win key toss-up and lean districts/states.",
+                "key_uncertainty": "Uncertainty remains high due to limited polling in key races.",
+            }
+
+    senate_analysis = await get_analysis("US Senate", build_chamber_context(senate_races, "US Senate"))
+    house_analysis = await get_analysis("US House", build_chamber_context(house_races, "US House"))
+    governors_analysis = await get_analysis("Governors", build_chamber_context(governor_races, "Governors"))
+
+    forecast_data = build_chamber_forecasts(
+        summaries,
+        {
+            "house": house_analysis["narrative"],
+            "senate": senate_analysis["narrative"],
+            "governors": governors_analysis["narrative"],
+        },
+        {
+            "house": house_analysis,
+            "senate": senate_analysis,
+            "governors": governors_analysis,
+        },
+    )
+
+    try:
+        gcs_helpers.save_chamber_forecasts(forecast_data, draft=True)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to save chamber forecasts draft: {exc}")
+
+    return {
+        "message": "Draft chamber forecasts generated successfully",
+        "updated_at": forecast_data["updated_at"],
+        "forecast": forecast_data,
+    }
+
+
+@router.post("/api/races/chamber_forecasts/publish", dependencies=[Depends(verify_token)])
+async def publish_chamber_forecasts_endpoint(request: Request) -> Dict[str, Any]:
+    """Publish the draft chamber-level forecasts (copy draft -> published in GCS)."""
+    data = gcs_helpers.load_chamber_forecasts(draft=True)
+    if not data:
+        raise HTTPException(status_code=404, detail="Chamber forecasts draft not found")
+
+    schema_version = data.get("schema_version")
+    if schema_version != "chamber_forecasts.v2":
+        raise HTTPException(status_code=400, detail=f"Expected schema_version chamber_forecasts.v2, got {schema_version}")
+
+    senate = data.get("chambers", {}).get("senate", {})
+    if not senate:
+        raise HTTPException(status_code=400, detail="Senate chamber forecast missing")
+
+    projected = senate.get("projected_seats", {})
+    total_projected = sum(projected.values())
+    if total_projected != 100:
+        raise HTTPException(status_code=400, detail=f"Senate projected seats must sum to 100, got {total_projected}")
+
+    if projected.get("Democratic") == 50 and projected.get("Republican") == 50:
+        if senate.get("control_party") != "Republican":
+            raise HTTPException(status_code=400, detail="Senate 50-50 projected split must result in Republican control")
+
+    required_fields = [
+        "vp_tiebreak_party",
+        "seat_distribution",
+        "bottom_line",
+        "why_party_favored",
+        "opposing_party_path",
+        "key_uncertainty",
+    ]
+    for f in required_fields:
+        if f not in senate:
+            raise HTTPException(status_code=400, detail=f"Senate chamber forecast missing required field: {f}")
+
+    try:
+        gcs_helpers.save_chamber_forecasts(data, draft=False)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to publish chamber forecasts: {exc}")
+
+    # Clear memory cache on simple publish service
+    service = request.app.state.publish_service
+    if service:
+        service.clear_cache()
+
+    return {"message": "Chamber forecasts published successfully", "updated_at": data.get("updated_at")}
+
+
 @router.get("/api/races/{race_id}", dependencies=[Depends(verify_token)])
 async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any]:
     """Get a single race record from Firestore."""
@@ -955,20 +1183,4 @@ async def restore_version_as_draft(race_id: str, filename: str) -> Dict[str, Any
     return {"message": f"Retired version restored as draft for {race_id}", "id": race_id, "restored_from": filename}
 
 
-@router.post("/api/races/chamber_forecasts", dependencies=[Depends(verify_token)])
-async def save_chamber_forecasts_endpoint(payload: ChamberForecastsPayload) -> Dict[str, Any]:
-    """Save chamber-level forecast narratives to GCS or local file."""
-    data = {
-        "schema_version": payload.schema_version or "chamber_forecasts.v1",
-        "house": payload.house_narrative,
-        "senate": payload.senate_narrative,
-        "governors": payload.governors_narrative,
-        "updated_at": datetime.now(timezone.utc).isoformat(),
-    }
-    if payload.chambers:
-        data["chambers"] = payload.chambers
-    try:
-        gcs_helpers.save_chamber_forecasts(data)
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Failed to save chamber forecasts: {exc}")
-    return {"message": "Chamber forecasts saved successfully", "updated_at": data["updated_at"]}
+# End of routes

@@ -13,20 +13,13 @@ async function fetchPublicJson<T>(
   apiPath: string,
   fetchFn: typeof fetch
 ): Promise<T> {
-  const dataBase = publicDataBase();
-  if (dataBase) {
-    const staticResponse = await fetchFn(`${dataBase}/${staticPath}`);
-    if (!staticResponse.ok) {
-      throw new Error(`Static data request failed: ${staticResponse.status}`);
-    }
-    return (await staticResponse.json()) as T;
+  const dataBase = publicDataBase() || "";
+  const url = dataBase ? `${dataBase}/${staticPath}` : `/${staticPath}`;
+  const response = await fetchFn(url);
+  if (!response.ok) {
+    throw new Error(`Static data request failed: ${response.status}`);
   }
-
-  const apiResponse = await fetchFn(`${API_BASE}${apiPath}`);
-  if (!apiResponse.ok) {
-    throw new Error(`API request failed: ${apiResponse.status}`);
-  }
-  return (await apiResponse.json()) as T;
+  return (await response.json()) as T;
 }
 
 export async function getRace(
