@@ -27,7 +27,9 @@ describe("API Fallback Functionality", () => {
 
     expect(result.title).toBe("Live Data Race");
     expect(mockFetch).toHaveBeenCalledWith(
-      "http://localhost:8080/races/test-race"
+      expect.stringMatching(
+        /^http:\/\/(localhost|127\.0\.0\.1):8080\/races\/test-race$/,
+      ),
     );
   });
 
@@ -53,7 +55,7 @@ describe("API Fallback Functionality", () => {
     expect(result.id).toBe("test-race");
     expect(mockFetch).toHaveBeenNthCalledWith(
       1,
-      "https://static.example/races/test-race.json"
+      "https://static.example/races/test-race.json",
     );
   });
 
@@ -62,7 +64,7 @@ describe("API Fallback Functionality", () => {
     const mockFetch = vi.fn().mockResolvedValueOnce({ ok: false, status: 404 });
 
     await expect(getRaceSummaries(mockFetch, false)).rejects.toThrow(
-      "Static data request failed: 404"
+      "Static data request failed: 404",
     );
   });
 
@@ -111,10 +113,10 @@ describe("API Fallback Functionality", () => {
     expect(summaries.length).toBeGreaterThan(0);
     expect(chamberForecasts.chambers?.senate?.control_party).toBe("Republican");
     expect(mockFetch).toHaveBeenCalledWith(
-      "https://static.example/races/summaries.json"
+      "https://static.example/races/summaries.json",
     );
     expect(mockFetch).toHaveBeenCalledWith(
-      "https://static.example/races/chamber_forecasts.json"
+      "https://static.example/races/chamber_forecasts.json",
     );
   });
 
@@ -132,7 +134,7 @@ describe("API Fallback Functionality", () => {
     const mockFetch = vi.fn().mockRejectedValue(new Error("Network error"));
 
     await expect(getRace("test-race", mockFetch, false)).rejects.toThrow(
-      "Network error"
+      "Network error",
     );
   });
 

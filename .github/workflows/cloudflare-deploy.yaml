@@ -11,6 +11,7 @@ on:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+  DEFAULT_RACES_API_URL: https://races-api-dev-ddsvfazica-uc.a.run.app
 
 jobs:
   build-and-deploy:
@@ -52,10 +53,10 @@ jobs:
             curl -sSfL "$API_URL/races/summaries" -o data/published/summaries.json
             curl -sSfL "$API_URL/races/chamber_forecasts" -o data/published/chamber_forecasts.json
           else
-            echo "Warning: VITE_PUBLIC_DATA_URL and RACES_API_URL are empty. Falling back to dev API endpoint."
-            DATA_URL="https://races-api-dev-ddsvfazica-uc.a.run.app"
-            curl -sSfL "$DATA_URL/races/summaries" -o data/published/summaries.json
-            curl -sSfL "$DATA_URL/races/chamber_forecasts" -o data/published/chamber_forecasts.json
+            echo "Warning: VITE_PUBLIC_DATA_URL and RACES_API_URL are empty. Falling back to default races API."
+            API_URL="${DEFAULT_RACES_API_URL%/}"
+            curl -sSfL "$API_URL/races/summaries" -o data/published/summaries.json
+            curl -sSfL "$API_URL/races/chamber_forecasts" -o data/published/chamber_forecasts.json
           fi
 
       - name: Generate SvelteKit files
@@ -71,7 +72,7 @@ jobs:
         working-directory: web
         env:
           NODE_ENV: production
-          VITE_RACES_API_URL: ${{ vars.RACES_API_URL }}
+          VITE_RACES_API_URL: ${{ vars.RACES_API_URL || env.DEFAULT_RACES_API_URL }}
           VITE_PUBLIC_DATA_URL: ${{ vars.VITE_PUBLIC_DATA_URL }}
           VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
           VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}

@@ -18,9 +18,9 @@
   } from "@tanstack/svelte-table";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
   import type { RaceRecord, RaceStatusType } from "$lib/types";
+  import { racesApiBase } from "$lib/config/api";
 
-  const API_BASE =
-    import.meta.env.VITE_RACES_API_URL || "http://127.0.0.1:8080";
+  const API_BASE = racesApiBase();
   const apiService = new PipelineApiService(API_BASE);
 
   let rows: RaceRecord[] = [];

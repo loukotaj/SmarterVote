@@ -1,15 +1,19 @@
 import { candidateSlug } from "$lib/utils/format";
 import type { Race, RaceSummary } from "$lib/types";
+import {
+  publicDataBase as configuredPublicDataBase,
+  racesApiBase,
+} from "$lib/config/api";
 
 let summariesCache: Promise<RaceSummary[]> | null = null;
 const raceCache = new Map<string, Promise<Race>>();
 
 export function publicApiBase(): string {
-  return import.meta.env.VITE_RACES_API_URL || "http://localhost:8080";
+  return racesApiBase();
 }
 
 function publicDataBase(): string | undefined {
-  return import.meta.env.VITE_PUBLIC_DATA_URL?.replace(/\/$/, "");
+  return configuredPublicDataBase();
 }
 
 function shouldPrerenderDynamicRoutes(): boolean {
@@ -20,7 +24,7 @@ function shouldPrerenderDynamicRoutes(): boolean {
 }
 
 export async function fetchPublishedRaceSummaries(
-  fetchFn: typeof fetch = fetch
+  fetchFn: typeof fetch = fetch,
 ): Promise<RaceSummary[]> {
   summariesCache ??= (async () => {
     const staticBase = publicDataBase();
@@ -38,7 +42,7 @@ export async function fetchPublishedRaceSummaries(
 
 export async function fetchPublishedRace(
   id: string,
-  fetchFn: typeof fetch = fetch
+  fetchFn: typeof fetch = fetch,
 ): Promise<Race> {
   const cached = raceCache.get(id);
   if (cached) return cached;
