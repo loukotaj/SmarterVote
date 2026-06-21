@@ -72,6 +72,7 @@ jobs:
           VITE_PUBLIC_DATA_URL: ${{ vars.VITE_PUBLIC_DATA_URL }}
           VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
           VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+          VITE_PRERENDER_RACES: "true"
 
       - name: Add IndexNow key file
         if: ${{ env.INDEXNOW_KEY_CONFIGURED == 'true' }}

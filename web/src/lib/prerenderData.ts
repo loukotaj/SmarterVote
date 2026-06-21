@@ -62,7 +62,7 @@ export async function fetchPublishedRace(
 
 export async function raceEntries(): Promise<Array<{ slug: string }>> {
   if (!shouldPrerenderDynamicRoutes()) return [];
-  const summaries = await fetchPublishedRaceSummaries().catch((error) => {
+  const summaries = await loadPrerenderSummaries().catch((error) => {
     console.warn("Skipping race prerender entries:", error);
     return [];
   });
@@ -73,7 +73,7 @@ export async function candidateEntries(): Promise<
   Array<{ slug: string; candidate: string }>
 > {
   if (!shouldPrerenderDynamicRoutes()) return [];
-  const summaries = await fetchPublishedRaceSummaries().catch((error) => {
+  const summaries = await loadPrerenderSummaries().catch((error) => {
     console.warn("Skipping candidate prerender entries:", error);
     return [];
   });
@@ -84,4 +84,22 @@ export async function candidateEntries(): Promise<
     }
   }
   return entries;
+}
+
+async function loadPrerenderSummaries(): Promise<RaceSummary[]> {
+  if (import.meta.env.SSR) {
+    try {
+      const [{ readFile }, path] = await Promise.all([
+        import("node:fs/promises"),
+        import("node:path"),
+      ]);
+      const data = await readFile(path.resolve("static", "summaries.json"), {
+        encoding: "utf-8",
+      });
+      return JSON.parse(data) as RaceSummary[];
+    } catch (error) {
+      if (!publicDataBase()) throw error;
+    }
+  }
+  return fetchPublishedRaceSummaries();
 }
