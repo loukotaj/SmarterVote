@@ -15,7 +15,9 @@
   export let data: { prerenderedRace?: Race };
 
   let race: Race | null = data.prerenderedRace ?? null;
-  let candidates: Candidate[] = race ? race.candidates.filter((c) => !c.withdrawn).slice(0, 2) : [];
+  let candidates: Candidate[] = race
+    ? race.candidates.filter((c) => !c.withdrawn).slice(0, 2)
+    : [];
   let loading = !race;
   let error: string | null = null;
   let isDraftPreview = false;
