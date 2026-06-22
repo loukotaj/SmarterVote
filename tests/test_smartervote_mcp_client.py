@@ -1,4 +1,5 @@
 import os
+from importlib.util import find_spec
 
 import httpx
 import pytest
@@ -9,6 +10,9 @@ from smartervote_mcp.gcp_launcher import _cloud_run_audience, configure_cloud_ru
 
 @pytest.mark.asyncio
 async def test_smartervote_mcp_exposes_lean_tool_surface():
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
     from smartervote_mcp.server import mcp
 
     tools = await mcp.list_tools()
