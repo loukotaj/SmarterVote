@@ -30,7 +30,9 @@ export function getAuth0ConfigError(): string | null {
   if (isAuthSkipped()) return null;
   const missing = REQUIRED_AUTH0_ENV.filter((key) => !readAuth0Env(key));
   if (!missing.length) return null;
-  return `Auth0 is not configured. Missing frontend env var${missing.length === 1 ? "" : "s"}: ${missing.join(", ")}.`;
+  return `Auth0 is not configured. Missing frontend env var${
+    missing.length === 1 ? "" : "s"
+  }: ${missing.join(", ")}.`;
 }
 
 /** Stub that satisfies the Auth0Client surface used by SmarterVote. */

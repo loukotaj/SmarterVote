@@ -774,11 +774,11 @@
               </div>
               <div
                 class={`text-xl font-black tabular-nums ${
-                  controlParty === 'Democratic'
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : controlParty === 'Republican'
-                    ? 'text-red-600 dark:text-red-400'
-                    : 'text-content'
+                  controlParty === "Democratic"
+                    ? "text-blue-600 dark:text-blue-400"
+                    : controlParty === "Republican"
+                    ? "text-red-600 dark:text-red-400"
+                    : "text-content"
                 }`}
               >
                 {probability(chamberSummary?.control_probability)}
@@ -816,7 +816,9 @@
               >
                 Battlegrounds
               </div>
-              <div class="text-xl font-black text-yellow-600 dark:text-yellow-400 tabular-nums">
+              <div
+                class="text-xl font-black text-yellow-600 dark:text-yellow-400 tabular-nums"
+              >
                 {chamberSummary?.tossup_count ?? 0}
               </div>
               <div class="text-[10px] font-semibold text-content-muted mt-0.5">
@@ -1687,7 +1689,6 @@
       </div>
     </section>
 
-
     <!-- Races That Matter Most â€” Horizontal Scroll Strip -->
     {#if keyRacesList.length > 0}
       <section class="space-y-4">
@@ -1698,7 +1699,9 @@
             Races That Matter Most
           </h3>
           <div class="flex items-center gap-2">
-            <span class="text-xs text-content-subtle font-semibold hidden sm:inline">
+            <span
+              class="text-xs text-content-subtle font-semibold hidden sm:inline"
+            >
               Key battlegrounds driving chamber control
             </span>
             <button
@@ -1706,8 +1709,18 @@
               class="w-7 h-7 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
               aria-label="Scroll left"
             >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
             <button
@@ -1715,8 +1728,18 @@
               class="w-7 h-7 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
               aria-label="Scroll right"
             >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>
@@ -1730,12 +1753,12 @@
           {#each keyRacesList as race}
             {@const rating = race.forecast?.rating}
             {@const ratingBorderColor = rating
-              ? rating.endsWith('_d')
-                ? 'border-l-blue-500'
-                : rating.endsWith('_r')
-                ? 'border-l-red-500'
-                : 'border-l-yellow-500'
-              : 'border-l-slate-400'}
+              ? rating.endsWith("_d")
+                ? "border-l-blue-500"
+                : rating.endsWith("_r")
+                ? "border-l-red-500"
+                : "border-l-yellow-500"
+              : "border-l-slate-400"}
             <div
               class={`snap-start shrink-0 w-[300px] bg-surface border border-stroke rounded-xl p-4 shadow-sm hover:shadow-md transition-all border-l-[3px] ${ratingBorderColor}`}
             >
@@ -1764,8 +1787,12 @@
                     {probability(race.forecast.win_probability)} win
                   </span>
                   {#if race.forecast.margin_estimate !== undefined && race.forecast.margin_estimate !== null}
-                    <span class="text-[10px] text-content-subtle font-semibold tabular-nums">
-                      {race.forecast.margin_estimate > 0 ? "+" : ""}{race.forecast.margin_estimate.toFixed(1)}% margin
+                    <span
+                      class="text-[10px] text-content-subtle font-semibold tabular-nums"
+                    >
+                      {race.forecast.margin_estimate > 0
+                        ? "+"
+                        : ""}{race.forecast.margin_estimate.toFixed(1)}% margin
                     </span>
                   {/if}
                 </div>
@@ -1775,7 +1802,7 @@
                 class="text-[11px] text-content-muted leading-relaxed font-medium line-clamp-2"
               >
                 {race.forecast?.takeaway ||
-                  race.forecast?.rationale?.split(/[.!?]/)[0] + '.' ||
+                  race.forecast?.rationale?.split(/[.!?]/)[0] + "." ||
                   "No takeaway available."}
               </p>
 
@@ -1959,7 +1986,6 @@
         </div>
       {/if}
     </section>
-
 
     <!-- Active competitive/active races list -->
     <section
