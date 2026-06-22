@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
@@ -602,6 +602,22 @@
     "Republican",
     "Other",
   ];
+
+  // Most likely outcome from seat distribution
+  $: mostLikelyOutcome = (() => {
+    const dist = chamberSummary?.seat_distribution ?? {};
+    let best = { key: "", probability: 0 };
+    for (const [key, prob] of Object.entries(dist)) {
+      if (prob > best.probability) best = { key, probability: prob };
+    }
+    return best;
+  })();
+
+  // Scrollable key races strip
+  let keyRacesContainer: HTMLDivElement;
+  function scrollKeyRaces(dir: number) {
+    keyRacesContainer?.scrollBy({ left: dir * 320, behavior: "smooth" });
+  }
 </script>
 
 <svelte:head>
@@ -745,9 +761,73 @@
             </div>
           </div>
 
-          <!-- Analyst Note Narrative Box -->
+          <!-- Probability Stat Cards -->
+          <div class="grid grid-cols-3 gap-3">
+            <!-- Control Probability -->
+            <div
+              class="bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center backdrop-blur-sm"
+            >
+              <div
+                class="text-[9px] font-bold uppercase text-content-subtle tracking-wider mb-1"
+              >
+                Control Prob.
+              </div>
+              <div
+                class={`text-xl font-black tabular-nums ${
+                  controlParty === 'Democratic'
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : controlParty === 'Republican'
+                    ? 'text-red-600 dark:text-red-400'
+                    : 'text-content'
+                }`}
+              >
+                {probability(chamberSummary?.control_probability)}
+              </div>
+              <div class="text-[10px] font-semibold text-content-muted mt-0.5">
+                {controlParty}
+              </div>
+            </div>
+
+            <!-- Most Likely Outcome -->
+            <div
+              class="bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center backdrop-blur-sm"
+            >
+              <div
+                class="text-[9px] font-bold uppercase text-content-subtle tracking-wider mb-1"
+              >
+                Likely Outcome
+              </div>
+              <div class="text-xl font-black text-content tabular-nums">
+                {mostLikelyOutcome.key || "â€”"}
+              </div>
+              <div class="text-[10px] font-semibold text-content-muted mt-0.5">
+                {mostLikelyOutcome.probability
+                  ? `${(mostLikelyOutcome.probability * 100).toFixed(1)}% prob.`
+                  : ""}
+              </div>
+            </div>
+
+            <!-- Competitive Races -->
+            <div
+              class="bg-surface-alt/30 border border-stroke/40 rounded-xl p-3 text-center backdrop-blur-sm"
+            >
+              <div
+                class="text-[9px] font-bold uppercase text-content-subtle tracking-wider mb-1"
+              >
+                Battlegrounds
+              </div>
+              <div class="text-xl font-black text-yellow-600 dark:text-yellow-400 tabular-nums">
+                {chamberSummary?.tossup_count ?? 0}
+              </div>
+              <div class="text-[10px] font-semibold text-content-muted mt-0.5">
+                toss-ups / {chamberSummary?.competitive_race_count ?? 0} competitive
+              </div>
+            </div>
+          </div>
+
+          <!-- Forecast Overview Narrative Box -->
           <div
-            class="bg-surface-alt/10 border border-stroke/40 rounded-2xl p-5 relative overflow-hidden flex-1 flex flex-col justify-center min-h-[160px]"
+            class="bg-surface-alt/10 border border-stroke/40 rounded-2xl p-5 relative overflow-hidden flex-1 flex flex-col justify-center min-h-[120px]"
           >
             <div
               class="absolute top-3 left-4 flex items-center gap-1.5 text-[10px] font-black uppercase text-blue-600 dark:text-blue-400 tracking-wider"
@@ -762,10 +842,10 @@
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
                 />
               </svg>
-              Election Analyst Note
+              Forecast Overview
             </div>
             <p class="text-sm font-semibold text-content leading-relaxed mt-3">
               {chamberNarrative ||
@@ -773,20 +853,15 @@
             </p>
           </div>
 
-          <!-- Method & Updated info -->
+          <!-- Clean Updated Footer -->
           <div
-            class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-content-subtle font-semibold"
+            class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-content-subtle font-semibold"
           >
-            <span
-              >Method: <span class="font-bold text-content"
-                >{chamberSummary?.method ||
-                  "Static published SmarterVote projection"}</span
-              ></span
-            >
+            <span>AI-generated model projection</span>
             {#if chamberForecasts?.updated_at}
-              <span class="w-1.5 h-1.5 rounded-full bg-stroke/60" />
+              <span class="w-1 h-1 rounded-full bg-stroke/60" />
               <span
-                >Updated: <span class="font-bold text-content"
+                >Last updated <span class="font-bold text-content"
                   >{new Date(
                     chamberForecasts.updated_at
                   ).toLocaleDateString()}</span
@@ -1051,275 +1126,13 @@
       </div>
     </div>
 
-    <!-- Races That Matter Most Section -->
-    {#if keyRacesList.length > 0}
-      <section class="space-y-4">
-        <div
-          class="flex items-center justify-between border-b border-stroke/20 pb-2"
-        >
-          <h3 class="text-base font-bold uppercase text-content tracking-wider">
-            Races That Matter Most
-          </h3>
-          <span class="text-xs text-content-subtle font-semibold">
-            Key battlegrounds driving chamber control
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {#each keyRacesList as race}
-            {@const rating = race.forecast?.rating}
-            {@const isExpanded = expandedRaceIds.has(race.id)}
-            <div
-              class="bg-surface border border-stroke rounded-2xl p-5 shadow-sm flex flex-col justify-between transition-all hover:shadow-md relative overflow-hidden"
-            >
-              <div>
-                <div class="flex items-center justify-between mb-3">
-                  <a
-                    href={browser ? raceHref(race.id) : undefined}
-                    class="font-black text-sm text-content hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    {race.state ||
-                      race.title?.replace("2026 U.S. Senate election in ", "")}
-                  </a>
-                  {#if rating}
-                    <span
-                      class={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${ratingClass(
-                        rating
-                      )}`}
-                    >
-                      {formatRating(rating)}
-                    </span>
-                  {/if}
-                </div>
-
-                <p
-                  class="text-xs text-content-muted leading-relaxed mb-4 font-semibold"
-                >
-                  {race.forecast?.takeaway ||
-                    race.forecast?.rationale ||
-                    "No takeaway available."}
-                </p>
-              </div>
-
-              <div
-                class="border-t border-stroke/40 pt-3 mt-auto flex items-center justify-between"
-              >
-                <a
-                  href={browser ? raceHref(race.id) : undefined}
-                  class="text-[10px] text-blue-600 dark:text-blue-400 font-bold hover:underline"
-                >
-                  View Profiles &rarr;
-                </a>
-                {#if race.forecast?.rationale}
-                  <button
-                    on:click={() => toggleExpand(race.id)}
-                    class="text-[10px] text-content-subtle hover:text-content font-bold flex items-center gap-0.5"
-                  >
-                    {isExpanded ? "Hide Details ^" : "Expand Details v"}
-                  </button>
-                {/if}
-              </div>
-
-              {#if isExpanded && race.forecast?.rationale}
-                <div
-                  class="mt-4 text-[11px] text-content-subtle leading-relaxed bg-surface-alt/40 border border-stroke/40 rounded-xl p-3 animate-fade-in font-medium space-y-2"
-                >
-                  <p>{race.forecast.rationale}</p>
-                  {#if race.forecast.key_reasons && race.forecast.key_reasons.length > 0}
-                    <div class="space-y-1">
-                      <span
-                        class="font-bold text-[10px] uppercase text-content-subtle block"
-                        >Key Drivers:</span
-                      >
-                      <ul class="list-disc pl-4 space-y-1">
-                        {#each race.forecast.key_reasons as reason}
-                          <li>{reason}</li>
-                        {/each}
-                      </ul>
-                    </div>
-                  {/if}
-                </div>
-              {/if}
-            </div>
-          {/each}
-        </div>
-      </section>
-    {/if}
-
-    <!-- Outlook & Analysis Section -->
-    <section class="space-y-4">
-      <div
-        class="flex items-center justify-between border-b border-stroke/20 pb-2"
-      >
-        <h3 class="text-base font-bold uppercase text-content tracking-wider">
-          Outlook & Analysis
-        </h3>
-        <span class="text-xs text-content-subtle font-semibold"
-          >Structured assessment of the {activeTab === "house"
-            ? "House"
-            : activeTab === "senate"
-            ? "Senate"
-            : "Governor"} map</span
-        >
-      </div>
-
-      {#if chamberSummary?.bottom_line || chamberSummary?.why_party_favored || chamberSummary?.opposing_party_path || chamberSummary?.key_uncertainty}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Bottom Line -->
-          {#if chamberSummary.bottom_line}
-            <div
-              class="bg-surface/80 border-2 border-blue-500/30 dark:border-blue-500/20 rounded-2xl p-5 shadow-sm relative overflow-hidden backdrop-blur-md"
-            >
-              <div
-                class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 dark:bg-blue-500/10 rounded-bl-full pointer-events-none"
-              />
-              <h4
-                class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2 flex items-center gap-1.5"
-              >
-                <svg
-                  class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <circle cx="12" cy="12" r="6" />
-                  <circle cx="12" cy="12" r="2" />
-                </svg> The Bottom Line
-              </h4>
-              <p class="text-sm font-semibold text-content leading-relaxed">
-                {chamberSummary.bottom_line}
-              </p>
-            </div>
-          {/if}
-
-          <!-- Why Favored -->
-          {#if chamberSummary.why_party_favored}
-            <div
-              class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
-            >
-              <h4
-                class="text-xs font-black uppercase text-red-600 dark:text-red-400 tracking-widest mb-2 flex items-center gap-1.5"
-              >
-                <svg
-                  class="w-4 h-4 text-red-600 dark:text-red-400 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  viewBox="0 0 24 24"
-                >
-                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                  <polyline points="16 7 22 7 22 13" />
-                </svg>
-                Why {chamberSummary.control_party === "Democratic"
-                  ? "Democrats"
-                  : "Republicans"} Are Favored
-              </h4>
-              <p
-                class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
-              >
-                {chamberSummary.why_party_favored}
-              </p>
-            </div>
-          {/if}
-
-          <!-- Opposing Path -->
-          {#if chamberSummary.opposing_party_path}
-            <div
-              class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
-            >
-              <h4
-                class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2 flex items-center gap-1.5"
-              >
-                <svg
-                  class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  viewBox="0 0 24 24"
-                >
-                  <circle cx="6" cy="19" r="3" />
-                  <path
-                    d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"
-                  />
-                  <circle cx="18" cy="5" r="3" />
-                </svg>
-                {chamberSummary.control_party === "Democratic"
-                  ? "Republican"
-                  : "Democratic"} Path to Control
-              </h4>
-              <p
-                class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
-              >
-                {chamberSummary.opposing_party_path}
-              </p>
-            </div>
-          {/if}
-
-          <!-- Key Uncertainty -->
-          {#if chamberSummary.key_uncertainty}
-            <div
-              class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
-            >
-              <h4
-                class="text-xs font-black uppercase text-yellow-600 dark:text-yellow-400 tracking-widest mb-2 flex items-center gap-1.5"
-              >
-                <svg
-                  class="w-4 h-4 text-yellow-600 dark:text-yellow-400 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  viewBox="0 0 24 24"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="8" x2="12.01" y2="8" />
-                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                  <line x1="12" y1="17" x2="12.01" y2="17" />
-                </svg> Key Risk & Uncertainty
-              </h4>
-              <p
-                class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
-              >
-                {chamberSummary.key_uncertainty}
-              </p>
-            </div>
-          {/if}
-        </div>
-      {:else}
-        <!-- Fallback narrative card -->
-        <div
-          class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between"
-        >
-          <div>
-            <p class="text-sm font-medium text-content leading-relaxed">
-              {chamberNarrative ||
-                `Projections indicate a highly competitive cycle for the ${
-                  activeTab === "governors"
-                    ? "Governors"
-                    : activeTab === "senate"
-                    ? "Senate"
-                    : "House"
-                }.`}
-            </p>
-          </div>
-        </div>
-      {/if}
-    </section>
-
     <!-- Interactive Map & Statistics Dashboard Grid -->
     <section
       class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)] gap-6 items-start"
     >
       <!-- Map Canvas Card -->
       <div
-        class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between min-h-[480px]"
+        class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between min-h-[380px]"
       >
         <div
           class="flex items-center justify-between border-b border-stroke/40 pb-4 mb-4"
@@ -1340,7 +1153,7 @@
           {/if}
         </div>
 
-        <div class="relative w-full py-4 flex items-center justify-center">
+        <div class="relative w-full py-2 flex items-center justify-center">
           <USMap
             {activeStates}
             {selectedState}
@@ -1873,6 +1686,280 @@
         </div>
       </div>
     </section>
+
+
+    <!-- Races That Matter Most â€” Horizontal Scroll Strip -->
+    {#if keyRacesList.length > 0}
+      <section class="space-y-4">
+        <div
+          class="flex items-center justify-between border-b border-stroke/20 pb-2"
+        >
+          <h3 class="text-base font-bold uppercase text-content tracking-wider">
+            Races That Matter Most
+          </h3>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-content-subtle font-semibold hidden sm:inline">
+              Key battlegrounds driving chamber control
+            </span>
+            <button
+              on:click={() => scrollKeyRaces(-1)}
+              class="w-7 h-7 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
+              aria-label="Scroll left"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              on:click={() => scrollKeyRaces(1)}
+              class="w-7 h-7 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
+              aria-label="Scroll right"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div
+          bind:this={keyRacesContainer}
+          class="flex gap-4 overflow-x-auto pb-3 scroll-smooth snap-x snap-mandatory hide-scrollbar"
+          style="-ms-overflow-style: none; scrollbar-width: none;"
+        >
+          {#each keyRacesList as race}
+            {@const rating = race.forecast?.rating}
+            {@const ratingBorderColor = rating
+              ? rating.endsWith('_d')
+                ? 'border-l-blue-500'
+                : rating.endsWith('_r')
+                ? 'border-l-red-500'
+                : 'border-l-yellow-500'
+              : 'border-l-slate-400'}
+            <div
+              class={`snap-start shrink-0 w-[300px] bg-surface border border-stroke rounded-xl p-4 shadow-sm hover:shadow-md transition-all border-l-[3px] ${ratingBorderColor}`}
+            >
+              <div class="flex items-center justify-between mb-2">
+                <a
+                  href={browser ? raceHref(race.id) : undefined}
+                  class="font-black text-sm text-content hover:text-blue-600 dark:hover:text-blue-400 truncate"
+                >
+                  {race.state ||
+                    race.title?.replace("2026 U.S. Senate election in ", "")}
+                </a>
+                {#if rating}
+                  <span
+                    class={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border shrink-0 ml-2 ${ratingClass(
+                      rating
+                    )}`}
+                  >
+                    {formatRating(rating)}
+                  </span>
+                {/if}
+              </div>
+
+              {#if race.forecast}
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-xs font-bold text-content tabular-nums">
+                    {probability(race.forecast.win_probability)} win
+                  </span>
+                  {#if race.forecast.margin_estimate !== undefined && race.forecast.margin_estimate !== null}
+                    <span class="text-[10px] text-content-subtle font-semibold tabular-nums">
+                      {race.forecast.margin_estimate > 0 ? "+" : ""}{race.forecast.margin_estimate.toFixed(1)}% margin
+                    </span>
+                  {/if}
+                </div>
+              {/if}
+
+              <p
+                class="text-[11px] text-content-muted leading-relaxed font-medium line-clamp-2"
+              >
+                {race.forecast?.takeaway ||
+                  race.forecast?.rationale?.split(/[.!?]/)[0] + '.' ||
+                  "No takeaway available."}
+              </p>
+
+              <div class="mt-3 pt-2 border-t border-stroke/30">
+                <a
+                  href={browser ? raceHref(race.id) : undefined}
+                  class="text-[10px] text-blue-600 dark:text-blue-400 font-bold hover:underline"
+                >
+                  View Details &rarr;
+                </a>
+              </div>
+            </div>
+          {/each}
+        </div>
+      </section>
+    {/if}
+
+    <!-- Outlook & Analysis Section -->
+    <section class="space-y-4">
+      <div
+        class="flex items-center justify-between border-b border-stroke/20 pb-2"
+      >
+        <h3 class="text-base font-bold uppercase text-content tracking-wider">
+          Outlook & Analysis
+        </h3>
+        <span class="text-xs text-content-subtle font-semibold"
+          >Structured assessment of the {activeTab === "house"
+            ? "House"
+            : activeTab === "senate"
+            ? "Senate"
+            : "Governor"} map</span
+        >
+      </div>
+
+      {#if chamberSummary?.bottom_line || chamberSummary?.why_party_favored || chamberSummary?.opposing_party_path || chamberSummary?.key_uncertainty}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Bottom Line -->
+          {#if chamberSummary.bottom_line}
+            <div
+              class="bg-surface/80 border-2 border-blue-500/30 dark:border-blue-500/20 rounded-2xl p-5 shadow-sm relative overflow-hidden backdrop-blur-md"
+            >
+              <div
+                class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 dark:bg-blue-500/10 rounded-bl-full pointer-events-none"
+              />
+              <h4
+                class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2 flex items-center gap-1.5"
+              >
+                <svg
+                  class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="6" />
+                  <circle cx="12" cy="12" r="2" />
+                </svg> The Bottom Line
+              </h4>
+              <p class="text-sm font-semibold text-content leading-relaxed">
+                {chamberSummary.bottom_line}
+              </p>
+            </div>
+          {/if}
+
+          <!-- Why Favored -->
+          {#if chamberSummary.why_party_favored}
+            <div
+              class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
+            >
+              <h4
+                class="text-xs font-black uppercase text-red-600 dark:text-red-400 tracking-widest mb-2 flex items-center gap-1.5"
+              >
+                <svg
+                  class="w-4 h-4 text-red-600 dark:text-red-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                  <polyline points="16 7 22 7 22 13" />
+                </svg>
+                Why {chamberSummary.control_party === "Democratic"
+                  ? "Democrats"
+                  : "Republicans"} Are Favored
+              </h4>
+              <p
+                class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
+              >
+                {chamberSummary.why_party_favored}
+              </p>
+            </div>
+          {/if}
+
+          <!-- Opposing Path -->
+          {#if chamberSummary.opposing_party_path}
+            <div
+              class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
+            >
+              <h4
+                class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2 flex items-center gap-1.5"
+              >
+                <svg
+                  class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="6" cy="19" r="3" />
+                  <path
+                    d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"
+                  />
+                  <circle cx="18" cy="5" r="3" />
+                </svg>
+                {chamberSummary.control_party === "Democratic"
+                  ? "Republican"
+                  : "Democratic"} Path to Control
+              </h4>
+              <p
+                class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
+              >
+                {chamberSummary.opposing_party_path}
+              </p>
+            </div>
+          {/if}
+
+          <!-- Key Uncertainty -->
+          {#if chamberSummary.key_uncertainty}
+            <div
+              class="bg-surface/60 border border-stroke rounded-2xl p-5 shadow-sm backdrop-blur-md"
+            >
+              <h4
+                class="text-xs font-black uppercase text-yellow-600 dark:text-yellow-400 tracking-widest mb-2 flex items-center gap-1.5"
+              >
+                <svg
+                  class="w-4 h-4 text-yellow-600 dark:text-yellow-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg> Key Risk & Uncertainty
+              </h4>
+              <p
+                class="text-xs text-content-muted leading-relaxed font-medium font-semibold"
+              >
+                {chamberSummary.key_uncertainty}
+              </p>
+            </div>
+          {/if}
+        </div>
+      {:else}
+        <!-- Fallback narrative card -->
+        <div
+          class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between"
+        >
+          <div>
+            <p class="text-sm font-medium text-content leading-relaxed">
+              {chamberNarrative ||
+                `Projections indicate a highly competitive cycle for the ${
+                  activeTab === "governors"
+                    ? "Governors"
+                    : activeTab === "senate"
+                    ? "Senate"
+                    : "House"
+                }.`}
+            </p>
+          </div>
+        </div>
+      {/if}
+    </section>
+
 
     <!-- Active competitive/active races list -->
     <section

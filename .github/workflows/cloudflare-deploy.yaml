@@ -63,6 +63,25 @@ jobs:
         run: npm run check
         working-directory: web
 
+      - name: Validate frontend deployment config
+        env:
+          VITE_RACES_API_URL: ${{ vars.RACES_API_URL || env.DEFAULT_RACES_API_URL }}
+          VITE_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          VITE_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+        run: |
+          set -euo pipefail
+          missing=()
+          for name in VITE_RACES_API_URL VITE_AUTH0_DOMAIN VITE_AUTH0_CLIENT_ID VITE_AUTH0_AUDIENCE; do
+            if [[ -z "${!name:-}" ]]; then
+              missing+=("$name")
+            fi
+          done
+          if (( ${#missing[@]} > 0 )); then
+            echo "::error::Missing required frontend deployment vars: ${missing[*]}"
+            exit 1
+          fi
+
       - name: Build site
         run: npm run build:cloudflare
         working-directory: web
@@ -70,6 +89,8 @@ jobs:
           NODE_ENV: production
           VITE_RACES_API_URL: ${{ vars.RACES_API_URL || env.DEFAULT_RACES_API_URL }}
           VITE_PUBLIC_DATA_URL: ${{ vars.VITE_PUBLIC_DATA_URL }}
+          VITE_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          VITE_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
           VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
           VITE_PRERENDER_RACES: "true"

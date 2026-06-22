@@ -347,6 +347,21 @@
     actionNotice = { type, message };
   }
 
+  function errorMessage(e: unknown): string {
+    return e instanceof Error ? e.message : String(e);
+  }
+
+  function formatActionErrors(
+    errors: Array<{ race_id: string; error: string }>
+  ) {
+    return errors.map((e) => `${e.race_id}: ${e.error}`).join("; ");
+  }
+
+  function clearSelection() {
+    rowSelection = {};
+    updateTableState();
+  }
+
   function handleGlobalFilterInput(event: Event) {
     $table.setGlobalFilter((event.currentTarget as HTMLInputElement).value);
   }
@@ -369,7 +384,10 @@
       setActionNotice("success", `${raceId} was published.`);
       await refresh(false);
     } catch (e) {
-      setActionNotice("error", `Publish failed for ${raceId}: ${e}`);
+      setActionNotice(
+        "error",
+        `Publish failed for ${raceId}: ${errorMessage(e)}`
+      );
     } finally {
       const copy = { ...rowActionLoading };
       delete copy[raceId];
@@ -391,7 +409,10 @@
       setActionNotice("success", `${raceId} was unpublished.`);
       await refresh(false);
     } catch (e) {
-      setActionNotice("error", `Unpublish failed for ${raceId}: ${e}`);
+      setActionNotice(
+        "error",
+        `Unpublish failed for ${raceId}: ${errorMessage(e)}`
+      );
     } finally {
       const copy = { ...rowActionLoading };
       delete copy[raceId];
@@ -404,11 +425,21 @@
     actionNotice = null;
     rowActionLoading = { ...rowActionLoading, [raceId]: "running" };
     try {
-      await apiService.queueRaces([raceId]);
+      const res = await apiService.queueRaces([raceId]);
+      if (res.errors.length > 0 || res.added.length === 0) {
+        const detail = res.errors.length
+          ? formatActionErrors(res.errors)
+          : "No queue item was created.";
+        setActionNotice("error", `Queue failed for ${raceId}: ${detail}`);
+        return;
+      }
       setActionNotice("success", `${raceId} was added to the pipeline queue.`);
       await refresh(false);
     } catch (e) {
-      setActionNotice("error", `Queue failed for ${raceId}: ${e}`);
+      setActionNotice(
+        "error",
+        `Queue failed for ${raceId}: ${errorMessage(e)}`
+      );
     } finally {
       const copy = { ...rowActionLoading };
       delete copy[raceId];
@@ -430,7 +461,10 @@
       setActionNotice("success", `${raceId} and its stored data were deleted.`);
       await refresh(false);
     } catch (e) {
-      setActionNotice("error", `Delete failed for ${raceId}: ${e}`);
+      setActionNotice(
+        "error",
+        `Delete failed for ${raceId}: ${errorMessage(e)}`
+      );
     } finally {
       const copy = { ...rowActionLoading };
       delete copy[raceId];
@@ -447,7 +481,10 @@
       setActionNotice("success", `Pipeline work for ${raceId} was cancelled.`);
       await refresh(false);
     } catch (e) {
-      setActionNotice("error", `Cancel failed for ${raceId}: ${e}`);
+      setActionNotice(
+        "error",
+        `Cancel failed for ${raceId}: ${errorMessage(e)}`
+      );
     } finally {
       const copy = { ...rowActionLoading };
       delete copy[raceId];
@@ -466,7 +503,10 @@
       );
       await refresh(false);
     } catch (e) {
-      setActionNotice("error", `Recheck failed for ${raceId}: ${e}`);
+      setActionNotice(
+        "error",
+        `Recheck failed for ${raceId}: ${errorMessage(e)}`
+      );
     } finally {
       const copy = { ...rowActionLoading };
       delete copy[raceId];
@@ -498,22 +538,26 @@
     )
       return;
     batchActionLoading = true;
+    actionNotice = null;
     try {
       const res = await apiService.batchPublishRaces(selectedIds);
       if (res.errors && res.errors.length > 0) {
-        const errMsgs = res.errors
-          .map((e) => `${e.race_id}: ${e.error}`)
-          .join("\n");
-        alert(
-          `Published ${res.published.length} races. Errors occurred:\n${errMsgs}`
+        setActionNotice(
+          "error",
+          `Published ${res.published.length} of ${
+            selectedIds.length
+          } selected race(s). Failures: ${formatActionErrors(res.errors)}`
         );
       } else {
-        alert(`Successfully published all ${selectedIds.length} races.`);
+        setActionNotice(
+          "success",
+          `Published all ${selectedIds.length} selected race(s).`
+        );
       }
-      rowSelection = {};
+      clearSelection();
       await refresh(false);
     } catch (e) {
-      alert(`Batch publish failed: ${e}`);
+      setActionNotice("error", `Batch publish failed: ${errorMessage(e)}`);
     } finally {
       batchActionLoading = false;
     }
@@ -529,13 +573,28 @@
     )
       return;
     batchActionLoading = true;
+    actionNotice = null;
     try {
-      await apiService.queueRaces(selectedIds);
-      alert(`Successfully queued ${selectedIds.length} races.`);
-      rowSelection = {};
-      await refresh(false);
+      const res = await apiService.queueRaces(selectedIds);
+      if (res.errors.length > 0) {
+        setActionNotice(
+          "error",
+          `Queued ${res.added.length} of ${
+            selectedIds.length
+          } selected race(s). Failures: ${formatActionErrors(res.errors)}`
+        );
+      } else {
+        setActionNotice(
+          "success",
+          `Queued all ${selectedIds.length} selected race(s).`
+        );
+      }
+      if (res.added.length > 0) {
+        clearSelection();
+        await refresh(false);
+      }
     } catch (e) {
-      alert(`Batch queue failed: ${e}`);
+      setActionNotice("error", `Batch queue failed: ${errorMessage(e)}`);
     } finally {
       batchActionLoading = false;
     }
@@ -551,6 +610,7 @@
     )
       return;
     batchActionLoading = true;
+    actionNotice = null;
     try {
       let successCount = 0;
       let errors: string[] = [];
@@ -559,18 +619,26 @@
           await apiService.deleteRaceRecord(raceId);
           successCount++;
         } catch (err) {
-          errors.push(`${raceId}: ${err}`);
+          errors.push(`${raceId}: ${errorMessage(err)}`);
         }
       }
       if (errors.length > 0) {
-        alert(`Deleted ${successCount} races. Failures:\n${errors.join("\n")}`);
+        setActionNotice(
+          "error",
+          `Deleted ${successCount} of ${
+            selectedIds.length
+          } selected race(s). Failures: ${errors.join("; ")}`
+        );
       } else {
-        alert(`Successfully deleted all ${selectedIds.length} races.`);
+        setActionNotice(
+          "success",
+          `Deleted all ${selectedIds.length} selected race(s).`
+        );
       }
-      rowSelection = {};
+      if (successCount > 0) clearSelection();
       await refresh(false);
     } catch (e) {
-      alert(`Batch delete failed: ${e}`);
+      setActionNotice("error", `Batch delete failed: ${errorMessage(e)}`);
     } finally {
       batchActionLoading = false;
     }
@@ -1101,7 +1169,7 @@
         type="button"
         class="px-3 py-1.5 text-xs border border-stroke hover:bg-surface-alt text-content rounded-full font-medium transition-colors disabled:opacity-50"
         disabled={batchActionLoading}
-        on:click={() => (rowSelection = {})}
+        on:click={clearSelection}
       >
         Clear Selection
       </button>

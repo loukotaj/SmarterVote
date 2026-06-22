@@ -61,9 +61,13 @@
     error = "";
     try {
       const result = await apiService.queueRaces(raceIds, buildOptions());
+      const errors = result.errors.map((e) => `${e.race_id}: ${e.error}`);
+      if (result.added.length === 0 && errors.length > 0) {
+        error = `No races were queued. ${errors.join("; ")}`;
+      }
       dispatch("queued", {
         added: result.added.length,
-        errors: result.errors.map((e) => `${e.race_id}: ${e.error}`),
+        errors,
       });
     } catch (e) {
       error = String(e);

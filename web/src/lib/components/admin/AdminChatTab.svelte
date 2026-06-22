@@ -525,6 +525,12 @@
     }
   }
 
+  function formatQueueErrors(
+    errors: Array<{ race_id: string; error: string }>
+  ) {
+    return errors.map((e) => `${e.race_id}: ${e.error}`).join("; ");
+  }
+
   // ---- action confirm/dismiss ----------------------------------------------
   async function confirmAction() {
     if (!pendingAction || selectedRaceIds.size === 0) return;
@@ -533,7 +539,23 @@
     try {
       const finalOpts = buildFinalOptions();
       const raceIdsToQueue = Array.from(selectedRaceIds);
-      await apiService.queueRaces(raceIdsToQueue, finalOpts);
+      const result = await apiService.queueRaces(raceIdsToQueue, finalOpts);
+      if (result.errors.length > 0 || result.added.length === 0) {
+        const detail = result.errors.length
+          ? formatQueueErrors(result.errors)
+          : "No queue items were created.";
+        actionResult = `Queued ${result.added.length} of ${raceIdsToQueue.length}.`;
+        messages = [
+          ...messages,
+          {
+            role: "system",
+            content: `Queue completed with failures. Added ${result.added.length} of ${raceIdsToQueue.length}: ${detail}`,
+            ts: Date.now(),
+          },
+        ];
+        await scrollToBottom(true);
+        return;
+      }
       actionResult = "\u2713 Queued";
       messages = [
         ...messages,

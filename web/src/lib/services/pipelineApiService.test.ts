@@ -14,7 +14,7 @@ function jsonResponse(
   body: unknown,
   ok = true,
   status = 200,
-  statusText = "OK"
+  statusText = "OK",
 ) {
   return {
     ok,
@@ -45,7 +45,7 @@ describe("PipelineApiService production admin API contract", () => {
             candidates: [{ name: "Alice Example", party: "D" }],
           },
         ],
-      })
+      }),
     );
 
     const api = new PipelineApiService("https://api.example.test");
@@ -54,7 +54,7 @@ describe("PipelineApiService production admin API contract", () => {
     expect(fetchWithAuth).toHaveBeenCalledWith(
       "https://api.example.test/api/races/drafts",
       {},
-      expect.any(Number)
+      expect.any(Number),
     );
     expect(drafts).toHaveLength(1);
     expect(drafts[0].id).toBe("az-senate-2026");
@@ -66,7 +66,7 @@ describe("PipelineApiService production admin API contract", () => {
       jsonResponse({
         added: [{ race_id: "az-senate-2026", status: "queued" }],
         errors: [],
-      })
+      }),
     );
 
     const api = new PipelineApiService("https://api.example.test");
@@ -91,7 +91,7 @@ describe("PipelineApiService production admin API contract", () => {
             grok_model: "grok-test",
           },
         }),
-      }
+      },
     );
   });
 
@@ -104,7 +104,7 @@ describe("PipelineApiService production admin API contract", () => {
     expect(fetchWithAuth).toHaveBeenCalledWith(
       "https://api.example.test/api/races/az-senate-2026/publish",
       { method: "POST" },
-      expect.any(Number)
+      expect.any(Number),
     );
   });
 
@@ -117,7 +117,7 @@ describe("PipelineApiService production admin API contract", () => {
     expect(fetchWithAuth).toHaveBeenCalledWith(
       "https://api.example.test/api/races?reconcile_active=true",
       {},
-      expect.any(Number)
+      expect.any(Number),
     );
   });
 
@@ -134,7 +134,7 @@ describe("PipelineApiService production admin API contract", () => {
         race_records: [],
         question: null,
         thinking_steps: ["Prepared run for 1 race(s)"],
-      })
+      }),
     );
 
     const api = new PipelineApiService("https://api.example.test");
@@ -145,6 +145,93 @@ describe("PipelineApiService production admin API contract", () => {
     expect(result.action?.type).toBe("queue_run");
     expect(result.action?.race_ids).toEqual(["az-senate-2026"]);
     expect(result.thinking_steps).toEqual(["Prepared run for 1 race(s)"]);
+  });
+
+  it("loads, saves, generates, and publishes chamber forecasts", async () => {
+    fetchWithAuth
+      .mockResolvedValueOnce(
+        jsonResponse({
+          schema_version: "chamber_forecasts.v2",
+          house: "House narrative",
+          senate: "Senate narrative",
+          governors: "Governors narrative",
+          chambers: {},
+          updated_at: "2026-06-01T00:00:00Z",
+        }),
+      )
+      .mockResolvedValueOnce(
+        jsonResponse({
+          message: "saved",
+          updated_at: "2026-06-02T00:00:00Z",
+        }),
+      )
+      .mockResolvedValueOnce(
+        jsonResponse({
+          message: "generated",
+          updated_at: "2026-06-03T00:00:00Z",
+          forecast: {
+            house: "Generated house",
+            senate: "Generated senate",
+            governors: "Generated governors",
+          },
+        }),
+      )
+      .mockResolvedValueOnce(
+        jsonResponse({
+          message: "published",
+          updated_at: "2026-06-04T00:00:00Z",
+        }),
+      );
+
+    const api = new PipelineApiService("https://api.example.test");
+
+    await api.getChamberForecastDraft();
+    await api.saveChamberForecastDraft({
+      house_narrative: "House narrative",
+      senate_narrative: "Senate narrative",
+      governors_narrative: "Governors narrative",
+      schema_version: "chamber_forecasts.v2",
+      chambers: { house: { control_party: "Republican" } },
+    });
+    await api.generateChamberForecastDraft("test-model");
+    await api.publishChamberForecastDraft();
+
+    expect(fetchWithAuth).toHaveBeenNthCalledWith(
+      1,
+      "https://api.example.test/api/races/chamber_forecasts/draft",
+      {},
+      expect.any(Number),
+    );
+    expect(fetchWithAuth).toHaveBeenNthCalledWith(
+      2,
+      "https://api.example.test/api/races/chamber_forecasts",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({
+          house_narrative: "House narrative",
+          senate_narrative: "Senate narrative",
+          governors_narrative: "Governors narrative",
+          schema_version: "chamber_forecasts.v2",
+          chambers: { house: { control_party: "Republican" } },
+        }),
+      }),
+      expect.any(Number),
+    );
+    expect(fetchWithAuth).toHaveBeenNthCalledWith(
+      3,
+      "https://api.example.test/api/races/chamber_forecasts/generate",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ model: "test-model" }),
+      }),
+      120000,
+    );
+    expect(fetchWithAuth).toHaveBeenNthCalledWith(
+      4,
+      "https://api.example.test/api/races/chamber_forecasts/publish",
+      { method: "POST" },
+      expect.any(Number),
+    );
   });
 
   it("normalizes Firestore run stage fields into steps", async () => {
@@ -160,7 +247,7 @@ describe("PipelineApiService production admin API contract", () => {
         remaining_steps: ["issues", "finance"],
         started_at: "2026-05-01T00:00:00Z",
         options: { enabled_steps: ["discovery", "issues", "finance"] },
-      })
+      }),
     );
 
     const api = new PipelineApiService("https://api.example.test");
@@ -169,14 +256,14 @@ describe("PipelineApiService production admin API contract", () => {
     expect(fetchWithAuth).toHaveBeenCalledWith(
       "https://api.example.test/runs/run-1",
       {},
-      expect.any(Number)
+      expect.any(Number),
     );
     expect(run.current_step).toBe("issues");
     expect(run.progress).toBe(20);
     expect(run.progress_message).toBe("Issues checkpoint - Alice - Healthcare");
     expect(run.current_step_progress).toBe(37);
     expect(run.steps?.find((s) => s.name === "discovery")?.status).toBe(
-      "completed"
+      "completed",
     );
     expect(run.steps?.find((s) => s.name === "issues")?.status).toBe("running");
     expect(run.steps?.find((s) => s.name === "issues")?.progress_pct).toBe(37);

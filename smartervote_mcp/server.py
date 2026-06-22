@@ -232,17 +232,55 @@ async def repair_inconsistent_race_statuses(limit: int = 50) -> dict[str, Any]:
     }
 
 
+_US_STATES: dict[str, str] = {
+    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
+    "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia",
+    "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
+    "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
+    "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri",
+    "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey",
+    "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio",
+    "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
+    "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
+    "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming",
+    "DC": "District of Columbia",
+}
+_STATE_NAME_TO_ABBR: dict[str, str] = {v.lower(): k for k, v in _US_STATES.items()}
+
+
+def _normalize_state(query: str) -> tuple[str, str]:
+    """Return (abbreviation, full_name) for a state query string."""
+    q = query.strip()
+    upper = q.upper()
+    if upper in _US_STATES:
+        return upper, _US_STATES[upper]
+    lower = q.lower()
+    if lower in _STATE_NAME_TO_ABBR:
+        abbr = _STATE_NAME_TO_ABBR[lower]
+        return abbr, _US_STATES[abbr]
+    raise ValueError(f"Unknown US state: {query!r}")
+
+
 @mcp.tool()
-async def list_north_dakota_races() -> list[dict[str, Any]]:
-    """List admin races that appear to belong to North Dakota."""
+async def list_races_by_state(state: str) -> list[dict[str, Any]]:
+    """List admin races that belong to a given US state.
+
+    Accepts state abbreviation (e.g. 'ND') or full name (e.g. 'North Dakota').
+    """
+    abbr, full_name = _normalize_state(state)
+    prefix = abbr.lower() + "-"
     res = await list_admin_races()
     races = res.get("races", []) if isinstance(res, dict) else []
     filtered = []
     for race in races:
         race_id = str(race.get("race_id") or race.get("id") or "")
-        state = str(race.get("state") or "")
+        race_state = str(race.get("state") or "")
         jurisdiction = str(race.get("jurisdiction") or "")
-        if race_id.startswith("nd-") or state.upper() == "ND" or "north dakota" in jurisdiction.lower():
+        if (
+            race_id.startswith(prefix)
+            or race_state.upper() == abbr
+            or full_name.lower() in jurisdiction.lower()
+        ):
             filtered.append(race)
     return filtered
 
