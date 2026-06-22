@@ -253,6 +253,60 @@ def _projected_control(projected: Dict[Party, int], chamber: Chamber) -> Party:
     return "Other"
 
 
+def _chamber_label(chamber: Chamber) -> str:
+    return {"house": "House", "senate": "Senate", "governors": "governors"}[chamber]
+
+
+def _party_label(party: Party) -> str:
+    if party == "Democratic":
+        return "Democrats"
+    if party == "Republican":
+        return "Republicans"
+    return "Neither party"
+
+
+def _opposing_party(party: Party) -> Party:
+    return "Democratic" if party == "Republican" else "Republican"
+
+
+def _race_phrase(races: list[str], empty: str = "the remaining competitive races") -> str:
+    if not races:
+        return empty
+    if len(races) == 1:
+        return races[0]
+    if len(races) == 2:
+        return f"{races[0]} and {races[1]}"
+    return f"{', '.join(races[:-1])}, and {races[-1]}"
+
+
+def _rating_label(rating: str) -> str:
+    value = rating.lower().replace("_", " ")
+    labels = {
+        "safe d": "Safe D",
+        "likely d": "Likely D",
+        "lean d": "Lean D",
+        "tilt d": "Tilt D",
+        "tossup": "Toss-up",
+        "toss-up": "Toss-up",
+        "tilt r": "Tilt R",
+        "lean r": "Lean R",
+        "likely r": "Likely R",
+        "safe r": "Safe R",
+    }
+    return labels.get(value, rating or "Unrated")
+
+
+def _race_note(race: Dict[str, Any]) -> str:
+    title = str(race.get("title") or race.get("id") or "Unknown race")
+    forecast = race.get("forecast") if isinstance(race.get("forecast"), dict) else {}
+    rating = _rating_label(str(forecast.get("rating") or ""))
+    party = normalize_party(forecast.get("predicted_winner_party"))
+    prob = forecast.get("win_probability")
+    if isinstance(prob, (int, float)):
+        return f"{title} ({rating}, {_party_label(party).rstrip('s')} {float(prob) * 100:.0f}%)"
+    return f"{title} ({rating})"
+
+
 def summarize_chamber(
     summaries: list[Dict[str, Any]], chamber: Chamber, narrative: str | None = None, analysis: Dict[str, Any] | None = None
 ) -> Dict[str, Any]:
@@ -262,6 +316,7 @@ def summarize_chamber(
     expected: Dict[Party, float] = {"Democratic": 0.0, "Republican": 0.0, "Other": 0.0}
     tossups = 0
     competitive: list[str] = []
+    competitive_race_notes: list[tuple[int, str]] = []
 
     rep_holdovers = 0
     if chamber == "senate":
@@ -303,6 +358,8 @@ def summarize_chamber(
             tossups += 1
         if any(key in rating.lower() for key in ("tossup", "tilt", "lean")):
             competitive.append(str(race.get("title") or race.get("id")))
+            priority = 0 if "toss" in rating.lower() else 1 if "tilt" in rating.lower() else 2
+            competitive_race_notes.append((priority, _race_note(race)))
 
     control_party = _projected_control(projected, chamber)
     dem_expected = expected["Democratic"]
@@ -366,25 +423,44 @@ def summarize_chamber(
     else:
         control_probability = max(dem_control_probability, republican_probability)
 
+    chamber_label = _chamber_label(chamber)
+    favored_party = control_party
+    opposing_party = _opposing_party(favored_party)
+    favored_label = _party_label(favored_party)
+    opposing_label = _party_label(opposing_party)
+    key_races = [note for _, note in sorted(competitive_race_notes, key=lambda item: item[0])][:4]
+    key_race_text = _race_phrase(key_races)
+    expected_gap = abs(dem_expected - rep_expected)
+
     default_narrative = (
-        f"{control_party} control is projected for the {chamber}, with "
-        f"{projected['Democratic']} Democratic seats and {projected['Republican']} Republican seats. "
-        f"The model identifies {tossups} toss-up races and {len(competitive)} broadly competitive races."
+        f"The {chamber_label} forecast starts from a {projected['Democratic']}-{projected['Republican']} projected split, "
+        f"leaving {favored_label.lower()} with the inside track but little room for drift. "
+        f"The races most able to move the chamber are {key_race_text}; a shift across those contests would matter more "
+        f"than changes in seats already rated likely or safe."
     )
     if chamber == "senate" and projected["Democratic"] == 50 and projected["Republican"] == 50:
         default_narrative += " A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican."
 
     # Prepare structured fallback analysis fields
-    favored_party = control_party
-    opposing_party = "Democratic" if favored_party == "Republican" else "Republican"
-
-    default_bottom_line = f"{favored_party} control is projected for the {chamber} with {projected['Democratic']} Democratic seats and {projected['Republican']} Republican seats."
+    default_bottom_line = (
+        f"{favored_label} are projected to control the {chamber_label.lower()} "
+        f"on a {projected['Democratic']}-{projected['Republican']} seat split."
+    )
     if chamber == "senate" and projected["Democratic"] == 50 and projected["Republican"] == 50:
         default_bottom_line += " A 50-50 Senate counts as Republican control under the VP tie-break assumption."
 
-    default_why_favored = f"The model projects {projected[favored_party]} seats for the {favored_party} party, giving them a {round(control_probability * 100)}% control probability."
-    default_opposing_path = f"The {opposing_party} party needs to win competitive races to reach the majority threshold of {THRESHOLDS[chamber]} seats."
-    default_uncertainty = f"The forecast depends on {tossups} toss-up races and {len(competitive)} competitive contests where outcomes remain highly uncertain."
+    default_why_favored = (
+        f"{favored_label} are favored because the central projection gives them {projected[favored_party]} seats "
+        f"and the mean forecast is separated by about {expected_gap:.1f} seats."
+    )
+    default_opposing_path = (
+        f"{opposing_label} need to convert {key_race_text} into wins and avoid losing any current lean or tilt advantages "
+        f"to reach the {THRESHOLDS[chamber]}-seat threshold."
+    )
+    default_uncertainty = (
+        f"The uncertainty is concentrated in {_race_phrase(key_races, 'the toss-up and tilt-rated races')}: "
+        f"{tossups} toss-up and {len(competitive)} total competitive contests carry most of the distribution's movement."
+    )
 
     res = {
         "narrative": narrative or default_narrative,

@@ -223,7 +223,7 @@
 
         if (r.forecast) {
           const rating = r.forecast.rating;
-          colors[state] = `var(--color-${rating.replace("_", "-")})`;
+          colors[state] = colorForRating(rating);
           const winProbText = r.forecast.win_probability
             ? ` (${Math.round(r.forecast.win_probability * 100)}% prob.)`
             : "";
@@ -314,7 +314,7 @@
 
         if (r.forecast) {
           const rating = r.forecast.rating;
-          colors[state] = `var(--color-${rating.replace("_", "-")})`;
+          colors[state] = colorForRating(rating);
           const winProbText = r.forecast.win_probability
             ? ` (${Math.round(r.forecast.win_probability * 100)}% prob.)`
             : "";
@@ -376,22 +376,44 @@
       }
     } else {
       // House
-      for (const r of activeRaces) {
-        const state = getRaceState(r);
+      const states = new Set(
+        activeRaces.map(getRaceState).filter(Boolean) as string[]
+      );
+      for (const state of states) {
         if (!state) continue;
-
-        colors[state] = "var(--map-active)";
 
         const stateRaces = activeRaces.filter((h) => getRaceState(h) === state);
         const count = stateRaces.length;
-        const forecastedCount = stateRaces.filter((h) => h.forecast).length;
+        const summary = summarizeStateForecast(stateRaces);
+
+        colors[state] = summary.primary?.forecast
+          ? colorForRating(summary.primary.forecast.rating)
+          : "var(--color-tossup)";
 
         tooltips[state] = {
           title: state,
-          subtitle: `${count} competitive House seat${count > 1 ? "s" : ""}`,
-          badge: `${forecastedCount}/${count} Forecasted`,
-          badgeClass: "!bg-blue-600 !text-white",
-          details: ["Click state to filter races below"],
+          subtitle: `${count} House race${count > 1 ? "s" : ""} in scope`,
+          badge: summary.primary?.forecast
+            ? `${formatRating(summary.primary.forecast.rating)} bellwether`
+            : `${summary.forecastedCount}/${count} Forecasted`,
+          badgeClass: summary.primary?.forecast?.rating.endsWith("_d")
+            ? "!bg-blue-600 !text-white"
+            : summary.primary?.forecast?.rating.endsWith("_r")
+            ? "!bg-red-600 !text-white"
+            : "!bg-slate-500 !text-white",
+          details:
+            summary.details.length > 0
+              ? [
+                  ...summary.details,
+                  `${summary.competitiveCount} competitive forecasted seat${
+                    summary.competitiveCount === 1 ? "" : "s"
+                  }`,
+                  "Click state to filter races below",
+                ]
+              : [
+                  "No published model forecasts yet",
+                  "Click state to filter races below",
+                ],
         };
       }
     }
@@ -577,6 +599,59 @@
     if (rating.endsWith("_r"))
       return "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-200 dark:border-red-800/60";
     return "bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800/40 dark:text-slate-200 dark:border-slate-700/60";
+  }
+
+  function colorForRating(rating: ForecastRating): string {
+    return `var(--color-${rating.replace("_", "-")})`;
+  }
+
+  function ratingCompetitiveness(rating: ForecastRating): number {
+    if (rating === "tossup") return 0;
+    if (rating.startsWith("tilt_")) return 1;
+    if (rating.startsWith("lean_")) return 2;
+    if (rating.startsWith("likely_")) return 3;
+    if (rating.startsWith("safe_")) return 4;
+    return 5;
+  }
+
+  function summarizeStateForecast(stateRaces: RaceSummary[]) {
+    const forecasted = stateRaces.filter((race) => race.forecast);
+    const sorted = [...forecasted].sort((a, b) => {
+      const aForecast = a.forecast!;
+      const bForecast = b.forecast!;
+      const priority =
+        ratingCompetitiveness(aForecast.rating) -
+        ratingCompetitiveness(bForecast.rating);
+      if (priority !== 0) return priority;
+      return (
+        Math.abs((aForecast.win_probability ?? 0.5) - 0.5) -
+        Math.abs((bForecast.win_probability ?? 0.5) - 0.5)
+      );
+    });
+
+    return {
+      primary: sorted[0],
+      forecastedCount: forecasted.length,
+      competitiveCount: forecasted.filter(
+        (race) => ratingCompetitiveness(race.forecast!.rating) <= 2
+      ).length,
+      details: sorted.slice(0, 3).map((race) => {
+        const forecast = race.forecast!;
+        const party = normalizeForecastParty(forecast.predicted_winner_party);
+        const winProb = forecast.win_probability
+          ? `, ${Math.round(forecast.win_probability * 100)}% ${
+              party === "Democratic"
+                ? "D"
+                : party === "Republican"
+                ? "R"
+                : party
+            }`
+          : "";
+        return `${race.title ?? race.id}: ${formatRating(
+          forecast.rating
+        )}${winProb}`;
+      }),
+    };
   }
 
   function probability(value?: number): string {
@@ -1130,11 +1205,11 @@
 
     <!-- Interactive Map & Statistics Dashboard Grid -->
     <section
-      class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)] gap-6 items-start"
+      class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)] gap-6 items-stretch"
     >
       <!-- Map Canvas Card -->
       <div
-        class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col justify-between min-h-[380px]"
+        class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col min-h-[380px] h-full"
       >
         <div
           class="flex items-center justify-between border-b border-stroke/40 pb-4 mb-4"
@@ -1155,7 +1230,9 @@
           {/if}
         </div>
 
-        <div class="relative w-full py-2 flex items-center justify-center">
+        <div
+          class="relative w-full py-2 flex flex-1 items-center justify-center min-h-[320px]"
+        >
           <USMap
             {activeStates}
             {selectedState}
@@ -1227,7 +1304,7 @@
       </div>
 
       <!-- Stats Panel Column -->
-      <div class="space-y-6">
+      <div class="space-y-6 h-full flex flex-col">
         <!-- Projection Summary Stat Card -->
         <div
           class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
@@ -1380,7 +1457,7 @@
         {#if chamberSummary?.seat_distribution && Object.keys(chamberSummary.seat_distribution).length > 0}
           <!-- Seat Outcome Distribution Card -->
           <div
-            class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
+            class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex-1"
           >
             <div
               class="flex items-center justify-between mb-4 border-b border-stroke/40 pb-3"
@@ -1660,32 +1737,33 @@
           </div>
         {/if}
 
-        <!-- Ratings Counts Grid Card -->
-        <div
-          class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
-        >
-          <p
-            class="text-xs font-bold uppercase text-content-subtle tracking-wider mb-4"
+      </div>
+    </section>
+
+    <!-- Ratings Counts Grid Card -->
+    <section
+      class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
+    >
+      <p
+        class="text-xs font-bold uppercase text-content-subtle tracking-wider mb-4"
+      >
+        Forecast Ratings Breakdown
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2">
+        {#each ratingOrder as rating}
+          <div
+            class={`border rounded-xl px-2 py-1.5 text-center transition-all ${ratingClass(
+              rating
+            )}`}
           >
-            Forecast Ratings Breakdown
-          </p>
-          <div class="grid grid-cols-3 gap-2">
-            {#each ratingOrder as rating}
-              <div
-                class={`border rounded-xl px-2 py-1.5 text-center transition-all ${ratingClass(
-                  rating
-                )}`}
-              >
-                <div class="text-[10px] font-bold leading-tight truncate">
-                  {formatRating(rating)}
-                </div>
-                <div class="text-lg font-black mt-1 tabular-nums">
-                  {aggregate.ratingCounts[rating] ?? 0}
-                </div>
-              </div>
-            {/each}
+            <div class="text-[10px] font-bold leading-tight truncate">
+              {formatRating(rating)}
+            </div>
+            <div class="text-lg font-black mt-1 tabular-nums">
+              {aggregate.ratingCounts[rating] ?? 0}
+            </div>
           </div>
-        </div>
+        {/each}
       </div>
     </section>
 

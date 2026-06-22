@@ -648,22 +648,28 @@ async def generate_chamber_forecasts_endpoint(
             if "toss-up" in rating or "tossup" in rating:
                 toss_ups += 1
                 competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob*100:.1f}%)")
+            elif "tilt" in rating:
+                competitive_list.append(f"- {title}: Tilt {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
+                if "democrat" in winner_party:
+                    dem_wins += 1
+                elif "republican" in winner_party or "gop" in winner_party:
+                    gop_wins += 1
             elif "lean" in rating:
                 competitive_list.append(f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
-                if "d" in winner_party:
+                if "democrat" in winner_party:
                     dem_wins += 1
-                elif "r" in winner_party:
+                elif "republican" in winner_party or "gop" in winner_party:
                     gop_wins += 1
             elif "likely" in rating:
                 competitive_list.append(f"- {title}: Likely {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
-                if "d" in winner_party:
+                if "democrat" in winner_party:
                     dem_wins += 1
-                elif "r" in winner_party:
+                elif "republican" in winner_party or "gop" in winner_party:
                     gop_wins += 1
             elif "safe" in rating:
-                if "d" in winner_party:
+                if "democrat" in winner_party:
                     dem_wins += 1
-                elif "r" in winner_party:
+                elif "republican" in winner_party or "gop" in winner_party:
                     gop_wins += 1
 
         expected_d = summary.get("expected_seats", {}).get("Democratic", 0.0)
@@ -718,6 +724,9 @@ async def generate_chamber_forecasts_endpoint(
             "- 'why_party_favored': An objective, analytical explanation of why the favored party is projected to win or control the chamber.\n"
             "- 'opposing_party_path': An objective explanation of the most realistic path for the opposing party to win control.\n"
             "- 'key_uncertainty': A short summary of the key uncertainty or risk factors in this chamber's forecast.\n\n"
+            "Every field should name the specific races or race groups that carry the story. Avoid vague constructions like "
+            "'needs to win competitive races' unless immediately followed by examples from the context. Explain the path through seats, "
+            "ratings, and named contests, not just the final seat count.\n\n"
             "Output ONLY the JSON object, with no markdown code blocks, no backticks, and no extra text. Do not mention that you are an AI."
         )
         user_prompt = f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"

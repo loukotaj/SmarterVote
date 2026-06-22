@@ -113,6 +113,9 @@ def test_set_forecast_handler_updates_race_forecast():
             "rating": "lean_d",
             "confidence": "medium",
             "rationale": "Alice leads based on the available race profile.",
+            "takeaway": "Alice is favored, but the race is still competitive.",
+            "key_reasons": ["Democratic candidate has a polling lead.", "The race profile favors Alice."],
+            "uncertainty": "Sparse polling keeps the forecast confidence at medium.",
             "based_on_poll_count": 1,
             "source_urls": ["https://example.com/poll"],
         }
@@ -121,6 +124,12 @@ def test_set_forecast_handler_updates_race_forecast():
     assert result == "Updated race.forecast."
     assert race_json["forecast"]["rating"] == "lean_d"
     assert race_json["forecast"]["win_probability"] == 0.72
+    assert race_json["forecast"]["takeaway"] == "Alice is favored, but the race is still competitive."
+    assert race_json["forecast"]["key_reasons"] == [
+        "Democratic candidate has a polling lead.",
+        "The race profile favors Alice.",
+    ]
+    assert race_json["forecast"]["uncertainty"] == "Sparse polling keeps the forecast confidence at medium."
     assert race_json["forecast"]["generated_at"]
 
 

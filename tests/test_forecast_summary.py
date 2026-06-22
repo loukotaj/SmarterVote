@@ -94,3 +94,39 @@ def test_new_chamber_forecast_fields():
     for key, val in senate["seat_distribution"].items():
         assert "R-" in key or "D-" in key or key == "50R-50D"
         assert 0.0 <= val <= 1.0
+
+
+def test_default_chamber_story_names_competitive_races():
+    summaries = [
+        {
+            "id": "ga-senate-2026",
+            "title": "Georgia Senate",
+            "office": "United States Senate",
+            "state": "Georgia",
+            "forecast": {
+                "predicted_winner_party": "Democratic",
+                "win_probability": 0.57,
+                "rating": "tilt_d",
+                "party_probabilities": {"Democratic": 0.57, "Republican": 0.43},
+            },
+        },
+        {
+            "id": "tx-senate-2026",
+            "title": "Texas Senate",
+            "office": "United States Senate",
+            "state": "Texas",
+            "forecast": {
+                "predicted_winner_party": "Republican",
+                "win_probability": 0.68,
+                "rating": "lean_r",
+                "party_probabilities": {"Democratic": 0.32, "Republican": 0.68},
+            },
+        },
+    ]
+
+    forecast = build_chamber_forecasts(summaries)
+    senate = forecast["chambers"]["senate"]
+
+    assert "Georgia Senate" in senate["narrative"]
+    assert "Texas Senate" in senate["opposing_party_path"]
+    assert "competitive races to reach" not in senate["opposing_party_path"]
