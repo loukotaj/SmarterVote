@@ -576,6 +576,19 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         except ValueError as exc:
             return f"ERROR: {exc}"
 
+        if win_probability is None:
+            predicted_party = str(args.get("predicted_winner_party") or "").lower()
+            matching_probability = next(
+                (
+                    probability
+                    for party, probability in party_probabilities.items()
+                    if predicted_party and predicted_party in party.lower()
+                ),
+                None,
+            )
+            if matching_probability is not None:
+                win_probability = matching_probability
+
         forecast = {
             "predicted_winner_name": args.get("predicted_winner_name") or None,
             "predicted_winner_party": args.get("predicted_winner_party") or None,

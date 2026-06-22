@@ -133,6 +133,29 @@ def test_set_forecast_handler_updates_race_forecast():
     assert race_json["forecast"]["generated_at"]
 
 
+def test_set_forecast_derives_missing_win_probability_from_party_probability():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "Democratic"}], "polling": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_forecast"](
+        {
+            "predicted_winner_name": "Alice",
+            "predicted_winner_party": "Democratic",
+            "party_probabilities": {"Democratic": 0.64, "Republican": 0.36},
+            "rating": "lean_d",
+            "confidence": "medium",
+            "rationale": "Alice has the stronger path.",
+            "based_on_poll_count": 0,
+            "source_urls": [],
+        }
+    )
+
+    assert result == "Updated race.forecast."
+    assert race_json["forecast"]["win_probability"] == 0.64
+
+
 def test_add_candidate_link_ignores_legacy_string_links_for_dedup():
     """Legacy raw URL entries should not crash the editing handler."""
     from pipeline_client.agent.agent import _make_editing_handlers
