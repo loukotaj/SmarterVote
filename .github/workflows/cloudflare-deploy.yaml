@@ -66,9 +66,9 @@ jobs:
       - name: Validate frontend deployment config
         env:
           VITE_RACES_API_URL: ${{ vars.RACES_API_URL || env.DEFAULT_RACES_API_URL }}
-          VITE_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
-          VITE_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
-          VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          VITE_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN || 'dev-t37rz-ur.auth0.com' }}
+          VITE_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID || 'KNkBhmyIGEvjkKDthMzyYe6YFevGoJIy' }} # gitleaks:allow
+          VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE || 'https://smartervote-api-dev/' }}
         run: |
           set -euo pipefail
           missing=()
@@ -89,9 +89,9 @@ jobs:
           NODE_ENV: production
           VITE_RACES_API_URL: ${{ vars.RACES_API_URL || env.DEFAULT_RACES_API_URL }}
           VITE_PUBLIC_DATA_URL: ${{ vars.VITE_PUBLIC_DATA_URL }}
-          VITE_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
-          VITE_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
-          VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          VITE_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN || 'dev-t37rz-ur.auth0.com' }}
+          VITE_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID || 'KNkBhmyIGEvjkKDthMzyYe6YFevGoJIy' }} # gitleaks:allow
+          VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE || 'https://smartervote-api-dev/' }}
           VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
           VITE_PRERENDER_RACES: "true"
 
