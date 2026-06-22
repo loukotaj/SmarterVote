@@ -1,6 +1,8 @@
+import argparse
+import asyncio
+import json
 import os
 import sys
-import json
 from pathlib import Path
 
 # Add project root and services/races-api to path
@@ -9,10 +11,30 @@ sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "services" / "races-api"))
 
 from google.cloud import storage as gcs
+from pipeline_client.agent.chamber_narratives import generate_chamber_analyses
 from shared.forecast_summary import build_chamber_forecasts
 
-def main():
+
+async def build_forecast_data(summaries, *, model: str, use_ai: bool):
+    if not use_ai:
+        return build_chamber_forecasts(summaries)
+    analyses = await generate_chamber_analyses(summaries, model=model)
+    return build_chamber_forecasts(
+        summaries,
+        {chamber: analysis["narrative"] for chamber, analysis in analyses.items()},
+        analyses,
+    )
+
+
+async def main():
+    parser = argparse.ArgumentParser(description="Generate and publish static chamber forecasts to GCS.")
+    parser.add_argument("--bucket", default="smartervote-sv-data-dev")
+    parser.add_argument("--model", default="google/gemini-2.5-flash")
+    parser.add_argument("--no-ai", action="store_true", help="Use deterministic fallback narratives instead of OpenRouter.")
+    args = parser.parse_args()
+
     bucket_name = "smartervote-sv-data-dev"
+    bucket_name = args.bucket
     os.environ["GCS_BUCKET"] = bucket_name
 
     print(f"Connecting to GCS bucket: {bucket_name}...")
@@ -35,7 +57,7 @@ def main():
     # 2. Build chamber forecasts using local workspace code
     print("Generating chamber forecasts...")
     try:
-        forecast_data = build_chamber_forecasts(summaries)
+        forecast_data = await build_forecast_data(summaries, model=args.model, use_ai=not args.no_ai)
         print("Success! Generated chamber forecasts.")
     except Exception as e:
         print(f"Failed to build chamber forecasts: {e}")
@@ -66,5 +88,6 @@ def main():
 
     print("\nAll operations completed successfully!")
 
+
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
