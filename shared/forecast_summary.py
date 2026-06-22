@@ -512,3 +512,106 @@ def build_chamber_forecasts(
         "chambers": chambers,
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
+
+
+def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[str, Any]) -> str:
+    if not races:
+        return f"No published races found for the {name}."
+
+    dem_wins = 0
+    gop_wins = 0
+    toss_ups = 0
+    competitive_list = []
+    for race in races:
+        forecast = race.get("forecast") or {}
+        rating = str(forecast.get("rating") or "").lower()
+        winner_party = str(forecast.get("predicted_winner_party") or "").lower()
+        prob = forecast.get("win_probability") or 0.5
+        title = race.get("title") or race.get("id")
+        if "toss-up" in rating or "tossup" in rating:
+            toss_ups += 1
+            competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob * 100:.1f}%)")
+        elif "tilt" in rating:
+            competitive_list.append(f"- {title}: Tilt {winner_party.upper()} (Win Prob: {prob * 100:.1f}%)")
+            if "democrat" in winner_party:
+                dem_wins += 1
+            elif "republican" in winner_party or "gop" in winner_party:
+                gop_wins += 1
+        elif "lean" in rating:
+            competitive_list.append(f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob * 100:.1f}%)")
+            if "democrat" in winner_party:
+                dem_wins += 1
+            elif "republican" in winner_party or "gop" in winner_party:
+                gop_wins += 1
+        elif "likely" in rating:
+            competitive_list.append(f"- {title}: Likely {winner_party.upper()} (Win Prob: {prob * 100:.1f}%)")
+            if "democrat" in winner_party:
+                dem_wins += 1
+            elif "republican" in winner_party or "gop" in winner_party:
+                gop_wins += 1
+        elif "safe" in rating:
+            if "democrat" in winner_party:
+                dem_wins += 1
+            elif "republican" in winner_party or "gop" in winner_party:
+                gop_wins += 1
+
+    expected_d = summary.get("expected_seats", {}).get("Democratic", 0.0)
+    expected_r = summary.get("expected_seats", {}).get("Republican", 0.0)
+    projected_d = summary.get("projected_seats", {}).get("Democratic", 0)
+    projected_r = summary.get("projected_seats", {}).get("Republican", 0)
+    control_party = summary.get("control_party", "Other")
+    control_prob = summary.get("control_probability", 0.5)
+    outcome_probs = summary.get("outcome_probabilities", {})
+    tie_prob = outcome_probs.get("tie_50_50", 0.0) if name in ("US Senate", "senate") else 0.0
+
+    lines = [
+        f"Chamber: {name}",
+        f"Total Published Races: {len(races)}",
+        f"Toss-up Races: {toss_ups}",
+        f"Projected Democratic Wins (among published non-tossups): {dem_wins}",
+        f"Projected Republican Wins (among published non-tossups): {gop_wins}",
+        "",
+        "Aggregated Mathematical Model Results:",
+        f"- Projected Control: {control_party} control projected (prob: {control_prob * 100:.1f}%)",
+        f"- Projected Seats: {projected_d} Democratic, {projected_r} Republican",
+        f"- Expected (Mean) Seats: {expected_d:.1f} Democratic, {expected_r:.1f} Republican",
+    ]
+
+    if name in ("US Senate", "senate"):
+        lines.append(
+            f"- Probability of a 50-50 tie: {tie_prob * 100:.1f}% "
+            "(Note: 50-50 tie results in Republican control via VP tie-break)"
+        )
+        dist = summary.get("seat_distribution", {})
+        if dist:
+            sorted_dist = sorted(dist.items(), key=lambda item: item[1], reverse=True)
+            top_outcomes = [f"{key} ({value * 100:.1f}%)" for key, value in sorted_dist[:4]]
+            lines.append(f"- Top 4 most likely seat outcomes: {', '.join(top_outcomes)}")
+
+    lines.append("\nCompetitive/Notable Races Detail:")
+    lines.extend(competitive_list[:30])
+    return "\n".join(lines)
+
+
+def get_chamber_forecast_system_prompt(chamber_name: str) -> str:
+    return (
+        "You are a professional, nonpartisan, highly analytical election forecaster (like Cook Political Report, FiveThirtyEight, or Split Ticket). "
+        f"Your goal is to output a JSON object containing a detailed forecast analysis for the {chamber_name} "
+        "in the 2026 election cycle, based on the forecast data provided. "
+        "Your writing must sound like a short, sharp election analyst note, not an AI-generated report. "
+        "Avoid generic filler phrases and AI boilerplate such as 'model assessment,' 'structured analysis,' "
+        "'available indicators,' 'based on the data,' or generic caveats about uncertainty. "
+        "Be specific, concise, and non-repetitive.\n\n"
+        "The JSON object must have EXACTLY the following keys, with string values:\n"
+        "- 'narrative': A concise, 2-4 sentence overview narrative summarizing the battle for control of the chamber. "
+        "It must explain: (1) the projected control outcome, (2) how close the chamber is, (3) the key races or categories "
+        "driving uncertainty, and (4) what could realistically change the forecast.\n"
+        "- 'bottom_line': A one-sentence bottom line summarizing the projection.\n"
+        "- 'why_party_favored': An objective, analytical explanation of why the favored party is projected to win or control the chamber.\n"
+        "- 'opposing_party_path': An objective explanation of the most realistic path for the opposing party to win control.\n"
+        "- 'key_uncertainty': A short summary of the key uncertainty or risk factors in this chamber's forecast.\n\n"
+        "Every field should name the specific races or race groups that carry the story. Avoid vague constructions like "
+        "'needs to win competitive races' unless immediately followed by examples from the context. Explain the path through seats, "
+        "ratings, and named contests, not just the final seat count.\n\n"
+        "Output ONLY the JSON object, with no markdown code blocks, no backticks, and no extra text. Do not mention that you are an AI."
+    )

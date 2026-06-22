@@ -606,7 +606,12 @@ async def generate_chamber_forecasts_endpoint(
 ) -> Dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM and save them to drafts."""
     from pipeline_client.agent.llm import _call_openrouter
-    from shared.forecast_summary import build_chamber_forecasts, summarize_chamber
+    from shared.forecast_summary import (
+        build_chamber_context,
+        build_chamber_forecasts,
+        get_chamber_forecast_system_prompt,
+        summarize_chamber,
+    )
 
     service = request.app.state.publish_service
     summaries = service.get_race_summaries()
@@ -632,131 +637,35 @@ async def generate_chamber_forecasts_endpoint(
     house_summary = summarize_chamber(summaries, "house")
     governors_summary = summarize_chamber(summaries, "governors")
 
-    def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[str, Any]) -> str:
-        if not races:
-            return f"No published races found for the {name}."
-        dem_wins = 0
-        gop_wins = 0
-        toss_ups = 0
-        competitive_list = []
-        for r in races:
-            forecast = r.get("forecast") or {}
-            rating = (forecast.get("rating") or "").lower()
-            winner_party = (forecast.get("predicted_winner_party") or "").lower()
-            prob = forecast.get("win_probability") or 0.5
-            title = r.get("title") or r.get("id")
-            if "toss-up" in rating or "tossup" in rating:
-                toss_ups += 1
-                competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob*100:.1f}%)")
-            elif "tilt" in rating:
-                competitive_list.append(f"- {title}: Tilt {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
-                if "democrat" in winner_party:
-                    dem_wins += 1
-                elif "republican" in winner_party or "gop" in winner_party:
-                    gop_wins += 1
-            elif "lean" in rating:
-                competitive_list.append(f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
-                if "democrat" in winner_party:
-                    dem_wins += 1
-                elif "republican" in winner_party or "gop" in winner_party:
-                    gop_wins += 1
-            elif "likely" in rating:
-                competitive_list.append(f"- {title}: Likely {winner_party.upper()} (Win Prob: {prob*100:.1f}%)")
-                if "democrat" in winner_party:
-                    dem_wins += 1
-                elif "republican" in winner_party or "gop" in winner_party:
-                    gop_wins += 1
-            elif "safe" in rating:
-                if "democrat" in winner_party:
-                    dem_wins += 1
-                elif "republican" in winner_party or "gop" in winner_party:
-                    gop_wins += 1
-
-        expected_d = summary.get("expected_seats", {}).get("Democratic", 0.0)
-        expected_r = summary.get("expected_seats", {}).get("Republican", 0.0)
-        projected_d = summary.get("projected_seats", {}).get("Democratic", 0)
-        projected_r = summary.get("projected_seats", {}).get("Republican", 0)
-        control_party = summary.get("control_party", "Other")
-        control_prob = summary.get("control_probability", 0.5)
-        outcome_probs = summary.get("outcome_probabilities", {})
-        tie_prob = outcome_probs.get("tie_50_50", 0.0) if name == "US Senate" else 0.0
-
-        lines = [
-            f"Chamber: {name}",
-            f"Total Published Races: {len(races)}",
-            f"Toss-up Races: {toss_ups}",
-            f"Projected Democratic Wins (among published non-tossups): {dem_wins}",
-            f"Projected Republican Wins (among published non-tossups): {gop_wins}",
-            "",
-            "Aggregated Mathematical Model Results:",
-            f"- Projected Control: {control_party} control projected (prob: {control_prob * 100:.1f}%)",
-            f"- Projected Seats: {projected_d} Democratic, {projected_r} Republican",
-            f"- Expected (Mean) Seats: {expected_d:.1f} Democratic, {expected_r:.1f} Republican",
-        ]
-
-        if name == "US Senate":
-            lines.append(
-                f"- Probability of a 50-50 tie: {tie_prob * 100:.1f}% (Note: 50-50 tie results in Republican control via VP tie-break)"
-            )
-            dist = summary.get("seat_distribution", {})
-            if dist:
-                sorted_dist = sorted(dist.items(), key=lambda x: x[1], reverse=True)
-                top_outcomes = [f"{k} ({v * 100:.1f}%)" for k, v in sorted_dist[:4]]
-                lines.append(f"- Top 4 most likely seat outcomes: {', '.join(top_outcomes)}")
-        lines.append("\nCompetitive/Notable Races Detail:")
-        lines.extend(competitive_list[:30])
-        return "\n".join(lines)
-
     async def get_analysis(chamber_name: str, context_text: str) -> dict[str, str]:
-        system_prompt = (
-            "You are a professional, nonpartisan, highly analytical election forecaster (like Cook Political Report, FiveThirtyEight, or Split Ticket). "
-            f"Your goal is to output a JSON object containing a detailed forecast analysis for the {chamber_name} "
-            "in the 2026 election cycle, based on the forecast data provided. "
-            "Your writing must sound like a short, sharp election analyst note, not an AI-generated report. "
-            "Avoid generic filler phrases and AI boilerplate such as 'model assessment,' 'structured analysis,' "
-            "'available indicators,' 'based on the data,' or generic caveats about uncertainty. "
-            "Be specific, concise, and non-repetitive.\n\n"
-            "The JSON object must have EXACTLY the following keys, with string values:\n"
-            "- 'narrative': A concise, 2-4 sentence overview narrative summarizing the battle for control of the chamber. "
-            "It must explain: (1) the projected control outcome, (2) how close the chamber is, (3) the key races or categories "
-            "driving uncertainty, and (4) what could realistically change the forecast.\n"
-            "- 'bottom_line': A one-sentence bottom line summarizing the projection.\n"
-            "- 'why_party_favored': An objective, analytical explanation of why the favored party is projected to win or control the chamber.\n"
-            "- 'opposing_party_path': An objective explanation of the most realistic path for the opposing party to win control.\n"
-            "- 'key_uncertainty': A short summary of the key uncertainty or risk factors in this chamber's forecast.\n\n"
-            "Every field should name the specific races or race groups that carry the story. Avoid vague constructions like "
-            "'needs to win competitive races' unless immediately followed by examples from the context. Explain the path through seats, "
-            "ratings, and named contests, not just the final seat count.\n\n"
-            "Output ONLY the JSON object, with no markdown code blocks, no backticks, and no extra text. Do not mention that you are an AI."
-        )
+        system_prompt = get_chamber_forecast_system_prompt(chamber_name)
         user_prompt = f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"
         messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
         try:
             resp = await _call_openrouter(messages=messages, model=payload.model)
-            content = resp.choices[0].message.content.strip()
-            if content.startswith("```"):
-                lines = content.splitlines()
+            content_resp = resp.choices[0].message.content.strip()
+            if content_resp.startswith("```"):
+                lines = content_resp.splitlines()
                 if lines[0].startswith("```"):
                     lines = lines[1:]
                 if lines and lines[-1].startswith("```"):
                     lines = lines[:-1]
-                content = "\n".join(lines).strip()
+                content_resp = "\n".join(lines).strip()
             import json
 
-            data = json.loads(content)
+            data = json.loads(content_resp)
             required_keys = ["narrative", "bottom_line", "why_party_favored", "opposing_party_path", "key_uncertainty"]
             validated = {}
             for k in required_keys:
                 validated[k] = str(data.get(k) or "").strip()
+                if not validated[k]:
+                    raise ValueError(f"Required key '{k}' is empty or missing.")
             return validated
         except Exception as e:
-            return {
-                "narrative": f"Model projections indicate a highly competitive battle for control of the {chamber_name}.",
-                "bottom_line": f"Control of the {chamber_name} remains highly competitive.",
-                "why_party_favored": "The favored party benefits from favorable seat splits and baseline fundamentals.",
-                "opposing_party_path": "The opposing party needs to win key toss-up and lean districts/states.",
-                "key_uncertainty": "Uncertainty remains high due to limited polling in key races.",
-            }
+            import logging
+
+            logging.error(f"Error generating forecast for {chamber_name} using model {payload.model}: {e}", exc_info=True)
+            raise HTTPException(status_code=502, detail=f"LLM generation failed for {chamber_name}: {e}")
 
     senate_analysis = await get_analysis("US Senate", build_chamber_context(senate_races, "US Senate", senate_summary))
     house_analysis = await get_analysis("US House", build_chamber_context(house_races, "US House", house_summary))
