@@ -346,7 +346,7 @@ Admin tools can still call APIs. The public forecast tab should not. This requir
 
 The final publish should be a repeatable data operation, not a manual JSON edit.
 
-Current assumption: the existing published Senate forecasts are not automatically "ready." Treat them as ready only after `audit_senate_forecast_data` verifies completeness and freshness. The expected steady-state path is audit first, targeted reruns only where the audit shows missing/stale/low-quality forecast inputs, then chamber forecast generation from the reviewed published race forecasts.
+Current assumption: the existing published Senate forecasts are not automatically "ready." Treat them as ready only after the published summaries and full RaceJSON records have been reviewed for completeness and freshness. The expected steady-state path is audit first, targeted reruns only where the audit shows missing/stale/low-quality forecast inputs, then chamber forecast generation from the reviewed published race forecasts.
 
 Recommended sequence:
 
@@ -412,74 +412,15 @@ The chamber forecast should be regenerated after race forecast publication, not 
 
 ## MCP Tooling Available
 
-Existing useful tools:
+The installed `smartervote-races` MCP server intentionally exposes a lean, durable surface:
 
-- `health`
-- `list_published_races`
-- `list_race_summaries`
-- `get_published_race`
-- `get_race_record`
-- `list_unpublished_drafts`
-- `publish_race`
-- `publish_races`
-- `queue_races`
-- `get_run`
-- `get_run_logs`
-- `list_active_runs`
-- `clear_races_api_cache`
-- `trigger_web_deploy` (triggers `.github/workflows/cloudflare-deploy.yaml`)
+- Public reads: `health`, `list_published_races`, `list_race_summaries`, `get_published_race`, `get_race_data`.
+- Admin race operations: `list_admin_races`, `get_race_record`, `list_draft_races`, `list_unpublished_drafts`, `publish_race`, `publish_races`, `unpublish_race`, `recheck_race`, `recheck_all_races`, `delete_draft`, `delete_race`.
+- Queue and run monitoring: `queue_races`, `run_race`, `cancel_race`, `get_queue`, `list_runs`, `list_active_runs`, `get_run`, `get_run_logs`, `cancel_or_delete_run`.
+- Operations and analytics: `list_pipeline_steps`, `get_pipeline_metrics`, `get_pipeline_metrics_summary`, `clear_races_api_cache`, `trigger_web_deploy`, and the analytics overview/race/timeseries/traffic tools.
+- Chamber forecasts: `generate_chamber_forecasts`, `update_chamber_forecasts`, `review_chamber_forecast_drafts`, `publish_chamber_forecasts`, `verify_live_forecast_page_data`.
 
-Forecast-specific tools now exposed in the installed MCP server:
-
-- `refresh_static_race_summaries`
-
-  - Fetch published summaries and write `data/published/summaries.json`.
-  - Hydrate missing Senate forecast summaries from full published RaceJSON records.
-
-- `generate_static_chamber_forecasts`
-
-  - Generate `data/published/chamber_forecasts.json` from static summaries.
-  - Should not publish by itself.
-
-- `refresh_static_forecast_data`
-
-  - Run summary refresh and chamber forecast generation together.
-
-- `audit_senate_forecast_data`
-
-  - Return Senate race count, forecast count, missing forecast race ids, stale forecast race ids, projected control, expected seats, and top competitive races.
-
-- `queue_senate_forecast_reruns`
-
-  - Queue only the forecast step for selected Senate races.
-  - Should accept `race_ids`, `force_fresh`, `model_profile`, and `note`.
-  - Should default to draft-only output.
-  - Should return run ids for monitoring.
-
-- `monitor_senate_forecast_reruns`
-
-  - Poll selected run ids.
-  - Return completed, failed, and still-running ids.
-  - Surface forecast-step errors directly.
-
-- `review_senate_forecast_drafts`
-
-  - Summarize forecast changes before publish.
-  - Show old published forecast versus new draft forecast.
-  - Flag large probability/rating swings.
-
-- `validate_static_chamber_forecasts`
-
-  - Validate local static chamber forecast JSON before publish.
-  - Should fail loudly on missing Senate forecasts, invalid probabilities, missing seat distribution, or 50-50 control mishandling.
-
-- `publish_static_forecast_bundle`
-
-  - Publish both refreshed summaries and chamber forecasts as a coherent static bundle.
-  - Should include a dry-run mode.
-
-- `verify_live_forecast_page_data`
-  - Check live static/public endpoints and report whether the browser should have everything it needs without races API calls.
+Static summary/chamber JSON refreshes should be handled through the application pipeline or checked-in data workflow, not through local-file mutation tools in MCP.
 
 Tooling safeguards:
 
@@ -498,33 +439,31 @@ Required MCP checks:
 
 1. `health`
    - Confirm the races API is reachable.
-2. `audit_senate_forecast_data`
+2. `list_race_summaries` and `get_published_race`
    - Confirm all published U.S. Senate races are included.
-   - Confirm every Senate race has a forecast.
-   - Report stale forecasts, missing forecasts, incomplete party probabilities, and low-quality forecast inputs.
-3. `queue_senate_forecast_reruns`
-   - Run only if the audit reports missing or stale Senate race forecasts.
-   - Prefer forecast-only reruns.
-   - Return run ids.
-4. `monitor_senate_forecast_reruns`
-   - Wait for all reruns to complete.
+   - Confirm every Senate race has forecast fields in the published race data.
+   - Record stale forecasts, missing forecasts, incomplete party probabilities, and low-quality forecast inputs.
+3. `queue_races`
+   - Run only if the review finds missing or stale Senate race forecasts.
+   - Prefer `enabled_steps=["forecast"]` over full pipeline reruns unless source race data is stale.
+   - Return run ids for monitoring.
+4. `get_run`, `get_run_logs`, and `list_active_runs`
+   - Wait for reruns to complete.
    - Fail the test run if any rerun fails.
-5. `review_senate_forecast_drafts`
+5. `get_race_data`
    - Compare new draft forecasts against published forecasts.
-   - Flag large changes before publish.
+   - Flag large changes before publishing.
 6. `publish_race` or `publish_races`
-   - Run only after the draft review is acceptable and publish is explicitly intended.
-7. `refresh_static_forecast_data`
-   - Refresh local static summaries.
-   - Hydrate summary forecast gaps from full published race records.
-   - Regenerate chamber forecasts locally.
-8. `validate_static_chamber_forecasts`
+   - Run only after draft review is acceptable and publish is explicitly intended.
+7. `generate_chamber_forecasts` or `update_chamber_forecasts`
+   - Save a remote chamber forecast draft through the races API.
+   - Let the API own chamber forecast validation on publish.
+8. `review_chamber_forecast_drafts`
    - Confirm projected Senate seats sum to 100.
    - Confirm 50-50 Senate maps to Republican control when `vp_tiebreak_party` is Republican.
    - Confirm control probabilities, expected seats, seat distribution, key races, and structured analysis fields exist.
-9. `publish_static_forecast_bundle` or `publish_chamber_forecasts`
-   - Dry-run first.
-   - Publish only after validation succeeds.
+9. `publish_chamber_forecasts`
+   - Publish only after review succeeds and publish is explicitly intended.
 10. `verify_live_forecast_page_data`
 
 - Confirm live/static forecast data is available for the deployed page.

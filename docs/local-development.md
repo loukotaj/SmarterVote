@@ -110,6 +110,12 @@ python -m smartervote_mcp.server
 
 The separate `.venv-mcp` keeps MCP SDK dependency updates from changing the pinned FastAPI/races-api environment.
 
+The `smartervote-races` MCP intentionally stays small: public race reads, admin race operations, queue/run
+monitoring, pipeline metrics, cache/deploy operations, analytics, and broad chamber forecast operations. Prefer
+adding reusable operations to the Races API and exposing them through MCP instead of committing ad hoc scripts.
+One-off diagnostics should stay untracked locally; if they become useful enough to keep, promote the behavior into
+API/MCP code with focused tests.
+
 For local admin tools, start `races-api` with `SKIP_AUTH=true`, or set `SMARTERVOTE_RACES_API_TOKEN`
 to a valid Auth0 bearer token for a deployed API. `SMARTERVOTE_RACES_API_ADMIN_KEY` is also forwarded
 as `X-Admin-Key`; the races API accepts either a valid Auth0 bearer token or the configured admin key.

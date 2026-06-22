@@ -1,11 +1,11 @@
 {
   "schema_version": "chamber_forecasts.v2",
-  "house": "The House forecast starts from a 210-225 projected split, leaving republicans with the inside track but little room for drift. The races most able to move the chamber are 2026 U.S. House race for Arizona's 1st Congressional District (Toss-up, Democrat 52%), 2026 U.S. House of Representatives election in California's 1st Congressional District (Toss-up, Neither party 53%), California's 48th Congressional District General Election, 2026 (Toss-up, Democrat 53%), and Colorado's 8th Congressional District Election, 2026 (Toss-up, Republican 51%); a shift across those contests would matter more than changes in seats already rated likely or safe.",
-  "senate": "The Senate forecast starts from a 50-50 projected split, leaving republicans with the inside track but little room for drift. The races most able to move the chamber are 2026 U.S. Senate election in Alaska (Toss-up, Democrat 52%), 2026 U.S. Senate election in Michigan (Toss-up, Democrat 52%), 2026 Ohio U.S. Senate special election (Toss-up, Republican 53%), and 2026 U.S. Senate election in Georgia (Tilt D, Democrat 61%); a shift across those contests would matter more than changes in seats already rated likely or safe. A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican.",
-  "governors": "The governors forecast starts from a 23-27 projected split, leaving republicans with the inside track but little room for drift. The races most able to move the chamber are 2026 Alaska Gubernatorial Election (Toss-up, Neither party 47%), 2026 Michigan gubernatorial election (Toss-up, Democrat 51%), 2026 Nevada gubernatorial election (Toss-up, Republican 52%), and 2026 Wisconsin Gubernatorial Election (Toss-up); a shift across those contests would matter more than changes in seats already rated likely or safe.",
+  "house": "Republican control is projected for the house, with 210 Democratic seats and 225 Republican seats. The model identifies 19 toss-up races and 67 broadly competitive races.",
+  "senate": "Democratic control is projected for the senate, with 51 Democratic seats and 49 Republican seats. The model identifies 2 toss-up races and 9 broadly competitive races.",
+  "governors": "Republican control is projected for the governors, with 23 Democratic seats and 27 Republican seats. The model identifies 4 toss-up races and 18 broadly competitive races.",
   "chambers": {
     "house": {
-      "narrative": "The House forecast starts from a 210-225 projected split, leaving republicans with the inside track but little room for drift. The races most able to move the chamber are 2026 U.S. House race for Arizona's 1st Congressional District (Toss-up, Democrat 52%), 2026 U.S. House of Representatives election in California's 1st Congressional District (Toss-up, Neither party 53%), California's 48th Congressional District General Election, 2026 (Toss-up, Democrat 53%), and Colorado's 8th Congressional District Election, 2026 (Toss-up, Republican 51%); a shift across those contests would matter more than changes in seats already rated likely or safe.",
+      "narrative": "Republican control is projected for the house, with 210 Democratic seats and 225 Republican seats. The model identifies 19 toss-up races and 67 broadly competitive races.",
       "control_party": "Republican",
       "control_probability": 0.644,
       "outcome_probabilities": {
@@ -43,10 +43,10 @@
         "Colorado's 8th Congressional District Election, 2026"
       ],
       "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break.",
-      "bottom_line": "Republicans are projected to control the house on a 210-225 seat split.",
-      "why_party_favored": "Republicans are favored because the central projection gives them 225 seats and the mean forecast is separated by about 6.6 seats.",
-      "opposing_party_path": "Democrats need to convert 2026 U.S. House race for Arizona's 1st Congressional District (Toss-up, Democrat 52%), 2026 U.S. House of Representatives election in California's 1st Congressional District (Toss-up, Neither party 53%), California's 48th Congressional District General Election, 2026 (Toss-up, Democrat 53%), and Colorado's 8th Congressional District Election, 2026 (Toss-up, Republican 51%) into wins and avoid losing any current lean or tilt advantages to reach the 218-seat threshold.",
-      "key_uncertainty": "The uncertainty is concentrated in 2026 U.S. House race for Arizona's 1st Congressional District (Toss-up, Democrat 52%), 2026 U.S. House of Representatives election in California's 1st Congressional District (Toss-up, Neither party 53%), California's 48th Congressional District General Election, 2026 (Toss-up, Democrat 53%), and Colorado's 8th Congressional District Election, 2026 (Toss-up, Republican 51%): 19 toss-up and 67 total competitive contests carry most of the distribution's movement.",
+      "bottom_line": "Republican control is projected for the house with 210 Democratic seats and 225 Republican seats.",
+      "why_party_favored": "The model projects 225 seats for the Republican party, giving them a 64% control probability.",
+      "opposing_party_path": "The Democratic party needs to win competitive races to reach the majority threshold of 218 seats.",
+      "key_uncertainty": "The forecast depends on 19 toss-up races and 67 competitive contests where outcomes remain highly uncertain.",
       "seat_distribution": {
         "233D-202R": 0.0007,
         "232D-203R": 0.0011,
@@ -87,29 +87,29 @@
       }
     },
     "senate": {
-      "narrative": "The Senate forecast starts from a 50-50 projected split, leaving republicans with the inside track but little room for drift. The races most able to move the chamber are 2026 U.S. Senate election in Alaska (Toss-up, Democrat 52%), 2026 U.S. Senate election in Michigan (Toss-up, Democrat 52%), 2026 Ohio U.S. Senate special election (Toss-up, Republican 53%), and 2026 U.S. Senate election in Georgia (Tilt D, Democrat 61%); a shift across those contests would matter more than changes in seats already rated likely or safe. A 50-50 Senate is counted as Republican control because the VP tie-break is assumed Republican.",
-      "control_party": "Republican",
-      "control_probability": 0.699,
+      "narrative": "Democratic control is projected for the senate, with 51 Democratic seats and 49 Republican seats. The model identifies 2 toss-up races and 9 broadly competitive races.",
+      "control_party": "Democratic",
+      "control_probability": 0.329,
       "outcome_probabilities": {
-        "Democratic": 0.301,
-        "Republican": 0.699,
+        "Democratic": 0.329,
+        "Republican": 0.671,
         "Other": 0.0,
-        "tie_50_50": 0.19
+        "tie_50_50": 0.195
       },
       "projected_seats": {
-        "Democratic": 50,
-        "Republican": 50,
+        "Democratic": 51,
+        "Republican": 49,
         "Other": 0
       },
       "expected_seats": {
-        "Democratic": 48.9,
-        "Republican": 50.5,
-        "Other": 0.6
+        "Democratic": 49.2,
+        "Republican": 50.4,
+        "Other": 0.4
       },
       "threshold": 51,
       "total_seats": 100,
-      "tossup_count": 3,
-      "competitive_race_count": 10,
+      "tossup_count": 2,
+      "competitive_race_count": 9,
       "competitive_races": [
         "2026 U.S. Senate election in Alaska",
         "2026 U.S. Senate election in Georgia",
@@ -117,36 +117,35 @@
         "2026 U.S. Senate election in Michigan",
         "2026 U.S. Senate election in Minnesota",
         "2026 U.S. Senate election in North Carolina",
-        "2026 U.S. Senate election in Nebraska",
         "2026 U.S. Senate election in New Hampshire",
         "2026 Ohio U.S. Senate special election",
         "2026 U.S. Senate election in Texas"
       ],
       "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break.",
-      "bottom_line": "Republicans are projected to control the senate on a 50-50 seat split. A 50-50 Senate counts as Republican control under the VP tie-break assumption.",
-      "why_party_favored": "Republicans are favored because the central projection gives them 50 seats and the mean forecast is separated by about 1.6 seats.",
-      "opposing_party_path": "Democrats need to convert 2026 U.S. Senate election in Alaska (Toss-up, Democrat 52%), 2026 U.S. Senate election in Michigan (Toss-up, Democrat 52%), 2026 Ohio U.S. Senate special election (Toss-up, Republican 53%), and 2026 U.S. Senate election in Georgia (Tilt D, Democrat 61%) into wins and avoid losing any current lean or tilt advantages to reach the 51-seat threshold.",
-      "key_uncertainty": "The uncertainty is concentrated in 2026 U.S. Senate election in Alaska (Toss-up, Democrat 52%), 2026 U.S. Senate election in Michigan (Toss-up, Democrat 52%), 2026 Ohio U.S. Senate special election (Toss-up, Republican 53%), and 2026 U.S. Senate election in Georgia (Tilt D, Democrat 61%): 3 toss-up and 10 total competitive contests carry most of the distribution's movement.",
+      "bottom_line": "Democratic control is projected for the senate with 51 Democratic seats and 49 Republican seats.",
+      "why_party_favored": "The model projects 51 seats for the Democratic party, giving them a 33% control probability.",
+      "opposing_party_path": "The Republican party needs to win competitive races to reach the majority threshold of 51 seats.",
+      "key_uncertainty": "The forecast depends on 2 toss-up races and 9 competitive contests where outcomes remain highly uncertain.",
       "seat_distribution": {
-        "56D-44R": 0.0011,
-        "55D-45R": 0.0048,
-        "54D-46R": 0.0162,
-        "53D-47R": 0.0428,
-        "52D-48R": 0.0894,
-        "51D-49R": 0.1469,
-        "50R-50D": 0.1899,
-        "51R-49D": 0.1926,
-        "52R-48D": 0.153,
-        "53R-47D": 0.0948,
-        "54R-46D": 0.0455,
-        "55R-45D": 0.0169,
-        "56R-44D": 0.0048,
-        "57R-43D": 0.001
+        "56D-44R": 0.0013,
+        "55D-45R": 0.0056,
+        "54D-46R": 0.0186,
+        "53D-47R": 0.0483,
+        "52D-48R": 0.0984,
+        "51D-49R": 0.1568,
+        "50R-50D": 0.195,
+        "51R-49D": 0.1894,
+        "52R-48D": 0.1437,
+        "53R-47D": 0.0849,
+        "54R-46D": 0.039,
+        "55R-45D": 0.0139,
+        "56R-44D": 0.0038,
+        "57R-43D": 0.0008
       },
       "vp_tiebreak_party": "Republican"
     },
     "governors": {
-      "narrative": "The governors forecast starts from a 23-27 projected split, leaving republicans with the inside track but little room for drift. The races most able to move the chamber are 2026 Alaska Gubernatorial Election (Toss-up, Neither party 47%), 2026 Michigan gubernatorial election (Toss-up, Democrat 51%), 2026 Nevada gubernatorial election (Toss-up, Republican 52%), and 2026 Wisconsin Gubernatorial Election (Toss-up); a shift across those contests would matter more than changes in seats already rated likely or safe.",
+      "narrative": "Republican control is projected for the governors, with 23 Democratic seats and 27 Republican seats. The model identifies 4 toss-up races and 18 broadly competitive races.",
       "control_party": "Republican",
       "control_probability": 0.719,
       "outcome_probabilities": {
@@ -184,10 +183,10 @@
         "2026 Nevada gubernatorial election"
       ],
       "method": "Aggregates published race forecast probabilities and known holdover seats. Senate 50-50 outcomes count as Republican control via VP tie-break.",
-      "bottom_line": "Republicans are projected to control the governors on a 23-27 seat split.",
-      "why_party_favored": "Republicans are favored because the central projection gives them 27 seats and the mean forecast is separated by about 4.2 seats.",
-      "opposing_party_path": "Democrats need to convert 2026 Alaska Gubernatorial Election (Toss-up, Neither party 47%), 2026 Michigan gubernatorial election (Toss-up, Democrat 51%), 2026 Nevada gubernatorial election (Toss-up, Republican 52%), and 2026 Wisconsin Gubernatorial Election (Toss-up) into wins and avoid losing any current lean or tilt advantages to reach the 26-seat threshold.",
-      "key_uncertainty": "The uncertainty is concentrated in 2026 Alaska Gubernatorial Election (Toss-up, Neither party 47%), 2026 Michigan gubernatorial election (Toss-up, Democrat 51%), 2026 Nevada gubernatorial election (Toss-up, Republican 52%), and 2026 Wisconsin Gubernatorial Election (Toss-up): 4 toss-up and 18 total competitive contests carry most of the distribution's movement.",
+      "bottom_line": "Republican control is projected for the governors with 23 Democratic seats and 27 Republican seats.",
+      "why_party_favored": "The model projects 27 seats for the Republican party, giving them a 72% control probability.",
+      "opposing_party_path": "The Democratic party needs to win competitive races to reach the majority threshold of 26 seats.",
+      "key_uncertainty": "The forecast depends on 4 toss-up races and 18 competitive contests where outcomes remain highly uncertain.",
       "seat_distribution": {
         "30D-20R": 0.0018,
         "29D-21R": 0.0066,
@@ -207,5 +206,5 @@
       }
     }
   },
-  "updated_at": "2026-06-22T03:14:32.881011+00:00"
+  "updated_at": "2026-06-22T12:44:15.598911+00:00"
 }

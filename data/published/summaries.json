@@ -152,10 +152,10 @@
     "jurisdiction": "Alaska",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:18:33.843625+00:00",
+    "updated_utc": "2026-06-22T03:28:59.274192+00:00",
     "candidates": [
       {
-        "name": "Dan Sullivan",
+        "name": "Dan S. Sullivan",
         "party": "Republican",
         "incumbent": true,
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Senator_Dan_Sullivan_official.jpg/500px-Senator_Dan_Sullivan_official.jpg"
@@ -167,7 +167,7 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mary-Peltola.PNG"
       },
       {
-        "name": "Dustin T. Darden",
+        "name": "Dustin Darden",
         "party": "Republican",
         "incumbent": false,
         "image_url": null
@@ -179,56 +179,91 @@
         "image_url": null
       },
       {
-        "name": "Richard Grayson",
-        "party": "Green",
+        "name": "Gerald L. Heikes",
+        "party": "Unknown",
         "incumbent": false,
         "image_url": null
       },
       {
-        "name": "Sidney I. Hill",
-        "party": "Undeclared",
+        "name": "Heather McElwain",
+        "party": "Unknown",
         "incumbent": false,
         "image_url": null
       },
       {
-        "name": "William L. Hunt",
-        "party": "Democrat",
+        "name": "Christopher Miklos",
+        "party": "Unknown",
         "incumbent": false,
         "image_url": null
       },
       {
-        "name": "Richard B. Mayers",
-        "party": "Republican",
+        "name": "Carol Hafner",
+        "party": "Unknown",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "David Leslie",
+        "party": "Unknown",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "Ann Diener",
+        "party": "Unknown",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "Scott Kohlhaas",
+        "party": "Unknown",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "Earl D. Southworth",
+        "party": "Unknown",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "Robert Reece",
+        "party": "Unknown",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "Shirley Saucerman",
+        "party": "Unknown",
         "incumbent": false,
         "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.002253,
+      "estimated_usd": 0.02558,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 22233
+      "total_tokens": 20223
     },
     "forecast": {
       "predicted_winner_name": "Mary Peltola",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.52,
+      "win_probability": 0.58,
       "party_probabilities": {
-        "Democratic": 0.52,
-        "Republican": 0.47,
-        "Other": 0.01
+        "Republican": 0.41,
+        "Other": 0.01,
+        "Democratic": 0.58
       },
-      "margin_estimate": 1.5,
-      "rating": "tossup",
-      "confidence": "low",
-      "rationale": "Peltola leads in all available polling (all from one pollster) and holds a large fundraising advantage, but Alaska's Republican lean in Senate races and Sullivan's incumbency keep the race highly uncertain given sparse, uncorroborated data.",
+      "margin_estimate": 7.8,
+      "rating": "tilt_d",
+      "confidence": "medium",
+      "rationale": "Democrat Mary Peltola maintains a lead in recent polling, though all available polls are from a single source. Her significant fundraising advantage further strengthens her position against incumbent Republican Dan Sullivan, but Alaska's Republican lean and Sullivan's incumbency still make the race competitive.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 2,
-      "generated_at": "2026-06-21T19:18:29.725881Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "generated_at": "2026-06-22T03:12:57.610864Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
-        "https://alaskasurveyresearch.com/peltola-vs-sullivan-april-2026/",
         "https://alaskasurveyresearch.com/senate-tracking-survey/",
         "https://alaskasurveyresearch.com/wp-content/uploads/202526-Winter-Alaska-Survey-Report.pdf"
       ]
@@ -709,20 +744,8 @@
     "jurisdiction": "Alabama",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:15:24.704320+00:00",
+    "updated_utc": "2026-06-22T03:28:57.022943+00:00",
     "candidates": [
-      {
-        "name": "Dakarai Larriett",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Dakarai_Larriett_20250520_043429.jpeg"
-      },
-      {
-        "name": "Kyle Sweetser",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kyle_Sweetser_20250527_055621.jpeg"
-      },
       {
         "name": "Everett Wess",
         "party": "Democratic",
@@ -730,59 +753,35 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Everett_Wess.png"
       },
       {
-        "name": "Mark Wheeler II",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mark_Wheeler_20250204_044605.jpg"
-      },
-      {
-        "name": "Jared Hudson",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jared_Hudson_20251007_041146.jpg"
-      },
-      {
-        "name": "Steve Marshall",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Steve_MarshallAG.jpg"
-      },
-      {
         "name": "Barry Moore",
         "party": "Republican",
         "incumbent": false,
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Rep._Barry_Moore_official_photo.jpg/500px-Rep._Barry_Moore_official_photo.jpg"
-      },
-      {
-        "name": "Rodney Walker",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.002512,
+      "estimated_usd": 0.014916,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 25752
+      "total_tokens": 12440
     },
     "forecast": {
-      "predicted_winner_name": null,
+      "predicted_winner_name": "Barry Moore",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.96,
+      "win_probability": 0.98,
       "party_probabilities": {
-        "Democratic": 0.04,
-        "Republican": 0.96
+        "Democratic": 0.02,
+        "Republican": 0.98
       },
-      "margin_estimate": 22.0,
+      "margin_estimate": 25.0,
       "rating": "safe_r",
-      "confidence": "medium",
-      "rationale": "Alabama is a heavily Republican state where Ballotpedia rates the general election as safely Republican. The open seat provides no structural advantage to either party in the general, but the Republican primary field features prominent officeholders (Attorney General Steve Marshall, U.S. Rep. Barry Moore), while the Democratic field consists of lesser-known candidates, and no general-election polling exists to suggest a competitive race.",
+      "confidence": "high",
+      "rationale": "Alabama is a deeply Republican state, and the open Senate seat is highly likely to be filled by a Republican. Despite no polling, the state's strong partisan lean and the Republican candidate's profile suggest a comfortable victory.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:15:21.780073Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "generated_at": "2026-06-22T03:12:50.051795Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -1070,31 +1069,19 @@
     "jurisdiction": "Arkansas, United States",
     "state": "Arkansas",
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:19:07.962766+00:00",
+    "updated_utc": "2026-06-22T03:12:54.496986+00:00",
     "candidates": [
       {
         "name": "Tom Cotton",
         "party": "Republican",
         "incumbent": true,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tom_Cotton.jpg"
-      },
-      {
-        "name": "Hallie Shoffner",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://images.squarespace-cdn.com/content/v1/68542e7bc40f7d68b7e0e3aa/64e7f986-9f04-4cfa-901d-13c439cd2e1a/Hallie+%2899%29.jpg"
-      },
-      {
-        "name": "Jeff Wadlin",
-        "party": "Libertarian",
-        "incumbent": false,
-        "image_url": "https://b3870750.smushcdn.com/3870750/wp-content/uploads/2731_Grey_2-1024x675.jpg?lossy=2&strip=1&webp=1"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.000831,
-      "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 7434
+      "estimated_usd": 0.033448,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 80476
     },
     "forecast": {
       "predicted_winner_name": "Tom Cotton",
@@ -1108,13 +1095,13 @@
       "margin_estimate": 18.0,
       "rating": "likely_r",
       "confidence": "medium",
-      "rationale": "No public polls are available, but structural factors strongly favor the incumbent: Arkansas has been reliably Republican in recent statewide federal elections, Tom Cotton is a sitting senator with a decisive fundraising and cash-on-hand advantage, and his Democratic opponent is a first-time candidate with substantially less financial support. The lack of polling introduces genuine uncertainty around the exact margin, but the race's overall trajectory points clearly toward a Republican hold.",
+      "rationale": "No public polling is available, but structural factors strongly favor the incumbent: Arkansas has been reliably Republican in recent statewide federal elections, and Tom Cotton has a significant fundraising advantage. The lack of polling introduces uncertainty around the exact margin, but the race's overall trajectory points clearly toward a Republican hold.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:19:03.577078Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "generated_at": "2026-06-22T03:12:53.192838Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -5009,7 +4996,7 @@
     "jurisdiction": "Colorado",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:15:07.034022+00:00",
+    "updated_utc": "2026-06-22T03:12:57.913104+00:00",
     "candidates": [
       {
         "name": "John Hickenlooper",
@@ -5018,22 +5005,10 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnHickenlooper.jpg"
       },
       {
-        "name": "Karen Breslin",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Karen_Breslin.jpg"
-      },
-      {
         "name": "Julie Gonzales",
         "party": "Democratic",
         "incumbent": false,
         "image_url": null
-      },
-      {
-        "name": "Brashad Hasley",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Brashad_Hasley_20250925_123613.jpeg"
       },
       {
         "name": "Mark Baisley",
@@ -5042,47 +5017,41 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mark_Baisley.jpg"
       },
       {
-        "name": "Amanda Calderon",
-        "party": "Republican",
+        "name": "Bob Chew",
+        "party": "Colorado Forward Party",
         "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Amanda_Calderon.jpg"
+        "image_url": null
       },
       {
-        "name": "Dathan Jones",
-        "party": "Republican",
+        "name": "Clinton Roosevelt Dale",
+        "party": "Independent",
         "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Dathan_Jones_20260201_085630.jpeg"
-      },
-      {
-        "name": "Janak Joshi",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Janak_Joshi.jpg"
+        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.007058,
-      "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 75460
+      "estimated_usd": 0.043428,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 115237
     },
     "forecast": {
       "predicted_winner_name": "John Hickenlooper",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.84,
+      "win_probability": 0.8,
       "party_probabilities": {
-        "Democratic": 0.84,
-        "Republican": 0.16
+        "Republican": 0.2,
+        "Democratic": 0.8
       },
-      "margin_estimate": 8.0,
+      "margin_estimate": 7.0,
       "rating": "likely_d",
       "confidence": "medium",
-      "rationale": "Colorado's Democratic lean (Biden+13 in 2020) combined with Hickenlooper's incumbency and high statewide name recognition give Democrats a clear structural advantage, but the complete absence of general-election polling and a competitive Democratic primary introduce meaningful uncertainty.",
+      "rationale": "Colorado's strong Democratic lean and incumbent Senator Hickenlooper's presence give Democrats a significant advantage. However, the absence of general election polling and a competitive Democratic primary introduce uncertainty.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:14:47.933823Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "generated_at": "2026-06-22T03:12:57.007228Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -5541,43 +5510,19 @@
     "jurisdiction": "Delaware",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:16:41.724547+00:00",
+    "updated_utc": "2026-06-22T03:31:00.709939+00:00",
     "candidates": [
       {
         "name": "Chris Coons",
         "party": "Democratic",
         "incumbent": true,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chris_Andrew_Coons.jpg"
-      },
-      {
-        "name": "Christopher Beardsley",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Christopher_Beardsley_20251202_100251.png"
-      },
-      {
-        "name": "Michael Katz",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael-Katz.jpg"
-      },
-      {
-        "name": "John Shulli",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/John_Shulli_26.png"
-      },
-      {
-        "name": "Dexter Bland",
-        "party": "Independent",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.0027,
+      "estimated_usd": 0.135382,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 27853
+      "total_tokens": 804292
     },
     "forecast": {
       "predicted_winner_name": "Chris Coons",
@@ -5591,13 +5536,13 @@
       "margin_estimate": 18.0,
       "rating": "safe_d",
       "confidence": "medium",
-      "rationale": "Incumbent Chris Coons has held this seat since 2010, Delaware's strong Democratic lean in federal elections is well-established, and no credible Republican or independent challenger has emerged with statewide name recognition or significant resources.",
+      "rationale": "Incumbent Chris Coons has held this seat since 2010, and Delaware consistently votes Democratic in federal elections. No credible Republican challenger has emerged with significant name recognition or resources.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:16:31.090945Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "generated_at": "2026-06-22T03:12:51.795189Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -7600,25 +7545,19 @@
     "jurisdiction": "Florida",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:16:56.136408+00:00",
+    "updated_utc": "2026-06-22T03:12:46.356049+00:00",
     "candidates": [
       {
-        "name": "Ashley Moody",
+        "name": "Marco Rubio",
         "party": "Republican",
         "incumbent": true,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Senator_Ashley_Moody_Official_Portrait.jpg/500px-Senator_Ashley_Moody_Official_Portrait.jpg"
-      },
-      {
-        "name": "Alexander Vindman",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alexander_Vindman_on_May_20%2C_2019.jpg"
+        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.003154,
-      "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 32858
+      "estimated_usd": 0.020671,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 40162
     },
     "forecast": {
       "predicted_winner_name": "Ashley Moody",
@@ -7628,19 +7567,18 @@
         "Republican": 0.8,
         "Democratic": 0.2
       },
-      "margin_estimate": 7.0,
+      "margin_estimate": 8.0,
       "rating": "likely_r",
       "confidence": "medium",
-      "rationale": "Appointed incumbent Ashley Moody holds a consistent 7-8 point lead over Democrat Alexander Vindman in both available head-to-head polls, and Florida's Republican lean in recent statewide cycles gives her a structural edge. However, the polling is now more than three months old with no new surveys, and Vindman's candidacy retains untested upside potential, tempering confidence.",
+      "rationale": "Appointed incumbent Ashley Moody holds an 8-point lead over Democrat Alexander Vindman in the only available head-to-head poll, and Florida's Republican lean in recent statewide cycles gives her a structural edge. However, the polling is now nearly three months old with no new surveys, and Vindman's candidacy retains untested upside potential, tempering confidence.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 2,
-      "generated_at": "2026-06-21T19:16:50.508780Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "based_on_poll_count": 1,
+      "generated_at": "2026-06-22T03:12:45.348477Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
-        "https://floridapolitics.com/archives/788552-poll-ashley-moody-leading-all-potential-democratic-opponents-in-senate-race/",
-        "https://floridapolitics.com/archives/783202-unf-poll-shows-ashley-moody-lead-in-single-digits-against-either-angie-nixon-or-alex-vindman/"
+        "https://floridapolitics.com/archives/788552-poll-ashley-moody-leading-all-potential-democratic-opponents-in-senate-race/"
       ]
     }
   },
@@ -8403,7 +8341,7 @@
     "jurisdiction": "Georgia",
     "state": "Georgia",
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:09.849690+00:00",
+    "updated_utc": "2026-06-22T03:12:52.085110+00:00",
     "candidates": [
       {
         "name": "Jon Ossoff",
@@ -8412,65 +8350,35 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Jon_Ossoff_official_portrait.jpg"
       },
       {
-        "name": "Jonathan McColumn",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Christina Loren Clement",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Hisham Darwish",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Earl Carter",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
         "name": "Mike Collins",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Derek Dooley",
         "party": "Republican",
         "incumbent": false,
         "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.020622,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 6879
+      "estimated_usd": 0.031762,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 84380
     },
     "forecast": {
       "predicted_winner_name": "Jon Ossoff",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.61,
+      "win_probability": 0.68,
       "party_probabilities": {
-        "Democratic": 0.61,
-        "Republican": 0.39
+        "Republican": 0.32,
+        "Democratic": 0.68
       },
-      "margin_estimate": 3.0,
-      "rating": "tilt_d",
-      "confidence": "low",
-      "rationale": "Georgia is a closely divided battleground, and this race remains early with Republicans still in a competitive primary and no settled nominee. The available numeric candidate-level polling is sparse: one March Emerson/Nexstar poll showed incumbent Jon Ossoff leading Mike Collins 48%-43%, and the race summary says Ossoff led each tested Republican matchup in that survey. Ossoff also appears to have substantial fundraising and incumbency advantages over the current Republican field. But the evidence base is thin, the single public poll is several months old, and Georgia\u2019s recent statewide elections have been consistently close, so the incumbent\u2019s edge looks narrow rather than durable. That supports a slight Democratic advantage, not more.",
+      "margin_estimate": 5.0,
+      "rating": "lean_d",
+      "confidence": "medium",
+      "rationale": "Incumbent Democratic Senator Jon Ossoff leads Republican Mike Collins by 5 points in the most recent poll. Ossoff also has a significant fundraising advantage, which is crucial in a competitive state like Georgia.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 1,
-      "generated_at": "2026-06-20T03:17:08.683156Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:12:51.427384Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
         "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/"
       ]
@@ -8931,7 +8839,7 @@
     "jurisdiction": "Iowa",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:16:45.640515+00:00",
+    "updated_utc": "2026-06-22T04:16:47.003554+00:00",
     "candidates": [
       {
         "name": "Josh Turek",
@@ -8940,22 +8848,10 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Josh_Turek_20250901_100606.jpg"
       },
       {
-        "name": "Zach Wahls",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Zach_Wahls_20250122_084308.jpg"
-      },
-      {
-        "name": "Jim Carlin",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jim-Carlin.jpg"
-      },
-      {
         "name": "Ashley Hinson",
         "party": "Republican",
         "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/428px-Ashley_Hinson.jpg"
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Congresswoman_Ashley_Hinson_Official_portrait.jpg/300px-Congresswoman_Ashley_Hinson_Official_portrait.jpg"
       },
       {
         "name": "Thomas Laehn",
@@ -8965,29 +8861,29 @@
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.010743,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 3197
+      "estimated_usd": 1.169835,
+      "model": "deepseek/deepseek-v4-flash",
+      "total_tokens": 5719146
     },
     "forecast": {
       "predicted_winner_name": "Ashley Hinson",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.82,
+      "win_probability": 0.8,
       "party_probabilities": {
         "Democratic": 0.17,
-        "Republican": 0.82,
-        "Libertarian": 0.01
+        "Republican": 0.8,
+        "Libertarian": 0.03
       },
-      "margin_estimate": 6.5,
+      "margin_estimate": 6.0,
       "rating": "likely_r",
       "confidence": "low",
-      "rationale": "This open-seat Senate race lacks any public, credible general-election polling in the provided data, so confidence is limited. Still, the race description itself notes Ballotpedia rates it likely Republican, and the Republican field includes Ashley Hinson, a sitting U.S. House member with a higher-profile federal r\u00e9sum\u00e9 than the other listed candidates. Democrats have plausible contenders and the open-seat dynamic makes the race more competitive than an incumbent-held seat, but with no polling and given Iowa\u2019s recent Republican tilt implied by the description, Republicans appear to hold a clear but not overwhelming edge at this stage.",
+      "rationale": "Iowa's Republican lean in federal races and Hinson's strong name recognition as a sitting U.S. House member give Republicans a clear structural edge in this open-seat race, but zero public polling makes any precise margin estimate unreliable.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:16:44.880418Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T04:04:12.860390Z",
+      "model": "deepseek/deepseek-v4-flash",
       "source_urls": []
     }
   },
@@ -10195,25 +10091,19 @@
     "jurisdiction": "Illinois, United States",
     "state": "Illinois",
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:01.231411+00:00",
+    "updated_utc": "2026-06-22T03:12:54.219252+00:00",
     "candidates": [
       {
         "name": "Juliana Stratton",
         "party": "Democratic",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Juliana_Stratton.jpg"
-      },
-      {
-        "name": "Chad Koppie",
-        "party": "Constitution",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chad_Koppie.jpg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.01145,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 3345
+      "estimated_usd": 0.027525,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 64040
     },
     "forecast": {
       "predicted_winner_name": "Juliana Stratton",
@@ -10224,16 +10114,16 @@
         "Republican": 0.03,
         "Other": 0.02
       },
-      "margin_estimate": 16.0,
+      "margin_estimate": 20.0,
       "rating": "safe_d",
-      "confidence": "medium",
-      "rationale": "This is an open-seat race in a state described in the race profile as having a strong Democratic lean. The listed Democratic nominee, Juliana Stratton, is a statewide elected official with substantial fundraising support, while the only other listed nominee is a Constitution Party candidate with no evident financial base or prior elected profile. Public polling in the race is very limited and the available poll referenced here focused on the Democratic primary rather than a general-election matchup, so the forecast relies mainly on Illinois\u2019s partisan context and the relative strength of the listed candidates rather than direct general-election polling. That supports a strong Democratic advantage, though confidence is reduced somewhat by sparse general-election data and the possibility of an eventual Republican nominee not reflected in the current candidate list.",
+      "confidence": "high",
+      "rationale": "Illinois is a reliably Democratic state, and Juliana Stratton, the Democratic nominee, has a strong political profile. The absence of a Republican nominee and general election polling further solidifies the Democratic advantage.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:17:00.446094Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:12:53.362168Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -11911,7 +11801,7 @@
     "jurisdiction": "Louisiana",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:34.900222+00:00",
+    "updated_utc": "2026-06-22T03:28:58.982449+00:00",
     "candidates": [
       {
         "name": "Bill Cassidy",
@@ -11920,75 +11810,38 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bill_Cassidy_official_Senate_photo.jpg"
       },
       {
-        "name": "John Fleming",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/John_Fleming_official_photo_%28alt_crop%29.jpg"
-      },
-      {
         "name": "Julia Letlow",
         "party": "Republican",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JuliaLetlowLA2.png"
-      },
-      {
-        "name": "Mark Spencer",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Mark_Spencer_Official_Cabinet_Portrait%2C_September_2021_%28cropped%29.jpg/500px-Mark_Spencer_Official_Cabinet_Portrait%2C_September_2021_%28cropped%29.jpg"
-      },
-      {
-        "name": "Nick Albares",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nick_Albares_20260222_032731.jpg"
-      },
-      {
-        "name": "Gary Crockett",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/garycrockett.png"
-      },
-      {
-        "name": "Jamie Davis",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Jamie LaBranche",
-        "party": "Independent",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jamie_LaBranche.jpg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.014998,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 4459
+      "estimated_usd": 0.019293,
+      "model": "deepseek/deepseek-v4-flash",
+      "total_tokens": 14673
     },
     "forecast": {
-      "predicted_winner_name": "John Fleming",
+      "predicted_winner_name": null,
       "predicted_winner_party": "Republican",
-      "win_probability": 0.86,
+      "win_probability": 0.97,
       "party_probabilities": {
-        "Republican": 0.95,
-        "Democratic": 0.04,
-        "Independent": 0.01
+        "Independent": 0.01,
+        "Democratic": 0.02,
+        "Republican": 0.97
       },
-      "margin_estimate": 8.0,
-      "rating": "likely_r",
+      "margin_estimate": null,
+      "rating": "safe_r",
       "confidence": "medium",
-      "rationale": "The available polling is sparse but consistent in showing Republicans dominating this race and Democrats not appearing competitive in the current field. Two polls from February and March place three Republicans well ahead, with John Fleming leading once and Julia Letlow leading in another survey, while incumbent Bill Cassidy runs third in both. That suggests the main uncertainty is which Republican emerges from the intraparty contest, not which party wins the seat. Cassidy\u2019s incumbency matters, but the race description and polling both indicate a volatile Republican primary shaped by alignment with Donald Trump and a possible runoff, which lowers confidence on the eventual nominee. Given Louisiana\u2019s strongly Republican federal context in this cycle and no evidence here of a Democratic contender near contention, Republicans hold a clear overall advantage, though the identity of the winner remains uncertain enough to stop short of safe.",
+      "rationale": "The runoff election is between two Republican candidates in a strongly Republican state, ensuring the seat remains in Republican hands. While Julia Letlow led in the most recent poll, the poll is from March, and the runoff is in June, introducing some uncertainty regarding the specific winner.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 2,
-      "generated_at": "2026-06-20T03:17:33.960114Z",
-      "model": "openai/gpt-5.4",
+      "based_on_poll_count": 1,
+      "generated_at": "2026-06-22T03:13:34.377591Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
-        "https://data.ddhq.io/polls/2026/04/02/American-Pulse-Research-&-Polling-Louisiana",
-        "https://www.270towin.com/2026-senate-polls/louisiana"
+        "https://data.ddhq.io/polls/2026/04/02/American-Pulse-Research-&-Polling-Louisiana"
       ]
     }
   },
@@ -12570,7 +12423,7 @@
     "jurisdiction": "Massachusetts",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:27.228783+00:00",
+    "updated_utc": "2026-06-22T04:44:53.193892+00:00",
     "candidates": [
       {
         "name": "Edward J. Markey",
@@ -12591,63 +12444,43 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/2024_United_States_Senate_election_in_Massachusetts_results_map_by_county.svg/500px-2024_United_States_Senate_election_in_Massachusetts_results_map_by_county.svg.png"
       },
       {
-        "name": "William Gates",
+        "name": "William F. Gates Jr.",
         "party": "Democratic",
         "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/William_Gates_20260120_085346.jpg"
+        "image_url": null
       },
       {
-        "name": "Alexander Rikleen",
+        "name": "Alex Rikleen",
         "party": "Democratic",
         "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Alexander_Rikleen_20250525_012218.jpg"
-      },
-      {
-        "name": "Nathan Bech",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "Philip Devincentis",
-        "party": "American Independent",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "Joseph Tache",
-        "party": "Party for Socialism and Liberation",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JosephTache2025.jpg"
+        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.014365,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 4311
+      "estimated_usd": 1.868521,
+      "model": "deepseek/deepseek-v4-flash",
+      "total_tokens": 10479143
     },
     "forecast": {
       "predicted_winner_name": "Edward J. Markey",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.95,
+      "win_probability": 0.97,
       "party_probabilities": {
         "Democratic": 0.97,
-        "Republican": 0.02,
-        "Independent": 0.01
+        "Republican": 0.03
       },
-      "margin_estimate": 20.0,
+      "margin_estimate": 25.0,
       "rating": "safe_d",
-      "confidence": "low",
-      "rationale": "Massachusetts is a strongly Democratic state in federal elections, and the race description indicates the main competition is expected to be in the Democratic primary rather than the general election. Incumbent Ed Markey has substantial advantages from incumbency, long statewide and congressional experience, and a state partisan environment that strongly favors Democrats. However, confidence is limited because the provided polling includes no numeric matchup results, so this forecast relies mainly on state partisan context, incumbency, and the currently described candidate field rather than direct vote data. A Democratic primary challenge, especially from Seth Moulton, creates some uncertainty about the eventual nominee, but the Democratic Party remains an overwhelming favorite to hold the seat.",
+      "confidence": "high",
+      "rationale": "Massachusetts is one of the most Democratic states in the country \u2014 Democrats outnumber Republicans three-to-one, and the GOP hasn't won a Senate race here since 2010. The Democratic primary is the only real contest, where incumbent Markey leads Rep. Moulton in all available polling, and the general election is all but certain to go to the Democratic nominee.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:17:26.133412Z",
-      "model": "openai/gpt-5.4",
+      "based_on_poll_count": 4,
+      "generated_at": "2026-06-22T04:21:57.721849Z",
+      "model": "deepseek/deepseek-v4-flash",
       "source_urls": [
-        "https://www.realclearpolling.com/polls/senate/democratic-primary/2026/massachusetts",
-        "https://www.realclearpolling.com/polls/senate/democratic-primary/2026/massachusetts"
+        "https://www.270towin.com/2026-senate-polls/massachusetts"
       ]
     }
   },
@@ -15982,7 +15815,7 @@
     "jurisdiction": "Mississippi",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:10:26.052701+00:00",
+    "updated_utc": "2026-06-22T03:28:56.923272+00:00",
     "candidates": [
       {
         "name": "Cindy Hyde-Smith",
@@ -16001,39 +15834,35 @@
         "party": "Independent",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ty-Pinkins.png"
-      },
-      {
-        "name": "Priscilla W. Till",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Priscilla_Hill.jpg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.001682,
+      "estimated_usd": 0.01817,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 16786
+      "total_tokens": 16961
     },
     "forecast": {
       "predicted_winner_name": "Cindy Hyde-Smith",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.97,
+      "win_probability": 0.85,
       "party_probabilities": {
-        "Republican": 0.97,
-        "Democratic": 0.02,
-        "Independent": 0.01
+        "Republican": 0.85,
+        "Independent": 0.05,
+        "Democratic": 0.1
       },
-      "margin_estimate": 20.0,
-      "rating": "safe_r",
-      "confidence": "high",
-      "rationale": "Mississippi is a strongly Republican state with an entrenched incumbent Republican senator, and no recent polling or fundraising data suggests a competitive general election. The Democratic nominee faces a steep uphill climb against incumbency, the state's partisan lean, and a split Democratic/independent vote.",
+      "margin_estimate": 3.0,
+      "rating": "likely_r",
+      "confidence": "medium",
+      "rationale": "The incumbent Republican senator holds a narrow lead in the only available poll, which also shows a significant portion of the vote going to an independent candidate. Mississippi remains a reliably Republican state, but the race appears closer than expected.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:10:19.282498Z",
-      "model": "deepseek/deepseek-v4-flash",
-      "source_urls": []
+      "based_on_poll_count": 1,
+      "generated_at": "2026-06-22T03:13:03.669383Z",
+      "model": "google/gemini-2.5-flash",
+      "source_urls": [
+        "https://www.splcactionfund.org/news/new-poll-of-likely-voters-shows-mississippi-senate-race-tightening-as-voters-continue-to-sour-on-sen-cindy-hyde-smith/"
+      ]
     }
   },
   {
@@ -16160,25 +15989,13 @@
     "jurisdiction": "Montana",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:21:27.079016+00:00",
+    "updated_utc": "2026-06-22T04:31:36.771714+00:00",
     "candidates": [
-      {
-        "name": "Reilly Neill",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Reilly_Neill_2024b.png"
-      },
       {
         "name": "Kurt Alme",
         "party": "Republican",
         "incumbent": false,
         "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "Charles A. Walking Child",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CharlesWalkingChild2024.jpg"
       },
       {
         "name": "Seth Bodnar",
@@ -16187,56 +16004,44 @@
         "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
       },
       {
-        "name": "Michael Black Wolf",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_BlackWolf_20251007_075645.jpg"
-      },
-      {
-        "name": "Michael Hummert",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MichaelHummert.jpeg"
-      },
-      {
-        "name": "Christopher Kehoe",
-        "party": "Democratic",
+        "name": "Kyle Austin",
+        "party": "Libertarian",
         "incumbent": false,
         "image_url": null
       },
       {
-        "name": "Lee Calhoun",
-        "party": "Republican",
+        "name": "Tom Jandron",
+        "party": "Libertarian",
         "incumbent": false,
         "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.003001,
+      "estimated_usd": 1.688156,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 30380
+      "total_tokens": 8592582
     },
     "forecast": {
-      "predicted_winner_name": null,
+      "predicted_winner_name": "Kurt Alme",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.83,
+      "win_probability": 0.78,
       "party_probabilities": {
-        "Democratic": 0.13,
-        "Republican": 0.83,
-        "Independent": 0.04
+        "Republican": 0.78,
+        "Independent": 0.12,
+        "Democratic": 0.1
       },
-      "margin_estimate": 8.0,
+      "margin_estimate": 7.0,
       "rating": "likely_r",
       "confidence": "low",
-      "rationale": "Montana's strong Republican lean at the federal level (Trump +16 in 2024) makes the GOP the clear favorite to hold this open seat, especially with Kurt Alme earning early endorsements from both Trump and outgoing Sen. Daines. However, confidence is low because there is zero usable general-election polling for the actual post-primary field and the crowded multi-party lineup introduces unusual uncertainty.",
+      "rationale": "Montana's deep-red federal lean and Trump/Daines endorsements give Republican Kurt Alme a clear structural advantage in this open-seat race. However, zero general-election polling, a high-spending independent (Seth Bodnar) endorsed by former Sen. Tester, and a fragmented six-candidate field introduce substantial uncertainty.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:21:18.743860Z",
+      "generated_at": "2026-06-22T04:19:42.083760Z",
       "model": "deepseek/deepseek-v4-flash",
       "source_urls": [
-        "https://dailymontanan.com/2026/02/24/poll-shows-daines-with-sizable-lead-over-democratic-independent-challengers/"
+        "https://montanafreepress.org/2026/05/19/montana-us-senate-candidates-largely-unknown-to-voters/"
       ]
     }
   },
@@ -16984,7 +16789,7 @@
     "jurisdiction": "North Carolina, United States",
     "state": "North Carolina",
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:18:31.481245+00:00",
+    "updated_utc": "2026-06-22T03:13:13.805983+00:00",
     "candidates": [
       {
         "name": "Roy Cooper",
@@ -16997,56 +16802,33 @@
         "party": "Republican",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Whatley_20251119_123603.jpg"
-      },
-      {
-        "name": "Brian McGinnis",
-        "party": "Green",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Shannon Bray",
-        "party": "Libertarian",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ShannonBray.jpg"
-      },
-      {
-        "name": "Shaunesi Deberry",
-        "party": "Independent",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Shaunesi_Deberry_20250716_034549.jpeg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.001825,
-      "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 17639
+      "estimated_usd": 0.028059,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 71542
     },
     "forecast": {
       "predicted_winner_name": "Roy Cooper",
       "predicted_winner_party": "Democratic",
       "win_probability": 0.7,
       "party_probabilities": {
-        "Democratic": 0.7,
-        "Republican": 0.27,
-        "Green": 0.015,
-        "Libertarian": 0.01,
-        "Independent": 0.005
+        "Republican": 0.3,
+        "Democratic": 0.7
       },
-      "margin_estimate": 5.5,
+      "margin_estimate": 11.0,
       "rating": "lean_d",
       "confidence": "medium",
-      "rationale": "Roy Cooper leads Michael Whatley by 8\u201311 points in all four available polls, and his two-term governorship gives him a clear candidate-strength advantage in this open-seat race. North Carolina remains competitive \u2014 it has voted Republican in recent presidential cycles and heavy outside spending is expected \u2014 but Cooper\u2019s consistent polling edge and high name recognition give Democrats the early advantage.",
+      "rationale": "Democrat Roy Cooper holds a significant lead in the sole public poll available, and his strong name recognition as a former governor provides an advantage in this open-seat race. However, North Carolina is a competitive state, and the race is expected to draw substantial outside spending, indicating a potentially closer contest than current polling suggests.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 4,
-      "generated_at": "2026-06-21T19:18:27.716311Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "based_on_poll_count": 1,
+      "generated_at": "2026-06-22T03:13:12.859110Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
-        "https://www.carolinajournal.com/cooper-opens-double-digit-lead-over-whatley-in-us-senate-race/",
-        "https://ballotpedia.org/United_States_Senate_election_in_North_Carolina,_2026",
-        "https://www.realclearpolling.com/polls/senate/general/2026/north-carolina/cooper-vs-whatley"
+        "https://www.carolinajournal.com/cooper-opens-double-digit-lead-over-whatley-in-us-senate-race/"
       ]
     }
   },
@@ -17354,7 +17136,7 @@
     "jurisdiction": "Nebraska",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:22:17.058308+00:00",
+    "updated_utc": "2026-06-22T03:28:59.348888+00:00",
     "candidates": [
       {
         "name": "Pete Ricketts",
@@ -17369,69 +17151,37 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Audrey_Hatch_20240808_095600.jpg"
       },
       {
-        "name": "Eric Mortimore",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "Todd Knobel",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "Mac Stevens",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "Debb Axtell Schultz",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
         "name": "Cindy Burbank",
         "party": "Democratic",
         "incumbent": false,
         "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "William J. Forbes",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.001679,
+      "estimated_usd": 0.018139,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 16609
+      "total_tokens": 14200
     },
     "forecast": {
       "predicted_winner_name": "Pete Ricketts",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.6,
+      "win_probability": 0.85,
       "party_probabilities": {
-        "Republican": 0.6,
-        "Independent": 0.33,
-        "Democratic": 0.07
+        "Independent": 0.1,
+        "Republican": 0.85,
+        "Democratic": 0.05
       },
-      "margin_estimate": 2.5,
-      "rating": "tilt_r",
-      "confidence": "low",
-      "rationale": "Nebraska's strong Republican lean and Ricketts' incumbency and two-term gubernatorial experience provide a structural edge, but the only available poll shows a 48-48 tie with independent Dan Osborn, who ran competitively statewide in 2024. Sparse and dated polling keeps uncertainty high.",
+      "margin_estimate": 10.0,
+      "rating": "likely_r",
+      "confidence": "medium",
+      "rationale": "Nebraska's strong Republican lean and Ricketts' incumbency provide a significant advantage. While Dan Osborn has shown some competitiveness, the lack of recent polling and the Democratic candidate's stated intention to withdraw solidify the Republican's position.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 1,
-      "generated_at": "2026-06-21T19:22:10.268282Z",
-      "model": "deepseek/deepseek-v4-flash",
-      "source_urls": [
-        "https://www.nytimes.com/interactive/polls/nebraska-us-senate-election-polls-2026.html"
-      ]
+      "based_on_poll_count": 0,
+      "generated_at": "2026-06-22T03:13:19.145252Z",
+      "model": "google/gemini-2.5-flash",
+      "source_urls": []
     }
   },
   {
@@ -17658,10 +17408,10 @@
     "jurisdiction": "New Hampshire",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:16:53.808588+00:00",
+    "updated_utc": "2026-06-22T03:14:06.706972+00:00",
     "candidates": [
       {
-        "name": "Chris Pappas",
+        "name": "Christopher Pappas",
         "party": "Democratic",
         "incumbent": false,
         "image_url": null
@@ -17701,32 +17451,51 @@
         "party": "Democratic",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jared-Sullivan.PNG"
+      },
+      {
+        "name": "David Jarvis",
+        "party": "Democratic",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "Maxwell L. Saal",
+        "party": "Democratic",
+        "incumbent": false,
+        "image_url": null
+      },
+      {
+        "name": "John Vail",
+        "party": "Democratic",
+        "incumbent": false,
+        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.01808,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 5517
+      "estimated_usd": 0.08529,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 198379
     },
     "forecast": {
-      "predicted_winner_name": "Chris Pappas",
+      "predicted_winner_name": "Christopher Pappas",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.58,
+      "win_probability": 0.57,
       "party_probabilities": {
-        "Democratic": 0.58,
-        "Republican": 0.42
+        "Republican": 0.43,
+        "Democratic": 0.57
       },
-      "margin_estimate": 2.0,
+      "margin_estimate": 2.5,
       "rating": "tilt_d",
       "confidence": "medium",
-      "rationale": "Available public polling is limited and somewhat stale, with no identified public polls after late March 2026, so uncertainty remains substantial. Still, the existing general-election matchups consistently show Democrat Chris Pappas leading both tested Republicans. Against John E. Sununu, Pappas leads by 5 points in January UNH, 3 points in March Saint Anselm, and 1 point in March Emerson, indicating a very competitive race but a small, persistent Democratic edge. Against Scott Brown, Pappas' leads are larger, while Republican primary polling shows Sununu running well ahead of Brown, making Sununu the stronger likely GOP standard-bearer. Because this is an open seat in a competitive battleground state and the best-tested general-election pairing is close, the race rates Tilt Democratic rather than Lean Democratic.",
+      "rationale": "Christopher Pappas consistently leads John E. Sununu in general election matchups across four polls from January to April 2026, with an average margin of approximately 3 percentage points. However, all available polling is now several months old, and the race remains competitive in a swing state.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 4,
-      "generated_at": "2026-06-20T03:16:52.815003Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:14:05.357110Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
+        "https://www.wmur.com/article/unh-poll-new-hampshire-us-senate-2026/68132166",
         "https://scholars.unh.edu/survey_center_polls/922/",
         "https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858",
         "https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/"
@@ -18345,7 +18114,7 @@
     "jurisdiction": "New Jersey",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:32.565572+00:00",
+    "updated_utc": "2026-06-22T03:28:59.500659+00:00",
     "candidates": [
       {
         "name": "Cory Booker",
@@ -18354,71 +18123,35 @@
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CoryBooker.jpg"
       },
       {
-        "name": "Saxon Callahan",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
-      },
-      {
-        "name": "Chris Fields",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Oklahomacitybombing-DF-ST-98-01356.jpg/500px-Oklahomacitybombing-DF-ST-98-01356.jpg"
-      },
-      {
-        "name": "Lisa McCormick",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Robert Lebovics",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Robert_Lebovics.jpg"
-      },
-      {
         "name": "Justin Murphy",
         "party": "Republican",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JustinMurphy24.jpg"
-      },
-      {
-        "name": "Natalie Rivera",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Natalie-Rivera-e1556213891448.jpg"
-      },
-      {
-        "name": "Richard Tabor",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Richard_Tabor_20260330_032501.jpeg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.013052,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 4061
+      "estimated_usd": 0.018703,
+      "model": "deepseek/deepseek-v4-flash",
+      "total_tokens": 13608
     },
     "forecast": {
       "predicted_winner_name": "Cory Booker",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.92,
+      "win_probability": 0.85,
       "party_probabilities": {
-        "Democratic": 0.92,
-        "Republican": 0.08
+        "Republican": 0.15,
+        "Democratic": 0.85
       },
-      "margin_estimate": 14.0,
+      "margin_estimate": 15.0,
       "rating": "likely_d",
       "confidence": "low",
-      "rationale": "There is no public general-election polling in the race data, so this forecast relies on non-polling fundamentals and should be treated cautiously. New Jersey is described here as a generally Democratic-leaning state that has recently elected Democrats to statewide federal office, which gives Democrats a structural advantage. That advantage is reinforced by incumbency: Cory Booker is the sitting senator and the best-known candidate in the field. The listed Republican field appears unsettled and, based on the provided summaries, does not yet show a clearly established statewide challenger. Even so, the absence of polling and the early stage of the race reduce confidence, so the race is better characterized as Likely Democratic rather than Safe Democratic.",
+      "rationale": "New Jersey is a reliably Democratic state, and incumbent Cory Booker has high name recognition. The lack of public polling, however, introduces significant uncertainty.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:17:31.745401Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:13:28.646462Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -18623,19 +18356,13 @@
     "jurisdiction": "New Mexico",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:08.197059+00:00",
+    "updated_utc": "2026-06-22T03:29:19.486892+00:00",
     "candidates": [
       {
         "name": "Ben Ray Luj\u00e1n",
         "party": "Democratic",
         "incumbent": true,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ben-Ray-Lujan.jpg"
-      },
-      {
-        "name": "Matt Dodson",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Matt_Dodson_2026.jpeg"
       },
       {
         "name": "Larry E. Marker",
@@ -18645,28 +18372,28 @@
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.009775,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 2855
+      "estimated_usd": 0.016859,
+      "model": "deepseek/deepseek-v4-flash",
+      "total_tokens": 13472
     },
     "forecast": {
       "predicted_winner_name": "Ben Ray Luj\u00e1n",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.93,
+      "win_probability": 0.98,
       "party_probabilities": {
-        "Democratic": 0.93,
-        "Republican": 0.07
+        "Democratic": 0.98,
+        "Republican": 0.02
       },
-      "margin_estimate": 17.0,
-      "rating": "likely_d",
-      "confidence": "medium",
-      "rationale": "There is no public polling for this race, which limits confidence. Still, the available race data points to a clear Democratic advantage: Ben Ray Luj\u00e1n is the incumbent senator, is the best-known candidate in the field, and the race description says recent state voting history and current race ratings favor Democrats. The Republican side also appears unusually weak at this stage, with only a write-in candidate after the party did not secure a standard ballot nominee. Given the lack of polls this should not be rated at the highest confidence level, but the existing data supports Democrats as clear favorites.",
+      "margin_estimate": 25.0,
+      "rating": "safe_d",
+      "confidence": "high",
+      "rationale": "Incumbent Sen. Ben Ray Luj\u00e1n is a well-known statewide Democrat seeking reelection in a state that has voted Democratic in every presidential election since 2004. The Republican Party lacks a standard ballot nominee and is fielding only a write-in candidate, making this one of the most lopsided Senate race structures in the 2026 cycle.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:17:07.380203Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:12:51.306058Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -21331,7 +21058,7 @@
     "jurisdiction": "Ohio",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:35.123858+00:00",
+    "updated_utc": "2026-06-22T03:13:59.295332+00:00",
     "candidates": [
       {
         "name": "Jon Husted",
@@ -21344,46 +21071,33 @@
         "party": "Democratic",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sherrod_Brown.jpg"
-      },
-      {
-        "name": "Gregory Levy",
-        "party": "Independent",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Gregory_Levy_20251027_011312.jpg"
-      },
-      {
-        "name": "Bill Redpath",
-        "party": "Libertarian",
-        "incumbent": false,
-        "image_url": "https://assets.civicengine.com/uploads/candidate/headshot/930469/william-b-redpath.jpg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.018897,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 5849
+      "estimated_usd": 0.045964,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 121034
     },
     "forecast": {
-      "predicted_winner_name": "Jon Husted",
-      "predicted_winner_party": "Republican",
-      "win_probability": 0.53,
+      "predicted_winner_name": "Sherrod Brown",
+      "predicted_winner_party": "Democratic",
+      "win_probability": 0.68,
       "party_probabilities": {
-        "Democratic": 0.45,
-        "Republican": 0.53,
-        "Independent": 0.01,
-        "Libertarian": 0.01
+        "Republican": 0.32,
+        "Democratic": 0.68
       },
-      "margin_estimate": 1.0,
-      "rating": "tossup",
-      "confidence": "low",
-      "rationale": "This race looks highly competitive. The limited public polling from late 2025 through March 2026 shows a very tight contest, with Sherrod Brown holding small leads in the three most recent polls but Jon Husted leading in an earlier December poll; overall, the polling suggests no clear separation between the major candidates. Brown is a strong statewide Democratic figure with substantial fundraising and a history of outperforming his party in Ohio, which keeps Democrats very viable. But Ohio has trended strongly Republican in recent cycles, Donald Trump carried the state by 11 points in 2024, Republicans hold all statewide offices and both Senate seats, and Husted benefits from incumbency as the appointed senator plus the broader GOP state environment. With no public polling in the last 90 days and only a small set of polls overall, uncertainty is elevated. Given Brown\u2019s demonstrated strength but Ohio\u2019s recent Republican lean and Husted\u2019s incumbency, Republicans have only a very slight edge.",
+      "margin_estimate": 4.0,
+      "rating": "lean_d",
+      "confidence": "medium",
+      "rationale": "The most recent poll shows Sherrod Brown with a significant lead, and while previous polls were tighter, they consistently showed Brown ahead or tied. Brown's strong fundraising and history of outperforming in Ohio give him an edge despite the state's Republican lean.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 4,
-      "generated_at": "2026-06-20T03:17:34.509497Z",
-      "model": "openai/gpt-5.4",
+      "based_on_poll_count": 5,
+      "generated_at": "2026-06-22T03:13:57.964167Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
+        "https://www.nbc4i.com/news/your-local-election-hq/poll-finds-sherrod-brown-8-points-ahead-of-jon-husted-in-ohios-u-s-senate-race/",
         "https://cookpolitical.com/senate/race/488651",
         "https://ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026"
       ]
@@ -21782,7 +21496,7 @@
     "jurisdiction": "Oklahoma",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:18:35.122914+00:00",
+    "updated_utc": "2026-06-22T04:04:32.837958+00:00",
     "candidates": [
       {
         "name": "N'Kiyla Jasmine Thomas",
@@ -21795,54 +21509,30 @@
         "party": "Republican",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/15589751_225475587878868_2375580706974003254_n.jpg"
-      },
-      {
-        "name": "R.O. Joe Cassity, Jr.",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Troy W. Green",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Jim Priest",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Ervin Stone Yen",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.001392,
+      "estimated_usd": 0.791051,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 13559
+      "total_tokens": 4897587
     },
     "forecast": {
       "predicted_winner_name": "Kevin Hern",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.96,
+      "win_probability": 0.99,
       "party_probabilities": {
-        "Democratic": 0.04,
-        "Republican": 0.96
+        "Republican": 0.99,
+        "Democratic": 0.01
       },
-      "margin_estimate": 22.0,
+      "margin_estimate": 30.0,
       "rating": "safe_r",
-      "confidence": "medium",
-      "rationale": "Oklahoma has not elected a Democrat to the U.S. Senate since 1990 and has a Republican partisan lean exceeding 30 points in presidential contests. Kevin Hern is a sitting House member with Trump's endorsement and a clear pathway through the recent primary, while the Democratic field features multiple little-known candidates with no recent electoral track record at this level.",
+      "confidence": "high",
+      "rationale": "Oklahoma has not elected a Democrat to the U.S. Senate since 1990 and is among the most Republican-leaning states in the nation. Kevin Hern is a well-funded, Trump-endorsed sitting congressman with $8.2M cash on hand, while the Democratic nominee \u2014 whoever emerges from the August runoff \u2014 faces a severe resource disadvantage and no recent history of Democratic Senate success in the state.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:18:30.884828Z",
+      "generated_at": "2026-06-22T03:56:53.043102Z",
       "model": "deepseek/deepseek-v4-flash",
       "source_urls": []
     }
@@ -22214,61 +21904,19 @@
     "jurisdiction": "Oregon",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:18:42.039543+00:00",
+    "updated_utc": "2026-06-22T03:29:19.743998+00:00",
     "candidates": [
       {
         "name": "Jeff Merkley",
         "party": "Democratic",
         "incumbent": true,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jeff_Merkley.jpg"
-      },
-      {
-        "name": "Paul Damian Wells",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/PaulWells2024.jpg"
-      },
-      {
-        "name": "Brent Barker",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Brent_Barker.jpg"
-      },
-      {
-        "name": "Deborah Brown",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Debra_Bowen_op.png"
-      },
-      {
-        "name": "David Burch",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/David_Burch_20240808_092528.jpg"
-      },
-      {
-        "name": "Russell McAlmond",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Russell_McAlmond_20251219_063148.jpg"
-      },
-      {
-        "name": "Jo Rae Perkins",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/jo_rae_perkinsor1.png"
-      },
-      {
-        "name": "Timothy Skelton",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Timothy_Skelton_20250430_122034.jpg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.01258,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 3927
+      "estimated_usd": 0.016362,
+      "model": "deepseek/deepseek-v4-flash",
+      "total_tokens": 11878
     },
     "forecast": {
       "predicted_winner_name": "Jeff Merkley",
@@ -22281,13 +21929,13 @@
       "margin_estimate": 18.0,
       "rating": "safe_d",
       "confidence": "medium",
-      "rationale": "No public head-to-head polling is available, which limits precision and lowers confidence. Even so, the available race description points strongly toward a Democratic advantage: Merkley is a long-serving incumbent seeking reelection, Oregon is described here as a strongly Democratic state, and the Republican field appears composed largely of lesser-known challengers without clear evidence of top-tier strength in the provided data. The race description also notes that multiple nonpartisan ratings classify the contest as safely or solidly Democratic. Given incumbency, state partisanship, and the apparent candidate-strength gap, Democrats are overwhelming favorites, though the absence of polling argues for some caution.",
+      "rationale": "Oregon is a reliably Democratic state, and three-term incumbent Jeff Merkley faces no serious primary challenge and a Republican field of mostly lesser-known candidates. Multiple nonpartisan race ratings classify the seat as safely Democratic.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:18:40.695373Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:13:02.120825Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -23377,62 +23025,38 @@
     "jurisdiction": "Rhode Island",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:17:56.409555+00:00",
+    "updated_utc": "2026-06-22T03:55:10.944493+00:00",
     "candidates": [
       {
         "name": "Jack Reed",
         "party": "Democratic",
         "incumbent": true,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jack_Reed.jpg"
-      },
-      {
-        "name": "Connor Burbridge",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Connor_Burbridge_2025.jpg"
-      },
-      {
-        "name": "Raymond McKay",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RaymondMcKay.png"
-      },
-      {
-        "name": "Allen Waters",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Allen_Waters_01.jpg"
-      },
-      {
-        "name": "Jon Lindley",
-        "party": "Independent",
-        "incumbent": false,
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/JLindley.jpg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.001513,
+      "estimated_usd": 0.518889,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 15702
+      "total_tokens": 2613965
     },
     "forecast": {
       "predicted_winner_name": "Jack Reed",
       "predicted_winner_party": "Democratic",
-      "win_probability": 0.97,
+      "win_probability": 0.98,
       "party_probabilities": {
-        "Democratic": 0.97,
-        "Republican": 0.02,
+        "Democratic": 0.98,
+        "Republican": 0.01,
         "Independent": 0.01
       },
-      "margin_estimate": 24.0,
+      "margin_estimate": 25.0,
       "rating": "safe_d",
-      "confidence": "medium",
-      "rationale": "Rhode Island's strong Democratic lean combined with Jack Reed's 29-year incumbency makes the general election outcome all but certain, despite the absence of public polling. The Republican and independent candidates face an uphill climb in a state that has voted Democratic by double digits in every recent presidential and Senate election.",
+      "confidence": "high",
+      "rationale": "Rhode Island's deep-blue electorate (PVI D+8) and Senator Reed's 30-year incumbency, strong fundraising position ($3.43M cash on hand), and lack of a serious general-election challenger make this race safely Democratic.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:17:51.504420+00:00",
+      "generated_at": "2026-06-22T03:48:35.982067Z",
       "model": "deepseek/deepseek-v4-flash",
       "source_urls": []
     }
@@ -23889,84 +23513,39 @@
     "jurisdiction": "South Carolina",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:18:33.772770+00:00",
+    "updated_utc": "2026-06-22T03:13:20.055812+00:00",
     "candidates": [
       {
         "name": "Lindsey Graham",
         "party": "Republican",
         "incumbent": true,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Lindsey_Graham.jpg"
-      },
-      {
-        "name": "Annie Andrews",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Annieandrews.jpg"
-      },
-      {
-        "name": "Paul Dans",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Paul_Dans_20251106_061937.jpg"
-      },
-      {
-        "name": "Kyle Freeman",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kyle_Freeman_20241122_105330.jpg"
-      },
-      {
-        "name": "Catherine Fleming Bruce",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CahterineFlemingBruce2025.jpg"
-      },
-      {
-        "name": "Brandon Brown",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://brandonpbrown.com/assets/brandon-portrait-D6scHVSu.jpg"
-      },
-      {
-        "name": "Calvin Cowen",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Thomas Dismukes",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.015383,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 4733
+      "estimated_usd": 0.02669,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 69555
     },
     "forecast": {
       "predicted_winner_name": "Lindsey Graham",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.84,
+      "win_probability": 0.85,
       "party_probabilities": {
-        "Republican": 0.84,
-        "Democratic": 0.16
+        "Democratic": 0.15,
+        "Republican": 0.85
       },
-      "margin_estimate": 7.0,
+      "margin_estimate": 10.0,
       "rating": "likely_r",
-      "confidence": "medium",
-      "rationale": "The available head-to-head polling shows incumbent Republican Lindsey Graham ahead Democrat Annie Andrews by 5 to 6 points in two surveys, which suggests a competitive but clearly Republican-leaning race. Graham also benefits from incumbency and the strongly Republican federal baseline of South Carolina. At the same time, the polling is sparse, one survey is from late 2025, and the candidate fields are not fully settled, which adds uncertainty and argues against a stronger rating than Likely Republican.",
+      "confidence": "low",
+      "rationale": "No public polling is available for this race. However, South Carolina is a strongly Republican state in federal elections, and incumbent Lindsey Graham benefits from incumbency advantage.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 2,
-      "generated_at": "2026-06-20T03:18:32.981362Z",
-      "model": "openai/gpt-5.4",
-      "source_urls": [
-        "https://abcnews4.com/news/local/poll-graham-faces-tight-race-against-generic-democrat-challenger-andrews-trails-by-6-annie-andrews-lindsey-graham",
-        "https://www.facebook.com/100083614030796/posts/south-carolina-senate-polling-graham-47-andrews-42impact-march-1-2026andrews-int/905142045616255/"
-      ]
+      "based_on_poll_count": 0,
+      "generated_at": "2026-06-22T03:13:19.381357Z",
+      "model": "google/gemini-2.5-flash",
+      "source_urls": []
     }
   },
   {
@@ -24073,56 +23652,49 @@
   },
   {
     "id": "sd-senate-2026",
-    "title": "2026 U.S. Senate election in South Dakota",
+    "title": "United States Senate election in South Dakota, 2026",
     "office": "U.S. Senate",
     "jurisdiction": "South Dakota",
-    "state": null,
+    "state": "South Dakota",
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:16:56.119756+00:00",
+    "updated_utc": "2026-06-22T03:17:55.565487+00:00",
     "candidates": [
       {
         "name": "Mike Rounds",
         "party": "Republican",
         "incumbent": true,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mike_Rounds_official_Senate_portrait.jpg"
+        "image_url": null
       },
       {
         "name": "Julian Beaudion",
         "party": "Democratic",
         "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Julian_Beaudion_2025.jpg"
-      },
-      {
-        "name": "Brian Bengs",
-        "party": "Independent",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/BrianBengs2025.jpeg"
+        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.00935,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 2885
+      "estimated_usd": 0.006275,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 10183
     },
     "forecast": {
       "predicted_winner_name": "Mike Rounds",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.96,
+      "win_probability": 0.95,
       "party_probabilities": {
-        "Republican": 0.96,
-        "Democratic": 0.03,
-        "Independent": 0.01
+        "Republican": 0.95,
+        "Democratic": 0.05
       },
-      "margin_estimate": 28.0,
+      "margin_estimate": null,
       "rating": "safe_r",
-      "confidence": "medium",
-      "rationale": "No public polling is available, which limits confidence. Even so, the available race data indicates a strongly Republican state, an incumbent Republican senator seeking reelection, and no evidence here of an unusually strong opposition surge. With sparse data this remains an informational forecast rather than a polling-based one, but the baseline partisan environment and incumbency give Republicans an overwhelming advantage.",
+      "confidence": "high",
+      "rationale": "Incumbent Republican Mike Rounds is running for re-election in a state that strongly favors Republicans. There is no polling data available, but South Dakota has a consistent history of electing Republican candidates to statewide office.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:16:55.338108Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:17:54.631773Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -24949,80 +24521,38 @@
     "jurisdiction": "Tennessee",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:17:15.122927+00:00",
+    "updated_utc": "2026-06-22T03:13:08.143978+00:00",
     "candidates": [
       {
         "name": "Bill Hagerty",
         "party": "Republican",
         "incumbent": true,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bill-Hagerty.PNG"
-      },
-      {
-        "name": "Marquita Bradshaw",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/80182230_marquita_head_shot_1.jpg"
-      },
-      {
-        "name": "Maria Brewer",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": null
-      },
-      {
-        "name": "Civil Miller-Watkins",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Civil_Miller-Watkins.jpg"
-      },
-      {
-        "name": "Diana Onyejiaka",
-        "party": "Democratic",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Diana_Onyejiaka.jpg"
-      },
-      {
-        "name": "Manny Sethi",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Manny_Sethi.jpg"
-      },
-      {
-        "name": "George Flinn Jr.",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/George_Flinn.jpg"
-      },
-      {
-        "name": "Jon Henry",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jon_Henry.jpg"
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.012505,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 3867
+      "estimated_usd": 0.028536,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 69290
     },
     "forecast": {
       "predicted_winner_name": "Bill Hagerty",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.97,
+      "win_probability": 0.98,
       "party_probabilities": {
-        "Republican": 0.97,
-        "Democratic": 0.03
+        "Democratic": 0.02,
+        "Republican": 0.98
       },
-      "margin_estimate": 22.0,
+      "margin_estimate": 25.0,
       "rating": "safe_r",
-      "confidence": "medium",
-      "rationale": "No public polling is available for this race, which increases uncertainty and lowers confidence. Even so, the available race description and state context strongly favor Republicans: Tennessee has voted reliably Republican in recent federal elections, the seat is held by incumbent Republican Bill Hagerty, and the race is widely described as safely Republican, including a Solid R characterization in the provided race data. The Democratic field appears multi-candidate and lacks evidence here of a top-tier statewide challenger, while Hagerty benefits from incumbency in a state where Democrats have not won a U.S. Senate race since 1990. Taken together, the non-polling fundamentals point to a very strong Republican advantage.",
+      "confidence": "high",
+      "rationale": "Tennessee has a strong Republican lean in federal elections, and the incumbent Republican Senator Bill Hagerty is seeking re-election. There is no public polling available, but the historical context and Cook Political Report rating of Solid R indicate an overwhelming Republican advantage.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-20T03:17:14.373804Z",
-      "model": "openai/gpt-5.4",
+      "generated_at": "2026-06-22T03:13:07.550504Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -26974,7 +26504,7 @@
     "jurisdiction": "Texas",
     "state": null,
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-20T03:19:10.702500+00:00",
+    "updated_utc": "2026-06-22T03:13:10.473897+00:00",
     "candidates": [
       {
         "name": "John Cornyn",
@@ -26983,51 +26513,37 @@
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/John_Cornyn.jpg/500px-John_Cornyn.jpg"
       },
       {
-        "name": "Ken Paxton",
-        "party": "Republican",
-        "incumbent": false,
-        "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ken-Paxton.jpg"
-      },
-      {
         "name": "James Talarico",
         "party": "Democratic",
         "incumbent": false,
         "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/James-Talarico.jpg"
-      },
-      {
-        "name": "Daniel Mark Sims",
-        "party": "Libertarian",
-        "incumbent": false,
-        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.019945,
-      "model": "openai/gpt-5.4",
-      "total_tokens": 6013
+      "estimated_usd": 0.032847,
+      "model": "google/gemini-2.5-flash",
+      "total_tokens": 80027
     },
     "forecast": {
       "predicted_winner_name": "Ken Paxton",
       "predicted_winner_party": "Republican",
-      "win_probability": 0.58,
+      "win_probability": 0.52,
       "party_probabilities": {
-        "Republican": 0.58,
-        "Democratic": 0.41,
-        "Libertarian": 0.01
+        "Republican": 0.52,
+        "Democratic": 0.48
       },
       "margin_estimate": 2.0,
-      "rating": "tilt_r",
+      "rating": "tossup",
       "confidence": "low",
-      "rationale": "Texas remains a Republican-leaning statewide battleground, but the available polling suggests a competitive general election rather than a clearly safe GOP race. Head-to-head polls show James Talarico close to both Republicans: an Emerson poll had Talarico trailing John Cornyn 47-44 and tied Ken Paxton 46-46 in January, while a March PPP poll showed Talarico narrowly ahead of both Cornyn and Paxton. At the same time, Republican primary polling from Emerson shows Paxton leading Cornyn, so Paxton appears somewhat more likely than Cornyn to be the GOP nominee based on the current race data. Because the general-election polling is sparse, mixed, and fairly early, confidence is low. The state\u2019s underlying Republican lean and the GOP\u2019s long hold on this seat still give Republicans a narrow edge overall, but only by a small margin.",
+      "rationale": "Two general election polls from early 2026 show a very close contest between Talarico and Paxton, with Talarico slightly ahead in the more recent poll. However, both polls are several months old, and Texas has a strong Republican lean historically.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
-      "based_on_poll_count": 4,
-      "generated_at": "2026-06-20T03:19:09.852063Z",
-      "model": "openai/gpt-5.4",
+      "based_on_poll_count": 2,
+      "generated_at": "2026-06-22T03:13:07.822058Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": [
         "https://emersoncollegepolling.com/texas-2026-poll/",
-        "https://emersoncollegepolling.com/texas-2026-primary-poll-talarico-paxton-with-narrow-edges-in-senate-primaries/",
         "https://www.houstonpublicmedia.org/articles/news/politics/election-2026/2026/03/10/545755/as-republicans-await-trumps-endorsement-democrats-float-poll-showing-talarico-tied-with-cornyn-and-paxton/"
       ]
     }
@@ -28089,7 +27605,7 @@
     "jurisdiction": "Virginia",
     "state": "Virginia",
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:11:10.046430+00:00",
+    "updated_utc": "2026-06-22T03:29:21.459351+00:00",
     "candidates": [
       {
         "name": "Mark Warner",
@@ -28117,28 +27633,28 @@
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.05977,
+      "estimated_usd": 0.024692,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 296418
+      "total_tokens": 17403
     },
     "forecast": {
       "predicted_winner_name": "Mark Warner",
       "predicted_winner_party": "Democratic",
       "win_probability": 0.84,
       "party_probabilities": {
-        "Democratic": 0.84,
-        "Republican": 0.16
+        "Republican": 0.16,
+        "Democratic": 0.84
       },
       "margin_estimate": 10.0,
       "rating": "likely_d",
       "confidence": "low",
-      "rationale": "Two-term incumbent Mark Warner has won every statewide race in Virginia since 2001, including a 56% victory in 2020, and benefits from Virginia's recent leftward trend in federal elections. However, the complete absence of public polling and a still-undecided Republican primary contest (August 4) significantly limit the precision of any forecast.",
+      "rationale": "Incumbent Democratic Senator Mark Warner benefits from incumbency and Virginia's recent leftward trend in federal elections. However, the complete absence of public polling and an undecided Republican primary limit the precision of this forecast.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:10:59.361485Z",
-      "model": "deepseek/deepseek-v4-flash",
+      "generated_at": "2026-06-22T03:13:04.155205Z",
+      "model": "google/gemini-2.5-flash",
       "source_urls": []
     }
   },
@@ -29652,7 +29168,7 @@
     "jurisdiction": "West Virginia",
     "state": "West Virginia",
     "election_date": "2026-11-03",
-    "updated_utc": "2026-06-21T19:15:13.257926+00:00",
+    "updated_utc": "2026-06-22T04:07:13.442499+00:00",
     "candidates": [
       {
         "name": "Shelley Moore Capito",
@@ -29665,18 +29181,12 @@
         "party": "Democratic",
         "incumbent": false,
         "image_url": null
-      },
-      {
-        "name": "S. Marshall Wilson",
-        "party": "Constitution",
-        "incumbent": false,
-        "image_url": null
       }
     ],
     "agent_metrics": {
-      "estimated_usd": 0.054611,
+      "estimated_usd": 0.803878,
       "model": "deepseek/deepseek-v4-flash",
-      "total_tokens": 318670
+      "total_tokens": 4703005
     },
     "forecast": {
       "predicted_winner_name": "Shelley Moore Capito",
@@ -29690,12 +29200,12 @@
       "margin_estimate": 40.0,
       "rating": "safe_r",
       "confidence": "high",
-      "rationale": "West Virginia is a deeply Republican state where Trump won by 39+ points in recent elections, and incumbent Senator Shelley Moore Capito won her last race by 43 points. Despite a three-way field including a Democratic and Constitution Party nominee, no polling is available, but the structural partisan advantage and incumbency make a Republican hold virtually certain.",
+      "rationale": "West Virginia is a deeply Republican state where Trump won by roughly 40 points in 2024, and incumbent Capito won her last race by a similarly wide margin. Capito holds a massive fundraising advantage ($2.1M vs. $380K) and faces a Democratic challenger with limited name recognition and no legislative record.",
       "takeaway": null,
       "key_reasons": [],
       "uncertainty": null,
       "based_on_poll_count": 0,
-      "generated_at": "2026-06-21T19:15:07.205622Z",
+      "generated_at": "2026-06-22T03:58:35.842965Z",
       "model": "deepseek/deepseek-v4-flash",
       "source_urls": []
     }

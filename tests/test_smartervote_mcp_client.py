@@ -8,6 +8,58 @@ from smartervote_mcp.gcp_launcher import _cloud_run_audience, configure_cloud_ru
 
 
 @pytest.mark.asyncio
+async def test_smartervote_mcp_exposes_lean_tool_surface():
+    from smartervote_mcp.server import mcp
+
+    tools = await mcp.list_tools()
+    tool_names = {tool.name for tool in tools}
+
+    assert tool_names == {
+        "health",
+        "list_published_races",
+        "list_race_summaries",
+        "get_published_race",
+        "list_admin_races",
+        "get_race_record",
+        "list_draft_races",
+        "list_pipeline_steps",
+        "get_race_data",
+        "queue_races",
+        "run_race",
+        "publish_race",
+        "publish_races",
+        "list_unpublished_drafts",
+        "trigger_web_deploy",
+        "unpublish_race",
+        "recheck_race",
+        "recheck_all_races",
+        "list_races_by_state",
+        "delete_race",
+        "delete_draft",
+        "sleep",
+        "cancel_race",
+        "get_queue",
+        "list_runs",
+        "list_active_runs",
+        "get_run",
+        "get_run_logs",
+        "cancel_or_delete_run",
+        "get_pipeline_metrics",
+        "get_pipeline_metrics_summary",
+        "clear_races_api_cache",
+        "get_analytics_overview",
+        "get_race_analytics",
+        "get_analytics_timeseries",
+        "get_traffic_analytics",
+        "update_chamber_forecasts",
+        "publish_chamber_forecasts",
+        "review_chamber_forecast_drafts",
+        "generate_chamber_forecasts",
+        "verify_live_forecast_page_data",
+    }
+
+
+@pytest.mark.asyncio
 async def test_races_api_client_adds_auth_headers(monkeypatch):
     seen = {}
 

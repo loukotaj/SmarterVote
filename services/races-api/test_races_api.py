@@ -505,6 +505,31 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
             },
         },
     }
+
+    invalid_schema_payload = json.loads(json.dumps(payload))
+    invalid_schema_payload["schema_version"] = "chamber_forecasts.v1"
+    resp = client.post(
+        "/api/races/chamber_forecasts",
+        headers={"X-Admin-Key": "secret"},
+        json=invalid_schema_payload,
+    )
+    assert resp.status_code == 200
+    publish_resp = client.post("/api/races/chamber_forecasts/publish", headers={"X-Admin-Key": "secret"})
+    assert publish_resp.status_code == 400
+    assert "Expected schema_version chamber_forecasts.v2" in publish_resp.json()["detail"]
+
+    invalid_totals_payload = json.loads(json.dumps(payload))
+    invalid_totals_payload["chambers"]["house"]["projected_seats"] = {"Democratic": 217, "Republican": 217}
+    resp = client.post(
+        "/api/races/chamber_forecasts",
+        headers={"X-Admin-Key": "secret"},
+        json=invalid_totals_payload,
+    )
+    assert resp.status_code == 200
+    publish_resp = client.post("/api/races/chamber_forecasts/publish", headers={"X-Admin-Key": "secret"})
+    assert publish_resp.status_code == 400
+    assert "house projected seats must sum to 435" in publish_resp.json()["detail"]
+
     resp = client.post(
         "/api/races/chamber_forecasts",
         headers={"X-Admin-Key": "secret"},
