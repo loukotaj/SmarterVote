@@ -31,7 +31,7 @@ def test_race_summary_includes_forecast():
     assert summary["forecast"]["predicted_winner_name"] == "Alice"
 
 
-def test_chamber_forecast_counts_senate_tie_as_republican_control():
+def test_chamber_forecast_counts_senate_tie_in_republican_probability():
     active_states = [
         "Colorado",
         "Delaware",
@@ -88,9 +88,72 @@ def test_chamber_forecast_counts_senate_tie_as_republican_control():
     assert senate["projected_seats"]["Democratic"] + senate["projected_seats"]["Republican"] == 100
     assert senate["projected_seats"]["Democratic"] == 50
     assert senate["projected_seats"]["Republican"] == 50
-    assert senate["control_party"] == "Republican"
+    assert senate["outcome_probabilities"]["Republican"] >= senate["outcome_probabilities"]["tie_50_50"]
     assert "50-50 Senate" in senate["narrative"]
     assert senate["competitive_race_count"] >= len(senate["competitive_races"])
+
+
+def test_chamber_forecast_control_party_tracks_control_probability():
+    active_states = [
+        "Colorado",
+        "Delaware",
+        "Georgia",
+        "Illinois",
+        "Maine",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "Oregon",
+        "Rhode Island",
+        "Alabama",
+        "Alaska",
+        "Arkansas",
+        "Florida",
+        "Idaho",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Mississippi",
+        "Montana",
+        "Nebraska",
+        "North Carolina",
+        "Ohio",
+        "Oklahoma",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Wyoming",
+    ]
+    summaries = [
+        {
+            "id": f"{state.lower().replace(' ', '-')}-senate-2026",
+            "title": f"{state} Senate",
+            "office": "United States Senate",
+            "state": state,
+            "forecast": {
+                "predicted_winner_party": "Democratic" if index < 14 else "Republican",
+                "win_probability": 0.51,
+                "rating": "tilt_d" if index < 14 else "tilt_r",
+                "party_probabilities": {
+                    "Democratic": 0.51 if index < 14 else 0.49,
+                    "Republican": 0.49 if index < 14 else 0.51,
+                },
+            },
+        }
+        for index, state in enumerate(active_states)
+    ]
+
+    senate = build_chamber_forecasts(summaries)["chambers"]["senate"]
+
+    assert senate["projected_seats"] == {"Democratic": 49, "Republican": 51, "Other": 0}
+    assert senate["outcome_probabilities"]["Democratic"] > senate["outcome_probabilities"]["Republican"]
+    assert senate["control_party"] == "Democratic"
+    assert senate["control_probability"] == senate["outcome_probabilities"]["Democratic"]
 
 
 def test_new_chamber_forecast_fields():

@@ -361,7 +361,6 @@ def summarize_chamber(
             priority = 0 if "toss" in rating.lower() else 1 if "tilt" in rating.lower() else 2
             competitive_race_notes.append((priority, _race_note(race)))
 
-    control_party = _projected_control(projected, chamber)
     dem_expected = expected["Democratic"]
     rep_expected = expected["Republican"]
 
@@ -415,6 +414,13 @@ def summarize_chamber(
 
     dem_control_probability = max(0.01, min(0.99, dem_control_probability))
     republican_probability = max(0.01, min(0.99, republican_probability))
+
+    if dem_control_probability > republican_probability:
+        control_party: Party = "Democratic"
+    elif republican_probability > dem_control_probability:
+        control_party = "Republican"
+    else:
+        control_party = _projected_control(projected, chamber)
 
     if control_party == "Republican":
         control_probability = republican_probability
