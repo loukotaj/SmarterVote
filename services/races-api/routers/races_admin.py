@@ -588,7 +588,8 @@ async def generate_chamber_forecasts_endpoint(
     request: Request, payload: GenerateForecastsRequest = GenerateForecastsRequest()
 ) -> Dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM and save them to drafts."""
-    from pipeline_client.agent.chamber_narratives import generate_chamber_analyses
+    from chamber_narratives import generate_chamber_analyses
+
     from shared.forecast_summary import build_chamber_forecasts
 
     service = request.app.state.publish_service

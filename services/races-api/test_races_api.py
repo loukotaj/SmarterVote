@@ -554,7 +554,7 @@ def test_generate_chamber_forecasts_defaults_to_gemini_35_flash(client, monkeypa
             "key_uncertainty": f"{chamber_name} uncertainty",
         }
 
-    import pipeline_client.agent.chamber_narratives as chamber_narratives
+    import chamber_narratives
 
     monkeypatch.setattr(chamber_narratives, "generate_chamber_analysis", fake_generate_chamber_analysis)
 
@@ -572,7 +572,7 @@ def test_generate_chamber_forecasts_fails_without_saving_when_llm_fails(client, 
     async def failing_generate_chamber_analysis(chamber_name, context_text, *, model):
         raise RuntimeError("provider unavailable")
 
-    import pipeline_client.agent.chamber_narratives as chamber_narratives
+    import chamber_narratives
 
     monkeypatch.setattr(chamber_narratives, "generate_chamber_analysis", failing_generate_chamber_analysis)
 
