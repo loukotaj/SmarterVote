@@ -11,7 +11,7 @@ import firestore_helpers
 import gcs_helpers
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException, Request
-from request_models import BatchPublishRequest, ChamberForecastsPayload, RaceQueueRequest, RunOptions, validate_race_id
+from request_models import BatchPublishRequest, RaceQueueRequest, RunOptions, validate_race_id
 
 from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields
@@ -567,28 +567,11 @@ async def recheck_all_race_statuses() -> Dict[str, Any]:
 
 from pydantic import BaseModel, Field
 
+DEFAULT_CHAMBER_FORECAST_MODEL = "google/gemini-3.5-flash"
+
 
 class GenerateForecastsRequest(BaseModel):
-    model: str = Field(default="google/gemini-2.5-flash")
-
-
-@router.post("/api/races/chamber_forecasts", dependencies=[Depends(verify_token)])
-async def save_chamber_forecasts_endpoint(payload: ChamberForecastsPayload) -> Dict[str, Any]:
-    """Save chamber-level forecast narratives to GCS or local file as draft."""
-    data = {
-        "schema_version": payload.schema_version or "chamber_forecasts.v2",
-        "house": payload.house_narrative,
-        "senate": payload.senate_narrative,
-        "governors": payload.governors_narrative,
-        "updated_at": datetime.now(timezone.utc).isoformat(),
-    }
-    if payload.chambers:
-        data["chambers"] = payload.chambers
-    try:
-        gcs_helpers.save_chamber_forecasts(data, draft=True)
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Failed to save chamber forecasts draft: {exc}")
-    return {"message": "Chamber forecasts draft saved successfully", "updated_at": data["updated_at"]}
+    model: str = Field(default=DEFAULT_CHAMBER_FORECAST_MODEL)
 
 
 @router.get("/api/races/chamber_forecasts/draft", dependencies=[Depends(verify_token)])
@@ -605,13 +588,8 @@ async def generate_chamber_forecasts_endpoint(
     request: Request, payload: GenerateForecastsRequest = GenerateForecastsRequest()
 ) -> Dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM and save them to drafts."""
-    from pipeline_client.agent.llm import _call_openrouter
-    from shared.forecast_summary import (
-        build_chamber_context,
-        build_chamber_forecasts,
-        get_chamber_forecast_system_prompt,
-        summarize_chamber,
-    )
+    from pipeline_client.agent.chamber_narratives import generate_chamber_analyses
+    from shared.forecast_summary import build_chamber_forecasts
 
     service = request.app.state.publish_service
     summaries = service.get_race_summaries()
@@ -619,70 +597,16 @@ async def generate_chamber_forecasts_endpoint(
     if not isinstance(summaries, list):
         raise HTTPException(status_code=500, detail=f"Invalid summaries from publish service: {type(summaries)}")
 
-    # Group races by chamber
-    senate_races = []
-    house_races = []
-    governor_races = []
-
-    for r in summaries:
-        office = (r.get("office") or "").lower()
-        if "senate" in office:
-            senate_races.append(r)
-        elif "house" in office or "representative" in office:
-            house_races.append(r)
-        elif "governor" in office or "gubernatorial" in office:
-            governor_races.append(r)
-
-    senate_summary = summarize_chamber(summaries, "senate")
-    house_summary = summarize_chamber(summaries, "house")
-    governors_summary = summarize_chamber(summaries, "governors")
-
-    async def get_analysis(chamber_name: str, context_text: str) -> dict[str, str]:
-        system_prompt = get_chamber_forecast_system_prompt(chamber_name)
-        user_prompt = f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"
-        messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
-        try:
-            resp = await _call_openrouter(messages=messages, model=payload.model)
-            content_resp = resp.choices[0].message.content.strip()
-            if content_resp.startswith("```"):
-                lines = content_resp.splitlines()
-                if lines[0].startswith("```"):
-                    lines = lines[1:]
-                if lines and lines[-1].startswith("```"):
-                    lines = lines[:-1]
-                content_resp = "\n".join(lines).strip()
-            import json
-
-            data = json.loads(content_resp)
-            required_keys = ["narrative", "bottom_line", "why_party_favored", "opposing_party_path", "key_uncertainty"]
-            validated = {}
-            for k in required_keys:
-                validated[k] = str(data.get(k) or "").strip()
-                if not validated[k]:
-                    raise ValueError(f"Required key '{k}' is empty or missing.")
-            return validated
-        except Exception as e:
-            import logging
-
-            logging.error(f"Error generating forecast for {chamber_name} using model {payload.model}: {e}", exc_info=True)
-            raise HTTPException(status_code=502, detail=f"LLM generation failed for {chamber_name}: {e}")
-
-    senate_analysis = await get_analysis("US Senate", build_chamber_context(senate_races, "US Senate", senate_summary))
-    house_analysis = await get_analysis("US House", build_chamber_context(house_races, "US House", house_summary))
-    governors_analysis = await get_analysis("Governors", build_chamber_context(governor_races, "Governors", governors_summary))
+    try:
+        analyses = await generate_chamber_analyses(summaries, model=payload.model)
+    except Exception as exc:
+        logging.error("Error generating chamber forecast analyses using model %s: %s", payload.model, exc, exc_info=True)
+        raise HTTPException(status_code=502, detail=f"LLM chamber forecast generation failed: {exc}") from exc
 
     forecast_data = build_chamber_forecasts(
         summaries,
-        {
-            "house": house_analysis["narrative"],
-            "senate": senate_analysis["narrative"],
-            "governors": governors_analysis["narrative"],
-        },
-        {
-            "house": house_analysis,
-            "senate": senate_analysis,
-            "governors": governors_analysis,
-        },
+        {chamber: analysis["narrative"] for chamber, analysis in analyses.items()},
+        analyses,
     )
 
     try:
@@ -693,6 +617,7 @@ async def generate_chamber_forecasts_endpoint(
     return {
         "message": "Draft chamber forecasts generated successfully",
         "updated_at": forecast_data["updated_at"],
+        "model": payload.model,
         "forecast": forecast_data,
     }
 

@@ -420,27 +420,6 @@ def review_race_prompt(race_id: str) -> str:
 
 
 @mcp.tool()
-async def update_chamber_forecasts(
-    house_narrative: str,
-    senate_narrative: str,
-    governors_narrative: str,
-    chambers: dict[str, Any] | None = None,
-    schema_version: str | None = None,
-) -> dict[str, Any]:
-    """Manually update the chamber-level forecast narratives."""
-    payload = {
-        "house_narrative": house_narrative,
-        "senate_narrative": senate_narrative,
-        "governors_narrative": governors_narrative,
-    }
-    if chambers is not None:
-        payload["chambers"] = chambers
-    if schema_version is not None:
-        payload["schema_version"] = schema_version
-    return await _client().post("/api/races/chamber_forecasts", json=payload)
-
-
-@mcp.tool()
 async def publish_chamber_forecasts() -> dict[str, Any]:
     """Publish the remotely saved draft chamber forecasts (copy draft -> published)."""
     res = await _client().post("/api/races/chamber_forecasts/publish")
@@ -491,7 +470,7 @@ async def review_chamber_forecast_drafts() -> dict[str, Any]:
 
 @mcp.tool()
 async def generate_chamber_forecasts(
-    model: str = "google/gemini-2.5-flash",
+    model: str = "google/gemini-3.5-flash",
 ) -> dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM on the remote races-api backend."""
     client = _client()

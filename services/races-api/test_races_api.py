@@ -449,8 +449,9 @@ def test_analytics_timeseries_bucket_bounds(client):
 
 
 def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
-    """GET and POST for chamber_forecasts."""
+    """GET and publish for chamber_forecasts."""
     import config
+    import gcs_helpers
 
     monkeypatch.setattr(config, "DATA_DIR", data_dir)
 
@@ -461,16 +462,12 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
     # Setup admin key for POST in env
     monkeypatch.setenv("ADMIN_API_KEY", "secret")
 
-    # POST with missing/invalid data should return 422
-    resp = client.post(
-        "/api/races/chamber_forecasts",
-        headers={"X-Admin-Key": "secret"},
-        json={"house_narrative": "House is Lean D"},
-    )
-    assert resp.status_code == 422
-
-    # POST with correct payload
     payload = {
+        "schema_version": "chamber_forecasts.v2",
+        "house": "House is Tilt R",
+        "senate": "Senate is Lean D",
+        "governors": "Governors is Safe R",
+        "updated_at": "2026-06-22T00:00:00+00:00",
         "house_narrative": "House is Tilt R",
         "senate_narrative": "Senate is Lean D",
         "governors_narrative": "Governors is Safe R",
@@ -508,35 +505,19 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
 
     invalid_schema_payload = json.loads(json.dumps(payload))
     invalid_schema_payload["schema_version"] = "chamber_forecasts.v1"
-    resp = client.post(
-        "/api/races/chamber_forecasts",
-        headers={"X-Admin-Key": "secret"},
-        json=invalid_schema_payload,
-    )
-    assert resp.status_code == 200
+    gcs_helpers.save_chamber_forecasts(invalid_schema_payload, draft=True)
     publish_resp = client.post("/api/races/chamber_forecasts/publish", headers={"X-Admin-Key": "secret"})
     assert publish_resp.status_code == 400
     assert "Expected schema_version chamber_forecasts.v2" in publish_resp.json()["detail"]
 
     invalid_totals_payload = json.loads(json.dumps(payload))
     invalid_totals_payload["chambers"]["house"]["projected_seats"] = {"Democratic": 217, "Republican": 217}
-    resp = client.post(
-        "/api/races/chamber_forecasts",
-        headers={"X-Admin-Key": "secret"},
-        json=invalid_totals_payload,
-    )
-    assert resp.status_code == 200
+    gcs_helpers.save_chamber_forecasts(invalid_totals_payload, draft=True)
     publish_resp = client.post("/api/races/chamber_forecasts/publish", headers={"X-Admin-Key": "secret"})
     assert publish_resp.status_code == 400
     assert "house projected seats must sum to 435" in publish_resp.json()["detail"]
 
-    resp = client.post(
-        "/api/races/chamber_forecasts",
-        headers={"X-Admin-Key": "secret"},
-        json=payload,
-    )
-    assert resp.status_code == 200
-    assert "updated_at" in resp.json()
+    gcs_helpers.save_chamber_forecasts(payload, draft=True)
 
     # Publish draft so it becomes public
     publish_resp = client.post("/api/races/chamber_forecasts/publish", headers={"X-Admin-Key": "secret"})
@@ -550,3 +531,55 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
     assert data["senate"] == "Senate is Lean D"
     assert data["governors"] == "Governors is Safe R"
     assert "updated_at" in data
+
+    manual_save_resp = client.post(
+        "/api/races/chamber_forecasts",
+        headers={"X-Admin-Key": "secret"},
+        json={"house_narrative": "Manual bypass"},
+    )
+    assert manual_save_resp.status_code == 405
+
+
+def test_generate_chamber_forecasts_defaults_to_gemini_35_flash(client, monkeypatch):
+    """POST /api/races/chamber_forecasts/generate uses the requested default model."""
+    seen_models = []
+
+    async def fake_generate_chamber_analysis(chamber_name, context_text, *, model):
+        seen_models.append(model)
+        return {
+            "narrative": f"{chamber_name} narrative",
+            "bottom_line": f"{chamber_name} bottom line",
+            "why_party_favored": f"{chamber_name} why favored",
+            "opposing_party_path": f"{chamber_name} opposing path",
+            "key_uncertainty": f"{chamber_name} uncertainty",
+        }
+
+    import pipeline_client.agent.chamber_narratives as chamber_narratives
+
+    monkeypatch.setattr(chamber_narratives, "generate_chamber_analysis", fake_generate_chamber_analysis)
+
+    resp = client.post("/api/races/chamber_forecasts/generate", json={})
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["model"] == "google/gemini-3.5-flash"
+    assert seen_models == ["google/gemini-3.5-flash"] * 3
+
+
+def test_generate_chamber_forecasts_fails_without_saving_when_llm_fails(client, monkeypatch):
+    """LLM failures should return an explicit error and not save deterministic fallback data."""
+
+    async def failing_generate_chamber_analysis(chamber_name, context_text, *, model):
+        raise RuntimeError("provider unavailable")
+
+    import pipeline_client.agent.chamber_narratives as chamber_narratives
+
+    monkeypatch.setattr(chamber_narratives, "generate_chamber_analysis", failing_generate_chamber_analysis)
+
+    resp = client.post("/api/races/chamber_forecasts/generate", json={"model": "test/model"})
+
+    assert resp.status_code == 502
+    assert "LLM chamber forecast generation failed" in resp.json()["detail"]
+
+    draft_resp = client.get("/api/races/chamber_forecasts/draft")
+    assert draft_resp.status_code == 404

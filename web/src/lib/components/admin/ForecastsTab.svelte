@@ -5,7 +5,7 @@
 
   export let apiService: PipelineApiService;
 
-  const DEFAULT_MODEL = "google/gemini-2.5-flash";
+  const DEFAULT_MODEL = "google/gemini-3.5-flash";
 
   let loading = true;
   let generating = false;

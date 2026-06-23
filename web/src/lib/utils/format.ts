@@ -24,9 +24,11 @@ const MODEL_NAMES: Record<string, string> = {
   "google/gemini-3-flash-preview": "Gemini 3 Flash",
   "google/gemini-3.1-pro-preview": "Gemini 3.1 Pro",
   "google/gemini-3.1-flash-lite-preview": "Gemini 3.1 Flash Lite",
+  "google/gemini-3.5-flash": "Gemini 3.5 Flash",
   "gemini-3-flash-preview": "Gemini 3 Flash",
   "gemini-3.1-pro-preview": "Gemini 3.1 Pro",
   "gemini-3.1-flash-lite-preview": "Gemini 3.1 Flash Lite",
+  "gemini-3.5-flash": "Gemini 3.5 Flash",
   // Legacy Gemini
   "gemini-2.0-flash": "Gemini 2.0 Flash",
   "gemini-2.0-flash-lite": "Gemini 2.0 Flash Lite",

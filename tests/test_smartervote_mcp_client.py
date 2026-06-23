@@ -55,7 +55,6 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "get_race_analytics",
         "get_analytics_timeseries",
         "get_traffic_analytics",
-        "update_chamber_forecasts",
         "publish_chamber_forecasts",
         "review_chamber_forecast_drafts",
         "generate_chamber_forecasts",

@@ -90,7 +90,6 @@ The admin dashboard should target `services/races-api`.
 | GET    | `/api/races/{race_id}/runs`                                 | List run history for one race                    |
 | GET    | `/api/races/{race_id}/runs/{run_id}`                        | Get one race run                                 |
 | DELETE | `/api/races/{race_id}/runs/{run_id}`                        | Cancel or delete one race run                    |
-| POST   | `/api/races/chamber_forecasts`                              | Save chamber forecast draft JSON                 |
 | GET    | `/api/races/chamber_forecasts/draft`                        | Get chamber forecast draft JSON                  |
 | POST   | `/api/races/chamber_forecasts/generate`                     | Generate chamber forecast draft from race data   |
 | POST   | `/api/races/chamber_forecasts/publish`                      | Publish chamber forecast draft                   |

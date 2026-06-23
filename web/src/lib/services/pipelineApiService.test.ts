@@ -161,12 +161,6 @@ describe("PipelineApiService production admin API contract", () => {
       )
       .mockResolvedValueOnce(
         jsonResponse({
-          message: "saved",
-          updated_at: "2026-06-02T00:00:00Z",
-        })
-      )
-      .mockResolvedValueOnce(
-        jsonResponse({
           message: "generated",
           updated_at: "2026-06-03T00:00:00Z",
           forecast: {
@@ -186,13 +180,6 @@ describe("PipelineApiService production admin API contract", () => {
     const api = new PipelineApiService("https://api.example.test");
 
     await api.getChamberForecastDraft();
-    await api.saveChamberForecastDraft({
-      house_narrative: "House narrative",
-      senate_narrative: "Senate narrative",
-      governors_narrative: "Governors narrative",
-      schema_version: "chamber_forecasts.v2",
-      chambers: { house: { control_party: "Republican" } },
-    });
     await api.generateChamberForecastDraft("test-model");
     await api.publishChamberForecastDraft();
 
@@ -204,21 +191,6 @@ describe("PipelineApiService production admin API contract", () => {
     );
     expect(fetchWithAuth).toHaveBeenNthCalledWith(
       2,
-      "https://api.example.test/api/races/chamber_forecasts",
-      expect.objectContaining({
-        method: "POST",
-        body: JSON.stringify({
-          house_narrative: "House narrative",
-          senate_narrative: "Senate narrative",
-          governors_narrative: "Governors narrative",
-          schema_version: "chamber_forecasts.v2",
-          chambers: { house: { control_party: "Republican" } },
-        }),
-      }),
-      expect.any(Number)
-    );
-    expect(fetchWithAuth).toHaveBeenNthCalledWith(
-      3,
       "https://api.example.test/api/races/chamber_forecasts/generate",
       expect.objectContaining({
         method: "POST",
@@ -227,7 +199,7 @@ describe("PipelineApiService production admin API contract", () => {
       120000
     );
     expect(fetchWithAuth).toHaveBeenNthCalledWith(
-      4,
+      3,
       "https://api.example.test/api/races/chamber_forecasts/publish",
       { method: "POST" },
       expect.any(Number)

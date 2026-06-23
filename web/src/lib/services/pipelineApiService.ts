@@ -183,17 +183,10 @@ export interface RaceVersion {
   size_bytes: number;
 }
 
-export interface ChamberForecastSavePayload {
-  house_narrative: string;
-  senate_narrative: string;
-  governors_narrative: string;
-  chambers?: Record<string, unknown>;
-  schema_version?: string;
-}
-
 export interface ChamberForecastGenerateResponse {
   message: string;
   updated_at: string;
+  model?: string;
   forecast: ChamberForecasts;
 }
 
@@ -868,24 +861,8 @@ export class PipelineApiService {
     return await res.json();
   }
 
-  async saveChamberForecastDraft(
-    payload: ChamberForecastSavePayload
-  ): Promise<{ message: string; updated_at: string }> {
-    const res = await fetchWithAuth(
-      `${this.apiBase}/api/races/chamber_forecasts`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      },
-      API_TIMEOUT_DEFAULT
-    );
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-    return await res.json();
-  }
-
   async generateChamberForecastDraft(
-    model = "google/gemini-2.5-flash"
+    model = "google/gemini-3.5-flash"
   ): Promise<ChamberForecastGenerateResponse> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/chamber_forecasts/generate`,
