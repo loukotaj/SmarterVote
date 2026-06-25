@@ -328,10 +328,12 @@ def test_forecast_prompt_formats_and_disallows_search():
         candidates_json='[{"name":"Alice","party":"Democratic"}]',
         polling_note="No public polling found.",
         polling_json="[]",
+        market_signals_json="[]",
         forecast_json="null",
     )
 
     assert "ga-senate-2026" in result
     assert "set a forecast" in result.lower()
+    assert "Prediction market signals" in result
     assert "Do not search the web" in FORECAST_SYSTEM
     assert "Use set_forecast exactly once" in FORECAST_SYSTEM

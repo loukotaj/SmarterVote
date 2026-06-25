@@ -190,6 +190,26 @@ class ForecastRating(str, Enum):
     OTHER = "other"
 
 
+class ForecastMarketSignal(BaseModel):
+    """External prediction-market signal used as one forecast input."""
+
+    provider: Literal["kalshi"]
+    market_ticker: str
+    event_ticker: Optional[str] = None
+    title: str
+    matched_to: str
+    matched_party: Optional[str] = None
+    implied_probability: Optional[float] = Field(None, ge=0, le=1)
+    yes_bid: Optional[float] = Field(None, ge=0, le=1)
+    yes_ask: Optional[float] = Field(None, ge=0, le=1)
+    last_price: Optional[float] = Field(None, ge=0, le=1)
+    volume: Optional[float] = None
+    liquidity: Optional[float] = None
+    as_of: datetime
+    url: Optional[str] = None
+    confidence: ConfidenceLevel = ConfidenceLevel.UNKNOWN
+
+
 class RaceForecast(BaseModel):
     """Informational AI forecast for a race."""
 
@@ -208,6 +228,7 @@ class RaceForecast(BaseModel):
     generated_at: datetime
     model: str
     source_urls: List[str] = Field(default_factory=list)
+    market_signals: List[ForecastMarketSignal] = Field(default_factory=list)
 
     @field_validator("party_probabilities")
     @classmethod

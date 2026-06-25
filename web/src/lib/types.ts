@@ -141,6 +141,25 @@ export interface RaceForecast {
   generated_at: string;
   model: string;
   source_urls: string[];
+  market_signals?: ForecastMarketSignal[];
+}
+
+export interface ForecastMarketSignal {
+  provider: "kalshi";
+  market_ticker: string;
+  event_ticker?: string;
+  title: string;
+  matched_to: string;
+  matched_party?: string;
+  implied_probability?: number;
+  yes_bid?: number;
+  yes_ask?: number;
+  last_price?: number;
+  volume?: number;
+  liquidity?: number;
+  as_of: string;
+  url?: string;
+  confidence: ConfidenceLevel;
 }
 
 export interface Candidate {

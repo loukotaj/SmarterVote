@@ -309,6 +309,9 @@ Polling note: {polling_note}
 Polling:
 {polling_json}
 
+Prediction market signals:
+{market_signals_json}
+
 Existing forecast:
 {forecast_json}
 
@@ -325,6 +328,10 @@ Use party_probabilities with normalized party labels such as "Democratic",
 "Republican", "Independent", or "Other". Keep probabilities between 0 and 1.
 Use source_urls from existing polling source_url values only. If no numeric
 polls exist, source_urls may be empty and based_on_poll_count should be 0.
+Prediction market signals are supplemental context, not ground truth. If present,
+weigh them alongside polling, incumbency, candidate strength, and race context.
+Thin liquidity, wide bid/ask spreads, or stale market timestamps should reduce
+how much they influence the forecast and should be reflected in uncertainty.
 
 Write like a concise, expert election analyst. Avoid repetitive boilerplate openings, "AI says", and excessive caveat phrasing.
 Be sure to populate the following structured fields in set_forecast:

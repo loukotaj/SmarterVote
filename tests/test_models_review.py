@@ -96,9 +96,24 @@ def test_shared_models_have_new_fields():
         generated_at=datetime(2026, 6, 20),
         model="openai/gpt-5.4",
         source_urls=["https://example.com/poll"],
+        market_signals=[
+            {
+                "provider": "kalshi",
+                "market_ticker": "KXTEST-26-DEM",
+                "title": "Will a Democrat win the test race?",
+                "matched_to": "Democratic",
+                "matched_party": "Democratic",
+                "implied_probability": 0.66,
+                "yes_bid": 0.64,
+                "yes_ask": 0.68,
+                "as_of": "2026-06-23T12:00:00Z",
+                "confidence": "medium",
+            }
+        ],
     )
     assert forecast.rating == "lean_d"
     assert forecast.party_probabilities["Democratic"] == 0.68
+    assert forecast.market_signals[0].market_ticker == "KXTEST-26-DEM"
 
     # AgentReview
     review = AgentReview(

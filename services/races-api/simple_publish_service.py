@@ -218,6 +218,7 @@ class SimplePublishService:
                     "generated_at": forecast.get("generated_at"),
                     "model": forecast.get("model"),
                     "source_urls": forecast.get("source_urls") or [],
+                    "market_signals": forecast.get("market_signals") or [],
                 }
                 if isinstance(forecast, dict)
                 else None
