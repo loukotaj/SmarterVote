@@ -23,12 +23,25 @@ def test_race_summary_includes_forecast():
                 "generated_at": "2026-06-20T00:00:00Z",
                 "model": "openai/gpt-5.4",
                 "source_urls": ["https://example.com/poll"],
+                "market_signals": [
+                    {
+                        "provider": "kalshi",
+                        "market_ticker": "KXGASENATE-26-DEM",
+                        "title": "Will a Democrat win the Georgia Senate race?",
+                        "matched_to": "Democratic",
+                        "matched_party": "Democratic",
+                        "implied_probability": 0.6,
+                        "as_of": "2026-06-23T12:00:00Z",
+                        "confidence": "medium",
+                    }
+                ],
             },
         },
     )
 
     assert summary["forecast"]["rating"] == "tilt_d"
     assert summary["forecast"]["predicted_winner_name"] == "Alice"
+    assert summary["forecast"]["market_signals"][0]["provider"] == "kalshi"
 
 
 def test_chamber_forecast_counts_senate_tie_in_republican_probability():

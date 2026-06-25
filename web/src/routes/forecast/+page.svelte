@@ -502,6 +502,16 @@
     }
   }
 
+  function isExternalUrl(urlString?: string | null): boolean {
+    if (!urlString) return false;
+    try {
+      const url = new URL(urlString);
+      return url.protocol === "http:" || url.protocol === "https:";
+    } catch (e) {
+      return false;
+    }
+  }
+
   $: filteredRaces = aggregate.races
     .filter((race) => {
       if (selectedState && getRaceState(race) !== selectedState) return false;
@@ -657,6 +667,47 @@
   function probability(value?: number): string {
     if (value === undefined || value === null) return "n/a";
     return `${Math.round(value * 100)}%`;
+  }
+
+  function probabilityOneDecimal(value?: number | null): string {
+    if (value === undefined || value === null) return "n/a";
+    return `${(value * 100).toFixed(1)}%`;
+  }
+
+  function marketSignalTarget(signal: {
+    matched_to: string;
+    matched_party?: string;
+  }): string {
+    if (signal.matched_party && signal.matched_party !== signal.matched_to) {
+      return `${signal.matched_to} (${signal.matched_party})`;
+    }
+    return signal.matched_to;
+  }
+
+  function marketSpread(signal: {
+    yes_bid?: number | null;
+    yes_ask?: number | null;
+  }): string | null {
+    if (
+      typeof signal.yes_bid !== "number" ||
+      typeof signal.yes_ask !== "number"
+    ) {
+      return null;
+    }
+    return `${probabilityOneDecimal(
+      signal.yes_bid
+    )} bid / ${probabilityOneDecimal(signal.yes_ask)} ask`;
+  }
+
+  function marketAsOf(value?: string | null): string {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   }
 
   function oneDecimal(value?: number): string {
@@ -2397,6 +2448,75 @@
                         >
                           {race.forecast.uncertainty}
                         </p>
+                      </div>
+                    {/if}
+
+                    {#if race.forecast.market_signals && race.forecast.market_signals.length > 0}
+                      <div class="pt-2 border-t border-stroke/20">
+                        <div
+                          class="flex items-center justify-between gap-2 mb-2"
+                        >
+                          <span
+                            class="font-bold text-content uppercase tracking-wider text-[9px] block"
+                            >Kalshi Market Signals</span
+                          >
+                          <span class="text-[9px] text-content-subtle font-bold"
+                            >{race.forecast.market_signals.length} market{race
+                              .forecast.market_signals.length === 1
+                              ? ""
+                              : "s"}</span
+                          >
+                        </div>
+                        <div class="grid gap-2">
+                          {#each race.forecast.market_signals as signal}
+                            <div
+                              class="rounded-lg border border-stroke/60 bg-surface px-3 py-2"
+                            >
+                              <div
+                                class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between"
+                              >
+                                <div>
+                                  <span
+                                    class="block text-xs font-bold text-content"
+                                    >{marketSignalTarget(signal)}</span
+                                  >
+                                  <span
+                                    class="block text-[10px] text-content-subtle leading-snug"
+                                    >{signal.title}</span
+                                  >
+                                </div>
+                                <div
+                                  class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-content-subtle sm:justify-end"
+                                >
+                                  <span class="font-bold text-content"
+                                    >{probabilityOneDecimal(
+                                      signal.implied_probability
+                                    )}</span
+                                  >
+                                  {#if marketSpread(signal)}
+                                    <span>{marketSpread(signal)}</span>
+                                  {/if}
+                                  <span class="capitalize"
+                                    >{signal.confidence} confidence</span
+                                  >
+                                  {#if marketAsOf(signal.as_of)}
+                                    <span>As of {marketAsOf(signal.as_of)}</span
+                                    >
+                                  {/if}
+                                  {#if isExternalUrl(signal.url)}
+                                    <a
+                                      href={signal.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      class="font-bold text-blue-600 hover:underline dark:text-blue-400"
+                                      >Kalshi</a
+                                    >
+                                  {/if}
+                                </div>
+                              </div>
+                            </div>
+                          {/each}
+                        </div>
                       </div>
                     {/if}
 

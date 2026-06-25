@@ -34,6 +34,7 @@ class RaceForecastSummary(BaseModel):
     generated_at: str | None = None
     model: str | None = None
     source_urls: List[str] = Field(default_factory=list)
+    market_signals: List[Dict] = Field(default_factory=list)
 
 
 class RaceSummary(BaseModel):

@@ -174,6 +174,47 @@
     return `${Math.round(value * 100)}%`;
   }
 
+  function probabilityOneDecimal(value?: number | null): string {
+    if (typeof value !== "number") return "n/a";
+    return `${(value * 100).toFixed(1)}%`;
+  }
+
+  function marketSignalTarget(signal: {
+    matched_to: string;
+    matched_party?: string;
+  }): string {
+    if (signal.matched_party && signal.matched_party !== signal.matched_to) {
+      return `${signal.matched_to} (${signal.matched_party})`;
+    }
+    return signal.matched_to;
+  }
+
+  function marketSpread(signal: {
+    yes_bid?: number | null;
+    yes_ask?: number | null;
+  }): string | null {
+    if (
+      typeof signal.yes_bid !== "number" ||
+      typeof signal.yes_ask !== "number"
+    ) {
+      return null;
+    }
+    return `${probabilityOneDecimal(
+      signal.yes_bid
+    )} bid / ${probabilityOneDecimal(signal.yes_ask)} ask`;
+  }
+
+  function marketAsOf(value?: string | null): string {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
   function signedMargin(value?: number | null): string {
     if (typeof value !== "number") return "n/a";
     return `${value > 0 ? "+" : ""}${value.toFixed(1)} pts`;
@@ -764,6 +805,52 @@
           <p class="forecast-takeaway font-semibold leading-relaxed mb-4">
             {forecast.takeaway || forecast.rationale}
           </p>
+          {#if forecast.market_signals?.length}
+            <div class="forecast-market-signals">
+              <div class="forecast-market-header">
+                <h3>Kalshi Market Signals</h3>
+                <span
+                  >{forecast.market_signals.length} market{forecast
+                    .market_signals.length === 1
+                    ? ""
+                    : "s"}</span
+                >
+              </div>
+              <div class="forecast-market-grid">
+                {#each forecast.market_signals as signal}
+                  <div class="forecast-market-signal">
+                    <div>
+                      <span class="forecast-market-target"
+                        >{marketSignalTarget(signal)}</span
+                      >
+                      <span class="forecast-market-title">{signal.title}</span>
+                    </div>
+                    <div class="forecast-market-values">
+                      <span class="forecast-market-probability">
+                        {probabilityOneDecimal(signal.implied_probability)}
+                      </span>
+                      {#if marketSpread(signal)}
+                        <span>{marketSpread(signal)}</span>
+                      {/if}
+                      <span class="capitalize"
+                        >{signal.confidence} confidence</span
+                      >
+                      {#if marketAsOf(signal.as_of)}
+                        <span>As of {marketAsOf(signal.as_of)}</span>
+                      {/if}
+                      {#if signal.url && isExternalUrl(signal.url)}
+                        <a
+                          href={signal.url}
+                          target="_blank"
+                          rel="noopener noreferrer">Kalshi</a
+                        >
+                      {/if}
+                    </div>
+                  </div>
+                {/each}
+              </div>
+            </div>
+          {/if}
           {#if forecast.key_reasons?.length}
             <div class="forecast-detail-block">
               <h3>Key Drivers</h3>
@@ -1281,6 +1368,50 @@
 
   .forecast-detail-block ul {
     @apply list-disc space-y-1 pl-5;
+  }
+
+  .forecast-market-signals {
+    @apply rounded-xl border border-stroke bg-page p-4;
+  }
+
+  .forecast-market-header {
+    @apply mb-3 flex flex-wrap items-center justify-between gap-2;
+  }
+
+  .forecast-market-header h3 {
+    @apply text-xs font-bold uppercase tracking-wide text-content-subtle;
+  }
+
+  .forecast-market-header span {
+    @apply text-xs font-semibold text-content-subtle;
+  }
+
+  .forecast-market-grid {
+    @apply grid gap-2;
+  }
+
+  .forecast-market-signal {
+    @apply flex flex-col gap-2 rounded-lg border border-stroke/70 bg-surface px-3 py-2 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .forecast-market-target {
+    @apply block text-sm font-semibold text-content;
+  }
+
+  .forecast-market-title {
+    @apply block text-xs leading-snug text-content-subtle;
+  }
+
+  .forecast-market-values {
+    @apply flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-content-subtle sm:justify-end;
+  }
+
+  .forecast-market-probability {
+    @apply font-bold text-content;
+  }
+
+  .forecast-market-values a {
+    @apply font-semibold text-blue-600 hover:underline dark:text-blue-400;
   }
 
   .forecast-meta {

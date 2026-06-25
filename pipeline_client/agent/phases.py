@@ -22,6 +22,7 @@ from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
 from .handlers import _make_editing_handlers
 from .images import resolve_candidate_images
 from .llm import _agent_loop, _ensure_dict, _normalize_candidate
+from .market_data.kalshi import fetch_kalshi_market_signals
 from .model_registry import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL
 from .patches import (  # noqa: F401 — re-exported for backward compat
     _apply_candidate_patch,
@@ -1153,6 +1154,21 @@ async def _run_shared_phases(
                 for candidate in race_json.get("candidates", [])
                 if isinstance(candidate, dict)
             ]
+            market_signals: list[dict[str, Any]] = []
+            try:
+                market_signals = await _await_with_run_budget(
+                    fetch_kalshi_market_signals(race_id),
+                    run_budget=run_budget,
+                    requested_timeout=10.0,
+                    operation="Kalshi market data fetch",
+                )
+                if market_signals:
+                    log("info", f"  Forecast: loaded {len(market_signals)} Kalshi market signal(s)")
+            except RunBudgetExceeded:
+                raise
+            except Exception as exc:
+                log("warning", f"  Forecast: Kalshi market signals unavailable: {exc}")
+
             await _agent_loop(
                 FORECAST_SYSTEM,
                 FORECAST_USER.format(
@@ -1166,6 +1182,7 @@ async def _run_shared_phases(
                     candidates_json=json.dumps(compact_candidates, indent=2, default=str),
                     polling_note=race_json.get("polling_note") or "",
                     polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
+                    market_signals_json=json.dumps(market_signals, indent=2, default=str),
                     forecast_json=json.dumps(race_json.get("forecast"), indent=2, default=str),
                 ),
                 model=model,
@@ -1182,6 +1199,7 @@ async def _run_shared_phases(
             )
             if isinstance(race_json.get("forecast"), dict):
                 race_json["forecast"]["model"] = model
+                race_json["forecast"]["market_signals"] = market_signals
         except RunBudgetExceeded:
             raise
         except Exception as exc:
