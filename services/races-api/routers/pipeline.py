@@ -289,7 +289,9 @@ def _race_records_for_action(action: Dict[str, Any] | None, context: list[Dict[s
 async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
     """Return recent pipeline run records with token usage and cost data."""
     db = firestore_helpers._get_fs()
-    records: list[Dict[str, Any]] = []
+    limit = max(1, min(limit, 500))
+    metric_records: Dict[str, Dict[str, Any]] = {}
+    run_records: Dict[str, Dict[str, Any]] = {}
 
     # Primary source: pipeline_metrics (includes tokens/cost/model fields).
     try:
@@ -298,20 +300,51 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
                 continue
-            records.append(_normalize_pipeline_run(plain, doc.id))
+            record = _normalize_pipeline_run(plain, doc.id)
+            metric_records[str(record["run_id"])] = record
     except Exception as exc:
         logging.warning("Failed to load pipeline_metrics: %s", exc)
 
-    # Fallback source: pipeline_runs (legacy docs without full metrics).
-    if not records:
+    # Recent runs are the dashboard row source; merge in metrics by run_id so a
+    # populated but stale metrics collection does not make current rows look free.
+    try:
         docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(limit).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
                 continue
-            records.append(_normalize_pipeline_run(plain, doc.id))
+            record = _normalize_pipeline_run(plain, doc.id)
+            run_records[str(record["run_id"])] = record
+    except Exception as exc:
+        logging.warning("Failed to load pipeline_runs for metrics merge: %s", exc)
 
-    return {"records": records, "count": len(records)}
+    records: list[Dict[str, Any]] = []
+    seen: set[str] = set()
+    for run_id, run_record in sorted(
+        run_records.items(),
+        key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
+        reverse=True,
+    ):
+        merged = {**run_record, **metric_records.get(run_id, {})}
+        if run_record.get("serper_calls") and not merged.get("serper_calls"):
+            merged["serper_calls"] = run_record["serper_calls"]
+        if run_record.get("duration_s") and not merged.get("duration_s"):
+            merged["duration_s"] = run_record["duration_s"]
+        records.append(merged)
+        seen.add(run_id)
+
+    for run_id, metric_record in sorted(
+        metric_records.items(),
+        key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
+        reverse=True,
+    ):
+        if run_id in seen:
+            continue
+        records.append(metric_record)
+        if len(records) >= limit:
+            break
+
+    return {"records": records[:limit], "count": min(len(records), limit)}
 
 
 @router.get("/pipeline/metrics/summary", dependencies=[Depends(verify_token)])

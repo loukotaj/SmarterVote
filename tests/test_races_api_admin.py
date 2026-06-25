@@ -47,6 +47,65 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
     assert _compute_metrics_summary([record])["total_usd"] == pytest.approx(0.0123)
 
 
+@pytest.mark.asyncio
+async def test_pipeline_metrics_merges_recent_runs_with_metric_records():
+    from routers.pipeline import get_pipeline_metrics
+
+    run_doc = _make_existing_doc(
+        {
+            "run_id": "run-current",
+            "race_id": "ar-senate-2026",
+            "status": "completed",
+            "started_at": "2026-06-01T00:00:00Z",
+            "duration_ms": 5000,
+            "serper_calls": 7,
+        }
+    )
+    metric_doc = _make_existing_doc(
+        {
+            "run_id": "run-current",
+            "race_id": "ar-senate-2026",
+            "status": "completed",
+            "timestamp": "2026-06-01T00:00:05Z",
+            "estimated_usd": 0.02,
+            "cost_usd": 0.01234567,
+            "cost_source": "provider",
+            "total_tokens": 1200,
+        }
+    )
+    stale_metric_doc = _make_existing_doc(
+        {
+            "run_id": "run-stale",
+            "race_id": "old-race",
+            "status": "completed",
+            "timestamp": "2026-05-01T00:00:00Z",
+            "estimated_usd": 0.01,
+        }
+    )
+
+    metrics_coll = MagicMock()
+    metrics_coll.order_by.return_value = metrics_coll
+    metrics_coll.limit.return_value = metrics_coll
+    metrics_coll.stream.return_value = iter([stale_metric_doc, metric_doc])
+
+    runs_coll = MagicMock()
+    runs_coll.order_by.return_value = runs_coll
+    runs_coll.limit.return_value = runs_coll
+    runs_coll.stream.return_value = iter([run_doc])
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: metrics_coll if name == "pipeline_metrics" else runs_coll
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        body = await get_pipeline_metrics(limit=50)
+
+    by_id = {record["run_id"]: record for record in body["records"]}
+    assert by_id["run-current"]["cost_usd"] == pytest.approx(0.01234567)
+    assert by_id["run-current"]["total_tokens"] == 1200
+    assert by_id["run-current"]["serper_calls"] == 7
+    assert by_id["run-stale"]["estimated_usd"] == pytest.approx(0.01)
+
+
 def test_collapse_continuation_chain_reports_one_logical_run():
     from routers.runs import _collapse_continuation_chains
 

@@ -56,6 +56,8 @@
   let logPollTimer: ReturnType<typeof setInterval> | null = null;
   let lastLogIndex = 0;
   let logContainer: HTMLDivElement;
+  let lastRenderedLogCount = 0;
+  let shouldAutoScrollLogs = true;
 
   // History list filtering
   let runSearchQuery = "";
@@ -84,13 +86,20 @@
     return matchesLevel && matchesQuery;
   });
 
-  // Scroll to bottom of logs on new logs
-  $: if (logContainer && filteredDrawerLogs) {
+  // Follow live logs only while the viewer is already near the bottom.
+  $: if (
+    logContainer &&
+    filteredDrawerLogs.length !== lastRenderedLogCount &&
+    shouldAutoScrollLogs
+  ) {
     setTimeout(() => {
       if (logContainer) {
         logContainer.scrollTop = logContainer.scrollHeight;
       }
     }, 50);
+    lastRenderedLogCount = filteredDrawerLogs.length;
+  } else if (filteredDrawerLogs.length !== lastRenderedLogCount) {
+    lastRenderedLogCount = filteredDrawerLogs.length;
   }
 
   // cleared externally resets local clearing state
@@ -129,7 +138,7 @@
     try {
       const [summary, recs] = await Promise.all([
         analyticsService.getPipelineMetricsSummary(hours),
-        analyticsService.getPipelineMetrics(20),
+        analyticsService.getPipelineMetrics(Math.max(50, runs.length)),
       ]);
       pipelineSummary = summary;
       pipelineRecords = recs.records || [];
@@ -152,6 +161,8 @@
     selectedRunDetail = null;
     drawerLogs = [];
     lastLogIndex = 0;
+    lastRenderedLogCount = 0;
+    shouldAutoScrollLogs = true;
     drawerError = "";
     loadingDrawerDetails = true;
 
@@ -226,10 +237,21 @@
     selectedRunRaceId = null;
     selectedRunDetail = null;
     drawerLogs = [];
+    lastRenderedLogCount = 0;
+    shouldAutoScrollLogs = true;
     if (logPollTimer) {
       clearInterval(logPollTimer);
       logPollTimer = null;
     }
+  }
+
+  function handleLogScroll() {
+    if (!logContainer) return;
+    const distanceFromBottom =
+      logContainer.scrollHeight -
+      logContainer.scrollTop -
+      logContainer.clientHeight;
+    shouldAutoScrollLogs = distanceFromBottom < 48;
   }
 
   async function handleClearQueue() {
@@ -1389,7 +1411,7 @@
       {/if}
 
       <!-- Logs -->
-      <div class="border-t border-stroke pt-3 flex flex-col h-[380px]">
+      <div class="border-t border-stroke pt-3 flex flex-col h-[55vh] max-h-[520px] min-h-[320px]">
         <div class="flex items-center gap-2 justify-between mb-2">
           <h4 class="text-xs font-semibold text-content-muted">
             Execution Logs
@@ -1421,6 +1443,7 @@
           bind:this={logContainer}
           class="flex-1 overflow-auto rounded-lg bg-surface-alt border border-stroke p-2 font-mono text-[11px] space-y-1"
           role="log"
+          on:scroll={handleLogScroll}
         >
           {#each filteredDrawerLogs as log}
             <div

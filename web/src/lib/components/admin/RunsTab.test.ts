@@ -118,6 +118,7 @@ describe("RunsTab", () => {
     await waitFor(() => expect(getByText("Total Runs (24h)")).toBeTruthy());
     expect(getByText("Success Rate")).toBeTruthy();
     expect(getByText("100.0%")).toBeTruthy();
+    expect(analyticsService.getPipelineMetrics).toHaveBeenCalledWith(50);
 
     // Check historical run item
     expect(getByText("mn-governor-2026")).toBeTruthy();
