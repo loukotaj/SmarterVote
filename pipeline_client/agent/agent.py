@@ -587,7 +587,7 @@ async def run_agent(
     _normalize_schema_fields(race_json, log)
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
-    review_required_steps_ran = bool(_enabled & {"discovery", "images", "issues", "finance", "refinement", "iteration"})
+    review_required_steps_ran = bool(_enabled & {"issues", "refinement", "iteration"})
     maintenance_steps_ran = bool(_enabled & {"polling", "forecast", "voter_resources"})
     validation_grade = race_json.get("validation_grade")
     if not isinstance(validation_grade, dict) and race_json.get("reviews"):

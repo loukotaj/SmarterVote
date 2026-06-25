@@ -1157,6 +1157,34 @@ async def test_polling_step_runs_without_issue_finance_or_refinement():
 
 
 @pytest.mark.asyncio
+async def test_discovery_polling_forecast_refresh_does_not_require_review():
+    existing = {
+        "id": "market-refresh-2026",
+        "election_date": "2026-11-03",
+        "updated_utc": "2026-06-01T00:00:00Z",
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling": [],
+        "pipeline_state": {"complete": True, "remaining_candidates": [], "remaining_steps": []},
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+        patch("pipeline_client.agent.phases.fetch_kalshi_market_signals", new_callable=AsyncMock, return_value=[]),
+        patch("pipeline_client.agent.agent._load_existing", return_value=existing),
+    ):
+        result = await run_agent(
+            "market-refresh-2026",
+            existing_data=existing,
+            enabled_steps=["discovery", "polling", "forecast"],
+        )
+
+    assert mock_loop.await_count == 5
+    assert result["pipeline_state"]["complete"] is True
+    assert result["pipeline_state"]["remaining_steps"] == []
+
+
+@pytest.mark.asyncio
 async def test_voter_resources_step_runs_independently():
     existing = {
         "id": "resources-only-2026",

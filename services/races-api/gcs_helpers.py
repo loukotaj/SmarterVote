@@ -264,17 +264,11 @@ def _assert_publishable_race(data: Dict[str, Any]) -> None:
     pipeline_state = data.get("pipeline_state")
     if isinstance(pipeline_state, dict) and pipeline_state.get("complete") is False:
         remaining = pipeline_state.get("remaining_steps") or []
-        validation_grade = data.get("validation_grade")
-        review_only_with_passing_grade = (
-            set(str(step) for step in remaining) <= {"review"}
-            and isinstance(validation_grade, dict)
-            and validation_grade.get("passed") is True
-            and bool(data.get("reviews"))
-        )
-        if review_only_with_passing_grade:
-            return
-        detail = f" Remaining steps: {', '.join(str(step) for step in remaining)}." if remaining else ""
-        raise ValueError(f"Race draft is operationally incomplete and cannot be published.{detail}")
+        if set(str(step) for step in remaining) <= {"review"}:
+            pass
+        else:
+            detail = f" Remaining steps: {', '.join(str(step) for step in remaining)}." if remaining else ""
+            raise ValueError(f"Race draft is operationally incomplete and cannot be published.{detail}")
     validation_grade = data.get("validation_grade")
     if not isinstance(validation_grade, dict):
         return
