@@ -291,12 +291,67 @@ def _reconcile_candidates_with_authoritative_roster(
         removed.append(name)
 
     if removed:
+        if not any(isinstance(candidate, dict) and _candidate_name(candidate) for candidate in kept):
+            if log:
+                log(
+                    "warning",
+                    "Skipped authoritative roster removal because it would leave the race with no candidates: "
+                    + ", ".join(removed),
+                )
+            return
         race_json["candidates"] = kept
         if log:
             log(
                 "warning",
                 "Removed candidates absent from current Ballotpedia election roster: " + ", ".join(removed),
             )
+
+
+def _add_candidates_from_authoritative_roster(
+    race_json: Dict[str, Any],
+    authoritative_candidates: List[Dict[str, Any]],
+    log: Any | None = None,
+) -> None:
+    """Add missing candidates from an authoritative election roster."""
+    if not authoritative_candidates:
+        return
+    candidates = race_json.setdefault("candidates", [])
+    if not isinstance(candidates, list):
+        race_json["candidates"] = []
+        candidates = race_json["candidates"]
+
+    added: List[str] = []
+    current_candidates = [candidate for candidate in candidates if isinstance(candidate, dict)]
+    for authoritative in authoritative_candidates:
+        name = _candidate_name(authoritative)
+        if not name or _candidate_matches_any(name, current_candidates):
+            continue
+        candidate = {
+            "name": name,
+            "party": authoritative.get("party") or "Unknown",
+            "incumbent": bool(authoritative.get("incumbent")),
+            "summary": "",
+            "summary_sources": [],
+            "image_url": authoritative.get("image_url"),
+            "website": None,
+            "social_media": {},
+            "career_history": [],
+            "education": [],
+            "donor_summary": None,
+            "donor_source_url": None,
+            "donor_sources": [],
+            "voting_summary": None,
+            "voting_source_url": None,
+            "voting_sources": [],
+            "links": [],
+            "issues": {},
+        }
+        candidates.append(candidate)
+        current_candidates.append(candidate)
+        added.append(name)
+
+    if added and log:
+        log("info", "Added candidates from current Ballotpedia election roster: " + ", ".join(added))
 
 
 async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log: Any | None = None) -> None:
@@ -316,6 +371,7 @@ async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log:
             candidate for candidate in bp_candidates if isinstance(candidate, dict) and _candidate_name(candidate)
         ]
         if len(authoritative) >= 2:
+            _add_candidates_from_authoritative_roster(race_json, authoritative, log)
             _reconcile_candidates_with_authoritative_roster(race_json, authoritative, log)
 
 

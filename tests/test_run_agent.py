@@ -11,6 +11,7 @@ import pytest
 
 from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, _sanitize_polling, run_agent
 from pipeline_client.agent.phases import (
+    _add_candidates_from_authoritative_roster,
     _format_review_flags,
     _reconcile_candidates_with_authoritative_roster,
     _run_iteration_pass,
@@ -1057,6 +1058,47 @@ def test_authoritative_roster_removes_stale_primary_candidate():
         "Fred Love",
         "Colt Shelby",
     ]
+
+
+def test_authoritative_roster_adds_missing_candidates():
+    race_json = {
+        "id": "ar-senate-2026",
+        "candidates": [{"name": "Tom Cotton", "party": "Republican", "issues": {}}],
+    }
+
+    _add_candidates_from_authoritative_roster(
+        race_json,
+        [
+            {"name": "Tom Cotton", "party": "Republican", "incumbent": True},
+            {"name": "Hallie Shoffner", "party": "Democratic", "incumbent": False},
+            {"name": "Jeff Wadlin", "party": "Libertarian", "incumbent": False},
+        ],
+    )
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == [
+        "Tom Cotton",
+        "Hallie Shoffner",
+        "Jeff Wadlin",
+    ]
+    assert race_json["candidates"][1]["summary_sources"] == []
+    assert race_json["candidates"][1]["issues"] == {}
+
+
+def test_authoritative_roster_does_not_empty_race():
+    race_json = {
+        "id": "single-candidate-2026",
+        "candidates": [{"name": "Existing Candidate", "party": "Independent"}],
+    }
+
+    _reconcile_candidates_with_authoritative_roster(
+        race_json,
+        [
+            {"name": "Different Candidate", "party": "Democratic"},
+            {"name": "Another Candidate", "party": "Republican"},
+        ],
+    )
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Existing Candidate"]
 
 
 def test_sanitize_roster_preserves_twenty_active_candidates():
