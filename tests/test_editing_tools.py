@@ -306,6 +306,24 @@ def test_remove_candidate_handler():
     assert alice.get("withdrawal_reason") == "withdrew"
 
 
+def test_remove_candidate_blocks_not_listed_without_exit_signal():
+    """remove_candidate requires an explicit exit signal, not just absence from a source."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "D"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Alice",
+            "reason": "Ballotpedia and other sources do not list Alice as a candidate for this race.",
+        }
+    )
+
+    assert "blocked" in result.lower()
+    assert race_json["candidates"] == [{"name": "Alice", "party": "D"}]
+
+
 def test_set_issue_stance_handler():
     """set_issue_stance handler writes a stance to candidate issues."""
     from pipeline_client.agent.agent import _make_editing_handlers

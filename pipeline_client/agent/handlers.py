@@ -159,28 +159,12 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             re.search(r"\blost\b.{0,40}\bprimary\b", reason_lower)
         )
 
-        # Also reject if reason sounds like a data-quality fix
-        _DATA_FIX_KEYWORDS = {
-            "fabricated",
-            "incorrect",
-            "wrong",
-            "replace",
-            "fix",
-            "error",
-            "bad data",
-            "inaccurate",
-            "verified",
-            "update",
-            "correction",
-        }
-        has_data_fix_signal = any(re.search(rf"\b{re.escape(kw)}\b", reason_lower) for kw in _DATA_FIX_KEYWORDS)
-
         # Special case: structurally invalid entries (e.g. a metadata key like
         # "updated_utc" accidentally stored as a candidate name) should be
         # physically deleted rather than marked withdrawn.
         is_structural_garbage = bool(_METADATA_KEY_RE.match(name))
 
-        if has_data_fix_signal and not has_withdrawal_signal and not is_structural_garbage:
+        if not has_withdrawal_signal and not is_structural_garbage:
             log(
                 "warning",
                 f"    ⚠️ remove_candidate('{name}') BLOCKED — reason does not confirm "
