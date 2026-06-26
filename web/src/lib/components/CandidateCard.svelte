@@ -47,6 +47,12 @@
   $: hasBackground = hasCareer || hasEducation;
   $: hasVoting = !!candidate.voting_summary;
   $: hasDonors = !!candidate.donor_summary;
+  $: candidateSummary =
+    typeof candidate.summary === "string" ? candidate.summary : "";
+  $: summaryPreview =
+    candidateSummary.length > 600
+      ? `${candidateSummary.slice(0, 600)}...`
+      : candidateSummary;
 </script>
 
 <Card class="candidate-card group" id={generateCandidateId(candidate.name)}>
@@ -126,10 +132,7 @@
 
     <!-- Summary -->
     <p class="summary">
-      {expanded
-        ? candidate.summary
-        : candidate.summary.slice(0, 600) +
-          (candidate.summary.length > 600 ? "..." : "")}
+      {expanded ? candidateSummary : summaryPreview}
     </p>
 
     <!-- Website Link -->
