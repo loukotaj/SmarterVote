@@ -447,6 +447,49 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         log("info", f"    🔗 Added link for {name}: {url[:60]}")
         return f"Added {args.get('type', 'other')} link for '{name}'."
 
+    def remove_candidate_source_url(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        url = str(args["url"]).strip()
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        if not url:
+            return "ERROR: url is required."
+
+        removed = 0
+
+        def _remove_from_source_list(key: str) -> None:
+            nonlocal removed
+            items = c.get(key)
+            if not isinstance(items, list):
+                return
+            kept = [item for item in items if not (isinstance(item, dict) and item.get("url") == url)]
+            removed += len(items) - len(kept)
+            c[key] = kept
+
+        for list_key in ("summary_sources", "donor_sources", "voting_sources", "links"):
+            _remove_from_source_list(list_key)
+
+        for scalar_key in ("donor_source_url", "voting_source_url"):
+            if c.get(scalar_key) == url:
+                c[scalar_key] = None
+                removed += 1
+
+        issues = c.get("issues")
+        if isinstance(issues, dict):
+            for issue_data in issues.values():
+                if not isinstance(issue_data, dict):
+                    continue
+                sources = issue_data.get("sources")
+                if not isinstance(sources, list):
+                    continue
+                kept = [source for source in sources if not (isinstance(source, dict) and source.get("url") == url)]
+                removed += len(sources) - len(kept)
+                issue_data["sources"] = kept
+
+        log("info", f"    Removed {removed} occurrence(s) of source URL for {name}: {url[:80]}")
+        return f"Removed {removed} occurrence(s) of {url!r} from '{name}'."
+
     # --- Race-level handlers ---
 
     def add_poll(args: Dict[str, Any]) -> str:
@@ -662,6 +705,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         "set_donor_summary": set_donor_summary,
         "set_voting_summary": set_voting_summary,
         "add_candidate_link": add_candidate_link,
+        "remove_candidate_source_url": remove_candidate_source_url,
         "add_poll": add_poll,
         "remove_poll": remove_poll,
         "update_race_field": update_race_field,

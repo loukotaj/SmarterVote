@@ -547,7 +547,32 @@ ADD_LINK_TOOL: Dict = {
     },
 }
 
-RECORD_TOOLS: List[Dict] = [SET_DONOR_SUMMARY_TOOL, SET_VOTING_SUMMARY_TOOL, ADD_LINK_TOOL]
+REMOVE_CANDIDATE_SOURCE_URL_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "remove_candidate_source_url",
+        "description": (
+            "Remove a broken, duplicate, stale, or low-value URL from one candidate's "
+            "summary sources, issue sources, donor/voting sources, scalar source URLs, "
+            "and reference links. Use this before adding a replacement source."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "url": {"type": "string", "description": "Exact URL to remove from the candidate profile."},
+            },
+            "required": ["candidate_name", "url"],
+        },
+    },
+}
+
+RECORD_TOOLS: List[Dict] = [
+    SET_DONOR_SUMMARY_TOOL,
+    SET_VOTING_SUMMARY_TOOL,
+    ADD_LINK_TOOL,
+    REMOVE_CANDIDATE_SOURCE_URL_TOOL,
+]
 
 # ---------------------------------------------------------------------------
 # Race-level tools

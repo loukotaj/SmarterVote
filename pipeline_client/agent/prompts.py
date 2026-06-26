@@ -743,7 +743,14 @@ SPECIAL CASES (see system prompt for full rules):
   correct via set_candidate_field.
 - SOURCE URL ACCESSIBILITY flags: if a source URL is reported as broken or
   inaccessible, use fetch_page to verify. If it returns an error, find a
-  replacement source with web_search and update the stance with the new URL.
+  replacement source with web_search and update the affected field with the new
+  URL. Then call remove_candidate_source_url for the broken URL so it is removed
+  from every place it appears: summary_sources, issue sources, donor/voting
+  sources, donor_source_url, voting_source_url, and candidate links.
+- DUPLICATE / STALE SOURCE flags: remove redundant duplicate URLs with
+  remove_candidate_source_url. For stale but still-useful URLs, fetch the page
+  and rewrite the affected summary, stance, donor summary, or voting summary with
+  fresh source metadata so last_accessed is current.
 
 Also ensure:
 - All canonical issues covered: {all_issues}

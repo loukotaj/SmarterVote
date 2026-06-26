@@ -1612,23 +1612,47 @@ async def _run_update(
 # ---------------------------------------------------------------------------
 
 
-def _format_review_flags(reviews: List[Dict[str, Any]]) -> str:
+def _format_review_flags(
+    reviews: List[Dict[str, Any]],
+    *,
+    candidate_index: int | None = None,
+    candidate_name: str | None = None,
+    include_global: bool = True,
+) -> str:
     """Format review flags into a readable text block for the iteration prompt."""
     lines = []
+    candidate_prefix = f"candidates[{candidate_index}]" if candidate_index is not None else None
+    candidate_name_lower = candidate_name.casefold() if candidate_name else None
+
+    def _flag_applies(flag: Dict[str, Any]) -> bool:
+        if candidate_prefix is None and candidate_name_lower is None:
+            return True
+        field = str(flag.get("field") or "")
+        if candidate_prefix and field.startswith(candidate_prefix):
+            return True
+        flag_text = " ".join(str(flag.get(key) or "") for key in ("field", "concern", "suggestion")).casefold()
+        if candidate_name_lower and candidate_name_lower in flag_text:
+            return True
+        return include_global and not field.startswith("candidates[")
+
     for review in reviews:
         model = review.get("model", "unknown")
         verdict = review.get("verdict", "unknown")
-        lines.append(f"\n--- Review by {model} (verdict: {verdict}) ---")
+        review_lines = [f"\n--- Review by {model} (verdict: {verdict}) ---"]
         if review.get("summary"):
-            lines.append(f"Summary: {review['summary']}")
+            review_lines.append(f"Summary: {review['summary']}")
         for flag in review.get("flags", []):
+            if isinstance(flag, dict) and not _flag_applies(flag):
+                continue
             severity = flag.get("severity", "info").upper()
             field = flag.get("field", "?")
             concern = flag.get("concern", "")
             suggestion = flag.get("suggestion", "")
-            lines.append(f"  [{severity}] {field}: {concern}")
+            review_lines.append(f"  [{severity}] {field}: {concern}")
             if suggestion:
-                lines.append(f"    Suggestion: {suggestion}")
+                review_lines.append(f"    Suggestion: {suggestion}")
+        if len(review_lines) > (2 if review.get("summary") else 1):
+            lines.extend(review_lines)
     return "\n".join(lines) if lines else "  (no specific flags)"
 
 
@@ -1665,7 +1689,6 @@ async def _run_iteration_pass(
     """Run a single iteration pass addressing review flags (tools mode)."""
     log = make_logger(on_log)
 
-    flags_text = _format_review_flags(reviews)
     candidates = race_json.get("candidates", [])
     n = len(candidates)
     iterate_iters = _scale_iterations(max_iterations, n, per_candidate=5, minimum=15)
@@ -1680,11 +1703,11 @@ async def _run_iteration_pass(
         working["pipeline_state"]["completed_units"] = sorted(completed_units)
 
     candidate_units = [
-        (candidate, f"{unit_prefix}:{_candidate_name(candidate)}")
-        for candidate in working.get("candidates", [])
+        (index, candidate, f"{unit_prefix}:{_candidate_name(candidate)}")
+        for index, candidate in enumerate(working.get("candidates", []))
         if isinstance(candidate, dict) and _candidate_name(candidate)
     ]
-    expected_units = {unit for _, unit in candidate_units}
+    expected_units = {unit for _, _, unit in candidate_units}
 
     def checkpoint_progress(label: str) -> None:
         if on_progress is None:
@@ -1699,7 +1722,7 @@ async def _run_iteration_pass(
     )
     any_success = False
 
-    for candidate, unit_id in candidate_units:
+    for candidate_index, candidate, unit_id in candidate_units:
         if unit_id in completed_units:
             log("info", f"  Iteration checkpoint already complete for {_candidate_name(candidate)}; skipping")
             continue
@@ -1721,7 +1744,12 @@ async def _run_iteration_pass(
                     candidate_website=candidate_website,
                     candidate_issue_urls=issue_hint_text,
                     candidate_json=json.dumps(candidate, indent=2, default=str),
-                    review_flags=flags_text,
+                    review_flags=_format_review_flags(
+                        reviews,
+                        candidate_index=candidate_index,
+                        candidate_name=cname,
+                        include_global=False,
+                    ),
                     all_issues=", ".join(CANONICAL_ISSUES),
                 ),
                 model=model,
@@ -1753,7 +1781,7 @@ async def _run_iteration_pass(
                 race_id=race_id,
                 race_description=working.get("description", ""),
                 polling_json=json.dumps(working.get("polling", []), indent=2, default=str),
-                review_flags=flags_text,
+                review_flags=_format_review_flags(reviews, include_global=True),
             ),
             model=model,
             on_log=on_log,

@@ -51,7 +51,7 @@ def test_editing_tool_schemas_exist():
     assert len(ROSTER_TOOLS) == 3
     assert len(CANDIDATE_TOOLS) == 2
     assert len(ISSUE_TOOLS) == 1
-    assert len(RECORD_TOOLS) == 3  # donor_summary, voting_summary, add_link
+    assert len(RECORD_TOOLS) == 4  # donor_summary, voting_summary, add_link, remove_candidate_source_url
     assert len(RACE_TOOLS) == 3
     assert SET_FORECAST_TOOL["function"]["name"] == "set_forecast"
     assert READ_PROFILE_TOOL["function"]["name"] == "read_profile"
@@ -80,6 +80,7 @@ def test_make_editing_handlers():
         "set_donor_summary",
         "set_voting_summary",
         "add_candidate_link",
+        "remove_candidate_source_url",
         "add_poll",
         "remove_poll",
         "update_race_field",
@@ -323,6 +324,46 @@ def test_set_issue_stance_handler():
     )
     assert "Healthcare" in result
     assert race_json["candidates"][0]["issues"]["Healthcare"]["stance"] == "Supports universal coverage."
+
+
+def test_remove_candidate_source_url_removes_all_candidate_occurrences():
+    """remove_candidate_source_url removes a URL from every candidate source slot."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    bad_url = "https://example.com/dead"
+    race_json = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "summary_sources": [{"url": bad_url}, {"url": "https://example.com/good-summary"}],
+                "donor_source_url": bad_url,
+                "donor_sources": [{"url": bad_url}],
+                "voting_source_url": bad_url,
+                "voting_sources": [{"url": bad_url}, {"url": "https://example.com/good-votes"}],
+                "links": [{"url": bad_url, "title": "Dead", "type": "news"}],
+                "issues": {
+                    "Healthcare": {
+                        "stance": "Supports coverage.",
+                        "confidence": "high",
+                        "sources": [{"url": bad_url}, {"url": "https://example.com/good-health"}],
+                    }
+                },
+            }
+        ]
+    }
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["remove_candidate_source_url"]({"candidate_name": "Alice", "url": bad_url})
+
+    candidate = race_json["candidates"][0]
+    serialized = json.dumps(candidate)
+    assert "Removed 7 occurrence" in result
+    assert bad_url not in serialized
+    assert "https://example.com/good-summary" in serialized
+    assert "https://example.com/good-votes" in serialized
+    assert "https://example.com/good-health" in serialized
+    assert candidate["donor_source_url"] is None
+    assert candidate["voting_source_url"] is None
 
 
 def test_read_profile_handler():

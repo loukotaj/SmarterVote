@@ -260,6 +260,14 @@ def test_iterate_prompt_allows_candidate_removal_for_invalid_roster_entries():
     assert "Do NOT remove a candidate solely due to sparse issue data" in ITERATE_USER
 
 
+def test_iterate_prompt_requires_source_url_cleanup():
+    """Iteration prompt directs the agent to remove bad URLs from every source slot."""
+    assert "remove_candidate_source_url" in ITERATE_USER
+    assert "summary_sources" in ITERATE_USER
+    assert "donor_source_url" in ITERATE_USER
+    assert "DUPLICATE / STALE SOURCE flags" in ITERATE_USER
+
+
 def test_review_prompt_exists():
     """Review prompts are defined and contain expected content."""
     from pipeline_client.agent.prompts import REVIEW_SYSTEM, REVIEW_USER

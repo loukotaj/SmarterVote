@@ -10,7 +10,12 @@ from unittest.mock import AsyncMock, patch
 import pytest
 
 from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, _sanitize_polling, run_agent
-from pipeline_client.agent.phases import _reconcile_candidates_with_authoritative_roster, _run_iteration_pass, _sanitize_roster
+from pipeline_client.agent.phases import (
+    _format_review_flags,
+    _reconcile_candidates_with_authoritative_roster,
+    _run_iteration_pass,
+    _sanitize_roster,
+)
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 
@@ -50,6 +55,45 @@ def test_load_existing_reads_file(tmp_path):
         result = _load_existing("__test_tmp_load_existing__")
     assert result is not None
     assert result["id"] == "test-race"
+
+
+def test_format_review_flags_can_scope_to_one_candidate():
+    reviews = [
+        {
+            "model": "automated-profile-quality",
+            "verdict": "flagged",
+            "summary": "Found profile issues.",
+            "flags": [
+                {
+                    "field": "candidates[0].summary_sources[0].url",
+                    "concern": "Alice source is stale.",
+                    "severity": "warning",
+                },
+                {
+                    "field": "candidates[1].issues.Healthcare.sources[0].url",
+                    "concern": "Bob source is dead.",
+                    "severity": "warning",
+                },
+                {
+                    "field": "candidates[3].links[0].url",
+                    "concern": "Source for Alice Example is duplicated.",
+                    "severity": "info",
+                },
+                {
+                    "field": "description",
+                    "concern": "Race description is too short.",
+                    "severity": "error",
+                },
+            ],
+        }
+    ]
+
+    result = _format_review_flags(reviews, candidate_index=0, candidate_name="Alice Example", include_global=False)
+
+    assert "Alice source is stale" in result
+    assert "Source for Alice Example is duplicated" in result
+    assert "Bob source is dead" not in result
+    assert "Race description is too short" not in result
 
 
 def test_normalize_schema_fields_coerces_candidate_link_strings():
