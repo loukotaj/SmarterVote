@@ -1411,7 +1411,9 @@
       {/if}
 
       <!-- Logs -->
-      <div class="border-t border-stroke pt-3 flex flex-col h-[55vh] max-h-[520px] min-h-[320px]">
+      <div
+        class="border-t border-stroke pt-3 flex flex-col h-[55vh] max-h-[520px] min-h-[320px]"
+      >
         <div class="flex items-center gap-2 justify-between mb-2">
           <h4 class="text-xs font-semibold text-content-muted">
             Execution Logs
