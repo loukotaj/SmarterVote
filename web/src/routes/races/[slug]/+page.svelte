@@ -1326,7 +1326,7 @@
 
   /* Forecast */
   :global(.forecast-card) {
-    @apply p-4 sm:p-5 mb-6 sm:mb-7 shadow-sm;
+    @apply mt-10 sm:mt-12 p-4 sm:p-5 mb-6 sm:mb-7 shadow-sm;
   }
 
   .forecast-header {

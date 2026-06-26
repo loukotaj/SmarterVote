@@ -27,13 +27,16 @@ _NON_PHOTO_TOKENS = frozenset(
         "background",
         "banner",
         "favicon",
-        "hero",
+        "footerbg",
+        "herobg",
         "icon",
         "landscape",
         "logo",
         "mountain",
         "placeholder",
         "seal",
+        "socialshare",
+        "social-share",
         "sprite",
         "torch",
         "wordmark",
@@ -111,6 +114,8 @@ def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> L
             50 if source == "og:image" else 45 if source.startswith("og:image") else 35 if source == "twitter:image" else 20
         )
         score += 25 * len(name_tokens.intersection(re.findall(r"[a-z0-9]+", searchable)))
+        if "photo" in searchable or "headshot" in searchable or "portrait" in searchable:
+            score += 15
         if width >= 600 and height >= 600:
             score += 20
         elif width >= 300 and height >= 300:

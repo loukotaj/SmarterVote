@@ -28,6 +28,18 @@ def test_extract_page_images_accepts_candidate_profile_open_graph_portrait():
     ]
 
 
+def test_extract_page_images_accepts_official_campaign_hero_photo():
+    html = """
+    <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6892a4b7c6b1853d62f8fbfd/57eaa2f9-56ed-4a9f-a377-c226a4f47883/GrahamforMaine_SocialShare.png?format=1500w&content-type=image%2Fpng">
+    <img src="https://images.squarespace-cdn.com/content/v1/6892a4b7c6b1853d62f8fbfd/9a251b85-f48f-4e00-8cab-d1c78c1ee8b6/GrahamforMaine_HeroBG.jpg">
+    <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6892a4b7c6b1853d62f8fbfd/deb90fec-3247-4488-9820-7f07533fd158/GrahamforMaine_HeroPhoto.jpg">
+    """
+
+    assert _extract_page_image_urls(html, "https://www.grahamforsenate.com/", "Graham Platner") == [
+        "https://images.squarespace-cdn.com/content/v1/6892a4b7c6b1853d62f8fbfd/deb90fec-3247-4488-9820-7f07533fd158/GrahamforMaine_HeroPhoto.jpg"
+    ]
+
+
 def test_extract_page_images_rejects_generic_official_site_scenic_image():
     html = '<meta property="og:image" content="/images/mountain.png">'
 
