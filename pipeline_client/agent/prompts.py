@@ -840,6 +840,8 @@ ROSTER_SYNC_USER = """\
 Race: "{race_id}" — last updated {last_updated}
 Roster as-of date: {current_date}
 Current candidates in profile: {candidate_names}
+Current race description:
+{race_description}
 
 STEP 1 — Verify the COMPLETE current roster (not just changes):
 Search for "{race_id}" on Ballotpedia, official election authority sites, and
@@ -847,6 +849,10 @@ recent news to get the FULL list of declared candidates across ALL parties
 (Democrat, Republican, Libertarian, Green, Independent, etc.).
 
 Compare the full current roster against the candidates currently in the profile.
+Treat named opponents, nominees, or declared candidates in the current race
+description as high-priority clues to verify. If the description names someone
+who is not in the current profile, search that candidate directly before
+deciding whether to add them.
 
 STEP 2 — Make corrections using your tools:
 1. Any candidate NOT in the profile who is currently in the race → add_candidate

@@ -140,9 +140,11 @@ def test_roster_sync_prompt_formats():
         last_updated="2025-01-01T00:00:00Z",
         current_date="2026-06-14",
         candidate_names="Alice, Bob",
+        race_description="Alice faces Carol in the general election.",
     )
     assert "ga-senate-2026" in result
     assert "Alice, Bob" in result
+    assert "Alice faces Carol" in result
     assert "add_candidate" in result
 
 

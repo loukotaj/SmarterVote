@@ -1488,6 +1488,7 @@ async def _run_update(
                         last_updated=last_updated,
                         current_date=as_of_date,
                         candidate_names=", ".join(candidate_names),
+                        race_description=race_json.get("description", ""),
                     ),
                     model=model,
                     on_log=on_log,
