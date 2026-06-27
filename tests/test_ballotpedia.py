@@ -8,6 +8,7 @@ from pipeline_client.agent.ballotpedia import (
     _race_id_to_ballotpedia_url,
     default_ballotpedia_race_url,
     lookup_candidate_data,
+    lookup_election_page,
 )
 
 
@@ -105,11 +106,10 @@ class _FakeBallotpediaClient:
 
 
 class _FakeResponse:
-    status_code = 200
-
-    def __init__(self, url: str, text: str):
+    def __init__(self, url: str, text: str, status_code: int = 200):
         self.url = url
         self.text = text
+        self.status_code = status_code
 
 
 @pytest.mark.asyncio
@@ -121,3 +121,47 @@ async def test_ballotpedia_lookup_uses_proxy_for_blocked_candidate_page(monkeypa
     assert result["found"] is True
     assert result["page_url"] == "https://ballotpedia.org/Roy_Cooper"
     assert result["image_url"] == "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Roy_Cooper.jpg"
+
+
+class _FakeElectionFallbackClient:
+    def __init__(self, *args, **kwargs):
+        self.calls = []
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        return False
+
+    async def get(self, url, **kwargs):
+        self.calls.append(url)
+        if "Congressional_District_election" in url:
+            return _FakeResponse(url=url, text="blocked", status_code=451)
+        if "Congressional_District" in url:
+            return _FakeResponse(
+                url=url,
+                text="""
+                <div id="mw-parser-output"><p>District page with candidate table.</p></div>
+                <h4>Democratic primary election</h4>
+                <div class="votebox">
+                  <tr class="results_row"><td class="votebox-results-cell--text">
+                    <a href="https://ballotpedia.org/Jane_Doe">Jane Doe</a>
+                  </td></tr>
+                </div>
+                """,
+            )
+        return _FakeResponse(url=url, text="", status_code=404)
+
+
+@pytest.mark.asyncio
+async def test_election_lookup_fetches_district_fallback_when_generated_url_fails(monkeypatch):
+    fake_client = _FakeElectionFallbackClient()
+    monkeypatch.setattr("pipeline_client.agent.ballotpedia.httpx.AsyncClient", lambda *args, **kwargs: fake_client)
+
+    result = await lookup_election_page("ca-house-06-2026")
+
+    assert result["found"] is True
+    assert result["page_url"] == "https://ballotpedia.org/California's_6th_Congressional_District"
+    assert result["candidates"] == [{"name": "Jane Doe", "party": "Democratic", "incumbent": False}]
+    assert any("Congressional_District_election" in call for call in fake_client.calls)
+    assert any(call.endswith("Congressional_District") for call in fake_client.calls)

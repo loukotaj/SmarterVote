@@ -96,15 +96,6 @@ _TERM_LIMITED_NON_CANDIDATE_RE = re.compile(
     r"not running|ineligible|not eligible|from running again)\b",
     re.IGNORECASE,
 )
-_INACTIVE_CANDIDATE_RE = re.compile(
-    r"\b(withdrew|withdrawn|dropped out|suspended campaign|ended campaign|"
-    r"disqualified|removed from the ballot|removed from ballot|"
-    r"lost (?:the )?(?:democratic|republican|gop)? ?primary|"
-    r"was defeated in (?:the )?(?:democratic|republican|gop)? ?primary|"
-    r"did not advance from (?:the )?(?:democratic|republican|gop)? ?primary|"
-    r"eliminated in (?:the )?(?:democratic|republican|gop)? ?primary)\b",
-    re.IGNORECASE,
-)
 _CONTROL_FLOW_EXCEPTION_NAMES = {
     "AgentCancelled",
     "HandoffFailed",
@@ -213,7 +204,13 @@ def _remove_ineligible_officeholders(race_json: Dict[str, Any], log: Any | None 
 
 
 def _remove_inactive_candidates(race_json: Dict[str, Any], log: Any | None = None) -> None:
-    """Drop candidates marked withdrawn or clearly described as primary-defeated/inactive."""
+    """Drop candidates explicitly marked withdrawn by the roster tools.
+
+    Do not infer inactive status from free-text summaries here. Roster repair
+    agents sometimes mention historical primary losses or stale Ballotpedia
+    snippets in candidate text; pruning on that text can delete valid current
+    candidates. Exit decisions must go through ``remove_candidate`` guards.
+    """
     candidates = race_json.get("candidates")
     if not isinstance(candidates, list):
         return
@@ -226,11 +223,6 @@ def _remove_inactive_candidates(race_json: Dict[str, Any], log: Any | None = Non
             continue
 
         if candidate.get("withdrawn") is True:
-            removed.append(str(candidate.get("name") or "unknown"))
-            continue
-
-        text = _candidate_roster_text(candidate)
-        if _INACTIVE_CANDIDATE_RE.search(text):
             removed.append(str(candidate.get("name") or "unknown"))
             continue
 

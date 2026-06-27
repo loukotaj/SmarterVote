@@ -1015,7 +1015,7 @@ def test_sanitize_roster_removes_inactive_candidates_from_primary_or_withdrawal(
 
     _sanitize_roster(race_json)
 
-    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Jordan Active"]
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Pat Candidate", "Jordan Active"]
 
 
 def test_sanitize_roster_drops_malformed_candidate_entries():

@@ -13,7 +13,7 @@ import logging
 import re
 from html import unescape
 from typing import Any, Dict, List, Optional
-from urllib.parse import quote
+from urllib.parse import quote, quote_plus
 
 import httpx
 
@@ -407,6 +407,23 @@ def _race_id_to_ballotpedia_url(race_id: str) -> Optional[str]:
     return f"https://ballotpedia.org/{title}"
 
 
+def _race_id_to_search_query(race_id: str) -> str:
+    parts = race_id.lower().split("-")
+    state_name = _STATE_NAMES.get(parts[0].upper(), parts[0].upper() if parts else "")
+    year = next((part for part in parts if part.isdigit() and len(part) == 4), "")
+    office_parts = [part for part in parts[1:] if part != year and part != "special"]
+    if "house" in office_parts:
+        district_parts = [part for part in office_parts if part != "house"]
+        district = _district_label_from_parts(district_parts)
+        return f"{state_name} {district} Congressional District election {year}".strip()
+    if "senate" in office_parts:
+        special = " special" if "special" in parts else ""
+        return f"United States Senate{special} election in {state_name} {year}".strip()
+    if "governor" in office_parts:
+        return f"{state_name} gubernatorial election {year}".strip()
+    return f"{race_id} Ballotpedia".strip()
+
+
 def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
     """Parse a candidate list from a Ballotpedia election page.
 
@@ -540,18 +557,20 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
 
 
 async def lookup_election_page(race_id: str) -> Dict[str, Any]:
-    """Fetch the Ballotpedia election page for a race and return a candidate roster.
+    """Fetch a Ballotpedia election page for a race and return a candidate roster.
 
-    Args:
-        race_id: Race identifier (e.g. "ar-senate-2026", "ga-governor-2026").
-
-    Returns a dict with:
-        found (bool), page_url (str|None), candidates (list of {name, party, incumbent}),
-        description (str|None — intro paragraph from the page).
+    Tries the generated election URL first, then the stable district page for
+    House races, then Ballotpedia search. Only returns found=True after fetching
+    usable page HTML.
     """
     empty: Dict[str, Any] = {"found": False, "candidates": [], "page_url": None, "description": None}
-    url = _race_id_to_ballotpedia_url(race_id)
-    if not url:
+    generated_url = _race_id_to_ballotpedia_url(race_id)
+    district_url = _race_id_to_ballotpedia_district_url(race_id)
+    search_query = quote_plus(_race_id_to_search_query(race_id))
+    search_url = f"https://ballotpedia.org/wiki/index.php?search={search_query}&title=Special%3ASearch"
+    urls = [url for url in (generated_url, district_url, search_url) if url]
+
+    if not urls:
         logger.debug("Could not derive Ballotpedia URL for race_id %r", race_id)
         return empty
 
@@ -559,70 +578,61 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
         import asyncio as _asyncio
 
         async with httpx.AsyncClient(timeout=12, follow_redirects=True) as client:
-            resp = await client.get(url, headers={"User-Agent": _BROWSER_UA})
 
-            # Retry once on 202 (Ballotpedia delayed-render / bot mitigation)
-            if resp.status_code == 202:
-                logger.debug("Ballotpedia election page %s returned 202 — retrying after 2s", url)
-                await _asyncio.sleep(2)
-                resp = await client.get(url, headers={"User-Agent": _BROWSER_UA})
+            async def fetch_usable(page_url: str) -> tuple[Optional[str], Optional[str], Optional[int]]:
+                resp = await client.get(page_url, headers={"User-Agent": _BROWSER_UA})
 
-            if resp.status_code != 200:
-                # Try r.jina.ai proxy as fallback (same pattern as lookup_candidate_data)
-                logger.debug("Ballotpedia election page %s returned %d — trying proxy", url, resp.status_code)
+                if resp.status_code == 202:
+                    logger.debug("Ballotpedia election page %s returned 202 — retrying after 2s", page_url)
+                    await _asyncio.sleep(2)
+                    resp = await client.get(page_url, headers={"User-Agent": _BROWSER_UA})
+
+                if resp.status_code == 200 and not _is_unusable_ballotpedia_html(resp.text):
+                    fetched_url = str(resp.url)
+                    if "Special:Search" not in fetched_url and "title=Special%3ASearch" not in fetched_url:
+                        return fetched_url, resp.text, resp.status_code
+
+                logger.debug(
+                    "Ballotpedia election page %s returned unusable status/html (%s) — trying proxy",
+                    page_url,
+                    resp.status_code,
+                )
                 proxy_resp = await client.get(
-                    f"https://r.jina.ai/{url}",
+                    f"https://r.jina.ai/{page_url}",
                     headers={"User-Agent": _BROWSER_UA},
                     timeout=15,
                 )
                 if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
-                    resp = proxy_resp
-                else:
-                    fallback_url = _race_id_to_ballotpedia_district_url(race_id)
-                    if fallback_url and fallback_url != url:
-                        return {**empty, "found": True, "page_url": fallback_url, "http_status": resp.status_code}
-                    return {**empty, "page_url": url, "http_status": resp.status_code}
+                    return page_url, proxy_resp.text, resp.status_code
+                return None, None, resp.status_code
 
-            page_url = str(resp.url)
-            html = resp.text
+            last_status: Optional[int] = None
+            last_url: Optional[str] = None
+            for page_url in urls:
+                fetched_url, html, status = await fetch_usable(page_url)
+                last_url = page_url
+                last_status = status
+                if html is None or fetched_url is None:
+                    continue
 
-            # Handle Cloudflare-style challenge / bot-mitigation pages
-            if _is_unusable_ballotpedia_html(html):
-                logger.debug("Ballotpedia election page %s returned unusable HTML — trying proxy", url)
-                proxy_resp = await client.get(
-                    f"https://r.jina.ai/{url}",
-                    headers={"User-Agent": _BROWSER_UA},
-                    timeout=15,
-                )
-                if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
-                    html = proxy_resp.text
-                else:
-                    fallback_url = _race_id_to_ballotpedia_district_url(race_id)
-                    if fallback_url and fallback_url != url:
-                        return {**empty, "found": True, "page_url": fallback_url}
-                    return {**empty, "page_url": url}
+                candidates = _parse_candidate_list_from_html(html)
+                desc = None
+                m = re.search(r'<div[^>]+class="mw-parser-output"[^>]*>\s*<p>(.*?)</p>', html, re.DOTALL | re.IGNORECASE)
+                if m:
+                    desc = re.sub(r"<[^>]+>", " ", m.group(1))
+                    desc = re.sub(r"\s+", " ", unescape(desc)).strip() or None
 
-            candidates = _parse_candidate_list_from_html(html)
+                logger.debug("Ballotpedia election page %s: found %d candidates", fetched_url, len(candidates))
+                return {
+                    "found": True,
+                    "page_url": fetched_url,
+                    "candidates": candidates,
+                    "description": desc,
+                    "http_status": status,
+                }
 
-            # Extract first paragraph from mw-parser-output as description
-            description: Optional[str] = None
-            parser_idx = html.find("mw-parser-output")
-            if parser_idx >= 0:
-                for para_m in re.finditer(r"<p>(.*?)</p>", html[parser_idx : parser_idx + 20000], re.DOTALL):
-                    text = re.sub(r"<[^>]+>", "", para_m.group(1))
-                    text = text.replace("&#91;", "[").replace("&#93;", "]").replace("&amp;", "&").strip()
-                    if len(text) > 40:
-                        description = text[:800]
-                        break
+            return {**empty, "page_url": last_url, "http_status": last_status}
 
-            logger.debug("Ballotpedia election page %s: found %d candidates", page_url, len(candidates))
-            return {
-                "found": True,
-                "page_url": page_url,
-                "candidates": candidates,
-                "description": description,
-            }
-
-    except Exception as exc:
+    except Exception as exc:  # pragma: no cover - defensive
         logger.debug("Ballotpedia election lookup failed for %r: %s", race_id, exc)
         return empty

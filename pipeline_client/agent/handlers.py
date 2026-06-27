@@ -137,8 +137,10 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         reason = args.get("reason", "").strip()
 
         # Guard: reject removals that are clearly data-quality fixes rather than
-        # actual race withdrawals. Withdrawal reasons must mention the race exit.
-        _WITHDRAWAL_KEYWORDS = {
+        # actual race withdrawals. Withdrawal reasons must mention a concrete
+        # race exit, not merely absence from a page or a generic "lost primary"
+        # phrase that models frequently hallucinate during roster repair.
+        _EXIT_KEYWORDS = {
             "withdrew",
             "withdrawal",
             "dropped out",
@@ -151,12 +153,35 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             "no longer running",
             "not running",
             "retired from race",
-            "lost primary",
-            "primary loss",
         }
         reason_lower = reason.lower()
-        has_withdrawal_signal = any(kw in reason_lower for kw in _WITHDRAWAL_KEYWORDS) or bool(
-            re.search(r"\blost\b.{0,40}\bprimary\b", reason_lower)
+        has_exit_signal = any(kw in reason_lower for kw in _EXIT_KEYWORDS)
+        has_primary_loss_signal = bool(
+            re.search(
+                r"\b(lost|defeated|eliminated|did not advance)\b.{0,80}\b(primary|runoff|convention)\b",
+                reason_lower,
+            )
+            or re.search(
+                r"\b(primary|runoff|convention)\b.{0,80}\b(lost|defeated|eliminated|did not advance)\b",
+                reason_lower,
+            )
+        )
+        has_specific_date = bool(
+            re.search(
+                r"\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|"
+                r"aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+\d{1,2},\s+\d{4}\b",
+                reason_lower,
+            )
+            or re.search(r"\b20\d{2}-\d{2}-\d{2}\b", reason_lower)
+        )
+        has_official_result_signal = bool(
+            re.search(
+                r"\b(official|certified|results?|election authority|secretary of state|board of elections)\b",
+                reason_lower,
+            )
+        )
+        has_withdrawal_signal = has_exit_signal or (
+            has_primary_loss_signal and has_specific_date and has_official_result_signal
         )
 
         # Special case: structurally invalid entries (e.g. a metadata key like
@@ -174,8 +199,9 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             return (
                 f"ERROR: remove_candidate blocked. The reason '{reason}' does not indicate "
                 f"that '{name}' has withdrawn from the race. Only call remove_candidate when "
-                f"a candidate has officially withdrawn, dropped out, or been disqualified. "
-                f"Do NOT use this tool to fix data quality issues."
+                f"a candidate has officially withdrawn, dropped out, been disqualified, or "
+                f"lost a completed contest with an official result source and date. Do NOT "
+                f"use this tool because a page has no listing or to fix data quality issues."
             )
 
         candidates = race_json.get("candidates", [])
@@ -194,6 +220,20 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             if not isinstance(c, dict):
                 continue
             if c.get("name") == name:
+                active_after = [
+                    other
+                    for other in candidates
+                    if isinstance(other, dict) and other is not c and other.get("name") and other.get("withdrawn") is not True
+                ]
+                if not active_after:
+                    log(
+                        "warning",
+                        f"    remove_candidate('{name}') BLOCKED - removing this candidate would leave no active candidates.",
+                    )
+                    return (
+                        f"ERROR: remove_candidate blocked. Removing '{name}' would leave the race with no active candidates. "
+                        "Find and add the verified remaining candidate(s) first, or keep this candidate until exit evidence is certain."
+                    )
                 c["withdrawn"] = True
                 c["withdrawal_reason"] = reason or None
                 log("info", f"    🚪 Marked withdrawn: {name} ({reason or 'no reason given'})")

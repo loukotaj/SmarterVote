@@ -614,7 +614,10 @@ async def _agent_loop(
                             )
                         else:
                             handler_result = _extra_handlers[fn.name](args)
-                        log("info", f"    🔧 {fn.name} → OK")
+                        if isinstance(handler_result, str) and handler_result.startswith("Error:"):
+                            log("warning", f"    🔧 {fn.name} → BLOCKED")
+                        else:
+                            log("info", f"    🔧 {fn.name} → OK")
                     except Exception as exc:
                         handler_result = f"Error: {exc}"
                         log("warning", f"    🔧 {fn.name} → {exc}")

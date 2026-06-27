@@ -324,6 +324,30 @@ def test_remove_candidate_blocks_not_listed_without_exit_signal():
     assert race_json["candidates"] == [{"name": "Alice", "party": "D"}]
 
 
+def test_remove_candidate_blocks_generic_primary_loss_without_official_result():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "D"}, {"name": "Bob", "party": "R"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["remove_candidate"]({"name": "Alice", "reason": "Lost primary election"})
+
+    assert "blocked" in result.lower()
+    assert race_json["candidates"][0].get("withdrawn") is not True
+
+
+def test_remove_candidate_blocks_when_it_would_empty_roster():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "D"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["remove_candidate"]({"name": "Alice", "reason": "officially withdrew from the race"})
+
+    assert "blocked" in result.lower()
+    assert race_json["candidates"][0].get("withdrawn") is not True
+
+
 def test_set_issue_stance_handler():
     """set_issue_stance handler writes a stance to candidate issues."""
     from pipeline_client.agent.agent import _make_editing_handlers
@@ -586,26 +610,30 @@ def test_remove_candidate_does_not_delete_real_names():
     from pipeline_client.agent.agent import _make_editing_handlers
 
     race_json = {
-        "candidates": [{"name": "Bob Jones", "issues": {}}],
+        "candidates": [{"name": "Bob Jones", "issues": {}}, {"name": "Alice Smith", "issues": {}}],
         "polling": [],
     }
     handlers = _make_editing_handlers(race_json, lambda l, m: None)
 
     handlers["remove_candidate"]({"name": "Bob Jones", "reason": "withdrew from race"})
-    assert len(race_json["candidates"]) == 1
+    assert len(race_json["candidates"]) == 2
     assert race_json["candidates"][0].get("withdrawn") is True
 
 
 def test_remove_candidate_accepts_completed_primary_loss_with_last_updated_context():
     from pipeline_client.agent.agent import _make_editing_handlers
 
-    race_json = {"candidates": [{"name": "Brad Raffensperger"}]}
+    race_json = {"candidates": [{"name": "Brad Raffensperger"}, {"name": "Burt Jones"}]}
     handlers = _make_editing_handlers(race_json, lambda *_: None)
 
     result = handlers["remove_candidate"](
         {
             "name": "Brad Raffensperger",
-            "reason": ("Lost Republican primary on May 19, 2026, before the profile's " "last_updated date of June 13, 2026."),
+            "reason": (
+                "Official Georgia Secretary of State results show Brad Raffensperger "
+                "lost the Republican primary on May 19, 2026, before the profile's "
+                "last_updated date of June 13, 2026."
+            ),
         }
     )
 

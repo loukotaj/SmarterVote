@@ -821,15 +821,18 @@ tools. Do NOT change any other data — only the candidate roster.
 You may ONLY use these roster tools: add_candidate, remove_candidate,
 rename_candidate. Do NOT call any non-roster editing tools in this phase.
 
-CRITICAL — remove_candidate is ONLY for candidates who are no longer active
-in THIS SPECIFIC RACE. Valid reasons to remove:
+CRITICAL — preserve candidates by default. remove_candidate is ONLY for
+candidates who are no longer active in THIS SPECIFIC RACE. Valid reasons to
+remove:
 - Officially withdrew or dropped out
 - Was disqualified or removed from the ballot
-- Lost a completed primary election and is therefore eliminated
-- Lost a completed convention or nomination contest
+- Lost a completed primary, runoff, or convention/nomination contest and is
+  therefore eliminated, confirmed by an official/certified result source with a
+  specific date
 NEVER remove a candidate for any other reason — not to fix data quality
 issues, not to correct information, not to replace a candidate entry, not
-because you think data about them is wrong or incomplete. If a candidate is
+because you think data about them is wrong or incomplete, and not because one
+source is incomplete or a generated Ballotpedia URL is wrong. If a candidate is
 still actively competing in the race, they stay regardless of data quality.
 Removal requires evidence the candidate verifiably lost a completed contest or
 otherwise left this race.
@@ -857,9 +860,10 @@ deciding whether to add them.
 STEP 2 — Make corrections using your tools:
 1. Any candidate NOT in the profile who is currently in the race → add_candidate
 2. Any candidate in the profile who has OFFICIALLY withdrawn, dropped out, been
-   disqualified, or verifiably lost a completed primary for this race →
-   remove_candidate
-   (include reason citing a specific news source or official announcement)
+   disqualified, or verifiably lost a completed primary/runoff/convention for
+   this race → remove_candidate
+   (include reason citing a dated official/certified result source or specific
+   news source confirming the exit)
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
 
 IMPORTANT — remove_candidate rules:
@@ -870,15 +874,18 @@ IMPORTANT — remove_candidate rules:
   incorrect facts, or anything else related to the candidate's profile data.
 - Do NOT remove a candidate without a credible source (news article, official
   election results, Ballotpedia page) confirming they are no longer competing.
-- PRIMARY ELECTIONS ARE KEY: Search for "[state] [party] primary results" and
-  include the election year from {current_date}
-  to check whether any party primaries for this race have already occurred. If a
-  primary has concluded, candidates who lost that primary MUST be removed — they
-  are no longer competing even though they were once declared candidates.
-- After a party primary has concluded, include only that party's nominee(s) who
-  advanced. Remove all other candidates from that party.
+- For primary/runoff/convention outcomes, search for "[state] [party] primary
+  results" with the election year from {current_date}, then verify any removal
+  against official/certified results or multiple credible dated sources. If the
+  result is uncertain or only inferred from an incomplete page, keep the
+  candidate.
+- After a party primary has officially concluded, include only that party's
+  nominee(s) who advanced. Remove other candidates from that party only when you
+  can cite a dated source showing they lost or did not advance.
 - If you're unsure whether someone was eliminated, search specifically for their
-  name + primary results before deciding.
+  name + primary results before deciding, and keep them if uncertainty remains.
+- Do NOT infer winners or losers from an empty/stale Ballotpedia page, a missing
+  candidate listing, or a generated Ballotpedia URL that fails to load.
 - Treat articles and candidate pages published before a completed primary as
   historical evidence, not proof that the person remains active as of
   {current_date}. Verify primary outcomes before adding anyone from an older
@@ -926,25 +933,28 @@ Original candidates before sync: {original_names}
 Any candidates added during the sync that were NOT in the original list:
 {added_names}
 
-Your PRIMARY goal is to ensure eliminated candidates are removed. Audit EVERY
-listed candidate:
+Your PRIMARY goal is to prevent fabricated removals while catching clearly
+invalid candidates. Audit EVERY listed candidate and preserve them unless exit
+evidence is verified:
 
 1. Use read_profile to see the current roster.
-2. FIRST — Search for completed primary results: try queries like
-  "{race_id} primary results", "[state] [party] primary results", and
-  "[state] gubernatorial/senate primary winner" with the election year from
+2. Search for completed primary/runoff/convention results when needed: try
+  queries like "{race_id} primary results", "[state] [party] primary results",
+  and "[state] gubernatorial/senate primary winner" with the election year from
   {current_date}.
-   If a party primary has concluded, every candidate from that party who did NOT
-   win must be removed immediately using remove_candidate.
+   If a party primary has concluded, remove a losing candidate only with a dated
+   official/certified result source or multiple credible dated sources.
 3. Search for withdrawal/disqualification news for each candidate who seems
    questionable.
 4. Remove any candidate who:
-   - Lost a completed primary election (even if they were a major candidate)
+   - Lost a completed primary/runoff/convention and you can cite the dated result
    - Officially withdrew or was disqualified
-   - Is clearly fake or cannot be verified as a real candidate
+   - Is clearly fake or cannot be verified as a real candidate after search
 5. Keep every verified active candidate, including all participants in a runoff
    that has not yet occurred and qualified third-party candidates.
 6. Never infer the result of an election scheduled after {current_date}.
+7. Do NOT remove because Ballotpedia has no candidates listed, a generated
+   Ballotpedia URL fails, or a single source is missing them.
 
 When done, stop — do not produce any text reply."""
 
