@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "smartervote-races": {
+      "command": "python",
+      "args": ["-c", "from smartervote_mcp.server import main; main()"],
+      "env": {
+        "SMARTERVOTE_RACES_API_URL": "https://races-api-dev-ddsvfazica-uc.a.run.app"
+      }
+    }
+  }
+}
