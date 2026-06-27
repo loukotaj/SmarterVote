@@ -114,10 +114,7 @@
   </a>
 
   {#if hasForecast}
-    <a
-      href="#forecast"
-      class="voter-resource-btn voter-resource-btn--forecast"
-    >
+    <a href="#forecast" class="voter-resource-btn voter-resource-btn--forecast">
       <svg
         class="w-5 h-5 shrink-0"
         fill="none"

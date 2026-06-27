@@ -230,7 +230,8 @@
           on:mouseenter={(e) =>
             canHover && handleMouseEnter(e, selectedFeature.name, count)}
           on:mouseleave={handleMouseLeave}
-          on:focus={(e) => canHover && handleFocus(e, selectedFeature.name, count)}
+          on:focus={(e) =>
+            canHover && handleFocus(e, selectedFeature.name, count)}
           on:blur={handleBlur}
         />
       {/if}
