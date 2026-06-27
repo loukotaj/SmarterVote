@@ -17,18 +17,23 @@ You are a specialized agent for editing the SmarterVote AI research pipeline. Yo
 
 ## Your World
 
-| File                                    | Purpose                               |
-| --------------------------------------- | ------------------------------------- |
-| `pipeline_client/agent/agent.py`        | Main agent loop — phase orchestration |
-| `pipeline_client/agent/prompts.py`      | All LLM prompt templates              |
-| `pipeline_client/agent/tools.py`        | Tool definitions fed to the LLM       |
-| `pipeline_client/agent/handlers.py`     | LLM request/response parsing          |
-| `pipeline_client/agent/review.py`       | Multi-LLM review (Claude/Gemini/Grok) |
-| `pipeline_client/agent/images.py`       | Candidate image resolution            |
-| `pipeline_client/agent/ballotpedia.py`  | Ballotpedia scraping                  |
-| `pipeline_client/agent/search_cache.py` | SQLite search cache (7-day TTL)       |
-| `pipeline_client/agent/cost.py`         | Token counting and cost tracking      |
-| `shared/models.py`                      | RaceJSON v0.3 Pydantic models         |
+| File                                      | Purpose                                          |
+| ----------------------------------------- | ------------------------------------------------ |
+| `pipeline_client/agent/agent.py`          | Entry point — calls `_run_fresh` / `_run_update` |
+| `pipeline_client/agent/phases.py`         | All phase implementations (DISCOVERY → ITERATION) |
+| `pipeline_client/agent/llm.py`            | LLM request loop (`_agent_loop`)                 |
+| `pipeline_client/agent/prompts.py`        | All LLM prompt templates                         |
+| `pipeline_client/agent/tools.py`          | Tool definitions fed to the LLM                  |
+| `pipeline_client/agent/handlers.py`       | LLM response parsing and extraction              |
+| `pipeline_client/agent/web_tools.py`      | Serper search, page fetch, image search          |
+| `pipeline_client/agent/review.py`         | Multi-LLM review (Claude/Gemini/Grok)            |
+| `pipeline_client/agent/images.py`         | Candidate image resolution                       |
+| `pipeline_client/agent/ballotpedia.py`    | Ballotpedia scraping                             |
+| `pipeline_client/agent/search_cache.py`   | SQLite search cache (7-day TTL)                  |
+| `pipeline_client/agent/run_budget.py`     | Run-time budget and timeout enforcement          |
+| `pipeline_client/agent/model_registry.py` | Model selection and profiles                     |
+| `pipeline_client/agent/cost.py`           | Token counting and cost tracking                 |
+| `shared/models.py`                        | RaceJSON v0.3 Pydantic models                    |
 
 ## Key Rules
 
@@ -43,8 +48,9 @@ You are a specialized agent for editing the SmarterVote AI research pipeline. Yo
 ## Agent Phases (reference)
 
 ```
-DISCOVERY (15%) → IMAGES (5%) → ISSUES ×12 per-candidate (35%)
-→ FINANCE (10%) → REFINEMENT (15%) → REVIEW (12%, optional) → ITERATION (8%)
+DISCOVERY (12%) → IMAGES (5%) → ISSUES ×12 per-candidate (30%)
+→ FINANCE (8%) → REFINEMENT (10%) → POLLING (5%) → FORECAST (5%)
+→ VOTER_RESOURCES (5%) → REVIEW (12%, optional) → ITERATION (8%)
 ```
 
 Progress percentages are passed to the run_manager — keep them summing to 100%.
@@ -54,7 +60,15 @@ Progress percentages are passed to the run_manager — keep them summing to 100%
 Before making changes, read the relevant file(s) to understand context. After changes, run:
 
 ```bash
-PYTHONPATH=. python -m pytest tests/test_pipeline.py -v
+PYTHONPATH=. python -m pytest tests/test_run_agent.py tests/test_agent_loop.py tests/test_images.py tests/test_web_tools.py -v
+```
+
+For a broader check after touching shared models or prompts:
+
+```bash
+PYTHONPATH=. python -m pytest tests -v \
+  --ignore=tests/test_agent_cloud_function.py \
+  --ignore=tests/test_races_api_admin.py
 ```
 
 If modifying `shared/models.py`, also flag that `web/src/lib/types.ts` must be updated.

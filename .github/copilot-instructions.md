@@ -17,7 +17,7 @@ data/published/            # Published race JSON (GCS races/ in cloud)
 data/drafts/               # Draft race JSON (GCS drafts/ in cloud)
 ```
 
-Agent phases: DISCOVERY → IMAGES → ISSUES (×12 per-candidate) → FINANCE → REFINEMENT → REVIEW (optional) → ITERATION.
+Agent phases: DISCOVERY → IMAGES → ISSUES (×12 per-candidate) → FINANCE → REFINEMENT → POLLING → FORECAST → VOTER_RESOURCES → REVIEW (optional) → ITERATION.
 See `docs/architecture.md` for full details, endpoints, and cloud topology.
 
 ## Build & Test

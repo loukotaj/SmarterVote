@@ -1,13 +1,16 @@
 """Multi-phase candidate research agent with web search & caching.
 
 Phases (fresh run):
-1. **Discovery** - identify the race, candidates, career history, images.
-1b. **Image resolution** - verify/find direct image URLs per candidate.
-2. **Issue research** - 12 per-candidate sub-agent calls (one per canonical issue).
-2b. **Finance & voting** - dedicated donor and voting-record research.
-3. **Refinement** - tools-mode per-candidate and meta cleanup.
-4. **Review** (optional) - send to enabled OpenRouter reviewer roles for fact-checking.
-5. **Iteration** - tools-mode pass to address review flags (one cycle by default; up to three for errors).
+1.  Discovery        — identify the race, candidates, career history, images.
+1b. Image resolution — verify/find direct image URLs per candidate.
+2.  Issue research   — 12 per-candidate sub-agent calls (one per canonical issue).
+2b. Finance          — dedicated donor and voting-record research.
+3.  Refinement       — tools-mode per-candidate and meta cleanup.
+3b. Polling          — fetch and attach available polling data.
+3c. Forecast         — generate chamber outcome forecast.
+3d. Voter resources  — compile local registration and voting info.
+4.  Review     (optional) — send to enabled OpenRouter reviewer roles for fact-checking.
+5.  Iteration        — tools-mode pass to address review flags (one cycle by default; up to three for errors).
 
 Update run adds Phase 0 (roster sync) before Phase 1 (meta update).
 
