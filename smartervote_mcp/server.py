@@ -16,6 +16,23 @@ def _client() -> RacesApiClient:
     return RacesApiClient.from_env()
 
 
+def _pipeline_options(**kwargs: Any) -> dict[str, Any]:
+    """Build RunOptions for MCP tools, defaulting to cheap/economy mode.
+
+    Non-economy model profiles can override cheap_mode downstream, so require an
+    explicit cheap_mode=False opt-out before allowing them through.
+    """
+    requested_cheap_mode = kwargs.get("cheap_mode")
+    model_profile = kwargs.get("model_profile")
+    if requested_cheap_mode is not False and model_profile in {"balanced", "quality", "custom"}:
+        raise ValueError(
+            "Non-economy model_profile requires explicit cheap_mode=False. "
+            "Omit model_profile or use model_profile='economy' for the default cheap run."
+        )
+    kwargs["cheap_mode"] = False if requested_cheap_mode is False else True
+    return compact_options(**kwargs)
+
+
 @mcp.tool()
 async def health() -> dict[str, Any]:
     """Check whether the configured races-api is reachable."""
@@ -90,8 +107,12 @@ async def queue_races(
     note: str | None = None,
     goal: str | None = None,
 ) -> dict[str, Any]:
-    """Queue one or more races for pipeline processing."""
-    options = compact_options(
+    """Queue one or more races for pipeline processing.
+
+    Defaults to cheap/economy mode. Expensive default/quality/custom model
+    profiles require explicitly passing cheap_mode=False.
+    """
+    options = _pipeline_options(
         cheap_mode=cheap_mode,
         force_fresh=force_fresh,
         save_artifact=save_artifact,
@@ -121,8 +142,12 @@ async def run_race(
     note: str | None = None,
     goal: str | None = None,
 ) -> dict[str, Any]:
-    """Queue a single race for pipeline processing."""
-    options = compact_options(
+    """Queue a single race for pipeline processing.
+
+    Defaults to cheap/economy mode. Expensive default/quality mode requires
+    explicitly passing cheap_mode=False.
+    """
+    options = _pipeline_options(
         cheap_mode=cheap_mode,
         force_fresh=force_fresh,
         enabled_steps=enabled_steps,

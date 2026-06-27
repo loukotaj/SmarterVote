@@ -372,8 +372,11 @@ async def _execute_tool(name: str, arguments: Dict[str, Any]) -> Any:
         path = path_template.format(**arguments)
     except KeyError as exc:
         return {"error": f"Missing tool argument: {exc}"}
-    body = body_builder(arguments) if body_builder else None
-    params = query_builder(arguments) if query_builder else None
+    try:
+        body = body_builder(arguments) if body_builder else None
+        params = query_builder(arguments) if query_builder else None
+    except ValueError as exc:
+        return {"error": str(exc), "tool": name}
 
     last_error = ""
     for attempt in range(3):
@@ -422,7 +425,10 @@ def _tool(name: str, description: str, properties: Dict[str, Any] | None = None,
 _RACE_ID = {"race_id": {"type": "string", "description": "Canonical lowercase race ID"}}
 _RUN_ID = {"run_id": {"type": "string"}}
 _RUN_OPTIONS = {
-    "cheap_mode": {"type": "boolean"},
+    "cheap_mode": {
+        "type": "boolean",
+        "description": "Defaults to true. Set false only when explicitly opting into expensive default/quality mode.",
+    },
     "force_fresh": {"type": "boolean"},
     "save_artifact": {"type": "boolean"},
     "enabled_steps": {"type": "array", "items": {"type": "string"}},
@@ -430,7 +436,11 @@ _RUN_OPTIONS = {
     "claude_model": {"type": "string"},
     "gemini_model": {"type": "string"},
     "grok_model": {"type": "string"},
-    "model_profile": {"type": "string", "enum": ["economy", "balanced", "quality", "custom"]},
+    "model_profile": {
+        "type": "string",
+        "enum": ["economy", "balanced", "quality", "custom"],
+        "description": "Use economy by default. balanced/quality/custom require cheap_mode=false.",
+    },
     "model_overrides": {"type": "object", "additionalProperties": {"type": "string"}},
     "review_providers": {
         "type": "array",
@@ -503,7 +513,16 @@ _TOOLS = [
 
 
 def _options(args: Dict[str, Any]) -> Dict[str, Any]:
-    return {key: args[key] for key in _RUN_OPTIONS if key in args}
+    options = {key: args[key] for key in _RUN_OPTIONS if key in args}
+    requested_cheap_mode = options.get("cheap_mode")
+    model_profile = options.get("model_profile")
+    if requested_cheap_mode is not False and model_profile in {"balanced", "quality", "custom"}:
+        raise ValueError(
+            "Non-economy model_profile requires explicit cheap_mode=false. "
+            "Omit model_profile or use model_profile='economy' for the default cheap run."
+        )
+    options["cheap_mode"] = False if requested_cheap_mode is False else True
+    return options
 
 
 _TOOL_ROUTES = {
@@ -556,5 +575,6 @@ _TOOL_ROUTES = {
 _SYSTEM_PROMPT = """You are the deployed SmarterVote admin agent.
 Use tools to inspect and operate the production-shaped races API. Prefer evidence from tools over assumptions.
 You may queue pipeline work and monitor its current state, but do not repeatedly poll a long-running pipeline in one task.
+Prefer cheap/economy pipeline mode. Only set cheap_mode=false when the user explicitly asks for expensive/default/quality mode.
 Explain completed actions and provide IDs needed to follow up. Publishing, unpublishing, cancellation, deletion, and cache
 clearing pause for explicit user approval. Keep responses concise and operationally precise."""

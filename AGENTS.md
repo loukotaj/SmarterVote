@@ -9,6 +9,9 @@ Start every task by reading `.github/copilot-instructions.md`; it is the canonic
 - Keep changes scoped to the requested area and existing architecture.
 - Run the narrowest useful validation for touched code before reporting completion.
 - Do not publish race data or run deploy/apply actions unless explicitly asked.
+- Prefer cheap/economy pipeline mode for queued race work. Only set `cheap_mode=false`
+  or use non-economy model profiles when the user explicitly asks for expensive,
+  default, quality, or custom model mode.
 
 ## Prompt Shortcuts
 

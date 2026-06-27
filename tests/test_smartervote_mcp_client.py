@@ -114,6 +114,24 @@ def test_compact_options_keeps_false_and_drops_none():
     assert compact_options(cheap_mode=False, note=None, goal="refresh") == {"cheap_mode": False, "goal": "refresh"}
 
 
+def test_mcp_pipeline_options_default_to_cheap_mode():
+    from smartervote_mcp.server import _pipeline_options
+
+    assert _pipeline_options(note="refresh") == {"cheap_mode": True, "note": "refresh"}
+
+
+def test_mcp_pipeline_options_require_explicit_false_for_quality_profile():
+    from smartervote_mcp.server import _pipeline_options
+
+    with pytest.raises(ValueError, match="requires explicit cheap_mode=False"):
+        _pipeline_options(model_profile="quality")
+
+    assert _pipeline_options(cheap_mode=False, model_profile="quality") == {
+        "cheap_mode": False,
+        "model_profile": "quality",
+    }
+
+
 def test_cloud_run_audience_detects_run_app_url(monkeypatch):
     monkeypatch.setenv("SMARTERVOTE_RACES_API_URL", "https://races-api-dev-ddsvfazica-uc.a.run.app/api")
 
