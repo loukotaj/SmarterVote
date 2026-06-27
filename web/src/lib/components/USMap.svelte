@@ -138,6 +138,27 @@
     hoveredStateCount = 0;
   }
 
+  function handleFocus(e: FocusEvent, name: string, count: number) {
+    hoveredStateName = name;
+    hoveredStateCount = count;
+    const target = e.currentTarget as SVGGraphicsElement;
+    if (target && svgEl) {
+      const svgRect = svgEl.getBoundingClientRect();
+      const elemRect = target.getBoundingClientRect();
+
+      const relativeLeft = elemRect.left - svgRect.left + elemRect.width / 2;
+      const relativeTop = elemRect.top - svgRect.top;
+
+      tooltipX = (relativeLeft / svgRect.width) * 100;
+      tooltipY = (relativeTop / svgRect.height) * 100;
+    }
+  }
+
+  function handleBlur() {
+    hoveredStateName = null;
+    hoveredStateCount = 0;
+  }
+
   function getFill(name: string): string {
     if (stateColors[name]) return stateColors[name];
     if (name === selectedState) return "var(--map-selected)";
@@ -179,6 +200,8 @@
           on:mouseenter={(e) =>
             canHover && handleMouseEnter(e, state.name, count)}
           on:mouseleave={handleMouseLeave}
+          on:focus={(e) => canHover && handleFocus(e, state.name, count)}
+          on:blur={handleBlur}
         />
       {/each}
 
@@ -207,6 +230,8 @@
           on:mouseenter={(e) =>
             canHover && handleMouseEnter(e, selectedFeature.name, count)}
           on:mouseleave={handleMouseLeave}
+          on:focus={(e) => canHover && handleFocus(e, selectedFeature.name, count)}
+          on:blur={handleBlur}
         />
       {/if}
     </svg>
@@ -326,6 +351,13 @@
 
   .state-path:focus {
     outline: none;
+  }
+
+  .state-path.clickable:focus-visible {
+    stroke: var(--map-selected);
+    stroke-width: 1.8px;
+    outline: none;
+    filter: brightness(1.08);
   }
 
   .map-container {

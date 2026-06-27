@@ -6,6 +6,7 @@
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
   import type { PageData } from "./$types";
+  import { debounce } from "$lib/utils/debounce";
 
   export let data: PageData;
 
@@ -17,6 +18,7 @@
   let selectedState: string | null = null;
   let selectedOffice: string | null = null;
   let searchQuery = "";
+  let debouncedSearchQuery = "";
 
   // Sync searchQuery with URL query parameter q reactively.
   // Use lastPageQ to avoid a reactive loop: typing updates searchQuery which
@@ -28,13 +30,13 @@
       if (q !== lastPageQ) {
         lastPageQ = q;
         searchQuery = q;
+        debouncedSearchQuery = q;
       }
     }
   }
 
-  function handleHeroSearchInput() {
-    const q = searchQuery.trim();
-    lastPageQ = q;
+  const debouncedGoto = debounce((q: string) => {
+    debouncedSearchQuery = q;
     const params = new URLSearchParams($page.url.searchParams);
     if (q) {
       params.set("q", q);
@@ -46,10 +48,17 @@
       keepFocus: true,
       noScroll: true,
     });
+  }, 150);
+
+  function handleHeroSearchInput() {
+    const q = searchQuery.trim();
+    lastPageQ = q;
+    debouncedGoto(q);
   }
 
   function clearHeroSearch() {
     searchQuery = "";
+    debouncedSearchQuery = "";
     lastPageQ = "";
     const params = new URLSearchParams($page.url.searchParams);
     params.delete("q");
@@ -68,8 +77,8 @@
       .filter((race) => {
         if (selectedOffice && officeShort(race.office) !== selectedOffice)
           return false;
-        if (searchQuery.trim()) {
-          const q = searchQuery.toLowerCase();
+        if (debouncedSearchQuery.trim()) {
+          const q = debouncedSearchQuery.toLowerCase();
           return (
             race.title?.toLowerCase().includes(q) ||
             race.office?.toLowerCase().includes(q) ||
@@ -90,8 +99,8 @@
   // Compute matching candidates per state to show in map tooltips
   $: matchingCandidatesByState = (() => {
     const map: Record<string, string[]> = {};
-    if (!searchQuery.trim()) return map;
-    const q = searchQuery.toLowerCase();
+    if (!debouncedSearchQuery.trim()) return map;
+    const q = debouncedSearchQuery.toLowerCase();
 
     races.forEach((race) => {
       const stateKey = race.state ?? race.jurisdiction;
@@ -121,8 +130,8 @@
     .filter((race) => {
       if (selectedOffice && officeShort(race.office) !== selectedOffice)
         return false;
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
+      if (debouncedSearchQuery.trim()) {
+        const q = debouncedSearchQuery.toLowerCase();
         return (
           race.title?.toLowerCase().includes(q) ||
           race.office?.toLowerCase().includes(q) ||
@@ -170,8 +179,8 @@
     if (selectedState && raceState !== selectedState) return false;
     if (selectedOffice && officeShort(race.office) !== selectedOffice)
       return false;
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
+    if (debouncedSearchQuery.trim()) {
+      const q = debouncedSearchQuery.toLowerCase();
       return (
         race.title?.toLowerCase().includes(q) ||
         race.office?.toLowerCase().includes(q) ||
@@ -192,12 +201,13 @@
     selectedOffice = null;
   }
 
-  $: hasActiveFilters = selectedState || selectedOffice || searchQuery.trim();
+  $: hasActiveFilters = selectedState || selectedOffice || debouncedSearchQuery.trim();
 
   function clearFilters() {
     selectedState = null;
     selectedOffice = null;
     searchQuery = "";
+    debouncedSearchQuery = "";
 
     const params = new URLSearchParams($page.url.searchParams);
     params.delete("q");
@@ -343,11 +353,31 @@
         >
           Clear selection
         </button>
-      {:else}
-        <p class="text-xs text-content-subtle">
-          Click a highlighted state to filter races
-        </p>
       {/if}
+    </div>
+
+    <!-- Mobile dropdown select, visible only on small viewports -->
+    <div class="block sm:hidden mb-4">
+      <label for="mobile-state-select" class="block text-xs font-semibold text-content-subtle mb-1">
+        Or select a state:
+      </label>
+      <select
+        id="mobile-state-select"
+        value={selectedState || ""}
+        on:change={(e) => {
+          const val = e.currentTarget.value;
+          selectedState = val ? val : null;
+          selectedOffice = null;
+        }}
+        class="block w-full px-3 py-2 border border-stroke rounded-lg text-sm bg-surface text-content focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+      >
+        <option value="">All States</option>
+        {#each [...activeStates].sort() as state}
+          <option value={state}>
+            {state} ({filteredRaceCounts[state] ?? 0} race{(filteredRaceCounts[state] ?? 0) !== 1 ? 's' : ''})
+          </option>
+        {/each}
+      </select>
     </div>
 
     {#if loading}

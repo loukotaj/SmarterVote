@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { onMount } from "svelte";
+  import { slide } from "svelte/transition";
   import Card from "$lib/components/Card.svelte";
   import IssueTable from "$lib/components/IssueTable.svelte";
   import DonorTable from "$lib/components/DonorTable.svelte";
@@ -317,7 +318,7 @@
           </svg>
         </button>
         {#if othersExpanded}
-          <div class="others-list">
+          <div transition:slide class="others-list">
             {#each otherCandidates as other}
               <a
                 href="/races/{race.id}/{candidateSlug(

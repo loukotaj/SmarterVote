@@ -9,6 +9,7 @@
   import { browser } from "$app/environment";
   import type { LayoutData } from "./$types";
   import { fade } from "svelte/transition";
+  import { debounce } from "$lib/utils/debounce";
 
   export let data: LayoutData;
 
@@ -103,13 +104,8 @@
     }
   }
 
-  function handleSearchInput() {
-    updateSuggestions();
-
-    // If on homepage, sync input to URL query param in real time
+  const debouncedGoto = debounce((q: string) => {
     if ($page.url.pathname === "/") {
-      const q = headerQuery.trim();
-      lastHeaderQ = q;
       const params = new URLSearchParams($page.url.searchParams);
       if (q) {
         params.set("q", q);
@@ -121,6 +117,17 @@
         keepFocus: true,
         noScroll: true,
       });
+    }
+  }, 150);
+
+  function handleSearchInput() {
+    updateSuggestions();
+
+    // If on homepage, sync input to URL query param with debounce
+    if ($page.url.pathname === "/") {
+      const q = headerQuery.trim();
+      lastHeaderQ = q;
+      debouncedGoto(q);
     }
   }
 
