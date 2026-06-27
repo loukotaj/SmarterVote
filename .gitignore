@@ -307,3 +307,4 @@ data/analytics.db-wal
 .tmp_cf_staging/
 .tmp_*.log
 .vscode/mcp.json
+data/
