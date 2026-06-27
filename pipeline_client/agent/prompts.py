@@ -41,20 +41,22 @@ You are a nonpartisan political research agent.
 DISCOVERY_USER = """\
 Research the U.S. election race "{race_id}".
 
-## Step 1 — Get the authoritative candidate list (do this FIRST)
+## Step 1 — Get the candidate list (do this FIRST)
 Call `ballotpedia_election_lookup` with race_id="{race_id}". This fetches the
-official Ballotpedia election page which is the single most reliable source for
-who is actually on the ballot. Its candidate list is your starting roster.
+official Ballotpedia election page which is the starting roster.
 
 If `ballotpedia_election_lookup` returns found=false or candidates=[], then fall
-back to searching "site:ballotpedia.org {race_id}" and fetching the page directly,
-then search the official state election authority website.
+back to searching "site:ballotpedia.org {race_id}" or the official state election website.
 
-IMPORTANT: Do NOT add candidates to the final JSON that do not appear in the
-Ballotpedia roster or a corroborating official state source. Do NOT hallucinate
-candidates based on search snippets or speculation. If a search result mentions a
-name that is not on Ballotpedia, verify via the official state election authority
-before including them.
+If Ballotpedia page fetching is completely blocked, inaccessible, or returns access
+denied/proxy errors, you MUST fall back to using organic web searches (Google/Serper)
+to discover the active candidates running in this race. Search for recent local news,
+voter guides, or official candidate listings. Corroborate candidate names across multiple
+search results and compile them into the roster.
+
+IMPORTANT: Do NOT hallucinate candidates based on single unverified snippets or speculation.
+Do NOT leave the candidates list empty if Ballotpedia is blocked; build the roster
+using reliable search results. Verify nominees and active candidates.
 
 Check whether each relevant party primary has already concluded. For a completed
 primary, include only the verified nominee or candidates who advanced under the
@@ -373,20 +375,16 @@ for a political candidate's official headshot or portrait.
 IMAGE_SEARCH_USER = """\
 Find a working, directly-accessible image file URL for: {candidate_name}
 
-SEARCH STRATEGIES (try in order):
-1. Search "{candidate_name} site:ballotpedia.org" — Ballotpedia covers nearly
-   every US candidate. Their images are at:
-   https://ballotpedia.org/wiki/images/thumb/.../*.jpg
-   Browse the candidate's Ballotpedia page and extract the direct image URL
-   from the <img> tag in the infobox (NOT the page URL itself).
-2. Search "{candidate_name} wikipedia" — find their Wikipedia article, then
-   look for the image URL. Wikipedia images live at:
+## Strategy 1 — Use the web_image_search tool (do this FIRST)
+Call `web_image_search` with the query "{candidate_name} headshot" or "{candidate_name} official photo". This fetches direct candidate image files (imageUrl) from the web search index. Review the returned imageUrls first.
+
+## Strategy 2 — Fallback Search Strategies (if Strategy 1 fails)
+1. Search "{candidate_name} site:ballotpedia.org" — extract the direct image URL from the <img> tag in the infobox (NOT the page URL itself).
+2. Search "{candidate_name} wikipedia" — look for Wikipedia upload URLs at:
    https://upload.wikimedia.org/wikipedia/commons/...
    (NOT https://commons.wikimedia.org/wiki/File:... — that is a page, not an image)
-3. Search "{candidate_name} official photo site:house.gov OR site:senate.gov" —
-   government sites sometimes serve .jpg files directly.
-4. Search "{candidate_name} campaign site photo" — campaign sites often have
-   /wp-content/uploads/*.jpg or similar direct image paths.
+3. Search "{candidate_name} official photo site:house.gov OR site:senate.gov".
+4. Search "{candidate_name} campaign site photo".
 
 CRITICAL RULES:
 - The URL MUST end in .jpg, .jpeg, .png, .gif, .webp, or be a known direct

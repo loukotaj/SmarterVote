@@ -9,7 +9,7 @@ pipeline_client/           # Local runner + AI research agent
   agent/                   # Agent loop, prompts, search cache, review, tools
   backend/                 # Local FastAPI runner, Cloud Function handler, run managers
 services/races-api/        # Production public/admin FastAPI API
-web/                       # SvelteKit frontend (static adapter → GitHub Pages)
+web/                       # SvelteKit frontend (static adapter → Cloudflare Pages)
 shared/                    # Pydantic models shared across Python services
 infra/                     # Terraform for GCP (Cloud Run, GCS, Firestore)
 tests/                     # Python integration tests

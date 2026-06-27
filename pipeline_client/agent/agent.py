@@ -76,6 +76,7 @@ from .web_tools import (  # noqa: F401 - re-exported for backward compat
     _get_search_cache,
     _is_unusable_page_text,
     _page_fetch_log_hint,
+    _serper_image_search,
     _serper_search,
 )
 

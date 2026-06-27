@@ -106,7 +106,28 @@ BALLOTPEDIA_ELECTION_TOOL: Dict = {
     },
 }
 
-WEB_TOOLS: List[Dict] = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL]
+IMAGE_SEARCH_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "web_image_search",
+        "description": (
+            "Search the web for candidate headshot images. Returns a list of "
+            "search results containing direct image URLs (imageUrl), titles, and parent website links."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "The search query to execute (e.g. 'Tommy Tuberville headshot').",
+                }
+            },
+            "required": ["query"],
+        },
+    },
+}
+
+WEB_TOOLS: List[Dict] = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL, IMAGE_SEARCH_TOOL]
 
 # ---------------------------------------------------------------------------
 # Roster editing tools

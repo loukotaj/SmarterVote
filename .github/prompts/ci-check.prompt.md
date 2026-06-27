@@ -1,29 +1,56 @@
 ---
 mode: agent
-description: Run the full CI check suite (Python tests, frontend check+build+test, Terraform validate) and report any failures.
+description: Run the full CI check suite matching GitHub Actions gates and report any failures.
 ---
 
 Run the full SmarterVote CI suite. Execute each step and report failures clearly.
+These steps mirror `.github/workflows/ci.yaml` exactly.
 
-## Step 1 — Python pipeline tests
+## Step 1 — Secret scan check (Terraform artifacts)
+
+Verify no tracked Terraform artifacts exist:
 
 ```bash
-PYTHONPATH=. python -m pytest tests/test_pipeline.py -v
+git ls-files | grep -E '(^|/)(tfplan|[^/]+\.tfplan|terraform\.tfstate(\..*)?|secrets\.tfvars)$'
 ```
 
-## Step 2 — Races-API tests
+If any are listed, they must be removed from tracking.
+
+## Step 2 — Python pipeline tests
+
+```bash
+PYTHONPATH=. python -m pytest tests -v \
+  --ignore=tests/test_agent_cloud_function.py \
+  --ignore=tests/test_races_api_admin.py
+```
+
+## Step 3 — Python formatting check
+
+```bash
+python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts
+python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts
+```
+
+## Step 4 — Races API tests
 
 ```bash
 cd services/races-api && PYTHONPATH=../.. python -m pytest test_races_api.py -v
+cd services/races-api && PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
 ```
 
-## Step 3 — Frontend (TypeScript check, build, unit tests)
+## Step 5 — Agent Cloud Function tests
 
 ```bash
-cd web && npm ci && npm run check && npm run build && npm run test:unit -- --run
+PYTHONPATH=. python -m pytest tests/test_agent_cloud_function.py -v
 ```
 
-## Step 4 — Terraform validate
+## Step 6 — Frontend (TypeScript check, lint, build, unit tests)
+
+```bash
+cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:unit -- --run
+```
+
+## Step 7 — Terraform validate
 
 ```bash
 cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate
@@ -31,11 +58,14 @@ cd infra && terraform fmt -check -recursive && terraform init -backend=false && 
 
 After running all steps, produce a summary table:
 
-| Step                        | Status  | Failures |
-| --------------------------- | ------- | -------- |
-| Python pipeline tests       | ✅ / ❌ | ...      |
-| Races-API tests             | ✅ / ❌ | ...      |
-| Frontend (check+build+test) | ✅ / ❌ | ...      |
-| Terraform validate          | ✅ / ❌ | ...      |
+| Step                          | Status  | Failures |
+| ----------------------------- | ------- | -------- |
+| Secret/Terraform artifact scan | ✅ / ❌ | ...      |
+| Python pipeline tests         | ✅ / ❌ | ...      |
+| Python formatting             | ✅ / ❌ | ...      |
+| Races API tests               | ✅ / ❌ | ...      |
+| Cloud Function tests          | ✅ / ❌ | ...      |
+| Frontend (check+lint+build+test) | ✅ / ❌ | ...   |
+| Terraform validate            | ✅ / ❌ | ...      |
 
 If any step fails, show the relevant error output and suggest a fix.

@@ -28,9 +28,9 @@ from .model_registry import (
 )
 from .run_budget import RunBudget, RunBudgetExceeded
 from .source_types import normalize_source_type
-from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, SEARCH_TOOL
+from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, IMAGE_SEARCH_TOOL, SEARCH_TOOL
 from .utils import _extract_json, make_logger
-from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_search
+from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_image_search, _serper_search
 
 logger = logging.getLogger("pipeline")
 
@@ -432,7 +432,7 @@ async def _agent_loop(
 
         if tools_mode:
             search_tools = (
-                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL]
+                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL, IMAGE_SEARCH_TOOL]
                 if allow_search_tools and iteration < nudge_at
                 else []
             )
@@ -468,7 +468,7 @@ async def _agent_loop(
                 log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
 
             base_tools = (
-                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL]
+                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL, IMAGE_SEARCH_TOOL]
                 if allow_search_tools and iteration < nudge_at
                 else []
             )
@@ -543,6 +543,28 @@ async def _agent_loop(
                             "role": "tool",
                             "tool_call_id": tool_call.id,
                             "content": context.prepare_tool_result("web_search", search_results),
+                        }
+                    )
+                elif fn.name == "web_image_search":
+                    args = json.loads(fn.arguments)
+                    query = args.get("query", "")
+                    log("info", f"    🖼️ {query}")
+                    search_results = await _await_with_run_budget(
+                        _serper_image_search(
+                            query,
+                            race_id=race_id,
+                            **({"run_budget": run_budget} if run_budget else {}),
+                        ),
+                        run_budget=run_budget,
+                        requested_timeout=30.0,
+                        operation="Serper image search",
+                    )
+                    log("debug", f"    🖼️ got {len(search_results)} results")
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": context.prepare_tool_result("web_image_search", search_results),
                         }
                     )
                 elif fn.name == "fetch_page":

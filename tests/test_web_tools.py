@@ -6,7 +6,13 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import httpx
 import pytest
 
-from pipeline_client.agent.agent import _fetch_page, _is_unusable_page_text, _page_fetch_log_hint, _serper_search
+from pipeline_client.agent.agent import (
+    _fetch_page,
+    _is_unusable_page_text,
+    _page_fetch_log_hint,
+    _serper_image_search,
+    _serper_search,
+)
 
 # ---------------------------------------------------------------------------
 # Serper search tests
@@ -102,6 +108,41 @@ async def test_serper_search_truncates_oversized_queries():
     sent_query = mock_client.post.call_args.kwargs["json"]["q"]
     assert results == []
     assert len(sent_query) <= 500
+
+
+@pytest.mark.asyncio
+async def test_serper_image_search_no_api_key():
+    """_serper_image_search returns error when SERPER_API_KEY is not set."""
+    env = os.environ.copy()
+    env.pop("SERPER_API_KEY", None)
+    with (
+        patch.dict(os.environ, env, clear=True),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+    ):
+        results = await _serper_image_search("test query")
+    assert len(results) == 1
+    assert "error" in results[0]
+
+
+@pytest.mark.asyncio
+async def test_serper_image_search_success():
+    """_serper_image_search returns image URLs correctly."""
+    response = httpx.Response(
+        200,
+        json={"images": [{"title": "Image Title", "imageUrl": "https://example.com/img.jpg", "link": "https://example.com"}]},
+        request=httpx.Request("POST", "https://google.serper.dev/images"),
+    )
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(return_value=response)
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+    ):
+        results = await _serper_image_search("candidate headshot")
+
+    assert results == [{"title": "Image Title", "imageUrl": "https://example.com/img.jpg", "url": "https://example.com"}]
 
 
 # ---------------------------------------------------------------------------

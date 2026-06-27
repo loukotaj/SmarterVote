@@ -147,3 +147,41 @@ async def test_resolve_single_image_replaces_low_resolution_govtrack_reference_p
     await _resolve_single_image(candidate, agent_loop_fn=fail_agent, model="test")
 
     assert candidate["image_url"] == replacement
+
+
+@pytest.mark.asyncio
+async def test_resolve_single_image_falls_back_to_serper_image(monkeypatch):
+    replacement = "https://example.com/serper_headshot.jpg"
+    candidate = {"name": "Test Candidate", "image_url": None}
+
+    async def fake_check(url: str):
+        return True, url
+
+    async def fail_agent(*args, **kwargs):
+        raise AssertionError("agent search loop should not run when Serper fast path succeeds")
+
+    monkeypatch.setattr("pipeline_client.agent.images._check_url_accessible", fake_check)
+
+    async def fake_ballotpedia(name: str):
+        return None
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_ballotpedia_image", fake_ballotpedia)
+
+    async def fake_wikipedia(name: str, context: str = ""):
+        return None
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_wikipedia_image", fake_wikipedia)
+
+    async def fake_page_image(candidate: dict):
+        return None
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_known_page_image", fake_page_image)
+
+    async def fake_serper_image(name: str, context: str = "", run_budget=None):
+        return replacement
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_serper_image", fake_serper_image)
+
+    await _resolve_single_image(candidate, agent_loop_fn=fail_agent, model="test")
+
+    assert candidate["image_url"] == replacement

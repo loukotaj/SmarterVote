@@ -1,6 +1,6 @@
 # SmarterVote AI Assistant Instructions
 
-Start every task by reading `.github/copilot-instructions.md`; it is the canonical source for project conventions, build commands, and coding standards.
+See `CLAUDE.md` for the canonical project guide — conventions, validation commands, architecture, and key rules.
 
 ## Default Workflow
 
@@ -9,9 +9,7 @@ Start every task by reading `.github/copilot-instructions.md`; it is the canonic
 - Keep changes scoped to the requested area and existing architecture.
 - Run the narrowest useful validation for touched code before reporting completion.
 - Do not publish race data or run deploy/apply actions unless explicitly asked.
-- Prefer cheap/economy pipeline mode for queued race work. Only set `cheap_mode=false`
-  or use non-economy model profiles when the user explicitly asks for expensive,
-  default, quality, or custom model mode.
+- GCP/deployed is always the source of truth; CI is the validation gate.
 
 ## Prompt Shortcuts
 
@@ -20,19 +18,3 @@ Start every task by reading `.github/copilot-instructions.md`; it is the canonic
 - Pipeline agent work: follow `.github/agents/pipeline-researcher.agent.md`.
 - Frontend type sync: follow `.github/instructions/frontend-types.instructions.md`.
 - Terraform work: follow `.github/instructions/terraform.instructions.md`.
-
-## Validation Defaults
-
-- Python: `PYTHONPATH=. python -m pytest`
-- Pipeline: `PYTHONPATH=. python -m pytest tests/test_pipeline.py -v`
-- Races API: `cd services/races-api && PYTHONPATH=../.. python -m pytest test_races_api.py -v`
-- Frontend: `cd web && npm ci && npm run check && npm run build && npm run test:unit -- --run`
-- Terraform: `cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate`
-
-## Detailed Documentation
-
-- **Architecture & endpoints**: `docs/architecture.md`
-- **Local development**: `docs/local-development.md`
-- **Auth0 setup**: `docs/auth0-configuration.md`
-- **Deployment**: `docs/deployment-guide.md`
-- **Pipeline modes**: `PIPELINE_MODES.md`

@@ -749,6 +749,108 @@ async def _serper_search(
     return results
 
 
+async def _serper_image_search(
+    query: str,
+    num_results: int = 10,
+    race_id: Optional[str] = None,
+    run_budget: RunBudget | None = None,
+    max_attempts: int = 2,
+) -> List[Dict[str, Any]]:
+    """Execute a web image search via the Serper Images API, with caching."""
+    normalized_query = re.sub(r"\s+", " ", query or "").strip()
+    if not normalized_query:
+        logger.warning("_serper_image_search called with empty query — skipping")
+        return []
+    if len(normalized_query) > _SERPER_MAX_QUERY_CHARS:
+        logger.warning(
+            "Truncating oversized Serper image query from %s to %s chars: %s",
+            len(normalized_query),
+            _SERPER_MAX_QUERY_CHARS,
+            normalized_query[:120],
+        )
+        normalized_query = (
+            normalized_query[:_SERPER_MAX_QUERY_CHARS].rsplit(" ", 1)[0] or normalized_query[:_SERPER_MAX_QUERY_CHARS]
+        )
+
+    cache = _get_search_cache()
+    if cache:
+        cached = cache.get(normalized_query, race_id)
+        if cached:
+            logger.debug(f"Image search cache HIT: {normalized_query[:60]}")
+            return cached["results"]
+
+    api_key = os.environ.get("SERPER_API_KEY", "")
+    if not api_key:
+        return [{"error": "SERPER_API_KEY not configured"}]
+
+    client = _get_serper_client()
+    last_error = ""
+    for attempt in range(max(1, max_attempts)):
+        if run_budget:
+            run_budget.require_call_time(2.0, operation="Serper image search")
+        try:
+            from pipeline_client.agent.cost import _cost_ctx
+
+            acc = _cost_ctx.get()
+            if acc is not None:
+                acc["serper_calls"] = acc.get("serper_calls", 0) + 1
+        except Exception:
+            pass
+
+        request_timeout = (
+            run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation="Serper image search") if run_budget else 10.0
+        )
+        try:
+            resp = await client.post(
+                "https://google.serper.dev/images",
+                headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+                json={"q": normalized_query, "num": num_results},
+                timeout=request_timeout,
+            )
+            resp.raise_for_status()
+            break
+        except httpx.HTTPStatusError as exc:
+            status = exc.response.status_code if exc.response is not None else 0
+            response_text = exc.response.text[:300] if exc.response is not None else ""
+            last_error = f"HTTP {status or 'unknown'}"
+            logger.warning(
+                "Serper image search failed with HTTP %s for query %r: %s",
+                status or "unknown",
+                normalized_query[:160],
+                response_text,
+            )
+            if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
+                return [{"error": f"Serper image search failed: {last_error}"}]
+        except httpx.HTTPError as exc:
+            last_error = str(exc)
+            logger.warning("Serper image search request failed for query %r: %s", normalized_query[:160], exc)
+            if attempt >= max_attempts - 1:
+                return [{"error": f"Serper image search failed: {exc}"}]
+
+        wait = min(15.0, (2**attempt) * random.uniform(0.8, 1.2))
+        if run_budget:
+            wait = run_budget.bounded_sleep(wait, operation="Serper image retry")
+        await asyncio.sleep(wait)
+    else:
+        return [{"error": f"Serper image search failed: {last_error or 'retry limit reached'}"}]
+    data = resp.json()
+
+    results: List[Dict[str, Any]] = []
+    for item in data.get("images", []):
+        results.append(
+            {
+                "title": item.get("title", ""),
+                "imageUrl": item.get("imageUrl", ""),
+                "url": item.get("link", ""),
+            }
+        )
+
+    if cache:
+        cache.set(normalized_query, results, race_id=race_id, provider="serper-images")
+
+    return results
+
+
 def _extract_links_from_html(html: str, base_url: str) -> List[str]:
     """Find all links on a page, resolve relative URLs, and filter to the same domain."""
     parsed_base = urlparse(base_url)

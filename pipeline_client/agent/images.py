@@ -12,6 +12,7 @@ import httpx
 from .ballotpedia import lookup_candidate_image as _ballotpedia_lookup
 from .run_budget import RunBudget, RunBudgetExceeded
 from .utils import make_logger
+from .web_tools import _serper_image_search
 
 logger = logging.getLogger("pipeline")
 
@@ -377,6 +378,29 @@ async def _resolve_wikimedia_commons(url: str) -> Optional[str]:
     return None
 
 
+async def _lookup_serper_image(
+    candidate_name: str, context: Optional[str] = None, run_budget: RunBudget | None = None
+) -> Optional[str]:
+    """Search for candidate headshot using Serper Images API as a fast path."""
+    query = f"{candidate_name} headshot"
+    if context:
+        query = f"{candidate_name} {context} headshot"
+    try:
+        results = await _serper_image_search(query, num_results=5, run_budget=run_budget)
+        for r in results:
+            if not isinstance(r, dict) or "imageUrl" not in r:
+                continue
+            img_url = r["imageUrl"]
+            if _is_valid_image_url(img_url) and not _looks_like_non_photo(img_url):
+                # Check accessibility
+                accessible, final_url = await _check_url_accessible(img_url)
+                if accessible:
+                    return final_url if _is_valid_image_url(final_url) else img_url
+    except Exception as e:
+        logger.debug("Serper image fast path failed: %s", e)
+    return None
+
+
 async def _resolve_single_image(
     candidate: Dict[str, Any],
     *,
@@ -494,7 +518,17 @@ async def _resolve_single_image(
         candidate["image_url"] = page_url
         log("info", f"  [{name}] Candidate page image confirmed -> {page_url[:80]}")
         return
-    log("info", f"  [{name}] Known pages yielded no usable image - falling back to agent search")
+    log("info", f"  [{name}] Known pages yielded no usable image - trying Serper Image Search")
+
+    # Fast path 4: query Serper Images API directly
+    log("info", f"  [{name}] Trying Serper Images API lookup...")
+    serper_img = await _lookup_serper_image(name, context=search_context, run_budget=run_budget)
+    if serper_img:
+        candidate["image_url"] = serper_img
+        log("info", f"  [{name}] Serper image confirmed -> {serper_img[:80]}")
+        return
+    log("info", f"  [{name}] Serper Images found no accessible photo - falling back to agent search")
+
     if low_resolution_fallback:
         candidate["image_url"] = low_resolution_fallback
         log("info", f"  [{name}] Keeping low-resolution fallback -> {low_resolution_fallback[:80]}")
