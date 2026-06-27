@@ -641,29 +641,6 @@
             <span class="forecast-rating forecast-rating-{forecastClass}">
               {forecastRatingLabel(forecast.rating)}
             </span>
-            <button
-              type="button"
-              class="forecast-toggle"
-              aria-expanded={forecastExpanded}
-              aria-controls="forecast-details"
-              on:click={toggleForecastExpanded}
-            >
-              {forecastExpanded ? "Hide details" : "Show details"}
-              <svg
-                class:forecast-toggle-icon--expanded={forecastExpanded}
-                class="forecast-toggle-icon"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
           </div>
         </div>
 
@@ -691,104 +668,147 @@
           </div>
         </div>
 
-        {#if forecast.party_probabilities && forecastExpanded}
-          {@const demProbability = forecast.party_probabilities.Democratic ?? 0}
-          {@const repProbability = forecast.party_probabilities.Republican ?? 0}
-          <div
-            class="forecast-probability-bar"
-            aria-label="Party probabilities"
+        <!-- Toggle Button placed at bottom left of primary info -->
+        <div class="mt-4">
+          <button
+            type="button"
+            class="expand-button"
+            aria-expanded={forecastExpanded}
+            aria-controls="forecast-details"
+            on:click={toggleForecastExpanded}
           >
-            {#if demProbability > 0}
-              <div
-                class="forecast-probability-segment forecast-probability-segment-dem"
-                style="width: {Math.max(2, demProbability * 100)}%"
-              >
-                {#if demProbability > 0.12}D {probability(demProbability)}{/if}
-              </div>
-            {/if}
-            {#if repProbability > 0}
-              <div
-                class="forecast-probability-segment forecast-probability-segment-rep"
-                style="width: {Math.max(2, repProbability * 100)}%"
-              >
-                {#if repProbability > 0.12}R {probability(repProbability)}{/if}
-              </div>
-            {/if}
-          </div>
-        {/if}
+            <span class="expand-text">
+              {forecastExpanded ? "Hide details" : "Show details"}
+            </span>
+            <svg
+              class="expand-icon"
+              class:expanded={forecastExpanded}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        </div>
 
+        <!-- Expanded Content - slide transitions for details -->
         {#if forecastExpanded}
-          <div class="forecast-body" id="forecast-details">
-            <p class="forecast-takeaway font-semibold leading-relaxed mb-4">
-              {forecast.takeaway || forecast.rationale}
-            </p>
-            {#if forecast.market_signals?.length}
-              <div class="forecast-market-signals">
-                <div class="forecast-market-header">
-                  <h3>Kalshi Market Signals</h3>
-                  <span
-                    >{forecast.market_signals.length} market{forecast
-                      .market_signals.length === 1
-                      ? ""
-                      : "s"}</span
+          <div transition:slide class="expanded-content mt-6">
+            {#if forecast.party_probabilities}
+              {@const demProbability = forecast.party_probabilities.Democratic ?? 0}
+              {@const repProbability = forecast.party_probabilities.Republican ?? 0}
+              <div
+                class="forecast-probability-bar"
+                aria-label="Party probabilities"
+              >
+                {#if demProbability > 0}
+                  <div
+                    class="forecast-probability-segment forecast-probability-segment-dem"
+                    style="width: {Math.max(2, demProbability * 100)}%"
                   >
-                </div>
-                <div class="forecast-market-grid">
-                  {#each forecast.market_signals as signal}
-                    <div class="forecast-market-signal">
-                      <div>
-                        <span class="forecast-market-target"
-                          >{marketSignalTarget(signal)}</span
-                        >
-                        <span class="forecast-market-title">{signal.title}</span
-                        >
-                      </div>
-                      <div class="forecast-market-values">
-                        <span class="forecast-market-probability">
-                          {probabilityOneDecimal(signal.implied_probability)}
-                        </span>
-                        {#if marketSpread(signal)}
-                          <span>{marketSpread(signal)}</span>
-                        {/if}
-                        <span class="capitalize"
-                          >{signal.confidence} confidence</span
-                        >
-                        {#if marketAsOf(signal.as_of)}
-                          <span>As of {marketAsOf(signal.as_of)}</span>
-                        {/if}
-                        {#if signal.url && isExternalUrl(signal.url)}
-                          <a
-                            href={signal.url}
-                            target="_blank"
-                            rel="noopener noreferrer">Kalshi</a
+                    {#if demProbability > 0.12}D {probability(demProbability)}{/if}
+                  </div>
+                {/if}
+                {#if repProbability > 0}
+                  <div
+                    class="forecast-probability-segment forecast-probability-segment-rep"
+                    style="width: {Math.max(2, repProbability * 100)}%"
+                  >
+                    {#if repProbability > 0.12}R {probability(repProbability)}{/if}
+                  </div>
+                {/if}
+              </div>
+            {/if}
+
+            <div class="forecast-body" id="forecast-details">
+              <p class="forecast-takeaway font-semibold leading-relaxed mb-4">
+                {forecast.takeaway || forecast.rationale}
+              </p>
+              {#if forecast.market_signals?.length}
+                <div class="forecast-market-signals">
+                  <div class="forecast-market-header">
+                    <h3>Kalshi Market Signals</h3>
+                    <span
+                      >{forecast.market_signals.length} market{forecast
+                        .market_signals.length === 1
+                        ? ""
+                        : "s"}</span
+                    >
+                  </div>
+                  <div class="forecast-market-grid">
+                    {#each forecast.market_signals as signal}
+                      <div class="forecast-market-signal">
+                        <div>
+                          <span class="forecast-market-target"
+                            >{marketSignalTarget(signal)}</span
                           >
-                        {/if}
+                          <span class="forecast-market-title">{signal.title}</span>
+                        </div>
+                        <div class="forecast-market-values">
+                          <span class="forecast-market-probability">
+                            {probabilityOneDecimal(signal.implied_probability)}
+                          </span>
+                          {#if marketSpread(signal)}
+                            <span>{marketSpread(signal)}</span>
+                          {/if}
+                          <span class="capitalize"
+                            >{signal.confidence} confidence</span
+                          >
+                          {#if marketAsOf(signal.as_of)}
+                            <span>As of {marketAsOf(signal.as_of)}</span>
+                          {/if}
+                          {#if signal.url && isExternalUrl(signal.url)}
+                            <a
+                              href={signal.url}
+                              target="_blank"
+                              rel="noopener noreferrer">Kalshi</a
+                            >
+                          {/if}
+                        </div>
                       </div>
-                    </div>
-                  {/each}
+                    {/each}
+                  </div>
                 </div>
-              </div>
-            {/if}
-            {#if forecast.key_reasons?.length}
-              <div class="forecast-detail-block">
-                <h3>Key Drivers</h3>
-                <ul>
-                  {#each forecast.key_reasons as reason}
-                    <li>{reason}</li>
-                  {/each}
-                </ul>
-              </div>
-            {/if}
-            {#if forecast.uncertainty}
-              <div class="forecast-detail-block">
-                <h3>Uncertainty</h3>
-                <p>{forecast.uncertainty}</p>
-              </div>
-            {/if}
-            {#if forecast.rationale && forecast.takeaway}
-              <div class="forecast-detail-block">
-                <h3>Model Rationale</h3>
-                <p>{forecast.rationale}</p>
+              {/if}
+              {#if forecast.key_reasons?.length}
+                <div class="forecast-detail-block">
+                  <h3>Key Drivers</h3>
+                  <ul>
+                    {#each forecast.key_reasons as reason}
+                      <li>{reason}</li>
+                    {/each}
+                  </ul>
+                </div>
+              {/if}
+              {#if forecast.uncertainty}
+                <div class="forecast-detail-block">
+                  <h3>Uncertainty</h3>
+                  <p>{forecast.uncertainty}</p>
+                </div>
+              {/if}
+              {#if forecast.rationale && forecast.takeaway}
+                <div class="forecast-detail-block">
+                  <h3>Model Rationale</h3>
+                  <p>{forecast.rationale}</p>
+                </div>
+              {/if}
+            </div>
+
+            {#if forecast.source_urls?.length}
+              <div class="forecast-sources">
+                {#each forecast.source_urls as url}
+                  {#if isExternalUrl(url)}
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                      {hostName(url)}
+                    </a>
+                  {/if}
+                {/each}
               </div>
             {/if}
           </div>
@@ -807,18 +827,6 @@
             >
           {/if}
         </div>
-
-        {#if forecast.source_urls?.length && forecastExpanded}
-          <div class="forecast-sources">
-            {#each forecast.source_urls as url}
-              {#if isExternalUrl(url)}
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {hostName(url)}
-                </a>
-              {/if}
-            {/each}
-          </div>
-        {/if}
       </Card>
     {/if}
 
@@ -1213,16 +1221,29 @@
     @apply bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800/40 dark:text-slate-200 dark:border-slate-700;
   }
 
-  .forecast-toggle {
-    @apply inline-flex items-center gap-1.5 rounded-lg border border-stroke bg-page px-3 py-1.5 text-xs font-semibold text-content-muted transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/30 dark:hover:text-blue-300;
+  .expand-button {
+    @apply flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium;
+    @apply transition-colors duration-200;
   }
 
-  .forecast-toggle-icon {
-    @apply h-3.5 w-3.5 transition-transform;
+  .expand-button:hover {
+    @apply text-blue-500 dark:text-blue-300;
   }
 
-  .forecast-toggle-icon--expanded {
+  .expand-text {
+    @apply text-xs sm:text-sm font-medium;
+  }
+
+  .expand-icon {
+    @apply w-4 h-4 transition-transform duration-200;
+  }
+
+  .expand-icon.expanded {
     @apply rotate-180;
+  }
+
+  .expanded-content {
+    @apply border-t border-stroke pt-4 sm:pt-6;
   }
 
   .forecast-grid {
