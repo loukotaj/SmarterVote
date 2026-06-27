@@ -243,6 +243,7 @@
       'this election'} on key issues using analysis from traceable public sources."
   />
   <link rel="canonical" href="https://smarter.vote/races/{slug}/" />
+  <meta property="og:type" content="article" />
   <meta property="og:url" content="https://smarter.vote/races/{slug}/" />
   <meta
     property="og:title"
@@ -701,8 +702,10 @@
         {#if forecastExpanded}
           <div transition:slide class="expanded-content mt-6">
             {#if forecast.party_probabilities}
-              {@const demProbability = forecast.party_probabilities.Democratic ?? 0}
-              {@const repProbability = forecast.party_probabilities.Republican ?? 0}
+              {@const demProbability =
+                forecast.party_probabilities.Democratic ?? 0}
+              {@const repProbability =
+                forecast.party_probabilities.Republican ?? 0}
               <div
                 class="forecast-probability-bar"
                 aria-label="Party probabilities"
@@ -712,7 +715,9 @@
                     class="forecast-probability-segment forecast-probability-segment-dem"
                     style="width: {Math.max(2, demProbability * 100)}%"
                   >
-                    {#if demProbability > 0.12}D {probability(demProbability)}{/if}
+                    {#if demProbability > 0.12}D {probability(
+                        demProbability
+                      )}{/if}
                   </div>
                 {/if}
                 {#if repProbability > 0}
@@ -720,7 +725,9 @@
                     class="forecast-probability-segment forecast-probability-segment-rep"
                     style="width: {Math.max(2, repProbability * 100)}%"
                   >
-                    {#if repProbability > 0.12}R {probability(repProbability)}{/if}
+                    {#if repProbability > 0.12}R {probability(
+                        repProbability
+                      )}{/if}
                   </div>
                 {/if}
               </div>
@@ -748,7 +755,9 @@
                           <span class="forecast-market-target"
                             >{marketSignalTarget(signal)}</span
                           >
-                          <span class="forecast-market-title">{signal.title}</span>
+                          <span class="forecast-market-title"
+                            >{signal.title}</span
+                          >
                         </div>
                         <div class="forecast-market-values">
                           <span class="forecast-market-probability">

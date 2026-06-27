@@ -201,7 +201,8 @@
     selectedOffice = null;
   }
 
-  $: hasActiveFilters = selectedState || selectedOffice || debouncedSearchQuery.trim();
+  $: hasActiveFilters =
+    selectedState || selectedOffice || debouncedSearchQuery.trim();
 
   function clearFilters() {
     selectedState = null;
@@ -222,10 +223,15 @@
 <svelte:head>
   <title>Smarter.vote — Know Your Candidates</title>
   <meta
+    name="keywords"
+    content="election, voting, candidates, politics, AI analysis, voter guide, issues, democracy, 2026 midterms"
+  />
+  <meta
     name="description"
     content="Clear, unbiased AI analysis of where candidates stand on the issues that matter. Browse races by state."
   />
   <link rel="canonical" href="https://smarter.vote/" />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content="https://smarter.vote/" />
   <meta property="og:title" content="Smarter.vote — Know Your Candidates" />
   <meta
@@ -358,7 +364,10 @@
 
     <!-- Mobile dropdown select, visible only on small viewports -->
     <div class="block sm:hidden mb-4">
-      <label for="mobile-state-select" class="block text-xs font-semibold text-content-subtle mb-1">
+      <label
+        for="mobile-state-select"
+        class="block text-xs font-semibold text-content-subtle mb-1"
+      >
         Or select a state:
       </label>
       <select
@@ -374,7 +383,11 @@
         <option value="">All States</option>
         {#each [...activeStates].sort() as state}
           <option value={state}>
-            {state} ({filteredRaceCounts[state] ?? 0} race{(filteredRaceCounts[state] ?? 0) !== 1 ? 's' : ''})
+            {state} ({filteredRaceCounts[state] ?? 0} race{(filteredRaceCounts[
+              state
+            ] ?? 0) !== 1
+              ? "s"
+              : ""})
           </option>
         {/each}
       </select>

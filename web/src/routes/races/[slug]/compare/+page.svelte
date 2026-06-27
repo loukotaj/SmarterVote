@@ -114,6 +114,7 @@
       'this election'}."
   />
   <link rel="canonical" href="https://smarter.vote/races/{slug}/compare/" />
+  <meta property="og:type" content="article" />
   <meta
     property="og:url"
     content="https://smarter.vote/races/{slug}/compare/"

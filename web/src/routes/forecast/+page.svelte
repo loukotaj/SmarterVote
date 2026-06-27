@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
@@ -747,11 +747,31 @@
 </script>
 
 <svelte:head>
-  <title>Forecasts - Smarter.vote</title>
+  <title>2026 Election Forecasts — Smarter.vote</title>
   <meta
     name="description"
-    content="Informational AI forecasts and interactive maps for 2026 House, Senate, and Governor races."
+    content="AI-powered forecasts and interactive maps for 2026 House, Senate, and Governor races. See win probabilities, polling data, and prediction market signals."
   />
+  <link rel="canonical" href="https://smarter.vote/forecast/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://smarter.vote/forecast/" />
+  <meta property="og:title" content="2026 Election Forecasts — Smarter.vote" />
+  <meta
+    property="og:description"
+    content="AI-powered forecasts and interactive maps for 2026 House, Senate, and Governor races. See win probabilities, polling data, and prediction market signals."
+  />
+  <meta property="og:image" content="https://smarter.vote/og-image.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://smarter.vote/forecast/" />
+  <meta
+    property="twitter:title"
+    content="2026 Election Forecasts — Smarter.vote"
+  />
+  <meta
+    property="twitter:description"
+    content="AI-powered forecasts and interactive maps for 2026 House, Senate, and Governor races. See win probabilities, polling data, and prediction market signals."
+  />
+  <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 py-8 sm:py-10 space-y-8">

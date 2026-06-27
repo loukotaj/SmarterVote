@@ -5,6 +5,7 @@
     content="Learn about Smarter.vote's mission to provide unbiased candidate analysis from public, traceable sources to help voters make informed decisions."
   />
   <link rel="canonical" href="https://smarter.vote/about/" />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content="https://smarter.vote/about/" />
   <meta property="og:title" content="About | Smarter.vote" />
   <meta

@@ -116,6 +116,7 @@
     rel="canonical"
     href="https://smarter.vote/races/{slug}/{candidateParam}/"
   />
+  <meta property="og:type" content="profile" />
   <meta
     property="og:url"
     content="https://smarter.vote/races/{slug}/{candidateParam}/"
