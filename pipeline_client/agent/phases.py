@@ -396,8 +396,27 @@ async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log:
             candidate for candidate in bp_candidates if isinstance(candidate, dict) and _candidate_name(candidate)
         ]
         if len(authoritative) >= 2:
+            candidates_before = race_json.get("candidates") or []
+            # Track candidates that were actually researched (have a non-empty summary)
+            researched_before = {_candidate_name(c) for c in candidates_before if isinstance(c, dict) and c.get("summary")}
+            names_before = {_candidate_name(c) for c in candidates_before if isinstance(c, dict)}
             _add_candidates_from_authoritative_roster(race_json, authoritative, log)
             _reconcile_candidates_with_authoritative_roster(race_json, authoritative, log)
+            names_after = {_candidate_name(c) for c in race_json.get("candidates") or [] if isinstance(c, dict)}
+            # If any researched candidates were removed, existing reviews/grade were
+            # produced for a different roster and are now stale. Clear them so the draft
+            # can be published as a null-grade update with the corrected roster rather
+            # than being blocked by a grade that no longer reflects the current data.
+            removed_researched = researched_before - names_after
+            if removed_researched and race_json.get("validation_grade") is not None:
+                race_json["reviews"] = []
+                race_json["validation_grade"] = None
+                if log:
+                    log(
+                        "info",
+                        "Cleared stale validation grade: researched candidates removed from roster during sync"
+                        f" ({', '.join(sorted(removed_researched))}).",
+                    )
 
 
 def _backfill_source_timestamps(race_json: Dict[str, Any]) -> None:

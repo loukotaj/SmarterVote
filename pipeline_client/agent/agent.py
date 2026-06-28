@@ -332,10 +332,11 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
             if key not in normalized or _issue_quality(issue) > _issue_quality(normalized[key]):
                 normalized[key] = issue
 
-        if set(normalized) != set(issues):
-            candidate["issues"] = normalized
-            if log:
-                log("warning", f"Normalized legacy/duplicate issue keys for candidate '{_candidate_name(candidate)}'")
+        # Always write back so value-level normalizations (e.g. "TBD" stances) are
+        # persisted, not just key-level changes like legacy-name mappings.
+        candidate["issues"] = normalized
+        if set(normalized) != set(issues) and log:
+            log("warning", f"Normalized legacy/duplicate issue keys for candidate '{_candidate_name(candidate)}'")
 
 
 def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) -> None:
