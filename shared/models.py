@@ -106,7 +106,15 @@ class CandidateLink(BaseModel):
     url: str
     title: str
     type: Literal[
-        "finance", "ballotpedia", "wiki", "official", "legislature", "votesmart", "govtrack", "news", "other"
+        "finance",
+        "ballotpedia",
+        "wiki",
+        "official",
+        "legislature",
+        "votesmart",
+        "govtrack",
+        "news",
+        "other",
     ] = "other"
 
 
@@ -246,12 +254,31 @@ class RaceForecast(BaseModel):
 # ---------------------------------------------------------------------------
 
 
+_PARTY_ABBR_MAP: dict[str, str] = {
+    "d": "Democratic",
+    "r": "Republican",
+    "i": "Independent",
+    "l": "Libertarian",
+    "g": "Green",
+    "c": "Constitution",
+}
+
+
 class Candidate(BaseModel):
     """Candidate information for RaceJSON v0.3."""
 
     name: str = Field(..., min_length=1)
     party: Optional[str] = None
     incumbent: bool = False
+
+    @field_validator("party", mode="before")
+    @classmethod
+    def normalize_party_abbreviation(cls, v: Any) -> Any:
+        """Expand single-letter party abbreviations to full names."""
+        if isinstance(v, str) and len(v) == 1:
+            return _PARTY_ABBR_MAP.get(v.lower(), v)
+        return v
+
     summary: str = ""
     summary_sources: List[Source] = Field(default_factory=list)
     image_url: Optional[str] = None

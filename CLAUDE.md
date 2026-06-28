@@ -101,8 +101,10 @@ For the full local gate sequence: `.\scripts\run-ci-gates.ps1`
 4. **Storage mode** — `local` uses filesystem, `gcp` uses GCS + Firestore (see `PIPELINE_MODES.md`)
 5. **Static GCS hosting** — if `VITE_PUBLIC_DATA_URL` is set, public reads go directly to GCS; publish keeps `races/summaries.json` index up to date
 6. **Pipeline mode** — prefer cheap/economy for queued race work; only use expensive models when explicitly asked
-7. **MCP over scratch** — for reusable operations prefer enhancing `smartervote_mcp/server.py` over one-off scripts in `scratch/`
-8. **Tests mock network** — `tests/conftest.py` has `autouse=True` fixtures mocking external calls; add similar mocks for any new network-dependent code
+7. **Pipeline run cost** — **full research runs are expensive** (LLM + web search API costs per candidate per race). Only queue full runs when the user explicitly asks or there is a clear data quality problem requiring it. Targeted lightweight runs are fine: `steps=["discovery"]` to fix candidate lists, `steps=["forecast"]` to regenerate forecasts, or image-only refreshes. Never batch-queue full runs autonomously without user sign-off.
+8. **MCP over scratch** — for reusable operations prefer enhancing `smartervote_mcp/server.py` over one-off scripts in `scratch/`
+9. **Tests mock network** — `tests/conftest.py` has `autouse=True` fixtures mocking external calls; add similar mocks for any new network-dependent code
+10. **Tests mock network** — `tests/conftest.py` has `autouse=True` fixtures mocking external calls; add similar mocks for any new network-dependent code
 
 ## Prompt Shortcuts
 

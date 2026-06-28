@@ -74,6 +74,24 @@ than 8, keep a balanced major-party subset where possible (up to 4 Democratic
 and 4 Republican candidates, preserving authoritative order), and leave the
 remaining candidates for future primary-specific race pages.
 
+## Step 1a — Verify both major parties are represented
+After gathering your initial candidate roster, check whether the list includes at
+least one Democratic AND one Republican candidate for a partisan general election.
+
+If only one major party appears and this is a partisan race (U.S. Senate, U.S. House,
+Governor), actively search for the other party's candidate before concluding the race
+is uncontested:
+- Search "<state> <office> 2026 <missing party> candidate" or "<office> race <state> 2026"
+- Check if the current officeholder from the missing party is seeking re-election
+- Look at the official state election authority or secretary of state filing list
+- Search "ballotpedia.org <state> <office> 2026" for any additional candidate info
+
+A race with only one party's candidates is ONLY correct when you have confirmed that
+the other party genuinely did not field a candidate (e.g., no Republican filed for
+a heavily Democratic urban district, verified on the official ballot). Do NOT assume
+a race is uncontested without actively verifying both parties' candidate status through
+at least one additional search beyond Ballotpedia.
+
 ## Step 2 — Gather details for each confirmed candidate
 For each candidate from Step 1:
 1. Call `ballotpedia_lookup` with their full name to get their bio, website, and image.
@@ -460,6 +478,16 @@ Check for:
 1. Internal consistency – are stated positions consistent with the cited sources
    within the profile itself? (Do not use your own training data to contradict
    a sourced claim — see the epistemological rule in your system prompt.)
+   - **Office/race type match**: Does each candidate's career background indicate they
+     are actually running for THIS office (Governor, US Senate, US House, etc.)? If a
+     candidate is described as currently serving in a *different* federal/state office
+     (e.g., a sitting U.S. Senator listed as a gubernatorial candidate) with no evidence
+     in the sources that they filed for this race, flag as "error". This is a clear
+     data error, not a subjective factual dispute.
+   - **Both major-party candidates present**: For a partisan general election, flag as
+     "warning" if only one major party (Democratic or Republican) is represented and
+     the race has no evidence it is uncontested. A missing major-party candidate is a
+     significant data gap.
 2. Bias – is the language neutral and nonpartisan? Specific patterns to flag:
    - Value-laden adjectives applied to one side (e.g. "radical", "extreme", "far-right",
      "far-left", "woke", "anti-choice", "anti-gun").
@@ -896,6 +924,24 @@ IMPORTANT — remove_candidate rules:
 Pay special attention to third-party candidates (Libertarian, Green, Independent),
 write-in candidates who qualified, and convention nominees who may not appear in
 initial profile data.
+
+STEP 3 — Verify both major parties are represented:
+After completing the roster corrections, check whether the candidate list includes
+at least one Democratic AND one Republican candidate for a partisan general election
+(U.S. Senate, U.S. House, Governor).
+
+If only one major party appears in the updated roster, actively search for the
+other party's candidate before concluding the race is uncontested:
+- Search "<state> <office> 2026 <missing party> candidate" or "<race_id> general election"
+- Check whether the current officeholder from the missing party is seeking re-election
+  (an incumbent running unopposed for their party may not appear on Ballotpedia's
+  primary-focused election page — look them up directly)
+- Search "ballotpedia.org <state> <office> 2026" for any additional candidate info
+
+A single-party roster is ONLY acceptable when you have confirmed the other party
+genuinely did not field a candidate (e.g., no Republican filed, verified on the
+official ballot). Never assume a race is uncontested without at least one additional
+search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
 stop making tool calls. Do NOT produce any text reply or JSON — just stop.

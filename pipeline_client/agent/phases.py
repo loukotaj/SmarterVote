@@ -258,17 +258,35 @@ def _candidate_matches_any(name: str, roster: List[Dict[str, Any]]) -> bool:
     return any(_names_likely_same(name, str(candidate.get("name") or "")) for candidate in roster)
 
 
+def _party_tag(party: Any) -> str:
+    """Normalize a party value to a simple tag for balance checks."""
+    p = str(party or "").lower()
+    if "democrat" in p or p in ("d", "dfl"):
+        return "dem"
+    if "republican" in p or p in ("r", "gop"):
+        return "rep"
+    return "other"
+
+
 def _reconcile_candidates_with_authoritative_roster(
     race_json: Dict[str, Any],
     authoritative_candidates: List[Dict[str, Any]],
     log: Any | None = None,
 ) -> None:
-    """Remove stale candidates missing from Ballotpedia's current election roster."""
+    """Remove stale candidates missing from Ballotpedia's current election roster.
+
+    Candidates whose party is NOT represented in the authoritative roster at all are
+    preserved — this prevents removing an incumbent of one party when Ballotpedia
+    returned only the other party's primary page (a common pre-primary lookup pattern).
+    """
     if not authoritative_candidates:
         return
     candidates = race_json.get("candidates")
     if not isinstance(candidates, list):
         return
+
+    # Collect the set of party tags present in the Ballotpedia roster.
+    authoritative_party_tags: set = {_party_tag(c.get("party")) for c in authoritative_candidates if isinstance(c, dict)}
 
     kept: List[Any] = []
     removed: List[str] = []
@@ -280,6 +298,21 @@ def _reconcile_candidates_with_authoritative_roster(
         if not name or _candidate_matches_any(name, authoritative_candidates):
             kept.append(candidate)
             continue
+
+        # If the candidate's party has NO representatives in the BP roster, the BP
+        # page is likely a single-party primary page, not the full general election
+        # roster.  Keep candidates of the missing party to avoid stripping the other
+        # side of the ballot.
+        tag = _party_tag(candidate.get("party"))
+        if tag not in authoritative_party_tags:
+            if log:
+                log(
+                    "debug",
+                    f"  Kept {name} ({tag}) — party absent from BP roster (possible primary-only page)",
+                )
+            kept.append(candidate)
+            continue
+
         removed.append(name)
 
     if removed:

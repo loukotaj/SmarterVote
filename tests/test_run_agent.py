@@ -1101,6 +1101,60 @@ def test_authoritative_roster_does_not_empty_race():
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Existing Candidate"]
 
 
+def test_authoritative_roster_preserves_candidate_when_bp_returns_single_party():
+    """Ballotpedia sometimes returns only the primary page for one party.
+
+    When the profile has an incumbent of party A and BP returns only party B
+    candidates (primary page), the incumbent must NOT be removed — their party
+    simply isn't represented in that BP snapshot.
+    """
+    race_json = {
+        "id": "wi-house-08-2026",
+        "candidates": [
+            {"name": "Tony Wied", "party": "Republican", "incumbent": True},
+            {"name": "Rick Crosson", "party": "Democratic", "incumbent": False},
+        ],
+    }
+
+    _reconcile_candidates_with_authoritative_roster(
+        race_json,
+        [
+            {"name": "Rick Crosson", "party": "Democratic"},
+            {"name": "Mark Scheffler", "party": "Democratic"},
+            {"name": "Katrina deVille", "party": "Democratic"},
+        ],
+    )
+
+    names = [c["name"] for c in race_json["candidates"]]
+    assert "Tony Wied" in names, "Republican incumbent must not be removed when BP returns only Dem primary candidates"
+    assert "Rick Crosson" in names
+
+
+def test_authoritative_roster_still_removes_stale_primary_candidate_same_party():
+    """Stale same-party primary losers should still be removed even with the new logic."""
+    race_json = {
+        "id": "ga-senate-2026",
+        "candidates": [
+            {"name": "Jon Ossoff", "party": "Democratic", "incumbent": True},
+            {"name": "Primary Loser", "party": "Democratic", "incumbent": False},
+            {"name": "Mike Collins", "party": "Republican", "incumbent": False},
+        ],
+    }
+
+    _reconcile_candidates_with_authoritative_roster(
+        race_json,
+        [
+            {"name": "Jon Ossoff", "party": "Democratic"},
+            {"name": "Mike Collins", "party": "Republican"},
+        ],
+    )
+
+    names = [c["name"] for c in race_json["candidates"]]
+    assert "Jon Ossoff" in names
+    assert "Mike Collins" in names
+    assert "Primary Loser" not in names, "Same-party primary loser should be removed"
+
+
 def test_sanitize_roster_preserves_twenty_active_candidates():
     race_json = {
         "id": "crowded-primary-2026",
