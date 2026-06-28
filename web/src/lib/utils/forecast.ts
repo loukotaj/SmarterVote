@@ -142,8 +142,10 @@ export function normalizeForecastParty(
   party?: string | null
 ): "Democratic" | "Republican" | "Other" {
   const value = (party || "").toLowerCase();
-  if (value.includes("democrat") || value === "dfl") return "Democratic";
-  if (value.includes("republican") || value === "gop") return "Republican";
+  if (value.includes("democrat") || value === "dfl" || value === "d")
+    return "Democratic";
+  if (value.includes("republican") || value === "gop" || value === "r")
+    return "Republican";
   return "Other";
 }
 

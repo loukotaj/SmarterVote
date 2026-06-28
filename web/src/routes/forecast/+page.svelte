@@ -1182,7 +1182,9 @@
                           totalSeats) *
                           100}%"
                       >
-                        {projectedSeats.Other}
+                        {#if (projectedSeats.Other ?? 0) > totalSeats * 0.05}
+                          {projectedSeats.Other}
+                        {/if}
                       </div>
                     {/if}
                     <!-- Rep segment -->
@@ -1435,7 +1437,9 @@
                   )}%`}
                   title="Other projected seats"
                 >
-                  {projectedSeats.Other}
+                  {#if (projectedSeats.Other ?? 0) > aggregate.totalExpected * 0.05}
+                    {projectedSeats.Other}
+                  {/if}
                 </div>
               {/if}
               <div
@@ -1495,6 +1499,9 @@
                 Expected seats: D {oneDecimal(expectedSeats.Democratic)}, R {oneDecimal(
                   expectedSeats.Republican
                 )}
+                {#if expectedSeats.Other}
+                  , Other {oneDecimal(expectedSeats.Other)}
+                {/if}
               </p>
             {/if}
           </div>

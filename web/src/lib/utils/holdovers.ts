@@ -34,7 +34,9 @@ export const SENATE_HOLDOVERS: Record<string, ("Democratic" | "Republican")[]> =
     Washington: ["Democratic", "Democratic"],
     Wisconsin: ["Democratic", "Republican"],
 
-    // 2 States with races but missing forecasts in 2026 (treated as 2 holdovers in baseline)
+    // 2 States where both senators share the same party; race is in 2026 but listed here
+    // so the non-contested holdover seat is counted when the race is active (1 seat counted),
+    // or both seats are counted if no forecast exists (2 seats counted as baseline fallback).
     Virginia: ["Democratic", "Democratic"],
     "West Virginia": ["Republican", "Republican"],
 

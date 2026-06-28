@@ -1,14 +1,30 @@
 /** Shared party-related display utilities. */
 
+function isDem(p: string): boolean {
+  return p.includes("democrat") || p === "d" || p === "dfl";
+}
+
+function isRep(p: string): boolean {
+  return p.includes("republican") || p === "r" || p === "gop";
+}
+
+function isLib(p: string): boolean {
+  return p.includes("libertarian") || p === "l";
+}
+
+function isGreen(p: string): boolean {
+  return p.includes("green") || p === "g";
+}
+
 /** Abbreviated party label (D, R, I, L, G, etc.). */
 export function partyAbbr(party: string | undefined): string {
   if (!party) return "?";
   const p = party.toLowerCase();
-  if (p.includes("democrat")) return "D";
-  if (p.includes("republican")) return "R";
-  if (p.includes("independent")) return "I";
-  if (p.includes("green")) return "G";
-  if (p.includes("libertarian")) return "L";
+  if (isDem(p)) return "D";
+  if (isRep(p)) return "R";
+  if (p.includes("independent") || p === "i") return "I";
+  if (isGreen(p)) return "G";
+  if (isLib(p)) return "L";
   return party[0].toUpperCase();
 }
 
@@ -17,13 +33,13 @@ export function partyBadgeClass(party: string | undefined): string {
   if (!party)
     return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
   const p = party.toLowerCase();
-  if (p.includes("democrat"))
+  if (isDem(p))
     return "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200";
-  if (p.includes("republican"))
+  if (isRep(p))
     return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200";
-  if (p.includes("libertarian"))
+  if (isLib(p))
     return "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200";
-  if (p.includes("green"))
+  if (isGreen(p))
     return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
   return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
 }
@@ -32,10 +48,10 @@ export function partyBadgeClass(party: string | undefined): string {
 export function partyRing(party: string | undefined): string {
   if (!party) return "ring-gray-300";
   const p = party.toLowerCase();
-  if (p.includes("democrat")) return "ring-blue-500";
-  if (p.includes("republican")) return "ring-red-500";
-  if (p.includes("green")) return "ring-green-500";
-  if (p.includes("libertarian")) return "ring-yellow-500";
+  if (isDem(p)) return "ring-blue-500";
+  if (isRep(p)) return "ring-red-500";
+  if (isGreen(p)) return "ring-green-500";
+  if (isLib(p)) return "ring-yellow-500";
   return "ring-gray-400";
 }
 
@@ -43,10 +59,10 @@ export function partyRing(party: string | undefined): string {
 export function partyInitialBg(party: string | undefined): string {
   if (!party) return "bg-gray-400";
   const p = party.toLowerCase();
-  if (p.includes("democrat")) return "bg-blue-500";
-  if (p.includes("republican")) return "bg-red-500";
-  if (p.includes("green")) return "bg-green-500";
-  if (p.includes("libertarian")) return "bg-yellow-500";
+  if (isDem(p)) return "bg-blue-500";
+  if (isRep(p)) return "bg-red-500";
+  if (isGreen(p)) return "bg-green-500";
+  if (isLib(p)) return "bg-yellow-500";
   return "bg-gray-500";
 }
 
@@ -54,7 +70,7 @@ export function partyInitialBg(party: string | undefined): string {
 export function partySlug(party: string | undefined): string {
   if (!party) return "";
   const p = party.toLowerCase();
-  if (p.includes("democrat")) return "dem";
-  if (p.includes("republican")) return "rep";
+  if (isDem(p)) return "dem";
+  if (isRep(p)) return "rep";
   return "";
 }

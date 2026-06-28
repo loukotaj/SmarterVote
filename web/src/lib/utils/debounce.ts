@@ -1,12 +1,12 @@
 /**
  * Simple debounce utility to limit the rate at which a function is invoked.
  */
-export function debounce<T extends (...args: any[]) => void>(
-  fn: T,
+export function debounce<Args extends unknown[]>(
+  fn: (...args: Args) => void,
   delay: number
-): (...args: Parameters<T>) => void {
+): (...args: Args) => void {
   let timer: ReturnType<typeof setTimeout>;
-  return (...args: Parameters<T>) => {
+  return (...args: Args) => {
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };
