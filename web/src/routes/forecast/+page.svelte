@@ -854,9 +854,9 @@
     <div
       class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md animate-fade-in"
     >
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        <!-- Left Column: Narrative / Analyst Note -->
-        <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Left Column: Summary -->
+        <div class="lg:col-span-6 flex flex-col space-y-6">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
               <h2 class="text-2xl font-black text-content tracking-tight">
@@ -944,7 +944,7 @@
                 Likely Outcome
               </div>
               <div class="text-xl font-black text-content tabular-nums">
-                {mostLikelyOutcome.key || "â€”"}
+                {mostLikelyOutcome.key || "—"}
               </div>
               <div class="text-[10px] font-semibold text-content-muted mt-0.5">
                 {mostLikelyOutcome.probability
@@ -972,56 +972,11 @@
               </div>
             </div>
           </div>
-
-          <!-- Forecast Overview Narrative Box -->
-          <div
-            class="bg-surface-alt/10 border border-stroke/40 rounded-2xl p-5 relative overflow-hidden flex-1 flex flex-col justify-center min-h-[120px]"
-          >
-            <div
-              class="absolute top-3 left-4 flex items-center gap-1.5 text-[10px] font-black uppercase text-blue-600 dark:text-blue-400 tracking-wider"
-            >
-              <svg
-                class="w-3.5 h-3.5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                />
-              </svg>
-              Forecast Overview
-            </div>
-            <p class="text-sm font-semibold text-content leading-relaxed mt-3">
-              {chamberNarrative ||
-                "Projections indicate a highly competitive cycle for this chamber."}
-            </p>
-          </div>
-
-          <!-- Clean Updated Footer -->
-          <div
-            class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-content-subtle font-semibold"
-          >
-            <span>AI-generated model projection</span>
-            {#if chamberForecasts?.updated_at}
-              <span class="w-1 h-1 rounded-full bg-stroke/60" />
-              <span
-                >Last updated <span class="font-bold text-content"
-                  >{new Date(
-                    chamberForecasts.updated_at
-                  ).toLocaleDateString()}</span
-                ></span
-              >
-            {/if}
-          </div>
         </div>
 
         <!-- Right Column: Charts / Stats -->
         <div
-          class="lg:col-span-6 flex flex-col justify-between space-y-6 bg-surface-alt/25 border border-stroke/60 rounded-2xl p-6"
+          class="lg:col-span-6 flex flex-col space-y-6 bg-surface-alt/25 border border-stroke/60 rounded-2xl p-6"
         >
           <!-- Control Probability Panel -->
           <div class="space-y-3">
@@ -1112,8 +1067,6 @@
                       fill="none"
                       stroke="currentColor"
                       stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
                       viewBox="0 0 24 24"
                     >
                       <circle cx="12" cy="12" r="10" />
@@ -1130,12 +1083,6 @@
                   </div>
                 {/if}
               </div>
-            {:else}
-              <div
-                class="p-4 border border-stroke border-dashed rounded-xl text-center text-xs text-content-subtle"
-              >
-                Control probabilities are not available for this projection.
-              </div>
             {/if}
           </div>
 
@@ -1146,131 +1093,124 @@
                 class="text-xs font-bold uppercase text-content-subtle tracking-wider font-semibold"
                 >Projected Seats</span
               >
-              {#if expectedSeats}
-                <span class="text-[10px] text-content-subtle font-semibold">
-                  Expected seats: D {oneDecimal(expectedSeats.Democratic)} | R {oneDecimal(
-                    expectedSeats.Republican
-                  )}
-                  {#if expectedSeats.Other}
-                    | Other {oneDecimal(expectedSeats.Other)}{/if}
-                </span>
-              {/if}
             </div>
 
-            <div class="space-y-3">
-              <div class="space-y-2">
-                <div class="relative">
+            <div class="space-y-2">
+              <div class="relative pt-4">
+                <div
+                  class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 shadow-inner"
+                >
+                  <!-- Dem segment -->
                   <div
-                    class="h-8 rounded-xl overflow-hidden bg-surface-alt flex border border-stroke/60 shadow-inner"
+                    class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
+                    style="width: {((projectedSeats.Democratic ?? 0) /
+                      totalSeats) *
+                      100}%"
                   >
-                    <!-- Dem segment -->
-                    <div
-                      class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
-                      style="width: {((projectedSeats.Democratic ?? 0) /
-                        totalSeats) *
-                        100}%"
-                    >
-                      {#if (projectedSeats.Democratic ?? 0) > totalSeats * 0.12}
-                        D: {projectedSeats.Democratic}
-                      {/if}
-                    </div>
-                    <!-- Other segment -->
-                    {#if projectedSeats.Other}
-                      <div
-                        class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
-                        style="width: {((projectedSeats.Other ?? 0) /
-                          totalSeats) *
-                          100}%"
-                      >
-                        {#if (projectedSeats.Other ?? 0) > totalSeats * 0.05}
-                          {projectedSeats.Other}
-                        {/if}
-                      </div>
+                    {#if (projectedSeats.Democratic ?? 0) > totalSeats * 0.12}
+                      D: {projectedSeats.Democratic}
                     {/if}
-                    <!-- Rep segment -->
+                  </div>
+                  <!-- Other segment -->
+                  {#if projectedSeats.Other}
                     <div
-                      class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white ml-auto"
-                      style="width: {((projectedSeats.Republican ?? 0) /
+                      class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white"
+                      style="width: {((projectedSeats.Other ?? 0) /
                         totalSeats) *
                         100}%"
                     >
-                      {#if (projectedSeats.Republican ?? 0) > totalSeats * 0.12}
-                        R: {projectedSeats.Republican}
+                      {#if (projectedSeats.Other ?? 0) > totalSeats * 0.05}
+                        {projectedSeats.Other}
                       {/if}
-                    </div>
-                  </div>
-
-                  <!-- Threshold Marker Line -->
-                  <div
-                    class="absolute top-0 bottom-0 w-0.5 bg-yellow-500 dark:bg-yellow-400 z-10"
-                    style="left: {(threshold / totalSeats) * 100}%"
-                  >
-                    <span
-                      class="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-1 bg-yellow-500 dark:bg-yellow-400 text-[8px] font-black text-white dark:text-slate-950 px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
-                    >
-                      Majority ({threshold})
-                    </span>
-                  </div>
-
-                  <!-- Senate 50-50 Line -->
-                  {#if activeTab === "senate"}
-                    <div
-                      class="absolute top-0 bottom-0 w-0.5 bg-slate-400/80 dark:bg-slate-500/80 z-10"
-                      style="left: 50%"
-                    >
-                      <span
-                        class="absolute top-full left-1/2 transform -translate-x-1/2 translate-y-1 bg-slate-500 text-[8px] font-black text-white px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
-                      >
-                        50-50 Split
-                      </span>
                     </div>
                   {/if}
-                </div>
-
-                <div
-                  class="flex justify-between text-[10px] text-content-subtle px-1 pt-1.5 font-semibold"
-                >
-                  <span>Total: {totalSeats} seats</span>
-                  <span class="font-bold text-yellow-600 dark:text-yellow-400"
-                    >Majority threshold: {threshold} seats</span
+                  <!-- Rep segment -->
+                  <div
+                    class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center text-xs font-black text-white ml-auto"
+                    style="width: {((projectedSeats.Republican ?? 0) /
+                      totalSeats) *
+                      100}%"
                   >
-                </div>
-              </div>
-
-              <!-- 50-50 tie-break note for Senate -->
-              {#if activeTab === "senate" && projectedSeats.Democratic === 50 && projectedSeats.Republican === 50}
-                <div
-                  class="bg-surface-alt/40 border border-stroke/60 rounded-xl p-3 flex items-start gap-2.5"
-                >
-                  <svg
-                    class="w-4 h-4 text-content-subtle shrink-0 mt-0.5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="16" x2="12" y2="12" />
-                    <line x1="12" y1="8" x2="12.01" y2="8" />
-                  </svg>
-                  <p
-                    class="text-xs text-content-muted leading-relaxed font-medium"
-                  >
-                    The most likely outcome is a 50-50 seat split. Under the
-                    current VP tie-break assumption, this projects to Republican
-                    control.
-                    {#if outcomeProbabilities?.tie_50_50}
-                      The 50-50 scenario has a <span
-                        class="font-bold text-content"
-                        >{probability(outcomeProbabilities.tie_50_50)}</span
-                      > probability.
+                    {#if (projectedSeats.Republican ?? 0) > totalSeats * 0.12}
+                      R: {projectedSeats.Republican}
                     {/if}
-                  </p>
+                  </div>
                 </div>
-              {/if}
+
+                <!-- Threshold Marker Line -->
+                <div
+                  class="absolute top-0 bottom-0 w-0.5 bg-yellow-500 dark:bg-yellow-400 z-10"
+                  style="left: {(threshold / totalSeats) * 100}%"
+                >
+                  <span
+                    class="absolute bottom-full left-0 ml-0.5 bg-yellow-500 dark:bg-yellow-400 text-[8px] font-black text-white dark:text-slate-950 px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
+                  >
+                    Majority ({threshold})
+                  </span>
+                </div>
+
+                <!-- Senate 50-50 Line -->
+                {#if activeTab === "senate"}
+                  <div
+                    class="absolute top-0 bottom-0 border-l border-dashed border-slate-400/80 dark:border-slate-500/80 z-10"
+                    style="left: 50%"
+                  >
+                    <span
+                      class="absolute top-full right-0 mr-0.5 bg-slate-500 text-[8px] font-black text-white px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
+                    >
+                      50-50 Split
+                    </span>
+                  </div>
+                {/if}
+              </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Full-Width Bottom Row: Forecast Overview -->
+        <div class="lg:col-span-12 space-y-4 pt-2">
+          <div
+            class="bg-surface-alt/10 border border-stroke/40 rounded-2xl p-5 relative overflow-hidden"
+          >
+            <div
+              class="flex items-center gap-1.5 text-[10px] font-black uppercase text-blue-600 dark:text-blue-400 tracking-wider mb-2.5"
+            >
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+              Forecast Overview
+            </div>
+            <p class="text-sm font-semibold text-content leading-relaxed">
+              {chamberNarrative ||
+                "Projections indicate a highly competitive cycle for this chamber."}
+            </p>
+          </div>
+
+          <!-- Clean Updated Footer -->
+          <div
+            class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-content-subtle font-semibold px-1"
+          >
+            <span>AI-generated model projection</span>
+            {#if chamberForecasts?.updated_at}
+              <span class="w-1 h-1 rounded-full bg-stroke/60" />
+              <span
+                >Last updated <span class="font-bold text-content"
+                  >{new Date(
+                    chamberForecasts.updated_at
+                  ).toLocaleDateString()}</span
+                ></span
+              >
+            {/if}
           </div>
         </div>
       </div>
