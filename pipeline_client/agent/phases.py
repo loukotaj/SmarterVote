@@ -417,6 +417,22 @@ async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log:
                         "Cleared stale validation grade: researched candidates removed from roster during sync"
                         f" ({', '.join(sorted(removed_researched))}).",
                     )
+            # Catch the case where all current candidates are empty-profiled but
+            # a grade exists from a prior research run on a now-replaced roster
+            # (Fix 2 above doesn't fire when the previous discovery already purged
+            # the old candidates before this guard was in place).
+            current_candidates = race_json.get("candidates") or []
+            all_empty = current_candidates and all(
+                not (c.get("summary") if isinstance(c, dict) else True) for c in current_candidates
+            )
+            if all_empty and race_json.get("validation_grade") is not None:
+                race_json["reviews"] = []
+                race_json["validation_grade"] = None
+                if log:
+                    log(
+                        "info",
+                        "Cleared stale validation grade: all current candidates have empty profiles.",
+                    )
 
 
 def _backfill_source_timestamps(race_json: Dict[str, Any]) -> None:
