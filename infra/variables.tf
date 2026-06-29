@@ -139,9 +139,15 @@ variable "billing_account_id" {
 }
 
 variable "enable_billing_export" {
-  description = "Create the BigQuery dataset + IAM that receive the Cloud Billing export (the export toggle itself is enabled once in the Console)."
+  description = <<-EOT
+    Create the BigQuery dataset + IAM that receive the Cloud Billing export
+    (the export toggle itself is enabled once in the Console).
+    NOTE: requires the CI/CD deploy service account to have BigQuery dataset
+    create permission (e.g. roles/bigquery.admin). Until that role is granted,
+    leave this false or the deploy fails on dataset creation.
+  EOT
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "bigquery_location" {
