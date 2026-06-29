@@ -892,6 +892,21 @@ STEP 2 — Make corrections using your tools:
    news source confirming the exit)
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
 
+CRITICAL — add_candidate anti-fabrication rules:
+- Only add a candidate whose EXACT full name appears in a credible source you
+  actually retrieved this run: a Ballotpedia candidate listing, an official
+  election authority / Secretary of State filing or sample ballot, or a reputable
+  news article that explicitly names them as a candidate in THIS race.
+- Confirm the candidate's PARTY from that same source — never guess the party.
+- Never invent, auto-complete, or infer a candidate's name from ambiguous search
+  snippets, partial matches, or a similarly-named unrelated person. If the
+  authoritative roster (e.g. the Ballotpedia election page) failed to load or
+  returned nothing, do NOT reconstruct a roster from generic search results — run
+  additional targeted searches and add only candidates you can confirm by name in
+  a real source.
+- If you cannot confirm a specific candidate actually exists in this race, do not
+  add them. A missing minor-party candidate is far better than a fabricated one.
+
 IMPORTANT — remove_candidate rules:
 - ONLY call remove_candidate when you have a specific, verifiable source showing
   the candidate is no longer actively competing: they withdrew, were disqualified,
@@ -960,6 +975,10 @@ A candidate should be removed ONLY if:
   "test", "Candidate A", "[Name]").
 - The name does not correspond to any real publicly known person running in
   this race and a quick search confirms no such candidate exists.
+- The candidate was ADDED during this sync (see the "added" list) and you cannot
+  positively confirm by name, in a credible retrieved source, that they are a
+  real candidate in THIS race. Newly added entries must be verifiable, not merely
+  plausible — an added name that no source confirms is treated as fabricated.
 - The candidate was clearly a primary loser or withdrew BEFORE the last_updated
   date (meaning they should never have been in the profile).
 
@@ -990,15 +1009,21 @@ evidence is verified:
    official/certified result source or multiple credible dated sources.
 3. Search for withdrawal/disqualification news for each candidate who seems
    questionable.
-4. Remove any candidate who:
+4. For EACH candidate in the "added during the sync" list above, positively
+   confirm them: search their exact name together with "{race_id}" or
+   "<state> <office> 2026" and verify a credible source names them as a candidate
+   in this race. If no source confirms a newly added candidate, remove them as
+   unverified/fabricated. This positive-confirmation burden applies ONLY to
+   candidates added during the sync — never to pre-existing candidates.
+5. Remove any candidate who:
    - Lost a completed primary/runoff/convention and you can cite the dated result
    - Officially withdrew or was disqualified
    - Is clearly fake or cannot be verified as a real candidate after search
-5. Keep every verified active candidate, including all participants in a runoff
+6. Keep every verified active candidate, including all participants in a runoff
    that has not yet occurred and qualified third-party candidates.
-6. Never infer the result of an election scheduled after {current_date}.
-7. Do NOT remove because Ballotpedia has no candidates listed, a generated
-   Ballotpedia URL fails, or a single source is missing them.
+7. Never infer the result of an election scheduled after {current_date}.
+8. Do NOT remove a PRE-EXISTING candidate because Ballotpedia has no candidates
+   listed, a generated Ballotpedia URL fails, or a single source is missing them.
 
 When done, stop — do not produce any text reply."""
 
