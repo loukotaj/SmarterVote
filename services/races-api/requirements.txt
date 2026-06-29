@@ -19,5 +19,8 @@ google-cloud-storage==2.19.0
 # Google Cloud Firestore (for persistent analytics in production)
 google-cloud-firestore==2.16.0
 
+# Google Cloud BigQuery (for querying the Cloud Billing export — GCP cost dashboard)
+google-cloud-bigquery==3.25.0
+
 # Local shared schema package
 # Install with: pip install -e ../../shared

@@ -379,6 +379,23 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
 
 
 # ---------------------------------------------------------------------------
+# GCP infrastructure costs (Cloud Billing BigQuery export)
+# ---------------------------------------------------------------------------
+
+
+@router.get("/pipeline/gcp-costs", dependencies=[Depends(verify_token)])
+async def get_gcp_costs(days: int = 30) -> Dict[str, Any]:
+    """Return GCP spend by service from the Cloud Billing export.
+
+    Degrades gracefully to ``{"configured": false, ...}`` when the billing
+    export is not yet set up or has produced no data.
+    """
+    import gcp_costs as gcp_costs_module
+
+    return gcp_costs_module.get_gcp_costs(days)
+
+
+# ---------------------------------------------------------------------------
 # Alerts (stub — placeholder for domain-aware alert rules)
 # ---------------------------------------------------------------------------
 

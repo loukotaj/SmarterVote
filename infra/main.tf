@@ -101,6 +101,7 @@ resource "google_project_service" "apis" {
     "cloudscheduler.googleapis.com",
     "containerregistry.googleapis.com",
     "artifactregistry.googleapis.com",
+    "bigquery.googleapis.com",
     "iam.googleapis.com"
   ])
 

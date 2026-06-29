@@ -138,6 +138,18 @@ variable "billing_account_id" {
   default     = ""
 }
 
+variable "enable_billing_export" {
+  description = "Create the BigQuery dataset + IAM that receive the Cloud Billing export (the export toggle itself is enabled once in the Console)."
+  type        = bool
+  default     = true
+}
+
+variable "bigquery_location" {
+  description = "Location for the billing-export BigQuery dataset (multi-region recommended, e.g. US)."
+  type        = string
+  default     = "US"
+}
+
 variable "developer_gcp_identities" {
   description = "List of developer GCP emails (e.g. user:email@example.com) allowed to impersonate service accounts locally"
   type        = list(string)

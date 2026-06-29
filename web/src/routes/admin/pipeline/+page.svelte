@@ -2,6 +2,7 @@
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
   import AdminTabs from "$lib/components/admin/AdminTabs.svelte";
+  import CostsTab from "$lib/components/admin/CostsTab.svelte";
   import DashboardTab from "$lib/components/admin/DashboardTab.svelte";
   import DurableAdminAgentTab from "$lib/components/admin/DurableAdminAgentTab.svelte";
   import ForecastsTab from "$lib/components/admin/ForecastsTab.svelte";
@@ -18,8 +19,13 @@
   const API_BASE = racesApiBase();
 
   let apiService: PipelineApiService;
-  let activeTab: "dashboard" | "races" | "runs" | "forecasts" | "agent" =
-    "dashboard";
+  let activeTab:
+    | "dashboard"
+    | "races"
+    | "runs"
+    | "forecasts"
+    | "costs"
+    | "agent" = "dashboard";
   let alertBadgeCount = 0;
   let queueItems: QueueItem[] = [];
   let runs: RunHistoryItem[] = [];
@@ -112,7 +118,8 @@
       tabParam === "agent" ||
       tabParam === "races" ||
       tabParam === "runs" ||
-      tabParam === "forecasts"
+      tabParam === "forecasts" ||
+      tabParam === "costs"
     ) {
       activeTab = tabParam;
     } else {
@@ -332,6 +339,8 @@
       <div class="card p-6">
         <ForecastsTab {apiService} />
       </div>
+    {:else if activeTab === "costs"}
+      <CostsTab />
     {:else if activeTab === "agent" && apiService}
       <DurableAdminAgentTab {apiService} />
     {/if}

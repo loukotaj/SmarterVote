@@ -546,6 +546,27 @@ export interface PipelineMetricsSummary {
   avg_usd_per_candidate: number;
 }
 
+export interface GcpCostServiceLine {
+  service: string;
+  net_usd: number;
+  gross_usd: number;
+  credits_usd: number;
+}
+
+export interface GcpCostSummary {
+  configured: boolean;
+  reason?: string;
+  detail?: string;
+  days?: number;
+  currency?: string;
+  total_net_usd?: number;
+  total_gross_usd?: number;
+  total_credits_usd?: number;
+  by_service?: GcpCostServiceLine[];
+  table?: string;
+  as_of?: string;
+}
+
 // ---------------------------------------------------------------------------
 // Unified Race Record (mirrors Python RaceRecord)
 // ---------------------------------------------------------------------------

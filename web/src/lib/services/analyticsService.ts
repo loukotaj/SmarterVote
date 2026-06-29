@@ -9,6 +9,7 @@ import { racesApiBase } from "$lib/config/api";
 import type {
   Alert,
   AnalyticsOverview,
+  GcpCostSummary,
   PipelineMetricsSummary,
   PipelineRunRecord,
   RaceAnalytics,
@@ -105,5 +106,9 @@ export const analyticsService = {
       "/pipeline/metrics/summary",
       hours ? { hours } : undefined
     );
+  },
+
+  async getGcpCosts(days = 30): Promise<GcpCostSummary> {
+    return fetchAdmin<GcpCostSummary>("/pipeline/gcp-costs", { days });
   },
 };
