@@ -33,7 +33,6 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "publish_race",
         "publish_races",
         "list_unpublished_drafts",
-        "trigger_web_deploy",
         "unpublish_race",
         "recheck_race",
         "recheck_all_races",

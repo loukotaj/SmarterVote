@@ -181,25 +181,12 @@ async def list_unpublished_drafts() -> list[dict[str, Any]]:
     return unpublished
 
 
-@mcp.tool()
-async def trigger_web_deploy() -> dict[str, Any]:
-    """Trigger the Cloudflare Pages GitHub Actions workflow using the local gh CLI."""
-    import subprocess
-
-    workflow = "cloudflare-deploy.yaml"
-    try:
-        result = subprocess.run(["gh", "workflow", "run", workflow], capture_output=True, text=True, check=False)
-        if result.returncode == 0:
-            return {"success": True, "message": f"Successfully triggered {workflow} workflow."}
-        else:
-            return {
-                "success": False,
-                "error": f"Failed to run workflow. returncode={result.returncode}",
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }
-    except Exception as exc:
-        return {"success": False, "error": str(exc)}
+# NOTE: trigger_web_deploy was removed. The Cloudflare Pages deploy already
+# fires automatically on every push to main (cloudflare-deploy.yaml runs on
+# workflow_run after CI), and the agent permission layer auto-denied the manual
+# tool, so it was redundant and uninvokable in practice. Trigger a deploy with a
+# normal git push, or `gh workflow run cloudflare-deploy.yaml` if a manual run is
+# needed.
 
 
 @mcp.tool()
