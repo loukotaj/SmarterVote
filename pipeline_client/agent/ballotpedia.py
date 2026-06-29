@@ -443,6 +443,131 @@ def _race_id_to_search_query(race_id: str) -> str:
     return f"{race_id} Ballotpedia".strip()
 
 
+# ---------------------------------------------------------------------------
+# Wikipedia election-page fallback
+#
+# Ballotpedia bot-blocks data-center IPs (e.g. Cloud Run), so the election
+# lookup frequently fails in production even though the page is fine from a
+# residential IP. Wikipedia is not IP-blocked and its election articles list
+# the full candidate roster, so we use it as an authoritative fallback.
+# ---------------------------------------------------------------------------
+
+_WIKI_PARTY_KEYWORDS = (
+    ("republican", "Republican"),
+    ("democratic", "Democratic"),
+    ("democrat", "Democratic"),
+    ("libertarian", "Libertarian"),
+    ("green", "Green"),
+    ("independent", "Independent"),
+    ("constitution", "Constitution"),
+)
+
+# Section labels (anywhere in a list item's heading trail) that mean the listed
+# people are NOT active candidates and must be skipped.
+_WIKI_EXCLUDE_SECTIONS = (
+    "endorsement",
+    "withdrawn",
+    "declined",
+    "disqualified",
+    "potential",
+    "removed",
+    "defeated",
+    "eliminated",
+    "did not",
+)
+
+
+def _race_id_to_wikipedia_url(race_id: str) -> Optional[str]:
+    """Derive a Wikipedia election-article URL from a race_id (governor/senate)."""
+    parts = race_id.lower().split("-")
+    if len(parts) < 3:
+        return None
+    state_name = _STATE_NAMES.get(parts[0].upper())
+    if not state_name:
+        return None
+
+    year: Optional[str] = None
+    office_parts: List[str] = []
+    suffix = ""
+    for i, p in enumerate(parts[1:], 1):
+        if p.isdigit() and len(p) == 4:
+            year = p
+            office_parts = parts[1:i]
+            suffix = "_".join(parts[i + 1 :])
+            break
+    if not year:
+        return None
+
+    state_url = state_name.replace(" ", "_")
+    special = "_special" if ("special" in suffix or "special" in office_parts) else ""
+
+    if "governor" in office_parts:
+        return f"https://en.wikipedia.org/wiki/{year}_{state_url}_gubernatorial{special}_election"
+    if "senate" in office_parts:
+        return f"https://en.wikipedia.org/wiki/{year}_United_States_Senate{special}_election_in_{state_url}"
+    return None
+
+
+def _parse_wikipedia_candidate_list(html: str) -> List[Dict[str, Any]]:
+    """Parse declared candidates from a Wikipedia election article.
+
+    Candidates appear as ``<li>`` items whose heading trail contains a party
+    section (e.g. "Republican primary") and a "Candidates" subsection, while
+    endorsements/withdrawn entries live under other subsections that we skip.
+    """
+    candidates: List[Dict[str, Any]] = []
+    seen: set = set()
+    trail: List[str] = []
+
+    for lvl, htext, litext in re.findall(r"<h([1-6])[^>]*>(.*?)</h\1>|<li[^>]*>(.*?)</li>", html, re.DOTALL):
+        if htext:
+            heading = unescape(re.sub(r"&#\d+;", "", re.sub(r"<[^>]+>", "", htext))).strip()
+            trail = trail[: int(lvl) - 1] + [heading]
+            continue
+
+        trail_lower = " > ".join(trail).lower()
+        # Only list items inside a "Candidates" subsection of a party section.
+        if "candidate" not in trail_lower:
+            continue
+        if any(marker in trail_lower for marker in _WIKI_EXCLUDE_SECTIONS):
+            continue
+
+        # Use the NEAREST (deepest) party heading in the trail, so a leaked
+        # ancestor party section can't override the candidate's actual party.
+        party = None
+        for heading in reversed(trail):
+            heading_lower = heading.lower()
+            for keyword, label in _WIKI_PARTY_KEYWORDS:
+                if keyword in heading_lower:
+                    party = label
+                    break
+            if party:
+                break
+        if not party:
+            continue
+
+        text = unescape(re.sub(r"&#\d+;", "", re.sub(r"<[^>]+>", "", litext)))
+        text = re.sub(r"\s+", " ", text).strip()
+        # Candidate entries read "Name, descriptor" — take the name, drop footnote digits.
+        name = re.sub(r"\d+$", "", text.split(",")[0]).strip()
+        if len(name.split()) < 2 or not re.match(r"^[A-Za-z.'\- ]+$", name):
+            continue
+
+        key = name.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append(
+            {
+                "name": name,
+                "party": party,
+                "incumbent": "incumbent" in text.lower(),
+            }
+        )
+
+    return candidates
+
+
 def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
     """Parse a candidate list from a Ballotpedia election page.
 
@@ -627,6 +752,7 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
 
             last_status: Optional[int] = None
             last_url: Optional[str] = None
+            bp_empty: Optional[Dict[str, Any]] = None
             for page_url in urls:
                 fetched_url, html, status = await fetch_usable(page_url)
                 last_url = page_url
@@ -642,14 +768,47 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
                     desc = re.sub(r"\s+", " ", unescape(desc)).strip() or None
 
                 logger.debug("Ballotpedia election page %s: found %d candidates", fetched_url, len(candidates))
-                return {
+                if candidates:
+                    return {
+                        "found": True,
+                        "page_url": fetched_url,
+                        "candidates": candidates,
+                        "description": desc,
+                        "http_status": status,
+                    }
+                # Page loaded but no roster parsed — remember it, then try Wikipedia.
+                bp_empty = {
                     "found": True,
                     "page_url": fetched_url,
-                    "candidates": candidates,
+                    "candidates": [],
                     "description": desc,
                     "http_status": status,
                 }
+                break
 
+            # Ballotpedia blocked or roster-less — fall back to the Wikipedia
+            # election article, which is not IP-blocked from data-center IPs.
+            wiki_url = _race_id_to_wikipedia_url(race_id)
+            if wiki_url:
+                try:
+                    wiki_resp = await client.get(wiki_url, headers={"User-Agent": _BROWSER_UA})
+                    if wiki_resp.status_code == 200:
+                        wiki_candidates = _parse_wikipedia_candidate_list(wiki_resp.text)
+                        if wiki_candidates:
+                            logger.debug("Wikipedia election page %s: found %d candidates", wiki_url, len(wiki_candidates))
+                            return {
+                                "found": True,
+                                "page_url": wiki_url,
+                                "candidates": wiki_candidates,
+                                "description": None,
+                                "http_status": wiki_resp.status_code,
+                                "source": "wikipedia",
+                            }
+                except Exception as exc:  # pragma: no cover - defensive
+                    logger.debug("Wikipedia election lookup failed for %r: %s", race_id, exc)
+
+            if bp_empty is not None:
+                return bp_empty
             return {**empty, "page_url": last_url, "http_status": last_status}
 
     except Exception as exc:  # pragma: no cover - defensive

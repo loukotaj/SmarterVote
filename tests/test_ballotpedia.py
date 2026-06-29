@@ -5,12 +5,61 @@ import pytest
 from pipeline_client.agent.ballotpedia import (
     _is_unusable_ballotpedia_html,
     _parse_candidate_list_from_html,
+    _parse_wikipedia_candidate_list,
     _race_id_to_ballotpedia_district_url,
     _race_id_to_ballotpedia_url,
+    _race_id_to_wikipedia_url,
     default_ballotpedia_race_url,
     lookup_candidate_data,
     lookup_election_page,
 )
+
+
+def test_wikipedia_url_derivation():
+    assert (
+        _race_id_to_wikipedia_url("ar-governor-2026") == "https://en.wikipedia.org/wiki/2026_Arkansas_gubernatorial_election"
+    )
+    assert (
+        _race_id_to_wikipedia_url("ga-senate-2026")
+        == "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Georgia"
+    )
+    assert (
+        _race_id_to_wikipedia_url("oh-senate-2026-special")
+        == "https://en.wikipedia.org/wiki/2026_United_States_Senate_special_election_in_Ohio"
+    )
+    # House races have no reliable single-article pattern → no fallback URL.
+    assert _race_id_to_wikipedia_url("ar-house-03-2026") is None
+
+
+def test_wikipedia_candidate_parser_scopes_to_active_nominees():
+    """Parse nominees under party 'Candidates' sections; skip endorsements and
+    eliminated/withdrawn entries (mirrors the real AR governor article)."""
+    html = """
+    <h2>Republican primary</h2>
+      <h3>Candidates</h3>
+        <h4>Nominee</h4>
+        <ul><li>Sarah Huckabee Sanders, incumbent governor (2023-present)</li></ul>
+      <h3>Endorsements</h3>
+        <ul><li>Donald Trump, 47th president</li></ul>
+    <h2>Democratic primary</h2>
+      <h3>Candidates</h3>
+        <h4>Nominee</h4>
+        <ul><li>Fredrick Love, state senator</li></ul>
+        <h4>Eliminated in primary</h4>
+        <ul><li>Supha Xayprasith-Mays, businesswoman</li></ul>
+    <h2>Libertarian primary</h2>
+      <h3>Candidates</h3>
+        <h4>Nominee</h4>
+        <ul><li>Colt Shelby, farmer</li></ul>
+    """
+    result = _parse_wikipedia_candidate_list(html)
+    by_name = {c["name"]: c for c in result}
+    assert set(by_name) == {"Sarah Huckabee Sanders", "Fredrick Love", "Colt Shelby"}
+    assert by_name["Sarah Huckabee Sanders"]["party"] == "Republican"
+    assert by_name["Sarah Huckabee Sanders"]["incumbent"] is True
+    assert by_name["Colt Shelby"]["party"] == "Libertarian"
+    assert "Donald Trump" not in by_name  # endorsement, not a candidate
+    assert "Supha Xayprasith-Mays" not in by_name  # eliminated in primary
 
 
 def test_real_page_with_embedded_recaptcha_is_usable():
