@@ -40,29 +40,55 @@ You are a nonpartisan political research agent.
 
 DISCOVERY_USER = """\
 Research the U.S. election race "{race_id}".
+Current date: {current_date}
+
+## Step 0 - Lock the race identity before naming candidates
+Before building the roster, determine and keep fixed:
+- exact office: Governor, U.S. Senate, U.S. House, etc.
+- exact state and district, if any
+- election stage as of {current_date}: pre-primary, post-primary general,
+  runoff, top-two/top-four, ranked-choice, special election, etc.
+- whether filing lists, primary results, or certified nominees are available
+
+Every candidate you include must be a candidate for this exact race identity.
+Do not transfer candidates from a different office in the same state. For
+example, a U.S. Senate candidate is not a gubernatorial candidate unless a
+retrieved source explicitly says they filed for governor.
 
 ## Step 1 — Get the candidate list (do this FIRST)
-Call `ballotpedia_election_lookup` with race_id="{race_id}". This fetches the
-official Ballotpedia election page which is the starting roster.
+Use this source ladder for the roster:
+1. Official state election authority / Secretary of State candidate filing,
+   certified ballot, or official primary result page.
+2. Ballotpedia election page via `ballotpedia_election_lookup`.
+3. FEC candidate/election pages for federal races, only to corroborate active
+   federal candidates, not to infer nominees after primaries.
+4. Reputable local/state news or candidate announcements, corroborated by a
+   second source when possible.
+
+Call `ballotpedia_election_lookup` with race_id="{race_id}" early, but do not
+treat it as authoritative when it is stale, blocked, primary-focused, or
+contradicted by official filing/results sources.
 
 If `ballotpedia_election_lookup` returns found=false or candidates=[], then fall
 back to searching "site:ballotpedia.org {race_id}" or the official state election website.
 
 If Ballotpedia page fetching is completely blocked, inaccessible, or returns access
-denied/proxy errors, you MUST fall back to using organic web searches (Google/Serper)
-to discover the active candidates running in this race. Search for recent local news,
-voter guides, or official candidate listings. Corroborate candidate names across multiple
-search results and compile them into the roster.
+denied/proxy errors, stop trying to fetch that same Ballotpedia URL and move up
+the source ladder: official election authority, FEC for federal races, then
+recent local news and candidate websites. Search queries should include the
+locked office and district/state, not just the candidate name.
 
 IMPORTANT: Do NOT hallucinate candidates based on single unverified snippets or speculation.
 Do NOT leave the candidates list empty if Ballotpedia is blocked; build the roster
 using reliable search results. Verify nominees and active candidates.
 
-Check whether each relevant party primary has already concluded. For a completed
-primary, include only the verified nominee or candidates who advanced under the
-state's election rules. Do NOT include defeated primary candidates in a
-general-election race profile, even if Ballotpedia still lists them in historical
-primary results.
+Check whether each relevant party primary has already concluded as of
+{current_date}. For a completed primary, include only the verified nominee or
+candidates who advanced under the state's election rules. Do NOT include
+defeated primary candidates in a general-election race profile, even if
+Ballotpedia still lists them in historical primary results. Never infer winners
+for elections scheduled after {current_date}.
+Do NOT include defeated primary candidates.
 
 Do NOT include a sitting officeholder as a candidate when your own research says
 they are term-limited, ineligible, not seeking the office, or cannot run again.
@@ -70,9 +96,10 @@ Mention that person in the race description only; do not put them in
 `candidates`.
 
 Return no more than 8 active candidates. If an authoritative roster has more
-than 8, keep a balanced major-party subset where possible (up to 4 Democratic
-and 4 Republican candidates, preserving authoritative order), and leave the
-remaining candidates for future primary-specific race pages.
+than 8 and the race is not yet narrowed to general-election nominees, keep the
+most electorally relevant active candidates while preserving party balance and
+authoritative order. Do not omit a major-party incumbent/nominee in order to
+include minor, unverified, or primary-only candidates.
 
 ## Step 1a — Verify both major parties are represented
 After gathering your initial candidate roster, check whether the list includes at
@@ -348,6 +375,11 @@ Use party_probabilities with normalized party labels such as "Democratic",
 "Republican", "Independent", or "Other". Keep probabilities between 0 and 1.
 Use source_urls from existing polling source_url values only. If no numeric
 polls exist, source_urls may be empty and based_on_poll_count should be 0.
+Set predicted_winner_name only when the likely winner is an exact candidate
+name from the roster above. If the nominee is unresolved or only a party is
+favored, leave predicted_winner_name empty/null and use predicted_winner_party.
+Never use placeholders such as "Republican Candidate", "Democratic nominee",
+"TBD", or "None" as candidate names.
 Prediction market signals are supplemental context, not ground truth. If present,
 weigh them alongside polling, incumbency, candidate strength, and race context.
 Thin liquidity, wide bid/ask spreads, or stale market timestamps should reduce
@@ -474,6 +506,19 @@ Revision context:
 Complete semantic profile:
 {profile_json}
 
+First, audit the roster before judging prose quality:
+- Identify the exact office and jurisdiction from the race title, office,
+  jurisdiction, state, district, and description.
+- For each candidate, ask whether their summary/sources show they are running
+  for that exact office. If the profile mainly supports a different office in
+  the same state, flag it as an "error" even if the rest of the candidate
+  biography is well-sourced.
+- If a candidate is described as term-limited, ineligible, not seeking this
+  office, defeated in a completed primary, or running for a different office,
+  flag the roster problem directly.
+- For a post-primary general-election race, check whether the roster looks like
+  general-election nominees/advanced candidates rather than a primary field.
+
 Check for:
 1. Internal consistency – are stated positions consistent with the cited sources
    within the profile itself? (Do not use your own training data to contradict
@@ -525,6 +570,18 @@ IMPORTANT — Missing data policy:
   genuinely obscure), do NOT penalize the score. Absence of public information
   is NOT a quality failure.
 - A "no public position found" result after a good-faith search is acceptable.
+- Treat a documented "No public position found after repeated research attempts"
+  as COMPLETE coverage for that issue, not a gap. Do not deduct from the
+  Coverage-effort component for correctly-recorded unavailable data.
+- Differences in how candidates are described that merely reflect differing
+  PUBLIC RECORDS are NOT bias and must NOT reduce the score. An incumbent has a
+  record of actions and legislation; a challenger or minor third-party candidate
+  often has only a campaign platform or limited coverage. Judge each candidate
+  against the information publicly available about THEM — never penalize a
+  thinner challenger/third-party profile for the disparity, and do not treat
+  action-based vs. platform-based descriptions as a tonal imbalance to be fixed.
+- When the only sources that exist for a candidate are their own campaign
+  materials, using them is appropriate; this is not a sourcing weakness.
 
 Score guidelines:
 - 90-100 (A): Excellent — factually accurate, well-sourced, unbiased; gaps documented
@@ -542,6 +599,12 @@ SCORING CALIBRATION — apply this rigorously:
   URLs) should NOT drop the score below 80. They are uncertainty notes, not proof of error.
 - Scores below 80 require either at least one `error` flag OR a systematic pattern of
   genuinely unsourced factual claims (no URLs at all).
+- A profile whose AVAILABLE information is well-sourced, internally consistent, and
+  neutral should score in the A range (90+) even when some issues are correctly
+  documented as "no public position found" or when a challenger/third-party
+  candidate's entry is necessarily thinner than the incumbent's. Sparse-but-
+  honestly-documented coverage is not a defect — reserve sub-90 scores for actual
+  problems (unsourced claims, bias, inconsistency), not for limits of public data.
 
 Verdict calibration:
 - `approved`       — score ≥ 75, and no `error`-severity flags.
@@ -876,6 +939,24 @@ STEP 1 — Verify the COMPLETE current roster (not just changes):
 Search for "{race_id}" on Ballotpedia, official election authority sites, and
 recent news to get the FULL list of declared candidates across ALL parties
 (Democrat, Republican, Libertarian, Green, Independent, etc.).
+
+Before adding or removing anyone, write down mentally the exact race identity:
+office, state/district, election stage as of {current_date}, and whether the
+source you are using is a filing list, primary page, general-election ballot, or
+news story. Do not move candidates across offices in the same state. A person
+running for U.S. Senate, Secretary of State, or another statewide office is not
+running for Governor unless a retrieved source explicitly says they filed for
+Governor.
+
+Roster source order:
+1. Official state election authority, certified candidate list, ballot list, or
+   official primary results.
+2. Ballotpedia election page, if current and accessible.
+3. FEC pages for federal races, only as candidate corroboration.
+4. Reputable recent local/state news or official campaign announcements.
+
+If Ballotpedia is blocked, stale, or primary-focused, stop trying to repair the
+same Ballotpedia URL and pivot to official election authority/FEC/local news.
 
 Compare the full current roster against the candidates currently in the profile.
 Treat named opponents, nominees, or declared candidates in the current race
