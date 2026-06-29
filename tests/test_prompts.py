@@ -66,9 +66,11 @@ def test_agent_prompts_do_not_request_legacy_issue_names():
 
 
 def test_discovery_user_formats():
-    """Discovery user prompt accepts race_id."""
-    result = DISCOVERY_USER.format(race_id="mo-senate-2024")
+    """Discovery user prompt accepts race_id and current_date."""
+    result = DISCOVERY_USER.format(race_id="mo-senate-2024", current_date="2026-06-14")
     assert "mo-senate-2024" in result
+    assert "2026-06-14" in result
+    assert "Lock the race identity" in result
 
 
 def test_issue_subagent_user_formats():
@@ -189,7 +191,7 @@ def test_update_issue_subagent_prompt_formats():
 
 def test_discovery_prompt_mentions_donor_sources():
     """Discovery prompt tells the model to include donor summary and links."""
-    result = DISCOVERY_USER.format(race_id="mo-senate-2024")
+    result = DISCOVERY_USER.format(race_id="mo-senate-2024", current_date="2026-06-14")
     assert "donor_summary" in result
     assert "donor_sources" in result
     assert "links" in result

@@ -1398,7 +1398,8 @@ async def _run_fresh(
     race_json = _ensure_dict(
         await _agent_loop(
             DISCOVERY_SYSTEM,
-            (f"## Run Goal\n{goal}\n\n" if goal else "") + DISCOVERY_USER.format(race_id=race_id),
+            (f"## Run Goal\n{goal}\n\n" if goal else "")
+            + DISCOVERY_USER.format(race_id=race_id, current_date=datetime.now(timezone.utc).date().isoformat()),
             model=model,
             on_log=on_log,
             race_id=race_id,
