@@ -3,6 +3,7 @@
 import pytest
 
 from pipeline_client.agent.ballotpedia import (
+    _is_unusable_ballotpedia_html,
     _parse_candidate_list_from_html,
     _race_id_to_ballotpedia_district_url,
     _race_id_to_ballotpedia_url,
@@ -10,6 +11,24 @@ from pipeline_client.agent.ballotpedia import (
     lookup_candidate_data,
     lookup_election_page,
 )
+
+
+def test_real_page_with_embedded_recaptcha_is_usable():
+    """Regression: real Ballotpedia pages embed a hidden g-recaptcha widget and a
+    <noscript> fallback; these must not flag the page as a bot challenge."""
+    real_html = (
+        '<html><body><div class="mw-parser-output">'
+        '<div id="recaptcha-service" class="g-recaptcha"></div>'
+        "<noscript>Please enable JavaScript</noscript>"
+        "<p>Arkansas gubernatorial election content</p></div></body></html>"
+    )
+    assert _is_unusable_ballotpedia_html(real_html) is False
+
+
+def test_bot_challenge_page_without_content_is_unusable():
+    challenge = "<html><body>Please complete the captcha to verify you are not a robot.</body></html>"
+    assert _is_unusable_ballotpedia_html(challenge) is True
+    assert _is_unusable_ballotpedia_html("") is True
 
 
 def test_governor_race_uses_state_gubernatorial_url():

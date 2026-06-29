@@ -28,6 +28,17 @@ _UNUSABLE_MARKERS = (
     "access denied",
 )
 
+# Containers that only appear on a real Ballotpedia article / election page.
+# Normal pages embed a hidden reCAPTCHA widget (``g-recaptcha``) and a
+# ``<noscript>`` fallback, so the bare markers above false-positive on fully
+# usable content. We only treat a page as a bot challenge when none of these
+# real-content containers are present.
+_CONTENT_MARKERS = (
+    "mw-parser-output",
+    "votebox",
+    'class="infobox',
+)
+
 # External-link prefixes that are useful for electoral research.
 # We filter the full extlinks list down to these so the agent isn't buried in
 # social-sharing trackers and other noise.
@@ -208,7 +219,15 @@ async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
 
 def _is_unusable_ballotpedia_html(html: str) -> bool:
     lowered = (html or "").lower()
-    return not lowered.strip() or any(marker in lowered for marker in _UNUSABLE_MARKERS)
+    if not lowered.strip():
+        return True
+    # A real article/election page contains a MediaWiki content container; if one
+    # is present, treat the page as usable even though it embeds a hidden
+    # reCAPTCHA widget and <noscript> fallback (which would otherwise trip the
+    # bare "captcha"/"enable javascript" markers below).
+    if any(marker in lowered for marker in _CONTENT_MARKERS):
+        return False
+    return any(marker in lowered for marker in _UNUSABLE_MARKERS)
 
 
 async def _lookup_candidate_thumbnail_by_convention(client: httpx.AsyncClient, candidate_name: str) -> Optional[str]:
