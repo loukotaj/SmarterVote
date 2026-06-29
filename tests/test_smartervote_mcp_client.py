@@ -115,12 +115,18 @@ def test_compact_options_keeps_false_and_drops_none():
 
 
 def test_mcp_pipeline_options_default_to_cheap_mode():
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
     from smartervote_mcp.server import _pipeline_options
 
     assert _pipeline_options(note="refresh") == {"cheap_mode": True, "note": "refresh"}
 
 
 def test_mcp_pipeline_options_require_explicit_false_for_quality_profile():
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
     from smartervote_mcp.server import _pipeline_options
 
     with pytest.raises(ValueError, match="requires explicit cheap_mode=False"):
