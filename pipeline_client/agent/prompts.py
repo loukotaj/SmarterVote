@@ -55,6 +55,20 @@ Do not transfer candidates from a different office in the same state. For
 example, a U.S. Senate candidate is not a gubernatorial candidate unless a
 retrieved source explicitly says they filed for governor.
 
+CRITICAL — scope to THIS cycle's contest only:
+- For a U.S. Senate race, include ONLY candidates for the single Senate seat on
+  the ballot this cycle. A state has two senators on staggered terms — do NOT
+  include the state's OTHER sitting senator whose seat is not up this cycle
+  (e.g. for a 2026 Georgia Senate race do not list the senator whose term runs
+  past 2026). If the state's well-known incumbent is the one NOT up this cycle,
+  they are not a candidate here.
+- Do NOT include candidates from a PRIOR election cycle (a 2018/2020/2022
+  nominee or primary candidate) unless a {current_date}-current source confirms
+  they have filed for THIS cycle's contest. Someone who ran before is not a
+  current candidate by default.
+- A sitting officeholder running for a DIFFERENT office this cycle (e.g. a
+  senator running for governor) belongs only in that other race, not here.
+
 ## Step 1 — Get the candidate list (do this FIRST)
 Use this source ladder for the roster:
 1. Official state election authority / Secretary of State candidate filing,
@@ -92,7 +106,10 @@ Do NOT include defeated primary candidates.
 
 Do NOT include a sitting officeholder as a candidate when your own research says
 they are term-limited, ineligible, not seeking the office, or cannot run again.
-Mention that person in the race description only; do not put them in
+This explicitly includes an incumbent who has announced they will NOT seek
+re-election or are retiring (e.g. a governor who said they are not running
+again) — exclude them from `candidates` even though they currently hold the
+office. Mention that person in the race description only; do not put them in
 `candidates`.
 
 Return no more than 8 active candidates. If an authoritative roster has more
@@ -970,6 +987,15 @@ the same state. A person
 running for U.S. Senate, Secretary of State, or another statewide office is not
 running for Governor unless a retrieved source explicitly says they filed for
 Governor.
+
+CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
+- U.S. Senate race: only candidates for the single seat up this cycle. Do NOT
+  keep the state's OTHER sitting senator whose seat is not up this cycle, and do
+  NOT keep prior-cycle (2018/2020/2022) nominees or candidates unless a current
+  source confirms they filed for THIS cycle's seat.
+- Remove incumbents who have announced they are not seeking re-election, are
+  retiring, or are running for a different office this cycle.
+- A person who only ran in a previous election is not a current candidate.
 
 Roster source order:
 1. Official state election authority, certified candidate list, ballot list, or
