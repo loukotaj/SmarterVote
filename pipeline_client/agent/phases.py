@@ -460,11 +460,81 @@ def _backfill_source_timestamps(race_json: Dict[str, Any]) -> None:
                     src["last_accessed"] = fallback
 
 
+_ROSTER_CAP = 8
+
+
+def _cap_roster(race_json: Dict[str, Any], log: Any | None = None, limit: int = _ROSTER_CAP) -> None:
+    """Hard-cap the roster to *limit* candidates, balanced across major parties.
+
+    The roster-sync prompt asks the model to keep the field tight, but the
+    economy model and the Ballotpedia/search paths can still balloon a roster to
+    dozens of entries. This deterministic trim keeps incumbents and the
+    highest-signal major-party contenders (up to 4 Democratic + 4 Republican),
+    filling any remaining slots with the next best candidates.
+    """
+    candidates = race_json.get("candidates")
+    if not isinstance(candidates, list) or len(candidates) <= limit:
+        return
+
+    def _signal(candidate: Dict[str, Any]) -> int:
+        score = 0
+        if candidate.get("incumbent"):
+            score += 100
+        if str(candidate.get("summary") or "").strip():
+            score += 10
+        if candidate.get("roster_sources"):
+            score += 5
+        if candidate.get("image_url"):
+            score += 1
+        return score
+
+    def _party_group(candidate: Dict[str, Any]) -> str:
+        party = str(candidate.get("party") or "").lower()
+        if "democrat" in party:
+            return "D"
+        if "republican" in party:
+            return "R"
+        return "O"
+
+    groups: Dict[str, List[int]] = {"D": [], "R": [], "O": []}
+    for idx, candidate in enumerate(candidates):
+        if isinstance(candidate, dict):
+            groups[_party_group(candidate)].append(idx)
+    for indices in groups.values():
+        indices.sort(key=lambda i: (-_signal(candidates[i]), i))
+
+    kept: set[int] = set()
+    # Reserve up to 4 slots for each major party so a one-sided ballot dump
+    # cannot crowd out the other party's real contenders.
+    for party in ("D", "R"):
+        for idx in groups[party][:4]:
+            kept.add(idx)
+    # Fill the rest by overall signal (leftover majors + third parties).
+    rest = groups["D"][4:] + groups["R"][4:] + groups["O"]
+    rest.sort(key=lambda i: (-_signal(candidates[i]), i))
+    for idx in rest:
+        if len(kept) >= limit:
+            break
+        kept.add(idx)
+
+    kept_indices = sorted(list(kept))[:limit]
+    kept_set = set(kept_indices)
+    dropped = [_candidate_name(candidates[i]) for i in range(len(candidates)) if i not in kept_set]
+    race_json["candidates"] = [candidates[i] for i in kept_indices]
+    if log:
+        log(
+            "info",
+            f"    Capped roster {len(candidates)} -> {len(kept_indices)} candidates "
+            f"(dropped: {', '.join(d for d in dropped[:12] if d)}).",
+        )
+
+
 def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply deterministic roster constraints before downstream fan-out."""
     _normalize_candidate_entries(race_json, log)
     _remove_ineligible_officeholders(race_json, log)
     _remove_inactive_candidates(race_json, log)
+    _cap_roster(race_json, log)
     race_json.pop("candidate_limit_note", None)
 
 

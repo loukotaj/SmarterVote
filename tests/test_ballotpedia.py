@@ -62,6 +62,44 @@ def test_wikipedia_candidate_parser_scopes_to_active_nominees():
     assert "Supha Xayprasith-Mays" not in by_name  # eliminated in primary
 
 
+def test_wikipedia_candidate_parser_caps_large_open_primary_rosters_but_keeps_nominees_first():
+    html = """
+    <h2>Republican primary</h2>
+      <h3>Candidates</h3>
+        <h4>Nominee</h4>
+        <ul><li>Major Republican, nominee</li></ul>
+        <h4>Declared</h4>
+        <ul><li>Republican One, business owner</li></ul>
+    <h2>Democratic primary</h2>
+      <h3>Candidates</h3>
+        <h4>Nominee</h4>
+        <ul><li>Major Democrat, nominee</li></ul>
+        <h4>Declared</h4>
+    """
+    for surname in (
+        "Adams",
+        "Baker",
+        "Clark",
+        "Davis",
+        "Evans",
+        "Franklin",
+        "Garcia",
+        "Harris",
+        "Irwin",
+        "Jones",
+        "King",
+        "Lewis",
+    ):
+        html += f"<ul><li>Democrat {surname}, activist</li></ul>"
+
+    result = _parse_wikipedia_candidate_list(html)
+    names = [candidate["name"] for candidate in result]
+
+    assert len(result) == 10
+    assert names[:2] == ["Major Republican", "Major Democrat"]
+    assert all("_nominee" not in candidate for candidate in result)
+
+
 def test_real_page_with_embedded_recaptcha_is_usable():
     """Regression: real Ballotpedia pages embed a hidden g-recaptcha widget and a
     <noscript> fallback; these must not flag the page as a bot challenge."""
