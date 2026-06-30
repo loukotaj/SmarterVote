@@ -527,7 +527,9 @@ def _parse_wikipedia_candidate_list(html: str) -> List[Dict[str, Any]]:
     for lvl, htext, litext in re.findall(r"<h([1-6])[^>]*>(.*?)</h\1>|<li[^>]*>(.*?)</li>", html, re.DOTALL):
         if htext:
             heading = unescape(re.sub(r"&#\d+;", "", re.sub(r"<[^>]+>", "", htext))).strip()
-            trail = trail[: int(lvl) - 1] + [heading]
+            # Keep only ancestor headings. Heading levels are 1-based, so a new
+            # h2 should clear the prior h2/h3/h4 trail rather than retaining it.
+            trail = trail[: max(int(lvl) - 2, 0)] + [heading]
             continue
 
         trail_lower = " > ".join(trail).lower()
