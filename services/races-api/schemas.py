@@ -45,6 +45,7 @@ class RaceSummary(BaseModel):
     office: str | None = None
     jurisdiction: str | None = None
     state: str | None = None
+    contest_stage: str | None = None
     election_date: str
     updated_utc: str
     candidates: List[CandidateSummary]

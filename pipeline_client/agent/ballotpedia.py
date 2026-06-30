@@ -452,6 +452,11 @@ def _race_id_to_search_query(race_id: str) -> str:
 # the full candidate roster, so we use it as an authoritative fallback.
 # ---------------------------------------------------------------------------
 
+# Cap on candidates returned from a Wikipedia article. Open-primary states list
+# dozens of declared candidates; roster-sync applies further judgment, but this
+# prevents a ballot-dump from reaching it.
+_WIKI_MAX_CANDIDATES = 10
+
 _WIKI_PARTY_KEYWORDS = (
     ("republican", "Republican"),
     ("democratic", "Democratic"),
@@ -562,10 +567,18 @@ def _parse_wikipedia_candidate_list(html: str) -> List[Dict[str, Any]]:
                 "name": name,
                 "party": party,
                 "incumbent": "incumbent" in text.lower(),
+                "_nominee": "nominee" in trail_lower,
             }
         )
 
-    return candidates
+    # Some articles (e.g. California's open primary) list dozens of declared
+    # candidates. Returning all of them would balloon downstream rosters, so cap
+    # the list, keeping nominees and incumbents first, then declared order.
+    candidates.sort(key=lambda c: (not c["_nominee"], not c["incumbent"]))
+    capped = candidates[:_WIKI_MAX_CANDIDATES]
+    for c in capped:
+        c.pop("_nominee", None)
+    return capped
 
 
 def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:

@@ -163,6 +163,7 @@ def _summary_from_race_data(race_id: str, race_data: Dict[str, Any]) -> Dict[str
         "office": race_data.get("office"),
         "jurisdiction": race_data.get("jurisdiction"),
         "state": race_data.get("state"),
+        "contest_stage": race_data.get("contest_stage", "unknown"),
         "election_date": race_data.get("election_date", ""),
         "updated_utc": race_data.get("updated_utc", ""),
         "candidates": [

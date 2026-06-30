@@ -148,6 +148,8 @@ def test_roster_sync_prompt_formats():
     assert "Alice, Bob" in result
     assert "Alice faces Carol" in result
     assert "add_candidate" in result
+    assert "set_race_identity" in result
+    assert "set_candidate_roster_sources" in result
 
 
 def test_issue_subagent_prompt_formats():
@@ -195,6 +197,9 @@ def test_discovery_prompt_mentions_donor_sources():
     assert "donor_summary" in result
     assert "donor_sources" in result
     assert "links" in result
+    assert "contest_stage" in result
+    assert "roster_sources" in result
+    assert "race_identity" in result
 
 
 def test_refine_prompt_mentions_donor_sources():
@@ -247,6 +252,8 @@ def test_roster_sync_system_restricts_to_roster_tools_only():
     assert "add_candidate" in ROSTER_SYNC_SYSTEM
     assert "remove_candidate" in ROSTER_SYNC_SYSTEM
     assert "rename_candidate" in ROSTER_SYNC_SYSTEM
+    assert "set_candidate_roster_sources" in ROSTER_SYNC_SYSTEM
+    assert "set_race_identity" in ROSTER_SYNC_SYSTEM
     assert "Do NOT call any non-roster editing tools" in ROSTER_SYNC_SYSTEM
 
 

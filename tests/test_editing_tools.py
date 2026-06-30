@@ -40,20 +40,24 @@ def test_editing_tool_schemas_exist():
         RENAME_CANDIDATE_TOOL,
         ROSTER_TOOLS,
         SET_CANDIDATE_FIELD_TOOL,
+        SET_CANDIDATE_ROSTER_SOURCES_TOOL,
         SET_CANDIDATE_SUMMARY_TOOL,
         SET_DONOR_SUMMARY_TOOL,
         SET_FORECAST_TOOL,
         SET_ISSUE_STANCE_TOOL,
+        SET_RACE_IDENTITY_TOOL,
         SET_VOTING_SUMMARY_TOOL,
         UPDATE_RACE_FIELD_TOOL,
     )
 
-    assert len(ROSTER_TOOLS) == 3
+    assert len(ROSTER_TOOLS) == 5
     assert len(CANDIDATE_TOOLS) == 2
     assert len(ISSUE_TOOLS) == 1
     assert len(RECORD_TOOLS) == 4  # donor_summary, voting_summary, add_link, remove_candidate_source_url
     assert len(RACE_TOOLS) == 3
     assert SET_FORECAST_TOOL["function"]["name"] == "set_forecast"
+    assert SET_CANDIDATE_ROSTER_SOURCES_TOOL["function"]["name"] == "set_candidate_roster_sources"
+    assert SET_RACE_IDENTITY_TOOL["function"]["name"] == "set_race_identity"
     assert READ_PROFILE_TOOL["function"]["name"] == "read_profile"
 
 
@@ -74,6 +78,8 @@ def test_make_editing_handlers():
         "add_candidate",
         "remove_candidate",
         "rename_candidate",
+        "set_candidate_roster_sources",
+        "set_race_identity",
         "set_candidate_field",
         "set_candidate_summary",
         "set_issue_stance",
@@ -268,6 +274,44 @@ def test_add_candidate_handler():
     assert "Added" in result
     assert len(race_json["candidates"]) == 1
     assert race_json["candidates"][0]["name"] == "Alice"
+
+
+def test_roster_sources_and_race_identity_handlers():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "Democratic"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    identity_result = handlers["set_race_identity"](
+        {
+            "office": "Governor",
+            "state": "Georgia",
+            "contest_stage": "post_primary_general",
+            "election_date": "2026-11-03",
+            "primary_status": "Major-party nominees certified.",
+            "official_roster_source_url": "https://example.gov/candidates",
+        }
+    )
+    source_result = handlers["set_candidate_roster_sources"](
+        {
+            "candidate_name": "Alice",
+            "sources": [
+                {
+                    "url": "https://example.gov/candidates",
+                    "type": "official",
+                    "title": "Certified candidate list",
+                    "evidence": "Alice is listed as a gubernatorial nominee.",
+                }
+            ],
+        }
+    )
+
+    assert identity_result == "Recorded race identity brief."
+    assert race_json["contest_stage"] == "post_primary_general"
+    assert race_json["pipeline_state"]["race_identity"]["office"] == "Governor"
+    assert "Set 1 roster source" in source_result
+    assert race_json["candidates"][0]["roster_sources"][0]["type"] == "official"
+    assert race_json["candidates"][0]["roster_sources"][0]["last_accessed"]
 
 
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():

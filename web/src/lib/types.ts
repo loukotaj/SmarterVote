@@ -4,6 +4,24 @@
 
 export type ConfidenceLevel = "high" | "medium" | "low" | "unknown";
 
+export type ContestStage =
+  | "pre_primary"
+  | "post_primary_general"
+  | "runoff"
+  | "top_two"
+  | "top_four_rcv"
+  | "uncontested"
+  | "special"
+  | "unknown";
+
+export type RosterSourceType =
+  | "official"
+  | "ballotpedia"
+  | "fec"
+  | "news"
+  | "campaign"
+  | "other";
+
 export type SourceType =
   | "website"
   | "finance"
@@ -71,6 +89,14 @@ export interface CandidateLink {
     | "govtrack"
     | "news"
     | "other";
+}
+
+export interface CandidateRosterSource {
+  url?: string;
+  type: RosterSourceType;
+  title?: string;
+  evidence?: string;
+  last_accessed?: string;
 }
 
 export interface CareerEntry {
@@ -166,6 +192,7 @@ export interface Candidate {
   name: string;
   party?: string;
   incumbent: boolean;
+  roster_sources?: CandidateRosterSource[];
   summary: string;
   summary_sources: Source[];
   image_url?: string;
@@ -203,6 +230,28 @@ export interface PipelineState {
   remaining_candidates: string[];
   remaining_steps: string[];
   completed_units: string[];
+  race_identity?: RaceIdentityBrief;
+}
+
+export interface RaceIdentityBrief {
+  office?: string;
+  state?: string;
+  district?: string;
+  contest_stage?: ContestStage;
+  election_date?: string;
+  primary_status?: string;
+  official_roster_source_url?: string;
+  known_incumbent?: string;
+  known_ineligible_or_not_running?: string[];
+}
+
+export interface RunAudit {
+  contest_stage?: ContestStage;
+  roster_source_summary?: string;
+  candidate_changes?: string[];
+  forecast_changes?: string[];
+  remaining_uncertainty?: string[];
+  publish_attention?: string[];
 }
 
 export interface Race {
@@ -218,12 +267,14 @@ export interface Race {
   state?: string; // US state name for map highlighting; null for national races
   district?: string;
   description?: string;
+  contest_stage?: ContestStage;
   polling?: PollEntry[];
   polling_note?: string;
   forecast?: RaceForecast;
   reviews?: AgentReview[];
   validation_grade?: ValidationGrade;
   pipeline_state?: PipelineState;
+  run_audit?: RunAudit;
   agent_metrics?: AgentMetrics;
   ballotpedia_url?: string;
   register_to_vote_url?: string;
@@ -289,6 +340,7 @@ export interface RaceSummary {
   office?: string;
   jurisdiction?: string;
   state?: string;
+  contest_stage?: ContestStage;
   election_date: string;
   updated_utc: string;
   candidates: CandidateSummary[];

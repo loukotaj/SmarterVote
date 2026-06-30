@@ -47,6 +47,7 @@ _OPERATIONAL_RACE_FIELDS = frozenset(
         "pipeline_state",
         "post_run_analysis",
         "reviews",
+        "run_audit",
         "validation_grade",
     }
 )

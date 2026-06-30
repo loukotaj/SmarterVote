@@ -1,8 +1,12 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   export let ballotpediaUrl: string | null = null;
   export let registerToVoteUrl: string = "https://vote.gov/register";
   export let howToVoteUrl: string = "https://vote.gov/";
   export let hasForecast = false;
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="voter-resources">
@@ -114,7 +118,11 @@
   </a>
 
   {#if hasForecast}
-    <a href="#forecast" class="voter-resource-btn voter-resource-btn--forecast">
+    <a
+      href="#forecast"
+      class="voter-resource-btn voter-resource-btn--forecast"
+      on:click={() => dispatch("jumpToForecast")}
+    >
       <svg
         class="w-5 h-5 shrink-0"
         fill="none"

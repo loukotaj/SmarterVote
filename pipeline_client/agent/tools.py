@@ -144,6 +144,22 @@ ADD_CANDIDATE_TOOL: Dict = {
                 "name": {"type": "string", "description": "Full name of the candidate."},
                 "party": {"type": "string", "description": "Party affiliation (e.g. 'Democratic', 'Republican')."},
                 "incumbent": {"type": "boolean", "description": "Whether this candidate is the incumbent."},
+                "roster_sources": {
+                    "type": "array",
+                    "description": "Sources proving this candidate is active in this exact race.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {
+                                "type": "string",
+                                "enum": ["official", "ballotpedia", "fec", "news", "campaign", "other"],
+                            },
+                            "title": {"type": "string"},
+                            "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
+                        },
+                    },
+                },
             },
             "required": ["name", "party"],
         },
@@ -182,7 +198,78 @@ RENAME_CANDIDATE_TOOL: Dict = {
     },
 }
 
-ROSTER_TOOLS: List[Dict] = [ADD_CANDIDATE_TOOL, REMOVE_CANDIDATE_TOOL, RENAME_CANDIDATE_TOOL]
+SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "set_candidate_roster_sources",
+        "description": "Set source evidence proving that a candidate belongs on the current roster.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {
+                                "type": "string",
+                                "enum": ["official", "ballotpedia", "fec", "news", "campaign", "other"],
+                            },
+                            "title": {"type": "string"},
+                            "evidence": {"type": "string"},
+                        },
+                    },
+                },
+            },
+            "required": ["candidate_name", "sources"],
+        },
+    },
+}
+
+SET_RACE_IDENTITY_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "set_race_identity",
+        "description": "Record the locked race identity and contest stage used for roster verification.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "office": {"type": "string"},
+                "state": {"type": "string"},
+                "district": {"type": "string"},
+                "contest_stage": {
+                    "type": "string",
+                    "enum": [
+                        "pre_primary",
+                        "post_primary_general",
+                        "runoff",
+                        "top_two",
+                        "top_four_rcv",
+                        "uncontested",
+                        "special",
+                        "unknown",
+                    ],
+                },
+                "election_date": {"type": "string"},
+                "primary_status": {"type": "string"},
+                "official_roster_source_url": {"type": "string"},
+                "known_incumbent": {"type": "string"},
+                "known_ineligible_or_not_running": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": ["contest_stage"],
+        },
+    },
+}
+
+ROSTER_TOOLS: List[Dict] = [
+    ADD_CANDIDATE_TOOL,
+    REMOVE_CANDIDATE_TOOL,
+    RENAME_CANDIDATE_TOOL,
+    SET_CANDIDATE_ROSTER_SOURCES_TOOL,
+    SET_RACE_IDENTITY_TOOL,
+]
 
 # ---------------------------------------------------------------------------
 # Candidate field / summary tools
@@ -663,7 +750,7 @@ UPDATE_RACE_FIELD_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "update_race_field",
-        "description": "Update a race-level field. Allowed fields: description, office, election_date, polling_note, ballotpedia_url, register_to_vote_url, how_to_vote_url.",
+        "description": "Update a race-level field. Allowed fields: description, office, election_date, polling_note, ballotpedia_url, register_to_vote_url, how_to_vote_url, contest_stage.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -677,6 +764,7 @@ UPDATE_RACE_FIELD_TOOL: Dict = {
                         "ballotpedia_url",
                         "register_to_vote_url",
                         "how_to_vote_url",
+                        "contest_stage",
                     ],
                     "description": "Field to update.",
                 },

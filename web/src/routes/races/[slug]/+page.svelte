@@ -84,6 +84,10 @@
     forecastExpanded = !forecastExpanded;
   }
 
+  function expandForecastDetails() {
+    forecastExpanded = true;
+  }
+
   $: activeCandidates = race?.candidates?.filter((c) => !c.withdrawn) ?? [];
   $: withdrawnCandidates = race?.candidates?.filter((c) => c.withdrawn) ?? [];
   let withdrawnExpanded = false;
@@ -430,6 +434,7 @@
       {registerToVoteUrl}
       {howToVoteUrl}
       hasForecast={!!race.forecast}
+      on:jumpToForecast={expandForecastDetails}
     />
 
     <!-- Race Overview -->

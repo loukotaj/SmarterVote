@@ -65,10 +65,12 @@ from .tools import (  # noqa: F401 - re-exported for tests
     ROSTER_TOOLS,
     SEARCH_TOOL,
     SET_CANDIDATE_FIELD_TOOL,
+    SET_CANDIDATE_ROSTER_SOURCES_TOOL,
     SET_CANDIDATE_SUMMARY_TOOL,
     SET_DONOR_SUMMARY_TOOL,
     SET_FORECAST_TOOL,
     SET_ISSUE_STANCE_TOOL,
+    SET_RACE_IDENTITY_TOOL,
     SET_VOTING_SUMMARY_TOOL,
     UPDATE_RACE_FIELD_TOOL,
 )
@@ -360,6 +362,97 @@ def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) 
         race_json[key] = value
 
 
+def _candidate_names_for_audit(race_json: Dict[str, Any] | None) -> set[str]:
+    if not isinstance(race_json, dict):
+        return set()
+    return {
+        str(candidate.get("name") or "").strip()
+        for candidate in race_json.get("candidates", [])
+        if isinstance(candidate, dict) and str(candidate.get("name") or "").strip()
+    }
+
+
+def _build_run_audit(existing_data: Dict[str, Any] | None, race_json: Dict[str, Any]) -> Dict[str, Any]:
+    """Build non-gating notes that make future data-quality audits faster."""
+    before_names = _candidate_names_for_audit(existing_data)
+    after_names = _candidate_names_for_audit(race_json)
+    candidate_changes: List[str] = []
+    for name in sorted(after_names - before_names):
+        candidate_changes.append(f"Added candidate: {name}")
+    for name in sorted(before_names - after_names):
+        candidate_changes.append(f"Removed candidate: {name}")
+    if not candidate_changes:
+        candidate_changes.append("No roster membership changes detected.")
+
+    contest_stage = str(race_json.get("contest_stage") or "unknown")
+    roster_source_counts: Dict[str, int] = {}
+    candidates_missing_sources: List[str] = []
+    for candidate in race_json.get("candidates", []):
+        if not isinstance(candidate, dict):
+            continue
+        sources = candidate.get("roster_sources")
+        if not isinstance(sources, list) or not sources:
+            candidates_missing_sources.append(str(candidate.get("name") or "Unnamed candidate"))
+            continue
+        for source in sources:
+            if not isinstance(source, dict):
+                continue
+            source_type = str(source.get("type") or "other")
+            roster_source_counts[source_type] = roster_source_counts.get(source_type, 0) + 1
+
+    if roster_source_counts:
+        parts = [f"{count} {source_type}" for source_type, count in sorted(roster_source_counts.items())]
+        roster_source_summary = "Roster evidence captured from " + ", ".join(parts) + " source(s)."
+    else:
+        roster_source_summary = "No candidate roster source evidence captured."
+
+    forecast_changes: List[str] = []
+    before_forecast = existing_data.get("forecast") if isinstance(existing_data, dict) else None
+    after_forecast = race_json.get("forecast")
+    if isinstance(before_forecast, dict) and isinstance(after_forecast, dict):
+        for key in ("predicted_winner_name", "predicted_winner_party", "rating", "confidence"):
+            if before_forecast.get(key) != after_forecast.get(key):
+                forecast_changes.append(f"{key}: {before_forecast.get(key)!r} -> {after_forecast.get(key)!r}")
+    elif not before_forecast and isinstance(after_forecast, dict):
+        forecast_changes.append("Forecast added.")
+    elif before_forecast and not after_forecast:
+        forecast_changes.append("Forecast removed.")
+    if not forecast_changes:
+        forecast_changes.append("No forecast headline changes detected.")
+
+    remaining_uncertainty: List[str] = []
+    if contest_stage == "unknown":
+        remaining_uncertainty.append("Contest stage is still unknown.")
+    forecast = race_json.get("forecast")
+    if isinstance(forecast, dict) and forecast.get("uncertainty"):
+        remaining_uncertainty.append(str(forecast["uncertainty"]))
+    if candidates_missing_sources:
+        remaining_uncertainty.append(
+            "Candidate roster source evidence missing for: " + ", ".join(candidates_missing_sources[:8])
+        )
+
+    publish_attention: List[str] = []
+    pipeline_state = race_json.get("pipeline_state")
+    if isinstance(pipeline_state, dict) and pipeline_state.get("complete") is False:
+        publish_attention.append("Pipeline state is incomplete.")
+    validation_grade = race_json.get("validation_grade")
+    if isinstance(validation_grade, dict) and validation_grade.get("passed") is False:
+        publish_attention.append(f"Validation grade did not pass: {validation_grade.get('grade')}.")
+    if not race_json.get("candidates"):
+        publish_attention.append("No candidates are present.")
+    if candidates_missing_sources:
+        publish_attention.append("Some candidates lack explicit roster source evidence.")
+
+    return {
+        "contest_stage": contest_stage,
+        "roster_source_summary": roster_source_summary,
+        "candidate_changes": candidate_changes,
+        "forecast_changes": forecast_changes,
+        "remaining_uncertainty": remaining_uncertainty,
+        "publish_attention": publish_attention,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
@@ -492,6 +585,7 @@ async def run_agent(
 
     if existing_data is None:
         existing_data = _load_existing(race_id)
+    baseline_existing_data = copy.deepcopy(existing_data) if isinstance(existing_data, dict) else None
 
     if existing_data:
         log("info", f"Update mode for {race_id} (profile={profile}, model={model}, small_model={small_model})")
@@ -542,6 +636,7 @@ async def run_agent(
         race_json = race_json["race_json"]
 
     race_json.setdefault("id", race_id)
+    race_json.setdefault("contest_stage", "unknown")
     if not race_json.get("ballotpedia_url"):
         default_ballotpedia_url = default_ballotpedia_race_url(race_id)
         if default_ballotpedia_url:
@@ -753,6 +848,7 @@ async def run_agent(
     # Compute aggregate validation grade from review scores
     grade = compute_validation_grade(race_json.get("reviews", [])) if race_json.get("reviews") else None
     race_json["validation_grade"] = grade
+    race_json["run_audit"] = _build_run_audit(baseline_existing_data, race_json)
 
     elapsed = time.perf_counter() - t0
 

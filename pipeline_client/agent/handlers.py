@@ -21,6 +21,17 @@ from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.agent.source_types import normalize_source_type
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
+_ROSTER_SOURCE_TYPES = {"official", "ballotpedia", "fec", "news", "campaign", "other"}
+_CONTEST_STAGES = {
+    "pre_primary",
+    "post_primary_general",
+    "runoff",
+    "top_two",
+    "top_four_rcv",
+    "uncontested",
+    "special",
+    "unknown",
+}
 
 
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
@@ -38,6 +49,28 @@ def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str
     return normalized
 
 
+def _normalize_roster_source(source: Any) -> Dict[str, Any] | None:
+    """Normalize source evidence used only for candidate roster membership."""
+    if not isinstance(source, dict):
+        return None
+    url = str(source.get("url") or "").strip() or None
+    title = str(source.get("title") or "").strip() or None
+    evidence = str(source.get("evidence") or "").strip() or None
+    source_type = str(source.get("type") or "other").strip().lower()
+    if source_type not in _ROSTER_SOURCE_TYPES:
+        source_type = "other"
+    if not any((url, title, evidence)):
+        return None
+    normalized: Dict[str, Any] = {
+        "url": url,
+        "type": source_type,
+        "title": title,
+        "evidence": evidence,
+        "last_accessed": source.get("last_accessed") or datetime.now(timezone.utc).isoformat(),
+    }
+    return {key: value for key, value in normalized.items() if value is not None}
+
+
 def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str, Any]:
     """Build editing-tool handlers closed over *race_json*.
 
@@ -53,6 +86,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         "ballotpedia_url",
         "register_to_vote_url",
         "how_to_vote_url",
+        "contest_stage",
     }
 
     def _find_candidate(name: str) -> Optional[Dict[str, Any]]:
@@ -114,6 +148,9 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             "name": name,
             "party": party,
             "incumbent": args.get("incumbent", False),
+            "roster_sources": [
+                src for src in (_normalize_roster_source(source) for source in args.get("roster_sources", [])) if src
+            ],
             "summary": "",
             "summary_sources": [],
             "image_url": None,
@@ -248,6 +285,53 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         c["name"] = new_name
         log("info", f"    Renamed: {old_name} -> {new_name}")
         return f"Renamed '{old_name}' to '{new_name}'."
+
+    def set_candidate_roster_sources(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        sources = [src for src in (_normalize_roster_source(source) for source in args.get("sources", [])) if src]
+        if not sources:
+            return "ERROR: At least one roster source with a URL, title, or evidence note is required."
+        c["roster_sources"] = sources
+        log("info", f"    Set {len(sources)} roster source(s) for {name}")
+        return f"Set {len(sources)} roster source(s) for '{name}'."
+
+    def set_race_identity(args: Dict[str, Any]) -> str:
+        contest_stage = str(args.get("contest_stage") or "unknown").strip().lower()
+        if contest_stage not in _CONTEST_STAGES:
+            return f"ERROR: contest_stage must be one of: {', '.join(sorted(_CONTEST_STAGES))}."
+        identity: Dict[str, Any] = {"contest_stage": contest_stage}
+        for key in (
+            "office",
+            "state",
+            "district",
+            "election_date",
+            "primary_status",
+            "official_roster_source_url",
+            "known_incumbent",
+        ):
+            value = args.get(key)
+            if value not in (None, ""):
+                identity[key] = value
+        if isinstance(args.get("known_ineligible_or_not_running"), list):
+            identity["known_ineligible_or_not_running"] = [
+                str(item) for item in args["known_ineligible_or_not_running"] if str(item).strip()
+            ]
+        race_json["contest_stage"] = contest_stage
+        if identity.get("office") and not race_json.get("office"):
+            race_json["office"] = identity["office"]
+        if identity.get("state") and not race_json.get("state"):
+            race_json["state"] = identity["state"]
+        if identity.get("district") and not race_json.get("district"):
+            race_json["district"] = identity["district"]
+        if identity.get("election_date") and not race_json.get("election_date"):
+            race_json["election_date"] = identity["election_date"]
+        pipeline_state = race_json.setdefault("pipeline_state", {})
+        pipeline_state["race_identity"] = identity
+        log("info", f"    Locked race identity ({contest_stage})")
+        return "Recorded race identity brief."
 
     # --- Candidate field handlers ---
 
@@ -590,6 +674,10 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         field, value = args["field"], args["value"]
         if field not in _ALLOWED_RACE_FIELDS:
             return f"Field '{field}' not allowed. Allowed: {', '.join(sorted(_ALLOWED_RACE_FIELDS))}."
+        if field == "contest_stage":
+            value = str(value or "unknown").strip().lower()
+            if value not in _CONTEST_STAGES:
+                return f"ERROR: contest_stage must be one of: {', '.join(sorted(_CONTEST_STAGES))}."
         if field == "ballotpedia_url":
             default_url = default_ballotpedia_race_url(str(race_json.get("id") or ""))
             if default_url and "_Congressional_District" in default_url and "ballotpedia.org" in str(value):
@@ -723,6 +811,8 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         "add_candidate": add_candidate,
         "remove_candidate": remove_candidate,
         "rename_candidate": rename_candidate,
+        "set_candidate_roster_sources": set_candidate_roster_sources,
+        "set_race_identity": set_race_identity,
         "set_candidate_field": set_candidate_field,
         "set_candidate_summary": set_candidate_summary,
         "set_issue_stance": set_issue_stance,

@@ -37,6 +37,30 @@ class ConfidenceLevel(str, Enum):
     UNKNOWN = "unknown"
 
 
+class ContestStage(str, Enum):
+    """Current stage of the contest roster."""
+
+    PRE_PRIMARY = "pre_primary"
+    POST_PRIMARY_GENERAL = "post_primary_general"
+    RUNOFF = "runoff"
+    TOP_TWO = "top_two"
+    TOP_FOUR_RCV = "top_four_rcv"
+    UNCONTESTED = "uncontested"
+    SPECIAL = "special"
+    UNKNOWN = "unknown"
+
+
+class RosterSourceType(str, Enum):
+    """Source categories used specifically for candidate roster evidence."""
+
+    OFFICIAL = "official"
+    BALLOTPEDIA = "ballotpedia"
+    FEC = "fec"
+    NEWS = "news"
+    CAMPAIGN = "campaign"
+    OTHER = "other"
+
+
 class CanonicalIssue(str, Enum):
     """The canonical issues for consistent comparison across races."""
 
@@ -116,6 +140,16 @@ class CandidateLink(BaseModel):
         "news",
         "other",
     ] = "other"
+
+
+class CandidateRosterSource(BaseModel):
+    """Evidence that a candidate belongs on the active roster."""
+
+    url: Optional[str] = None
+    type: RosterSourceType = RosterSourceType.OTHER
+    title: Optional[str] = None
+    evidence: Optional[str] = None
+    last_accessed: Optional[datetime] = None
 
 
 # ---------------------------------------------------------------------------
@@ -270,6 +304,7 @@ class Candidate(BaseModel):
     name: str = Field(..., min_length=1)
     party: Optional[str] = None
     incumbent: bool = False
+    roster_sources: List[CandidateRosterSource] = Field(default_factory=list)
 
     @field_validator("party", mode="before")
     @classmethod
@@ -364,6 +399,31 @@ class PollEntry(BaseModel):
 # ---------------------------------------------------------------------------
 
 
+class RaceIdentityBrief(BaseModel):
+    """Durable race identity facts gathered before roster work."""
+
+    office: Optional[str] = None
+    state: Optional[str] = None
+    district: Optional[str] = None
+    contest_stage: ContestStage = ContestStage.UNKNOWN
+    election_date: Optional[str] = None
+    primary_status: Optional[str] = None
+    official_roster_source_url: Optional[str] = None
+    known_incumbent: Optional[str] = None
+    known_ineligible_or_not_running: List[str] = Field(default_factory=list)
+
+
+class RunAudit(BaseModel):
+    """Human-readable audit notes from the most recent pipeline run."""
+
+    contest_stage: ContestStage = ContestStage.UNKNOWN
+    roster_source_summary: Optional[str] = None
+    candidate_changes: List[str] = Field(default_factory=list)
+    forecast_changes: List[str] = Field(default_factory=list)
+    remaining_uncertainty: List[str] = Field(default_factory=list)
+    publish_attention: List[str] = Field(default_factory=list)
+
+
 class PipelineState(BaseModel):
     """Draft-only progress state for batched research runs."""
 
@@ -371,6 +431,7 @@ class PipelineState(BaseModel):
     remaining_candidates: List[str] = Field(default_factory=list)
     remaining_steps: List[str] = Field(default_factory=list)
     completed_units: List[str] = Field(default_factory=list)
+    race_identity: Optional[RaceIdentityBrief] = None
 
 
 class RaceJSON(BaseModel):
@@ -398,6 +459,7 @@ class RaceJSON(BaseModel):
     state: Optional[str] = None  # US state name for map highlighting (e.g. "Missouri"); null for national races
     district: Optional[str] = None
     description: Optional[str] = None
+    contest_stage: ContestStage = ContestStage.UNKNOWN
 
     # Polling data
     polling: List[PollEntry] = Field(default_factory=list)
@@ -413,3 +475,4 @@ class RaceJSON(BaseModel):
     reviews: List[AgentReview] = Field(default_factory=list)
     validation_grade: Optional[ValidationGrade] = None
     pipeline_state: Optional[PipelineState] = None
+    run_audit: Optional[RunAudit] = None

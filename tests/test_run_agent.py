@@ -437,6 +437,9 @@ async def test_run_agent_normalizes_output():
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
     assert result["generator"] == ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"]
+    assert result["contest_stage"] == "unknown"
+    assert result["run_audit"]["contest_stage"] == "unknown"
+    assert "No roster membership changes detected." in result["run_audit"]["candidate_changes"]
 
 
 @pytest.mark.asyncio

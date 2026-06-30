@@ -150,11 +150,15 @@ Return JSON:
   "state": "<US state name for map highlighting, e.g. \"Missouri\"; use null for national or multi-state races>",
   "district": "<district identifier if applicable, e.g. \"1st Congressional District\", \"District 5\"; null otherwise>",
   "election_date": "<YYYY-MM-DD or best estimate>",
+  "contest_stage": "pre_primary|post_primary_general|runoff|top_two|top_four_rcv|uncontested|special|unknown",
   "description": "<3-4 sentence nonpartisan overview of the race>",
   "candidates": [
     {{
       "name": "<full name>",
       "party": "<party affiliation>",
+      "roster_sources": [
+        {{"url": "<official/Ballotpedia/FEC/news URL proving this person is active in this exact race>", "type": "official|ballotpedia|fec|news|campaign|other", "title": "<page title>", "evidence": "<what this source confirms>", "last_accessed": "<ISO timestamp>"}}
+      ],
       "incumbent": true|false,  // true ONLY if this person currently holds the EXACT office being contested in this race (e.g. the sitting US Senator running for re-election). A state senator running for US Senate is NOT an incumbent for this race. A former officeholder is NOT an incumbent.
       "summary": "<2-3 sentence nonpartisan summary — plain prose only, no 'Sources:' appended>",
       "summary_sources": [
@@ -191,7 +195,24 @@ Return JSON:
     }}
   ],
   "updated_utc": "<ISO timestamp>",
-  "generator": ["pipeline-agent"]
+  "generator": ["pipeline-agent"],
+  "pipeline_state": {{
+    "complete": true,
+    "remaining_candidates": [],
+    "remaining_steps": [],
+    "completed_units": [],
+    "race_identity": {{
+      "office": "<locked office>",
+      "state": "<locked state or null>",
+      "district": "<locked district or null>",
+      "contest_stage": "pre_primary|post_primary_general|runoff|top_two|top_four_rcv|uncontested|special|unknown",
+      "election_date": "<YYYY-MM-DD or best estimate>",
+      "primary_status": "<brief status of primaries/results/filing list>",
+      "official_roster_source_url": "<official source URL if found, otherwise null>",
+      "known_incumbent": "<incumbent for this exact office, or null>",
+      "known_ineligible_or_not_running": []
+    }}
+  }}
 }}"""
 
 # ------------------------------------------------------------------
@@ -908,7 +929,8 @@ the current list of candidates in a race and correct it using your editing
 tools. Do NOT change any other data — only the candidate roster.
 
 You may ONLY use these roster tools: add_candidate, remove_candidate,
-rename_candidate. Do NOT call any non-roster editing tools in this phase.
+rename_candidate, set_candidate_roster_sources, set_race_identity.
+Do NOT call any non-roster editing tools in this phase.
 
 CRITICAL — preserve candidates by default. remove_candidate is ONLY for
 candidates who are no longer active in THIS SPECIFIC RACE. Valid reasons to
@@ -940,10 +962,11 @@ Search for "{race_id}" on Ballotpedia, official election authority sites, and
 recent news to get the FULL list of declared candidates across ALL parties
 (Democrat, Republican, Libertarian, Green, Independent, etc.).
 
-Before adding or removing anyone, write down mentally the exact race identity:
-office, state/district, election stage as of {current_date}, and whether the
-source you are using is a filing list, primary page, general-election ballot, or
-news story. Do not move candidates across offices in the same state. A person
+Before adding or removing anyone, lock and record the exact race identity using
+set_race_identity: office, state/district, election stage as of {current_date},
+and whether the source you are using is a filing list, primary page,
+general-election ballot, or news story. Do not move candidates across offices in
+the same state. A person
 running for U.S. Senate, Secretary of State, or another statewide office is not
 running for Governor unless a retrieved source explicitly says they filed for
 Governor.
@@ -966,12 +989,17 @@ deciding whether to add them.
 
 STEP 2 — Make corrections using your tools:
 1. Any candidate NOT in the profile who is currently in the race → add_candidate
+   with roster_sources proving the candidate is active in this exact race.
 2. Any candidate in the profile who has OFFICIALLY withdrawn, dropped out, been
    disqualified, or verifiably lost a completed primary/runoff/convention for
    this race → remove_candidate
    (include reason citing a dated official/certified result source or specific
    news source confirming the exit)
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
+4. For every candidate you verified and kept, use set_candidate_roster_sources
+   when the profile lacks explicit roster_sources or when your current source is
+   stronger/current than the stored source. Prefer official sources, then
+   current Ballotpedia election pages, then FEC/news/campaign evidence.
 
 CRITICAL — add_candidate anti-fabrication rules:
 - Only add a candidate whose EXACT full name appears in a credible source you
@@ -1020,6 +1048,21 @@ IMPORTANT — remove_candidate rules:
 Pay special attention to third-party candidates (Libertarian, Green, Independent),
 write-in candidates who qualified, and convention nominees who may not appear in
 initial profile data.
+
+STEP 2.5 — Keep the roster to ACTIVE, MAJOR candidates (cap the size):
+The authoritative source (Ballotpedia/Wikipedia) may list dozens of declared,
+minor, perennial, or historical candidates. Do NOT add them all. Keep the roster
+to at most 8 candidates, balanced across the major parties where possible (up to
+4 Democratic and 4 Republican), plus a clearly notable third-party nominee.
+- NEVER add a candidate who is not actively running in THIS race for THIS cycle:
+  exclude term-limited or not-seeking-re-election incumbents, candidates whose
+  candidacy was for a prior election cycle or a past recall, withdrawn/eliminated
+  candidates, and long-shot/perennial filers when the field is already large.
+- Prefer nominees and the most prominent declared candidates (sitting
+  officeholders, well-funded or widely-covered contenders) over minor filers.
+- If the roster already contains the major candidates, do NOT pad it with minor
+  names just because a source lists them. A tight, accurate roster of the real
+  contenders is the goal — not an exhaustive ballot dump.
 
 STEP 3 — Verify both major parties are represented:
 After completing the roster corrections, check whether the candidate list includes

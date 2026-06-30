@@ -140,6 +140,48 @@ def test_shared_models_have_new_fields():
     assert race.polling_note is None
 
 
+def test_race_identity_and_roster_provenance_fields_validate():
+    from shared.models import ContestStage, RaceJSON
+
+    race = RaceJSON.model_validate(
+        {
+            "id": "ga-governor-2026",
+            "election_date": "2026-11-03",
+            "updated_utc": "2026-06-29T00:00:00Z",
+            "contest_stage": "post_primary_general",
+            "candidates": [
+                {
+                    "name": "Alice",
+                    "party": "Democratic",
+                    "incumbent": False,
+                    "roster_sources": [
+                        {
+                            "url": "https://example.gov/candidates",
+                            "type": "official",
+                            "title": "Certified candidate list",
+                            "evidence": "Alice is listed as a nominee.",
+                            "last_accessed": "2026-06-29T00:00:00Z",
+                        }
+                    ],
+                }
+            ],
+            "pipeline_state": {
+                "complete": True,
+                "race_identity": {
+                    "office": "Governor",
+                    "state": "Georgia",
+                    "contest_stage": "post_primary_general",
+                    "official_roster_source_url": "https://example.gov/candidates",
+                },
+            },
+        }
+    )
+
+    assert race.contest_stage == ContestStage.POST_PRIMARY_GENERAL
+    assert race.pipeline_state.race_identity.contest_stage == ContestStage.POST_PRIMARY_GENERAL
+    assert race.candidates[0].roster_sources[0].type == "official"
+
+
 def test_poll_matchup_coerces_null_percentages():
     """Legacy/generated poll data can omit percentages without breaking validation."""
     from shared.models import PollMatchup
@@ -276,6 +318,7 @@ def test_semantic_review_packet_includes_every_modeled_profile_field():
         "pipeline_state",
         "post_run_analysis",
         "reviews",
+        "run_audit",
         "validation_grade",
     }
     assert set(packet["candidates"][0]) == set(Candidate.model_fields)
