@@ -1184,6 +1184,27 @@ def test_sanitize_roster_caps_crowded_roster_to_eight_balanced():
     assert "candidate_limit_note" not in race_json
 
 
+def test_sanitize_roster_removes_known_ineligible_from_race_identity():
+    from pipeline_client.agent.phases import _remove_known_ineligible_candidates
+
+    race_json = {
+        "candidates": [
+            {"name": "Jon Ossoff", "party": "Democratic", "incumbent": True},
+            {"name": "Mike Collins", "party": "Republican"},
+            {"name": "Raphael Warnock", "party": "Democratic"},  # off-cycle senator
+            {"name": "Herschel Walker", "party": "Republican"},  # prior cycle
+        ],
+        "pipeline_state": {
+            "race_identity": {
+                "known_ineligible_or_not_running": ["Raphael Warnock", "Herschel Walker"],
+            }
+        },
+    }
+    _remove_known_ineligible_candidates(race_json)
+    names = [c["name"] for c in race_json["candidates"]]
+    assert names == ["Jon Ossoff", "Mike Collins"]
+
+
 def test_cap_roster_keeps_incumbent_and_minor_party_when_room():
     from pipeline_client.agent.phases import _cap_roster
 

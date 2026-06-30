@@ -996,6 +996,11 @@ CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
 - Remove incumbents who have announced they are not seeking re-election, are
   retiring, or are running for a different office this cycle.
 - A person who only ran in a previous election is not a current candidate.
+- For EVERY such person you encounter (the off-cycle senator, a prior-cycle
+  candidate, a not-running/retiring incumbent, a candidate for a different
+  office), call set_race_identity and add their exact name to
+  `known_ineligible_or_not_running`, AND remove them with remove_candidate if
+  they are currently in the roster. Recording them is required, not optional.
 
 Roster source order:
 1. Official state election authority, certified candidate list, ballot list, or

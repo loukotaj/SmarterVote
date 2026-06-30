@@ -529,11 +529,48 @@ def _cap_roster(race_json: Dict[str, Any], log: Any | None = None, limit: int = 
         )
 
 
+def _remove_known_ineligible_candidates(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Drop candidates the model itself recorded as ineligible / not running.
+
+    The discovery and roster-sync prompts populate
+    ``pipeline_state.race_identity.known_ineligible_or_not_running`` with people
+    who are term-limited, retiring, the state's off-cycle senator, or prior-cycle
+    candidates. The economy model is decent at *listing* them there but often
+    fails to *remove* them from ``candidates``; enforce the removal here.
+    """
+    state = race_json.get("pipeline_state")
+    identity = state.get("race_identity") if isinstance(state, dict) else None
+    if not isinstance(identity, dict):
+        return
+    banned = identity.get("known_ineligible_or_not_running")
+    if not isinstance(banned, list) or not banned:
+        return
+    banned_norm = {str(name).strip().lower() for name in banned if isinstance(name, str) and str(name).strip()}
+    if not banned_norm:
+        return
+    candidates = race_json.get("candidates")
+    if not isinstance(candidates, list):
+        return
+    kept: List[Dict[str, Any]] = []
+    removed: List[str] = []
+    for candidate in candidates:
+        name = _candidate_name(candidate) if isinstance(candidate, dict) else ""
+        if name and name.strip().lower() in banned_norm:
+            removed.append(name)
+        else:
+            kept.append(candidate)
+    if removed:
+        race_json["candidates"] = kept
+        if log:
+            log("info", f"    Removed known-ineligible/not-running candidate(s): {', '.join(removed)}")
+
+
 def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply deterministic roster constraints before downstream fan-out."""
     _normalize_candidate_entries(race_json, log)
     _remove_ineligible_officeholders(race_json, log)
     _remove_inactive_candidates(race_json, log)
+    _remove_known_ineligible_candidates(race_json, log)
     _cap_roster(race_json, log)
     race_json.pop("candidate_limit_note", None)
 
