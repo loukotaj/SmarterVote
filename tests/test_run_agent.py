@@ -267,8 +267,8 @@ async def test_run_agent_removes_term_limited_incumbent_from_fresh_roster():
 
 
 @pytest.mark.asyncio
-async def test_run_agent_preserves_oversized_fresh_roster():
-    """Oversized primary-style rosters remain authoritative in the draft."""
+async def test_run_agent_caps_oversized_fresh_roster():
+    """Oversized rosters are hard-capped to 8, balanced across major parties."""
     discovery_result = {
         "id": "ga-governor-2026",
         "candidates": [
@@ -293,7 +293,10 @@ async def test_run_agent_preserves_oversized_fresh_roster():
             enabled_steps=["discovery"],
         )
 
-    assert [candidate["name"] for candidate in result["candidates"]] == [f"Candidate {idx}" for idx in range(1, 11)]
+    parties = [candidate["party"] for candidate in result["candidates"]]
+    assert len(result["candidates"]) == 8
+    assert parties.count("Democratic") == 4
+    assert parties.count("Republican") == 4
     assert "candidate_limit_note" not in result
 
 
@@ -1158,7 +1161,7 @@ def test_authoritative_roster_still_removes_stale_primary_candidate_same_party()
     assert "Primary Loser" not in names, "Same-party primary loser should be removed"
 
 
-def test_sanitize_roster_preserves_twenty_active_candidates():
+def test_sanitize_roster_caps_crowded_roster_to_eight_balanced():
     race_json = {
         "id": "crowded-primary-2026",
         "candidates": [
@@ -1174,8 +1177,27 @@ def test_sanitize_roster_preserves_twenty_active_candidates():
 
     _sanitize_roster(race_json)
 
-    assert [candidate["name"] for candidate in race_json["candidates"]] == [f"Candidate {idx:02d}" for idx in range(1, 21)]
+    parties = [candidate["party"] for candidate in race_json["candidates"]]
+    assert len(race_json["candidates"]) == 8
+    assert parties.count("Democratic") == 4
+    assert parties.count("Republican") == 4
     assert "candidate_limit_note" not in race_json
+
+
+def test_cap_roster_keeps_incumbent_and_minor_party_when_room():
+    from pipeline_client.agent.phases import _cap_roster
+
+    race_json = {
+        "candidates": [
+            {"name": "Dem Incumbent", "party": "Democratic", "incumbent": True},
+            *[{"name": f"Rep {i}", "party": "Republican"} for i in range(10)],
+            {"name": "Indie One", "party": "Independent"},
+        ],
+    }
+    _cap_roster(race_json)
+    names = [c["name"] for c in race_json["candidates"]]
+    assert len(names) == 8
+    assert "Dem Incumbent" in names  # incumbent always survives the cap
 
 
 def test_sanitize_polling_drops_non_roster_placeholder_poll():
