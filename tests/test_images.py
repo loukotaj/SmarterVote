@@ -17,6 +17,21 @@ def test_homepage_banner_and_collage_are_rejected_as_non_photos():
     assert not _looks_like_non_photo("https://images.squarespace-cdn.com/.../Hallie+%2899%29.jpg")
 
 
+def test_generic_social_card_rejected_and_data_hosts_skipped():
+    # FEC/OpenSecrets etc. serve a generic social card, never a headshot.
+    assert _looks_like_non_photo("https://www.fec.gov/static/img/social/fec-data.png")
+    cand = {
+        "name": "Hallie Shoffner",
+        "website": "https://www.hallieshoffner.com/",
+        "links": [
+            {"url": "https://ballotpedia.org/Hallie_Shoffner", "type": "ballotpedia"},
+            {"url": "https://www.fec.gov/data/candidate/S6AR00199/", "type": "finance"},
+        ],
+    }
+    # Data/reference hosts are dropped; only the campaign site remains.
+    assert _candidate_page_urls(cand) == ["https://www.hallieshoffner.com/"]
+
+
 def test_extract_page_images_skips_homepage_banner_for_real_headshot():
     html = """
     <meta property="og:image" content="/halliewebsiteshoffnerhomepage.png">

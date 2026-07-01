@@ -78,9 +78,27 @@ def _name_tokens(candidate_name: str) -> set[str]:
     return {token for token in re.findall(r"[a-z0-9]+", candidate_name.lower()) if len(token) >= 3}
 
 
+# Generic Open-Graph / social-share cards served by data and reference sites
+# (e.g. https://www.fec.gov/static/img/social/fec-data.png) are never a
+# candidate headshot even though they pass the extension check.
+_GENERIC_CARD_MARKERS = (
+    "/static/img/social",
+    "/social/",
+    "fec-data",
+    "og-default",
+    "default-og",
+    "opengraph",
+    "twitter-card",
+    "sharecard",
+    "share-card",
+)
+
+
 def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     haystack = unquote(f"{url} {alt}").lower()
-    return any(token in haystack for token in _NON_PHOTO_TOKENS)
+    if any(token in haystack for token in _NON_PHOTO_TOKENS):
+        return True
+    return any(marker in haystack for marker in _GENERIC_CARD_MARKERS)
 
 
 def _looks_like_low_resolution_reference_photo(url: str) -> bool:
@@ -131,6 +149,20 @@ def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> L
     return [url for _, _, url in ranked]
 
 
+# Data / reference / finance sites never host a personal headshot on their
+# pages — their Open-Graph image is a generic site card — so skip them when
+# crawling candidate pages for a photo (Ballotpedia is handled via its own API).
+_NON_HEADSHOT_HOSTS = (
+    "fec.gov",
+    "opensecrets.org",
+    "followthemoney.org",
+    "ballotpedia.org",
+    "votesmart.org",
+    "congress.gov",
+    "govtrack.us",
+)
+
+
 def _candidate_page_urls(candidate: Dict[str, Any]) -> List[str]:
     """Return known candidate pages, preferring candidate-specific profile URLs."""
     name_tokens = _name_tokens(str(candidate.get("name", "")))
@@ -144,6 +176,8 @@ def _candidate_page_urls(candidate: Dict[str, Any]) -> List[str]:
             continue
         url = link.get("url")
         if not isinstance(url, str) or not url.startswith(("http://", "https://")):
+            continue
+        if any(host in urlparse(url).netloc.lower() for host in _NON_HEADSHOT_HOSTS):
             continue
         parsed_path = unquote(urlparse(url).path).lower()
         score = 10
