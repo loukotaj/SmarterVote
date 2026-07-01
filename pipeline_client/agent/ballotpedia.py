@@ -590,7 +590,18 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
     """
     candidates: List[Dict[str, Any]] = []
     seen: set = set()
-    current_html = html.split('id="Past_elections"', 1)[0]
+    # Only parse the current election's candidate voteboxes. Ballotpedia pages
+    # append prior-cycle results under an "Election history" / "Past elections"
+    # section (e.g. 2022/2020 general elections) whose voteboxes would otherwise
+    # be read as current candidates — cut the HTML at the earliest such section
+    # heading anchor (matching the id= on the heading, not the table-of-contents
+    # link) so off-cycle names never enter the roster.
+    cut = len(html)
+    for marker in ('id="Past_elections"', 'id="Election_history"'):
+        index = html.find(marker)
+        if index != -1:
+            cut = min(cut, index)
+    current_html = html[:cut]
 
     # Ballotpedia pages include many unrelated/historical tables. Only parse the
     # current election's votebox sections headed "... election" or "... convention".

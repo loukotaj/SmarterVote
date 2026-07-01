@@ -166,6 +166,31 @@ def test_candidate_parser_uses_current_primary_votebox_sections():
     ]
 
 
+def test_candidate_parser_excludes_election_history_section():
+    """Prior-cycle voteboxes under an 'Election history' section must be ignored."""
+    html = """
+    <h4>General election</h4>
+    <div class="votebox">
+      <tr class="results_row "><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Tom_Cotton">Tom Cotton</a></td></tr>
+      <tr class="results_row "><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Hallie_Shoffner">Hallie Shoffner</a></td></tr>
+    </div>
+    <h2><span class="mw-headline" id="Election_history">Election history</span></h2>
+    <h3>2022</h3>
+    <h4>General election</h4>
+    <div class="votebox">
+      <tr class="results_row "><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/John_Boozman">John Boozman</a></td></tr>
+      <tr class="results_row "><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Natalie_James">Natalie James</a></td></tr>
+    </div>
+    """
+    names = [c["name"] for c in _parse_candidate_list_from_html(html)]
+    assert "Tom Cotton" in names and "Hallie Shoffner" in names
+    assert "John Boozman" not in names and "Natalie James" not in names
+
+
 def test_candidate_parser_keeps_only_winners_from_completed_primary_sections():
     html = """
     <h4>Democratic primary election</h4>
