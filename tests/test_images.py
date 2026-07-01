@@ -3,9 +3,28 @@ import pytest
 from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
+    _looks_like_non_photo,
     _resolve_single_image,
     _wikimedia_original_image_url,
 )
+
+
+def test_homepage_banner_and_collage_are_rejected_as_non_photos():
+    # A campaign homepage banner / collage graphic is not a usable headshot.
+    assert _looks_like_non_photo("https://static1.squarespace.com/.../halliewebsiteshoffnerhomepage.png")
+    assert _looks_like_non_photo("https://images.squarespace-cdn.com/.../shoffner_collage.jpg")
+    # A real named photo is kept.
+    assert not _looks_like_non_photo("https://images.squarespace-cdn.com/.../Hallie+%2899%29.jpg")
+
+
+def test_extract_page_images_skips_homepage_banner_for_real_headshot():
+    html = """
+    <meta property="og:image" content="/halliewebsiteshoffnerhomepage.png">
+    <img data-src="/Hallie+%2899%29.jpg" width="1200" height="1500" alt="Hallie Shoffner">
+    """
+    ranked = _extract_page_image_urls(html, "https://example.com/", "Hallie Shoffner")
+    assert ranked and "Hallie" in ranked[0]
+    assert not any("homepage" in url for url in ranked)
 
 
 def test_extract_page_images_prefers_large_named_photo_over_social_banner_and_logo():

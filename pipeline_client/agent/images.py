@@ -27,9 +27,11 @@ _NON_PHOTO_TOKENS = frozenset(
         "badge",
         "background",
         "banner",
+        "collage",
         "favicon",
         "footerbg",
         "herobg",
+        "homepage",
         "icon",
         "landscape",
         "logo",
@@ -381,21 +383,59 @@ async def _resolve_wikimedia_commons(url: str) -> Optional[str]:
 async def _lookup_serper_image(
     candidate_name: str, context: Optional[str] = None, run_budget: RunBudget | None = None
 ) -> Optional[str]:
-    """Search for candidate headshot using Serper Images API as a fast path."""
-    query = f"{candidate_name} headshot"
+    """Search for a candidate headshot via Serper Images, ranked by relevance.
+
+    Runs a few query variants, scores each result by how strongly its title/source
+    references the candidate (to avoid generic party graphics or the wrong person),
+    prefers portrait-shaped images, then returns the best accessible one.
+    """
+    name_tokens = _name_tokens(candidate_name)
+    queries: List[str] = []
     if context:
-        query = f"{candidate_name} {context} headshot"
+        queries.append(f"{candidate_name} {context} headshot")
+    queries.append(f"{candidate_name} candidate portrait")
+    queries.append(candidate_name)
+
+    scored: List[Tuple[int, str]] = []
+    seen: set[str] = set()
     try:
-        results = await _serper_image_search(query, num_results=5, run_budget=run_budget)
-        for r in results:
-            if not isinstance(r, dict) or "imageUrl" not in r:
-                continue
-            img_url = r["imageUrl"]
-            if _is_valid_image_url(img_url) and not _looks_like_non_photo(img_url):
-                # Check accessibility
-                accessible, final_url = await _check_url_accessible(img_url)
-                if accessible:
-                    return final_url if _is_valid_image_url(final_url) else img_url
+        for query in queries:
+            results = await _serper_image_search(query, num_results=10, run_budget=run_budget)
+            for r in results:
+                if not isinstance(r, dict):
+                    continue
+                img_url = r.get("imageUrl")
+                if not isinstance(img_url, str) or img_url in seen:
+                    continue
+                seen.add(img_url)
+                meta = f"{r.get('title', '')} {r.get('source', '')} {r.get('link', '') or r.get('domain', '')}"
+                if not _is_valid_image_url(img_url) or _looks_like_non_photo(img_url, meta):
+                    continue
+                meta_tokens = set(re.findall(r"[a-z0-9]+", meta.lower()))
+                overlap = len(name_tokens & meta_tokens)
+                score = overlap * 10
+                try:
+                    width = int(r.get("imageWidth") or 0)
+                    height = int(r.get("imageHeight") or 0)
+                except (TypeError, ValueError):
+                    width = height = 0
+                if width and height:
+                    ratio = width / max(height, 1)
+                    if 0.6 <= ratio <= 1.4:  # portrait/square headshot shape
+                        score += 4
+                    elif ratio > 2.5 or ratio < 0.35:  # banner / sliver
+                        score -= 6
+                    if width < 200 or height < 200:
+                        score -= 4
+                scored.append((score, img_url))
+            # A result whose title/source names the candidate is a strong hit; stop early.
+            if any(s >= 10 for s, _ in scored):
+                break
+
+        for _, img_url in sorted(scored, key=lambda item: item[0], reverse=True):
+            accessible, final_url = await _check_url_accessible(img_url)
+            if accessible:
+                return final_url if _is_valid_image_url(final_url) else img_url
     except Exception as e:
         logger.debug("Serper image fast path failed: %s", e)
     return None
