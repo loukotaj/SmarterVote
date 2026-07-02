@@ -191,6 +191,32 @@ def test_candidate_parser_excludes_election_history_section():
     assert "John Boozman" not in names and "Natalie James" not in names
 
 
+def test_candidate_parser_excludes_state_scoped_election_history_section():
+    """Ballotpedia often scopes the history anchor to the state (e.g.
+    id="Texas_U.S._Senate_election_history") rather than the plain
+    id="Election_history". Prior-cycle voteboxes under such anchors must also be
+    cut so off-cycle names (e.g. a 2018/2024 nominee) never enter the roster."""
+    html = """
+    <h4>General election</h4>
+    <div class="votebox">
+      <tr class="results_row "><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/John_Cornyn">John Cornyn</a></td></tr>
+    </div>
+    <h2><span class="mw-headline" id="Texas_U.S._Senate_election_history">Texas U.S. Senate election history</span></h2>
+    <h3>2018</h3>
+    <h4>General election</h4>
+    <div class="votebox">
+      <tr class="results_row "><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Ted_Cruz">Ted Cruz</a></td></tr>
+      <tr class="results_row "><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Beto_ORourke">Beto O'Rourke</a></td></tr>
+    </div>
+    """
+    names = [c["name"] for c in _parse_candidate_list_from_html(html)]
+    assert "John Cornyn" in names
+    assert "Ted Cruz" not in names and "Beto O'Rourke" not in names
+
+
 def test_candidate_parser_keeps_only_winners_from_completed_primary_sections():
     html = """
     <h4>Democratic primary election</h4>

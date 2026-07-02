@@ -595,12 +595,14 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
     # section (e.g. 2022/2020 general elections) whose voteboxes would otherwise
     # be read as current candidates — cut the HTML at the earliest such section
     # heading anchor (matching the id= on the heading, not the table-of-contents
-    # link) so off-cycle names never enter the roster.
+    # link) so off-cycle names never enter the roster. The anchor id is often
+    # state-scoped (e.g. id="Texas_U.S._Senate_election_history"), so match any
+    # id ending in "election_history" in addition to the plain forms.
     cut = len(html)
-    for marker in ('id="Past_elections"', 'id="Election_history"'):
-        index = html.find(marker)
-        if index != -1:
-            cut = min(cut, index)
+    for pattern in (r'id="Past_elections"', r'id="[^"]*[Ee]lection_history"'):
+        m = re.search(pattern, html)
+        if m:
+            cut = min(cut, m.start())
     current_html = html[:cut]
 
     # Ballotpedia pages include many unrelated/historical tables. Only parse the
