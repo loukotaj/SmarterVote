@@ -159,12 +159,16 @@
     hoveredStateCount = 0;
   }
 
-  function getFill(name: string): string {
+  // Reactive so the SVG `fill={getFill(...)}` attribute re-evaluates whenever the
+  // colors change. A plain function would only re-run when `state` changes, so
+  // switching tabs (which updates stateColors but not the feature list) would
+  // otherwise leave the map painted with the previous tab's colors.
+  $: getFill = (name: string): string => {
     if (stateColors[name]) return stateColors[name];
     if (name === selectedState) return "var(--map-selected)";
     if (activeStates.has(name)) return "var(--map-active)";
     return "var(--map-inactive)";
-  }
+  };
 
   // Split into two render passes so the selected state always paints on top
   $: baseFeatures = stateFeatures.filter((s) => s.name !== selectedState);
