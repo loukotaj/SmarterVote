@@ -786,6 +786,9 @@ async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> 
         "options": opts,
         "status": "pending",
         "is_continuation": False,
+        # Top-level so the Cloud Function skip guard and the local worker's query
+        # can route the item without cracking open `options`. Defaults to "cf".
+        "runner": opts.get("runner") or "cf",
         "created_at": SERVER_TIMESTAMP,
     }
     db.collection("pipeline_queue").document(item_id).set(item)

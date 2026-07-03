@@ -1,0 +1,29 @@
+# Long-lived local pipeline worker: leases runner=="local" queue items from
+# Firestore and runs them end-to-end with no Cloud Function handoff.
+# Build from the repo root:  docker build -f pipeline_client/Dockerfile.worker -t sv-worker .
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Reuse the backend requirements (the worker imports the same agent + backend code).
+COPY pipeline_client/backend/requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt \
+    && pip install --no-cache-dir python-dotenv
+
+COPY pipeline_client ./pipeline_client
+COPY shared ./shared
+
+RUN useradd --create-home --shell /bin/bash app \
+    && chown -R app:app /app
+USER app
+
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+# Long-lived poller — no port to expose.
+ENTRYPOINT ["python", "-m", "pipeline_client.worker"]

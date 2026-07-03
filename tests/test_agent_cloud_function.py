@@ -189,6 +189,30 @@ def test_terminal_retry_is_acknowledged_without_rerunning():
     mock_run.assert_not_called()
 
 
+def test_skips_items_tagged_for_local_worker():
+    """CF must leave runner=='local' items untouched for the local Docker worker."""
+    import functions.agent.main as cf_main
+
+    local_item = {
+        "status": "pending",
+        "race_id": "az-01-senate-2026",
+        "run_id": "run-local",
+        "options": {},
+        "runner": "local",
+    }
+    db, item_ref, run_ref, race_ref = _make_firestore_mock(item_data=local_item)
+
+    with (
+        patch("functions.agent.main._get_fs", return_value=db),
+        patch("functions.agent.main._run_agent") as mock_run,
+    ):
+        cf_main.process_queue_item(_make_cloud_event("item-local"))
+
+    mock_run.assert_not_called()
+    claim_updates = [c.args[1] for c in db.transaction.return_value.update.call_args_list]
+    assert not any(u.get("status") == "running" for u in claim_updates)
+
+
 def test_skips_when_item_missing():
     """Returns early when queue document does not exist."""
     import functions.agent.main as cf_main

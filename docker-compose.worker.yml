@@ -1,0 +1,28 @@
+# Local pipeline worker — runs races tagged runner="local" end-to-end with no
+# Cloud Function handoff churn.  Runs alongside (not instead of) the Cloud Function.
+#
+# Setup:
+#   1. Put a GCP service-account key (Firestore + GCS access) at ./secrets/sa-key.json
+#      OR mount your ADC and set GOOGLE_APPLICATION_CREDENTIALS accordingly.
+#   2. Ensure ./.env has the LLM/search API keys the agent needs (OpenRouter, Serper)
+#      and GCS_BUCKET / FIRESTORE_PROJECT for the target (dev) environment.
+#   3. docker compose -f docker-compose.worker.yml up --build
+#
+# To route work here:  run_race(<race_id>, runner="local")  (via the MCP tool / admin API)
+services:
+  pipeline-worker:
+    build:
+      context: .
+      dockerfile: pipeline_client/Dockerfile.worker
+    env_file:
+      - .env
+    environment:
+      PIPELINE_MODE: gcp
+      GOOGLE_APPLICATION_CREDENTIALS: /secrets/sa-key.json
+      WORKER_CONCURRENCY: "2"
+      WORKER_POLL_SECONDS: "3"
+      # GCS_BUCKET / FIRESTORE_PROJECT come from .env; override here if needed.
+    volumes:
+      - ./secrets:/secrets:ro
+    restart: unless-stopped
+    stop_grace_period: 120s

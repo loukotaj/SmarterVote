@@ -39,6 +39,17 @@ class RunOptions(BaseModel):
     target_no_info: Optional[bool] = None
     note: Optional[str] = None
     goal: Optional[str] = None
+    runner: Optional[str] = None
+
+    @field_validator("runner")
+    @classmethod
+    def validate_runner(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        normalized = str(value).strip().lower()
+        if normalized not in {"cf", "local"}:
+            raise ValueError("runner must be 'cf' or 'local'")
+        return normalized
 
     @field_validator("enabled_steps")
     @classmethod

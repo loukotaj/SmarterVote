@@ -216,6 +216,9 @@ async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
                 "options": options,
                 "status": "pending",
                 "is_continuation": False,
+                # Top-level routing tag: "local" is left for the Docker worker,
+                # anything else runs on the Eventarc Cloud Function.
+                "runner": (options or {}).get("runner") or "cf",
                 "created_at": SERVER_TIMESTAMP,
             }
             db.collection("pipeline_queue").document(item_id).set(item)

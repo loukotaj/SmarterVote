@@ -106,11 +106,14 @@ async def queue_races(
     target_no_info: bool | None = None,
     note: str | None = None,
     goal: str | None = None,
+    runner: str | None = None,
 ) -> dict[str, Any]:
     """Queue one or more races for pipeline processing.
 
     Defaults to cheap/economy mode. Expensive default/quality/custom model
-    profiles require explicitly passing cheap_mode=False.
+    profiles require explicitly passing cheap_mode=False. Pass runner="local" to
+    route the runs to the long-lived local Docker worker instead of the Cloud
+    Function.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
@@ -129,6 +132,7 @@ async def queue_races(
         target_no_info=target_no_info,
         note=note,
         goal=goal,
+        runner=runner,
     )
     return await _client().post("/api/races/queue", json={"race_ids": race_ids, "options": options})
 
@@ -141,11 +145,14 @@ async def run_race(
     enabled_steps: list[str] | None = None,
     note: str | None = None,
     goal: str | None = None,
+    runner: str | None = None,
 ) -> dict[str, Any]:
     """Queue a single race for pipeline processing.
 
     Defaults to cheap/economy mode. Expensive default/quality mode requires
-    explicitly passing cheap_mode=False.
+    explicitly passing cheap_mode=False. Pass runner="local" to route the run to
+    the long-lived local Docker worker (no Cloud Function handoff churn); the
+    default runs on the Cloud Function.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
@@ -153,6 +160,7 @@ async def run_race(
         enabled_steps=enabled_steps,
         note=note,
         goal=goal,
+        runner=runner,
     )
     return await _client().post(f"/api/races/{race_id}/run", json=options)
 
