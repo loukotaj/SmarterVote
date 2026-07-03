@@ -73,7 +73,9 @@ def _pending_local_items(db: Any, limit: int = 50):
     Uses a single-field equality filter (no composite index needed); status +
     ordering are applied client-side since the local queue is small.
     """
-    docs = list(db.collection("pipeline_queue").where("runner", "==", "local").limit(limit).stream())
+    from google.cloud.firestore_v1 import FieldFilter  # type: ignore
+
+    docs = list(db.collection("pipeline_queue").where(filter=FieldFilter("runner", "==", "local")).limit(limit).stream())
     items = []
     for doc in docs:
         data = doc.to_dict() or {}
