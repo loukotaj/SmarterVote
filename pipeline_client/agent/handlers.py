@@ -217,8 +217,41 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
                 reason_lower,
             )
         )
-        has_withdrawal_signal = has_exit_signal or (
-            has_primary_loss_signal and has_specific_date and has_official_result_signal
+        # A retired/departed former officeholder or an explicit prior-cycle
+        # candidate who is not running THIS cycle is a legitimate removal even
+        # without a withdrawal event — they never entered this race. Require a
+        # positive "former"/"prior-cycle" statement AND a "not a current
+        # candidate" signal, so this does not reopen the "merely absent from a
+        # page" hole the guard exists to close.
+        has_former_status_signal = bool(
+            re.search(
+                r"\bformer\s+(u\.?s\.?\s+)?"
+                r"(representative|congress\w*|senator|governor|lieutenant governor|"
+                r"officeholder|member of congress|incumbent)\b",
+                reason_lower,
+            )
+            or re.search(r"\bleft office\b", reason_lower)
+            or re.search(r"\bretired\b.{0,40}\b(20\d{2}|congress|office|house|senate)\b", reason_lower)
+            or re.search(r"\b(prior|previous)[- ]cycle\b", reason_lower)
+        )
+        has_not_current_signal = any(
+            token in reason_lower
+            for token in (
+                "not a candidate",
+                "not a current candidate",
+                "not running",
+                "not seeking",
+                "did not file",
+                "has not filed",
+                "no longer",
+                "not on the ballot",
+            )
+        )
+        has_former_officeholder_signal = has_former_status_signal and has_not_current_signal
+        has_withdrawal_signal = (
+            has_exit_signal
+            or has_former_officeholder_signal
+            or (has_primary_loss_signal and has_specific_date and has_official_result_signal)
         )
 
         # Special case: structurally invalid entries (e.g. a metadata key like
@@ -235,10 +268,13 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             )
             return (
                 f"ERROR: remove_candidate blocked. The reason '{reason}' does not indicate "
-                f"that '{name}' has withdrawn from the race. Only call remove_candidate when "
-                f"a candidate has officially withdrawn, dropped out, been disqualified, or "
-                f"lost a completed contest with an official result source and date. Do NOT "
-                f"use this tool because a page has no listing or to fix data quality issues."
+                f"that '{name}' has left the race. Only call remove_candidate when a candidate "
+                f"has officially withdrawn, dropped out, been disqualified, lost a completed "
+                f"contest with an official result source and date, OR is a former officeholder / "
+                f"prior-cycle candidate who is not a candidate this cycle — state that explicitly "
+                f"(e.g. 'former U.S. Representative who left office in 2023 and is not a candidate "
+                f"in 2026'). Do NOT use this tool because a page has no listing or to fix data "
+                f"quality issues."
             )
 
         candidates = race_json.get("candidates", [])

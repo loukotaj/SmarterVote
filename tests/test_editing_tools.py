@@ -368,6 +368,29 @@ def test_remove_candidate_blocks_not_listed_without_exit_signal():
     assert race_json["candidates"] == [{"name": "Alice", "party": "D"}]
 
 
+def test_remove_candidate_allows_former_officeholder_not_running():
+    """A retired former officeholder who is not a candidate this cycle can be removed.
+
+    Regression: nc-house-01 kept G.K. Butterfield (U.S. Rep who left office in 2023)
+    because the guard only accepted withdrawal/primary-loss reasons.
+    """
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Don Davis", "party": "D"}, {"name": "G.K. Butterfield", "party": "D"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "G.K. Butterfield",
+            "reason": "Former U.S. Representative who retired in 2022 and is not a candidate in the 2026 election.",
+        }
+    )
+
+    assert "blocked" not in result.lower()
+    butterfield = next(c for c in race_json["candidates"] if c["name"] == "G.K. Butterfield")
+    assert butterfield.get("withdrawn") is True
+
+
 def test_remove_candidate_blocks_generic_primary_loss_without_official_result():
     from pipeline_client.agent.agent import _make_editing_handlers
 
