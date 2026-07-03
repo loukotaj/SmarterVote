@@ -50,7 +50,7 @@ PIPELINE_STEP_WEIGHTS: dict[str, int] = {
 }
 
 MODEL_PROFILES = frozenset({"economy", "balanced", "quality", "custom"})
-MODEL_ROLES = frozenset({"primary", "small", "review_claude", "review_gemini", "review_grok"})
+MODEL_ROLES = frozenset({"primary", "small", "roster", "review_claude", "review_gemini", "review_grok"})
 REVIEW_PROVIDERS: tuple[str, ...] = ("claude", "gemini", "grok")
 REVIEW_PROVIDER_IDS = frozenset(REVIEW_PROVIDERS)
 

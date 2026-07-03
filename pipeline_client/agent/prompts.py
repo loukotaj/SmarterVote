@@ -996,6 +996,12 @@ CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
 - Remove incumbents who have announced they are not seeking re-election, are
   retiring, or are running for a different office this cycle.
 - A person who only ran in a previous election is not a current candidate.
+- Former officeholders who already left office (e.g. a retired, resigned,
+  term-limited, or previously-defeated U.S. Representative, Senator, or Governor)
+  are NOT current candidates unless a retrieved current source explicitly says
+  they filed for THIS 2026 contest. Someone who previously held or previously ran
+  for this seat in an earlier cycle does not belong in the roster by default —
+  being a real, well-known person is not evidence of a current candidacy.
 - For EVERY such person you encounter (the off-cycle senator, a prior-cycle
   candidate, a not-running/retiring incumbent, a candidate for a different
   office), call set_race_identity and add their exact name to
@@ -1086,9 +1092,12 @@ minor, perennial, or historical candidates. Do NOT add them all. Keep the roster
 to at most 8 candidates, balanced across the major parties where possible (up to
 4 Democratic and 4 Republican), plus a clearly notable third-party nominee.
 - NEVER add a candidate who is not actively running in THIS race for THIS cycle:
-  exclude term-limited or not-seeking-re-election incumbents, candidates whose
-  candidacy was for a prior election cycle or a past recall, withdrawn/eliminated
-  candidates, and long-shot/perennial filers when the field is already large.
+  exclude term-limited or not-seeking-re-election incumbents, FORMER officeholders
+  who already left office and have not filed to run again this cycle (e.g. a
+  retired or previously-defeated U.S. Representative/Senator/Governor), candidates
+  whose candidacy was for a prior election cycle or a past recall,
+  withdrawn/eliminated candidates, and long-shot/perennial filers when the field
+  is already large.
 - Prefer nominees and the most prominent declared candidates (sitting
   officeholders, well-funded or widely-covered contenders) over minor filers.
 - If the roster already contains the major candidates, do NOT pad it with minor
@@ -1136,6 +1145,12 @@ A candidate should be removed ONLY if:
   plausible — an added name that no source confirms is treated as fabricated.
 - The candidate was clearly a primary loser or withdrew BEFORE the last_updated
   date (meaning they should never have been in the profile).
+- The candidate is a former officeholder or a prior-cycle candidate who is NOT a
+  declared/qualified candidate in THIS 2026 contest — for example a retired,
+  resigned, term-limited, or previously-defeated member of Congress or other
+  official who is not currently running — and a search confirms no current 2026
+  candidacy in this specific race. Being a real, well-known person does NOT make
+  someone a current candidate.
 
 Do NOT remove a candidate simply because you are uncertain or their data is
 sparse. If you are not sure, keep them.
@@ -1174,6 +1189,9 @@ evidence is verified:
    - Lost a completed primary/runoff/convention and you can cite the dated result
    - Officially withdrew or was disqualified
    - Is clearly fake or cannot be verified as a real candidate after search
+   - Is a former officeholder or prior-cycle candidate not running in THIS 2026
+     race, confirmed by search (e.g. a retired, resigned, or previously-defeated
+     ex-Representative/Senator/Governor who has not filed this cycle)
 6. Keep every verified active candidate, including all participants in a runoff
    that has not yet occurred and qualified third-party candidates.
 7. Never infer the result of an election scheduled after {current_date}.

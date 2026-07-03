@@ -264,6 +264,17 @@ def test_discovery_prompts_exclude_defeated_primary_candidates():
     assert "lost a completed primary" in ROSTER_SYNC_USER
 
 
+def test_roster_prompts_exclude_former_officeholders():
+    """Roster sync + verify must drop retired/prior-cycle ex-officeholders who are
+    not declared 2026 candidates (regression: nc-house-01 kept G.K. Butterfield,
+    a U.S. Rep who left office in 2023)."""
+    from pipeline_client.agent.prompts import ROSTER_VERIFY_SYSTEM, ROSTER_VERIFY_USER
+
+    assert "Former officeholders who already left office" in ROSTER_SYNC_USER
+    assert "former officeholder" in ROSTER_VERIFY_SYSTEM.lower()
+    assert "former officeholder or prior-cycle candidate not running" in ROSTER_VERIFY_USER.lower()
+
+
 def test_iterate_prompt_allows_candidate_removal_for_invalid_roster_entries():
     """Iteration prompt allows removing clearly invalid candidates with evidence."""
     assert "CANDIDATE VALIDITY / ROSTER flags" in ITERATE_USER

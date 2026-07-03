@@ -107,10 +107,17 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "deepseek-r1": "deepseek/deepseek-r1",
 }
 
+# Roster sync/verify decides which people are current candidates — a reasoning
+# task where the economy primary (DeepSeek Flash) has under-performed (kept
+# retired ex-incumbents / prior-cycle candidates). These are only ~1-2 calls per
+# race, so a stronger instruction-follower here is cheap insurance.
+ROSTER_MODEL = "google/gemini-2.5-flash"
+
 PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
     "economy": {
         "primary": DEEPSEEK_FLASH_MODEL,
         "small": NANO_MODEL,
+        "roster": ROSTER_MODEL,
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,
@@ -118,6 +125,7 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
     "balanced": {
         "primary": "google/gemini-2.5-flash",
         "small": LLAMA_3_3_70B_MODEL,
+        "roster": ROSTER_MODEL,
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,
@@ -125,6 +133,7 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
     "quality": {
         "primary": DEFAULT_MODEL,
         "small": DEFAULT_MODEL,
+        "roster": DEFAULT_MODEL,
         "review_claude": DEFAULT_CLAUDE_MODEL,
         "review_gemini": DEFAULT_GEMINI_MODEL,
         "review_grok": DEFAULT_GROK_MODEL,

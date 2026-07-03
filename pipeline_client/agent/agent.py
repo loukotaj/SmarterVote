@@ -532,6 +532,7 @@ async def run_agent(
     )
     model = option_models["primary"]
     small_model = option_models["small"]
+    roster_model = option_models.get("roster") or model
     profile = option_models["profile"]
     claude_model = option_models["review_claude"]
     gemini_model = option_models["review_gemini"]
@@ -596,6 +597,7 @@ async def run_agent(
             existing_data,
             model=model,
             small_model=small_model,
+            roster_model=roster_model,
             on_log=on_log,
             max_iterations=max_iterations,
             step_enabled=_step_enabled,
@@ -616,6 +618,7 @@ async def run_agent(
             race_id,
             model=model,
             small_model=small_model,
+            roster_model=roster_model,
             on_log=on_log,
             max_iterations=max_iterations,
             step_enabled=_step_enabled,
