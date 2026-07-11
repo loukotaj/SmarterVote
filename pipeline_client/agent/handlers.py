@@ -71,11 +71,22 @@ def _normalize_roster_source(source: Any) -> Dict[str, Any] | None:
     return {key: value for key, value in normalized.items() if value is not None}
 
 
-def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str, Any]:
+def _make_editing_handlers(
+    race_json: Dict[str, Any], log: Callable, *, restrict_to_candidate: str | None = None
+) -> Dict[str, Any]:
     """Build editing-tool handlers closed over *race_json*.
 
     Returns a ``{tool_name: handler_fn}`` dict compatible with the
     ``extra_tool_handlers`` parameter of ``_agent_loop``.
+
+    When *restrict_to_candidate* is set, every handler that targets a
+    specific existing candidate by name is guarded so a call naming a
+    *different* candidate is rejected instead of silently applied. This
+    matters for per-candidate turns (e.g. the review-iteration pass, which
+    runs one ``_agent_loop`` per candidate): without it, a model mistake in
+    one candidate's turn (e.g. passing the wrong ``candidate_name``) can
+    silently corrupt a *different* candidate's data, since these handlers
+    otherwise look up any candidate by name across the whole roster.
     """
     _ALLOWED_CANDIDATE_FIELDS = {"party", "incumbent", "website", "image_url"}
     _ALLOWED_RACE_FIELDS = {
@@ -401,6 +412,8 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
     # --- Issue handler ---
 
     def set_issue_stance(args: Dict[str, Any]) -> str:
+        from pipeline_client.agent.agent import _is_missing_stance_text
+
         name, issue = args["candidate_name"], args["issue"]
         if issue not in _CANONICAL_ISSUE_SET:
             close = get_close_matches(issue, CANONICAL_ISSUES, n=1, cutoff=0.4)
@@ -409,6 +422,14 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
+        stance_text = str(args["stance"] or "")
+        if _is_missing_stance_text(stance_text) and "no public position found" not in stance_text.lower():
+            log("warning", f"    set_issue_stance({name!r}, {issue!r}) BLOCKED: placeholder stance {stance_text!r}")
+            return (
+                f"ERROR: {stance_text!r} looks like a placeholder, not a real position. "
+                "If no position was found after a good-faith search, use exactly "
+                "'No public position found after repeated research attempts.' with confidence 'low'."
+            )
         stance_data: Dict[str, Any] = {
             "stance": args["stance"],
             "confidence": args["confidence"],
@@ -843,7 +864,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             )
         return f"Unknown section '{section}'."
 
-    return {
+    handlers: Dict[str, Any] = {
         "add_candidate": add_candidate,
         "remove_candidate": remove_candidate,
         "rename_candidate": rename_candidate,
@@ -870,3 +891,51 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         "clear_career_history": clear_career_history,
         "clear_education": clear_education,
     }
+
+    if restrict_to_candidate:
+        # Tools that mutate an *existing* candidate's data by name. Roster-membership
+        # tools (add_candidate — no existing target to mismatch) and race-wide tools
+        # (set_race_identity, update_race_field, set_forecast, add/remove_poll) are
+        # intentionally excluded; read_profile is read-only.
+        _scoped_tool_names = {
+            "remove_candidate",
+            "rename_candidate",
+            "set_candidate_roster_sources",
+            "set_candidate_field",
+            "set_candidate_summary",
+            "set_issue_stance",
+            "set_donor_summary",
+            "set_voting_summary",
+            "add_candidate_link",
+            "remove_candidate_source_url",
+            "add_career_entry",
+            "remove_career_entry",
+            "update_career_entry",
+            "add_education_entry",
+            "update_education_entry",
+            "set_social_media",
+            "clear_career_history",
+            "clear_education",
+        }
+
+        def _scope_guard(tool_name: str, handler: Callable) -> Callable:
+            def _guarded(args: Dict[str, Any]) -> str:
+                target = args.get("candidate_name")
+                if target and target != restrict_to_candidate:
+                    log(
+                        "warning",
+                        f"    {tool_name}(candidate_name={target!r}) BLOCKED — this turn is scoped "
+                        f"to {restrict_to_candidate!r} only",
+                    )
+                    return (
+                        f"ERROR: This turn may only edit '{restrict_to_candidate}'. "
+                        f"Call {tool_name} with candidate_name={restrict_to_candidate!r}, or skip this edit."
+                    )
+                return handler(args)
+
+            return _guarded
+
+        for tool_name in _scoped_tool_names:
+            handlers[tool_name] = _scope_guard(tool_name, handlers[tool_name])
+
+    return handlers

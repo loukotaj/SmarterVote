@@ -626,7 +626,7 @@ def test_active_runs_hides_stale_run_and_marks_queue_failed():
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
     queue_coll.limit.return_value = queue_coll
-    queue_coll.stream.return_value = iter([queue_doc])
+    queue_coll.stream.side_effect = lambda: iter([queue_doc])
 
     races_coll = MagicMock()
     races_coll.document.return_value = _make_missing_doc_ref()
@@ -665,6 +665,40 @@ def test_active_runs_hides_stale_run_and_marks_queue_failed():
     assert queue_update["ttl_at"] > datetime.now(timezone.utc)
 
 
+def test_live_queue_lease_protects_quiet_run_from_stale_reconciliation():
+    """A long model call can be quiet while its worker lease is still healthy."""
+    from routers import runs
+
+    now = datetime.now(timezone.utc)
+    queue_doc = MagicMock()
+    queue_doc.to_dict.return_value = {
+        "status": "running",
+        "lease_expires_at": now + timedelta(minutes=4),
+    }
+    queue_coll = MagicMock()
+    queue_coll.where.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
+    queue_coll.stream.side_effect = lambda: iter([queue_doc])
+    db = MagicMock()
+    db.collection.return_value = queue_coll
+
+    assert runs._has_live_queue_lease(db, "run-quiet", now) is True
+
+
+def test_race_recheck_treats_unexpired_queue_lease_as_fresh():
+    from routers import races_admin
+
+    now = datetime.now(timezone.utc)
+    assert races_admin._active_doc_is_fresh(
+        {
+            "status": "running",
+            "progress_updated_at": now - timedelta(hours=3),
+            "lease_expires_at": now + timedelta(minutes=4),
+        },
+        now,
+    )
+
+
 def test_active_runs_hides_superseded_inactive_race_run():
     """Old active runs should not appear after the race has published under another run."""
     os.environ["SKIP_AUTH"] = "true"
@@ -691,7 +725,7 @@ def test_active_runs_hides_superseded_inactive_race_run():
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
     queue_coll.limit.return_value = queue_coll
-    queue_coll.stream.return_value = iter([queue_doc])
+    queue_coll.stream.side_effect = lambda: iter([queue_doc])
 
     race_ref = MagicMock()
     race_ref.get.return_value = _make_existing_doc(
@@ -1887,7 +1921,7 @@ def test_recheck_marks_stale_running_race_failed():
     queue_doc.reference = MagicMock()
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
-    queue_coll.stream.return_value = iter([queue_doc])
+    queue_coll.stream.side_effect = lambda: iter([queue_doc])
 
     db = _build_empty_firestore_mock()
 
@@ -2020,7 +2054,7 @@ def test_recheck_all_marks_stale_running_races_failed():
     queue_doc.reference = MagicMock()
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
-    queue_coll.stream.return_value = iter([queue_doc])
+    queue_coll.stream.side_effect = lambda: iter([queue_doc])
 
     db = _build_empty_firestore_mock()
 

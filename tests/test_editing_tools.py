@@ -435,6 +435,112 @@ def test_set_issue_stance_handler():
     assert race_json["candidates"][0]["issues"]["Healthcare"]["stance"] == "Supports universal coverage."
 
 
+def test_set_issue_stance_rejects_placeholder_variants():
+    """A placeholder stance like 'To be determined after review' must be rejected
+    outright — not just the bare exact marker 'to be determined'. This is the
+    literal defect that let a placeholder ship in a published race."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "issues": {}}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    for placeholder in ["To be determined after review", "TBD", "Pending further research", "  "]:
+        result = handlers["set_issue_stance"](
+            {
+                "candidate_name": "Alice",
+                "issue": "Healthcare",
+                "stance": placeholder,
+                "confidence": "low",
+            }
+        )
+        assert "ERROR" in result, f"expected rejection for {placeholder!r}, got: {result}"
+        assert "Healthcare" not in race_json["candidates"][0]["issues"]
+
+    # The sanctioned no-position fallback must still be accepted.
+    ok = handlers["set_issue_stance"](
+        {
+            "candidate_name": "Alice",
+            "issue": "Healthcare",
+            "stance": "No public position found after repeated research attempts.",
+            "confidence": "low",
+        }
+    )
+    assert "ERROR" not in ok
+    assert race_json["candidates"][0]["issues"]["Healthcare"]["stance"] == (
+        "No public position found after repeated research attempts."
+    )
+
+
+def test_is_missing_stance_text_catches_placeholder_variants_not_just_exact_markers():
+    """Exact-match-only detection missed variants like 'To be determined after
+    review' — this covers the broadened prefix+length-bounded check."""
+    from pipeline_client.agent.agent import _is_missing_stance_text
+
+    assert _is_missing_stance_text("")
+    assert _is_missing_stance_text("   ")
+    assert _is_missing_stance_text("to be determined")
+    assert _is_missing_stance_text("To be determined after review")
+    assert _is_missing_stance_text("TBD")
+    assert _is_missing_stance_text("Pending further research")
+    assert _is_missing_stance_text("No public position found after repeated research attempts.")
+
+    # Real stances must not be caught, including ones that start with a marker word
+    # as part of a genuine, longer sentence.
+    assert not _is_missing_stance_text("Supports universal healthcare coverage for all residents.")
+    assert not _is_missing_stance_text(
+        "Missing and murdered Indigenous women (MMIW) has been a signature policy "
+        "priority throughout the campaign, with several proposed task forces."
+    )
+
+
+def test_restrict_to_candidate_blocks_edits_to_other_candidates():
+    """restrict_to_candidate must reject candidate-targeting tool calls naming a
+    different candidate — this is the guard against the review-iteration pass
+    silently corrupting one candidate's data while processing another's turn."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "candidates": [
+            {"name": "Alice", "issues": {}},
+            {"name": "Bob", "issues": {}},
+        ]
+    }
+    handlers = _make_editing_handlers(race_json, lambda l, m: None, restrict_to_candidate="Alice")
+
+    blocked = handlers["set_issue_stance"](
+        {
+            "candidate_name": "Bob",
+            "issue": "Healthcare",
+            "stance": "Should not be applied.",
+            "confidence": "high",
+        }
+    )
+    assert "ERROR" in blocked
+    assert race_json["candidates"][1]["issues"] == {}, "Bob's data must be untouched"
+
+    allowed = handlers["set_issue_stance"](
+        {
+            "candidate_name": "Alice",
+            "issue": "Healthcare",
+            "stance": "Supports universal coverage.",
+            "confidence": "high",
+        }
+    )
+    assert "ERROR" not in allowed
+    assert race_json["candidates"][0]["issues"]["Healthcare"]["stance"] == "Supports universal coverage."
+
+
+def test_restrict_to_candidate_does_not_affect_unscoped_handlers():
+    """Tools with no candidate_name (or that are read-only / race-wide) are unaffected."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "issues": {}}], "polling": []}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None, restrict_to_candidate="Alice")
+
+    result = handlers["update_race_field"]({"field": "office", "value": "Governor"})
+    assert "ERROR" not in result
+
+
 def test_remove_candidate_source_url_removes_all_candidate_occurrences():
     """remove_candidate_source_url removes a URL from every candidate source slot."""
     from pipeline_client.agent.agent import _make_editing_handlers

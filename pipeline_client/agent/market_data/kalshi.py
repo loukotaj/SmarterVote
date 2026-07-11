@@ -40,11 +40,13 @@ def _parse_datetime(value: Any) -> datetime | None:
 
 
 def _market_updated_at(market: dict[str, Any]) -> datetime:
-    for key in ("last_update_time", "updated_time", "updated_at", "close_time", "open_time"):
+    """Return the observation time, never the market's future lifecycle date."""
+    now = datetime.now(timezone.utc)
+    for key in ("last_update_time", "updated_time", "updated_at"):
         parsed = _parse_datetime(market.get(key))
-        if parsed is not None:
+        if parsed is not None and parsed <= now:
             return parsed
-    return datetime.now(timezone.utc)
+    return now
 
 
 def _market_confidence(market: dict[str, Any], yes_bid: float | None, yes_ask: float | None) -> ConfidenceLevel:

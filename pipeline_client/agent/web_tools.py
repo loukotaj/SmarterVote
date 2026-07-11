@@ -634,6 +634,24 @@ def _page_fetch_log_hint(url: str, page_text: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 
+class SearchProviderUnavailable(RuntimeError):
+    """Raised for non-retryable search credential or quota failures.
+
+    Letting this escape the agent loop stops the run instead of silently
+    substituting uncited model knowledge for web research.
+    """
+
+
+def _raise_for_fatal_serper_error(status: int, response_text: str) -> None:
+    normalized = response_text.lower()
+    quota_error = status == 400 and any(
+        marker in normalized for marker in ("not enough credits", "insufficient credits", "quota")
+    )
+    if status in {401, 403} or quota_error:
+        reason = "quota exhausted" if quota_error else "authentication rejected"
+        raise SearchProviderUnavailable(f"Serper {reason} (HTTP {status}); stopping research run")
+
+
 async def _serper_search(
     query: str,
     *,
@@ -705,6 +723,7 @@ async def _serper_search(
                 normalized_query[:160],
                 response_text,
             )
+            _raise_for_fatal_serper_error(status, response_text)
             if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
                 return [{"error": f"Serper search failed: {last_error}"}]
         except httpx.HTTPError as exc:
@@ -819,6 +838,7 @@ async def _serper_image_search(
                 normalized_query[:160],
                 response_text,
             )
+            _raise_for_fatal_serper_error(status, response_text)
             if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
                 return [{"error": f"Serper image search failed: {last_error}"}]
         except httpx.HTTPError as exc:

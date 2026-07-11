@@ -22,6 +22,7 @@ are attached to the output JSON under ``agent_metrics``.
 import copy
 import json
 import logging
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -117,6 +118,35 @@ _MISSING_STANCE_MARKERS = {
     "no public position found",
     "no public position found after repeated research attempts.",
 }
+_MISSING_STANCE_PREFIX_RE = re.compile(
+    r"^(?:"
+    + "|".join(re.escape(marker) for marker in sorted(_MISSING_STANCE_MARKERS, key=len, reverse=True) if marker)
+    + r")\b",
+    re.IGNORECASE,
+)
+# Real stances are full sentences; every known placeholder marker is a short phrase.
+# Requiring both the prefix match AND a short overall length avoids false-positives
+# on genuine stances that happen to start with a marker word (e.g. a real "Missing
+# and murdered Indigenous women..." policy position should not be treated as absent).
+_MISSING_STANCE_MAX_LEN = 60
+
+
+def _is_missing_stance_text(stance: str) -> bool:
+    """True if *stance* is empty or a placeholder rather than a real position.
+
+    Catches exact markers ("tbd", "none", ...) plus short variants that merely
+    add trailing words around a marker, e.g. "To be determined after review" —
+    an exact-match-only check misses that variant entirely.
+    """
+    normalized = stance.strip()
+    if not normalized:
+        return True
+    lowered = normalized.lower()
+    if lowered in _MISSING_STANCE_MARKERS or "no public position found" in lowered:
+        return True
+    return len(normalized) <= _MISSING_STANCE_MAX_LEN and bool(_MISSING_STANCE_PREFIX_RE.match(normalized))
+
+
 _VALID_CANDIDATE_LINK_TYPES = {
     "finance",
     "ballotpedia",
@@ -299,8 +329,7 @@ def _issue_quality(issue_data: Any) -> tuple[int, int]:
     stance = str(issue_data.get("stance") or "").strip()
     sources = issue_data.get("sources") or []
     source_count = len(sources) if isinstance(sources, list) else 0
-    is_missing = stance.lower() in _MISSING_STANCE_MARKERS or "no public position found" in stance.lower()
-    return (0 if is_missing else 1, source_count)
+    return (0 if _is_missing_stance_text(stance) else 1, source_count)
 
 
 def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None) -> None:
@@ -325,7 +354,7 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
             if isinstance(issue, dict):
                 issue["issue"] = LEGACY_ISSUE_NAMES.get(str(issue.get("issue") or key), str(issue.get("issue") or key))
                 stance = str(issue.get("stance") or "").strip()
-                if stance.lower() in _MISSING_STANCE_MARKERS:
+                if _is_missing_stance_text(stance):
                     issue["stance"] = "No public position found after repeated research attempts."
                     issue["confidence"] = "low"
                     issue.setdefault("sources", [])

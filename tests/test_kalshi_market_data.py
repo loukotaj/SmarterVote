@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from pipeline_client.agent.market_data.kalshi import normalize_kalshi_market
 from shared.kalshi_markets import KALSHI_RACE_MARKETS, KalshiMarketMapping
 
@@ -56,6 +58,27 @@ def test_normalize_kalshi_market_accepts_dollar_price_fields():
     assert signal["yes_bid"] == 0.7
     assert signal["yes_ask"] == 0.73
     assert signal["volume"] == "113708.62"
+
+
+def test_normalize_kalshi_market_does_not_use_future_close_time_as_as_of():
+    signal = normalize_kalshi_market(
+        {
+            "ticker": "SENATEAK-26-R",
+            "title": "Will a Republican win?",
+            "yes_bid": 40,
+            "yes_ask": 42,
+            "close_time": "2027-11-03T15:00:00Z",
+        },
+        KalshiMarketMapping(
+            market_ticker="SENATEAK-26-R",
+            matched_to="Republican",
+            yes_party="Republican",
+            no_party="Democratic",
+        ),
+    )
+
+    assert datetime.fromisoformat(signal["as_of"]) <= datetime.now(timezone.utc)
+    assert signal["as_of"] != "2027-11-03T15:00:00+00:00"
 
 
 def test_normalize_kalshi_market_inverts_probability_for_no_party():

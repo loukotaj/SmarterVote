@@ -13,6 +13,7 @@ from pipeline_client.agent.agent import (
     _serper_image_search,
     _serper_search,
 )
+from pipeline_client.agent.web_tools import SearchProviderUnavailable
 
 # ---------------------------------------------------------------------------
 # Serper search tests
@@ -62,6 +63,22 @@ async def test_serper_search_returns_tool_error_on_http_400():
         results = await _serper_search("bad query")
 
     assert results == [{"error": "Serper search failed: HTTP 400"}]
+
+
+@pytest.mark.asyncio
+async def test_serper_search_stops_run_when_credits_are_exhausted():
+    request = httpx.Request("POST", "https://google.serper.dev/search")
+    response = httpx.Response(400, request=request, text='{"message":"Not enough credits"}')
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(return_value=response)
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+        pytest.raises(SearchProviderUnavailable, match="quota exhausted"),
+    ):
+        await _serper_search("important evidence")
 
 
 @pytest.mark.asyncio

@@ -28,4 +28,6 @@ services:
     volumes:
       - ${APPDATA}/gcloud:/gcloud-config:ro
     restart: unless-stopped
-    stop_grace_period: 120s
+    # Active research commonly exceeds two hours. SIGTERM stops new leases and
+    # lets in-flight races checkpoint/finish; do not force-kill them after 120s.
+    stop_grace_period: 3h

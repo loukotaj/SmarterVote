@@ -16,6 +16,7 @@ import gcs_helpers  # noqa: E402
 def test_publish_allows_review_only_remaining_without_validation_grade():
     polling_only_race = {
         "id": "nh-senate-2026",
+        "candidates": [{"name": "Alice"}],
         "pipeline_state": {
             "complete": False,
             "remaining_candidates": [],
@@ -37,6 +38,7 @@ def test_publish_allows_review_only_remaining_without_validation_grade():
 def test_publish_rejects_review_only_remaining_with_failed_grade():
     failed_review_race = {
         "id": "nh-senate-2026",
+        "candidates": [{"name": "Alice"}],
         "validation_grade": {"grade": "C", "score": 75, "passed": False},
         "pipeline_state": {
             "complete": False,
@@ -47,3 +49,29 @@ def test_publish_rejects_review_only_remaining_with_failed_grade():
 
     with pytest.raises(ValueError, match="failed validation"):
         gcs_helpers.publish_race_to_gcs("nh-senate-2026", failed_review_race)
+
+
+@pytest.mark.parametrize(
+    ("data", "message"),
+    [
+        ({"candidates": []}, "no named candidates"),
+        ({"candidates": [{"name": "Alice"}, {"name": "alice"}]}, "duplicate candidate"),
+        (
+            {
+                "candidates": [{"name": "Alice"}],
+                "forecast": {"predicted_winner_name": "Bob"},
+            },
+            "not present in the candidate roster",
+        ),
+        (
+            {
+                "candidates": [{"name": "Alice"}],
+                "forecast": {"market_signals": [{"as_of": "2099-01-01T00:00:00Z"}]},
+            },
+            "future-dated",
+        ),
+    ],
+)
+def test_publish_rejects_deterministic_integrity_failures(data, message):
+    with pytest.raises(ValueError, match=message):
+        gcs_helpers._assert_publishable_race(data)

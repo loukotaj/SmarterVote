@@ -595,7 +595,19 @@ def _mark_pipeline_unit_complete(race_json: Dict[str, Any], unit: str) -> None:
 
 
 def _issue_stance_is_complete(value: Any) -> bool:
-    return isinstance(value, dict) and bool(str(value.get("stance") or "").strip())
+    """True if *value* holds a real stance — not empty and not a placeholder.
+
+    A plain non-empty check let literal placeholder text (e.g. "To be determined
+    after review") count as "done", so a fresh issues-step pass would skip it
+    forever as already-complete rather than retry it. Lazy import avoids a
+    circular dependency (agent.py imports from this module).
+    """
+    from pipeline_client.agent.agent import _is_missing_stance_text
+
+    if not isinstance(value, dict):
+        return False
+    stance = str(value.get("stance") or "").strip()
+    return bool(stance) and not _is_missing_stance_text(stance)
 
 
 def _pipeline_issue_attempts(race_json: Dict[str, Any]) -> Dict[str, int]:
@@ -1944,7 +1956,6 @@ async def _run_iteration_pass(
         pct = int(completed / max(len(expected_units), 1) * 100)
         on_progress(pct, label, working)
 
-    handlers = _make_editing_handlers(working, log)
     all_tools = (
         ROSTER_TOOLS + CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + RACE_TOOLS + [READ_PROFILE_TOOL]
     )
@@ -1955,6 +1966,9 @@ async def _run_iteration_pass(
             log("info", f"  Iteration checkpoint already complete for {_candidate_name(candidate)}; skipping")
             continue
         cname = _candidate_name(candidate)
+        # Scoped to this candidate only: a mistaken candidate_name in a tool call during
+        # this turn is rejected instead of silently corrupting a different candidate's data.
+        handlers = _make_editing_handlers(working, log, restrict_to_candidate=cname)
         candidate_website, candidate_issue_urls = await _await_with_run_budget(
             _candidate_source_hints(working, cname),
             run_budget=run_budget,
@@ -2003,6 +2017,9 @@ async def _run_iteration_pass(
 
     log("info", "  Iterating on race metadata...")
     try:
+        # Race-wide pass (not scoped to any single candidate) — RACE_TOOLS has no
+        # candidate_name-taking tools, so an unrestricted handler set is correct here.
+        meta_handlers = _make_editing_handlers(working, log)
         await _agent_loop(
             ITERATE_SYSTEM,
             ITERATE_META_USER.format(
@@ -2018,7 +2035,7 @@ async def _run_iteration_pass(
             phase_name="iterate-meta",
             max_tokens=4096,
             extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
-            extra_tool_handlers=handlers,
+            extra_tool_handlers=meta_handlers,
             tools_mode=True,
             run_budget=run_budget,
         )

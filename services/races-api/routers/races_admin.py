@@ -48,7 +48,7 @@ def _coerce_datetime(value: Any) -> datetime | None:
 
 
 def _latest_activity_at(data: Dict[str, Any]) -> datetime | None:
-    for key in ("progress_updated_at", "started_at", "created_at", "updated_at"):
+    for key in ("lease_renewed_at", "progress_updated_at", "started_at", "created_at", "updated_at"):
         parsed = _coerce_datetime(data.get(key))
         if parsed:
             return parsed
@@ -59,6 +59,9 @@ def _active_doc_is_fresh(data: Dict[str, Any], now: datetime) -> bool:
     """Return True when a pending/running queue or run doc is recent enough."""
     if data.get("status") not in ("pending", "running"):
         return False
+    lease_expires_at = _coerce_datetime(data.get("lease_expires_at"))
+    if data.get("status") == "running" and lease_expires_at and lease_expires_at > now:
+        return True
     activity_at = _latest_activity_at(data)
     if activity_at is None:
         # Old docs without timestamps are not strong evidence that a Cloud
@@ -216,10 +219,22 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
             run_doc = run_ref.get()
             if run_doc.exists:
                 run_actually_active = _active_doc_is_fresh(run_doc.to_dict() or {}, now)
-                if run_actually_active:
-                    queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).stream()
-                    active_queue_docs = [doc for doc in queue_docs if _active_doc_is_fresh(doc.to_dict() or {}, now)]
-                    run_actually_active = bool(active_queue_docs)
+                queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).stream()
+                active_queue_docs = [doc for doc in queue_docs if _active_doc_is_fresh(doc.to_dict() or {}, now)]
+                # A current worker lease is stronger liveness evidence than a
+                # quiet pipeline_runs document during a long model/tool call.
+                run_actually_active = (
+                    run_actually_active
+                    and bool(active_queue_docs)
+                    or any(
+                        (
+                            _coerce_datetime((doc.to_dict() or {}).get("lease_expires_at"))
+                            or datetime.min.replace(tzinfo=timezone.utc)
+                        )
+                        > now
+                        for doc in active_queue_docs
+                    )
+                )
             else:
                 # If pipeline_run doc doesn't exist yet (e.g. pending in queue), the run is active if the queue doc is active and fresh
                 queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).stream()

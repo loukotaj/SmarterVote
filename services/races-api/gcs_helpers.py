@@ -3,7 +3,7 @@
 import json
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
 from google.api_core.exceptions import NotFound, PreconditionFailed
@@ -261,7 +261,36 @@ def update_gcs_summaries_json(updates: Dict[str, Optional[Dict[str, Any]]], max_
 
 
 def _assert_publishable_race(data: Dict[str, Any]) -> None:
-    """Block publishing data that the review gate explicitly failed."""
+    """Block publishing data that failed review or deterministic integrity checks."""
+    candidates = [candidate for candidate in data.get("candidates", []) if isinstance(candidate, dict)]
+    names = [str(candidate.get("name") or "").strip() for candidate in candidates]
+    normalized_names = [name.casefold() for name in names if name]
+    if "candidates" in data and not normalized_names:
+        raise ValueError("Race draft has no named candidates and cannot be published")
+    if len(normalized_names) != len(set(normalized_names)):
+        raise ValueError("Race draft contains duplicate candidate names and cannot be published")
+
+    forecast = data.get("forecast")
+    if isinstance(forecast, dict):
+        winner = str(forecast.get("predicted_winner_name") or "").strip()
+        if winner and winner.casefold() not in set(normalized_names):
+            raise ValueError(f"Forecast winner {winner!r} is not present in the candidate roster")
+        now = datetime.now(timezone.utc)
+        for signal in forecast.get("market_signals") or []:
+            if not isinstance(signal, dict):
+                continue
+            as_of = signal.get("as_of")
+            if not isinstance(as_of, str):
+                continue
+            try:
+                observed_at = datetime.fromisoformat(as_of.replace("Z", "+00:00"))
+                if observed_at.tzinfo is None:
+                    observed_at = observed_at.replace(tzinfo=timezone.utc)
+            except ValueError:
+                raise ValueError(f"Prediction-market signal has invalid as_of timestamp: {as_of!r}") from None
+            if observed_at > now + timedelta(minutes=5):
+                raise ValueError("Prediction-market signal is future-dated and cannot be published")
+
     pipeline_state = data.get("pipeline_state")
     if isinstance(pipeline_state, dict) and pipeline_state.get("complete") is False:
         remaining = pipeline_state.get("remaining_steps") or []

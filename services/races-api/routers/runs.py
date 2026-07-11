@@ -46,7 +46,14 @@ def _coerce_datetime(value: Any) -> datetime | None:
 
 
 def _latest_activity_at(data: Dict[str, Any]) -> datetime | None:
-    for key in ("completed_at", "progress_updated_at", "updated_at", "started_at", "created_at"):
+    for key in (
+        "completed_at",
+        "lease_renewed_at",
+        "progress_updated_at",
+        "updated_at",
+        "started_at",
+        "created_at",
+    ):
         parsed = _coerce_datetime(data.get(key))
         if parsed:
             return parsed
@@ -128,6 +135,22 @@ def _is_stale_active_run(data: Dict[str, Any], now: datetime) -> bool:
     return now - activity_at > timedelta(seconds=_STALE_ACTIVE_RUN_SECONDS)
 
 
+def _has_live_queue_lease(db: Any, run_id: str, now: datetime) -> bool:
+    """Return True when a worker still owns an unexpired lease for this run."""
+    try:
+        queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).limit(20).stream()
+        for queue_doc in queue_docs:
+            data = queue_doc.to_dict() or {}
+            lease_expires_at = _coerce_datetime(data.get("lease_expires_at"))
+            if data.get("status") == "running" and lease_expires_at and lease_expires_at > now:
+                return True
+    except Exception:
+        # This endpoint self-heals by mutating state. If liveness cannot be
+        # checked safely, leave the run alone rather than declaring it dead.
+        return True
+    return False
+
+
 def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     try:
         run_doc = db.collection("pipeline_runs").document(run_id).get()
@@ -177,7 +200,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
                             pass
                 return None
 
-    if _is_stale_active_run(run, now):
+    if _is_stale_active_run(run, now) and not _has_live_queue_lease(db, str(run_id), now):
         update = {
             "status": "failed",
             "error": f"Marked stale by active run listing after {_STALE_ACTIVE_RUN_SECONDS} seconds without activity",
