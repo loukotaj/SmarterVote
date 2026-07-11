@@ -25,5 +25,5 @@ USER app
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
-# Long-lived poller — no port to expose.
+# Long-lived poller by default; Cloud Run Jobs override env with WORKER_ONCE=true.
 ENTRYPOINT ["python", "-m", "pipeline_client.worker"]

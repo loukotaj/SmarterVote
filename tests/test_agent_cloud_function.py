@@ -213,6 +213,30 @@ def test_skips_items_tagged_for_local_worker():
     assert not any(u.get("status") == "running" for u in claim_updates)
 
 
+def test_skips_items_tagged_for_cloud_run_job():
+    """Retirement overlap must not let the CF race a Cloud Run Job."""
+    import functions.agent.main as cf_main
+
+    item = {
+        "status": "pending",
+        "race_id": "ga-senate-2026",
+        "run_id": "run-cloud-run",
+        "options": {},
+        "runner": "cloud_run",
+    }
+    db, _item_ref, _run_ref, _race_ref = _make_firestore_mock(item_data=item)
+
+    with (
+        patch("functions.agent.main._get_fs", return_value=db),
+        patch("functions.agent.main._run_agent") as mock_run,
+    ):
+        cf_main.process_queue_item(_make_cloud_event("item-cloud-run"))
+
+    mock_run.assert_not_called()
+    claim_updates = [c.args[1] for c in db.transaction.return_value.update.call_args_list]
+    assert not any(u.get("status") == "running" for u in claim_updates)
+
+
 def test_skips_when_item_missing():
     """Returns early when queue document does not exist."""
     import functions.agent.main as cf_main

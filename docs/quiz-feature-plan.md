@@ -1,5 +1,7 @@
 # Quiz Feature Plan
 
+Status: Proposal. The quiz phase and schema described here are not a current production contract.
+
 ## Concept
 
 A per-race quiz (10 questions) that helps voters pick a candidate based on their own values. Questions are generated from observed differences between candidates, so they're specific to the race and grounded in the research pipeline's output.

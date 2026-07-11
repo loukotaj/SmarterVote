@@ -10,6 +10,7 @@ from typing import Any, Dict
 import firestore_helpers
 import gcs_helpers
 from auth import verify_token
+from cloud_run_jobs import dispatch_pipeline_job
 from fastapi import APIRouter, Depends, HTTPException, Request
 from request_models import BatchPublishRequest, RaceQueueRequest, RunOptions, validate_race_id
 
@@ -786,14 +787,26 @@ async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> 
         "options": opts,
         "status": "pending",
         "is_continuation": False,
-        # Top-level so the Cloud Function skip guard and the local worker's query
-        # can route the item without cracking open `options`. Defaults to "cf".
-        "runner": opts.get("runner") or "cf",
+        "runner": opts.get("runner") or os.getenv("PIPELINE_DEFAULT_RUNNER", "local").strip().lower(),
         "created_at": SERVER_TIMESTAMP,
     }
     db.collection("pipeline_queue").document(item_id).set(item)
     firestore_helpers._fs_update_race(race_id, {"status": "queued", "current_run_id": run_id})
-    return {"run_id": run_id, "status": "queued", "race_id": race_id}
+    dispatch = None
+    if item["runner"] == "cloud_run":
+        try:
+            dispatch = dispatch_pipeline_job(item_id)
+            db.collection("pipeline_queue").document(item_id).update({"dispatch_status": "submitted", **dispatch})
+        except Exception as exc:
+            error = f"Cloud Run Job dispatch failed: {exc}"
+            db.collection("pipeline_queue").document(item_id).update(
+                {"status": "failed", "dispatch_status": "failed", "error": error, "ttl_at": _queue_ttl_at()}
+            )
+            firestore_helpers._fs_update_race(
+                race_id, {"status": "failed", "current_run_id": None, "last_run_status": "failed"}
+            )
+            raise HTTPException(status_code=503, detail=error) from exc
+    return {"run_id": run_id, "status": "queued", "race_id": race_id, "runner": item["runner"], "dispatch": dispatch}
 
 
 # ---------------------------------------------------------------------------

@@ -35,7 +35,7 @@ The admin dashboard is available at `http://localhost:5173/admin/pipeline`.
 ## Current Architecture
 
 - **Production admin/public API**: `services/races-api`
-- **Production agent execution**: Firestore queue item -> Eventarc -> `functions/agent/main.py` -> `pipeline_client.backend.handlers.AgentHandler`
+- **Production agent execution**: `races-api` queue item -> one-shot Cloud Run Job -> `pipeline_client.worker` -> `AgentHandler`
 - **Shared agent library**: `pipeline_client/agent`
 - **Shared schema**: `shared/models.py`
 - **Frontend**: `web`, which should target `races-api` for admin and public operations
@@ -49,7 +49,7 @@ Production:
 
 ```text
 Admin dashboard -> races-api queue endpoint -> Firestore pipeline_queue
-    -> Eventarc -> Cloud Function -> AgentHandler -> GCS drafts/{race_id}.json
+    -> Cloud Run Job -> shared queue processor -> AgentHandler -> GCS drafts/{race_id}.json
     -> admin publish -> GCS races/{race_id}.json -> public races API
 ```
 
@@ -81,14 +81,13 @@ For the broad local gate sequence, run:
 
 ## Docs
 
+- [Documentation map](docs/README.md) — current operational guides, plans, and historical records
 - [Architecture](docs/architecture.md)
 - [Local Development](docs/local-development.md)
 - [Deployment](docs/deployment-guide.md)
 - [Auth0 Configuration](docs/auth0-configuration.md)
 - [IndexNow](docs/indexnow.md)
 - [Pipeline Modes](PIPELINE_MODES.md)
-- [OpenRouter Migration](docs/openrouter-migration-plan.md)
-- [Maintenance Audit](docs/maintenance-audit.md)
 
 ## License
 

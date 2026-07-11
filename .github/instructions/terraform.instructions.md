@@ -8,11 +8,11 @@ applyTo: "infra/**/*.tf"
 
 - GCP project: `smartervote`, environment: `dev`
 - State stored remotely in GCS; never run `terraform apply` locally without confirming you're not overwriting shared state
-- `enable_pipeline_client` is legacy/debug-only and should stay `false` for normal deployments; the agent Cloud Function processes queue items
+- Race pipeline execution belongs in `google_cloud_run_v2_job.pipeline`; the local Docker worker is a permanent alternative and must remain compatible
 
 ## Naming & Structure
 
-- Resources named `{service}-{env}` (e.g., `pipeline-client-dev`, `races-api-dev`)
+- Resources named `{service}-{env}` (e.g., `pipeline-job-dev`, `races-api-dev`)
 - Variables declared in `variables.tf`, values in `terraform.tfvars` (never secrets in `.tfvars`)
 - Secrets go in `secrets.tfvars` — this file is `.gitignore`d; see `secrets.tfvars.example` for shape
 - Outputs in `outputs.tf`; module-specific resources in their own `.tf` file (e.g., `bucket.tf`, `secrets.tf`)

@@ -1,6 +1,6 @@
 # SmarterVote — Copilot Instructions
 
-AI-powered electoral analysis platform. Multi-phase research agent (OpenRouter + Serper) produces RaceJSON v0.3 candidate profiles. SvelteKit frontend served by a FastAPI races-api.
+AI-powered electoral analysis platform. A multi-phase research agent (OpenRouter + Serper) produces RaceJSON v0.3 candidate profiles. The static SvelteKit frontend is deployed to Cloudflare Pages and uses `races-api` for production API operations.
 
 ## Architecture
 
@@ -23,15 +23,15 @@ See `docs/architecture.md` for full details, endpoints, and cloud topology.
 ## Build & Test
 
 ```bash
-# Python tests
-PYTHONPATH=. python -m pytest
+# Python pipeline tests (API admin and Cloud Function suites run separately in CI)
+PYTHONPATH=. python -m pytest tests -v --ignore=tests/test_agent_cloud_function.py --ignore=tests/test_races_api_admin.py
 
-# Python formatting
-black --line-length 127 --target-version py310 <file>
-isort --profile black --line-length 127 <file>
+# Python formatting checks
+python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts
+python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts
 
 # Frontend (always npm ci first)
-cd web && npm ci && npm run check && npm run build && npm run test:unit -- --run
+cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:unit -- --run
 
 # Terraform
 cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate
@@ -85,3 +85,4 @@ CI (`.github/workflows/ci.yaml`) runs on push/PR. Infrastructure CD deploys thro
 - **Pipeline modes**: `PIPELINE_MODES.md`
 - **Infrastructure**: `infra/README.md`
 - **Contributing**: `CONTRIBUTING.md`
+- **Documentation map and status**: `docs/README.md`

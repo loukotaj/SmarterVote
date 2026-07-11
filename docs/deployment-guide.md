@@ -1,19 +1,19 @@
 # SmarterVote Deployment Guide
 
-This guide covers the current deployment path for infrastructure, backend services, Cloud Functions, and the static web frontend.
+This guide covers the current deployment path for infrastructure, backend services, the pipeline Cloud Run Job, the admin Cloud Function, and the static web frontend.
 
 ## Deployment Model
 
 Production uses two GitHub Actions workflows after `CI - Quality Gates` passes on `main`:
 
-- `.github/workflows/terraform-deploy.yaml` builds the `races-api` container, packages Cloud Function source zips, syncs secrets, and runs Terraform.
+- `.github/workflows/terraform-deploy.yaml` builds the `races-api` and `pipeline-worker` containers, packages the admin-agent Function, syncs secrets, and runs Terraform.
 - `.github/workflows/cloudflare-deploy.yaml` pulls published static JSON from GCS, builds the SvelteKit static site, deploys to Cloudflare Pages, and optionally submits IndexNow URLs.
 
 The normal backend flow is:
 
 ```text
 web admin -> races-api -> Firestore pipeline_queue
-  -> Eventarc -> functions/agent -> AgentHandler -> GCS drafts/
+  -> pipeline Cloud Run Job -> shared queue processor -> AgentHandler -> GCS drafts/
   -> admin publish -> GCS races/ + races/summaries.json
 ```
 
@@ -24,7 +24,7 @@ web admin agent -> races-api -> Firestore admin_agent_tasks
   -> Eventarc -> functions/admin_agent -> authenticated races-api tools
 ```
 
-The legacy `pipeline-client` Cloud Run service is disabled by default and should stay disabled for normal deployments.
+The local Docker worker remains supported for `runner=local`; it is not deployed as an always-on cloud service.
 
 ## Required GitHub Configuration
 
@@ -72,10 +72,7 @@ terraform plan -var-file=secrets.tfvars
 terraform apply -var-file=secrets.tfvars
 ```
 
-Before manual apply, build the function source zips or use the GitHub Actions workflow, which creates:
-
-- `infra/functions-agent-source.zip`
-- `infra/functions-admin-agent-source.zip`
+Before manual apply, push the matching `races-api` and `pipeline-worker` image tags and build `infra/functions-admin-agent-source.zip`, or use GitHub Actions.
 
 ## Deploy Web
 

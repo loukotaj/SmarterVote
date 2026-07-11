@@ -26,6 +26,25 @@ import firestore_helpers  # noqa: E402
 import gcs_helpers  # noqa: E402
 
 
+def test_cloud_run_queue_dispatch_records_operation():
+    from routers.queue import _dispatch_if_cloud_run
+
+    db = MagicMock()
+    item_ref = MagicMock()
+    db.collection.return_value.document.return_value = item_ref
+    item = {"id": "item-1", "race_id": "az-senate-2026", "runner": "cloud_run"}
+
+    with patch(
+        "routers.queue.dispatch_pipeline_job",
+        return_value={"operation_name": "operations/job-1", "metadata": {}},
+    ):
+        result = _dispatch_if_cloud_run(db, item)
+
+    assert result["dispatch_status"] == "submitted"
+    assert result["operation_name"] == "operations/job-1"
+    item_ref.update.assert_called_once_with(result)
+
+
 def test_pipeline_metrics_prefers_exact_provider_cost():
     from routers.pipeline import _compute_metrics_summary, _normalize_pipeline_run
 

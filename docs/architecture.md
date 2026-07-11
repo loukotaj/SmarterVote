@@ -1,6 +1,6 @@
 # SmarterVote Architecture
 
-SmarterVote has one production API surface: `services/races-api`. The older `pipeline_client` FastAPI app is retained for local development only. Production agent work runs in a gen2 Cloud Function triggered from Firestore.
+SmarterVote has one production API surface: `services/races-api`. The older `pipeline_client` FastAPI app is retained for local development only. Production race research runs as one-shot Cloud Run Job executions; the same worker remains available as a continuous local Docker mode.
 
 ## Ownership
 
@@ -8,9 +8,10 @@ SmarterVote has one production API surface: `services/races-api`. The older `pip
 | ------------------- | ------------------------------------------- | ---------------------------------------------------------------- |
 | Web app             | `web/`                                      | SvelteKit admin and public UI                                    |
 | Production API      | `services/races-api/`                       | Public race reads, admin queue/run/draft/publish APIs, analytics |
-| Agent trigger       | `functions/agent/`                          | Firestore Eventarc Cloud Function entry point                    |
+| Pipeline worker     | `pipeline_client/worker.py`                  | Cloud Run Job and local Docker entry point                       |
 | Admin agent         | `functions/admin_agent/`                    | Durable tool-calling admin tasks and continuations               |
-| Agent orchestration | `pipeline_client/backend/handlers/agent.py` | `AgentHandler` wrapper used by the Cloud Function                |
+| Queue execution     | `pipeline_client/backend/queue_processor.py` | Shared leases, execution, and terminal state for both runners    |
+| Agent orchestration | `pipeline_client/backend/handlers/agent.py` | Shared `AgentHandler` wrapper                                    |
 | Agent research      | `pipeline_client/agent/`                    | Multi-phase AI research implementation                           |
 | Shared schema       | `shared/models.py`                          | RaceJSON/Pydantic models shared by agent and APIs                |
 | Local dev API       | `pipeline_client/backend/main.py`           | Local-only FastAPI app for in-process agent debugging            |
@@ -25,9 +26,10 @@ Admin dashboard
   -> admin_agent_tasks Firestore trigger -> functions/admin_agent/main.py
   -> races-api tools with approval gates for destructive operations
   -> races-api POST /api/races/queue or POST /api/races/{race_id}/run
-  -> Firestore pipeline_queue document
-  -> Eventarc document-create trigger
-  -> functions/agent/main.py
+  -> Firestore pipeline_queue document (`runner=cloud_run`)
+  -> races-api starts pipeline-job with QUEUE_ITEM_ID override
+  -> pipeline_client.worker one-shot execution
+  -> atomic queue lease + heartbeat
   -> AgentHandler.handle()
   -> pipeline_client.agent.run_agent()
   -> GCS drafts/{race_id}.json
@@ -46,12 +48,13 @@ Queue documents should contain:
 - `status`
 - `options`
 - `is_continuation`
+- `runner` (`cloud_run` or `local`)
 - `created_at`
 
-The original `run_id` is the logical run ID and is reused by every Cloud Function
-continuation. Queue items represent physical invocation attempts and may transition
-to `continued`; `pipeline_runs/{run_id}` remains `running` until the logical run
-reaches a terminal state. Logs live under `pipeline_runs/{run_id}/logs`.
+Each production queue item maps to one Cloud Run Job execution and one logical
+`pipeline_runs/{run_id}` record. The worker renews a Firestore lease while active;
+expired leases can be reclaimed safely. Logs live under `pipeline_runs/{run_id}/logs`.
+Local Docker uses the identical processor with `runner=local` and continuous polling.
 
 ## Admin API Surface
 
@@ -157,7 +160,7 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 | GCS `drafts/`                         | Agent output awaiting admin review                                           |
 | GCS `races/`                          | Published race JSON served publicly, plus the central `summaries.json` index |
 | GCS `retired/`                        | Archived previous versions                                                   |
-| Firestore `pipeline_queue`            | Queue items that trigger Cloud Function runs                                 |
+| Firestore `pipeline_queue`            | Durable work routing, leases, dispatch state, and terminal status            |
 | Firestore `pipeline_runs`             | Run status, progress, and logs                                               |
 | Firestore `races`                     | Race catalog metadata for admin listing/filtering, plus status and history   |
 | Firestore `admin_agent_conversations` | Durable deployed-agent conversation metadata                                 |
@@ -167,7 +170,7 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 
 ## Local Development
 
-`pipeline_client/backend/main.py` is local-only and exposes only runner/debug routes such as `/api/run`, `/run/{step}`, and `/runs/*`. Production correctness should be tested against `services/races-api` plus the Cloud Function handler path.
+`pipeline_client/backend/main.py` is local-only and exposes runner/debug routes. The permanent Docker worker is started with `docker-compose.worker.yml` and claims only `runner=local` items. Production correctness should be tested against `services/races-api` plus the shared queue processor and one-shot worker path.
 
 ## Migration Guardrails
 

@@ -104,11 +104,11 @@ def _draft_catalog_update(race_id: str, draft_data: Dict[str, Any]) -> Dict[str,
     return fields
 
 
-def claim_local_item(db: Any, item_ref: Any, lease_owner: str) -> Optional[Dict[str, Any]]:
-    """Atomically claim a pending ``runner==local`` item (pending → running).
+def claim_item(db: Any, item_ref: Any, lease_owner: str, expected_runner: str) -> Optional[Dict[str, Any]]:
+    """Atomically claim an item for the expected runner (pending → running).
 
-    Returns the item data on success, or ``None`` when the item is missing, not
-    local, already terminal, or under another worker's live lease.
+    Returns the item data on success, or ``None`` when the item is missing,
+    routed elsewhere, already terminal, or under another worker's live lease.
     """
     from google.cloud import firestore as _fs  # type: ignore
     from google.cloud.firestore_v1 import Increment  # type: ignore
@@ -119,7 +119,7 @@ def claim_local_item(db: Any, item_ref: Any, lease_owner: str) -> Optional[Dict[
         if not getattr(doc, "exists", False):
             return None
         data = doc.to_dict() or {}
-        if data.get("runner") != "local":
+        if data.get("runner") != expected_runner:
             return None
         now = _now()
         status = data.get("status")
@@ -141,6 +141,11 @@ def claim_local_item(db: Any, item_ref: Any, lease_owner: str) -> Optional[Dict[
     except Exception as exc:
         logger.warning("Claim failed for local queue item %s: %s", getattr(item_ref, "id", "?"), exc)
         return None
+
+
+def claim_local_item(db: Any, item_ref: Any, lease_owner: str) -> Optional[Dict[str, Any]]:
+    """Backward-compatible local-runner claim helper."""
+    return claim_item(db, item_ref, lease_owner, "local")
 
 
 def _start_lease_heartbeat(db: Any, item_ref: Any, lease_owner: str):
@@ -198,6 +203,7 @@ async def process_claimed_item(
     item_id: str,
     item_data: Dict[str, Any],
     lease_owner: str,
+    runner: str = "local",
 ) -> None:
     """Run a claimed local queue item end-to-end and finalize Firestore state.
 
@@ -241,7 +247,7 @@ async def process_claimed_item(
                 "queue_item_id": item_id,
                 "is_continuation": is_continuation,
                 "options": options,
-                "runner": "local",
+                "runner": runner,
             }
         )
     else:

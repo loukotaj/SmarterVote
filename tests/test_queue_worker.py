@@ -114,3 +114,30 @@ def test_claim_local_item_skips_non_local():
     assert qp.claim_local_item(db, item_ref, "owner-1") is None
     claim_updates = [c.args[1] for c in db.transaction.return_value.update.call_args_list]
     assert not any(u.get("status") == "running" for u in claim_updates)
+
+
+def test_claim_item_supports_cloud_run_runner():
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {"status": "pending", "runner": "cloud_run", "race_id": "x", "run_id": "r"}
+    db, item_ref, _run_ref, _race_ref = _fs_mock(item)
+
+    assert qp.claim_item(db, item_ref, "job-owner", "cloud_run") is not None
+
+
+def test_pending_items_filters_runner_and_status_in_firestore():
+    from pipeline_client import worker
+
+    db = MagicMock()
+    query = MagicMock()
+    db.collection.return_value = query
+    query.where.return_value = query
+    query.limit.return_value = query
+    query.stream.return_value = []
+
+    assert worker._pending_items(db, "local", limit=2) == []
+    filters = [call.kwargs["filter"] for call in query.where.call_args_list]
+    assert [(flt.field_path, flt.op_string, flt.value) for flt in filters] == [
+        ("runner", "==", "local"),
+        ("status", "==", "pending"),
+    ]

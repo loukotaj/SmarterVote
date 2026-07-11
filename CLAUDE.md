@@ -12,7 +12,7 @@
 ## Deployed Architecture
 
 ```
-functions/agent/main.py          → Cloud Function gen2 (race research, Eventarc trigger)
+pipeline_client/worker.py        → Cloud Run Job or long-lived local Docker worker
 functions/admin_agent/main.py    → Cloud Function gen2 (durable admin agent)
 services/races-api/              → Cloud Run (admin + public FastAPI API)
 GCS bucket                       → race data: drafts/, races/, summaries.json, retired/
@@ -34,7 +34,7 @@ Artifact Registry                → container images for Cloud Run
 | Area | Path | Notes |
 | ---- | ---- | ----- |
 | Production API | `services/races-api/main.py` | All admin + public endpoints |
-| Agent Cloud Function | `functions/agent/main.py` | Eventarc entry point |
+| Pipeline worker | `pipeline_client/worker.py` | One-shot Cloud Run Job and continuous Docker entry point |
 | Admin agent CF | `functions/admin_agent/main.py` | Durable admin tasks |
 | Agent orchestration | `pipeline_client/backend/handlers/agent.py` | `AgentHandler` used by CFs |
 | AI research agent | `pipeline_client/agent/` | Multi-phase research engine |
@@ -43,9 +43,9 @@ Artifact Registry                → container images for Cloud Run
 | Infrastructure | `infra/` | Terraform for all GCP services |
 | Local-only dev API | `pipeline_client/backend/main.py` | Not production; debug only |
 
-## Validation (matches CI exactly)
+## Validation
 
-Run the narrowest useful check for what you touched, or the full suite:
+Run the narrowest useful check for what you touched. The commands below mirror the substantive CI gates; CI also runs a tracked-artifact check and Gitleaks secret scan.
 
 ```bash
 # Python pipeline + agent tests (excludes cloud-function-specific and API admin tests)
@@ -59,14 +59,14 @@ cd services/races-api && PYTHONPATH=../.. python -m pytest test_races_api.py -v
 # Races API admin tests (run from repo root)
 cd services/races-api && PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
 
-# Cloud Function tests
+# Queue worker and retired-Function compatibility tests
 PYTHONPATH=. python -m pytest tests/test_agent_cloud_function.py -v
 
 # Python formatting check
 python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts
 python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts
 
-# Frontend (always npm ci first)
+# Frontend (always npm ci first; CI creates minimal static JSON fixtures before build)
 cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:unit -- --run
 
 # Terraform
@@ -104,7 +104,6 @@ For the full local gate sequence: `.\scripts\run-ci-gates.ps1`
 7. **Pipeline run cost** — **full research runs are expensive** (LLM + web search API costs per candidate per race). Only queue full runs when the user explicitly asks or there is a clear data quality problem requiring it. Targeted lightweight runs are fine: `steps=["discovery"]` to fix candidate lists, `steps=["forecast"]` to regenerate forecasts, or image-only refreshes. Never batch-queue full runs autonomously without user sign-off.
 8. **MCP over scratch** — for reusable operations prefer enhancing `smartervote_mcp/server.py` over one-off scripts in `scratch/`
 9. **Tests mock network** — `tests/conftest.py` has `autouse=True` fixtures mocking external calls; add similar mocks for any new network-dependent code
-10. **Tests mock network** — `tests/conftest.py` has `autouse=True` fixtures mocking external calls; add similar mocks for any new network-dependent code
 
 ## Prompt Shortcuts
 
@@ -122,4 +121,5 @@ For the full local gate sequence: `.\scripts\run-ci-gates.ps1`
 - **Deployment**: `docs/deployment-guide.md`
 - **Auth0 setup**: `docs/auth0-configuration.md`
 - **Local development**: `docs/local-development.md`
+- **Documentation map and status**: `docs/README.md`
 - **AI conventions (Copilot-style)**: `.github/copilot-instructions.md`

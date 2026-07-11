@@ -74,6 +74,21 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       env {
+        name  = "PIPELINE_JOB_NAME"
+        value = google_cloud_run_v2_job.pipeline.name
+      }
+
+      env {
+        name  = "PIPELINE_JOB_REGION"
+        value = var.region
+      }
+
+      env {
+        name  = "PIPELINE_DEFAULT_RUNNER"
+        value = "cloud_run"
+      }
+
+      env {
         name = "OPENROUTER_API_KEY"
         value_source {
           secret_key_ref {

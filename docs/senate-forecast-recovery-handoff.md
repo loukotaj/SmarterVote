@@ -2,6 +2,8 @@
 
 Date: 2026-06-22
 
+Status: Historical handoff. Commands, race state, commits, and deployment observations below are a point-in-time record, not current operating guidance.
+
 ## Current State
 
 Frontend and narrative code changes were committed and pushed to `main`. CI and infrastructure deploy passed after the fixes.

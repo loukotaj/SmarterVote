@@ -200,10 +200,9 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
         if not doc.exists:
             return None
         data = doc.to_dict() or {}
-        # Items tagged for the local Docker worker are left untouched here so the
-        # Eventarc-triggered CF and the long-lived worker never fight over them.
-        if data.get("runner") == "local":
-            return {"_claim_skipped_status": "runner_local"}
+        # Non-CF items belong to the Docker worker or Cloud Run Job.
+        if data.get("runner") in {"local", "cloud_run"}:
+            return {"_claim_skipped_status": f"runner_{data.get('runner')}"}
         now = datetime.now(timezone.utc)
         status = data.get("status")
         if status != "pending" and not (status == "running" and _lease_expired(data, now)):
@@ -230,6 +229,9 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
     skipped_status = item_data.get("_claim_skipped_status")
     if skipped_status == "runner_local":
         logger.info("Queue item %s is tagged runner=local — leaving for the local worker", item_id)
+        return
+    if skipped_status == "runner_cloud_run":
+        logger.info("Queue item %s is tagged runner=cloud_run — leaving for the Cloud Run Job", item_id)
         return
     if skipped_status == "running":
         raise RuntimeError(f"Queue item {item_id} has an active lease; retry after lease expiry")

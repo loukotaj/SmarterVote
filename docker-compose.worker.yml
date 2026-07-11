@@ -2,10 +2,13 @@
 # Cloud Function handoff churn.  Runs alongside (not instead of) the Cloud Function.
 #
 # Setup:
-#   1. Put a GCP service-account key (Firestore + GCS access) at ./secrets/sa-key.json
-#      OR mount your ADC and set GOOGLE_APPLICATION_CREDENTIALS accordingly.
+#   1. Run `gcloud auth application-default login` on the host (uses your own GCP
+#      identity — no static service-account key needed). This writes ADC to
+#      %APPDATA%\gcloud\application_default_credentials.json (Windows) or
+#      ~/.config/gcloud/application_default_credentials.json (Linux/Mac); the
+#      volume mount below covers the Windows path.
 #   2. Ensure ./.env has the LLM/search API keys the agent needs (OpenRouter, Serper)
-#      and GCS_BUCKET / FIRESTORE_PROJECT for the target (dev) environment.
+#      and GCS_BUCKET_NAME / GOOGLE_CLOUD_PROJECT for the target (dev) environment.
 #   3. docker compose -f docker-compose.worker.yml up --build
 #
 # To route work here:  run_race(<race_id>, runner="local")  (via the MCP tool / admin API)
@@ -18,11 +21,11 @@ services:
       - .env
     environment:
       PIPELINE_MODE: gcp
-      GOOGLE_APPLICATION_CREDENTIALS: /secrets/sa-key.json
+      GOOGLE_APPLICATION_CREDENTIALS: /gcloud-config/application_default_credentials.json
       WORKER_CONCURRENCY: "2"
       WORKER_POLL_SECONDS: "3"
       # GCS_BUCKET / FIRESTORE_PROJECT come from .env; override here if needed.
     volumes:
-      - ./secrets:/secrets:ro
+      - ${APPDATA}/gcloud:/gcloud-config:ro
     restart: unless-stopped
     stop_grace_period: 120s

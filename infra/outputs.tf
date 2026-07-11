@@ -48,9 +48,9 @@ output "races_api_url" {
   value       = google_cloud_run_v2_service.races_api.uri
 }
 
-output "pipeline_client_url" {
-  description = "URL of the pipeline client service"
-  value       = var.enable_pipeline_client ? google_cloud_run_v2_service.pipeline_client[0].uri : null
+output "pipeline_job_name" {
+  description = "Name of the one-shot pipeline Cloud Run Job"
+  value       = google_cloud_run_v2_job.pipeline.name
 }
 
 # Service Accounts
@@ -59,9 +59,9 @@ output "races_api_email" {
   value       = google_service_account.races_api.email
 }
 
-output "pipeline_client_email" {
-  description = "Email of the pipeline client service account"
-  value       = var.enable_pipeline_client ? google_service_account.pipeline_client[0].email : null
+output "pipeline_job_email" {
+  description = "Email of the pipeline Cloud Run Job service account"
+  value       = google_service_account.pipeline_job.email
 }
 
 output "github_actions_email" {

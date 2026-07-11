@@ -112,8 +112,8 @@ async def queue_races(
 
     Defaults to cheap/economy mode. Expensive default/quality/custom model
     profiles require explicitly passing cheap_mode=False. Pass runner="local" to
-    route the runs to the long-lived local Docker worker instead of the Cloud
-    Function.
+    route the runs to the long-lived local Docker worker instead of the default
+    one-shot Cloud Run Job.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
@@ -151,8 +151,8 @@ async def run_race(
 
     Defaults to cheap/economy mode. Expensive default/quality mode requires
     explicitly passing cheap_mode=False. Pass runner="local" to route the run to
-    the long-lived local Docker worker (no Cloud Function handoff churn); the
-    default runs on the Cloud Function.
+    the long-lived local Docker worker; the deployed default is a one-shot Cloud
+    Run Job.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,

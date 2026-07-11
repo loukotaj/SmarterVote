@@ -47,6 +47,9 @@ jobs:
           - name: races-api
             dockerfile: services/races-api/Dockerfile
             context: .
+          - name: pipeline-worker
+            dockerfile: pipeline_client/Dockerfile.worker
+            context: .
     steps:
       - uses: actions/checkout@v5
         with:
@@ -217,24 +220,6 @@ jobs:
             --flatten="bindings[].members" \
             --filter="bindings.members:$ACTIVE" \
             --format="table(bindings.role)"
-
-      - name: Build Cloud Function source zip
-        run: |
-          STAGING=$(mktemp -d)
-          cp functions/agent/main.py "$STAGING/"
-          cp functions/agent/requirements.txt "$STAGING/"
-          # Copy pipeline_client and shared packages (these are imported by the CF at runtime)
-          cp -r pipeline_client "$STAGING/pipeline_client"
-          cp -r shared "$STAGING/shared"
-          # Strip compiled artifacts and runtime-only dirs to keep the zip lean
-          find "$STAGING" -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
-          find "$STAGING" -name "*.pyc" -delete
-          find "$STAGING" -name "*.egg-info" -type d -exec rm -rf {} + 2>/dev/null || true
-          rm -rf "$STAGING/pipeline_client/artifacts" "$STAGING/pipeline_client/runs" 2>/dev/null || true
-          # Create zip in infra/ so Terraform can reference it with path.module
-          (cd "$STAGING" && zip -qr "$GITHUB_WORKSPACE/infra/functions-agent-source.zip" .)
-          rm -rf "$STAGING"
-          echo "✅ CF source zip built: $(du -h "$GITHUB_WORKSPACE/infra/functions-agent-source.zip" | cut -f1)"
 
       - name: Build Admin Agent Function source zip
         run: |

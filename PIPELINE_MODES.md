@@ -35,18 +35,18 @@ python -m uvicorn pipeline_client.backend.main:app --port 8001 --reload
 python -m uvicorn main:app --app-dir services/races-api --host 0.0.0.0 --port 8080 --reload
 ```
 
-## Cloud Function Mode (Production)
+## Cloud Run Job Mode (Production)
 
-The primary cloud architecture. Admin triggers runs via `races-api`; the pipeline runs inside a gen2 Cloud Function invoked by Firestore Eventarc.
+The primary cloud architecture. Admin triggers runs through `races-api`; each race runs in a one-shot Cloud Run Job with no idle instance cost or request-timeout handoffs.
 
 **How it works**:
 
 - Admin queues a race via `races-api POST /api/races/queue` (Auth0 authenticated)
 - `races-api` creates a document in Firestore `pipeline_queue`
-- Firestore Eventarc trigger invokes the gen2 Cloud Function (`functions/agent/main.py`)
-- CF imports `AgentHandler` from `pipeline_client.backend.handlers.agent`
+- `races-api` starts `pipeline-job-{env}` with the queue item ID as an execution override
+- `pipeline_client.worker` atomically claims that exact item and invokes `AgentHandler`
 - Agent runs the configured pipeline steps; progress + logs stream to Firestore `pipeline_runs/`
-- If CF nears the 60-min wall-clock limit, it saves a checkpoint to GCS and enqueues a continuation item (`HandoffTriggered`)
+- The worker renews a Firestore lease and can run for up to the configured job timeout
 - Draft saved to GCS `drafts/{race_id}.json`; admin publishes via `races-api` (writing `{race_id}.json` to GCS `races/` and updating the central `races/summaries.json` index)
 - Frontend polls `races-api /runs/{run_id}` + `/runs/{run_id}/logs?since=N` every 2-3 seconds (or fetches published files statically from GCS if configured)
 
@@ -54,7 +54,6 @@ The primary cloud architecture. Admin triggers runs via `races-api`; the pipelin
 
 ```bash
 cd infra
-# enable_agent_function is true by default in variables.tf
 terraform apply
 ```
 
@@ -95,7 +94,17 @@ To avoid redundant Serper API calls and reduce costs, web search results and fet
 
 - **TTL**: 7 days for search queries, 24 hours for fetched page text content.
 - **Local Mode**: Cached in a local SQLite database (`data/cache/search_cache.db`).
-- **Cloud Mode**: Cached in Firestore collections (`search_cache` and `page_cache`). This is critical because Cloud Function instances are ephemeral and trigger continuation handoffs; the shared Firestore cache ensures subsequent invocations don't re-run expensive Serper searches.
+- **Cloud Mode**: Cached in Firestore collections (`search_cache` and `page_cache`) so independent job executions and recovered leases do not repeat expensive searches.
+
+## Local Docker Worker (Permanent)
+
+The long-lived Docker worker is a supported execution mode, not a temporary migration tool. Queue with `runner=local`; the deployed Cloud Run path ignores those items.
+
+```powershell
+docker compose -f docker-compose.worker.yml up -d --build
+```
+
+It uses the same queue processor and `AgentHandler` as Cloud Run, but polls continuously and supports configurable local concurrency.
 - **Activation**: Automatically chooses Firestore if `STORAGE_MODE=gcp`, `FIRESTORE_PROJECT` is set, or running in Cloud Run/Functions. Otherwise falls back to SQLite. You can force-enable the Firestore backend in any environment by setting `SEARCH_CACHE_BACKEND=firestore` (requires `google-cloud-firestore` installed).
 
 ## Pipeline Steps

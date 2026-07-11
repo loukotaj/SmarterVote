@@ -2,15 +2,17 @@
 
 All endpoints are Auth0-JWT protected via verify_token dependency.
 Queue items are stored in Firestore `pipeline_queue` collection and picked up
-by the Eventarc-triggered Cloud Function.
+by a one-shot Cloud Run Job or the explicitly selected local Docker worker.
 """
 
+import os
 import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
 
 import firestore_helpers
 from auth import verify_token
+from cloud_run_jobs import dispatch_pipeline_job
 from fastapi import APIRouter, Depends, HTTPException
 from request_models import RaceQueueRequest, validate_race_id
 
@@ -28,8 +30,31 @@ _INACTIVE_RACE_STATUSES = {"draft", "published", "empty", "failed", "cancelled"}
 _RETENTION = RetentionConfig.from_env()
 
 
+def _default_runner() -> str:
+    return os.getenv("PIPELINE_DEFAULT_RUNNER", "local").strip().lower()
+
+
 def _queue_ttl_at() -> datetime:
     return datetime.now(timezone.utc) + timedelta(days=_RETENTION.completed_queue_days)
+
+
+def _dispatch_if_cloud_run(db: Any, item: Dict[str, Any]) -> Dict[str, Any] | None:
+    if item.get("runner") != "cloud_run":
+        return None
+    try:
+        dispatch = dispatch_pipeline_job(str(item["id"]))
+        update = {"dispatch_status": "submitted", **dispatch}
+        db.collection("pipeline_queue").document(str(item["id"])).update(update)
+        return update
+    except Exception as exc:
+        error = f"Cloud Run Job dispatch failed: {exc}"
+        db.collection("pipeline_queue").document(str(item["id"])).update(
+            {"status": "failed", "dispatch_status": "failed", "error": error, "ttl_at": _queue_ttl_at()}
+        )
+        firestore_helpers._fs_update_race(
+            str(item["race_id"]), {"status": "failed", "current_run_id": None, "last_run_status": "failed"}
+        )
+        raise RuntimeError(error) from exc
 
 
 def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
@@ -176,7 +201,7 @@ async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, An
 
 @router.post("/api/races/queue", dependencies=[Depends(verify_token)])
 async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
-    """Queue races for pipeline processing via Firestore-triggered Cloud Function."""
+    """Queue races for local Docker, Cloud Run Jobs, or the temporary CF fallback."""
     db = firestore_helpers._get_fs()
     options = request.options.model_dump(exclude_none=True) if request.options else {}
     added = []
@@ -216,14 +241,22 @@ async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
                 "options": options,
                 "status": "pending",
                 "is_continuation": False,
-                # Top-level routing tag: "local" is left for the Docker worker,
-                # anything else runs on the Eventarc Cloud Function.
-                "runner": (options or {}).get("runner") or "cf",
+                "runner": (options or {}).get("runner") or _default_runner(),
                 "created_at": SERVER_TIMESTAMP,
             }
             db.collection("pipeline_queue").document(item_id).set(item)
             firestore_helpers._fs_update_race(race_id, {"status": "queued", "current_run_id": run_id})
-            added.append({"id": item_id, "race_id": race_id, "run_id": run_id, "status": "pending"})
+            dispatch = _dispatch_if_cloud_run(db, item)
+            added.append(
+                {
+                    "id": item_id,
+                    "race_id": race_id,
+                    "run_id": run_id,
+                    "status": "pending",
+                    "runner": item["runner"],
+                    "dispatch": dispatch,
+                }
+            )
         except Exception as exc:
             errors.append({"race_id": race_id, "error": str(exc)})
 

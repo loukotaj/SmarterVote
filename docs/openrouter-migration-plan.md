@@ -1,6 +1,8 @@
 # OpenRouter Migration
 
-SmarterVote now uses OpenRouter as the single runtime LLM provider for research, review, admin chat, and post-run analysis.
+Status: Complete. This document is retained as the migration record; use `CLAUDE.md`, `docs/architecture.md`, and the model registry in code for current runtime guidance.
+
+SmarterVote now uses OpenRouter as the single runtime LLM provider for research, review, admin chat, and forecast narratives.
 
 The migration keeps the model families the admin UI already exposed, but all runtime calls use OpenRouter model slugs and a single secret: `OPENROUTER_API_KEY`.
 

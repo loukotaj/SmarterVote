@@ -7,10 +7,8 @@ environment = "dev"
 region      = "us-central1"
 
 # Development Settings
-prevent_destroy_prod           = true
-enable_pipeline_client         = false
-enable_admin_agent_function    = true
-pipeline_client_public_invoker = false # pipeline_client disabled — agent Cloud Function handles queue via Eventarc
+prevent_destroy_prod        = true
+enable_admin_agent_function = true
 
 # CORS (explicit origins required for Auth0 credential-mode requests)
 allowed_origins = [

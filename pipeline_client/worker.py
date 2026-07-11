@@ -35,8 +35,10 @@ load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 logger = logging.getLogger("pipeline_worker")
 
+_RUNNER = os.getenv("WORKER_RUNNER", "local").strip().lower()
 _CONCURRENCY = max(1, int(os.getenv("WORKER_CONCURRENCY", "2")))
 _POLL_SECONDS = max(1, int(os.getenv("WORKER_POLL_SECONDS", "3")))
+_ONCE = os.getenv("WORKER_ONCE", "false").strip().lower() in {"1", "true", "yes"}
 
 
 def _get_db() -> Any:
@@ -67,37 +69,40 @@ def _bucket_name() -> str:
     return settings.gcs_bucket or os.getenv("GCS_BUCKET", "")
 
 
-def _pending_local_items(db: Any, limit: int = 50):
-    """Yield (item_id, item_data) for pending runner==local items, oldest first.
+def _pending_items(db: Any, runner: str, limit: int = 50):
+    """Return pending items for one runner, oldest first.
 
-    Uses a single-field equality filter (no composite index needed); status +
-    ordering are applied client-side since the local queue is small.
+    Both filters execute in Firestore so completed history can never starve new
+    work. Ordering stays client-side to avoid requiring a three-field index.
     """
     from google.cloud.firestore_v1 import FieldFilter  # type: ignore
 
-    docs = list(db.collection("pipeline_queue").where(filter=FieldFilter("runner", "==", "local")).limit(limit).stream())
+    query = db.collection("pipeline_queue").where(filter=FieldFilter("runner", "==", runner))
+    query = query.where(filter=FieldFilter("status", "==", "pending"))
+    docs = list(query.limit(limit).stream())
     items = []
     for doc in docs:
         data = doc.to_dict() or {}
-        if data.get("status") == "pending":
-            items.append((doc.id, data))
+        items.append((doc.id, data))
     items.sort(key=lambda pair: str(pair[1].get("created_at") or ""))
     return items
 
 
-async def _process_one(db: Any, gcs: Any, bucket: str, item_id: str, item_data: dict, sem: asyncio.Semaphore) -> None:
-    from pipeline_client.backend.queue_processor import claim_local_item, process_claimed_item
+async def _process_one(
+    db: Any, gcs: Any, bucket: str, item_id: str, item_data: dict, sem: asyncio.Semaphore, runner: str
+) -> None:
+    from pipeline_client.backend.queue_processor import claim_item, process_claimed_item
 
     async with sem:
         lease_owner = f"{os.getenv('HOSTNAME', 'local-worker')}:{uuid.uuid4()}"
         item_ref = db.collection("pipeline_queue").document(item_id)
-        claimed = await asyncio.to_thread(claim_local_item, db, item_ref, lease_owner)
+        claimed = await asyncio.to_thread(claim_item, db, item_ref, lease_owner, runner)
         if not claimed:
             return  # lost the race / already terminal
         race_id = claimed.get("race_id", "?")
         logger.info("Worker leased %s (race %s)", item_id, race_id)
         try:
-            await process_claimed_item(db, gcs, bucket, item_id, claimed, lease_owner)
+            await process_claimed_item(db, gcs, bucket, item_id, claimed, lease_owner, runner=runner)
             logger.info("Worker finished %s (race %s)", item_id, race_id)
         except Exception:  # noqa: BLE001
             logger.exception("Worker crashed processing %s (race %s)", item_id, race_id)
@@ -110,7 +115,12 @@ async def run_worker() -> None:
     if not bucket:
         logger.warning("No GCS bucket configured — drafts/checkpoints will not persist")
     logger.info(
-        "Local pipeline worker started (concurrency=%d, poll=%ds, bucket=%s)", _CONCURRENCY, _POLL_SECONDS, bucket or "-"
+        "Pipeline worker started (runner=%s, once=%s, concurrency=%d, poll=%ds, bucket=%s)",
+        _RUNNER,
+        _ONCE,
+        _CONCURRENCY,
+        _POLL_SECONDS,
+        bucket or "-",
     )
 
     stop = asyncio.Event()
@@ -134,7 +144,13 @@ async def run_worker() -> None:
     while not stop.is_set():
         try:
             capacity = _CONCURRENCY - len(in_flight)
-            items = _pending_local_items(db, limit=max(capacity, 1)) if capacity > 0 else []
+            queue_item_id = os.getenv("QUEUE_ITEM_ID", "").strip()
+            if _ONCE and queue_item_id:
+                doc = db.collection("pipeline_queue").document(queue_item_id).get()
+                data = doc.to_dict() if getattr(doc, "exists", False) else None
+                items = [(queue_item_id, data)] if isinstance(data, dict) else []
+            else:
+                items = _pending_items(db, _RUNNER, limit=max(capacity, 1)) if capacity > 0 else []
         except Exception:  # noqa: BLE001
             logger.exception("Failed to poll pipeline_queue")
             items = []
@@ -146,16 +162,23 @@ async def run_worker() -> None:
                 break
             if item_id in seen_ids:
                 continue
-            task = asyncio.create_task(_process_one(db, gcs, bucket, item_id, item_data, sem), name=item_id)
+            task = asyncio.create_task(_process_one(db, gcs, bucket, item_id, item_data, sem, _RUNNER), name=item_id)
             in_flight.add(task)
             task.add_done_callback(in_flight.discard)
             started = True
 
         if not started:
+            if _ONCE:
+                break
             try:
                 await asyncio.wait_for(stop.wait(), timeout=_POLL_SECONDS)
             except asyncio.TimeoutError:
                 pass
+
+        if _ONCE and in_flight:
+            await asyncio.gather(*in_flight, return_exceptions=True)
+            in_flight.clear()
+            break
 
     if in_flight:
         logger.info("Waiting for %d in-flight race(s) to finish...", len(in_flight))

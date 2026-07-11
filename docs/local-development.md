@@ -243,4 +243,4 @@ Remove-Item -Recurse -Force data\cache
 
 ## Production Notes
 
-In production, the admin dashboard queues races through `services/races-api`. A Firestore `pipeline_queue` document triggers the Cloud Function in `functions/agent`, which calls `AgentHandler` and writes draft output to GCS. The local pipeline API does not run in production.
+In production, the admin dashboard queues races through `services/races-api`, which starts a one-shot Cloud Run Job using the shared worker and `AgentHandler`. For workstation-backed GCP runs, queue with `runner=local` and run `docker compose -f docker-compose.worker.yml up -d`. The local pipeline API does not run in production.

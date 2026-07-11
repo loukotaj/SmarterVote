@@ -34,11 +34,20 @@ try {
     Write-Host "Running local CI gate checks from: $repoRoot" -ForegroundColor Yellow
     Write-Host "SkipInstall: $SkipInstall" -ForegroundColor Yellow
 
+    Invoke-Step "Reject tracked Terraform artifacts" {
+        $trackedArtifacts = git ls-files | Select-String -Pattern '(^|/)(tfplan|[^/]+\.tfplan|terraform\.tfstate(\..*)?|secrets\.tfvars)$'
+        if ($trackedArtifacts) {
+            $trackedArtifacts | ForEach-Object { Write-Host $_.Line -ForegroundColor Red }
+            throw "Generated or sensitive Terraform files are tracked"
+        }
+    }
+
     if (-not $SkipInstall) {
         Invoke-Step "Install pipeline test dependencies" {
             Invoke-Expression "$python -m pip install --upgrade pip"
             Invoke-Expression "$python -m pip install -r pipeline_client/backend/requirements.txt"
             Invoke-Expression "$python -m pip install pytest pytest-asyncio httpx"
+            Invoke-Expression "$python -m pip install black==23.11.0 isort==5.12.0"
         }
 
         Invoke-Step "Install races-api test dependencies" {
@@ -64,9 +73,14 @@ try {
         }
     }
 
-    Invoke-Step "Pipeline tests (tests/)" {
+    Invoke-Step "Pipeline tests" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests -v"
+        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_agent_cloud_function.py --ignore=tests/test_races_api_admin.py"
+    }
+
+    Invoke-Step "Python formatting" {
+        Invoke-Expression "$python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts"
+        Invoke-Expression "$python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts"
     }
 
     Invoke-Step "Races API tests" {
@@ -80,6 +94,22 @@ try {
         }
     }
 
+    Invoke-Step "Races API admin tests" {
+        Push-Location "services/races-api"
+        try {
+            $env:PYTHONPATH = "../.."
+            Invoke-Expression "$python -m pytest ../../tests/test_races_api_admin.py -v"
+        }
+        finally {
+            Pop-Location
+        }
+    }
+
+    Invoke-Step "Agent Cloud Function tests" {
+        $env:PYTHONPATH = "."
+        Invoke-Expression "$python -m pytest tests/test_agent_cloud_function.py -v"
+    }
+
     Invoke-Step "Web type check" {
         Push-Location "web"
         try {
@@ -90,9 +120,27 @@ try {
         }
     }
 
+    Invoke-Step "Web lint" {
+        Push-Location "web"
+        try {
+            npm run lint
+        }
+        finally {
+            Pop-Location
+        }
+    }
+
     Invoke-Step "Web build" {
         Push-Location "web"
         try {
+            if (-not (Test-Path "static/summaries.json")) {
+                New-Item -ItemType Directory -Force "static" | Out-Null
+                Set-Content -Encoding UTF8 "static/summaries.json" "[]"
+            }
+            if (-not (Test-Path "static/chamber_forecasts.json")) {
+                Set-Content -Encoding UTF8 "static/chamber_forecasts.json" '{"schema_version":"chamber_forecasts.v2","house":"","senate":"","governors":"","chambers":{"house":{"projected_seats":{"Democratic":0,"Republican":0},"tossup_count":0,"competitive_race_count":0},"senate":{"projected_seats":{"Democratic":0,"Republican":0},"tossup_count":0,"competitive_race_count":0},"governors":{"projected_seats":{"Democratic":0,"Republican":0},"tossup_count":0,"competitive_race_count":0}}}'
+            }
+            $env:FAST_BUILD = "true"
             npm run build
         }
         finally {

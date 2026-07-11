@@ -28,14 +28,6 @@ resource "google_service_account" "races_api" {
   description  = "Service account for races API Cloud Run service"
 }
 
-resource "google_service_account" "pipeline_client" {
-  count        = var.enable_pipeline_client ? 1 : 0
-  project      = var.project_id
-  account_id   = "pipeline-client-${var.environment}"
-  display_name = "Pipeline Client Service Account"
-  description  = "Service account for pipeline client Cloud Run service"
-}
-
 # GitHub Actions deployment service account
 resource "google_service_account" "github_actions" {
   project      = var.project_id
@@ -141,28 +133,6 @@ resource "google_project_iam_member" "races_api_artifact_registry" {
   member  = "serviceAccount:${google_service_account.races_api.email}"
 }
 
-# IAM bindings for pipeline client (only when pipeline enabled)
-resource "google_project_iam_member" "pipeline_client_storage" {
-  count   = var.enable_pipeline_client ? 1 : 0
-  project = var.project_id
-  role    = "roles/storage.objectAdmin"
-  member  = "serviceAccount:${google_service_account.pipeline_client[0].email}"
-}
-
-resource "google_project_iam_member" "pipeline_client_secrets" {
-  count   = var.enable_pipeline_client ? 1 : 0
-  project = var.project_id
-  role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${google_service_account.pipeline_client[0].email}"
-}
-
-resource "google_project_iam_member" "pipeline_client_artifact_registry" {
-  count   = var.enable_pipeline_client ? 1 : 0
-  project = var.project_id
-  role    = "roles/artifactregistry.writer"
-  member  = "serviceAccount:${google_service_account.pipeline_client[0].email}"
-}
-
 # IAM bindings for GitHub Actions deployment service account
 resource "google_project_iam_member" "github_actions_artifact_registry" {
   project = var.project_id
@@ -189,7 +159,7 @@ resource "google_project_iam_member" "github_actions_iam" {
 }
 
 # Custom role granting only the permissions needed to create/delete service accounts
-# during Terraform apply (e.g., when enable_pipeline_client toggles between true/false)
+# during Terraform apply.
 resource "google_project_iam_custom_role" "sa_manager" {
   project     = var.project_id
   role_id     = "saManager_${var.environment}"

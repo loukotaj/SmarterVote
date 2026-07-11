@@ -14,11 +14,12 @@ if sys.platform == "win32":
 
 @pytest.fixture(autouse=True)
 def mock_wikipedia_image_lookup():
-    """Prevent real HTTP calls to the Wikipedia API during unit tests."""
-    with patch(
-        "pipeline_client.agent.images._lookup_wikipedia_image",
-        new_callable=AsyncMock,
-        return_value=None,
+    """Prevent every candidate-image fast path from making real HTTP calls."""
+    with (
+        patch("pipeline_client.agent.images._lookup_wikipedia_image", new_callable=AsyncMock, return_value=None),
+        patch("pipeline_client.agent.images._lookup_ballotpedia_image", new_callable=AsyncMock, return_value=None),
+        patch("pipeline_client.agent.images._lookup_known_page_image", new_callable=AsyncMock, return_value=None),
+        patch("pipeline_client.agent.images._lookup_serper_image", new_callable=AsyncMock, return_value=None),
     ):
         yield
 
