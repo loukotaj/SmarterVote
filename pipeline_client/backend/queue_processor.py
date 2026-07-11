@@ -1,13 +1,18 @@
 """Queue-item processor for the long-lived local worker.
 
 The heavy lifting (agent execution, checkpointing, draft save) is delegated to
-``AgentHandler`` — exactly like the Cloud Function path in
-``functions/agent/main.py``. The difference is the **deadline**: the worker runs
-each race with a far-future deadline, so ``_maybe_handoff`` never fires and the
-issue phase never raises ``PipelineWorkRemaining`` — a race runs start-to-finish
-in one process with no GCS-checkpoint reloads (the source of the CF cost/latency
-overhead). This module owns only the Firestore claim + terminal-state
-bookkeeping, mirroring the CF so drafts/runs/races show up identically in admin.
+``AgentHandler``. The processor runs
+each race with a far-future deadline, so a *deadline-driven* handoff never
+fires. ``AgentHandler`` can still raise ``HandoffTriggered`` for a reason
+unrelated to the deadline — its per-unit issue-research retry bookkeeping
+(``continue_incomplete_work``) is unconditional — so ``process_claimed_item``
+follows any such handoff in-process (reloading the continuation's own options
+and checkpoint, then looping) instead of treating it as fatal. That keeps a
+race running start-to-finish in one process with no *externally* visible
+GCS-checkpoint reload/re-dispatch (the source of the CF cost/latency overhead),
+while still never discarding completed work if a handoff does fire. This
+module owns the Firestore claim and terminal-state bookkeeping so Cloud Run Job
+and local Docker executions show up identically in admin.
 """
 
 from __future__ import annotations
@@ -25,10 +30,14 @@ from shared.race_catalog import build_race_summary_fields, build_versioned_catal
 
 logger = logging.getLogger("pipeline_worker")
 
-# 24h default: long enough that no race ever hits the handoff path.
+# 24h default: long enough that a deadline check alone would never trigger handoff.
+# It does NOT stop AgentHandler's per-unit retry bookkeeping (continue_incomplete_work
+# is unconditional there) from raising HandoffTriggered when a research unit doesn't
+# complete in one pass — see the in-process continuation loop in process_claimed_item.
 WORKER_DEADLINE_SECONDS = max(3600, int(os.getenv("WORKER_DEADLINE_SECONDS", str(24 * 3600))))
 _LEASE_SECONDS = max(60, int(os.getenv("WORKER_LEASE_SECONDS", "300")))
 _LEASE_RENEW_SECONDS = max(15, min(int(os.getenv("WORKER_LEASE_RENEW_SECONDS", "60")), _LEASE_SECONDS // 2))
+_MAX_LOCAL_HANDOFFS = max(1, int(os.getenv("WORKER_MAX_HANDOFFS", "50")))
 _RETENTION = RetentionConfig.from_env()
 
 
@@ -205,10 +214,10 @@ async def process_claimed_item(
     lease_owner: str,
     runner: str = "local",
 ) -> None:
-    """Run a claimed local queue item end-to-end and finalize Firestore state.
+    """Run a claimed queue item end-to-end and finalize Firestore state.
 
-    Mirrors the terminal-state bookkeeping of ``functions/agent/main.py`` but with
-    a far-future deadline so the agent never hands off to a continuation.
+    A far-future deadline avoids deadline-driven dispatch; research retry
+    continuations are followed in-process below.
     """
     from google.cloud.firestore_v1 import SERVER_TIMESTAMP, Increment  # type: ignore
 
@@ -263,17 +272,57 @@ async def process_claimed_item(
 
     options["run_id"] = run_id
     options["queue_item_id"] = item_id
-    # Far-future deadline → no handoff, no continuation, single-pass execution.
     import time as _time
-
-    options["deadline_at"] = _time.time() + WORKER_DEADLINE_SECONDS
 
     lease_stop, lease_thread = _start_lease_heartbeat(db, item_ref, lease_owner)
     success = False
     error_msg = ""
+    handoffs_followed = 0
     try:
-        await _run_agent(race_id, run_id, options, existing_data)
-        success = True
+        while True:
+            # Re-applied every pass: a fresh far-future deadline so deadline-driven
+            # handoff never fires. A handoff can still fire for per-unit retry
+            # bookkeeping (AgentHandler's continue_incomplete_work is unconditional,
+            # independent of deadline_at) — that's followed in-process below instead
+            # of being treated as fatal, since giving up here discards all completed
+            # research for the run.
+            options["deadline_at"] = _time.time() + WORKER_DEADLINE_SECONDS
+            try:
+                await _run_agent(race_id, run_id, options, existing_data)
+                success = True
+                break
+            except HandoffTriggered as exc:
+                handoffs_followed += 1
+                if handoffs_followed > _MAX_LOCAL_HANDOFFS:
+                    error_msg = (
+                        f"Gave up after {handoffs_followed} in-process continuations for run {run_id} "
+                        f"(remaining steps: {exc.remaining_steps})"
+                    )
+                    logger.warning(error_msg)
+                    break
+                cont_ref = db.collection("pipeline_queue").document(exc.continuation_item_id)
+                cont_doc = cont_ref.get()
+                cont_data = cont_doc.to_dict() if getattr(cont_doc, "exists", False) else None
+                if not isinstance(cont_data, dict):
+                    error_msg = f"Continuation item {exc.continuation_item_id} missing for run {run_id}"
+                    logger.warning(error_msg)
+                    break
+                logger.info(
+                    "Local worker following continuation %s in-process (pass %d) for run %s: remaining=%s",
+                    exc.continuation_item_id,
+                    handoffs_followed,
+                    run_id,
+                    exc.remaining_steps,
+                )
+                options = dict(cont_data.get("options") or {})
+                options["run_id"] = run_id
+                options["queue_item_id"] = item_id
+                cont_existing_path = cont_data.get("existing_data_gcs_path")
+                existing_data = _load_gcs_json(gcs, bucket_name, cont_existing_path) if cont_existing_path else None
+                try:
+                    cont_ref.delete()
+                except Exception:
+                    logger.debug("Could not delete followed continuation item %s", exc.continuation_item_id, exc_info=True)
     except AgentCancelled as exc:
         logger.info("Local run %s cancelled: %s", run_id, exc)
         item_ref.update(
@@ -288,11 +337,6 @@ async def process_claimed_item(
         run_ref.update({"status": "cancelled", "completed_at": SERVER_TIMESTAMP})
         _set_race_if_current(db, race_id, run_id, {"status": "cancelled", "current_run_id": None})
         return
-    except HandoffTriggered as exc:
-        # Should not happen with the far deadline; treat defensively as a failure
-        # so the item never silently stalls.
-        error_msg = f"Unexpected handoff in local worker: {exc}"
-        logger.warning(error_msg)
     except Exception as exc:  # noqa: BLE001
         error_msg = str(exc)
         logger.exception("Local run %s failed: %s", run_id, exc)

@@ -1,5 +1,5 @@
-# Local pipeline worker — runs races tagged runner="local" end-to-end with no
-# Cloud Function handoff churn.  Runs alongside (not instead of) the Cloud Function.
+# Local pipeline worker — runs races tagged runner="local" end-to-end. It is a
+# permanent first-class alternative to the default one-shot Cloud Run Job runner.
 #
 # Setup:
 #   1. Run `gcloud auth application-default login` on the host (uses your own GCP

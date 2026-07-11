@@ -22,11 +22,10 @@ from shared.pipeline_config import RetentionConfig
 
 
 class HandoffTriggered(Exception):
-    """Raised when the agent hands off to a continuation Cloud Function invocation.
+    """Raised after the agent checkpoints work into a continuation queue item.
 
-    Caught by the CF entry point (functions/agent/main.py); treated as a clean
-    exit rather than a failure so the queue item is marked 'continued', not
-    'failed'.
+    The shared queue processor follows these continuations in-process for both
+    one-shot Cloud Run Jobs and the long-lived local Docker worker.
     """
 
     def __init__(self, continuation_item_id: str, remaining_steps: List[str], continuation_run_id: str | None = None):

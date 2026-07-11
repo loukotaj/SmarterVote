@@ -77,6 +77,6 @@ Write-Host "   - gcloud auth configure-docker $region-docker.pkg.dev" -Foregroun
 Write-Host "   - cd ../services/races-api && docker build -t $region-docker.pkg.dev/$projectId/smartervote-dev/races-api:latest ." -ForegroundColor Gray
 Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/races-api:latest" -ForegroundColor Gray
 Write-Host ""
-Write-Host "2. Ensure infra/functions-agent-source.zip was rebuilt by the deployment workflow for the agent Cloud Function" -ForegroundColor White
-Write-Host "3. Update the races-api Cloud Run service if you changed the image tag" -ForegroundColor White
-Write-Host "4. Test the API endpoints and queue a race through the admin UI" -ForegroundColor White
+Write-Host "2. Build and push the pipeline worker image used by the pipeline Cloud Run Job" -ForegroundColor White
+Write-Host "3. Update the races-api service and pipeline Job image tags if they changed" -ForegroundColor White
+Write-Host "4. Test the API endpoints and queue a smoke race through the admin UI" -ForegroundColor White

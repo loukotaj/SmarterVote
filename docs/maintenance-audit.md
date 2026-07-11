@@ -1,6 +1,6 @@
 # Maintenance Audit
 
-Last reviewed: 2026-06-21.
+Last reviewed: 2026-07-11.
 
 ## Cleaned
 
@@ -19,7 +19,9 @@ Last reviewed: 2026-06-21.
 
 - `shared.models.LEGACY_ISSUE_NAMES` and `web/src/lib/types.ts` still recognize old issue keys so previously published data can render until those races are rerun.
 - `services/races-api/firestore_helpers.py` strips `quality_score` defensively while production data is being cleaned.
-- Terraform still contains disabled `enable_pipeline_client` resources for legacy/debug recovery. Normal deployments should keep it `false`; the agent Cloud Function is the production runner.
+- Race pipeline execution defaults to one-shot Cloud Run Jobs. The local Docker
+  worker remains a supported runner selected with `runner=local`; the retired
+  race Cloud Function and legacy pipeline service are no longer deployed.
 
 ## Dependency Residuals
 

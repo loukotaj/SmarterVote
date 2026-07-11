@@ -1,6 +1,7 @@
 """Run detail and log endpoints.
 
-Runs are stored in Firestore `pipeline_runs` collection by the Cloud Function.
+Runs are stored in the Firestore `pipeline_runs` collection by the shared queue
+processor used by Cloud Run Jobs and the local Docker worker.
 Logs are stored in the `pipeline_runs/{run_id}/logs` subcollection.
 """
 

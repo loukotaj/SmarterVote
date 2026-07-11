@@ -1,10 +1,10 @@
 """Long-lived local pipeline worker.
 
 Leases ``runner == "local"`` items from the Firestore ``pipeline_queue`` and runs
-them to completion in-process with a far-future deadline — so no Cloud Function
-handoff/continuation churn (see ``pipeline_client/backend/queue_processor.py``).
-Runs alongside the Cloud Function: the CF skips ``runner=="local"`` items and the
-worker only picks those up, so the two never fight over the same work.
+them to completion in-process with a far-future deadline (see
+``pipeline_client/backend/queue_processor.py``). It runs alongside the default
+one-shot Cloud Run Job path; runner-scoped claims keep the two modes from
+competing for the same work.
 
 Usage:
     python -m pipeline_client.worker

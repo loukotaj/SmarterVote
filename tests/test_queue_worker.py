@@ -75,6 +75,62 @@ async def test_process_uses_far_future_deadline_and_completes():
 
 
 @pytest.mark.asyncio
+async def test_process_follows_handoff_in_process_instead_of_failing():
+    """A HandoffTriggered (e.g. from unconditional continue_incomplete_work retry
+    bookkeeping) must be followed in-process, not treated as fatal — otherwise the
+    far-future deadline the worker exists to provide is pointless and completed
+    research work gets discarded."""
+    from pipeline_client.backend import queue_processor as qp
+    from pipeline_client.backend.handlers.agent import HandoffTriggered
+
+    item = {"race_id": "ca-house-01-2026", "run_id": "run-3", "options": {"cheap_mode": True}}
+    db, item_ref, run_ref, race_ref = _fs_mock(item)
+
+    cont_doc = MagicMock()
+    cont_doc.exists = True
+    cont_doc.to_dict.return_value = {
+        "options": {"cheap_mode": True, "enabled_steps": ["issues"], "is_continuation": True},
+        "existing_data_gcs_path": None,
+    }
+    cont_ref = MagicMock()
+    cont_ref.get.return_value = cont_doc
+
+    def _pipeline_queue_document(doc_id):
+        if doc_id == "cont-1":
+            return cont_ref
+        return item_ref
+
+    db.collection.side_effect = None
+
+    def _collection(name):
+        if name == "pipeline_queue":
+            m = MagicMock()
+            m.document.side_effect = _pipeline_queue_document
+            return m
+        return {"pipeline_runs": run_ref, "races": race_ref}[name]
+
+    db.collection.side_effect = _collection
+
+    calls = []
+
+    async def fake_run(race_id, run_id, options, existing_data):
+        calls.append(dict(options))
+        if len(calls) == 1:
+            raise HandoffTriggered("cont-1", ["issues"], run_id)
+
+    with patch.object(qp, "_run_agent", side_effect=fake_run):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-1", item, "owner-1")
+
+    assert len(calls) == 2, "must retry in-process after the handoff instead of giving up"
+    assert calls[1]["enabled_steps"] == ["issues"], "must resume with the continuation's own options"
+    cont_ref.delete.assert_called_once()
+
+    item_updates = [c.args[0] for c in item_ref.update.call_args_list]
+    assert any(u.get("status") == "completed" for u in item_updates)
+    assert not any(u.get("status") == "failed" for u in item_updates)
+
+
+@pytest.mark.asyncio
 async def test_process_marks_failed_on_agent_error():
     from pipeline_client.backend import queue_processor as qp
 
