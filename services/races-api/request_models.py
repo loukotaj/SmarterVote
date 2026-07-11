@@ -47,8 +47,8 @@ class RunOptions(BaseModel):
         if value is None:
             return None
         normalized = str(value).strip().lower()
-        if normalized not in {"cloud_run", "cf", "local"}:
-            raise ValueError("runner must be 'cloud_run', 'cf', or 'local'")
+        if normalized not in {"cloud_run", "local"}:
+            raise ValueError("runner must be 'cloud_run' or 'local'")
         return normalized
 
     @field_validator("enabled_steps")

@@ -67,7 +67,6 @@ For a broader check after touching shared models or prompts:
 
 ```bash
 PYTHONPATH=. python -m pytest tests -v \
-  --ignore=tests/test_agent_cloud_function.py \
   --ignore=tests/test_races_api_admin.py
 ```
 

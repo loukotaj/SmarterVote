@@ -75,7 +75,7 @@ try {
 
     Invoke-Step "Pipeline tests" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_agent_cloud_function.py --ignore=tests/test_races_api_admin.py"
+        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py"
     }
 
     Invoke-Step "Python formatting" {
@@ -103,11 +103,6 @@ try {
         finally {
             Pop-Location
         }
-    }
-
-    Invoke-Step "Agent Cloud Function tests" {
-        $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests/test_agent_cloud_function.py -v"
     }
 
     Invoke-Step "Web type check" {

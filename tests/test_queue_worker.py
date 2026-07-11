@@ -7,7 +7,7 @@ import pytest
 
 
 def _fs_mock(item_data: dict):
-    """Minimal Firestore mock mirroring tests/test_agent_cloud_function.py."""
+    """Minimal Firestore mock for worker queue and race state."""
     db = MagicMock()
     state = dict(item_data)
 
@@ -108,7 +108,7 @@ def test_claim_local_item_claims_pending_local():
 def test_claim_local_item_skips_non_local():
     from pipeline_client.backend import queue_processor as qp
 
-    item = {"status": "pending", "runner": "cf", "race_id": "x", "run_id": "r"}
+    item = {"status": "pending", "runner": "cloud_run", "race_id": "x", "run_id": "r"}
     db, item_ref, _run_ref, _race_ref = _fs_mock(item)
 
     assert qp.claim_local_item(db, item_ref, "owner-1") is None

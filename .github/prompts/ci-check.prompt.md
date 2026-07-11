@@ -20,7 +20,6 @@ If any are listed, they must be removed from tracking.
 
 ```bash
 PYTHONPATH=. python -m pytest tests -v \
-  --ignore=tests/test_agent_cloud_function.py \
   --ignore=tests/test_races_api_admin.py
 ```
 
@@ -38,19 +37,13 @@ cd services/races-api && PYTHONPATH=../.. python -m pytest test_races_api.py -v
 cd services/races-api && PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
 ```
 
-## Step 5 — Agent Cloud Function tests
-
-```bash
-PYTHONPATH=. python -m pytest tests/test_agent_cloud_function.py -v
-```
-
-## Step 6 — Frontend (TypeScript check, lint, build, unit tests)
+## Step 5 — Frontend (TypeScript check, lint, build, unit tests)
 
 ```bash
 cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:unit -- --run
 ```
 
-## Step 7 — Terraform validate
+## Step 6 — Terraform validate
 
 ```bash
 cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate
@@ -64,7 +57,6 @@ After running all steps, produce a summary table:
 | Python pipeline tests         | ✅ / ❌ | ...      |
 | Python formatting             | ✅ / ❌ | ...      |
 | Races API tests               | ✅ / ❌ | ...      |
-| Cloud Function tests          | ✅ / ❌ | ...      |
 | Frontend (check+lint+build+test) | ✅ / ❌ | ...   |
 | Terraform validate            | ✅ / ❌ | ...      |
 

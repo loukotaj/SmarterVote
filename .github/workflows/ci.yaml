@@ -62,7 +62,6 @@ jobs:
       - name: Run pipeline tests
         run: |
           PYTHONPATH=. python -m pytest tests -v \
-            --ignore=tests/test_agent_cloud_function.py \
             --ignore=tests/test_races_api_admin.py
 
       - name: Check Python formatting
@@ -94,30 +93,6 @@ jobs:
         run: |
           cd services/races-api
           PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
-
-  test-cloud-function:
-    name: Test Agent Cloud Function
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r pipeline_client/backend/requirements.txt
-          pip install -r functions/agent/requirements.txt
-          pip install pytest pytest-asyncio cloudevents
-
-      - name: Run Cloud Function tests
-        run: |
-          PYTHONPATH=. python -m pytest tests/test_agent_cloud_function.py -v
 
   test-web:
     name: Test Web Frontend
@@ -190,7 +165,6 @@ jobs:
         security,
         test-pipeline,
         test-apis,
-        test-cloud-function,
         test-web,
         terraform-validate,
       ]
@@ -202,17 +176,15 @@ jobs:
           SECURITY_RESULT: ${{ needs.security.result }}
           PIPELINE_RESULT: ${{ needs.test-pipeline.result }}
           APIS_RESULT: ${{ needs.test-apis.result }}
-          CF_RESULT: ${{ needs.test-cloud-function.result }}
           WEB_RESULT: ${{ needs.test-web.result }}
           TERRAFORM_RESULT: ${{ needs.terraform-validate.result }}
         run: |
           echo "security:            $SECURITY_RESULT"
           echo "test-pipeline:       $PIPELINE_RESULT"
           echo "test-apis:           $APIS_RESULT"
-          echo "test-cloud-function: $CF_RESULT"
           echo "test-web:            $WEB_RESULT"
           echo "terraform-validate:  $TERRAFORM_RESULT"
-          if [[ "$SECURITY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$CF_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" ]]; then
+          if [[ "$SECURITY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" ]]; then
             echo "❌ One or more CI gates failed"
             exit 1
           fi

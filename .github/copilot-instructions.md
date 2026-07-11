@@ -24,7 +24,7 @@ See `docs/architecture.md` for full details, endpoints, and cloud topology.
 
 ```bash
 # Python pipeline tests (API admin and Cloud Function suites run separately in CI)
-PYTHONPATH=. python -m pytest tests -v --ignore=tests/test_agent_cloud_function.py --ignore=tests/test_races_api_admin.py
+PYTHONPATH=. python -m pytest tests -v --ignore=tests/test_races_api_admin.py
 
 # Python formatting checks
 python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts

@@ -50,7 +50,6 @@ Run the narrowest useful check for what you touched. The commands below mirror t
 ```bash
 # Python pipeline + agent tests (excludes cloud-function-specific and API admin tests)
 PYTHONPATH=. python -m pytest tests -v \
-  --ignore=tests/test_agent_cloud_function.py \
   --ignore=tests/test_races_api_admin.py
 
 # Races API tests
@@ -58,9 +57,6 @@ cd services/races-api && PYTHONPATH=../.. python -m pytest test_races_api.py -v
 
 # Races API admin tests (run from repo root)
 cd services/races-api && PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
-
-# Queue worker and retired-Function compatibility tests
-PYTHONPATH=. python -m pytest tests/test_agent_cloud_function.py -v
 
 # Python formatting check
 python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts
