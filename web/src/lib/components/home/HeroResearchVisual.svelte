@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { IssueStance, Race, RaceSummary } from "$lib/types";
+  import type { IssueStance, Race } from "$lib/types";
   import { getIssueDisplayName } from "$lib/types";
+  import { homepageResearchPreview } from "$lib/homepagePreview";
 
   export let race: Race | null = null;
-  export let summary: RaceSummary | undefined;
 
   $: candidates = race
     ? race.candidates.filter((candidate) => !candidate.withdrawn).slice(0, 2)
-    : (summary?.candidates ?? []).slice(0, 2);
+    : [];
   $: commonIssues = race
     ? Object.keys(race.candidates[0]?.issues ?? {})
         .filter((issue) =>
@@ -19,10 +19,25 @@
         )
         .slice(0, 3)
     : [];
+  $: displayTitle = race?.title ?? homepageResearchPreview.title;
+  $: displayCandidates = commonIssues.length
+    ? candidates
+    : homepageResearchPreview.candidates;
+  $: displayIssues = commonIssues.length
+    ? commonIssues
+    : Object.keys(homepageResearchPreview.candidates[0].issues);
   const stance = (candidateIndex: number, issue: string) =>
     race?.candidates[candidateIndex]?.issues[
       issue as keyof (typeof race.candidates)[number]["issues"]
     ] as IssueStance | undefined;
+  const previewIssue = (
+    candidate: (typeof homepageResearchPreview.candidates)[number],
+    issue: string
+  ) =>
+    candidate.issues[issue as keyof typeof candidate.issues] as {
+      stance: string;
+      sources: number;
+    };
 </script>
 
 <div
@@ -53,7 +68,7 @@
           Election guide
         </p>
         <p class="mt-1 text-sm font-bold text-content">
-          {race?.title ?? summary?.title ?? "Published election research"}
+          {displayTitle}
         </p>
       </div>
       <span
@@ -68,10 +83,20 @@
         Issue
       </div>
       <div class="border-b border-r border-stroke p-3 font-bold text-content">
-        {candidates[0]?.name ?? "Candidate profile"}
+        <span class="block"
+          >{displayCandidates[0]?.name ?? "Candidate profile"}</span
+        >
+        <span class="mt-1 block text-[10px] font-normal text-content-subtle"
+          >{displayCandidates[0]?.party}</span
+        >
       </div>
       <div class="border-b border-stroke p-3 font-bold text-content">
-        {candidates[1]?.name ?? "Candidate profile"}
+        <span class="block"
+          >{displayCandidates[1]?.name ?? "Candidate profile"}</span
+        >
+        <span class="mt-1 block text-[10px] font-normal text-content-subtle"
+          >{displayCandidates[1]?.party}</span
+        >
       </div>
       {#if commonIssues.length}
         {#each commonIssues as issue}
@@ -98,16 +123,28 @@
           {/each}
         {/each}
       {:else}
-        {#each ["Experience", "Issue positions", "Source trail"] as category}
+        {#each displayIssues as issue}
           <div class="border-r border-stroke p-3 font-bold text-content">
-            {category}
+            {getIssueDisplayName(issue)}
           </div>
-          <div class="border-r border-stroke p-3 leading-5 text-content-muted">
-            Research profile available
-          </div>
-          <div class="p-3 leading-5 text-content-muted">
-            Research profile available
-          </div>
+          {#each homepageResearchPreview.candidates as candidate, candidateIndex}
+            <div
+              class:border-r={candidateIndex === 0}
+              class="border-stroke p-3 leading-5 text-content-muted"
+            >
+              <span class="line-clamp-3"
+                >{previewIssue(candidate, issue).stance}</span
+              ><span
+                class="mt-2 block font-semibold text-blue-600 dark:text-blue-400"
+                >↗ {previewIssue(candidate, issue).sources} source{previewIssue(
+                  candidate,
+                  issue
+                ).sources === 1
+                  ? ""
+                  : "s"}</span
+              >
+            </div>
+          {/each}
         {/each}
       {/if}
     </div>
@@ -116,7 +153,10 @@
     >
       <span class="h-2 w-2 rounded-full bg-amber-500" /><strong
         >Uncertainty noted:</strong
-      > Source strength and conflicting evidence remain visible.
+      >
+      Grade {race?.validation_grade?.grade ?? homepageResearchPreview.grade} ·
+      {race?.validation_grade?.score ?? homepageResearchPreview.score}/100
+      review score.
     </div>
   </div>
   <div
@@ -128,11 +168,18 @@
     >
       Source trail
     </p>
-    <p class="mt-2 text-xs font-semibold text-content">
-      Linked original evidence
-    </p>
+    <p class="mt-2 text-xs font-semibold text-content">Published research</p>
     <p class="mt-1 truncate text-[10px] text-blue-600 dark:text-blue-400">
-      Open the cited source yourself
+      {race?.updated_utc
+        ? new Date(race.updated_utc).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })
+        : new Date(homepageResearchPreview.updatedUtc).toLocaleDateString(
+            "en-US",
+            { month: "short", day: "numeric", year: "numeric" }
+          )}
     </p>
   </div>
 </div>

@@ -12,7 +12,7 @@
   <title>Smarter.Vote | Understand Every Race on Your Ballot</title>
   <meta
     name="description"
-    content="Explore sourced, nonpartisan candidate and election research. Compare the evidence, inspect original sources, and understand every race on your ballot."
+    content="Explore sourced, nonpartisan research for national elections. Compare candidates, inspect original sources, and understand the federal races on your ballot."
   />
   <link rel="canonical" href="https://smarter.vote/" />
   <meta property="og:type" content="website" /><meta
@@ -21,7 +21,7 @@
   />
   <meta
     property="og:title"
-    content="Smarter.Vote | Understand every race on your ballot"
+    content="Smarter.Vote | Understand the national races on your ballot"
   />
   <meta
     property="og:description"
@@ -56,7 +56,7 @@
         <h1
           class="mt-7 max-w-3xl text-5xl font-extrabold leading-[.98] tracking-[-0.045em] text-content sm:text-6xl lg:text-7xl"
         >
-          Understand every race on your ballot.
+          Understand the national races on your ballot.
         </h1>
         <p
           class="mt-7 max-w-xl text-lg leading-8 text-content-muted sm:text-xl"
@@ -79,10 +79,7 @@
         </div>
       </div>
       <div class="pb-7 lg:pl-4">
-        <HeroResearchVisual
-          race={data.preview}
-          summary={data.featuredRaces[0]}
-        />
+        <HeroResearchVisual race={data.preview} />
       </div>
     </div>
   </section>
