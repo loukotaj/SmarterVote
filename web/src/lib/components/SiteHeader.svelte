@@ -139,8 +139,9 @@
   }
 
   const primaryLinks = [
+    { href: "/my-ballot/", label: "My Ballot" },
     { href: "/elections/", label: "Elections" },
-    { href: "/methodology/", label: "Methodology" },
+    { href: "/forecast/", label: "Forecast" },
     { href: "/about/", label: "About" },
     { href: "/support/", label: "Support" },
   ];

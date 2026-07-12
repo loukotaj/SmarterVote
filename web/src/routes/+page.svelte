@@ -16,10 +16,7 @@
   <link rel="canonical" href="https://smarter.vote/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://smarter.vote/" />
-  <meta
-    property="og:title"
-    content="Smarter.Vote | Understand the national races on your ballot"
-  />
+  <meta property="og:title" content="Smarter.Vote | Understand your ballot" />
   <meta
     property="og:description"
     content="Sourced, nonpartisan candidate research with uncertainty and original evidence kept visible."
@@ -30,14 +27,16 @@
 
 <div class="overflow-hidden">
   <section
-    class="relative min-h-[calc(100svh-4rem)] border-b border-stroke bg-surface py-16 sm:py-20"
+    class="relative min-h-[calc(100svh-4rem)] border-b border-stroke bg-surface py-12 sm:py-16 lg:py-20"
   >
     <div
       class="absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,theme(colors.blue.100)_1px,transparent_1px),linear-gradient(to_bottom,theme(colors.blue.100)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_right,black,transparent_75%)] dark:opacity-10"
       aria-hidden="true"
     />
-    <div class="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10">
-      <div class="max-w-4xl">
+    <div
+      class="relative mx-auto grid w-full max-w-[90rem] items-start gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(360px,0.72fr)_minmax(680px,1.28fr)] lg:gap-10 lg:px-10 xl:gap-16"
+    >
+      <div class="lg:sticky lg:top-32 lg:py-7">
         <div class="flex items-center gap-3">
           <span class="h-px w-9 bg-blue-600" />
           <p
@@ -47,31 +46,50 @@
           </p>
         </div>
         <h1
-          class="mt-6 max-w-4xl text-5xl font-extrabold leading-[.98] tracking-[-0.045em] text-content sm:text-6xl lg:text-7xl"
+          class="mt-6 max-w-2xl text-5xl font-extrabold leading-[.98] tracking-[-0.045em] text-content sm:text-6xl lg:text-7xl"
         >
-          Understand the national races on your ballot.
+          Understand your ballot.
         </h1>
         <p
-          class="mt-6 max-w-2xl text-lg leading-8 text-content-muted sm:text-xl"
+          class="mt-6 max-w-xl text-lg leading-8 text-content-muted sm:text-xl"
         >
           Smarter.Vote turns candidate records, issue positions, and original
           sources into clear, nonpartisan election research you can examine for
           yourself.
         </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div
+          class="mt-9 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"
+        >
           <a
             href="/my-ballot/"
-            class="inline-flex min-h-12 items-center justify-center rounded-md bg-blue-600 px-7 py-3 font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            >Explore my ballot <span class="ml-3">→</span></a
+            class="group rounded-xl bg-blue-600 px-5 py-4 text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-1 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
+            <span class="flex items-center justify-between font-extrabold"
+              >Explore my ballot <span
+                class="transition group-hover:translate-x-1">→</span
+              ></span
+            >
+            <span class="mt-1 block text-sm text-blue-100"
+              >Find the national races tied to your address</span
+            >
+          </a>
           <a
             href="/elections/"
-            class="inline-flex min-h-12 items-center justify-center rounded-md border border-stroke bg-surface px-7 py-3 font-bold text-content transition hover:border-blue-400 hover:text-blue-600"
-            >Browse all elections</a
+            class="group rounded-xl border border-stroke bg-surface px-5 py-4 text-content shadow-sm transition hover:-translate-y-1 hover:border-blue-400 hover:shadow-md"
           >
+            <span class="flex items-center justify-between font-extrabold"
+              >Browse all elections <span
+                class="text-blue-600 transition group-hover:translate-x-1"
+                >→</span
+              ></span
+            >
+            <span class="mt-1 block text-sm text-content-muted"
+              >Explore every published candidate guide</span
+            >
+          </a>
         </div>
       </div>
-      <div class="mt-12 pb-4">
+      <div class="min-w-0 pb-4 lg:pt-2">
         <InteractiveRaceCompare races={data.gradeARaces} />
       </div>
     </div>
