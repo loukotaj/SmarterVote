@@ -531,10 +531,11 @@
         )
           return false;
       }
-
       if (filterParty !== "all") {
         const party = normalizeForecastParty(
-          race.forecast.predicted_winner_party
+          race.forecast.predicted_winner_party,
+          race.forecast.party_probabilities,
+          race.candidates
         );
         if (filterParty !== party) return false;
       }
@@ -647,7 +648,11 @@
       ).length,
       details: sorted.slice(0, 3).map((race) => {
         const forecast = race.forecast!;
-        const party = normalizeForecastParty(forecast.predicted_winner_party);
+        const party = normalizeForecastParty(
+          forecast.predicted_winner_party,
+          forecast.party_probabilities,
+          race.candidates
+        );
         const winProb = forecast.win_probability
           ? `, ${Math.round(forecast.win_probability * 100)}% ${
               party === "Democratic"
@@ -2214,7 +2219,9 @@
         >
           {#each sortedRaces.slice(0, visibleRaceCount) as race (race.id)}
             {@const party = normalizeForecastParty(
-              race.forecast.predicted_winner_party
+              race.forecast.predicted_winner_party,
+              race.forecast.party_probabilities,
+              race.candidates
             )}
             {@const rating = race.forecast.rating}
             {@const isExpanded = expandedRaceIds.has(race.id)}

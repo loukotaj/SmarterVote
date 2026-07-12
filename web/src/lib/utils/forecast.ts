@@ -139,13 +139,35 @@ export function officeGroup(race: RaceSummary): ForecastTab | null {
 }
 
 export function normalizeForecastParty(
-  party?: string | null
+  party?: string | null,
+  probs?: Record<string, number> | null,
+  candidates?: { party?: string; incumbent: boolean }[] | null
 ): "Democratic" | "Republican" | "Other" {
   const value = (party || "").toLowerCase();
   if (value.includes("democrat") || value === "dfl" || value === "d")
     return "Democratic";
   if (value.includes("republican") || value === "gop" || value === "r")
     return "Republican";
+
+  // If party is not D or R (e.g. it is null, or empty, or Independent/Nonpartisan/Other),
+  // but it's a D vs R race, check the win probabilities.
+  if (probs) {
+    const demProb = probs.Democratic ?? probs.Democrat ?? probs.D ?? 0;
+    const repProb = probs.Republican ?? probs.GOP ?? probs.R ?? 0;
+    if (demProb > repProb) return "Democratic";
+    if (repProb > demProb) return "Republican";
+  }
+
+  // Fallback to candidates party count/incumbent
+  if (candidates) {
+    const incumbent = candidates.find((c) => c.incumbent);
+    if (incumbent && incumbent.party) {
+      const incParty = incumbent.party.toLowerCase();
+      if (incParty.includes("democrat") || incParty === "d") return "Democratic";
+      if (incParty.includes("republican") || incParty === "r") return "Republican";
+    }
+  }
+
   return "Other";
 }
 
@@ -272,7 +294,11 @@ export function aggregateForecasts(
       continue;
     }
     forecasted.push(race as ForecastRace);
-    const party = normalizeForecastParty(race.forecast.predicted_winner_party);
+    const party = normalizeForecastParty(
+      race.forecast.predicted_winner_party,
+      race.forecast.party_probabilities,
+      race.candidates
+    );
     projected[party] = (projected[party] ?? 0) + 1;
     ratingCounts[race.forecast.rating] =
       (ratingCounts[race.forecast.rating] ?? 0) + 1;

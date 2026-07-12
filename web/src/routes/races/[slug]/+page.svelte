@@ -13,6 +13,7 @@
   import { formatModelName, candidateSlug } from "$lib/utils/format";
   import { partySlug, partyAbbr } from "$lib/utils/party";
   import { isExternalUrl } from "$lib/utils/url";
+  import { normalizeForecastParty } from "$lib/utils/forecast";
 
   export let data: { prerenderedRace?: Race };
 
@@ -147,17 +148,12 @@
     return typeof value === "number" ? value : null;
   }
 
-  function normalizeForecastParty(
-    party?: string | null
-  ): "Democratic" | "Republican" | "Other" {
-    const value = (party || "").toLowerCase();
-    if (value.includes("democrat") || value === "dfl") return "Democratic";
-    if (value.includes("republican") || value === "gop") return "Republican";
-    return "Other";
-  }
-
-  function forecastPartyClass(party?: string | null): string {
-    const normalized = normalizeForecastParty(party);
+  function forecastPartyClass(
+    party?: string | null,
+    probs?: Record<string, number> | null,
+    candidates?: { party?: string; incumbent: boolean }[] | null
+  ): string {
+    const normalized = normalizeForecastParty(party, probs, candidates);
     if (normalized === "Democratic") return "dem";
     if (normalized === "Republican") return "rep";
     return "other";
@@ -624,10 +620,14 @@
     {#if race.forecast}
       {@const forecast = race.forecast}
       {@const forecastParty = normalizeForecastParty(
-        forecast.predicted_winner_party
+        forecast.predicted_winner_party,
+        forecast.party_probabilities,
+        race.candidates
       )}
       {@const forecastClass = forecastPartyClass(
-        forecast.predicted_winner_party
+        forecast.predicted_winner_party,
+        forecast.party_probabilities,
+        race.candidates
       )}
       <Card id="forecast" class="forecast-card scroll-mt-6">
         <div class="forecast-header">

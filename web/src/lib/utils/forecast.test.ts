@@ -6,6 +6,7 @@ import {
   officeGroup,
   parseForecastTab,
   groupSeatDistribution,
+  normalizeForecastParty,
 } from "./forecast";
 
 const baseRace = {
@@ -15,6 +16,22 @@ const baseRace = {
 };
 
 describe("forecast utilities", () => {
+  it("normalizes forecast parties correctly including fallbacks", () => {
+    expect(normalizeForecastParty("Democratic")).toBe("Democratic");
+    expect(normalizeForecastParty("Republican")).toBe("Republican");
+
+    // Null party with probabilities
+    expect(normalizeForecastParty(null, { Democratic: 0.53, Republican: 0.47 })).toBe("Democratic");
+    expect(normalizeForecastParty(null, { Democratic: 0.45, Republican: 0.55 })).toBe("Republican");
+
+    // Null party with candidate incumbent fallback
+    expect(normalizeForecastParty(null, null, [{ name: "Alice", party: "Democratic", incumbent: true }])).toBe("Democratic");
+    expect(normalizeForecastParty(null, null, [{ name: "Bob", party: "Republican", incumbent: true }])).toBe("Republican");
+
+    // No probabilities, no incumbent, should fallback to Other
+    expect(normalizeForecastParty(null)).toBe("Other");
+  });
+
   it("classifies race offices", () => {
     expect(
       officeGroup({
