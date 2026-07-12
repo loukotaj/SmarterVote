@@ -156,6 +156,35 @@ def test_normalize_schema_fields_coerces_candidate_link_strings():
     ]
 
 
+def test_normalize_schema_fields_clamps_invalid_roster_source_type():
+    """An out-of-enum roster_sources[].type (e.g. 'website', written directly by
+    discovery rather than through the roster-sources tool) must be clamped to
+    'other' *before* Pydantic validation — otherwise validation raises, the
+    exception is swallowed, and the raw invalid document ships unmigrated."""
+    race_json = {
+        "id": "test-race",
+        "title": "Test Race",
+        "office": "Governor",
+        "jurisdiction": "Test",
+        "state": "TS",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {
+                "name": "Alice",
+                "roster_sources": [
+                    {"url": "https://example.com/a", "type": "website"},
+                    {"url": "https://example.com/b", "type": "official"},
+                ],
+            }
+        ],
+    }
+
+    _normalize_schema_fields(race_json, lambda *_: None)
+
+    types = [s["type"] for s in race_json["candidates"][0]["roster_sources"]]
+    assert types == ["other", "official"]
+
+
 # ---------------------------------------------------------------------------
 # Full agent tests (multi-phase)
 # ---------------------------------------------------------------------------

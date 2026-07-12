@@ -4,6 +4,7 @@ from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
     _looks_like_non_photo,
+    _lookup_wikipedia_image,
     _resolve_single_image,
     _wikimedia_original_image_url,
 )
@@ -219,3 +220,84 @@ async def test_resolve_single_image_falls_back_to_serper_image(monkeypatch):
     await _resolve_single_image(candidate, agent_loop_fn=fail_agent, model="test")
 
     assert candidate["image_url"] == replacement
+
+
+class _FakeWikipediaResponse:
+    def __init__(self, payload):
+        self._payload = payload
+
+    def raise_for_status(self):
+        pass
+
+    def json(self):
+        return self._payload
+
+
+class _FakeWikipediaClient:
+    """Simulates the Wikipedia opensearch + pageimages API calls.
+
+    ``opensearch_titles`` maps a search query to the list of titles that
+    opensearch would return. ``thumbnails`` maps a page title to the thumbnail
+    URL that the pageimages query would return for it.
+    """
+
+    def __init__(self, opensearch_titles, thumbnails):
+        self.opensearch_titles = opensearch_titles
+        self.thumbnails = thumbnails
+        self.calls = []
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        return False
+
+    async def get(self, url, params=None, headers=None, **kwargs):
+        params = params or {}
+        self.calls.append(params)
+        if params.get("action") == "opensearch":
+            query = params["search"]
+            titles = self.opensearch_titles.get(query, [])
+            return _FakeWikipediaResponse([query, titles, [], []])
+        if params.get("action") == "query":
+            title = params["titles"]
+            thumb = self.thumbnails.get(title)
+            page = {"pageid": 1, "title": title}
+            if thumb:
+                page["thumbnail"] = {"source": thumb}
+            return _FakeWikipediaResponse({"query": {"pages": {"1": page}}})
+        raise AssertionError(f"unexpected Wikipedia API call: {params}")
+
+
+@pytest.mark.asyncio
+async def test_lookup_wikipedia_image_rejects_fuzzy_match_with_wrong_surname(monkeypatch):
+    # opensearch is fuzzy — "Sam Mead" (a down-ballot candidate with no Wikipedia
+    # page) can return "Sam Mendes" (the film director) as its best guess. The
+    # surname "Mead" doesn't appear in "Sam Mendes", so it must be rejected.
+    fake_client = _FakeWikipediaClient(
+        opensearch_titles={"Sam Mead": ["Sam Mendes"]},
+        thumbnails={"Sam Mendes": "https://upload.wikimedia.org/wikipedia/commons/sam_mendes.jpg"},
+    )
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", fake_client)
+
+    result = await _lookup_wikipedia_image("Sam Mead")
+
+    assert result is None
+    # The mismatched title must never reach the pageimages lookup.
+    assert all(call.get("action") != "query" for call in fake_client.calls)
+
+
+@pytest.mark.asyncio
+async def test_lookup_wikipedia_image_accepts_matching_surname(monkeypatch):
+    fake_client = _FakeWikipediaClient(
+        opensearch_titles={"French Hill": ["French Hill"]},
+        thumbnails={"French Hill": "https://upload.wikimedia.org/wikipedia/commons/french_hill.jpg"},
+    )
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", fake_client)
+
+    result = await _lookup_wikipedia_image("French Hill")
+
+    assert result == "https://upload.wikimedia.org/wikipedia/commons/french_hill.jpg"

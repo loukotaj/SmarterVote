@@ -335,6 +335,14 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
     appended to a second search pass so that a common name like "Mike Johnson"
     can be disambiguated when the bare-name search returns no thumbnail.
     """
+    # opensearch is a fuzzy/autocomplete match, not an exact lookup — for a name
+    # with no Wikipedia page (common for down-ballot candidates) it can return a
+    # similarly-spelled but unrelated person (e.g. "Sam Mead" -> "Sam Mendes").
+    # Require the candidate's surname (last name token, by naming convention) to
+    # actually appear in the matched title before trusting its image.
+    name_word_tokens = [t for t in re.findall(r"[a-zA-Z0-9]+", candidate_name) if len(t) >= 3]
+    surname_token = name_word_tokens[-1].lower() if name_word_tokens else None
+
     try:
         async with httpx.AsyncClient(timeout=10, follow_redirects=True) as client:
 
@@ -353,6 +361,11 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
                 search_data = search_resp.json()
                 titles = search_data[1] if len(search_data) > 1 else []
                 for title in titles:
+                    if surname_token and surname_token not in _name_tokens(title):
+                        logger.debug(
+                            "Rejected Wikipedia match %r for candidate %r — surname not present", title, candidate_name
+                        )
+                        continue
                     img_resp = await client.get(
                         "https://en.wikipedia.org/w/api.php",
                         params={

@@ -370,6 +370,38 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
             log("warning", f"Normalized legacy/duplicate issue keys for candidate '{_candidate_name(candidate)}'")
 
 
+def _sanitize_roster_sources(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Clamp roster_sources[].type to the schema enum before validation.
+
+    Discovery writes roster_sources directly into the race JSON blob rather
+    than through the ``set_candidate_roster_sources`` tool (which already
+    clamps invalid types via ``_ROSTER_SOURCE_TYPES``), so an out-of-enum
+    value like "website" can reach here unnormalized. Left unclamped, the
+    subsequent ``RaceJSON.model_validate`` call below raises, its exception is
+    swallowed, and the *raw* unmigrated document — with the invalid value
+    still in it — is what persists instead of the normalized one.
+    """
+    from pipeline_client.agent.handlers import _ROSTER_SOURCE_TYPES
+
+    for candidate_index, candidate in enumerate(race_json.get("candidates") or []):
+        if not isinstance(candidate, dict):
+            continue
+        sources = candidate.get("roster_sources")
+        if not isinstance(sources, list):
+            continue
+        changed = False
+        for source in sources:
+            if not isinstance(source, dict):
+                continue
+            source_type = str(source.get("type") or "other").strip().lower()
+            if source_type not in _ROSTER_SOURCE_TYPES:
+                source["type"] = "other"
+                changed = True
+        if changed and log:
+            name = _candidate_name(candidate) or f"candidate {candidate_index}"
+            log("warning", f"Normalized invalid roster_sources type(s) for {name}")
+
+
 def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply schema defaults and Pydantic migrations while preserving extra metadata."""
     if not isinstance(race_json.get("schema_version"), str) or not race_json.get("schema_version"):
@@ -377,6 +409,7 @@ def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) 
     _sanitize_candidate_issues(race_json, log)
     _sanitize_polling(race_json, log)
     _sanitize_candidate_links(race_json, log)
+    _sanitize_roster_sources(race_json, log)
 
     try:
         from shared.models import RaceJSON as _RaceJSONModel

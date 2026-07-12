@@ -863,6 +863,13 @@ SPECIAL CASES (see system prompt for full rules):
   Use remove_candidate only if the person is clearly NOT in this race with a
   specific source-backed reason. Use rename_candidate for naming corrections.
   Do NOT remove a candidate solely due to sparse issue data.
+  If the flag itself (or this candidate's own profile/sources shown above)
+  ALREADY states a specific, dated, source-backed reason the candidate isn't
+  running this cycle (e.g. "ran in a prior cycle and now holds a different
+  role", "lost the primary on <date>"), call remove_candidate with that reason
+  right away — do not burn your iteration budget re-researching something the
+  flag already established. Only do fresh verification searches when the flag
+  is vague or unsourced.
 - INCUMBENT flag errors: a candidate is only `incumbent: true` if they currently
   hold the EXACT office being contested (e.g. sitting US Senator for a US Senate
   race). A state legislator, state senator, or former officeholder running for a

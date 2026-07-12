@@ -262,7 +262,11 @@ def _make_editing_handlers(
         has_withdrawal_signal = (
             has_exit_signal
             or has_former_officeholder_signal
-            or (has_primary_loss_signal and has_specific_date and has_official_result_signal)
+            # A specific date *or* an explicit official-result citation is enough
+            # corroboration for a primary loss; requiring both rejected reasons like
+            # "Lost the Democratic primary on June 30, 2026." — a specific dated
+            # primary result — just because it didn't also say the word "official".
+            or (has_primary_loss_signal and (has_specific_date or has_official_result_signal))
         )
 
         # Special case: structurally invalid entries (e.g. a metadata key like

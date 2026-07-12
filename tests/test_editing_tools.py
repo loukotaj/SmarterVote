@@ -403,6 +403,22 @@ def test_remove_candidate_blocks_generic_primary_loss_without_official_result():
     assert race_json["candidates"][0].get("withdrawn") is not True
 
 
+def test_remove_candidate_accepts_dated_primary_loss_without_official_keyword():
+    """A specific dated primary-loss reason is sufficient corroboration on its own —
+    requiring the literal word 'official' in addition to a real date blocked
+    reasonable model output like 'Lost the Democratic primary on June 30, 2026.'
+    in a post_primary_general race, leaving primary losers stuck on the roster."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Chris Baum", "party": "Unknown"}, {"name": "Manny Rutinel", "party": "D"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["remove_candidate"]({"name": "Chris Baum", "reason": "Lost the Democratic primary on June 30, 2026."})
+
+    assert "blocked" not in result.lower()
+    assert race_json["candidates"][0]["withdrawn"] is True
+
+
 def test_remove_candidate_blocks_when_it_would_empty_roster():
     from pipeline_client.agent.agent import _make_editing_handlers
 
