@@ -1,5 +1,6 @@
 <script lang="ts">
   import FeaturedElections from "$lib/components/home/FeaturedElections.svelte";
+  import ElectionLookup from "$lib/components/home/ElectionLookup.svelte";
   import HowItWorks from "$lib/components/home/HowItWorks.svelte";
   import ImpactMetrics from "$lib/components/home/ImpactMetrics.svelte";
   import ResearchPreview from "$lib/components/home/ResearchPreview.svelte";
@@ -31,48 +32,43 @@
 
 <div>
   <section
-    class="relative overflow-hidden border-b border-stroke bg-surface py-20 sm:py-28"
+    class="relative overflow-hidden border-b border-stroke bg-surface py-14 sm:py-20"
   >
     <div
       class="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-transparent to-sky-50/50 dark:from-blue-950/20 dark:to-transparent"
       aria-hidden="true"
     />
-    <div class="relative mx-auto max-w-5xl px-4 text-center">
-      <p
-        class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400"
-      >
-        Independent civic research
-      </p>
-      <h1
-        class="mx-auto mt-5 max-w-4xl text-4xl font-extrabold tracking-tight text-content sm:text-6xl"
-      >
-        Understand the elections shaping the country
-      </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-content-muted">
-        Clear, sourced, nonpartisan candidate research for national elections.
-        State and local ballot coverage is not available yet.
-      </p>
-      <div
-        class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
-      >
-        <a
-          href="/elections/"
-          class="inline-flex min-h-[48px] items-center justify-center rounded-full bg-blue-600 px-7 py-3 font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >Explore national elections</a
+    <div
+      class="relative mx-auto grid max-w-6xl items-start gap-10 px-4 lg:grid-cols-[1.05fr_.95fr] lg:gap-14"
+    >
+      <div class="pt-4 text-left lg:pt-10">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400"
         >
-        <a
-          href="/support/#expand-coverage"
-          class="inline-flex min-h-[48px] items-center justify-center rounded-full border border-stroke bg-surface px-7 py-3 font-semibold text-content hover:border-blue-400"
-          >Help expand coverage</a
+          2026 election research
+        </p>
+        <h1
+          class="mt-5 max-w-3xl text-5xl font-extrabold tracking-tight text-content sm:text-6xl lg:text-7xl"
         >
+          Know who’s running where you live.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-8 text-content-muted">
+          Find the national elections that apply to your address, then compare
+          candidates using sourced, nonpartisan research you can inspect.
+        </p>
+        <div
+          class="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-content-muted"
+        >
+          <span>✓ Sources linked</span><span>✓ Uncertainty shown</span><span
+            >✓ No candidate endorsements</span
+          >
+        </div>
       </div>
-      <p class="mx-auto mt-5 max-w-xl text-xs leading-5 text-content-subtle">
-        Smarter.Vote does not provide a complete ballot or replace information
-        from election officials.
-      </p>
+      <div><ElectionLookup races={data.nationalRaces} /></div>
     </div>
   </section>
 
+  <FeaturedElections races={data.featuredRaces} />
   {#if data.preview}<ResearchPreview race={data.preview} />{:else}<section
       class="py-12 text-center"
     >
@@ -84,7 +80,6 @@
     </section>{/if}
   <HowItWorks />
   <TrustPrinciples />
-  <FeaturedElections races={data.featuredRaces} />
   {#if data.metrics}<ImpactMetrics metrics={data.metrics} />{/if}
 
   <section class="py-16 sm:py-20">

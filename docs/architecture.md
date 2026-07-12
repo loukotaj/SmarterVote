@@ -4,18 +4,18 @@ SmarterVote has one production API surface: `services/races-api`. The older `pip
 
 ## Ownership
 
-| Area                | Path                                        | Role                                                             |
-| ------------------- | ------------------------------------------- | ---------------------------------------------------------------- |
-| Web app             | `web/`                                      | SvelteKit admin and public UI                                    |
-| Production API      | `services/races-api/`                       | Public race reads, admin queue/run/draft/publish APIs, analytics |
+| Area                | Path                                         | Role                                                             |
+| ------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| Web app             | `web/`                                       | SvelteKit admin and public UI                                    |
+| Production API      | `services/races-api/`                        | Public race reads, admin queue/run/draft/publish APIs, analytics |
 | Pipeline worker     | `pipeline_client/worker.py`                  | Cloud Run Job and local Docker entry point                       |
-| Admin agent         | `functions/admin_agent/`                    | Durable tool-calling admin tasks and continuations               |
+| Admin agent         | `functions/admin_agent/`                     | Durable tool-calling admin tasks and continuations               |
 | Queue execution     | `pipeline_client/backend/queue_processor.py` | Shared leases, execution, and terminal state for both runners    |
-| Agent orchestration | `pipeline_client/backend/handlers/agent.py` | Shared `AgentHandler` wrapper                                    |
-| Agent research      | `pipeline_client/agent/`                    | Multi-phase AI research implementation                           |
-| Shared schema       | `shared/models.py`                          | RaceJSON/Pydantic models shared by agent and APIs                |
-| Local dev API       | `pipeline_client/backend/main.py`           | Local-only FastAPI app for in-process agent debugging            |
-| Infrastructure      | `infra/`                                    | Terraform for GCP services                                       |
+| Agent orchestration | `pipeline_client/backend/handlers/agent.py`  | Shared `AgentHandler` wrapper                                    |
+| Agent research      | `pipeline_client/agent/`                     | Multi-phase AI research implementation                           |
+| Shared schema       | `shared/models.py`                           | RaceJSON/Pydantic models shared by agent and APIs                |
+| Local dev API       | `pipeline_client/backend/main.py`            | Local-only FastAPI app for in-process agent debugging            |
+| Infrastructure      | `infra/`                                     | Terraform for GCP services                                       |
 
 ## Production Flow
 
@@ -128,14 +128,14 @@ creates missing `races/{race_id}` documents when a race already exists in GCS.
 
 ## Public API Surface
 
-| Method | Path               | Purpose                                                   |
-| ------ | ------------------ | --------------------------------------------------------- |
-| GET    | `/races`           | List published race IDs from `races/summaries.json`       |
-| GET    | `/races/summaries` | List published race summaries from `races/summaries.json` |
-| GET    | `/races/chamber_forecasts` | Get published chamber forecast narratives         |
-| GET    | `/races/{race_id}` | Get full published race data                              |
-| GET    | `/health`          | Liveness                                                  |
-| GET    | `/health/ready`    | Readiness                                                 |
+| Method | Path                       | Purpose                                                   |
+| ------ | -------------------------- | --------------------------------------------------------- |
+| GET    | `/races`                   | List published race IDs from `races/summaries.json`       |
+| GET    | `/races/summaries`         | List published race summaries from `races/summaries.json` |
+| GET    | `/races/chamber_forecasts` | Get published chamber forecast narratives                 |
+| GET    | `/races/{race_id}`         | Get full published race data                              |
+| GET    | `/health`                  | Liveness                                                  |
+| GET    | `/health/ready`            | Readiness                                                 |
 
 If `VITE_PUBLIC_DATA_URL` is set in the web environment, the public SvelteKit frontend bypasses the FastAPI public
 read routes entirely and loads published data statically from GCS (`races/{race_id}.json` and `races/summaries.json`).
@@ -155,7 +155,7 @@ The public SvelteKit site separates product introduction from race discovery:
 - `/about/`, `/methodology/`, `/corrections/`, `/privacy/`, `/terms/`, and `/funding-and-editorial-independence/` publish the project's current identity, research, correction, privacy, legal, and editorial-independence statements.
 - `/support/` and `/partners/` are informational contact pages. They do not accept payments or create financial commitments.
 
-The launch does not provide address autocomplete, geocoding, district resolution, or personalized local-election lookup. It also has no Stripe Checkout, subscriptions, donation processing, or partner payment portal. The support and privacy copy may describe intended future behavior, but those capabilities must not be represented as active until their integrations and operating policies are implemented. Public inquiries currently use mail links rather than a server-side CRM or form-processing service.
+The homepage provides a no-storage national-election lookup. A visitor-entered address is sent directly from the browser to the U.S. Census Geocoder using its documented JSONP interface; Smarter.Vote retains only the returned state and congressional district in page memory long enough to match published U.S. House and Senate summaries. The lookup is not a complete ballot and does not identify state, local, judicial, or ballot-measure contests. There is no autocomplete provider, Smarter.Vote address endpoint, or address persistence. The launch also has no Stripe Checkout, subscriptions, donation processing, or partner payment portal. Public inquiries currently use mail links rather than a server-side CRM or form-processing service.
 
 ## Agent Phases
 

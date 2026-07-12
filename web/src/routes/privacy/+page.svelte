@@ -19,11 +19,12 @@
   </PolicySection>
   <PolicySection title="Address lookup">
     <p>
-      Address lookup is not available today. If introduced, its intended design
-      is to use an address only to identify election districts, avoid putting
-      addresses in URLs or analytics, and keep refresh state in the browser
-      session rather than a Smarter.Vote server record. This policy will be
-      updated before launch with the applicable providers and retention details.
+      Address lookup sends the address directly from your browser to the U.S.
+      Census Geocoder to identify a state and congressional district.
+      Smarter.Vote does not send the address to its own server, place it in the
+      page URL or analytics, or save it in browser storage. Only the derived
+      state and district are used in memory to match published national election
+      research. The Census Bureau handles the lookup under its own policies.
     </p>
   </PolicySection>
   <PolicySection title="Retention and access">

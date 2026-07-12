@@ -1,0 +1,65 @@
+import { describe, expect, it } from "vitest";
+import { matchingNationalRaces, parseCensusGeography } from "./electionLookup";
+import type { RaceSummary } from "$lib/types";
+
+const race = (overrides: Partial<RaceSummary>): RaceSummary => ({
+  id: "race",
+  title: "Race",
+  office: "United States Senate",
+  jurisdiction: "Maryland",
+  state: "Maryland",
+  election_date: "2026-11-03",
+  updated_utc: "2026-07-01T00:00:00Z",
+  candidates: [],
+  ...overrides,
+});
+
+describe("parseCensusGeography", () => {
+  it("extracts the state and current congressional district", () => {
+    expect(
+      parseCensusGeography({
+        result: {
+          addressMatches: [
+            {
+              geographies: {
+                States: [{ NAME: "Maryland" }],
+                "119th Congressional Districts": [{ CD119: "04" }],
+              },
+            },
+          ],
+        },
+      })
+    ).toEqual({ state: "Maryland", congressionalDistrict: "04" });
+  });
+
+  it("returns null for an unmatched address", () => {
+    expect(parseCensusGeography({ result: { addressMatches: [] } })).toBeNull();
+  });
+});
+
+describe("matchingNationalRaces", () => {
+  it("returns the matching House district and statewide Senate race", () => {
+    const races = [
+      race({ id: "senate" }),
+      race({
+        id: "house-4",
+        office: "U.S. House of Representatives",
+        jurisdiction: "Maryland's 4th Congressional District",
+      }),
+      race({
+        id: "house-5",
+        office: "U.S. House of Representatives",
+        jurisdiction: "Maryland's 5th Congressional District",
+      }),
+      race({ id: "virginia", state: "Virginia", jurisdiction: "Virginia" }),
+    ];
+
+    expect(
+      matchingNationalRaces(
+        races,
+        { state: "Maryland", congressionalDistrict: "04" },
+        new Date("2026-07-12")
+      ).map(({ id }) => id)
+    ).toEqual(["senate", "house-4"]);
+  });
+});

@@ -32,6 +32,7 @@ export const load: PageLoad = async ({ fetch, parent }) => {
   }
 
   return {
+    nationalRaces,
     featuredRaces,
     preview,
     metrics: homepageMetrics(nationalRaces, new Date().toISOString()),
