@@ -38,6 +38,36 @@ def test_load_existing_returns_none_for_missing():
     assert result is None
 
 
+def test_sanitize_candidate_issues_normalizes_placeholder_variant():
+    """_sanitize_candidate_issues must catch placeholder variants like 'To be
+    determined after review', not just the bare exact marker — this is the
+    safety net that should have caught the literal placeholder that shipped
+    in a published race before this fix."""
+    from pipeline_client.agent.agent import _sanitize_candidate_issues
+
+    race_json = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {
+                    "Civil Rights & Equality": {
+                        "issue": "Civil Rights & Equality",
+                        "stance": "To be determined after review",
+                        "confidence": "low",
+                        "sources": [{"url": "https://example.com/podcast"}],
+                    }
+                },
+            }
+        ]
+    }
+
+    _sanitize_candidate_issues(race_json, log=None)
+
+    stance = race_json["candidates"][0]["issues"]["Civil Rights & Equality"]
+    assert stance["stance"] == "No public position found after repeated research attempts."
+    assert stance["confidence"] == "low"
+
+
 def test_load_existing_reads_file(tmp_path):
     """_load_existing reads and parses a published JSON file."""
     test_data = {"id": "test-race", "candidates": []}
@@ -1088,6 +1118,35 @@ def test_authoritative_roster_adds_missing_candidates():
     ]
     assert race_json["candidates"][1]["summary_sources"] == []
     assert race_json["candidates"][1]["issues"] == {}
+
+
+@pytest.mark.asyncio
+async def test_ballotpedia_sync_does_not_readd_primary_losers_after_primary():
+    """Broad election pages are not proof that every listed primary candidate advanced."""
+    from pipeline_client.agent import phases
+
+    race_json = {
+        "id": "co-house-08-2026",
+        "contest_stage": "post_primary_general",
+        "candidates": [
+            {"name": "Gabe Evans", "party": "Republican", "summary": "Incumbent"},
+            {"name": "Manny Rutinel", "party": "Democratic", "summary": "Nominee"},
+        ],
+    }
+    broad_primary_roster = {
+        "found": True,
+        "candidates": [
+            {"name": "Gabe Evans", "party": "Republican"},
+            {"name": "Manny Rutinel", "party": "Democratic"},
+            {"name": "Barbara Kirkmeyer", "party": "Republican"},
+            {"name": "Primary Loser", "party": "Democratic"},
+        ],
+    }
+
+    with patch.object(phases, "_ballotpedia_election_lookup", new=AsyncMock(return_value=broad_primary_roster)):
+        await phases._sync_ballotpedia_roster(race_json, "co-house-08-2026")
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Gabe Evans", "Manny Rutinel"]
 
 
 def test_authoritative_roster_does_not_empty_race():

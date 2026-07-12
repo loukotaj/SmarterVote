@@ -400,7 +400,15 @@ async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log:
             # Track candidates that were actually researched (have a non-empty summary)
             researched_before = {_candidate_name(c) for c in candidates_before if isinstance(c, dict) and c.get("summary")}
             names_before = {_candidate_name(c) for c in candidates_before if isinstance(c, dict)}
-            _add_candidates_from_authoritative_roster(race_json, authoritative, log)
+            # Ballotpedia election pages commonly retain every primary candidate
+            # after the primary. They are useful for checking names already in the
+            # profile, but are not evidence that a missing person advanced to the
+            # general election. The model-backed roster pass must add any verified
+            # general-election candidate instead.
+            if race_json.get("contest_stage") != "post_primary_general":
+                _add_candidates_from_authoritative_roster(race_json, authoritative, log)
+            elif log:
+                log("debug", "Skipped Ballotpedia candidate additions for post-primary general-election roster")
             _reconcile_candidates_with_authoritative_roster(race_json, authoritative, log)
             names_after = {_candidate_name(c) for c in race_json.get("candidates") or [] if isinstance(c, dict)}
             # If any researched candidates were removed, existing reviews/grade were
