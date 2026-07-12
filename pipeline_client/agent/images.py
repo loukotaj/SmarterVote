@@ -78,6 +78,31 @@ def _name_tokens(candidate_name: str) -> set[str]:
     return {token for token in re.findall(r"[a-z0-9]+", candidate_name.lower()) if len(token) >= 3}
 
 
+def _candidate_surname_token(candidate_name: str) -> Optional[str]:
+    """Return the candidate's surname (last name token, by naming convention), or None."""
+    tokens = [t for t in re.findall(r"[a-zA-Z0-9]+", candidate_name) if len(t) >= 3]
+    return tokens[-1].lower() if tokens else None
+
+
+def _is_untrusted_wikimedia_match(url: str, candidate_name: str) -> bool:
+    """True if an upload.wikimedia.org URL's filename doesn't contain the
+    candidate's surname.
+
+    Guards against the same fuzzy-match risk as Wikipedia's opensearch API
+    (e.g. "Sam Mead" resolving to "Sam Mendes"), but for a URL that was
+    already persisted onto the candidate from an earlier run rather than a
+    fresh search result — the existing-URL fast path below would otherwise
+    just re-validate it's still *accessible* without checking it's still the
+    right person.
+    """
+    if "upload.wikimedia.org" not in url:
+        return False
+    surname_token = _candidate_surname_token(candidate_name)
+    if not surname_token:
+        return False
+    return surname_token not in _name_tokens(unquote(url))
+
+
 # Generic Open-Graph / social-share cards served by data and reference sites
 # (e.g. https://www.fec.gov/static/img/social/fec-data.png) are never a
 # candidate headshot even though they pass the extension check.
@@ -338,10 +363,9 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
     # opensearch is a fuzzy/autocomplete match, not an exact lookup — for a name
     # with no Wikipedia page (common for down-ballot candidates) it can return a
     # similarly-spelled but unrelated person (e.g. "Sam Mead" -> "Sam Mendes").
-    # Require the candidate's surname (last name token, by naming convention) to
-    # actually appear in the matched title before trusting its image.
-    name_word_tokens = [t for t in re.findall(r"[a-zA-Z0-9]+", candidate_name) if len(t) >= 3]
-    surname_token = name_word_tokens[-1].lower() if name_word_tokens else None
+    # Require the candidate's surname to actually appear in the matched title
+    # before trusting its image.
+    surname_token = _candidate_surname_token(candidate_name)
 
     try:
         async with httpx.AsyncClient(timeout=10, follow_redirects=True) as client:
@@ -515,6 +539,14 @@ async def _resolve_single_image(
         candidate["image_url"] = None
         current_url = None
         log("info", f"  [{name}] Existing image is a low-resolution reference photo - searching for better")
+
+    if current_url and _is_untrusted_wikimedia_match(current_url, name):
+        log(
+            "info",
+            f"  [{name}] Existing Wikimedia image's filename doesn't match this candidate's surname - discarding and re-searching",
+        )
+        candidate["image_url"] = None
+        current_url = None
 
     # Commons file-page URL: resolve via Special:FilePath redirect
     if current_url and "commons.wikimedia.org/wiki/File:" in current_url:

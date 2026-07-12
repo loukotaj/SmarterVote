@@ -301,3 +301,53 @@ async def test_lookup_wikipedia_image_accepts_matching_surname(monkeypatch):
     result = await _lookup_wikipedia_image("French Hill")
 
     assert result == "https://upload.wikimedia.org/wikipedia/commons/french_hill.jpg"
+
+
+@pytest.mark.asyncio
+async def test_resolve_single_image_discards_stale_mismatched_wikimedia_url(monkeypatch):
+    # A prior run can persist a mismatched Wikimedia URL onto image_url (e.g. from
+    # the opensearch fuzzy-match bug before it was fixed). The existing-URL fast
+    # path must not just re-validate it's *accessible* and keep it forever — it
+    # needs to notice the filename doesn't match this candidate and re-search.
+    mismatched = "https://upload.wikimedia.org/wikipedia/commons/f/fe/Sam_Mendes_in_2022-2.jpg"
+    replacement = "https://upload.wikimedia.org/wikipedia/commons/sam_mead.jpg"
+    candidate = {"name": "Sam Mead", "image_url": mismatched}
+
+    async def fail_check(url: str):
+        raise AssertionError("should not re-validate a mismatched Wikimedia URL as accessible")
+
+    async def fail_agent(*args, **kwargs):
+        raise AssertionError("agent search loop should not run when Wikipedia finds an image")
+
+    monkeypatch.setattr("pipeline_client.agent.images._check_url_accessible", fail_check)
+
+    async def fake_ballotpedia(name: str):
+        return None
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_ballotpedia_image", fake_ballotpedia)
+
+    async def fake_wikipedia(name: str, context: str = ""):
+        return replacement
+
+    monkeypatch.setattr("pipeline_client.agent.images._lookup_wikipedia_image", fake_wikipedia)
+
+    async def fake_best_accessible(url: str):
+        return url
+
+    monkeypatch.setattr("pipeline_client.agent.images._best_accessible_image_url", fake_best_accessible)
+
+    await _resolve_single_image(candidate, agent_loop_fn=fail_agent, model="test")
+
+    assert candidate["image_url"] == replacement
+
+
+def test_is_untrusted_wikimedia_match_ignores_non_wikimedia_urls():
+    from pipeline_client.agent.images import _is_untrusted_wikimedia_match
+
+    assert not _is_untrusted_wikimedia_match("https://ballotpedia.org/images/Sam_Mendes.jpg", "Sam Mead")
+    assert _is_untrusted_wikimedia_match(
+        "https://upload.wikimedia.org/wikipedia/commons/f/fe/Sam_Mendes_in_2022-2.jpg", "Sam Mead"
+    )
+    assert not _is_untrusted_wikimedia_match(
+        "https://upload.wikimedia.org/wikipedia/commons/f/fe/Sam_Mead_2026.jpg", "Sam Mead"
+    )
