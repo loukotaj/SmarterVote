@@ -42,6 +42,21 @@
         })
       ).slice(0, 4)
     : CANONICAL_ISSUES;
+
+  function forecastProbability(candidate: Candidate): number | undefined {
+    const forecast = race.forecast;
+    if (!forecast) return undefined;
+    if (forecast.predicted_winner_name === candidate.name)
+      return forecast.win_probability;
+    const party = candidate.party?.toLowerCase() ?? "";
+    const match = Object.entries(forecast.party_probabilities ?? {}).find(
+      ([key]) =>
+        party.includes(key.toLowerCase()) ||
+        key.toLowerCase().includes(party) ||
+        key.toLowerCase() === party.charAt(0)
+    );
+    return match?.[1];
+  }
 </script>
 
 {#if onToggle}
@@ -148,6 +163,44 @@
     </div>
 
     <div class="divide-y divide-stroke">
+      {#if race.forecast}
+        <div
+          class="grid"
+          style="grid-template-columns: {compact
+            ? '170px'
+            : '220px'} repeat({candidates.length}, 1fr)"
+        >
+          <div
+            class="sticky left-0 z-10 border-r border-stroke bg-blue-50 p-5 text-sm font-bold text-content dark:bg-blue-950/20"
+          >
+            Forecast
+            <span
+              class="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-content-subtle"
+              >Model estimate</span
+            >
+          </div>
+          {#each candidates as candidate}
+            {@const probability = forecastProbability(candidate)}
+            <div
+              class="border-r border-stroke bg-blue-50/40 p-5 last:border-none dark:bg-blue-950/10"
+            >
+              {#if probability !== undefined}
+                <div class="text-2xl font-extrabold text-content">
+                  {Math.round(probability * 100)}%
+                </div>
+                <p class="mt-1 text-xs text-content-muted">
+                  estimated win probability
+                </p>
+              {:else}
+                <p class="text-sm font-semibold capitalize text-content">
+                  {race.forecast.rating.replaceAll("_", " ")}
+                </p>
+                <p class="mt-1 text-xs text-content-muted">race-level rating</p>
+              {/if}
+            </div>
+          {/each}
+        </div>
+      {/if}
       <div
         class="grid"
         style="grid-template-columns: {compact
