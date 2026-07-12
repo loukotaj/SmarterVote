@@ -13,6 +13,7 @@
     "build:fast": "vite build --mode fast",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
+    "export:brand-assets": "node scripts/export-brand-assets.mjs",
     "build:cloudflare": "npm run generate:sitemap && npm run build",
     "preview": "vite preview",
     "test": "npm run test:unit",
