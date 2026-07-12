@@ -60,7 +60,7 @@
       </h1>
       <p class="mt-6 max-w-lg text-lg leading-8 text-content-muted">
         We use your address only to identify your congressional district, then
-        match it with our published, sourced election research.
+        match it with our published House, Senate, and governor research.
       </p>
       <div
         class="mt-10 hidden border-l-2 border-blue-200 pl-5 sm:block dark:border-blue-800"

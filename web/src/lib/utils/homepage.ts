@@ -14,9 +14,18 @@ export function nationalElectionRaces(races: RaceSummary[]): RaceSummary[] {
     return (
       office.includes("united states") ||
       office.includes("u.s.") ||
-      office.includes("president")
+      office.includes("president") ||
+      office.includes("governor") ||
+      office.includes("gubernatorial")
     );
   });
+}
+
+export function rotateByDate<T>(items: T[], date: Date): T[] {
+  if (!items.length) return [];
+  const day = Math.floor(date.getTime() / 86_400_000);
+  const offset = ((day % items.length) + items.length) % items.length;
+  return [...items.slice(offset), ...items.slice(0, offset)];
 }
 
 export function recentlyUpdated(

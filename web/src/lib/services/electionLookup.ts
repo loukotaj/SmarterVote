@@ -102,6 +102,8 @@ export function matchingNationalRaces(
     const sameState = raceState(race).includes(state);
     if (office.includes("president")) return true;
     if (office.includes("senate")) return sameState;
+    if (office.includes("governor") || office.includes("gubernatorial"))
+      return sameState;
     if (office.includes("house") || office.includes("representative")) {
       return (
         sameState && districtFromRace(race) === geography.congressionalDistrict

@@ -1,3 +1,30 @@
+<script lang="ts">
+  import type { IssueStance, Race, RaceSummary } from "$lib/types";
+  import { getIssueDisplayName } from "$lib/types";
+
+  export let race: Race | null = null;
+  export let summary: RaceSummary | undefined;
+
+  $: candidates = race
+    ? race.candidates.filter((candidate) => !candidate.withdrawn).slice(0, 2)
+    : (summary?.candidates ?? []).slice(0, 2);
+  $: commonIssues = race
+    ? Object.keys(race.candidates[0]?.issues ?? {})
+        .filter((issue) =>
+          Boolean(
+            race?.candidates[1]?.issues[
+              issue as keyof (typeof race.candidates)[number]["issues"]
+            ]
+          )
+        )
+        .slice(0, 3)
+    : [];
+  const stance = (candidateIndex: number, issue: string) =>
+    race?.candidates[candidateIndex]?.issues[
+      issue as keyof (typeof race.candidates)[number]["issues"]
+    ] as IssueStance | undefined;
+</script>
+
 <div
   class="relative mx-auto w-full max-w-xl"
   aria-label="Preview of sourced candidate research"
@@ -26,7 +53,7 @@
           Election guide
         </p>
         <p class="mt-1 text-sm font-bold text-content">
-          U.S. Senate · General election
+          {race?.title ?? summary?.title ?? "Published election research"}
         </p>
       </div>
       <span
@@ -41,35 +68,55 @@
         Issue
       </div>
       <div class="border-b border-r border-stroke p-3 font-bold text-content">
-        Candidate A
+        {candidates[0]?.name ?? "Candidate profile"}
       </div>
       <div class="border-b border-stroke p-3 font-bold text-content">
-        Candidate B
+        {candidates[1]?.name ?? "Candidate profile"}
       </div>
-      {#each [["Economy", "Supports targeted tax credits and expanded manufacturing incentives.", "Favors broad tax reductions and regulatory reform."], ["Healthcare", "Would expand premium assistance under current law.", "Proposes market-based plans and state flexibility."], ["Energy", "Backs clean-energy investment with domestic production.", "Prioritizes domestic oil, gas, and nuclear production."]] as row, i}
-        <div class="border-r border-stroke p-3 font-bold text-content">
-          {row[0]}
-        </div>
-        <div class="border-r border-stroke p-3 leading-5 text-content-muted">
-          {row[1]}<span
-            class="mt-2 block font-semibold text-blue-600 dark:text-blue-400"
-            >↗ {i + 2} sources</span
-          >
-        </div>
-        <div class="p-3 leading-5 text-content-muted">
-          {row[2]}<span
-            class="mt-2 block font-semibold text-blue-600 dark:text-blue-400"
-            >↗ {i + 1} sources</span
-          >
-        </div>
-      {/each}
+      {#if commonIssues.length}
+        {#each commonIssues as issue}
+          <div class="border-r border-stroke p-3 font-bold text-content">
+            {getIssueDisplayName(issue)}
+          </div>
+          {#each candidates as _, candidateIndex}
+            <div
+              class:border-r={candidateIndex === 0}
+              class="border-stroke p-3 leading-5 text-content-muted"
+            >
+              <span class="line-clamp-3"
+                >{stance(candidateIndex, issue)?.stance}</span
+              ><span
+                class="mt-2 block font-semibold text-blue-600 dark:text-blue-400"
+                >↗ {stance(candidateIndex, issue)?.sources.length ?? 0} source{(stance(
+                  candidateIndex,
+                  issue
+                )?.sources.length ?? 0) === 1
+                  ? ""
+                  : "s"}</span
+              >
+            </div>
+          {/each}
+        {/each}
+      {:else}
+        {#each ["Experience", "Issue positions", "Source trail"] as category}
+          <div class="border-r border-stroke p-3 font-bold text-content">
+            {category}
+          </div>
+          <div class="border-r border-stroke p-3 leading-5 text-content-muted">
+            Research profile available
+          </div>
+          <div class="p-3 leading-5 text-content-muted">
+            Research profile available
+          </div>
+        {/each}
+      {/if}
     </div>
     <div
       class="flex items-center gap-3 border-t border-stroke bg-blue-50/60 px-5 py-3 text-xs text-blue-900 dark:bg-blue-950/50 dark:text-blue-100"
     >
       <span class="h-2 w-2 rounded-full bg-amber-500" /><strong
         >Uncertainty noted:</strong
-      > proposals differ in level of detail.
+      > Source strength and conflicting evidence remain visible.
     </div>
   </div>
   <div
@@ -82,10 +129,10 @@
       Source trail
     </p>
     <p class="mt-2 text-xs font-semibold text-content">
-      Official policy platform
+      Linked original evidence
     </p>
     <p class="mt-1 truncate text-[10px] text-blue-600 dark:text-blue-400">
-      candidate.example/issues
+      Open the cited source yourself
     </p>
   </div>
 </div>

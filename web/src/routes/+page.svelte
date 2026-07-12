@@ -50,7 +50,7 @@
           <p
             class="text-xs font-bold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-400"
           >
-            The evidence behind the ballot
+            Know your candidates
           </p>
         </div>
         <h1
@@ -78,7 +78,12 @@
           >
         </div>
       </div>
-      <div class="pb-7 lg:pl-4"><HeroResearchVisual /></div>
+      <div class="pb-7 lg:pl-4">
+        <HeroResearchVisual
+          race={data.preview}
+          summary={data.featuredRaces[0]}
+        />
+      </div>
     </div>
   </section>
 

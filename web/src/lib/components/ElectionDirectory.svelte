@@ -243,10 +243,11 @@
     <h1
       class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-content tracking-tight mb-3"
     >
-      Explore national elections.
+      Explore elections.
     </h1>
     <p class="text-lg sm:text-xl text-content-muted max-w-xl mx-auto mb-6">
-      Browse sourced candidate research by state, office, or candidate.
+      Browse sourced candidate research for U.S. House, Senate, and governor
+      races by state, office, or candidate.
     </p>
 
     <!-- Hero Search Bar -->

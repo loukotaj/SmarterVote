@@ -6,10 +6,10 @@
 </script>
 
 <svelte:head>
-  <title>National Election Guides | Smarter.Vote</title>
+  <title>Election Guides | Smarter.Vote</title>
   <meta
     name="description"
-    content="Browse sourced, nonpartisan candidate research for national elections."
+    content="Browse sourced, nonpartisan candidate research for U.S. House, Senate, and governor elections."
   />
   <link rel="canonical" href="https://smarter.vote/elections/" />
 </svelte:head>

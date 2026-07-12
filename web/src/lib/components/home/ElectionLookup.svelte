@@ -65,7 +65,8 @@
   </div>
   <p class="mt-4 max-w-xl leading-7 text-content-muted">
     Enter the full residential address where you are registered. We’ll identify
-    your district and show the U.S. House and Senate research available for it.
+    your district and show the U.S. House, Senate, and governor research
+    available for it.
   </p>
 
   <form class="mt-7" on:submit|preventDefault={findElections}>
@@ -96,8 +97,8 @@
     >
   </p>
   <div class="mt-4 border-t border-stroke pt-4 text-sm text-content-muted">
-    <strong class="text-content">Coverage today:</strong> U.S. House and Senate
-    research. This is not yet a complete local ballot.
+    <strong class="text-content">Coverage today:</strong> U.S. House, Senate,
+    and governor research. This is not yet a complete local ballot.
     <a
       href="/elections/"
       class="ml-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"

@@ -41,6 +41,7 @@ describe("matchingNationalRaces", () => {
   it("returns the matching House district and statewide Senate race", () => {
     const races = [
       race({ id: "senate" }),
+      race({ id: "governor", office: "Governor of Maryland" }),
       race({
         id: "house-4",
         office: "U.S. House of Representatives",
@@ -60,7 +61,7 @@ describe("matchingNationalRaces", () => {
         { state: "Maryland", congressionalDistrict: "04" },
         new Date("2026-07-12")
       ).map(({ id }) => id)
-    ).toEqual(["senate", "house-4"]);
+    ).toEqual(["senate", "governor", "house-4"]);
   });
 
   it("matches at-large House races and excludes past elections", () => {

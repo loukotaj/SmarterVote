@@ -7,6 +7,7 @@ import {
   isPreviewEligible,
   nationalElectionRaces,
   recentlyUpdated,
+  rotateByDate,
 } from "$lib/utils/homepage";
 
 export const load: PageLoad = async ({ fetch, parent }) => {
@@ -18,7 +19,10 @@ export const load: PageLoad = async ({ fetch, parent }) => {
   // Fast local/CI builds only include summaries.json. Avoid making the prerenderer
   // crawl missing per-race JSON; production supplies the published GCS data base.
   if (publicDataBase()) {
-    for (const summary of recentlyUpdated(nationalRaces, 12)) {
+    for (const summary of rotateByDate(
+      recentlyUpdated(nationalRaces, 12),
+      new Date()
+    )) {
       try {
         const candidate = await getRace(summary.id, fetch, false);
         if (isPreviewEligible(candidate)) {

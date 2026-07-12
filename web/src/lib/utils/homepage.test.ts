@@ -4,6 +4,7 @@ import {
   homepageMetrics,
   nationalElectionRaces,
   recentlyUpdated,
+  rotateByDate,
 } from "./homepage";
 
 const race = (id: string, updated: string, state = "Iowa"): RaceSummary => ({
@@ -19,7 +20,7 @@ const race = (id: string, updated: string, state = "Iowa"): RaceSummary => ({
 });
 
 describe("homepage data", () => {
-  it("keeps federal contests out of state and local launch coverage", () => {
+  it("keeps federal and gubernatorial contests in launch coverage", () => {
     const federal = {
       ...race("house", "2026-01-01T00:00:00Z"),
       office: "U.S. House of Representatives",
@@ -28,7 +29,17 @@ describe("homepage data", () => {
       ...race("governor", "2026-01-01T00:00:00Z"),
       office: "Governor of Iowa",
     };
-    expect(nationalElectionRaces([state, federal])).toEqual([federal]);
+    expect(nationalElectionRaces([state, federal])).toEqual([state, federal]);
+  });
+
+  it("rotates preview candidates deterministically by date", () => {
+    const items = ["a", "b", "c"];
+    expect(rotateByDate(items, new Date("2026-07-12T00:00:00Z"))).toEqual(
+      rotateByDate(items, new Date("2026-07-12T12:00:00Z"))
+    );
+    expect(rotateByDate(items, new Date("2026-07-13T00:00:00Z"))).not.toEqual(
+      rotateByDate(items, new Date("2026-07-12T00:00:00Z"))
+    );
   });
 
   it("selects recently updated races deterministically", () => {
