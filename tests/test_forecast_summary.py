@@ -278,3 +278,24 @@ def test_governor_forecast_other_party_resolves_from_party_probabilities():
     assert governors["projected_seats"]["Other"] == 0
     assert governors["projected_seats"]["Democratic"] == 7
     assert governors["projected_seats"]["Republican"] == 8
+
+
+def test_governor_context_exposes_tie_and_distinguishes_projection_from_control_probability():
+    from shared.forecast_summary import build_chamber_context
+
+    context = build_chamber_context(
+        [{"id": "ga-governor-2026", "title": "Georgia Governor", "forecast": {"rating": "tossup"}}],
+        "Governors",
+        {
+            "control_party": "Democratic",
+            "control_probability": 0.409,
+            "outcome_probabilities": {"Democratic": 0.409, "Republican": 0.404, "tie_50_50": 0.187},
+            "projected_seats": {"Democratic": 24, "Republican": 26},
+            "expected_seats": {"Democratic": 24.6, "Republican": 25.0},
+        },
+    )
+
+    assert "Most likely outright-control party: Democratic (probability: 40.9%)" in context
+    assert "Projected Seats: 24 Democratic, 26 Republican" in context
+    assert "Probability of a 25-25 tie: 18.7%" in context
+    assert "may differ" in context

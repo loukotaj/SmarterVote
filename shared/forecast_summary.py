@@ -568,7 +568,8 @@ def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[
     control_party = summary.get("control_party", "Other")
     control_prob = summary.get("control_probability", 0.5)
     outcome_probs = summary.get("outcome_probabilities", {})
-    tie_prob = outcome_probs.get("tie_50_50", 0.0) if name in ("US Senate", "senate") else 0.0
+    chamber_key = name.strip().lower()
+    tie_prob = outcome_probs.get("tie_50_50", 0.0) if chamber_key in {"us senate", "senate", "governors"} else 0.0
 
     lines = [
         f"Chamber: {name}",
@@ -578,7 +579,9 @@ def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[
         f"Projected Republican Wins (among published non-tossups): {gop_wins}",
         "",
         "Aggregated Mathematical Model Results:",
-        f"- Projected Control: {control_party} control projected (prob: {control_prob * 100:.1f}%)",
+        f"- Most likely outright-control party: {control_party} (probability: {control_prob * 100:.1f}%)",
+        f"- Outright Democratic control probability: {float(outcome_probs.get('Democratic', 0.0)) * 100:.1f}%",
+        f"- Outright Republican control probability: {float(outcome_probs.get('Republican', 0.0)) * 100:.1f}%",
         f"- Projected Seats: {projected_d} Democratic, {projected_r} Republican",
         f"- Expected (Mean) Seats: {expected_d:.1f} Democratic, {expected_r:.1f} Republican",
     ]
@@ -593,6 +596,12 @@ def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[
             sorted_dist = sorted(dist.items(), key=lambda item: item[1], reverse=True)
             top_outcomes = [f"{key} ({value * 100:.1f}%)" for key, value in sorted_dist[:4]]
             lines.append(f"- Top 4 most likely seat outcomes: {', '.join(top_outcomes)}")
+    elif chamber_key == "governors":
+        lines.append(f"- Probability of a 25-25 tie: {tie_prob * 100:.1f}% " "(neither party has outright majority control)")
+        lines.append(
+            "- The central projected seat split and the party with the highest outright-control probability may differ. "
+            "If they do, state both facts explicitly rather than treating them as interchangeable."
+        )
 
     lines.append("\nCompetitive/Notable Races Detail:")
     lines.extend(competitive_list[:30])
@@ -618,6 +627,9 @@ def get_chamber_forecast_system_prompt(chamber_name: str) -> str:
         "- 'key_uncertainty': A short summary of the key uncertainty or risk factors in this chamber's forecast.\n\n"
         "Every field should name the specific races or race groups that carry the story. Avoid vague constructions like "
         "'needs to win competitive races' unless immediately followed by examples from the context. Explain the path through seats, "
-        "ratings, and named contests, not just the final seat count.\n\n"
+        "ratings, and named contests, not just the final seat count. The supplied mathematical results are authoritative: "
+        "copy projected and expected seat totals exactly, never invent or arithmetically alter them, and do not conflate the "
+        "central projected seat split with the party that has the highest outright-control probability. If those point to "
+        "different parties, explain that distinction plainly.\n\n"
         "Output ONLY the JSON object, with no markdown code blocks, no backticks, and no extra text. Do not mention that you are an AI."
     )
