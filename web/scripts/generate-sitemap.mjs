@@ -68,7 +68,30 @@ try {
 }
 const entries = [
   urlEntry(`${SITE_URL}/`, new Date().toISOString(), "weekly", "1.0"),
+  urlEntry(`${SITE_URL}/elections/`, new Date().toISOString(), "weekly", "0.9"),
   urlEntry(`${SITE_URL}/about/`, new Date().toISOString(), "monthly", "0.8"),
+  urlEntry(
+    `${SITE_URL}/methodology/`,
+    new Date().toISOString(),
+    "monthly",
+    "0.8"
+  ),
+  urlEntry(`${SITE_URL}/support/`, new Date().toISOString(), "monthly", "0.7"),
+  urlEntry(`${SITE_URL}/partners/`, new Date().toISOString(), "monthly", "0.7"),
+  urlEntry(
+    `${SITE_URL}/corrections/`,
+    new Date().toISOString(),
+    "monthly",
+    "0.6"
+  ),
+  urlEntry(
+    `${SITE_URL}/funding-and-editorial-independence/`,
+    new Date().toISOString(),
+    "monthly",
+    "0.7"
+  ),
+  urlEntry(`${SITE_URL}/privacy/`, new Date().toISOString(), "yearly", "0.5"),
+  urlEntry(`${SITE_URL}/terms/`, new Date().toISOString(), "yearly", "0.5"),
 ];
 
 for (const race of races) {

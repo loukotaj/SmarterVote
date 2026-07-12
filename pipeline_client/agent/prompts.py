@@ -415,7 +415,7 @@ Use source_urls from existing polling source_url values only. If no numeric
 polls exist, source_urls may be empty and based_on_poll_count should be 0.
 Set predicted_winner_name only when the likely winner is an exact candidate
 name from the roster above. If the nominee is unresolved or only a party is
-favored, leave predicted_winner_name empty/null and use predicted_winner_party.
+favored, leave predicted_winner_name empty/null and use predicted_winner_party. If the race is a toss-up and neither party is favored, set predicted_winner_party to "Toss-up".
 Never use placeholders such as "Republican Candidate", "Democratic nominee",
 "TBD", or "None" as candidate names.
 Prediction market signals are supplemental context, not ground truth. If present,

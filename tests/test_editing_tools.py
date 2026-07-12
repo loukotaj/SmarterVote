@@ -163,6 +163,47 @@ def test_set_forecast_derives_missing_win_probability_from_party_probability():
     assert race_json["forecast"]["win_probability"] == 0.64
 
 
+def test_set_forecast_labels_tossup_when_no_winner_party_is_supplied():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [], "polling": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_forecast"](
+        {
+            "party_probabilities": {"Democratic": 0.5, "Republican": 0.5},
+            "rating": "tossup",
+            "confidence": "low",
+            "rationale": "The available evidence does not favor either party.",
+            "based_on_poll_count": 0,
+            "source_urls": [],
+        }
+    )
+
+    assert result == "Updated race.forecast."
+    assert race_json["forecast"]["predicted_winner_party"] == "Toss-up"
+
+
+def test_set_forecast_derives_unique_leading_party_when_party_is_missing():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [], "polling": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    handlers["set_forecast"](
+        {
+            "party_probabilities": {"Democratic": 0.58, "Republican": 0.42},
+            "rating": "lean_d",
+            "confidence": "medium",
+            "rationale": "The available evidence gives Democrats a narrow edge.",
+            "based_on_poll_count": 0,
+            "source_urls": [],
+        }
+    )
+
+    assert race_json["forecast"]["predicted_winner_party"] == "Democratic"
+
+
 def test_add_candidate_link_ignores_legacy_string_links_for_dedup():
     """Legacy raw URL entries should not crash the editing handler."""
     from pipeline_client.agent.agent import _make_editing_handlers

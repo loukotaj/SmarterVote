@@ -145,6 +145,18 @@ Public page traffic is therefore measured with the Cloudflare Web Analytics brow
 `races-api` reads. The authenticated `/analytics/traffic` endpoint queries Cloudflare's GraphQL API and caches the
 result for the admin dashboard. API request analytics remain separate and describe `races-api` health only.
 
+## Public Web Surface
+
+The public SvelteKit site separates product introduction from race discovery:
+
+- `/` is the homepage. It explains the product, shows selected national-election content and trust principles, and links into the directory; it is not the full election directory.
+- `/elections/` is the browse and filtering surface for published election research. At launch it intentionally includes only national and federal races supported by the existing published data.
+- `/races/{slug}/` and its candidate and comparison subroutes remain the detailed research surfaces.
+- `/about/`, `/methodology/`, `/corrections/`, `/privacy/`, `/terms/`, and `/funding-and-editorial-independence/` publish the project's current identity, research, correction, privacy, legal, and editorial-independence statements.
+- `/support/` and `/partners/` are informational contact pages. They do not accept payments or create financial commitments.
+
+The launch does not provide address autocomplete, geocoding, district resolution, or personalized local-election lookup. It also has no Stripe Checkout, subscriptions, donation processing, or partner payment portal. The support and privacy copy may describe intended future behavior, but those capabilities must not be represented as active until their integrations and operating policies are implemented. Public inquiries currently use mail links rather than a server-side CRM or form-processing service.
+
 ## Agent Phases
 
 ```text

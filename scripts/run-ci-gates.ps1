@@ -27,7 +27,9 @@ Push-Location $repoRoot
 
 try {
     $python = "python"
-    if (Get-Command py -ErrorAction SilentlyContinue) {
+    # Respect an activated virtual environment. The Windows `py` launcher bypasses
+    # it and can leak incompatible optional packages into otherwise clean CI checks.
+    if (-not $env:VIRTUAL_ENV -and (Get-Command py -ErrorAction SilentlyContinue)) {
         $python = "py -3.10"
     }
 

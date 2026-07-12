@@ -151,7 +151,13 @@
   function forecastPartyClass(
     party?: string | null,
     probs?: Record<string, number> | null,
-    candidates?: { party?: string; incumbent: boolean; [key: string]: any }[] | null
+    candidates?:
+      | {
+          name?: string;
+          party?: string;
+          incumbent: boolean;
+        }[]
+      | null
   ): string {
     const normalized = normalizeForecastParty(party, probs, candidates);
     if (normalized === "Democratic") return "dem";
@@ -634,8 +640,13 @@
           <div>
             <p class="forecast-eyebrow">Race Forecast</p>
             <h2 class="forecast-title">
-              {forecast.predicted_winner_name || forecastParty} favored
+              {#if forecast.rating === "tossup"}
+                Toss-up
+              {:else}
+                {forecast.predicted_winner_name || forecastParty} favored
+              {/if}
             </h2>
+
             <p class="forecast-summary">
               {probability(forecast.win_probability)} win probability
               {#if typeof forecast.margin_estimate === "number"}
