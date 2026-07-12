@@ -4,13 +4,13 @@ All editing-tool JSON schemas live here so that ``agent.py`` stays focused on
 orchestration logic.  Import the individual constants or the aggregate lists.
 """
 
-from typing import Dict, List
+from typing import List
 
 # ---------------------------------------------------------------------------
 # Web search / page fetch
 # ---------------------------------------------------------------------------
 
-SEARCH_TOOL: Dict = {
+SEARCH_TOOL: dict = {
     "type": "function",
     "function": {
         "name": "web_search",
@@ -32,7 +32,7 @@ SEARCH_TOOL: Dict = {
     },
 }
 
-FETCH_TOOL: Dict = {
+FETCH_TOOL: dict = {
     "type": "function",
     "function": {
         "name": "fetch_page",

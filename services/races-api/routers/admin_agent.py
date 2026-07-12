@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-import uuid
-from datetime import datetime, timezone
 from typing import Any, Dict
 
 import firestore_helpers
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
 from request_models import AdminAgentMessageRequest
+from routers.utils import _new_id, _now
 
 router = APIRouter(prefix="/api/admin-agent", dependencies=[Depends(verify_token)])
 
@@ -17,14 +16,6 @@ _CONVERSATIONS = "admin_agent_conversations"
 _MESSAGES = "admin_agent_messages"
 _TASKS = "admin_agent_tasks"
 _TERMINAL = {"completed", "failed", "cancelled", "continued"}
-
-
-def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
-
-
-def _new_id() -> str:
-    return str(uuid.uuid4())
 
 
 def _plain(doc: Any) -> Dict[str, Any] | None:
