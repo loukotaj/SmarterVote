@@ -151,7 +151,7 @@
   function forecastPartyClass(
     party?: string | null,
     probs?: Record<string, number> | null,
-    candidates?: { party?: string; incumbent: boolean }[] | null
+    candidates?: { party?: string; incumbent: boolean; [key: string]: any }[] | null
   ): string {
     const normalized = normalizeForecastParty(party, probs, candidates);
     if (normalized === "Democratic") return "dem";
