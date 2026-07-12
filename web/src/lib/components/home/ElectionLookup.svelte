@@ -41,28 +41,34 @@
 </script>
 
 <div
-  class="rounded-3xl border border-blue-100 bg-surface/95 p-5 shadow-xl shadow-blue-950/10 sm:p-7 dark:border-blue-900"
+  class="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-surface/95 p-6 shadow-2xl shadow-blue-950/10 backdrop-blur sm:p-10 dark:border-blue-900"
 >
+  <div
+    class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-sky-400"
+    aria-hidden="true"
+  />
   <div class="flex items-center justify-between gap-4">
     <div>
       <p
         class="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400"
       >
-        Address lookup
+        Address search
       </p>
-      <h2 class="mt-2 text-2xl font-bold text-content">Find my elections</h2>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-content">
+        Where are you registered to vote?
+      </h2>
     </div>
     <span
       class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
       >Free</span
     >
   </div>
-  <p class="mt-3 leading-6 text-content-muted">
-    Enter your home address to identify the U.S. House and Senate research that
-    applies to you.
+  <p class="mt-4 max-w-xl leading-7 text-content-muted">
+    Enter the full residential address where you are registered. We’ll identify
+    your district and show the U.S. House and Senate research available for it.
   </p>
 
-  <form class="mt-5" on:submit|preventDefault={findElections}>
+  <form class="mt-7" on:submit|preventDefault={findElections}>
     <label for="home-address" class="text-sm font-semibold text-content"
       >Home address</label
     >
@@ -72,27 +78,30 @@
       required
       autocomplete="street-address"
       placeholder="1600 Pennsylvania Ave NW, Washington, DC 20500"
-      class="mt-2 min-h-[54px] w-full rounded-xl border border-stroke bg-surface px-4 text-content shadow-sm placeholder:text-content-subtle focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+      class="mt-2 min-h-[60px] w-full rounded-xl border border-stroke bg-surface px-5 text-base text-content shadow-sm transition placeholder:text-content-subtle hover:border-blue-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/15"
     />
     <button
       type="submit"
       disabled={loading || !address.trim()}
-      class="mt-3 inline-flex min-h-[52px] w-full items-center justify-center rounded-xl bg-blue-600 px-6 font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
-      >{loading ? "Finding your districts…" : "Find my elections"}</button
+      class="mt-4 inline-flex min-h-[56px] w-full items-center justify-center rounded-xl bg-blue-700 px-6 font-bold text-white shadow-lg shadow-blue-900/10 transition hover:-translate-y-0.5 hover:bg-blue-800 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+      >{loading ? "Finding your districts…" : "Show my elections"}</button
     >
   </form>
 
-  <p class="mt-3 text-xs leading-5 text-content-subtle">
-    Your address is sent directly to the U.S. Census Geocoder and is not saved
-    by Smarter.Vote.
+  <p class="mt-4 flex gap-2 text-xs leading-5 text-content-subtle">
+    <span aria-hidden="true">⌁</span>
+    <span
+      >Your address is sent directly to the U.S. Census Geocoder and is not
+      saved by Smarter.Vote.</span
+    >
   </p>
   <div class="mt-4 border-t border-stroke pt-4 text-sm text-content-muted">
     <strong class="text-content">Coverage today:</strong> U.S. House and Senate
-    research. This is not a complete ballot.
+    research. This is not yet a complete local ballot.
     <a
       href="/elections/"
       class="ml-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"
-      >Browse all national elections</a
+      >Browse national elections</a
     >
   </div>
 

@@ -62,4 +62,29 @@ describe("matchingNationalRaces", () => {
       ).map(({ id }) => id)
     ).toEqual(["senate", "house-4"]);
   });
+
+  it("matches at-large House races and excludes past elections", () => {
+    const races = [
+      race({
+        id: "at-large",
+        office: "U.S. House of Representatives",
+        state: "Alaska",
+        jurisdiction: "Alaska's At-Large Congressional District",
+      }),
+      race({
+        id: "past",
+        state: "Alaska",
+        jurisdiction: "Alaska",
+        election_date: "2024-11-05",
+      }),
+    ];
+
+    expect(
+      matchingNationalRaces(
+        races,
+        { state: "Alaska", congressionalDistrict: "00" },
+        new Date("2026-07-12")
+      ).map(({ id }) => id)
+    ).toEqual(["at-large"]);
+  });
 });

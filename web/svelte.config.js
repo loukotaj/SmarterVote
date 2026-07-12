@@ -32,6 +32,7 @@ const config = {
         "/forecast/",
         "/funding-and-editorial-independence/",
         "/methodology/",
+        "/my-ballot/",
         "/partners/",
         "/privacy/",
         "/support/",

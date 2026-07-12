@@ -1,30 +1,43 @@
-<section class="bg-surface-alt py-14 sm:py-20" aria-labelledby="trust-heading">
-  <div class="mx-auto max-w-6xl px-4">
-    <h2 id="trust-heading" class="text-3xl font-bold text-content">
-      Research you can inspect
-    </h2>
-    <p class="mt-3 max-w-3xl leading-7 text-content-muted">
-      Smarter.Vote is nonpartisan. We do not endorse candidates. We do not claim
-      perfect neutrality or infallibility.
-    </p>
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {#each [["Sourced", "Important claims link to supporting material."], ["Transparent about limits", "Uncertainty, sparse evidence, and update dates stay visible."], ["Consistent standards", "The same research and review rules apply regardless of party."], ["Independent", "Supporters cannot influence conclusions or coverage treatment."], ["Correctable", "Readers can report errors and material updates are documented."]] as principle}
-        <article class="rounded-xl border border-stroke bg-surface p-5">
-          <h3 class="font-semibold text-content">{principle[0]}</h3>
-          <p class="mt-2 text-sm leading-6 text-content-muted">
-            {principle[1]}
-          </p>
-        </article>
-      {/each}
-    </div>
-    <div
-      class="mt-7 flex flex-wrap gap-5 text-sm font-semibold text-blue-600 dark:text-blue-400"
-    >
-      <a href="/methodology/" class="hover:underline">Read our methodology</a>
-      <a href="/corrections/" class="hover:underline">Request a correction</a>
-      <a href="/funding-and-editorial-independence/" class="hover:underline"
-        >Funding and independence</a
-      >
+<section
+  class="bg-blue-950 py-20 text-white sm:py-28"
+  aria-labelledby="trust-heading"
+>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">
+          Our editorial promise
+        </p>
+        <h2
+          id="trust-heading"
+          class="mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl"
+        >
+          Don't take our word for it.
+        </h2>
+        <p class="mt-5 max-w-md text-lg leading-8 text-blue-100/75">
+          Read the evidence, see where it disagrees, and decide for yourself.
+        </p>
+        <a
+          href="/methodology/"
+          class="mt-8 inline-flex border-b border-blue-400 pb-1 font-semibold text-blue-200 transition hover:text-white"
+          >Examine our methodology →</a
+        >
+      </div>
+      <div class="divide-y divide-blue-800 border-y border-blue-800">
+        {#each [["01", "Every claim links to a source", "Follow the research back to candidate statements, public records, and reputable reporting."], ["02", "Uncertainty stays visible", "Sparse evidence, conflicting accounts, and confidence levels are part of the record—not hidden in fine print."], ["03", "No endorsements. Ever.", "We organize evidence consistently across parties. The judgment about what matters remains yours."]] as principle}
+          <article
+            class="grid grid-cols-[3rem_1fr] gap-4 py-7 sm:grid-cols-[4rem_1fr]"
+          >
+            <span class="font-mono text-sm text-blue-400">{principle[0]}</span>
+            <div>
+              <h3 class="text-xl font-bold sm:text-2xl">{principle[1]}</h3>
+              <p class="mt-2 max-w-xl leading-7 text-blue-100/70">
+                {principle[2]}
+              </p>
+            </div>
+          </article>
+        {/each}
+      </div>
     </div>
   </div>
 </section>
