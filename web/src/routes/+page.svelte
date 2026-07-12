@@ -1,8 +1,7 @@
 <script lang="ts">
   import FeaturedElections from "$lib/components/home/FeaturedElections.svelte";
-  import HeroResearchVisual from "$lib/components/home/HeroResearchVisual.svelte";
   import HowItWorks from "$lib/components/home/HowItWorks.svelte";
-  import ResearchPreview from "$lib/components/home/ResearchPreview.svelte";
+  import InteractiveRaceCompare from "$lib/components/home/InteractiveRaceCompare.svelte";
   import TrustPrinciples from "$lib/components/home/TrustPrinciples.svelte";
   import type { PageData } from "./$types";
   export let data: PageData;
@@ -15,10 +14,8 @@
     content="Explore sourced, nonpartisan research for national elections. Compare candidates, inspect original sources, and understand the federal races on your ballot."
   />
   <link rel="canonical" href="https://smarter.vote/" />
-  <meta property="og:type" content="website" /><meta
-    property="og:url"
-    content="https://smarter.vote/"
-  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://smarter.vote/" />
   <meta
     property="og:title"
     content="Smarter.Vote | Understand the national races on your ballot"
@@ -27,24 +24,20 @@
     property="og:description"
     content="Sourced, nonpartisan candidate research with uncertainty and original evidence kept visible."
   />
-  <meta property="og:image" content="https://smarter.vote/og-image.png" /><meta
-    name="twitter:card"
-    content="summary_large_image"
-  />
+  <meta property="og:image" content="https://smarter.vote/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <div class="overflow-hidden">
   <section
-    class="relative flex min-h-[calc(100svh-4rem)] items-center border-b border-stroke bg-surface py-20 sm:py-24"
+    class="relative min-h-[calc(100svh-4rem)] border-b border-stroke bg-surface py-16 sm:py-20"
   >
     <div
       class="absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,theme(colors.blue.100)_1px,transparent_1px),linear-gradient(to_bottom,theme(colors.blue.100)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_right,black,transparent_75%)] dark:opacity-10"
       aria-hidden="true"
     />
-    <div
-      class="relative mx-auto grid w-full max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-[1fr_.9fr] lg:px-10"
-    >
-      <div>
+    <div class="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10">
+      <div class="max-w-4xl">
         <div class="flex items-center gap-3">
           <span class="h-px w-9 bg-blue-600" />
           <p
@@ -54,18 +47,18 @@
           </p>
         </div>
         <h1
-          class="mt-7 max-w-3xl text-5xl font-extrabold leading-[.98] tracking-[-0.045em] text-content sm:text-6xl lg:text-7xl"
+          class="mt-6 max-w-4xl text-5xl font-extrabold leading-[.98] tracking-[-0.045em] text-content sm:text-6xl lg:text-7xl"
         >
           Understand the national races on your ballot.
         </h1>
         <p
-          class="mt-7 max-w-xl text-lg leading-8 text-content-muted sm:text-xl"
+          class="mt-6 max-w-2xl text-lg leading-8 text-content-muted sm:text-xl"
         >
           Smarter.Vote turns candidate records, issue positions, and original
           sources into clear, nonpartisan election research you can examine for
           yourself.
         </p>
-        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
             href="/my-ballot/"
             class="inline-flex min-h-12 items-center justify-center rounded-md bg-blue-600 px-7 py-3 font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
@@ -78,36 +71,13 @@
           >
         </div>
       </div>
-      <div class="pb-7 lg:pl-4">
-        <HeroResearchVisual race={data.preview} />
+      <div class="mt-12 pb-4">
+        <InteractiveRaceCompare races={data.gradeARaces} />
       </div>
     </div>
   </section>
 
   <TrustPrinciples />
-
-  {#if data.preview}
-    <ResearchPreview race={data.preview} />
-  {:else}
-    <section class="py-20 text-center sm:py-28">
-      <p
-        class="text-xs font-bold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-400"
-      >
-        Explore the research
-      </p>
-      <h2
-        class="mx-auto mt-4 max-w-2xl text-4xl font-bold tracking-tight text-content sm:text-5xl"
-      >
-        See the evidence side by side.
-      </h2>
-      <a
-        href="/elections/"
-        class="mt-8 inline-flex rounded-md bg-blue-600 px-7 py-3 font-bold text-white hover:bg-blue-700"
-        >Browse published guides →</a
-      >
-    </section>
-  {/if}
-
   <HowItWorks />
   <FeaturedElections races={data.featuredRaces} />
 
