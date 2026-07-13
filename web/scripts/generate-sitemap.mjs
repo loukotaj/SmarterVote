@@ -70,12 +70,6 @@ const entries = [
   urlEntry(`${SITE_URL}/`, new Date().toISOString(), "weekly", "1.0"),
   urlEntry(`${SITE_URL}/elections/`, new Date().toISOString(), "weekly", "0.9"),
   urlEntry(`${SITE_URL}/about/`, new Date().toISOString(), "monthly", "0.8"),
-  urlEntry(
-    `${SITE_URL}/methodology/`,
-    new Date().toISOString(),
-    "monthly",
-    "0.8"
-  ),
   urlEntry(`${SITE_URL}/support/`, new Date().toISOString(), "monthly", "0.7"),
   urlEntry(`${SITE_URL}/partners/`, new Date().toISOString(), "monthly", "0.7"),
   urlEntry(

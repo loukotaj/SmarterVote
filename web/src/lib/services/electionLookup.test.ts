@@ -88,4 +88,26 @@ describe("matchingNationalRaces", () => {
       ).map(({ id }) => id)
     ).toEqual(["at-large"]);
   });
+
+  it("does not confuse Virginia with West Virginia", () => {
+    const races = [
+      race({
+        id: "virginia-senate",
+        state: "Virginia",
+        jurisdiction: "Virginia",
+      }),
+      race({
+        id: "west-virginia-senate",
+        state: "West Virginia",
+        jurisdiction: "West Virginia",
+      }),
+    ];
+
+    expect(
+      matchingNationalRaces(races, {
+        state: "Virginia",
+        congressionalDistrict: "01",
+      }).map(({ id }) => id)
+    ).toEqual(["virginia-senate"]);
+  });
 });

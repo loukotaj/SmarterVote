@@ -55,15 +55,19 @@ describe("ElectionLookup", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByRole("heading", { name: "National elections near you" })
+        screen.getByRole("heading", { name: "Your election guide" })
       ).toBeTruthy()
     );
     expect(screen.getByText(/Maryland · U\.S\. House District 4/)).toBeTruthy();
     expect(
-      screen.getByRole("link", {
-        name: /Maryland's 4th Congressional District Election/,
-      })
+      screen.getByRole("tab", { name: "U.S. House", selected: true })
     ).toBeTruthy();
-    expect(input.value).toBe("");
+    expect(sessionStorage.getItem("smarterVote.ballot")).toContain(
+      "md-house-04-2026"
+    );
+    expect(screen.queryByLabelText("Home address")).toBeNull();
+    expect(
+      screen.getByRole("button", { name: "← Search another address" })
+    ).toBeTruthy();
   });
 });

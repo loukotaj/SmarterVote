@@ -1,5 +1,7 @@
 <script lang="ts">
   const links = [
+    { href: "/about/", label: "About" },
+    { href: "/about/#methodology", label: "Methodology" },
     { href: "/partners/", label: "Partners" },
     { href: "/corrections/", label: "Corrections" },
     {
@@ -41,6 +43,21 @@
           >
         {/each}
       </nav>
+    </div>
+    <div
+      class="mt-7 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100"
+      role="note"
+      aria-label="AI-generated content notice"
+    >
+      <strong>AI-generated content notice:</strong> Candidate summaries,
+      comparisons, classifications, and forecasts may be generated with AI and
+      can be incomplete, incorrect, or outdated. Check the linked evidence and
+      official election sources before relying on them.
+      <a
+        href="/about/#ai-generated-content"
+        class="ml-1 font-semibold underline underline-offset-2 hover:no-underline"
+        >How Smarter.Vote uses AI</a
+      >.
     </div>
     <p class="mt-8 border-t border-stroke pt-5 text-xs text-content-subtle">
       © {new Date().getFullYear()} Smarter.Vote LLC. Not affiliated with any government

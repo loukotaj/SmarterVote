@@ -79,8 +79,18 @@ export function lookupElectionGeography(
   });
 }
 
-function raceState(race: RaceSummary): string {
-  return (race.state || race.jurisdiction || "").toLocaleLowerCase();
+function raceMatchesState(race: RaceSummary, state: string): boolean {
+  const normalizedState = state.toLocaleLowerCase();
+  if (race.state) {
+    return race.state.toLocaleLowerCase() === normalizedState;
+  }
+
+  const jurisdiction = (race.jurisdiction || "").toLocaleLowerCase();
+  return (
+    jurisdiction === normalizedState ||
+    jurisdiction.startsWith(`${normalizedState}'s `) ||
+    jurisdiction.startsWith(`${normalizedState} `)
+  );
 }
 
 function districtFromRace(race: RaceSummary): string | null {
@@ -99,7 +109,7 @@ export function matchingNationalRaces(
   return races.filter((race) => {
     if (Date.parse(race.election_date) < now.getTime()) return false;
     const office = race.office?.toLocaleLowerCase() ?? "";
-    const sameState = raceState(race).includes(state);
+    const sameState = raceMatchesState(race, state);
     if (office.includes("president")) return true;
     if (office.includes("senate")) return sameState;
     if (office.includes("governor") || office.includes("gubernatorial"))

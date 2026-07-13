@@ -22,9 +22,11 @@
       Address lookup sends the address directly from your browser to the U.S.
       Census Geocoder to identify a state and congressional district.
       Smarter.Vote does not send the address to its own server, place it in the
-      page URL or analytics, or save it in browser storage. Only the derived
-      state and district are used in memory to match published national election
-      research. The Census Bureau handles the lookup under its own policies.
+      page URL or analytics, or save it in browser storage. The derived state,
+      district, and matched race IDs are kept in this tab's session storage so
+      results survive a refresh. They are cleared when you search another
+      address or close the tab. The Census Bureau handles the lookup under its
+      own policies.
     </p>
   </PolicySection>
   <PolicySection title="Retention and access">

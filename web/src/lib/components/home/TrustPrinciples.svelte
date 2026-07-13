@@ -18,7 +18,7 @@
           Read the evidence, see where it disagrees, and decide for yourself.
         </p>
         <a
-          href="/methodology/"
+          href="/about/#methodology"
           class="mt-8 inline-flex border-b border-blue-400 pb-1 font-semibold text-blue-200 transition hover:text-white"
           >Examine our methodology →</a
         >
