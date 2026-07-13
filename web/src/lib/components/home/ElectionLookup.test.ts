@@ -44,7 +44,7 @@ describe("ElectionLookup", () => {
     render(ElectionLookup, { races });
 
     expect(screen.getByLabelText("Home address")).toBeTruthy();
-    expect(screen.getByText(/not saved by Smarter\.Vote/i)).toBeTruthy();
+    expect(screen.getByText(/Smarter\.Vote does not save/i)).toBeTruthy();
     expect(screen.getByText(/not yet a complete local ballot/i)).toBeTruthy();
 
     const input = screen.getByLabelText("Home address") as HTMLInputElement;

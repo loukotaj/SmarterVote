@@ -1,0 +1,62 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+describe("Google Places address suggestions", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    vi.unstubAllEnvs();
+    document.head.innerHTML = "";
+    delete (window as Window & { google?: unknown }).google;
+  });
+
+  it("does not load Google when the key is absent or input is too short", async () => {
+    const { suggestUsAddresses } = await import("./googlePlaces");
+
+    await expect(suggestUsAddresses("1600 Pennsylvania", "")).resolves.toEqual(
+      [],
+    );
+    await expect(suggestUsAddresses("1600", "key")).resolves.toEqual([]);
+    expect(document.querySelector("script")).toBeNull();
+  });
+
+  it("limits U.S. address predictions and requests only the formatted address", async () => {
+    const fetchFields = vi.fn().mockResolvedValue(undefined);
+    const predictions = Array.from({ length: 6 }, (_, index) => ({
+      placePrediction: {
+        placeId: `place-${index}`,
+        text: { toString: () => `Address ${index}` },
+        toPlace: () => ({
+          formattedAddress:
+            "1600 Pennsylvania Avenue NW, Washington, DC 20500, USA",
+          fetchFields,
+        }),
+      },
+    }));
+    const fetchAutocompleteSuggestions = vi
+      .fn()
+      .mockResolvedValue({ suggestions: predictions });
+    (window as Window & { google?: unknown }).google = {
+      maps: {
+        importLibrary: vi.fn().mockResolvedValue({
+          AutocompleteSessionToken: class {},
+          AutocompleteSuggestion: { fetchAutocompleteSuggestions },
+        }),
+      },
+    };
+    const { suggestUsAddresses } = await import("./googlePlaces");
+
+    const suggestions = await suggestUsAddresses("1600 Pennsylvania", "key");
+    expect(suggestions).toHaveLength(5);
+    expect(fetchAutocompleteSuggestions).toHaveBeenCalledWith(
+      expect.objectContaining({
+        includedPrimaryTypes: ["street_address", "premise", "subpremise"],
+        includedRegionCodes: ["us"],
+      }),
+    );
+    await expect(suggestions[0].resolveAddress()).resolves.toContain(
+      "Washington",
+    );
+    expect(fetchFields).toHaveBeenCalledWith({
+      fields: ["formattedAddress"],
+    });
+  });
+});

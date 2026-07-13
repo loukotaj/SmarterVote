@@ -106,7 +106,9 @@ resource "google_project_service" "apis" {
     "containerregistry.googleapis.com",
     "artifactregistry.googleapis.com",
     "bigquery.googleapis.com",
-    "iam.googleapis.com"
+    "iam.googleapis.com",
+    "maps-backend.googleapis.com",
+    "places.googleapis.com"
   ])
 
   project                    = var.project_id

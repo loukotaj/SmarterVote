@@ -71,8 +71,9 @@
         >
           <p class="font-semibold text-content">Private by design</p>
           <p class="mt-1 text-sm leading-6 text-content-muted">
-            Your address goes directly to the U.S. Census Geocoder. Smarter.Vote
-            does not receive, save, or add it to the page URL.
+            Optional suggestions come directly from Google, and your completed
+            address goes directly to the U.S. Census Geocoder. Smarter.Vote does
+            not receive, save, or add it to the page URL.
           </p>
         </div>
       </header>

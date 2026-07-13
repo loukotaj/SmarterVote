@@ -6,6 +6,12 @@
     lookupElectionGeography,
     matchingNationalRaces,
   } from "$lib/services/electionLookup";
+  import {
+    abandonAddressSession,
+    suggestUsAddresses,
+    type AddressSuggestion,
+  } from "$lib/services/googlePlaces";
+  import { debounce } from "$lib/utils/debounce";
 
   export let races: RaceSummary[] = [];
   const dispatch = createEventDispatcher<{ exploring: boolean }>();
@@ -17,8 +23,46 @@
   let district = "";
   let results: RaceSummary[] = [];
   let error = "";
+  let suggestions: AddressSuggestion[] = [];
+  let suggestionsOpen = false;
+  let suggestionRequest = 0;
 
   const SESSION_KEY = "smarterVote.ballot";
+
+  const updateSuggestions = debounce(async (query: string, request: number) => {
+    try {
+      const matches = await suggestUsAddresses(query);
+      if (request !== suggestionRequest) return;
+      suggestions = matches;
+      suggestionsOpen = matches.length > 0;
+    } catch {
+      if (request === suggestionRequest) {
+        suggestions = [];
+        suggestionsOpen = false;
+      }
+    }
+  }, 600);
+
+  function handleAddressInput() {
+    const request = ++suggestionRequest;
+    if (address.trim().length < 5) {
+      suggestions = [];
+      suggestionsOpen = false;
+      return;
+    }
+    updateSuggestions(address, request);
+  }
+
+  async function selectSuggestion(suggestion: AddressSuggestion) {
+    suggestionsOpen = false;
+    try {
+      address = await suggestion.resolveAddress();
+    } catch {
+      address = suggestion.text;
+      abandonAddressSession();
+    }
+    suggestions = [];
+  }
 
   onMount(() => {
     try {
@@ -49,6 +93,8 @@
     const query = address.trim();
     if (!query || loading) return;
     loading = true;
+    suggestionsOpen = false;
+    abandonAddressSession();
     submitted = false;
     error = "";
     results = [];
@@ -127,14 +173,44 @@
         <label for="home-address" class="text-sm font-semibold text-content"
           >Home address</label
         >
-        <input
-          id="home-address"
-          bind:value={address}
-          required
-          autocomplete="street-address"
-          placeholder="1600 Pennsylvania Ave NW, Washington, DC 20500"
-          class="mt-2 min-h-[60px] w-full rounded-xl border border-stroke bg-surface px-5 text-base text-content shadow-sm transition placeholder:text-content-subtle hover:border-blue-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/15"
-        />
+        <div class="relative">
+          <input
+            id="home-address"
+            bind:value={address}
+            on:input={handleAddressInput}
+            on:focus={() => (suggestionsOpen = suggestions.length > 0)}
+            required
+            autocomplete="street-address"
+            aria-autocomplete="list"
+            aria-controls="address-suggestions"
+            aria-expanded={suggestionsOpen}
+            placeholder="1600 Pennsylvania Ave NW, Washington, DC 20500"
+            class="mt-2 min-h-[60px] w-full rounded-xl border border-stroke bg-surface px-5 text-base text-content shadow-sm transition placeholder:text-content-subtle hover:border-blue-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/15"
+          />
+          {#if suggestionsOpen}
+            <div
+              id="address-suggestions"
+              role="listbox"
+              class="absolute z-20 mt-1 w-full overflow-hidden rounded-xl border border-stroke bg-surface py-1 shadow-xl"
+            >
+              {#each suggestions as suggestion}
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected="false"
+                  on:click={() => selectSuggestion(suggestion)}
+                  class="block w-full px-4 py-3 text-left text-sm text-content hover:bg-surface-alt focus:bg-surface-alt focus:outline-none"
+                  >{suggestion.text}</button
+                >
+              {/each}
+              <p
+                class="border-t border-stroke px-4 py-1.5 text-right text-[10px] font-semibold text-content-subtle"
+              >
+                Powered by Google
+              </p>
+            </div>
+          {/if}
+        </div>
         <button
           type="submit"
           disabled={loading || !address.trim()}
@@ -146,8 +222,9 @@
       <p class="mt-4 flex gap-2 text-xs leading-5 text-content-subtle">
         <span aria-hidden="true">⌁</span>
         <span
-          >Your address is sent directly to the U.S. Census Geocoder and is not
-          saved by Smarter.Vote.</span
+          >Optional suggestions come directly from Google; completed addresses
+          go directly to the U.S. Census Geocoder. Smarter.Vote does not save
+          them.</span
         >
       </p>
       <div class="mt-4 border-t border-stroke pt-4 text-sm text-content-muted">
