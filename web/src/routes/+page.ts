@@ -3,6 +3,7 @@ import {
   gradeAHomepageFallbacks,
   gradeAHomepageRaceIds,
   isGradeAHomepageRace,
+  mergeGradeAHomepageRaces,
 } from "$lib/homepagePreview";
 import { loadPrerenderRace } from "$lib/prerenderData";
 import {
@@ -19,9 +20,9 @@ export const load: PageLoad = async ({ fetch, parent }) => {
     nationalRaces.filter((race) => race.quality_grade === "A"),
     5,
   ).map((race) => race.id);
-  const previewIds = indexedGradeAIds.length
-    ? indexedGradeAIds
-    : [...gradeAHomepageRaceIds];
+  const previewIds = [
+    ...new Set([...indexedGradeAIds, ...gradeAHomepageRaceIds]),
+  ];
 
   // Production syncs published race JSON into static/ before prerendering. Try
   // those local files even when VITE_PUBLIC_DATA_URL is unset; fast local/CI
@@ -37,7 +38,7 @@ export const load: PageLoad = async ({ fetch, parent }) => {
         result.status === "fulfilled" && isGradeAHomepageRace(result.value),
     )
     .map((result) => result.value);
-  if (verified.length) gradeARaces = verified;
+  gradeARaces = mergeGradeAHomepageRaces(verified);
 
   // The editorial list is driven by the published summary index, independently
   // of the stricter full-record requirements used by InteractiveRaceCompare.
