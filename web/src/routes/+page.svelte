@@ -27,7 +27,7 @@
 
 <div class="overflow-hidden">
   <section
-    class="relative min-h-[calc(100svh-4rem)] border-b border-stroke bg-surface py-12 sm:py-16 lg:py-20"
+    class="relative border-b border-stroke bg-surface py-12 sm:py-14 lg:py-16"
   >
     <div
       class="absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,theme(colors.blue.100)_1px,transparent_1px),linear-gradient(to_bottom,theme(colors.blue.100)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_right,black,transparent_75%)] dark:opacity-10"

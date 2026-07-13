@@ -31,7 +31,7 @@
 
 {#if selectedRace && candidates.length >= 2}
   <div
-    class="flex flex-col overflow-hidden rounded-[1.75rem] border border-blue-200 bg-surface shadow-2xl shadow-blue-950/10 lg:h-[min(760px,calc(100vh-8rem))] lg:min-h-[620px] dark:border-blue-900"
+    class="flex flex-col overflow-hidden rounded-[1.75rem] border border-blue-200 bg-surface shadow-2xl shadow-blue-950/10 lg:h-[min(690px,calc(100vh-10rem))] lg:min-h-[560px] dark:border-blue-900"
   >
     <div
       class="flex flex-col gap-4 border-b border-stroke bg-surface-alt/60 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7"

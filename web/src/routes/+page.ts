@@ -7,18 +7,29 @@ import {
   isGradeAHomepageRace,
 } from "$lib/homepagePreview";
 import type { RaceSummary } from "$lib/types";
-import { homepageMetrics, nationalElectionRaces } from "$lib/utils/homepage";
+import {
+  homepageMetrics,
+  nationalElectionRaces,
+  recentlyUpdated,
+} from "$lib/utils/homepage";
 
 export const load: PageLoad = async ({ fetch, parent }) => {
   const { races = [] } = await parent();
   const nationalRaces = nationalElectionRaces(races);
   let gradeARaces = gradeAHomepageFallbacks;
+  const indexedGradeAIds = recentlyUpdated(
+    nationalRaces.filter((race) => race.quality_grade === "A"),
+    5
+  ).map((race) => race.id);
+  const previewIds = indexedGradeAIds.length
+    ? indexedGradeAIds
+    : [...gradeAHomepageRaceIds];
 
   // Fast local/CI builds only include summaries.json. Avoid making the prerenderer
   // crawl missing per-race JSON; production supplies the published GCS data base.
   if (publicDataBase()) {
     const published = await Promise.allSettled(
-      gradeAHomepageRaceIds.map((id) => getRace(id, fetch, false))
+      previewIds.map((id) => getRace(id, fetch, false))
     );
     const verified = published
       .filter(

@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -46,6 +48,7 @@ class RaceSummary(BaseModel):
     contest_stage: str | None = None
     election_date: str
     updated_utc: str
-    candidates: List[CandidateSummary]
+    candidates: list[CandidateSummary]
+    quality_grade: Literal["A", "B", "C", "D", "F"] | None = None
     agent_metrics: AgentMetricsSummary | None = None
     forecast: RaceForecastSummary | None = None
