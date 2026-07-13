@@ -203,16 +203,16 @@
               )}
             </p>
           </div>
-          <div class="flex flex-wrap gap-3 text-sm font-bold">
+          <div class="grid shrink-0 gap-2 text-sm font-bold sm:grid-cols-2">
             <a
               href="/races/{selectedRace.id}/"
-              class="text-blue-700 hover:underline dark:text-blue-300"
-              >Full race guide →</a
+              class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-blue-700 px-5 py-2.5 text-white shadow-md shadow-blue-900/10 transition hover:-translate-y-0.5 hover:bg-blue-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >View full race guide <span aria-hidden="true">→</span></a
             >
             <a
               href="/races/{selectedRace.id}/compare/"
-              class="text-blue-700 hover:underline dark:text-blue-300"
-              >Detailed comparison →</a
+              class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-5 py-2.5 text-blue-800 transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200 dark:hover:bg-blue-900"
+              >Open detailed comparison <span aria-hidden="true">↗</span></a
             >
           </div>
         </div>

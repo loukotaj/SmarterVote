@@ -1,5 +1,4 @@
 <script lang="ts">
-  import ContactCard from "$lib/components/support/ContactCard.svelte";
   import PolicySection from "$lib/components/support/PolicySection.svelte";
   import TrustPage from "$lib/components/support/TrustPage.svelte";
 </script>
@@ -15,6 +14,18 @@
       issue, and a reliable supporting source. Do not include sensitive personal
       information.
     </p>
+    <p>
+      Correction reports are filed as public GitHub issues so their status and
+      resolution can be reviewed openly. A GitHub account is required.
+    </p>
+    <a
+      href="https://github.com/SmarterVote/SmarterVote/issues/new/choose"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex min-h-11 items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Report a correction on GitHub →
+    </a>
   </PolicySection>
   <PolicySection title="What happens next">
     <p>
@@ -28,8 +39,4 @@
       time, but election-sensitive and safety-related reports receive priority.
     </p>
   </PolicySection>
-  <ContactCard
-    subject="Correction report: [page or race]"
-    label="Report a correction"
-  />
 </TrustPage>

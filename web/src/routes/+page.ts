@@ -1,11 +1,10 @@
 import type { PageLoad } from "./$types";
-import { getRace } from "$lib/api";
-import { publicDataBase } from "$lib/config/api";
 import {
   gradeAHomepageFallbacks,
   gradeAHomepageRaceIds,
   isGradeAHomepageRace,
 } from "$lib/homepagePreview";
+import { loadPrerenderRace } from "$lib/prerenderData";
 import type { RaceSummary } from "$lib/types";
 import {
   homepageMetrics,
@@ -25,22 +24,21 @@ export const load: PageLoad = async ({ fetch, parent }) => {
     ? indexedGradeAIds
     : [...gradeAHomepageRaceIds];
 
-  // Fast local/CI builds only include summaries.json. Avoid making the prerenderer
-  // crawl missing per-race JSON; production supplies the published GCS data base.
-  if (publicDataBase()) {
-    const published = await Promise.allSettled(
-      previewIds.map((id) => getRace(id, fetch, false))
-    );
-    const verified = published
-      .filter(
-        (
-          result
-        ): result is PromiseFulfilledResult<(typeof gradeARaces)[number]> =>
-          result.status === "fulfilled" && isGradeAHomepageRace(result.value)
-      )
-      .map((result) => result.value);
-    if (verified.length) gradeARaces = verified;
-  }
+  // Production syncs published race JSON into static/ before prerendering. Try
+  // those local files even when VITE_PUBLIC_DATA_URL is unset; fast local/CI
+  // builds can still fall back when the per-race fixtures are unavailable.
+  const published = await Promise.allSettled(
+    previewIds.map((id) => loadPrerenderRace(id, fetch))
+  );
+  const verified = published
+    .filter(
+      (
+        result
+      ): result is PromiseFulfilledResult<(typeof gradeARaces)[number]> =>
+        result.status === "fulfilled" && isGradeAHomepageRace(result.value)
+    )
+    .map((result) => result.value);
+  if (verified.length) gradeARaces = verified;
 
   const summaryById = new Map(nationalRaces.map((race) => [race.id, race]));
   const featuredRaces: RaceSummary[] = gradeARaces.map(
