@@ -46,6 +46,7 @@ Repository secrets:
 - `GCP_SA_KEY`
 - `OPENROUTER_API_KEY`
 - `SERPER_API_KEY`
+- `SEARLO_API_KEY` (fallback used only after Serper reports exhausted credits)
 - `ADMIN_API_KEY`
 - `CLOUDFLARE_ANALYTICS_API_TOKEN`
 - `CLOUDFLARE_API_TOKEN`

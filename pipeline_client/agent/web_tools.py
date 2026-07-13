@@ -642,14 +642,82 @@ class SearchProviderUnavailable(RuntimeError):
     """
 
 
+class SerperQuotaExhausted(SearchProviderUnavailable):
+    """Raised when Serper explicitly reports that its credits are exhausted."""
+
+
 def _raise_for_fatal_serper_error(status: int, response_text: str) -> None:
     normalized = response_text.lower()
-    quota_error = status == 400 and any(
+    quota_error = status in {400, 402} and any(
         marker in normalized for marker in ("not enough credits", "insufficient credits", "quota")
     )
-    if status in {401, 403} or quota_error:
-        reason = "quota exhausted" if quota_error else "authentication rejected"
-        raise SearchProviderUnavailable(f"Serper {reason} (HTTP {status}); stopping research run")
+    if quota_error:
+        raise SerperQuotaExhausted(f"Serper quota exhausted (HTTP {status})")
+    if status in {401, 403}:
+        raise SearchProviderUnavailable(f"Serper authentication rejected (HTTP {status}); stopping research run")
+
+
+async def _searlo_search(
+    query: str,
+    *,
+    num_results: int,
+    race_id: Optional[str],
+    run_budget: RunBudget | None,
+    images: bool = False,
+) -> List[Dict[str, Any]]:
+    """Use Searlo after Serper explicitly reports exhausted credits."""
+    api_key = os.environ.get("SEARLO_API_KEY", "")
+    if not api_key:
+        raise SearchProviderUnavailable("Serper quota exhausted and SEARLO_API_KEY is not configured; stopping research run")
+
+    operation = "Searlo image search" if images else "Searlo search"
+    if run_budget:
+        run_budget.require_call_time(2.0, operation=operation)
+    try:
+        from pipeline_client.agent.cost import _cost_ctx
+
+        acc = _cost_ctx.get()
+        if acc is not None:
+            acc["searlo_calls"] = acc.get("searlo_calls", 0) + 1
+    except Exception:
+        pass
+
+    timeout = run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation=operation) if run_budget else 10.0
+    endpoint = "images" if images else "web"
+    try:
+        resp = await _get_serper_client().get(
+            f"https://api.searlo.tech/api/v1/search/{endpoint}",
+            headers={"x-api-key": api_key},
+            params={"q": query, "limit": min(max(num_results, 1), 10), "gl": "us", "hl": "en"},
+            timeout=timeout,
+        )
+        resp.raise_for_status()
+    except httpx.HTTPStatusError as exc:
+        status = exc.response.status_code if exc.response is not None else 0
+        raise SearchProviderUnavailable(f"Searlo search unavailable (HTTP {status or 'unknown'})") from exc
+    except httpx.HTTPError as exc:
+        raise SearchProviderUnavailable(f"Searlo search unavailable: {exc}") from exc
+
+    items = resp.json().get("items", [])
+    if images:
+        results = [
+            {
+                "title": item.get("title", ""),
+                "imageUrl": item.get("image", {}).get("src", item.get("link", "")),
+                "url": item.get("image", {}).get("contextLink", item.get("link", "")),
+            }
+            for item in items
+        ]
+    else:
+        results = [
+            {"title": item.get("title", ""), "snippet": item.get("snippet", ""), "url": item.get("link", "")} for item in items
+        ]
+
+    cache = _get_search_cache()
+    if cache:
+        cache.set(query, results, race_id=race_id, provider="searlo-images" if images else "searlo")
+    logger.warning("Serper credits exhausted; completed %s with Searlo fallback", operation.lower())
+    return results
 
 
 async def _serper_search(
@@ -723,7 +791,15 @@ async def _serper_search(
                 normalized_query[:160],
                 response_text,
             )
-            _raise_for_fatal_serper_error(status, response_text)
+            try:
+                _raise_for_fatal_serper_error(status, response_text)
+            except SerperQuotaExhausted:
+                return await _searlo_search(
+                    normalized_query,
+                    num_results=num_results,
+                    race_id=race_id,
+                    run_budget=run_budget,
+                )
             if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
                 return [{"error": f"Serper search failed: {last_error}"}]
         except httpx.HTTPError as exc:
@@ -838,7 +914,16 @@ async def _serper_image_search(
                 normalized_query[:160],
                 response_text,
             )
-            _raise_for_fatal_serper_error(status, response_text)
+            try:
+                _raise_for_fatal_serper_error(status, response_text)
+            except SerperQuotaExhausted:
+                return await _searlo_search(
+                    normalized_query,
+                    num_results=num_results,
+                    race_id=race_id,
+                    run_budget=run_budget,
+                    images=True,
+                )
             if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
                 return [{"error": f"Serper image search failed: {last_error}"}]
         except httpx.HTTPError as exc:

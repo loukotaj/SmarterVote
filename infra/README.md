@@ -36,6 +36,7 @@ region     = "us-central1"
 
 openrouter_api_key = "sk-or-your-openrouter-key"
 serper_api_key     = "your-serper-key"
+searlo_api_key     = "your-searlo-key"
 admin_api_key      = "long-random-admin-key"
 
 enable_admin_agent_function = true

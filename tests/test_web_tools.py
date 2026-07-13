@@ -66,17 +66,48 @@ async def test_serper_search_returns_tool_error_on_http_400():
 
 
 @pytest.mark.asyncio
-async def test_serper_search_stops_run_when_credits_are_exhausted():
+async def test_serper_search_falls_back_to_searlo_when_credits_are_exhausted():
     request = httpx.Request("POST", "https://google.serper.dev/search")
     response = httpx.Response(400, request=request, text='{"message":"Not enough credits"}')
     mock_client = MagicMock()
     mock_client.post = AsyncMock(return_value=response)
+    mock_client.get = AsyncMock(
+        return_value=httpx.Response(
+            200,
+            request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/web"),
+            json={"items": [{"title": "Fallback", "snippet": "Evidence", "link": "https://example.com"}]},
+        )
+    )
 
     with (
-        patch.dict(os.environ, {"SERPER_API_KEY": "test-key"}),
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key", "SEARLO_API_KEY": "fallback-key"}),
         patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
         patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
-        pytest.raises(SearchProviderUnavailable, match="quota exhausted"),
+    ):
+        results = await _serper_search("important evidence")
+
+    assert results == [{"title": "Fallback", "snippet": "Evidence", "url": "https://example.com"}]
+    assert mock_client.get.call_args.kwargs["headers"] == {"x-api-key": "fallback-key"}
+
+
+@pytest.mark.asyncio
+async def test_serper_search_stops_when_credits_exhausted_without_searlo_key():
+    response = httpx.Response(
+        400,
+        request=httpx.Request("POST", "https://google.serper.dev/search"),
+        text='{"message":"Not enough credits"}',
+    )
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(return_value=response)
+    env = os.environ.copy()
+    env["SERPER_API_KEY"] = "test-key"
+    env.pop("SEARLO_API_KEY", None)
+
+    with (
+        patch.dict(os.environ, env, clear=True),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+        pytest.raises(SearchProviderUnavailable, match="SEARLO_API_KEY is not configured"),
     ):
         await _serper_search("important evidence")
 
@@ -160,6 +191,51 @@ async def test_serper_image_search_success():
         results = await _serper_image_search("candidate headshot")
 
     assert results == [{"title": "Image Title", "imageUrl": "https://example.com/img.jpg", "url": "https://example.com"}]
+
+
+@pytest.mark.asyncio
+async def test_serper_image_search_falls_back_to_searlo_when_credits_are_exhausted():
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(
+        return_value=httpx.Response(
+            400,
+            request=httpx.Request("POST", "https://google.serper.dev/images"),
+            text='{"message":"Not enough credits"}',
+        )
+    )
+    mock_client.get = AsyncMock(
+        return_value=httpx.Response(
+            200,
+            request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/images"),
+            json={
+                "items": [
+                    {
+                        "title": "Candidate",
+                        "link": "https://example.com/photo.jpg",
+                        "image": {
+                            "src": "https://example.com/photo.jpg",
+                            "contextLink": "https://example.com/candidate",
+                        },
+                    }
+                ]
+            },
+        )
+    )
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key", "SEARLO_API_KEY": "fallback-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+    ):
+        results = await _serper_image_search("candidate headshot")
+
+    assert results == [
+        {
+            "title": "Candidate",
+            "imageUrl": "https://example.com/photo.jpg",
+            "url": "https://example.com/candidate",
+        }
+    ]
 
 
 # ---------------------------------------------------------------------------

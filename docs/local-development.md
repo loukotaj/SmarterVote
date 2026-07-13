@@ -30,6 +30,7 @@ Edit `.env` and set at minimum:
 ```env
 OPENROUTER_API_KEY=sk-or-your-key-here
 SERPER_API_KEY=your-serper-key-here
+SEARLO_API_KEY=your-searlo-key-here
 SKIP_AUTH=true
 ```
 

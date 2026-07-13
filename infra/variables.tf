@@ -31,6 +31,13 @@ variable "serper_api_key" {
   default     = ""
 }
 
+variable "searlo_api_key" {
+  description = "Searlo API key used when Serper credits are exhausted"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 # Deployment and versioning variables
 variable "app_version" {
   description = "Application version for tracking updates"
