@@ -1,9 +1,0 @@
-{
-  "namespace": "SmarterVoteDS",
-  "source": "@smartervote/design-system@0.1.0",
-  "shape": "package",
-  "provider": null,
-  "componentCount": 22,
-  "skippedStoryIds": [],
-  "runtimeFontPrefixes": []
-}
