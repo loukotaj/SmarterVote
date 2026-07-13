@@ -1418,9 +1418,17 @@ def test_run_options_normalize_and_validate_pipeline_controls():
     from pydantic import ValidationError
     from request_models import RunOptions
 
-    opts = RunOptions(enabled_steps=[" discovery ", "issues", "issues"], candidate_names=[" Alice ", "", "Alice"])
+    opts = RunOptions(
+        enabled_steps=[" discovery ", "issues", "issues"],
+        candidate_names=[" Alice ", "", "Alice"],
+        baseline_source="published",
+    )
     assert opts.enabled_steps == ["discovery", "issues"]
     assert opts.candidate_names == ["Alice"]
+    assert opts.baseline_source == "published"
+
+    with pytest.raises(ValidationError):
+        RunOptions(baseline_source="draft")
 
     with pytest.raises(ValidationError):
         RunOptions(enabled_steps=["not-a-step"])

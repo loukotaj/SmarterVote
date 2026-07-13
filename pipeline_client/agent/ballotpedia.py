@@ -691,41 +691,11 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
     if candidates:
         return candidates
 
-    # Fallback for older/non-votebox pages: scan table rows, preserving legacy behavior.
-    for m in re.finditer(r"<tr[^>]*>.*?</tr>", html, re.DOTALL | re.IGNORECASE):
-        row_html = m.group(0)
-        if "<th" in row_html.lower() and "<td" not in row_html.lower():
-            continue
-        name_m = re.search(r'href="/([A-Z][^"#?]+)"[^>]*>([^<]+)</a>', row_html)
-        if not name_m:
-            continue
-        raw_name = re.sub(r"<[^>]+>", "", name_m.group(2)).strip()
-        raw_name = unescape(raw_name)
-        if not raw_name or len(raw_name) < 3:
-            continue
-        page_slug = name_m.group(1)
-        if any(kw in page_slug for kw in ("election", "primary", "general", "party", "district")):
-            continue
-        row_text = re.sub(r"<[^>]+>", " ", row_html)
-        party = "Unknown"
-        for p_kw, p_label in [
-            ("republican", "Republican"),
-            ("democrat", "Democratic"),
-            ("libertarian", "Libertarian"),
-            ("green", "Green"),
-            ("independent", "Independent"),
-            ("constitution", "Constitution"),
-        ]:
-            if p_kw in row_text.lower():
-                party = p_label
-                break
-        incumbent = bool(re.search(r"incumbent", row_text, re.IGNORECASE))
-        key = raw_name.lower()
-        if key not in seen:
-            seen.add(key)
-            candidates.append({"name": raw_name, "party": party, "incumbent": incumbent})
-
-    return candidates
+    # Do not scan arbitrary legacy table rows. District pages contain navigation,
+    # party, delegation, polling, and ratings tables whose links look enough like
+    # biography links to become fake candidates. An empty result safely triggers
+    # the model-backed official-source fallback instead.
+    return []
 
 
 async def lookup_election_page(race_id: str) -> Dict[str, Any]:

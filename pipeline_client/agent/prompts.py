@@ -174,7 +174,7 @@ Return JSON:
       "name": "<full name>",
       "party": "<party affiliation>",
       "roster_sources": [
-        {{"url": "<official/Ballotpedia/FEC/news URL proving this person is active in this exact race>", "type": "official|ballotpedia|fec|news|campaign|other", "title": "<page title>", "evidence": "<what this source confirms>", "last_accessed": "<ISO timestamp>"}}
+        {{"url": "<stable citable URL>", "type": "official|ballotpedia|fec|news|campaign", "title": "<page title>", "evidence": "<explicit candidate name and exact contest confirmed by the retrieved content/snippet>", "published_at": "<current-cycle publication/filing/update ISO date>", "race_id": "{race_id}", "evidence_tier": 1|2|3, "retrieval_status": "content|snippet", "last_accessed": "<ISO timestamp>"}}
       ],
       "incumbent": true|false,  // true ONLY if this person currently holds the EXACT office being contested in this race (e.g. the sitting US Senator running for re-election). A state senator running for US Senate is NOT an incumbent for this race. A former officeholder is NOT an incumbent.
       "summary": "<2-3 sentence nonpartisan summary — plain prose only, no 'Sources:' appended>",
@@ -1046,10 +1046,16 @@ STEP 2 — Make corrections using your tools:
    current Ballotpedia election pages, then FEC/news/campaign evidence.
 
 CRITICAL — add_candidate anti-fabrication rules:
-- Only add a candidate whose EXACT full name appears in a credible source you
-  actually retrieved this run: a Ballotpedia candidate listing, an official
-  election authority / Secretary of State filing or sample ballot, or a reputable
-  news article that explicitly names them as a candidate in THIS race.
+- add_candidate enforces graded, persisted evidence. Tier 1 is retrieved official
+  election/FEC content. Tier 2 is retrieved dated campaign, exact-election
+  Ballotpedia, or credible news content. Tier 3 is a search result for a blocked
+  page and requires two independent domains unless the result is official/FEC.
+- Every qualifying source must have a stable URL/title, current-cycle publication,
+  filing, or update date, retrieval status, exact race_id, and evidence text that
+  explicitly names the candidate and exact contest. Generic bios, Wikipedia alone,
+  historical tables, vague or undated pages, and wrong-cycle material do not qualify.
+- A Tier 3 snippet must contain enough candidate-and-contest context itself; a bare
+  title or ambiguous snippet does not qualify.
 - Confirm the candidate's PARTY from that same source — never guess the party.
 - Never invent, auto-complete, or infer a candidate's name from ambiguous search
   snippets, partial matches, or a similarly-named unrelated person. If the

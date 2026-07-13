@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -61,6 +61,7 @@ class RunOptions(BaseModel):
     note: Optional[str] = None
     goal: Optional[str] = None  # Short description of why this run is being triggered (shown in Runs tab)
     force_fresh: bool = False  # Ignore existing data and start from scratch
+    baseline_source: Literal["latest", "published"] = "latest"  # Existing-data source for targeted updates
     # Model overrides (None = use default based on cheap_mode)
     research_model: Optional[str] = None  # OpenRouter model for research phases
     claude_model: Optional[str] = None  # OpenRouter Claude reviewer model

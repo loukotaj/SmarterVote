@@ -1,7 +1,7 @@
 """Pydantic request/response models and input validation for races-api."""
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from fastapi import HTTPException
 from pydantic import BaseModel, field_validator, model_validator
@@ -25,6 +25,7 @@ def validate_race_id(race_id: str) -> None:
 class RunOptions(BaseModel):
     cheap_mode: Optional[bool] = None
     force_fresh: Optional[bool] = None
+    baseline_source: Optional[Literal["latest", "published"]] = None
     save_artifact: Optional[bool] = None
     enabled_steps: Optional[List[str]] = None
     research_model: Optional[str] = None

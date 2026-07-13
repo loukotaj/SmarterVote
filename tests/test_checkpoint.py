@@ -117,7 +117,13 @@ async def test_continuation_uses_checkpoint_payload_instead_of_gcs():
     ):
         result = await handler.handle(
             {"race_id": "az-01-senate-2026", "existing_data": checkpoint},
-            {"run_id": "run-continuation", "enabled_steps": ["issues"], "force_fresh": True, "is_continuation": True},
+            {
+                "run_id": "run-continuation",
+                "enabled_steps": ["issues"],
+                "force_fresh": True,
+                "baseline_source": "published",
+                "is_continuation": True,
+            },
         )
 
     assert result["status"] == "draft"
@@ -248,6 +254,7 @@ async def test_handoff_raised_during_step_progress_when_deadline_exceeded():
 
     continuation_doc = queue_doc_ref.set.call_args.args[0]
     assert continuation_doc["options"]["enabled_steps"] == ["discovery", "issues"]
+    assert continuation_doc["options"]["verified_baseline_candidate_names"] == ["alice"]
     assert "deadline_at" not in continuation_doc["options"]
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-progress-handoff-test.json"
     assert continuation_doc["run_id"] == "run-progress-handoff-test"

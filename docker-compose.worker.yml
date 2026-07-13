@@ -22,7 +22,9 @@ services:
     environment:
       PIPELINE_MODE: gcp
       GOOGLE_APPLICATION_CREDENTIALS: /gcloud-config/application_default_credentials.json
-      WORKER_CONCURRENCY: "2"
+      # Four concurrent races uses the workstation's available CPU while the
+      # 16 GB Docker allocation remains the practical memory ceiling.
+      WORKER_CONCURRENCY: "4"
       WORKER_POLL_SECONDS: "3"
       # GCS_BUCKET / FIRESTORE_PROJECT come from .env; override here if needed.
     volumes:

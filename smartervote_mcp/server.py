@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any
+from typing import Any, Literal
 
 from mcp.server.fastmcp import FastMCP
 
@@ -92,6 +92,7 @@ async def queue_races(
     race_ids: list[str],
     cheap_mode: bool | None = True,
     force_fresh: bool | None = None,
+    baseline_source: Literal["latest", "published"] | None = None,
     save_artifact: bool | None = None,
     enabled_steps: list[str] | None = None,
     research_model: str | None = None,
@@ -113,11 +114,14 @@ async def queue_races(
     Defaults to cheap/economy mode. Expensive default/quality/custom model
     profiles require explicitly passing cheap_mode=False. Pass runner="local" to
     route the runs to the long-lived local Docker worker instead of the default
-    one-shot Cloud Run Job.
+    one-shot Cloud Run Job. Set baseline_source="published" for a targeted
+    repair that must ignore any existing draft; the default "latest" behavior
+    prefers a draft and falls back to published data.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
         force_fresh=force_fresh,
+        baseline_source=baseline_source,
         save_artifact=save_artifact,
         enabled_steps=enabled_steps,
         research_model=research_model,
@@ -142,6 +146,7 @@ async def run_race(
     race_id: str,
     cheap_mode: bool | None = True,
     force_fresh: bool | None = None,
+    baseline_source: Literal["latest", "published"] | None = None,
     enabled_steps: list[str] | None = None,
     note: str | None = None,
     goal: str | None = None,
@@ -152,11 +157,13 @@ async def run_race(
     Defaults to cheap/economy mode. Expensive default/quality mode requires
     explicitly passing cheap_mode=False. Pass runner="local" to route the run to
     the long-lived local Docker worker; the deployed default is a one-shot Cloud
-    Run Job.
+    Run Job. Set baseline_source="published" to ignore an existing draft when
+    performing a targeted repair.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
         force_fresh=force_fresh,
+        baseline_source=baseline_source,
         enabled_steps=enabled_steps,
         note=note,
         goal=goal,

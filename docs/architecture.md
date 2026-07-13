@@ -193,4 +193,7 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 - Do not add new production-only behavior to `pipeline_client/backend/main.py`.
 - Keep `web/src/lib/services/pipelineApiService.ts` aligned with `services/races-api` responses.
 - Keep queue option models in sync with `pipeline_client.backend.models.RunOptions`.
+- Targeted update runs default to `baseline_source="latest"`, loading a draft before falling back to published data. Use
+  `baseline_source="published"` when repairing the public version and an existing draft must be ignored. Continuation
+  checkpoint payloads still take precedence, and `force_fresh=true` still disables all baseline loading.
 - Prefer shared helpers for validation and summary shaping instead of duplicating logic.

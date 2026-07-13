@@ -1178,6 +1178,42 @@ async def test_ballotpedia_sync_does_not_readd_primary_losers_after_primary():
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Gabe Evans", "Manny Rutinel"]
 
 
+@pytest.mark.asyncio
+async def test_ballotpedia_sync_does_not_replace_researched_roster_with_blank_historical_candidates():
+    """A scraped roster is advisory; official-source/model verification owns edits."""
+    from pipeline_client.agent import phases
+
+    race_json = {
+        "id": "md-house-01-2026",
+        "candidates": [
+            {
+                "name": "Andy Harris",
+                "party": "Republican",
+                "incumbent": True,
+                "summary": "Harris is the sitting representative.",
+            }
+        ],
+        "reviews": [{"reviewer": "test"}],
+        "validation_grade": {"grade": "A", "passed": True},
+    }
+    stale_roster = {
+        "found": True,
+        "candidates": [
+            {"name": "Historical Candidate One", "party": "Republican"},
+            {"name": "Historical Candidate Two", "party": "Democratic"},
+            {"name": "Historical Candidate Three", "party": "Republican"},
+        ],
+    }
+
+    with patch.object(phases, "_ballotpedia_election_lookup", new=AsyncMock(return_value=stale_roster)):
+        await phases._sync_ballotpedia_roster(race_json, "md-house-01-2026")
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Andy Harris"]
+    assert race_json["candidates"][0]["summary"] == "Harris is the sitting representative."
+    assert race_json["reviews"] == [{"reviewer": "test"}]
+    assert race_json["validation_grade"] == {"grade": "A", "passed": True}
+
+
 def test_authoritative_roster_does_not_empty_race():
     race_json = {
         "id": "single-candidate-2026",

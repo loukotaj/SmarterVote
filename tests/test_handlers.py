@@ -329,3 +329,69 @@ async def test_save_draft_rejects_placeholder_only_candidates():
                 "candidates": [{"name": "Unknown"}],
             },
         )
+
+
+@pytest.mark.asyncio
+async def test_save_draft_preserves_baseline_candidate_but_rejects_unverified_update_addition():
+    handler = AgentHandler()
+    race_json = {
+        "id": "ga-house-01-2026",
+        "candidates": [
+            {"name": "Existing Candidate", "summary": "Previously researched."},
+            {"name": "New Candidate", "roster_sources": []},
+        ],
+    }
+
+    with pytest.raises(ValueError, match="New Candidate"):
+        await handler._save_draft(
+            "ga-house-01-2026",
+            race_json,
+            verified_baseline_candidate_names={"existing candidate"},
+        )
+
+    assert race_json["candidates"][0]["summary"] == "Previously researched."
+
+
+@pytest.mark.asyncio
+async def test_save_draft_treats_every_fresh_candidate_as_addition(tmp_path):
+    handler = AgentHandler()
+    unverified = {"id": "ga-house-01-2026", "candidates": [{"name": "Alice Candidate"}]}
+    with pytest.raises(ValueError, match="Alice Candidate"):
+        await handler._save_draft(
+            "ga-house-01-2026",
+            unverified,
+            verified_baseline_candidate_names=set(),
+        )
+
+    verified = {
+        "id": "ga-house-01-2026",
+        "candidates": [
+            {
+                "name": "Alice Candidate",
+                "roster_sources": [
+                    {
+                        "url": "https://sos.ga.gov/2026-candidates",
+                        "type": "official",
+                        "title": "2026 qualified candidates",
+                        "evidence": "Alice Candidate filed for Georgia's 1st Congressional District in 2026.",
+                        "published_at": "2026-03-10",
+                        "race_id": "ga-house-01-2026",
+                        "evidence_tier": 1,
+                        "retrieval_status": "content",
+                    }
+                ],
+            }
+        ],
+    }
+    with (
+        patch("pipeline_client.backend.handlers.agent.local_paths", MagicMock(drafts_dir=tmp_path)),
+        patch.object(handler, "_archive_gcs_version", new_callable=AsyncMock),
+        patch.object(handler, "_upload_to_gcs", new_callable=AsyncMock),
+    ):
+        output = await handler._save_draft(
+            "ga-house-01-2026",
+            verified,
+            verified_baseline_candidate_names=set(),
+        )
+
+    assert output.exists()

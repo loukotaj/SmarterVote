@@ -150,6 +150,10 @@ class CandidateRosterSource(BaseModel):
     title: Optional[str] = None
     evidence: Optional[str] = None
     last_accessed: Optional[datetime] = None
+    published_at: Optional[datetime] = None
+    race_id: Optional[str] = None
+    evidence_tier: Optional[Literal[1, 2, 3]] = None
+    retrieval_status: Optional[Literal["content", "snippet"]] = None
 
 
 # ---------------------------------------------------------------------------
