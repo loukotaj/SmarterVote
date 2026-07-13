@@ -255,6 +255,7 @@ def test_race_summary_schema_accepts_forecast():
         election_date="2026-11-03",
         updated_utc="2026-06-20T00:00:00Z",
         candidates=[],
+        quality_grade="A",
         forecast={
             "predicted_winner_name": "Alice",
             "predicted_winner_party": "Democratic",
@@ -273,6 +274,7 @@ def test_race_summary_schema_accepts_forecast():
 
     assert summary.forecast is not None
     assert summary.forecast.rating == "tilt_d"
+    assert summary.quality_grade == "A"
 
 
 def test_rate_limit_exceeded(client):

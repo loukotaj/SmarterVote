@@ -22,7 +22,22 @@ const config = {
     }),
     prerender: {
       crawl: !isFastBuild,
-      entries: ["/", "/about/", "/admin/", "/admin/pipeline/", "/forecast"],
+      entries: [
+        "/",
+        "/about/",
+        "/admin/",
+        "/admin/pipeline/",
+        "/corrections/",
+        "/elections/",
+        "/forecast/",
+        "/funding-and-editorial-independence/",
+        "/methodology/",
+        "/my-ballot/",
+        "/partners/",
+        "/privacy/",
+        "/support/",
+        "/terms/",
+      ],
       handleUnseenRoutes: "ignore",
     },
     alias: {

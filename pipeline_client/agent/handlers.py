@@ -805,9 +805,32 @@ def _make_editing_handlers(
             if matching_probability is not None:
                 win_probability = matching_probability
 
+        predicted_winner_party = args.get("predicted_winner_party")
+        if isinstance(predicted_winner_party, str):
+            predicted_winner_party = predicted_winner_party.strip()
+        if not predicted_winner_party:
+            if rating == "tossup":
+                predicted_winner_party = "Toss-up"
+            elif party_probabilities:
+                max_party = max(party_probabilities.keys(), key=lambda k: party_probabilities[k])
+                max_prob = party_probabilities[max_party]
+                ties = [k for k, v in party_probabilities.items() if v == max_prob]
+                if len(ties) == 1:
+                    predicted_winner_party = max_party
+                else:
+                    incumbent = next(
+                        (c for c in race_json.get("candidates", []) if isinstance(c, dict) and c.get("incumbent")), None
+                    )
+                    if incumbent and incumbent.get("party"):
+                        inc_party = str(incumbent["party"]).lower()
+                        if "democrat" in inc_party or inc_party == "d":
+                            predicted_winner_party = "Democratic"
+                        elif "republican" in inc_party or inc_party == "r":
+                            predicted_winner_party = "Republican"
+
         forecast = {
             "predicted_winner_name": args.get("predicted_winner_name") or None,
-            "predicted_winner_party": args.get("predicted_winner_party") or None,
+            "predicted_winner_party": predicted_winner_party or None,
             "win_probability": win_probability,
             "party_probabilities": party_probabilities,
             "margin_estimate": args.get("margin_estimate"),

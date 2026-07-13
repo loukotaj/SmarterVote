@@ -4,18 +4,18 @@ SmarterVote has one production API surface: `services/races-api`. The older `pip
 
 ## Ownership
 
-| Area                | Path                                        | Role                                                             |
-| ------------------- | ------------------------------------------- | ---------------------------------------------------------------- |
-| Web app             | `web/`                                      | SvelteKit admin and public UI                                    |
-| Production API      | `services/races-api/`                       | Public race reads, admin queue/run/draft/publish APIs, analytics |
+| Area                | Path                                         | Role                                                             |
+| ------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| Web app             | `web/`                                       | SvelteKit admin and public UI                                    |
+| Production API      | `services/races-api/`                        | Public race reads, admin queue/run/draft/publish APIs, analytics |
 | Pipeline worker     | `pipeline_client/worker.py`                  | Cloud Run Job and local Docker entry point                       |
-| Admin agent         | `functions/admin_agent/`                    | Durable tool-calling admin tasks and continuations               |
+| Admin agent         | `functions/admin_agent/`                     | Durable tool-calling admin tasks and continuations               |
 | Queue execution     | `pipeline_client/backend/queue_processor.py` | Shared leases, execution, and terminal state for both runners    |
-| Agent orchestration | `pipeline_client/backend/handlers/agent.py` | Shared `AgentHandler` wrapper                                    |
-| Agent research      | `pipeline_client/agent/`                    | Multi-phase AI research implementation                           |
-| Shared schema       | `shared/models.py`                          | RaceJSON/Pydantic models shared by agent and APIs                |
-| Local dev API       | `pipeline_client/backend/main.py`           | Local-only FastAPI app for in-process agent debugging            |
-| Infrastructure      | `infra/`                                    | Terraform for GCP services                                       |
+| Agent orchestration | `pipeline_client/backend/handlers/agent.py`  | Shared `AgentHandler` wrapper                                    |
+| Agent research      | `pipeline_client/agent/`                     | Multi-phase AI research implementation                           |
+| Shared schema       | `shared/models.py`                           | RaceJSON/Pydantic models shared by agent and APIs                |
+| Local dev API       | `pipeline_client/backend/main.py`            | Local-only FastAPI app for in-process agent debugging            |
+| Infrastructure      | `infra/`                                     | Terraform for GCP services                                       |
 
 ## Production Flow
 
@@ -128,14 +128,14 @@ creates missing `races/{race_id}` documents when a race already exists in GCS.
 
 ## Public API Surface
 
-| Method | Path               | Purpose                                                   |
-| ------ | ------------------ | --------------------------------------------------------- |
-| GET    | `/races`           | List published race IDs from `races/summaries.json`       |
-| GET    | `/races/summaries` | List published race summaries from `races/summaries.json` |
-| GET    | `/races/chamber_forecasts` | Get published chamber forecast narratives         |
-| GET    | `/races/{race_id}` | Get full published race data                              |
-| GET    | `/health`          | Liveness                                                  |
-| GET    | `/health/ready`    | Readiness                                                 |
+| Method | Path                       | Purpose                                                   |
+| ------ | -------------------------- | --------------------------------------------------------- |
+| GET    | `/races`                   | List published race IDs from `races/summaries.json`       |
+| GET    | `/races/summaries`         | List published race summaries from `races/summaries.json` |
+| GET    | `/races/chamber_forecasts` | Get published chamber forecast narratives                 |
+| GET    | `/races/{race_id}`         | Get full published race data                              |
+| GET    | `/health`                  | Liveness                                                  |
+| GET    | `/health/ready`            | Readiness                                                 |
 
 If `VITE_PUBLIC_DATA_URL` is set in the web environment, the public SvelteKit frontend bypasses the FastAPI public
 read routes entirely and loads published data statically from GCS (`races/{race_id}.json` and `races/summaries.json`).
@@ -144,6 +144,19 @@ That is the intended production path for public traffic.
 Public page traffic is therefore measured with the Cloudflare Web Analytics browser beacon, not inferred from
 `races-api` reads. The authenticated `/analytics/traffic` endpoint queries Cloudflare's GraphQL API and caches the
 result for the admin dashboard. API request analytics remain separate and describe `races-api` health only.
+
+## Public Web Surface
+
+The public SvelteKit site separates product introduction from race discovery:
+
+- `/` is the editorial homepage. It demonstrates the research experience, shows selected national-election content and editorial standards, and links into the ballot lookup and directory; it does not collect an address.
+- `/my-ballot/` is the focused address lookup and in-page national-election result flow. It is prerendered for direct navigation but excluded from search indexing and the sitemap.
+- `/elections/` is the browse and filtering surface for published election research. Current launch coverage includes supported U.S. House, U.S. Senate, presidential, and gubernatorial races.
+- `/races/{slug}/` and its candidate and comparison subroutes remain the detailed research surfaces.
+- `/about/` publishes the project's identity and research methodology; `/methodology/` redirects to that section. `/corrections/`, `/privacy/`, `/terms/`, and `/funding-and-editorial-independence/` publish the correction, privacy, legal, and editorial-independence statements.
+- `/support/` and `/partners/` are informational contact pages. They do not accept payments or create financial commitments.
+
+The `/my-ballot/` route provides a no-server-storage election lookup. A visitor-entered address is sent directly from the browser to the U.S. Census Geocoder using its documented JSONP interface; the address is never sent to or stored by Smarter.Vote. The returned state and congressional district plus matched race IDs are retained in tab-scoped `sessionStorage` so results survive a refresh, then cleared when the visitor searches another address or closes the tab. Results transition in place on the focused route rather than returning to the homepage. The lookup is not a complete ballot and does not identify other state, local, judicial, or ballot-measure contests. There is no autocomplete provider, Smarter.Vote address endpoint, or durable address persistence. The launch also has no Stripe Checkout, subscriptions, donation processing, or partner payment portal. Public inquiries currently use mail links rather than a server-side CRM or form-processing service.
 
 ## Agent Phases
 

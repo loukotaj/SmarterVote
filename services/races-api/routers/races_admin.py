@@ -13,6 +13,7 @@ from auth import verify_token
 from cloud_run_jobs import dispatch_pipeline_job
 from fastapi import APIRouter, Depends, HTTPException, Request
 from request_models import BatchPublishRequest, RaceQueueRequest, RunOptions, validate_race_id
+from routers.utils import _coerce_datetime, _queue_ttl_at
 
 from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields
@@ -21,30 +22,6 @@ router = APIRouter()
 
 STALE_ACTIVE_RUN_SECONDS = int(os.getenv("STALE_ACTIVE_RUN_SECONDS", "7200"))
 _RETENTION = RetentionConfig.from_env()
-
-
-def _queue_ttl_at() -> datetime:
-    return datetime.now(timezone.utc) + timedelta(days=_RETENTION.completed_queue_days)
-
-
-def _coerce_datetime(value: Any) -> datetime | None:
-    """Parse Firestore timestamps and ISO strings into aware datetimes."""
-    if value is None:
-        return None
-    if isinstance(value, datetime):
-        return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
-    if isinstance(value, str):
-        raw = value.strip()
-        if not raw:
-            return None
-        if raw.endswith("Z"):
-            raw = raw[:-1] + "+00:00"
-        try:
-            parsed = datetime.fromisoformat(raw)
-        except ValueError:
-            return None
-        return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
-    return None
 
 
 def _latest_activity_at(data: Dict[str, Any]) -> datetime | None:

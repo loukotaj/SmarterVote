@@ -344,6 +344,7 @@ export interface RaceSummary {
   election_date: string;
   updated_utc: string;
   candidates: CandidateSummary[];
+  quality_grade?: "A" | "B" | "C" | "D" | "F";
   agent_metrics?: {
     estimated_usd?: number;
     model?: string;

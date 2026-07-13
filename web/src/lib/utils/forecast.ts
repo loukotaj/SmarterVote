@@ -141,7 +141,13 @@ export function officeGroup(race: RaceSummary): ForecastTab | null {
 export function normalizeForecastParty(
   party?: string | null,
   probs?: Record<string, number> | null,
-  candidates?: { party?: string; incumbent: boolean; [key: string]: any }[] | null
+  candidates?:
+    | {
+        name?: string;
+        party?: string;
+        incumbent: boolean;
+      }[]
+    | null
 ): "Democratic" | "Republican" | "Other" {
   const value = (party || "").toLowerCase();
   if (value.includes("democrat") || value === "dfl" || value === "d")
@@ -163,8 +169,10 @@ export function normalizeForecastParty(
     const incumbent = candidates.find((c) => c.incumbent);
     if (incumbent && incumbent.party) {
       const incParty = incumbent.party.toLowerCase();
-      if (incParty.includes("democrat") || incParty === "d") return "Democratic";
-      if (incParty.includes("republican") || incParty === "r") return "Republican";
+      if (incParty.includes("democrat") || incParty === "d")
+        return "Democratic";
+      if (incParty.includes("republican") || incParty === "r")
+        return "Republican";
     }
   }
 

@@ -7,7 +7,6 @@ by a one-shot Cloud Run Job or the explicitly selected local Docker worker.
 
 import os
 import uuid
-from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
 
 import firestore_helpers
@@ -15,6 +14,7 @@ from auth import verify_token
 from cloud_run_jobs import dispatch_pipeline_job
 from fastapi import APIRouter, Depends, HTTPException
 from request_models import RaceQueueRequest, validate_race_id
+from routers.utils import _queue_ttl_at
 
 from shared.pipeline_config import PIPELINE_STEP_LABELS, PIPELINE_STEP_ORDER, PIPELINE_STEP_WEIGHTS, RetentionConfig
 
@@ -32,10 +32,6 @@ _RETENTION = RetentionConfig.from_env()
 
 def _default_runner() -> str:
     return os.getenv("PIPELINE_DEFAULT_RUNNER", "local").strip().lower()
-
-
-def _queue_ttl_at() -> datetime:
-    return datetime.now(timezone.utc) + timedelta(days=_RETENTION.completed_queue_days)
 
 
 def _dispatch_if_cloud_run(db: Any, item: Dict[str, Any]) -> Dict[str, Any] | None:

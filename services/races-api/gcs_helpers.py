@@ -176,6 +176,9 @@ def _summary_from_race_data(race_id: str, race_data: Dict[str, Any]) -> Dict[str
             for candidate in race_data.get("candidates", [])
             if isinstance(candidate, dict)
         ],
+        "quality_grade": (
+            race_data.get("validation_grade", {}).get("grade") if isinstance(race_data.get("validation_grade"), dict) else None
+        ),
         "agent_metrics": (
             {
                 "estimated_usd": agent_metrics.get("estimated_usd"),

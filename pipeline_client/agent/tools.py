@@ -10,7 +10,7 @@ from typing import Dict, List
 # Web search / page fetch
 # ---------------------------------------------------------------------------
 
-SEARCH_TOOL: Dict = {
+SEARCH_TOOL: dict = {
     "type": "function",
     "function": {
         "name": "web_search",
@@ -32,7 +32,7 @@ SEARCH_TOOL: Dict = {
     },
 }
 
-FETCH_TOOL: Dict = {
+FETCH_TOOL: dict = {
     "type": "function",
     "function": {
         "name": "fetch_page",

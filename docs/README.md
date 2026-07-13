@@ -1,6 +1,6 @@
 # Documentation Map
 
-Last reviewed: 2026-07-10.
+Last reviewed: 2026-07-12.
 
 Use this page to decide which documents describe current behavior. Code, deployed GCP resources, and CI remain the final source of truth; documentation should be updated alongside behavior changes.
 
@@ -16,6 +16,8 @@ Use this page to decide which documents describe current behavior. Code, deploye
 | Pipeline modes | [../PIPELINE_MODES.md](../PIPELINE_MODES.md) | Local/GCP execution and storage modes |
 | Search indexing | [indexnow.md](indexnow.md) | IndexNow setup and deployment integration |
 
+The current public product surface is documented in [architecture.md](architecture.md#public-web-surface), including the homepage/directory split, national-only launch scope, and informational support and trust pages.
+
 Agent-wide rules live in `../CLAUDE.md`; `../AGENTS.md` is the short entry point. CI commands are defined by `.github/workflows/ci.yaml`, with the runnable agent checklist in `.github/prompts/ci-check.prompt.md`.
 
 ## Plans and design records
@@ -28,6 +30,7 @@ These documents capture decisions, delivery status, or future work. They are not
 | [pipeline-result-quality-plan.md](pipeline-result-quality-plan.md) | Active quality-improvement plan; consult its delivered/remaining sections |
 | [senate-forecast-page-plan.md](senate-forecast-page-plan.md) | Partially complete product plan |
 | [quiz-feature-plan.md](quiz-feature-plan.md) | Proposal; not an implemented runtime contract |
+| [homepage-and-sponsorship-redesign-plan.md](homepage-and-sponsorship-redesign-plan.md) | Active delivery plan; consult architecture.md for behavior already implemented |
 
 ## Historical records
 

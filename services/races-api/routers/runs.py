@@ -12,6 +12,7 @@ from typing import Any, Dict
 import firestore_helpers
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
+from routers.utils import _coerce_datetime, _queue_ttl_at
 
 from shared.pipeline_config import RetentionConfig
 
@@ -22,27 +23,6 @@ _TERMINAL_STATUSES = {"completed", "failed", "cancelled", "continued"}
 _INACTIVE_RACE_STATUSES = {"draft", "published", "empty", "failed", "cancelled"}
 _STALE_ACTIVE_RUN_SECONDS = int(os.getenv("STALE_ACTIVE_RUN_SECONDS", "7200"))
 _RETENTION = RetentionConfig.from_env()
-
-
-def _queue_ttl_at() -> datetime:
-    return datetime.now(timezone.utc) + timedelta(days=_RETENTION.completed_queue_days)
-
-
-def _coerce_datetime(value: Any) -> datetime | None:
-    if value is None:
-        return None
-    if isinstance(value, datetime):
-        return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
-    if isinstance(value, str):
-        raw = value.strip()
-        if raw.endswith("Z"):
-            raw = raw[:-1] + "+00:00"
-        try:
-            parsed = datetime.fromisoformat(raw)
-        except ValueError:
-            return None
-        return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
-    return None
 
 
 def _latest_activity_at(data: Dict[str, Any]) -> datetime | None:
