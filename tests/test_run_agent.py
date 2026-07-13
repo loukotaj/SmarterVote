@@ -68,6 +68,32 @@ def test_sanitize_candidate_issues_normalizes_placeholder_variant():
     assert stance["confidence"] == "low"
 
 
+def test_sanitize_candidate_issues_removes_noncanonical_and_malformed_duplicates():
+    from pipeline_client.agent.agent import _sanitize_candidate_issues
+
+    race_json = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {
+                    "Economy": {
+                        "issue": "Economy",
+                        "stance": "Canonical researched position.",
+                        "confidence": "high",
+                        "sources": [],
+                    },
+                    "economy": "legacy malformed duplicate",
+                    "family_values": "noncanonical legacy value",
+                },
+            }
+        ]
+    }
+
+    _sanitize_candidate_issues(race_json, log=None)
+
+    assert list(race_json["candidates"][0]["issues"]) == ["Economy"]
+
+
 def test_load_existing_reads_file(tmp_path):
     """_load_existing reads and parses a published JSON file."""
     test_data = {"id": "test-race", "candidates": []}
@@ -601,7 +627,7 @@ async def test_run_agent_model_selection():
 
     cases = [
         (True, "deepseek/deepseek-v4-flash"),
-        (False, "google/gemini-2.5-flash"),
+        (False, "deepseek/deepseek-v4-pro"),
         (None, "google/gemini-2.5-flash"),
     ]
 

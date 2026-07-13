@@ -335,9 +335,12 @@ def _issue_quality(issue_data: Any) -> tuple[int, int]:
 def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Normalize issue keys and placeholder stances in raw agent output."""
     try:
-        from shared.models import LEGACY_ISSUE_NAMES
+        from shared.models import LEGACY_ISSUE_NAMES, CanonicalIssue
+
+        canonical_issue_names = {issue.value for issue in CanonicalIssue}
     except Exception:
         LEGACY_ISSUE_NAMES = {}
+        canonical_issue_names = set()
 
     for candidate_index, candidate in enumerate(race_json.get("candidates") or []):
         if not isinstance(candidate, dict):
@@ -350,7 +353,15 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
         normalized: Dict[str, Any] = {}
         for raw_key, raw_issue in issues.items():
             key = LEGACY_ISSUE_NAMES.get(str(raw_key), str(raw_key))
-            issue = dict(raw_issue) if isinstance(raw_issue, dict) else raw_issue
+            if canonical_issue_names and key not in canonical_issue_names:
+                if log:
+                    log("warning", f"Removed noncanonical issue key candidates[{candidate_index}].issues.{raw_key}")
+                continue
+            if not isinstance(raw_issue, dict):
+                if log:
+                    log("warning", f"Removed malformed issue value candidates[{candidate_index}].issues.{raw_key}")
+                continue
+            issue = dict(raw_issue)
             if isinstance(issue, dict):
                 issue["issue"] = LEGACY_ISSUE_NAMES.get(str(issue.get("issue") or key), str(issue.get("issue") or key))
                 stance = str(issue.get("stance") or "").strip()
