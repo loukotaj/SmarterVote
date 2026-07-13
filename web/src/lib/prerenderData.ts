@@ -60,6 +60,28 @@ export async function fetchPublishedRace(
   return racePromise;
 }
 
+export async function loadPrerenderRace(
+  id: string,
+  fetchFn: typeof fetch = fetch
+): Promise<Race> {
+  if (import.meta.env.SSR) {
+    try {
+      const [{ readFile }, path] = await Promise.all([
+        import("node:fs/promises"),
+        import("node:path"),
+      ]);
+      const data = await readFile(
+        path.resolve("static", `${encodeURIComponent(id)}.json`),
+        { encoding: "utf-8" }
+      );
+      return JSON.parse(data) as Race;
+    } catch (error) {
+      if (!publicDataBase()) throw error;
+    }
+  }
+  return fetchPublishedRace(id, fetchFn);
+}
+
 export async function raceEntries(): Promise<Array<{ slug: string }>> {
   if (!shouldPrerenderDynamicRoutes()) return [];
   const summaries = await loadPrerenderSummaries().catch((error) => {

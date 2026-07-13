@@ -40,9 +40,6 @@
         <div
           class="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400"
         >
-          <span class="rounded-full bg-blue-600 px-2 py-1 text-white"
-            >Grade A</span
-          >
           Featured comparison
         </div>
         <h2
@@ -100,7 +97,12 @@
       class="hidden min-h-0 flex-1 overflow-y-auto p-3 lg:block lg:p-5"
       aria-label="Scrollable featured comparison"
     >
-      <CandidateComparison race={selectedRace} {candidates} compact />
+      <CandidateComparison
+        race={selectedRace}
+        {candidates}
+        compact
+        showQuality
+      />
       <div
         class="sticky bottom-0 mt-[-2.75rem] flex justify-center bg-gradient-to-t from-surface via-surface/95 to-transparent pb-2 pt-10 pointer-events-none"
       >
@@ -112,6 +114,21 @@
     </div>
 
     <div class="lg:hidden">
+      {#if selectedRace.validation_grade}
+        <div
+          class="flex items-center gap-3 border-b border-stroke bg-emerald-50/40 px-5 py-3 dark:bg-emerald-950/10"
+        >
+          <span
+            class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-emerald-200 bg-white font-extrabold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
+            >{selectedRace.validation_grade.grade}</span
+          >
+          <p class="text-xs leading-5 text-content-muted">
+            <strong class="text-content">Research review:</strong>
+            {selectedRace.validation_grade.score}/100 after source and
+            consistency checks.
+          </p>
+        </div>
+      {/if}
       <div class="grid grid-cols-2 border-b border-stroke bg-surface-alt/30">
         {#each candidates as candidate}
           <a
@@ -134,28 +151,6 @@
           </a>
         {/each}
       </div>
-
-      {#if selectedRace.forecast}
-        <div
-          class="border-b border-stroke bg-blue-50 px-5 py-4 dark:bg-blue-950/20"
-        >
-          <div class="flex items-center justify-between gap-3">
-            <div>
-              <p
-                class="text-xs font-extrabold uppercase tracking-wider text-blue-700 dark:text-blue-300"
-              >
-                Forecast
-              </p>
-              <p class="mt-1 text-sm capitalize text-content">
-                {selectedRace.forecast.rating.replaceAll("_", " ")}
-              </p>
-            </div>
-            <a href="/forecast/" class="text-sm font-bold text-blue-600"
-              >View forecast →</a
-            >
-          </div>
-        </div>
-      {/if}
 
       <div class="p-4">
         <label
@@ -201,6 +196,27 @@
           research field.
         </p>
       </div>
+      {#if selectedRace.forecast}
+        <div
+          class="border-t border-stroke bg-blue-50 px-5 py-4 dark:bg-blue-950/20"
+        >
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p
+                class="text-xs font-extrabold uppercase tracking-wider text-blue-700 dark:text-blue-300"
+              >
+                Forecast
+              </p>
+              <p class="mt-1 text-sm capitalize text-content">
+                {selectedRace.forecast.rating.replaceAll("_", " ")}
+              </p>
+            </div>
+            <a href="/forecast/" class="text-sm font-bold text-blue-600"
+              >View forecast →</a
+            >
+          </div>
+        </div>
+      {/if}
     </div>
   </div>
 {/if}

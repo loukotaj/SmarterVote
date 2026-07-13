@@ -11,6 +11,7 @@
   export let candidates: Candidate[];
   export let compact = false;
   export let isDraftPreview = false;
+  export let showQuality = false;
   export let onToggle: ((candidateName: string) => void) | undefined =
     undefined;
 
@@ -163,7 +164,7 @@
     </div>
 
     <div class="divide-y divide-stroke">
-      {#if race.forecast}
+      {#if showQuality && race.validation_grade}
         <div
           class="grid"
           style="grid-template-columns: {compact
@@ -171,34 +172,28 @@
             : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
-            class="sticky left-0 z-10 border-r border-stroke bg-blue-50 p-5 text-sm font-bold text-content dark:bg-blue-950/20"
+            class="sticky left-0 z-10 border-r border-stroke bg-emerald-50/70 p-5 text-sm font-bold text-content dark:bg-emerald-950/15"
           >
-            Forecast
+            Research review
             <span
               class="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-content-subtle"
-              >Model estimate</span
+              >Independent checks</span
             >
           </div>
-          {#each candidates as candidate}
-            {@const probability = forecastProbability(candidate)}
-            <div
-              class="border-r border-stroke bg-blue-50/40 p-5 last:border-none dark:bg-blue-950/10"
+          <div
+            class="col-span-full flex items-center gap-3 bg-emerald-50/30 p-5 text-sm text-content-muted dark:bg-emerald-950/10"
+            style="grid-column: 2 / -1"
+          >
+            <span
+              class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-200 bg-white text-lg font-extrabold text-emerald-800 shadow-sm dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
+              >{race.validation_grade.grade}</span
             >
-              {#if probability !== undefined}
-                <div class="text-2xl font-extrabold text-content">
-                  {Math.round(probability * 100)}%
-                </div>
-                <p class="mt-1 text-xs text-content-muted">
-                  estimated win probability
-                </p>
-              {:else}
-                <p class="text-sm font-semibold capitalize text-content">
-                  {race.forecast.rating.replaceAll("_", " ")}
-                </p>
-                <p class="mt-1 text-xs text-content-muted">race-level rating</p>
-              {/if}
-            </div>
-          {/each}
+            <span>
+              <strong class="text-content"
+                >{race.validation_grade.score}/100 review score.</strong
+              > Claims, sources, and consistency passed the publication review.
+            </span>
+          </div>
         </div>
       {/if}
       <div
@@ -381,6 +376,45 @@
               </div>{/each}
           </div>
         {/each}
+      {/if}
+
+      {#if race.forecast}
+        <div
+          class="grid"
+          style="grid-template-columns: {compact
+            ? '170px'
+            : '220px'} repeat({candidates.length}, 1fr)"
+        >
+          <div
+            class="sticky left-0 z-10 border-r border-stroke bg-blue-50 p-5 text-sm font-bold text-content dark:bg-blue-950/20"
+          >
+            Forecast
+            <span
+              class="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-content-subtle"
+              >Model estimate</span
+            >
+          </div>
+          {#each candidates as candidate}
+            {@const probability = forecastProbability(candidate)}
+            <div
+              class="border-r border-stroke bg-blue-50/40 p-5 last:border-none dark:bg-blue-950/10"
+            >
+              {#if probability !== undefined}
+                <div class="text-2xl font-extrabold text-content">
+                  {Math.round(probability * 100)}%
+                </div>
+                <p class="mt-1 text-xs text-content-muted">
+                  estimated win probability
+                </p>
+              {:else}
+                <p class="text-sm font-semibold capitalize text-content">
+                  {race.forecast.rating.replaceAll("_", " ")}
+                </p>
+                <p class="mt-1 text-xs text-content-muted">race-level rating</p>
+              {/if}
+            </div>
+          {/each}
+        </div>
       {/if}
     </div>
   </div>

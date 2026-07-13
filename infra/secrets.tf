@@ -20,6 +20,27 @@ resource "google_secret_manager_secret_version" "serper_key" {
   }
 }
 
+resource "google_secret_manager_secret" "searlo_key" {
+  project   = var.project_id
+  secret_id = "searlo-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "searlo_key" {
+  count       = var.searlo_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.searlo_key.id
+  secret_data = var.searlo_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
 # Service accounts for the same project
 resource "google_service_account" "races_api" {
   project      = var.project_id
