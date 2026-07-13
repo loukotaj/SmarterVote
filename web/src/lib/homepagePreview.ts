@@ -239,3 +239,18 @@ export const gradeAHomepageFallbacks: Race[] = [
 
 export const isGradeAHomepageRace = (race: Race) =>
   race.validation_grade?.grade === "A" && race.validation_grade.passed === true;
+
+export const mergeGradeAHomepageRaces = (
+  verified: Race[],
+  fallbacks: Race[] = gradeAHomepageFallbacks,
+  limit = 5,
+): Race[] => {
+  const seen = new Set<string>();
+  return [...verified, ...fallbacks]
+    .filter((race) => {
+      if (seen.has(race.id)) return false;
+      seen.add(race.id);
+      return true;
+    })
+    .slice(0, limit);
+};
