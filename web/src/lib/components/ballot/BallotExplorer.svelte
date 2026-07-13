@@ -35,7 +35,7 @@
   function toggleCandidate(race: Race, candidateName: string) {
     const current = candidatesFor(race);
     const isSelected = current.some(
-      (candidate) => candidate.name === candidateName
+      (candidate) => candidate.name === candidateName,
     );
     if (isSelected && current.length === 1) return;
     selectedCandidates = {
@@ -47,7 +47,7 @@
             ...activeCandidates(race).filter(
               (candidate) =>
                 candidate.name === candidateName &&
-                !current.some((selected) => selected.name === candidate.name)
+                !current.some((selected) => selected.name === candidate.name),
             ),
           ],
     };
@@ -199,7 +199,7 @@
             <p class="mt-1 text-sm text-content-muted">
               {new Date(selectedRace.election_date).toLocaleDateString(
                 "en-US",
-                { month: "long", day: "numeric", year: "numeric" }
+                { month: "long", day: "numeric", year: "numeric" },
               )}
             </p>
           </div>

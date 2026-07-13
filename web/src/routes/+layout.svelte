@@ -63,7 +63,7 @@
     <div class="fixed top-0 left-0 right-0 z-[60] h-0.5 overflow-hidden">
       <div
         class="h-full bg-blue-600 animate-[navprogress_1.2s_ease-in-out_infinite]"
-      />
+      ></div>
     </div>
   {/if}
 

@@ -42,7 +42,7 @@
               jsonString.length /
               1024 /
               1024
-            ).toFixed(1)}MB). Use download instead.`
+            ).toFixed(1)}MB). Use download instead.`,
           );
         }
       } catch (error) {

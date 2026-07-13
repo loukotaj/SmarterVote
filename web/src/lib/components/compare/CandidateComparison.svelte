@@ -40,7 +40,7 @@
         candidates.every((candidate) => {
           const stance = candidate.issues?.[key];
           return stance && stance.sources && stance.sources.length > 0;
-        })
+        }),
       ).slice(0, 4)
     : CANONICAL_ISSUES;
 
@@ -54,7 +54,7 @@
       ([key]) =>
         party.includes(key.toLowerCase()) ||
         key.toLowerCase().includes(party) ||
-        key.toLowerCase() === party.charAt(0)
+        key.toLowerCase() === party.charAt(0),
     );
     return match?.[1];
   }
@@ -71,7 +71,7 @@
     <div class="flex flex-wrap gap-2.5">
       {#each race.candidates.filter((candidate) => !candidate.withdrawn) as candidate}
         {@const checked = candidates.some(
-          (selected) => selected.name === candidate.name
+          (selected) => selected.name === candidate.name,
         )}
         <label
           class="inline-flex cursor-pointer select-none items-center gap-2 rounded-xl border border-stroke bg-surface-alt/40 px-3 py-1.5 text-xs font-semibold text-content transition-colors hover:bg-surface-alt sm:text-sm"
@@ -142,7 +142,7 @@
             <div class="min-w-0">
               <a
                 href="/races/{race.id}/{candidateSlug(
-                  candidate.name
+                  candidate.name,
                 )}{isDraftPreview ? '?draft=true' : ''}"
                 class="block truncate text-sm font-extrabold text-content hover:text-blue-600"
                 >{candidate.name}</a
@@ -338,7 +338,8 @@
                           class="text-[11px] text-content-subtle"
                           >{[edu.degree, edu.field]
                             .filter(Boolean)
-                            .join(" in ")}{#if edu.year} ({edu.year}){/if}</span
+                            .join(" in ")}{#if edu.year}
+                            ({edu.year}){/if}</span
                         >{/if}
                     </div>{/each}
                 </div>{:else}<span class="text-xs italic text-content-faint"

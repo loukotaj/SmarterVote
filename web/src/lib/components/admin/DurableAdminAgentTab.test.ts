@@ -10,7 +10,6 @@ afterEach(() => {
 
 describe("DurableAdminAgentTab", () => {
   it("creates a persisted conversation and submits work", async () => {
-    vi.resetModules();
     const { default: DurableAdminAgentTab } = await import(
       "./DurableAdminAgentTab.svelte"
     );
@@ -53,11 +52,11 @@ describe("DurableAdminAgentTab", () => {
 
     const { component, getByPlaceholderText, getByText } = render(
       DurableAdminAgentTab,
-      { props: { apiService: api } }
+      { props: { apiService: api } },
     );
     await component.initialize();
     await waitFor(() =>
-      expect(getByText("SmarterVote AI Admin Agent")).toBeTruthy()
+      expect(getByText("SmarterVote AI Admin Agent")).toBeTruthy(),
     );
 
     await fireEvent.input(getByPlaceholderText("Ask the admin agent..."), {
@@ -67,10 +66,10 @@ describe("DurableAdminAgentTab", () => {
 
     expect(api.submitAdminAgentMessage).toHaveBeenCalledWith(
       "conversation-1",
-      "Review stale races"
+      "Review stale races",
     );
     expect(localStorage.getItem("smartervote-admin-agent-conversation")).toBe(
-      "conversation-1"
+      "conversation-1",
     );
   });
 });

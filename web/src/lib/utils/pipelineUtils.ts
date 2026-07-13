@@ -57,7 +57,7 @@ export function getLogClass(level: string): string {
 export function safeJsonStringify(
   data: unknown,
   maxSize: number = 500000,
-  indent: number = 2
+  indent: number = 2,
 ): { content: string; truncated: boolean; error?: string } {
   if (data === null || data === undefined) {
     return { content: "", truncated: false };
@@ -119,15 +119,15 @@ export function safeJsonStringify(
  */
 export async function copyToClipboard(
   text: string,
-  maxSize: number = 5000000
+  maxSize: number = 5000000,
 ): Promise<boolean> {
   try {
     // Check size before copying (Chrome has ~5MB clipboard limit)
     if (text.length > maxSize) {
       logger.warn(
         `Content too large to copy (${(text.length / 1024 / 1024).toFixed(
-          1
-        )}MB)`
+          1,
+        )}MB)`,
       );
       return false;
     }
@@ -183,7 +183,7 @@ export function validateJson(jsonString: string): {
  */
 export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
-  wait: number
+  wait: number,
 ): (...args: Parameters<T>) => void {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
@@ -198,7 +198,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
  */
 export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
-  limit: number
+  limit: number,
 ): (...args: Parameters<T>) => void {
   let inThrottle = false;
 

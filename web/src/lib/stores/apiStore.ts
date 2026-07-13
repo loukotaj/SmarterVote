@@ -48,7 +48,7 @@ export async function initializeAuth() {
 export async function fetchWithAuth(
   url: string,
   options: RequestInit = {},
-  timeoutMs?: number
+  timeoutMs?: number,
 ): Promise<Response> {
   let currentToken = "";
   let currentAuth0: Auth0Client | null = null;
@@ -92,8 +92,8 @@ export async function fetchWithAuth(
     timeoutMs !== undefined
       ? timeoutMs
       : isLongRunningOperation
-      ? null
-      : defaultTimeout;
+        ? null
+        : defaultTimeout;
 
   const controller = new AbortController();
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
@@ -121,12 +121,12 @@ export async function fetchWithAuth(
         ? `after ${actualTimeout / 1000} seconds`
         : "due to abort signal";
       throw new Error(
-        `Request timed out ${timeoutText}: ${options.method ?? "GET"} ${url}`
+        `Request timed out ${timeoutText}: ${options.method ?? "GET"} ${url}`,
       );
     }
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(
-      `Network request failed: ${options.method ?? "GET"} ${url}. ${message}`
+      `Network request failed: ${options.method ?? "GET"} ${url}. ${message}`,
     );
   }
 }

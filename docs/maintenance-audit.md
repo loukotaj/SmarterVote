@@ -4,6 +4,12 @@ Last reviewed: 2026-07-11.
 
 ## Cleaned
 
+- Pipeline run-option validation is centralized in `shared/pipeline_options.py`, with explicit wire-level and resolved-default models.
+- Curated Kalshi mappings live under `shared/data/` behind a validated compatibility interface.
+- Frontend dependencies were migrated to Svelte 5 and heavy secondary admin tabs are loaded on demand.
+- Python dependency overlap is constrained by `requirements-constraints.txt`; Dependabot now tracks Python, npm, and Terraform updates.
+- CI records branch coverage for the pipeline suite and enforces an initial ratcheted floor.
+
 - Production admin routes are canonical under `services/races-api`.
 - `pipeline_client/backend/main.py` is local-runner only.
 - Admin live updates use REST polling, not persistent WebSocket routes.

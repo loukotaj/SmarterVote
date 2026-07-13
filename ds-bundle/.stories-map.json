@@ -1,0 +1,211 @@
+{
+  "global": "SmarterVoteDS",
+  "pkg": "@smartervote/design-system",
+  "pkgDir": "C:\\Users\\jacob\\Programming\\SmarterVote\\SmarterVote\\SmarterVote\\design-system",
+  "extraEntries": [],
+  "exported": [
+    "Avatar",
+    "Badge",
+    "Button",
+    "CandidateCard",
+    "Card",
+    "ConfidenceIndicator",
+    "ElectionCountdown",
+    "EmptyState",
+    "FeaturedElections",
+    "HowItWorks",
+    "ImpactMetrics",
+    "RaceCard",
+    "SectionHeader",
+    "SiteFooter",
+    "SiteHeader",
+    "SourceLink",
+    "StatTile",
+    "Tabs",
+    "Tooltip",
+    "TrustPrinciples",
+    "ValidationGradeBadge",
+    "VoterResources"
+  ],
+  "storybookStatic": null,
+  "keyRecipe": 7,
+  "cfgSliceGlobal": "a139d95ad8ab0a8ba08b44a258c54602e36090304087f48fe923c61aa5a8ae08",
+  "components": [
+    {
+      "name": "Avatar",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "f402c8ad729c969f",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Badge",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "2e14e096b99c61e2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Button",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "9ad9f0422f3e8394",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "CandidateCard",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "f24d3475aaa888fc",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Card",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "e84f9bb3f0cd243d",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ConfidenceIndicator",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "a8798819ee9e4c5a",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ElectionCountdown",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "974c76f355521c50",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "EmptyState",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "3a5a58e1ba107a2e",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "FeaturedElections",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "ee2b014598889f1e",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "HowItWorks",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "8ba0d57ab69d772f",
+      "cfgSlice": "1e377a4d47b7361530c610bbde02592bafe92554d9dc4182c5374885c3ef3d8e",
+      "stories": []
+    },
+    {
+      "name": "ImpactMetrics",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "d914476b62fda300",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "RaceCard",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "2d7f6c8db9f76e0f",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SectionHeader",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "4c429ee7ddcd40ac",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SiteFooter",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "a5b18fc8beb54484",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SiteHeader",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "e30f070ad0a8d41c",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SourceLink",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "33d96c4be0e14756",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "StatTile",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "ba46d319088ee1bf",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Tabs",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "ac951b72d0608a55",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Tooltip",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "fb45d7753b453cd5",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "TrustPrinciples",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "9545362b006bb26b",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ValidationGradeBadge",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "85a7962d6b3c6951",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "VoterResources",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "68458506dcc0b7dc",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    }
+  ]
+}

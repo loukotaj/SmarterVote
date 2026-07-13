@@ -14,7 +14,6 @@ describe("DashboardTab basic layout", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.resetModules();
     analyticsService = {
       getOverview: vi.fn(),
       getTraffic: vi.fn(),

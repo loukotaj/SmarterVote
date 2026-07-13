@@ -48,7 +48,7 @@
           window.history.replaceState(
             {},
             "",
-            `/races/${slug}/${candidateParam}`
+            `/races/${slug}/${candidateParam}`,
           );
         }
       } else {
@@ -78,7 +78,7 @@
       null;
     otherCandidates =
       race.candidates?.filter(
-        (c) => candidateSlug(c.name) !== candidateParam && !c.withdrawn
+        (c) => candidateSlug(c.name) !== candidateParam && !c.withdrawn,
       ) ?? [];
     if (!candidate) {
       error = "Candidate not found";
@@ -99,7 +99,7 @@
       Object.keys(candidate.issues).length === 0 ||
       Object.values(candidate.issues).every((i) => !i?.stance));
   $: socialLinks = Object.entries(candidate?.social_media ?? {}).filter(
-    (entry): entry is [string, string] => isExternalUrl(entry[1])
+    (entry): entry is [string, string] => isExternalUrl(entry[1]),
   );
 </script>
 
@@ -161,7 +161,7 @@
     <div class="flex items-center justify-center py-20">
       <div
         class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
-      />
+      ></div>
       <span class="ml-3 text-lg text-content-muted">Loading candidate...</span>
     </div>
   {:else if error}
@@ -323,7 +323,7 @@
             {#each otherCandidates as other}
               <a
                 href="/races/{race.id}/{candidateSlug(
-                  other.name
+                  other.name,
                 )}{isDraftPreview ? '?draft=true' : ''}"
                 class="other-chip"
               >

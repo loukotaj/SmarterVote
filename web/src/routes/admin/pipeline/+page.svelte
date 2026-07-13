@@ -2,10 +2,7 @@
   import { browser } from "$app/environment";
   import { onDestroy, onMount } from "svelte";
   import AdminTabs from "$lib/components/admin/AdminTabs.svelte";
-  import CostsTab from "$lib/components/admin/CostsTab.svelte";
   import DashboardTab from "$lib/components/admin/DashboardTab.svelte";
-  import DurableAdminAgentTab from "$lib/components/admin/DurableAdminAgentTab.svelte";
-  import ForecastsTab from "$lib/components/admin/ForecastsTab.svelte";
   import RacesTab from "$lib/components/admin/RacesTab.svelte";
   import RunsTab from "$lib/components/admin/RunsTab.svelte";
   import type { RunHistoryItem } from "$lib/types";
@@ -36,26 +33,51 @@
   let cancellingItemId: string | null = null;
   let racesTab: RacesTab | null = null;
   let authError = "";
+  let ForecastsTabComponent:
+    | typeof import("$lib/components/admin/ForecastsTab.svelte").default
+    | null = null;
+  let CostsTabComponent:
+    | typeof import("$lib/components/admin/CostsTab.svelte").default
+    | null = null;
+  let AgentTabComponent:
+    | typeof import("$lib/components/admin/DurableAdminAgentTab.svelte").default
+    | null = null;
+
+  $: if (activeTab === "forecasts" && !ForecastsTabComponent) {
+    void import("$lib/components/admin/ForecastsTab.svelte").then(
+      (module) => (ForecastsTabComponent = module.default),
+    );
+  }
+  $: if (activeTab === "costs" && !CostsTabComponent) {
+    void import("$lib/components/admin/CostsTab.svelte").then(
+      (module) => (CostsTabComponent = module.default),
+    );
+  }
+  $: if (activeTab === "agent" && !AgentTabComponent) {
+    void import("$lib/components/admin/DurableAdminAgentTab.svelte").then(
+      (module) => (AgentTabComponent = module.default),
+    );
+  }
 
   $: if (activeTab === "runs" && apiService) {
     void refreshRuns();
   }
 
   $: activeQueueItems = queueItems.filter(
-    (item) => item.status === "running" || item.status === "pending"
+    (item) => item.status === "running" || item.status === "pending",
   );
   $: runningItems = activeQueueItems.filter(
-    (item) => item.status === "running"
+    (item) => item.status === "running",
   );
   $: pendingItems = activeQueueItems.filter(
-    (item) => item.status === "pending"
+    (item) => item.status === "pending",
   );
   $: oldestPendingMs = Math.max(
     0,
     ...pendingItems.map((item) => {
       const created = item.created_at ? Date.parse(item.created_at) : NaN;
       return Number.isFinite(created) ? Date.now() - created : 0;
-    })
+    }),
   );
   $: queueLikelyStalled =
     pendingItems.length > 0 &&
@@ -250,7 +272,7 @@
               class="w-2.5 h-2.5 rounded-full {connected
                 ? 'bg-green-500'
                 : 'bg-red-500'}"
-            />
+            ></span>
             {connected ? "Connected" : "Disconnected"}
           </div>
         </div>
@@ -337,12 +359,18 @@
       />
     {:else if activeTab === "forecasts" && apiService}
       <div class="card p-6">
-        <ForecastsTab {apiService} />
+        {#if ForecastsTabComponent}
+          <svelte:component this={ForecastsTabComponent} {apiService} />
+        {/if}
       </div>
     {:else if activeTab === "costs"}
-      <CostsTab />
+      {#if CostsTabComponent}
+        <svelte:component this={CostsTabComponent} />
+      {/if}
     {:else if activeTab === "agent" && apiService}
-      <DurableAdminAgentTab {apiService} />
+      {#if AgentTabComponent}
+        <svelte:component this={AgentTabComponent} {apiService} />
+      {/if}
     {/if}
   </div>
 {/if}

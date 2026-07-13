@@ -74,8 +74,8 @@ export const pipelineStore = writable<PipelineState>(initialState);
 // Derived stores for computed values
 export const filteredLogs = derived(pipelineStore, ($pipeline) =>
   $pipeline.logs.filter(
-    (log) => $pipeline.logFilter === "all" || log.level === $pipeline.logFilter
-  )
+    (log) => $pipeline.logFilter === "all" || log.level === $pipeline.logFilter,
+  ),
 );
 
 export const outputTooLarge = derived(pipelineStore, ($pipeline) => {
@@ -203,12 +203,12 @@ export const pipelineActions = {
   updateStepStatus: (
     stepName: string,
     status: RunStatus,
-    extras: Partial<RunStep> = {}
+    extras: Partial<RunStep> = {},
   ) => {
     pipelineStore.update((state) => {
       if (!state.selectedRun) return state;
       const updatedSteps = (state.selectedRun.steps ?? []).map((s) =>
-        s.name === stepName ? { ...s, status, ...extras } : s
+        s.name === stepName ? { ...s, status, ...extras } : s,
       );
       const updatedSelectedRun = {
         ...state.selectedRun,
@@ -219,7 +219,7 @@ export const pipelineActions = {
       const updatedRunHistory = state.runHistory.map((r) =>
         r.run_id === state.selectedRun!.run_id
           ? { ...r, steps: updatedSteps }
-          : r
+          : r,
       );
       return {
         ...state,

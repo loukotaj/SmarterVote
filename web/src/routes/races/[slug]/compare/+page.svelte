@@ -57,7 +57,7 @@
       const slugs = selected.split(",");
       candidates = race.candidates.filter(
         (candidate) =>
-          slugs.includes(candidateSlug(candidate.name)) && !candidate.withdrawn
+          slugs.includes(candidateSlug(candidate.name)) && !candidate.withdrawn,
       );
     }
     if (candidates.length === 0)
@@ -162,10 +162,10 @@
     <div class="space-y-6">
       <div
         class="h-16 animate-pulse rounded-xl border border-stroke bg-surface"
-      />
+      ></div>
       <div
         class="h-96 animate-pulse rounded-xl border border-stroke bg-surface"
-      />
+      ></div>
     </div>
   {:else if error}
     <div

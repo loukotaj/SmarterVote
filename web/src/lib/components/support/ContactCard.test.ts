@@ -10,7 +10,7 @@ describe("ContactCard", () => {
     });
     const link = screen.getByRole("link", { name: "Report a correction" });
     expect(link.getAttribute("href")).toBe(
-      "mailto:SmarterDotVote@gmail.com?subject=Correction%3A%20race%20name"
+      "mailto:SmarterDotVote@gmail.com?subject=Correction%3A%20race%20name",
     );
   });
 });

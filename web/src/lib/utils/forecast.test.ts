@@ -22,22 +22,22 @@ describe("forecast utilities", () => {
 
     // Null party with probabilities
     expect(
-      normalizeForecastParty(null, { Democratic: 0.53, Republican: 0.47 })
+      normalizeForecastParty(null, { Democratic: 0.53, Republican: 0.47 }),
     ).toBe("Democratic");
     expect(
-      normalizeForecastParty(null, { Democratic: 0.45, Republican: 0.55 })
+      normalizeForecastParty(null, { Democratic: 0.45, Republican: 0.55 }),
     ).toBe("Republican");
 
     // Null party with candidate incumbent fallback
     expect(
       normalizeForecastParty(null, null, [
         { name: "Alice", party: "Democratic", incumbent: true },
-      ])
+      ]),
     ).toBe("Democratic");
     expect(
       normalizeForecastParty(null, null, [
         { name: "Bob", party: "Republican", incumbent: true },
-      ])
+      ]),
     ).toBe("Republican");
 
     // No probabilities, no incumbent, should fallback to Other
@@ -50,21 +50,21 @@ describe("forecast utilities", () => {
         ...baseRace,
         id: "ga-senate-2026",
         office: "United States Senate",
-      })
+      }),
     ).toBe("senate");
     expect(
       officeGroup({
         ...baseRace,
         id: "ga-governor-2026",
         office: "Governor of Georgia",
-      })
+      }),
     ).toBe("governors");
     expect(
       officeGroup({
         ...baseRace,
         id: "ga-house-01-2026",
         office: "United States House",
-      })
+      }),
     ).toBe("house");
   });
 
@@ -171,7 +171,7 @@ describe("forecast utilities", () => {
         "218R-217D": 0.6,
         "223D-212R": 0.4,
       },
-      "house"
+      "house",
     );
 
     expect(buckets[1].label).toBe("Narrow D (218-224D)");

@@ -1,0 +1,11 @@
+[run]
+branch = True
+source = pipeline_client,shared,functions,smartervote_mcp
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if TYPE_CHECKING:
+    if __name__ == .__main__.:
+show_missing = True
+skip_covered = True

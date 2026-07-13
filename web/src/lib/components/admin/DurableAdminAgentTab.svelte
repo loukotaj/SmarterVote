@@ -108,7 +108,7 @@
     if (!data) return;
     try {
       data = await apiService.getAdminAgentConversation(
-        data.conversation.conversation_id
+        data.conversation.conversation_id,
       );
       error = "";
       if (scroll) await scrollToBottom();
@@ -187,7 +187,7 @@
     // Inline code
     s = s.replace(
       /`([^`\n]+)`/g,
-      '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>'
+      '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>',
     );
 
     // Bold + italic
@@ -216,8 +216,8 @@
           lvl === 1
             ? "text-base font-bold mt-3 mb-1"
             : lvl === 2
-            ? "text-sm font-bold mt-2 mb-0.5"
-            : "text-sm font-semibold mt-1";
+              ? "text-sm font-bold mt-2 mb-0.5"
+              : "text-sm font-semibold mt-1";
         out.push(`<p class="${cls}">${hMatch[2]}</p>`);
         continue;
       }
@@ -300,7 +300,7 @@
     try {
       await apiService.submitAdminAgentMessage(
         data.conversation.conversation_id,
-        content
+        content,
       );
       await refresh();
     } catch (e) {
@@ -502,19 +502,19 @@
             <span class="relative flex h-2 w-2">
               <span
                 class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
-              />
+              ></span>
               <span
                 class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"
-              />
+              ></span>
             </span>
           {:else if waitingApproval}
             <span class="relative flex h-2 w-2">
               <span
                 class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"
-              />
+              ></span>
               <span
                 class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"
-              />
+              ></span>
             </span>
           {/if}
           {statusLabel(latestTask)}
@@ -588,24 +588,24 @@
         <!-- CSS Pulse Skeleton Loader -->
         <div class="animate-pulse space-y-6 p-6">
           <div class="flex items-start gap-4">
-            <div class="h-8 w-8 rounded bg-surface-alt" />
+            <div class="h-8 w-8 rounded bg-surface-alt"></div>
             <div class="space-y-2 flex-1">
-              <div class="h-4 bg-surface-alt rounded w-1/3" />
-              <div class="h-4 bg-surface-alt rounded w-3/4" />
+              <div class="h-4 bg-surface-alt rounded w-1/3"></div>
+              <div class="h-4 bg-surface-alt rounded w-3/4"></div>
             </div>
           </div>
           <div class="flex items-start gap-4 justify-end">
             <div class="space-y-2 w-1/2">
-              <div class="h-4 bg-surface-alt rounded w-full" />
+              <div class="h-4 bg-surface-alt rounded w-full"></div>
             </div>
-            <div class="h-8 w-8 rounded bg-surface-alt" />
+            <div class="h-8 w-8 rounded bg-surface-alt"></div>
           </div>
           <div class="flex items-start gap-4">
-            <div class="h-8 w-8 rounded bg-surface-alt" />
+            <div class="h-8 w-8 rounded bg-surface-alt"></div>
             <div class="space-y-2 flex-1">
-              <div class="h-4 bg-surface-alt rounded w-1/4" />
-              <div class="h-4 bg-surface-alt rounded w-5/6" />
-              <div class="h-4 bg-surface-alt rounded w-1/2" />
+              <div class="h-4 bg-surface-alt rounded w-1/4"></div>
+              <div class="h-4 bg-surface-alt rounded w-5/6"></div>
+              <div class="h-4 bg-surface-alt rounded w-1/2"></div>
             </div>
           </div>
         </div>
@@ -757,15 +757,15 @@
             <span
               class="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce"
               style="animation-delay: 0ms"
-            />
+            ></span>
             <span
               class="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce"
               style="animation-delay: 150ms"
-            />
+            ></span>
             <span
               class="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce"
               style="animation-delay: 300ms"
-            />
+            ></span>
           </div>
           <span class="font-medium">{statusLabel(latestTask)}...</span>
         </div>
@@ -896,10 +896,10 @@
           placeholder={waitingApproval
             ? "Approve or reject the pending operation above"
             : isActive
-            ? "Agent is working..."
-            : "Ask the admin agent..."}
+              ? "Agent is working..."
+              : "Ask the admin agent..."}
           class="flex-1 resize-none rounded-xl border border-stroke bg-surface px-4 py-2.5 text-sm text-content focus:outline-none focus:ring-2 focus:ring-blue-500/30 disabled:opacity-50 transition-all shadow-sm"
-        />
+        ></textarea>
         <button
           type="button"
           class="btn-primary rounded-xl px-5 py-2.5 text-sm disabled:opacity-50 flex items-center justify-center gap-1.5 h-[42px] shrink-0 font-semibold shadow-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 border-none transition-all duration-200"

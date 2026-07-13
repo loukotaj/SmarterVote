@@ -62,6 +62,8 @@ from .prompts import (
     VOTER_RESOURCES_SYSTEM,
     VOTER_RESOURCES_USER,
 )
+from .review_flags import format_review_flags as _format_review_flags
+from .review_flags import has_actionable_flags as _has_actionable_flags
 from .run_budget import RunBudget, RunBudgetExceeded
 from .selection import (  # noqa: F401 — re-exported for backward compat
     _candidate_info_score,
@@ -1818,67 +1820,6 @@ async def _run_update(
 # ---------------------------------------------------------------------------
 # Review iteration
 # ---------------------------------------------------------------------------
-
-
-def _format_review_flags(
-    reviews: List[Dict[str, Any]],
-    *,
-    candidate_index: int | None = None,
-    candidate_name: str | None = None,
-    include_global: bool = True,
-) -> str:
-    """Format review flags into a readable text block for the iteration prompt."""
-    lines = []
-    candidate_prefix = f"candidates[{candidate_index}]" if candidate_index is not None else None
-    candidate_name_lower = candidate_name.casefold() if candidate_name else None
-
-    def _flag_applies(flag: Dict[str, Any]) -> bool:
-        if candidate_prefix is None and candidate_name_lower is None:
-            return True
-        field = str(flag.get("field") or "")
-        if candidate_prefix and field.startswith(candidate_prefix):
-            return True
-        flag_text = " ".join(str(flag.get(key) or "") for key in ("field", "concern", "suggestion")).casefold()
-        if candidate_name_lower and candidate_name_lower in flag_text:
-            return True
-        return include_global and not field.startswith("candidates[")
-
-    for review in reviews:
-        model = review.get("model", "unknown")
-        verdict = review.get("verdict", "unknown")
-        review_lines = [f"\n--- Review by {model} (verdict: {verdict}) ---"]
-        if review.get("summary"):
-            review_lines.append(f"Summary: {review['summary']}")
-        for flag in review.get("flags", []):
-            if isinstance(flag, dict) and not _flag_applies(flag):
-                continue
-            severity = flag.get("severity", "info").upper()
-            field = flag.get("field", "?")
-            concern = flag.get("concern", "")
-            suggestion = flag.get("suggestion", "")
-            review_lines.append(f"  [{severity}] {field}: {concern}")
-            if suggestion:
-                review_lines.append(f"    Suggestion: {suggestion}")
-        if len(review_lines) > (2 if review.get("summary") else 1):
-            lines.extend(review_lines)
-    return "\n".join(lines) if lines else "  (no specific flags)"
-
-
-def _has_actionable_flags(
-    reviews: List[Dict[str, Any]],
-    min_severity: str = "warning",
-    exclude_fields: set | None = None,
-) -> bool:
-    """Return True if any review has actionable flags at or above *min_severity*."""
-    severity_rank = {"info": 0, "warning": 1, "error": 2}
-    threshold = severity_rank.get(min_severity, 1)
-    _excluded = exclude_fields or set()
-    for review in reviews:
-        for flag in review.get("flags", []):
-            rank = severity_rank.get(flag.get("severity", "info"), 0)
-            if rank >= threshold and flag.get("field", "") not in _excluded:
-                return True
-    return False
 
 
 async def _run_iteration_pass(

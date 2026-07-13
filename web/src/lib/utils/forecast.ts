@@ -147,7 +147,7 @@ export function normalizeForecastParty(
         party?: string;
         incumbent: boolean;
       }[]
-    | null
+    | null,
 ): "Democratic" | "Republican" | "Other" {
   const value = (party || "").toLowerCase();
   if (value.includes("democrat") || value === "dfl" || value === "d")
@@ -219,20 +219,20 @@ export function isValidGovernorControlRace(race: RaceSummary): boolean {
 }
 
 export function isForecastTab(
-  value: string | null | undefined
+  value: string | null | undefined,
 ): value is ForecastTab {
   return !!value && (FORECAST_TABS as string[]).includes(value);
 }
 
 export function parseForecastTab(
-  value: string | null | undefined
+  value: string | null | undefined,
 ): ForecastTab {
   return isForecastTab(value) ? value : "house";
 }
 
 export function isRaceInForecastTab(
   race: RaceSummary,
-  tab: ForecastTab
+  tab: ForecastTab,
 ): boolean {
   if (officeGroup(race) !== tab) return false;
   if (tab === "governors" && !isValidGovernorControlRace(race)) return false;
@@ -241,7 +241,7 @@ export function isRaceInForecastTab(
 
 export function aggregateForecasts(
   races: RaceSummary[],
-  tab: ForecastTab
+  tab: ForecastTab,
 ): ForecastAggregate {
   const label =
     tab === "house" ? "House" : tab === "senate" ? "Senate" : "Governors";
@@ -258,7 +258,7 @@ export function aggregateForecasts(
   const scoped = races.filter((race) => isRaceInForecastTab(race, tab));
 
   const activeStates = new Set(
-    scoped.map(getRaceState).filter(Boolean) as string[]
+    scoped.map(getRaceState).filter(Boolean) as string[],
   );
 
   // Initialize baseline holdovers
@@ -305,7 +305,7 @@ export function aggregateForecasts(
     const party = normalizeForecastParty(
       race.forecast.predicted_winner_party,
       race.forecast.party_probabilities,
-      race.candidates
+      race.candidates,
     );
     projected[party] = (projected[party] ?? 0) + 1;
     ratingCounts[race.forecast.rating] =
@@ -339,10 +339,13 @@ export function aggregateForecasts(
       const isStateActive = activeStates.has(state);
       const seatsToCount = isStateActive ? parties.slice(0, 1) : parties;
 
-      const counts = seatsToCount.reduce((acc, p) => {
-        acc[p] = (acc[p] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>);
+      const counts = seatsToCount.reduce(
+        (acc, p) => {
+          acc[p] = (acc[p] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>,
+      );
 
       for (const [party, count] of Object.entries(counts)) {
         holdoversList.push({
@@ -421,7 +424,7 @@ export function parseSeatDistributionKey(key: string): {
 
 export function groupSeatDistribution(
   dist: Record<string, number>,
-  tab: ForecastTab = "senate"
+  tab: ForecastTab = "senate",
 ): GroupedSeatBucket[] {
   if (!dist) return [];
 
@@ -429,7 +432,7 @@ export function groupSeatDistribution(
     ([key, probability]) => {
       const { dSeats, rSeats } = parseSeatDistributionKey(key);
       return { key, probability, dSeats, rSeats };
-    }
+    },
   );
 
   outcomes.sort((a, b) => b.dSeats - a.dSeats);

@@ -39,8 +39,7 @@
   class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold select-none transition-all duration-300 {style.bg} {style.border} {style.text}"
   title="Confidence: {confidence}"
 >
-  <span
-    class="w-1.5 h-1.5 rounded-full {style.dot} transition-all duration-300"
-  />
+  <span class="w-1.5 h-1.5 rounded-full {style.dot} transition-all duration-300"
+  ></span>
   <span class="capitalize">{confidence}</span>
 </span>

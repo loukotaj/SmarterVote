@@ -29,7 +29,7 @@
   let maxCandidates: number | null = null;
   let targetNoInfo = false;
   let stepToggles: Record<string, boolean> = Object.fromEntries(
-    PIPELINE_STEPS.map((s) => [s.id, true])
+    PIPELINE_STEPS.map((s) => [s.id, true]),
   );
   let researchModel = "";
 
@@ -46,7 +46,7 @@
       cheap_mode: cheapMode,
       force_fresh: forceFresh,
       enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map(
-        (s) => s.id
+        (s) => s.id,
       ),
     };
     if (researchModel) opts.research_model = researchModel;
@@ -91,11 +91,12 @@
     tabindex="-1"
   >
     <!-- Modal -->
-    <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
     <div
       class="bg-surface rounded-xl shadow-xl w-full max-w-lg mx-4 overflow-hidden"
       on:click|stopPropagation
+      on:keydown|stopPropagation
       role="dialog"
+      tabindex="-1"
     >
       <!-- Header -->
       <div
@@ -106,6 +107,7 @@
         </h2>
         <button
           type="button"
+          aria-label="Close batch queue dialog"
           on:click={handleClose}
           class="p-1 rounded hover:bg-surface-alt text-content-muted"
         >

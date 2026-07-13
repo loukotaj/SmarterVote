@@ -50,24 +50,24 @@ describe("ElectionLookup", () => {
     const input = screen.getByLabelText("Home address") as HTMLInputElement;
     await fireEvent.input(input, { target: { value: "A complete address" } });
     await fireEvent.click(
-      screen.getByRole("button", { name: "Show my elections" })
+      screen.getByRole("button", { name: "Show my elections" }),
     );
 
     await waitFor(() =>
       expect(
-        screen.getByRole("heading", { name: "Your election guide" })
-      ).toBeTruthy()
+        screen.getByRole("heading", { name: "Your election guide" }),
+      ).toBeTruthy(),
     );
     expect(screen.getByText(/Maryland · U\.S\. House District 4/)).toBeTruthy();
     expect(
-      screen.getByRole("tab", { name: "U.S. House", selected: true })
+      screen.getByRole("tab", { name: "U.S. House", selected: true }),
     ).toBeTruthy();
     expect(sessionStorage.getItem("smarterVote.ballot")).toContain(
-      "md-house-04-2026"
+      "md-house-04-2026",
     );
     expect(screen.queryByLabelText("Home address")).toBeNull();
     expect(
-      screen.getByRole("button", { name: "← Search another address" })
+      screen.getByRole("button", { name: "← Search another address" }),
     ).toBeTruthy();
   });
 });

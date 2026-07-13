@@ -46,7 +46,7 @@
   async function generateDraft() {
     if (
       !confirm(
-        "Generate a new chamber forecast draft from current published race summaries?"
+        "Generate a new chamber forecast draft from current published race summaries?",
       )
     ) {
       return;

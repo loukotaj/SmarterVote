@@ -45,7 +45,7 @@
 
   // LLM spend in window = provider/estimated cost summed (search has no $ in records).
   $: pipelineWindowUsd = windowSummary?.total_usd ?? 0;
-  $: gcpWindowUsd = gcp?.configured ? gcp.total_net_usd ?? 0 : 0;
+  $: gcpWindowUsd = gcp?.configured ? (gcp.total_net_usd ?? 0) : 0;
   $: combinedWindowUsd = pipelineWindowUsd + serperEstUsd + gcpWindowUsd;
 
   $: topRaces = (() => {
@@ -88,7 +88,7 @@
     else gcp = { configured: false, reason: String(gcpRes.reason) };
 
     const failed = [allRes, winRes, recRes].filter(
-      (r) => r.status === "rejected"
+      (r) => r.status === "rejected",
     ).length;
     if (failed > 0)
       error = `${failed} cost request${failed === 1 ? "" : "s"} failed`;
@@ -309,7 +309,7 @@
                 style="width: {maxGcpService > 0
                   ? Math.max(2, (line.net_usd / maxGcpService) * 100)
                   : 0}%"
-              />
+              ></div>
             </div>
           </div>
         {/each}

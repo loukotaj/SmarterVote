@@ -23,7 +23,7 @@
   onMount(() => {
     try {
       const saved = JSON.parse(
-        sessionStorage.getItem(SESSION_KEY) ?? "null"
+        sessionStorage.getItem(SESSION_KEY) ?? "null",
       ) as {
         state?: string;
         district?: string;
@@ -65,7 +65,7 @@
           state,
           district,
           raceIds: results.map((race) => race.id),
-        })
+        }),
       );
       address = "";
     } catch (caught) {
@@ -100,7 +100,7 @@
       <div
         class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-sky-400"
         aria-hidden="true"
-      />
+      ></div>
       <div class="flex items-center justify-between gap-4">
         <div>
           <p

@@ -55,14 +55,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r pipeline_client/backend/requirements.txt
-          pip install -r services/races-api/requirements.txt
-          pip install pytest pytest-asyncio httpx
+          pip install -c requirements-constraints.txt -r pipeline_client/backend/requirements.txt
+          pip install -c requirements-constraints.txt -r services/races-api/requirements.txt
+          pip install -c requirements-constraints.txt pytest pytest-asyncio pytest-cov httpx
 
       - name: Run pipeline tests
         run: |
           PYTHONPATH=. python -m pytest tests -v \
-            --ignore=tests/test_races_api_admin.py
+            --ignore=tests/test_races_api_admin.py \
+            --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp \
+            --cov-report=term-missing --cov-fail-under=55
 
       - name: Check Python formatting
         run: |
@@ -85,8 +87,8 @@ jobs:
         run: |
           cd services/races-api
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -r test-requirements.txt
+          pip install -c ../../requirements-constraints.txt -r requirements.txt
+          pip install -c ../../requirements-constraints.txt -r test-requirements.txt
           PYTHONPATH=../.. python -m pytest test_races_api.py -v
 
       - name: Test Races API admin endpoints

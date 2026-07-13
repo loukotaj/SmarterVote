@@ -28,7 +28,7 @@ describe("parseCensusGeography", () => {
             },
           ],
         },
-      })
+      }),
     ).toEqual({ state: "Maryland", congressionalDistrict: "04" });
   });
 
@@ -59,8 +59,8 @@ describe("matchingNationalRaces", () => {
       matchingNationalRaces(
         races,
         { state: "Maryland", congressionalDistrict: "04" },
-        new Date("2026-07-12")
-      ).map(({ id }) => id)
+        new Date("2026-07-12"),
+      ).map(({ id }) => id),
     ).toEqual(["senate", "governor", "house-4"]);
   });
 
@@ -84,8 +84,8 @@ describe("matchingNationalRaces", () => {
       matchingNationalRaces(
         races,
         { state: "Alaska", congressionalDistrict: "00" },
-        new Date("2026-07-12")
-      ).map(({ id }) => id)
+        new Date("2026-07-12"),
+      ).map(({ id }) => id),
     ).toEqual(["at-large"]);
   });
 
@@ -107,7 +107,7 @@ describe("matchingNationalRaces", () => {
       matchingNationalRaces(races, {
         state: "Virginia",
         congressionalDistrict: "01",
-      }).map(({ id }) => id)
+      }).map(({ id }) => id),
     ).toEqual(["virginia-senate"]);
   });
 });

@@ -52,6 +52,9 @@ Run the narrowest useful check for what you touched. The commands below mirror t
 PYTHONPATH=. python -m pytest tests -v \
   --ignore=tests/test_races_api_admin.py
 
+# CI additionally enforces the ratcheted branch-coverage floor configured in
+# .github/workflows/ci.yaml; local coverage behavior is in .coveragerc.
+
 # Races API tests
 cd services/races-api && PYTHONPATH=../.. python -m pytest test_races_api.py -v
 
@@ -85,6 +88,7 @@ For the full local gate sequence: `.\scripts\run-ci-gates.ps1`
 ## TypeScript / Svelte Conventions
 
 - `web/src/lib/types.ts` **must mirror** `shared/models.py` — update both simultaneously
+- Pipeline option validation is canonical in `shared/pipeline_options.py`; API and worker models subclass it for wire versus resolved defaults
 - Components in `web/src/lib/components/`; routes use `+page.svelte` / `+page.ts`
 - **Prettier + ESLint** for formatting; **TailwindCSS** with semantic design tokens
 - Frontend env vars use `VITE_` prefix; static adapter for Cloudflare Pages

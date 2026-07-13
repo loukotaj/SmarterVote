@@ -17,7 +17,7 @@ From the project root, the directory that contains `pyproject.toml`:
 copy .env.example .env
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install -c requirements-constraints.txt -r requirements.txt
 pip install -e shared/
 
 cd web
