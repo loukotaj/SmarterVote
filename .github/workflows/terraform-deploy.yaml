@@ -106,6 +106,7 @@ jobs:
       TF_VAR_app_version: ${{ github.event.workflow_run.head_sha || github.sha }}
       TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
       TF_VAR_serper_api_key: ${{ secrets.SERPER_API_KEY }}
+      TF_VAR_searlo_api_key: ${{ secrets.SEARLO_API_KEY }}
       TF_VAR_admin_api_key: ${{ secrets.ADMIN_API_KEY }}
       TF_VAR_auth0_domain: ${{ vars.AUTH0_DOMAIN }}
       TF_VAR_auth0_audience: ${{ vars.AUTH0_AUDIENCE }}
@@ -124,6 +125,7 @@ jobs:
           REQUIRED_GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           REQUIRED_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           REQUIRED_SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+          REQUIRED_SEARLO_API_KEY: ${{ secrets.SEARLO_API_KEY }}
           REQUIRED_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
           REQUIRED_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
           REQUIRED_ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
@@ -136,6 +138,7 @@ jobs:
           [ -z "$REQUIRED_GCP_SA_KEY" ]        && MISSING+=("GCP_SA_KEY")
           [ -z "$REQUIRED_OPENROUTER_API_KEY" ] && MISSING+=("OPENROUTER_API_KEY")
           [ -z "$REQUIRED_SERPER_API_KEY" ]    && MISSING+=("SERPER_API_KEY")
+          [ -z "$REQUIRED_SEARLO_API_KEY" ]    && MISSING+=("SEARLO_API_KEY")
           [ -z "$REQUIRED_AUTH0_DOMAIN" ]      && MISSING+=("AUTH0_DOMAIN")
           [ -z "$REQUIRED_AUTH0_AUDIENCE" ]    && MISSING+=("AUTH0_AUDIENCE")
           [ -z "$REQUIRED_ADMIN_API_KEY" ]      && MISSING+=("ADMIN_API_KEY")
@@ -170,6 +173,7 @@ jobs:
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+          SEARLO_API_KEY: ${{ secrets.SEARLO_API_KEY }}
           ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
           CLOUDFLARE_ANALYTICS_API_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
         run: |
@@ -195,6 +199,7 @@ jobs:
           }
           sync_secret "openrouter-api-key-${{ env.ENVIRONMENT }}" "$OPENROUTER_API_KEY"
           sync_secret "serper-api-key-${{ env.ENVIRONMENT }}"   "$SERPER_API_KEY"
+          sync_secret "searlo-api-key-${{ env.ENVIRONMENT }}"   "$SEARLO_API_KEY"
           sync_secret "races-api-admin-key-${{ env.ENVIRONMENT }}" "$ADMIN_API_KEY"
           sync_secret "cloudflare-analytics-api-token-${{ env.ENVIRONMENT }}" "$CLOUDFLARE_ANALYTICS_API_TOKEN"
 
