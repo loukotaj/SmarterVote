@@ -6,7 +6,7 @@ Logs are stored in the `pipeline_runs/{run_id}/logs` subcollection.
 """
 
 import os
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
 
 import firestore_helpers

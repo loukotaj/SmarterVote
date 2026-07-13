@@ -6,6 +6,7 @@ by a one-shot Cloud Run Job or the explicitly selected local Docker worker.
 """
 
 import os
+import uuid
 from typing import Any, Dict
 
 import firestore_helpers
