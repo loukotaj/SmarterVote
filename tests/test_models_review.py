@@ -161,6 +161,10 @@ def test_race_identity_and_roster_provenance_fields_validate():
                             "title": "Certified candidate list",
                             "evidence": "Alice is listed as a nominee.",
                             "last_accessed": "2026-06-29T00:00:00Z",
+                            "published_at": "2026-06-20T00:00:00Z",
+                            "race_id": "ga-governor-2026",
+                            "evidence_tier": 1,
+                            "retrieval_status": "content",
                         }
                     ],
                 }
@@ -180,6 +184,8 @@ def test_race_identity_and_roster_provenance_fields_validate():
     assert race.contest_stage == ContestStage.POST_PRIMARY_GENERAL
     assert race.pipeline_state.race_identity.contest_stage == ContestStage.POST_PRIMARY_GENERAL
     assert race.candidates[0].roster_sources[0].type == "official"
+    assert race.candidates[0].roster_sources[0].race_id == "ga-governor-2026"
+    assert race.candidates[0].roster_sources[0].evidence_tier == 1
 
 
 def test_poll_matchup_coerces_null_percentages():

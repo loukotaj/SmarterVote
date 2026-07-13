@@ -146,7 +146,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                 "incumbent": {"type": "boolean", "description": "Whether this candidate is the incumbent."},
                 "roster_sources": {
                     "type": "array",
-                    "description": "Sources proving this candidate is active in this exact race.",
+                    "description": "Current-cycle sources proving this candidate is active in this exact race.",
                     "items": {
                         "type": "object",
                         "properties": {
@@ -157,11 +157,28 @@ ADD_CANDIDATE_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
+                            "published_at": {
+                                "type": "string",
+                                "description": "Publication, filing, or update date (ISO-8601).",
+                            },
+                            "race_id": {"type": "string", "description": "Exact race ID supported by this source."},
+                            "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
                         },
+                        "required": [
+                            "url",
+                            "type",
+                            "title",
+                            "evidence",
+                            "published_at",
+                            "race_id",
+                            "evidence_tier",
+                            "retrieval_status",
+                        ],
                     },
                 },
             },
-            "required": ["name", "party"],
+            "required": ["name", "party", "roster_sources"],
         },
     },
 }

@@ -380,7 +380,13 @@ def _add_candidates_from_authoritative_roster(
 
 
 async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log: Any | None = None) -> None:
-    """Apply Ballotpedia election-page roster data when available."""
+    """Fetch Ballotpedia roster data as advisory evidence only.
+
+    Election and district pages can contain stale primary tables or unrelated
+    navigation tables.  The model-backed roster phase can inspect this result
+    alongside official sources, but an unreviewed scrape must never add or
+    remove candidates from an existing researched profile.
+    """
     try:
         bp_result = await _ballotpedia_election_lookup(race_id)
     except Exception as exc:
@@ -391,56 +397,10 @@ async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log:
     if not isinstance(bp_result, dict) or not bp_result.get("found"):
         return
     bp_candidates = bp_result.get("candidates")
-    if isinstance(bp_candidates, list):
-        authoritative = [
-            candidate for candidate in bp_candidates if isinstance(candidate, dict) and _candidate_name(candidate)
-        ]
-        if len(authoritative) >= 2:
-            candidates_before = race_json.get("candidates") or []
-            # Track candidates that were actually researched (have a non-empty summary)
-            researched_before = {_candidate_name(c) for c in candidates_before if isinstance(c, dict) and c.get("summary")}
-            names_before = {_candidate_name(c) for c in candidates_before if isinstance(c, dict)}
-            # Ballotpedia election pages commonly retain every primary candidate
-            # after the primary. They are useful for checking names already in the
-            # profile, but are not evidence that a missing person advanced to the
-            # general election. The model-backed roster pass must add any verified
-            # general-election candidate instead.
-            if race_json.get("contest_stage") != "post_primary_general":
-                _add_candidates_from_authoritative_roster(race_json, authoritative, log)
-            elif log:
-                log("debug", "Skipped Ballotpedia candidate additions for post-primary general-election roster")
-            _reconcile_candidates_with_authoritative_roster(race_json, authoritative, log)
-            names_after = {_candidate_name(c) for c in race_json.get("candidates") or [] if isinstance(c, dict)}
-            # If any researched candidates were removed, existing reviews/grade were
-            # produced for a different roster and are now stale. Clear them so the draft
-            # can be published as a null-grade update with the corrected roster rather
-            # than being blocked by a grade that no longer reflects the current data.
-            removed_researched = researched_before - names_after
-            if removed_researched and race_json.get("validation_grade") is not None:
-                race_json["reviews"] = []
-                race_json["validation_grade"] = None
-                if log:
-                    log(
-                        "info",
-                        "Cleared stale validation grade: researched candidates removed from roster during sync"
-                        f" ({', '.join(sorted(removed_researched))}).",
-                    )
-            # Catch the case where all current candidates are empty-profiled but
-            # a grade exists from a prior research run on a now-replaced roster
-            # (Fix 2 above doesn't fire when the previous discovery already purged
-            # the old candidates before this guard was in place).
-            current_candidates = race_json.get("candidates") or []
-            all_empty = current_candidates and all(
-                not (c.get("summary") if isinstance(c, dict) else True) for c in current_candidates
-            )
-            if all_empty and race_json.get("validation_grade") is not None:
-                race_json["reviews"] = []
-                race_json["validation_grade"] = None
-                if log:
-                    log(
-                        "info",
-                        "Cleared stale validation grade: all current candidates have empty profiles.",
-                    )
+    if isinstance(bp_candidates, list) and log:
+        names = [_candidate_name(candidate) for candidate in bp_candidates if _candidate_name(candidate)]
+        if names:
+            log("debug", f"  Ballotpedia roster lookup returned {len(names)} advisory candidate(s); no automatic edits")
 
 
 def _backfill_source_timestamps(race_json: Dict[str, Any]) -> None:

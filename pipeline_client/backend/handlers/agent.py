@@ -156,7 +156,21 @@ class AgentHandler:
         elif options.get("force_fresh"):
             existing_data = {}
         else:
-            existing_data = await self._load_existing_from_gcs(race_id)
+            existing_data = await self._load_existing_from_gcs(
+                race_id, baseline_source=options.get("baseline_source", "latest")
+            )
+        configured_baseline_names = options.get("verified_baseline_candidate_names")
+        if isinstance(configured_baseline_names, list):
+            verified_baseline_candidate_names = {
+                str(name).strip().casefold() for name in configured_baseline_names if str(name).strip()
+            }
+        else:
+            verified_baseline_candidate_names = {
+                _candidate_name(candidate).casefold()
+                for candidate in (existing_data or {}).get("candidates", [])
+                if _candidate_name(candidate)
+            }
+            options["verified_baseline_candidate_names"] = sorted(verified_baseline_candidate_names)
 
         # Deadline for Cloud Function handoff.  Callers (CF entry point) can
         # inject a tighter deadline via options; default is 55 min from now.
@@ -646,7 +660,11 @@ class AgentHandler:
         race_json_holder[0] = race_json
 
         # Save as draft (not published) — admin must explicitly publish
-        draft_path = await self._save_draft(race_id, race_json)
+        draft_path = await self._save_draft(
+            race_id,
+            race_json,
+            verified_baseline_candidate_names=verified_baseline_candidate_names,
+        )
 
         # Update race record metadata from the new draft data
         if not queue_item_id:
@@ -696,7 +714,13 @@ class AgentHandler:
             "status": "draft",
         }
 
-    async def _save_draft(self, race_id: str, race_json: Dict[str, Any]) -> Path:
+    async def _save_draft(
+        self,
+        race_id: str,
+        race_json: Dict[str, Any],
+        *,
+        verified_baseline_candidate_names: Set[str] | None = None,
+    ) -> Path:
         """Write RaceJSON to drafts/, retiring the previous active draft if present."""
         logger = logging.getLogger("pipeline")
         drafts_dir = local_paths.drafts_dir
@@ -717,6 +741,28 @@ class AgentHandler:
             raise ValueError(
                 f"Refusing to save draft '{race_id}': all candidate names are placeholders: {candidate_names}. "
                 "Re-queue the race with candidate_names or inspect discovery output."
+            )
+        from pipeline_client.agent.handlers import _qualifying_candidate_addition_sources
+
+        baseline_names = {name.casefold() for name in (verified_baseline_candidate_names or set())}
+        unsupported_additions: List[str] = []
+        for candidate in candidates:
+            name = _candidate_name(candidate)
+            if not name or name.casefold() in baseline_names:
+                continue
+            sources = _qualifying_candidate_addition_sources(
+                candidate.get("roster_sources") if isinstance(candidate, dict) else None,
+                candidate_name=name,
+                race_id=race_id,
+            )
+            if not sources:
+                unsupported_additions.append(name)
+            elif isinstance(candidate, dict):
+                candidate["roster_sources"] = sources
+        if unsupported_additions:
+            raise ValueError(
+                f"Refusing to save draft '{race_id}': new candidate(s) lack qualifying current-cycle "
+                f"exact-contest evidence: {', '.join(unsupported_additions)}."
             )
 
         json_str = json.dumps(race_json, indent=2, default=str)
@@ -805,12 +851,13 @@ class AgentHandler:
         except Exception as e:
             logger.warning(f"Failed to upload {race_id} to GCS {prefix}/: {e}")
 
-    async def _load_existing_from_gcs(self, race_id: str) -> Dict[str, Any] | None:
+    async def _load_existing_from_gcs(self, race_id: str, *, baseline_source: str = "latest") -> Dict[str, Any] | None:
         """Load existing race data from GCS so deployed containers use update mode.
 
-        Checks drafts/ first (most recent agent output), then falls back to
-        races/ (published).  Returns *None* when GCS is not configured or the
-        race doesn't exist in either prefix.
+        ``latest`` checks drafts/ first (most recent agent output), then falls
+        back to races/ (published). ``published`` reads only races/, which lets
+        targeted repair runs ignore an unrelated or defective draft. Returns
+        *None* when GCS is not configured or the race doesn't exist.
         """
         logger = logging.getLogger("pipeline")
         from pipeline_client.backend.settings import settings
@@ -825,8 +872,8 @@ class AgentHandler:
                 return None
             bucket = client.bucket(gcs_bucket)
 
-            # Try drafts first (latest agent output), then published
-            for prefix in ("drafts", "races"):
+            prefixes = ("races",) if baseline_source == "published" else ("drafts", "races")
+            for prefix in prefixes:
                 blob = bucket.blob(f"{prefix}/{race_id}.json")
                 if not blob.exists():
                     continue

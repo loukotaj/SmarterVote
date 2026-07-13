@@ -97,6 +97,10 @@ export interface CandidateRosterSource {
   title?: string;
   evidence?: string;
   last_accessed?: string;
+  published_at?: string;
+  race_id?: string;
+  evidence_tier?: 1 | 2 | 3;
+  retrieval_status?: "content" | "snippet";
 }
 
 export interface CareerEntry {

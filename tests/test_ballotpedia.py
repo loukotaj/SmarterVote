@@ -166,6 +166,19 @@ def test_candidate_parser_uses_current_primary_votebox_sections():
     ]
 
 
+def test_candidate_parser_does_not_treat_navigation_tables_as_candidates():
+    html = """
+    <table>
+      <tr><td><a href="/Democratic_Party">Democratic Party</a></td><td>Democratic</td></tr>
+      <tr><td><a href="/Poll_times">Poll times</a></td></tr>
+      <tr><td><a href="/Cook_Political_Report">Cook Political Report</a></td><td>Republican rating</td></tr>
+      <tr><td><a href="/Louisiana_congressional_delegation">Louisiana congressional delegation</a></td></tr>
+    </table>
+    """
+
+    assert _parse_candidate_list_from_html(html) == []
+
+
 def test_candidate_parser_excludes_election_history_section():
     """Prior-cycle voteboxes under an 'Election history' section must be ignored."""
     html = """

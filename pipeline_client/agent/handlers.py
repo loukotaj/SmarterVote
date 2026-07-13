@@ -11,6 +11,7 @@ import re
 from datetime import datetime, timezone
 from difflib import get_close_matches
 from typing import Any, Callable, Dict, Optional
+from urllib.parse import urlparse
 
 # Pattern matching metadata field names (snake_case, no spaces) — clearly not human names
 _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
@@ -68,7 +69,56 @@ def _normalize_roster_source(source: Any) -> Dict[str, Any] | None:
         "evidence": evidence,
         "last_accessed": source.get("last_accessed") or datetime.now(timezone.utc).isoformat(),
     }
+    for key in ("published_at", "race_id", "evidence_tier", "retrieval_status"):
+        if source.get(key) is not None:
+            normalized[key] = source[key]
     return {key: value for key, value in normalized.items() if value is not None}
+
+
+def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
+    """Validate one persisted source against the graded roster-evidence contract."""
+    if source.get("type") not in {"official", "fec", "campaign", "ballotpedia", "news"}:
+        return False
+    parsed_url = urlparse(str(source.get("url") or ""))
+    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+        return False
+    if source.get("race_id") != race_id or not source.get("title") or not source.get("evidence"):
+        return False
+    name_words = re.findall(r"[a-z0-9]+", candidate_name.lower())
+    evidence_text = f"{source.get('title', '')} {source.get('evidence', '')}".lower()
+    if not name_words or not all(word in evidence_text for word in name_words):
+        return False
+    year_match = re.search(r"(?:19|20)\d{2}", race_id)
+    try:
+        published = datetime.fromisoformat(str(source.get("published_at") or "").replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    if year_match and published.year not in {int(year_match.group()) - 1, int(year_match.group())}:
+        return False
+    tier = source.get("evidence_tier")
+    status = source.get("retrieval_status")
+    if tier == 1:
+        return status == "content" and source.get("type") in {"official", "fec"}
+    if tier == 2:
+        return status == "content" and source.get("type") in {"campaign", "ballotpedia", "news"}
+    return tier == 3 and status == "snippet"
+
+
+def _qualifying_candidate_addition_sources(sources: Any, *, candidate_name: str, race_id: str) -> list[Dict[str, Any]]:
+    """Return qualifying sources, enforcing corroboration for non-authoritative snippets."""
+    normalized = [src for src in (_normalize_roster_source(source) for source in sources or []) if src]
+    qualifying = [
+        source
+        for source in normalized
+        if _source_supports_candidate_addition(source, candidate_name=candidate_name, race_id=race_id)
+    ]
+    if qualifying and all(source.get("evidence_tier") == 3 for source in qualifying):
+        if any(source.get("type") in {"official", "fec"} for source in qualifying):
+            return qualifying
+        domains = {urlparse(str(source.get("url"))).netloc.lower() for source in qualifying}
+        if len(domains) < 2:
+            return []
+    return qualifying
 
 
 def _make_editing_handlers(
@@ -135,6 +185,18 @@ def _make_editing_handlers(
             )
         if _find_candidate(name):
             return f"Candidate '{name}' already exists — skipping."
+        race_id = str(race_json.get("id") or "").strip()
+        roster_sources = _qualifying_candidate_addition_sources(
+            args.get("roster_sources"), candidate_name=name, race_id=race_id
+        )
+        if not roster_sources:
+            log("warning", f"    add_candidate('{name}') BLOCKED: no qualifying current-cycle exact-contest evidence")
+            return (
+                f"Blocked adding '{name}': provide persisted, dated current-cycle evidence that explicitly names "
+                "the candidate and exact race. Retrieved official/FEC content is Tier 1; retrieved campaign, exact-race "
+                "Ballotpedia, or credible news content is Tier 2; blocked-page snippets are Tier 3 and require two "
+                "independent sources unless the snippet is from an official/FEC source."
+            )
         party = str(args.get("party") or "")
         party_key = "democratic" if "democrat" in party.lower() else "republican" if "republican" in party.lower() else ""
         if party_key:
@@ -159,9 +221,7 @@ def _make_editing_handlers(
             "name": name,
             "party": party,
             "incumbent": args.get("incumbent", False),
-            "roster_sources": [
-                src for src in (_normalize_roster_source(source) for source in args.get("roster_sources", [])) if src
-            ],
+            "roster_sources": roster_sources,
             "summary": "",
             "summary_sources": [],
             "image_url": None,
@@ -775,6 +835,16 @@ def _make_editing_handlers(
         if confidence not in {"high", "medium", "low", "unknown"}:
             return f"ERROR: Forecast confidence '{confidence}' is not valid."
 
+        predicted_winner_name = str(args.get("predicted_winner_name") or "").strip()
+        if predicted_winner_name:
+            active_names = {
+                str(candidate.get("name") or "").strip().casefold()
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict) and not candidate.get("withdrawn")
+            }
+            if predicted_winner_name.casefold() not in active_names:
+                return f"ERROR: Forecast winner '{predicted_winner_name}' is not in the active candidate roster."
+
         def _optional_probability(value: Any, field_name: str) -> float | None:
             if value in (None, ""):
                 return None
@@ -793,12 +863,19 @@ def _make_editing_handlers(
             return f"ERROR: {exc}"
 
         if win_probability is None:
-            predicted_party = str(args.get("predicted_winner_party") or "").lower()
+
+            def _party_key(value: Any) -> str:
+                key = str(value or "").strip().casefold()
+                if key.endswith(" party"):
+                    key = key[: -len(" party")].strip()
+                return {"democrat": "democratic", "gop": "republican"}.get(key, key)
+
+            predicted_party = _party_key(args.get("predicted_winner_party"))
             matching_probability = next(
                 (
                     probability
                     for party, probability in party_probabilities.items()
-                    if predicted_party and predicted_party in party.lower()
+                    if predicted_party and predicted_party == _party_key(party)
                 ),
                 None,
             )
@@ -829,7 +906,7 @@ def _make_editing_handlers(
                             predicted_winner_party = "Republican"
 
         forecast = {
-            "predicted_winner_name": args.get("predicted_winner_name") or None,
+            "predicted_winner_name": predicted_winner_name or None,
             "predicted_winner_party": predicted_winner_party or None,
             "win_probability": win_probability,
             "party_probabilities": party_probabilities,

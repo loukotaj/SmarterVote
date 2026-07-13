@@ -120,6 +120,10 @@ def test_mcp_pipeline_options_default_to_cheap_mode():
     from smartervote_mcp.server import _pipeline_options
 
     assert _pipeline_options(note="refresh") == {"cheap_mode": True, "note": "refresh"}
+    assert _pipeline_options(baseline_source="published") == {
+        "cheap_mode": True,
+        "baseline_source": "published",
+    }
 
 
 def test_mcp_pipeline_options_require_explicit_false_for_quality_profile():

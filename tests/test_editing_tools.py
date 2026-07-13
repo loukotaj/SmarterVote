@@ -163,6 +163,48 @@ def test_set_forecast_derives_missing_win_probability_from_party_probability():
     assert race_json["forecast"]["win_probability"] == 0.64
 
 
+def test_set_forecast_derives_probability_when_predicted_party_has_party_suffix():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "Democratic"}], "polling": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_forecast"](
+        {
+            "predicted_winner_name": "Alice",
+            "predicted_winner_party": "Democratic Party",
+            "party_probabilities": {"Democratic": 0.72, "Republican": 0.28},
+            "rating": "lean_d",
+            "confidence": "medium",
+            "rationale": "Alice is favored.",
+        }
+    )
+
+    assert result == "Updated race.forecast."
+    assert race_json["forecast"]["win_probability"] == 0.72
+
+
+def test_set_forecast_rejects_winner_outside_active_roster():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "Democratic"}], "polling": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_forecast"](
+        {
+            "predicted_winner_name": "Historical Candidate",
+            "predicted_winner_party": "Republican",
+            "win_probability": 0.8,
+            "rating": "likely_r",
+            "confidence": "low",
+            "rationale": "Invalid stale forecast.",
+        }
+    )
+
+    assert result == "ERROR: Forecast winner 'Historical Candidate' is not in the active candidate roster."
+    assert "forecast" not in race_json
+
+
 def test_set_forecast_labels_tossup_when_no_winner_party_is_supplied():
     from pipeline_client.agent.agent import _make_editing_handlers
 
@@ -308,13 +350,89 @@ def test_add_candidate_handler():
     """add_candidate handler adds a candidate to race_json."""
     from pipeline_client.agent.agent import _make_editing_handlers
 
-    race_json = {"candidates": []}
+    race_json = {"id": "ga-house-01-2026", "candidates": []}
     handlers = _make_editing_handlers(race_json, lambda l, m: None)
 
-    result = handlers["add_candidate"]({"name": "Alice", "party": "Democratic"})
+    result = handlers["add_candidate"](
+        {
+            "name": "Alice Candidate",
+            "party": "Democratic",
+            "roster_sources": [
+                {
+                    "url": "https://sos.ga.gov/2026-candidates",
+                    "type": "official",
+                    "title": "2026 qualified candidates",
+                    "evidence": "Alice Candidate filed for Georgia's 1st Congressional District in 2026.",
+                    "published_at": "2026-03-10",
+                    "race_id": "ga-house-01-2026",
+                    "evidence_tier": 1,
+                    "retrieval_status": "content",
+                }
+            ],
+        }
+    )
     assert "Added" in result
     assert len(race_json["candidates"]) == 1
-    assert race_json["candidates"][0]["name"] == "Alice"
+    assert race_json["candidates"][0]["name"] == "Alice Candidate"
+    assert race_json["candidates"][0]["roster_sources"][0]["evidence_tier"] == 1
+
+
+def test_add_candidate_rejects_undated_or_generic_evidence():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "ga-house-01-2026", "candidates": [{"name": "Existing", "summary": "researched"}]}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    result = handlers["add_candidate"](
+        {
+            "name": "Alice Candidate",
+            "party": "Democratic",
+            "roster_sources": [
+                {
+                    "url": "https://example.com/alice",
+                    "type": "news",
+                    "title": "Alice Candidate biography",
+                    "evidence": "Alice Candidate is active in politics.",
+                    "race_id": "ga-house-01-2026",
+                    "evidence_tier": 2,
+                    "retrieval_status": "content",
+                }
+            ],
+        }
+    )
+
+    assert "Blocked adding" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Existing"]
+
+
+def test_add_candidate_tier3_requires_independent_sources_unless_authoritative():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    base_source = {
+        "url": "https://localnews.example/blocked-page",
+        "type": "news",
+        "title": "Alice Candidate files for Georgia 1st District",
+        "evidence": "Search result says Alice Candidate is running for Georgia's 1st Congressional District in 2026.",
+        "published_at": "2026-03-10",
+        "race_id": "ga-house-01-2026",
+        "evidence_tier": 3,
+        "retrieval_status": "snippet",
+    }
+    race_json = {"id": "ga-house-01-2026", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    assert "Blocked adding" in handlers["add_candidate"](
+        {"name": "Alice Candidate", "party": "Democratic", "roster_sources": [base_source]}
+    )
+
+    second_source = {
+        **base_source,
+        "url": "https://anothernews.example/alice-candidate",
+        "title": "Georgia 1st District candidate Alice Candidate",
+    }
+    result = handlers["add_candidate"](
+        {"name": "Alice Candidate", "party": "Democratic", "roster_sources": [base_source, second_source]}
+    )
+    assert "Added" in result
+    assert len(race_json["candidates"][0]["roster_sources"]) == 2
 
 
 def test_roster_sources_and_race_identity_handlers():
