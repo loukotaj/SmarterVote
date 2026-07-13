@@ -39,6 +39,7 @@ Frontend environment variables (configured under `web/` in `.env` or `.env.produ
 - `VITE_RACES_API_URL`: FastAPI Races API base URL (defaults to `http://localhost:8080` in local dev).
 - `VITE_PUBLIC_DATA_URL`: Optional public static GCS data folder path (e.g., `https://storage.googleapis.com/smartervote-sv-data-dev/races`). When configured, SvelteKit fetches published races and the central summaries index directly from GCS and does not fall back to `races-api` for public reads. Leave this unset in local development when you want to exercise the FastAPI public read routes.
 - `VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN`: Optional public Cloudflare Web Analytics site token. The beacon is loaded only when this is set and the initial route is not `/admin`. Public/admin navigation links force a full reload so the SPA beacon does not remain active inside the admin console.
+- `VITE_GOOGLE_MAPS_API_KEY`: Optional browser key for Google Places address suggestions on `/my-ballot/`. Without it, the normal Census address lookup remains available. Enable Places API (New) and Maps JavaScript API, then restrict the key to those APIs and the production/local web origins. Suggestions wait for five characters, debounce requests, and use a Places session token to limit billable traffic. Set Google Cloud quota and budget alerts as the final spending guardrail.
 
 For deployed dashboard traffic reporting, configure the races API with:
 

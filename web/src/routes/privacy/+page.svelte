@@ -19,14 +19,17 @@
   </PolicySection>
   <PolicySection title="Address lookup">
     <p>
-      Address lookup sends the address directly from your browser to the U.S.
-      Census Geocoder to identify a state and congressional district.
-      Smarter.Vote does not send the address to its own server, place it in the
-      page URL or analytics, or save it in browser storage. The derived state,
-      district, and matched race IDs are kept in this tab's session storage so
-      results survive a refresh. They are cleared when you search another
-      address or close the tab. The Census Bureau handles the lookup under its
-      own policies.
+      If address suggestions are enabled, what you type is sent directly from
+      your browser to Google Places. Selecting a suggestion retrieves its
+      formatted address. The completed address is then sent directly from your
+      browser to the U.S. Census Geocoder to identify a state and congressional
+      district. Smarter.Vote does not send the address to its own server, place
+      it in the page URL or analytics, or save it in browser storage. The
+      derived state, district, and matched race IDs are kept in this tab's
+      session storage so results survive a refresh. Google and the Census Bureau
+      handle their parts of the lookup under their own policies. The derived
+      values are cleared when you search another address or close the tab. The
+      Census Bureau handles the lookup under its own policies.
     </p>
   </PolicySection>
   <PolicySection title="Retention and access">
