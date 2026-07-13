@@ -14,7 +14,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("races_api")
 
 
 def _extract_race_id(path: str) -> Optional[str]:

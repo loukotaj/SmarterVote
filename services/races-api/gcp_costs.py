@@ -16,7 +16,7 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Dict
 
-logger = logging.getLogger("races-api")
+logger = logging.getLogger("races_api")
 
 _DATASET = os.getenv("BILLING_EXPORT_DATASET", "billing_export")
 _TABLE_PREFIX = "gcp_billing_export"
