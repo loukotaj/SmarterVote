@@ -61,5 +61,8 @@
     "tailwindcss": "^3.3.5",
     "topojson-client": "^3.1.0",
     "us-atlas": "^3.0.1"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-linux-x64-gnu": "^1.1.5"
   }
 }
