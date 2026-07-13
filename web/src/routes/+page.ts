@@ -5,7 +5,6 @@ import {
   isGradeAHomepageRace,
 } from "$lib/homepagePreview";
 import { loadPrerenderRace } from "$lib/prerenderData";
-import type { RaceSummary } from "$lib/types";
 import {
   homepageMetrics,
   nationalElectionRaces,
@@ -40,28 +39,10 @@ export const load: PageLoad = async ({ fetch, parent }) => {
     .map((result) => result.value);
   if (verified.length) gradeARaces = verified;
 
-  const summaryById = new Map(nationalRaces.map((race) => [race.id, race]));
-  const featuredRaces: RaceSummary[] = gradeARaces.map(
-    (race) =>
-      summaryById.get(race.id) ?? {
-        id: race.id,
-        title: race.title,
-        office: race.office,
-        jurisdiction: race.jurisdiction,
-        state: race.state,
-        contest_stage: race.contest_stage,
-        election_date: race.election_date,
-        updated_utc: race.updated_utc,
-        candidates: race.candidates.map(
-          ({ name, party, incumbent, image_url }) => ({
-            name,
-            party,
-            incumbent,
-            image_url,
-          }),
-        ),
-      },
-  );
+  // The editorial list is driven by the published summary index, independently
+  // of the stricter full-record requirements used by InteractiveRaceCompare.
+  // A partial preview load must not collapse "Recently updated" to one race.
+  const featuredRaces = recentlyUpdated(nationalRaces, 5);
 
   return {
     nationalRaces,
