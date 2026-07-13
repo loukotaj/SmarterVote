@@ -106,7 +106,7 @@
   $: if (!pendingQueue.length) clearingQueue = false;
 
   $: selectedMetricsRecord = pipelineRecords.find(
-    (r) => r.run_id === selectedRunId
+    (r) => r.run_id === selectedRunId,
   );
   $: _isPruningPlaceholder = isPruning;
 
@@ -199,7 +199,7 @@
                 selectedRunDetail = await apiService.getRunDetails(runId);
                 const newLogsRes = await apiService.getRunLogs(
                   runId,
-                  lastLogIndex
+                  lastLogIndex,
                 );
                 if (newLogsRes.logs && newLogsRes.logs.length > 0) {
                   drawerLogs = [...drawerLogs, ...newLogsRes.logs];
@@ -259,7 +259,7 @@
       !confirm(
         `Remove all ${pendingQueue.length} pending item${
           pendingQueue.length !== 1 ? "s" : ""
-        } from the queue?`
+        } from the queue?`,
       )
     )
       return;
@@ -312,7 +312,7 @@
     const runMetrics = run as RunMetricFields;
 
     const cost = record
-      ? record.cost_usd ?? record.estimated_usd
+      ? (record.cost_usd ?? record.estimated_usd)
       : stepSum.cost || runMetrics.estimated_usd || 0;
     const prompt = record
       ? record.prompt_tokens
@@ -400,15 +400,15 @@
     queueItems
       .filter((q) => q.status === "running" || q.status === "pending")
       .map((q) => q.run_id)
-      .filter(Boolean)
+      .filter(Boolean),
   );
   $: continuationParentRunIds = new Set(
-    queueItems.map((q) => q.parent_run_id).filter(Boolean)
+    queueItems.map((q) => q.parent_run_id).filter(Boolean),
   );
   $: activeQueueItems = queueItems.filter(
     (q) =>
       (q.status === "running" || q.status === "pending") &&
-      !continuationParentRunIds.has(q.run_id)
+      !continuationParentRunIds.has(q.run_id),
   );
 
   $: activeQueueRuns = activeQueueItems
@@ -416,7 +416,7 @@
       (q) =>
         (q.status === "running" || q.status === "pending") &&
         q.run_id &&
-        !runs.some((r) => r.run_id === q.run_id)
+        !runs.some((r) => r.run_id === q.run_id),
     )
     .map(
       (q, idx) =>
@@ -435,7 +435,7 @@
           updated_at: q.started_at ?? q.created_at,
           display_id: -(idx + 1),
           steps: [],
-        } as RunHistoryItem)
+        }) as RunHistoryItem,
     );
 
   $: activeRuns = [
@@ -444,7 +444,7 @@
         (r.status === "running" ||
           r.status === "pending" ||
           liveRunIds.has(r.run_id)) &&
-        !continuationParentRunIds.has(r.run_id)
+        !continuationParentRunIds.has(r.run_id),
     ),
     ...activeQueueRuns,
   ];
@@ -453,7 +453,7 @@
     (r) =>
       r.status !== "running" &&
       r.status !== "pending" &&
-      !liveRunIds.has(r.run_id)
+      !liveRunIds.has(r.run_id),
   );
 
   // Filtered lists
@@ -683,8 +683,8 @@
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
         {#each Array(4) as _}
           <div class="card p-4 space-y-2">
-            <div class="h-3 bg-surface-alt rounded w-2/3" />
-            <div class="h-6 bg-surface-alt rounded w-1/2" />
+            <div class="h-3 bg-surface-alt rounded w-2/3"></div>
+            <div class="h-6 bg-surface-alt rounded w-1/2"></div>
           </div>
         {/each}
       </div>
@@ -796,20 +796,22 @@
           <span class="text-xs text-content-muted shrink-0">Run modes:</span>
           {#if pipelineSummary.cheap_runs > 0}
             <div class="flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block" />
+              <span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block"
+              ></span>
               <span class="text-xs text-content-muted"
                 ><strong>{pipelineSummary.cheap_runs}</strong> cheap ({formatUsd(
-                  pipelineSummary.avg_cheap_usd
+                  pipelineSummary.avg_cheap_usd,
                 )} avg)</span
               >
             </div>
           {/if}
           {#if pipelineSummary.full_runs > 0}
             <div class="flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 rounded-sm bg-purple-500 inline-block" />
+              <span class="w-2.5 h-2.5 rounded-sm bg-purple-500 inline-block"
+              ></span>
               <span class="text-xs text-content-muted"
                 ><strong>{pipelineSummary.full_runs}</strong> full ({formatUsd(
-                  pipelineSummary.avg_full_usd
+                  pipelineSummary.avg_full_usd,
                 )} avg)</span
               >
             </div>
@@ -892,7 +894,7 @@
                 >
                 <span
                   class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(
-                    run.status
+                    run.status,
                   )}">{run.status}</span
                 >
               </div>
@@ -901,7 +903,7 @@
                   <div
                     class="h-full rounded-full bg-blue-500 transition-all duration-500"
                     style="width: {runProgress(run)}%"
-                  />
+                  ></div>
                 </div>
                 <div
                   class="text-xs text-content-faint whitespace-nowrap font-mono"
@@ -984,7 +986,7 @@
             >
             <span
               class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(
-                'pending'
+                'pending',
               )}">pending</span
             >
             <span class="text-xs text-content-faint"
@@ -1115,7 +1117,7 @@
               >
               <span
                 class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(
-                  run.status
+                  run.status,
                 )}">{run.status}</span
               >
             </div>
@@ -1129,7 +1131,7 @@
               {#if metrics.total > 0}
                 <span
                   >· {formatTokens(metrics.prompt)} / {formatTokens(
-                    metrics.completion
+                    metrics.completion,
                   )} tokens</span
                 >
               {/if}
@@ -1210,6 +1212,7 @@
         {/if}
         <button
           type="button"
+          aria-label="Close run details"
           class="p-1.5 rounded-lg hover:bg-surface-alt text-content-muted hover:text-content transition-colors"
           on:click={closeRunDrawer}
         >
@@ -1262,11 +1265,11 @@
     <div class="flex-1 overflow-y-auto p-4 space-y-4">
       {#if loadingDrawerDetails}
         <div class="animate-pulse space-y-4">
-          <div class="h-20 bg-surface-alt rounded" />
-          <div class="h-10 bg-surface-alt rounded w-1/3" />
+          <div class="h-20 bg-surface-alt rounded"></div>
+          <div class="h-10 bg-surface-alt rounded w-1/3"></div>
           <div class="space-y-2">
-            <div class="h-4 bg-surface-alt rounded" />
-            <div class="h-4 bg-surface-alt rounded w-5/6" />
+            <div class="h-4 bg-surface-alt rounded"></div>
+            <div class="h-4 bg-surface-alt rounded w-5/6"></div>
           </div>
         </div>
       {:else if drawerError}
@@ -1305,7 +1308,7 @@
             <span class="text-content-faint">Status:</span>
             <span
               class="ml-1 px-1.5 py-0.5 rounded font-medium {getStatusClass(
-                selectedRunDetail.status
+                selectedRunDetail.status,
               )}"
             >
               {selectedRunDetail.status}
@@ -1324,8 +1327,8 @@
               >{selectedRunDetail.duration_ms
                 ? formatMs(selectedRunDetail.duration_ms)
                 : selectedMetricsRecord?.duration_s
-                ? `${selectedMetricsRecord.duration_s}s`
-                : "—"}</span
+                  ? `${selectedMetricsRecord.duration_s}s`
+                  : "—"}</span
             >
           </div>
           <div>
@@ -1338,7 +1341,7 @@
             <span class="text-content-faint">Tokens:</span>
             <span class="ml-1 text-content font-mono"
               >{formatTokens(m.prompt)} / {formatTokens(m.completion)} ({formatTokens(
-                m.total
+                m.total,
               )} total)</span
             >
           </div>
@@ -1383,7 +1386,7 @@
                       {#if step.duration_ms}{formatMs(step.duration_ms)}{/if}
                       {#if step.prompt_tokens || step.completion_tokens}
                         · {formatTokens(step.prompt_tokens)}/{formatTokens(
-                          step.completion_tokens
+                          step.completion_tokens,
                         )} tokens
                       {/if}
                       {#if step.estimated_usd}
@@ -1399,7 +1402,7 @@
                     {/if}
                     <span
                       class="px-1.5 py-0.5 rounded-full text-[10px] border {getStatusClass(
-                        step.status
+                        step.status,
                       )}">{step.status}</span
                     >
                   </div>
@@ -1450,7 +1453,7 @@
           {#each filteredDrawerLogs as log}
             <div
               class="py-1 px-2 border-b border-stroke/40 whitespace-pre-wrap rounded-sm border-l-4 {getLogClass(
-                log.level
+                log.level,
               )}"
             >
               <span class="text-content-faint"
@@ -1486,5 +1489,5 @@
     role="button"
     tabindex="-1"
     aria-label="Close drawer"
-  />
+  ></div>
 {/if}

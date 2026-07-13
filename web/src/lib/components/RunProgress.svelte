@@ -27,7 +27,7 @@
       <div class="flex items-center space-x-2">
         <span
           class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(
-            runStatus
+            runStatus,
           )}"
         >
           {runStatus.charAt(0).toUpperCase() + runStatus.slice(1)}
@@ -50,7 +50,7 @@
         <div
           class="progress-bar bg-blue-600 h-2 rounded-full"
           style="width: {progress}%"
-        />
+        ></div>
       </div>
     </div>
 

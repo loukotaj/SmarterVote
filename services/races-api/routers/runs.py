@@ -5,6 +5,7 @@ processor used by Cloud Run Jobs and the local Docker worker.
 Logs are stored in the `pipeline_runs/{run_id}/logs` subcollection.
 """
 
+import logging
 import os
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
@@ -17,6 +18,7 @@ from routers.utils import _coerce_datetime, _queue_ttl_at
 from shared.pipeline_config import RetentionConfig
 
 router = APIRouter()
+logger = logging.getLogger("races_api")
 
 _ACTIVE_STATUSES = {"pending", "running"}
 _TERMINAL_STATUSES = {"completed", "failed", "cancelled", "continued"}
@@ -125,6 +127,7 @@ def _has_live_queue_lease(db: Any, run_id: str, now: datetime) -> bool:
             if data.get("status") == "running" and lease_expires_at and lease_expires_at > now:
                 return True
     except Exception:
+        logger.exception("Unable to verify queue lease for run %s; preserving active state", run_id)
         # This endpoint self-heals by mutating state. If liveness cannot be
         # checked safely, leave the run alone rather than declaring it dead.
         return True
@@ -136,6 +139,7 @@ def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
         run_doc = db.collection("pipeline_runs").document(run_id).get()
         run_data = firestore_helpers._doc_to_plain(run_doc)
     except Exception:
+        logger.exception("Unable to read current run %s while reconciling state", run_id)
         return False
     if run_data is None:
         return True
@@ -157,6 +161,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
             race_doc = db.collection("races").document(str(race_id)).get()
             race_data = firestore_helpers._doc_to_plain(race_doc)
         except Exception:
+            logger.exception("Unable to read race %s while normalizing run %s", race_id, run_id)
             race_data = None
         if race_data:
             race_status = race_data.get("status")
@@ -170,14 +175,14 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
                 try:
                     runs_ref.document(str(run_id)).update(update)
                 except Exception:
-                    pass
+                    logger.exception("Unable to mark superseded run %s cancelled", run_id)
                 for queue_doc in queue_ref.where("run_id", "==", run_id).limit(20).stream():
                     queue_data = queue_doc.to_dict() or {}
                     if queue_data.get("status") in _ACTIVE_STATUSES:
                         try:
                             queue_doc.reference.update(queue_update)
                         except Exception:
-                            pass
+                            logger.exception("Unable to cancel queue item for superseded run %s", run_id)
                 return None
 
     if _is_stale_active_run(run, now) and not _has_live_queue_lease(db, str(run_id), now):
@@ -189,7 +194,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
         try:
             runs_ref.document(str(run_id)).update(update)
         except Exception:
-            pass
+            logger.exception("Unable to mark stale run %s failed", run_id)
         for queue_doc in queue_ref.where("run_id", "==", run_id).limit(20).stream():
             queue_data = queue_doc.to_dict() or {}
             if queue_data.get("status") in _ACTIVE_STATUSES:
@@ -203,7 +208,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
                         }
                     )
                 except Exception:
-                    pass
+                    logger.exception("Unable to mark queue item failed for stale run %s", run_id)
         return None
 
     return run

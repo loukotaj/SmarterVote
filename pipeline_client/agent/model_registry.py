@@ -11,6 +11,7 @@ DEFAULT_MODEL = "google/gemini-2.5-flash"
 CHEAP_MODEL = "openai/gpt-5.4-mini"
 NANO_MODEL = "openai/gpt-5-nano"
 DEEPSEEK_FLASH_MODEL = "deepseek/deepseek-v4-flash"
+DEEPSEEK_PRO_MODEL = "deepseek/deepseek-v4-pro"
 
 NEMOTRON_SUPER_MODEL = "nvidia/nemotron-3-super-120b-a12b"
 NEMOTRON_ULTRA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b"
@@ -58,7 +59,10 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     ),
     "x-ai/grok-4.20": ModelSpec("x-ai/grok-4.20", "Grok 4.20", 1.25, 2.50, 2_000_000),
     "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50, 1_000_000),
-    "deepseek/deepseek-v4-flash": ModelSpec("deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.09, 0.18, 1_048_576, 65_536),
+    "deepseek/deepseek-v4-flash": ModelSpec(
+        "deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.077, 0.154, 1_048_576, 65_536
+    ),
+    "deepseek/deepseek-v4-pro": ModelSpec("deepseek/deepseek-v4-pro", "DeepSeek V4 Pro", 0.435, 0.87, 1_048_576, 65_536),
     "nvidia/nemotron-3-super-120b-a12b": ModelSpec(
         "nvidia/nemotron-3-super-120b-a12b", "Nemotron 3 Super", 0.09, 0.45, 1_000_000
     ),
@@ -97,6 +101,7 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "grok-4-1-fast-non-reasoning": "x-ai/grok-4.3",
     "grok-3-mini": "x-ai/grok-4.3",
     "deepseek-v4-flash": "deepseek/deepseek-v4-flash",
+    "deepseek-v4-pro": "deepseek/deepseek-v4-pro",
     "nemotron-3-super": "nvidia/nemotron-3-super-120b-a12b",
     "nemotron-3-ultra": "nvidia/nemotron-3-ultra-550b-a55b",
     "llama-3.3-70b": "meta-llama/llama-3.3-70b-instruct",
@@ -124,16 +129,16 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
     },
     "balanced": {
         "primary": "google/gemini-2.5-flash",
-        "small": LLAMA_3_3_70B_MODEL,
+        "small": DEEPSEEK_FLASH_MODEL,
         "roster": ROSTER_MODEL,
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,
     },
     "quality": {
-        "primary": DEFAULT_MODEL,
-        "small": DEFAULT_MODEL,
-        "roster": DEFAULT_MODEL,
+        "primary": DEEPSEEK_PRO_MODEL,
+        "small": DEEPSEEK_PRO_MODEL,
+        "roster": DEEPSEEK_PRO_MODEL,
         "review_claude": DEFAULT_CLAUDE_MODEL,
         "review_gemini": DEFAULT_GEMINI_MODEL,
         "review_grok": DEFAULT_GROK_MODEL,

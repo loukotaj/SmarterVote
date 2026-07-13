@@ -33,7 +33,7 @@
       tabindex="0"
       on:click={handleBackdropClick}
       on:keydown={() => {}}
-    />
+    ></div>
     <div class="modal-content">
       <button class="modal-close" on:click={close} title="Close">&times;</button
       >

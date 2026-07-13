@@ -108,16 +108,19 @@
           </span>
           <span
             class="text-xs px-1.5 py-0.5 rounded-full flex-shrink-0 {getStatusClass(
-              run.status || 'unknown'
+              run.status || 'unknown',
             )}"
           >
             {run.status ?? "unknown"}
           </span>
-          <button
-            type="button"
+          <span
+            role="button"
+            tabindex="0"
             class="text-content-faint hover:text-content-muted flex-shrink-0 text-xs"
             on:click={(e) => handleRunDetails(run, e)}
-            title="View run details">↗</button
+            on:keydown={(e) =>
+              (e.key === "Enter" || e.key === " ") && handleRunDetails(run, e)}
+            title="View run details">↗</span
           >
         </div>
         <div class="flex items-center gap-2 mt-0.5 text-xs text-content-faint">

@@ -72,7 +72,7 @@
 
   $: {
     // Reset visible race count on tab or filter change
-    activeTab, selectedState, filterRating, filterParty;
+    (activeTab, selectedState, filterRating, filterParty);
     visibleRaceCount = 9;
   }
 
@@ -84,7 +84,7 @@
 
   $: seatBuckets = groupSeatDistribution(
     chamberSummary?.seat_distribution ?? {},
-    activeTab
+    activeTab,
   );
   $: sortedOutcomes = Object.entries(chamberSummary?.seat_distribution ?? {})
     .map(([key, prob]) => {
@@ -97,7 +97,7 @@
     .sort((a, b) => b.dSeats - a.dSeats);
   $: maxProbability = Math.max(
     ...sortedOutcomes.map((o) => o.probability),
-    0.01
+    0.01,
   );
   $: svgData = (() => {
     if (sortedOutcomes.length === 0)
@@ -164,17 +164,17 @@
     (aggregate.projected.Republican ?? 0) === 50
       ? "Republican"
       : (aggregate.projected.Democratic ?? 0) >= aggregate.threshold
-      ? "Democratic"
-      : (aggregate.projected.Republican ?? 0) >= aggregate.threshold
-      ? "Republican"
-      : "Other");
+        ? "Democratic"
+        : (aggregate.projected.Republican ?? 0) >= aggregate.threshold
+          ? "Republican"
+          : "Other");
 
   // Filter active states for the map click handler
   $: activeStates = new Set(
     races
       .filter((r) => isRaceInForecastTab(r, activeTab))
       .map(getRaceState)
-      .filter(Boolean) as string[]
+      .filter(Boolean) as string[],
   );
 
   // Dynamic colors and tooltips for the map
@@ -240,8 +240,8 @@
             badgeClass: rating.endsWith("_d")
               ? "!bg-blue-600 !text-white"
               : rating.endsWith("_r")
-              ? "!bg-red-600 !text-white"
-              : "!bg-slate-500 !text-white",
+                ? "!bg-red-600 !text-white"
+                : "!bg-slate-500 !text-white",
             details: [
               `Projected: ${
                 r.forecast.predicted_winner_name ||
@@ -290,7 +290,7 @@
           }
 
           const seatStrings = holdoverSeats.map((p) =>
-            p === "Democratic" ? "Democrat" : "Republican"
+            p === "Democratic" ? "Democrat" : "Republican",
           );
           tooltips[state] = {
             title: state,
@@ -335,13 +335,13 @@
             details.push(
               `Holdover Seat: ${
                 holdoverSeat === "Democratic" ? "Democrat" : "Republican"
-              }`
+              }`,
             );
           }
           details.push(
             r.forecast.rationale.length > 90
               ? r.forecast.rationale.slice(0, 90) + "..."
-              : r.forecast.rationale
+              : r.forecast.rationale,
           );
 
           tooltips[state] = {
@@ -351,8 +351,8 @@
             badgeClass: rating.endsWith("_d")
               ? "!bg-blue-600 !text-white"
               : rating.endsWith("_r")
-              ? "!bg-red-600 !text-white"
-              : "!bg-slate-500 !text-white",
+                ? "!bg-red-600 !text-white"
+                : "!bg-slate-500 !text-white",
             details,
           };
         } else {
@@ -362,7 +362,7 @@
             details.push(
               `Holdover Seat: ${
                 holdoverSeat === "Democratic" ? "Democrat" : "Republican"
-              }`
+              }`,
             );
           }
           tooltips[state] = {
@@ -377,7 +377,7 @@
     } else {
       // House
       const states = new Set(
-        activeRaces.map(getRaceState).filter(Boolean) as string[]
+        activeRaces.map(getRaceState).filter(Boolean) as string[],
       );
       for (const state of states) {
         if (!state) continue;
@@ -399,8 +399,8 @@
           badgeClass: summary.primary?.forecast?.rating.endsWith("_d")
             ? "!bg-blue-600 !text-white"
             : summary.primary?.forecast?.rating.endsWith("_r")
-            ? "!bg-red-600 !text-white"
-            : "!bg-slate-500 !text-white",
+              ? "!bg-red-600 !text-white"
+              : "!bg-slate-500 !text-white",
           details:
             summary.details.length > 0
               ? [
@@ -465,7 +465,7 @@
     const title = race.title || "";
     const id = race.id || "";
     const isKey = chamberSummary?.competitive_races?.some(
-      (t) => t === title || title.includes(t) || id.includes(t)
+      (t) => t === title || title.includes(t) || id.includes(t),
     );
 
     let ratingPriority = 4;
@@ -535,7 +535,7 @@
         const party = normalizeForecastParty(
           race.forecast.predicted_winner_party,
           race.forecast.party_probabilities,
-          race.candidates
+          race.candidates,
         );
         if (filterParty !== party) return false;
       }
@@ -588,13 +588,13 @@
     const title = r.title || "";
     const id = r.id || "";
     return chamberSummary?.competitive_races?.some(
-      (t) => t === title || title.includes(t) || id.includes(t)
+      (t) => t === title || title.includes(t) || id.includes(t),
     );
   });
 
   $: filteredMissingRaces = selectedState
     ? aggregate.missingForecasts.filter(
-        (r) => getRaceState(r) === selectedState
+        (r) => getRaceState(r) === selectedState,
       )
     : aggregate.missingForecasts;
 
@@ -644,26 +644,26 @@
       primary: sorted[0],
       forecastedCount: forecasted.length,
       competitiveCount: forecasted.filter(
-        (race) => ratingCompetitiveness(race.forecast!.rating) <= 2
+        (race) => ratingCompetitiveness(race.forecast!.rating) <= 2,
       ).length,
       details: sorted.slice(0, 3).map((race) => {
         const forecast = race.forecast!;
         const party = normalizeForecastParty(
           forecast.predicted_winner_party,
           forecast.party_probabilities,
-          race.candidates
+          race.candidates,
         );
         const winProb = forecast.win_probability
           ? `, ${Math.round(forecast.win_probability * 100)}% ${
               party === "Democratic"
                 ? "D"
                 : party === "Republican"
-                ? "R"
-                : party
+                  ? "R"
+                  : party
             }`
           : "";
         return `${race.title ?? race.id}: ${formatRating(
-          forecast.rating
+          forecast.rating,
         )}${winProb}`;
       }),
     };
@@ -700,7 +700,7 @@
       return null;
     }
     return `${probabilityOneDecimal(
-      signal.yes_bid
+      signal.yes_bid,
     )} bid / ${probabilityOneDecimal(signal.yes_ask)} ask`;
   }
 
@@ -801,10 +801,9 @@
         <span class="relative flex h-2 w-2">
           <span
             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-          />
-          <span
-            class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
-          />
+          ></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+          ></span>
         </span>
         Model status: Live
       </div>
@@ -868,8 +867,8 @@
                 2026 {activeTab === "house"
                   ? "House"
                   : activeTab === "senate"
-                  ? "Senate"
-                  : "Governor"} Election Summary
+                    ? "Senate"
+                    : "Governor"} Election Summary
               </h2>
             </div>
 
@@ -880,17 +879,17 @@
               {controlParty === 'Democratic'
                   ? 'bg-blue-500/10 text-blue-700 border-blue-500/20 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/40'
                   : controlParty === 'Republican'
-                  ? 'bg-red-500/10 text-red-700 border-red-500/20 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/40'
-                  : 'bg-slate-500/10 text-slate-700 border-slate-500/20 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700/40'}"
+                    ? 'bg-red-500/10 text-red-700 border-red-500/20 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/40'
+                    : 'bg-slate-500/10 text-slate-700 border-slate-500/20 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700/40'}"
               >
                 <span
                   class="w-2 h-2 rounded-full
                 {controlParty === 'Democratic'
                     ? 'bg-blue-600 dark:bg-blue-500 animate-pulse'
                     : controlParty === 'Republican'
-                    ? 'bg-red-600 dark:bg-red-500 animate-pulse'
-                    : 'bg-slate-500 dark:bg-slate-400'}"
-                />
+                      ? 'bg-red-600 dark:bg-red-500 animate-pulse'
+                      : 'bg-slate-500 dark:bg-slate-400'}"
+                ></span>
                 {#if controlParty === "Other"}
                   No clear control projected
                 {:else}
@@ -928,8 +927,8 @@
                   controlParty === "Democratic"
                     ? "text-blue-600 dark:text-blue-400"
                     : controlParty === "Republican"
-                    ? "text-red-600 dark:text-red-400"
-                    : "text-content"
+                      ? "text-red-600 dark:text-red-400"
+                      : "text-content"
                 }`}
               >
                 {probability(chamberSummary?.control_probability)}
@@ -1015,7 +1014,7 @@
                       class="bg-blue-600 dark:bg-blue-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
                       style="width: {demProb * 100}%"
                       title="Democratic control probability: {probability(
-                        demProb
+                        demProb,
                       )}"
                     >
                       {#if demProb > 0.15}
@@ -1039,7 +1038,7 @@
                       class="bg-slate-400 dark:bg-slate-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs"
                       style="width: {otherProb * 100}%"
                       title="Other control probability: {probability(
-                        otherProb
+                        otherProb,
                       )}"
                     >
                       {#if otherProb > 0.15}
@@ -1052,7 +1051,7 @@
                       class="bg-red-600 dark:bg-red-500 transition-all duration-500 flex items-center justify-center font-black text-white text-xs ml-auto"
                       style="width: {gopProb * 100}%"
                       title="Republican control probability: {probability(
-                        gopProb
+                        gopProb,
                       )}"
                     >
                       {#if gopProb > 0.15}
@@ -1207,11 +1206,11 @@
           >
             <span>AI-generated model projection</span>
             {#if chamberForecasts?.updated_at}
-              <span class="w-1 h-1 rounded-full bg-stroke/60" />
+              <span class="w-1 h-1 rounded-full bg-stroke/60"></span>
               <span
                 >Last updated <span class="font-bold text-content"
                   >{new Date(
-                    chamberForecasts.updated_at
+                    chamberForecasts.updated_at,
                   ).toLocaleDateString()}</span
                 ></span
               >
@@ -1271,50 +1270,50 @@
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
                 class="w-3.5 h-3.5 rounded bg-blue-700 block border border-blue-950/10"
-              /> Safe D
+              ></span> Safe D
             </div>
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
                 class="w-3.5 h-3.5 rounded bg-blue-400 block border border-blue-950/10"
-              /> Likely D
+              ></span> Likely D
             </div>
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
                 class="w-3.5 h-3.5 rounded bg-blue-200 block border border-blue-950/10"
-              /> Lean/Tilt D
+              ></span> Lean/Tilt D
             </div>
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
                 class="w-3.5 h-3.5 rounded bg-slate-200 dark:bg-slate-700 block border border-slate-900/10"
-              /> Toss-up
+              ></span> Toss-up
             </div>
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
                 class="w-3.5 h-3.5 rounded bg-red-200 block border border-red-950/10"
-              /> Lean/Tilt R
+              ></span> Lean/Tilt R
             </div>
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
                 class="w-3.5 h-3.5 rounded bg-red-400 block border border-red-950/10"
-              /> Likely R
+              ></span> Likely R
             </div>
             <div class="flex items-center gap-1.5 text-xs text-content-muted">
               <span
                 class="w-3.5 h-3.5 rounded bg-red-700 block border border-red-950/10"
-              /> Safe R
+              ></span> Safe R
             </div>
             {#if activeTab !== "house"}
               <div class="flex items-center gap-1.5 text-xs text-content-muted">
                 <span
                   class="w-3.5 h-3.5 rounded block border border-blue-500/30 border-dashed"
                   style="background-color: var(--color-holdover-d);"
-                /> Dem Holdover
+                ></span> Dem Holdover
               </div>
               <div class="flex items-center gap-1.5 text-xs text-content-muted">
                 <span
                   class="w-3.5 h-3.5 rounded block border border-red-500/30 border-dashed"
                   style="background-color: var(--color-holdover-r);"
-                /> GOP Holdover
+                ></span> GOP Holdover
               </div>
             {/if}
           </div>
@@ -1364,7 +1363,7 @@
                 style={`width: ${Math.min(
                   100,
                   ((projectedSeats.Democratic ?? 0) / aggregate.totalExpected) *
-                    100
+                    100,
                 )}%`}
                 title="Democratic projected seats"
               >
@@ -1378,7 +1377,7 @@
                   style={`width: ${Math.min(
                     100,
                     ((projectedSeats.Other ?? 0) / aggregate.totalExpected) *
-                      100
+                      100,
                   )}%`}
                   title="Other projected seats"
                 >
@@ -1392,7 +1391,7 @@
                 style={`width: ${Math.min(
                   100,
                   ((projectedSeats.Republican ?? 0) / aggregate.totalExpected) *
-                    100
+                    100,
                 )}%`}
                 title="Republican projected seats"
               >
@@ -1442,7 +1441,7 @@
             {#if expectedSeats}
               <p class="mt-3 text-[10px] text-content-subtle">
                 Expected seats: D {oneDecimal(expectedSeats.Democratic)}, R {oneDecimal(
-                  expectedSeats.Republican
+                  expectedSeats.Republican,
                 )}
                 {#if expectedSeats.Other}
                   , Other {oneDecimal(expectedSeats.Other)}
@@ -1574,7 +1573,7 @@
                           <div class="flex items-center gap-2">
                             <span
                               class={`w-3.5 h-3.5 rounded ${bucket.colorClass} border border-stroke/20`}
-                            />
+                            ></span>
                             <span class="font-bold text-content"
                               >{bucket.label}</span
                             >
@@ -1610,13 +1609,13 @@
                             isTie
                               ? "bg-slate-400 dark:bg-slate-500"
                               : isDem
-                              ? "bg-blue-500 dark:bg-blue-600"
-                              : "bg-red-500 dark:bg-red-600"
+                                ? "bg-blue-500 dark:bg-blue-600"
+                                : "bg-red-500 dark:bg-red-600"
                           }`}
                           style={`width: ${
                             (outcome.probability / maxProbability) * 100
                           }%`}
-                        />
+                        ></div>
                       </div>
                       <!-- Value -->
                       <span
@@ -1775,7 +1774,7 @@
         {#each ratingOrder as rating}
           <div
             class={`border rounded-xl px-2 py-1.5 text-center transition-all ${ratingClass(
-              rating
+              rating,
             )}`}
           >
             <div class="text-[10px] font-bold leading-tight truncate">
@@ -1856,8 +1855,8 @@
               ? rating.endsWith("_d")
                 ? "border-l-blue-500"
                 : rating.endsWith("_r")
-                ? "border-l-red-500"
-                : "border-l-yellow-500"
+                  ? "border-l-red-500"
+                  : "border-l-yellow-500"
               : "border-l-slate-400"}
             <div
               class={`snap-start shrink-0 w-[300px] bg-surface border border-stroke rounded-xl p-4 shadow-sm hover:shadow-md transition-all border-l-[3px] ${ratingBorderColor}`}
@@ -1873,7 +1872,7 @@
                 {#if rating}
                   <span
                     class={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border shrink-0 ml-2 ${ratingClass(
-                      rating
+                      rating,
                     )}`}
                   >
                     {formatRating(rating)}
@@ -1932,8 +1931,8 @@
           >Structured assessment of the {activeTab === "house"
             ? "House"
             : activeTab === "senate"
-            ? "Senate"
-            : "Governor"} map</span
+              ? "Senate"
+              : "Governor"} map</span
         >
       </div>
 
@@ -1946,7 +1945,7 @@
             >
               <div
                 class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 dark:bg-blue-500/10 rounded-bl-full pointer-events-none"
-              />
+              ></div>
               <h4
                 class="text-xs font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2 flex items-center gap-1.5"
               >
@@ -2078,8 +2077,8 @@
                   activeTab === "governors"
                     ? "Governors"
                     : activeTab === "senate"
-                    ? "Senate"
-                    : "House"
+                      ? "Senate"
+                      : "House"
                 }.`}
             </p>
           </div>
@@ -2221,7 +2220,7 @@
             {@const party = normalizeForecastParty(
               race.forecast.predicted_winner_party,
               race.forecast.party_probabilities,
-              race.candidates
+              race.candidates,
             )}
             {@const rating = race.forecast.rating}
             {@const isExpanded = expandedRaceIds.has(race.id)}
@@ -2250,10 +2249,10 @@
                     <span class="text-xs text-content-subtle font-medium">
                       {race.jurisdiction ?? race.state ?? race.office}
                     </span>
-                    <span class="w-1 h-1 rounded-full bg-stroke/60" />
+                    <span class="w-1 h-1 rounded-full bg-stroke/60"></span>
                     <span
                       class={`inline-flex border rounded-full px-2 py-0.5 text-[10px] font-black leading-none ${ratingClass(
-                        rating
+                        rating,
                       )}`}
                     >
                       {formatRating(rating)}
@@ -2274,7 +2273,7 @@
                     >
                     <span
                       class={`text-xs font-black mt-0.5 leading-tight break-words truncate ${partyClass(
-                        party
+                        party,
                       )}`}
                       title={race.forecast.predicted_winner_name || party}
                     >
@@ -2319,12 +2318,12 @@
                   >
                     <span class="text-blue-600 dark:text-blue-400"
                       >Dem: {probability(
-                        race.forecast.party_probabilities.Democratic
+                        race.forecast.party_probabilities.Democratic,
                       )}</span
                     >
                     <span class="text-red-600 dark:text-red-400"
                       >GOP: {probability(
-                        race.forecast.party_probabilities.Republican
+                        race.forecast.party_probabilities.Republican,
                       )}</span
                     >
                   </div>
@@ -2464,7 +2463,7 @@
                                 >
                                   <span class="font-bold text-content"
                                     >{probabilityOneDecimal(
-                                      signal.implied_probability
+                                      signal.implied_probability,
                                     )}</span
                                   >
                                   {#if marketSpread(signal)}
@@ -2526,7 +2525,7 @@
                       {#if race.forecast.generated_at}
                         <span
                           >Generated: {new Date(
-                            race.forecast.generated_at
+                            race.forecast.generated_at,
                           ).toLocaleDateString()}</span
                         >
                       {/if}

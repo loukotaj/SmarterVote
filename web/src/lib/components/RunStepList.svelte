@@ -42,7 +42,7 @@
   {#each steps as step}
     <li
       class="p-3 flex items-center justify-between transition-colors duration-200 {getStepStatusClass(
-        step
+        step,
       )}"
     >
       <div class="flex items-center space-x-3 flex-1 min-w-0">

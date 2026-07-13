@@ -54,8 +54,9 @@
       <span class="relative flex h-2 w-2">
         <span
           class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
-        />
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
+        ></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"
+        ></span>
       </span>
       <h3
         class="text-xs font-black uppercase text-content-subtle tracking-wider"
@@ -66,7 +67,7 @@
     <p class="text-sm font-semibold text-content">
       {#if status === "upcoming"}
         The general election will be held on {new Date(
-          electionDate
+          electionDate,
         ).toLocaleDateString(undefined, { dateStyle: "long" })}.
       {:else}
         Election status: {status === "today"

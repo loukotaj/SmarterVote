@@ -85,7 +85,7 @@
                 class="text-xs font-semibold uppercase tracking-widest text-content-subtle"
               >
                 {race.jurisdiction ?? "National"} · {formatDate(
-                  race.updated_utc
+                  race.updated_utc,
                 )}
               </p>
               <h3

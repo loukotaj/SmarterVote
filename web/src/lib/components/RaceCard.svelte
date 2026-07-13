@@ -107,7 +107,7 @@
                 src={candidate.image_url}
                 alt={candidate.name}
                 class="w-9 h-9 rounded-full object-cover ring-2 {partyRing(
-                  candidate.party
+                  candidate.party,
                 )}"
                 loading="lazy"
                 on:error={() => handleImageError(candidate.name)}
@@ -115,9 +115,9 @@
             {:else}
               <div
                 class="w-9 h-9 rounded-full ring-2 {partyRing(
-                  candidate.party
+                  candidate.party,
                 )} {partyInitialBg(
-                  candidate.party
+                  candidate.party,
                 )} flex items-center justify-center text-white text-sm font-bold"
                 aria-hidden="true"
               >

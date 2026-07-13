@@ -16,7 +16,7 @@
       .filter((candidate) => !candidate.withdrawn)
       .slice(0, 2) ?? [];
   $: mobileIssueKeys = CANONICAL_ISSUES.filter((key) =>
-    candidates.some((candidate) => candidate.issues?.[key]?.stance)
+    candidates.some((candidate) => candidate.issues?.[key]?.stance),
   );
   let mobileIssue: CanonicalIssue = "Healthcare";
   $: if (!mobileIssueKeys.includes(mobileIssue))

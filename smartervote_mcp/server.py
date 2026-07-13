@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Literal
+from typing import Any, Dict, List, Literal, Tuple
 
 from mcp.server.fastmcp import FastMCP
 
@@ -16,7 +16,7 @@ def _client() -> RacesApiClient:
     return RacesApiClient.from_env()
 
 
-def _pipeline_options(**kwargs: Any) -> dict[str, Any]:
+def _pipeline_options(**kwargs: Any) -> Dict[str, Any]:
     """Build RunOptions for MCP tools, defaulting to cheap/economy mode.
 
     Non-economy model profiles can override cheap_mode downstream, so require an
@@ -33,82 +33,82 @@ def _pipeline_options(**kwargs: Any) -> dict[str, Any]:
     return compact_options(**kwargs)
 
 
-@mcp.tool()
-async def health() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def health() -> Dict[str, Any]:
     """Check whether the configured races-api is reachable."""
     return await _client().get("/health")
 
 
-@mcp.tool()
-async def list_published_races() -> list[str]:
+@mcp.tool(structured_output=False)
+async def list_published_races() -> List[str]:
     """List public published race IDs."""
     return await _client().get("/races")
 
 
-@mcp.tool()
-async def list_race_summaries() -> list[dict[str, Any]]:
+@mcp.tool(structured_output=False)
+async def list_race_summaries() -> List[Dict[str, Any]]:
     """List public published race summaries for browsing and search."""
     return await _client().get("/races/summaries")
 
 
-@mcp.tool()
-async def get_published_race(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_published_race(race_id: str) -> Dict[str, Any]:
     """Fetch full public RaceJSON for a published race ID."""
     return await _client().get(f"/races/{race_id}")
 
 
-@mcp.tool()
-async def list_admin_races() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def list_admin_races() -> Dict[str, Any]:
     """List admin race records, including status and storage metadata."""
     return await _client().get("/api/races")
 
 
-@mcp.tool()
-async def get_race_record(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_race_record(race_id: str) -> Dict[str, Any]:
     """Fetch one admin race record from races-api."""
     return await _client().get(f"/api/races/{race_id}")
 
 
-@mcp.tool()
-async def list_draft_races() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def list_draft_races() -> Dict[str, Any]:
     """List draft race summaries."""
     return await _client().get("/api/races/drafts")
 
 
-@mcp.tool()
-async def list_pipeline_steps() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def list_pipeline_steps() -> Dict[str, Any]:
     """List supported pipeline step IDs and labels."""
     return await _client().get("/steps")
 
 
-@mcp.tool()
-async def get_race_data(race_id: str, draft: bool = False) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_race_data(race_id: str, draft: bool = False) -> Dict[str, Any]:
     """Fetch full RaceJSON from published data or drafts."""
     return await _client().get(f"/api/races/{race_id}/data", params={"draft": draft})
 
 
-@mcp.tool()
+@mcp.tool(structured_output=False)
 async def queue_races(
-    race_ids: list[str],
+    race_ids: List[str],
     cheap_mode: bool | None = True,
     force_fresh: bool | None = None,
     baseline_source: Literal["latest", "published"] | None = None,
     save_artifact: bool | None = None,
-    enabled_steps: list[str] | None = None,
+    enabled_steps: List[str] | None = None,
     research_model: str | None = None,
     claude_model: str | None = None,
     gemini_model: str | None = None,
     grok_model: str | None = None,
     model_profile: str | None = None,
-    model_overrides: dict[str, str] | None = None,
-    review_providers: list[str] | None = None,
+    model_overrides: Dict[str, str] | None = None,
+    review_providers: List[str] | None = None,
     max_candidates: int | None = None,
-    candidate_names: list[str] | None = None,
+    candidate_names: List[str] | None = None,
     target_no_info: bool | None = None,
     note: str | None = None,
     goal: str | None = None,
     runner: str | None = None,
-) -> dict[str, Any]:
+) -> Dict[str, Any]:
     """Queue one or more races for pipeline processing.
 
     Defaults to cheap/economy mode. Expensive default/quality/custom model
@@ -141,17 +141,17 @@ async def queue_races(
     return await _client().post("/api/races/queue", json={"race_ids": race_ids, "options": options})
 
 
-@mcp.tool()
+@mcp.tool(structured_output=False)
 async def run_race(
     race_id: str,
     cheap_mode: bool | None = True,
     force_fresh: bool | None = None,
     baseline_source: Literal["latest", "published"] | None = None,
-    enabled_steps: list[str] | None = None,
+    enabled_steps: List[str] | None = None,
     note: str | None = None,
     goal: str | None = None,
     runner: str | None = None,
-) -> dict[str, Any]:
+) -> Dict[str, Any]:
     """Queue a single race for pipeline processing.
 
     Defaults to cheap/economy mode. Expensive default/quality mode requires
@@ -172,20 +172,20 @@ async def run_race(
     return await _client().post(f"/api/races/{race_id}/run", json=options)
 
 
-@mcp.tool()
-async def publish_race(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def publish_race(race_id: str) -> Dict[str, Any]:
     """Publish a draft race."""
     return await _client().post(f"/api/races/{race_id}/publish")
 
 
-@mcp.tool()
-async def publish_races(race_ids: list[str]) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def publish_races(race_ids: List[str]) -> Dict[str, Any]:
     """Publish multiple draft races in bulk."""
     return await _client().post("/api/races/publish", json={"race_ids": race_ids})
 
 
-@mcp.tool()
-async def list_unpublished_drafts() -> list[dict[str, Any]]:
+@mcp.tool(structured_output=False)
+async def list_unpublished_drafts() -> List[Dict[str, Any]]:
     """List all draft races that are either not published or have unpublished changes."""
     res = await list_admin_races()
     races = res.get("races", [])
@@ -204,25 +204,25 @@ async def list_unpublished_drafts() -> list[dict[str, Any]]:
 # needed.
 
 
-@mcp.tool()
-async def unpublish_race(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def unpublish_race(race_id: str) -> Dict[str, Any]:
     """Remove a race from public published data while keeping its draft."""
     return await _client().post(f"/api/races/{race_id}/unpublish")
 
 
-@mcp.tool()
-async def recheck_race(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def recheck_race(race_id: str) -> Dict[str, Any]:
     """Reconcile one race status from storage and Firestore state."""
     return await _client().post(f"/api/races/{race_id}/recheck")
 
 
-@mcp.tool()
-async def recheck_all_races() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def recheck_all_races() -> Dict[str, Any]:
     """Reconcile all race statuses from storage and Firestore state."""
     return await _client().post("/api/races/recheck")
 
 
-_US_STATES: dict[str, str] = {
+_US_STATES: Dict[str, str] = {
     "AL": "Alabama",
     "AK": "Alaska",
     "AZ": "Arizona",
@@ -275,10 +275,10 @@ _US_STATES: dict[str, str] = {
     "WY": "Wyoming",
     "DC": "District of Columbia",
 }
-_STATE_NAME_TO_ABBR: dict[str, str] = {v.lower(): k for k, v in _US_STATES.items()}
+_STATE_NAME_TO_ABBR: Dict[str, str] = {v.lower(): k for k, v in _US_STATES.items()}
 
 
-def _normalize_state(query: str) -> tuple[str, str]:
+def _normalize_state(query: str) -> Tuple[str, str]:
     """Return (abbreviation, full_name) for a state query string."""
     q = query.strip()
     upper = q.upper()
@@ -291,8 +291,8 @@ def _normalize_state(query: str) -> tuple[str, str]:
     raise ValueError(f"Unknown US state: {query!r}")
 
 
-@mcp.tool()
-async def list_races_by_state(state: str) -> list[dict[str, Any]]:
+@mcp.tool(structured_output=False)
+async def list_races_by_state(state: str) -> List[Dict[str, Any]]:
     """List admin races that belong to a given US state.
 
     Accepts state abbreviation (e.g. 'ND') or full name (e.g. 'North Dakota').
@@ -311,8 +311,8 @@ async def list_races_by_state(state: str) -> list[dict[str, Any]]:
     return filtered
 
 
-@mcp.tool()
-async def delete_race(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def delete_race(race_id: str) -> Dict[str, Any]:
     """Permanently delete a race record, all GCS drafts/published files, and its Firestore entry.
 
     This is irreversible. Use unpublish_race instead if you only want to hide a race from public view.
@@ -320,14 +320,14 @@ async def delete_race(race_id: str) -> dict[str, Any]:
     return await _client().delete(f"/api/races/{race_id}")
 
 
-@mcp.tool()
-async def delete_draft(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def delete_draft(race_id: str) -> Dict[str, Any]:
     """Delete only the draft version of a race from GCS, keeping the published page and Firestore record."""
     return await _client().delete(f"/api/races/{race_id}/draft")
 
 
-@mcp.tool()
-async def sleep(seconds: float) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def sleep(seconds: float) -> Dict[str, Any]:
     """Pause execution for the given number of seconds (max 300).
 
     Useful for waiting between polling operations, rate-limiting retries, or giving the pipeline
@@ -340,104 +340,104 @@ async def sleep(seconds: float) -> dict[str, Any]:
     return {"slept_seconds": clamped}
 
 
-@mcp.tool()
-async def cancel_race(race_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def cancel_race(race_id: str) -> Dict[str, Any]:
     """Cancel a queued or running race."""
     return await _client().post(f"/api/races/{race_id}/cancel")
 
 
-@mcp.tool()
-async def get_queue(active_only: bool = False, limit: int = 200) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, Any]:
     """List queue items."""
     return await _client().get("/api/queue", params={"active_only": active_only, "limit": limit})
 
 
-@mcp.tool()
-async def list_runs(limit: int = 50) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def list_runs(limit: int = 50) -> Dict[str, Any]:
     """List recent pipeline runs."""
     return await _client().get("/runs", params={"limit": limit})
 
 
-@mcp.tool()
-async def list_active_runs() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def list_active_runs() -> Dict[str, Any]:
     """List currently pending or running pipeline runs."""
     return await _client().get("/runs/active")
 
 
-@mcp.tool()
-async def get_run(run_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_run(run_id: str) -> Dict[str, Any]:
     """Fetch a pipeline run record."""
     return await _client().get(f"/runs/{run_id}")
 
 
-@mcp.tool()
-async def get_run_logs(run_id: str, since: int = 0) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_run_logs(run_id: str, since: int = 0) -> Dict[str, Any]:
     """Fetch run logs, optionally after an existing log count."""
     return await _client().get(f"/runs/{run_id}/logs", params={"since": since})
 
 
-@mcp.tool()
-async def cancel_or_delete_run(run_id: str) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
     """Cancel an active run or delete a finished run record."""
     return await _client().delete(f"/runs/{run_id}")
 
 
-@mcp.tool()
-async def get_pipeline_metrics(limit: int = 50) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
     """Return recent pipeline cost/token records."""
     return await _client().get("/pipeline/metrics", params={"limit": limit})
 
 
-@mcp.tool()
-async def get_pipeline_metrics_summary() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_pipeline_metrics_summary() -> Dict[str, Any]:
     """Return aggregate pipeline cost stats."""
     return await _client().get("/pipeline/metrics/summary")
 
 
-@mcp.tool()
-async def clear_races_api_cache() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def clear_races_api_cache() -> Dict[str, Any]:
     """Clear the races-api in-memory response cache."""
     return await _client().post("/cache/clear")
 
 
-@mcp.tool()
-async def get_analytics_overview(hours: int = 24) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_analytics_overview(hours: int = 24) -> Dict[str, Any]:
     """Fetch request analytics overview for the last N hours."""
     return await _client().get("/analytics/overview", params={"hours": hours})
 
 
-@mcp.tool()
-async def get_race_analytics(hours: int = 24) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_race_analytics(hours: int = 24) -> Dict[str, Any]:
     """Fetch per-race request analytics for the last N hours."""
     return await _client().get("/analytics/races", params={"hours": hours})
 
 
-@mcp.tool()
-async def get_analytics_timeseries(hours: int = 24, bucket_minutes: int = 60) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_analytics_timeseries(hours: int = 24, bucket_minutes: int = 60) -> Dict[str, Any]:
     """Fetch bucketed request analytics for charting."""
     return await _client().get("/analytics/timeseries", params={"hours": hours, "bucket": bucket_minutes})
 
 
-@mcp.tool()
-async def get_traffic_analytics(hours: int = 24) -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def get_traffic_analytics(hours: int = 24) -> Dict[str, Any]:
     """Fetch static-site page views, visits, pages, referrers, countries, and devices."""
     return await _client().get("/analytics/traffic", params={"hours": hours})
 
 
 @mcp.resource("smartervote://races/summaries")
-async def race_summaries_resource() -> list[dict[str, Any]]:
+async def race_summaries_resource():
     """Published race summaries."""
     return await list_race_summaries()
 
 
 @mcp.resource("smartervote://races/{race_id}")
-async def published_race_resource(race_id: str) -> dict[str, Any]:
+async def published_race_resource(race_id: str):
     """Published RaceJSON by race ID."""
     return await get_published_race(race_id)
 
 
 @mcp.prompt()
-def review_race_prompt(race_id: str) -> str:
+def review_race_prompt(race_id: str):
     """Prompt for reviewing a SmarterVote race record."""
     return (
         f"Review SmarterVote race `{race_id}`. Load the published race data and, if available, "
@@ -446,15 +446,15 @@ def review_race_prompt(race_id: str) -> str:
     )
 
 
-@mcp.tool()
-async def publish_chamber_forecasts() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def publish_chamber_forecasts() -> Dict[str, Any]:
     """Publish the remotely saved draft chamber forecasts (copy draft -> published)."""
     res = await _client().post("/api/races/chamber_forecasts/publish")
     return {"success": True, "api_response": res}
 
 
-@mcp.tool()
-async def review_chamber_forecast_drafts() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def review_chamber_forecast_drafts() -> Dict[str, Any]:
     """Compare the draft chamber forecasts against the published ones to highlight changes."""
     client = _client()
     try:
@@ -495,17 +495,17 @@ async def review_chamber_forecast_drafts() -> dict[str, Any]:
     return {"changes": changes, "draft": draft, "published": published}
 
 
-@mcp.tool()
+@mcp.tool(structured_output=False)
 async def generate_chamber_forecasts(
     model: str = "google/gemini-3.5-flash",
-) -> dict[str, Any]:
+) -> Dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM on the remote races-api backend."""
     client = _client()
     res = await client.post("/api/races/chamber_forecasts/generate", json={"model": model})
     return {"success": True, "api_response": res}
 
 
-def _validate_chamber_forecast_payload(data: dict[str, Any]) -> dict[str, Any]:
+def _validate_chamber_forecast_payload(data: Dict[str, Any]) -> Dict[str, Any]:
     schema_version = data.get("schema_version")
     if schema_version != "chamber_forecasts.v2":
         return {"success": False, "error": f"Expected schema_version chamber_forecasts.v2, got {schema_version}"}
@@ -520,7 +520,7 @@ def _validate_chamber_forecast_payload(data: dict[str, Any]) -> dict[str, Any]:
         "key_uncertainty",
     ]
 
-    summary: dict[str, Any] = {}
+    summary: Dict[str, Any] = {}
     for chamber_id, expected_total in expected_totals.items():
         chamber = chambers.get(chamber_id, {})
         if not chamber:
@@ -558,8 +558,8 @@ def _validate_chamber_forecast_payload(data: dict[str, Any]) -> dict[str, Any]:
     return {"success": True, "message": "Chamber forecasts validation passed successfully.", "chambers": summary}
 
 
-@mcp.tool()
-async def verify_live_forecast_page_data() -> dict[str, Any]:
+@mcp.tool(structured_output=False)
+async def verify_live_forecast_page_data() -> Dict[str, Any]:
     """Check deployed or local live static endpoints and verify forecast bundle properties."""
     try:
         data = await _client().get("/races/chamber_forecasts")

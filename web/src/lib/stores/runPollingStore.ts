@@ -152,7 +152,7 @@ async function pollLogs(runId: string): Promise<void> {
       {
         headers: authHeaders(),
         signal: AbortSignal.timeout(8000),
-      }
+      },
     );
     if (!res.ok) return;
     const data = await res.json();
@@ -171,7 +171,7 @@ async function pollLogs(runId: string): Promise<void> {
         entry.level ?? "info",
         entry.message ?? "",
         entry.timestamp,
-        entry.run_id ?? runId
+        entry.run_id ?? runId,
       );
     }
   } catch {

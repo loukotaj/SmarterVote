@@ -15,62 +15,17 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel
 
 from shared.config import FIRESTORE_QUEUE_COLLECTION, local_paths
-from shared.pipeline_config import (
-    RetentionConfig,
-    normalize_model_profile,
-    normalize_pipeline_steps,
-    normalize_review_providers,
-    validate_model_override_keys,
-)
+from shared.pipeline_config import RetentionConfig
+from shared.pipeline_options import ResolvedPipelineRunOptions
 
 logger = logging.getLogger("pipeline")
 
 
-class QueueItemOptions(BaseModel):
-    cheap_mode: bool = True
-    save_artifact: bool = True
-    force_fresh: bool = False
-    research_model: Optional[str] = None
-    claude_model: Optional[str] = None
-    gemini_model: Optional[str] = None
-    grok_model: Optional[str] = None
-    model_profile: Optional[str] = None
-    model_overrides: Optional[Dict[str, str]] = None
-    review_providers: Optional[List[str]] = None
-    enabled_steps: Optional[List[str]] = None
-    max_candidates: Optional[int] = None
-    target_no_info: bool = False
-    candidate_names: Optional[List[str]] = None
-
-    @field_validator("enabled_steps")
-    @classmethod
-    def validate_enabled_steps(cls, value: Optional[List[str]]) -> Optional[List[str]]:
-        return normalize_pipeline_steps(value)
-
-    @field_validator("max_candidates")
-    @classmethod
-    def validate_max_candidates(cls, value: Optional[int]) -> Optional[int]:
-        if value is not None and value < 1:
-            raise ValueError("max_candidates must be at least 1 when provided")
-        return value
-
-    @field_validator("model_overrides")
-    @classmethod
-    def validate_model_overrides(cls, value: Optional[Dict[str, str]]) -> Optional[Dict[str, str]]:
-        return validate_model_override_keys(value)
-
-    @field_validator("model_profile")
-    @classmethod
-    def validate_model_profile(cls, value: Optional[str]) -> Optional[str]:
-        return normalize_model_profile(value)
-
-    @field_validator("review_providers")
-    @classmethod
-    def validate_review_providers(cls, value: Optional[List[str]]) -> Optional[List[str]]:
-        return normalize_review_providers(value)
+class QueueItemOptions(ResolvedPipelineRunOptions):
+    """Durable queue representation using canonical resolved defaults."""
 
 
 class QueueItem(BaseModel):

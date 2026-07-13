@@ -50,7 +50,7 @@ export const RESEARCH_MODELS = [
 ];
 
 export function createDefaultReviewerEnabled(
-  reviewEnabled: boolean = false
+  reviewEnabled: boolean = false,
 ): Record<ReviewerKey, boolean> {
   if (reviewEnabled) {
     return { claude: true, gemini: true, grok: true };
@@ -69,10 +69,10 @@ export function createDefaultReviewerModels(): Record<ReviewerKey, string> {
 export function applyReviewerModelOptions(
   opts: RunOptions,
   reviewerEnabled: Record<ReviewerKey, boolean>,
-  reviewerModels: Record<ReviewerKey, string>
+  reviewerModels: Record<ReviewerKey, string>,
 ): RunOptions {
   opts.review_providers = REVIEWER_DEFS.map((reviewer) => reviewer.key).filter(
-    (key) => reviewerEnabled[key]
+    (key) => reviewerEnabled[key],
   );
   if (reviewerEnabled.claude) opts.claude_model = reviewerModels.claude;
   if (reviewerEnabled.gemini) opts.gemini_model = reviewerModels.gemini;

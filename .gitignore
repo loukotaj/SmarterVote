@@ -309,3 +309,6 @@ data/analytics.db-wal
 .tmp_*.log
 .vscode/mcp.json
 data/
+!shared/data/
+!shared/data/**
+shared/data/__pycache__/

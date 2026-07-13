@@ -8,7 +8,7 @@
   function clearAuthQueryParams() {
     const url = new URL(window.location.href);
     ["code", "state", "error", "error_description"].forEach((p) =>
-      url.searchParams.delete(p)
+      url.searchParams.delete(p),
     );
     history.replaceState({}, "", `${url.pathname}${url.search}`);
   }

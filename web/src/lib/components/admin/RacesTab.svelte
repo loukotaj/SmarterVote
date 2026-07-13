@@ -2,11 +2,10 @@
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
   import {
-    createSvelteTable,
     getCoreRowModel,
     getFilteredRowModel,
     getSortedRowModel,
-  } from "@tanstack/svelte-table";
+  } from "@tanstack/table-core";
   import type {
     ColumnDef,
     ColumnFiltersState,
@@ -15,7 +14,8 @@
     SortingState,
     TableOptions,
     Updater,
-  } from "@tanstack/svelte-table";
+  } from "@tanstack/table-core";
+  import { createSvelteTable } from "$lib/utils/svelteTable";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
   import type { RaceRecord, RaceStatusType } from "$lib/types";
   import { racesApiBase } from "$lib/config/api";
@@ -78,7 +78,7 @@
   }
 
   function draftTimestamp(row: RaceRecord): string {
-    return hasDraft(row) ? row.draft_updated_at ?? "" : "";
+    return hasDraft(row) ? (row.draft_updated_at ?? "") : "";
   }
 
   function qualityValue(row: RaceRecord): number {
@@ -286,7 +286,7 @@
 
   $: {
     // React to filter bindings changing from the UI controls
-    onlyUnpublishedFilter, qualityFilter, jurisdictionFilter;
+    (onlyUnpublishedFilter, qualityFilter, jurisdictionFilter);
     computeFilteredRows();
     updateTableState();
   }
@@ -352,7 +352,7 @@
   }
 
   function formatActionErrors(
-    errors: Array<{ race_id: string; error: string }>
+    errors: Array<{ race_id: string; error: string }>,
   ) {
     return errors.map((e) => `${e.race_id}: ${e.error}`).join("; ");
   }
@@ -386,7 +386,7 @@
     } catch (e) {
       setActionNotice(
         "error",
-        `Publish failed for ${raceId}: ${errorMessage(e)}`
+        `Publish failed for ${raceId}: ${errorMessage(e)}`,
       );
     } finally {
       const copy = { ...rowActionLoading };
@@ -398,7 +398,7 @@
   async function handleUnpublish(raceId: string) {
     if (
       !confirm(
-        `Unpublish race ${raceId}? This will remove the published page but keep the draft.`
+        `Unpublish race ${raceId}? This will remove the published page but keep the draft.`,
       )
     )
       return;
@@ -411,7 +411,7 @@
     } catch (e) {
       setActionNotice(
         "error",
-        `Unpublish failed for ${raceId}: ${errorMessage(e)}`
+        `Unpublish failed for ${raceId}: ${errorMessage(e)}`,
       );
     } finally {
       const copy = { ...rowActionLoading };
@@ -438,7 +438,7 @@
     } catch (e) {
       setActionNotice(
         "error",
-        `Queue failed for ${raceId}: ${errorMessage(e)}`
+        `Queue failed for ${raceId}: ${errorMessage(e)}`,
       );
     } finally {
       const copy = { ...rowActionLoading };
@@ -450,7 +450,7 @@
   async function handleDelete(raceId: string) {
     if (
       !confirm(
-        `WARNING: Are you sure you want to permanently delete race ${raceId}? This will delete the firestore record and all GCS drafts/published files.`
+        `WARNING: Are you sure you want to permanently delete race ${raceId}? This will delete the firestore record and all GCS drafts/published files.`,
       )
     )
       return;
@@ -463,7 +463,7 @@
     } catch (e) {
       setActionNotice(
         "error",
-        `Delete failed for ${raceId}: ${errorMessage(e)}`
+        `Delete failed for ${raceId}: ${errorMessage(e)}`,
       );
     } finally {
       const copy = { ...rowActionLoading };
@@ -483,7 +483,7 @@
     } catch (e) {
       setActionNotice(
         "error",
-        `Cancel failed for ${raceId}: ${errorMessage(e)}`
+        `Cancel failed for ${raceId}: ${errorMessage(e)}`,
       );
     } finally {
       const copy = { ...rowActionLoading };
@@ -499,13 +499,13 @@
       await apiService.recheckRace(raceId);
       setActionNotice(
         "success",
-        `${raceId} was rechecked against stored run data.`
+        `${raceId} was rechecked against stored run data.`,
       );
       await refresh(false);
     } catch (e) {
       setActionNotice(
         "error",
-        `Recheck failed for ${raceId}: ${errorMessage(e)}`
+        `Recheck failed for ${raceId}: ${errorMessage(e)}`,
       );
     } finally {
       const copy = { ...rowActionLoading };
@@ -533,7 +533,7 @@
     if (selectedIds.length === 0) return;
     if (
       !confirm(
-        `Are you sure you want to publish the ${selectedIds.length} selected race(s)?`
+        `Are you sure you want to publish the ${selectedIds.length} selected race(s)?`,
       )
     )
       return;
@@ -546,12 +546,12 @@
           "error",
           `Published ${res.published.length} of ${
             selectedIds.length
-          } selected race(s). Failures: ${formatActionErrors(res.errors)}`
+          } selected race(s). Failures: ${formatActionErrors(res.errors)}`,
         );
       } else {
         setActionNotice(
           "success",
-          `Published all ${selectedIds.length} selected race(s).`
+          `Published all ${selectedIds.length} selected race(s).`,
         );
       }
       clearSelection();
@@ -568,7 +568,7 @@
     if (selectedIds.length === 0) return;
     if (
       !confirm(
-        `Are you sure you want to run the pipeline for the ${selectedIds.length} selected race(s)?`
+        `Are you sure you want to run the pipeline for the ${selectedIds.length} selected race(s)?`,
       )
     )
       return;
@@ -581,12 +581,12 @@
           "error",
           `Queued ${res.added.length} of ${
             selectedIds.length
-          } selected race(s). Failures: ${formatActionErrors(res.errors)}`
+          } selected race(s). Failures: ${formatActionErrors(res.errors)}`,
         );
       } else {
         setActionNotice(
           "success",
-          `Queued all ${selectedIds.length} selected race(s).`
+          `Queued all ${selectedIds.length} selected race(s).`,
         );
       }
       if (res.added.length > 0) {
@@ -605,7 +605,7 @@
     if (selectedIds.length === 0) return;
     if (
       !confirm(
-        `WARNING: Are you sure you want to permanently delete the ${selectedIds.length} selected race(s)? This will delete firestore records and GCS drafts/published files.`
+        `WARNING: Are you sure you want to permanently delete the ${selectedIds.length} selected race(s)? This will delete firestore records and GCS drafts/published files.`,
       )
     )
       return;
@@ -627,12 +627,12 @@
           "error",
           `Deleted ${successCount} of ${
             selectedIds.length
-          } selected race(s). Failures: ${errors.join("; ")}`
+          } selected race(s). Failures: ${errors.join("; ")}`,
         );
       } else {
         setActionNotice(
           "success",
-          `Deleted all ${selectedIds.length} selected race(s).`
+          `Deleted all ${selectedIds.length} selected race(s).`,
         );
       }
       if (successCount > 0) clearSelection();
@@ -827,13 +827,13 @@
     <!-- CSS Pulse Skeleton Loader -->
     <div class="card overflow-hidden">
       <div class="animate-pulse space-y-4 p-4 bg-surface">
-        <div class="h-8 bg-surface-alt rounded w-1/4" />
+        <div class="h-8 bg-surface-alt rounded w-1/4"></div>
         <div class="space-y-3">
-          <div class="h-4 bg-surface-alt rounded" />
-          <div class="h-4 bg-surface-alt rounded w-5/6" />
-          <div class="h-4 bg-surface-alt rounded w-2/3" />
-          <div class="h-4 bg-surface-alt rounded" />
-          <div class="h-4 bg-surface-alt rounded w-3/4" />
+          <div class="h-4 bg-surface-alt rounded"></div>
+          <div class="h-4 bg-surface-alt rounded w-5/6"></div>
+          <div class="h-4 bg-surface-alt rounded w-2/3"></div>
+          <div class="h-4 bg-surface-alt rounded"></div>
+          <div class="h-4 bg-surface-alt rounded w-3/4"></div>
         </div>
       </div>
     </div>
@@ -913,7 +913,7 @@
               {@const row = tableRow.original}
               <tr
                 class="hover:bg-surface-alt transition-colors {hasPendingDraft(
-                  row
+                  row,
                 )
                   ? 'bg-amber-50/20 dark:bg-amber-900/5'
                   : ''}"
@@ -993,7 +993,7 @@
                       <div class="flex items-center gap-1.5 flex-wrap">
                         <span
                           class="px-2 py-0.5 rounded-full text-xs font-medium {statusBadgeClass(
-                            row.status
+                            row.status,
                           )}"
                         >
                           {row.status}
@@ -1045,7 +1045,7 @@
                       {#if row.quality_grade}
                         <span
                           class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full border {gradeBadgeClass(
-                            row.quality_grade
+                            row.quality_grade,
                           )}"
                         >
                           {row.quality_grade}
@@ -1064,8 +1064,8 @@
                           title={hasDraft(row)
                             ? "Open draft preview"
                             : hasPublished(row)
-                            ? "Open published page"
-                            : "No page exists"}
+                              ? "Open published page"
+                              : "No page exists"}
                           on:click={() => handlePreview(row)}
                         >
                           {hasDraft(row) ? "View Draft" : "View Page"}
@@ -1112,8 +1112,10 @@
       >
         <span>
           {filteredCount} race{filteredCount !== 1 ? "s" : ""}
-          {#if globalFilter} matching "{globalFilter}"{/if}
-          {#if statusFilter !== "all"} · filtered by {statusFilter}{/if}
+          {#if globalFilter}
+            matching "{globalFilter}"{/if}
+          {#if statusFilter !== "all"}
+            · filtered by {statusFilter}{/if}
         </span>
         <span>
           {rows.filter((r) => r.status === "published").length} published ·
@@ -1139,7 +1141,7 @@
     <span class="text-sm font-medium text-content">
       {selectedCount} race{selectedCount === 1 ? "" : "s"} selected
     </span>
-    <div class="hidden h-4 w-px bg-stroke sm:block" />
+    <div class="hidden h-4 w-px bg-stroke sm:block"></div>
     <div class="flex flex-wrap items-center justify-center gap-2">
       <button
         type="button"

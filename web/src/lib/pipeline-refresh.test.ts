@@ -14,7 +14,15 @@ globalThis.fetch = vi.fn();
 describe("Pipeline Auto-refresh Functionality", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.useFakeTimers();
+    vi.useFakeTimers({
+      toFake: [
+        "setTimeout",
+        "clearTimeout",
+        "setInterval",
+        "clearInterval",
+        "Date",
+      ],
+    });
   });
 
   afterEach(() => {
@@ -44,7 +52,7 @@ describe("Pipeline Auto-refresh Functionality", () => {
           if (timeoutId) clearTimeout(timeoutId);
           timeoutId = setTimeout(
             debouncedRefresh,
-            MIN_REFRESH_INTERVAL - timeSinceLastRefresh
+            MIN_REFRESH_INTERVAL - timeSinceLastRefresh,
           );
           return;
         }
@@ -196,7 +204,7 @@ describe("Pipeline Auto-refresh Functionality", () => {
             console.error("Failed to process payload:", error);
           }
         },
-        { timeout: 3000 }
+        { timeout: 3000 },
       );
     }
 

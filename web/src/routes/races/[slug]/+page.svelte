@@ -97,7 +97,7 @@
   $: latestMatchup =
     latestPoll?.matchups?.find(
       (matchup) =>
-        Array.isArray(matchup.candidates) && matchup.candidates.length > 0
+        Array.isArray(matchup.candidates) && matchup.candidates.length > 0,
     ) ?? null;
   $: discoveryOnly =
     activeCandidates.length > 0 &&
@@ -105,7 +105,7 @@
       (c) =>
         !c.issues ||
         Object.keys(c.issues).length === 0 ||
-        Object.values(c.issues).every((i) => !i?.stance)
+        Object.values(c.issues).every((i) => !i?.stance),
     );
 
   // Derive ballotpedia URL: race-level field first, then fall back to any candidate link
@@ -136,13 +136,13 @@
     percentages?: number[] | null;
   }): boolean {
     return matchupPercentages(matchup).some(
-      (value) => typeof value === "number"
+      (value) => typeof value === "number",
     );
   }
 
   function percentageAt(
     matchup: { percentages?: number[] | null },
-    index: number
+    index: number,
   ): number | null {
     const value = matchupPercentages(matchup)[index];
     return typeof value === "number" ? value : null;
@@ -157,7 +157,7 @@
           party?: string;
           incumbent: boolean;
         }[]
-      | null
+      | null,
   ): string {
     const normalized = normalizeForecastParty(party, probs, candidates);
     if (normalized === "Democratic") return "dem";
@@ -178,7 +178,7 @@
       safe_r: "Safe R",
       other: "Other",
     };
-    return rating ? labels[rating] ?? rating.replace(/_/g, " ") : "Unrated";
+    return rating ? (labels[rating] ?? rating.replace(/_/g, " ")) : "Unrated";
   }
 
   function probability(value?: number | null): string {
@@ -212,7 +212,7 @@
       return null;
     }
     return `${probabilityOneDecimal(
-      signal.yes_bid
+      signal.yes_bid,
     )} bid / ${probabilityOneDecimal(signal.yes_ask)} ask`;
   }
 
@@ -278,7 +278,7 @@
 <div class="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
   {#if loading}
     <div class="loading-wrapper">
-      <div class="spinner" />
+      <div class="spinner"></div>
       <span class="loading-text">Loading race data...</span>
     </div>
   {:else if error}
@@ -451,7 +451,7 @@
             {#each activeCandidates as candidate}
               <a
                 href="/races/{race.id}/{candidateSlug(
-                  candidate.name
+                  candidate.name,
                 )}{isDraftPreview ? '?draft=true' : ''}"
                 class="overview-candidate-chip"
               >
@@ -470,7 +470,7 @@
                 {#if candidate.party}
                   <span
                     class="chip-party chip-party-{partyClassForName(
-                      candidate.name
+                      candidate.name,
                     )}">{partyAbbr(candidate.party)}</span
                   >
                 {/if}
@@ -518,7 +518,7 @@
                     <div
                       class="poll-snap-bar {partyClassForName(name)}"
                       style="width:{Math.min(pct ?? 0, 100)}%"
-                    />
+                    ></div>
                   </div>
                   <span class="poll-snap-pct"
                     >{pct !== null ? `${pct}%` : "n/a"}</span
@@ -628,12 +628,12 @@
       {@const forecastParty = normalizeForecastParty(
         forecast.predicted_winner_party,
         forecast.party_probabilities,
-        race.candidates
+        race.candidates,
       )}
       {@const forecastClass = forecastPartyClass(
         forecast.predicted_winner_party,
         forecast.party_probabilities,
-        race.candidates
+        race.candidates,
       )}
       <Card id="forecast" class="forecast-card scroll-mt-6">
         <div class="forecast-header">
@@ -732,7 +732,7 @@
                     style="width: {Math.max(2, demProbability * 100)}%"
                   >
                     {#if demProbability > 0.12}D {probability(
-                        demProbability
+                        demProbability,
                       )}{/if}
                   </div>
                 {/if}
@@ -742,7 +742,7 @@
                     style="width: {Math.max(2, repProbability * 100)}%"
                   >
                     {#if repProbability > 0.12}R {probability(
-                        repProbability
+                        repProbability,
                       )}{/if}
                   </div>
                 {/if}
@@ -847,7 +847,7 @@
           {#if forecast.generated_at}
             <span
               >Generated: {new Date(
-                forecast.generated_at
+                forecast.generated_at,
               ).toLocaleDateString()}</span
             >
           {/if}
@@ -883,7 +883,7 @@
               </div>
 
               {#each poll.matchups ?? [] as matchup, mi}
-                {#if mi > 0}<div class="poll-matchup-divider" />{/if}
+                {#if mi > 0}<div class="poll-matchup-divider"></div>{/if}
                 <div class="poll-matchup">
                   {#each matchup.candidates as name, i}
                     {@const pc = partyClassForName(name)}
@@ -953,7 +953,7 @@
           is currently unavailable.
         {:else}
           Data compiled from public sources and analyzed using AI. Last updated {new Date(
-            race.updated_utc
+            race.updated_utc,
           ).toLocaleDateString()}. Visit candidate websites for the most current
           information.
         {/if}

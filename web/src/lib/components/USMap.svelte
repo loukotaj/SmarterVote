@@ -178,7 +178,7 @@
 
 <div class="map-container">
   {#if !loaded}
-    <div class="skeleton" />
+    <div class="skeleton"></div>
   {:else}
     <svg bind:this={svgEl} viewBox="0 0 975 610" aria-label="US States map">
       <!-- Base pass: all states except selected -->
@@ -339,8 +339,11 @@
   }
 
   .state-path {
-    transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease,
-      stroke-width 0.2s ease, transform 0.2s ease;
+    transition:
+      fill 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      filter 0.2s ease,
+      stroke-width 0.2s ease,
+      transform 0.2s ease;
     cursor: default;
     transform-origin: 487.5px 305px;
   }
@@ -390,7 +393,8 @@
     border-radius: 8px;
     transform: translate(-50%, calc(-100% - 10px));
     z-index: 20;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.3),
       0 4px 6px -4px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;

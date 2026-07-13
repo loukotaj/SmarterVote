@@ -114,7 +114,7 @@
             </div>
             <span
               class="px-2 py-1 rounded-full text-xs font-medium {getStatusClass(
-                selectedRun.status || 'unknown'
+                selectedRun.status || 'unknown',
               )}"
             >
               {(selectedRun.status || "unknown").charAt(0).toUpperCase() +
@@ -151,8 +151,7 @@
         on:input={handleInputChange}
         class="json-editor"
         spellcheck="false"
-        placeholder={'{"race_id": "example_race_2024"}'}
-      />
+        placeholder={'{"race_id": "example_race_2024"}'}></textarea>
     </div>
 
     <!-- Options -->

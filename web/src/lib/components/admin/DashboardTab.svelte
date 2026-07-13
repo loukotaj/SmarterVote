@@ -26,7 +26,7 @@
     Title,
     Tooltip,
     Legend,
-    ArcElement
+    ArcElement,
   );
 
   export let onAlertCountChange: (n: number) => void = () => {};
@@ -186,7 +186,7 @@
         if (alertsRes.status === "fulfilled") alerts = alertsRes.value.alerts;
 
         const failed = [overviewRes, alertsRes].filter(
-          (result) => result.status === "rejected"
+          (result) => result.status === "rejected",
         ).length;
         if (failed > 0)
           error = `${failed} dashboard request${
@@ -229,7 +229,7 @@
   async function handleAcknowledge(alertId: string) {
     await analyticsService.acknowledgeAlert(alertId);
     alerts = alerts.map((a) =>
-      a.id === alertId ? { ...a, acknowledged: true } : a
+      a.id === alertId ? { ...a, acknowledged: true } : a,
     );
   }
 
@@ -284,10 +284,10 @@
     return c === "failures"
       ? "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300"
       : c === "freshness"
-      ? "bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300"
-      : c === "quality"
-      ? "bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300"
-      : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400";
+        ? "bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300"
+        : c === "quality"
+          ? "bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300"
+          : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400";
   }
 
   const gcpLogsUrl = GCP_PROJECT
@@ -318,16 +318,16 @@
     return s === "critical"
       ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200"
       : s === "warning"
-      ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200"
-      : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200";
+        ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200"
+        : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200";
   }
 
   function severityBadge(s: string) {
     return s === "critical"
       ? "bg-red-500 text-white"
       : s === "warning"
-      ? "bg-yellow-500 text-white"
-      : "bg-blue-500 text-white";
+        ? "bg-yellow-500 text-white"
+        : "bg-blue-500 text-white";
   }
 
   function formatDate(s?: string) {
@@ -597,7 +597,7 @@
           {@const detail = alertDetail(alert)}
           <div
             class="rounded-lg border px-3 py-2.5 {severityClass(
-              alert.severity
+              alert.severity,
             )}"
           >
             <div class="flex items-start justify-between gap-2">
@@ -605,14 +605,14 @@
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span
                     class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-bold shrink-0 {severityBadge(
-                      alert.severity
+                      alert.severity,
                     )}"
                   >
                     {alert.severity}
                   </span>
                   <span
                     class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium shrink-0 {categoryClass(
-                      alert.category
+                      alert.category,
                     )}"
                   >
                     {categoryLabel[alert.category] ?? alert.category}

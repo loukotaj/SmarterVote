@@ -9,7 +9,7 @@ export const gradeAHomepageRaceIds = [
 const source = (
   url: string,
   title: string,
-  type: Source["type"] = "website"
+  type: Source["type"] = "website",
 ): Source => ({
   url,
   title,
@@ -23,7 +23,7 @@ const candidate = (
   summary: string,
   image_url: string,
   issues: Partial<Record<IssueKey, Candidate["issues"][IssueKey]>>,
-  incumbent = false
+  incumbent = false,
 ): Candidate => ({
   name,
   party,
@@ -71,7 +71,7 @@ export const gradeAHomepageFallbacks: Race[] = [
               source(
                 "https://www.sullivan.senate.gov/newsroom/press-releases/sullivan-statement-on-bipartisan-infrastructure-package",
                 "Statement on the bipartisan infrastructure package",
-                "government"
+                "government",
               ),
             ],
           },
@@ -84,7 +84,7 @@ export const gradeAHomepageFallbacks: Race[] = [
               source(
                 "https://www.sullivan.senate.gov/imo/media/doc/EnergyPlan_1Page_020822[web].pdf",
                 "Energy plan",
-                "pdf"
+                "pdf",
               ),
             ],
           },
@@ -97,12 +97,12 @@ export const gradeAHomepageFallbacks: Race[] = [
               source(
                 "https://www.congress.gov/bill/119th-congress/house-bill/1",
                 "H.R. 1, 119th Congress",
-                "government"
+                "government",
               ),
             ],
           },
         },
-        true
+        true,
       ),
       candidate(
         "Mary Peltola",
@@ -119,7 +119,7 @@ export const gradeAHomepageFallbacks: Race[] = [
               source(
                 "https://nativenewsonline.net/currents/mary-peltola-unveils-plan-to-tackle-alaskas-affordability-crisis-in-u-s-senate-campaign/",
                 "Peltola affordability plan",
-                "news"
+                "news",
               ),
             ],
           },
@@ -132,7 +132,7 @@ export const gradeAHomepageFallbacks: Race[] = [
               source(
                 "https://www.eenews.net/articles/mary-peltolas-delicate-balance-on-energy-climate/",
                 "Peltola's approach to energy and climate",
-                "news"
+                "news",
               ),
             ],
           },
@@ -145,11 +145,11 @@ export const gradeAHomepageFallbacks: Race[] = [
               source(
                 "https://thehill.com/policy/healthcare/5870588-alaska-healthcare-sullivan-reelection/",
                 "Alaska health-care policy in the Senate race",
-                "news"
+                "news",
               ),
             ],
           },
-        }
+        },
       ),
     ],
   },
@@ -182,7 +182,7 @@ export const gradeAHomepageFallbacks: Race[] = [
             sources: [
               source(
                 "https://www.coachforgovernor.com/issues",
-                "Campaign issues"
+                "Campaign issues",
               ),
             ],
           },
@@ -195,11 +195,11 @@ export const gradeAHomepageFallbacks: Race[] = [
               source(
                 "https://www.tuberville.senate.gov/newsroom/press-releases/tuberville-joins-marshall-in-promoting-health-care-pricing-transparency/",
                 "Health-care pricing transparency",
-                "government"
+                "government",
               ),
             ],
           },
-        }
+        },
       ),
       candidate(
         "Doug Jones",
@@ -215,7 +215,7 @@ export const gradeAHomepageFallbacks: Race[] = [
             sources: [
               source(
                 "https://www.dougjones.com/priorities",
-                "Priorities for Alabama"
+                "Priorities for Alabama",
               ),
             ],
           },
@@ -227,11 +227,11 @@ export const gradeAHomepageFallbacks: Race[] = [
             sources: [
               source(
                 "https://www.dougjones.com/priorities",
-                "Priorities for Alabama"
+                "Priorities for Alabama",
               ),
             ],
           },
-        }
+        },
       ),
     ],
   },

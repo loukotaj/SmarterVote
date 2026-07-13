@@ -32,13 +32,13 @@
     <div
       class="absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,theme(colors.blue.100)_1px,transparent_1px),linear-gradient(to_bottom,theme(colors.blue.100)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_right,black,transparent_75%)] dark:opacity-10"
       aria-hidden="true"
-    />
+    ></div>
     <div
       class="relative mx-auto grid w-full max-w-[90rem] items-start gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(360px,0.72fr)_minmax(680px,1.28fr)] lg:gap-10 lg:px-10 xl:gap-16"
     >
       <div class="lg:sticky lg:top-32 lg:py-7">
         <div class="flex items-center gap-3">
-          <span class="h-px w-9 bg-blue-600" />
+          <span class="h-px w-9 bg-blue-600"></span>
           <p
             class="text-xs font-bold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-400"
           >
@@ -105,7 +105,7 @@
     <div
       class="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_20%_20%,white_1px,transparent_1px)] [background-size:30px_30px]"
       aria-hidden="true"
-    />
+    ></div>
     <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
       <p class="text-xs font-bold uppercase tracking-[0.24em] text-blue-100">
         Your ballot deserves a closer look

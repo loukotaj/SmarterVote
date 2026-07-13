@@ -13,7 +13,7 @@
   }>();
 
   $: filteredLogs = logs.filter(
-    (log) => logFilter === "all" || log.level === logFilter
+    (log) => logFilter === "all" || log.level === logFilter,
   );
 
   function handleFilterChange(event: Event) {
@@ -35,7 +35,7 @@
           class="w-2 h-2 rounded-full {connected
             ? 'bg-green-500'
             : 'bg-red-500'} pulse-dot"
-        />
+        ></div>
         <span class="text-xs text-content-subtle"
           >{connected ? "Live" : "Disconnected"}</span
         >

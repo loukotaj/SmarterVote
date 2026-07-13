@@ -24,7 +24,7 @@ function shouldPrerenderDynamicRoutes(): boolean {
 }
 
 export async function fetchPublishedRaceSummaries(
-  fetchFn: typeof fetch = fetch
+  fetchFn: typeof fetch = fetch,
 ): Promise<RaceSummary[]> {
   summariesCache ??= (async () => {
     const staticBase = publicDataBase() || "";
@@ -40,7 +40,7 @@ export async function fetchPublishedRaceSummaries(
 
 export async function fetchPublishedRace(
   id: string,
-  fetchFn: typeof fetch = fetch
+  fetchFn: typeof fetch = fetch,
 ): Promise<Race> {
   const cached = raceCache.get(id);
   if (cached) return cached;
@@ -62,7 +62,7 @@ export async function fetchPublishedRace(
 
 export async function loadPrerenderRace(
   id: string,
-  fetchFn: typeof fetch = fetch
+  fetchFn: typeof fetch = fetch,
 ): Promise<Race> {
   if (import.meta.env.SSR) {
     try {
@@ -72,7 +72,7 @@ export async function loadPrerenderRace(
       ]);
       const data = await readFile(
         path.resolve("static", `${encodeURIComponent(id)}.json`),
-        { encoding: "utf-8" }
+        { encoding: "utf-8" },
       );
       return JSON.parse(data) as Race;
     } catch (error) {

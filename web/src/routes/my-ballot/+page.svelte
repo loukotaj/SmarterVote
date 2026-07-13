@@ -22,10 +22,10 @@
   >
     <div
       class="absolute -left-40 top-8 h-96 w-96 rounded-full bg-blue-100 blur-3xl dark:bg-blue-950"
-    />
+    ></div>
     <div
       class="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-sky-100 blur-3xl dark:bg-sky-950"
-    />
+    ></div>
     <svg
       class="absolute inset-0 h-full w-full text-blue-900/[0.035] dark:text-blue-100/[0.035]"
       viewBox="0 0 1200 800"

@@ -82,14 +82,14 @@
             race.candidates.some(
               (c) =>
                 c.name.toLowerCase().includes(q) ||
-                c.party?.toLowerCase().includes(q)
+                c.party?.toLowerCase().includes(q),
             )
           );
         }
         return true;
       })
       .map((r) => r.state ?? r.jurisdiction)
-      .filter(Boolean) as string[]
+      .filter(Boolean) as string[],
   );
 
   // Compute matching candidates per state to show in map tooltips
@@ -135,7 +135,7 @@
           race.candidates.some(
             (c) =>
               c.name.toLowerCase().includes(q) ||
-              c.party?.toLowerCase().includes(q)
+              c.party?.toLowerCase().includes(q),
           )
         );
       }
@@ -184,7 +184,7 @@
         race.candidates.some(
           (c) =>
             c.name.toLowerCase().includes(q) ||
-            c.party?.toLowerCase().includes(q)
+            c.party?.toLowerCase().includes(q),
         )
       );
     }
@@ -487,7 +487,7 @@
         {#each Array(6) as _}
           <div
             class="bg-surface border border-stroke rounded-xl h-40 animate-pulse"
-          />
+          ></div>
         {/each}
       </div>
     {:else if filteredRaces.length === 0}

@@ -26,14 +26,14 @@
 
   function extractInlineSourceUrls(summary: string): string[] {
     return (summary.match(/https?:\/\/[^\s;,]+/g) ?? []).map((url) =>
-      url.replace(/[.)\]]+$/, "")
+      url.replace(/[.)\]]+$/, ""),
     );
   }
 
   function mergeSourceLinks(
     sources: Source[],
     sourceUrl: string,
-    legacyUrls: string[]
+    legacyUrls: string[],
   ): SourceLink[] {
     const links: SourceLink[] = [];
     const seen = new Set<string>();
@@ -55,7 +55,7 @@
   $: financeSources = mergeSourceLinks(
     donorSources,
     donorSourceUrl,
-    extractInlineSourceUrls(donorSummary)
+    extractInlineSourceUrls(donorSummary),
   );
 </script>
 

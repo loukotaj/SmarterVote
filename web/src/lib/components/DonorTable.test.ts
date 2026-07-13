@@ -22,7 +22,7 @@ describe("DonorTable", () => {
     });
 
     expect(
-      getByText("Alice raised $1.2M, mostly from individual donors.")
+      getByText("Alice raised $1.2M, mostly from individual donors."),
     ).toBeTruthy();
     expect(getByText("OpenSecrets profile")).toBeTruthy();
     expect(getByText("Full campaign finance data")).toBeTruthy();
@@ -36,7 +36,7 @@ describe("DonorTable", () => {
     });
 
     expect(
-      getByText("Alice raised $1.2M, mostly from individual donors.")
+      getByText("Alice raised $1.2M, mostly from individual donors."),
     ).toBeTruthy();
     expect(queryByText(/Sources:/)).toBeNull();
     expect(getByText("fec.gov")).toBeTruthy();

@@ -35,10 +35,10 @@ describe("homepage data", () => {
   it("rotates preview candidates deterministically by date", () => {
     const items = ["a", "b", "c"];
     expect(rotateByDate(items, new Date("2026-07-12T00:00:00Z"))).toEqual(
-      rotateByDate(items, new Date("2026-07-12T12:00:00Z"))
+      rotateByDate(items, new Date("2026-07-12T12:00:00Z")),
     );
     expect(rotateByDate(items, new Date("2026-07-13T00:00:00Z"))).not.toEqual(
-      rotateByDate(items, new Date("2026-07-12T00:00:00Z"))
+      rotateByDate(items, new Date("2026-07-12T00:00:00Z")),
     );
   });
 
@@ -47,7 +47,7 @@ describe("homepage data", () => {
       recentlyUpdated([
         race("older", "2026-01-01T00:00:00Z"),
         race("newer", "2026-02-01T00:00:00Z"),
-      ]).map(({ id }) => id)
+      ]).map(({ id }) => id),
     ).toEqual(["newer", "older"]);
   });
 
@@ -58,8 +58,8 @@ describe("homepage data", () => {
           race("one", "2026-01-01T00:00:00Z"),
           race("two", "2026-02-01T00:00:00Z", "Ohio"),
         ],
-        "2026-07-12"
-      )
+        "2026-07-12",
+      ),
     ).toMatchObject({
       guides: 2,
       candidateProfiles: 4,

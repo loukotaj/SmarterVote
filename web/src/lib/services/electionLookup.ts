@@ -17,14 +17,14 @@ const CENSUS_ENDPOINT =
   "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress";
 
 export function parseCensusGeography(
-  response: CensusResponse
+  response: CensusResponse,
 ): ElectionGeography | null {
   const match = response.result?.addressMatches?.[0];
   if (!match?.geographies) return null;
 
   const state = match.geographies.States?.[0]?.NAME;
   const congressionalEntry = Object.entries(match.geographies).find(([name]) =>
-    name.endsWith("Congressional Districts")
+    name.endsWith("Congressional Districts"),
   )?.[1]?.[0];
   const district = congressionalEntry?.CD119 ?? congressionalEntry?.BASENAME;
 
@@ -37,7 +37,7 @@ export function parseCensusGeography(
 
 export function lookupElectionGeography(
   address: string,
-  timeoutMs = 12000
+  timeoutMs = 12000,
 ): Promise<ElectionGeography> {
   return new Promise((resolve, reject) => {
     const callbackName = `smarterVoteCensus_${Date.now()}_${Math.random()
@@ -55,7 +55,7 @@ export function lookupElectionGeography(
     }, timeoutMs);
 
     (window as unknown as Record<string, unknown>)[callbackName] = (
-      response: CensusResponse
+      response: CensusResponse,
     ) => {
       const geography = parseCensusGeography(response);
       cleanup();
@@ -103,7 +103,7 @@ function districtFromRace(race: RaceSummary): string | null {
 export function matchingNationalRaces(
   races: RaceSummary[],
   geography: ElectionGeography,
-  now = new Date()
+  now = new Date(),
 ): RaceSummary[] {
   const state = geography.state.toLocaleLowerCase();
   return races.filter((race) => {

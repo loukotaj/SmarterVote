@@ -6,7 +6,7 @@
   $: displayReviews = (reviews || []).filter(
     (r) =>
       r.model !== "automated-link-validator" &&
-      r.model !== "automated-profile-quality"
+      r.model !== "automated-profile-quality",
   );
 
   let collapsed = true;

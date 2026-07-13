@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      python-runtime:
+        patterns: ["*"]
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: monthly
+    groups:
+      frontend-runtime:
+        patterns: ["*"]
+  - package-ecosystem: terraform
+    directory: /infra
+    schedule:
+      interval: monthly

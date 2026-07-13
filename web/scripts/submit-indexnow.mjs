@@ -12,7 +12,7 @@ const keyLocation =
   process.env.INDEXNOW_KEY_LOCATION ||
   (key ? `https://${host}/${key}.txt` : undefined);
 const sitemapPath = path.resolve(
-  process.env.INDEXNOW_SITEMAP_PATH || "static/sitemap.xml"
+  process.env.INDEXNOW_SITEMAP_PATH || "static/sitemap.xml",
 );
 const dryRun = process.env.INDEXNOW_DRY_RUN === "true";
 
@@ -23,7 +23,7 @@ if (!key) {
 
 const sitemapXml = await fs.readFile(sitemapPath, "utf8");
 const urls = Array.from(sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) =>
-  unescapeXml(match[1])
+  unescapeXml(match[1]),
 ).filter((url) => {
   try {
     return new URL(url).host === host;
@@ -47,7 +47,7 @@ for (let start = 0; start < urls.length; start += MAX_URLS_PER_REQUEST) {
 
   if (dryRun) {
     console.log(
-      `IndexNow dry run: would submit ${urlList.length} URLs to ${endpoint}`
+      `IndexNow dry run: would submit ${urlList.length} URLs to ${endpoint}`,
     );
     continue;
   }
@@ -67,13 +67,13 @@ for (let start = 0; start < urls.length; start += MAX_URLS_PER_REQUEST) {
       body.includes("SiteVerificationNotCompleted")
     ) {
       console.warn(
-        `Skipping IndexNow submission: site verification is still pending (${body}).`
+        `Skipping IndexNow submission: site verification is still pending (${body}).`,
       );
       continue;
     }
 
     throw new Error(
-      `IndexNow submission failed with ${response.status}: ${body}`
+      `IndexNow submission failed with ${response.status}: ${body}`,
     );
   }
 

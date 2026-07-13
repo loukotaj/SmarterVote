@@ -202,8 +202,8 @@ export class PipelineApiService {
       typeof r.race_id === "string"
         ? r.race_id
         : typeof payloadRaceId === "string"
-        ? payloadRaceId
-        : undefined;
+          ? payloadRaceId
+          : undefined;
     const options = r.options ?? {};
     const existingSteps = Array.isArray(r.steps) ? (r.steps as RunStep[]) : [];
     const enabledSteps =
@@ -281,7 +281,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/runs`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: RunsResponse = await res.json();
@@ -314,7 +314,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/runs/${encodeURIComponent(runId)}`,
       { method: "DELETE" },
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -329,7 +329,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/runs`,
       { method: "DELETE" },
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -344,7 +344,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/runs/${encodeURIComponent(runId)}`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return this.normalizeRun(await res.json());
@@ -356,12 +356,12 @@ export class PipelineApiService {
    */
   async getRunLogs(
     runId: string,
-    since = 0
+    since = 0,
   ): Promise<{ logs: import("$lib/types").LogEntry[]; total: number }> {
     const res = await fetchWithAuth(
       `${this.apiBase}/runs/${encodeURIComponent(runId)}/logs?since=${since}`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -374,7 +374,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/races/summaries`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -387,7 +387,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/races/${encodeURIComponent(raceId)}`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -400,7 +400,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/unpublish`,
       { method: "POST" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -417,7 +417,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/drafts`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: PublishedRacesResponse = await res.json();
@@ -431,7 +431,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/data?draft=true`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -451,7 +451,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/unpublish`,
       { method: "POST" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -466,7 +466,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/draft`,
       { method: "DELETE" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -490,7 +490,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/queue`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -501,7 +501,7 @@ export class PipelineApiService {
    */
   async addToQueue(
     raceIds: string[],
-    options: RunOptions = {}
+    options: RunOptions = {},
   ): Promise<QueueAddResponse> {
     const res = await fetchWithAuth(`${this.apiBase}/api/races/queue`, {
       method: "POST",
@@ -525,7 +525,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       url,
       { method: "DELETE" },
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   }
@@ -561,7 +561,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races?reconcile_active=true`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: RaceListResponse = await res.json();
@@ -575,7 +575,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -588,7 +588,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}`,
       { method: "DELETE" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   }
@@ -598,7 +598,7 @@ export class PipelineApiService {
    */
   async queueRaces(
     raceIds: string[],
-    options: RunOptions = {}
+    options: RunOptions = {},
   ): Promise<RaceQueueResponse> {
     const res = await fetchWithAuth(`${this.apiBase}/api/races/queue`, {
       method: "POST",
@@ -619,7 +619,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/cancel`,
       { method: "POST" },
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   }
@@ -628,12 +628,12 @@ export class PipelineApiService {
    * Recheck race status from storage (recover stuck 'running' races)
    */
   async recheckRace(
-    raceId: string
+    raceId: string,
   ): Promise<{ race: import("$lib/types").RaceRecord }> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/recheck`,
       { method: "POST" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -650,7 +650,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/recheck`,
       { method: "POST" },
-      API_TIMEOUT_ARTIFACT
+      API_TIMEOUT_ARTIFACT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -661,7 +661,7 @@ export class PipelineApiService {
    */
   async runRace(
     raceId: string,
-    options: RunOptions = {}
+    options: RunOptions = {},
   ): Promise<{ run_id: string; status: string; race_id: string }> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/run`,
@@ -669,7 +669,7 @@ export class PipelineApiService {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(options),
-      }
+      },
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -685,7 +685,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/publish`,
       { method: "POST" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -707,7 +707,7 @@ export class PipelineApiService {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ race_ids: raceIds }),
       },
-      API_TIMEOUT_ARTIFACT
+      API_TIMEOUT_ARTIFACT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -723,7 +723,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/unpublish`,
       { method: "POST" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -737,10 +737,10 @@ export class PipelineApiService {
   async listRaceRuns(raceId: string, limit: number = 20): Promise<RunInfo[]> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(
-        raceId
+        raceId,
       )}/runs?limit=${limit}`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: RaceRunsResponse = await res.json();
@@ -753,10 +753,10 @@ export class PipelineApiService {
   async getRaceRun(raceId: string, runId: string): Promise<RunInfo> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(
-        raceId
+        raceId,
       )}/runs/${encodeURIComponent(runId)}`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return this.normalizeRun(await res.json());
@@ -768,10 +768,10 @@ export class PipelineApiService {
   async deleteRaceRun(raceId: string, runId: string): Promise<void> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(
-        raceId
+        raceId,
       )}/runs/${encodeURIComponent(runId)}`,
       { method: "DELETE" },
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   }
@@ -781,13 +781,13 @@ export class PipelineApiService {
    */
   async getRaceData(
     raceId: string,
-    draft: boolean = false
+    draft: boolean = false,
   ): Promise<Record<string, unknown>> {
     const params = draft ? "?draft=true" : "";
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/data${params}`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -800,7 +800,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(raceId)}/versions`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: { versions: RaceVersion[]; count: number } = await res.json();
@@ -812,14 +812,14 @@ export class PipelineApiService {
    */
   async getRaceVersionData(
     raceId: string,
-    filename: string
+    filename: string,
   ): Promise<Record<string, unknown>> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(
-        raceId
+        raceId,
       )}/versions/${encodeURIComponent(filename)}`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
@@ -831,10 +831,10 @@ export class PipelineApiService {
   async restoreVersionAsDraft(raceId: string, filename: string): Promise<void> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/${encodeURIComponent(
-        raceId
+        raceId,
       )}/versions/${encodeURIComponent(filename)}/restore`,
       { method: "POST" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   }
@@ -845,7 +845,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/races/chamber_forecasts`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
@@ -855,14 +855,14 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/chamber_forecasts/draft`,
       {},
-      API_TIMEOUT_SHORT
+      API_TIMEOUT_SHORT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
   }
 
   async generateChamberForecastDraft(
-    model = "google/gemini-3.5-flash"
+    model = "google/gemini-3.5-flash",
   ): Promise<ChamberForecastGenerateResponse> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/chamber_forecasts/generate`,
@@ -871,7 +871,7 @@ export class PipelineApiService {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ model }),
       },
-      120_000
+      120_000,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
@@ -884,7 +884,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/chamber_forecasts/publish`,
       { method: "POST" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
@@ -904,7 +904,7 @@ export class PipelineApiService {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages }),
       },
-      60_000 // allow up to 60 s for LLM response
+      60_000, // allow up to 60 s for LLM response
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
@@ -919,21 +919,21 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/conversations`,
       { method: "POST", headers: { "Content-Type": "application/json" } },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
   }
 
   async getAdminAgentConversation(
-    conversationId: string
+    conversationId: string,
   ): Promise<AdminAgentConversation> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(
-        conversationId
+        conversationId,
       )}`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
@@ -941,18 +941,18 @@ export class PipelineApiService {
 
   async submitAdminAgentMessage(
     conversationId: string,
-    content: string
+    content: string,
   ): Promise<AdminAgentTask> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(
-        conversationId
+        conversationId,
       )}/messages`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content }),
       },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
@@ -961,10 +961,10 @@ export class PipelineApiService {
   async approveAdminAgentTask(taskId: string): Promise<AdminAgentTask> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(
-        taskId
+        taskId,
       )}/approve`,
       { method: "POST", headers: { "Content-Type": "application/json" } },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
@@ -973,10 +973,10 @@ export class PipelineApiService {
   async cancelAdminAgentTask(taskId: string): Promise<AdminAgentTask> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(
-        taskId
+        taskId,
       )}/cancel`,
       { method: "POST", headers: { "Content-Type": "application/json" } },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
@@ -988,7 +988,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/conversations`,
       {},
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     const data = await res.json();
@@ -998,10 +998,10 @@ export class PipelineApiService {
   async deleteAdminAgentConversation(conversationId: string): Promise<void> {
     const res = await fetchWithAuth(
       `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(
-        conversationId
+        conversationId,
       )}`,
       { method: "DELETE" },
-      API_TIMEOUT_DEFAULT
+      API_TIMEOUT_DEFAULT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
   }

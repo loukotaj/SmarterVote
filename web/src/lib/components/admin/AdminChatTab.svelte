@@ -106,7 +106,7 @@
       parts.push(`max candidates: ${opts.max_candidates}`);
     if (Array.isArray(opts.candidate_names) && opts.candidate_names.length) {
       parts.push(
-        `candidates: ${(opts.candidate_names as string[]).join(", ")}`
+        `candidates: ${(opts.candidate_names as string[]).join(", ")}`,
       );
     }
     if (opts.target_no_info) parts.push("target no-info candidates");
@@ -182,17 +182,17 @@
       (_m, lang: string, inner: string) => {
         const langLabel = lang.trim()
           ? `<div class="text-[10px] text-content-subtle mb-1 font-mono">${escapeHtml(
-              lang.trim()
+              lang.trim(),
             )}</div>`
           : "";
         const placeholder = `@@CODE${codeBlocks.length}@@`;
         codeBlocks.push(
           `<pre class="my-2 p-2.5 rounded-lg bg-surface-alt text-xs overflow-x-auto border border-stroke leading-relaxed">${langLabel}<code>${escapeHtml(
-            inner.replace(/\n$/, "")
-          )}</code></pre>`
+            inner.replace(/\n$/, ""),
+          )}</code></pre>`,
         );
         return placeholder;
-      }
+      },
     );
 
     // Step 2: escape HTML in remaining text
@@ -201,13 +201,13 @@
     // Step 3: restore code block placeholders (already escaped inside)
     s = s.replace(
       /@@CODE(\d+)@@/g,
-      (_m, idx: string) => codeBlocks[Number(idx)]
+      (_m, idx: string) => codeBlocks[Number(idx)],
     );
 
     // Inline code
     s = s.replace(
       /`([^`\n]+)`/g,
-      '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>'
+      '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>',
     );
 
     // Bold + italic (order matters: *** before ** before *)
@@ -222,7 +222,7 @@
     // Links [text](url)
     s = s.replace(
       /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
-      '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80">$1</a>'
+      '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80">$1</a>',
     );
 
     // Process lines for block-level elements
@@ -251,7 +251,7 @@
     function flushParagraph() {
       if (paraLines.length > 0) {
         out.push(
-          `<p class="mb-1 leading-relaxed">${paraLines.join("<br>")}</p>`
+          `<p class="mb-1 leading-relaxed">${paraLines.join("<br>")}</p>`,
         );
         paraLines = [];
       }
@@ -280,8 +280,8 @@
           lvl === 1
             ? "text-base font-bold mt-3 mb-1"
             : lvl === 2
-            ? "text-sm font-bold mt-2 mb-0.5"
-            : "text-sm font-semibold mt-1";
+              ? "text-sm font-bold mt-2 mb-0.5"
+              : "text-sm font-semibold mt-1";
         out.push(`<p class="${cls}">${hMatch[2]}</p>`);
         i++;
         continue;
@@ -302,7 +302,7 @@
         flushParagraph();
         closeAllLists();
         out.push(
-          `<blockquote class="border-l-2 border-blue-400 pl-3 my-1 text-content-muted italic text-sm">${bqMatch[1]}</blockquote>`
+          `<blockquote class="border-l-2 border-blue-400 pl-3 my-1 text-content-muted italic text-sm">${bqMatch[1]}</blockquote>`,
         );
         i++;
         continue;
@@ -335,7 +335,7 @@
         const thead = `<thead class="bg-surface-alt"><tr>${headerCells
           .map(
             (c) =>
-              `<th class="px-2 py-1 text-left text-xs font-semibold text-content-muted border-b border-stroke">${c}</th>`
+              `<th class="px-2 py-1 text-left text-xs font-semibold text-content-muted border-b border-stroke">${c}</th>`,
           )
           .join("")}</tr></thead>`;
         const tbody = `<tbody>${rows
@@ -343,13 +343,13 @@
             (row) =>
               `<tr class="border-b border-stroke/50 hover:bg-surface-alt/50">${row
                 .map(
-                  (c) => `<td class="px-2 py-1 text-xs text-content">${c}</td>`
+                  (c) => `<td class="px-2 py-1 text-xs text-content">${c}</td>`,
                 )
-                .join("")}</tr>`
+                .join("")}</tr>`,
           )
           .join("")}</tbody>`;
         out.push(
-          `<div class="overflow-x-auto my-2"><table class="w-full text-left border border-stroke rounded-lg overflow-hidden text-xs">${thead}${tbody}</table></div>`
+          `<div class="overflow-x-auto my-2"><table class="w-full text-left border border-stroke rounded-lg overflow-hidden text-xs">${thead}${tbody}</table></div>`,
         );
         continue;
       }
@@ -526,7 +526,7 @@
   }
 
   function formatQueueErrors(
-    errors: Array<{ race_id: string; error: string }>
+    errors: Array<{ race_id: string; error: string }>,
   ) {
     return errors.map((e) => `${e.race_id}: ${e.error}`).join("; ");
   }
@@ -803,15 +803,15 @@
             <span
               class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce"
               style="animation-delay:0ms"
-            />
+            ></span>
             <span
               class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce"
               style="animation-delay:150ms"
-            />
+            ></span>
             <span
               class="w-1.5 h-1.5 rounded-full bg-content-subtle animate-bounce"
               style="animation-delay:300ms"
-            />
+            ></span>
           </span>
           <span class="text-xs text-content-subtle">{thinkingLabel}</span>
         </div>
@@ -877,7 +877,7 @@
                   class="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                   on:click={() => {
                     selectedRaceIds = new Set(
-                      pendingRaceRecords.map((r) => r.race_id)
+                      pendingRaceRecords.map((r) => r.race_id),
                     );
                   }}>Select all</button
                 >
@@ -934,7 +934,7 @@
                   {#each pendingRaceRecords as rec}
                     <tr
                       class="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-opacity {!selectedRaceIds.has(
-                        rec.race_id
+                        rec.race_id,
                       )
                         ? 'opacity-40'
                         : ''}"
@@ -968,7 +968,7 @@
                         {#if rec.quality_grade}
                           <span
                             class="rounded px-1.5 py-0.5 font-semibold {gradeColor(
-                              rec.quality_grade
+                              rec.quality_grade,
                             )}">{rec.quality_grade}</span
                           >
                         {/if}
@@ -977,7 +977,7 @@
                         {#if rec.freshness}
                           <span
                             class="rounded px-1.5 py-0.5 {freshnessColor(
-                              rec.freshness
+                              rec.freshness,
                             )}">{rec.freshness}</span
                           >
                         {/if}
@@ -985,7 +985,7 @@
                       <td class="px-2 py-1.5">
                         <span
                           class="rounded px-1.5 py-0.5 {statusColor(
-                            rec.status
+                            rec.status,
                           )}">{rec.status}</span
                         >
                       </td>
@@ -1021,7 +1021,7 @@
                   {#if rec.quality_grade}
                     <span
                       class="rounded px-1.5 py-0.5 font-semibold {gradeColor(
-                        rec.quality_grade
+                        rec.quality_grade,
                       )}"
                     >
                       Grade {rec.quality_grade}
@@ -1030,7 +1030,7 @@
                   {#if rec.freshness}
                     <span
                       class="rounded px-1.5 py-0.5 {freshnessColor(
-                        rec.freshness
+                        rec.freshness,
                       )}">{rec.freshness}</span
                     >
                   {/if}
@@ -1084,6 +1084,7 @@
             <button
               type="button"
               role="switch"
+              aria-label="Toggle quality mode"
               aria-checked={!editCheapMode}
               class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/30 {!editCheapMode
                 ? 'bg-blue-600'
@@ -1094,7 +1095,7 @@
                 class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform {!editCheapMode
                   ? 'translate-x-4'
                   : 'translate-x-0.5'}"
-              />
+              ></span>
             </button>
           </div>
         </label>
@@ -1302,8 +1303,7 @@
         ? "Thinking\u2026"
         : "Ask about races or request a run\u2026 (Enter to send, Shift+Enter for newline)"}
       class="flex-1 resize-none rounded-xl border border-stroke bg-surface px-3.5 py-2.5 text-sm text-content placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-colors disabled:opacity-50"
-      disabled={sending}
-    />
+      disabled={sending}></textarea>
     <button
       type="button"
       class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium transition-colors flex items-center gap-1.5 shadow-sm"

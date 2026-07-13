@@ -5,6 +5,7 @@ Queue items are stored in Firestore `pipeline_queue` collection and picked up
 by a one-shot Cloud Run Job or the explicitly selected local Docker worker.
 """
 
+import logging
 import os
 import uuid
 from typing import Any, Dict
@@ -19,6 +20,7 @@ from routers.utils import _queue_ttl_at
 from shared.pipeline_config import PIPELINE_STEP_LABELS, PIPELINE_STEP_ORDER, PIPELINE_STEP_WEIGHTS, RetentionConfig
 
 router = APIRouter()
+logger = logging.getLogger("races_api")
 
 _PIPELINE_STEPS = list(PIPELINE_STEP_ORDER)
 _PIPELINE_STEP_DETAILS = [
@@ -160,7 +162,7 @@ def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[
                     try:
                         queue_ref.document(str(item_id)).update(updates)
                     except Exception:
-                        pass
+                        logger.exception("Unable to persist reconciled queue item %s", item_id)
         normalized.append(next_item)
     return normalized
 

@@ -23,7 +23,7 @@
         .filter((race) => {
           const q = query.trim().toLowerCase();
           return [race.title, race.office, race.state, race.jurisdiction].some(
-            (value) => value?.toLowerCase().includes(q)
+            (value) => value?.toLowerCase().includes(q),
           );
         })
         .slice(0, 5)
@@ -43,7 +43,7 @@
               ...candidate,
               raceId: race.id,
               raceTitle: race.title || race.id,
-            }))
+            })),
         )
         .slice(0, 5)
     : [];

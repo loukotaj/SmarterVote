@@ -65,7 +65,6 @@ describe("RunsTab", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.resetModules();
     analyticsService = {
       getPipelineMetrics: vi.fn(),
       getPipelineMetricsSummary: vi.fn(),
@@ -135,7 +134,7 @@ describe("RunsTab", () => {
     await fireEvent.click(runRow);
 
     await waitFor(() =>
-      expect(apiService.getRunDetails).toHaveBeenCalledWith("run-newest")
+      expect(apiService.getRunDetails).toHaveBeenCalledWith("run-newest"),
     );
     expect(apiService.getRunLogs).toHaveBeenCalledWith("run-newest", 0);
 

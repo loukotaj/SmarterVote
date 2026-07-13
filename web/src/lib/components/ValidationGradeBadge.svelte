@@ -51,7 +51,7 @@
   {#if showPopover}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="popover-backdrop" on:click={() => (showPopover = false)} />
+    <div class="popover-backdrop" on:click={() => (showPopover = false)}></div>
     <div class="popover" role="tooltip">
       <div class="popover-header">
         <span class="popover-title">AI Validation Grade</span>

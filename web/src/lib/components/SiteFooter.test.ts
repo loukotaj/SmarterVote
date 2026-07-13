@@ -7,18 +7,18 @@ describe("SiteFooter", () => {
     render(SiteFooter);
 
     expect(
-      screen.getByRole("link", { name: "Partners" }).getAttribute("href")
+      screen.getByRole("link", { name: "Partners" }).getAttribute("href"),
     ).toBe("/partners/");
     expect(
       screen
         .getByRole("link", { name: "Funding & independence" })
-        .getAttribute("href")
+        .getAttribute("href"),
     ).toBe("/funding-and-editorial-independence/");
     expect(
-      screen.getByRole("link", { name: "Privacy" }).getAttribute("href")
+      screen.getByRole("link", { name: "Privacy" }).getAttribute("href"),
     ).toBe("/privacy/");
     expect(
-      screen.getByRole("link", { name: "Terms" }).getAttribute("href")
+      screen.getByRole("link", { name: "Terms" }).getAttribute("href"),
     ).toBe("/terms/");
   });
 });

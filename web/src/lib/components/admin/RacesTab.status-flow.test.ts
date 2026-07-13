@@ -31,25 +31,28 @@ describe("RacesTab preview and render flow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     rows = [];
-    vi.resetModules();
 
-    mockFetchWithAuth = vi.fn(async (url: string, options?: RequestInit) => {
-      if (url.includes("/api/races/queue") && options?.method === "POST") {
-        const body = JSON.parse(String(options.body ?? "{}"));
-        return jsonResponse({
-          added: (body.race_ids ?? []).map((race_id: string) => ({
-            race_id,
-            status: "pending",
-          })),
-          errors: [],
-        });
-      }
-      if (url.endsWith("/api/races/publish") && options?.method === "POST") {
-        const body = JSON.parse(String(options.body ?? "{}"));
-        return jsonResponse({ published: body.race_ids ?? [], errors: [] });
-      }
-      return jsonResponse({ races: rows });
-    });
+    mockFetchWithAuth ??= vi.fn();
+    mockFetchWithAuth.mockReset();
+    mockFetchWithAuth.mockImplementation(
+      async (url: string, options?: RequestInit) => {
+        if (url.includes("/api/races/queue") && options?.method === "POST") {
+          const body = JSON.parse(String(options.body ?? "{}"));
+          return jsonResponse({
+            added: (body.race_ids ?? []).map((race_id: string) => ({
+              race_id,
+              status: "pending",
+            })),
+            errors: [],
+          });
+        }
+        if (url.endsWith("/api/races/publish") && options?.method === "POST") {
+          const body = JSON.parse(String(options.body ?? "{}"));
+          return jsonResponse({ published: body.race_ids ?? [], errors: [] });
+        }
+        return jsonResponse({ races: rows });
+      },
+    );
 
     vi.doMock("$lib/stores/apiStore", () => {
       return {
@@ -118,7 +121,7 @@ describe("RacesTab preview and render flow", () => {
     await fireEvent.click(getByText("View Draft"));
     expect(openSpy).toHaveBeenCalledWith(
       "/races/active-draft?draft=true",
-      "_blank"
+      "_blank",
     );
   });
 
@@ -159,13 +162,13 @@ describe("RacesTab preview and render flow", () => {
         expect.objectContaining({
           method: "POST",
           body: JSON.stringify({ race_ids: ["ready-to-run"], options: {} }),
-        })
-      )
+        }),
+      ),
     );
     await waitFor(() =>
       expect(
-        getByText("ready-to-run was added to the pipeline queue.")
-      ).toBeTruthy()
+        getByText("ready-to-run was added to the pipeline queue."),
+      ).toBeTruthy(),
     );
   });
 
@@ -191,7 +194,7 @@ describe("RacesTab preview and render flow", () => {
     });
 
     await waitFor(() =>
-      expect(getByText(/Queue failed for stuck-race/)).toBeTruthy()
+      expect(getByText(/Queue failed for stuck-race/)).toBeTruthy(),
     );
     expect(getByText(/Race is already running/)).toBeTruthy();
   });
@@ -220,7 +223,7 @@ describe("RacesTab preview and render flow", () => {
     expect(mockFetchWithAuth).toHaveBeenCalledWith(
       expect.stringMatching(/\/api\/races\/row-action-race\/publish$/),
       { method: "POST" },
-      expect.any(Number)
+      expect.any(Number),
     );
 
     await fireEvent.change(select, { target: { value: "unpublish" } });
@@ -234,7 +237,7 @@ describe("RacesTab preview and render flow", () => {
 
     await fireEvent.change(select, { target: { value: "delete" } });
     await waitFor(() =>
-      expect(getByText(/stored data were deleted/)).toBeTruthy()
+      expect(getByText(/stored data were deleted/)).toBeTruthy(),
     );
   });
 
@@ -256,8 +259,8 @@ describe("RacesTab preview and render flow", () => {
       expect(mockFetchWithAuth).toHaveBeenCalledWith(
         expect.stringMatching(/\/api\/races\/active-race\/cancel$/),
         { method: "POST" },
-        expect.any(Number)
-      )
+        expect.any(Number),
+      ),
     );
   });
 
@@ -275,7 +278,7 @@ describe("RacesTab preview and render flow", () => {
           });
         }
         return jsonResponse({ races: rows });
-      }
+      },
     );
 
     const { component, getAllByLabelText, getByText, queryByText } =
@@ -291,7 +294,7 @@ describe("RacesTab preview and render flow", () => {
     await fireEvent.click(getByText("Batch Run"));
 
     await waitFor(() =>
-      expect(getByText(/Queued 1 of 2 selected race/)).toBeTruthy()
+      expect(getByText(/Queued 1 of 2 selected race/)).toBeTruthy(),
     );
     expect(getByText(/batch-bad: Race is already queued/)).toBeTruthy();
     await waitFor(() => expect(queryByText(/2 races selected/)).toBeNull());
@@ -314,7 +317,7 @@ describe("RacesTab preview and render flow", () => {
           return jsonResponse("delete failed", false, 500);
         }
         return jsonResponse({ races: rows });
-      }
+      },
     );
 
     const { component, getAllByLabelText, getByText } = await renderTab();
