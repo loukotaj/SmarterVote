@@ -10,6 +10,7 @@ import os
 import threading
 import time
 from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
 from shared.models import RaceJSON
 

@@ -4,7 +4,7 @@ All editing-tool JSON schemas live here so that ``agent.py`` stays focused on
 orchestration logic.  Import the individual constants or the aggregate lists.
 """
 
-from typing import List
+from typing import Dict, List
 
 # ---------------------------------------------------------------------------
 # Web search / page fetch
