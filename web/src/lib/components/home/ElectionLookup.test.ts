@@ -33,7 +33,11 @@ const races = [
 ];
 
 describe("ElectionLookup", () => {
-  beforeEach(() => lookupElectionGeography.mockReset());
+  beforeEach(() => {
+    lookupElectionGeography.mockReset();
+    sessionStorage.clear();
+    window.history.replaceState({}, "", "/my-ballot/");
+  });
   afterEach(cleanup);
 
   it("explains privacy and renders matched national research", async () => {
@@ -70,9 +74,41 @@ describe("ElectionLookup", () => {
     expect(sessionStorage.getItem("smarterVote.ballot")).toContain(
       "md-house-04-2026",
     );
+    expect(new URLSearchParams(window.location.search).get("state")).toBe(
+      "Maryland",
+    );
+    expect(new URLSearchParams(window.location.search).get("district")).toBe(
+      "04",
+    );
+    expect(
+      screen
+        .getByRole("link", { name: /full ballot at VOTE411/i })
+        .getAttribute("href"),
+    ).toBe("https://www.vote411.org/ballot");
     expect(screen.queryByLabelText("Home address")).toBeNull();
     expect(
       screen.getByRole("button", { name: "← Search another address" }),
     ).toBeTruthy();
+  });
+
+  it("restores a saved district directly from URL parameters", async () => {
+    window.history.replaceState(
+      {},
+      "",
+      "/my-ballot/?state=Maryland&district=4",
+    );
+
+    render(ElectionLookup, { races });
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole("heading", { name: "Your election guide" }),
+      ).toBeTruthy(),
+    );
+    expect(screen.getByText(/U\.S\. House District 4/)).toBeTruthy();
+    expect(
+      screen.getByRole("tab", { name: "U.S. House", selected: true }),
+    ).toBeTruthy();
+    expect(lookupElectionGeography).not.toHaveBeenCalled();
   });
 });

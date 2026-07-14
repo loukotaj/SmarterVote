@@ -64,7 +64,36 @@
     suggestions = [];
   }
 
+  function restoreFromGeography(savedState: string, savedDistrict: string) {
+    const normalizedState = savedState.trim();
+    const normalizedDistrict = savedDistrict.trim().padStart(2, "0");
+    if (!normalizedState || !/^\d{2}$/.test(normalizedDistrict)) return false;
+
+    state = normalizedState;
+    district = normalizedDistrict;
+    results = matchingNationalRaces(races, {
+      state,
+      congressionalDistrict: district,
+    });
+    submitted = true;
+    dispatch("exploring", true);
+    return true;
+  }
+
+  function updateShareableUrl() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("state", state);
+    url.searchParams.set("district", district);
+    window.history.replaceState({}, "", url);
+  }
+
   onMount(() => {
+    const url = new URL(window.location.href);
+    const urlState = url.searchParams.get("state");
+    const urlDistrict = url.searchParams.get("district");
+    if (urlState && urlDistrict && restoreFromGeography(urlState, urlDistrict))
+      return;
+
     try {
       const saved = JSON.parse(
         sessionStorage.getItem(SESSION_KEY) ?? "null",
@@ -84,6 +113,7 @@
       results = restored;
       submitted = true;
       dispatch("exploring", true);
+      updateShareableUrl();
     } catch {
       sessionStorage.removeItem(SESSION_KEY);
     }
@@ -113,6 +143,7 @@
           raceIds: results.map((race) => race.id),
         }),
       );
+      updateShareableUrl();
       address = "";
     } catch (caught) {
       error =
@@ -132,6 +163,8 @@
     error = "";
     sessionStorage.removeItem(SESSION_KEY);
     const url = new URL(window.location.href);
+    url.searchParams.delete("state");
+    url.searchParams.delete("district");
     url.searchParams.delete("race");
     window.history.replaceState({}, "", url);
     dispatch("exploring", false);
@@ -277,6 +310,17 @@
             Explore every published race we matched to your district. This is
             not a complete official ballot; confirm voting information with your
             election authority.
+          </p>
+          <p class="mt-3 text-sm leading-6 text-content-muted">
+            Save or share this page's URL to return to this district.
+            <a
+              href="https://www.vote411.org/ballot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ml-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"
+              >See what's on your full ballot at VOTE411
+              <span class="sr-only"> (opens in a new tab)</span></a
+            >.
           </p>
         </div>
         <button
