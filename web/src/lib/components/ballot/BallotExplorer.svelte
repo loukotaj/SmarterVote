@@ -28,12 +28,15 @@
     return race.candidates.filter((candidate) => !candidate.withdrawn);
   }
 
-  function candidatesFor(race: Race): Candidate[] {
-    return selectedCandidates[race.id] ?? activeCandidates(race).slice(0, 2);
+  function candidatesFor(
+    race: Race,
+    selections: Record<string, Candidate[]>,
+  ): Candidate[] {
+    return selections[race.id] ?? activeCandidates(race).slice(0, 2);
   }
 
   function toggleCandidate(race: Race, candidateName: string) {
-    const current = candidatesFor(race);
+    const current = candidatesFor(race, selectedCandidates);
     const isSelected = current.some(
       (candidate) => candidate.name === candidateName,
     );
@@ -106,7 +109,9 @@
 
   $: selectedSummary = races.find((race) => race.id === selectedId);
   $: selectedRace = selectedId ? loadedRaces[selectedId] : undefined;
-  $: candidates = selectedRace ? candidatesFor(selectedRace) : [];
+  $: candidates = selectedRace
+    ? candidatesFor(selectedRace, selectedCandidates)
+    : [];
 </script>
 
 {#if races.length}
