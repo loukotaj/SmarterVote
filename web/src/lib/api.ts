@@ -100,29 +100,6 @@ export async function getRaceSummaries(
   }
 }
 
-// Keep the old function for backward compatibility but deprecated
-export async function getAllRaces(
-  fetchFn: typeof fetch = fetch,
-  useFallback: boolean = USE_SAMPLE_FALLBACK,
-): Promise<Race[]> {
-  logger.warn("getAllRaces is deprecated, use getRaceSummaries instead");
-  try {
-    return await fetchPublicJson<Race[]>("summaries.json", "/races", fetchFn);
-  } catch (error) {
-    // If fallback is enabled, return all sample races
-    if (useFallback) {
-      logger.warn(
-        `API request failed for all races, falling back to sample data:`,
-        error,
-      );
-      return Object.values(sampleRaces);
-    }
-
-    // Re-throw the error if fallback is disabled
-    throw error;
-  }
-}
-
 /**
  * Fetch draft race data from the races-api backend (admin-only, requires auth).
  * Used for admin preview of un-published races via ?draft=true query param.

@@ -14,7 +14,7 @@ from typing import Dict, List, Optional, Tuple
 
 from shared.models import RaceJSON
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("races_api")
 
 # Default TTL for in-memory GCS response cache. Set CACHE_TTL_SECONDS=0 to disable.
 _DEFAULT_CACHE_TTL = 300

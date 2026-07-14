@@ -1,0 +1,27 @@
+{
+  "projectId": "9b170d05-798b-4300-91b9-88ba0ad16723",
+  "shape": "package",
+  "pkg": "@smartervote/design-system",
+  "globalName": "SmarterVoteDS",
+  "buildCmd": "npm --prefix design-system run build",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": "dist/index.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "extraFonts": [
+    "node_modules/@fontsource/inter/latin-400.css",
+    "node_modules/@fontsource/inter/latin-500.css",
+    "node_modules/@fontsource/inter/latin-600.css",
+    "node_modules/@fontsource/inter/latin-700.css"
+  ],
+  "overrides": {
+    "CandidateCard": { "cardMode": "column" },
+    "FeaturedElections": { "cardMode": "column" },
+    "HowItWorks": { "cardMode": "column", "viewport": "700x900" },
+    "SiteHeader": { "cardMode": "column" },
+    "ElectionCountdown": { "cardMode": "column" },
+    "ImpactMetrics": { "cardMode": "column" },
+    "SiteFooter": { "cardMode": "column" },
+    "Tabs": { "cardMode": "column" },
+    "TrustPrinciples": { "cardMode": "column" }
+  }
+}

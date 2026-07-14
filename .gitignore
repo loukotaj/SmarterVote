@@ -222,6 +222,13 @@ build/
 .vuepress/dist/
 .serverless/
 
+# design-sync (claude.ai/design import) — staged converter + generated bundle output
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+
 # Environment variables
 .env
 .env.local

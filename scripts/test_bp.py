@@ -1,7 +1,5 @@
 import asyncio
-import sys
 
-sys.path.insert(0, ".")
 from pipeline_client.agent.ballotpedia import lookup_candidate_data
 
 

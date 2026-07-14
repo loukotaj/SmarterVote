@@ -12,7 +12,7 @@ from typing import Callable
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("races_api")
 
 # Paths that should not be tracked
 _SKIP_PREFIXES = ("/health", "/docs", "/redoc", "/openapi", "/favicon")
