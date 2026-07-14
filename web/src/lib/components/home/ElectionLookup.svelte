@@ -141,7 +141,8 @@
 <div class="min-w-0">
   {#if !submitted}
     <div
-      class="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-surface/95 p-6 shadow-2xl shadow-blue-950/10 backdrop-blur sm:p-10 dark:border-blue-900"
+      data-address-search-card
+      class="relative rounded-[2rem] border border-blue-100 bg-surface/95 p-6 shadow-2xl shadow-blue-950/10 backdrop-blur sm:p-10 dark:border-blue-900"
     >
       <div
         class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-sky-400"
