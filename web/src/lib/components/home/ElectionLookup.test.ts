@@ -44,6 +44,11 @@ describe("ElectionLookup", () => {
     render(ElectionLookup, { races });
 
     expect(screen.getByLabelText("Home address")).toBeTruthy();
+    expect(
+      document
+        .querySelector("[data-address-search-card]")
+        ?.classList.contains("overflow-hidden"),
+    ).toBe(false);
     expect(screen.getByText(/Smarter\.Vote does not save/i)).toBeTruthy();
     expect(screen.getByText(/not yet a complete local ballot/i)).toBeTruthy();
 
