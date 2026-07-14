@@ -37,7 +37,7 @@
 
   $: issueKeys = compact
     ? CANONICAL_ISSUES.filter((key) =>
-        candidates.every((candidate) => {
+        candidates.some((candidate) => {
           const stance = candidate.issues?.[key];
           return stance && stance.sources && stance.sources.length > 0;
         }),
