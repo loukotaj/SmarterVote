@@ -13,14 +13,32 @@ const { getRace } = vi.hoisted(() => ({ getRace: vi.fn() }));
 
 vi.mock("$lib/api", () => ({ getRace }));
 
-function candidate(name: string, party: string): Candidate {
+function candidate(
+  name: string,
+  party: string,
+  hasHealthcareResearch = false,
+): Candidate {
   return {
     name,
     party,
     incumbent: false,
     summary: `${name} summary`,
     summary_sources: [],
-    issues: {},
+    issues: hasHealthcareResearch
+      ? {
+          Healthcare: {
+            stance: `${name} healthcare position`,
+            confidence: "high",
+            sources: [
+              {
+                url: "https://example.com/healthcare",
+                type: "website",
+                last_accessed: "2026-07-01",
+              },
+            ],
+          },
+        }
+      : {},
     career_history: [],
     education: [],
     links: [],
@@ -36,8 +54,8 @@ const race: Race = {
   updated_utc: "2026-07-01T00:00:00Z",
   generator: [],
   candidates: [
-    candidate("Dana Democrat", "Democratic"),
-    candidate("Riley Republican", "Republican"),
+    candidate("Dana Democrat", "Democratic", true),
+    candidate("Riley Republican", "Republican", true),
     candidate("Indy Independent", "Independent"),
   ],
 };
@@ -69,11 +87,14 @@ describe("BallotExplorer", () => {
       ).toBeTruthy(),
     );
     expect(screen.queryByRole("link", { name: "Indy Independent" })).toBeNull();
+    expect(screen.getByText("Healthcare")).toBeTruthy();
 
     await fireEvent.click(
       screen.getByRole("checkbox", { name: /Indy Independent/ }),
     );
 
     expect(screen.getByRole("link", { name: "Indy Independent" })).toBeTruthy();
+    expect(screen.getByText("Healthcare")).toBeTruthy();
+    expect(screen.getByText("No stance researched yet.")).toBeTruthy();
   });
 });
