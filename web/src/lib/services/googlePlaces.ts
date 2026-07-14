@@ -1,4 +1,5 @@
 const SCRIPT_ID = "google-maps-javascript-api";
+const READY_CALLBACK = "__smarterVoteGoogleMapsReady";
 
 export interface AddressSuggestion {
   id: string;
@@ -45,11 +46,17 @@ function loadPlacesLibrary(apiKey: string): Promise<GooglePlacesLibrary> {
 
   const loading = new Promise<GooglePlacesLibrary>((resolve, reject) => {
     const googleWindow = window as GoogleMapsWindow;
-    const loadLibrary = () =>
-      googleWindow.google?.maps
-        .importLibrary("places")
+    const loadLibrary = () => {
+      const importLibrary = googleWindow.google?.maps?.importLibrary;
+      if (typeof importLibrary !== "function") {
+        reject(new Error("Google Maps did not initialize correctly."));
+        return;
+      }
+      importLibrary
+        .call(googleWindow.google?.maps, "places")
         .then(resolve)
         .catch(reject);
+    };
 
     if (googleWindow.google?.maps) {
       void loadLibrary();
@@ -58,23 +65,31 @@ function loadPlacesLibrary(apiKey: string): Promise<GooglePlacesLibrary> {
 
     const existing = document.getElementById(SCRIPT_ID) as HTMLScriptElement;
     if (existing) {
-      existing.addEventListener("load", loadLibrary, { once: true });
-      existing.addEventListener(
-        "error",
-        () => reject(new Error("Google Maps failed to load.")),
-        { once: true },
-      );
+      reject(new Error("Google Maps is already loading."));
       return;
     }
 
+    const callbackWindow = window as unknown as Record<string, unknown>;
+    callbackWindow[READY_CALLBACK] = () => {
+      delete callbackWindow[READY_CALLBACK];
+      loadLibrary();
+    };
     const script = document.createElement("script");
     script.id = SCRIPT_ID;
     script.async = true;
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&loading=async`;
-    script.addEventListener("load", loadLibrary, { once: true });
+    const params = new URLSearchParams({
+      key: apiKey,
+      loading: "async",
+      callback: READY_CALLBACK,
+      v: "weekly",
+    });
+    script.src = `https://maps.googleapis.com/maps/api/js?${params}`;
     script.addEventListener(
       "error",
-      () => reject(new Error("Google Maps failed to load.")),
+      () => {
+        delete callbackWindow[READY_CALLBACK];
+        reject(new Error("Google Maps failed to load."));
+      },
       { once: true },
     );
     document.head.appendChild(script);
