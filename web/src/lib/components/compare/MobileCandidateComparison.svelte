@@ -158,7 +158,7 @@
               on:click={() => toggleStance(candidate)}
               class="mt-2 text-sm font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
             >
-              {isExpanded ? "Show less" : "Read full stance"}
+              {isExpanded ? "Show less" : "Show more"}
               <span class="sr-only"> for {candidate.name}</span>
             </button>
           {/if}

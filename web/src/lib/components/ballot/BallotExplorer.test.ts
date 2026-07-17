@@ -105,7 +105,7 @@ describe("BallotExplorer", () => {
     ).toBeTruthy();
     await fireEvent.click(
       within(danaPosition).getByRole("button", {
-        name: "Read full stance for Dana Democrat",
+        name: "Show more for Dana Democrat",
       }),
     );
     expect(
