@@ -1,5 +1,9 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
+  import {
+    daysUntilElection,
+    formatElectionDate,
+  } from "$lib/utils/electionDate";
 
   export let electionDate: string;
 
@@ -8,12 +12,10 @@
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
   function updateCountdown() {
-    if (!electionDate) return;
-    const target = new Date(electionDate);
-    const now = new Date();
-    const difference = target.getTime() - now.getTime();
+    const difference = daysUntilElection(electionDate);
+    if (difference === null) return;
 
-    if (target.toDateString() === now.toDateString()) {
+    if (difference === 0) {
       status = "today";
       days = 0;
     } else if (difference < 0) {
@@ -21,7 +23,7 @@
       days = 0;
     } else {
       status = "upcoming";
-      days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+      days = difference;
     }
   }
 
@@ -48,8 +50,6 @@
     {/if}
   </span>
   <span class="text-content-muted">
-    {new Date(electionDate).toLocaleDateString(undefined, {
-      dateStyle: "long",
-    })}
+    {formatElectionDate(electionDate)}
   </span>
 </div>

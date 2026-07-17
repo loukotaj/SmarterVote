@@ -61,6 +61,11 @@
   });
 </script>
 
+<svelte:head>
+  <title>Admin Sign In - SmarterVote</title>
+  <meta name="robots" content="noindex,nofollow" />
+</svelte:head>
+
 {#if authError}
   <div class="max-w-xl mx-auto mt-16 px-4">
     <div

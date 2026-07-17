@@ -340,7 +340,7 @@
 
   function handlePreview(row: RaceRecord) {
     const url = previewUrl(row);
-    if (url) window.open(url, "_blank");
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
   }
 
   function setActionNotice(type: "success" | "error", message: string) {

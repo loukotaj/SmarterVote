@@ -34,14 +34,6 @@
     <!-- Global SEO defaults (page-specific tags are set in each page's svelte:head) -->
     <meta name="author" content="Smarter.vote" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
     <!-- Structured Data -->
     <script type="application/ld+json">
       {
@@ -52,7 +44,7 @@
         "description": "Candidate research tool for informed voting decisions, using publicly available sources",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://smarter.vote/races/{search_term_string}",
+          "target": "https://smarter.vote/elections/?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       }

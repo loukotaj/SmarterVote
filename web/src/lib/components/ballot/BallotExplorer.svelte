@@ -3,6 +3,7 @@
   import { getRace } from "$lib/api";
   import CandidateComparison from "$lib/components/compare/CandidateComparison.svelte";
   import type { Candidate, Race, RaceSummary } from "$lib/types";
+  import { formatElectionDate } from "$lib/utils/electionDate";
 
   export let races: RaceSummary[] = [];
 
@@ -202,10 +203,7 @@
               {selectedRace.title}
             </h3>
             <p class="mt-1 text-sm text-content-muted">
-              {new Date(selectedRace.election_date).toLocaleDateString(
-                "en-US",
-                { month: "long", day: "numeric", year: "numeric" },
-              )}
+              {formatElectionDate(selectedRace.election_date)}
             </p>
           </div>
           <div class="grid shrink-0 gap-2 text-sm font-bold sm:grid-cols-2">

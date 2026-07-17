@@ -25,6 +25,7 @@
   let error = "";
   let suggestions: AddressSuggestion[] = [];
   let suggestionsOpen = false;
+  let activeSuggestionIndex = -1;
   let suggestionRequest = 0;
 
   const SESSION_KEY = "smarterVote.ballot";
@@ -35,10 +36,12 @@
       if (request !== suggestionRequest) return;
       suggestions = matches;
       suggestionsOpen = matches.length > 0;
+      activeSuggestionIndex = -1;
     } catch {
       if (request === suggestionRequest) {
         suggestions = [];
         suggestionsOpen = false;
+        activeSuggestionIndex = -1;
       }
     }
   }, 600);
@@ -48,6 +51,7 @@
     if (address.trim().length < 5) {
       suggestions = [];
       suggestionsOpen = false;
+      activeSuggestionIndex = -1;
       return;
     }
     updateSuggestions(address, request);
@@ -55,6 +59,7 @@
 
   async function selectSuggestion(suggestion: AddressSuggestion) {
     suggestionsOpen = false;
+    activeSuggestionIndex = -1;
     try {
       address = await suggestion.resolveAddress();
     } catch {
@@ -62,6 +67,36 @@
       abandonAddressSession();
     }
     suggestions = [];
+  }
+
+  function handleAddressKeydown(event: KeyboardEvent) {
+    if (event.key === "Escape") {
+      if (!suggestionsOpen) return;
+      event.preventDefault();
+      suggestionsOpen = false;
+      activeSuggestionIndex = -1;
+      return;
+    }
+
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      if (!suggestions.length) return;
+      event.preventDefault();
+      suggestionsOpen = true;
+      const direction = event.key === "ArrowDown" ? 1 : -1;
+      activeSuggestionIndex =
+        (activeSuggestionIndex + direction + suggestions.length) %
+        suggestions.length;
+      return;
+    }
+
+    if (
+      event.key === "Enter" &&
+      suggestionsOpen &&
+      activeSuggestionIndex >= 0
+    ) {
+      event.preventDefault();
+      void selectSuggestion(suggestions[activeSuggestionIndex]);
+    }
   }
 
   function restoreFromGeography(savedState: string, savedDistrict: string) {
@@ -212,12 +247,17 @@
             id="home-address"
             bind:value={address}
             on:input={handleAddressInput}
+            on:keydown={handleAddressKeydown}
             on:focus={() => (suggestionsOpen = suggestions.length > 0)}
             required
             autocomplete="street-address"
+            role="combobox"
             aria-autocomplete="list"
             aria-controls="address-suggestions"
             aria-expanded={suggestionsOpen}
+            aria-activedescendant={suggestionsOpen && activeSuggestionIndex >= 0
+              ? `address-suggestion-${suggestions[activeSuggestionIndex].id}`
+              : undefined}
             placeholder="1600 Pennsylvania Ave NW, Washington, DC 20500"
             class="mt-2 min-h-[60px] w-full rounded-xl border border-stroke bg-surface px-5 text-base text-content shadow-sm transition placeholder:text-content-subtle hover:border-blue-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/15"
           />
@@ -227,13 +267,16 @@
               role="listbox"
               class="absolute z-20 mt-1 w-full overflow-hidden rounded-xl border border-stroke bg-surface py-1 shadow-xl"
             >
-              {#each suggestions as suggestion}
+              {#each suggestions as suggestion, index}
                 <button
+                  id="address-suggestion-{suggestion.id}"
                   type="button"
                   role="option"
-                  aria-selected="false"
+                  aria-selected={index === activeSuggestionIndex}
+                  on:mouseenter={() => (activeSuggestionIndex = index)}
                   on:click={() => selectSuggestion(suggestion)}
-                  class="block w-full px-4 py-3 text-left text-sm text-content hover:bg-surface-alt focus:bg-surface-alt focus:outline-none"
+                  class:bg-surface-alt={index === activeSuggestionIndex}
+                  class="block min-h-11 w-full px-4 py-3 text-left text-sm text-content hover:bg-surface-alt focus:bg-surface-alt focus:outline-none"
                   >{suggestion.text}</button
                 >
               {/each}

@@ -8,8 +8,9 @@ import {
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ElectionLookup from "./ElectionLookup.svelte";
 
-const { lookupElectionGeography } = vi.hoisted(() => ({
+const { lookupElectionGeography, suggestUsAddresses } = vi.hoisted(() => ({
   lookupElectionGeography: vi.fn(),
+  suggestUsAddresses: vi.fn(),
 }));
 
 vi.mock("$lib/services/electionLookup", async () => {
@@ -18,6 +19,11 @@ vi.mock("$lib/services/electionLookup", async () => {
   >("$lib/services/electionLookup");
   return { ...actual, lookupElectionGeography };
 });
+
+vi.mock("$lib/services/googlePlaces", () => ({
+  abandonAddressSession: vi.fn(),
+  suggestUsAddresses,
+}));
 
 const races = [
   {
@@ -35,10 +41,15 @@ const races = [
 describe("ElectionLookup", () => {
   beforeEach(() => {
     lookupElectionGeography.mockReset();
+    suggestUsAddresses.mockReset();
+    suggestUsAddresses.mockResolvedValue([]);
     sessionStorage.clear();
     window.history.replaceState({}, "", "/my-ballot/");
   });
-  afterEach(cleanup);
+  afterEach(() => {
+    vi.useRealTimers();
+    cleanup();
+  });
 
   it("explains privacy and renders matched national research", async () => {
     lookupElectionGeography.mockResolvedValue({
@@ -110,5 +121,42 @@ describe("ElectionLookup", () => {
       screen.getByRole("tab", { name: "U.S. House", selected: true }),
     ).toBeTruthy();
     expect(lookupElectionGeography).not.toHaveBeenCalled();
+  });
+
+  it("supports keyboard navigation and selection in the address combobox", async () => {
+    const resolveFirst = vi.fn().mockResolvedValue("First resolved address");
+    suggestUsAddresses.mockResolvedValue([
+      { id: "first", text: "First address", resolveAddress: resolveFirst },
+      {
+        id: "second",
+        text: "Second address",
+        resolveAddress: vi.fn().mockResolvedValue("Second resolved address"),
+      },
+    ]);
+    vi.useFakeTimers();
+    render(ElectionLookup, { races });
+
+    const input = screen.getByRole("combobox", {
+      name: "Home address",
+    }) as HTMLInputElement;
+    await fireEvent.input(input, {
+      target: { value: "1600 Pennsylvania" },
+    });
+    await vi.advanceTimersByTimeAsync(600);
+    await Promise.resolve();
+
+    expect(input.getAttribute("aria-expanded")).toBe("true");
+    await fireEvent.keyDown(input, { key: "ArrowDown" });
+    expect(input.getAttribute("aria-activedescendant")).toBe(
+      "address-suggestion-first",
+    );
+    expect(
+      screen.getByRole("option", { name: "First address", selected: true }),
+    ).toBeTruthy();
+
+    await fireEvent.keyDown(input, { key: "Enter" });
+    await Promise.resolve();
+    expect(resolveFirst).toHaveBeenCalled();
+    expect(input.value).toBe("First resolved address");
   });
 });

@@ -1,6 +1,10 @@
 import type { PageLoad } from "./$types";
-import { getChamberForecasts } from "$lib/api";
-import type { ChamberForecasts } from "$lib/types";
+import {
+  loadPrerenderChamberForecasts,
+  loadPrerenderSummaries,
+} from "$lib/prerenderData";
+import type { ChamberForecasts, RaceSummary } from "$lib/types";
+import { toForecastRaceSummaries } from "$lib/utils/publicRaceSummaries";
 
 const EMPTY_CHAMBER_FORECASTS: ChamberForecasts = {
   house: "",
@@ -9,11 +13,19 @@ const EMPTY_CHAMBER_FORECASTS: ChamberForecasts = {
 };
 
 export const load: PageLoad = async ({ fetch }) => {
-  try {
-    return {
-      chamberForecasts: await getChamberForecasts(fetch),
-    };
-  } catch {
-    return { chamberForecasts: EMPTY_CHAMBER_FORECASTS };
-  }
+  const [racesResult, forecastsResult] = await Promise.allSettled([
+    loadPrerenderSummaries(fetch),
+    loadPrerenderChamberForecasts(fetch),
+  ]);
+
+  return {
+    races:
+      racesResult.status === "fulfilled"
+        ? toForecastRaceSummaries(racesResult.value)
+        : ([] as RaceSummary[]),
+    chamberForecasts:
+      forecastsResult.status === "fulfilled"
+        ? forecastsResult.value
+        : EMPTY_CHAMBER_FORECASTS,
+  };
 };

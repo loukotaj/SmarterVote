@@ -204,6 +204,8 @@ npm ci
 npm run check
 npm run build
 npm run test:unit -- --run
+npx playwright install chromium # first run only
+npm run test:e2e
 ```
 
 To run the same broad local gate sequence used by maintainers:

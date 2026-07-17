@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { RaceSummary } from "$lib/types";
   import { partyAbbr, partyRing, partyInitialBg } from "$lib/utils/party";
+  import { formatElectionDate } from "$lib/utils/electionDate";
 
   export let race: RaceSummary;
 
   function formatDate(dateString: string): string {
-    const d = new Date(dateString);
-    return d.toLocaleDateString("en-US", {
+    return formatElectionDate(dateString, {
       month: "short",
       day: "numeric",
       year: "numeric",

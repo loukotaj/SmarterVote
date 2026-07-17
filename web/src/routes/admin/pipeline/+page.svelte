@@ -236,6 +236,7 @@
 
 <svelte:head>
   <title>Admin Console - SmarterVote</title>
+  <meta name="robots" content="noindex,nofollow" />
 </svelte:head>
 
 {#if authError}

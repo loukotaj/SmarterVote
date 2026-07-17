@@ -2,11 +2,8 @@
   import "../app.css";
   import { navigating, page } from "$app/stores";
   import { onMount } from "svelte";
-  import type { LayoutData } from "./$types";
   import SiteHeader from "$lib/components/SiteHeader.svelte";
   import SiteFooter from "$lib/components/SiteFooter.svelte";
-
-  export let data: LayoutData;
 
   let isAuthenticated = false;
   let darkMode = false;
@@ -67,12 +64,7 @@
     </div>
   {/if}
 
-  <SiteHeader
-    races={data.races || []}
-    {isAuthenticated}
-    {darkMode}
-    onToggleDark={toggleDark}
-  />
+  <SiteHeader {isAuthenticated} {darkMode} onToggleDark={toggleDark} />
 
   <main class="flex-1">
     <slot />

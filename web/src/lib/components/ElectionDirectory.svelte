@@ -8,7 +8,10 @@
   export let races: RaceSummary[] = [];
   import { debounce } from "$lib/utils/debounce";
 
+  const PAGE_SIZE = 24;
   let loading = false;
+  let visibleRaceCount = PAGE_SIZE;
+  let previousFilterSignature = "";
 
   // Filter state
   let selectedState: string | null = null;
@@ -190,6 +193,17 @@
     }
     return true;
   });
+
+  $: filterSignature = JSON.stringify([
+    selectedState,
+    selectedOffice,
+    debouncedSearchQuery.trim(),
+  ]);
+  $: if (filterSignature !== previousFilterSignature) {
+    previousFilterSignature = filterSignature;
+    visibleRaceCount = PAGE_SIZE;
+  }
+  $: visibleRaces = filteredRaces.slice(0, visibleRaceCount);
 
   function handleStateClick(e: CustomEvent<string>) {
     const state = e.detail;
@@ -451,9 +465,11 @@
             >clear filters</button
           >
         {:else if !loading}
-          Showing all <span class="font-medium text-content"
-            >{races.length}</span
-          > races
+          Showing <span class="font-medium text-content"
+            >{visibleRaces.length}</span
+          >
+          of <span class="font-medium text-content">{races.length}</span>
+          races
         {/if}
       </p>
     </div>
@@ -521,11 +537,27 @@
         {/if}
       </div>
     {:else}
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {#each filteredRaces as race (race.id)}
+      <div
+        id="election-results-grid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
+        {#each visibleRaces as race (race.id)}
           <RaceCard {race} />
         {/each}
       </div>
+      {#if visibleRaces.length < filteredRaces.length}
+        <div class="mt-8 flex justify-center">
+          <button
+            type="button"
+            class="min-h-11 rounded-lg border border-stroke bg-surface px-5 py-2.5 text-sm font-semibold text-content shadow-sm transition-colors hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            aria-controls="election-results-grid"
+            on:click={() => (visibleRaceCount += PAGE_SIZE)}
+          >
+            Show more races ({filteredRaces.length - visibleRaces.length}
+            remaining)
+          </button>
+        </div>
+      {/if}
     {/if}
   </section>
 </div>

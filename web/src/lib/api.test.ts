@@ -116,14 +116,12 @@ describe("API Fallback Functionality", () => {
     );
   });
 
-  it("should fallback to generic sample data for unknown race IDs", async () => {
+  it("should not show generic sample data for unknown race IDs", async () => {
     const mockFetch = vi.fn().mockRejectedValue(new Error("Network error"));
 
-    const result = await getRace("unknown-race", mockFetch, true);
-
-    expect(result.id).toBe("unknown-race");
-    expect(result.title).toBe("Sample Race Data (unknown-race)");
-    expect(result.candidates).toHaveLength(3); // Updated to match actual sample data
+    await expect(getRace("unknown-race", mockFetch, true)).rejects.toThrow(
+      "Network error",
+    );
   });
 
   it("should throw error when fallback is disabled", async () => {

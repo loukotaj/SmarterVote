@@ -43,20 +43,8 @@ export async function getRace(
       return sampleRaces[id];
     }
 
-    // If no specific sample data exists but fallback is enabled, use generic sample
-    if (useFallback) {
-      logger.warn(
-        `API request failed for race ${id}, falling back to generic sample data:`,
-        error,
-      );
-      return {
-        ...sampleRaces["sample-race"],
-        id,
-        title: `Sample Race Data (${id})`,
-      };
-    }
-
-    // Re-throw the error if fallback is disabled
+    // Unknown race IDs must fail explicitly. Showing an unrelated generic race
+    // under a real slug is misleading and can be mistaken for published data.
     throw error;
   }
 }

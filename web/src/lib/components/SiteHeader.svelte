@@ -3,6 +3,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import type { RaceSummary } from "$lib/types";
+  import { getRaceSummaries } from "$lib/api";
   import { candidateSlug } from "$lib/utils/format";
   import { debounce } from "$lib/utils/debounce";
 
@@ -17,9 +18,34 @@
   let activeIndex = -1;
   let searchContainer: HTMLElement;
   let searchInput: HTMLInputElement;
+  let searchRaces: RaceSummary[] = races;
+  let searchLoading = false;
+  let searchLoaded = races.length > 0;
+  let searchLoadError = false;
+  let searchLoadPromise: Promise<void> | null = null;
+  const resultsId = "site-search-results";
+
+  async function ensureSearchRaces() {
+    if (!browser || searchLoaded || searchLoadPromise) return searchLoadPromise;
+    searchLoading = true;
+    searchLoadError = false;
+    searchLoadPromise = getRaceSummaries()
+      .then((loadedRaces) => {
+        searchRaces = loadedRaces;
+        searchLoaded = true;
+      })
+      .catch(() => {
+        searchLoadError = true;
+      })
+      .finally(() => {
+        searchLoading = false;
+        searchLoadPromise = null;
+      });
+    return searchLoadPromise;
+  }
 
   $: raceMatches = query.trim()
-    ? races
+    ? searchRaces
         .filter((race) => {
           const q = query.trim().toLowerCase();
           return [race.title, race.office, race.state, race.jurisdiction].some(
@@ -29,7 +55,7 @@
         .slice(0, 5)
     : [];
   $: candidateMatches = query.trim()
-    ? races
+    ? searchRaces
         .flatMap((race) =>
           race.candidates
             .filter((candidate) => {
@@ -54,6 +80,7 @@
     if (urlQuery !== lastQuery) {
       lastQuery = urlQuery;
       query = urlQuery;
+      if (urlQuery) void ensureSearchRaces();
     }
   } else {
     lastQuery = "";
@@ -73,6 +100,7 @@
   function handleInput() {
     activeIndex = -1;
     open = Boolean(query.trim());
+    if (open) void ensureSearchRaces();
     if ($page.url.pathname === "/") {
       lastQuery = query.trim();
       updateHomepageQuery(lastQuery);
@@ -163,7 +191,7 @@
       </a>
 
       <nav
-        class="order-3 flex w-full items-center gap-x-4 gap-y-2 overflow-x-auto text-sm lg:order-none lg:w-auto"
+        class="order-3 flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm sm:justify-start lg:order-none lg:w-auto lg:flex-nowrap"
         aria-label="Primary navigation"
       >
         {#each primaryLinks as link}
@@ -196,11 +224,21 @@
           bind:this={searchInput}
           bind:value={query}
           on:input={handleInput}
-          on:focus={() => (open = Boolean(query.trim()))}
+          on:focus={() => {
+            open = Boolean(query.trim());
+            if (open) void ensureSearchRaces();
+          }}
           on:keydown={handleKeydown}
           class="w-full rounded-full border border-stroke bg-surface-alt py-2 pl-4 pr-9 text-sm text-content focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search elections or candidates"
           autocomplete="off"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded={open && totalMatches > 0}
+          aria-controls={resultsId}
+          aria-activedescendant={activeIndex >= 0
+            ? `site-search-option-${activeIndex}`
+            : undefined}
         />
         {#if query}
           <button
@@ -213,6 +251,7 @@
 
         {#if open && totalMatches > 0}
           <div
+            id={resultsId}
             class="absolute left-0 right-0 top-full mt-2 max-h-96 overflow-y-auto rounded-xl border border-stroke bg-surface py-2 shadow-xl"
             role="listbox"
           >
@@ -224,6 +263,7 @@
               </p>
               {#each raceMatches as race, index}
                 <button
+                  id={`site-search-option-${index}`}
                   type="button"
                   on:click={() => selectRace(race.id)}
                   class:bg-surface-alt={index === activeIndex}
@@ -251,6 +291,7 @@
               {#each candidateMatches as candidate, index}
                 {@const itemIndex = raceMatches.length + index}
                 <button
+                  id={`site-search-option-${itemIndex}`}
                   type="button"
                   on:click={() =>
                     selectCandidate(candidate.raceId, candidate.name)}
@@ -269,13 +310,34 @@
               {/each}
             {/if}
           </div>
+        {:else if open && searchLoading}
+          <div
+            class="absolute left-0 right-0 top-full mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-content-subtle shadow-xl"
+            role="status"
+          >
+            Loading search results&hellip;
+          </div>
+        {:else if open && searchLoaded && query.trim()}
+          <div
+            class="absolute left-0 right-0 top-full mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-content-subtle shadow-xl"
+            role="status"
+          >
+            No matching elections or candidates.
+          </div>
+        {:else if open && searchLoadError}
+          <div
+            class="absolute left-0 right-0 top-full mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-red-700 shadow-xl dark:text-red-300"
+            role="alert"
+          >
+            Search is temporarily unavailable. Press Enter to browse elections.
+          </div>
         {/if}
       </div>
 
       <button
         type="button"
         on:click={onToggleDark}
-        class="rounded-lg p-2 text-content-subtle hover:bg-surface-alt hover:text-content"
+        class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg p-2 text-content-subtle hover:bg-surface-alt hover:text-content"
         aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         {darkMode ? "☀" : "☾"}
