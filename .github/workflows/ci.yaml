@@ -133,6 +133,14 @@ jobs:
         run: |
           cd web && npm run build
 
+      - name: Install Playwright browser
+        run: |
+          cd web && npx playwright install --with-deps chromium
+
+      - name: Frontend browser smoke tests
+        run: |
+          cd web && npm run test:e2e
+
       - name: Run unit tests
         run: |
           cd web && npm run test:unit -- --run

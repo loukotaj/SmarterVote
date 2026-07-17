@@ -1,5 +1,5 @@
 import { candidateSlug } from "$lib/utils/format";
-import type { Race, RaceSummary } from "$lib/types";
+import type { ChamberForecasts, Race, RaceSummary } from "$lib/types";
 import {
   publicDataBase as configuredPublicDataBase,
   racesApiBase,
@@ -26,7 +26,9 @@ function shouldPrerenderDynamicRoutes(): boolean {
 export async function fetchPublishedRaceSummaries(
   fetchFn: typeof fetch = fetch,
 ): Promise<RaceSummary[]> {
-  summariesCache ??= (async () => {
+  if (summariesCache) return summariesCache;
+
+  const request = (async () => {
     const staticBase = publicDataBase() || "";
     const url = staticBase ? `${staticBase}/summaries.json` : `/summaries.json`;
     const res = await fetchFn(url);
@@ -35,7 +37,14 @@ export async function fetchPublishedRaceSummaries(
     }
     return (await res.json()) as RaceSummary[];
   })();
-  return summariesCache;
+  summariesCache = request;
+
+  try {
+    return await request;
+  } catch (error) {
+    if (summariesCache === request) summariesCache = null;
+    throw error;
+  }
 }
 
 export async function fetchPublishedRace(
@@ -57,7 +66,12 @@ export async function fetchPublishedRace(
     return (await res.json()) as Race;
   })();
   raceCache.set(id, racePromise);
-  return racePromise;
+  try {
+    return await racePromise;
+  } catch (error) {
+    if (raceCache.get(id) === racePromise) raceCache.delete(id);
+    throw error;
+  }
 }
 
 export async function loadPrerenderRace(
@@ -108,7 +122,9 @@ export async function candidateEntries(): Promise<
   return entries;
 }
 
-async function loadPrerenderSummaries(): Promise<RaceSummary[]> {
+export async function loadPrerenderSummaries(
+  fetchFn: typeof fetch = fetch,
+): Promise<RaceSummary[]> {
   if (import.meta.env.SSR) {
     try {
       const [{ readFile }, path] = await Promise.all([
@@ -123,5 +139,35 @@ async function loadPrerenderSummaries(): Promise<RaceSummary[]> {
       if (!publicDataBase()) throw error;
     }
   }
-  return fetchPublishedRaceSummaries();
+  return fetchPublishedRaceSummaries(fetchFn);
+}
+
+export async function loadPrerenderChamberForecasts(
+  fetchFn: typeof fetch = fetch,
+): Promise<ChamberForecasts> {
+  if (import.meta.env.SSR) {
+    try {
+      const [{ readFile }, path] = await Promise.all([
+        import("node:fs/promises"),
+        import("node:path"),
+      ]);
+      const data = await readFile(
+        path.resolve("static", "chamber_forecasts.json"),
+        { encoding: "utf-8" },
+      );
+      return JSON.parse(data) as ChamberForecasts;
+    } catch (error) {
+      if (!publicDataBase()) throw error;
+    }
+  }
+
+  const staticBase = publicDataBase() || "";
+  const url = staticBase
+    ? `${staticBase}/chamber_forecasts.json`
+    : "/chamber_forecasts.json";
+  const response = await fetchFn(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch chamber forecasts: ${response.status}`);
+  }
+  return (await response.json()) as ChamberForecasts;
 }

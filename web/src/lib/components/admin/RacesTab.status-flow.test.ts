@@ -122,6 +122,7 @@ describe("RacesTab preview and render flow", () => {
     expect(openSpy).toHaveBeenCalledWith(
       "/races/active-draft?draft=true",
       "_blank",
+      "noopener,noreferrer",
     );
   });
 
@@ -141,7 +142,11 @@ describe("RacesTab preview and render flow", () => {
     await waitFor(() => expect(getByText("published-only")).toBeTruthy());
 
     await fireEvent.click(getByText("View Page"));
-    expect(openSpy).toHaveBeenCalledWith("/races/published-only", "_blank");
+    expect(openSpy).toHaveBeenCalledWith(
+      "/races/published-only",
+      "_blank",
+      "noopener,noreferrer",
+    );
   });
 
   it("queues an inactive race from the action selector", async () => {

@@ -14,6 +14,7 @@
   import { partySlug, partyAbbr } from "$lib/utils/party";
   import { isExternalUrl } from "$lib/utils/url";
   import { normalizeForecastParty } from "$lib/utils/forecast";
+  import { formatElectionDate } from "$lib/utils/electionDate";
 
   export let data: { prerenderedRace?: Race };
 
@@ -371,9 +372,7 @@
               d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
-          <span
-            >Election: {new Date(race.election_date).toLocaleDateString()}</span
-          >
+          <span>Election: {formatElectionDate(race.election_date)}</span>
         </div>
         <div class="info-row">
           <svg

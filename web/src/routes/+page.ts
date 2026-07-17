@@ -1,4 +1,6 @@
 import type { PageLoad } from "./$types";
+import { loadPrerenderSummaries } from "$lib/prerenderData";
+import type { RaceSummary } from "$lib/types";
 import {
   gradeAHomepageFallbacks,
   gradeAHomepageRaceIds,
@@ -12,8 +14,13 @@ import {
   recentlyUpdated,
 } from "$lib/utils/homepage";
 
-export const load: PageLoad = async ({ fetch, parent }) => {
-  const { races = [] } = await parent();
+export const load: PageLoad = async ({ fetch }) => {
+  let races: RaceSummary[] = [];
+  try {
+    races = await loadPrerenderSummaries(fetch);
+  } catch {
+    // Keep the homepage renderable in fast local builds without published data.
+  }
   const nationalRaces = nationalElectionRaces(races);
   let gradeARaces = gradeAHomepageFallbacks;
   const indexedGradeAIds = recentlyUpdated(
@@ -46,7 +53,6 @@ export const load: PageLoad = async ({ fetch, parent }) => {
   const featuredRaces = recentlyUpdated(nationalRaces, 5);
 
   return {
-    nationalRaces,
     featuredRaces,
     gradeARaces,
     metrics: homepageMetrics(nationalRaces, new Date().toISOString()),

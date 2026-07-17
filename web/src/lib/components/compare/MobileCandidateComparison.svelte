@@ -5,6 +5,7 @@
   import { CANONICAL_ISSUES, getIssueDisplayName } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
   import { partyAbbr } from "$lib/utils/party";
+  import { stancePreview } from "$lib/utils/stance";
 
   export let race: Race;
   export let candidates: Candidate[];
@@ -14,6 +15,8 @@
 
   let selectedIssue: CanonicalIssue = "Healthcare";
   let expandedStances: Record<string, boolean> = {};
+  let expandedSources: Record<string, boolean> = {};
+  let failedImages: Record<string, boolean> = {};
 
   $: issueKeys = CANONICAL_ISSUES.filter((key) =>
     candidates.some((candidate) => candidate.issues?.[key]?.stance),
@@ -26,20 +29,30 @@
     return `${selectedIssue}:${candidate.name}`;
   }
 
-  function stancePreview(stance: string): string {
-    const normalized = stance.trim();
-    const firstSentence = normalized.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim();
-    if (firstSentence) return firstSentence;
-    if (normalized.length <= 180) return normalized;
-
-    const shortened = normalized.slice(0, 180);
-    const lastSpace = shortened.lastIndexOf(" ");
-    return `${shortened.slice(0, lastSpace > 120 ? lastSpace : 180).trim()}…`;
-  }
-
   function toggleStance(candidate: Candidate) {
     const key = stanceKey(candidate);
     expandedStances = { ...expandedStances, [key]: !expandedStances[key] };
+  }
+
+  function sourcesKey(candidate: Candidate): string {
+    return `${selectedIssue}:${candidate.name}:sources`;
+  }
+
+  function toggleSources(candidate: Candidate) {
+    const key = sourcesKey(candidate);
+    expandedSources = { ...expandedSources, [key]: !expandedSources[key] };
+  }
+
+  function markImageFailed(candidate: Candidate) {
+    failedImages = { ...failedImages, [candidate.name]: true };
+  }
+
+  function initials(name: string): string {
+    return name
+      .split(" ")
+      .map((part) => part[0])
+      .slice(0, 2)
+      .join("");
   }
 </script>
 
@@ -62,7 +75,7 @@
   {/if}
 
   <div
-    class="flex snap-x snap-mandatory overflow-x-auto border-b border-stroke bg-surface-alt/30"
+    class="hide-scrollbar flex snap-x snap-mandatory overflow-x-auto border-b border-stroke bg-surface-alt/30"
     aria-label="Candidates in this comparison"
   >
     {#each candidates as candidate}
@@ -73,25 +86,18 @@
         aria-label={candidate.name}
         class="flex w-1/2 min-w-[9.5rem] max-w-[13rem] shrink-0 snap-start flex-col items-center border-r border-stroke px-3 py-4 text-center last:border-0"
       >
-        {#if candidate.image_url}
+        {#if candidate.image_url && !failedImages[candidate.name]}
           <img
             src={candidate.image_url}
             alt=""
             class="h-14 w-14 rounded-full border-2 border-white object-cover shadow"
-            on:error={(event) => {
-              if (event.currentTarget instanceof HTMLImageElement)
-                event.currentTarget.style.display = "none";
-            }}
+            on:error={() => markImageFailed(candidate)}
           />
         {:else}
           <span
             class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-sm font-extrabold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
           >
-            {candidate.name
-              .split(" ")
-              .map((part) => part[0])
-              .slice(0, 2)
-              .join("")}
+            {initials(candidate.name)}
           </span>
         {/if}
         <span class="mt-2 text-sm font-extrabold text-content"
@@ -105,6 +111,13 @@
       </a>
     {/each}
   </div>
+  {#if candidates.length > 2}
+    <p
+      class="border-b border-stroke bg-surface-alt/30 px-4 py-2 text-center text-xs font-semibold text-content-subtle"
+    >
+      Swipe to see all {candidates.length} candidates
+    </p>
+  {/if}
 
   <div class="p-4">
     <label
@@ -156,15 +169,34 @@
               type="button"
               aria-expanded={isExpanded}
               on:click={() => toggleStance(candidate)}
-              class="mt-2 text-sm font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              class="mt-1 inline-flex min-h-11 items-center text-sm font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
             >
               {isExpanded ? "Show less" : "Show more"}
               <span class="sr-only"> for {candidate.name}</span>
             </button>
           {/if}
-          {#if stance?.sources?.[0]}
+          {#if stance?.sources?.length}
+            {@const areSourcesExpanded =
+              expandedSources[sourcesKey(candidate)] ?? false}
             <div class="mt-3 border-t border-stroke pt-3">
-              <SourceLink source={stance.sources[0]} />
+              <div class="flex flex-col items-start gap-2">
+                {#each areSourcesExpanded ? stance.sources : stance.sources.slice(0, 1) as source}
+                  <SourceLink {source} />
+                {/each}
+              </div>
+              {#if stance.sources.length > 1}
+                <button
+                  type="button"
+                  aria-expanded={areSourcesExpanded}
+                  on:click={() => toggleSources(candidate)}
+                  class="mt-1 inline-flex min-h-11 items-center text-sm font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                >
+                  {areSourcesExpanded
+                    ? "Show fewer sources"
+                    : `Show ${stance.sources.length - 1} more ${stance.sources.length === 2 ? "source" : "sources"}`}
+                  <span class="sr-only"> for {candidate.name}</span>
+                </button>
+              {/if}
             </div>
           {/if}
         </article>

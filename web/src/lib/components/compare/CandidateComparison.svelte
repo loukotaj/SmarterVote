@@ -16,6 +16,30 @@
   export let onToggle: ((candidateName: string) => void) | undefined =
     undefined;
 
+  let expandedSources: Record<string, boolean> = {};
+  let failedImages: Record<string, boolean> = {};
+
+  function sourcesKey(issue: string, candidate: Candidate): string {
+    return `${issue}:${candidate.name}`;
+  }
+
+  function toggleSources(issue: string, candidate: Candidate) {
+    const key = sourcesKey(issue, candidate);
+    expandedSources = { ...expandedSources, [key]: !expandedSources[key] };
+  }
+
+  function markImageFailed(candidate: Candidate) {
+    failedImages = { ...failedImages, [candidate.name]: true };
+  }
+
+  function initials(name: string): string {
+    return name
+      .split(" ")
+      .map((part) => part[0])
+      .slice(0, 2)
+      .join("");
+  }
+
   const backgroundRows: Array<{
     label: string;
     summary: "donor_summary" | "voting_summary";
@@ -75,7 +99,7 @@
           (selected) => selected.name === candidate.name,
         )}
         <label
-          class="inline-flex cursor-pointer select-none items-center gap-2 rounded-xl border border-stroke bg-surface-alt/40 px-3 py-1.5 text-xs font-semibold text-content transition-colors hover:bg-surface-alt sm:text-sm"
+          class="inline-flex min-h-11 cursor-pointer select-none items-center gap-2 rounded-xl border border-stroke bg-surface-alt/40 px-3 py-1.5 text-xs font-semibold text-content transition-colors hover:bg-surface-alt sm:text-sm"
         >
           <input
             type="checkbox"
@@ -127,25 +151,18 @@
           <div
             class="flex items-center gap-3 border-r border-stroke px-5 last:border-none"
           >
-            {#if candidate.image_url}
+            {#if candidate.image_url && !failedImages[candidate.name]}
               <img
                 src={candidate.image_url}
                 alt=""
                 class="h-12 w-12 flex-shrink-0 rounded-full border-2 border-stroke object-cover"
-                on:error={(event) => {
-                  if (event.currentTarget instanceof HTMLImageElement)
-                    event.currentTarget.style.display = "none";
-                }}
+                on:error={() => markImageFailed(candidate)}
               />
             {:else}
               <div
                 class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
               >
-                {candidate.name
-                  .split(" ")
-                  .map((part) => part[0])
-                  .slice(0, 2)
-                  .join("")}
+                {initials(candidate.name)}
               </div>
             {/if}
             <div class="min-w-0">
@@ -268,13 +285,30 @@
                     >Confidence</span
                   ><ConfidenceIndicator confidence={stance.confidence} />
                 </div>
-                {#if stance.sources?.length}<div
-                    class="flex flex-wrap gap-1 border-t border-stroke/40 pt-2"
-                  >
-                    {#each stance.sources.slice(0, 3) as source}<SourceLink
-                        {source}
-                      />{/each}
-                  </div>{/if}
+                {#if stance.sources?.length}
+                  {@const areSourcesExpanded =
+                    expandedSources[sourcesKey(issueKey, candidate)] ?? false}
+                  <div class="border-t border-stroke/40 pt-2">
+                    <div class="flex flex-col items-start gap-2">
+                      {#each areSourcesExpanded ? stance.sources : stance.sources.slice(0, 1) as source}
+                        <SourceLink {source} />
+                      {/each}
+                    </div>
+                    {#if stance.sources.length > 1}
+                      <button
+                        type="button"
+                        aria-expanded={areSourcesExpanded}
+                        on:click={() => toggleSources(issueKey, candidate)}
+                        class="mt-1 inline-flex min-h-11 items-center text-xs font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                      >
+                        {areSourcesExpanded
+                          ? "Show fewer sources"
+                          : `Show ${stance.sources.length - 1} more ${stance.sources.length === 2 ? "source" : "sources"}`}
+                        <span class="sr-only"> for {candidate.name}</span>
+                      </button>
+                    {/if}
+                  </div>
+                {/if}
               {:else}<span class="select-none text-xs italic text-content-faint"
                   >No stance researched yet.</span
                 >{/if}
