@@ -1,5 +1,6 @@
 <script lang="ts">
   import ConfidenceIndicator from "$lib/components/ConfidenceIndicator.svelte";
+  import MobileCandidateComparison from "$lib/components/compare/MobileCandidateComparison.svelte";
   import SourceLink from "$lib/components/SourceLink.svelte";
   import type { Candidate, Race } from "$lib/types";
   import { CANONICAL_ISSUES, getIssueDisplayName } from "$lib/types";
@@ -93,10 +94,18 @@
   </div>
 {/if}
 
+<MobileCandidateComparison
+  {race}
+  {candidates}
+  {compact}
+  {isDraftPreview}
+  {showQuality}
+/>
+
 <div
-  class="overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm"
+  class="hidden overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
 >
-  <div class={compact ? "min-w-[680px]" : "min-w-[768px]"}>
+  <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
     <div
       class:sticky={!compact}
       class:top-[57px]={!compact}

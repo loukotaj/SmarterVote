@@ -4,6 +4,7 @@ import {
   render,
   screen,
   waitFor,
+  within,
 } from "@testing-library/svelte";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Candidate, Race, RaceSummary } from "$lib/types";
@@ -27,7 +28,7 @@ function candidate(
     issues: hasHealthcareResearch
       ? {
           Healthcare: {
-            stance: `${name} healthcare position`,
+            stance: `${name} healthcare position. Additional policy context.`,
             confidence: "high",
             sources: [
               {
@@ -86,15 +87,45 @@ describe("BallotExplorer", () => {
         screen.getByRole("checkbox", { name: /Indy Independent/ }),
       ).toBeTruthy(),
     );
-    expect(screen.queryByRole("link", { name: "Indy Independent" })).toBeNull();
-    expect(screen.getByText("Healthcare")).toBeTruthy();
+    const mobileCandidates = screen.getByLabelText(
+      "Candidates in this comparison",
+    );
+    expect(
+      within(mobileCandidates).queryByRole("link", {
+        name: "Indy Independent",
+      }),
+    ).toBeNull();
+    expect(screen.getAllByText("Healthcare")).toHaveLength(2);
+
+    const danaPosition = screen.getByRole("article", {
+      name: "Dana Democrat position on Healthcare",
+    });
+    expect(
+      within(danaPosition).getByText("Dana Democrat healthcare position."),
+    ).toBeTruthy();
+    await fireEvent.click(
+      within(danaPosition).getByRole("button", {
+        name: "Read full stance for Dana Democrat",
+      }),
+    );
+    expect(
+      within(danaPosition).getByText(
+        "Dana Democrat healthcare position. Additional policy context.",
+      ),
+    ).toBeTruthy();
 
     await fireEvent.click(
       screen.getByRole("checkbox", { name: /Indy Independent/ }),
     );
 
-    expect(screen.getByRole("link", { name: "Indy Independent" })).toBeTruthy();
-    expect(screen.getByText("Healthcare")).toBeTruthy();
-    expect(screen.getByText("No stance researched yet.")).toBeTruthy();
+    expect(
+      within(mobileCandidates).getByRole("link", { name: "Indy Independent" }),
+    ).toBeTruthy();
+    expect(screen.getAllByText("Healthcare")).toHaveLength(2);
+    expect(
+      screen.getAllByText(
+        /No (sourced position available|stance researched) yet\./,
+      ),
+    ).toHaveLength(2);
   });
 });

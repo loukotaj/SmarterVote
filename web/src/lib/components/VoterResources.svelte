@@ -1,12 +1,7 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-
   export let ballotpediaUrl: string | null = null;
   export let registerToVoteUrl: string = "https://vote.gov/register";
   export let howToVoteUrl: string = "https://vote.gov/";
-  export let hasForecast = false;
-
-  const dispatch = createEventDispatcher();
 </script>
 
 <div class="voter-resources">
@@ -116,29 +111,6 @@
       />
     </svg>
   </a>
-
-  {#if hasForecast}
-    <a
-      href="#forecast"
-      class="voter-resource-btn voter-resource-btn--forecast"
-      on:click={() => dispatch("jumpToForecast")}
-    >
-      <svg
-        class="w-5 h-5 shrink-0"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M13 10V3L4 14h7v7l9-11h-7z"
-        />
-      </svg>
-      Jump to Forecast
-    </a>
-  {/if}
 </div>
 
 <style lang="postcss">
@@ -170,11 +142,5 @@
            hover:bg-green-700 hover:border-green-700 hover:shadow
            dark:bg-green-700 dark:border-green-600
            dark:hover:bg-green-600;
-  }
-
-  .voter-resource-btn--forecast {
-    @apply bg-purple-500/10 text-purple-700 border border-purple-500/30
-           hover:bg-purple-500/20 dark:bg-purple-950/20 dark:text-purple-300
-           dark:border-purple-900/30;
   }
 </style>
