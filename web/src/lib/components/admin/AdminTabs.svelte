@@ -8,7 +8,6 @@
     | "forecasts"
     | "costs"
     | "agent" = "dashboard";
-  export let alertCount: number = 0;
 
   const tabs = [
     { id: "dashboard", label: "Dashboard" },
@@ -58,16 +57,6 @@
         role="tab"
       >
         {tab.label}
-        {#if tab.id === "dashboard" && alertCount > 0}
-          <span
-            class="ml-1.5 inline-flex items-center justify-center w-5 h-5 text-xs font-bold rounded-full
-              {alertCount > 0
-              ? 'bg-red-500 text-white'
-              : 'bg-gray-200 text-gray-600'}"
-          >
-            {alertCount > 99 ? "99+" : alertCount}
-          </span>
-        {/if}
       </button>
     {/each}
   </nav>

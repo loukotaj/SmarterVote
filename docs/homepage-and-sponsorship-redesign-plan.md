@@ -1,8 +1,12 @@
 # Homepage and Sponsorship Redesign Implementation Plan
 
-**Status:** Partially implemented
-**Last reviewed:** 2026-07-12
-**Scope:** Product and engineering plan with delivery status; remaining phases are not implied to be implemented
+**Status:** Superseded delivery record
+**Last reviewed:** 2026-07-17
+**Scope:** Historical product and engineering plan. It is not a current runtime or delivery contract.
+
+> This document preserves the assumptions and phased design used for the July 2026 redesign. Several statements
+> below describe the repository before implementation and are intentionally historical. Use
+> [architecture.md](architecture.md#public-web-surface) for the shipped product surface and current data flow.
 
 ### Implementation status (2026-07-12)
 
@@ -13,7 +17,11 @@ Delivered in the initial national-only release slice:
 - Reusable site header/footer and public routes for methodology, corrections, privacy, terms, support, partners, funding/editorial independence, and an improved About page.
 - Static-route prerendering, sitemap/robots integration, canonical architecture/document-map updates, and focused frontend tests.
 
-Still gated and not implemented: address/ballot lookup, Google Places/Census integration, contest-provider catalog/matching, live contribution checkout, Stripe/webhooks, partner form/CRM delivery, and payment infrastructure. These remain subject to the funding, provider, privacy, legal, and LLC-readiness gates below.
+Delivered after the initial slice: the national-election address lookup and optional Google Places/Census integration.
+
+Still gated and not implemented: broader contest-provider catalog/matching, live contribution checkout,
+Stripe/webhooks, partner form/CRM delivery, and payment infrastructure. These remain subject to the funding,
+provider, privacy, legal, and LLC-readiness gates below.
 
 ### Owner decisions recorded 2026-07-12
 
@@ -42,8 +50,8 @@ The work should ship behind staged data-quality and privacy gates. A polished ho
 
 ### Application and delivery
 
-- `web/` is SvelteKit 2/Svelte 4 with TypeScript, Tailwind CSS, semantic light/dark tokens, Vitest, Testing Library, and the static adapter. Cloudflare Pages hosts the generated site.
-- Public pages normally read `races/summaries.json` and individual published race JSON directly from GCS through `VITE_PUBLIC_DATA_URL`. SvelteKit prerenders routes during the Cloudflare build.
+- At planning time, `web/` used SvelteKit 2/Svelte 4 with TypeScript, Tailwind CSS, semantic light/dark tokens, Vitest, Testing Library, and the static adapter. Cloudflare Pages hosted the generated site.
+- At planning time, public pages read `races/summaries.json` and individual published race JSON directly from GCS through `VITE_PUBLIC_DATA_URL`. SvelteKit prerendered routes during the Cloudflare build.
 - `services/races-api/` is the canonical FastAPI service on Cloud Run. It owns public API fallbacks, Auth0-protected administration, Firestore access, rate limiting, and API analytics. Secret Manager supplies service secrets.
 - GCS owns draft, published, retired, artifact, and checkpoint objects. Firestore owns the race catalog and operational records. Auth0 is admin-only; public users have no account model.
 - Cloudflare Web Analytics records static-page traffic. The API separately hashes IP addresses for operational analytics. Neither system currently models product events such as lookup completion or support conversion.
@@ -65,13 +73,13 @@ The work should ship behind staged data-quality and privacy gates. A polished ho
 - The checked-in snapshot contains 508 races, 1,877 candidate entries, and all 50 states; these counts are a local fixture/snapshot, not a production guarantee or proof of ballot completeness. Metrics must be computed from deployed published data at build/request time and labeled with an “as of” date.
 - Current race IDs are human slugs and metadata lacks normalized identifiers such as state FIPS, office type, chamber, district number/GEOID, election ID, election stage, county/municipality IDs, and provider IDs. Title/string matching is insufficient for address lookup.
 - The current catalog contains researched/published races, not a universe of elections. It cannot distinguish an uncovered known contest from a contest the system never discovered.
-- No address, ZIP, map-boundary, geocoding, Places, Census, Google Civic, Nominatim, Stripe, payment, webhook, or contribution implementation exists. An old planning document mentions Civic API, but it is not runtime code.
+- At planning time, no address, ZIP, map-boundary, geocoding, Places, Census, Google Civic, Nominatim, Stripe, payment, webhook, or contribution implementation existed. An older planning document mentioned Civic API, but it was not runtime code.
 - Forecast availability is broad in the fixture, but forecast inclusion is inappropriate as a universal product-preview requirement, especially for local/nonpartisan contests and low-confidence data.
 
 ### Material technical/product debt
 
 - Homepage responsibilities and global search logic are monolithic and duplicate office classification and filtering logic.
-- Public API endpoints are decorated with `verify_token` even though production public traffic normally bypasses them through GCS; lookup/payment APIs need deliberately public, separately rate-limited contracts rather than accidental reuse.
+- At planning time, public API endpoints were decorated with `verify_token` while production public traffic bypassed them through GCS; lookup/payment APIs needed deliberately public, separately rate-limited contracts rather than accidental reuse.
 - Cloudflare static hosting is excellent for public research, but personalized lookup and payment creation require dynamic API calls.
 - “Unbiased” and multi-model accuracy language overstates guarantees. There is no consolidated methodology, correction, privacy, legal, or editorial-independence contract.
 - Current analytics cannot reliably support “most viewed” election selection from static page views without a new event/dimension pipeline.

@@ -610,7 +610,6 @@ Black and isort checks: passed
 - Introduce repository interfaces for queue, run, race, and object storage.
 - Implement Firestore/GCS production repositories and local filesystem/in-memory adapters.
 - Make `AgentHandler` depend on these interfaces rather than importing global managers.
-- Remove `pipeline_client/backend/queue_manager.py` if it is no longer used by supported local workflows.
 - Collapse duplicate run persistence between `RunManager`, `RaceManager` run subcollections, and `FirestoreLogger`.
 - Update `docs/architecture.md` when ownership is finalized.
 
@@ -639,6 +638,13 @@ Do this after transactional queue work, not before.
   treating `last_updated` as an `update` data-fix signal and failing to recognize
   "lost Republican primary" as a primary-loss signal. The guard now uses word
   boundaries and accepts intervening party names.
+- Removed `pipeline_client/backend/queue_manager.py`: confirmed unused by any
+  production or local-debug workflow (`services/races-api` and
+  `pipeline_client/backend/queue_processor.py` own the real `pipeline_queue`
+  Firestore collection). Deleted the module, migrated its two unrelated
+  `RunManager` tests out of `test_queue_manager_firestore_sync.py` into
+  `test_run_manager_firestore_sync.py`, and dropped the now-orphaned
+  `LocalPaths.local_queue_path` field it was the sole caller of.
 
 ### Validation
 

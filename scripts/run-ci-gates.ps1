@@ -44,11 +44,17 @@ try {
         }
     }
 
+    Invoke-Step "Secret scan" {
+        docker run --rm -v "${repoRoot}:/repo" "ghcr.io/gitleaks/gitleaks:v8.29.0@sha256:71d3ee5990f2176f763b438298453fc37e87b119122045e176ca9d44ff00b08b" dir --redact --no-banner /repo
+    }
+
     if (-not $SkipInstall) {
         Invoke-Step "Install pipeline test dependencies" {
             Invoke-Expression "$python -m pip install --upgrade pip"
-            Invoke-Expression "$python -m pip install -r pipeline_client/backend/requirements.txt"
-            Invoke-Expression "$python -m pip install pytest pytest-asyncio httpx"
+            Invoke-Expression "$python -m pip install -c requirements-constraints.txt -r pipeline_client/backend/requirements.txt"
+            Invoke-Expression "$python -m pip install -c requirements-constraints.txt -r services/races-api/requirements.txt"
+            Invoke-Expression "$python -m pip install -c requirements-constraints.txt pytest pytest-asyncio pytest-cov httpx"
+            Invoke-Expression "$python -m pip install pip-audit==2.10.0"
             Invoke-Expression "$python -m pip install black==23.11.0 isort==5.12.0"
         }
 
@@ -56,8 +62,8 @@ try {
             Push-Location "services/races-api"
             try {
                 Invoke-Expression "$python -m pip install --upgrade pip"
-                Invoke-Expression "$python -m pip install -r requirements.txt"
-                Invoke-Expression "$python -m pip install -r test-requirements.txt"
+                Invoke-Expression "$python -m pip install -c ../../requirements-constraints.txt -r requirements.txt"
+                Invoke-Expression "$python -m pip install -c ../../requirements-constraints.txt -r test-requirements.txt"
             }
             finally {
                 Pop-Location
@@ -75,9 +81,23 @@ try {
         }
     }
 
+    Invoke-Step "Dependency audit" {
+        # PYSEC-2026-1325 affects ECDSA signing. SmarterVote only verifies Auth0 RS256 tokens.
+        Invoke-Expression "$python -m pip_audit --ignore-vuln PYSEC-2026-1325 -r pipeline_client/backend/requirements.txt"
+        Invoke-Expression "$python -m pip_audit --ignore-vuln PYSEC-2026-1325 -r services/races-api/requirements.txt"
+        Invoke-Expression "$python -m pip_audit -r functions/admin_agent/requirements.txt"
+        Push-Location "web"
+        try {
+            npm audit --omit=dev --audit-level=high
+        }
+        finally {
+            Pop-Location
+        }
+    }
+
     Invoke-Step "Pipeline tests" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py"
+        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=55"
     }
 
     Invoke-Step "Python formatting" {
@@ -89,7 +109,7 @@ try {
         Push-Location "services/races-api"
         try {
             $env:PYTHONPATH = "../.."
-            Invoke-Expression "$python -m pytest test_races_api.py -v"
+            Invoke-Expression "$python -m pytest . -v"
         }
         finally {
             Pop-Location
@@ -153,6 +173,26 @@ try {
         finally {
             Pop-Location
         }
+    }
+
+    Invoke-Step "Web browser smoke tests" {
+        Push-Location "web"
+        try {
+            npm run test:e2e
+        }
+        finally {
+            Pop-Location
+        }
+    }
+
+    Invoke-Step "Build release containers" {
+        docker build --pull -f services/races-api/Dockerfile -t smartervote/races-api:local-ci .
+        docker build --pull -f pipeline_client/Dockerfile.worker -t smartervote/pipeline-worker:local-ci .
+    }
+
+    Invoke-Step "Scan release containers" {
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock "aquasec/trivy:0.69.3@sha256:bcc376de8d77cfe086a917230e818dc9f8528e3c852f7b1aff648949b6258d1c" image --scanners vuln --skip-version-check --exit-code 1 --ignore-unfixed --severity CRITICAL smartervote/races-api:local-ci
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock "aquasec/trivy:0.69.3@sha256:bcc376de8d77cfe086a917230e818dc9f8528e3c852f7b1aff648949b6258d1c" image --scanners vuln --skip-version-check --exit-code 1 --ignore-unfixed --severity CRITICAL smartervote/pipeline-worker:local-ci
     }
 
     Invoke-Step "Terraform format check" {

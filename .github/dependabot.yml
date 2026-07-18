@@ -18,3 +18,15 @@ updates:
     directory: /infra
     schedule:
       interval: monthly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+  - package-ecosystem: docker
+    directory: /services/races-api
+    schedule:
+      interval: monthly
+  - package-ecosystem: docker
+    directory: /pipeline_client
+    schedule:
+      interval: monthly

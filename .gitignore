@@ -265,6 +265,10 @@ web/dist
 web/.vite
 web/test-results/
 
+# Generated search index. The deployment builds it from the current published
+# summary fixture after fetching published JSON from GCS.
+web/static/sitemap.xml
+
 # Mac/Linux
 web/.DS_Store
 

@@ -2,32 +2,77 @@ name: Deploy to Cloudflare Pages
 
 on:
   workflow_run:
-    workflows: ["CI - Quality Gates"]
+    workflows: ["Deploy Infrastructure"]
     types:
       - completed
     branches: [main]
   workflow_dispatch:
+    inputs:
+      deploy_sha:
+        description: "Verified main commit SHA to deploy"
+        required: true
+        type: string
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+  DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.event.inputs.deploy_sha }}
   DEFAULT_RACES_API_URL: https://races-api-dev-ddsvfazica-uc.a.run.app
 
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+concurrency:
+  group: cloudflare-production
+  cancel-in-progress: false
+
 jobs:
+  verify-release:
+    name: Verify Release Sequence
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'workflow_run') }}
+    outputs:
+      deploy_sha: ${{ steps.release.outputs.deploy_sha }}
+    steps:
+      - name: Verify upstream deployment and CI
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UPSTREAM_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          UPSTREAM_EVENT: ${{ github.event.workflow_run.event }}
+          REQUESTED_SHA: ${{ github.event.inputs.deploy_sha }}
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "workflow_run" ]]; then
+            [[ "$UPSTREAM_CONCLUSION" == "success" && "$UPSTREAM_EVENT" == "workflow_run" ]] || {
+              echo "::error::Cloudflare auto-deploy requires a successful automatic infrastructure deployment"
+              exit 1
+            }
+            echo "deploy_sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          full_sha="$(gh api "repos/${{ github.repository }}/commits/$REQUESTED_SHA" --jq .sha)"
+          run_id="$(gh api "repos/${{ github.repository }}/actions/workflows/ci.yaml/runs?head_sha=$full_sha&status=success&event=push&per_page=20" --jq '.workflow_runs | map(select(.head_branch == "main" and .conclusion == "success")) | first | .id // empty')"
+          [[ -n "$run_id" ]] || { echo "::error::No successful main push CI run found for $full_sha"; exit 1; }
+          echo "deploy_sha=$full_sha" >> "$GITHUB_OUTPUT"
+
   build-and-deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    needs: verify-release
+    environment: production
     env:
       INDEXNOW_KEY_CONFIGURED: ${{ secrets.INDEXNOW_KEY != '' }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         with:
-          ref: ${{ env.DEPLOY_SHA }}
+          ref: ${{ needs.verify-release.outputs.deploy_sha }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
           cache: "npm"
@@ -37,13 +82,21 @@ jobs:
         run: npm ci
         working-directory: web
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v3
+      - name: Authenticate to Google Cloud with OIDC
+        if: vars.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && vars.GCP_DEPLOY_SERVICE_ACCOUNT != ''
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+
+      - name: Authenticate to Google Cloud with legacy key
+        if: vars.GCP_WORKLOAD_IDENTITY_PROVIDER == '' || vars.GCP_DEPLOY_SERVICE_ACCOUNT == ''
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Setup Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v3
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3
 
       - name: Fetch latest static data from GCS
         env:
@@ -94,7 +147,40 @@ jobs:
           VITE_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE || 'https://smartervote-api-dev/' }}
           VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
           VITE_GOOGLE_MAPS_API_KEY: ${{ vars.GOOGLE_MAPS_API_KEY }}
+          VITE_PAYMENTS_ENABLED: ${{ secrets.STRIPE_SECRET_KEY != '' && secrets.STRIPE_WEBHOOK_SECRET != '' }}
           VITE_PRERENDER_RACES: "true"
+
+      - name: Verify prerendered race routes
+        run: |
+          node --input-type=module <<'EOF'
+          import fs from "node:fs";
+          const summaries = JSON.parse(fs.readFileSync("static/summaries.json", "utf8"));
+          if (!Array.isArray(summaries) || summaries.length === 0) {
+            throw new Error("Production summaries.json contains no races");
+          }
+          for (const race of summaries) {
+            const pages = [
+              `build/races/${race.id}/index.html`,
+              `build/races/${race.id}/compare/index.html`,
+              ...(race.candidates ?? []).map(({ name }) => {
+                const slug = String(name)
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]/g, "-")
+                  .replace(/-+/g, "-")
+                  .replace(/^-|-$/g, "");
+                return `build/races/${race.id}/${slug}/index.html`;
+              }),
+            ];
+            for (const page of pages) {
+              if (!fs.existsSync(page)) throw new Error(`Missing prerendered route: ${page}`);
+            }
+          }
+          if (fs.existsSync("build/200.html")) {
+            throw new Error("Unexpected catch-all 200.html would create soft 404s");
+          }
+          console.log(`Verified ${summaries.length} prerendered race routes.`);
+          EOF
+        working-directory: web
 
       - name: Add IndexNow key file
         if: ${{ env.INDEXNOW_KEY_CONFIGURED == 'true' }}
@@ -112,11 +198,20 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID || 'b9e75903377dcca73a27a5d6be4e4384' }}
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v4
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID || 'b9e75903377dcca73a27a5d6be4e4384' }}
           command: pages deploy web/build --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME || 'smartervote-web' }} --branch=main
+
+      - name: Verify public site
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://smarter.vote' }}
+        run: |
+          set -euo pipefail
+          for path in / /elections/; do
+            curl --fail --silent --show-error --location --max-time 30 "$PUBLIC_SITE_URL$path" > /dev/null
+          done
 
       - name: Submit sitemap URLs to IndexNow
         if: ${{ env.INDEXNOW_KEY_CONFIGURED == 'true' }}

@@ -1,4 +1,4 @@
-"""Pipeline metrics, alerts, and admin-chat endpoints."""
+"""Pipeline metrics and admin-chat endpoints."""
 
 import json
 import logging
@@ -393,29 +393,6 @@ async def get_gcp_costs(days: int = 30) -> Dict[str, Any]:
     import gcp_costs as gcp_costs_module
 
     return gcp_costs_module.get_gcp_costs(days)
-
-
-# ---------------------------------------------------------------------------
-# Alerts (stub — placeholder for domain-aware alert rules)
-# ---------------------------------------------------------------------------
-
-
-@router.get("/alerts", dependencies=[Depends(verify_token)])
-async def get_alerts() -> Dict[str, Any]:
-    """Return active pipeline alerts (stub — expand with domain rules as needed)."""
-    return {"alerts": [], "total": 0, "unacknowledged": 0}
-
-
-@router.post("/alerts/{alert_id}/acknowledge", dependencies=[Depends(verify_token)])
-async def ack_alert(alert_id: str) -> Dict[str, Any]:
-    """Acknowledge an alert by ID."""
-    return {"ok": True, "alert_id": alert_id}
-
-
-@router.post("/alerts/acknowledge-all", dependencies=[Depends(verify_token)])
-async def ack_all_alerts() -> Dict[str, Any]:
-    """Acknowledge all currently active alerts."""
-    return {"ok": True, "acknowledged_count": 0}
 
 
 # ---------------------------------------------------------------------------

@@ -26,8 +26,8 @@ Artifact Registry                → container images for Cloud Run
 
 **Deployment path** — every push to `main`:
 1. `.github/workflows/ci.yaml` — all gates must pass (security, tests, lint, terraform)
-2. `.github/workflows/terraform-deploy.yaml` — builds containers, pushes to Artifact Registry, runs `terraform apply`
-3. `.github/workflows/cloudflare-deploy.yaml` — builds and deploys SvelteKit frontend
+2. `.github/workflows/terraform-deploy.yaml` — promotes CI-built containers, runs `terraform apply`, and verifies API health
+3. `.github/workflows/cloudflare-deploy.yaml` — runs after infrastructure succeeds, builds/deploys SvelteKit, and verifies public pages
 
 ## Quick File Map
 
@@ -56,7 +56,7 @@ PYTHONPATH=. python -m pytest tests -v \
 # .github/workflows/ci.yaml; local coverage behavior is in .coveragerc.
 
 # Races API tests
-cd services/races-api && PYTHONPATH=../.. python -m pytest test_races_api.py -v
+cd services/races-api && PYTHONPATH=../.. python -m pytest . -v
 
 # Races API admin tests (run from repo root)
 cd services/races-api && PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
@@ -66,7 +66,7 @@ python -m black --check shared smartervote_mcp services/races-api tests pipeline
 python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts
 
 # Frontend (always npm ci first; CI creates minimal static JSON fixtures before build)
-cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:unit -- --run
+cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:e2e && npm run test:unit -- --run
 
 # Terraform
 cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate

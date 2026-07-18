@@ -51,16 +51,18 @@
         <button
           type="button"
           on:click={() => moveRace(-1)}
-          class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-stroke bg-surface text-lg text-content transition hover:border-blue-400 hover:text-blue-600"
+          class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-stroke bg-surface text-lg text-content transition hover:border-blue-400 hover:text-blue-600"
           aria-label="Previous featured race">←</button
         >
-        <div class="flex min-w-0 flex-1 gap-2 overflow-x-auto py-1">
+        <div
+          class="hide-scrollbar flex min-w-0 flex-1 gap-2 overflow-x-auto py-1"
+        >
           {#each races as race, index}
             <button
               type="button"
               on:click={() => (selectedId = race.id)}
               aria-pressed={selectedId === race.id}
-              class="whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition {selectedId ===
+              class="min-h-11 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition {selectedId ===
               race.id
                 ? 'border-blue-600 bg-blue-600 text-white shadow-md shadow-blue-600/20'
                 : 'border-stroke bg-surface text-content-muted hover:border-blue-400 hover:text-blue-700'}"
@@ -75,7 +77,7 @@
         <button
           type="button"
           on:click={() => moveRace(1)}
-          class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-stroke bg-surface text-lg text-content transition hover:border-blue-400 hover:text-blue-600"
+          class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-stroke bg-surface text-lg text-content transition hover:border-blue-400 hover:text-blue-600"
           aria-label="Next featured race">→</button
         >
       </div>

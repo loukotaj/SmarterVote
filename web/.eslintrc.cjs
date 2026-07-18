@@ -8,12 +8,7 @@ module.exports = {
     "prettier",
   ],
   plugins: ["@typescript-eslint"],
-  ignorePatterns: [
-    "build/**",
-    ".svelte-kit/**",
-    "node_modules/**",
-    "Smarter.Vote visual system/**",
-  ],
+  ignorePatterns: ["build/**", ".svelte-kit/**", "node_modules/**"],
   env: {
     browser: true,
     node: true,

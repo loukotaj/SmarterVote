@@ -141,8 +141,6 @@ class FreshnessConfig:
     recent_days: int = 14
     aging_days: int = 30
     stale_days: int = 180
-    alert_warning_days: int = 14
-    alert_critical_days: int = 30
 
     @classmethod
     def from_env(cls) -> "FreshnessConfig":
@@ -150,15 +148,11 @@ class FreshnessConfig:
         recent = _env_int("PIPELINE_FRESHNESS_RECENT_DAYS", 14, fresh, None)
         aging = _env_int("PIPELINE_FRESHNESS_AGING_DAYS", 30, recent, None)
         stale = _env_int("PIPELINE_FRESHNESS_STALE_DAYS", 180, aging, None)
-        warning = _env_int("PIPELINE_FRESHNESS_ALERT_WARNING_DAYS", recent, 1, None)
-        critical = _env_int("PIPELINE_FRESHNESS_ALERT_CRITICAL_DAYS", aging, warning, None)
         return cls(
             fresh_days=fresh,
             recent_days=recent,
             aging_days=aging,
             stale_days=stale,
-            alert_warning_days=warning,
-            alert_critical_days=critical,
         )
 
 

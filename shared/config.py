@@ -29,7 +29,6 @@ class LocalPaths:
     artifacts_dir: Path
     cache_dir: Path
     metrics_db_path: Path
-    local_queue_path: Path
 
     @classmethod
     def resolve(cls, repo_root: str | Path | None = None) -> "LocalPaths":
@@ -45,7 +44,6 @@ class LocalPaths:
             artifacts_dir=root / "pipeline_client" / "artifacts",
             cache_dir=data / "cache",
             metrics_db_path=data / "pipeline_metrics.db",
-            local_queue_path=root / "pipeline_client" / "queue.json",
         )
 
 

@@ -23,7 +23,7 @@ This plan covers the web frontend, CI/CD, DNS, SEO metadata, and validation. It 
 - The web package exposes Cloudflare-oriented build helpers in [web/package.json](../web/package.json), including `build:cloudflare`.
 - CI currently validates the web app in [/.github/workflows/ci.yaml](../.github/workflows/ci.yaml).
 - Deployment to Cloudflare Pages is handled in [/.github/workflows/cloudflare-deploy.yaml](../.github/workflows/cloudflare-deploy.yaml).
-- The site already ships SEO assets such as [web/static/robots.txt](../web/static/robots.txt) and [web/static/sitemap.xml](../web/static/sitemap.xml).
+- The site already ships SEO assets such as [web/static/robots.txt](../web/static/robots.txt); `web/static/sitemap.xml` is generated during the deployment build.
 
 ## Target State
 

@@ -1,6 +1,6 @@
 # Documentation Map
 
-Last reviewed: 2026-07-12.
+Last reviewed: 2026-07-17.
 
 Use this page to decide which documents describe current behavior. Code, deployed GCP resources, and CI remain the final source of truth; documentation should be updated alongside behavior changes.
 
@@ -30,7 +30,6 @@ These documents capture decisions, delivery status, or future work. They are not
 | [pipeline-result-quality-plan.md](pipeline-result-quality-plan.md) | Active quality-improvement plan; consult its delivered/remaining sections |
 | [senate-forecast-page-plan.md](senate-forecast-page-plan.md) | Partially complete product plan |
 | [quiz-feature-plan.md](quiz-feature-plan.md) | Proposal; not an implemented runtime contract |
-| [homepage-and-sponsorship-redesign-plan.md](homepage-and-sponsorship-redesign-plan.md) | Active delivery plan; consult architecture.md for behavior already implemented |
 
 ## Historical records
 
@@ -40,6 +39,7 @@ These are retained for context and should not be used to infer current deployed 
 - [openrouter-migration-plan.md](openrouter-migration-plan.md) — completed provider migration record
 - [senate-forecast-recovery-handoff.md](senate-forecast-recovery-handoff.md) — dated incident/recovery handoff
 - [maintenance-audit.md](maintenance-audit.md) — dated maintenance snapshot
+- [homepage-and-sponsorship-redesign-plan.md](homepage-and-sponsorship-redesign-plan.md) — superseded July 2026 redesign and delivery record
 
 ## Maintenance rules
 

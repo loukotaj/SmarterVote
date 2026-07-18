@@ -47,7 +47,7 @@ if ($gitStatus) {
 }
 
 # Show current version
-$currentCommit = git rev-parse --short HEAD
+$currentCommit = git rev-parse HEAD
 Write-Host "Current version: $currentCommit" -ForegroundColor Cyan
 
 # Confirm deployment
@@ -76,7 +76,8 @@ Write-Host "Triggering GitHub Actions workflow..." -ForegroundColor Cyan
 try {
     gh workflow run terraform-deploy.yaml `
         --field environment=$Environment `
-        --field action=$Action
+        --field action=$Action `
+        --field deploy_sha=$currentCommit
 
     Write-Host "Deployment triggered successfully!" -ForegroundColor Green
     Write-Host ""

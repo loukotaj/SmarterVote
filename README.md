@@ -2,6 +2,8 @@
 
 AI-powered candidate research for U.S. elections.
 
+Live site: [smarter.vote](https://smarter.vote)
+
 SmarterVote uses a multi-phase AI agent to research election races and produce structured candidate profiles covering 12 policy issues, with sources, confidence levels, and optional multi-LLM review.
 
 ## Requirements
@@ -38,7 +40,7 @@ The admin dashboard is available at `http://localhost:5173/admin/pipeline`.
 - **Production agent execution**: `races-api` queue item -> one-shot Cloud Run Job -> `pipeline_client.worker` -> `AgentHandler`
 - **Shared agent library**: `pipeline_client/agent`
 - **Shared schema**: `shared/models.py`
-- **Frontend**: `web`, which should target `races-api` for admin and public operations
+- **Frontend**: `web`; production bundles the published GCS race snapshot into the Cloudflare Pages build, while admin operations target `races-api`
 - **Local-only development API**: `pipeline_client/backend/main.py`, retained for local agent iteration and debugging
 
 The previous pipeline client API is no longer the production API surface. New admin API behavior should be added to `services/races-api` first, then mirrored locally only when useful for development.
@@ -50,7 +52,8 @@ Production:
 ```text
 Admin dashboard -> races-api queue endpoint -> Firestore pipeline_queue
     -> Cloud Run Job -> shared queue processor -> AgentHandler -> GCS drafts/{race_id}.json
-    -> admin publish -> GCS races/{race_id}.json -> public races API
+    -> admin publish -> GCS races/{race_id}.json
+    -> Cloudflare deploy copies published JSON into the static site build
 ```
 
 Local development:
@@ -89,6 +92,11 @@ For the broad local gate sequence, run:
 - [IndexNow](docs/indexnow.md)
 - [Pipeline Modes](PIPELINE_MODES.md)
 
+## Repository Layout Notes
+
+- `web/static/summaries.json` and `web/static/chamber_forecasts.json` are deliberately minimal fixtures in Git. CI rewrites them and the Cloudflare deployment replaces them with current published data from GCS before building. The generated `web/static/sitemap.xml` is not tracked.
+- `design-system/` is a private React export used only by the design-sync workflow. The production application is the SvelteKit project in `web/`; see [design-system/README.md](design-system/README.md).
+
 ## License
 
-CC BY-NC-SA 4.0. See `LICENSE`.
+[CC BY-NC-SA 4.0](LICENSE).

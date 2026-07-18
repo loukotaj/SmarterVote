@@ -1,9 +1,10 @@
-FROM python:3.10-slim
+FROM python:3.10-slim@sha256:c1e4e6c01eb489c422288b2de34b0761ca316f7a2d98e2c33f47659a73ed108a
 
 WORKDIR /app
 
+COPY requirements-constraints.txt .
 COPY services/races-api/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -c requirements-constraints.txt -r requirements.txt
 
 COPY services/races-api/main.py .
 COPY services/races-api/config.py .
@@ -24,6 +25,10 @@ COPY shared /app/shared
 # data/published is NOT baked into the image — deployed instances read from GCS.
 # For local dev, mount or copy data/published manually.
 RUN mkdir -p /app/data/published
+
+RUN useradd --create-home --shell /usr/sbin/nologin app \
+    && chown -R app:app /app
+USER app
 
 ENV PYTHONUNBUFFERED=1 \
     DATA_DIR=/app/data/published/

@@ -6,10 +6,7 @@ describe("DashboardTab basic layout", () => {
   let analyticsService: {
     getOverview: ReturnType<typeof vi.fn>;
     getTraffic: ReturnType<typeof vi.fn>;
-    getAlerts: ReturnType<typeof vi.fn>;
     getRaces: ReturnType<typeof vi.fn>;
-    acknowledgeAllAlerts: ReturnType<typeof vi.fn>;
-    acknowledgeAlert: ReturnType<typeof vi.fn>;
   };
 
   beforeEach(() => {
@@ -17,10 +14,7 @@ describe("DashboardTab basic layout", () => {
     analyticsService = {
       getOverview: vi.fn(),
       getTraffic: vi.fn(),
-      getAlerts: vi.fn(),
       getRaces: vi.fn(),
-      acknowledgeAllAlerts: vi.fn(),
-      acknowledgeAlert: vi.fn(),
     };
     analyticsService.getOverview.mockResolvedValue({
       total_requests: 0,
@@ -46,7 +40,6 @@ describe("DashboardTab basic layout", () => {
       fetched_at: "2026-06-13T00:00:00Z",
       error: null,
     });
-    analyticsService.getAlerts.mockResolvedValue({ alerts: [] });
     analyticsService.getRaces.mockResolvedValue({ races: [] });
 
     vi.doMock("$lib/services/analyticsService", () => ({ analyticsService }));

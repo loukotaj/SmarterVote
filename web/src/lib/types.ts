@@ -484,7 +484,7 @@ export interface RunHistoryItem extends RunInfo {
 }
 
 // ---------------------------------------------------------------------------
-// Analytics & Alerts (admin dashboard)
+// Analytics (admin dashboard)
 // ---------------------------------------------------------------------------
 
 export interface TimeseriesBucket {
@@ -536,16 +536,6 @@ export interface RaceAnalytics {
   last_accessed?: string;
   updated_utc?: string;
   title?: string;
-}
-
-export interface Alert {
-  id: string;
-  severity: "info" | "warning" | "critical";
-  category: "freshness" | "failures" | "quality" | "analytics";
-  message: string;
-  details: Record<string, unknown>;
-  created_at: string;
-  acknowledged: boolean;
 }
 
 // ---------------------------------------------------------------------------

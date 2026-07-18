@@ -9,6 +9,13 @@ on:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   security:
     name: Secret Scan
@@ -16,7 +23,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       - name: Reject tracked Terraform artifacts
         shell: bash
@@ -36,8 +43,34 @@ jobs:
         run: |
           docker run --rm \
             -v "$PWD:/repo" \
-            ghcr.io/gitleaks/gitleaks:v8.29.0 \
+            ghcr.io/gitleaks/gitleaks:v8.29.0@sha256:71d3ee5990f2176f763b438298453fc37e87b119122045e176ca9d44ff00b08b \
             dir --redact --no-banner /repo
+
+  dependency-audit:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.10"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Audit Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install "pip-audit==2.10.0"
+          # PYSEC-2026-1325 affects ECDSA signing. Authentication only verifies
+          # Auth0 RS256 tokens, and python-jose has no fixed ecdsa dependency yet.
+          pip-audit --ignore-vuln PYSEC-2026-1325 -r pipeline_client/backend/requirements.txt
+          pip-audit --ignore-vuln PYSEC-2026-1325 -r services/races-api/requirements.txt
+          pip-audit -r functions/admin_agent/requirements.txt
+      - name: Audit frontend dependencies
+        working-directory: web
+        run: npm audit --omit=dev --audit-level=high
 
   test-pipeline:
     name: Test Pipeline
@@ -45,10 +78,10 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.10"
 
@@ -76,10 +109,10 @@ jobs:
     name: Test API Services
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.10"
 
@@ -89,21 +122,37 @@ jobs:
           python -m pip install --upgrade pip
           pip install -c ../../requirements-constraints.txt -r requirements.txt
           pip install -c ../../requirements-constraints.txt -r test-requirements.txt
-          PYTHONPATH=../.. python -m pytest test_races_api.py -v
+          PYTHONPATH=../.. python -m pytest . -v
 
       - name: Test Races API admin endpoints
         run: |
           cd services/races-api
           PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
 
+  test-admin-function:
+    name: Test Admin Function (Python 3.11)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.11"
+      - name: Install function dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r functions/admin_agent/requirements.txt
+          pip install -c requirements-constraints.txt pytest pytest-asyncio
+      - name: Run function tests
+        run: PYTHONPATH=. python -m pytest --noconftest tests/test_admin_agent_function.py -v
+
   test-web:
     name: Test Web Frontend
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
           cache: "npm"
@@ -149,10 +198,10 @@ jobs:
     name: Validate Terraform
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v4
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4
         with:
           terraform_version: 1.9.0
 
@@ -167,16 +216,70 @@ jobs:
           terraform init -backend=false
           terraform validate
 
+  codeql:
+    name: CodeQL (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [python, javascript-typescript]
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: github/codeql-action/init@eec0bff2f6c15bf3f1e8a0152f94d17664a06a06 # v4
+        with:
+          languages: ${{ matrix.language }}
+      - uses: github/codeql-action/analyze@eec0bff2f6c15bf3f1e8a0152f94d17664a06a06 # v4
+
+  release-artifacts:
+    name: Build and Scan Release Containers
+    runs-on: ubuntu-latest
+    needs: [test-pipeline, test-apis, test-admin-function]
+    strategy:
+      matrix:
+        include:
+          - name: races-api
+            dockerfile: services/races-api/Dockerfile
+          - name: pipeline-worker
+            dockerfile: pipeline_client/Dockerfile.worker
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - name: Build ${{ matrix.name }}
+        run: docker build --pull -f "${{ matrix.dockerfile }}" -t "smartervote/${{ matrix.name }}:${{ github.sha }}" .
+      - name: Scan ${{ matrix.name }}
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:0.69.3@sha256:bcc376de8d77cfe086a917230e818dc9f8528e3c852f7b1aff648949b6258d1c \
+            image --scanners vuln --skip-version-check --exit-code 1 --ignore-unfixed --severity CRITICAL \
+            "smartervote/${{ matrix.name }}:${{ github.sha }}"
+      - name: Export immutable image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: docker save "smartervote/${{ matrix.name }}:${{ github.sha }}" | gzip > "${{ matrix.name }}.tar.gz"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          name: container-${{ matrix.name }}
+          path: ${{ matrix.name }}.tar.gz
+          retention-days: 7
+          if-no-files-found: error
+
   quality-summary:
     name: CI Summary
     runs-on: ubuntu-latest
     needs:
       [
         security,
+        dependency-audit,
         test-pipeline,
         test-apis,
+        test-admin-function,
         test-web,
         terraform-validate,
+        codeql,
+        release-artifacts,
       ]
     if: always()
 
@@ -184,17 +287,25 @@ jobs:
       - name: Check all gates
         env:
           SECURITY_RESULT: ${{ needs.security.result }}
+          DEPENDENCY_RESULT: ${{ needs.dependency-audit.result }}
           PIPELINE_RESULT: ${{ needs.test-pipeline.result }}
           APIS_RESULT: ${{ needs.test-apis.result }}
+          ADMIN_FUNCTION_RESULT: ${{ needs.test-admin-function.result }}
           WEB_RESULT: ${{ needs.test-web.result }}
           TERRAFORM_RESULT: ${{ needs.terraform-validate.result }}
+          CODEQL_RESULT: ${{ needs.codeql.result }}
+          ARTIFACT_RESULT: ${{ needs.release-artifacts.result }}
         run: |
           echo "security:            $SECURITY_RESULT"
+          echo "dependency-audit:    $DEPENDENCY_RESULT"
           echo "test-pipeline:       $PIPELINE_RESULT"
           echo "test-apis:           $APIS_RESULT"
+          echo "test-admin-function: $ADMIN_FUNCTION_RESULT"
           echo "test-web:            $WEB_RESULT"
           echo "terraform-validate:  $TERRAFORM_RESULT"
-          if [[ "$SECURITY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" ]]; then
+          echo "codeql:              $CODEQL_RESULT"
+          echo "release-artifacts:   $ARTIFACT_RESULT"
+          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$ADMIN_FUNCTION_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
             echo "❌ One or more CI gates failed"
             exit 1
           fi

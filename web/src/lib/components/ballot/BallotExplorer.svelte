@@ -140,7 +140,7 @@
       role="tablist"
       aria-label="Your matched races"
     >
-      <div class="flex gap-2 overflow-x-auto pb-1">
+      <div class="hide-scrollbar flex gap-2 overflow-x-auto pb-1">
         {#each races as race, index}
           <button
             id="ballot-race-tab-{race.id}"
@@ -151,7 +151,7 @@
             tabindex={selectedId === race.id ? 0 : -1}
             on:click={() => selectRace(race.id)}
             on:keydown={(event) => handleTabKeydown(event, index)}
-            class="whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition {selectedId ===
+            class="min-h-11 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition {selectedId ===
             race.id
               ? 'border-blue-700 bg-blue-700 text-white shadow-md shadow-blue-700/20'
               : 'border-stroke bg-surface text-content-muted hover:border-blue-400 hover:text-blue-700'}"

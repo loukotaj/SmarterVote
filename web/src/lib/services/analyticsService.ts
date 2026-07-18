@@ -1,5 +1,5 @@
 /**
- * Analytics and alert API service for the admin dashboard.
+ * Analytics API service for the admin dashboard.
  * All requests route through the races-api backend (Auth0-protected)
  * so the ADMIN_API_KEY never reaches the browser.
  */
@@ -7,7 +7,6 @@
 import { fetchWithAuth } from "$lib/stores/apiStore";
 import { racesApiBase } from "$lib/config/api";
 import type {
-  Alert,
   AnalyticsOverview,
   GcpCostSummary,
   PipelineMetricsSummary,
@@ -60,34 +59,6 @@ export const analyticsService = {
     bucket = 60,
   ): Promise<{ timeseries: { time: string; requests: number }[] }> {
     return fetchAdmin("/analytics/timeseries", { hours, bucket });
-  },
-
-  async getAlerts(): Promise<{
-    alerts: Alert[];
-    total: number;
-    unacknowledged: number;
-  }> {
-    return fetchAdmin("/alerts");
-  },
-
-  async acknowledgeAlert(alertId: string): Promise<void> {
-    const resp = await fetchWithAuth(
-      `${API_BASE}/alerts/${encodeURIComponent(alertId)}/acknowledge`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      },
-    );
-    if (!resp.ok) throw new Error(`Acknowledge failed ${resp.status}`);
-  },
-
-  async acknowledgeAllAlerts(): Promise<{ acknowledged_count: number }> {
-    const resp = await fetchWithAuth(`${API_BASE}/alerts/acknowledge-all`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
-    if (!resp.ok) throw new Error(`Ack-all failed ${resp.status}`);
-    return resp.json();
   },
 
   async getPipelineMetrics(

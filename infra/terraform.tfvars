@@ -18,7 +18,8 @@ allowed_origins = [
   "http://localhost:4173",
 ]
 
-# Developers allowed to impersonate the races-api service account locally (for MCP token generation)
+# Maintainer explicitly allowed to impersonate the races-api service account locally.
+# This IAM principal is public configuration, not a credential or secret.
 developer_gcp_identities = [
   "user:jacobloukota@gmail.com",
 ]
