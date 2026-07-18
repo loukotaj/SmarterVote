@@ -248,6 +248,9 @@ jobs:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       - name: Build ${{ matrix.name }}
         run: docker build --pull -f "${{ matrix.dockerfile }}" -t "smartervote/${{ matrix.name }}:${{ github.sha }}" .
+      - name: Smoke test races API image
+        if: matrix.name == 'races-api'
+        run: docker run --rm "smartervote/${{ matrix.name }}:${{ github.sha }}" python -c "import main"
       - name: Scan ${{ matrix.name }}
         run: |
           docker run --rm \

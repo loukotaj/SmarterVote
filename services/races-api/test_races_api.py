@@ -38,6 +38,9 @@ def _load_main_module(data_dir: str, monkeypatch) -> Any:
     monkeypatch.delenv("K_SERVICE", raising=False)
     monkeypatch.delenv("GAE_APPLICATION", raising=False)
     monkeypatch.delenv("SKIP_AUTH", raising=False)
+    monkeypatch.delenv("CLOUDFLARE_ANALYTICS_API_TOKEN", raising=False)
+    monkeypatch.delenv("CLOUDFLARE_ANALYTICS_ACCOUNT_TAG", raising=False)
+    monkeypatch.delenv("CLOUDFLARE_ANALYTICS_SITE_TAG", raising=False)
 
     import importlib
 

@@ -20,6 +20,7 @@ COPY services/races-api/request_models.py .
 COPY services/races-api/firestore_helpers.py .
 COPY services/races-api/gcs_helpers.py .
 COPY services/races-api/cloud_run_jobs.py .
+COPY services/races-api/rate_limit.py .
 COPY services/races-api/routers ./routers
 COPY shared /app/shared
 # data/published is NOT baked into the image — deployed instances read from GCS.
