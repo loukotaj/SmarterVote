@@ -62,4 +62,30 @@ describe("CandidateComparison", () => {
       desktop.getByRole("button", { name: "Show less for Casey Candidate" }),
     ).toBeTruthy();
   });
+
+  it("uses opaque sticky labels so scrolled content does not show through", () => {
+    const reviewedRace: Race = {
+      ...race,
+      validation_grade: {
+        grade: "A",
+        score: 95,
+        passed: true,
+        summary: "Publication checks passed.",
+      },
+    };
+    const { container } = render(CandidateComparison, {
+      race: reviewedRace,
+      candidates: [candidate],
+      compact: true,
+      showQuality: true,
+    });
+    const desktop = within(
+      container.querySelector("[data-desktop-candidate-comparison]")!,
+    );
+
+    expect(desktop.getByText("Compare").classList).toContain("bg-surface");
+    expect(desktop.getByText("Research review").classList).toContain(
+      "bg-emerald-50",
+    );
+  });
 });
