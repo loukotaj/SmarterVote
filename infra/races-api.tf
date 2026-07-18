@@ -110,7 +110,7 @@ resource "google_cloud_run_v2_service" "races_api" {
 
       # Stripe payment keys
       dynamic "env" {
-        for_each = var.stripe_secret_key != "" ? [1] : []
+        for_each = var.stripe_secret_key != "" ? { enabled = true } : {}
         content {
           name = "STRIPE_SECRET_KEY"
           value_source {
@@ -123,7 +123,7 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       dynamic "env" {
-        for_each = var.stripe_webhook_secret != "" ? [1] : []
+        for_each = var.stripe_webhook_secret != "" ? { enabled = true } : {}
         content {
           name = "STRIPE_WEBHOOK_SECRET"
           value_source {

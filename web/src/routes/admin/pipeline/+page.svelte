@@ -337,10 +337,7 @@
     {/if}
 
     {#if activeTab === "dashboard"}
-      <DashboardTab
-        {apiService}
-        on:view-runs={() => (activeTab = "runs")}
-      />
+      <DashboardTab {apiService} on:view-runs={() => (activeTab = "runs")} />
     {:else if activeTab === "races" && apiService}
       <div class="card p-6">
         <RacesTab bind:this={racesTab} />
