@@ -139,14 +139,14 @@
 
 <div
   data-desktop-candidate-comparison
-  class="hidden overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
+  class="hidden isolate overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
 >
   <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
     <div
       class:sticky={!compact}
       class:top-[57px]={!compact}
       class:md:top-[65px]={!compact}
-      class="z-30 w-full border-b border-stroke bg-surface/95 py-4 shadow-sm backdrop-blur-md"
+      class="z-30 w-full border-b border-stroke bg-surface py-4 shadow-sm"
     >
       <div
         class="grid items-center"
@@ -155,7 +155,7 @@
           : '220px'} repeat({candidates.length}, 1fr)"
       >
         <div
-          class="sticky left-0 z-40 border-r border-stroke bg-surface/95 px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+          class="sticky left-0 z-40 border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
         >
           {compact ? "Compare" : "Compare Directory"}
         </div>
@@ -210,7 +210,7 @@
             : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
-            class="sticky left-0 z-10 border-r border-stroke bg-emerald-50/70 p-5 text-sm font-bold text-content dark:bg-emerald-950/15"
+            class="sticky left-0 z-10 border-r border-stroke bg-emerald-50 p-5 text-sm font-bold text-content dark:bg-emerald-950"
           >
             Research review
             <span
