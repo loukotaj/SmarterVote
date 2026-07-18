@@ -8,10 +8,14 @@ import {
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ElectionLookup from "./ElectionLookup.svelte";
 
-const { lookupElectionGeography, suggestUsAddresses } = vi.hoisted(() => ({
-  lookupElectionGeography: vi.fn(),
-  suggestUsAddresses: vi.fn(),
-}));
+const { lookupElectionGeography, replaceState, suggestUsAddresses } =
+  vi.hoisted(() => ({
+    lookupElectionGeography: vi.fn(),
+    replaceState: vi.fn(),
+    suggestUsAddresses: vi.fn(),
+  }));
+
+vi.mock("$app/navigation", () => ({ replaceState }));
 
 vi.mock("$lib/services/electionLookup", async () => {
   const actual = await vi.importActual<
@@ -41,6 +45,7 @@ const races = [
 describe("ElectionLookup", () => {
   beforeEach(() => {
     lookupElectionGeography.mockReset();
+    replaceState.mockReset();
     suggestUsAddresses.mockReset();
     suggestUsAddresses.mockResolvedValue([]);
     sessionStorage.clear();
@@ -85,12 +90,11 @@ describe("ElectionLookup", () => {
     expect(sessionStorage.getItem("smarterVote.ballot")).toContain(
       "md-house-04-2026",
     );
-    expect(new URLSearchParams(window.location.search).get("state")).toBe(
-      "Maryland",
-    );
-    expect(new URLSearchParams(window.location.search).get("district")).toBe(
-      "04",
-    );
+    const shareableUrl = replaceState.mock.calls
+      .map(([url]) => url as URL)
+      .find((url) => url.searchParams.get("state") === "Maryland");
+    expect(shareableUrl?.searchParams.get("state")).toBe("Maryland");
+    expect(shareableUrl?.searchParams.get("district")).toBe("04");
     expect(
       screen
         .getByRole("link", { name: /full ballot at VOTE411/i })

@@ -10,9 +10,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Candidate, Race, RaceSummary } from "$lib/types";
 import BallotExplorer from "./BallotExplorer.svelte";
 
-const { getRace } = vi.hoisted(() => ({ getRace: vi.fn() }));
+const { getRace, replaceState } = vi.hoisted(() => ({
+  getRace: vi.fn(),
+  replaceState: vi.fn(),
+}));
 
 vi.mock("$lib/api", () => ({ getRace }));
+vi.mock("$app/navigation", () => ({ replaceState }));
 
 function candidate(
   name: string,
@@ -74,6 +78,7 @@ describe("BallotExplorer", () => {
   beforeEach(() => {
     getRace.mockReset();
     getRace.mockResolvedValue(race);
+    replaceState.mockReset();
     window.history.replaceState({}, "", "/my-ballot/");
   });
 
@@ -87,6 +92,9 @@ describe("BallotExplorer", () => {
         screen.getByRole("checkbox", { name: /Indy Independent/ }),
       ).toBeTruthy(),
     );
+    expect(
+      screen.queryByRole("link", { name: /Open detailed comparison/ }),
+    ).toBeNull();
     const mobileCandidates = screen.getByLabelText(
       "Candidates in this comparison",
     );

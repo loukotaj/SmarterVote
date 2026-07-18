@@ -6,6 +6,7 @@
   import { getRaceSummaries } from "$lib/api";
   import { candidateSlug } from "$lib/utils/format";
   import { debounce } from "$lib/utils/debounce";
+  import { matchesSearchQuery } from "$lib/utils/search";
 
   export let races: RaceSummary[] = [];
   export let isAuthenticated = false;
@@ -47,9 +48,12 @@
   $: raceMatches = query.trim()
     ? searchRaces
         .filter((race) => {
-          const q = query.trim().toLowerCase();
-          return [race.title, race.office, race.state, race.jurisdiction].some(
-            (value) => value?.toLowerCase().includes(q),
+          return matchesSearchQuery(
+            query,
+            race.title,
+            race.office,
+            race.state,
+            race.jurisdiction,
           );
         })
         .slice(0, 5)
@@ -59,10 +63,14 @@
         .flatMap((race) =>
           race.candidates
             .filter((candidate) => {
-              const q = query.trim().toLowerCase();
-              return (
-                candidate.name.toLowerCase().includes(q) ||
-                candidate.party?.toLowerCase().includes(q)
+              return matchesSearchQuery(
+                query,
+                candidate.name,
+                candidate.party,
+                race.title,
+                race.office,
+                race.state,
+                race.jurisdiction,
               );
             })
             .map((candidate) => ({
