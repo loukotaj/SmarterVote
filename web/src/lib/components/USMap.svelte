@@ -128,8 +128,8 @@
     hoveredStateCount = count;
     if (svgEl) {
       const rect = svgEl.getBoundingClientRect();
-      tooltipX = ((e.clientX - rect.left) / rect.width) * 100;
-      tooltipY = ((e.clientY - rect.top) / rect.height) * 100;
+      tooltipX = e.clientX - rect.left;
+      tooltipY = e.clientY - rect.top;
     }
   }
 
@@ -146,11 +146,8 @@
       const svgRect = svgEl.getBoundingClientRect();
       const elemRect = target.getBoundingClientRect();
 
-      const relativeLeft = elemRect.left - svgRect.left + elemRect.width / 2;
-      const relativeTop = elemRect.top - svgRect.top;
-
-      tooltipX = (relativeLeft / svgRect.width) * 100;
-      tooltipY = (relativeTop / svgRect.height) * 100;
+      tooltipX = elemRect.left - svgRect.left + elemRect.width / 2;
+      tooltipY = elemRect.top - svgRect.top;
     }
   }
 
@@ -243,7 +240,10 @@
 
     {#if hoveredStateName && stateTooltips[hoveredStateName]}
       {@const tip = stateTooltips[hoveredStateName]}
-      <div class="tooltip" style="left: {tooltipX}%; top: {tooltipY}%;">
+      <div
+        class="tooltip"
+        style="left: 0; top: 0; transform: translate3d({tooltipX}px, {tooltipY}px, 0) translate(-50%, calc(-100% - 10px));"
+      >
         <span class="tooltip-state">{tip.title}</span>
         {#if tip.subtitle}
           <span class="text-[11px] text-gray-400 font-medium"
@@ -265,7 +265,10 @@
         {/if}
       </div>
     {:else if hoveredStateName}
-      <div class="tooltip" style="left: {tooltipX}%; top: {tooltipY}%;">
+      <div
+        class="tooltip"
+        style="left: 0; top: 0; transform: translate3d({tooltipX}px, {tooltipY}px, 0) translate(-50%, calc(-100% - 10px));"
+      >
         <span class="tooltip-state">{hoveredStateName}</span>
         {#if hoveredStateCount > 0}
           <span class="tooltip-badge"

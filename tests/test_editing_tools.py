@@ -377,6 +377,70 @@ def test_add_candidate_handler():
     assert race_json["candidates"][0]["roster_sources"][0]["evidence_tier"] == 1
 
 
+def test_add_candidate_accepts_two_years_prior_evidence():
+    """add_candidate accepts roster evidence published 2 years prior to the election year."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "ga-house-01-2026", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["add_candidate"](
+        {
+            "name": "Alice Candidate",
+            "party": "Democratic",
+            "roster_sources": [
+                {
+                    "url": "https://sos.ga.gov/2024-candidates",
+                    "type": "official",
+                    "title": "2024 qualified candidates",
+                    "evidence": "Alice Candidate filed for Georgia's 1st Congressional District in 2026.",
+                    "published_at": "2024-11-15",
+                    "race_id": "ga-house-01-2026",
+                    "evidence_tier": 1,
+                    "retrieval_status": "content",
+                }
+            ],
+        }
+    )
+    assert "Added" in result
+    assert len(race_json["candidates"]) == 1
+
+
+def test_add_candidate_blocks_cross_race_contamination():
+    """add_candidate blocks candidate already registered in another race in the same state."""
+    from unittest.mock import patch
+
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "ga-governor-2026", "state": "Georgia", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    # Mock _get_other_state_candidates to simulate "Jon Ossoff" is running for Senate
+    with patch("pipeline_client.agent.handlers._get_other_state_candidates", return_value={"Jon Ossoff"}):
+        result = handlers["add_candidate"](
+            {
+                "name": "Jon Ossoff",
+                "party": "Democratic",
+                "roster_sources": [
+                    {
+                        "url": "https://sos.ga.gov/2026-candidates",
+                        "type": "official",
+                        "title": "2026 qualified candidates",
+                        "evidence": "Jon Ossoff filed in 2026.",
+                        "published_at": "2026-03-10",
+                        "race_id": "ga-governor-2026",
+                        "evidence_tier": 1,
+                        "retrieval_status": "content",
+                    }
+                ],
+            }
+        )
+
+    assert "Blocked adding" in result
+    assert "already registered as an active candidate in another race" in result
+    assert len(race_json["candidates"]) == 0
+
+
 def test_add_candidate_rejects_undated_or_generic_evidence():
     from pipeline_client.agent.agent import _make_editing_handlers
 
