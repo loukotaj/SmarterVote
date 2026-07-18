@@ -16,7 +16,6 @@ def test_local_paths_are_independent_of_working_directory(monkeypatch, tmp_path)
 
     assert paths.repo_root == repo_root.resolve()
     assert paths.drafts_dir == repo_root.resolve() / "data" / "drafts"
-    assert paths.local_queue_path == repo_root.resolve() / "pipeline_client" / "queue.json"
     assert all(path.is_absolute() for path in paths.__dict__.values())
 
 

@@ -63,7 +63,11 @@ def _load_main_module(data_dir: str, monkeypatch) -> Any:
     importlib.reload(routers.races_admin)
 
     import main as main_mod
+    import rate_limit
+    import routers.payments
 
+    importlib.reload(rate_limit)
+    importlib.reload(routers.payments)
     main_mod = importlib.reload(main_mod)
     setattr(main_mod, "publish_service", main_mod.SimplePublishService(data_directory=data_dir))
     main_mod.limiter.reset()

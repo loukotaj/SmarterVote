@@ -9,6 +9,24 @@ const isFastBuild =
   process.argv.includes("fast") ||
   process.argv.includes("--mode=fast");
 
+const prerenderDynamicRoutes = process.env.VITE_PRERENDER_RACES === "true";
+const fixedPrerenderEntries = [
+  "/",
+  "/about/",
+  "/admin/",
+  "/admin/pipeline/",
+  "/corrections/",
+  "/elections/",
+  "/forecast/",
+  "/funding-and-editorial-independence/",
+  "/methodology/",
+  "/my-ballot/",
+  "/partners/",
+  "/privacy/",
+  "/support/",
+  "/terms/",
+];
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: vitePreprocess(),
@@ -16,28 +34,14 @@ const config = {
     adapter: adapter({
       pages: "build",
       assets: "build",
-      fallback: "200.html",
       precompress: false,
       strict: true,
     }),
     prerender: {
       crawl: !isFastBuild,
-      entries: [
-        "/",
-        "/about/",
-        "/admin/",
-        "/admin/pipeline/",
-        "/corrections/",
-        "/elections/",
-        "/forecast/",
-        "/funding-and-editorial-independence/",
-        "/methodology/",
-        "/my-ballot/",
-        "/partners/",
-        "/privacy/",
-        "/support/",
-        "/terms/",
-      ],
+      // Production publishes every known race route so Cloudflare can return a
+      // real 404 for unknown URLs without relying on a catch-all SPA fallback.
+      entries: prerenderDynamicRoutes ? ["*"] : fixedPrerenderEntries,
       handleUnseenRoutes: "ignore",
     },
     alias: {

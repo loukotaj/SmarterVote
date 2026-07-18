@@ -55,6 +55,13 @@
   }
 </script>
 
+<a
+  href="#main-content"
+  class="sr-only fixed left-4 top-4 z-[70] rounded-lg bg-blue-700 px-4 py-3 font-bold text-white shadow-lg focus:not-sr-only"
+>
+  Skip to main content
+</a>
+
 <div class="min-h-screen bg-page overflow-x-hidden flex flex-col">
   {#if $navigating}
     <div class="fixed top-0 left-0 right-0 z-[60] h-0.5 overflow-hidden">
@@ -66,7 +73,7 @@
 
   <SiteHeader {isAuthenticated} {darkMode} onToggleDark={toggleDark} />
 
-  <main class="flex-1">
+  <main id="main-content" tabindex="-1" class="flex-1">
     <slot />
   </main>
 

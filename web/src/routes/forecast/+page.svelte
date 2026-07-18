@@ -176,6 +176,13 @@
       .map(getRaceState)
       .filter(Boolean) as string[],
   );
+  $: stateRaceCounts = races
+    .filter((race) => isRaceInForecastTab(race, activeTab))
+    .reduce<Record<string, number>>((counts, race) => {
+      const state = getRaceState(race);
+      if (state) counts[state] = (counts[state] ?? 0) + 1;
+      return counts;
+    }, {});
 
   // Dynamic colors and tooltips for the map
   type StateTooltip = {
@@ -671,6 +678,8 @@
 
   function probability(value?: number): string {
     if (value === undefined || value === null) return "n/a";
+    if (value >= 1) return ">99%";
+    if (value <= 0) return "<1%";
     return `${Math.round(value * 100)}%`;
   }
 
@@ -779,7 +788,7 @@
   <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 py-8 sm:py-10 space-y-8">
+<div class="forecast-page max-w-7xl mx-auto px-4 py-8 sm:py-10 space-y-8">
   <header>
     <div
       class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
@@ -945,14 +954,14 @@
               <div
                 class="text-[9px] font-bold uppercase text-content-subtle tracking-wider mb-1"
               >
-                Likely Outcome
+                Most Likely Exact Split
               </div>
               <div class="text-xl font-black text-content tabular-nums">
                 {mostLikelyOutcome.key || "—"}
               </div>
               <div class="text-[10px] font-semibold text-content-muted mt-0.5">
                 {mostLikelyOutcome.probability
-                  ? `${(mostLikelyOutcome.probability * 100).toFixed(1)}% prob.`
+                  ? `${(mostLikelyOutcome.probability * 100).toFixed(1)}% chance of this split`
                   : ""}
               </div>
             </div>
@@ -976,6 +985,11 @@
               </div>
             </div>
           </div>
+          <p class="text-xs leading-5 text-content-subtle">
+            The exact split is the single most likely outcome in the model's
+            distribution. Projected seats summarize each party's model-wide seat
+            estimate, so the two figures can differ.
+          </p>
         </div>
 
         <!-- Right Column: Charts / Stats -->
@@ -1253,6 +1267,7 @@
           <USMap
             {activeStates}
             {selectedState}
+            raceCounts={stateRaceCounts}
             {stateColors}
             {stateTooltips}
             on:stateClick={handleStateClick}
@@ -1805,7 +1820,7 @@
             </span>
             <button
               on:click={() => scrollKeyRaces(-1)}
-              class="w-7 h-7 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
+              class="h-11 w-11 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
               aria-label="Scroll left"
             >
               <svg
@@ -1824,7 +1839,7 @@
             </button>
             <button
               on:click={() => scrollKeyRaces(1)}
-              class="w-7 h-7 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
+              class="h-11 w-11 rounded-lg border border-stroke/60 bg-surface hover:bg-surface-alt flex items-center justify-center text-content-subtle hover:text-content transition-colors"
               aria-label="Scroll right"
             >
               <svg
@@ -1864,7 +1879,7 @@
               <div class="flex items-center justify-between mb-2">
                 <a
                   href={browser ? raceHref(race.id) : undefined}
-                  class="font-black text-sm text-content hover:text-blue-600 dark:hover:text-blue-400 truncate"
+                  class="inline-flex min-h-11 items-center font-black text-sm text-content hover:text-blue-600 dark:hover:text-blue-400 truncate"
                 >
                   {race.state ||
                     race.title?.replace("2026 U.S. Senate election in ", "")}
@@ -1908,7 +1923,7 @@
               <div class="mt-3 pt-2 border-t border-stroke/30">
                 <a
                   href={browser ? raceHref(race.id) : undefined}
-                  class="text-[10px] text-blue-600 dark:text-blue-400 font-bold hover:underline"
+                  class="inline-flex min-h-11 items-center text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline"
                 >
                   View Details &rarr;
                 </a>
@@ -2683,3 +2698,10 @@
     {/if}
   {/if}
 </div>
+
+<style lang="postcss">
+  .forecast-page button,
+  .forecast-page select {
+    @apply min-h-11;
+  }
+</style>

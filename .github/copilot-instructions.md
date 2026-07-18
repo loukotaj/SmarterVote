@@ -73,7 +73,7 @@ CI (`.github/workflows/ci.yaml`) runs on push/PR. Infrastructure CD deploys thro
 3. Preserve confidence scoring and source attribution in data changes
 4. Local dev: `services/races-api` is the production-shaped admin API; `pipeline_client/backend/main.py` is only for direct local runner/debug endpoints
 5. Storage mode (`STORAGE_MODE` env var): `local` uses filesystem, `gcp` uses GCS + Firestore — see `PIPELINE_MODES.md`
-6. Static GCS Hosting: If `VITE_PUBLIC_DATA_URL` is set, public read operations fetch statically from GCS (`races/{race_id}.json` and `races/summaries.json`). Publish/unpublish operations keep the index up to date.
+6. Static published data: GCS is authoritative and publish/unpublish keeps `races/summaries.json` current. The Cloudflare workflow copies published JSON into the static site build. Use `VITE_PUBLIC_DATA_URL` only for a separately public static origin.
 7. While temporary scratch scripts are acceptable for quick, one-off prototyping or diagnostics, prefer enhancing the MCP server tools (`smartervote-races`) for operations of longer-term utility.
 
 ## Detailed Docs (link, don't duplicate)

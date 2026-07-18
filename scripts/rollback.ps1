@@ -43,9 +43,8 @@ if ($ToCommit -eq "") {
     Write-Host "Select rollback target:" -ForegroundColor Yellow
     Write-Host "1. Previous commit (recommended)" -ForegroundColor Gray
     Write-Host "2. Specific commit hash" -ForegroundColor Gray
-    Write-Host "3. Use GitHub Actions rollback" -ForegroundColor Gray
     Write-Host ""
-    $choice = Read-Host "Enter choice (1-3)"
+    $choice = Read-Host "Enter choice (1-2)"
 
     switch ($choice) {
         "1" {
@@ -60,16 +59,6 @@ if ($ToCommit -eq "") {
                 Write-Host "Invalid commit hash: $ToCommit" -ForegroundColor Red
                 exit 1
             }
-        }
-        "3" {
-            Write-Host "Triggering GitHub Actions rollback..." -ForegroundColor Cyan
-            gh workflow run terraform-deploy.yaml `
-                --field environment=$Environment `
-                --field action=rollback
-
-            Write-Host "GitHub Actions rollback triggered!" -ForegroundColor Green
-            Write-Host "Monitor at: https://github.com/loukotaj/SmarterVote/actions" -ForegroundColor Blue
-            exit 0
         }
         default {
             Write-Host "Invalid choice" -ForegroundColor Red
@@ -92,46 +81,20 @@ if ($final -ne "y" -and $final -ne "Y") {
     exit 0
 }
 
-# Create rollback branch and trigger deployment
-$rollbackBranch = "rollback-$Environment-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-
-Write-Host ""
-Write-Host "Creating rollback branch: $rollbackBranch" -ForegroundColor Cyan
-
 try {
-    # Create and switch to rollback branch
-    git checkout -b $rollbackBranch
-
-    # Reset infra to target commit
-    git checkout $ToCommit -- infra/
-
-    # Commit the rollback
-    git add infra/
-    git commit -m "Emergency rollback to $ToCommit for $Environment"
-
-    # Push rollback branch
-    git push origin $rollbackBranch
-
-    # Trigger deployment from rollback branch
-    Write-Host "Triggering deployment from rollback branch..." -ForegroundColor Cyan
+    $resolvedCommit = git rev-parse "$ToCommit^{commit}"
+    Write-Host "Triggering verified rollback release $resolvedCommit..." -ForegroundColor Cyan
     gh workflow run terraform-deploy.yaml `
-        --ref $rollbackBranch `
         --field environment=$Environment `
-        --field action=apply
+        --field action=rollback `
+        --field deploy_sha=$resolvedCommit
 
     Write-Host ""
     Write-Host "Emergency rollback initiated!" -ForegroundColor Green
-    Write-Host "Monitor progress: https://github.com/loukotaj/SmarterVote/actions" -ForegroundColor Blue
-    Write-Host ""
-    Write-Host "Rollback branch created: $rollbackBranch" -ForegroundColor Yellow
-    Write-Host "After successful rollback, merge this branch to main" -ForegroundColor Gray
+    Write-Host "Monitor progress: https://github.com/SmarterVote/SmarterVote/actions" -ForegroundColor Blue
 
 } catch {
     Write-Host "Rollback failed: $_" -ForegroundColor Red
-
-    # Cleanup on failure
-    git checkout main
-    git branch -D $rollbackBranch 2>$null
 
     exit 1
 }

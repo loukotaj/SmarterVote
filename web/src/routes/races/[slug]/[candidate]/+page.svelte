@@ -447,6 +447,11 @@
               class="summary-sources-toggle"
               on:click={() => (summarySourcesOpen = !summarySourcesOpen)}
               aria-expanded={summarySourcesOpen}
+              aria-label={summarySourcesOpen
+                ? `Show fewer biography sources for ${candidate.name}`
+                : `Show ${
+                    candidate.summary_sources.length - SUMMARY_SOURCE_LIMIT
+                  } more biography sources for ${candidate.name}`}
             >
               {summarySourcesOpen
                 ? "Show fewer"
@@ -825,7 +830,7 @@
   }
 
   .summary-sources-toggle {
-    @apply mt-2 inline-flex text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium;
+    @apply mt-2 inline-flex min-h-11 items-center text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium;
   }
 
   .summary-sources-list {

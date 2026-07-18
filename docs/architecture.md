@@ -37,7 +37,8 @@ Admin dashboard
   -> races-api publish endpoint
   -> GCS races/{race_id}.json & central races/summaries.json
   -> Firestore races/{race_id} published catalog refresh
-  -> public read from direct GCS static hosting
+  -> Cloudflare deploy copies published JSON into the static site build
+  -> public read from Cloudflare Pages static assets
 ```
 
 Queue documents should contain:
@@ -134,12 +135,17 @@ creates missing `races/{race_id}` documents when a race already exists in GCS.
 | GET    | `/races/summaries`         | List published race summaries from `races/summaries.json` |
 | GET    | `/races/chamber_forecasts` | Get published chamber forecast narratives                 |
 | GET    | `/races/{race_id}`         | Get full published race data                              |
+| POST   | `/payments/checkout`       | Create an allowlisted Stripe-hosted support checkout      |
+| GET    | `/payments/session/{id}`   | Verify a returned Checkout session with Stripe            |
+| POST   | `/payments/webhook`        | Receive signature-verified Stripe lifecycle events        |
 | GET    | `/health`                  | Liveness                                                  |
 | GET    | `/health/ready`            | Readiness                                                 |
 
-If `VITE_PUBLIC_DATA_URL` is set in the web environment, the public SvelteKit frontend bypasses the FastAPI public
-read routes entirely and loads published data statically from GCS (`races/{race_id}.json` and `races/summaries.json`).
-That is the intended production path for public traffic.
+The production Cloudflare workflow copies the current published files from GCS into `web/static/` before building.
+Public SvelteKit pages therefore load the bundled `/{race_id}.json`, `/summaries.json`, and
+`/chamber_forecasts.json` assets from Cloudflare Pages. `VITE_PUBLIC_DATA_URL` remains an optional mode for a future
+dedicated public bucket or another public static origin; it is deliberately unset while drafts and published data
+share one private bucket. FastAPI public read routes remain available as API fallbacks and operational interfaces.
 
 Public page traffic is therefore measured with the Cloudflare Web Analytics browser beacon, not inferred from
 `races-api` reads. The authenticated `/analytics/traffic` endpoint queries Cloudflare's GraphQL API and caches the
@@ -154,9 +160,11 @@ The public SvelteKit site separates product introduction from race discovery:
 - `/elections/` is the browse and filtering surface for published election research. Current launch coverage includes supported U.S. House, U.S. Senate, presidential, and gubernatorial races.
 - `/races/{slug}/` and its candidate and comparison subroutes remain the detailed research surfaces.
 - `/about/` publishes the project's identity and research methodology; `/methodology/` redirects to that section. `/corrections/`, `/privacy/`, `/terms/`, and `/funding-and-editorial-independence/` publish the correction, privacy, legal, and editorial-independence statements.
-- `/support/` and `/partners/` are informational contact pages. They do not accept payments or create financial commitments.
+- `/support/` offers one-time and monthly support through Stripe-hosted Checkout when the server-side Stripe secrets are configured. `/partners/` remains an informational contact page and does not create financial commitments.
 
-The `/my-ballot/` route provides a no-server-storage election lookup. When `VITE_GOOGLE_MAPS_API_KEY` is configured, a visitor can select a U.S. address suggestion supplied directly by Google Places; the optional integration uses debounced requests and one autocomplete session token per search. The completed address is sent directly from the browser to the U.S. Census Geocoder using its documented JSONP interface; the address is never sent to or stored by Smarter.Vote. Without Google configuration or if suggestions fail, visitors can enter the full address normally. The returned state and congressional district plus matched race IDs are retained in tab-scoped `sessionStorage` so results survive a refresh. The non-sensitive state and congressional district are also written as `state` and `district` URL parameters so a result can be bookmarked or shared without exposing the address; the current published catalog is matched again when that URL opens. Both the saved result and URL parameters are cleared when the visitor searches another address. Results transition in place on the focused route rather than returning to the homepage. The lookup is not a complete ballot and does not identify other state, local, judicial, or ballot-measure contests, so results link to VOTE411's personalized ballot guide for broader ballot information. There is no Smarter.Vote address endpoint or durable address persistence. The launch also has no Stripe Checkout, subscriptions, donation processing, or partner payment portal. Correction reports use public GitHub issues; other public inquiries currently use mail links rather than a server-side CRM or form-processing service.
+The `/my-ballot/` route provides a no-server-storage election lookup. When `VITE_GOOGLE_MAPS_API_KEY` is configured, a visitor can select a U.S. address suggestion supplied directly by Google Places; the optional integration uses debounced requests and one autocomplete session token per search. The completed address is sent directly from the browser to the U.S. Census Geocoder using its documented JSONP interface; the address is never sent to or stored by Smarter.Vote. Without Google configuration or if suggestions fail, visitors can enter the full address normally. The returned state and congressional district plus matched race IDs are retained in tab-scoped `sessionStorage` so results survive a refresh. The non-sensitive state and congressional district are also written as `state` and `district` URL parameters so a result can be bookmarked or shared without exposing the address; the current published catalog is matched again when that URL opens. Both the saved result and URL parameters are cleared when the visitor searches another address. Results transition in place on the focused route rather than returning to the homepage. The lookup is not a complete ballot and does not identify other state, local, judicial, or ballot-measure contests, so results link to VOTE411's personalized ballot guide for broader ballot information. There is no Smarter.Vote address endpoint or durable address persistence. Correction reports use public GitHub issues; other public inquiries currently use mail links rather than a server-side CRM or form-processing service.
+
+Support checkout sends only an amount and one-time/monthly mode to `races-api`; card and billing details go directly to Stripe Checkout and never enter Smarter.Vote's frontend or API. The API derives success and cancellation routes from an exact allowlist of public/local origins, applies checkout rate limits, and keeps Stripe credentials server-side in Secret Manager. The return page verifies the opaque Checkout session ID with Stripe before displaying a confirmed state; the signed webhook endpoint handles lifecycle notifications separately. If Stripe secrets are absent, checkout fails closed with a service-unavailable response.
 
 ## Agent Phases
 
@@ -171,7 +179,7 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 | Storage                               | Production Use                                                               |
 | ------------------------------------- | ---------------------------------------------------------------------------- |
 | GCS `drafts/`                         | Agent output awaiting admin review                                           |
-| GCS `races/`                          | Published race JSON served publicly, plus the central `summaries.json` index |
+| GCS `races/`                          | Authoritative published race JSON and central `summaries.json` build input  |
 | GCS `retired/`                        | Archived previous versions                                                   |
 | Firestore `pipeline_queue`            | Durable work routing, leases, dispatch state, and terminal status            |
 | Firestore `pipeline_runs`             | Run status, progress, and logs                                               |

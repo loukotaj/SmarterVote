@@ -119,6 +119,26 @@ variable "create_firestore_database" {
   default     = false
 }
 
+# Stripe payment keys
+variable "stripe_secret_key" {
+  description = "Stripe secret API key (sk_live_... or sk_test_...) for creating Checkout sessions"
+  type        = string
+  sensitive   = true
+  default     = ""
+
+  validation {
+    condition     = (var.stripe_secret_key == "") == (var.stripe_webhook_secret == "")
+    error_message = "stripe_secret_key and stripe_webhook_secret must either both be set or both be empty."
+  }
+}
+
+variable "stripe_webhook_secret" {
+  description = "Stripe webhook signing secret (whsec_...) for verifying webhook event signatures"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 variable "billing_account_id" {
   description = "GCP Billing Account ID. If empty, the budget alert resource is not created."
   type        = string

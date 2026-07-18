@@ -23,7 +23,6 @@
     | "forecasts"
     | "costs"
     | "agent" = "dashboard";
-  let alertBadgeCount = 0;
   let queueItems: QueueItem[] = [];
   let runs: RunHistoryItem[] = [];
   let isRefreshingRuns = false;
@@ -280,7 +279,7 @@
       </div>
     </div>
 
-    <AdminTabs bind:activeTab alertCount={alertBadgeCount} />
+    <AdminTabs bind:activeTab />
 
     {#if activeQueueItems.length > 0}
       <div
@@ -338,11 +337,7 @@
     {/if}
 
     {#if activeTab === "dashboard"}
-      <DashboardTab
-        onAlertCountChange={(count) => (alertBadgeCount = count)}
-        {apiService}
-        on:view-runs={() => (activeTab = "runs")}
-      />
+      <DashboardTab {apiService} on:view-runs={() => (activeTab = "runs")} />
     {:else if activeTab === "races" && apiService}
       <div class="card p-6">
         <RacesTab bind:this={racesTab} />

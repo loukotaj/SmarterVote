@@ -108,6 +108,33 @@ resource "google_cloud_run_v2_service" "races_api" {
         }
       }
 
+      # Stripe payment keys
+      dynamic "env" {
+        for_each = nonsensitive(var.stripe_secret_key != "") ? { enabled = true } : {}
+        content {
+          name = "STRIPE_SECRET_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.stripe_secret_key.secret_id
+              version = "latest"
+            }
+          }
+        }
+      }
+
+      dynamic "env" {
+        for_each = nonsensitive(var.stripe_webhook_secret != "") ? { enabled = true } : {}
+        content {
+          name = "STRIPE_WEBHOOK_SECRET"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.stripe_webhook_secret.secret_id
+              version = "latest"
+            }
+          }
+        }
+      }
+
       # Auth0 JWT for admin endpoint protection (replaces pipeline-client auth)
       env {
         name  = "AUTH0_DOMAIN"
@@ -182,8 +209,12 @@ resource "google_cloud_run_v2_service" "races_api" {
     google_secret_manager_secret_version.openrouter_key,
     google_secret_manager_secret_version.admin_api_key,
     google_secret_manager_secret_version.cloudflare_analytics_api_token,
+    google_secret_manager_secret_version.stripe_secret_key,
+    google_secret_manager_secret_version.stripe_webhook_secret,
     google_secret_manager_secret_iam_member.races_api_openrouter_key,
     google_secret_manager_secret_iam_member.races_api_cloudflare_analytics,
+    google_secret_manager_secret_iam_member.races_api_stripe_secret_key,
+    google_secret_manager_secret_iam_member.races_api_stripe_webhook_secret,
   ]
 }
 

@@ -2,6 +2,8 @@
   import ContactCard from "$lib/components/support/ContactCard.svelte";
   import PolicySection from "$lib/components/support/PolicySection.svelte";
   import TrustPage from "$lib/components/support/TrustPage.svelte";
+
+  const paymentsEnabled = import.meta.env.VITE_PAYMENTS_ENABLED === "true";
 </script>
 
 <TrustPage
@@ -128,13 +130,23 @@
   <ContactCard subject="General question for Smarter.Vote LLC" />
 
   <p class="text-center text-sm">
-    Smarter.Vote LLC support is not yet accepting payments. If you want to
-    support the individual developer separately, visit
+    {#if paymentsEnabled}
+      Smarter.Vote LLC accepts support through the
+      <a
+        class="text-primary-600 underline dark:text-primary-500"
+        href="/support/">secure support page</a
+      >. You can also support the individual developer separately through GitHub
+      Sponsors.
+    {:else}
+      Smarter.Vote LLC support is not yet accepting payments. If you want to
+      support the individual developer separately, visit
+    {/if}
     <a
       class="text-primary-600 underline dark:text-primary-500"
       href="https://github.com/sponsors/loukotaj"
       target="_blank"
       rel="noopener noreferrer">Support the developer on GitHub</a
-    >. This is personal support, not a contribution to Smarter.Vote LLC.
+    >. GitHub Sponsors is personal support, not a contribution to Smarter.Vote
+    LLC.
   </p>
 </TrustPage>

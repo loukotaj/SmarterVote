@@ -180,6 +180,8 @@
 
   function probability(value?: number | null): string {
     if (typeof value !== "number") return "n/a";
+    if (value >= 1) return ">99%";
+    if (value <= 0) return "<1%";
     return `${Math.round(value * 100)}%`;
   }
 
@@ -624,6 +626,11 @@
         forecast.party_probabilities,
         race.candidates,
       )}
+      {@const forecastLeader =
+        forecast.predicted_winner_name ||
+        (forecastParty === "Other"
+          ? "Leading candidate"
+          : `${forecastParty} candidate`)}
       <Card id="forecast" class="forecast-card scroll-mt-6">
         <div class="forecast-header">
           <div>
@@ -637,7 +644,8 @@
             </h2>
 
             <p class="forecast-summary">
-              {probability(forecast.win_probability)} win probability
+              <strong>{forecastLeader}:</strong>
+              {probability(forecast.win_probability)} modeled win probability
               {#if typeof forecast.margin_estimate === "number"}
                 with a {signedMargin(forecast.margin_estimate)} estimated margin
               {/if}

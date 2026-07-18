@@ -44,7 +44,7 @@ enable_admin_agent_function = true
 
 ### 2. Build Runtime Artifacts
 
-The deployment workflow builds and pushes the `races-api` and `pipeline-worker` containers. It also packages `functions/admin_agent/` into `infra/functions-admin-agent-source.zip` for the separate durable admin agent.
+CI builds and scans the `races-api` and `pipeline-worker` containers. The deployment workflow promotes those immutable artifacts by commit SHA. It also packages `functions/admin_agent/` into `infra/functions-admin-agent-source.zip` for the separate durable admin agent.
 
 ### 3. Deploy
 
@@ -70,7 +70,7 @@ Queue a race through the admin UI or `races-api`; the queue document should rece
 | Pipeline Cloud Run Job     | enabled  | One isolated, scale-to-zero execution per queued race                                                                                                                        |
 | Admin Agent Cloud Function | enabled  | Processes durable `admin_agent_tasks` with tool calling and continuation                                                                                                     |
 | Firestore                  | enabled  | Queue items, run records, logs, race metadata                                                                                                                                |
-| GCS bucket                 | enabled  | Drafts, published races (configured with CORS & IAM rules allowing direct public read access to `races/` folder resources for static serving), checkpoints, retired versions |
+| GCS bucket                 | enabled  | Private drafts, published build inputs, checkpoints, and retired versions; the web deployment copies published JSON into Cloudflare Pages                            |
 | Secret Manager             | enabled  | API keys and admin secrets                                                                                                                                                   |
 | Local Docker worker        | manual   | Permanent workstation runner for queue items tagged `runner=local`                                                                                                           |
 

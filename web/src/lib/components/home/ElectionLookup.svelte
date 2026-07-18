@@ -123,6 +123,12 @@
     replaceState(url, {});
   }
 
+  function districtLabel(value: string): string {
+    return value === "00"
+      ? "At-large congressional district"
+      : `U.S. House District ${Number(value)}`;
+  }
+
   onMount(() => {
     const url = new URL(window.location.href);
     const urlState = url.searchParams.get("state");
@@ -267,7 +273,7 @@
             <div
               id="address-suggestions"
               role="listbox"
-              class="absolute z-20 mt-1 w-full overflow-hidden rounded-xl border border-stroke bg-surface py-1 shadow-xl"
+              class="relative z-20 mt-1 w-full overflow-hidden rounded-xl border border-stroke bg-surface py-1 shadow-xl"
             >
               {#each suggestions as suggestion, index}
                 <button
@@ -339,7 +345,7 @@
           <p
             class="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400"
           >
-            {state} · U.S. House District {Number(district)}
+            {state} · {districtLabel(district)}
           </p>
           <h1
             class="mt-2 text-3xl font-extrabold tracking-tight text-content sm:text-4xl"

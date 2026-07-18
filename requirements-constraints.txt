@@ -10,6 +10,11 @@ python-jose==3.5.0
 google-cloud-storage==3.12.1
 google-cloud-firestore==2.28.0
 google-cloud-bigquery==3.42.2
+google-auth==2.56.0
+openai==2.46.0
+requests==2.34.2
+tenacity==9.1.4
+python-dotenv==1.2.2
 pytest==9.1.1
 pytest-asyncio==1.4.0
 pytest-cov==7.1.0

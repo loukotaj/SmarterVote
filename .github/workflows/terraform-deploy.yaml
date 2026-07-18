@@ -26,6 +26,10 @@ on:
           - plan
           - apply
           - rollback
+      deploy_sha:
+        description: "Verified commit SHA to apply or roll back to"
+        required: false
+        type: string
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -33,42 +37,88 @@ env:
   REGION: us-central1
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
   ACTION: ${{ github.event.inputs.action || 'apply' }}
-  DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
-  TF_VAR_app_version: ${{ github.event.workflow_run.head_sha || github.sha }}
+  DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.event.inputs.deploy_sha || github.sha }}
+  TF_VAR_app_version: ${{ github.event.workflow_run.head_sha || github.event.inputs.deploy_sha || github.sha }}
+
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+concurrency:
+  group: terraform-${{ github.event.inputs.environment || 'dev' }}
+  cancel-in-progress: false
 
 jobs:
-  build-containers:
-    name: Build Container Images
+  verify-release:
+    name: Verify CI Release
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    outputs:
+      ci_run_id: ${{ steps.release.outputs.ci_run_id }}
+      deploy_sha: ${{ steps.release.outputs.deploy_sha }}
+    steps:
+      - name: Resolve verified release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUTOMATIC_RUN_ID: ${{ github.event.workflow_run.id }}
+          AUTOMATIC_SHA: ${{ github.event.workflow_run.head_sha }}
+          AUTOMATIC_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          REQUESTED_SHA: ${{ github.event.inputs.deploy_sha }}
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "workflow_run" ]]; then
+            [[ "$AUTOMATIC_CONCLUSION" == "success" ]] || { echo "::error::Triggering CI did not succeed"; exit 1; }
+            echo "ci_run_id=$AUTOMATIC_RUN_ID" >> "$GITHUB_OUTPUT"
+            echo "deploy_sha=$AUTOMATIC_SHA" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          [[ -n "$REQUESTED_SHA" ]] || { echo "::error::deploy_sha is required for manual releases"; exit 1; }
+          full_sha="$(gh api "repos/${{ github.repository }}/commits/$REQUESTED_SHA" --jq .sha)"
+          run_id="$(gh api "repos/${{ github.repository }}/actions/workflows/ci.yaml/runs?head_sha=$full_sha&status=success&event=push&per_page=20" --jq '.workflow_runs | map(select(.head_branch == "main" and .conclusion == "success")) | first | .id // empty')"
+          [[ -n "$run_id" ]] || { echo "::error::No successful main push CI run found for $full_sha"; exit 1; }
+          echo "ci_run_id=$run_id" >> "$GITHUB_OUTPUT"
+          echo "deploy_sha=$full_sha" >> "$GITHUB_OUTPUT"
+
+  publish-containers:
+    name: Publish Verified Container Images
+    runs-on: ubuntu-latest
+    needs: verify-release
+    if: ${{ github.event_name == 'workflow_run' || github.event.inputs.action == 'apply' }}
+    environment: ${{ github.event.inputs.environment || 'dev' }}
     strategy:
       matrix:
         container:
           - name: races-api
-            dockerfile: services/races-api/Dockerfile
-            context: .
           - name: pipeline-worker
-            dockerfile: pipeline_client/Dockerfile.worker
-            context: .
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
         with:
-          ref: ${{ env.DEPLOY_SHA }}
+          name: container-${{ matrix.container.name }}
+          run-id: ${{ needs.verify-release.outputs.ci_run_id }}
+          github-token: ${{ github.token }}
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v3
+      - name: Authenticate to Google Cloud with OIDC
+        if: vars.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && vars.GCP_DEPLOY_SERVICE_ACCOUNT != ''
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+
+      - name: Authenticate to Google Cloud with legacy key
+        if: vars.GCP_WORKLOAD_IDENTITY_PROVIDER == '' || vars.GCP_DEPLOY_SERVICE_ACCOUNT == ''
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Setup Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v3
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3
 
       - name: Configure Docker for Artifact Registry
-        if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
       - name: Ensure Artifact Registry repository exists
-        if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
         run: |
           if ! gcloud artifacts repositories describe smartervote-${{ env.ENVIRONMENT }} \
                --location=${{ env.REGION }} --project=${{ env.PROJECT_ID }} > /dev/null 2>&1; then
@@ -82,32 +132,33 @@ jobs:
             echo "Artifact Registry repository smartervote-${{ env.ENVIRONMENT }} already exists."
           fi
 
-      - name: Build and Push ${{ matrix.container.name }}
-        if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      - name: Load and Push ${{ matrix.container.name }}
         run: |
-          docker build -f ${{ matrix.container.dockerfile }} \
-                       -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }} \
-                       -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest \
-                       ${{ matrix.container.context }}
-          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }}
-          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest
+          gunzip -c "${{ matrix.container.name }}.tar.gz" | docker load
+          source_image="smartervote/${{ matrix.container.name }}:${{ needs.verify-release.outputs.deploy_sha }}"
+          release_image="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ needs.verify-release.outputs.deploy_sha }}"
+          docker tag "$source_image" "$release_image"
+          docker push "$release_image"
 
   deploy-terraform:
     name: Deploy Infrastructure
     runs-on: ubuntu-latest
-    needs: build-containers
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    needs: [verify-release, publish-containers]
+    if: ${{ always() && needs.verify-release.result == 'success' && (needs.publish-containers.result == 'success' || needs.publish-containers.result == 'skipped') }}
+    environment: ${{ github.event.inputs.environment || 'dev' }}
     # Pass all Terraform variables as TF_VAR_* env vars to avoid writing secrets into a
     # shell heredoc (backticks/special chars in secret values cause bad-substitution errors).
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
       TF_VAR_region: us-central1
       TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
-      TF_VAR_app_version: ${{ github.event.workflow_run.head_sha || github.sha }}
+      TF_VAR_app_version: ${{ needs.verify-release.outputs.deploy_sha }}
       TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
       TF_VAR_serper_api_key: ${{ secrets.SERPER_API_KEY }}
       TF_VAR_searlo_api_key: ${{ secrets.SEARLO_API_KEY }}
       TF_VAR_admin_api_key: ${{ secrets.ADMIN_API_KEY }}
+      TF_VAR_stripe_secret_key: ${{ secrets.STRIPE_SECRET_KEY }}
+      TF_VAR_stripe_webhook_secret: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
       TF_VAR_auth0_domain: ${{ vars.AUTH0_DOMAIN }}
       TF_VAR_auth0_audience: ${{ vars.AUTH0_AUDIENCE }}
       TF_VAR_cloudflare_analytics_api_token: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
@@ -115,14 +166,16 @@ jobs:
       TF_VAR_cloudflare_analytics_site_tag: ${{ vars.CLOUDFLARE_ANALYTICS_SITE_TAG }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         with:
-          ref: ${{ env.DEPLOY_SHA }}
+          ref: ${{ needs.verify-release.outputs.deploy_sha }}
 
       - name: Validate required secrets
         env:
           REQUIRED_GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
           REQUIRED_GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          REQUIRED_GCP_WIF_PROVIDER: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          REQUIRED_GCP_DEPLOY_SA: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
           REQUIRED_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           REQUIRED_SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
           REQUIRED_SEARLO_API_KEY: ${{ secrets.SEARLO_API_KEY }}
@@ -135,7 +188,9 @@ jobs:
         run: |
           MISSING=()
           [ -z "$REQUIRED_GCP_PROJECT_ID" ]    && MISSING+=("GCP_PROJECT_ID")
-          [ -z "$REQUIRED_GCP_SA_KEY" ]        && MISSING+=("GCP_SA_KEY")
+          if [ -z "$REQUIRED_GCP_SA_KEY" ] && { [ -z "$REQUIRED_GCP_WIF_PROVIDER" ] || [ -z "$REQUIRED_GCP_DEPLOY_SA" ]; }; then
+            MISSING+=("GCP authentication: configure both GCP_WORKLOAD_IDENTITY_PROVIDER and GCP_DEPLOY_SERVICE_ACCOUNT, or GCP_SA_KEY during migration")
+          fi
           [ -z "$REQUIRED_OPENROUTER_API_KEY" ] && MISSING+=("OPENROUTER_API_KEY")
           [ -z "$REQUIRED_SERPER_API_KEY" ]    && MISSING+=("SERPER_API_KEY")
           [ -z "$REQUIRED_SEARLO_API_KEY" ]    && MISSING+=("SEARLO_API_KEY")
@@ -156,17 +211,25 @@ jobs:
           echo "✅ All required secrets are configured"
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v4
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4
         with:
           terraform_version: 1.9.0
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v3
+      - name: Authenticate to Google Cloud with OIDC
+        if: vars.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && vars.GCP_DEPLOY_SERVICE_ACCOUNT != ''
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+
+      - name: Authenticate to Google Cloud with legacy key
+        if: vars.GCP_WORKLOAD_IDENTITY_PROVIDER == '' || vars.GCP_DEPLOY_SERVICE_ACCOUNT == ''
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Setup Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v3
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3
 
       - name: Sync API keys to Secret Manager
         if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
@@ -175,6 +238,8 @@ jobs:
           SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
           SEARLO_API_KEY: ${{ secrets.SEARLO_API_KEY }}
           ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           CLOUDFLARE_ANALYTICS_API_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
         run: |
           sync_secret() {
@@ -201,6 +266,8 @@ jobs:
           sync_secret "serper-api-key-${{ env.ENVIRONMENT }}"   "$SERPER_API_KEY"
           sync_secret "searlo-api-key-${{ env.ENVIRONMENT }}"   "$SEARLO_API_KEY"
           sync_secret "races-api-admin-key-${{ env.ENVIRONMENT }}" "$ADMIN_API_KEY"
+          sync_secret "stripe-secret-key-${{ env.ENVIRONMENT }}" "$STRIPE_SECRET_KEY"
+          sync_secret "stripe-webhook-secret-${{ env.ENVIRONMENT }}" "$STRIPE_WEBHOOK_SECRET"
           sync_secret "cloudflare-analytics-api-token-${{ env.ENVIRONMENT }}" "$CLOUDFLARE_ANALYTICS_API_TOKEN"
 
       - name: Check if state bucket exists
@@ -240,16 +307,6 @@ jobs:
           cd infra
           terraform init -reconfigure
 
-      - name: Store Current State (for rollback)
-        if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
-        run: |
-          cd infra
-          if [ -f "terraform.tfstate" ]; then
-            BACKUP_FILE="terraform-state-backup-$(date +%Y%m%d-%H%M%S).json"
-            terraform show -json > "../$BACKUP_FILE"
-            echo "BACKUP_FILE=$BACKUP_FILE" >> $GITHUB_ENV
-          fi
-
       - name: Terraform Validate
         run: |
           cd infra
@@ -260,18 +317,18 @@ jobs:
         run: |
           cd infra
           terraform plan -out=tfplan
-          terraform show -json tfplan > ../terraform-plan.json
+          terraform show -no-color tfplan > ../terraform-plan.txt
 
       - name: Upload Plan Artifact
         if: env.ACTION == 'plan'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: terraform-plan-${{ env.ENVIRONMENT }}
-          path: terraform-plan.json
+          path: terraform-plan.txt
           retention-days: 30
 
       - name: Terraform Apply
-        if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
+        if: env.ACTION == 'apply'
         run: |
           cd infra
           terraform apply -auto-approve tfplan
@@ -280,46 +337,53 @@ jobs:
         if: env.ACTION == 'rollback'
         run: |
           cd infra
-          echo "🔄 Performing manual rollback..."
-          PREV_COMMIT=$(git log --oneline -n 2 --format="%H" -- . | tail -n 1)
-          git checkout $PREV_COMMIT -- .
-          terraform init -reconfigure
+          echo "Applying verified rollback release ${{ needs.verify-release.outputs.deploy_sha }}"
           terraform plan -out=rollback-plan
           terraform apply -auto-approve rollback-plan
 
-      - name: Upload State Backup
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform-state-backup-${{ env.ENVIRONMENT }}-${{ env.DEPLOY_SHA }}
-          path: terraform-state-backup-*.json
-          retention-days: 30
-          if-no-files-found: ignore
+      - name: Verify deployed API
+        if: env.ACTION == 'apply' || env.ACTION == 'rollback'
+        run: |
+          set -euo pipefail
+          api_url="$(terraform -chdir=infra output -raw races_api_url)"
+          for path in /health /health/ready; do
+            for attempt in {1..12}; do
+              if curl --fail --silent --show-error --max-time 15 "$api_url$path"; then
+                echo
+                break
+              fi
+              if [[ "$attempt" == 12 ]]; then
+                echo "::error::Deployment verification failed for $api_url$path"
+                exit 1
+              fi
+              sleep 10
+            done
+          done
 
       - name: Output Infrastructure Summary
         if: always()
+        env:
+          SUMMARY_ACTION: ${{ env.ACTION }}
+          SUMMARY_ENVIRONMENT: ${{ env.ENVIRONMENT }}
+          SUMMARY_PROJECT: ${{ env.PROJECT_ID }}
+          SUMMARY_REGION: ${{ env.REGION }}
+          SUMMARY_VERSION: ${{ env.TF_VAR_app_version }}
         run: |
-          cd infra
-          echo "## 🚀 SmarterVote Infrastructure Deployment" >> $GITHUB_STEP_SUMMARY
-          echo "- **Environment**: ${{ env.ENVIRONMENT }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Action**: ${{ env.ACTION }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Project**: ${{ env.PROJECT_ID }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Region**: ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version**: ${{ env.TF_VAR_app_version }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Timestamp**: $(date -u)" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-
-          if [ "${{ env.ACTION }}" = "apply" ] || [ "${{ env.ACTION }}" = "rollback" ]; then
-            echo "### 📋 Infrastructure Outputs" >> $GITHUB_STEP_SUMMARY
-            terraform output -json | jq -r 'to_entries[] | "- **\(.key)**: \(.value.value)"' >> $GITHUB_STEP_SUMMARY || echo "- No outputs available" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-
-            echo "### 🔗 Quick Links" >> $GITHUB_STEP_SUMMARY
-            echo "- [GCP Console](https://console.cloud.google.com/home/dashboard?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-            echo "- [Cloud Run Services](https://console.cloud.google.com/run?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-            echo "- [Storage Buckets](https://console.cloud.google.com/storage/browser?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-            echo "- [Terraform State](https://console.cloud.google.com/storage/browser/smartervote-terraform-state?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
-          fi
+          {
+            echo "## 🚀 SmarterVote Infrastructure Deployment"
+            echo "- **Environment**: $SUMMARY_ENVIRONMENT"
+            echo "- **Action**: $SUMMARY_ACTION"
+            echo "- **Project**: $SUMMARY_PROJECT"
+            echo "- **Region**: $SUMMARY_REGION"
+            echo "- **Version**: $SUMMARY_VERSION"
+            echo "- **Timestamp**: $(date -u)"
+            echo
+            echo "### 🔗 Quick Links"
+            echo "- [GCP Console](https://console.cloud.google.com/home/dashboard?project=$SUMMARY_PROJECT)"
+            echo "- [Cloud Run Services](https://console.cloud.google.com/run?project=$SUMMARY_PROJECT)"
+            echo "- [Storage Buckets](https://console.cloud.google.com/storage/browser?project=$SUMMARY_PROJECT)"
+            echo "- [Terraform State](https://console.cloud.google.com/storage/browser/smartervote-terraform-state?project=$SUMMARY_PROJECT)"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Clean up secrets
         run: |

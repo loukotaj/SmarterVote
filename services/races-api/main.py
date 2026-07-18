@@ -8,7 +8,7 @@ Admin endpoints are split into routers:
     routers/queue.py        - queue management
     routers/runs.py         - run details and logs
     routers/races_admin.py  - race record CRUD, drafts, publish, versions
-    routers/pipeline.py     - metrics, alerts, admin chat
+    routers/pipeline.py     - metrics, admin chat
 """
 
 import logging
@@ -41,29 +41,20 @@ from config import DATA_DIR
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from rate_limit import limiter
 from routers import admin_agent as admin_agent_router_module
+from routers import payments as payments_router_module
 from routers import pipeline as pipeline_router_module
 from routers import queue as queue_router_module
 from routers import races_admin as races_admin_router_module
 from routers import runs as runs_router_module
 from simple_publish_service import SimplePublishService
-from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-from slowapi.util import get_remote_address
 
 # Initialize simple publish service
 publish_service = SimplePublishService(data_directory=DATA_DIR)
 
-
-def get_rate_limit_key(request: Request) -> str | None:
-    # Exempt SvelteKit prerendering requests from rate limiting
-    if request.headers.get("origin") == "http://sveltekit-prerender":
-        return None
-    return get_remote_address(request)
-
-
-# Rate limiter (keyed by client IP, bypassed for prerenderer)
-limiter = Limiter(key_func=get_rate_limit_key)
 
 _ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
 _http_bearer = HTTPBearer(auto_error=False)
@@ -140,6 +131,11 @@ app.include_router(runs_router_module.router)
 app.include_router(races_admin_router_module.router)
 app.include_router(pipeline_router_module.router)
 app.include_router(admin_agent_router_module.router)
+
+# ---------------------------------------------------------------------------
+# Payment routers (public checkout + webhook)
+# ---------------------------------------------------------------------------
+app.include_router(payments_router_module.router)
 
 
 # ---------------------------------------------------------------------------

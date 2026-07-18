@@ -92,7 +92,7 @@ Protected routes require authentication:
 # ... and more endpoints
 ```
 
-The public race read endpoints (`/races`, `/races/summaries`, `/races/chamber_forecasts`, and `/races/{race_id}`) are also protected by the same dependency when served through `races-api`. In production public traffic normally bypasses these FastAPI routes and reads static JSON from GCS through `VITE_PUBLIC_DATA_URL`.
+The public race read endpoints (`/races`, `/races/summaries`, `/races/chamber_forecasts`, and `/races/{race_id}`) are also protected by the same dependency when served through `races-api`. Normal public traffic reads JSON bundled into the Cloudflare Pages deployment. `VITE_PUBLIC_DATA_URL` is reserved for a separately public static origin and is not required by the current deployment.
 
 ### Unprotected Endpoints
 

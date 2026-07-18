@@ -24,6 +24,7 @@
   let searchLoaded = races.length > 0;
   let searchLoadError = false;
   let searchLoadPromise: Promise<void> | null = null;
+  let mobileNavOpen = false;
   const resultsId = "site-search-results";
 
   async function ensureSearchRaces() {
@@ -159,6 +160,7 @@
   }
 
   function handleWindowKeydown(event: KeyboardEvent) {
+    if (event.key === "Escape") mobileNavOpen = false;
     if (
       event.key === "/" &&
       !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName || "")
@@ -198,15 +200,32 @@
         Smarter.Vote
       </a>
 
+      <button
+        type="button"
+        class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-content-muted hover:bg-surface-alt hover:text-content sm:hidden"
+        aria-label={mobileNavOpen
+          ? "Close navigation menu"
+          : "Open navigation menu"}
+        aria-controls="primary-navigation"
+        aria-expanded={mobileNavOpen}
+        on:click={() => (mobileNavOpen = !mobileNavOpen)}
+      >
+        <span aria-hidden="true">{mobileNavOpen ? "×" : "☰"}</span>
+      </button>
+
       <nav
-        class="order-3 flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm sm:justify-start lg:order-none lg:w-auto lg:flex-nowrap"
+        id="primary-navigation"
+        class="order-3 w-full flex-wrap items-center gap-x-4 gap-y-1 text-sm {mobileNavOpen
+          ? 'flex'
+          : 'hidden'} sm:flex sm:justify-start lg:order-none lg:w-auto lg:flex-nowrap"
         aria-label="Primary navigation"
       >
         {#each primaryLinks as link}
           <a
             href={link.href}
+            on:click={() => (mobileNavOpen = false)}
             class:font-semibold={$page.url.pathname.startsWith(link.href)}
-            class="whitespace-nowrap text-content-muted hover:text-content"
+            class="inline-flex min-h-11 items-center whitespace-nowrap px-1 text-content-muted hover:text-content"
           >
             {link.label}
           </a>
@@ -214,7 +233,8 @@
         {#if isAuthenticated}
           <a
             href="/admin/"
-            class="whitespace-nowrap text-content-muted hover:text-content"
+            on:click={() => (mobileNavOpen = false)}
+            class="inline-flex min-h-11 items-center whitespace-nowrap px-1 text-content-muted hover:text-content"
             >Admin</a
           >
         {/if}
@@ -237,7 +257,7 @@
             if (open) void ensureSearchRaces();
           }}
           on:keydown={handleKeydown}
-          class="w-full rounded-full border border-stroke bg-surface-alt py-2 pl-4 pr-9 text-sm text-content focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="min-h-11 w-full rounded-full border border-stroke bg-surface-alt py-2 pl-4 pr-9 text-sm text-content focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search elections or candidates"
           autocomplete="off"
           role="combobox"
@@ -252,7 +272,7 @@
           <button
             type="button"
             on:click={clearSearch}
-            class="absolute inset-y-0 right-0 px-3 text-content-subtle hover:text-content"
+            class="absolute inset-y-0 right-0 min-h-11 min-w-11 px-3 text-content-subtle hover:text-content"
             aria-label="Clear search">×</button
           >
         {/if}
@@ -275,7 +295,7 @@
                   type="button"
                   on:click={() => selectRace(race.id)}
                   class:bg-surface-alt={index === activeIndex}
-                  class="block w-full px-3 py-2 text-left text-xs text-content hover:bg-surface-alt"
+                  class="block min-h-11 w-full px-3 py-2 text-left text-xs text-content hover:bg-surface-alt"
                   role="option"
                   aria-selected={index === activeIndex}
                 >
@@ -304,7 +324,7 @@
                   on:click={() =>
                     selectCandidate(candidate.raceId, candidate.name)}
                   class:bg-surface-alt={itemIndex === activeIndex}
-                  class="block w-full px-3 py-2 text-left text-xs text-content hover:bg-surface-alt"
+                  class="block min-h-11 w-full px-3 py-2 text-left text-xs text-content hover:bg-surface-alt"
                   role="option"
                   aria-selected={itemIndex === activeIndex}
                 >

@@ -29,9 +29,14 @@ export function parseCensusGeography(
   const district = congressionalEntry?.CD119 ?? congressionalEntry?.BASENAME;
 
   if (typeof state !== "string" || district == null) return null;
+  const normalizedDistrict = String(district).padStart(2, "0");
   return {
     state,
-    congressionalDistrict: String(district).padStart(2, "0"),
+    // Census uses 98 for non-voting delegate districts such as Washington,
+    // D.C. Treat it like the other at-large districts throughout the UI and
+    // race matcher rather than exposing the internal Census code to voters.
+    congressionalDistrict:
+      normalizedDistrict === "98" ? "00" : normalizedDistrict,
   };
 }
 

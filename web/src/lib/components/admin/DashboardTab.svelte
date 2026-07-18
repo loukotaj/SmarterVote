@@ -14,7 +14,7 @@
   import { Doughnut, Line } from "svelte-chartjs";
   import { analyticsService } from "$lib/services/analyticsService";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
-  import type { Alert, AnalyticsOverview, TrafficAnalytics } from "$lib/types";
+  import type { AnalyticsOverview, TrafficAnalytics } from "$lib/types";
   import type { RaceRecord } from "$lib/types";
 
   // Register Chart.js components once
@@ -29,14 +29,12 @@
     ArcElement,
   );
 
-  export let onAlertCountChange: (n: number) => void = () => {};
   export let apiService: PipelineApiService | undefined = undefined;
 
   const GCP_PROJECT = import.meta.env.VITE_GCP_PROJECT || "";
 
   let overview: AnalyticsOverview | null = null;
   let traffic: TrafficAnalytics | null = null;
-  let alerts: Alert[] = [];
   let loading = true;
   let error = "";
   let refreshTimer: ReturnType<typeof setInterval> | null = null;
@@ -148,19 +146,13 @@
     },
   };
 
-  $: unacknowledgedAlerts = alerts.filter((a) => !a.acknowledged);
-  $: {
-    onAlertCountChange(unacknowledgedAlerts.length);
-  }
-
   async function loadData(hours = selectedHours) {
     if (refreshInFlight) return refreshInFlight;
     refreshInFlight = (async () => {
       try {
-        const [overviewRes, trafficRes, alertsRes] = await Promise.allSettled([
+        const [overviewRes, trafficRes] = await Promise.allSettled([
           analyticsService.getOverview(hours),
           analyticsService.getTraffic(hours),
-          analyticsService.getAlerts(),
         ]);
 
         if (overviewRes.status === "fulfilled") overview = overviewRes.value;
@@ -183,9 +175,8 @@
             error: String(trafficRes.reason),
           };
         }
-        if (alertsRes.status === "fulfilled") alerts = alertsRes.value.alerts;
 
-        const failed = [overviewRes, alertsRes].filter(
+        const failed = [overviewRes].filter(
           (result) => result.status === "rejected",
         ).length;
         if (failed > 0)
@@ -221,75 +212,6 @@
     await loadData(selectedHours);
   }
 
-  async function handleAcknowledgeAll() {
-    await analyticsService.acknowledgeAllAlerts();
-    alerts = alerts.map((a) => ({ ...a, acknowledged: true }));
-  }
-
-  async function handleAcknowledge(alertId: string) {
-    await analyticsService.acknowledgeAlert(alertId);
-    alerts = alerts.map((a) =>
-      a.id === alertId ? { ...a, acknowledged: true } : a,
-    );
-  }
-
-  /** Return the most meaningful detail snippet for an alert. */
-  function alertDetail(alert: Alert): string | null {
-    const d = alert.details as Record<string, unknown>;
-    switch (alert.category) {
-      case "freshness": {
-        const days = d.age_days as number | undefined;
-        const updated = d.updated_utc as string | undefined;
-        if (days != null)
-          return `${days} day${days !== 1 ? "s" : ""} since last update${
-            updated ? ` (${formatDate(updated)})` : ""
-          }`;
-        return null;
-      }
-      case "failures": {
-        const n = d.consecutive_failures as number | undefined;
-        return n != null
-          ? `${n} consecutive failure${n !== 1 ? "s" : ""}`
-          : null;
-      }
-      case "quality": {
-        const covered = d.issues_covered as number | undefined;
-        const conf = d.avg_confidence_score as number | undefined;
-        if (covered != null) return `${covered}/12 issues covered`;
-        if (conf != null) return `Avg confidence score: ${conf}`;
-        return null;
-      }
-      case "analytics": {
-        const rate = d.error_rate as number | undefined;
-        const total = d.total_requests as number | undefined;
-        return rate != null
-          ? `${rate}% error rate${
-              total != null ? ` over ${total.toLocaleString()} requests` : ""
-            }`
-          : null;
-      }
-      default:
-        return null;
-    }
-  }
-
-  const categoryLabel: Record<string, string> = {
-    freshness: "Freshness",
-    failures: "Failures",
-    quality: "Quality",
-    analytics: "API Health",
-  };
-
-  function categoryClass(c: string): string {
-    return c === "failures"
-      ? "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300"
-      : c === "freshness"
-        ? "bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300"
-        : c === "quality"
-          ? "bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300"
-          : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400";
-  }
-
   const gcpLogsUrl = GCP_PROJECT
     ? `https://console.cloud.google.com/logs/query;query=resource.type%3D%22cloud_run_revision%22?project=${GCP_PROJECT}`
     : null;
@@ -313,30 +235,6 @@
     if (refreshTimer) clearInterval(refreshTimer);
     document.removeEventListener("visibilitychange", handleVisibilityChange);
   });
-
-  function severityClass(s: string) {
-    return s === "critical"
-      ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200"
-      : s === "warning"
-        ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200"
-        : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200";
-  }
-
-  function severityBadge(s: string) {
-    return s === "critical"
-      ? "bg-red-500 text-white"
-      : s === "warning"
-        ? "bg-yellow-500 text-white"
-        : "bg-blue-500 text-white";
-  }
-
-  function formatDate(s?: string) {
-    if (!s) return "-";
-    return new Date(s).toLocaleString(undefined, {
-      dateStyle: "short",
-      timeStyle: "short",
-    });
-  }
 
   function formatTrafficTime(value: string) {
     if (!value) return "";
@@ -560,96 +458,26 @@
     </div>
   </div>
 
-  <!-- Alerts -->
-  <div class="card p-4">
-    <div class="flex items-center justify-between mb-3">
-      <h3 class="text-sm font-semibold text-content-muted">Alerts</h3>
-      <div class="flex items-center gap-2">
-        {#if unacknowledgedAlerts.length > 0}
-          <span
-            class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-red-500 text-white"
-          >
-            {unacknowledgedAlerts.length} active
-          </span>
-          <button
-            type="button"
-            class="text-xs px-2 py-0.5 rounded border border-stroke text-content-muted hover:bg-surface-alt transition-colors"
-            on:click={handleAcknowledgeAll}>Ack all</button
-          >
-        {/if}
-        <button
-          type="button"
-          class="text-xs text-blue-600 hover:underline"
-          on:click={() => loadData(selectedHours)}>Refresh</button
-        >
-      </div>
+  {#if error}
+    <div
+      class="mb-4 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-700 dark:bg-red-950/30 dark:text-red-200"
+    >
+      {error}
     </div>
+  {/if}
 
-    {#if error}
-      <p class="text-xs text-red-500">{error}</p>
-    {:else if unacknowledgedAlerts.length === 0}
-      <p class="text-sm text-content-faint py-4 text-center">
-        No active alerts ✓
-      </p>
-    {:else}
-      <div class="space-y-2 max-h-72 overflow-y-auto pr-1">
-        {#each unacknowledgedAlerts as alert (alert.id)}
-          {@const detail = alertDetail(alert)}
-          <div
-            class="rounded-lg border px-3 py-2.5 {severityClass(
-              alert.severity,
-            )}"
-          >
-            <div class="flex items-start justify-between gap-2">
-              <div class="flex-1 min-w-0 space-y-1">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <span
-                    class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-bold shrink-0 {severityBadge(
-                      alert.severity,
-                    )}"
-                  >
-                    {alert.severity}
-                  </span>
-                  <span
-                    class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium shrink-0 {categoryClass(
-                      alert.category,
-                    )}"
-                  >
-                    {categoryLabel[alert.category] ?? alert.category}
-                  </span>
-                  {#if alert.details?.race_id}
-                    <span class="font-mono text-xs opacity-70 truncate"
-                      >{alert.details.race_id}</span
-                    >
-                  {/if}
-                </div>
-                <p class="text-xs leading-snug">{alert.message}</p>
-                {#if detail}
-                  <p class="text-xs opacity-70 font-medium">{detail}</p>
-                {/if}
-              </div>
-              <button
-                type="button"
-                class="shrink-0 text-xs underline opacity-60 hover:opacity-100 mt-0.5"
-                on:click={() => handleAcknowledge(alert.id)}>Ack</button
-              >
-            </div>
-          </div>
-        {/each}
-      </div>
-    {/if}
-
-    {#if gcpLogsUrl}
+  {#if gcpLogsUrl}
+    <div class="card p-4 mb-6">
       <a
         href={gcpLogsUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="mt-3 inline-flex items-center text-xs text-blue-600 hover:underline"
+        class="inline-flex items-center text-xs text-blue-600 hover:underline"
       >
         View logs in GCP Console ->
       </a>
-    {/if}
-  </div>
+    </div>
+  {/if}
 
   {#if traffic?.configured}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">

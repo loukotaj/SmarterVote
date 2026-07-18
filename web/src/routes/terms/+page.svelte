@@ -37,7 +37,8 @@
     <p>
       The service is operated by Smarter.Vote LLC. We may update, suspend, or
       discontinue features and revise these terms as the service develops.
-      Payment terms will be published before Smarter.Vote LLC accepts payments.
+      Questions about charges, recurring support, cancellation, or refunds can
+      be sent through the support page.
     </p>
   </PolicySection>
   <ContactCard subject="Terms question" />

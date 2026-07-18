@@ -114,6 +114,66 @@ resource "google_secret_manager_secret_iam_member" "races_api_cloudflare_analyti
   member    = "serviceAccount:${google_service_account.races_api.email}"
 }
 
+# ---------------------------------------------------------------------------
+# Stripe payment secrets
+# ---------------------------------------------------------------------------
+
+resource "google_secret_manager_secret" "stripe_secret_key" {
+  project   = var.project_id
+  secret_id = "stripe-secret-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "stripe_secret_key" {
+  count       = nonsensitive(var.stripe_secret_key != "") ? 1 : 0
+  secret      = google_secret_manager_secret.stripe_secret_key.id
+  secret_data = var.stripe_secret_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
+resource "google_secret_manager_secret_iam_member" "races_api_stripe_secret_key" {
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.stripe_secret_key.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.races_api.email}"
+}
+
+resource "google_secret_manager_secret" "stripe_webhook_secret" {
+  project   = var.project_id
+  secret_id = "stripe-webhook-secret-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "stripe_webhook_secret" {
+  count       = nonsensitive(var.stripe_webhook_secret != "") ? 1 : 0
+  secret      = google_secret_manager_secret.stripe_webhook_secret.id
+  secret_data = var.stripe_webhook_secret
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
+resource "google_secret_manager_secret_iam_member" "races_api_stripe_webhook_secret" {
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.stripe_webhook_secret.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.races_api.email}"
+}
+
 resource "google_secret_manager_secret" "openrouter_key" {
   project   = var.project_id
   secret_id = "openrouter-api-key-${var.environment}"

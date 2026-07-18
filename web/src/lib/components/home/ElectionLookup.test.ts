@@ -127,6 +127,21 @@ describe("ElectionLookup", () => {
     expect(lookupElectionGeography).not.toHaveBeenCalled();
   });
 
+  it("renders Census delegate districts as at-large", async () => {
+    window.history.replaceState(
+      {},
+      "",
+      "/my-ballot/?state=District%20of%20Columbia&district=00",
+    );
+
+    render(ElectionLookup, { races: [] });
+
+    await waitFor(() =>
+      expect(screen.getByText(/At-large congressional district/i)).toBeTruthy(),
+    );
+    expect(screen.queryByText(/House District 0/i)).toBeNull();
+  });
+
   it("supports keyboard navigation and selection in the address combobox", async () => {
     const resolveFirst = vi.fn().mockResolvedValue("First resolved address");
     suggestUsAddresses.mockResolvedValue([

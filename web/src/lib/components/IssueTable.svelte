@@ -65,7 +65,7 @@
                 {#if RENAMED_ISSUE_NOTES[issue]}
                   <span class="relative inline-block">
                     <button
-                      class="text-blue-500 hover:text-blue-400 focus:outline-none leading-none"
+                      class="inline-flex min-h-11 min-w-11 items-center justify-center text-blue-500 hover:text-blue-400 focus:outline-none leading-none"
                       aria-label="About this issue name"
                       title="About this issue name"
                       on:click|stopPropagation={() => toggleTooltip(issue)}
@@ -85,12 +85,12 @@
                     </button>
                     {#if visibleTooltip === issue}
                       <div
-                        class="absolute z-10 left-0 top-6 w-72 rounded-lg border border-stroke bg-surface p-3 shadow-lg text-sm text-content-muted"
+                        class="absolute z-10 left-0 top-11 w-72 rounded-lg border border-stroke bg-surface p-3 shadow-lg text-sm text-content-muted"
                         role="tooltip"
                       >
                         <p>{RENAMED_ISSUE_NOTES[issue]}</p>
                         <button
-                          class="mt-2 text-xs text-content-faint hover:text-content underline"
+                          class="mt-2 inline-flex min-h-11 items-center text-xs text-content-faint hover:text-content underline"
                           on:click|stopPropagation={() => {
                             visibleTooltip = null;
                           }}>Dismiss</button
@@ -118,7 +118,12 @@
                 </div>
                 {#if stance.sources.length > INITIAL_SOURCE_LIMIT}
                   <button
-                    class="mt-2 text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
+                    class="mt-2 inline-flex min-h-11 items-center text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
+                    aria-label={expandedSources.has(issue)
+                      ? `Show fewer sources for ${getIssueDisplayName(issue)}`
+                      : `Show ${
+                          stance.sources.length - INITIAL_SOURCE_LIMIT
+                        } more sources for ${getIssueDisplayName(issue)}`}
                     title={expandedSources.has(issue)
                       ? "Show fewer sources"
                       : `Show ${
@@ -148,12 +153,12 @@
     {#each issueEntries as [issue, stance]}
       <div class="bg-surface border border-stroke rounded-lg p-4">
         <div class="flex items-center justify-between mb-2">
-          <h4 class="font-semibold text-content inline-flex items-center gap-1">
+          <h3 class="font-semibold text-content inline-flex items-center gap-1">
             {getIssueDisplayName(issue)}
             {#if RENAMED_ISSUE_NOTES[issue]}
               <span class="relative inline-block">
                 <button
-                  class="text-blue-500 hover:text-blue-400 focus:outline-none leading-none"
+                  class="inline-flex min-h-11 min-w-11 items-center justify-center text-blue-500 hover:text-blue-400 focus:outline-none leading-none"
                   aria-label="About this issue name"
                   on:click|stopPropagation={() =>
                     toggleTooltip(issue + "-mobile")}
@@ -173,13 +178,13 @@
                 </button>
                 {#if visibleTooltip === issue + "-mobile"}
                   <div
-                    class="absolute z-10 left-0 top-6 w-64 rounded-lg border border-stroke bg-surface p-3 shadow-lg text-sm text-content-muted"
+                    class="absolute z-10 left-0 top-11 w-64 rounded-lg border border-stroke bg-surface p-3 shadow-lg text-sm text-content-muted"
                     role="tooltip"
                   >
                     <p>{RENAMED_ISSUE_NOTES[issue]}</p>
 
                     <button
-                      class="mt-2 text-xs text-content-faint hover:text-content underline"
+                      class="mt-2 inline-flex min-h-11 items-center text-xs text-content-faint hover:text-content underline"
                       on:click|stopPropagation={() => {
                         visibleTooltip = null;
                       }}>Dismiss</button
@@ -188,7 +193,7 @@
                 {/if}
               </span>
             {/if}
-          </h4>
+          </h3>
           <ConfidenceIndicator confidence={stance.confidence} />
         </div>
         <p class="text-content-muted mb-3">{stance.stance}</p>
@@ -204,7 +209,12 @@
             </div>
             {#if stance.sources.length > INITIAL_SOURCE_LIMIT}
               <button
-                class="mt-2 text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
+                class="mt-2 inline-flex min-h-11 items-center text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
+                aria-label={expandedSources.has(issue + "-mobile")
+                  ? `Show fewer sources for ${getIssueDisplayName(issue)}`
+                  : `Show ${
+                      stance.sources.length - INITIAL_SOURCE_LIMIT
+                    } more sources for ${getIssueDisplayName(issue)}`}
                 on:click={() => toggleSources(issue + "-mobile")}
               >
                 {expandedSources.has(issue + "-mobile")

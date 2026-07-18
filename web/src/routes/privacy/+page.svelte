@@ -28,8 +28,7 @@
       derived state, district, and matched race IDs are kept in this tab's
       session storage so results survive a refresh. Google and the Census Bureau
       handle their parts of the lookup under their own policies. The derived
-      values are cleared when you search another address or close the tab. The
-      Census Bureau handles the lookup under its own policies.
+      values are cleared when you search another address or close the tab.
     </p>
   </PolicySection>
   <PolicySection title="Retention and access">

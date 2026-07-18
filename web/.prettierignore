@@ -5,4 +5,3 @@ build
 test-results
 vite.config.js.timestamp-*.mjs
 static/states-10m.json
-Smarter.Vote visual system

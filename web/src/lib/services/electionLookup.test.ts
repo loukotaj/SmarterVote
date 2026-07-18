@@ -35,6 +35,26 @@ describe("parseCensusGeography", () => {
   it("returns null for an unmatched address", () => {
     expect(parseCensusGeography({ result: { addressMatches: [] } })).toBeNull();
   });
+
+  it("normalizes Census delegate district 98 to at-large", () => {
+    expect(
+      parseCensusGeography({
+        result: {
+          addressMatches: [
+            {
+              geographies: {
+                States: [{ NAME: "District of Columbia" }],
+                "119th Congressional Districts": [{ CD119: "98" }],
+              },
+            },
+          ],
+        },
+      }),
+    ).toEqual({
+      state: "District of Columbia",
+      congressionalDistrict: "00",
+    });
+  });
 });
 
 describe("matchingNationalRaces", () => {
