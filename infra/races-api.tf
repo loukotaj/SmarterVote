@@ -85,7 +85,7 @@ resource "google_cloud_run_v2_service" "races_api" {
 
       env {
         name  = "PIPELINE_DEFAULT_RUNNER"
-        value = "cloud_run"
+        value = "local"
       }
 
       env {
