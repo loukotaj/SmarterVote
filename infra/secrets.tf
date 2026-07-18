@@ -130,7 +130,7 @@ resource "google_secret_manager_secret" "stripe_secret_key" {
 }
 
 resource "google_secret_manager_secret_version" "stripe_secret_key" {
-  count       = var.stripe_secret_key != "" ? 1 : 0
+  count       = nonsensitive(var.stripe_secret_key != "") ? 1 : 0
   secret      = google_secret_manager_secret.stripe_secret_key.id
   secret_data = var.stripe_secret_key
 
@@ -158,7 +158,7 @@ resource "google_secret_manager_secret" "stripe_webhook_secret" {
 }
 
 resource "google_secret_manager_secret_version" "stripe_webhook_secret" {
-  count       = var.stripe_webhook_secret != "" ? 1 : 0
+  count       = nonsensitive(var.stripe_webhook_secret != "") ? 1 : 0
   secret      = google_secret_manager_secret.stripe_webhook_secret.id
   secret_data = var.stripe_webhook_secret
 
