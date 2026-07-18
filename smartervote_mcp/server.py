@@ -107,16 +107,18 @@ async def queue_races(
     target_no_info: bool | None = None,
     note: str | None = None,
     goal: str | None = None,
-    runner: str | None = None,
+    runner: str | None = "local",
 ) -> Dict[str, Any]:
     """Queue one or more races for pipeline processing.
 
-    Defaults to cheap/economy mode. Expensive default/quality/custom model
-    profiles require explicitly passing cheap_mode=False. Pass runner="local" to
-    route the runs to the long-lived local Docker worker instead of the default
-    one-shot Cloud Run Job. Set baseline_source="published" for a targeted
-    repair that must ignore any existing draft; the default "latest" behavior
-    prefers a draft and falls back to published data.
+    Defaults to cheap/economy mode, routed to the long-lived local Docker
+    worker (runner="local"). Pass runner="cloud_run" to use the one-shot Cloud
+    Run Job instead (currently broken: the races-api service account is
+    missing run.invoker on pipeline-job-dev, so dispatch 403s as of 2026-07-17).
+    Expensive default/quality/custom model profiles require explicitly passing
+    cheap_mode=False. Set baseline_source="published" for a targeted repair
+    that must ignore any existing draft; the default "latest" behavior prefers
+    a draft and falls back to published data.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
@@ -150,15 +152,16 @@ async def run_race(
     enabled_steps: List[str] | None = None,
     note: str | None = None,
     goal: str | None = None,
-    runner: str | None = None,
+    runner: str | None = "local",
 ) -> Dict[str, Any]:
     """Queue a single race for pipeline processing.
 
-    Defaults to cheap/economy mode. Expensive default/quality mode requires
-    explicitly passing cheap_mode=False. Pass runner="local" to route the run to
-    the long-lived local Docker worker; the deployed default is a one-shot Cloud
-    Run Job. Set baseline_source="published" to ignore an existing draft when
-    performing a targeted repair.
+    Defaults to cheap/economy mode, routed to the long-lived local Docker
+    worker (runner="local"). Pass runner="cloud_run" to use the one-shot Cloud
+    Run Job instead (currently broken: the races-api service account is
+    missing run.invoker on pipeline-job-dev, so dispatch 403s as of 2026-07-17).
+    Set baseline_source="published" to ignore an existing draft when performing
+    a targeted repair.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
