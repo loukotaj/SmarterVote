@@ -204,8 +204,7 @@
     </div>
     {#if compact}
       <p class="mt-4 text-center text-xs text-content-subtle">
-        Choose another issue above, or open the full comparison for every
-        research field.
+        Choose another issue above to review more research fields.
       </p>
     {/if}
   </div>

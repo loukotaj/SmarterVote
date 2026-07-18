@@ -6,6 +6,7 @@
   import { CANONICAL_ISSUES, getIssueDisplayName } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
   import { partyAbbr } from "$lib/utils/party";
+  import { stancePreview } from "$lib/utils/stance";
   import { isExternalUrl } from "$lib/utils/url";
 
   export let race: Race;
@@ -17,7 +18,17 @@
     undefined;
 
   let expandedSources: Record<string, boolean> = {};
+  let expandedStances: Record<string, boolean> = {};
   let failedImages: Record<string, boolean> = {};
+
+  function stanceKey(issue: string, candidate: Candidate): string {
+    return `${issue}:${candidate.name}:stance`;
+  }
+
+  function toggleStance(issue: string, candidate: Candidate) {
+    const key = stanceKey(issue, candidate);
+    expandedStances = { ...expandedStances, [key]: !expandedStances[key] };
+  }
 
   function sourcesKey(issue: string, candidate: Candidate): string {
     return `${issue}:${candidate.name}`;
@@ -127,6 +138,7 @@
 />
 
 <div
+  data-desktop-candidate-comparison
   class="hidden overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
 >
   <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
@@ -270,6 +282,9 @@
           </div>
           {#each candidates as candidate}
             {@const stance = candidate.issues?.[issueKey]}
+            {@const preview = stance ? stancePreview(stance.stance) : ""}
+            {@const isStanceExpanded =
+              expandedStances[stanceKey(issueKey, candidate)] ?? false}
             <div
               class="flex flex-col gap-3 border-r border-stroke p-6 last:border-none"
             >
@@ -277,8 +292,19 @@
                 <p
                   class="whitespace-normal text-sm leading-relaxed text-content-muted"
                 >
-                  {stance.stance}
+                  {isStanceExpanded ? stance.stance : preview}
                 </p>
+                {#if preview !== stance.stance.trim()}
+                  <button
+                    type="button"
+                    aria-expanded={isStanceExpanded}
+                    on:click={() => toggleStance(issueKey, candidate)}
+                    class="inline-flex min-h-11 items-center self-start text-sm font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                  >
+                    {isStanceExpanded ? "Show less" : "Show more"}
+                    <span class="sr-only"> for {candidate.name}</span>
+                  </button>
+                {/if}
                 <div class="flex items-center gap-2 pt-1">
                   <span
                     class="text-[10px] font-medium uppercase tracking-wide text-content-subtle"

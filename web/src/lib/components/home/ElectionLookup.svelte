@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { replaceState } from "$app/navigation";
   import { createEventDispatcher, onMount } from "svelte";
   import BallotExplorer from "$lib/components/ballot/BallotExplorer.svelte";
   import type { RaceSummary } from "$lib/types";
@@ -119,7 +120,7 @@
     const url = new URL(window.location.href);
     url.searchParams.set("state", state);
     url.searchParams.set("district", district);
-    window.history.replaceState({}, "", url);
+    replaceState(url, {});
   }
 
   onMount(() => {
@@ -148,7 +149,8 @@
       results = restored;
       submitted = true;
       dispatch("exploring", true);
-      updateShareableUrl();
+      // SvelteKit initializes its router immediately after component mount.
+      window.setTimeout(updateShareableUrl);
     } catch {
       sessionStorage.removeItem(SESSION_KEY);
     }
@@ -201,7 +203,7 @@
     url.searchParams.delete("state");
     url.searchParams.delete("district");
     url.searchParams.delete("race");
-    window.history.replaceState({}, "", url);
+    replaceState(url, {});
     dispatch("exploring", false);
   }
 </script>
@@ -329,10 +331,7 @@
   {/if}
 
   {#if submitted}
-    <section
-      class="rounded-[2rem] border border-stroke bg-surface p-4 shadow-xl shadow-blue-950/5 sm:p-7 lg:p-9"
-      aria-live="polite"
-    >
+    <section class="py-2 sm:py-4" aria-live="polite">
       <div
         class="flex flex-col gap-5 border-b border-stroke pb-6 sm:flex-row sm:items-end sm:justify-between"
       >

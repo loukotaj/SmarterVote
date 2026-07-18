@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { replaceState } from "$app/navigation";
   import { onMount, tick } from "svelte";
   import { getRace } from "$lib/api";
   import CandidateComparison from "$lib/components/compare/CandidateComparison.svelte";
@@ -57,12 +58,14 @@
     };
   }
 
-  async function selectRace(raceId: string) {
+  async function selectRace(raceId: string, updateUrl = true) {
     selectedId = raceId;
     loadError = "";
-    const url = new URL(window.location.href);
-    url.searchParams.set("race", raceId);
-    window.history.replaceState({}, "", url);
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("race", raceId);
+      replaceState(url, {});
+    }
     if (loadedRaces[raceId] || loadingId === raceId) return;
 
     loadingId = raceId;
@@ -105,7 +108,7 @@
     const initialId = races.some((race) => race.id === requestedId)
       ? requestedId
       : races[0]?.id;
-    if (initialId) void selectRace(initialId);
+    if (initialId) void selectRace(initialId, false);
   });
 
   $: selectedSummary = races.find((race) => race.id === selectedId);
@@ -206,16 +209,11 @@
               {formatElectionDate(selectedRace.election_date)}
             </p>
           </div>
-          <div class="grid shrink-0 gap-2 text-sm font-bold sm:grid-cols-2">
+          <div class="shrink-0 text-sm font-bold">
             <a
               href="/races/{selectedRace.id}/"
               class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-blue-700 px-5 py-2.5 text-white shadow-md shadow-blue-900/10 transition hover:-translate-y-0.5 hover:bg-blue-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >View full race guide <span aria-hidden="true">→</span></a
-            >
-            <a
-              href="/races/{selectedRace.id}/compare/"
-              class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-5 py-2.5 text-blue-800 transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200 dark:hover:bg-blue-900"
-              >Open detailed comparison <span aria-hidden="true">↗</span></a
             >
           </div>
         </div>
