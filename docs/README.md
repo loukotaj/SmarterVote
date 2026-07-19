@@ -15,6 +15,7 @@ Use this page to decide which documents describe current behavior. Code, deploye
 | Infrastructure | [../infra/README.md](../infra/README.md) | Terraform components and defaults |
 | Pipeline modes | [../PIPELINE_MODES.md](../PIPELINE_MODES.md) | Local/GCP execution and storage modes |
 | Search indexing | [indexnow.md](indexnow.md) | IndexNow setup and deployment integration |
+| Marketing design system | [../design-system/README.md](../design-system/README.md) | React export used by Claude to create branded marketing material; not production frontend code |
 
 The current public product surface is documented in [architecture.md](architecture.md#public-web-surface), including the homepage/directory split, national-only launch scope, and informational support and trust pages.
 

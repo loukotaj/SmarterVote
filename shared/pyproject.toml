@@ -10,7 +10,7 @@ authors = [{name = "SmarterVote Team"}]
 dependencies = [
     "pydantic>=2.0.0",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 
 [project.optional-dependencies]
 dev = [

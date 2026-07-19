@@ -6,8 +6,8 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-# On Windows, the default ProactorEventLoop causes a KeyboardInterrupt during
-# pytest-asyncio teardown (Python 3.10 bug). Use the SelectorEventLoop instead.
+# On Windows, the default ProactorEventLoop can disrupt pytest-asyncio teardown.
+# Use the SelectorEventLoop for consistent local and CI behavior.
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 

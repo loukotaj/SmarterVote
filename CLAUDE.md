@@ -76,7 +76,7 @@ For the full local gate sequence: `.\scripts\run-ci-gates.ps1`
 
 ## Python Conventions
 
-- **Black** (line-length 127, py310) + **isort** (profile "black") — config in `pyproject.toml`
+- **Black** (line-length 127, py311) + **isort** (profile "black") — config in `pyproject.toml`
 - **Pydantic v2 only** — `model_dump()` / `model_validate()`, never `.dict()` / `.parse_obj()`
 - **Imports** — package-relative inside a package; absolute across boundaries (`from shared.models import RaceJSON`)
 - **Lazy imports in handlers** to break circular dependencies — import inside functions, not at module top

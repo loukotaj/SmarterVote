@@ -1,6 +1,5 @@
-"""Race record CRUD, draft, publish, and version endpoints."""
+"""Race record CRUD, draft, publish, and run-history endpoints."""
 
-import json
 import logging
 import os
 import uuid
@@ -1004,81 +1003,6 @@ async def get_race_data(race_id: str, draft: bool = False) -> Dict[str, Any]:
     if data is None:
         raise HTTPException(status_code=404, detail=f"{label} data not found")
     return data
-
-
-# ---------------------------------------------------------------------------
-# Version / restore endpoints
-# ---------------------------------------------------------------------------
-
-
-@router.get("/api/races/{race_id}/versions", dependencies=[Depends(verify_token)])
-async def list_race_versions(race_id: str) -> Dict[str, Any]:
-    """List retired (archived) versions for a race, newest first."""
-    validate_race_id(race_id)
-    versions = gcs_helpers._gcs_list_versions(race_id)
-    versions.sort(key=lambda v: v.get("archived_at") or "", reverse=True)
-    return {"versions": versions, "count": len(versions)}
-
-
-@router.get("/api/races/{race_id}/versions/{filename}", dependencies=[Depends(verify_token)])
-async def get_race_version(race_id: str, filename: str) -> Dict[str, Any]:
-    """Return JSON content of a specific retired version."""
-    validate_race_id(race_id)
-    if "/" in filename or "\\" in filename or not filename.endswith(".json"):
-        raise HTTPException(status_code=400, detail="Invalid version filename")
-    bucket_name = gcs_helpers._GCS_BUCKET
-    if not bucket_name:
-        raise HTTPException(status_code=503, detail="GCS not configured")
-    client = gcs_helpers._get_gcs_admin()
-    if client is None:
-        raise HTTPException(status_code=503, detail="GCS unavailable")
-    try:
-        bucket = client.bucket(bucket_name)
-        blob = bucket.blob(f"retired/{race_id}/{filename}")
-        if not blob.exists():
-            raise HTTPException(status_code=404, detail="Version not found")
-        return json.loads(blob.download_as_text())
-    except HTTPException:
-        raise
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"GCS error: {exc}") from exc
-
-
-@router.post("/api/races/{race_id}/versions/{filename}/restore", dependencies=[Depends(verify_token)])
-async def restore_version_as_draft(race_id: str, filename: str) -> Dict[str, Any]:
-    """Restore a retired version as the active draft."""
-    validate_race_id(race_id)
-    if "/" in filename or "\\" in filename or not filename.endswith(".json"):
-        raise HTTPException(status_code=400, detail="Invalid version filename")
-    bucket_name = gcs_helpers._GCS_BUCKET
-    if not bucket_name:
-        raise HTTPException(status_code=503, detail="GCS not configured")
-    client = gcs_helpers._get_gcs_admin()
-    if client is None:
-        raise HTTPException(status_code=503, detail="GCS unavailable")
-    try:
-        bucket = client.bucket(bucket_name)
-        src_blob = bucket.blob(f"retired/{race_id}/{filename}")
-        if not src_blob.exists():
-            raise HTTPException(status_code=404, detail="Retired version not found")
-        version_data = json.loads(src_blob.download_as_text())
-    except HTTPException:
-        raise
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"GCS read error: {exc}") from exc
-
-    gcs_helpers._gcs_archive_race(race_id, "drafts", "draft")
-    gcs_helpers._gcs_put_race_json(race_id, "drafts", version_data)
-    firestore_helpers._fs_update_race(
-        race_id,
-        {
-            "status": "draft",
-            "published_at": None,
-            "draft_updated_at": datetime.now(timezone.utc).isoformat(),
-            **firestore_helpers._fs_build_draft_catalog_fields(race_id, version_data),
-        },
-    )
-    return {"message": f"Retired version restored as draft for {race_id}", "id": race_id, "restored_from": filename}
 
 
 # End of routes

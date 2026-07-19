@@ -4,7 +4,7 @@ This guide runs the web app, the production-shaped `races-api`, and the local-on
 
 ## Prerequisites
 
-- Python 3.10+
+- Python 3.11+
 - Node.js 22+
 - Git
 - `OPENROUTER_API_KEY` and `SERPER_API_KEY` for real agent runs
