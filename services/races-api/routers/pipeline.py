@@ -288,13 +288,13 @@ def _race_records_for_action(action: Dict[str, Any] | None, context: list[Dict[s
 @router.get("/pipeline/metrics", dependencies=[Depends(verify_token)])
 async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
     """Return recent pipeline run records with token usage and cost data."""
-    db = firestore_helpers._get_fs()
     limit = max(1, min(limit, 500))
-    metric_records: Dict[str, Dict[str, Any]] = {}
-    run_records: Dict[str, Dict[str, Any]] = {}
-
-    # Primary source: pipeline_metrics (includes tokens/cost/model fields).
     try:
+        db = firestore_helpers._get_fs()
+        metric_records: Dict[str, Dict[str, Any]] = {}
+        run_records: Dict[str, Dict[str, Any]] = {}
+
+        # Primary source: pipeline_metrics (includes tokens/cost/model fields).
         docs = db.collection("pipeline_metrics").order_by("timestamp", direction="DESCENDING").limit(limit).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
@@ -302,12 +302,9 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
                 continue
             record = _normalize_pipeline_run(plain, doc.id)
             metric_records[str(record["run_id"])] = record
-    except Exception as exc:
-        logging.warning("Failed to load pipeline_metrics: %s", exc)
 
-    # Recent runs are the dashboard row source; merge in metrics by run_id so a
-    # populated but stale metrics collection does not make current rows look free.
-    try:
+        # Recent runs are the dashboard row source; merge in metrics by run_id so a
+        # populated but stale metrics collection does not make current rows look free.
         docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(limit).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
@@ -315,67 +312,104 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
                 continue
             record = _normalize_pipeline_run(plain, doc.id)
             run_records[str(record["run_id"])] = record
-    except Exception as exc:
-        logging.warning("Failed to load pipeline_runs for metrics merge: %s", exc)
 
-    records: list[Dict[str, Any]] = []
-    seen: set[str] = set()
-    for run_id, run_record in sorted(
-        run_records.items(),
-        key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
-        reverse=True,
-    ):
-        merged = {**run_record, **metric_records.get(run_id, {})}
-        if run_record.get("serper_calls") and not merged.get("serper_calls"):
-            merged["serper_calls"] = run_record["serper_calls"]
-        if run_record.get("duration_s") and not merged.get("duration_s"):
-            merged["duration_s"] = run_record["duration_s"]
-        records.append(merged)
-        seen.add(run_id)
+        records: list[Dict[str, Any]] = []
+        seen: set[str] = set()
+        for run_id, run_record in sorted(
+            run_records.items(),
+            key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
+            reverse=True,
+        ):
+            merged = {**run_record, **metric_records.get(run_id, {})}
+            if run_record.get("serper_calls") and not merged.get("serper_calls"):
+                merged["serper_calls"] = run_record["serper_calls"]
+            if run_record.get("duration_s") and not merged.get("duration_s"):
+                merged["duration_s"] = run_record["duration_s"]
+            records.append(merged)
+            seen.add(run_id)
 
-    for run_id, metric_record in sorted(
-        metric_records.items(),
-        key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
-        reverse=True,
-    ):
-        if run_id in seen:
-            continue
-        records.append(metric_record)
-        if len(records) >= limit:
-            break
+        for run_id, metric_record in sorted(
+            metric_records.items(),
+            key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
+            reverse=True,
+        ):
+            if run_id in seen:
+                continue
+            records.append(metric_record)
+            if len(records) >= limit:
+                break
 
-    return {"records": records[:limit], "count": min(len(records), limit)}
+        return {"records": records[:limit], "count": min(len(records), limit)}
+
+    except Exception:
+        # Local fallback using PipelineMetricsStore
+        from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
+        try:
+            store = get_pipeline_metrics_store()
+            records = await store.get_recent(limit=limit)
+            return {"records": records, "count": len(records)}
+        except Exception:
+            logging.exception("Failed to query local pipeline metrics fallback")
+            return {"records": [], "count": 0}
 
 
 @router.get("/pipeline/metrics/summary", dependencies=[Depends(verify_token)])
 async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str, Any]:
     """Return aggregate pipeline cost stats."""
-    db = firestore_helpers._get_fs()
-    records: list[Dict[str, Any]] = []
-
     try:
+        db = firestore_helpers._get_fs()
+        records: list[Dict[str, Any]] = []
+
         docs = db.collection("pipeline_metrics").order_by("timestamp", direction="DESCENDING").limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
                 continue
             records.append(_normalize_pipeline_run(plain, doc.id))
-    except Exception as exc:
-        logging.warning("Failed to summarize pipeline_metrics: %s", exc)
 
-    if not records:
-        docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(5000).stream()
-        for doc in docs:
-            plain = firestore_helpers._doc_to_plain(doc)
-            if plain is None:
-                continue
-            records.append(_normalize_pipeline_run(plain, doc.id))
+        if not records:
+            docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(5000).stream()
+            for doc in docs:
+                plain = firestore_helpers._doc_to_plain(doc)
+                if plain is None:
+                    continue
+                records.append(_normalize_pipeline_run(plain, doc.id))
 
-    if hours is not None and hours > 0:
-        cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
-        records = [r for r in records if _to_epoch_seconds(r.get("timestamp")) >= cutoff]
+        if hours is not None and hours > 0:
+            cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
+            records = [r for r in records if _to_epoch_seconds(r.get("timestamp")) >= cutoff]
 
-    return _compute_metrics_summary(records)
+        return _compute_metrics_summary(records)
+
+    except Exception:
+        # Local fallback using PipelineMetricsStore
+        from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
+        try:
+            store = get_pipeline_metrics_store()
+            if hours is not None and hours > 0:
+                records = await store.get_recent(limit=5000)
+                cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
+                records = [r for r in records if _to_epoch_seconds(r.get("timestamp")) >= cutoff]
+                return _compute_metrics_summary(records)
+            else:
+                summary = await store.get_summary()
+                return summary
+        except Exception:
+            logging.exception("Failed to summarize local pipeline metrics fallback")
+            return {
+                "total_runs": 0,
+                "total_usd": 0.0,
+                "avg_usd": 0.0,
+                "recent_30d_usd": 0.0,
+                "success_rate": 0.0,
+                "cheap_runs": 0,
+                "avg_cheap_usd": 0.0,
+                "full_runs": 0,
+                "avg_full_usd": 0.0,
+                "avg_usd_per_candidate": 0.0,
+            }
 
 
 # ---------------------------------------------------------------------------
