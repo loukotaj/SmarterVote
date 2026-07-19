@@ -50,6 +50,39 @@ def test_gcs_get_race_json_returns_none_when_no_bucket(monkeypatch):
     assert called == [], "_get_gcs_admin should not be called when bucket is empty"
 
 
+def test_gcs_put_race_json_preserves_storage_contract(monkeypatch):
+    """The adapter must use the canonical object path and JSON content type."""
+    mock_blob = MagicMock()
+    mock_bucket = MagicMock()
+    mock_bucket.blob.return_value = mock_blob
+    mock_client = MagicMock()
+    mock_client.bucket.return_value = mock_bucket
+    payload = {"id": "ga-senate-2026", "candidates": [{"name": "Example"}]}
+    monkeypatch.setattr(gcs_helpers, "_GCS_BUCKET", "test-bucket")
+    monkeypatch.setattr(gcs_helpers, "_get_gcs_admin", lambda: mock_client)
+
+    assert gcs_helpers._gcs_put_race_json("ga-senate-2026", "drafts", payload) is True
+
+    mock_bucket.blob.assert_called_once_with("drafts/ga-senate-2026.json")
+    serialized = mock_blob.upload_from_string.call_args.args[0]
+    assert json.loads(serialized) == payload
+    assert mock_blob.upload_from_string.call_args.kwargs["content_type"] == "application/json"
+
+
+def test_gcs_get_race_json_rejects_malformed_provider_payload(monkeypatch):
+    mock_blob = MagicMock()
+    mock_blob.exists.return_value = True
+    mock_blob.download_as_text.return_value = "not-json"
+    mock_bucket = MagicMock()
+    mock_bucket.blob.return_value = mock_blob
+    mock_client = MagicMock()
+    mock_client.bucket.return_value = mock_bucket
+    monkeypatch.setattr(gcs_helpers, "_GCS_BUCKET", "test-bucket")
+    monkeypatch.setattr(gcs_helpers, "_get_gcs_admin", lambda: mock_client)
+
+    assert gcs_helpers._gcs_get_race_json("ga-senate-2026", "drafts") is None
+
+
 def test_race_manager_get_run_prefers_firestore_over_local_cache():
     manager = RaceManager()
 

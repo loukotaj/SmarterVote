@@ -4,6 +4,7 @@ Uses FastAPI TestClient with mocked Firestore/GCS dependencies.
 Auth is bypassed by patching `verify_token` to return an empty dict.
 """
 
+import asyncio
 import json
 import os
 
@@ -123,6 +124,60 @@ async def test_pipeline_metrics_merges_recent_runs_with_metric_records():
     assert by_id["run-current"]["total_tokens"] == 1200
     assert by_id["run-current"]["serper_calls"] == 7
     assert by_id["run-stale"]["estimated_usd"] == pytest.approx(0.01)
+
+
+@pytest.mark.asyncio
+async def test_pipeline_metrics_preserves_runs_when_cost_collection_fails():
+    from routers.pipeline import get_pipeline_metrics
+
+    metrics_coll = MagicMock()
+    metrics_coll.order_by.return_value = metrics_coll
+    metrics_coll.limit.return_value = metrics_coll
+    metrics_coll.stream.side_effect = RuntimeError("metrics index unavailable")
+    run_doc = _make_existing_doc(
+        {
+            "run_id": "run-current",
+            "race_id": "az-senate-2026",
+            "status": "completed",
+            "started_at": "2026-07-01T00:00:00Z",
+        }
+    )
+    runs_coll = MagicMock()
+    runs_coll.order_by.return_value = runs_coll
+    runs_coll.limit.return_value = runs_coll
+    runs_coll.stream.return_value = iter([run_doc])
+    db = MagicMock()
+    db.collection.side_effect = lambda name: metrics_coll if name == "pipeline_metrics" else runs_coll
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        body = await get_pipeline_metrics(limit=50)
+
+    assert body["count"] == 1
+    assert body["records"][0]["run_id"] == "run-current"
+
+
+@pytest.mark.asyncio
+async def test_pipeline_metrics_reports_production_storage_outage():
+    from fastapi import HTTPException
+    from routers.pipeline import get_pipeline_metrics
+
+    collection = MagicMock()
+    collection.order_by.return_value = collection
+    collection.limit.return_value = collection
+    collection.stream.side_effect = RuntimeError("firestore unavailable")
+    db = MagicMock()
+    db.collection.return_value = collection
+    production_store = MagicMock()
+    production_store._client = object()
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("pipeline_client.backend.pipeline_metrics.get_pipeline_metrics_store", return_value=production_store),
+        pytest.raises(HTTPException) as raised,
+    ):
+        await get_pipeline_metrics(limit=50)
+
+    assert raised.value.status_code == 503
 
 
 def test_collapse_continuation_chain_reports_one_logical_run():
@@ -3119,6 +3174,28 @@ def test_verify_token_rejects_wrong_admin_api_key_without_bearer():
         asyncio.run(auth.verify_token(None, x_admin_key="wrong"))
 
     assert exc_info.value.status_code == 401
+
+
+def test_decode_jwt_refreshes_jwks_once_for_rotated_key(monkeypatch):
+    """A token signed by a newly rotated key should refresh a warm JWKS cache."""
+    import auth
+
+    monkeypatch.setenv("AUTH0_DOMAIN", "example.auth0.com")
+    monkeypatch.setenv("AUTH0_AUDIENCE", "https://api.example.test")
+    stale = {"keys": [{"kid": "old-key"}]}
+    rotated = {"keys": [{"kid": "new-key"}]}
+
+    with (
+        patch("auth._get_jwks", new_callable=AsyncMock, side_effect=[stale, rotated]) as get_jwks,
+        patch("auth.jwt.get_unverified_header", return_value={"kid": "new-key"}),
+        patch("auth.jwt.decode", return_value={"sub": "admin"}) as decode,
+    ):
+        result = asyncio.run(auth._decode_jwt("token"))
+
+    assert result == {"sub": "admin"}
+    assert get_jwks.await_count == 2
+    get_jwks.assert_any_await("example.auth0.com", force_refresh=True)
+    decode.assert_called_once()
 
 
 def test_admin_endpoint_accepts_admin_api_key_header(monkeypatch):

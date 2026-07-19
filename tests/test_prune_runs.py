@@ -1,8 +1,14 @@
 import os
+import pathlib
+import sys
 from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock, patch
 
 import pytest
+
+RACES_API_DIR = pathlib.Path(__file__).parent.parent / "services" / "races-api"
+if str(RACES_API_DIR) not in sys.path:
+    sys.path.insert(0, str(RACES_API_DIR))
 
 
 def _make_existing_doc(data):
@@ -63,6 +69,37 @@ def test_prune_runs_endpoint():
     # Check that batch delete was called on each document reference
     assert batch_mock.delete.call_count == 4
     batch_mock.commit.assert_called_once()
+
+
+def test_prune_runs_splits_log_deletes_at_firestore_batch_limit():
+    """A run with 500 logs commits them before deleting the parent document."""
+    os.environ["SKIP_AUTH"] = "true"
+    run_doc = _make_existing_doc({"run_id": "run-large", "status": "completed"})
+    log_docs = [_make_existing_doc({"id": f"log-{index}"}) for index in range(500)]
+    run_doc.reference.collection.return_value.stream.return_value = iter(log_docs)
+    runs_coll = MagicMock()
+    runs_coll.where.return_value = runs_coll
+    runs_coll.limit.return_value = runs_coll
+    runs_coll.stream.return_value = iter([run_doc])
+    first_batch = MagicMock()
+    second_batch = MagicMock()
+    db = MagicMock()
+    db.collection.return_value = runs_coll
+    db.batch.side_effect = [first_batch, second_batch]
+
+    import firestore_helpers
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+    with patch("firestore_helpers._get_fs", return_value=db):
+        response = TestClient(app_module.app).delete("/runs")
+
+    assert response.status_code == 200
+    assert first_batch.delete.call_count == 500
+    first_batch.commit.assert_called_once()
+    second_batch.delete.assert_called_once_with(run_doc.reference)
+    second_batch.commit.assert_called_once()
 
 
 def test_pipeline_metrics_summary_hours_filter():

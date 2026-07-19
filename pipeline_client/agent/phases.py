@@ -1,8 +1,9 @@
 """Phase orchestration — discovery, issues, finance, refinement, iteration.
 
 Contains the per-candidate issue sub-agent, shared phase runner, fresh and
-update flow runners, and review-iteration logic.  Selection helpers live in
-``selection.py``; patch/merge helpers live in ``patches.py``.
+update flow runners, and review-iteration logic. Selection helpers live in
+``selection.py``; patch/merge helpers in ``patches.py``; deterministic roster
+rules in ``roster.py``; and durable unit bookkeeping in ``phase_state.py``.
 """
 
 import asyncio
@@ -18,7 +19,9 @@ from shared.pipeline_config import PipelineRuntimeConfig
 
 logger = logging.getLogger("pipeline")
 
+from . import phase_state, roster
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
+from .errors import PermanentProviderError, RetryableProviderError
 from .handlers import _make_editing_handlers
 from .images import resolve_candidate_images
 from .llm import _agent_loop, _ensure_dict, _normalize_candidate
@@ -133,34 +136,12 @@ async def _await_with_run_budget(
 
 
 def _candidate_name(candidate: Any) -> str:
-    if not isinstance(candidate, dict):
-        return ""
-    return str(candidate.get("name") or "").strip()
+    return roster.candidate_name(candidate)
 
 
 def _normalize_candidate_entries(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Drop malformed candidate entries before phase fan-out touches them."""
-    candidates = race_json.get("candidates")
-    if not isinstance(candidates, list):
-        return
-
-    kept: List[Dict[str, Any]] = []
-    dropped = 0
-    for candidate in candidates:
-        if not isinstance(candidate, dict):
-            dropped += 1
-            continue
-        name = _candidate_name(candidate)
-        if not name:
-            dropped += 1
-            continue
-        candidate["name"] = name
-        kept.append(candidate)
-
-    if dropped:
-        race_json["candidates"] = kept
-        if log:
-            log("warning", f"Dropped {dropped} malformed candidate entr{'y' if dropped == 1 else 'ies'} before processing")
+    roster.normalize_candidate_entries(race_json, log)
 
 
 def _candidate_roster_text(candidate: Dict[str, Any]) -> str:
@@ -237,23 +218,11 @@ def _remove_inactive_candidates(race_json: Dict[str, Any], log: Any | None = Non
 
 
 def _norm_name_for_match(name: str) -> str:
-    return re.sub(r"[^a-z0-9]+", " ", name.lower()).strip()
+    return roster.normalize_name(name)
 
 
 def _names_likely_same(left: str, right: str) -> bool:
-    left_norm = _norm_name_for_match(left)
-    right_norm = _norm_name_for_match(right)
-    if not left_norm or not right_norm:
-        return False
-    if left_norm == right_norm:
-        return True
-    left_parts = left_norm.split()
-    right_parts = right_norm.split()
-    if len(left_parts) < 2 or len(right_parts) < 2:
-        return False
-    if left_parts[-1] != right_parts[-1]:
-        return False
-    return left_parts[0].startswith(right_parts[0]) or right_parts[0].startswith(left_parts[0])
+    return roster.names_likely_same(left, right)
 
 
 def _candidate_matches_any(name: str, roster: List[Dict[str, Any]]) -> bool:
@@ -262,12 +231,7 @@ def _candidate_matches_any(name: str, roster: List[Dict[str, Any]]) -> bool:
 
 def _party_tag(party: Any) -> str:
     """Normalize a party value to a simple tag for balance checks."""
-    p = str(party or "").lower()
-    if "democrat" in p or p in ("d", "dfl"):
-        return "dem"
-    if "republican" in p or p in ("r", "gop"):
-        return "rep"
-    return "other"
+    return roster.party_tag(party)
 
 
 def _reconcile_candidates_with_authoritative_roster(
@@ -411,26 +375,10 @@ def _backfill_source_timestamps(race_json: Dict[str, Any]) -> None:
     Old data saved before the last_accessed field was made required will fail schema
     validation.  This sets a fallback ISO-8601 timestamp so validation passes.
     """
-    from datetime import datetime, timezone
-
-    fallback = datetime.now(timezone.utc).isoformat()
-    source_list_keys = ("summary_sources", "donor_sources", "voting_sources")
-    for candidate in race_json.get("candidates") or []:
-        if not isinstance(candidate, dict):
-            continue
-        for key in source_list_keys:
-            for src in candidate.get(key) or []:
-                if isinstance(src, dict) and not src.get("last_accessed"):
-                    src["last_accessed"] = fallback
-        for issue_data in (candidate.get("issues") or {}).values():
-            if not isinstance(issue_data, dict):
-                continue
-            for src in issue_data.get("sources") or []:
-                if isinstance(src, dict) and not src.get("last_accessed"):
-                    src["last_accessed"] = fallback
+    roster.backfill_source_timestamps(race_json)
 
 
-_ROSTER_CAP = 8
+_ROSTER_CAP = roster.ROSTER_CAP
 
 
 def _cap_roster(race_json: Dict[str, Any], log: Any | None = None, limit: int = _ROSTER_CAP) -> None:
@@ -442,61 +390,7 @@ def _cap_roster(race_json: Dict[str, Any], log: Any | None = None, limit: int = 
     highest-signal major-party contenders (up to 4 Democratic + 4 Republican),
     filling any remaining slots with the next best candidates.
     """
-    candidates = race_json.get("candidates")
-    if not isinstance(candidates, list) or len(candidates) <= limit:
-        return
-
-    def _signal(candidate: Dict[str, Any]) -> int:
-        score = 0
-        if candidate.get("incumbent"):
-            score += 100
-        if str(candidate.get("summary") or "").strip():
-            score += 10
-        if candidate.get("roster_sources"):
-            score += 5
-        if candidate.get("image_url"):
-            score += 1
-        return score
-
-    def _party_group(candidate: Dict[str, Any]) -> str:
-        party = str(candidate.get("party") or "").lower()
-        if "democrat" in party:
-            return "D"
-        if "republican" in party:
-            return "R"
-        return "O"
-
-    groups: Dict[str, List[int]] = {"D": [], "R": [], "O": []}
-    for idx, candidate in enumerate(candidates):
-        if isinstance(candidate, dict):
-            groups[_party_group(candidate)].append(idx)
-    for indices in groups.values():
-        indices.sort(key=lambda i: (-_signal(candidates[i]), i))
-
-    kept: set[int] = set()
-    # Reserve up to 4 slots for each major party so a one-sided ballot dump
-    # cannot crowd out the other party's real contenders.
-    for party in ("D", "R"):
-        for idx in groups[party][:4]:
-            kept.add(idx)
-    # Fill the rest by overall signal (leftover majors + third parties).
-    rest = groups["D"][4:] + groups["R"][4:] + groups["O"]
-    rest.sort(key=lambda i: (-_signal(candidates[i]), i))
-    for idx in rest:
-        if len(kept) >= limit:
-            break
-        kept.add(idx)
-
-    kept_indices = sorted(list(kept))[:limit]
-    kept_set = set(kept_indices)
-    dropped = [_candidate_name(candidates[i]) for i in range(len(candidates)) if i not in kept_set]
-    race_json["candidates"] = [candidates[i] for i in kept_indices]
-    if log:
-        log(
-            "info",
-            f"    Capped roster {len(candidates)} -> {len(kept_indices)} candidates "
-            f"(dropped: {', '.join(d for d in dropped[:12] if d)}).",
-        )
+    roster.cap_roster(race_json, log, limit)
 
 
 def _remove_known_ineligible_candidates(race_json: Dict[str, Any], log: Any | None = None) -> None:
@@ -546,22 +440,11 @@ def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
 
 
 def _pipeline_completed_units(race_json: Dict[str, Any]) -> set[str]:
-    state = race_json.get("pipeline_state")
-    if not isinstance(state, dict):
-        state = {}
-        race_json["pipeline_state"] = state
-    units = state.get("completed_units")
-    if not isinstance(units, list):
-        units = []
-        state["completed_units"] = units
-    return {str(unit) for unit in units}
+    return phase_state.completed_units(race_json)
 
 
 def _mark_pipeline_unit_complete(race_json: Dict[str, Any], unit: str) -> None:
-    state = race_json.setdefault("pipeline_state", {})
-    units = state.setdefault("completed_units", [])
-    if unit not in units:
-        units.append(unit)
+    phase_state.mark_unit_complete(race_json, unit)
 
 
 def _issue_stance_is_complete(value: Any) -> bool:
@@ -572,22 +455,11 @@ def _issue_stance_is_complete(value: Any) -> bool:
     forever as already-complete rather than retry it. Lazy import avoids a
     circular dependency (agent.py imports from this module).
     """
-    from pipeline_client.agent.agent import _is_missing_stance_text
-
-    if not isinstance(value, dict):
-        return False
-    stance = str(value.get("stance") or "").strip()
-    return bool(stance) and not _is_missing_stance_text(stance)
+    return phase_state.issue_stance_is_complete(value)
 
 
 def _pipeline_issue_attempts(race_json: Dict[str, Any]) -> Dict[str, int]:
-    state = race_json.setdefault("pipeline_state", {})
-    attempts = state.get("issue_attempts")
-    if not isinstance(attempts, dict):
-        attempts = {}
-    normalized = {str(unit): max(0, int(count or 0)) for unit, count in attempts.items()}
-    state["issue_attempts"] = normalized
-    return normalized
+    return phase_state.issue_attempts(race_json)
 
 
 def _build_handoff_context(
@@ -595,24 +467,7 @@ def _build_handoff_context(
     cached_info: Dict[str, Any] | None,
 ) -> str:
     """Build a handoff context string for the issue sub-agent."""
-    parts: List[str] = []
-
-    recent = handoffs if handoffs else []
-    if recent:
-        parts.append("Previous stances already written for this candidate:")
-        for h in recent:
-            parts.append(f"  - {h['issue']}: {h['stance'][:120]} [{h['confidence']}]")
-        parts.append("")
-
-    if cached_info:
-        searches = cached_info.get("searches", [])
-        if searches:
-            parts.append(f"Cached search queries available (results served instantly, {len(searches)} total):")
-            for s in searches[:5]:
-                parts.append(f"  - \"{s['query']}\"")
-            parts.append("")
-
-    return "\n".join(parts) if parts else "No prior context available."
+    return phase_state.build_handoff_context(handoffs, cached_info)
 
 
 async def _run_issue_research_for_candidate(
@@ -738,11 +593,14 @@ async def _run_issue_research_for_candidate(
                 tools_mode=True,
                 run_budget=run_budget,
             )
-        except RuntimeError as exc:
+        except RetryableProviderError:
+            # Do not convert a transient provider outage into twelve missing
+            # stances. Let the durable runner checkpoint and retry later.
+            raise
+        except PermanentProviderError as exc:
             if _is_control_flow_exception(exc):
                 raise
-            error_msg = str(exc)
-            if "policy violation" in error_msg.lower():
+            if exc.code == "policy_violation":
                 log(
                     "error",
                     f"    Issue sub-agent skipped for {candidate_name}/{issue} "
@@ -869,10 +727,12 @@ async def _research_issue_unit(
         )
     except RunBudgetExceeded:
         raise
-    except RuntimeError as exc:
+    except RetryableProviderError:
+        raise
+    except PermanentProviderError as exc:
         if _is_control_flow_exception(exc):
             raise
-        if "policy violation" in str(exc).lower():
+        if exc.code == "policy_violation":
             return {
                 "stance": "No public position found (research blocked by content policy)",
                 "confidence": "low",
