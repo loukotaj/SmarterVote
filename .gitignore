@@ -217,6 +217,7 @@ yarn-error.log*
 # Build outputs
 dist/
 build/
+/artifacts/
 .next/
 .nuxt/
 .vuepress/dist/

@@ -886,7 +886,15 @@ async def _research_issue_unit(
 
     candidate = local_race["candidates"][0]
     result = candidate.get("issues", {}).get(issue)
-    return copy.deepcopy(result) if isinstance(result, dict) else None
+    if not isinstance(result, dict):
+        return None
+    if result == existing_issue_data:
+        # set_issue_stance was never called this attempt (crash, timeout, ran out
+        # of iterations) — this is a genuine failure, not a conclusion, so signal
+        # "nothing happened" rather than echoing back stale pre-existing data
+        # (which could otherwise be mistaken for a fresh verdict by the caller).
+        return None
+    return copy.deepcopy(result)
 
 
 # ---------------------------------------------------------------------------
@@ -1107,7 +1115,16 @@ async def _run_shared_phases(
                             candidate_issue_urls=issue_urls,
                             run_budget=run_budget,
                         )
-                        if _issue_stance_is_complete(patch):
+                        # A non-None patch means the sub-agent successfully called
+                        # set_issue_stance — either with a real stance, or (the only
+                        # other way past that handler's validation) a deliberate
+                        # "no public position found" conclusion after investigating.
+                        # Either way the model reached a reasoned verdict, so accept
+                        # it as final for this run instead of burning another full
+                        # attempt re-researching something already concluded absent.
+                        # Only a truly empty patch (crash/timeout/no tool call at
+                        # all) is a genuine failure worth retrying.
+                        if patch is not None and str(patch.get("stance") or "").strip():
                             candidate = candidates_by_name[candidate_name]
                             candidate.setdefault("issues", {})[issue_name] = patch
                             _mark_pipeline_unit_complete(race_json, unit_id)
