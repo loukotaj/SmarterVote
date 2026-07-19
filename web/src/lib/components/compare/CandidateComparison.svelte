@@ -155,7 +155,7 @@
           : '220px'} repeat({candidates.length}, 1fr)"
       >
         <div
-          class="sticky left-0 z-40 border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+          class="sticky left-0 z-40 flex self-stretch items-center border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
         >
           {compact ? "Compare" : "Compare Directory"}
         </div>
