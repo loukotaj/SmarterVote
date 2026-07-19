@@ -27,7 +27,9 @@ Artifact Registry                → container images for Cloud Run
 **Deployment path** — every push to `main`:
 1. `.github/workflows/ci.yaml` — all gates must pass (security, tests, lint, terraform)
 2. `.github/workflows/terraform-deploy.yaml` — promotes CI-built containers, runs `terraform apply`, and verifies API health
-3. `.github/workflows/cloudflare-deploy.yaml` — runs after infrastructure succeeds, builds/deploys SvelteKit, and verifies public pages
+3. `.github/workflows/cloudflare-deploy.yaml` — runs after infrastructure succeeds, builds/deploys SvelteKit, and verifies public pages — **may sit in `status: "waiting"` behind a manual approval on the `production` GitHub environment**; check `gh api repos/SmarterVote/SmarterVote/actions/runs/<id>/pending_deployments` if a deploy looks stuck, don't just assume it's still running
+
+**The local Docker worker (`runner="local"`) is NOT part of this pipeline and does not auto-update.** It's a genuinely local container (`smartervote-pipeline-worker-1`) started via `docker compose -f docker-compose.worker.yml up -d --build` on whatever workstation runs it — there is no Terraform resource for it (`infra/pipeline-job.tf` only defines the one-shot `runner="cloud_run"` Cloud Run Job). `terraform apply` succeeding has **zero effect** on it. After merging any fix to `pipeline_client/agent/` or `pipeline_client/backend/` that queued races need, you must separately re-run `docker compose -f docker-compose.worker.yml up -d --build` from a checkout of the latest `origin/main` on that workstation, or `runner="local"` races keep running the old code indefinitely with no error or warning. Verify with `docker ps -a` (check the container's uptime against when the fix merged) before trusting a "did the fix work" test.
 
 ## Quick File Map
 
