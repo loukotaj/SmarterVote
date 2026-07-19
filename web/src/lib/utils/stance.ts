@@ -22,8 +22,12 @@ function isAbbreviation(textThroughPeriod: string): boolean {
   );
 }
 
-/** Return a readable first sentence without splitting common abbreviations. */
-export function stancePreview(stance: string, fallbackLength = 180): string {
+/** Return a readable sentence-bounded preview without splitting abbreviations. */
+export function stancePreview(
+  stance: string,
+  fallbackLength = 180,
+  minimumLength = 0,
+): string {
   const normalized = stance.trim();
 
   for (let index = 0; index < normalized.length; index += 1) {
@@ -35,7 +39,7 @@ export function stancePreview(stance: string, fallbackLength = 180): string {
     if (character === "." && isAbbreviation(normalized.slice(0, index + 1)))
       continue;
 
-    return normalized.slice(0, index + 1);
+    if (index + 1 >= minimumLength) return normalized.slice(0, index + 1);
   }
 
   if (normalized.length <= fallbackLength) return normalized;
