@@ -84,6 +84,7 @@ describe("CandidateComparison", () => {
     );
 
     expect(desktop.getByText("Compare").classList).toContain("bg-surface");
+    expect(desktop.getByText("Compare").classList).toContain("self-stretch");
     expect(desktop.getByText("Research review").classList).toContain(
       "bg-emerald-50",
     );
