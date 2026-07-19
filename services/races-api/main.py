@@ -46,6 +46,7 @@ from routers import admin_agent as admin_agent_router_module
 from routers import payments as payments_router_module
 from routers import pipeline as pipeline_router_module
 from routers import queue as queue_router_module
+from routers import race_versions as race_versions_router_module
 from routers import races_admin as races_admin_router_module
 from routers import runs as runs_router_module
 from simple_publish_service import SimplePublishService
@@ -129,6 +130,7 @@ app.add_middleware(
 app.include_router(queue_router_module.router)
 app.include_router(runs_router_module.router)
 app.include_router(races_admin_router_module.router)
+app.include_router(race_versions_router_module.router)
 app.include_router(pipeline_router_module.router)
 app.include_router(admin_agent_router_module.router)
 

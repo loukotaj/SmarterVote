@@ -7,6 +7,7 @@ SmarterVote has one production API surface: `services/races-api`. The older `pip
 | Area                | Path                                         | Role                                                             |
 | ------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
 | Web app             | `web/`                                       | SvelteKit admin and public UI                                    |
+| Marketing design system | `design-system/`                         | React components and tokens for Claude-generated marketing assets; not deployed with the web app |
 | Production API      | `services/races-api/`                        | Public race reads, admin queue/run/draft/publish APIs, analytics |
 | Pipeline worker     | `pipeline_client/worker.py`                  | Cloud Run Job and local Docker entry point                       |
 | Admin agent         | `functions/admin_agent/`                     | Durable tool-calling admin tasks and continuations               |

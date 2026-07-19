@@ -22,6 +22,19 @@
     groupSeatDistribution,
   } from "$lib/utils/forecast";
   import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "$lib/utils/holdovers";
+  import {
+    buildSeatOutcomeChart,
+    colorForRating,
+    marketAsOf,
+    marketSignalTarget,
+    marketSpread,
+    oneDecimal,
+    partyClass,
+    probability,
+    probabilityOneDecimal,
+    ratingClass,
+    summarizeStateForecast,
+  } from "$lib/utils/forecastPresentation";
 
   const tabs: { id: ForecastTab; label: string }[] = [
     { id: "house", label: "House" },
@@ -86,71 +99,13 @@
     chamberSummary?.seat_distribution ?? {},
     activeTab,
   );
-  $: sortedOutcomes = Object.entries(chamberSummary?.seat_distribution ?? {})
-    .map(([key, prob]) => {
-      const matchD = key.match(/(\d+)D/);
-      const matchR = key.match(/(\d+)R/);
-      const d = matchD ? parseInt(matchD[1], 10) : 50;
-      const r = matchR ? parseInt(matchR[1], 10) : 50;
-      return { key, probability: prob, dSeats: d, rSeats: r };
-    })
-    .sort((a, b) => b.dSeats - a.dSeats);
-  $: maxProbability = Math.max(
-    ...sortedOutcomes.map((o) => o.probability),
-    0.01,
+  $: seatOutcomeChart = buildSeatOutcomeChart(
+    chamberSummary?.seat_distribution ?? {},
+    chamberSummary?.threshold ?? 51,
   );
-  $: svgData = (() => {
-    if (sortedOutcomes.length === 0)
-      return {
-        fillPath: "",
-        strokePath: "",
-        points: [],
-        tieX: 150,
-        minD: 45,
-        maxD: 55,
-      };
-    const minD = Math.min(...sortedOutcomes.map((o) => o.dSeats));
-    const maxD = Math.max(...sortedOutcomes.map((o) => o.dSeats));
-    const span = maxD - minD || 1;
-    const maxP = Math.max(...sortedOutcomes.map((o) => o.probability), 0.01);
-    // Use the majority threshold for the tie-break line on the curve
-    const tieThreshold = chamberSummary?.threshold ?? 51;
-
-    const points = sortedOutcomes.map((o) => {
-      const pctX = (o.dSeats - minD) / span;
-      const pctY = o.probability / maxP;
-      return {
-        x: 15 + pctX * 270, // 300px wide
-        y: 85 - pctY * 75, // 100px high
-        dSeats: o.dSeats,
-        rSeats: o.rSeats,
-        prob: o.probability,
-      };
-    });
-
-    let fillPath = "";
-    let strokePath = "";
-    if (points.length > 0) {
-      fillPath = `M ${points[0].x} 85 `;
-      strokePath = `M ${points[0].x} ${points[0].y} `;
-      for (const pt of points) {
-        fillPath += `L ${pt.x} ${pt.y} `;
-        strokePath += `L ${pt.x} ${pt.y} `;
-      }
-      fillPath += `L ${points[points.length - 1].x} 85 Z`;
-    }
-
-    let tieX = 150;
-    if (tieThreshold >= minD && tieThreshold <= maxD) {
-      tieX = 15 + ((tieThreshold - minD) / span) * 270;
-    } else if (tieThreshold < minD) {
-      tieX = 15;
-    } else {
-      tieX = 285;
-    }
-
-    return { fillPath, strokePath, points, tieX, minD, maxD };
-  })();
+  $: sortedOutcomes = seatOutcomeChart.outcomes;
+  $: maxProbability = seatOutcomeChart.maxProbability;
+  $: svgData = seatOutcomeChart.svgData;
 
   $: projectedSeats = chamberSummary?.projected_seats ?? aggregate.projected;
   $: expectedSeats = chamberSummary?.expected_seats;
@@ -604,130 +559,6 @@
         (r) => getRaceState(r) === selectedState,
       )
     : aggregate.missingForecasts;
-
-  function partyClass(party: string): string {
-    if (party === "Democratic") return "text-blue-600 dark:text-blue-400";
-    if (party === "Republican") return "text-red-600 dark:text-red-400";
-    return "text-content-muted";
-  }
-
-  function ratingClass(rating: ForecastRating): string {
-    if (rating.endsWith("_d"))
-      return "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-200 dark:border-blue-800/60";
-    if (rating.endsWith("_r"))
-      return "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-200 dark:border-red-800/60";
-    return "bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800/40 dark:text-slate-200 dark:border-slate-700/60";
-  }
-
-  function colorForRating(rating: ForecastRating): string {
-    return `var(--color-${rating.replace("_", "-")})`;
-  }
-
-  function ratingCompetitiveness(rating: ForecastRating): number {
-    if (rating === "tossup") return 0;
-    if (rating.startsWith("tilt_")) return 1;
-    if (rating.startsWith("lean_")) return 2;
-    if (rating.startsWith("likely_")) return 3;
-    if (rating.startsWith("safe_")) return 4;
-    return 5;
-  }
-
-  function summarizeStateForecast(stateRaces: RaceSummary[]) {
-    const forecasted = stateRaces.filter((race) => race.forecast);
-    const sorted = [...forecasted].sort((a, b) => {
-      const aForecast = a.forecast!;
-      const bForecast = b.forecast!;
-      const priority =
-        ratingCompetitiveness(aForecast.rating) -
-        ratingCompetitiveness(bForecast.rating);
-      if (priority !== 0) return priority;
-      return (
-        Math.abs((aForecast.win_probability ?? 0.5) - 0.5) -
-        Math.abs((bForecast.win_probability ?? 0.5) - 0.5)
-      );
-    });
-
-    return {
-      primary: sorted[0],
-      forecastedCount: forecasted.length,
-      competitiveCount: forecasted.filter(
-        (race) => ratingCompetitiveness(race.forecast!.rating) <= 2,
-      ).length,
-      details: sorted.slice(0, 3).map((race) => {
-        const forecast = race.forecast!;
-        const party = normalizeForecastParty(
-          forecast.predicted_winner_party,
-          forecast.party_probabilities,
-          race.candidates,
-        );
-        const winProb = forecast.win_probability
-          ? `, ${Math.round(forecast.win_probability * 100)}% ${
-              party === "Democratic"
-                ? "D"
-                : party === "Republican"
-                  ? "R"
-                  : party
-            }`
-          : "";
-        return `${race.title ?? race.id}: ${formatRating(
-          forecast.rating,
-        )}${winProb}`;
-      }),
-    };
-  }
-
-  function probability(value?: number): string {
-    if (value === undefined || value === null) return "n/a";
-    if (value >= 1) return ">99%";
-    if (value <= 0) return "<1%";
-    return `${Math.round(value * 100)}%`;
-  }
-
-  function probabilityOneDecimal(value?: number | null): string {
-    if (value === undefined || value === null) return "n/a";
-    return `${(value * 100).toFixed(1)}%`;
-  }
-
-  function marketSignalTarget(signal: {
-    matched_to: string;
-    matched_party?: string;
-  }): string {
-    if (signal.matched_party && signal.matched_party !== signal.matched_to) {
-      return `${signal.matched_to} (${signal.matched_party})`;
-    }
-    return signal.matched_to;
-  }
-
-  function marketSpread(signal: {
-    yes_bid?: number | null;
-    yes_ask?: number | null;
-  }): string | null {
-    if (
-      typeof signal.yes_bid !== "number" ||
-      typeof signal.yes_ask !== "number"
-    ) {
-      return null;
-    }
-    return `${probabilityOneDecimal(
-      signal.yes_bid,
-    )} bid / ${probabilityOneDecimal(signal.yes_ask)} ask`;
-  }
-
-  function marketAsOf(value?: string | null): string {
-    if (!value) return "";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "";
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  }
-
-  function oneDecimal(value?: number): string {
-    if (value === undefined || value === null) return "n/a";
-    return value.toFixed(1);
-  }
 
   function clearStateFilter() {
     setUrlState(activeTab, null);

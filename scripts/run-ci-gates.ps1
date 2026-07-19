@@ -30,7 +30,7 @@ try {
     # Respect an activated virtual environment. The Windows `py` launcher bypasses
     # it and can leak incompatible optional packages into otherwise clean CI checks.
     if (-not $env:VIRTUAL_ENV -and (Get-Command py -ErrorAction SilentlyContinue)) {
-        $python = "py -3.10"
+        $python = "py -3.11"
     }
 
     Write-Host "Running local CI gate checks from: $repoRoot" -ForegroundColor Yellow
@@ -97,7 +97,7 @@ try {
 
     Invoke-Step "Pipeline tests" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=55"
+        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=59"
     }
 
     Invoke-Step "Python formatting" {
