@@ -3,6 +3,10 @@ import { afterEach, describe, expect, it } from "vitest";
 import type { Candidate, Race } from "$lib/types";
 import CandidateComparison from "./CandidateComparison.svelte";
 
+const desktopPreview =
+  "The first sentence explains the position. The second sentence adds context about implementation and likely effects. The third sentence explains funding and accountability for the proposal. The fourth sentence provides further evidence about the expected outcome.";
+const fullStance = `${desktopPreview} The final sentence contains additional detail for voters who want the complete record.`;
+
 const candidate: Candidate = {
   name: "Casey Candidate",
   party: "Independent",
@@ -11,8 +15,7 @@ const candidate: Candidate = {
   summary_sources: [],
   issues: {
     Healthcare: {
-      stance:
-        "The first sentence explains the position. More detail follows here.",
+      stance: fullStance,
       confidence: "high",
       sources: [],
     },
@@ -45,19 +48,13 @@ describe("CandidateComparison", () => {
       container.querySelector("[data-desktop-candidate-comparison]")!,
     );
 
-    expect(
-      desktop.getByText("The first sentence explains the position."),
-    ).toBeTruthy();
+    expect(desktop.getByText(desktopPreview)).toBeTruthy();
     const button = desktop.getByRole("button", {
       name: "Show more for Casey Candidate",
     });
 
     await fireEvent.click(button);
-    expect(
-      desktop.getByText(
-        "The first sentence explains the position. More detail follows here.",
-      ),
-    ).toBeTruthy();
+    expect(desktop.getByText(fullStance)).toBeTruthy();
     expect(
       desktop.getByRole("button", { name: "Show less for Casey Candidate" }),
     ).toBeTruthy();
