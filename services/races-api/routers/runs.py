@@ -320,17 +320,34 @@ async def prune_runs() -> Dict[str, Any]:
     docs = list(runs_ref.where("status", "in", terminal_statuses).limit(500).stream())
 
     batch = db.batch()
-    count = 0
+    op_count = 0
+    run_count = 0
+
     for doc in docs:
+        # Delete logs subcollection first
+        logs_ref = doc.reference.collection("logs")
+        log_docs = list(logs_ref.stream())
+        for log_doc in log_docs:
+            batch.delete(log_doc.reference)
+            op_count += 1
+            if op_count >= 500:
+                batch.commit()
+                batch = db.batch()
+                op_count = 0
+
+        # Delete parent document
         batch.delete(doc.reference)
-        count += 1
-        if count % 500 == 0:
+        op_count += 1
+        run_count += 1
+        if op_count >= 500:
             batch.commit()
             batch = db.batch()
-    if count % 500 != 0:
+            op_count = 0
+
+    if op_count > 0:
         batch.commit()
 
-    return {"message": f"Pruned {count} finished runs", "count": count}
+    return {"message": f"Pruned {run_count} finished runs", "count": run_count}
 
 
 @router.delete("/runs/{run_id}", dependencies=[Depends(verify_token)])
@@ -359,5 +376,18 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
                 firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
         return {"message": "Run cancelled", "run_id": run_id}
     else:
-        doc_ref.delete()
+        # Delete logs subcollection first
+        batch = db.batch()
+        op_count = 0
+        logs_ref = doc_ref.collection("logs")
+        log_docs = list(logs_ref.stream())
+        for log_doc in log_docs:
+            batch.delete(log_doc.reference)
+            op_count += 1
+            if op_count >= 500:
+                batch.commit()
+                batch = db.batch()
+                op_count = 0
+        batch.delete(doc_ref)
+        batch.commit()
     return {"message": "Run deleted", "run_id": run_id}
