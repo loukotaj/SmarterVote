@@ -97,7 +97,7 @@ try {
 
     Invoke-Step "Pipeline tests" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=59"
+        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=60"
     }
 
     Invoke-Step "Python formatting" {

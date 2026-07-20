@@ -8,6 +8,7 @@ import pytest
 from openai import APIConnectionError
 
 from pipeline_client.agent.agent import _agent_loop
+from pipeline_client.agent.errors import RetryableProviderError
 from pipeline_client.agent.llm import _call_openrouter, _provider_usage_cost
 
 FAKE_RACE_JSON = {
@@ -127,6 +128,26 @@ async def test_call_openrouter_retries_connection_error():
     assert result is response
     assert client.chat.completions.create.call_count == 2
     mock_sleep.assert_awaited_once_with(2)
+
+
+@pytest.mark.asyncio
+async def test_call_openrouter_classifies_exhausted_connection_failure():
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(
+        side_effect=APIConnectionError(request=httpx.Request("POST", "https://openrouter.ai/api/v1/chat/completions"))
+    )
+
+    with patch("pipeline_client.agent.llm._get_openrouter_client", return_value=client):
+        with pytest.raises(RetryableProviderError) as raised:
+            await _call_openrouter(
+                [{"role": "user", "content": "Return JSON."}],
+                model="gpt-5.4-mini",
+                max_retries=1,
+            )
+
+    assert raised.value.provider == "openrouter"
+    assert raised.value.code == "connection_failed"
+    assert raised.value.retryable is True
 
 
 @pytest.mark.asyncio

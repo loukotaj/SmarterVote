@@ -307,14 +307,8 @@ class PipelineMetricsStore:
     async def _summary_firestore(self) -> Dict[str, Any]:
         try:
             assert self._client is not None
-            # Firestore aggregates are fetched efficiently without streaming all docs
-            count_query = self._client.collection(self._COLLECTION).count()
-            total_runs = (await count_query.get())[0].value
-
-            if total_runs == 0:
-                return _empty_summary()
-
-            # AsyncClient streams docs for aggregation
+            # The summary needs every cost field, so a separate count aggregation
+            # would add a billed read without reducing the document stream.
             docs = self._client.collection(self._COLLECTION).stream()
             records = [doc.to_dict() async for doc in docs]
             return _compute_metrics_summary(records)

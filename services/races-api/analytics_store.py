@@ -16,6 +16,9 @@ from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger("races_api")
 
+_SQLITE_EVENT_LIMIT = 10_000
+_SQLITE_TRIM_INTERVAL = 100
+
 
 def _extract_race_id(path: str) -> Optional[str]:
     """Extract race_id from paths like /races/mo-senate-2024."""
@@ -153,16 +156,16 @@ class AnalyticsStore:
                     "VALUES (?, ?, ?, ?, ?, ?, ?)",
                     (ts, path, race_id, status_code, response_ms, ip_hash, referer),
                 )
-                conn.commit()
-                # Trim to last 10 000 rows to bound disk usage in dev (only 1% of the time to avoid I/O bottlenecks)
-                import random
-
-                if random.random() < 0.01:
+                # Check deterministically every N inserts. This bounds the table
+                # while avoiding a DELETE query on every request.
+                row_id = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+                if row_id % _SQLITE_TRIM_INTERVAL == 0:
                     conn.execute(
                         "DELETE FROM analytics_events WHERE id NOT IN "
-                        "(SELECT id FROM analytics_events ORDER BY id DESC LIMIT 10000)"
+                        "(SELECT id FROM analytics_events ORDER BY id DESC LIMIT ?) ",
+                        (_SQLITE_EVENT_LIMIT,),
                     )
-                    conn.commit()
+                conn.commit()
         except Exception:
             logger.debug("SQLite log_request failed", exc_info=True)
 

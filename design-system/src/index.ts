@@ -71,3 +71,6 @@ export type { ImpactMetricsProps, ImpactMetricsData } from "./components/ImpactM
 
 export { HowItWorks } from "./components/HowItWorks";
 export type { HowItWorksProps, HowItWorksStep } from "./components/HowItWorks";
+
+// Claude-ready marketing canvases
+export * from "./templates";

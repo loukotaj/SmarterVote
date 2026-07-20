@@ -12,6 +12,7 @@ from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
 from .context import AgentContext, AgentContextBudget
 from .cost import accumulate, record_context_metrics, record_retry_metric
+from .errors import PermanentProviderError, RetryableProviderError
 from .model_registry import (
     CHEAP_CLAUDE_MODEL,
     CHEAP_GEMINI_MODEL,
@@ -235,20 +236,32 @@ async def _call_openrouter(
                         logger.error(
                             f"OpenRouter policy violation persists even with simplified prompt for {model}: {retry_exc}"
                         )
-                        raise RuntimeError(f"OpenRouter policy violation (unrecoverable): {exc}") from retry_exc
+                        raise PermanentProviderError(
+                            "OpenRouter rejected the simplified prompt due to content policy",
+                            provider="openrouter",
+                            code="policy_violation",
+                        ) from retry_exc
 
             logger.error(
                 f"OpenRouter bad request (400) for model={model}: {exc}"
                 f"{' (policy violation)' if is_policy_violation else ''}"
             )
-            raise RuntimeError(f"OpenRouter bad request: {exc}") from exc
+            raise PermanentProviderError(
+                "OpenRouter rejected the request",
+                provider="openrouter",
+                code="bad_request",
+            ) from exc
         except RateLimitError as exc:
             rate_limit_max_retries = min(
                 max_retries,
                 _env_int("OPENROUTER_RATE_LIMIT_MAX_RETRIES", _DEFAULT_LLM_RATE_LIMIT_MAX_RETRIES, minimum=0),
             )
             if attempt >= rate_limit_max_retries or attempt >= max_retries - 1:
-                raise
+                raise RetryableProviderError(
+                    "OpenRouter rate limit retry budget exhausted",
+                    provider="openrouter",
+                    code="rate_limited",
+                ) from exc
             max_wait = _env_int(
                 "OPENROUTER_RATE_LIMIT_MAX_WAIT_SECONDS",
                 _DEFAULT_LLM_RATE_LIMIT_MAX_WAIT_SECONDS,
@@ -269,8 +282,18 @@ async def _call_openrouter(
             logger.warning(f"OpenRouter 429, retrying in {wait}s (attempt {attempt + 1}/{rate_limit_max_retries + 1})")
             await asyncio.sleep(wait)
         except APIStatusError as exc:
-            if attempt >= max_retries - 1 or exc.status_code < 500:
-                raise
+            if exc.status_code < 500:
+                raise PermanentProviderError(
+                    f"OpenRouter returned HTTP {exc.status_code}",
+                    provider="openrouter",
+                    code="request_rejected",
+                ) from exc
+            if attempt >= max_retries - 1:
+                raise RetryableProviderError(
+                    f"OpenRouter HTTP {exc.status_code} retry budget exhausted",
+                    provider="openrouter",
+                    code="provider_unavailable",
+                ) from exc
             backoff = min(60.0 - transient_wait, (2 ** (attempt + 1)) * random.uniform(0.8, 1.2))
             if backoff <= 0:
                 raise
@@ -282,7 +305,11 @@ async def _call_openrouter(
             await asyncio.sleep(backoff)
         except (APIConnectionError, APITimeoutError, asyncio.TimeoutError) as exc:
             if attempt >= max_retries - 1:
-                raise
+                raise RetryableProviderError(
+                    "OpenRouter connection retry budget exhausted",
+                    provider="openrouter",
+                    code="connection_failed",
+                ) from exc
             backoff = min(60.0 - transient_wait, (2 ** (attempt + 1)) * random.uniform(0.8, 1.2))
             if backoff <= 0:
                 raise

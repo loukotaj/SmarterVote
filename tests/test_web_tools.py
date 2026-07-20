@@ -139,6 +139,43 @@ async def test_serper_search_retries_transient_failure_once():
 
 
 @pytest.mark.asyncio
+async def test_serper_search_request_and_response_contract():
+    response = httpx.Response(
+        200,
+        request=httpx.Request("POST", "https://google.serper.dev/search"),
+        json={
+            "organic": [{"title": "Race guide", "snippet": "Candidate evidence", "link": "https://example.com/race"}],
+            "knowledgeGraph": {
+                "title": "Arizona Senate",
+                "description": "2026 election",
+                "website": "https://example.com/election",
+            },
+        },
+    )
+    client = MagicMock()
+    client.post = AsyncMock(return_value=response)
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=client),
+    ):
+        results = await _serper_search(" Arizona   Senate 2026 ", num_results=4)
+
+    request = client.post.call_args
+    assert request.args[0] == "https://google.serper.dev/search"
+    assert request.kwargs["headers"] == {"X-API-KEY": "test-key", "Content-Type": "application/json"}
+    assert request.kwargs["json"] == {"q": "Arizona Senate 2026", "num": 4}
+    assert results[0] == {
+        "title": "Arizona Senate",
+        "snippet": "2026 election",
+        "url": "https://example.com/election",
+        "type": "knowledge_graph",
+    }
+    assert results[1]["url"] == "https://example.com/race"
+
+
+@pytest.mark.asyncio
 async def test_serper_search_truncates_oversized_queries():
     """Oversized queries are trimmed before calling Serper."""
     response = httpx.Response(200, json={"organic": []}, request=httpx.Request("POST", "https://google.serper.dev/search"))

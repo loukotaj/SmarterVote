@@ -291,10 +291,22 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
     limit = max(1, min(limit, 500))
     try:
         db = firestore_helpers._get_fs()
-        metric_records: Dict[str, Dict[str, Any]] = {}
-        run_records: Dict[str, Dict[str, Any]] = {}
+    except Exception as exc:
+        logging.warning("Firestore unavailable for pipeline metrics: %s", exc)
+        from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
 
-        # Primary source: pipeline_metrics (includes tokens/cost/model fields).
+        store = get_pipeline_metrics_store()
+        if store._client is None:
+            records = await store.get_recent(limit=limit)
+            return {"records": records, "count": len(records)}
+        raise HTTPException(status_code=503, detail="Pipeline metrics storage is temporarily unavailable") from exc
+    metric_records: Dict[str, Dict[str, Any]] = {}
+    run_records: Dict[str, Dict[str, Any]] = {}
+    metric_query_ok = False
+    run_query_ok = False
+
+    # Primary source: pipeline_metrics (includes tokens/cost/model fields).
+    try:
         docs = db.collection("pipeline_metrics").order_by("timestamp", direction="DESCENDING").limit(limit).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
@@ -302,9 +314,13 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
                 continue
             record = _normalize_pipeline_run(plain, doc.id)
             metric_records[str(record["run_id"])] = record
+        metric_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to load pipeline_metrics: %s", exc)
 
-        # Recent runs are the dashboard row source; merge in metrics by run_id so a
-        # populated but stale metrics collection does not make current rows look free.
+    # Recent runs are the dashboard row source; merge in metrics by run_id so a
+    # populated but stale metrics collection does not make current rows look free.
+    try:
         docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(limit).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
@@ -312,46 +328,46 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
                 continue
             record = _normalize_pipeline_run(plain, doc.id)
             run_records[str(record["run_id"])] = record
+        run_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to load pipeline_runs for metrics merge: %s", exc)
 
-        records: list[Dict[str, Any]] = []
-        seen: set[str] = set()
-        for run_id, run_record in sorted(
-            run_records.items(),
-            key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
-            reverse=True,
-        ):
-            merged = {**run_record, **metric_records.get(run_id, {})}
-            if run_record.get("serper_calls") and not merged.get("serper_calls"):
-                merged["serper_calls"] = run_record["serper_calls"]
-            if run_record.get("duration_s") and not merged.get("duration_s"):
-                merged["duration_s"] = run_record["duration_s"]
-            records.append(merged)
-            seen.add(run_id)
-
-        for run_id, metric_record in sorted(
-            metric_records.items(),
-            key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
-            reverse=True,
-        ):
-            if run_id in seen:
-                continue
-            records.append(metric_record)
-            if len(records) >= limit:
-                break
-
-        return {"records": records[:limit], "count": min(len(records), limit)}
-
-    except Exception:
-        # Local fallback using PipelineMetricsStore
+    if not metric_query_ok and not run_query_ok:
         from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
 
-        try:
-            store = get_pipeline_metrics_store()
+        store = get_pipeline_metrics_store()
+        if store._client is None:
             records = await store.get_recent(limit=limit)
             return {"records": records, "count": len(records)}
-        except Exception:
-            logging.exception("Failed to query local pipeline metrics fallback")
-            return {"records": [], "count": 0}
+        raise HTTPException(status_code=503, detail="Pipeline metrics storage is temporarily unavailable")
+
+    records: list[Dict[str, Any]] = []
+    seen: set[str] = set()
+    for run_id, run_record in sorted(
+        run_records.items(),
+        key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
+        reverse=True,
+    ):
+        merged = {**run_record, **metric_records.get(run_id, {})}
+        if run_record.get("serper_calls") and not merged.get("serper_calls"):
+            merged["serper_calls"] = run_record["serper_calls"]
+        if run_record.get("duration_s") and not merged.get("duration_s"):
+            merged["duration_s"] = run_record["duration_s"]
+        records.append(merged)
+        seen.add(run_id)
+
+    for run_id, metric_record in sorted(
+        metric_records.items(),
+        key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
+        reverse=True,
+    ):
+        if run_id in seen:
+            continue
+        records.append(metric_record)
+        if len(records) >= limit:
+            break
+
+    return {"records": records[:limit], "count": min(len(records), limit)}
 
 
 @router.get("/pipeline/metrics/summary", dependencies=[Depends(verify_token)])
@@ -359,57 +375,55 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
     """Return aggregate pipeline cost stats."""
     try:
         db = firestore_helpers._get_fs()
-        records: list[Dict[str, Any]] = []
+    except Exception as exc:
+        logging.warning("Firestore unavailable for pipeline metrics summary: %s", exc)
+        from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
 
+        store = get_pipeline_metrics_store()
+        if store._client is None:
+            return await store.get_summary()
+        raise HTTPException(status_code=503, detail="Pipeline metrics storage is temporarily unavailable") from exc
+    records: list[Dict[str, Any]] = []
+    metric_query_ok = False
+    run_query_ok = False
+    try:
         docs = db.collection("pipeline_metrics").order_by("timestamp", direction="DESCENDING").limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
                 continue
             records.append(_normalize_pipeline_run(plain, doc.id))
+        metric_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to summarize pipeline_metrics: %s", exc)
 
-        if not records:
+    if not records:
+        try:
             docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(5000).stream()
             for doc in docs:
                 plain = firestore_helpers._doc_to_plain(doc)
                 if plain is None:
                     continue
                 records.append(_normalize_pipeline_run(plain, doc.id))
+            run_query_ok = True
+        except Exception as exc:
+            logging.warning("Failed to summarize pipeline_runs: %s", exc)
 
-        if hours is not None and hours > 0:
-            cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
-            records = [r for r in records if _to_epoch_seconds(r.get("timestamp")) >= cutoff]
-
-        return _compute_metrics_summary(records)
-
-    except Exception:
-        # Local fallback using PipelineMetricsStore
+    if not metric_query_ok and not run_query_ok:
         from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
 
-        try:
-            store = get_pipeline_metrics_store()
-            if hours is not None and hours > 0:
-                records = await store.get_recent(limit=5000)
-                cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
-                records = [r for r in records if _to_epoch_seconds(r.get("timestamp")) >= cutoff]
-                return _compute_metrics_summary(records)
-            else:
-                summary = await store.get_summary()
-                return summary
-        except Exception:
-            logging.exception("Failed to summarize local pipeline metrics fallback")
-            return {
-                "total_runs": 0,
-                "total_usd": 0.0,
-                "avg_usd": 0.0,
-                "recent_30d_usd": 0.0,
-                "success_rate": 0.0,
-                "cheap_runs": 0,
-                "avg_cheap_usd": 0.0,
-                "full_runs": 0,
-                "avg_full_usd": 0.0,
-                "avg_usd_per_candidate": 0.0,
-            }
+        store = get_pipeline_metrics_store()
+        if store._client is not None:
+            raise HTTPException(status_code=503, detail="Pipeline metrics storage is temporarily unavailable")
+        if hours is None or hours <= 0:
+            return await store.get_summary()
+        records = await store.get_recent(limit=5000)
+
+    if hours is not None and hours > 0:
+        cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
+        records = [record for record in records if _to_epoch_seconds(record.get("timestamp")) >= cutoff]
+
+    return _compute_metrics_summary(records)
 
 
 # ---------------------------------------------------------------------------

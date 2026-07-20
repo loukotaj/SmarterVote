@@ -97,7 +97,7 @@ jobs:
           PYTHONPATH=. python -m pytest tests -v \
             --ignore=tests/test_races_api_admin.py \
             --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp \
-            --cov-report=term-missing --cov-fail-under=59
+            --cov-report=term-missing --cov-fail-under=60
 
       - name: Check Python formatting
         run: |

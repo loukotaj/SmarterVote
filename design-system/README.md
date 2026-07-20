@@ -22,3 +22,7 @@ remain documented in `../docs/architecture.md`.
 CI type-checks and builds this package independently. When a production visual change should also appear in marketing
 material, deliberately port the relevant tokens or component treatment here; do not make the React package a runtime
 dependency of `web/`.
+
+Claude-ready canvases are exported from `src/templates/`: `SocialAnnouncement`, `CandidateComparisonGraphic`,
+`CampaignUpdate`, and `ResearchReportCover`. They provide fixed export ratios and branded hierarchy while leaving copy
+and factual content explicit. See `CLAUDE_EXAMPLES.md` for prompts and complete JSX examples.
