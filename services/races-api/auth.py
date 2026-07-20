@@ -1,7 +1,9 @@
 """Auth0 JWT verification dependency for the races-api admin endpoints."""
 
+import asyncio
 import os
 import secrets
+import time
 from typing import Optional
 
 import httpx
@@ -11,17 +13,33 @@ from jose import JWTError, jwt
 
 _http_bearer = HTTPBearer(auto_error=False)
 
+# In-memory cache for Auth0 JWKS to prevent network overhead on every request
+_jwks_cache: Optional[dict] = None
+_jwks_fetched_at: float = 0.0
+_jwks_lock = asyncio.Lock()
+_JWKS_CACHE_TTL = 3600.0  # Cache for 1 hour
+
 
 async def _decode_jwt(token: str) -> dict:
+    global _jwks_cache, _jwks_fetched_at
     auth0_domain = os.getenv("AUTH0_DOMAIN", "")
     auth0_audience = os.getenv("AUTH0_AUDIENCE", "")
     jwks_url = f"https://{auth0_domain}/.well-known/jwks.json"
-    async with httpx.AsyncClient(timeout=10) as client:
-        resp = await client.get(jwks_url)
-        resp.raise_for_status()
-        jwks = resp.json()
+
+    now = time.monotonic()
+    if _jwks_cache is None or (now - _jwks_fetched_at) > _JWKS_CACHE_TTL:
+        async with _jwks_lock:
+            # Recheck cache after acquiring lock
+            now = time.monotonic()
+            if _jwks_cache is None or (now - _jwks_fetched_at) > _JWKS_CACHE_TTL:
+                async with httpx.AsyncClient(timeout=10) as client:
+                    resp = await client.get(jwks_url)
+                    resp.raise_for_status()
+                    _jwks_cache = resp.json()
+                    _jwks_fetched_at = now
+
     unverified = jwt.get_unverified_header(token)
-    rsa_key = next((k for k in jwks["keys"] if k.get("kid") == unverified.get("kid")), None)
+    rsa_key = next((k for k in _jwks_cache["keys"] if k.get("kid") == unverified.get("kid")), None)
     if not rsa_key:
         raise HTTPException(status_code=401, detail="Invalid token: signing key not found")
     return jwt.decode(
