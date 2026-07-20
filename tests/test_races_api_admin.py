@@ -3176,3 +3176,35 @@ def test_delete_race_record():
     # Verify Firestore delete
     races_coll.document.assert_called_once_with("nh-governor-2026")
     race_ref.delete.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_race_version_rejects_unsafe_filename():
+    from fastapi import HTTPException
+    from routers.race_versions import get_race_version
+
+    with pytest.raises(HTTPException) as exc_info:
+        await get_race_version("nh-governor-2026", "../draft.json")
+
+    assert exc_info.value.status_code == 400
+    assert exc_info.value.detail == "Invalid version filename"
+
+
+@pytest.mark.asyncio
+async def test_race_version_hides_provider_error_details():
+    from fastapi import HTTPException
+    from routers.race_versions import get_race_version
+
+    client = MagicMock()
+    blob = client.bucket.return_value.blob.return_value
+    blob.exists.side_effect = RuntimeError("internal provider detail")
+
+    with (
+        patch.object(gcs_helpers, "_GCS_BUCKET", "test-bucket"),
+        patch.object(gcs_helpers, "_get_gcs_admin", return_value=client),
+        pytest.raises(HTTPException) as exc_info,
+    ):
+        await get_race_version("nh-governor-2026", "version.json")
+
+    assert exc_info.value.status_code == 502
+    assert exc_info.value.detail == "Unable to read archived version"

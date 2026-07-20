@@ -139,14 +139,14 @@
 
 <div
   data-desktop-candidate-comparison
-  class="hidden overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
+  class="hidden isolate overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
 >
   <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
     <div
       class:sticky={!compact}
       class:top-[57px]={!compact}
       class:md:top-[65px]={!compact}
-      class="z-30 w-full border-b border-stroke bg-surface/95 py-4 shadow-sm backdrop-blur-md"
+      class="z-30 w-full border-b border-stroke bg-surface py-4 shadow-sm"
     >
       <div
         class="grid items-center"
@@ -155,7 +155,7 @@
           : '220px'} repeat({candidates.length}, 1fr)"
       >
         <div
-          class="sticky left-0 z-40 border-r border-stroke bg-surface/95 px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+          class="sticky left-0 z-40 flex self-stretch items-center border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
         >
           {compact ? "Compare" : "Compare Directory"}
         </div>
@@ -210,7 +210,7 @@
             : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
-            class="sticky left-0 z-10 border-r border-stroke bg-emerald-50/70 p-5 text-sm font-bold text-content dark:bg-emerald-950/15"
+            class="sticky left-0 z-10 border-r border-stroke bg-emerald-50 p-5 text-sm font-bold text-content dark:bg-emerald-950"
           >
             Research review
             <span
@@ -282,29 +282,33 @@
           </div>
           {#each candidates as candidate}
             {@const stance = candidate.issues?.[issueKey]}
-            {@const preview = stance ? stancePreview(stance.stance) : ""}
+            {@const preview = stance
+              ? stancePreview(stance.stance, 320, 220)
+              : ""}
             {@const isStanceExpanded =
               expandedStances[stanceKey(issueKey, candidate)] ?? false}
             <div
               class="flex flex-col gap-3 border-r border-stroke p-6 last:border-none"
             >
               {#if stance}
-                <p
-                  class="whitespace-normal text-sm leading-relaxed text-content-muted"
-                >
-                  {isStanceExpanded ? stance.stance : preview}
-                </p>
-                {#if preview !== stance.stance.trim()}
-                  <button
-                    type="button"
-                    aria-expanded={isStanceExpanded}
-                    on:click={() => toggleStance(issueKey, candidate)}
-                    class="inline-flex min-h-11 items-center self-start text-sm font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                <div>
+                  <p
+                    class="whitespace-normal text-sm leading-relaxed text-content-muted"
                   >
-                    {isStanceExpanded ? "Show less" : "Show more"}
-                    <span class="sr-only"> for {candidate.name}</span>
-                  </button>
-                {/if}
+                    {isStanceExpanded ? stance.stance : preview}
+                  </p>
+                  {#if preview !== stance.stance.trim()}
+                    <button
+                      type="button"
+                      aria-expanded={isStanceExpanded}
+                      on:click={() => toggleStance(issueKey, candidate)}
+                      class="inline-flex min-h-11 items-start pt-1 text-sm font-bold leading-5 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                    >
+                      {isStanceExpanded ? "Show less" : "Show more"}
+                      <span class="sr-only"> for {candidate.name}</span>
+                    </button>
+                  {/if}
+                </div>
                 <div class="flex items-center gap-2 pt-1">
                   <span
                     class="text-[10px] font-medium uppercase tracking-wide text-content-subtle"

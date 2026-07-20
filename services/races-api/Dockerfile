@@ -1,4 +1,4 @@
-FROM python:3.10-slim@sha256:c1e4e6c01eb489c422288b2de34b0761ca316f7a2d98e2c33f47659a73ed108a
+FROM python:3.11-slim@sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93
 
 WORKDIR /app
 
@@ -20,6 +20,7 @@ COPY services/races-api/request_models.py .
 COPY services/races-api/firestore_helpers.py .
 COPY services/races-api/gcs_helpers.py .
 COPY services/races-api/cloud_run_jobs.py .
+COPY services/races-api/rate_limit.py .
 COPY services/races-api/routers ./routers
 COPY shared /app/shared
 # data/published is NOT baked into the image — deployed instances read from GCS.

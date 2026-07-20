@@ -559,7 +559,19 @@
 
     <!-- Candidates Section -->
     <section>
-      <h2 class="candidates-title">Candidates</h2>
+      <div class="candidates-heading">
+        <h2 class="candidates-title">Candidates</h2>
+        {#if activeCandidates.length > 1}
+          <a
+            href="/races/{race.id}/compare?candidates={activeCandidates
+              .map((candidate) => candidateSlug(candidate.name))
+              .join(',')}{isDraftPreview ? '&draft=true' : ''}"
+            class="compare-all-link"
+          >
+            Compare all <span aria-hidden="true">&rarr;</span>
+          </a>
+        {/if}
+      </div>
       <div class="candidate-grid">
         {#each activeCandidates as candidate}
           <CandidateCard
@@ -1380,8 +1392,16 @@
   }
 
   /* Candidates */
+  .candidates-heading {
+    @apply mb-4 flex items-center justify-between gap-4 sm:mb-6;
+  }
+
   .candidates-title {
-    @apply text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6;
+    @apply text-xl font-semibold text-content sm:text-2xl;
+  }
+
+  .compare-all-link {
+    @apply inline-flex min-h-11 shrink-0 items-center gap-1 px-1 text-sm font-semibold text-blue-600 no-underline transition-colors hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300;
   }
 
   .candidate-grid {

@@ -93,7 +93,11 @@ def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_nam
         published = datetime.fromisoformat(str(source.get("published_at") or "").replace("Z", "+00:00"))
     except ValueError:
         return False
-    if year_match and published.year not in {int(year_match.group()) - 1, int(year_match.group())}:
+    if year_match and published.year not in {
+        int(year_match.group()) - 2,
+        int(year_match.group()) - 1,
+        int(year_match.group()),
+    }:
         return False
     tier = source.get("evidence_tier")
     status = source.get("retrieval_status")
@@ -119,6 +123,67 @@ def _qualifying_candidate_addition_sources(sources: Any, *, candidate_name: str,
         if len(domains) < 2:
             return []
     return qualifying
+
+
+def _get_other_state_candidates(race_id: str, state: str | None) -> set[str]:
+    """Retrieve candidate names from other races in the same state/cycle to detect contamination."""
+    other_names = set()
+    if not state:
+        return other_names
+
+    # Determine storage mode from settings
+    try:
+        from pipeline_client.backend.settings import settings
+
+        storage_mode = settings.storage_mode
+        project = settings.firestore_project
+    except Exception:
+        storage_mode = "local"
+        project = None
+
+    if storage_mode == "gcp":
+        try:
+            from google.cloud import firestore
+
+            db = firestore.Client(project=project) if project else firestore.Client()
+            races_ref = db.collection("races").where("state", "==", state).stream()
+            for doc in races_ref:
+                other_race_id = doc.id
+                if other_race_id == race_id:
+                    continue
+                data = doc.to_dict() or {}
+                for cand in data.get("candidates", []):
+                    if isinstance(cand, dict) and cand.get("name") and cand.get("withdrawn") is not True:
+                        other_names.add(cand["name"].strip())
+        except Exception:
+            pass
+    else:
+        try:
+            from shared.config import local_paths
+
+            prefix = race_id.split("-")[0].lower() if "-" in race_id else ""
+            if not prefix:
+                return other_names
+
+            for directory in (local_paths.drafts_dir, local_paths.published_dir):
+                if not directory.exists():
+                    continue
+                for path in directory.glob(f"{prefix}-*.json"):
+                    if path.stem == race_id:
+                        continue
+                    try:
+                        with path.open("r", encoding="utf-8") as f:
+                            data = json.load(f)
+                        if data.get("state") == state:
+                            for cand in data.get("candidates", []):
+                                if isinstance(cand, dict) and cand.get("name") and cand.get("withdrawn") is not True:
+                                    other_names.add(cand["name"].strip())
+                    except Exception:
+                        continue
+        except Exception:
+            pass
+
+    return other_names
 
 
 def _make_editing_handlers(
@@ -185,7 +250,20 @@ def _make_editing_handlers(
             )
         if _find_candidate(name):
             return f"Candidate '{name}' already exists — skipping."
+        state = race_json.get("state")
         race_id = str(race_json.get("id") or "").strip()
+        if state:
+            other_state_candidates = _get_other_state_candidates(race_id, state)
+            if any(name.strip().lower() == other.lower() for other in other_state_candidates):
+                log(
+                    "warning",
+                    f"    add_candidate('{name}') BLOCKED: candidate is already active in another race in {state}.",
+                )
+                return (
+                    f"Blocked adding '{name}': This candidate is already registered as an active candidate in "
+                    f"another race in {state} for this election cycle. A candidate cannot run in multiple concurrent "
+                    "statewide or federal contests. Verify the office, district, and candidate name."
+                )
         roster_sources = _qualifying_candidate_addition_sources(
             args.get("roster_sources"), candidate_name=name, race_id=race_id
         )

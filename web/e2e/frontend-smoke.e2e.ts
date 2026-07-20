@@ -58,3 +58,64 @@ test("election directory and ballot lookup render their primary controls", async
   await expect(address).toBeVisible();
   await expect(address).toHaveAttribute("aria-autocomplete", "list");
 });
+
+test("forecast and trust surfaces expose their primary content", async ({
+  page,
+}) => {
+  await page.goto("/forecast/");
+  await expect(
+    page.getByRole("heading", { name: "2026 Election Forecast" }),
+  ).toBeVisible();
+  await expect(page.getByText("Model status: Live")).toBeVisible();
+
+  await page.goto("/about/");
+  await expect(
+    page.getByRole("heading", { name: "About Smarter.Vote" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "This site uses AI-generated content" }),
+  ).toBeVisible();
+
+  await page.goto("/support/");
+  await expect(
+    page.getByRole("heading", { name: "Support Smarter.Vote" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Contribution terms" }),
+  ).toBeVisible();
+});
+
+test("race detail and comparison routes render structured fallback data", async ({
+  page,
+}) => {
+  await page.goto("/races/sample-race/");
+  await expect(
+    page.getByRole("heading", { name: "Sample State U.S. Senate Race 2025" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Candidates" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Senator Sarah Johnson", exact: true }),
+  ).toBeVisible();
+
+  await page.goto("/races/sample-race/compare/");
+  await expect(
+    page.getByRole("heading", { name: "Compare Candidates" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("checkbox", { name: /Senator Sarah Johnson/ }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("checkbox", { name: /Representative Maria Rodriguez/ }),
+  ).toBeVisible();
+});
+
+test("admin entry point is explicitly excluded from indexing", async ({
+  page,
+}) => {
+  await page.goto("/admin/");
+  await expect(page).toHaveTitle("Admin Sign In - SmarterVote");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex,nofollow",
+  );
+});

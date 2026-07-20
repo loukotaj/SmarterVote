@@ -53,7 +53,7 @@ jobs:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
-          python-version: "3.10"
+          python-version: "3.11"
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
@@ -83,7 +83,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -97,7 +97,7 @@ jobs:
           PYTHONPATH=. python -m pytest tests -v \
             --ignore=tests/test_races_api_admin.py \
             --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp \
-            --cov-report=term-missing --cov-fail-under=55
+            --cov-report=term-missing --cov-fail-under=59
 
       - name: Check Python formatting
         run: |
@@ -114,7 +114,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Test Races API
         run: |
@@ -194,6 +194,29 @@ jobs:
         run: |
           cd web && npm run test:unit -- --run
 
+  test-design-system:
+    name: Test Marketing Design System
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: design-system/package-lock.json
+      - name: Install dependencies
+        working-directory: design-system
+        run: npm ci
+      - name: Audit dependencies
+        working-directory: design-system
+        run: npm audit --audit-level=high
+      - name: Type-check components
+        working-directory: design-system
+        run: npm run typecheck
+      - name: Build Claude marketing export
+        working-directory: design-system
+        run: npm run build
+
   terraform-validate:
     name: Validate Terraform
     runs-on: ubuntu-latest
@@ -248,6 +271,9 @@ jobs:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       - name: Build ${{ matrix.name }}
         run: docker build --pull -f "${{ matrix.dockerfile }}" -t "smartervote/${{ matrix.name }}:${{ github.sha }}" .
+      - name: Smoke test races API image
+        if: matrix.name == 'races-api'
+        run: docker run --rm "smartervote/${{ matrix.name }}:${{ github.sha }}" python -c "import main"
       - name: Scan ${{ matrix.name }}
         run: |
           docker run --rm \
@@ -277,6 +303,7 @@ jobs:
         test-apis,
         test-admin-function,
         test-web,
+        test-design-system,
         terraform-validate,
         codeql,
         release-artifacts,
@@ -292,6 +319,7 @@ jobs:
           APIS_RESULT: ${{ needs.test-apis.result }}
           ADMIN_FUNCTION_RESULT: ${{ needs.test-admin-function.result }}
           WEB_RESULT: ${{ needs.test-web.result }}
+          DESIGN_SYSTEM_RESULT: ${{ needs.test-design-system.result }}
           TERRAFORM_RESULT: ${{ needs.terraform-validate.result }}
           CODEQL_RESULT: ${{ needs.codeql.result }}
           ARTIFACT_RESULT: ${{ needs.release-artifacts.result }}
@@ -302,10 +330,11 @@ jobs:
           echo "test-apis:           $APIS_RESULT"
           echo "test-admin-function: $ADMIN_FUNCTION_RESULT"
           echo "test-web:            $WEB_RESULT"
+          echo "test-design-system:  $DESIGN_SYSTEM_RESULT"
           echo "terraform-validate:  $TERRAFORM_RESULT"
           echo "codeql:              $CODEQL_RESULT"
           echo "release-artifacts:   $ARTIFACT_RESULT"
-          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$ADMIN_FUNCTION_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
+          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$ADMIN_FUNCTION_RESULT" != "success" || "$WEB_RESULT" != "success" || "$DESIGN_SYSTEM_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
             echo "❌ One or more CI gates failed"
             exit 1
           fi

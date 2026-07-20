@@ -23,7 +23,7 @@ function Test-Command($command) {
 Write-Host "Checking prerequisites..." -ForegroundColor Yellow
 
 if (-not (Test-Command "python")) {
-    Write-Host "ERROR: Python not found. Please install Python 3.10+ and add it to PATH." -ForegroundColor Red
+    Write-Host "ERROR: Python not found. Please install Python 3.11+ and add it to PATH." -ForegroundColor Red
     exit 1
 }
 

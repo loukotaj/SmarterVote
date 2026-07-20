@@ -78,7 +78,7 @@ class PipelineRuntimeConfig:
 
     max_review_cycles: int = 1
     issue_concurrency: int = 3
-    issue_max_attempts: int = 3
+    issue_max_attempts: int = 2
     iteration_min_iterations: int = 14
     quality_critical_issue_stances: int = CANONICAL_ISSUE_COUNT // 2
     quality_warning_issue_stances: int = (CANONICAL_ISSUE_COUNT * 2) // 3
@@ -95,7 +95,7 @@ class PipelineRuntimeConfig:
         return cls(
             max_review_cycles=_env_int("PIPELINE_MAX_REVIEW_CYCLES", 1, 1, 3),
             issue_concurrency=_env_int("PIPELINE_ISSUE_CONCURRENCY", 3, 1, 8),
-            issue_max_attempts=_env_int("PIPELINE_ISSUE_MAX_ATTEMPTS", 3, 1, None),
+            issue_max_attempts=_env_int("PIPELINE_ISSUE_MAX_ATTEMPTS", 2, 1, None),
             iteration_min_iterations=_env_int("PIPELINE_ITERATION_MIN_ITERATIONS", 14, 1, None),
             quality_critical_issue_stances=critical,
             quality_warning_issue_stances=warning,
