@@ -34,7 +34,7 @@
     race: Race,
     selections: Record<string, Candidate[]>,
   ): Candidate[] {
-    return selections[race.id] ?? activeCandidates(race).slice(0, 2);
+    return selections[race.id] ?? activeCandidates(race);
   }
 
   function toggleCandidate(race: Race, candidateName: string) {

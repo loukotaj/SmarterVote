@@ -42,7 +42,6 @@ class AnalyticsStore:
         self._firestore_project = os.getenv("FIRESTORE_PROJECT")
         self._db_path = os.getenv("ANALYTICS_DB_PATH", "data/analytics.db")
         self._client = None
-        self._sqlite_conn: Optional[sqlite3.Connection] = None
 
         if self._firestore_project:
             self._init_firestore()
@@ -76,25 +75,25 @@ class AnalyticsStore:
         db_dir = os.path.dirname(self._db_path)
         if db_dir:
             os.makedirs(db_dir, exist_ok=True)
-        self._sqlite_conn = sqlite3.connect(self._db_path, check_same_thread=False)
-        self._sqlite_conn.execute("PRAGMA journal_mode=WAL")
-        self._sqlite_conn.execute(
+        with sqlite3.connect(self._db_path) as conn:
+            conn.execute("PRAGMA journal_mode=WAL")
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS analytics_events (
+                    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                    timestamp    TEXT NOT NULL,
+                    path         TEXT NOT NULL,
+                    race_id      TEXT,
+                    status_code  INTEGER NOT NULL,
+                    response_ms  INTEGER NOT NULL,
+                    ip_hash      TEXT,
+                    referer      TEXT
+                )
             """
-            CREATE TABLE IF NOT EXISTS analytics_events (
-                id           INTEGER PRIMARY KEY AUTOINCREMENT,
-                timestamp    TEXT NOT NULL,
-                path         TEXT NOT NULL,
-                race_id      TEXT,
-                status_code  INTEGER NOT NULL,
-                response_ms  INTEGER NOT NULL,
-                ip_hash      TEXT,
-                referer      TEXT
             )
-        """
-        )
-        self._sqlite_conn.execute("CREATE INDEX IF NOT EXISTS idx_ts  ON analytics_events(timestamp)")
-        self._sqlite_conn.execute("CREATE INDEX IF NOT EXISTS idx_rid ON analytics_events(race_id)")
-        self._sqlite_conn.commit()
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_ts  ON analytics_events(timestamp)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_rid ON analytics_events(race_id)")
+            conn.commit()
         logger.info("Analytics: using SQLite %s", self._db_path)
 
     # ------------------------------------------------------------------
@@ -146,21 +145,24 @@ class AnalyticsStore:
             logger.debug("Firestore log_request failed", exc_info=True)
 
     def _log_sqlite(self, ts, path, race_id, status_code, response_ms, ip_hash, referer) -> None:
-        assert self._sqlite_conn is not None
         try:
-            self._sqlite_conn.execute(
-                "INSERT INTO analytics_events "
-                "(timestamp, path, race_id, status_code, response_ms, ip_hash, referer) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (ts, path, race_id, status_code, response_ms, ip_hash, referer),
-            )
-            self._sqlite_conn.commit()
-            # Trim to last 10 000 rows to bound disk usage in dev
-            self._sqlite_conn.execute(
-                "DELETE FROM analytics_events WHERE id NOT IN "
-                "(SELECT id FROM analytics_events ORDER BY id DESC LIMIT 10000)"
-            )
-            self._sqlite_conn.commit()
+            with sqlite3.connect(self._db_path) as conn:
+                conn.execute(
+                    "INSERT INTO analytics_events "
+                    "(timestamp, path, race_id, status_code, response_ms, ip_hash, referer) "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    (ts, path, race_id, status_code, response_ms, ip_hash, referer),
+                )
+                conn.commit()
+                # Trim to last 10 000 rows to bound disk usage in dev (only 1% of the time to avoid I/O bottlenecks)
+                import random
+
+                if random.random() < 0.01:
+                    conn.execute(
+                        "DELETE FROM analytics_events WHERE id NOT IN "
+                        "(SELECT id FROM analytics_events ORDER BY id DESC LIMIT 10000)"
+                    )
+                    conn.commit()
         except Exception:
             logger.debug("SQLite log_request failed", exc_info=True)
 
@@ -186,12 +188,12 @@ class AnalyticsStore:
             return _empty_overview(hours)
 
     def _overview_sqlite(self, hours: int) -> Dict[str, Any]:
-        assert self._sqlite_conn is not None
         cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
-        rows = self._sqlite_conn.execute(
-            "SELECT timestamp, status_code, response_ms, ip_hash " "FROM analytics_events WHERE timestamp >= ?",
-            (cutoff,),
-        ).fetchall()
+        with sqlite3.connect(self._db_path) as conn:
+            rows = conn.execute(
+                "SELECT timestamp, status_code, response_ms, ip_hash " "FROM analytics_events WHERE timestamp >= ?",
+                (cutoff,),
+            ).fetchall()
         docs = [{"timestamp": r[0], "status_code": r[1], "response_ms": r[2], "ip_hash": r[3]} for r in rows]
         return _compute_overview(docs, hours)
 
@@ -217,14 +219,14 @@ class AnalyticsStore:
             return []
 
     def _race_stats_sqlite(self, hours: int) -> List[Dict[str, Any]]:
-        assert self._sqlite_conn is not None
         cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
-        rows = self._sqlite_conn.execute(
-            "SELECT race_id, COUNT(*) as cnt, MAX(timestamp) as last_seen "
-            "FROM analytics_events WHERE timestamp >= ? AND race_id IS NOT NULL "
-            "GROUP BY race_id ORDER BY cnt DESC",
-            (cutoff,),
-        ).fetchall()
+        with sqlite3.connect(self._db_path) as conn:
+            rows = conn.execute(
+                "SELECT race_id, COUNT(*) as cnt, MAX(timestamp) as last_seen "
+                "FROM analytics_events WHERE timestamp >= ? AND race_id IS NOT NULL "
+                "GROUP BY race_id ORDER BY cnt DESC",
+                (cutoff,),
+            ).fetchall()
         return [{"race_id": r[0], "requests_24h": r[1], "last_accessed": r[2]} for r in rows]
 
     # ------------------------------------------------------------------
@@ -249,9 +251,9 @@ class AnalyticsStore:
             return []
 
     def _timeseries_sqlite(self, hours: int, bucket_minutes: int) -> List[Dict[str, Any]]:
-        assert self._sqlite_conn is not None
         cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
-        rows = self._sqlite_conn.execute("SELECT timestamp FROM analytics_events WHERE timestamp >= ?", (cutoff,)).fetchall()
+        with sqlite3.connect(self._db_path) as conn:
+            rows = conn.execute("SELECT timestamp FROM analytics_events WHERE timestamp >= ?", (cutoff,)).fetchall()
         return _compute_timeseries([{"timestamp": r[0]} for r in rows], hours, bucket_minutes)
 
 
