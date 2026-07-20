@@ -61,7 +61,7 @@ const race: Race = {
   candidates: [
     candidate("Dana Democrat", "Democratic", true),
     candidate("Riley Republican", "Republican", true),
-    candidate("Indy Independent", "Independent"),
+    candidate("Libby Libertarian", "Libertarian"),
   ],
 };
 
@@ -84,12 +84,12 @@ describe("BallotExplorer", () => {
 
   afterEach(cleanup);
 
-  it("adds a third-party candidate to the inline comparison", async () => {
+  it("includes every active candidate in the inline comparison by default", async () => {
     render(BallotExplorer, { races: [summary] });
 
     await waitFor(() =>
       expect(
-        screen.getByRole("checkbox", { name: /Indy Independent/ }),
+        screen.getByRole("checkbox", { name: /Libby Libertarian/ }),
       ).toBeTruthy(),
     );
     expect(
@@ -99,11 +99,23 @@ describe("BallotExplorer", () => {
       "Candidates in this comparison",
     );
     expect(
-      within(mobileCandidates).queryByRole("link", {
-        name: "Indy Independent",
+      within(mobileCandidates).getByRole("link", {
+        name: "Libby Libertarian",
       }),
-    ).toBeNull();
+    ).toBeTruthy();
+    expect(
+      (
+        screen.getByRole("checkbox", {
+          name: /Libby Libertarian/,
+        }) as HTMLInputElement
+      ).checked,
+    ).toBe(true);
     expect(screen.getAllByText("Healthcare")).toHaveLength(2);
+    expect(
+      screen.getAllByText(
+        /No (sourced position available|stance researched) yet\./,
+      ),
+    ).toHaveLength(2);
 
     const danaPosition = screen.getByRole("article", {
       name: "Dana Democrat position on Healthcare",
@@ -123,17 +135,19 @@ describe("BallotExplorer", () => {
     ).toBeTruthy();
 
     await fireEvent.click(
-      screen.getByRole("checkbox", { name: /Indy Independent/ }),
+      screen.getByRole("checkbox", { name: /Libby Libertarian/ }),
     );
 
     expect(
-      within(mobileCandidates).getByRole("link", { name: "Indy Independent" }),
-    ).toBeTruthy();
+      within(mobileCandidates).queryByRole("link", {
+        name: "Libby Libertarian",
+      }),
+    ).toBeNull();
     expect(screen.getAllByText("Healthcare")).toHaveLength(2);
     expect(
-      screen.getAllByText(
+      screen.queryAllByText(
         /No (sourced position available|stance researched) yet\./,
       ),
-    ).toHaveLength(2);
+    ).toHaveLength(0);
   });
 });
