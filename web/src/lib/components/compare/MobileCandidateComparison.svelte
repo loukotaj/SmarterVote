@@ -1,5 +1,6 @@
 <script lang="ts">
   import ConfidenceIndicator from "$lib/components/ConfidenceIndicator.svelte";
+  import ReviewScoreInfo from "$lib/components/compare/ReviewScoreInfo.svelte";
   import SourceLink from "$lib/components/SourceLink.svelte";
   import type { Candidate, CanonicalIssue, Race } from "$lib/types";
   import { CANONICAL_ISSUES, getIssueDisplayName } from "$lib/types";
@@ -67,10 +68,12 @@
         class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-200 bg-white font-extrabold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
         >{race.validation_grade.grade}</span
       >
-      <p class="text-xs leading-5 text-content-muted">
+      <div class="text-xs leading-5 text-content-muted">
         <strong class="text-content">Research review:</strong>
-        {race.validation_grade.score}/100 after source and consistency checks.
-      </p>
+        {race.validation_grade.score}/100<ReviewScoreInfo
+          panelId={`mobile-review-score-info-${race.id}`}
+        /> after methodology, sourcing, and bias checks.
+      </div>
     </div>
   {/if}
 

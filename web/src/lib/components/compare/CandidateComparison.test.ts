@@ -86,4 +86,35 @@ describe("CandidateComparison", () => {
       "bg-emerald-50",
     );
   });
+
+  it("explains the limits of the AI review score", async () => {
+    const reviewedRace: Race = {
+      ...race,
+      validation_grade: {
+        grade: "A",
+        score: 95,
+        passed: true,
+        summary: "Publication checks passed.",
+      },
+    };
+    const { container } = render(CandidateComparison, {
+      race: reviewedRace,
+      candidates: [candidate],
+      compact: true,
+      showQuality: true,
+    });
+    const desktop = within(
+      container.querySelector("[data-desktop-candidate-comparison]")!,
+    );
+
+    await fireEvent.click(
+      desktop.getByRole("button", { name: "About this AI review score" }),
+    );
+
+    const note = desktop.getByRole("note").textContent?.replace(/\s+/g, " ");
+    expect(note).toContain("It is not independent fact-checking");
+    expect(note).toContain(
+      "does not validate that the underlying information is correct",
+    );
+  });
 });

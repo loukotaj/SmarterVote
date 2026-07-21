@@ -1,19 +1,12 @@
 <script lang="ts">
   import type { RaceSummary } from "$lib/types";
   export let races: RaceSummary[] = [];
-
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
 </script>
 
 {#if races.length}
   <section
     class="border-t border-stroke py-20 sm:py-28"
-    aria-labelledby="recent-elections"
+    aria-labelledby="featured-elections"
   >
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <header
@@ -26,10 +19,10 @@
             The research desk
           </p>
           <h2
-            id="recent-elections"
+            id="featured-elections"
             class="mt-3 text-3xl font-bold tracking-tight text-content sm:text-5xl"
           >
-            Recently updated
+            Featured races
           </h2>
         </div>
         <a
@@ -50,7 +43,7 @@
             <span class="rounded-full bg-blue-600 px-3 py-1 text-white"
               >Featured</span
             >
-            <span>Updated {formatDate(races[0].updated_utc)}</span>
+            <span>Competitive race</span>
           </div>
           <h3
             class="mt-8 max-w-2xl text-3xl font-bold leading-tight tracking-tight text-content transition group-hover:text-blue-600 sm:text-5xl dark:group-hover:text-blue-400"
@@ -84,9 +77,7 @@
               <p
                 class="text-xs font-semibold uppercase tracking-widest text-content-subtle"
               >
-                {race.jurisdiction ?? "National"} · {formatDate(
-                  race.updated_utc,
-                )}
+                {race.jurisdiction ?? "National"} · Competitive race
               </p>
               <h3
                 class="mt-2 text-xl font-bold leading-snug text-content transition group-hover:text-blue-600 dark:group-hover:text-blue-400"

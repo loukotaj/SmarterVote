@@ -5,6 +5,7 @@ import {
   nationalElectionRaces,
   recentlyUpdated,
   rotateByDate,
+  selectFeaturedRaces,
 } from "./homepage";
 
 const race = (id: string, updated: string, state = "Iowa"): RaceSummary => ({
@@ -49,6 +50,19 @@ describe("homepage data", () => {
         race("newer", "2026-02-01T00:00:00Z"),
       ]).map(({ id }) => id),
     ).toEqual(["newer", "older"]);
+  });
+
+  it("selects featured races in manual editorial order", () => {
+    const newest = race("newest", "2026-03-01T00:00:00Z");
+    const first = race("first", "2026-01-01T00:00:00Z");
+    const second = race("second", "2026-02-01T00:00:00Z");
+
+    expect(
+      selectFeaturedRaces(
+        [newest, second, first],
+        ["first", "missing", "second"],
+      ).map(({ id }) => id),
+    ).toEqual(["first", "second"]);
   });
 
   it("computes reproducible published-data metrics", () => {

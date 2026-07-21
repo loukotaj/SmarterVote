@@ -8,6 +8,27 @@ export interface HomepageMetrics {
   snapshotDate: string;
 }
 
+// Editorial order for the homepage. Keep this list explicit so publishing or
+// refreshing another race does not unexpectedly change the featured section.
+export const featuredHomepageRaceIds = [
+  "co-house-08-2026",
+  "nv-governor-2026",
+  "pa-house-08-2026",
+  "nc-house-01-2026",
+  "ca-house-48-2026",
+] as const;
+
+export function selectFeaturedRaces(
+  races: RaceSummary[],
+  ids: readonly string[] = featuredHomepageRaceIds,
+): RaceSummary[] {
+  const racesById = new Map(races.map((race) => [race.id, race]));
+  return ids.flatMap((id) => {
+    const race = racesById.get(id);
+    return race ? [race] : [];
+  });
+}
+
 export function nationalElectionRaces(races: RaceSummary[]): RaceSummary[] {
   return races.filter((race) => {
     const office = race.office?.toLocaleLowerCase() ?? "";
