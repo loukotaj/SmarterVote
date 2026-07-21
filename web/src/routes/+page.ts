@@ -12,6 +12,7 @@ import {
   homepageMetrics,
   nationalElectionRaces,
   recentlyUpdated,
+  selectFeaturedRaces,
 } from "$lib/utils/homepage";
 
 export const load: PageLoad = async ({ fetch }) => {
@@ -47,10 +48,9 @@ export const load: PageLoad = async ({ fetch }) => {
     .map((result) => result.value);
   gradeARaces = mergeGradeAHomepageRaces(verified);
 
-  // The editorial list is driven by the published summary index, independently
-  // of the stricter full-record requirements used by InteractiveRaceCompare.
-  // A partial preview load must not collapse "Recently updated" to one race.
-  const featuredRaces = recentlyUpdated(nationalRaces, 5);
+  // The editorial list is intentionally manual and independent of update time.
+  // Missing or unpublished races are skipped without changing the chosen order.
+  const featuredRaces = selectFeaturedRaces(nationalRaces);
 
   return {
     featuredRaces,

@@ -1,6 +1,7 @@
 <script lang="ts">
   import ConfidenceIndicator from "$lib/components/ConfidenceIndicator.svelte";
   import MobileCandidateComparison from "$lib/components/compare/MobileCandidateComparison.svelte";
+  import ReviewScoreInfo from "$lib/components/compare/ReviewScoreInfo.svelte";
   import SourceLink from "$lib/components/SourceLink.svelte";
   import type { Candidate, Race } from "$lib/types";
   import { CANONICAL_ISSUES, getIssueDisplayName } from "$lib/types";
@@ -226,11 +227,14 @@
               class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-200 bg-white text-lg font-extrabold text-emerald-800 shadow-sm dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
               >{race.validation_grade.grade}</span
             >
-            <span>
+            <div>
               <strong class="text-content"
                 >{race.validation_grade.score}/100 review score.</strong
-              > Claims, sources, and consistency passed the publication review.
-            </span>
+              ><ReviewScoreInfo
+                panelId={`desktop-review-score-info-${race.id}`}
+              />
+              Methodology, sourcing, and bias checks passed the AI review.
+            </div>
           </div>
         </div>
       {/if}
