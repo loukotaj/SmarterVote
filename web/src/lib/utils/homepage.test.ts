@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { RaceSummary } from "$lib/types";
 import {
+  featuredHomepageRaceIds,
   homepageMetrics,
   nationalElectionRaces,
   recentlyUpdated,
@@ -21,6 +22,16 @@ const race = (id: string, updated: string, state = "Iowa"): RaceSummary => ({
 });
 
 describe("homepage data", () => {
+  it("keeps Texas Senate first in the curated featured races", () => {
+    expect(featuredHomepageRaceIds).toEqual([
+      "tx-senate-2026",
+      "me-senate-2026",
+      "nv-governor-2026",
+      "co-house-08-2026",
+      "ia-senate-2026",
+    ]);
+  });
+
   it("keeps federal and gubernatorial contests in launch coverage", () => {
     const federal = {
       ...race("house", "2026-01-01T00:00:00Z"),
