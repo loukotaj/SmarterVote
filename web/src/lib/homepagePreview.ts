@@ -1,11 +1,5 @@
 import type { Candidate, IssueKey, Race, Source } from "$lib/types";
 
-export const gradeAHomepageRaceIds = [
-  "ak-senate-2026",
-  "ak-governor-2026",
-  "al-governor-2026",
-] as const;
-
 const source = (
   url: string,
   title: string,
@@ -237,16 +231,15 @@ export const gradeAHomepageFallbacks: Race[] = [
   },
 ];
 
-export const isGradeAHomepageRace = (race: Race) =>
-  race.validation_grade?.grade === "A" && race.validation_grade.passed === true;
+export const isHomepagePreviewRace = (race: Race) =>
+  race.validation_grade?.passed === true && race.validation_grade.score >= 85;
 
-export const mergeGradeAHomepageRaces = (
+export const mergeHomepagePreviewRaces = (
   verified: Race[],
-  fallbacks: Race[] = gradeAHomepageFallbacks,
   limit = 5,
 ): Race[] => {
   const seen = new Set<string>();
-  return [...verified, ...fallbacks]
+  return verified
     .filter((race) => {
       if (seen.has(race.id)) return false;
       seen.add(race.id);
