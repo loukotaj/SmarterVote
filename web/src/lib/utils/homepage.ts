@@ -11,11 +11,11 @@ export interface HomepageMetrics {
 // Editorial order for the homepage. Keep this list explicit so publishing or
 // refreshing another race does not unexpectedly change the featured section.
 export const featuredHomepageRaceIds = [
-  "co-house-08-2026",
+  "tx-senate-2026",
+  "me-senate-2026",
   "nv-governor-2026",
-  "pa-house-08-2026",
-  "nc-house-01-2026",
-  "ca-house-48-2026",
+  "co-house-08-2026",
+  "ia-senate-2026",
 ] as const;
 
 export function selectFeaturedRaces(
