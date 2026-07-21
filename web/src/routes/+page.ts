@@ -1,17 +1,15 @@
 import type { PageLoad } from "./$types";
 import { loadPrerenderSummaries } from "$lib/prerenderData";
-import type { RaceSummary } from "$lib/types";
+import type { Race, RaceSummary } from "$lib/types";
 import {
-  gradeAHomepageFallbacks,
-  gradeAHomepageRaceIds,
-  isGradeAHomepageRace,
-  mergeGradeAHomepageRaces,
+  isHomepagePreviewRace,
+  mergeHomepagePreviewRaces,
 } from "$lib/homepagePreview";
 import { loadPrerenderRace } from "$lib/prerenderData";
 import {
+  featuredHomepageRaceIds,
   homepageMetrics,
   nationalElectionRaces,
-  recentlyUpdated,
   selectFeaturedRaces,
 } from "$lib/utils/homepage";
 
@@ -23,30 +21,20 @@ export const load: PageLoad = async ({ fetch }) => {
     // Keep the homepage renderable in fast local builds without published data.
   }
   const nationalRaces = nationalElectionRaces(races);
-  let gradeARaces = gradeAHomepageFallbacks;
-  const indexedGradeAIds = recentlyUpdated(
-    nationalRaces.filter((race) => race.quality_grade === "A"),
-    5,
-  ).map((race) => race.id);
-  const previewIds = [
-    ...new Set([...indexedGradeAIds, ...gradeAHomepageRaceIds]),
-  ];
 
-  // Production syncs published race JSON into static/ before prerendering. Try
-  // those local files even when VITE_PUBLIC_DATA_URL is unset; fast local/CI
-  // builds can still fall back when the per-race fixtures are unavailable.
+  // The top comparison and editorial section share one explicit race order.
+  // Production syncs these published race files into static/ before prerendering.
   const published = await Promise.allSettled(
-    previewIds.map((id) => loadPrerenderRace(id, fetch)),
+    featuredHomepageRaceIds.map((id) => loadPrerenderRace(id, fetch)),
   );
-  const verified = published
-    .filter(
-      (
-        result,
-      ): result is PromiseFulfilledResult<(typeof gradeARaces)[number]> =>
-        result.status === "fulfilled" && isGradeAHomepageRace(result.value),
-    )
-    .map((result) => result.value);
-  gradeARaces = mergeGradeAHomepageRaces(verified);
+  const previewRaces = mergeHomepagePreviewRaces(
+    published
+      .filter(
+        (result): result is PromiseFulfilledResult<Race> =>
+          result.status === "fulfilled" && isHomepagePreviewRace(result.value),
+      )
+      .map((result) => result.value),
+  );
 
   // The editorial list is intentionally manual and independent of update time.
   // Missing or unpublished races are skipped without changing the chosen order.
@@ -54,7 +42,7 @@ export const load: PageLoad = async ({ fetch }) => {
 
   return {
     featuredRaces,
-    gradeARaces,
+    gradeARaces: previewRaces,
     metrics: homepageMetrics(nationalRaces, new Date().toISOString()),
   };
 };
