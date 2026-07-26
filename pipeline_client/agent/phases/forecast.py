@@ -9,7 +9,7 @@ from ..handlers import _make_editing_handlers
 from ..prompts import FORECAST_SYSTEM, FORECAST_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import FORECAST_TOOLS, READ_PROFILE_TOOL
-from ._common import _await_with_run_budget, _race_identity_context
+from ._common import _await_with_run_budget, _classify_exception, _race_identity_context, _record_step_failure
 
 
 async def run_forecast_phase(
@@ -102,4 +102,5 @@ async def run_forecast_phase(
         raise
     except Exception as exc:
         log("warning", f"  Forecast phase failed: {exc}")
+        _record_step_failure(race_json, "forecast", _classify_exception(exc), str(exc))
     track("complete", "forecast", duration_ms=int((time.perf_counter() - forecast_t0) * 1000), race_json=race_json)

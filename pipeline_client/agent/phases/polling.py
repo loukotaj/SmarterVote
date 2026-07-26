@@ -9,7 +9,7 @@ from ..handlers import _make_editing_handlers
 from ..prompts import POLLING_SYSTEM, POLLING_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import POLLING_TOOLS, READ_PROFILE_TOOL
-from ._common import _race_identity_context
+from ._common import _classify_exception, _race_identity_context, _record_step_failure
 
 
 async def run_polling_phase(
@@ -63,4 +63,5 @@ async def run_polling_phase(
         raise
     except Exception as exc:
         log("warning", f"  Polling phase failed: {exc}")
+        _record_step_failure(race_json, "polling", _classify_exception(exc), str(exc))
     track("complete", "polling", duration_ms=int((time.perf_counter() - polling_t0) * 1000), race_json=race_json)

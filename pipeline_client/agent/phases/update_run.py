@@ -18,7 +18,14 @@ from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations, _select_target_candidates
 from ..tools import CANDIDATE_TOOLS, DESCRIPTION_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS, REMOVE_CANDIDATE_TOOL, ROSTER_TOOLS
 from ..utils import make_logger
-from ._common import _await_with_run_budget, _candidate_name, _mark_pipeline_unit_complete, _pipeline_completed_units
+from ._common import (
+    RunFailureReason,
+    _await_with_run_budget,
+    _candidate_name,
+    _mark_pipeline_unit_complete,
+    _pipeline_completed_units,
+    _record_step_failure,
+)
 from .discovery import _backfill_source_timestamps, _sanitize_roster
 from .fresh_run import _run_fresh
 from .shared_runner import _run_shared_phases
@@ -130,6 +137,7 @@ async def _run_update(
                 raise
             except Exception as exc:
                 log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
+                _record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, str(exc))
 
             _sanitize_roster(race_json, log)
             await _await_with_run_budget(
@@ -182,6 +190,7 @@ async def _run_update(
                 raise
             except Exception as exc:
                 log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
+                _record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, str(exc))
             _mark_pipeline_unit_complete(race_json, "discovery.roster_verify")
             completed_units.add("discovery.roster_verify")
             track(

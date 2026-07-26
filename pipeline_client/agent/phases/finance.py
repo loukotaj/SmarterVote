@@ -7,7 +7,13 @@ from ..patches import _apply_finance_patch  # noqa: F401 — re-exported for bac
 from ..prompts import FINANCE_VOTING_SYSTEM, FINANCE_VOTING_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations
-from ._common import _race_identity_context
+from ._common import (
+    RunFailureReason,
+    _classify_exception,
+    _detect_empty_finance_output,
+    _race_identity_context,
+    _record_step_failure,
+)
 
 
 async def run_finance_phase(
@@ -58,8 +64,23 @@ async def run_finance_phase(
             _apply_finance_patch(race_json, finance_result, log)
         else:
             log("warning", "  Finance/voting phase returned non-dict — skipping")
+            _record_step_failure(
+                race_json, "finance", RunFailureReason.STEP_NO_DATA, "finance phase returned a non-dict response"
+            )
     except RunBudgetExceeded:
         raise
     except Exception as exc:
         log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
+        _record_step_failure(race_json, "finance", _classify_exception(exc), str(exc))
+    if _detect_empty_finance_output(race_json, candidate_names):
+        # The step ran (or was attempted) without a hard error, but every
+        # target candidate still has no donor_summary/voting_summary — the
+        # silent-failure pattern this exists to catch (CLAUDE.md rule 7).
+        log("warning", "  Finance/voting phase produced no donor/voting data for any candidate")
+        _record_step_failure(
+            race_json,
+            "finance",
+            RunFailureReason.STEP_NO_DATA,
+            "no candidate has donor_summary or voting_summary after the finance step",
+        )
     track("complete", "finance", duration_ms=int((time.perf_counter() - fin_t0) * 1000), race_json=race_json)

@@ -7,6 +7,7 @@ from ..handlers import _make_editing_handlers
 from ..prompts import VOTER_RESOURCES_SYSTEM, VOTER_RESOURCES_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import READ_PROFILE_TOOL, VOTER_RESOURCE_TOOLS
+from ._common import _classify_exception, _record_step_failure
 
 
 async def run_voter_resources_phase(
@@ -58,6 +59,7 @@ async def run_voter_resources_phase(
         raise
     except Exception as exc:
         log("warning", f"  Voter resources phase failed: {exc}")
+        _record_step_failure(race_json, "voter_resources", _classify_exception(exc), str(exc))
     track(
         "complete",
         "voter_resources",

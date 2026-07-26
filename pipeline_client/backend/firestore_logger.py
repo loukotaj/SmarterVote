@@ -180,8 +180,20 @@ class FirestoreLogger:
         except Exception as exc:
             logger.debug("FirestoreLogger.update_progress failed: %s", exc)
 
-    def mark_completed(self, *, duration_ms: Optional[int] = None) -> None:
-        """Mark the run document as completed."""
+    def mark_completed(
+        self,
+        *,
+        duration_ms: Optional[int] = None,
+        run_health: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Mark the run document as completed.
+
+        ``run_health`` (when provided) is the run's ``RunHealthVerdict`` — a
+        machine-readable "did this actually succeed" verdict that is
+        deliberately independent of ``status``: a run can be marked completed
+        here while ``run_health.status`` is ``"failed"`` or ``"degraded"``
+        (e.g. review didn't pass, or a step silently produced no data).
+        """
         self.flush()
         db = _get_db()
         if db is None:
@@ -194,6 +206,8 @@ class FirestoreLogger:
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
+            if run_health is not None:
+                update["run_health"] = run_health
             if self.truncated_log_count or self.dropped_log_count:
                 update["log_stats"] = {
                     "truncated": self.truncated_log_count,
@@ -203,7 +217,13 @@ class FirestoreLogger:
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_completed failed: %s", exc)
 
-    def mark_failed(self, error: str, *, duration_ms: Optional[int] = None) -> None:
+    def mark_failed(
+        self,
+        error: str,
+        *,
+        duration_ms: Optional[int] = None,
+        run_health: Optional[Dict[str, Any]] = None,
+    ) -> None:
         """Mark the run document as failed."""
         self.flush()
         db = _get_db()
@@ -217,6 +237,8 @@ class FirestoreLogger:
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
+            if run_health is not None:
+                update["run_health"] = run_health
             if self.truncated_log_count or self.dropped_log_count:
                 update["log_stats"] = {
                     "truncated": self.truncated_log_count,

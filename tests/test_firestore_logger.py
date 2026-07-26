@@ -117,6 +117,41 @@ def test_mark_failed(mock_db):
     assert "Something went wrong" in data["error"]
 
 
+def test_mark_completed_omits_run_health_when_not_provided(mock_db):
+    """Backward compat: existing callers that don't pass run_health get no such key."""
+    logger = FirestoreLogger("run-006")
+    logger.mark_completed(duration_ms=1000)
+
+    data = mock_db.collection.return_value.document.return_value.set.call_args[0][0]
+    assert "run_health" not in data
+
+
+def test_mark_completed_persists_run_health_when_provided(mock_db):
+    """run_health is the "did this actually succeed" verdict — independent of status,
+    which stays "completed" here even when the verdict is degraded/failed."""
+    logger = FirestoreLogger("run-007")
+    run_health = {
+        "status": "degraded",
+        "reasons": ["step_no_data"],
+        "step_failures": [{"step": "finance", "reason": "step_no_data", "detail": None}],
+        "summary": "finance: step_no_data",
+    }
+    logger.mark_completed(duration_ms=1000, run_health=run_health)
+
+    data = mock_db.collection.return_value.document.return_value.set.call_args[0][0]
+    assert data["status"] == "completed"
+    assert data["run_health"] == run_health
+
+
+def test_mark_failed_persists_run_health_when_provided(mock_db):
+    logger = FirestoreLogger("run-008")
+    run_health = {"status": "failed", "reasons": ["cancelled"], "step_failures": [], "summary": None}
+    logger.mark_failed("cancelled by admin", run_health=run_health)
+
+    data = mock_db.collection.return_value.document.return_value.set.call_args[0][0]
+    assert data["run_health"] == run_health
+
+
 def test_mark_handoff_keeps_logical_run_active(mock_db):
     """mark_handoff() records an invocation transition without ending the run."""
     logger = FirestoreLogger("run-006")

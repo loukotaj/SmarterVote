@@ -109,15 +109,19 @@ from ..web_tools import _get_search_cache  # noqa: F401 — re-exported for back
 from ._common import (
     _CONTROL_FLOW_EXCEPTION_NAMES,
     PipelineWorkRemaining,
+    RunFailureReason,
     _await_with_run_budget,
     _build_handoff_context,
     _candidate_name,
+    _classify_exception,
+    _detect_empty_finance_output,
     _is_control_flow_exception,
     _issue_stance_is_complete,
     _mark_pipeline_unit_complete,
     _pipeline_completed_units,
     _pipeline_issue_attempts,
     _race_identity_context,
+    _record_step_failure,
     logger,
 )
 from .discovery import (

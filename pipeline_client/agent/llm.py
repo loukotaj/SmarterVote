@@ -283,6 +283,16 @@ async def _call_openrouter(
             await asyncio.sleep(wait)
         except APIStatusError as exc:
             if exc.status_code < 500:
+                # 401/403 are almost always an exhausted or invalid API key, not a
+                # malformed request — classify them distinctly so run-health
+                # reporting can tell "we're out of credit" apart from other
+                # permanent 4xx failures.
+                if exc.status_code in (401, 403):
+                    raise PermanentProviderError(
+                        f"OpenRouter returned HTTP {exc.status_code} (auth/quota failure)",
+                        provider="openrouter",
+                        code="auth_failure",
+                    ) from exc
                 raise PermanentProviderError(
                     f"OpenRouter returned HTTP {exc.status_code}",
                     provider="openrouter",

@@ -140,17 +140,20 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         # Mark step as completed
         run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, artifact_id, duration_ms)
 
-        # Extract serper_calls from output
+        # Extract serper_calls (and run_health) from output
         serper_calls = 0
+        run_health = None
         if isinstance(output, dict) and isinstance(output.get("race_json"), dict):
-            agent_metrics = output["race_json"].get("agent_metrics")
+            race_json_out = output["race_json"]
+            agent_metrics = race_json_out.get("agent_metrics")
             if isinstance(agent_metrics, dict):
                 serper_calls = agent_metrics.get("serper_calls", 0)
+            run_health = race_json_out.get("run_health")
 
         # Mark the overall run as completed (persists to Firestore, detaches log handler)
         # Returns the final RunInfo directly — don't call get_run() after this as the
         # background Firestore write may not have landed yet.
-        run_manager.complete_run(run_id, artifact_id, duration_ms, serper_calls=serper_calls)
+        run_manager.complete_run(run_id, artifact_id, duration_ms, serper_calls=serper_calls, run_health=run_health)
 
         # Update race metadata. Run history is authoritative in pipeline_runs.
         if race_id:
@@ -189,8 +192,14 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
         context_logger.error(f"Pipeline step '{step}' failed: {error_msg}\n{tb}")
 
+        from shared.run_health import classify_exception
+
+        failure_reason = classify_exception(e)
+
         # Mark step and run as failed
-        run_manager.update_step_status(run_id, step, RunStatus.FAILED, error=error_msg, duration_ms=duration_ms)
+        run_manager.update_step_status(
+            run_id, step, RunStatus.FAILED, error=error_msg, duration_ms=duration_ms, failure_reasons=[failure_reason]
+        )
 
         # Try to get accumulated serper calls
         serper_calls = 0
@@ -203,7 +212,13 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         except Exception:
             pass
 
-        run_manager.fail_run(run_id, error_msg, duration_ms, serper_calls=serper_calls)
+        run_health = {
+            "status": "failed",
+            "reasons": [failure_reason.value],
+            "step_failures": [{"step": step, "reason": failure_reason.value, "detail": error_msg}],
+            "summary": error_msg,
+        }
+        run_manager.fail_run(run_id, error_msg, duration_ms, serper_calls=serper_calls, run_health=run_health)
 
         # Update race metadata. Run history is authoritative in pipeline_runs.
         if race_id:

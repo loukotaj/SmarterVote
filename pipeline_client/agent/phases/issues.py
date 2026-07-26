@@ -30,6 +30,7 @@ from ..utils import make_logger
 from ..web_tools import _get_search_cache
 from ._common import (
     PipelineWorkRemaining,
+    RunFailureReason,
     _await_with_run_budget,
     _build_handoff_context,
     _is_control_flow_exception,
@@ -38,6 +39,7 @@ from ._common import (
     _pipeline_completed_units,
     _pipeline_issue_attempts,
     _race_identity_context,
+    _record_step_failure,
     logger,
 )
 
@@ -538,6 +540,16 @@ async def run_issues_phase(
                                 f"{issue_name} ({canonical_issue_index + 1}/{n_issues})"
                             ),
                             race_json=race_json,
+                        )
+                    elif patch is None:
+                        # A truly empty patch: the sub-agent crashed, timed out, or
+                        # made no tool call at all — a genuine failure, not a
+                        # deliberate "no position found" conclusion.
+                        _record_step_failure(
+                            race_json,
+                            "issues",
+                            RunFailureReason.STEP_NO_DATA,
+                            f"{candidate_name}/{issue_name}: issue sub-agent produced no verdict",
                         )
                     return candidate_name, issue_name, candidate_index, canonical_issue_index, patch
 

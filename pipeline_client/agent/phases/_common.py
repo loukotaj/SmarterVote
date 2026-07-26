@@ -9,6 +9,11 @@ import asyncio
 import logging
 from typing import Any, Dict, List
 
+from shared.run_health import RunFailureReason
+from shared.run_health import classify_exception as _classify_exception
+from shared.run_health import detect_empty_finance_output as _detect_empty_finance_output
+from shared.run_health import record_step_failure as _record_step_failure
+
 from .. import phase_state, roster
 from ..run_budget import RunBudget, RunBudgetExceeded
 

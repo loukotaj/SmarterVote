@@ -342,6 +342,10 @@ def _issue_quality(issue_data: Any) -> tuple[int, int]:
 
 def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Normalize issue keys and placeholder stances in raw agent output."""
+    from shared.run_health import RunFailureReason
+    from shared.run_health import is_placeholder_junk_stance as _is_placeholder_junk_stance
+    from shared.run_health import record_step_failure as _record_step_failure
+
     try:
         from shared.models import LEGACY_ISSUE_NAMES, CanonicalIssue
 
@@ -374,6 +378,17 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
                 issue["issue"] = LEGACY_ISSUE_NAMES.get(str(issue.get("issue") or key), str(issue.get("issue") or key))
                 stance = str(issue.get("stance") or "").strip()
                 if _is_missing_stance_text(stance):
+                    if _is_placeholder_junk_stance(stance):
+                        # A literal placeholder artifact (e.g. a stance that is
+                        # just the word "DRAFT") — distinct from a deliberate
+                        # "no public position found" research conclusion. Register
+                        # it as a failure instead of letting it pass silently.
+                        _record_step_failure(
+                            race_json,
+                            "issues",
+                            RunFailureReason.PLACEHOLDER_CONTENT,
+                            f"{_candidate_name(candidate)}/{key}: literal placeholder stance {stance!r}",
+                        )
                     issue["stance"] = "No public position found after repeated research attempts."
                     issue["confidence"] = "low"
                     issue.setdefault("sources", [])
@@ -933,6 +948,22 @@ async def run_agent(
     grade = compute_validation_grade(race_json.get("reviews", [])) if race_json.get("reviews") else None
     race_json["validation_grade"] = grade
     race_json["run_audit"] = _build_run_audit(baseline_existing_data, race_json)
+
+    # A definitive machine-readable "did this run actually work" verdict —
+    # distinct from pipeline_state.complete, which only tracks whether all
+    # requested steps ran, not whether they produced trustworthy data. See
+    # shared/run_health.py for the taxonomy and CLAUDE.md rule 7 for the
+    # motivating silent-failure patterns.
+    from shared.run_health import compute_run_health_verdict
+
+    run_health = compute_run_health_verdict(race_json, should_review=should_review, validation_grade=grade)
+    race_json["run_health"] = run_health.model_dump(mode="json")
+    if not run_health.passed:
+        log(
+            "warning",
+            f"Run health verdict: {run_health.status.value} "
+            f"(reasons: {', '.join(r.value for r in run_health.reasons) or 'none'})",
+        )
 
     elapsed = time.perf_counter() - t0
 

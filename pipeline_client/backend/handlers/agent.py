@@ -383,6 +383,12 @@ class AgentHandler:
                         if m_prompt > 0 or m_completion > 0:
                             estimated_usd += estimate_cost(model, m_prompt, m_completion)
 
+                step_failure_reasons: list = []
+                if isinstance(latest_race_json, dict):
+                    from shared.run_health import get_step_failures
+
+                    step_failure_reasons = [f.reason for f in get_step_failures(latest_race_json) if f.step == step]
+
                 if _run_manager:
                     _run_manager.update_step_status(
                         run_id,
@@ -392,6 +398,7 @@ class AgentHandler:
                         prompt_tokens=prompt_tokens,
                         completion_tokens=completion_tokens,
                         estimated_usd=estimated_usd,
+                        failure_reasons=step_failure_reasons,
                     )
                 _completed_steps.append(step)
                 pct = _overall_progress()
@@ -701,8 +708,9 @@ class AgentHandler:
         except Exception:
             logger.warning("Failed to record pipeline metrics", exc_info=True)
 
+        run_health = race_json.get("run_health") if isinstance(race_json, dict) else None
         if _fs_logger:
-            _fs_logger.mark_completed(duration_ms=duration_ms)
+            _fs_logger.mark_completed(duration_ms=duration_ms, run_health=run_health)
 
         return {
             "race_id": race_id,
@@ -712,6 +720,7 @@ class AgentHandler:
             "agent_logs": list(agent_logs),
             "log_stats": log_stats,
             "status": "draft",
+            "run_health": run_health,
         }
 
     async def _save_draft(

@@ -30,10 +30,31 @@ from typing import Any, Dict, List, Optional
 from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message
 from shared.config import FIRESTORE_RUNS_COLLECTION
 from shared.pipeline_config import RetentionConfig
+from shared.run_health import RunHealthVerdict
 
 from .models import RunInfo, RunOptions, RunRequest, RunStatus, RunStep
 
 logger = logging.getLogger("pipeline")
+
+
+def _coerce_run_health(run_health: Any) -> Optional[RunHealthVerdict]:
+    """Accept either a RunHealthVerdict or an equivalent raw dict.
+
+    Callers (queue_processor, pipeline_runner, handlers/agent) build this as a
+    plain dict in most places since that's what gets written straight to
+    Firestore; RunInfo itself wants the typed model so `.model_dump()` always
+    serializes enum values consistently.
+    """
+    if isinstance(run_health, RunHealthVerdict):
+        return run_health
+    if isinstance(run_health, dict):
+        try:
+            return RunHealthVerdict.model_validate(run_health)
+        except Exception:
+            logger.warning("Discarding malformed run_health payload: %r", run_health)
+            return None
+    return None
+
 
 _COLLECTION = FIRESTORE_RUNS_COLLECTION
 
@@ -186,6 +207,7 @@ class RunManager:
         prompt_tokens: Optional[int] = None,
         completion_tokens: Optional[int] = None,
         estimated_usd: Optional[float] = None,
+        failure_reasons: Optional[List[Any]] = None,
     ):
         """Update status information for a specific step."""
         run_info = self.active_runs.get(run_id)
@@ -209,6 +231,8 @@ class RunManager:
                         step_info.completion_tokens = completion_tokens
                     if estimated_usd is not None:
                         step_info.estimated_usd = estimated_usd
+                    if failure_reasons is not None:
+                        step_info.failure_reasons = list(failure_reasons)
                 break
         self._save_run(run_info)
 
@@ -225,8 +249,14 @@ class RunManager:
         artifact_id: Optional[str] = None,
         duration_ms: Optional[int] = None,
         serper_calls: Optional[int] = None,
+        run_health: Optional[Any] = None,
     ) -> Optional["RunInfo"]:
-        """Mark a run as completed. Returns the final RunInfo (or None if not found)."""
+        """Mark a run as completed. Returns the final RunInfo (or None if not found).
+
+        ``run_health`` (a ``RunHealthVerdict`` or an equivalent dict) is the
+        machine-readable "did this actually succeed" verdict — independent of
+        ``status``, which only reflects that the run finished without raising.
+        """
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.COMPLETED
@@ -235,6 +265,8 @@ class RunManager:
             run_info.duration_ms = duration_ms
             if serper_calls is not None:
                 run_info.serper_calls = serper_calls
+            if run_health is not None:
+                run_info.run_health = _coerce_run_health(run_health)
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)
@@ -242,7 +274,12 @@ class RunManager:
         return None
 
     def fail_run(
-        self, run_id: str, error: str, duration_ms: Optional[int] = None, serper_calls: Optional[int] = None
+        self,
+        run_id: str,
+        error: str,
+        duration_ms: Optional[int] = None,
+        serper_calls: Optional[int] = None,
+        run_health: Optional[Any] = None,
     ) -> Optional["RunInfo"]:
         """Mark a run as failed. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
@@ -253,6 +290,8 @@ class RunManager:
             run_info.duration_ms = duration_ms
             if serper_calls is not None:
                 run_info.serper_calls = serper_calls
+            if run_health is not None:
+                run_info.run_health = _coerce_run_health(run_health)
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)
@@ -262,9 +301,12 @@ class RunManager:
     def cancel_run(self, run_id: str) -> Optional["RunInfo"]:
         """Cancel a running process. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
+            from shared.run_health import RunFailureReason, RunHealthStatus, RunHealthVerdict
+
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.CANCELLED
             run_info.completed_at = datetime.now(timezone.utc)
+            run_info.run_health = RunHealthVerdict(status=RunHealthStatus.FAILED, reasons=[RunFailureReason.CANCELLED])
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)

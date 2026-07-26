@@ -8,7 +8,13 @@ from ..handlers import _make_editing_handlers
 from ..prompts import CANONICAL_ISSUES, REFINE_META_USER, REFINE_SYSTEM, REFINE_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import BACKGROUND_TOOLS, CANDIDATE_TOOLS, DESCRIPTION_TOOLS, ISSUE_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS
-from ._common import _await_with_run_budget, _mark_pipeline_unit_complete, _pipeline_completed_units
+from ._common import (
+    _await_with_run_budget,
+    _classify_exception,
+    _mark_pipeline_unit_complete,
+    _pipeline_completed_units,
+    _record_step_failure,
+)
 
 
 async def run_refinement_phase(
@@ -100,6 +106,7 @@ async def run_refinement_phase(
             raise
         except Exception as exc:
             log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
+            _record_step_failure(race_json, "refinement", _classify_exception(exc), f"{cname}: {exc}")
         _mark_pipeline_unit_complete(race_json, unit_id)
         refinement_units.add(unit_id)
         track(
@@ -136,6 +143,7 @@ async def run_refinement_phase(
             raise
         except Exception as exc:
             log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
+            _record_step_failure(race_json, "refinement", _classify_exception(exc), f"meta: {exc}")
         _mark_pipeline_unit_complete(race_json, meta_unit_id)
         refinement_units.add(meta_unit_id)
         track(
