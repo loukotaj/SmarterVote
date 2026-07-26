@@ -194,6 +194,11 @@ async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, An
         items = [item for item in items if item.get("status") in _ACTIVE_STATUSES]
     running = sum(1 for i in items if i.get("status") == "running")
     pending = sum(1 for i in items if i.get("status") == "pending")
+    # Structured line consumed by the `pipeline_queue_pending_depth` log-based metric
+    # (infra/monitoring.tf) that backs the queue-backlog alert. Keep this exact
+    # "pipeline_queue_depth pending=<int> running=<int>" shape in sync with that
+    # resource's value_extractor regex if this line ever changes.
+    logger.info("pipeline_queue_depth pending=%d running=%d", pending, running)
     return {"items": items, "running": running > 0, "pending": pending}
 
 

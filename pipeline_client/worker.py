@@ -24,6 +24,7 @@ import asyncio
 import logging
 import os
 import signal
+import time
 import uuid
 from pathlib import Path
 from typing import Any, Set
@@ -39,6 +40,56 @@ _RUNNER = os.getenv("WORKER_RUNNER", "local").strip().lower()
 _CONCURRENCY = max(1, int(os.getenv("WORKER_CONCURRENCY", "2")))
 _POLL_SECONDS = max(1, int(os.getenv("WORKER_POLL_SECONDS", "3")))
 _ONCE = os.getenv("WORKER_ONCE", "false").strip().lower() in {"1", "true", "yes"}
+# How often the long-lived worker proves it's still alive. This has nothing to do
+# with race progress — it fires whether or not any race is in flight — so an admin
+# can tell "worker process is dead/not restarted" apart from "worker is just idle".
+# See infra/monitoring.tf's `pipeline_worker_heartbeat` log-based metric + the
+# `local_worker_stale` alert policy, which fire off the log line this writes.
+_HEARTBEAT_SECONDS = max(30, int(os.getenv("WORKER_HEARTBEAT_SECONDS", "300")))
+_cloud_logger: Any = None
+_cloud_logger_init_failed = False
+
+
+def _get_cloud_logger() -> Any:
+    """Lazily create a Cloud Logging client bound to the `pipeline-worker-heartbeat`
+    log. Only WORKER_ONCE=false (long-lived) callers need this — the one-shot Cloud
+    Run Job path already ships stdout to Cloud Logging automatically and doesn't call
+    this. Returns None (and logs a one-time warning) if google-cloud-logging isn't
+    installed or ADC lacks roles/logging.logWriter — the heartbeat is best-effort and
+    must never crash the worker.
+    """
+    global _cloud_logger, _cloud_logger_init_failed
+    if _cloud_logger is not None or _cloud_logger_init_failed:
+        return _cloud_logger
+    try:
+        from google.cloud import logging as gcloud_logging  # type: ignore
+
+        project = os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
+        client = gcloud_logging.Client(project=project) if project else gcloud_logging.Client()
+        _cloud_logger = client.logger("pipeline-worker-heartbeat")
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Cloud Logging heartbeat disabled (init failed): %s", exc)
+        _cloud_logger_init_failed = True
+        _cloud_logger = None
+    return _cloud_logger
+
+
+def _emit_heartbeat() -> None:
+    """Write one structured heartbeat entry to Cloud Logging, if available.
+
+    Best-effort: any failure here only logs a local warning and never propagates,
+    since a heartbeat outage must not take down race processing.
+    """
+    cloud_logger = _get_cloud_logger()
+    if cloud_logger is None:
+        return
+    try:
+        cloud_logger.log_struct(
+            {"event": "pipeline_worker_heartbeat", "runner": _RUNNER, "hostname": os.getenv("HOSTNAME", "local-worker")},
+            severity="INFO",
+        )
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Failed to emit worker heartbeat: %s", exc)
 
 
 def _get_db() -> Any:
@@ -140,8 +191,16 @@ async def run_worker() -> None:
 
     sem = asyncio.Semaphore(_CONCURRENCY)
     in_flight: Set[asyncio.Task] = set()
+    last_heartbeat = 0.0
+    # WORKER_ONCE (the Cloud Run Job path) already has stdout auto-shipped to Cloud
+    # Logging and a per-item lease heartbeat; the Cloud Logging heartbeat below is
+    # only meaningful for the long-lived local worker this alert targets.
+    emit_heartbeats = not _ONCE
 
     while not stop.is_set():
+        if emit_heartbeats and (time.monotonic() - last_heartbeat) >= _HEARTBEAT_SECONDS:
+            _emit_heartbeat()
+            last_heartbeat = time.monotonic()
         try:
             capacity = _CONCURRENCY - len(in_flight)
             queue_item_id = os.getenv("QUEUE_ITEM_ID", "").strip()
