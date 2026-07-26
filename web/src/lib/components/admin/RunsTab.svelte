@@ -54,7 +54,7 @@
   let loadingDrawerDetails = false;
   let drawerError = "";
   let logPollTimer: ReturnType<typeof setInterval> | null = null;
-  let lastLogIndex = 0;
+  let lastLogCursor: string | null = null;
   let logContainer: HTMLDivElement;
   let lastRenderedLogCount = 0;
   let shouldAutoScrollLogs = true;
@@ -67,6 +67,7 @@
 
   // Actions
   let cancellingRunId: string | null = null;
+  let downloadingDiagnosticsRunId: string | null = null;
   let clearingQueue = false;
 
   type RunMetricFields = RunHistoryItem & {
@@ -160,7 +161,7 @@
     selectedRunRaceId = raceId;
     selectedRunDetail = null;
     drawerLogs = [];
-    lastLogIndex = 0;
+    lastLogCursor = null;
     lastRenderedLogCount = 0;
     shouldAutoScrollLogs = true;
     drawerError = "";
@@ -177,9 +178,9 @@
         selectedRunDetail = await apiService.getRunDetails(runId);
 
         // load logs
-        const logRes = await apiService.getRunLogs(runId, 0);
+        const logRes = await apiService.getRunLogs(runId);
         drawerLogs = logRes.logs || [];
-        lastLogIndex = drawerLogs.length;
+        lastLogCursor = logRes.next_cursor ?? null;
 
         // If status is running or pending, start polling
         if (
@@ -199,11 +200,11 @@
                 selectedRunDetail = await apiService.getRunDetails(runId);
                 const newLogsRes = await apiService.getRunLogs(
                   runId,
-                  lastLogIndex,
+                  lastLogCursor,
                 );
+                lastLogCursor = newLogsRes.next_cursor ?? lastLogCursor;
                 if (newLogsRes.logs && newLogsRes.logs.length > 0) {
                   drawerLogs = [...drawerLogs, ...newLogsRes.logs];
-                  lastLogIndex = lastLogIndex + newLogsRes.logs.length;
                 }
 
                 if (
@@ -219,7 +220,7 @@
             } catch (err) {
               console.error("Error polling logs/details:", err);
             }
-          }, 3000);
+          }, 5000);
           logPollTimer = currentTimer;
         }
       } else {
@@ -284,6 +285,27 @@
       alert(`Failed to cancel run: ${err}`);
     } finally {
       cancellingRunId = null;
+    }
+  }
+
+  async function handleDownloadDiagnostics(runId: string) {
+    if (!apiService) return;
+    downloadingDiagnosticsRunId = runId;
+    try {
+      const bundle = await apiService.getRunDiagnostics(runId);
+      const blob = new Blob([JSON.stringify(bundle, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `pipeline-diagnostics-${runId}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert(`Failed to export diagnostics: ${err}`);
+    } finally {
+      downloadingDiagnosticsRunId = null;
     }
   }
 
@@ -1178,6 +1200,17 @@
         {/if}
       </div>
       <div class="flex items-center gap-2">
+        <button
+          type="button"
+          class="px-2.5 py-1 text-xs border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 hover:bg-violet-50 dark:hover:bg-violet-900/10 rounded transition-colors font-medium whitespace-nowrap"
+          disabled={downloadingDiagnosticsRunId === selectedRunId}
+          on:click={() => handleDownloadDiagnostics(selectedRunId ?? "")}
+          title="Download a sanitized run, queue, log, metrics, and draft bundle"
+        >
+          {downloadingDiagnosticsRunId === selectedRunId
+            ? "Exporting..."
+            : "Export diagnostics"}
+        </button>
         {#if selectedRunDetail && (selectedRunDetail.status === "running" || selectedRunDetail.status === "pending")}
           <button
             type="button"

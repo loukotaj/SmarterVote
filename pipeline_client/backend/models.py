@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 
 from shared.pipeline_config import PIPELINE_STEP_LABELS, PIPELINE_STEP_ORDER, PIPELINE_STEP_WEIGHTS
 from shared.pipeline_options import ResolvedPipelineRunOptions
+from shared.run_health import RunFailureReason, RunHealthVerdict
 
 
 class RunStatus(str, Enum):
@@ -83,6 +84,11 @@ class RunStep(BaseModel):
     prompt_tokens: Optional[int] = None
     completion_tokens: Optional[int] = None
     estimated_usd: Optional[float] = None
+    # Machine-readable failure reason(s) for this step specifically — distinct
+    # from `error` (a free-text message). Populated when a step catches and
+    # swallows an exception, or detects it silently produced no data. Absent
+    # on legacy run records; defaults keep old Firestore docs loadable.
+    failure_reasons: List[RunFailureReason] = Field(default_factory=list)
 
 
 class RunInfo(BaseModel):
@@ -100,6 +106,11 @@ class RunInfo(BaseModel):
     steps: List[RunStep] = Field(default_factory=list)
     logs: Optional[List[Dict]] = Field(default_factory=list)
     serper_calls: Optional[int] = None
+    # Definitive machine-readable "did this run actually work" verdict — NOT
+    # the same signal as `status == completed`/`pipeline_state.complete`; see
+    # shared/run_health.py. `None` for runs recorded before this field existed
+    # or when it could not yet be computed (e.g. run still in progress).
+    run_health: Optional[RunHealthVerdict] = None
 
 
 class LogEntry(BaseModel):

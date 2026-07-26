@@ -87,6 +87,81 @@ async def get_race_data(race_id: str, draft: bool = False) -> Dict[str, Any]:
     return await _client().get(f"/api/races/{race_id}/data", params={"draft": draft})
 
 
+def _candidate_names(data: Any) -> List[str]:
+    """Extract candidate names from a RaceJSON-shaped payload, tolerating missing data."""
+    if not isinstance(data, dict):
+        return []
+    candidates = data.get("candidates")
+    if not isinstance(candidates, list):
+        return []
+    return [c.get("name") for c in candidates if isinstance(c, dict) and c.get("name")]
+
+
+@mcp.tool(structured_output=False)
+async def audit_draft_vs_published(race_ids: List[str]) -> Dict[str, Any]:
+    """Compare draft vs. published candidate rosters and validation grade for many races at once.
+
+    For each race ID, fetches the current draft (get_race_data with draft=True) and the
+    currently published race (get_published_race), then reports candidate name/count
+    differences plus the draft's validation_grade and pipeline_state.complete. Missing
+    drafts or missing published races are reported (not raised) so one bad race ID doesn't
+    abort the whole batch.
+
+    This single comparison serves two purposes depending on when you call it: run it before
+    publish_races on the same race_ids to preview what will change (a "publish plan"), and
+    again afterward to confirm the live data matches what was planned (publish verification).
+    Replaces hand-rolling this comparison race-by-race and saving the results to a scratch
+    JSON file.
+    """
+    client = _client()
+    rows: List[Dict[str, Any]] = []
+    for race_id in race_ids:
+        try:
+            draft = await client.get(f"/api/races/{race_id}/data", params={"draft": True})
+        except Exception:
+            draft = None
+        try:
+            published = await client.get(f"/races/{race_id}")
+        except Exception:
+            published = None
+
+        draft_names = _candidate_names(draft)
+        published_names = _candidate_names(published)
+
+        grade = None
+        passed = None
+        if isinstance(draft, dict):
+            validation_grade = draft.get("validation_grade")
+            if isinstance(validation_grade, dict):
+                grade = validation_grade.get("grade")
+                passed = validation_grade.get("passed")
+
+        full = False
+        if isinstance(draft, dict):
+            pipeline_state = draft.get("pipeline_state")
+            if isinstance(pipeline_state, dict):
+                full = bool(pipeline_state.get("complete"))
+
+        rows.append(
+            {
+                "race_id": race_id,
+                "draft_exists": draft is not None,
+                "published_exists": published is not None,
+                "full": full,
+                "draft_count": len(draft_names),
+                "published_count": len(published_names),
+                "draft_names": draft_names,
+                "published_names": published_names,
+                "names_match": sorted(draft_names) == sorted(published_names),
+                "grade": grade,
+                "passed": passed,
+            }
+        )
+
+    mismatched = [row["race_id"] for row in rows if not row["names_match"]]
+    return {"rows": rows, "mismatched_race_ids": mismatched, "race_count": len(race_ids)}
+
+
 @mcp.tool(structured_output=False)
 async def queue_races(
     race_ids: List[str],
@@ -395,6 +470,109 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
 async def get_pipeline_metrics_summary() -> Dict[str, Any]:
     """Return aggregate pipeline cost stats."""
     return await _client().get("/pipeline/metrics/summary")
+
+
+@mcp.tool(structured_output=False)
+async def summarize_run_costs(run_ids: List[str]) -> Dict[str, Any]:
+    """Aggregate cost, token, and status data across many pipeline run IDs in one call.
+
+    Fetches each run via get_run (raw Firestore pipeline_runs doc) and normalizes its
+    cost/token/model-breakdown fields, which may live at the top level or nested under
+    payload.agent_metrics depending on how/when the run was recorded. Returns one row per
+    run plus rolled-up status counts, the list of failed/active run IDs, and totals across
+    the whole batch.
+
+    Useful for auditing a batch of pipeline runs (e.g. tracking progress and spend across a
+    multi-race repair effort) without manually calling get_run once per run and hand-
+    aggregating the JSON into a scratch file. A run ID that no longer exists is reported
+    with status "missing" rather than raising, so one bad ID doesn't abort the whole batch.
+    """
+    client = _client()
+    rows: List[Dict[str, Any]] = []
+    status_counts: Dict[str, int] = {}
+    total_cost = 0.0
+    total_prompt_tokens = 0
+    total_completion_tokens = 0
+
+    for run_id in run_ids:
+        try:
+            raw = await client.get(f"/runs/{run_id}")
+        except Exception:
+            raw = None
+
+        if not isinstance(raw, dict):
+            rows.append({"run_id": run_id, "status": "missing"})
+            status_counts["missing"] = status_counts.get("missing", 0) + 1
+            continue
+
+        payload = raw.get("payload") if isinstance(raw.get("payload"), dict) else {}
+        agent_metrics = payload.get("agent_metrics") if isinstance(payload.get("agent_metrics"), dict) else {}
+
+        status = raw.get("status") or "unknown"
+        race_id = raw.get("race_id") or payload.get("race_id") or ""
+
+        model_breakdown = raw.get("model_breakdown")
+        if not isinstance(model_breakdown, dict):
+            model_breakdown = agent_metrics.get("model_breakdown")
+        if not isinstance(model_breakdown, dict):
+            model_breakdown = {}
+
+        cost_raw = raw.get("estimated_usd")
+        if cost_raw is None:
+            cost_raw = raw.get("cost_usd")
+        if cost_raw is None:
+            cost_raw = agent_metrics.get("estimated_usd")
+        try:
+            cost = float(cost_raw) if cost_raw is not None else 0.0
+        except (TypeError, ValueError):
+            cost = 0.0
+
+        prompt_tokens = 0
+        completion_tokens = 0
+        for model_stats in model_breakdown.values():
+            if not isinstance(model_stats, dict):
+                continue
+            try:
+                prompt_tokens += int(model_stats.get("prompt_tokens") or 0)
+            except (TypeError, ValueError):
+                pass
+            try:
+                completion_tokens += int(model_stats.get("completion_tokens") or 0)
+            except (TypeError, ValueError):
+                pass
+
+        rows.append(
+            {
+                "run_id": run_id,
+                "race_id": race_id,
+                "status": status,
+                "cost": round(cost, 6),
+                "has_cost": cost > 0,
+                "model_breakdown": model_breakdown,
+                "prompt_tokens": prompt_tokens,
+                "completion_tokens": completion_tokens,
+            }
+        )
+        status_counts[status] = status_counts.get(status, 0) + 1
+        total_cost += cost
+        total_prompt_tokens += prompt_tokens
+        total_completion_tokens += completion_tokens
+
+    failed_run_ids = [row["run_id"] for row in rows if row.get("status") == "failed"]
+    active_run_ids = [row["run_id"] for row in rows if row.get("status") in ("pending", "running")]
+
+    return {
+        "rows": rows,
+        "status_counts": status_counts,
+        "failed_run_ids": failed_run_ids,
+        "active_run_ids": active_run_ids,
+        "totals": {
+            "cost": round(total_cost, 6),
+            "prompt_tokens": total_prompt_tokens,
+            "completion_tokens": total_completion_tokens,
+            "run_count": len(run_ids),
+        },
+    }
 
 
 @mcp.tool(structured_output=False)

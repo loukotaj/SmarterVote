@@ -2,11 +2,18 @@ import { describe, expect, it } from "vitest";
 import type { RaceSummary } from "$lib/types";
 import {
   aggregateForecasts,
+  filterForecastRaces,
+  getControlRelevanceScore,
+  getMostLikelySeatOutcome,
   isRaceInForecastTab,
   officeGroup,
   parseForecastTab,
   groupSeatDistribution,
   normalizeForecastParty,
+  raceHref,
+  resolveControlParty,
+  sortForecastRaces,
+  type ForecastRace,
 } from "./forecast";
 
 const baseRace = {
@@ -94,6 +101,8 @@ describe("forecast utilities", () => {
           generated_at: "2026-06-20T00:00:00Z",
           model: "openai/gpt-5.4",
           source_urls: [],
+          key_reasons: [],
+          market_signals: [],
         },
       },
     ];
@@ -120,6 +129,8 @@ describe("forecast utilities", () => {
           generated_at: "2026-06-20T00:00:00Z",
           model: "openai/gpt-5.4",
           source_urls: [],
+          key_reasons: [],
+          market_signals: [],
         },
       },
     ];
@@ -178,5 +189,158 @@ describe("forecast utilities", () => {
     expect(buckets[1].probability).toBe(0.4);
     expect(buckets[2].label).toBe("Near Tie (212-217D)");
     expect(buckets[2].probability).toBe(0.6);
+  });
+
+  it("builds a race href", () => {
+    expect(raceHref("ga-senate-2026")).toBe("/races/ga-senate-2026");
+  });
+
+  it("finds the most likely seat outcome, defaulting when empty", () => {
+    expect(getMostLikelySeatOutcome({})).toEqual({ key: "", probability: 0 });
+    expect(
+      getMostLikelySeatOutcome({ "51D-49R": 0.3, "50D-50R": 0.45 }),
+    ).toEqual({ key: "50D-50R", probability: 0.45 });
+  });
+
+  describe("resolveControlParty", () => {
+    const aggregate = aggregateForecasts([], "senate");
+
+    it("prefers the chamber summary's own control_party", () => {
+      expect(
+        resolveControlParty(
+          "senate",
+          { control_party: "Democratic" } as never,
+          aggregate,
+        ),
+      ).toBe("Democratic");
+    });
+
+    it("resolves a Senate 50-50 projection to Republican via VP tie-break", () => {
+      const tiedAggregate = {
+        ...aggregate,
+        projected: { Democratic: 50, Republican: 50, Other: 0 },
+      };
+      expect(resolveControlParty("senate", undefined, tiedAggregate)).toBe(
+        "Republican",
+      );
+    });
+
+    it("falls back to whichever party meets the seat threshold", () => {
+      const demAggregate = {
+        ...aggregate,
+        threshold: 51,
+        projected: { Democratic: 52, Republican: 48, Other: 0 },
+      };
+      expect(resolveControlParty("senate", undefined, demAggregate)).toBe(
+        "Democratic",
+      );
+
+      const noControlAggregate = {
+        ...aggregate,
+        threshold: 51,
+        projected: { Democratic: 45, Republican: 45, Other: 10 },
+      };
+      expect(resolveControlParty("senate", undefined, noControlAggregate)).toBe(
+        "Other",
+      );
+    });
+  });
+
+  describe("race sorting and filtering", () => {
+    function race(
+      id: string,
+      overrides: Partial<ForecastRace["forecast"]> = {},
+      raceOverrides: Partial<RaceSummary> = {},
+    ): ForecastRace {
+      return {
+        ...baseRace,
+        id,
+        state: raceOverrides.state,
+        title: raceOverrides.title ?? id,
+        forecast: {
+          party_probabilities: {},
+          rating: "tossup",
+          confidence: "medium",
+          rationale: "test",
+          based_on_poll_count: 1,
+          generated_at: "2026-06-20T00:00:00Z",
+          model: "test",
+          source_urls: [],
+          ...overrides,
+        },
+      } as ForecastRace;
+    }
+
+    it("scores races by named competitive-race relevance first, then rating closeness", () => {
+      const named = race("ga-senate-2026", {}, { title: "Georgia Senate" });
+      const other = race("wy-senate-2026", { rating: "tossup" });
+      const chamberSummary = {
+        competitive_races: ["Georgia Senate"],
+      } as never;
+
+      expect(getControlRelevanceScore(named, chamberSummary)).toBeLessThan(
+        getControlRelevanceScore(other, chamberSummary),
+      );
+    });
+
+    it("sorts by margin, probability and state", () => {
+      const races = [
+        race("a", { margin_estimate: 5 }),
+        race("b", { margin_estimate: 1 }),
+      ];
+      const byMargin = sortForecastRaces(races, "margin", undefined);
+      expect(byMargin.map((r) => r.id)).toEqual(["a", "b"]);
+
+      const byState = sortForecastRaces(
+        [
+          race("a", {}, { state: "Wyoming" }),
+          race("b", {}, { state: "Arizona" }),
+        ],
+        "state",
+        undefined,
+      );
+      expect(byState.map((r) => r.id)).toEqual(["b", "a"]);
+    });
+
+    it("filters by selected state, rating bucket and party", () => {
+      const races = [
+        race(
+          "a",
+          { rating: "tossup", predicted_winner_party: "Democratic" },
+          {
+            state: "Nevada",
+          },
+        ),
+        race(
+          "b",
+          { rating: "safe_r", predicted_winner_party: "Republican" },
+          { state: "Alabama" },
+        ),
+      ];
+
+      expect(
+        filterForecastRaces(races, {
+          selectedState: "Nevada",
+          filterRating: "all",
+          filterParty: "all",
+        }).map((r) => r.id),
+      ).toEqual(["a"]);
+
+      expect(
+        filterForecastRaces(races, {
+          selectedState: null,
+          filterRating: "likely_safe",
+          filterParty: "all",
+        }).map((r) => r.id),
+      ).toEqual(["b"]);
+
+      expect(
+        filterForecastRaces(races, {
+          selectedState: null,
+          filterRating: "all",
+          filterParty: "Republican",
+        }).map((r) => r.id),
+      ).toEqual(["b"]);
+    });
   });
 });

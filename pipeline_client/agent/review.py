@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 import logging
+import re
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, List, Optional
 from urllib.parse import urlparse
@@ -25,6 +26,8 @@ from .model_registry import (
     DEFAULT_GROK_MODEL,
     normalize_model_id,
 )
+from .phase_state import race_identity_context
+from .polling_quality import polling_semantic_problem
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
 from .run_budget import RunBudget, RunBudgetExceeded
 from .utils import _extract_json, make_logger
@@ -194,10 +197,16 @@ async def _run_single_review(
     change_manifest: str = "Initial review. No previous revision is available.",
     metrics_sink: Optional[Dict[str, Any]] = None,
     run_budget: RunBudget | None = None,
+    race_identity_context_text: str = "",
 ) -> Optional[Dict[str, Any]]:
     """Run a single review agent role (claude, gemini, or grok)."""
     log = make_logger(on_log)
-    user_prompt = REVIEW_USER.format(race_id=race_id, profile_json=profile_json, change_manifest=change_manifest)
+    user_prompt = REVIEW_USER.format(
+        race_id=race_id,
+        profile_json=profile_json,
+        change_manifest=change_manifest,
+        race_identity_context=race_identity_context_text,
+    )
     if provider not in _REVIEW_MODELS:
         return None
     full_model, _cheap_model = _REVIEW_MODELS[provider]
@@ -348,6 +357,49 @@ async def check_profile_links(
     }
 
 
+def _is_documented_absence(stance: str) -> bool:
+    normalized = stance.casefold()
+    return "no public position found" in normalized or "no publicly stated position" in normalized
+
+
+def _implausible_incumbency_claim(race_json: Dict[str, Any]) -> Optional[str]:
+    office = str(race_json.get("office") or "").casefold()
+    term_years = 2 if "house" in office or "representative" in office else 6 if "senate" in office else None
+    if term_years is None:
+        return None
+    election_date = str(race_json.get("election_date") or "")
+    try:
+        election_year = int(election_date[:4])
+    except (TypeError, ValueError):
+        return None
+
+    plausible_terms = []
+    for candidate in race_json.get("candidates") or []:
+        if not isinstance(candidate, dict) or not candidate.get("incumbent"):
+            continue
+        starts = [
+            entry.get("start_year")
+            for entry in candidate.get("career_history") or []
+            if isinstance(entry, dict)
+            and isinstance(entry.get("start_year"), int)
+            and (
+                "representative" in str(entry.get("title") or "").casefold()
+                or "senator" in str(entry.get("title") or "").casefold()
+            )
+        ]
+        if starts:
+            plausible_terms.append(max(1, (election_year - min(starts) + term_years - 1) // term_years))
+    if not plausible_terms:
+        return None
+
+    forecast_text = json.dumps(race_json.get("forecast") or {}, ensure_ascii=True)
+    for match in re.finditer(r"\b(\d+)[ -]term\b", forecast_text, flags=re.IGNORECASE):
+        claimed_terms = int(match.group(1))
+        if claimed_terms > max(plausible_terms) + 1:
+            return f"Forecast claims a {claimed_terms}-term incumbency, but candidate career dates support at most about {max(plausible_terms)} completed terms."
+    return None
+
+
 def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
     """Run deterministic checks for important quality failures reviewers may miss."""
     flags = []
@@ -421,6 +473,29 @@ def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
             }
         )
 
+    for poll_index, poll in enumerate(race_json.get("polling") or []):
+        problem = polling_semantic_problem(poll, race_json.get("polling_note"))
+        if problem:
+            flags.append(
+                {
+                    "field": f"polling[{poll_index}]",
+                    "concern": problem,
+                    "suggestion": "Remove the entry or replace it with a genuine opinion poll from a named polling organization.",
+                    "severity": "error",
+                }
+            )
+
+    incumbency_problem = _implausible_incumbency_claim(race_json)
+    if incumbency_problem:
+        flags.append(
+            {
+                "field": "forecast.rationale",
+                "concern": incumbency_problem,
+                "suggestion": "Recalculate years and completed terms from the candidate's documented service dates.",
+                "severity": "error",
+            }
+        )
+
     required_issues = {issue.value for issue in CanonicalIssue}
     for index, candidate in enumerate(race_json.get("candidates") or []):
         if not isinstance(candidate, dict):
@@ -447,12 +522,32 @@ def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
                     "severity": "warning",
                 }
             )
+        donor_summary = str(candidate.get("donor_summary") or "").strip()
+        if donor_summary and not candidate.get("donor_sources") and not candidate.get("donor_source_url"):
+            flags.append(
+                {
+                    "field": f"candidates[{index}].donor_sources",
+                    "concern": "Candidate finance summary has no supporting sources.",
+                    "suggestion": "Add an FEC filing or another reliable campaign-finance source.",
+                    "severity": "warning",
+                }
+            )
+        voting_summary = str(candidate.get("voting_summary") or "").strip()
+        if voting_summary and not candidate.get("voting_sources") and not candidate.get("voting_source_url"):
+            flags.append(
+                {
+                    "field": f"candidates[{index}].voting_sources",
+                    "concern": "Candidate voting or public-record summary has no supporting sources.",
+                    "suggestion": "Add official legislative, government, or reliable public-record sources.",
+                    "severity": "warning",
+                }
+            )
         if isinstance(issues, dict):
             for issue_name, issue_data in issues.items():
                 if not isinstance(issue_data, dict):
                     continue
                 stance = str(issue_data.get("stance") or "").strip()
-                if stance and stance.casefold() != "no public position found" and not issue_data.get("sources"):
+                if stance and not _is_documented_absence(stance) and not issue_data.get("sources"):
                     flags.append(
                         {
                             "field": f"candidates[{index}].issues.{issue_name}.sources",
@@ -516,6 +611,7 @@ async def run_reviews(
         metrics_sink["packet_chars"] = len(profile_json)
         metrics_sink["packet_estimated_tokens"] = max(1, len(profile_json) // 4)
     model_overrides = {"claude": claude_model, "gemini": gemini_model, "grok": grok_model}
+    identity_context = race_identity_context(race_json)
 
     tasks = []
     for provider in requested_providers:
@@ -531,6 +627,7 @@ async def run_reviews(
                 change_manifest=change_manifest,
                 metrics_sink=metrics_sink,
                 run_budget=run_budget,
+                race_identity_context_text=identity_context,
             )
         )
 
@@ -560,9 +657,8 @@ async def run_reviews(
 
 def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """Compute an aggregate validation grade from review scores."""
-    # Exclude automated link validator and automated profile quality from scoring and publish gates
-    excluded_models = {"automated-link-validator", "automated-profile-quality"}
-    eligible_reviews = [r for r in reviews if r.get("model") not in excluded_models]
+    automated_models = {"automated-link-validator", "automated-profile-quality"}
+    eligible_reviews = [r for r in reviews if r.get("model") not in automated_models]
 
     scores = [r["score"] for r in eligible_reviews if isinstance(r.get("score"), (int, float))]
     if not scores:
@@ -570,13 +666,13 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
 
     avg = round(sum(scores) / len(scores))
     avg = max(0, min(100, avg))
-    error_flags = [
+    blocking_flags = [
         flag
-        for review in eligible_reviews
+        for review in reviews
         for flag in (review.get("flags") or [])
-        if isinstance(flag, dict) and flag.get("severity") == "error"
+        if isinstance(flag, dict) and flag.get("severity") in {"warning", "error"}
     ]
-    if error_flags:
+    if blocking_flags:
         avg = min(avg, 79)
 
     if avg >= 90:
@@ -595,10 +691,10 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     approved_count = sum(1 for v in verdicts if v == "approved")
     total = len(eligible_reviews)
 
-    if error_flags:
+    if blocking_flags:
         summary = (
             f"Below quality threshold - {approved_count}/{total} reviewers approved, average score capped at {avg}/100 "
-            f"because {len(error_flags)} error-severity flag(s) remain."
+            f"because {len(blocking_flags)} warning-or-higher quality flag(s) remain."
         )
     elif passed:
         summary = f"Validated by {approved_count}/{total} reviewers with an average score of {avg}/100."

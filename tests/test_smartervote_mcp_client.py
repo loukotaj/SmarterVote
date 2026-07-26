@@ -28,6 +28,7 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "list_draft_races",
         "list_pipeline_steps",
         "get_race_data",
+        "audit_draft_vs_published",
         "queue_races",
         "run_race",
         "publish_race",
@@ -49,6 +50,7 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "cancel_or_delete_run",
         "get_pipeline_metrics",
         "get_pipeline_metrics_summary",
+        "summarize_run_costs",
         "clear_races_api_cache",
         "get_analytics_overview",
         "get_race_analytics",
@@ -109,8 +111,205 @@ async def test_races_api_client_raises_useful_error(monkeypatch):
         await client.get("/races/missing")
 
 
+class _StubRacesClient:
+    """Fake RacesApiClient for testing MCP tool logic without network access.
+
+    Keyed purely by path (ignoring query params), since the tools under test never issue
+    two different GETs against the same path within one call.
+    """
+
+    def __init__(self, get_responses: dict):
+        self._responses = get_responses
+
+    async def get(self, path, *, params=None):
+        value = self._responses[path]
+        if isinstance(value, Exception):
+            raise value
+        return value
+
+
+@pytest.mark.asyncio
+async def test_audit_draft_vs_published_reports_roster_and_grade_diffs(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/al-governor-2026/data": {
+            "candidates": [{"name": "Doug Jones"}, {"name": "Tommy Tuberville"}],
+            "validation_grade": {"grade": "B", "score": 85, "passed": True, "summary": "ok"},
+            "pipeline_state": {"complete": True},
+        },
+        "/races/al-governor-2026": {"candidates": [{"name": "Tommy Tuberville"}]},
+        "/api/races/missing-race/data": RuntimeError("races-api 404 for GET /api/races/missing-race/data: not found"),
+        "/races/missing-race": RuntimeError("races-api 404 for GET /races/missing-race: not found"),
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.audit_draft_vs_published(["al-governor-2026", "missing-race"])
+
+    assert result["race_count"] == 2
+    assert result["mismatched_race_ids"] == ["al-governor-2026"]
+    assert result["rows"][0] == {
+        "race_id": "al-governor-2026",
+        "draft_exists": True,
+        "published_exists": True,
+        "full": True,
+        "draft_count": 2,
+        "published_count": 1,
+        "draft_names": ["Doug Jones", "Tommy Tuberville"],
+        "published_names": ["Tommy Tuberville"],
+        "names_match": False,
+        "grade": "B",
+        "passed": True,
+    }
+    missing_row = result["rows"][1]
+    assert missing_row["race_id"] == "missing-race"
+    assert missing_row["draft_exists"] is False
+    assert missing_row["published_exists"] is False
+    assert missing_row["names_match"] is True  # both rosters empty counts as "matching"
+    assert missing_row["grade"] is None
+
+
+@pytest.mark.asyncio
+async def test_summarize_run_costs_normalizes_nested_and_top_level_fields(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/runs/run-full": {
+            "run_id": "run-full",
+            "race_id": "ar-governor-2026",
+            "status": "completed",
+            "estimated_usd": 3.6,
+            "model_breakdown": {
+                "google/gemini-2.5-flash": {"prompt_tokens": 100, "completion_tokens": 10},
+            },
+        },
+        "/runs/run-nested": {
+            "run_id": "run-nested",
+            "status": "failed",
+            "payload": {
+                "race_id": "al-house-02-2026",
+                "agent_metrics": {
+                    "model_breakdown": {
+                        "google/gemini-2.5-flash": {"prompt_tokens": 200, "completion_tokens": 20},
+                    },
+                },
+            },
+        },
+        "/runs/run-missing": RuntimeError("races-api 404 for GET /runs/run-missing: Run not found"),
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.summarize_run_costs(["run-full", "run-nested", "run-missing"])
+
+    assert result["status_counts"] == {"completed": 1, "failed": 1, "missing": 1}
+    assert result["failed_run_ids"] == ["run-nested"]
+    assert result["active_run_ids"] == []
+    assert result["totals"] == {
+        "cost": 3.6,
+        "prompt_tokens": 300,
+        "completion_tokens": 30,
+        "run_count": 3,
+    }
+
+    full_row, nested_row, missing_row = result["rows"]
+    assert full_row["race_id"] == "ar-governor-2026"
+    assert full_row["has_cost"] is True
+    assert nested_row["race_id"] == "al-house-02-2026"
+    assert nested_row["has_cost"] is False
+    assert nested_row["cost"] == 0.0
+    assert nested_row["prompt_tokens"] == 200
+    assert missing_row == {"run_id": "run-missing", "status": "missing"}
+
+
 def test_compact_options_keeps_false_and_drops_none():
     assert compact_options(cheap_mode=False, note=None, goal="refresh") == {"cheap_mode": False, "goal": "refresh"}
+
+
+def test_races_api_client_from_env_reads_environment(monkeypatch):
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_URL", "https://races.example.com/api/")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_TOKEN", "jwt-token")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_ADMIN_KEY", "admin-key")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN", "id-token")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_TIMEOUT", "15")
+
+    client = RacesApiClient.from_env()
+
+    assert client.base_url == "https://races.example.com/api"
+    assert client.bearer_token == "jwt-token"
+    assert client.admin_key == "admin-key"
+    assert client.cloud_run_id_token == "id-token"
+    assert client.timeout_seconds == 15.0
+
+
+def test_races_api_client_from_env_falls_back_to_defaults(monkeypatch):
+    for var in (
+        "SMARTERVOTE_RACES_API_URL",
+        "RACES_API_URL",
+        "SMARTERVOTE_RACES_API_TOKEN",
+        "RACES_API_BEARER_TOKEN",
+        "SMARTERVOTE_RACES_API_ADMIN_KEY",
+        "ADMIN_API_KEY",
+        "SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN",
+        "SMARTERVOTE_RACES_API_ID_TOKEN",
+        "RACES_API_CLOUD_RUN_ID_TOKEN",
+        "SMARTERVOTE_RACES_API_TIMEOUT",
+    ):
+        monkeypatch.delenv(var, raising=False)
+
+    client = RacesApiClient.from_env()
+
+    assert client.base_url == "http://127.0.0.1:8080"
+    assert client.bearer_token == ""
+    assert client.admin_key == ""
+    assert client.cloud_run_id_token == ""
+    assert client.timeout_seconds == 60.0
+
+
+def test_races_api_client_from_env_invalid_timeout_falls_back_to_default(monkeypatch):
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_TIMEOUT", "not-a-number")
+
+    client = RacesApiClient.from_env()
+
+    assert client.timeout_seconds == 60.0
+
+
+@pytest.mark.asyncio
+async def test_races_api_client_returns_none_for_empty_response_body(monkeypatch):
+    async def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(204)
+
+    class PatchedAsyncClient(httpx.AsyncClient):
+        def __init__(self, *args, **kwargs):
+            kwargs["transport"] = httpx.MockTransport(handler)
+            super().__init__(*args, **kwargs)
+
+    monkeypatch.setattr(httpx, "AsyncClient", PatchedAsyncClient)
+    client = RacesApiClient(base_url="http://races.test")
+
+    assert await client.delete("/races/x") is None
+
+
+@pytest.mark.asyncio
+async def test_races_api_client_error_with_non_json_body_uses_raw_text(monkeypatch):
+    async def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(500, text="internal server error, not json")
+
+    class PatchedAsyncClient(httpx.AsyncClient):
+        def __init__(self, *args, **kwargs):
+            kwargs["transport"] = httpx.MockTransport(handler)
+            super().__init__(*args, **kwargs)
+
+    monkeypatch.setattr(httpx, "AsyncClient", PatchedAsyncClient)
+    client = RacesApiClient(base_url="http://races.test")
+
+    with pytest.raises(RuntimeError, match="internal server error, not json"):
+        await client.post("/do-thing", json={"a": 1})
 
 
 def test_mcp_pipeline_options_default_to_cheap_mode():

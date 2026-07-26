@@ -27,6 +27,7 @@ from typing import Any, Dict, Optional
 
 from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields, build_versioned_catalog_fields
+from shared.run_health import RunFailureReason, RunHealthStatus, classify_exception
 
 logger = logging.getLogger("pipeline_worker")
 
@@ -195,14 +196,21 @@ def _start_lease_heartbeat(db: Any, item_ref: Any, lease_owner: str):
     return stop_event, thread
 
 
-async def _run_agent(race_id: str, run_id: str, options: Dict[str, Any], existing_data: Optional[Dict[str, Any]]) -> None:
-    """Invoke AgentHandler.handle() (same entry the CF uses)."""
+async def _run_agent(
+    race_id: str, run_id: str, options: Dict[str, Any], existing_data: Optional[Dict[str, Any]]
+) -> Optional[Dict[str, Any]]:
+    """Invoke AgentHandler.handle() (same entry the CF uses).
+
+    Returns the handler's result dict (which carries ``run_health``) so the
+    caller can persist the run's machine-readable health verdict alongside
+    its terminal ``status`` — the two are independent signals.
+    """
     from pipeline_client.backend.handlers.agent import AgentHandler
 
     payload: Dict[str, Any] = {"race_id": race_id}
     if existing_data:
         payload["existing_data"] = existing_data
-    await AgentHandler().handle(payload, options)
+    return await AgentHandler().handle(payload, options)
 
 
 async def process_claimed_item(
@@ -257,6 +265,8 @@ async def process_claimed_item(
                 "is_continuation": is_continuation,
                 "options": options,
                 "runner": runner,
+                "debug_mode": bool(options.get("debug_mode")),
+                "diagnostics_schema_version": 1,
             }
         )
     else:
@@ -274,10 +284,13 @@ async def process_claimed_item(
     options["queue_item_id"] = item_id
     import time as _time
 
+    started_at = _time.perf_counter()
     lease_stop, lease_thread = _start_lease_heartbeat(db, item_ref, lease_owner)
     success = False
     error_msg = ""
     handoffs_followed = 0
+    last_result: Optional[Dict[str, Any]] = None
+    failure_reason: Optional[RunFailureReason] = None
     try:
         while True:
             # Re-applied every pass: a fresh far-future deadline so deadline-driven
@@ -288,7 +301,7 @@ async def process_claimed_item(
             # research for the run.
             options["deadline_at"] = _time.time() + WORKER_DEADLINE_SECONDS
             try:
-                await _run_agent(race_id, run_id, options, existing_data)
+                last_result = await _run_agent(race_id, run_id, options, existing_data)
                 success = True
                 break
             except HandoffTriggered as exc:
@@ -298,6 +311,7 @@ async def process_claimed_item(
                         f"Gave up after {handoffs_followed} in-process continuations for run {run_id} "
                         f"(remaining steps: {exc.remaining_steps})"
                     )
+                    failure_reason = RunFailureReason.BUDGET_EXHAUSTED
                     logger.warning(error_msg)
                     break
                 cont_ref = db.collection("pipeline_queue").document(exc.continuation_item_id)
@@ -305,6 +319,7 @@ async def process_claimed_item(
                 cont_data = cont_doc.to_dict() if getattr(cont_doc, "exists", False) else None
                 if not isinstance(cont_data, dict):
                     error_msg = f"Continuation item {exc.continuation_item_id} missing for run {run_id}"
+                    failure_reason = RunFailureReason.UNKNOWN_ERROR
                     logger.warning(error_msg)
                     break
                 logger.info(
@@ -334,17 +349,73 @@ async def process_claimed_item(
                 "ttl_at": _queue_ttl_at(),
             }
         )
-        run_ref.update({"status": "cancelled", "completed_at": SERVER_TIMESTAMP})
+        run_ref.update(
+            {
+                "status": "cancelled",
+                "completed_at": SERVER_TIMESTAMP,
+                "run_health": {
+                    "status": RunHealthStatus.FAILED.value,
+                    "reasons": [RunFailureReason.CANCELLED.value],
+                    "step_failures": [],
+                    "summary": str(exc) or None,
+                },
+            }
+        )
         _set_race_if_current(db, race_id, run_id, {"status": "cancelled", "current_run_id": None})
         return
     except Exception as exc:  # noqa: BLE001
-        error_msg = str(exc)
+        error_msg = f"{type(exc).__name__}: {exc}".rstrip()
+        failure_reason = classify_exception(exc)
         logger.exception("Local run %s failed: %s", run_id, exc)
+        try:
+            from pipeline_client.agent.cost import _cost_ctx, estimate_cost
+            from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
+            acc = _cost_ctx.get() or {}
+            breakdown = acc.get("model_breakdown", {})
+            estimated_usd = sum(
+                estimate_cost(model, counts.get("prompt_tokens", 0), counts.get("completion_tokens", 0))
+                for model, counts in breakdown.items()
+            )
+            search_cost_usd = int(acc.get("serper_calls", 0) or 0) * 0.001
+            llm_cost_usd = float(acc.get("provider_cost_usd", 0.0) or 0.0)
+            has_exact_cost = int(acc.get("priced_calls", 0) or 0) > 0 and int(acc.get("unpriced_calls", 0) or 0) == 0
+            failed_metrics = {
+                "model": options.get("research_model", ""),
+                "model_profile": options.get("model_profile"),
+                "prompt_tokens": int(acc.get("prompt_tokens", 0) or 0),
+                "completion_tokens": int(acc.get("completion_tokens", 0) or 0),
+                "total_tokens": int(acc.get("prompt_tokens", 0) or 0) + int(acc.get("completion_tokens", 0) or 0),
+                "llm_cost_usd": llm_cost_usd if has_exact_cost else None,
+                "search_cost_usd": search_cost_usd,
+                "cost_usd": llm_cost_usd + search_cost_usd if has_exact_cost else None,
+                "cost_source": "provider" if has_exact_cost else "estimated",
+                "estimated_usd": estimated_usd + search_cost_usd,
+                "model_breakdown": breakdown,
+                "duration_s": round(_time.perf_counter() - started_at, 1),
+                "serper_calls": int(acc.get("serper_calls", 0) or 0),
+            }
+            await get_pipeline_metrics_store().record_run(
+                run_id,
+                race_id,
+                failed_metrics,
+                "failed",
+                cheap_mode=bool(options.get("cheap_mode", True)),
+                serper_calls=failed_metrics["serper_calls"],
+            )
+            _cost_ctx.set(None)
+        except Exception:
+            logger.warning("Failed to record metrics for failed local run %s", run_id, exc_info=True)
     finally:
         lease_stop.set()
         lease_thread.join(timeout=2)
 
     if success:
+        # run_health is the definitive "did this actually succeed" verdict —
+        # independent of `status`. A run can be marked completed here while
+        # run_health.status is "failed"/"degraded" (e.g. review didn't pass,
+        # or a step like finance silently produced no data for anyone).
+        run_health = last_result.get("run_health") if isinstance(last_result, dict) else None
         item_ref.update(
             {
                 "status": "completed",
@@ -354,7 +425,10 @@ async def process_claimed_item(
                 "ttl_at": _queue_ttl_at(),
             }
         )
-        run_ref.update({"status": "completed", "progress": 100, "completed_at": SERVER_TIMESTAMP})
+        run_update: Dict[str, Any] = {"status": "completed", "progress": 100, "completed_at": SERVER_TIMESTAMP}
+        if run_health is not None:
+            run_update["run_health"] = run_health
+        run_ref.update(run_update)
         _set_race_if_current(
             db,
             race_id,
@@ -372,6 +446,13 @@ async def process_claimed_item(
         if isinstance(draft_data, dict):
             db.collection("races").document(race_id).set(_draft_catalog_update(race_id, draft_data), merge=True)
     else:
+        reason = failure_reason or RunFailureReason.UNKNOWN_ERROR
+        run_health = {
+            "status": RunHealthStatus.FAILED.value,
+            "reasons": [reason.value],
+            "step_failures": [],
+            "summary": error_msg or None,
+        }
         item_ref.update(
             {
                 "status": "failed",
@@ -381,7 +462,14 @@ async def process_claimed_item(
                 "ttl_at": _queue_ttl_at(),
             }
         )
-        run_ref.update({"status": "failed", "error": error_msg or "Unknown error", "completed_at": SERVER_TIMESTAMP})
+        run_ref.update(
+            {
+                "status": "failed",
+                "error": error_msg or "Unknown error",
+                "completed_at": SERVER_TIMESTAMP,
+                "run_health": run_health,
+            }
+        )
         _set_race_if_current(
             db,
             race_id,

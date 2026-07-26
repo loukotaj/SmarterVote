@@ -95,6 +95,7 @@ def test_update_progress_merges_run_doc(mock_db):
 def test_mark_completed(mock_db):
     """mark_completed() sets status=completed and progress=100."""
     logger = FirestoreLogger("run-004")
+    logger.coalesced_progress_count = 7
     logger.mark_completed(duration_ms=5000)
 
     run_ref = mock_db.collection.return_value.document.return_value
@@ -103,6 +104,7 @@ def test_mark_completed(mock_db):
     assert data["status"] == "completed"
     assert data["progress"] == 100
     assert data["duration_ms"] == 5000
+    assert data["log_stats"]["coalesced_progress_updates"] == 7
 
 
 def test_mark_failed(mock_db):
@@ -115,6 +117,41 @@ def test_mark_failed(mock_db):
     data = run_ref.set.call_args[0][0]
     assert data["status"] == "failed"
     assert "Something went wrong" in data["error"]
+
+
+def test_mark_completed_omits_run_health_when_not_provided(mock_db):
+    """Backward compat: existing callers that don't pass run_health get no such key."""
+    logger = FirestoreLogger("run-006")
+    logger.mark_completed(duration_ms=1000)
+
+    data = mock_db.collection.return_value.document.return_value.set.call_args[0][0]
+    assert "run_health" not in data
+
+
+def test_mark_completed_persists_run_health_when_provided(mock_db):
+    """run_health is the "did this actually succeed" verdict — independent of status,
+    which stays "completed" here even when the verdict is degraded/failed."""
+    logger = FirestoreLogger("run-007")
+    run_health = {
+        "status": "degraded",
+        "reasons": ["step_no_data"],
+        "step_failures": [{"step": "finance", "reason": "step_no_data", "detail": None}],
+        "summary": "finance: step_no_data",
+    }
+    logger.mark_completed(duration_ms=1000, run_health=run_health)
+
+    data = mock_db.collection.return_value.document.return_value.set.call_args[0][0]
+    assert data["status"] == "completed"
+    assert data["run_health"] == run_health
+
+
+def test_mark_failed_persists_run_health_when_provided(mock_db):
+    logger = FirestoreLogger("run-008")
+    run_health = {"status": "failed", "reasons": ["cancelled"], "step_failures": [], "summary": None}
+    logger.mark_failed("cancelled by admin", run_health=run_health)
+
+    data = mock_db.collection.return_value.document.return_value.set.call_args[0][0]
+    assert data["run_health"] == run_health
 
 
 def test_mark_handoff_keeps_logical_run_active(mock_db):
@@ -188,3 +225,29 @@ def test_get_db_uses_project_when_configured():
         fl._get_db()
 
     client_mock.assert_called_once_with(project="smartervote")
+
+
+def test_update_progress_coalesces_frequent_same_step_writes(mock_db, monkeypatch):
+    monkeypatch.setenv("PIPELINE_PROGRESS_WRITE_MIN_INTERVAL_SECONDS", "3")
+    logger = FirestoreLogger("run-throttle")
+
+    with patch("pipeline_client.backend.firestore_logger.time.monotonic", side_effect=[100.0, 101.0, 104.0]):
+        logger.update_progress(10, current_step="issues", current_step_progress=10)
+        logger.update_progress(11, current_step="issues", current_step_progress=11)
+        logger.update_progress(12, current_step="issues", current_step_progress=12)
+
+    run_ref = mock_db.collection.return_value.document.return_value
+    assert run_ref.set.call_count == 2
+    assert logger.coalesced_progress_count == 1
+
+
+def test_update_progress_never_coalesces_step_boundaries(mock_db, monkeypatch):
+    monkeypatch.setenv("PIPELINE_PROGRESS_WRITE_MIN_INTERVAL_SECONDS", "30")
+    logger = FirestoreLogger("run-boundary")
+
+    with patch("pipeline_client.backend.firestore_logger.time.monotonic", side_effect=[100.0, 101.0]):
+        logger.update_progress(10, current_step="issues", current_step_progress=10)
+        logger.update_progress(40, current_step="issues", current_step_progress=100)
+
+    run_ref = mock_db.collection.return_value.document.return_value
+    assert run_ref.set.call_count == 2

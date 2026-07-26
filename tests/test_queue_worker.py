@@ -147,6 +147,67 @@ async def test_process_marks_failed_on_agent_error():
     failed = [u for u in item_updates if u.get("status") == "failed"]
     assert failed and "boom" in (failed[-1].get("error") or "")
 
+    # run_health must always be attached on failure too — it's the taxonomy-classified
+    # verdict, distinct from the free-text `error` string.
+    run_updates = [c.args[0] for c in run_ref.update.call_args_list]
+    failed_run_updates = [u for u in run_updates if u.get("status") == "failed"]
+    assert failed_run_updates
+    run_health = failed_run_updates[-1]["run_health"]
+    assert run_health["status"] == "failed"
+    assert run_health["reasons"] == ["unknown_error"]
+
+
+@pytest.mark.asyncio
+async def test_process_persists_run_health_from_successful_agent_result():
+    """A run can finish without raising while still carrying a degraded/failed
+    run_health verdict (e.g. review didn't pass) — that verdict must survive
+    onto the pipeline_runs doc even though `status` stays "completed"."""
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {"race_id": "ca-house-01-2026", "run_id": "run-4", "options": {"cheap_mode": True}}
+    db, item_ref, run_ref, race_ref = _fs_mock(item)
+
+    run_health_payload = {
+        "status": "degraded",
+        "reasons": ["step_no_data"],
+        "step_failures": [{"step": "finance", "reason": "step_no_data", "detail": None}],
+        "summary": "finance: step_no_data",
+    }
+
+    async def fake_run(race_id, run_id, options, existing_data):
+        return {"race_id": race_id, "run_health": run_health_payload, "status": "draft"}
+
+    with patch.object(qp, "_run_agent", side_effect=fake_run):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-4", item, "owner-4")
+
+    item_updates = [c.args[0] for c in item_ref.update.call_args_list]
+    assert any(u.get("status") == "completed" for u in item_updates)
+
+    run_updates = [c.args[0] for c in run_ref.update.call_args_list]
+    completed_run_updates = [u for u in run_updates if u.get("status") == "completed"]
+    assert completed_run_updates
+    assert completed_run_updates[-1]["run_health"] == run_health_payload
+
+
+@pytest.mark.asyncio
+async def test_process_marks_cancelled_run_health_on_agent_cancelled():
+    from pipeline_client.backend import queue_processor as qp
+    from pipeline_client.backend.handlers.agent import AgentCancelled
+
+    item = {"race_id": "ca-house-01-2026", "run_id": "run-5", "options": {}}
+    db, item_ref, run_ref, race_ref = _fs_mock(item)
+
+    async def cancelled(*_a):
+        raise AgentCancelled("cancelled by admin")
+
+    with patch.object(qp, "_run_agent", side_effect=cancelled):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-5", item, "owner-5")
+
+    run_updates = [c.args[0] for c in run_ref.update.call_args_list]
+    cancelled_updates = [u for u in run_updates if u.get("status") == "cancelled"]
+    assert cancelled_updates
+    assert cancelled_updates[-1]["run_health"]["reasons"] == ["cancelled"]
+
 
 def test_claim_local_item_claims_pending_local():
     from pipeline_client.backend import queue_processor as qp

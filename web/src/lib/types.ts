@@ -65,7 +65,7 @@ export interface Source {
   last_accessed: string;
   published_at?: string;
   checksum?: string;
-  is_fresh?: boolean;
+  is_fresh: boolean;
   is_official_campaign?: boolean;
 }
 
@@ -165,13 +165,13 @@ export interface RaceForecast {
   confidence: ConfidenceLevel;
   rationale: string;
   takeaway?: string;
-  key_reasons?: string[];
+  key_reasons: string[];
   uncertainty?: string;
   based_on_poll_count: number;
   generated_at: string;
   model: string;
   source_urls: string[];
-  market_signals?: ForecastMarketSignal[];
+  market_signals: ForecastMarketSignal[];
 }
 
 export interface ForecastMarketSignal {
@@ -196,7 +196,7 @@ export interface Candidate {
   name: string;
   party?: string;
   incumbent: boolean;
-  roster_sources?: CandidateRosterSource[];
+  roster_sources: CandidateRosterSource[];
   summary: string;
   summary_sources: Source[];
   image_url?: string;
@@ -205,14 +205,14 @@ export interface Candidate {
   education: EducationEntry[];
   voting_summary?: string;
   voting_source_url?: string;
-  voting_sources?: Source[];
+  voting_sources: Source[];
   donor_summary?: string;
   donor_source_url?: string;
-  donor_sources?: Source[];
+  donor_sources: Source[];
   links: CandidateLink[];
   website?: string;
   social_media: Record<string, string>;
-  withdrawn?: boolean;
+  withdrawn: boolean;
   withdrawal_reason?: string;
 }
 
@@ -241,25 +241,25 @@ export interface RaceIdentityBrief {
   office?: string;
   state?: string;
   district?: string;
-  contest_stage?: ContestStage;
+  contest_stage: ContestStage;
   election_date?: string;
   primary_status?: string;
   official_roster_source_url?: string;
   known_incumbent?: string;
-  known_ineligible_or_not_running?: string[];
+  known_ineligible_or_not_running: string[];
 }
 
 export interface RunAudit {
-  contest_stage?: ContestStage;
+  contest_stage: ContestStage;
   roster_source_summary?: string;
-  candidate_changes?: string[];
-  forecast_changes?: string[];
-  remaining_uncertainty?: string[];
-  publish_attention?: string[];
+  candidate_changes: string[];
+  forecast_changes: string[];
+  remaining_uncertainty: string[];
+  publish_attention: string[];
 }
 
 export interface Race {
-  schema_version?: string;
+  schema_version: string;
   id: string;
   election_date: string;
   candidates: Candidate[];
@@ -271,14 +271,17 @@ export interface Race {
   state?: string; // US state name for map highlighting; null for national races
   district?: string;
   description?: string;
-  contest_stage?: ContestStage;
-  polling?: PollEntry[];
+  contest_stage: ContestStage;
+  polling: PollEntry[];
   polling_note?: string;
   forecast?: RaceForecast;
-  reviews?: AgentReview[];
+  reviews: AgentReview[];
   validation_grade?: ValidationGrade;
   pipeline_state?: PipelineState;
   run_audit?: RunAudit;
+  // agent_metrics is not part of the RaceJSON schema (shared/models.py) — it is
+  // merged into API responses from Firestore pipeline-run cost data. See
+  // services/races-api/gcs_helpers.py / routers/races_admin.py.
   agent_metrics?: AgentMetrics;
   ballotpedia_url?: string;
   register_to_vote_url?: string;
@@ -406,11 +409,17 @@ export interface RunOptions {
   model_overrides?: {
     primary?: string;
     small?: string;
+    roster?: string;
     review_claude?: string;
     review_gemini?: string;
     review_grok?: string;
   };
   force_fresh?: boolean;
+  // baseline_source/runner are power-user options (set via admin tooling/MCP,
+  // not the standard queue form) but are still valid wire-level fields on
+  // shared.pipeline_options.PipelineRunOptions — kept here for completeness.
+  baseline_source?: "latest" | "published";
+  runner?: "cloud_run" | "local";
   research_model?: string;
   claude_model?: string;
   gemini_model?: string;
@@ -420,6 +429,37 @@ export interface RunOptions {
   max_candidates?: number;
   target_no_info?: boolean;
   candidate_names?: string[];
+  debug_mode?: boolean;
+}
+
+// Structured failure taxonomy for pipeline runs (mirrors shared/run_health.py).
+// A run's `status`/`pipeline_state.complete` only tells you it finished
+// without raising; `run_health` is the separate "did it actually work" verdict.
+export type RunFailureReason =
+  | "provider_auth_failure"
+  | "provider_rate_limit"
+  | "provider_timeout"
+  | "step_no_data"
+  | "validation_failed"
+  | "placeholder_content"
+  | "roster_verification_failed"
+  | "budget_exhausted"
+  | "cancelled"
+  | "unknown_error";
+
+export type RunHealthStatus = "healthy" | "degraded" | "failed" | "unknown";
+
+export interface StepFailure {
+  step: string;
+  reason: RunFailureReason;
+  detail?: string;
+}
+
+export interface RunHealthVerdict {
+  status: RunHealthStatus;
+  reasons: RunFailureReason[];
+  step_failures: StepFailure[];
+  summary?: string;
 }
 
 export interface RunStep {
@@ -436,6 +476,7 @@ export interface RunStep {
   prompt_tokens?: number;
   completion_tokens?: number;
   estimated_usd?: number;
+  failure_reasons?: RunFailureReason[];
 }
 
 export interface RunInfo {
@@ -457,6 +498,7 @@ export interface RunInfo {
   steps?: RunStep[];
   logs?: LogEntry[];
   serper_calls?: number;
+  run_health?: RunHealthVerdict;
 }
 
 export interface Artifact {

@@ -9,7 +9,7 @@ from openai import APIConnectionError
 
 from pipeline_client.agent.agent import _agent_loop
 from pipeline_client.agent.errors import RetryableProviderError
-from pipeline_client.agent.llm import _call_openrouter, _provider_usage_cost
+from pipeline_client.agent.llm import _await_with_run_budget, _call_openrouter, _provider_usage_cost
 
 FAKE_RACE_JSON = {
     "id": "mo-senate-2024",
@@ -95,6 +95,26 @@ def test_provider_usage_cost_rejects_invalid_values():
     usage.cost = "not-a-number"
 
     assert _provider_usage_cost(usage) is None
+
+
+@pytest.mark.asyncio
+async def test_tool_timeout_returns_recoverable_fallback():
+    async def slow_tool():
+        import asyncio
+
+        await asyncio.sleep(1)
+
+    with patch("pipeline_client.agent.llm.record_retry_metric") as record_retry:
+        result = await _await_with_run_budget(
+            slow_tool(),
+            run_budget=None,
+            requested_timeout=0.001,
+            operation="test tool",
+            timeout_result={"error": "timed out"},
+        )
+
+    assert result == {"error": "timed out"}
+    record_retry.assert_called_once_with("deadline_exits")
 
 
 # ---------------------------------------------------------------------------
@@ -404,6 +424,234 @@ async def test_narrow_issue_phase_rejects_full_profile_read():
     handler.assert_not_called()
     second_request = mock.call_args_list[1].args[0]
     assert any("Full-profile reads are not available" in str(message.get("content")) for message in second_request)
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_handles_web_image_search_tool_call():
+    tool_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_1",
+                "function": {"name": "web_image_search", "arguments": json.dumps({"query": "candidate photo"})},
+            }
+        ],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._serper_image_search", new_callable=AsyncMock) as mock_image_search,
+    ):
+        mock_call.side_effect = [tool_response, final_response]
+        mock_image_search.return_value = [{"imageUrl": "https://example.com/x.jpg"}]
+
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
+
+    assert result == {"done": True}
+    mock_image_search.assert_called_once_with("candidate photo", race_id=None)
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_handles_fetch_page_tool_call():
+    tool_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_1",
+                "function": {"name": "fetch_page", "arguments": json.dumps({"url": "https://example.com/bio"})},
+            }
+        ],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._fetch_page", new_callable=AsyncMock) as mock_fetch,
+        patch("pipeline_client.agent.llm._page_fetch_log_hint", return_value=None),
+    ):
+        mock_call.side_effect = [tool_response, final_response]
+        mock_fetch.return_value = "page body text"
+
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
+
+    assert result == {"done": True}
+    mock_fetch.assert_called_once_with("https://example.com/bio")
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_handles_ballotpedia_lookup_tool_call():
+    tool_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_1",
+                "function": {"name": "ballotpedia_lookup", "arguments": json.dumps({"candidate_name": "Jane Doe"})},
+            }
+        ],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._ballotpedia_lookup", new_callable=AsyncMock) as mock_lookup,
+    ):
+        mock_call.side_effect = [tool_response, final_response]
+        mock_lookup.return_value = {"found": True, "url": "https://ballotpedia.org/Jane_Doe"}
+
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
+
+    assert result == {"done": True}
+    mock_lookup.assert_called_once_with("Jane Doe")
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_handles_ballotpedia_election_lookup_tool_call():
+    tool_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_1",
+                "function": {"name": "ballotpedia_election_lookup", "arguments": json.dumps({})},
+            }
+        ],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._ballotpedia_election_lookup", new_callable=AsyncMock) as mock_lookup,
+    ):
+        mock_call.side_effect = [tool_response, final_response]
+        mock_lookup.return_value = {"found": True, "candidates": [{"name": "Jane Doe"}]}
+
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test", race_id="fallback-race")
+
+    assert result == {"done": True}
+    # No explicit race_id arg in the tool call -> falls back to the loop's race_id.
+    mock_lookup.assert_called_once_with("fallback-race")
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_handles_unknown_tool_call():
+    tool_response = _mock_openai_response(
+        tool_calls=[{"id": "call_1", "function": {"name": "not_a_real_tool", "arguments": "{}"}}],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call:
+        mock_call.side_effect = [tool_response, final_response]
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
+
+    assert result == {"done": True}
+    # Second request must contain the tool error message for the unknown tool.
+    second_request = mock_call.call_args_list[1].args[0]
+    assert any("unknown tool" in str(m.get("content")) for m in second_request if m.get("role") == "tool")
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_tools_mode_extra_handler_exception_is_reported_as_error():
+    tool_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_1",
+                "function": {"name": "explode", "arguments": json.dumps({"x": 1})},
+            }
+        ],
+    )
+    done_response = _mock_openai_response(content="Done.")
+
+    def exploding_handler(args):
+        raise RuntimeError("handler blew up")
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call:
+        mock_call.side_effect = [tool_response, done_response]
+        result = await _agent_loop(
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="test-tools",
+            tools_mode=True,
+            extra_tools=[{"type": "function", "function": {"name": "explode", "parameters": {}}}],
+            extra_tool_handlers={"explode": exploding_handler},
+        )
+
+    assert result == {}
+    second_request = mock_call.call_args_list[1].args[0]
+    assert any("handler blew up" in str(m.get("content")) for m in second_request if m.get("role") == "tool")
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_retries_on_truncated_response():
+    """finish_reason='length' triggers a brevity-nudge retry rather than failing."""
+    truncated = _mock_openai_response(content='{"partial": tr', finish_reason="length")
+    complete = _mock_openai_response(content=json.dumps({"ok": True}), finish_reason="stop")
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call:
+        mock_call.side_effect = [truncated, complete]
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
+
+    assert result == {"ok": True}
+    assert mock_call.call_count == 2
+    second_request = mock_call.call_args_list[1].args[0]
+    assert any("too long" in str(m.get("content")) for m in second_request if m.get("role") == "user")
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_raises_after_max_json_retries_exhausted():
+    bad = _mock_openai_response(content="not json at all")
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call:
+        mock_call.return_value = bad
+        with pytest.raises(RuntimeError, match="failed to produce valid JSON"):
+            await _agent_loop(
+                "system",
+                "user",
+                model="gpt-5.4-mini",
+                phase_name="test",
+                max_iterations=10,
+            )
+
+    # _MAX_JSON_RETRIES is 3: the loop should give up well before max_iterations.
+    assert mock_call.call_count == 3
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_nudges_model_toward_final_answer_in_json_mode():
+    tool_response = _mock_openai_response(
+        tool_calls=[{"id": "call_1", "function": {"name": "web_search", "arguments": json.dumps({"query": "q"})}}],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
+    # max_iterations=3 -> nudge_at = max(int(3/1.5), 3) = 3, but loop only runs
+    # while iteration < max_iterations, so use a slightly larger budget with a
+    # tool call on each early iteration to reach the nudge point.
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._serper_search", new_callable=AsyncMock) as mock_search,
+    ):
+        mock_call.side_effect = [tool_response, tool_response, tool_response, final_response]
+        mock_search.return_value = []
+
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test", max_iterations=5)
+
+    assert result == {"done": True}
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_propagates_policy_violation_runtime_error():
+    with patch(
+        "pipeline_client.agent.llm._call_openrouter",
+        new_callable=AsyncMock,
+        side_effect=RuntimeError("OpenRouter rejected the simplified prompt due to content policy violation"),
+    ):
+        with pytest.raises(RuntimeError, match="policy"):
+            await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_raises_on_empty_choices_response():
+    empty_response = MagicMock()
+    empty_response.choices = []
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock, return_value=empty_response):
+        with pytest.raises(RuntimeError, match="empty or invalid response"):
+            await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
 
 
 @pytest.mark.asyncio

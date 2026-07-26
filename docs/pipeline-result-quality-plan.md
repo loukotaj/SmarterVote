@@ -1,6 +1,6 @@
 # Pipeline Result Quality Plan
 
-Last reviewed: 2026-06-29.
+Last reviewed: 2026-07-26.
 
 ## Objective
 
@@ -42,7 +42,7 @@ Recent production data and run logs showed these recurring issues:
 
 ## Phase 1: Race Identity and Source Ladder
 
-Status: Partially started.
+Status: Implemented.
 
 ### Problem
 
@@ -84,19 +84,64 @@ instead of repeatedly fetching the same unusable page.
 
 - Fresh discovery now receives the current date.
 - Discovery prompt now requires the agent to lock race identity before naming
-  candidates.
+  candidates, and returns the identity brief (office, state, district,
+  contest stage, election date, primary status, official roster source,
+  known incumbent, known ineligible/not-running people) as part of its JSON
+  response, at `pipeline_state.race_identity`.
 - Discovery and roster sync prompts now prefer official roster sources and tell
-  the agent to avoid cross-office candidate transfer.
+  the agent to avoid cross-office candidate transfer, following the source
+  ladder from the plan: official state election authority / certified list /
+  official primary results, then Ballotpedia (only if current and accessible),
+  then FEC as federal corroboration only, then reputable recent local/state
+  news or campaign announcements. Both prompts explicitly instruct the agent to
+  stop retrying a blocked/stale/primary-focused Ballotpedia page and pivot up
+  the ladder instead; `ballotpedia.py`'s `lookup_election_page` implements the
+  matching runtime fallback (generated URL -> stable district URL -> search ->
+  read-only proxy -> Wikipedia election article).
+- The `set_race_identity` tool (used by roster sync / update runs) persists the
+  identity brief into `pipeline_state.race_identity`, and the deterministic
+  `_remove_known_ineligible_candidates` step enforces removal of anyone the
+  model recorded there as ineligible/not-running, even if the model's own tool
+  calls miss it.
+- **Identity brief now feeds every later phase.** A single
+  `phase_state.race_identity_context()` renders the locked brief (or an
+  explicit "not yet locked" notice, or a fallback built from the race's own
+  top-level office/state/district/contest_stage/election_date when no brief
+  was recorded) and it is injected into the issue-research, finance/voting,
+  polling, forecast, iteration (per-candidate and race-metadata), and
+  multi-model review prompts — so a phase running later in a long batched run
+  cannot drift onto a different office/state/district/election cycle than
+  discovery locked in, and reviewers can audit the roster against the same
+  locked identity instead of only the race title/description (`pipeline_state`
+  is stripped from the semantic review packet as operational metadata, so this
+  context is the reviewer's only view of the locked identity).
 - Forecast prompt now avoids placeholder candidate winners.
 - Review prompt now instructs reviewers to audit roster/office match before
-  prose quality.
+  prose quality, using the locked identity as ground truth and flagging any
+  candidate whose sources point to a different office/state/district/cycle or
+  whose name appears in `known_ineligible_or_not_running`.
+- Roster provenance is fully modeled and enforced: `Candidate.roster_sources`
+  (`shared/models.py`) records evidence separate from `summary_sources`, and
+  `add_candidate` grades each source into evidence tiers (1 = official/FEC
+  content, 2 = dated campaign/exact-election Ballotpedia/news content, 3 =
+  search snippet requiring two independent domains unless official/FEC),
+  requiring an explicit `evidence` string that names the candidate and exact
+  contest before a new candidate can be added. `add_candidate` also blocks a
+  same-state candidate who is already registered as active in a *different*
+  race (cross-office/cross-race contamination guard).
+- Tests: `tests/test_race_identity_brief.py` covers `race_identity_context()`
+  rendering (locked brief, top-level fallback, "not yet locked" notice, and a
+  same-state wrong-office naming case) and confirms the locked identity reaches
+  the issue-research, finance/polling/forecast, iteration, and review prompts.
+  `tests/test_editing_tools.py::test_add_candidate_blocks_cross_race_contamination`
+  and `tests/test_run_agent.py::test_sanitize_roster_removes_known_ineligible_from_race_identity`
+  cover the same-state wrong-office and known-ineligible-removal scenarios.
 
 ### Remaining Work
 
-- Persist the identity brief in draft metadata or `pipeline_state`.
-- Feed the identity brief into all later phases: issue research, finance,
-  polling, forecast, review, and iteration.
-- Add focused tests with same-state wrong-office examples.
+None for this phase. Deeper contest-stage-aware candidate inclusion rules,
+correction-goal decomposition, role-framed review sections, and post-run audit
+notes are tracked separately under Phases 2-7 below.
 
 ## Phase 2: Contest Stage Semantics
 

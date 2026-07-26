@@ -48,7 +48,7 @@ The primary cloud architecture. Admin triggers runs through `races-api`; each ra
 - Agent runs the configured pipeline steps; progress + logs stream to Firestore `pipeline_runs/`
 - The worker renews a Firestore lease and can run for up to the configured job timeout
 - Draft saved to GCS `drafts/{race_id}.json`; admin publishes via `races-api` (writing `{race_id}.json` to GCS `races/` and updating the central `races/summaries.json` index)
-- Frontend polls `races-api /runs/{run_id}` + `/runs/{run_id}/logs?since=N` every 2-3 seconds (or fetches published files statically from GCS if configured)
+- Frontend polls `races-api /runs/{run_id}` plus cursor-based `/runs/{run_id}/logs` every 5 seconds while a run is active (or fetches published files statically from GCS if configured)
 
 **Setup** (Terraform):
 
@@ -116,6 +116,22 @@ discovery -> images -> issues -> finance -> refinement -> polling -> forecast ->
 ```
 
 The `/steps` endpoint returns the same order with labels and progress weights from `shared/pipeline_config.py`.
+
+## Debug Capture and Diagnostics Export
+
+The observable production path is queue request -> Firestore queue item -> Cloud Run/local worker lease -> `AgentHandler` -> agent phases -> Firestore run/log documents -> races-api -> admin UI. Normal mode keeps human-readable progress and bounded logs. Enable `debug_mode` when diagnosing quality, cost, retry, or handoff behavior; it adds structured step start/progress/complete events, per-step token and estimated-cost deltas, and active-step context to deep agent logs. Progress events are throttled to 10% buckets to limit Firestore writes.
+
+Use it from the admin UI:
+
+1. Queue one or a small number of races through **Batch Queue** and select **Debug capture**. Full research cost rules still apply; debug mode does not make research cheaper.
+2. Wait for the run to complete or fail, open it in **Runs**, and select **Export diagnostics**.
+3. Provide the downloaded `pipeline-diagnostics-{run_id}.json` for analysis. The export can also be fetched from authenticated `GET /runs/{run_id}/diagnostics`.
+
+The `smartervote.pipeline-diagnostics.v1` bundle contains the sanitized run document, queue/continuation records, chronological logs, structured event timeline, race catalog record, current draft, and a computed draft-quality summary. The summary flags missing or placeholder stances, source coverage, candidate summaries/images/finance fields, pipeline completion, validation grade, token/context/retry metrics, and log truncation. Older runs can also be exported, but the bundle warns when `debug_mode` was not enabled and structured detail is incomplete.
+
+The capture intentionally excludes raw prompts, raw model responses, fetched page bodies, credentials, and API keys. Existing log redaction runs over the complete bundle before it leaves the API. Treat the exported JSON as internal operational data because it can include unpublished draft research.
+
+Firestore reads and writes are bounded for this workflow. Admin log polling uses the opaque `next_cursor` returned by `/runs/{run_id}/logs`, so each poll queries only newer documents; numeric `since` remains a legacy compatibility path and should not be used by new clients. Routine progress updates are coalesced to at most one Firestore write every three seconds while step starts, step completions, and terminal updates remain immediate. Set `PIPELINE_PROGRESS_WRITE_MIN_INTERVAL_SECONDS` to tune that interval (`0` disables coalescing). Diagnostics exports read at most 2,000 log documents and warn when that safety cap is reached.
 
 ## Output
 

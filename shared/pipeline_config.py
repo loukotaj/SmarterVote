@@ -116,6 +116,7 @@ class RetentionConfig:
     run_log_buffer_size: int = 1000
     firestore_log_batch_size: int = 25
     max_log_message_chars: int = 4000
+    progress_write_min_interval_seconds: int = 3
 
     @classmethod
     def from_env(cls) -> "RetentionConfig":
@@ -130,6 +131,7 @@ class RetentionConfig:
             run_log_buffer_size=_env_int("PIPELINE_RUN_LOG_BUFFER_SIZE", 1000, 1, None),
             firestore_log_batch_size=_env_int("PIPELINE_FIRESTORE_LOG_BATCH_SIZE", 25, 1, 500),
             max_log_message_chars=_env_int("PIPELINE_MAX_LOG_MESSAGE_CHARS", 4000, 256, None),
+            progress_write_min_interval_seconds=_env_int("PIPELINE_PROGRESS_WRITE_MIN_INTERVAL_SECONDS", 3, 0, None),
         )
 
 

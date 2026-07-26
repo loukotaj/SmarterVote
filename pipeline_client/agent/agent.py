@@ -32,6 +32,7 @@ from shared.pipeline_config import PIPELINE_STEP_IDS, REVIEW_PROVIDERS, Pipeline
 
 from .ballotpedia import default_ballotpedia_race_url
 from .cost import _cost_ctx, estimate_cost
+from .evidence import preserve_baseline_evidence
 from .handlers import _make_editing_handlers  # noqa: F401 - re-exported for tests
 from .llm import _agent_loop, _call_openrouter, _ensure_dict, _normalize_candidate  # noqa: F401 - re-exported for tests
 from .model_registry import resolve_run_models
@@ -45,6 +46,7 @@ from .phases import (  # noqa: F401 - re-exported for backward compat
     _scale_iterations,
     _select_target_candidates,
 )
+from .polling_quality import polling_semantic_problem
 from .review import build_review_change_manifest, build_semantic_review_packet, compute_validation_grade, run_reviews
 from .run_budget import RunBudget
 from .tools import (  # noqa: F401 - re-exported for tests
@@ -216,6 +218,12 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
         if not isinstance(poll, dict):
             dropped_polls += 1
             continue
+        semantic_problem = polling_semantic_problem(poll, race_json.get("polling_note"))
+        if semantic_problem:
+            dropped_polls += 1
+            if log:
+                log("warning", f"Dropping non-poll entry at polling[{poll_index}]: {semantic_problem}")
+            continue
         matchups = poll.get("matchups")
         if matchups is None:
             poll["matchups"] = []
@@ -342,6 +350,10 @@ def _issue_quality(issue_data: Any) -> tuple[int, int]:
 
 def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Normalize issue keys and placeholder stances in raw agent output."""
+    from shared.run_health import RunFailureReason
+    from shared.run_health import is_placeholder_junk_stance as _is_placeholder_junk_stance
+    from shared.run_health import record_step_failure as _record_step_failure
+
     try:
         from shared.models import LEGACY_ISSUE_NAMES, CanonicalIssue
 
@@ -374,6 +386,17 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
                 issue["issue"] = LEGACY_ISSUE_NAMES.get(str(issue.get("issue") or key), str(issue.get("issue") or key))
                 stance = str(issue.get("stance") or "").strip()
                 if _is_missing_stance_text(stance):
+                    if _is_placeholder_junk_stance(stance):
+                        # A literal placeholder artifact (e.g. a stance that is
+                        # just the word "DRAFT") — distinct from a deliberate
+                        # "no public position found" research conclusion. Register
+                        # it as a failure instead of letting it pass silently.
+                        _record_step_failure(
+                            race_json,
+                            "issues",
+                            RunFailureReason.PLACEHOLDER_CONTENT,
+                            f"{_candidate_name(candidate)}/{key}: literal placeholder stance {stance!r}",
+                        )
                     issue["stance"] = "No public position found after repeated research attempts."
                     issue["confidence"] = "low"
                     issue.setdefault("sources", [])
@@ -769,6 +792,10 @@ async def run_agent(
     _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
+    restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+    if restored_evidence:
+        log("warning", f"Restored {restored_evidence} baseline source citation(s) omitted by the update")
+        _normalize_schema_fields(race_json, log)
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
     review_required_steps_ran = bool(_enabled & {"issues", "refinement", "iteration"})
@@ -887,6 +914,10 @@ async def run_agent(
                     race_json["generator"] = generators
                     _sanitize_roster(race_json, log)
                     _normalize_schema_fields(race_json, log)
+                    restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+                    if restored_evidence:
+                        log("warning", f"Restored {restored_evidence} baseline source citation(s) after iteration")
+                        _normalize_schema_fields(race_json, log)
 
                     updated_packet = build_semantic_review_packet(race_json)
                     log("info", f"  Cycle {cycle}: Re-running reviews...")
@@ -934,6 +965,22 @@ async def run_agent(
     race_json["validation_grade"] = grade
     race_json["run_audit"] = _build_run_audit(baseline_existing_data, race_json)
 
+    # A definitive machine-readable "did this run actually work" verdict —
+    # distinct from pipeline_state.complete, which only tracks whether all
+    # requested steps ran, not whether they produced trustworthy data. See
+    # shared/run_health.py for the taxonomy and CLAUDE.md rule 7 for the
+    # motivating silent-failure patterns.
+    from shared.run_health import compute_run_health_verdict
+
+    run_health = compute_run_health_verdict(race_json, should_review=should_review, validation_grade=grade)
+    race_json["run_health"] = run_health.model_dump(mode="json")
+    if not run_health.passed:
+        log(
+            "warning",
+            f"Run health verdict: {run_health.status.value} "
+            f"(reasons: {', '.join(r.value for r in run_health.reasons) or 'none'})",
+        )
+
     elapsed = time.perf_counter() - t0
 
     # Compute and attach cost estimate across all OpenRouter model calls.
@@ -963,6 +1010,8 @@ async def run_agent(
         "prompt_tokens": pt,
         "completion_tokens": ct,
         "total_tokens": total_tokens,
+        "llm_cost_usd": provider_cost - serper_cost if has_exact_provider_cost else None,
+        "search_cost_usd": serper_cost,
         "cost_usd": provider_cost if has_exact_provider_cost else None,
         "cost_source": "provider" if has_exact_provider_cost else "estimated",
         "estimated_usd": round(estimated_cost, 6),

@@ -24,15 +24,23 @@ const candidate: Candidate = {
   education: [],
   links: [],
   social_media: {},
+  roster_sources: [],
+  voting_sources: [],
+  donor_sources: [],
+  withdrawn: false,
 };
 
 const race: Race = {
+  schema_version: "0.3",
   id: "test-race-2026",
   title: "Test Race",
   office: "U.S. Senate",
   election_date: "2026-11-03",
+  contest_stage: "unknown",
   updated_utc: "2026-07-01T00:00:00Z",
   generator: [],
+  polling: [],
+  reviews: [],
   candidates: [candidate],
 };
 

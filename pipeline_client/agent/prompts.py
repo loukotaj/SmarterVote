@@ -348,6 +348,9 @@ POLLING_USER = """\
 Race: "{race_id}"
 Current date: {current_date}
 Current roster (use these names exactly): {candidate_names}
+
+{race_identity_context}
+
 Existing polling:
 {polling_json}
 
@@ -355,7 +358,10 @@ Find recent public polls from primary poll releases, reputable aggregators, or
 news coverage linking to the underlying poll. Add at most five useful recent
 polls. Every matchup candidate name must exactly match the roster above and the
 percentages array must align with the candidate array. If a source confirms a
-poll but does not publish numeric candidate percentages, add the poll with
+poll but does not name the polling organization, do not invent a placeholder
+pollster. Election returns, primary results, vote totals, and candidate vote
+shares are not opinion polls and must never be added to polling.
+If a genuine poll does not publish numeric candidate percentages, add it with
 matchups: [] so users can follow the source, and explain the missing numbers in
 polling_note.
 
@@ -375,7 +381,9 @@ Rules:
 4. Prefer candidate-level polling when available. When polling is sparse, use
    incumbency, party context, race description, candidate field strength, and
    historical signals already present in the race data.
-5. Use set_forecast exactly once. Do not change candidates, polling, voter
+5. Distinguish years served from completed terms. Never state a term count
+   unless it can be calculated from documented service dates.
+6. Use set_forecast exactly once. Do not change candidates, polling, voter
    resources, or any other race fields."""
 
 FORECAST_USER = """\
@@ -386,6 +394,8 @@ Jurisdiction: {jurisdiction}
 State: {state}
 District: {district}
 Description: {description}
+
+{race_identity_context}
 
 Candidates:
 {candidates_json}
@@ -538,13 +548,19 @@ When the profile is accurate and well-sourced, say so warmly and specifically.""
 REVIEW_USER = """\
 Review this candidate profile for the race "{race_id}":
 
+{race_identity_context}
+
 Revision context:
 {change_manifest}
 
 Complete semantic profile:
 {profile_json}
 
-First, audit the roster before judging prose quality:
+First, audit the roster before judging prose quality. Use the locked race
+identity above as ground truth for the exact office/state/district/contest
+stage — flag any candidate whose sources point to a different office, state,
+district, or election cycle, and flag any name that appears in the profile's
+"known ineligible/not running" list above.
 - Identify the exact office and jurisdiction from the race title, office,
   jurisdiction, state, district, and description.
 - For each candidate, ask whether their summary/sources show they are running
@@ -688,6 +704,8 @@ finance data and legislative voting records.
 FINANCE_VOTING_USER = """\
 You are researching campaign finance and voting records for the race "{race_id}".
 Candidates: {candidate_names}
+
+{race_identity_context}
 
 For EACH candidate, produce three things: a donor summary, a voting summary,
 and a curated list of reference links.
@@ -840,6 +858,8 @@ Known issue/policy URLs: {candidate_issue_urls}
 Candidate data:
 {candidate_json}
 
+{race_identity_context}
+
 Review flags to address for this candidate:
 {review_flags}
 
@@ -902,6 +922,8 @@ actionable flags, reply with a short plain-text summary of what you changed
 
 ITERATE_META_USER = """\
 Race "{race_id}" — addressing review flags for race-level metadata.
+
+{race_identity_context}
 
 Current description: {race_description}
 Current polling: {polling_json}
@@ -1233,6 +1255,8 @@ Issue to research: {issue}
 Known candidate website: {candidate_website}
 Known issue/policy URLs: {candidate_issue_urls}
 
+{race_identity_context}
+
 {handoff_context}
 
 Research this candidate's position on "{issue}". Look for:
@@ -1287,6 +1311,8 @@ Race: {race_id} — updating since {last_updated}
 Issue to update: {issue}
 Known candidate website: {candidate_website}
 Known issue/policy URLs: {candidate_issue_urls}
+
+{race_identity_context}
 
 Current stance:
 {existing_stance}

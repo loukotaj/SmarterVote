@@ -17,6 +17,7 @@ describe("DonorTable", () => {
           type: "finance",
           title: "OpenSecrets profile",
           last_accessed: "2026-05-16T00:00:00Z",
+          is_fresh: false,
         },
       ],
     });
