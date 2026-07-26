@@ -11,7 +11,13 @@ from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations
 from ..tools import BACKGROUND_TOOLS, CANDIDATE_TOOLS, ISSUE_TOOLS, RACE_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS, ROSTER_TOOLS
 from ..utils import make_logger
-from ._common import _await_with_run_budget, _candidate_name, _mark_pipeline_unit_complete, _pipeline_completed_units
+from ._common import (
+    _await_with_run_budget,
+    _candidate_name,
+    _mark_pipeline_unit_complete,
+    _pipeline_completed_units,
+    _race_identity_context,
+)
 
 
 async def _run_iteration_pass(
@@ -40,6 +46,7 @@ async def _run_iteration_pass(
     log("info", f"  Iteration: addressing review flags for {n} candidates (tools mode)")
 
     working = copy.deepcopy(race_json)
+    identity_context = _race_identity_context(working)
     completed_units = _pipeline_completed_units(working)
     if not resume_partial:
         completed_units = {unit for unit in completed_units if not unit.startswith(f"{unit_prefix}:")}
@@ -89,6 +96,7 @@ async def _run_iteration_pass(
                     candidate_website=candidate_website,
                     candidate_issue_urls=issue_hint_text,
                     candidate_json=json.dumps(candidate, indent=2, default=str),
+                    race_identity_context=identity_context,
                     review_flags=_format_review_flags(
                         reviews,
                         candidate_index=candidate_index,
@@ -128,6 +136,7 @@ async def _run_iteration_pass(
             ITERATE_META_USER.format(
                 race_id=race_id,
                 race_description=working.get("description", ""),
+                race_identity_context=identity_context,
                 polling_json=json.dumps(working.get("polling", []), indent=2, default=str),
                 review_flags=_format_review_flags(reviews, include_global=True),
             ),

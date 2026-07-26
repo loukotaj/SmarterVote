@@ -9,6 +9,7 @@ from ..handlers import _make_editing_handlers
 from ..prompts import POLLING_SYSTEM, POLLING_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import POLLING_TOOLS, READ_PROFILE_TOOL
+from ._common import _race_identity_context
 
 
 async def run_polling_phase(
@@ -45,6 +46,7 @@ async def run_polling_phase(
                 current_date=datetime.now(timezone.utc).date().isoformat(),
                 candidate_names=", ".join(candidate_names),
                 polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
+                race_identity_context=_race_identity_context(race_json),
             ),
             model=small_model,
             on_log=on_log,

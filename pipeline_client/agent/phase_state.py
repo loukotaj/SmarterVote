@@ -43,6 +43,82 @@ def issue_attempts(race_json: Dict[str, Any]) -> Dict[str, int]:
     return normalized
 
 
+def race_identity_context(race_json: Dict[str, Any]) -> str:
+    """Render the locked race-identity brief for injection into downstream prompts.
+
+    Discovery and roster-sync record ``pipeline_state.race_identity`` (office,
+    state, district, contest stage, election date, primary status, official
+    roster source, known incumbent, known ineligible/not-running people) before
+    candidate work begins. Every later phase — issue research, finance, polling,
+    forecast, review, and iteration — should see this same locked identity so it
+    cannot drift onto a different office, state, district, or election cycle
+    partway through a run. Falls back to the race's own top-level fields when no
+    identity brief has been recorded yet (e.g. a draft created before this field
+    existed), and to an explicit "not recorded" notice when even those are empty.
+    """
+    state = race_json.get("pipeline_state")
+    identity = state.get("race_identity") if isinstance(state, dict) else None
+    if not isinstance(identity, dict):
+        identity = {}
+
+    office = identity.get("office") or race_json.get("office")
+    state_name = identity.get("state") or race_json.get("state")
+    district = identity.get("district") or race_json.get("district")
+    contest_stage = identity.get("contest_stage") or race_json.get("contest_stage")
+    election_date = identity.get("election_date") or race_json.get("election_date")
+    primary_status = identity.get("primary_status")
+    official_source = identity.get("official_roster_source_url")
+    known_incumbent = identity.get("known_incumbent")
+    ineligible = identity.get("known_ineligible_or_not_running")
+
+    if not any(
+        [
+            office,
+            state_name,
+            district,
+            contest_stage,
+            election_date,
+            primary_status,
+            official_source,
+            known_incumbent,
+            ineligible,
+        ]
+    ):
+        return (
+            "Race identity: not yet locked. Do not attribute a fact, vote, donor, or "
+            "candidacy from a different office, state, district, or election cycle to "
+            "this race."
+        )
+
+    lines = ["Locked race identity (do not drift from this exact contest):"]
+    if office:
+        lines.append(f"- Office: {office}")
+    if state_name:
+        lines.append(f"- State: {state_name}")
+    if district:
+        lines.append(f"- District: {district}")
+    if contest_stage:
+        lines.append(f"- Contest stage: {contest_stage}")
+    if election_date:
+        lines.append(f"- Election date: {election_date}")
+    if primary_status:
+        lines.append(f"- Primary status: {primary_status}")
+    if known_incumbent:
+        lines.append(f"- Known incumbent: {known_incumbent}")
+    if ineligible:
+        names = ", ".join(str(name) for name in ineligible if str(name).strip())
+        if names:
+            lines.append(f"- Known ineligible/not running (never re-add or attribute facts to these): {names}")
+    if official_source:
+        lines.append(f"- Official roster source: {official_source}")
+    lines.append(
+        "Every fact, source, vote, and dollar amount you record must belong to this "
+        "exact office/state/district — not a different race in the same state or a "
+        "different election cycle."
+    )
+    return "\n".join(lines)
+
+
 def build_handoff_context(
     handoffs: List[Dict[str, Any]],
     cached_info: Dict[str, Any] | None,

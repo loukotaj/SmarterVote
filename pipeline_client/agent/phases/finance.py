@@ -7,6 +7,7 @@ from ..patches import _apply_finance_patch  # noqa: F401 — re-exported for bac
 from ..prompts import FINANCE_VOTING_SYSTEM, FINANCE_VOTING_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations
+from ._common import _race_identity_context
 
 
 async def run_finance_phase(
@@ -43,6 +44,7 @@ async def run_finance_phase(
             FINANCE_VOTING_USER.format(
                 race_id=race_id,
                 candidate_names=", ".join(candidate_names),
+                race_identity_context=_race_identity_context(race_json),
             ),
             model=model,
             on_log=on_log,

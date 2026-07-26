@@ -80,3 +80,8 @@ def _build_handoff_context(
 ) -> str:
     """Build a handoff context string for the issue sub-agent."""
     return phase_state.build_handoff_context(handoffs, cached_info)
+
+
+def _race_identity_context(race_json: Dict[str, Any]) -> str:
+    """Render the locked race-identity brief for downstream prompt injection."""
+    return phase_state.race_identity_context(race_json)

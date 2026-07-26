@@ -37,6 +37,7 @@ from ._common import (
     _mark_pipeline_unit_complete,
     _pipeline_completed_units,
     _pipeline_issue_attempts,
+    _race_identity_context,
     logger,
 )
 
@@ -70,6 +71,7 @@ async def _run_issue_research_for_candidate(
         operation="candidate source hint crawl",
     )
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
+    identity_context = _race_identity_context(race_json)
 
     handoffs: List[Dict[str, Any]] = []
     total_issues = len(CANONICAL_ISSUES)
@@ -137,6 +139,7 @@ async def _run_issue_research_for_candidate(
                 handoff_context=handoff_ctx,
                 candidate_website=candidate_website,
                 candidate_issue_urls=issue_hint_text,
+                race_identity_context=identity_context,
             )
         else:
             sys_prompt = ISSUE_SUBAGENT_SYSTEM
@@ -147,6 +150,7 @@ async def _run_issue_research_for_candidate(
                 handoff_context=handoff_ctx,
                 candidate_website=candidate_website,
                 candidate_issue_urls=issue_hint_text,
+                race_identity_context=identity_context,
             )
 
         log("info", f"    Issue {issue_idx + 1}/{total_issues}: {issue}")
@@ -235,6 +239,7 @@ async def _research_issue_unit(
     candidate_website: str,
     candidate_issue_urls: List[str],
     run_budget: RunBudget | None,
+    race_identity_context: str = "",
 ) -> Dict[str, Any] | None:
     """Research one issue against an isolated candidate copy and return its patch."""
     from . import _agent_loop
@@ -261,6 +266,7 @@ async def _research_issue_unit(
     ]
     handoff_context = _build_handoff_context(prior_stances, None)
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
+    identity_context = race_identity_context or _race_identity_context({})
 
     if is_update:
         system_prompt = UPDATE_ISSUE_SUBAGENT_SYSTEM
@@ -273,6 +279,7 @@ async def _research_issue_unit(
             handoff_context=handoff_context,
             candidate_website=candidate_website,
             candidate_issue_urls=issue_hint_text,
+            race_identity_context=identity_context,
         )
     else:
         system_prompt = ISSUE_SUBAGENT_SYSTEM
@@ -283,6 +290,7 @@ async def _research_issue_unit(
             handoff_context=handoff_context,
             candidate_website=candidate_website,
             candidate_issue_urls=issue_hint_text,
+            race_identity_context=identity_context,
         )
 
     try:
@@ -504,6 +512,7 @@ async def run_issues_phase(
                         candidate_website=website,
                         candidate_issue_urls=issue_urls,
                         run_budget=run_budget,
+                        race_identity_context=_race_identity_context(race_json),
                     )
                     # A non-None patch means the sub-agent successfully called
                     # set_issue_stance — either with a real stance, or (the only

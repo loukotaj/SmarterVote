@@ -117,6 +117,7 @@ from ._common import (
     _mark_pipeline_unit_complete,
     _pipeline_completed_units,
     _pipeline_issue_attempts,
+    _race_identity_context,
     logger,
 )
 from .discovery import (

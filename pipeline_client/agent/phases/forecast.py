@@ -9,7 +9,7 @@ from ..handlers import _make_editing_handlers
 from ..prompts import FORECAST_SYSTEM, FORECAST_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import FORECAST_TOOLS, READ_PROFILE_TOOL
-from ._common import _await_with_run_budget
+from ._common import _await_with_run_budget, _race_identity_context
 
 
 async def run_forecast_phase(
@@ -76,6 +76,7 @@ async def run_forecast_phase(
                 state=race_json.get("state") or "",
                 district=race_json.get("district") or "",
                 description=race_json.get("description") or "",
+                race_identity_context=_race_identity_context(race_json),
                 candidates_json=json.dumps(compact_candidates, indent=2, default=str),
                 polling_note=race_json.get("polling_note") or "",
                 polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
