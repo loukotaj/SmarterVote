@@ -208,17 +208,21 @@ function createSources(sourceStrings: string[]): Source[] {
  * Enhanced with comprehensive realistic policy positions and donor data
  */
 export const sampleRace: Race = {
+  schema_version: "0.3",
   id: "sample-race-fallback",
   election_date: "2025-11-05T00:00:00Z",
   title: "Sample State U.S. Senate Race 2025",
   office: "U.S. Senate",
   jurisdiction: "Sample State",
+  contest_stage: "unknown",
   updated_utc: "2025-01-15T12:00:00Z",
   generator: [
     "openai/gpt-5.4-mini",
     "anthropic/claude-haiku-4.5",
     "x-ai/grok-4.3",
   ],
+  polling: [],
+  reviews: [],
   candidates: [
     {
       name: "Senator Sarah Johnson",
@@ -372,6 +376,10 @@ export const sampleRace: Race = {
       ],
       career_history: [],
       education: [],
+      roster_sources: [],
+      voting_sources: [],
+      donor_sources: [],
+      withdrawn: false,
     },
     {
       name: "Representative Maria Rodriguez",
@@ -526,6 +534,10 @@ export const sampleRace: Race = {
       ],
       career_history: [],
       education: [],
+      roster_sources: [],
+      voting_sources: [],
+      donor_sources: [],
+      withdrawn: false,
     },
     {
       name: "Michael Thompson",
@@ -678,6 +690,10 @@ export const sampleRace: Race = {
       ],
       career_history: [],
       education: [],
+      roster_sources: [],
+      voting_sources: [],
+      donor_sources: [],
+      withdrawn: false,
     },
   ],
 };

@@ -57,6 +57,8 @@ describe("forecast presentation utilities", () => {
           generated_at: "2026-07-01T00:00:00Z",
           model: "test",
           source_urls: [],
+          key_reasons: [],
+          market_signals: [],
         },
       },
       {
@@ -77,6 +79,8 @@ describe("forecast presentation utilities", () => {
           generated_at: "2026-07-01T00:00:00Z",
           model: "test",
           source_urls: [],
+          key_reasons: [],
+          market_signals: [],
         },
       },
     ];

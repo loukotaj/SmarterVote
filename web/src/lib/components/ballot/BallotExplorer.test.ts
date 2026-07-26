@@ -39,6 +39,7 @@ function candidate(
                 url: "https://example.com/healthcare",
                 type: "website",
                 last_accessed: "2026-07-01",
+                is_fresh: false,
               },
             ],
           },
@@ -48,16 +49,24 @@ function candidate(
     education: [],
     links: [],
     social_media: {},
+    roster_sources: [],
+    voting_sources: [],
+    donor_sources: [],
+    withdrawn: false,
   };
 }
 
 const race: Race = {
+  schema_version: "0.3",
   id: "test-house-2026",
   title: "Test House Election, 2026",
   office: "U.S. House of Representatives",
   election_date: "2026-11-03",
+  contest_stage: "unknown",
   updated_utc: "2026-07-01T00:00:00Z",
   generator: [],
+  polling: [],
+  reviews: [],
   candidates: [
     candidate("Dana Democrat", "Democratic", true),
     candidate("Riley Republican", "Republican", true),

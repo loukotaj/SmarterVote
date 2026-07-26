@@ -9,12 +9,14 @@ const sources: Source[] = [
     type: "news",
     title: "First source",
     last_accessed: "2026-07-17",
+    is_fresh: false,
   },
   {
     url: "https://example.com/second",
     type: "government",
     title: "Second source",
     last_accessed: "2026-07-17",
+    is_fresh: false,
   },
 ];
 
@@ -37,14 +39,22 @@ const candidate: Candidate = {
   education: [],
   links: [],
   social_media: {},
+  roster_sources: [],
+  voting_sources: [],
+  donor_sources: [],
+  withdrawn: false,
 };
 
 const race: Race = {
+  schema_version: "0.3",
   id: "example-race",
   election_date: "2026-11-03",
+  contest_stage: "unknown",
   candidates: [candidate],
   updated_utc: "2026-07-17T00:00:00Z",
   generator: ["test"],
+  polling: [],
+  reviews: [],
 };
 
 describe("MobileCandidateComparison", () => {

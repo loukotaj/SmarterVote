@@ -9,6 +9,7 @@ const source = (
   title,
   type,
   last_accessed: "2026-07-11T00:00:00Z",
+  is_fresh: false,
 });
 
 const candidate = (
@@ -30,6 +31,10 @@ const candidate = (
   education: [],
   links: [],
   social_media: {},
+  roster_sources: [],
+  voting_sources: [],
+  donor_sources: [],
+  withdrawn: false,
 });
 
 // Compact, public-data fallbacks keep the homepage demo useful in local/CI builds.
@@ -42,7 +47,11 @@ export const gradeAHomepageFallbacks: Race[] = [
     jurisdiction: "Alaska",
     election_date: "2026-11-03",
     updated_utc: "2026-07-11T21:48:55.094386+00:00",
+    schema_version: "0.3",
+    contest_stage: "unknown",
     generator: [],
+    polling: [],
+    reviews: [],
     validation_grade: {
       grade: "A",
       score: 92,
@@ -154,7 +163,11 @@ export const gradeAHomepageFallbacks: Race[] = [
     jurisdiction: "Alabama",
     election_date: "2026-11-03",
     updated_utc: "2026-06-29T03:53:14.495966+00:00",
+    schema_version: "0.3",
+    contest_stage: "unknown",
     generator: [],
+    polling: [],
+    reviews: [],
     validation_grade: {
       grade: "A",
       score: 90,
