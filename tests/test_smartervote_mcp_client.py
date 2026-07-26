@@ -113,6 +113,87 @@ def test_compact_options_keeps_false_and_drops_none():
     assert compact_options(cheap_mode=False, note=None, goal="refresh") == {"cheap_mode": False, "goal": "refresh"}
 
 
+def test_races_api_client_from_env_reads_environment(monkeypatch):
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_URL", "https://races.example.com/api/")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_TOKEN", "jwt-token")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_ADMIN_KEY", "admin-key")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN", "id-token")
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_TIMEOUT", "15")
+
+    client = RacesApiClient.from_env()
+
+    assert client.base_url == "https://races.example.com/api"
+    assert client.bearer_token == "jwt-token"
+    assert client.admin_key == "admin-key"
+    assert client.cloud_run_id_token == "id-token"
+    assert client.timeout_seconds == 15.0
+
+
+def test_races_api_client_from_env_falls_back_to_defaults(monkeypatch):
+    for var in (
+        "SMARTERVOTE_RACES_API_URL",
+        "RACES_API_URL",
+        "SMARTERVOTE_RACES_API_TOKEN",
+        "RACES_API_BEARER_TOKEN",
+        "SMARTERVOTE_RACES_API_ADMIN_KEY",
+        "ADMIN_API_KEY",
+        "SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN",
+        "SMARTERVOTE_RACES_API_ID_TOKEN",
+        "RACES_API_CLOUD_RUN_ID_TOKEN",
+        "SMARTERVOTE_RACES_API_TIMEOUT",
+    ):
+        monkeypatch.delenv(var, raising=False)
+
+    client = RacesApiClient.from_env()
+
+    assert client.base_url == "http://127.0.0.1:8080"
+    assert client.bearer_token == ""
+    assert client.admin_key == ""
+    assert client.cloud_run_id_token == ""
+    assert client.timeout_seconds == 60.0
+
+
+def test_races_api_client_from_env_invalid_timeout_falls_back_to_default(monkeypatch):
+    monkeypatch.setenv("SMARTERVOTE_RACES_API_TIMEOUT", "not-a-number")
+
+    client = RacesApiClient.from_env()
+
+    assert client.timeout_seconds == 60.0
+
+
+@pytest.mark.asyncio
+async def test_races_api_client_returns_none_for_empty_response_body(monkeypatch):
+    async def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(204)
+
+    class PatchedAsyncClient(httpx.AsyncClient):
+        def __init__(self, *args, **kwargs):
+            kwargs["transport"] = httpx.MockTransport(handler)
+            super().__init__(*args, **kwargs)
+
+    monkeypatch.setattr(httpx, "AsyncClient", PatchedAsyncClient)
+    client = RacesApiClient(base_url="http://races.test")
+
+    assert await client.delete("/races/x") is None
+
+
+@pytest.mark.asyncio
+async def test_races_api_client_error_with_non_json_body_uses_raw_text(monkeypatch):
+    async def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(500, text="internal server error, not json")
+
+    class PatchedAsyncClient(httpx.AsyncClient):
+        def __init__(self, *args, **kwargs):
+            kwargs["transport"] = httpx.MockTransport(handler)
+            super().__init__(*args, **kwargs)
+
+    monkeypatch.setattr(httpx, "AsyncClient", PatchedAsyncClient)
+    client = RacesApiClient(base_url="http://races.test")
+
+    with pytest.raises(RuntimeError, match="internal server error, not json"):
+        await client.post("/do-thing", json={"a": 1})
+
+
 def test_mcp_pipeline_options_default_to_cheap_mode():
     if find_spec("mcp") is None:
         pytest.skip("MCP SDK is optional outside the local MCP environment")
