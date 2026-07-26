@@ -26,6 +26,8 @@ function makeRace(
       rating,
       confidence: "medium",
       rationale: "Test rationale sentence. More detail follows.",
+      key_reasons: [],
+      market_signals: [],
       based_on_poll_count: 2,
       generated_at: "2026-07-01T00:00:00Z",
       model: "test-model",

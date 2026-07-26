@@ -9,6 +9,8 @@ function forecast(overrides: Partial<RaceForecast> = {}): RaceForecast {
     rating: "tilt_r",
     confidence: "medium",
     rationale: "A close race in a swing district. Turnout will decide it.",
+    key_reasons: [],
+    market_signals: [],
     based_on_poll_count: 3,
     generated_at: "2026-07-01T00:00:00Z",
     model: "test-model",

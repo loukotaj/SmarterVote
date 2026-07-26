@@ -22,6 +22,7 @@ const race: ForecastRace = {
       "Rivera leads in most polling. Fundraising has also outpaced the opponent.",
     takeaway: "Rivera holds a mid-single-digit lead heading into the fall.",
     key_reasons: ["Polling advantage", "Fundraising edge"],
+    market_signals: [],
     uncertainty: "Late undecideds could tighten the race.",
     based_on_poll_count: 5,
     generated_at: "2026-07-01T00:00:00Z",
