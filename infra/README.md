@@ -74,6 +74,23 @@ Queue a race through the admin UI or `races-api`; the queue document should rece
 | Secret Manager             | enabled  | API keys and admin secrets                                                                                                                                                   |
 | Local Docker worker        | manual   | Permanent workstation runner for queue items tagged `runner=local`                                                                                                           |
 
+## Monitoring / Alerts
+
+All alert policies below (`infra/monitoring.tf`) are created only when `alert_email` is set — leave it empty to disable them entirely. Each fires to the single `google_monitoring_notification_channel.email` channel and auto-closes after 7 days if not manually resolved.
+
+| Alert                                | Signal                                                                                                        | Notes                                                                                                    |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `races_api_errors`                    | Cloud Run `run.googleapis.com/request_count` (5xx)                                                              | races-api only                                                                                            |
+| `races_api_no_traffic`                | Absence of `run.googleapis.com/request_count`                                                                   | races-api only                                                                                            |
+| `races_api_latency`                   | Cloud Run `run.googleapis.com/request_latencies` p95                                                            | races-api only                                                                                            |
+| `admin_agent_errors`                  | Cloud Function `cloudfunctions.googleapis.com/function/execution_count` (`status != "ok"`)                      | Also requires `enable_admin_agent_function = true`                                                        |
+| `admin_agent_execution_failures`      | Same metric, `status` = `crash` or `timeout`                                                                     | Hard infra failures, not just agent-reported errors; also requires `enable_admin_agent_function = true`   |
+| `pipeline_job_failures`               | Cloud Run Job `run.googleapis.com/job/completed_task_attempt_count` (`result = "failed"`)                       | Only the one-shot `runner="cloud_run"` path — does not cover the local worker                             |
+| `queue_backlog_elevated`              | Log-based metric `pipeline_queue_pending_depth`, parsed from a `pipeline_queue_depth pending=N running=M` line races-api logs on every `GET /api/queue` | A `google_cloud_scheduler_job` polls that endpoint every 5 minutes so the signal keeps flowing even when no admin has the dashboard open; requires `admin_api_key` to be set (used as the scheduler's `X-Admin-Key` auth) |
+| `local_worker_stale`                  | Log-based metric `pipeline_worker_heartbeat`, parsed from a heartbeat log line the long-lived local Docker worker (`pipeline_client/worker.py`) writes directly to Cloud Logging every `WORKER_HEARTBEAT_SECONDS` (default 300s) | Requires the workstation's `gcloud auth application-default login` identity to hold `roles/logging.logWriter` — this is **not** granted by Terraform, since the local worker deliberately has no service account (see `docker-compose.worker.yml`). Proves only that the worker process is up, not that it's running current code. |
+
+Neither `queue_backlog_elevated` nor `local_worker_stale` had a pre-existing signal to alert on — both required adding a small amount of application instrumentation alongside the Terraform (the `pipeline_queue_depth` log line in `services/races-api/routers/queue.py`, and the Cloud Logging heartbeat in `pipeline_client/worker.py`). See the comments above each resource in `monitoring.tf` for the exact log lines they depend on.
+
 ## File Structure
 
 ```text
