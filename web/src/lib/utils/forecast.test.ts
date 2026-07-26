@@ -94,6 +94,8 @@ describe("forecast utilities", () => {
           generated_at: "2026-06-20T00:00:00Z",
           model: "openai/gpt-5.4",
           source_urls: [],
+          key_reasons: [],
+          market_signals: [],
         },
       },
     ];
@@ -120,6 +122,8 @@ describe("forecast utilities", () => {
           generated_at: "2026-06-20T00:00:00Z",
           model: "openai/gpt-5.4",
           source_urls: [],
+          key_reasons: [],
+          market_signals: [],
         },
       },
     ];

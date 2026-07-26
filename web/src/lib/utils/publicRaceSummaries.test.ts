@@ -25,6 +25,8 @@ const summary: RaceSummary = {
     generated_at: "2026-07-01T00:00:00Z",
     model: "example-model",
     source_urls: [],
+    key_reasons: [],
+    market_signals: [],
   },
 };
 

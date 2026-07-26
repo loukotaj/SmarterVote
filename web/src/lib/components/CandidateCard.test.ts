@@ -15,6 +15,10 @@ const candidate: Candidate = {
   website: "https://example.com",
   social_media: {},
   summary_sources: [],
+  roster_sources: [],
+  voting_sources: [],
+  donor_sources: [],
+  withdrawn: false,
 };
 
 describe("CandidateCard", () => {
@@ -43,6 +47,7 @@ describe("CandidateCard", () => {
             type: "news",
             title: "Career Source",
             last_accessed: "2026-04-04T00:00:00Z",
+            is_fresh: false,
           },
         },
       ],
@@ -56,6 +61,7 @@ describe("CandidateCard", () => {
             type: "website",
             title: "Education Source",
             last_accessed: "2026-04-04T00:00:00Z",
+            is_fresh: false,
           },
         },
       ],
