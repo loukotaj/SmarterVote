@@ -451,14 +451,14 @@ export type RunHealthStatus = "healthy" | "degraded" | "failed" | "unknown";
 export interface StepFailure {
   step: string;
   reason: RunFailureReason;
-  detail?: string | null;
+  detail?: string;
 }
 
 export interface RunHealthVerdict {
   status: RunHealthStatus;
   reasons: RunFailureReason[];
   step_failures: StepFailure[];
-  summary?: string | null;
+  summary?: string;
 }
 
 export interface RunStep {

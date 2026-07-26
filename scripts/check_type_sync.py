@@ -55,6 +55,7 @@ from pydantic import BaseModel, HttpUrl  # noqa: E402
 from shared import models as shared_models  # noqa: E402
 from shared import pipeline_config  # noqa: E402
 from shared import pipeline_options as shared_pipeline_options  # noqa: E402
+from shared import run_health as shared_run_health  # noqa: E402
 
 DEFAULT_TYPES_TS_PATH = REPO_ROOT / "web" / "src" / "lib" / "types.ts"
 
@@ -88,6 +89,8 @@ ENUM_TO_TS_NAME: Dict[Type[Enum], str] = {
     shared_models.RosterSourceType: "RosterSourceType",
     shared_models.CanonicalIssue: "CanonicalIssue",
     shared_models.ForecastRating: "ForecastRating",
+    shared_run_health.RunFailureReason: "RunFailureReason",
+    shared_run_health.RunHealthStatus: "RunHealthStatus",
 }
 
 # ---------------------------------------------------------------------------
@@ -118,6 +121,11 @@ CHECKED_MODELS: Dict[str, Type[BaseModel]] = {
     # its TS mirror. ResolvedPipelineRunOptions (execution defaults) is
     # backend-only and intentionally not mirrored.
     "RunOptions": shared_pipeline_options.PipelineRunOptions,
+    # Run-health verdict surface: persisted on run records and returned by the
+    # races-api /runs endpoints, so the TS mirror is load-bearing for the admin
+    # UI rather than incidental.
+    "StepFailure": shared_run_health.StepFailure,
+    "RunHealthVerdict": shared_run_health.RunHealthVerdict,
 }
 MODEL_TO_TS_NAME: Dict[Type[BaseModel], str] = {cls: name for name, cls in CHECKED_MODELS.items()}
 
