@@ -28,6 +28,7 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "list_draft_races",
         "list_pipeline_steps",
         "get_race_data",
+        "audit_draft_vs_published",
         "queue_races",
         "run_race",
         "publish_race",
@@ -49,6 +50,7 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "cancel_or_delete_run",
         "get_pipeline_metrics",
         "get_pipeline_metrics_summary",
+        "summarize_run_costs",
         "clear_races_api_cache",
         "get_analytics_overview",
         "get_race_analytics",
@@ -107,6 +109,122 @@ async def test_races_api_client_raises_useful_error(monkeypatch):
 
     with pytest.raises(RuntimeError, match="races-api 404 for GET /races/missing: Race not found"):
         await client.get("/races/missing")
+
+
+class _StubRacesClient:
+    """Fake RacesApiClient for testing MCP tool logic without network access.
+
+    Keyed purely by path (ignoring query params), since the tools under test never issue
+    two different GETs against the same path within one call.
+    """
+
+    def __init__(self, get_responses: dict):
+        self._responses = get_responses
+
+    async def get(self, path, *, params=None):
+        value = self._responses[path]
+        if isinstance(value, Exception):
+            raise value
+        return value
+
+
+@pytest.mark.asyncio
+async def test_audit_draft_vs_published_reports_roster_and_grade_diffs(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/al-governor-2026/data": {
+            "candidates": [{"name": "Doug Jones"}, {"name": "Tommy Tuberville"}],
+            "validation_grade": {"grade": "B", "score": 85, "passed": True, "summary": "ok"},
+            "pipeline_state": {"complete": True},
+        },
+        "/races/al-governor-2026": {"candidates": [{"name": "Tommy Tuberville"}]},
+        "/api/races/missing-race/data": RuntimeError("races-api 404 for GET /api/races/missing-race/data: not found"),
+        "/races/missing-race": RuntimeError("races-api 404 for GET /races/missing-race: not found"),
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.audit_draft_vs_published(["al-governor-2026", "missing-race"])
+
+    assert result["race_count"] == 2
+    assert result["mismatched_race_ids"] == ["al-governor-2026"]
+    assert result["rows"][0] == {
+        "race_id": "al-governor-2026",
+        "draft_exists": True,
+        "published_exists": True,
+        "full": True,
+        "draft_count": 2,
+        "published_count": 1,
+        "draft_names": ["Doug Jones", "Tommy Tuberville"],
+        "published_names": ["Tommy Tuberville"],
+        "names_match": False,
+        "grade": "B",
+        "passed": True,
+    }
+    missing_row = result["rows"][1]
+    assert missing_row["race_id"] == "missing-race"
+    assert missing_row["draft_exists"] is False
+    assert missing_row["published_exists"] is False
+    assert missing_row["names_match"] is True  # both rosters empty counts as "matching"
+    assert missing_row["grade"] is None
+
+
+@pytest.mark.asyncio
+async def test_summarize_run_costs_normalizes_nested_and_top_level_fields(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/runs/run-full": {
+            "run_id": "run-full",
+            "race_id": "ar-governor-2026",
+            "status": "completed",
+            "estimated_usd": 3.6,
+            "model_breakdown": {
+                "google/gemini-2.5-flash": {"prompt_tokens": 100, "completion_tokens": 10},
+            },
+        },
+        "/runs/run-nested": {
+            "run_id": "run-nested",
+            "status": "failed",
+            "payload": {
+                "race_id": "al-house-02-2026",
+                "agent_metrics": {
+                    "model_breakdown": {
+                        "google/gemini-2.5-flash": {"prompt_tokens": 200, "completion_tokens": 20},
+                    },
+                },
+            },
+        },
+        "/runs/run-missing": RuntimeError("races-api 404 for GET /runs/run-missing: Run not found"),
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.summarize_run_costs(["run-full", "run-nested", "run-missing"])
+
+    assert result["status_counts"] == {"completed": 1, "failed": 1, "missing": 1}
+    assert result["failed_run_ids"] == ["run-nested"]
+    assert result["active_run_ids"] == []
+    assert result["totals"] == {
+        "cost": 3.6,
+        "prompt_tokens": 300,
+        "completion_tokens": 30,
+        "run_count": 3,
+    }
+
+    full_row, nested_row, missing_row = result["rows"]
+    assert full_row["race_id"] == "ar-governor-2026"
+    assert full_row["has_cost"] is True
+    assert nested_row["race_id"] == "al-house-02-2026"
+    assert nested_row["has_cost"] is False
+    assert nested_row["cost"] == 0.0
+    assert nested_row["prompt_tokens"] == 200
+    assert missing_row == {"run_id": "run-missing", "status": "missing"}
 
 
 def test_compact_options_keeps_false_and_drops_none():

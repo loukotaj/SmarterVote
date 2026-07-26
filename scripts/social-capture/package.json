@@ -1,0 +1,16 @@
+{
+  "name": "social-capture",
+  "version": "1.0.0",
+  "description": "Playwright/sharp screenshot capture for smarter.vote social/marketing assets. Run `npm install` here, then `node capture.mjs` (optionally with one or more output filenames as CLI args to capture a subset). Requires a local Chrome install; update the hardcoded chromePath in each script if yours differs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright-core": "1.61.1",
+    "sharp": "0.35.3"
+  }
+}
