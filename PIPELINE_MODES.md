@@ -1,6 +1,9 @@
 # Pipeline Modes
 
 The SmarterVote pipeline supports local development and cloud production modes.
+For the end-to-end operator workflow, including queue options, monitoring,
+quality review, publication, cost accounting, and failure recovery, use
+[`docs/pipeline-operations.md`](docs/pipeline-operations.md).
 
 ## Local Mode (Default)
 
@@ -116,6 +119,86 @@ discovery -> images -> issues -> finance -> refinement -> polling -> forecast ->
 ```
 
 The `/steps` endpoint returns the same order with labels and progress weights from `shared/pipeline_config.py`.
+
+### Fresh and update defaults
+
+The worker resolves defaults after it loads the requested baseline, so a race
+with no usable baseline still receives complete fresh research while an
+existing profile receives a bounded maintenance pass.
+
+| Run shape | Default steps | Use when |
+| --- | --- | --- |
+| Fresh | All steps | The existing profile is unusable, the roster belongs to the wrong contest, or no profile exists |
+| Update | `discovery`, `images`, `finance`, `refinement`, `polling`, `forecast`, `voter_resources` | The baseline roster and issue record are usable and only current facts need refreshing |
+| Explicit | Exactly `enabled_steps` | A human or automation has a narrower repair goal |
+
+Ordinary updates intentionally skip `issues`, `review`, and `iteration`.
+Existing issue stances and source evidence are preserved. Include `issues`
+only when the run goal explicitly calls for issue-position research; include
+`review` and `iteration` after material issue or narrative changes that justify
+multi-model review cost. Explicit selections always override the defaults.
+
+The admin Batch Queue dialog opens with the update default selected and offers
+**All on**, **Update default**, and **Discovery only** presets. `force_fresh`
+controls baseline use, not step selection: a fresh run with explicitly selected
+update steps still skips issue research.
+
+### Baselines and targeted repairs
+
+- `baseline_source=latest` prefers an existing draft and falls back to the
+  published profile. This is the normal incremental-update behavior.
+- `baseline_source=published` ignores draft drift and is preferred when a
+  targeted repair must start from the known public record.
+- `force_fresh=true` supplies an empty baseline. Use verified
+  `candidate_names` for post-primary repairs so discovery cannot silently keep
+  primary losers, running mates, or candidates from a nearby office.
+- A correction `goal` should state the office, contest stage, verified roster,
+  fields to refresh, and fields that must remain unchanged.
+- Every run saves a draft first. Research runs never publish automatically;
+  publishing remains a separate authenticated admin action.
+
+For post-primary races, verify the roster against an official candidate list
+or official primary results before queueing. A bad roster is a fresh-run
+problem; a correct roster with aging finance, polling, images, forecast, or
+voter links is an update-run problem.
+
+### Cost controls
+
+- Economy/cheap mode is the normal queue default. Quality/custom profiles must
+  be selected explicitly.
+- Issue research is the largest weighted phase and fans out across every
+  candidate and canonical issue; skipping it is the primary update-run saving.
+- Multi-model review and iteration are paid opt-ins on updates.
+- Search results are cached for seven days and fetched page text for 24 hours.
+- Target one or a few races and pass verified candidate names instead of using
+  broad discovery as a roster oracle.
+- Prefer source-specific deterministic refreshes and stale-field thresholds
+  for future optimization. Current update discovery can still spend several
+  model iterations proving that a recent baseline has not changed.
+- Firestore progress writes are coalesced, log polling is cursor-based, live
+  logs are bounded, and diagnostics reads have a hard cap as described below.
+
+### Run lifecycle, recovery, and health
+
+Queue items are leased atomically. Workers renew leases, checkpoint durable
+state, and create continuation items when work cannot finish in the current
+execution window. Continuations keep the logical `run_id`, completed-step set,
+prior cost metrics, and only the remaining enabled steps. Do not restart a
+continuation with `force_fresh`; the checkpoint must win over the original
+fresh-run option.
+
+Completion and quality are separate signals. `status=completed` means the
+worker returned without an unhandled error; `run_health` classifies whether
+the result was healthy, degraded, failed, or unknown and records provider,
+budget, validation, placeholder, roster, and no-data failures. Draft review
+should check run health, `pipeline_state.complete`, validation grade, candidate
+roster, sources, polling semantics, and the original correction goal before
+publication.
+
+Confirmed 404/410 candidate sources are removed and tombstoned so incremental
+evidence preservation does not restore them. Other baseline citations are
+merged monotonically into update output when a model omits them. Election
+returns and primary vote totals are rejected as opinion polling.
 
 ## Debug Capture and Diagnostics Export
 

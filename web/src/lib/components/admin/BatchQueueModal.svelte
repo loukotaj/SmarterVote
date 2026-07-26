@@ -10,7 +10,10 @@
   } from "$lib/config/pipelineOptions";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
   import type { RunOptions } from "$lib/types";
-  import { PIPELINE_STEPS } from "$lib/types";
+  import {
+    DEFAULT_UPDATE_PIPELINE_STEP_IDS,
+    PIPELINE_STEPS,
+  } from "$lib/types";
   import { racesApiBase } from "$lib/config/api";
 
   export let open = false;
@@ -30,7 +33,10 @@
   let targetNoInfo = false;
   let debugMode = false;
   let stepToggles: Record<string, boolean> = Object.fromEntries(
-    PIPELINE_STEPS.map((s) => [s.id, true]),
+    PIPELINE_STEPS.map((s) => [
+      s.id,
+      DEFAULT_UPDATE_PIPELINE_STEP_IDS.includes(s.id),
+    ]),
   );
   let researchModel = "";
 
@@ -238,6 +244,16 @@
                   });
                   stepToggles = stepToggles;
                 }}>All on</button
+              >
+              <button
+                type="button"
+                on:click={() => {
+                  PIPELINE_STEPS.forEach((s) => {
+                    stepToggles[s.id] =
+                      DEFAULT_UPDATE_PIPELINE_STEP_IDS.includes(s.id);
+                  });
+                  stepToggles = stepToggles;
+                }}>Update default</button
               >
               <button
                 type="button"

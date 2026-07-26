@@ -400,6 +400,16 @@ export const PIPELINE_STEPS: {
   { id: "iteration", label: "Review Iteration", weight: 8 },
 ];
 
+const UPDATE_OPT_IN_STEPS = new Set<PipelineStepId>([
+  "issues",
+  "review",
+  "iteration",
+]);
+export const DEFAULT_UPDATE_PIPELINE_STEP_IDS: PipelineStepId[] =
+  PIPELINE_STEPS.filter((step) => !UPDATE_OPT_IN_STEPS.has(step.id)).map(
+    (step) => step.id,
+  );
+
 export interface RunOptions {
   save_artifact?: boolean;
   note?: string;

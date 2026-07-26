@@ -22,6 +22,20 @@ PIPELINE_STEP_ORDER: tuple[str, ...] = (
 )
 PIPELINE_STEP_IDS = frozenset(PIPELINE_STEP_ORDER)
 
+# Existing profiles should get a targeted maintenance pass by default. Issue
+# research and multi-model review remain explicit opt-ins because they dominate
+# update-run cost and are unnecessary when the existing issue record is being
+# preserved.
+DEFAULT_UPDATE_PIPELINE_STEPS: tuple[str, ...] = (
+    "discovery",
+    "images",
+    "finance",
+    "refinement",
+    "polling",
+    "forecast",
+    "voter_resources",
+)
+
 PIPELINE_STEP_LABELS: dict[str, str] = {
     "discovery": "Discovery",
     "images": "Image Resolution",

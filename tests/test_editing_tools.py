@@ -977,7 +977,7 @@ def test_add_poll_allows_source_only_poll_but_rejects_incomplete_matchups():
     )
     missing = handlers["add_poll"](
         {
-            "pollster": "Example Poll",
+            "pollster": "Reliable Research",
             "date": "2026-06-01",
             "matchups": [{"candidates": ["Alice Smith", "Bob Jones"]}],
             "source_url": "https://example.com/poll",
@@ -985,7 +985,7 @@ def test_add_poll_allows_source_only_poll_but_rejects_incomplete_matchups():
     )
     mismatched = handlers["add_poll"](
         {
-            "pollster": "Example Poll",
+            "pollster": "Reliable Research",
             "date": "2026-06-01",
             "matchups": [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": [48]}],
             "source_url": "https://example.com/poll",

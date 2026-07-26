@@ -2,6 +2,11 @@
 
 Last reviewed: 2026-07-26.
 
+Delivered operational behavior is documented in
+[`pipeline-operations.md`](pipeline-operations.md) and
+[`PIPELINE_MODES.md`](../PIPELINE_MODES.md). This file remains the roadmap for
+quality work that is still proposed.
+
 ## Objective
 
 Improve the correctness of published race data by changing how the research

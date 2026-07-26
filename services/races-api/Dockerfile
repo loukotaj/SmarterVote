@@ -27,8 +27,11 @@ COPY services/races-api/routers ./routers
 COPY shared /app/shared
 COPY pipeline_client/__init__.py /app/pipeline_client/__init__.py
 COPY pipeline_client/logging_utils.py /app/pipeline_client/logging_utils.py
-# data/published is NOT baked into the image — deployed instances read from GCS.
-# For local dev, mount or copy data/published manually.
+COPY pipeline_client/backend/__init__.py /app/pipeline_client/backend/__init__.py
+COPY pipeline_client/backend/pipeline_metrics.py /app/pipeline_client/backend/pipeline_metrics.py
+
+# data/published is not baked into the image; deployed instances read from GCS.
+# For local development, mount or copy data/published manually.
 RUN mkdir -p /app/data/published
 
 RUN useradd --create-home --shell /usr/sbin/nologin app \

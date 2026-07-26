@@ -131,21 +131,6 @@ class AgentHandler:
 
         logger.info(f"Agent: researching race {race_id} (cheap_mode={cheap_mode})")
 
-        # Resolve enabled steps: explicit list > derive from options > all
-        if enabled_steps_raw:
-            enabled_steps = [s for s in enabled_steps_raw if s in {e.value for e in PipelineStep}]
-        else:
-            enabled_steps = list(ALL_STEPS)
-        enabled_set = set(enabled_steps)
-        all_enabled_steps_raw = options.get("all_enabled_steps")
-        if all_enabled_steps_raw:
-            all_enabled_steps = [s for s in all_enabled_steps_raw if s in {e.value for e in PipelineStep}]
-        elif options.get("is_continuation"):
-            all_enabled_steps = list(ALL_STEPS)
-        else:
-            all_enabled_steps = list(enabled_steps)
-        all_enabled_set = set(all_enabled_steps)
-
         # Pre-load existing data. Continuation runs receive checkpoint data from
         # the Cloud Function payload; that is more precise than drafts/races GCS.
         # It must win over force_fresh, otherwise fresh runs restart from
@@ -159,6 +144,29 @@ class AgentHandler:
             existing_data = await self._load_existing_from_gcs(
                 race_id, baseline_source=options.get("baseline_source", "latest")
             )
+
+        # Resolve enabled steps only after baseline loading so an unspecified
+        # step list can distinguish a genuine update from new research.
+        if enabled_steps_raw:
+            enabled_steps = [s for s in enabled_steps_raw if s in {e.value for e in PipelineStep}]
+        elif existing_data:
+            from shared.pipeline_config import DEFAULT_UPDATE_PIPELINE_STEPS
+
+            enabled_steps = list(DEFAULT_UPDATE_PIPELINE_STEPS)
+            options["enabled_steps"] = enabled_steps
+            logger.info("Agent: using low-cost update steps (issue research and review are opt-in)")
+        else:
+            enabled_steps = list(ALL_STEPS)
+        enabled_set = set(enabled_steps)
+        all_enabled_steps_raw = options.get("all_enabled_steps")
+        if all_enabled_steps_raw:
+            all_enabled_steps = [s for s in all_enabled_steps_raw if s in {e.value for e in PipelineStep}]
+        elif options.get("is_continuation"):
+            all_enabled_steps = list(ALL_STEPS)
+        else:
+            all_enabled_steps = list(enabled_steps)
+        all_enabled_set = set(all_enabled_steps)
+
         configured_baseline_names = options.get("verified_baseline_candidate_names")
         if isinstance(configured_baseline_names, list):
             verified_baseline_candidate_names = {

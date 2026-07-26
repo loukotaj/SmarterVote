@@ -115,6 +115,37 @@ async def test_v2_handler_passes_enabled_steps():
 
 
 @pytest.mark.asyncio
+async def test_v2_handler_defaults_updates_to_low_cost_non_issue_steps():
+    """An existing baseline gets maintenance steps unless the caller opts in."""
+    handler = AgentHandler()
+    existing = {"id": "test-race", "candidates": [{"name": "Alice", "issues": {}}]}
+
+    with (
+        patch.object(handler, "_load_existing_from_gcs", new_callable=AsyncMock, return_value=existing),
+        patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock) as mock_agent,
+        patch.object(handler, "_save_draft", new_callable=AsyncMock) as mock_save_draft,
+    ):
+        mock_agent.return_value = existing
+        mock_save_draft.return_value = Path("/tmp/test-race.json")
+
+        await handler.handle({"race_id": "test-race"}, {"cheap_mode": True})
+
+    enabled_steps = mock_agent.call_args.kwargs["enabled_steps"]
+    assert enabled_steps == [
+        "discovery",
+        "images",
+        "finance",
+        "refinement",
+        "polling",
+        "forecast",
+        "voter_resources",
+    ]
+    assert "issues" not in enabled_steps
+    assert "review" not in enabled_steps
+    assert "iteration" not in enabled_steps
+
+
+@pytest.mark.asyncio
 async def test_v2_handler_uses_run_id_for_firestore_logs_when_pipeline_import_fails():
     """run_id from options should still drive Firestore logging if optional imports fail."""
     handler = AgentHandler()

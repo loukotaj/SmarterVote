@@ -3,7 +3,11 @@
 from pipeline_client.agent.evidence import merge_source_lists, preserve_baseline_evidence
 from pipeline_client.agent.handlers import _make_editing_handlers
 from pipeline_client.agent.polling_quality import polling_semantic_problem
-from pipeline_client.agent.review import check_profile_quality, compute_validation_grade
+from pipeline_client.agent.review import (
+    _remove_confirmed_dead_candidate_sources,
+    check_profile_quality,
+    compute_validation_grade,
+)
 
 
 def _source(url: str) -> dict:
@@ -178,3 +182,33 @@ def test_quality_check_flags_implausible_house_term_count():
     review = check_profile_quality(race)
 
     assert any(flag["field"] == "forecast.rationale" and flag["severity"] == "error" for flag in review["flags"])
+
+
+def test_confirmed_dead_candidate_source_is_removed_and_tombstoned():
+    dead_url = "https://example.test/dead"
+    race = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "summary_sources": [_source(dead_url)],
+                "donor_sources": [_source(dead_url)],
+                "issues": {},
+            }
+        ]
+    }
+    review = {
+        "flags": [
+            {
+                "field": "candidates[0].summary_sources[0].url",
+                "concern": f"Cited source URL ({dead_url}) returned a dead link: HTTP error 404.",
+                "severity": "warning",
+            }
+        ]
+    }
+
+    removed = _remove_confirmed_dead_candidate_sources(race, review)
+
+    assert removed == 2
+    assert race["candidates"][0]["summary_sources"] == []
+    assert race["candidates"][0]["donor_sources"] == []
+    assert race["pipeline_state"]["removed_source_urls"] == [{"candidate_name": "Alice", "url": dead_url}]

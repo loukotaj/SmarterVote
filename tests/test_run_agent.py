@@ -1,6 +1,7 @@
 """Tests for run_agent orchestration and _load_existing helper."""
 
 import asyncio
+import copy
 import json
 import os
 import re
@@ -19,6 +20,7 @@ from pipeline_client.agent.phases import (
 )
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
+from shared.pipeline_config import PIPELINE_STEP_IDS
 
 
 @pytest.fixture(autouse=True)
@@ -514,6 +516,34 @@ async def test_discovery_only_update_uses_update_discovery_phases():
         "roster-verify",
         "update-meta",
     ]
+
+
+@pytest.mark.asyncio
+async def test_run_agent_defaults_existing_profile_to_low_cost_update_steps():
+    existing = {
+        "id": "maintenance-2026",
+        "candidates": [{"name": "Alice", "issues": {}}],
+        "updated_utc": "2026-07-20T00:00:00Z",
+    }
+    observed = {}
+
+    async def fake_update(*_args, step_enabled, **_kwargs):
+        for step in PIPELINE_STEP_IDS:
+            observed[step] = step_enabled(step)
+        return copy.deepcopy(existing)
+
+    with (
+        patch("pipeline_client.agent.agent._run_update", side_effect=fake_update),
+        patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock) as mock_reviews,
+    ):
+        await run_agent("maintenance-2026", cheap_mode=True, existing_data=existing)
+
+    assert observed["discovery"] is True
+    assert observed["voter_resources"] is True
+    assert observed["issues"] is False
+    assert observed["review"] is False
+    assert observed["iteration"] is False
+    mock_reviews.assert_not_awaited()
 
 
 @pytest.mark.asyncio
