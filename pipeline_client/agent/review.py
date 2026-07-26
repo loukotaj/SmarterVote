@@ -25,6 +25,7 @@ from .model_registry import (
     DEFAULT_GROK_MODEL,
     normalize_model_id,
 )
+from .phase_state import race_identity_context
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
 from .run_budget import RunBudget, RunBudgetExceeded
 from .utils import _extract_json, make_logger
@@ -194,10 +195,16 @@ async def _run_single_review(
     change_manifest: str = "Initial review. No previous revision is available.",
     metrics_sink: Optional[Dict[str, Any]] = None,
     run_budget: RunBudget | None = None,
+    race_identity_context_text: str = "",
 ) -> Optional[Dict[str, Any]]:
     """Run a single review agent role (claude, gemini, or grok)."""
     log = make_logger(on_log)
-    user_prompt = REVIEW_USER.format(race_id=race_id, profile_json=profile_json, change_manifest=change_manifest)
+    user_prompt = REVIEW_USER.format(
+        race_id=race_id,
+        profile_json=profile_json,
+        change_manifest=change_manifest,
+        race_identity_context=race_identity_context_text,
+    )
     if provider not in _REVIEW_MODELS:
         return None
     full_model, _cheap_model = _REVIEW_MODELS[provider]
@@ -516,6 +523,7 @@ async def run_reviews(
         metrics_sink["packet_chars"] = len(profile_json)
         metrics_sink["packet_estimated_tokens"] = max(1, len(profile_json) // 4)
     model_overrides = {"claude": claude_model, "gemini": gemini_model, "grok": grok_model}
+    identity_context = race_identity_context(race_json)
 
     tasks = []
     for provider in requested_providers:
@@ -531,6 +539,7 @@ async def run_reviews(
                 change_manifest=change_manifest,
                 metrics_sink=metrics_sink,
                 run_budget=run_budget,
+                race_identity_context_text=identity_context,
             )
         )
 

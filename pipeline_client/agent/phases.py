@@ -470,6 +470,11 @@ def _build_handoff_context(
     return phase_state.build_handoff_context(handoffs, cached_info)
 
 
+def _race_identity_context(race_json: Dict[str, Any]) -> str:
+    """Render the locked race-identity brief for downstream prompt injection."""
+    return phase_state.race_identity_context(race_json)
+
+
 async def _run_issue_research_for_candidate(
     candidate_name: str,
     race_json: Dict[str, Any],
@@ -497,6 +502,7 @@ async def _run_issue_research_for_candidate(
         operation="candidate source hint crawl",
     )
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
+    identity_context = _race_identity_context(race_json)
 
     handoffs: List[Dict[str, Any]] = []
     total_issues = len(CANONICAL_ISSUES)
@@ -564,6 +570,7 @@ async def _run_issue_research_for_candidate(
                 handoff_context=handoff_ctx,
                 candidate_website=candidate_website,
                 candidate_issue_urls=issue_hint_text,
+                race_identity_context=identity_context,
             )
         else:
             sys_prompt = ISSUE_SUBAGENT_SYSTEM
@@ -574,6 +581,7 @@ async def _run_issue_research_for_candidate(
                 handoff_context=handoff_ctx,
                 candidate_website=candidate_website,
                 candidate_issue_urls=issue_hint_text,
+                race_identity_context=identity_context,
             )
 
         log("info", f"    Issue {issue_idx + 1}/{total_issues}: {issue}")
@@ -662,6 +670,7 @@ async def _research_issue_unit(
     candidate_website: str,
     candidate_issue_urls: List[str],
     run_budget: RunBudget | None,
+    race_identity_context: str = "",
 ) -> Dict[str, Any] | None:
     """Research one issue against an isolated candidate copy and return its patch."""
     local_race = {"candidates": [copy.deepcopy(candidate_snapshot)]}
@@ -686,6 +695,7 @@ async def _research_issue_unit(
     ]
     handoff_context = _build_handoff_context(prior_stances, None)
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
+    identity_context = race_identity_context or _race_identity_context({})
 
     if is_update:
         system_prompt = UPDATE_ISSUE_SUBAGENT_SYSTEM
@@ -698,6 +708,7 @@ async def _research_issue_unit(
             handoff_context=handoff_context,
             candidate_website=candidate_website,
             candidate_issue_urls=issue_hint_text,
+            race_identity_context=identity_context,
         )
     else:
         system_prompt = ISSUE_SUBAGENT_SYSTEM
@@ -708,6 +719,7 @@ async def _research_issue_unit(
             handoff_context=handoff_context,
             candidate_website=candidate_website,
             candidate_issue_urls=issue_hint_text,
+            race_identity_context=identity_context,
         )
 
     try:
@@ -790,6 +802,11 @@ async def _run_shared_phases(
     """
     prefix = "Update Phase" if is_update else "Phase"
     n = len(candidate_names)
+    # Locked upfront so every downstream phase (issues, finance, polling,
+    # forecast, iteration) sees the same office/state/district/contest-stage
+    # brief that discovery or roster-sync recorded, instead of re-deriving it
+    # (or drifting from it) independently per phase.
+    identity_context = _race_identity_context(race_json)
 
     # --- Phase 1b: Image URL verification & resolution (parallel) ---
     if step_enabled("images"):
@@ -974,6 +991,7 @@ async def _run_shared_phases(
                             candidate_website=website,
                             candidate_issue_urls=issue_urls,
                             run_budget=run_budget,
+                            race_identity_context=identity_context,
                         )
                         # A non-None patch means the sub-agent successfully called
                         # set_issue_stance — either with a real stance, or (the only
@@ -1047,6 +1065,7 @@ async def _run_shared_phases(
                 FINANCE_VOTING_USER.format(
                     race_id=race_id,
                     candidate_names=", ".join(candidate_names),
+                    race_identity_context=identity_context,
                 ),
                 model=model,
                 on_log=on_log,
@@ -1198,6 +1217,7 @@ async def _run_shared_phases(
                     current_date=datetime.now(timezone.utc).date().isoformat(),
                     candidate_names=", ".join(candidate_names),
                     polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
+                    race_identity_context=identity_context,
                 ),
                 model=small_model,
                 on_log=on_log,
@@ -1261,6 +1281,7 @@ async def _run_shared_phases(
                     state=race_json.get("state") or "",
                     district=race_json.get("district") or "",
                     description=race_json.get("description") or "",
+                    race_identity_context=identity_context,
                     candidates_json=json.dumps(compact_candidates, indent=2, default=str),
                     polling_note=race_json.get("polling_note") or "",
                     polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
@@ -1723,6 +1744,7 @@ async def _run_iteration_pass(
     log("info", f"  Iteration: addressing review flags for {n} candidates (tools mode)")
 
     working = copy.deepcopy(race_json)
+    identity_context = _race_identity_context(working)
     completed_units = _pipeline_completed_units(working)
     if not resume_partial:
         completed_units = {unit for unit in completed_units if not unit.startswith(f"{unit_prefix}:")}
@@ -1772,6 +1794,7 @@ async def _run_iteration_pass(
                     candidate_website=candidate_website,
                     candidate_issue_urls=issue_hint_text,
                     candidate_json=json.dumps(candidate, indent=2, default=str),
+                    race_identity_context=identity_context,
                     review_flags=_format_review_flags(
                         reviews,
                         candidate_index=candidate_index,
@@ -1811,6 +1834,7 @@ async def _run_iteration_pass(
             ITERATE_META_USER.format(
                 race_id=race_id,
                 race_description=working.get("description", ""),
+                race_identity_context=identity_context,
                 polling_json=json.dumps(working.get("polling", []), indent=2, default=str),
                 review_flags=_format_review_flags(reviews, include_global=True),
             ),

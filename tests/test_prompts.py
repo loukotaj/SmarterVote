@@ -82,6 +82,7 @@ def test_issue_subagent_user_formats():
         handoff_context="No prior context available.",
         candidate_website="https://alice.example.com",
         candidate_issue_urls="(none found)",
+        race_identity_context="Locked race identity (do not drift from this exact contest):\n- Office: U.S. Senate",
     )
     assert "mo-senate-2024" in result
     assert "Alice" in result
@@ -126,6 +127,7 @@ def test_iterate_user_formats():
         candidate_website="https://janedoe.com",
         candidate_issue_urls="https://janedoe.com/issues, https://janedoe.com/platform",
         candidate_json='{"name": "Jane Doe"}',
+        race_identity_context="Race identity: not yet locked.",
         review_flags="[WARNING] issues.Healthcare: weak sourcing",
         all_issues="Healthcare, Economy",
     )
@@ -161,6 +163,7 @@ def test_issue_subagent_prompt_formats():
         candidate_website="https://example.com/",
         candidate_issue_urls="https://example.com/issues",
         handoff_context="No prior context available.",
+        race_identity_context="Race identity: not yet locked.",
     )
     assert "Jane Doe" in result
     assert "Healthcare" in result
@@ -179,6 +182,7 @@ def test_update_issue_subagent_prompt_formats():
         candidate_website="https://example.com/",
         candidate_issue_urls="https://example.com/issues",
         handoff_context="No prior context available.",
+        race_identity_context="Race identity: not yet locked.",
     )
     assert "Jane Doe" in result
     assert "Healthcare" in result
@@ -355,6 +359,7 @@ def test_forecast_prompt_formats_and_disallows_search():
         state="Georgia",
         district="",
         description="A competitive Senate race.",
+        race_identity_context="Race identity: not yet locked.",
         candidates_json='[{"name":"Alice","party":"Democratic"}]',
         polling_note="No public polling found.",
         polling_json="[]",
