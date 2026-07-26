@@ -1,4 +1,8 @@
-import type { ForecastRating, RaceSummary } from "$lib/types";
+import type {
+  ChamberForecastDetails,
+  ForecastRating,
+  RaceSummary,
+} from "$lib/types";
 import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "./holdovers";
 
 export type ForecastTab = "house" | "senate" | "governors";
@@ -8,6 +12,19 @@ export const FORECAST_TABS: ForecastTab[] = ["house", "senate", "governors"];
 export interface ForecastRace extends RaceSummary {
   forecast: NonNullable<RaceSummary["forecast"]>;
 }
+
+/** Partisan rating display order used for the ratings breakdown grid and race sorting (excludes "other"). */
+export const FORECAST_RATING_ORDER: ForecastRating[] = [
+  "safe_d",
+  "likely_d",
+  "lean_d",
+  "tilt_d",
+  "tossup",
+  "tilt_r",
+  "lean_r",
+  "likely_r",
+  "safe_r",
+];
 
 export interface ForecastAggregate {
   tab: ForecastTab;
@@ -553,4 +570,189 @@ export function groupSeatDistribution(
   });
 
   return buckets;
+}
+
+export function raceHref(id: string): string {
+  return `/races/${id}`;
+}
+
+/** Most likely single outcome (e.g. "51D - 49R") from a seat distribution. */
+export function getMostLikelySeatOutcome(dist: Record<string, number> = {}): {
+  key: string;
+  probability: number;
+} {
+  let best = { key: "", probability: 0 };
+  for (const [key, prob] of Object.entries(dist)) {
+    if (prob > best.probability) best = { key, probability: prob };
+  }
+  return best;
+}
+
+/**
+ * Resolves the projected controlling party for a chamber, preferring the
+ * chamber forecast summary's own determination and falling back to the
+ * aggregate seat projection (with a Senate 50-50 VP tie-break to Republican).
+ */
+export function resolveControlParty(
+  tab: ForecastTab,
+  chamberSummary: ChamberForecastDetails | undefined,
+  aggregate: ForecastAggregate,
+): "Democratic" | "Republican" | "Other" {
+  if (chamberSummary?.control_party) return chamberSummary.control_party;
+
+  if (
+    tab === "senate" &&
+    (aggregate.projected.Democratic ?? 0) === 50 &&
+    (aggregate.projected.Republican ?? 0) === 50
+  ) {
+    return "Republican";
+  }
+  if ((aggregate.projected.Democratic ?? 0) >= aggregate.threshold) {
+    return "Democratic";
+  }
+  if ((aggregate.projected.Republican ?? 0) >= aggregate.threshold) {
+    return "Republican";
+  }
+  return "Other";
+}
+
+/**
+ * Ranks a race by how likely it is to matter for chamber control: named
+ * "competitive races" from the chamber summary first, then by closeness of
+ * the rating/win probability. Lower scores sort first (most relevant).
+ */
+export function getControlRelevanceScore(
+  race: RaceSummary,
+  chamberSummary: ChamberForecastDetails | undefined,
+): number {
+  const title = race.title || "";
+  const id = race.id || "";
+  const isKey = chamberSummary?.competitive_races?.some(
+    (t) => t === title || title.includes(t) || id.includes(t),
+  );
+
+  let ratingPriority = 4;
+  if (race.forecast) {
+    const r = race.forecast.rating.toLowerCase();
+    if (r.includes("tossup") || r.includes("toss-up")) {
+      ratingPriority = 0;
+    } else if (r.includes("tilt")) {
+      ratingPriority = 1;
+    } else if (r.includes("lean")) {
+      ratingPriority = 2;
+    } else if (r.includes("likely")) {
+      ratingPriority = 3;
+    } else if (r.includes("safe")) {
+      ratingPriority = 4;
+    }
+  }
+
+  const winProb = race.forecast?.win_probability ?? 0.5;
+  const closeness = Math.abs(winProb - 0.5);
+
+  const keyWeight = isKey ? 0 : 1000;
+  const ratingWeight = ratingPriority * 100;
+  const closenessWeight = closeness * 10;
+
+  return keyWeight + ratingWeight + closenessWeight;
+}
+
+export type ForecastRaceSortBy =
+  | "control_relevance"
+  | "competitiveness"
+  | "dem_pickup"
+  | "gop_pickup"
+  | "probability"
+  | "margin"
+  | "state"
+  | "rating";
+
+/** Pure sort of forecasted races per the "Sort by" dropdown on the forecast page. */
+export function sortForecastRaces(
+  races: ForecastRace[],
+  sortBy: ForecastRaceSortBy | string,
+  chamberSummary: ChamberForecastDetails | undefined,
+): ForecastRace[] {
+  const sorted = [...races];
+  sorted.sort((a, b) => {
+    if (sortBy === "state") {
+      const stateA = getRaceState(a) || "";
+      const stateB = getRaceState(b) || "";
+      return stateA.localeCompare(stateB);
+    }
+    if (sortBy === "rating") {
+      const indexA = FORECAST_RATING_ORDER.indexOf(a.forecast.rating);
+      const indexB = FORECAST_RATING_ORDER.indexOf(b.forecast.rating);
+      return indexA - indexB;
+    }
+    if (sortBy === "probability") {
+      const probA = a.forecast.win_probability ?? 0;
+      const probB = b.forecast.win_probability ?? 0;
+      return probB - probA;
+    }
+    if (sortBy === "margin") {
+      const marginA = Math.abs(a.forecast.margin_estimate ?? 0);
+      const marginB = Math.abs(b.forecast.margin_estimate ?? 0);
+      return marginB - marginA;
+    }
+    if (sortBy === "dem_pickup") {
+      const demProbA = a.forecast.party_probabilities?.Democratic ?? 0;
+      const demProbB = b.forecast.party_probabilities?.Democratic ?? 0;
+      return demProbB - demProbA;
+    }
+    if (sortBy === "gop_pickup") {
+      const gopProbA = a.forecast.party_probabilities?.Republican ?? 0;
+      const gopProbB = b.forecast.party_probabilities?.Republican ?? 0;
+      return gopProbB - gopProbA;
+    }
+    if (sortBy === "competitiveness") {
+      const diffA = Math.abs((a.forecast.win_probability ?? 0.5) - 0.5);
+      const diffB = Math.abs((b.forecast.win_probability ?? 0.5) - 0.5);
+      return diffA - diffB;
+    }
+    return (
+      getControlRelevanceScore(a, chamberSummary) -
+      getControlRelevanceScore(b, chamberSummary)
+    );
+  });
+  return sorted;
+}
+
+export interface ForecastRaceFilterOptions {
+  selectedState: string | null;
+  filterRating: string;
+  filterParty: string;
+}
+
+/** Pure filter of forecasted races per the state map selection and filter pills. */
+export function filterForecastRaces(
+  races: ForecastRace[],
+  { selectedState, filterRating, filterParty }: ForecastRaceFilterOptions,
+): ForecastRace[] {
+  return races.filter((race) => {
+    if (selectedState && getRaceState(race) !== selectedState) return false;
+
+    if (filterRating !== "all") {
+      const rating = race.forecast.rating.toLowerCase();
+      if (filterRating === "tossup" && !rating.includes("tossup")) return false;
+      if (filterRating === "tilt" && !rating.startsWith("tilt_")) return false;
+      if (filterRating === "lean" && !rating.startsWith("lean_")) return false;
+      if (
+        filterRating === "likely_safe" &&
+        !rating.startsWith("likely_") &&
+        !rating.startsWith("safe_")
+      )
+        return false;
+    }
+    if (filterParty !== "all") {
+      const party = normalizeForecastParty(
+        race.forecast.predicted_winner_party,
+        race.forecast.party_probabilities,
+        race.candidates,
+      );
+      if (filterParty !== party) return false;
+    }
+
+    return true;
+  });
 }
