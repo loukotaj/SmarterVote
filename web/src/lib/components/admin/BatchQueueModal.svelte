@@ -10,10 +10,7 @@
   } from "$lib/config/pipelineOptions";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
   import type { RunOptions } from "$lib/types";
-  import {
-    DEFAULT_UPDATE_PIPELINE_STEP_IDS,
-    PIPELINE_STEPS,
-  } from "$lib/types";
+  import { DEFAULT_UPDATE_PIPELINE_STEP_IDS, PIPELINE_STEPS } from "$lib/types";
   import { racesApiBase } from "$lib/config/api";
 
   export let open = false;

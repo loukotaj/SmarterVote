@@ -359,6 +359,8 @@ async def check_profile_links(
 
 def _remove_confirmed_dead_candidate_sources(race_json: Dict[str, Any], link_review: Dict[str, Any]) -> int:
     """Remove candidate URLs that the link validator confirmed as HTTP 404/410."""
+    if not isinstance(link_review, dict):
+        return 0
     removals: Dict[int, set[str]] = {}
     for flag in link_review.get("flags") or []:
         if not isinstance(flag, dict):
