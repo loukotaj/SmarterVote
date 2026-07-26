@@ -5,10 +5,13 @@ This service exposes public read endpoints for race data, analytics, and
 admin management endpoints for the SmarterVote pipeline.
 
 Admin endpoints are split into routers:
-    routers/queue.py        - queue management
-    routers/runs.py         - run details and logs
-    routers/races_admin.py  - race record CRUD, drafts, publish, versions
-    routers/pipeline.py     - metrics, admin chat
+    routers/queue.py         - queue management
+    routers/runs.py          - run details and logs
+    routers/races_admin/     - race record CRUD, drafts, publish, run history,
+                               chamber forecasts (further split by concern; see
+                               that package's docstring)
+    routers/race_versions.py - archived race-version read/restore
+    routers/pipeline.py      - metrics, admin chat
 """
 
 import logging
