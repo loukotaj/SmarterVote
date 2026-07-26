@@ -3255,6 +3255,426 @@ def test_delete_race_record():
     race_ref.delete.assert_called_once()
 
 
+# ---------------------------------------------------------------------------
+# POST /api/races/{race_id}/cancel
+# ---------------------------------------------------------------------------
+
+
+def test_cancel_race_cancels_active_queue_item_and_run():
+    """Cancelling a running race should cancel its queue item and pipeline run, then update the race record."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    race_doc = _make_existing_doc({"race_id": "az-senate-2026", "status": "running", "current_run_id": "run-active"})
+    race_ref = MagicMock()
+    race_ref.get.return_value = race_doc
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    queue_doc = MagicMock()
+    queue_doc.to_dict.return_value = {"race_id": "az-senate-2026", "status": "running"}
+    queue_doc.reference = MagicMock()
+    queue_coll = MagicMock()
+    queue_coll.where.return_value = queue_coll
+    queue_coll.stream.return_value = iter([queue_doc])
+
+    run_doc = _make_existing_doc({"run_id": "run-active", "race_id": "az-senate-2026", "status": "running"})
+    run_ref = MagicMock()
+    run_ref.get.return_value = run_doc
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "races":
+            return races_coll
+        if name == "pipeline_queue":
+            return queue_coll
+        if name == "pipeline_runs":
+            return runs_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/az-senate-2026/cancel")
+
+    assert resp.status_code == 200
+    assert resp.json() == {"message": "Race az-senate-2026 cancelled"}
+
+    queue_update = queue_doc.reference.update.call_args.args[0]
+    assert queue_update["status"] == "cancelled"
+    assert queue_update["lease_owner"] is None
+    assert queue_update["lease_expires_at"] is None
+    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
+
+    run_ref.update.assert_called_once_with({"status": "cancelled"})
+    mock_update.assert_called_once_with("az-senate-2026", {"status": "cancelled", "current_run_id": None})
+
+
+def test_cancel_race_rejects_when_not_queued_or_running():
+    """A race that is not queued/running cannot be cancelled."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    race_doc = _make_existing_doc({"race_id": "az-senate-2026", "status": "published"})
+    race_ref = MagicMock()
+    race_ref.get.return_value = race_doc
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: races_coll if name == "races" else MagicMock()
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/az-senate-2026/cancel")
+
+    assert resp.status_code == 400
+    assert resp.json()["detail"] == "Race is not queued or running"
+
+
+def test_cancel_race_not_found():
+    """Cancelling a race with no Firestore record returns 404."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    db = _build_empty_firestore_mock()
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/missing-race/cancel")
+
+    assert resp.status_code == 404
+    assert resp.json()["detail"] == "Race not found"
+
+
+# ---------------------------------------------------------------------------
+# DELETE /api/races/{race_id}/draft
+# ---------------------------------------------------------------------------
+
+
+def test_delete_draft_race_marks_empty_when_no_published_copy_exists():
+    """Deleting the only draft (no published copy) should reset catalog fields and mark the race empty."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    db = _build_empty_firestore_mock()
+
+    def _gcs_get(race_id, prefix):
+        return None  # no published copy
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_delete_race_json", return_value=True) as mock_delete,
+        patch("gcs_helpers._gcs_get_race_json", side_effect=_gcs_get),
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.delete("/api/races/nh-governor-2026/draft")
+
+    assert resp.status_code == 200
+    assert resp.json() == {"message": "Draft nh-governor-2026 deleted", "id": "nh-governor-2026"}
+    mock_delete.assert_called_once_with("nh-governor-2026", "drafts")
+    update = mock_update.call_args.args[1]
+    assert update["status"] == "empty"
+    assert update["draft_updated_at"] is None
+    assert update["draft_quality_grade"] is None
+
+
+def test_delete_draft_race_not_found():
+    """Deleting a draft that does not exist in GCS returns 404."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    db = _build_empty_firestore_mock()
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_delete_race_json", return_value=False),
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.delete("/api/races/missing-race/draft")
+
+    assert resp.status_code == 404
+    assert resp.json()["detail"] == "Draft not found"
+
+
+# ---------------------------------------------------------------------------
+# GET /api/races/{race_id}/runs and /api/races/{race_id}/runs/{run_id}
+# ---------------------------------------------------------------------------
+
+
+def test_list_race_runs_merges_archived_and_active_runs():
+    """Archived per-race run docs and any currently active pipeline_runs doc should both appear, active first."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    archived_doc = _make_existing_doc({"run_id": "run-old", "status": "completed", "started_at": "2026-01-01T00:00:00Z"})
+    runs_subcoll = MagicMock()
+    runs_subcoll.order_by.return_value = runs_subcoll
+    runs_subcoll.limit.return_value = runs_subcoll
+    runs_subcoll.stream.return_value = iter([archived_doc])
+
+    race_ref = MagicMock()
+    race_ref.collection.return_value = runs_subcoll
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    active_doc = _make_existing_doc({"run_id": "run-active", "race_id": "az-senate-2026", "status": "running"})
+    pipeline_runs_coll = MagicMock()
+    pipeline_runs_coll.where.return_value = pipeline_runs_coll
+    pipeline_runs_coll.stream.return_value = iter([active_doc])
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "races":
+            return races_coll
+        if name == "pipeline_runs":
+            return pipeline_runs_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/az-senate-2026/runs")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["count"] == 2
+    run_ids = [r["run_id"] for r in body["runs"]]
+    assert run_ids[0] == "run-active"
+    assert "run-old" in run_ids
+
+
+def test_get_race_run_returns_pipeline_run_doc():
+    """A run present in the canonical pipeline_runs collection is returned directly."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    run_doc = _make_existing_doc({"run_id": "run-1", "race_id": "az-senate-2026", "status": "completed"})
+    run_ref = MagicMock()
+    run_ref.get.return_value = run_doc
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: runs_coll if name == "pipeline_runs" else MagicMock()
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/az-senate-2026/runs/run-1")
+
+    assert resp.status_code == 200
+    assert resp.json()["run_id"] == "run-1"
+    assert resp.json()["status"] == "completed"
+
+
+def test_get_race_run_falls_back_to_race_subcollection():
+    """When the run is missing from pipeline_runs, fall back to the per-race runs subcollection."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    missing_run_ref = MagicMock()
+    missing_run_doc = MagicMock()
+    missing_run_doc.exists = False
+    missing_run_ref.get.return_value = missing_run_doc
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = missing_run_ref
+
+    archived_doc = _make_existing_doc({"run_id": "run-archived", "status": "completed"})
+    sub_ref = MagicMock()
+    sub_ref.get.return_value = archived_doc
+    sub_runs_coll = MagicMock()
+    sub_runs_coll.document.return_value = sub_ref
+    race_ref = MagicMock()
+    race_ref.collection.return_value = sub_runs_coll
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "pipeline_runs":
+            return runs_coll
+        if name == "races":
+            return races_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/az-senate-2026/runs/run-archived")
+
+    assert resp.status_code == 200
+    assert resp.json()["run_id"] == "run-archived"
+
+
+def test_get_race_run_not_found():
+    """A run missing from both pipeline_runs and the race's runs subcollection returns 404."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    missing_run_ref = MagicMock()
+    missing_run_doc = MagicMock()
+    missing_run_doc.exists = False
+    missing_run_ref.get.return_value = missing_run_doc
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = missing_run_ref
+
+    missing_sub_ref = MagicMock()
+    missing_sub_doc = MagicMock()
+    missing_sub_doc.exists = False
+    missing_sub_ref.get.return_value = missing_sub_doc
+    sub_runs_coll = MagicMock()
+    sub_runs_coll.document.return_value = missing_sub_ref
+    race_ref = MagicMock()
+    race_ref.collection.return_value = sub_runs_coll
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "pipeline_runs":
+            return runs_coll
+        if name == "races":
+            return races_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/az-senate-2026/runs/does-not-exist")
+
+    assert resp.status_code == 404
+    assert resp.json()["detail"] == "Run not found"
+
+
+# ---------------------------------------------------------------------------
+# GET /api/races/{race_id}/data
+# ---------------------------------------------------------------------------
+
+
+def test_get_race_data_returns_published_by_default():
+    """GET .../data with no query param returns the published race JSON from GCS."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    published = {"race_id": "az-senate-2026", "title": "Arizona Senate 2026"}
+
+    def _gcs_get(race_id, prefix):
+        return published if prefix == "races" else None
+
+    with patch("gcs_helpers._gcs_get_race_json", side_effect=_gcs_get):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/az-senate-2026/data")
+
+    assert resp.status_code == 200
+    assert resp.json() == published
+
+
+def test_get_race_data_draft_flag_reads_draft_prefix():
+    """GET .../data?draft=true reads the drafts/ prefix instead of races/."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    draft = {"race_id": "az-senate-2026", "title": "Draft Arizona Senate 2026"}
+
+    def _gcs_get(race_id, prefix):
+        return draft if prefix == "drafts" else None
+
+    with patch("gcs_helpers._gcs_get_race_json", side_effect=_gcs_get):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/az-senate-2026/data?draft=true")
+
+    assert resp.status_code == 200
+    assert resp.json() == draft
+
+
+def test_get_race_data_not_found():
+    """GET .../data returns 404 with a labeled message when nothing exists at that prefix."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    with patch("gcs_helpers._gcs_get_race_json", return_value=None):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/missing-race/data")
+
+    assert resp.status_code == 404
+    assert resp.json()["detail"] == "Race data not found"
+
+    with patch("gcs_helpers._gcs_get_race_json", return_value=None):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races/missing-race/data?draft=true")
+
+    assert resp.status_code == 404
+    assert resp.json()["detail"] == "Draft data not found"
+
+
 @pytest.mark.asyncio
 async def test_race_version_rejects_unsafe_filename():
     from fastapi import HTTPException
