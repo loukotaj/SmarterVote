@@ -9,7 +9,7 @@ from openai import APIConnectionError
 
 from pipeline_client.agent.agent import _agent_loop
 from pipeline_client.agent.errors import RetryableProviderError
-from pipeline_client.agent.llm import _call_openrouter, _provider_usage_cost
+from pipeline_client.agent.llm import _await_with_run_budget, _call_openrouter, _provider_usage_cost
 
 FAKE_RACE_JSON = {
     "id": "mo-senate-2024",
@@ -95,6 +95,26 @@ def test_provider_usage_cost_rejects_invalid_values():
     usage.cost = "not-a-number"
 
     assert _provider_usage_cost(usage) is None
+
+
+@pytest.mark.asyncio
+async def test_tool_timeout_returns_recoverable_fallback():
+    async def slow_tool():
+        import asyncio
+
+        await asyncio.sleep(1)
+
+    with patch("pipeline_client.agent.llm.record_retry_metric") as record_retry:
+        result = await _await_with_run_budget(
+            slow_tool(),
+            run_budget=None,
+            requested_timeout=0.001,
+            operation="test tool",
+            timeout_result={"error": "timed out"},
+        )
+
+    assert result == {"error": "timed out"}
+    record_retry.assert_called_once_with("deadline_exits")
 
 
 # ---------------------------------------------------------------------------

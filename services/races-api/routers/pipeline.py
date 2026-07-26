@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
 import firestore_helpers
+import gcp_costs
 import httpx
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
@@ -40,7 +41,12 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
     """Project heterogeneous pipeline_runs docs into a stable dashboard schema."""
     payload = raw.get("payload") if isinstance(raw.get("payload"), dict) else {}
     options = raw.get("options") if isinstance(raw.get("options"), dict) else {}
-    agent_metrics = payload.get("agent_metrics") if isinstance(payload.get("agent_metrics"), dict) else {}
+    if isinstance(raw.get("agent_metrics"), dict):
+        agent_metrics = raw["agent_metrics"]
+    elif isinstance(payload.get("agent_metrics"), dict):
+        agent_metrics = payload["agent_metrics"]
+    else:
+        agent_metrics = {}
 
     race_id = raw.get("race_id") or payload.get("race_id") or ""
     run_id = raw.get("run_id") or fallback_run_id
@@ -80,6 +86,14 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
     if raw_cost_usd is None:
         raw_cost_usd = agent_metrics.get("cost_usd")
     cost_usd = _as_float(raw_cost_usd) if raw_cost_usd is not None else None
+    raw_llm_cost_usd = raw.get("llm_cost_usd")
+    if raw_llm_cost_usd is None:
+        raw_llm_cost_usd = agent_metrics.get("llm_cost_usd")
+    llm_cost_usd = _as_float(raw_llm_cost_usd) if raw_llm_cost_usd is not None else None
+    search_cost_usd = _as_float(
+        raw.get("search_cost_usd"),
+        _as_float(agent_metrics.get("search_cost_usd"), serper_calls * 0.001),
+    )
     cost_source = raw.get("cost_source") or agent_metrics.get("cost_source")
     if cost_source not in {"provider", "estimated"}:
         cost_source = "provider" if cost_usd is not None else "estimated"
@@ -104,6 +118,8 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
         "completion_tokens": completion_tokens,
         "total_tokens": total_tokens,
         "estimated_usd": round(estimated_usd, 6),
+        "llm_cost_usd": llm_cost_usd,
+        "search_cost_usd": search_cost_usd,
         "cost_usd": cost_usd,
         "cost_source": cost_source,
         "model_breakdown": model_breakdown,
@@ -321,13 +337,14 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
     # Recent runs are the dashboard row source; merge in metrics by run_id so a
     # populated but stale metrics collection does not make current rows look free.
     try:
-        docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(limit).stream()
-        for doc in docs:
-            plain = firestore_helpers._doc_to_plain(doc)
-            if plain is None:
-                continue
-            record = _normalize_pipeline_run(plain, doc.id)
-            run_records[str(record["run_id"])] = record
+        for timestamp_field in ("progress_updated_at", "completed_at", "updated_at", "started_at"):
+            docs = db.collection("pipeline_runs").order_by(timestamp_field, direction="DESCENDING").limit(limit).stream()
+            for doc in docs:
+                plain = firestore_helpers._doc_to_plain(doc)
+                if plain is None:
+                    continue
+                record = _normalize_pipeline_run(plain, doc.id)
+                run_records[str(record["run_id"])] = record
         run_query_ok = True
     except Exception as exc:
         logging.warning("Failed to load pipeline_runs for metrics merge: %s", exc)
@@ -383,7 +400,8 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
         if store._client is None:
             return await store.get_summary()
         raise HTTPException(status_code=503, detail="Pipeline metrics storage is temporarily unavailable") from exc
-    records: list[Dict[str, Any]] = []
+    metric_records: Dict[str, Dict[str, Any]] = {}
+    run_records: Dict[str, Dict[str, Any]] = {}
     metric_query_ok = False
     run_query_ok = False
     try:
@@ -392,22 +410,23 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
                 continue
-            records.append(_normalize_pipeline_run(plain, doc.id))
+            record = _normalize_pipeline_run(plain, doc.id)
+            metric_records[str(record["run_id"])] = record
         metric_query_ok = True
     except Exception as exc:
         logging.warning("Failed to summarize pipeline_metrics: %s", exc)
 
-    if not records:
-        try:
-            docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(5000).stream()
-            for doc in docs:
-                plain = firestore_helpers._doc_to_plain(doc)
-                if plain is None:
-                    continue
-                records.append(_normalize_pipeline_run(plain, doc.id))
-            run_query_ok = True
-        except Exception as exc:
-            logging.warning("Failed to summarize pipeline_runs: %s", exc)
+    try:
+        docs = db.collection("pipeline_runs").limit(5000).stream()
+        for doc in docs:
+            plain = firestore_helpers._doc_to_plain(doc)
+            if plain is None:
+                continue
+            record = _normalize_pipeline_run(plain, doc.id)
+            run_records[str(record["run_id"])] = record
+        run_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to summarize pipeline_runs: %s", exc)
 
     if not metric_query_ok and not run_query_ok:
         from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
@@ -418,6 +437,10 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
         if hours is None or hours <= 0:
             return await store.get_summary()
         records = await store.get_recent(limit=5000)
+    else:
+        records = []
+        for run_id in set(run_records) | set(metric_records):
+            records.append({**run_records.get(run_id, {}), **metric_records.get(run_id, {})})
 
     if hours is not None and hours > 0:
         cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
@@ -438,9 +461,7 @@ async def get_gcp_costs(days: int = 30) -> Dict[str, Any]:
     Degrades gracefully to ``{"configured": false, ...}`` when the billing
     export is not yet set up or has produced no data.
     """
-    import gcp_costs as gcp_costs_module
-
-    return gcp_costs_module.get_gcp_costs(days)
+    return gcp_costs.get_gcp_costs(days)
 
 
 # ---------------------------------------------------------------------------

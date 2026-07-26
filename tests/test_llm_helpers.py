@@ -4,6 +4,7 @@ _openrouter_request_timeout_seconds, _env_int, _normalize_source,
 _normalize_candidate, and _ensure_dict.
 """
 
+import asyncio
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -171,7 +172,9 @@ async def test_await_with_run_budget_without_budget_uses_requested_timeout():
     async def quick():
         return "done"
 
-    result = await _await_with_run_budget(quick(), run_budget=None, requested_timeout=5.0, operation="test op")
+    result = await _await_with_run_budget(
+        quick(), run_budget=None, requested_timeout=5.0, operation="test op", timeout_result=None
+    )
 
     assert result == "done"
 
@@ -184,10 +187,34 @@ async def test_await_with_run_budget_uses_bounded_timeout_from_budget():
     fake_budget = MagicMock()
     fake_budget.bounded_timeout.return_value = 1.0
 
-    result = await _await_with_run_budget(quick(), run_budget=fake_budget, requested_timeout=5.0, operation="test op")
+    result = await _await_with_run_budget(
+        quick(), run_budget=fake_budget, requested_timeout=5.0, operation="test op", timeout_result=None
+    )
 
     assert result == "done"
     fake_budget.bounded_timeout.assert_called_once_with(5.0, minimum_seconds=2.0, operation="test op")
+
+
+@pytest.mark.asyncio
+async def test_await_with_run_budget_returns_timeout_result_on_timeout():
+    """An isolated tool timeout resolves to timeout_result instead of propagating.
+
+    This is the point of the timeout_result argument: a single slow tool call
+    surfaces to the model as a usable failure value and the agent loop keeps
+    going, rather than raising and ending the run.
+    """
+
+    async def slow():
+        await asyncio.sleep(1.0)
+        return "never"
+
+    sentinel = {"found": False, "error": "Election lookup timed out."}
+
+    result = await _await_with_run_budget(
+        slow(), run_budget=None, requested_timeout=0.01, operation="test op", timeout_result=sentinel
+    )
+
+    assert result is sentinel
 
 
 # ---------------------------------------------------------------------------

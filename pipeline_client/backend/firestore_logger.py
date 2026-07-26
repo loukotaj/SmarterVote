@@ -61,6 +61,10 @@ class FirestoreLogger:
         self._lock = threading.Lock()
         self.dropped_log_count = 0
         self.truncated_log_count = 0
+        self.coalesced_progress_count = 0
+        self._last_progress_write_at = 0.0
+        self._last_progress_step: Optional[str] = None
+        self._progress_lock = threading.Lock()
 
     # ------------------------------------------------------------------
     # Log entry writer
@@ -156,7 +160,22 @@ class FirestoreLogger:
         remaining_steps: Optional[list] = None,
         status: Optional[str] = None,
     ) -> None:
-        """Update the top-level run document with current progress fields."""
+        """Update run progress while coalescing high-frequency callback writes."""
+        bounded_step_progress = max(0, min(100, int(current_step_progress))) if current_step_progress is not None else None
+        now_monotonic = time.monotonic()
+        with self._progress_lock:
+            step_changed = current_step is not None and current_step != self._last_progress_step
+            boundary_update = bounded_step_progress in {0, 100}
+            interval_elapsed = (
+                now_monotonic - self._last_progress_write_at >= self.retention.progress_write_min_interval_seconds
+            )
+            if not (status is not None or step_changed or boundary_update or interval_elapsed):
+                self.coalesced_progress_count += 1
+                return
+            self._last_progress_write_at = now_monotonic
+            if current_step is not None:
+                self._last_progress_step = current_step
+
         self.flush()
         db = _get_db()
         if db is None:
@@ -168,8 +187,8 @@ class FirestoreLogger:
             }
             if current_step is not None:
                 update["current_step"] = current_step
-            if current_step_progress is not None:
-                update["current_step_progress"] = max(0, min(100, int(current_step_progress)))
+            if bounded_step_progress is not None:
+                update["current_step_progress"] = bounded_step_progress
             if progress_message is not None:
                 update["progress_message"] = sanitize_log_message(progress_message)
             if remaining_steps is not None:
@@ -208,10 +227,11 @@ class FirestoreLogger:
                 update["duration_ms"] = duration_ms
             if run_health is not None:
                 update["run_health"] = run_health
-            if self.truncated_log_count or self.dropped_log_count:
+            if self.truncated_log_count or self.dropped_log_count or self.coalesced_progress_count:
                 update["log_stats"] = {
                     "truncated": self.truncated_log_count,
                     "dropped": self.dropped_log_count,
+                    "coalesced_progress_updates": self.coalesced_progress_count,
                 }
             db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(update, merge=True)
         except Exception as exc:
@@ -239,10 +259,11 @@ class FirestoreLogger:
                 update["duration_ms"] = duration_ms
             if run_health is not None:
                 update["run_health"] = run_health
-            if self.truncated_log_count or self.dropped_log_count:
+            if self.truncated_log_count or self.dropped_log_count or self.coalesced_progress_count:
                 update["log_stats"] = {
                     "truncated": self.truncated_log_count,
                     "dropped": self.dropped_log_count,
+                    "coalesced_progress_updates": self.coalesced_progress_count,
                 }
             db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(update, merge=True)
         except Exception as exc:

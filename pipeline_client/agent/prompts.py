@@ -358,7 +358,10 @@ Find recent public polls from primary poll releases, reputable aggregators, or
 news coverage linking to the underlying poll. Add at most five useful recent
 polls. Every matchup candidate name must exactly match the roster above and the
 percentages array must align with the candidate array. If a source confirms a
-poll but does not publish numeric candidate percentages, add the poll with
+poll but does not name the polling organization, do not invent a placeholder
+pollster. Election returns, primary results, vote totals, and candidate vote
+shares are not opinion polls and must never be added to polling.
+If a genuine poll does not publish numeric candidate percentages, add it with
 matchups: [] so users can follow the source, and explain the missing numbers in
 polling_note.
 
@@ -378,7 +381,9 @@ Rules:
 4. Prefer candidate-level polling when available. When polling is sparse, use
    incumbency, party context, race description, candidate field strength, and
    historical signals already present in the race data.
-5. Use set_forecast exactly once. Do not change candidates, polling, voter
+5. Distinguish years served from completed terms. Never state a term count
+   unless it can be calculated from documented service dates.
+6. Use set_forecast exactly once. Do not change candidates, polling, voter
    resources, or any other race fields."""
 
 FORECAST_USER = """\

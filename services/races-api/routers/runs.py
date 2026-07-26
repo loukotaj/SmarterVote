@@ -13,6 +13,7 @@ from typing import Any, Dict
 import firestore_helpers
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
+from pipeline_diagnostics import build_diagnostics_bundle
 from routers.utils import _coerce_datetime, _queue_ttl_at
 
 from shared.pipeline_config import RetentionConfig
@@ -320,21 +321,60 @@ async def get_run(run_id: str) -> Dict[str, Any]:
     return _ensure_run_health_default(_derive_logical_duration(data))
 
 
-@router.get("/runs/{run_id}/logs", dependencies=[Depends(verify_token)])
-async def get_run_logs(run_id: str, since: int = 0, limit: int = 1000) -> Dict[str, Any]:
-    """Return log entries for a run from the Firestore logs subcollection.
+@router.get("/runs/{run_id}/diagnostics", dependencies=[Depends(verify_token)])
+async def get_run_diagnostics(run_id: str) -> Dict[str, Any]:
+    """Export a sanitized bundle suitable for offline pipeline diagnosis."""
+    db = firestore_helpers._get_fs()
+    bundle = build_diagnostics_bundle(run_id, db)
+    if bundle is None:
+        raise HTTPException(status_code=404, detail="Run not found")
+    return bundle
 
-    Pass ``?since=N`` to return only entries after index N (incremental polling).
-    Entries are sorted ascending by their timestamp sort key.
+
+@router.get("/runs/{run_id}/logs", dependencies=[Depends(verify_token)])
+async def get_run_logs(
+    run_id: str,
+    since: int = 0,
+    limit: int = 1000,
+    cursor: str | None = None,
+) -> Dict[str, Any]:
+    """Return logs without re-reading the full subcollection on each poll.
+
+    Modern clients pass the opaque ``next_cursor`` returned by the prior call.
+    ``since`` remains available for older clients, but requires a full scan when
+    it is greater than zero.
     """
     db = firestore_helpers._get_fs()
     logs_ref = db.collection("pipeline_runs").document(run_id).collection("logs")
     limit = max(1, min(limit, 5000))
-    entries = [firestore_helpers._doc_to_plain(d) for d in logs_ref.stream()]
-    entries = [e for e in entries if e is not None]
+
+    if cursor is not None or since == 0:
+        query = logs_ref.order_by("__name__")
+        if cursor:
+            query = query.start_after({"__name__": cursor})
+        docs = list(query.limit(limit).stream())
+        entries = []
+        for doc in docs:
+            entry = firestore_helpers._doc_to_plain(doc)
+            if entry is not None:
+                entry.setdefault("id", str(getattr(doc, "id", "")))
+                entries.append(entry)
+        next_cursor = str(getattr(docs[-1], "id", cursor or "")) if docs else cursor
+        return {
+            "logs": entries,
+            "total": since + len(entries),
+            "next_cursor": next_cursor,
+            "has_more": len(docs) == limit,
+        }
+
+    # Backward compatibility for callers that still use numeric offsets. This
+    # path is intentionally not used by the admin frontend because Firestore
+    # bills reads for every document scanned before slicing.
+    entries = [firestore_helpers._doc_to_plain(doc) for doc in logs_ref.stream()]
+    entries = [entry for entry in entries if entry is not None]
     entries.sort(key=_log_sort_key)
     sliced = entries[since : since + limit] if since < len(entries) else []
-    return {"logs": sliced, "total": len(entries)}
+    return {"logs": sliced, "total": len(entries), "next_cursor": None, "has_more": False}
 
 
 @router.delete("/runs", dependencies=[Depends(verify_token)])

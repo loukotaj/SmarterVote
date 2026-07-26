@@ -763,6 +763,7 @@ def test_restrict_to_candidate_blocks_edits_to_other_candidates():
             "issue": "Healthcare",
             "stance": "Supports universal coverage.",
             "confidence": "high",
+            "sources": [{"url": "https://example.com/alice-healthcare"}],
         }
     )
     assert "ERROR" not in allowed
@@ -937,7 +938,7 @@ def test_add_poll_requires_exact_roster_names():
 
     rejected = handlers["add_poll"](
         {
-            "pollster": "Example Poll",
+            "pollster": "Reliable Research",
             "date": "2026-06-01",
             "matchups": [{"candidates": ["Alice", "Bob Jones"], "percentages": [48, 45]}],
             "source_url": "https://example.com/poll",
@@ -945,7 +946,7 @@ def test_add_poll_requires_exact_roster_names():
     )
     accepted = handlers["add_poll"](
         {
-            "pollster": "Example Poll",
+            "pollster": "Reliable Research",
             "date": "2026-06-01",
             "matchups": [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": [48, 45]}],
             "source_url": "https://example.com/poll",

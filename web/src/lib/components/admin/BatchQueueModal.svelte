@@ -28,6 +28,7 @@
   let forceFresh = false;
   let maxCandidates: number | null = null;
   let targetNoInfo = false;
+  let debugMode = false;
   let stepToggles: Record<string, boolean> = Object.fromEntries(
     PIPELINE_STEPS.map((s) => [s.id, true]),
   );
@@ -45,6 +46,7 @@
       save_artifact: true,
       cheap_mode: cheapMode,
       force_fresh: forceFresh,
+      debug_mode: debugMode,
       enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map(
         (s) => s.id,
       ),
@@ -207,6 +209,17 @@
               class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5"
             />
             <span>Prioritize no-info</span>
+          </label>
+          <label
+            class="flex items-center gap-1.5 text-xs text-content-muted cursor-pointer"
+            title="Capture structured step, progress, cost, and artifact diagnostics for post-run analysis"
+          >
+            <input
+              type="checkbox"
+              bind:checked={debugMode}
+              class="rounded border-stroke text-violet-600 focus:ring-violet-500 h-3.5 w-3.5"
+            />
+            <span>Debug capture</span>
           </label>
         </div>
 

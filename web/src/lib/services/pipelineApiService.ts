@@ -351,17 +351,36 @@ export class PipelineApiService {
   }
 
   /**
-   * Load run logs from Firestore subcollection via /runs/{runId}/logs.
-   * Pass `since` to only fetch entries after that index (incremental polling).
+   * Load only logs created after the prior opaque Firestore cursor.
    */
   async getRunLogs(
     runId: string,
-    since = 0,
-  ): Promise<{ logs: import("$lib/types").LogEntry[]; total: number }> {
+    cursor: string | null = null,
+  ): Promise<{
+    logs: import("$lib/types").LogEntry[];
+    total: number;
+    next_cursor?: string | null;
+    has_more?: boolean;
+  }> {
+    const params = new URLSearchParams({ limit: "1000" });
+    if (cursor) params.set("cursor", cursor);
     const res = await fetchWithAuth(
-      `${this.apiBase}/runs/${encodeURIComponent(runId)}/logs?since=${since}`,
+      `${this.apiBase}/runs/${encodeURIComponent(runId)}/logs?${params.toString()}`,
       {},
       API_TIMEOUT_SHORT,
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  }
+
+  /**
+   * Export a sanitized, self-contained diagnostic bundle for offline review.
+   */
+  async getRunDiagnostics(runId: string): Promise<Record<string, unknown>> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/runs/${encodeURIComponent(runId)}/diagnostics`,
+      {},
+      API_TIMEOUT_ARTIFACT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();

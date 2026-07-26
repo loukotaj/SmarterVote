@@ -51,6 +51,30 @@ def test_publish_rejects_review_only_remaining_with_failed_grade():
         gcs_helpers.publish_race_to_gcs("nh-senate-2026", failed_review_race)
 
 
+def test_publish_rejects_unresolved_review_warning_even_with_passing_grade():
+    race = {
+        "id": "nh-senate-2026",
+        "candidates": [{"name": "Alice"}],
+        "validation_grade": {"grade": "A", "score": 95, "passed": True},
+        "reviews": [
+            {
+                "model": "automated-profile-quality",
+                "verdict": "flagged",
+                "flags": [
+                    {
+                        "field": "candidates[0].summary_sources",
+                        "severity": "warning",
+                        "concern": "Summary has no sources.",
+                    }
+                ],
+            }
+        ],
+    }
+
+    with pytest.raises(ValueError, match="unresolved warning-or-higher"):
+        gcs_helpers._assert_publishable_race(race)
+
+
 @pytest.mark.parametrize(
     ("data", "message"),
     [

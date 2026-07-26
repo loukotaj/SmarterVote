@@ -2,6 +2,17 @@
 
 from typing import Any, Dict, List
 
+from pipeline_client.agent.evidence import merge_source_lists
+
+
+def _merge_issue_data(existing: Any, incoming: Any) -> Any:
+    if not isinstance(incoming, dict) or not isinstance(existing, dict):
+        return incoming
+    merged = dict(existing)
+    merged.update(incoming)
+    merged["sources"] = merge_source_lists(incoming.get("sources"), existing.get("sources"))
+    return merged
+
 
 def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
     if "description" in patch and patch["description"]:
@@ -31,9 +42,9 @@ def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any
         if pc.get("donor_summary") is not None:
             candidate["donor_summary"] = pc["donor_summary"]
         if isinstance(pc.get("donor_sources"), list):
-            candidate["donor_sources"] = pc["donor_sources"]
+            candidate["donor_sources"] = merge_source_lists(pc["donor_sources"], candidate.get("donor_sources"))
         if isinstance(pc.get("voting_sources"), list):
-            candidate["voting_sources"] = pc["voting_sources"]
+            candidate["voting_sources"] = merge_source_lists(pc["voting_sources"], candidate.get("voting_sources"))
     log("info", f"  Meta patch applied — {len(patch_candidates)} candidates updated")
 
 
@@ -49,7 +60,9 @@ def _apply_issue_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: An
         if not isinstance(issues, dict) or cand_name not in candidates_by_name:
             continue
         candidate = candidates_by_name[cand_name]
-        candidate.setdefault("issues", {}).update(issues)
+        current_issues = candidate.setdefault("issues", {})
+        for issue_name, issue_data in issues.items():
+            current_issues[issue_name] = _merge_issue_data(current_issues.get(issue_name), issue_data)
         updated += 1
     log("info", f"  Issue patch applied — {updated} candidates updated")
 
@@ -81,14 +94,16 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
         "party",
         "donor_summary",
         "donor_source_url",
-        "donor_sources",
         "voting_summary",
         "voting_source_url",
-        "voting_sources",
     ):
         if key in patch:
             candidate[key] = patch[key]
-    for key in ("summary_sources", "career_history", "education"):
+    for key in ("summary_sources", "donor_sources", "voting_sources"):
+        val = patch.get(key)
+        if isinstance(val, list):
+            candidate[key] = merge_source_lists(val, candidate.get(key))
+    for key in ("career_history", "education"):
         val = patch.get(key)
         if isinstance(val, list) and val:
             candidate[key] = val
@@ -101,7 +116,9 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
                 existing_urls.add(lnk.get("url"))
     new_issues = patch.get("issues")
     if isinstance(new_issues, dict) and new_issues:
-        candidate.setdefault("issues", {}).update(new_issues)
+        current_issues = candidate.setdefault("issues", {})
+        for issue_name, issue_data in new_issues.items():
+            current_issues[issue_name] = _merge_issue_data(current_issues.get(issue_name), issue_data)
     log("debug", f"  Candidate patch applied for {cname}")
 
 
@@ -149,11 +166,13 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
         if data.get("donor_source_url"):
             candidate["donor_source_url"] = data["donor_source_url"]
         if isinstance(data.get("donor_sources"), list):
-            candidate["donor_sources"] = data["donor_sources"]
+            candidate["donor_sources"] = merge_source_lists(data["donor_sources"], candidate.get("donor_sources"))
         if data.get("voting_summary"):
             candidate["voting_summary"] = data["voting_summary"]
         if data.get("voting_source_url"):
             candidate["voting_source_url"] = data["voting_source_url"]
+        if isinstance(data.get("voting_sources"), list):
+            candidate["voting_sources"] = merge_source_lists(data["voting_sources"], candidate.get("voting_sources"))
 
         new_links = data.get("links", [])
         if isinstance(new_links, list) and new_links:

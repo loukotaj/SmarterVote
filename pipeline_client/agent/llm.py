@@ -153,12 +153,18 @@ async def _await_with_run_budget(
     run_budget: RunBudget | None,
     requested_timeout: float,
     operation: str,
+    timeout_result: Any,
 ) -> Any:
-    """Await a tool request without allowing it to cross the run deadline."""
+    """Await a tool request and turn isolated tool timeouts into model-visible failures."""
     timeout = requested_timeout
     if run_budget:
         timeout = run_budget.bounded_timeout(requested_timeout, minimum_seconds=2.0, operation=operation)
-    return await asyncio.wait_for(awaitable, timeout=timeout)
+    try:
+        return await asyncio.wait_for(awaitable, timeout=timeout)
+    except asyncio.TimeoutError:
+        record_retry_metric("deadline_exits")
+        logger.warning("%s timed out after %.1fs; continuing the agent loop", operation, timeout)
+        return timeout_result
 
 
 # ---------------------------------------------------------------------------
@@ -573,6 +579,7 @@ async def _agent_loop(
                         run_budget=run_budget,
                         requested_timeout=30.0,
                         operation="Serper search",
+                        timeout_result=[],
                     )
                     log("debug", f"    🔍 got {len(search_results)} results")
                     messages.append(
@@ -595,6 +602,7 @@ async def _agent_loop(
                         run_budget=run_budget,
                         requested_timeout=30.0,
                         operation="Serper image search",
+                        timeout_result=[],
                     )
                     log("debug", f"    🖼️ got {len(search_results)} results")
                     messages.append(
@@ -613,6 +621,7 @@ async def _agent_loop(
                         run_budget=run_budget,
                         requested_timeout=30.0,
                         operation="page fetch",
+                        timeout_result="[Page fetch timed out; use another source.]",
                     )
                     log("debug", f"    📄 got {len(page_text)} chars")
                     fetch_hint = _page_fetch_log_hint(url, page_text)
@@ -634,6 +643,7 @@ async def _agent_loop(
                         run_budget=run_budget,
                         requested_timeout=20.0,
                         operation="Ballotpedia candidate lookup",
+                        timeout_result={"found": False, "error": "Candidate lookup timed out."},
                     )
                     log("debug", f"    📋 found={bp_data.get('found')}")
                     messages.append(
@@ -652,6 +662,7 @@ async def _agent_loop(
                         run_budget=run_budget,
                         requested_timeout=20.0,
                         operation="Ballotpedia election lookup",
+                        timeout_result={"found": False, "candidates": [], "error": "Election lookup timed out."},
                     )
                     n_found = len(election_data.get("candidates", []))
                     log("debug", f"    🗳️  found={election_data.get('found')} candidates={n_found}")

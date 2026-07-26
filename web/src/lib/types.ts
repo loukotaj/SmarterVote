@@ -429,6 +429,7 @@ export interface RunOptions {
   max_candidates?: number;
   target_no_info?: boolean;
   candidate_names?: string[];
+  debug_mode?: boolean;
 }
 
 // Structured failure taxonomy for pipeline runs (mirrors shared/run_health.py).

@@ -35,6 +35,8 @@ async def test_pipeline_metrics_persists_and_summarizes_provider_cost(monkeypatc
             "completion_tokens": 10,
             "total_tokens": 110,
             "estimated_usd": 0.02,
+            "llm_cost_usd": 0.01134567,
+            "search_cost_usd": 0.001,
             "cost_usd": 0.01234567,
             "cost_source": "provider",
             "model_breakdown": {},
@@ -48,6 +50,8 @@ async def test_pipeline_metrics_persists_and_summarizes_provider_cost(monkeypatc
     summary = await store.get_summary()
 
     assert records[0]["cost_usd"] == pytest.approx(0.01234567)
+    assert records[0]["llm_cost_usd"] == pytest.approx(0.01134567)
+    assert records[0]["search_cost_usd"] == pytest.approx(0.001)
     assert records[0]["cost_source"] == "provider"
     assert summary["total_usd"] == pytest.approx(0.0123)
     assert summary["avg_cheap_usd"] == pytest.approx(0.0123)

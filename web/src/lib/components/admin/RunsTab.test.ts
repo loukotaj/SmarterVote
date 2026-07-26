@@ -136,7 +136,9 @@ describe("RunsTab", () => {
     await waitFor(() =>
       expect(apiService.getRunDetails).toHaveBeenCalledWith("run-newest"),
     );
-    expect(apiService.getRunLogs).toHaveBeenCalledWith("run-newest", 0);
+    // getRunLogs now takes an opaque Firestore cursor rather than a numeric
+    // `since` index; the initial drawer load passes no cursor.
+    expect(apiService.getRunLogs).toHaveBeenCalledWith("run-newest");
 
     // Expect drawer content to be displayed
     await waitFor(() => expect(getByText("Run Logs: run-newest")).toBeTruthy());

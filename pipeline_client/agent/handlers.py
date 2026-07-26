@@ -17,7 +17,9 @@ from urllib.parse import urlparse
 _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
 
 from pipeline_client.agent.ballotpedia import default_ballotpedia_race_url
+from pipeline_client.agent.evidence import merge_source_lists
 from pipeline_client.agent.images import _is_valid_image_url
+from pipeline_client.agent.polling_quality import polling_semantic_problem
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.agent.source_types import normalize_source_type
 
@@ -545,9 +547,10 @@ def _make_editing_handlers(
             return f"Candidate '{name}' not found."
         c["summary"] = args["summary"]
         if args.get("sources"):
-            c["summary_sources"] = [
+            new_sources = [
                 src for src in (_normalize_source(source, default_type="website") for source in args["sources"]) if src
             ]
+            c["summary_sources"] = merge_source_lists(new_sources, c.get("summary_sources"))
         log("info", f"    Updated summary for {name}")
         return f"Updated summary for '{name}'."
 
@@ -572,14 +575,24 @@ def _make_editing_handlers(
                 "If no position was found after a good-faith search, use exactly "
                 "'No public position found after repeated research attempts.' with confidence 'low'."
             )
+        existing_stance = c.get("issues", {}).get(issue)
+        existing_sources = existing_stance.get("sources") if isinstance(existing_stance, dict) else []
+        new_sources = [
+            src for src in (_normalize_source(source, default_type="website") for source in args.get("sources") or []) if src
+        ]
+        merged_sources = merge_source_lists(new_sources, existing_sources)
+        is_documented_absence = "no public position found" in stance_text.casefold()
+        if not merged_sources and not is_documented_absence:
+            return (
+                f"ERROR: A substantive {issue} stance requires at least one supporting source. "
+                "Provide sources, or record a documented absence with "
+                "'No public position found after repeated research attempts.'"
+            )
         stance_data: Dict[str, Any] = {
             "stance": args["stance"],
             "confidence": args["confidence"],
+            "sources": merged_sources,
         }
-        if args.get("sources"):
-            stance_data["sources"] = [
-                src for src in (_normalize_source(source, default_type="website") for source in args["sources"]) if src
-            ]
         c.setdefault("issues", {})[issue] = stance_data
         log("info", f"    {name} / {issue} [{args['confidence']}]")
         return f"Set {name}'s {issue} stance (confidence: {args['confidence']})."
@@ -718,7 +731,8 @@ def _make_editing_handlers(
         if args.get("source_url"):
             c["donor_source_url"] = args["source_url"]
         if isinstance(args.get("sources"), list):
-            c["donor_sources"] = [src for src in (_normalize_source(s) for s in args["sources"]) if src]
+            new_sources = [src for src in (_normalize_source(s) for s in args["sources"]) if src]
+            c["donor_sources"] = merge_source_lists(new_sources, c.get("donor_sources"))
         log("info", f"    Updated donor summary for {name}")
         return f"Updated donor summary for '{name}'."
 
@@ -731,7 +745,8 @@ def _make_editing_handlers(
         if args.get("source_url"):
             c["voting_source_url"] = args["source_url"]
         if isinstance(args.get("sources"), list):
-            c["voting_sources"] = [src for src in (_normalize_source(s) for s in args["sources"]) if src]
+            new_sources = [src for src in (_normalize_source(s) for s in args["sources"]) if src]
+            c["voting_sources"] = merge_source_lists(new_sources, c.get("voting_sources"))
         log("info", f"    Updated voting summary for {name}")
         return f"Updated voting summary for '{name}'."
 
@@ -794,6 +809,17 @@ def _make_editing_handlers(
                 removed += len(sources) - len(kept)
                 issue_data["sources"] = kept
 
+        pipeline_state = race_json.setdefault("pipeline_state", {})
+        removals = pipeline_state.setdefault("removed_source_urls", [])
+        tombstone = {"candidate_name": name, "url": url}
+        if not any(
+            isinstance(item, dict)
+            and str(item.get("candidate_name") or "").strip().casefold() == name.strip().casefold()
+            and str(item.get("url") or "").strip() == url
+            for item in removals
+        ):
+            removals.append(tombstone)
+
         log("info", f"    Removed {removed} occurrence(s) of source URL for {name}: {url[:80]}")
         return f"Removed {removed} occurrence(s) of {url!r} from '{name}'."
 
@@ -840,6 +866,9 @@ def _make_editing_handlers(
         }
         if args.get("sample_size"):
             poll["sample_size"] = args["sample_size"]
+        semantic_problem = polling_semantic_problem(poll, race_json.get("polling_note"))
+        if semantic_problem:
+            return f"ERROR: {semantic_problem}"
         # Dedup: same pollster + date
         for existing in race_json.get("polling", []):
             if existing.get("pollster") == args["pollster"] and existing.get("date") == args["date"]:
