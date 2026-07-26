@@ -422,6 +422,36 @@ export interface RunOptions {
   candidate_names?: string[];
 }
 
+// Structured failure taxonomy for pipeline runs (mirrors shared/run_health.py).
+// A run's `status`/`pipeline_state.complete` only tells you it finished
+// without raising; `run_health` is the separate "did it actually work" verdict.
+export type RunFailureReason =
+  | "provider_auth_failure"
+  | "provider_rate_limit"
+  | "provider_timeout"
+  | "step_no_data"
+  | "validation_failed"
+  | "placeholder_content"
+  | "roster_verification_failed"
+  | "budget_exhausted"
+  | "cancelled"
+  | "unknown_error";
+
+export type RunHealthStatus = "healthy" | "degraded" | "failed" | "unknown";
+
+export interface StepFailure {
+  step: string;
+  reason: RunFailureReason;
+  detail?: string | null;
+}
+
+export interface RunHealthVerdict {
+  status: RunHealthStatus;
+  reasons: RunFailureReason[];
+  step_failures: StepFailure[];
+  summary?: string | null;
+}
+
 export interface RunStep {
   name: string;
   label?: string;
@@ -436,6 +466,7 @@ export interface RunStep {
   prompt_tokens?: number;
   completion_tokens?: number;
   estimated_usd?: number;
+  failure_reasons?: RunFailureReason[];
 }
 
 export interface RunInfo {
@@ -457,6 +488,7 @@ export interface RunInfo {
   steps?: RunStep[];
   logs?: LogEntry[];
   serper_calls?: number;
+  run_health?: RunHealthVerdict;
 }
 
 export interface Artifact {

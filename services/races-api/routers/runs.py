@@ -56,6 +56,30 @@ def _derive_logical_duration(run: Dict[str, Any]) -> Dict[str, Any]:
     return run
 
 
+_ACTIVE_RUN_STATUSES_FOR_HEALTH = {"pending", "running", "continued"}
+
+
+def _ensure_run_health_default(run: Dict[str, Any]) -> Dict[str, Any]:
+    """Guarantee `run_health` is always present in API responses.
+
+    Older run records (from before this field existed) simply lack the key;
+    fill in an explicit "unknown" verdict rather than leaving it undefined so
+    API consumers never have to special-case a missing field. Runs still in
+    flight get "unknown" too — a definitive verdict only exists once the run
+    reaches a terminal state.
+    """
+    if not isinstance(run.get("run_health"), dict):
+        run["run_health"] = {
+            "status": "unknown",
+            "reasons": [],
+            "step_failures": [],
+            "summary": (
+                "Run predates health-verdict tracking" if run.get("status") not in _ACTIVE_RUN_STATUSES_FOR_HEALTH else None
+            ),
+        }
+    return run
+
+
 def _collapse_continuation_chains(runs: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
     """Present legacy continuation documents as one logical run."""
     by_id = {str(run.get("run_id")): run for run in runs if run.get("run_id")}
@@ -267,6 +291,7 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
             merged[str(run_id)] = run
 
     ordered = sorted(_collapse_continuation_chains(list(merged.values())), key=_run_sort_key, reverse=True)
+    ordered = [_ensure_run_health_default(r) for r in ordered]
     active = sum(1 for r in active_runs if r.get("status") in _ACTIVE_STATUSES)
     return {"runs": ordered[:limit], "active_count": active, "total_count": len(ordered)}
 
@@ -280,6 +305,7 @@ async def list_active_runs() -> Dict[str, Any]:
     runs = [r for r in runs if r is not None]
     now = datetime.now(timezone.utc)
     runs = [r for r in (_normalize_active_run(db, r, now) for r in runs) if r is not None]
+    runs = [_ensure_run_health_default(r) for r in runs]
     return {"runs": runs, "count": len(runs)}
 
 
@@ -291,7 +317,7 @@ async def get_run(run_id: str) -> Dict[str, Any]:
     data = firestore_helpers._doc_to_plain(doc)
     if data is None:
         raise HTTPException(status_code=404, detail="Run not found")
-    return _derive_logical_duration(data)
+    return _ensure_run_health_default(_derive_logical_duration(data))
 
 
 @router.get("/runs/{run_id}/logs", dependencies=[Depends(verify_token)])

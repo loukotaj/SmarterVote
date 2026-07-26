@@ -16,6 +16,10 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from shared.pipeline_config import PipelineRuntimeConfig
+from shared.run_health import RunFailureReason
+from shared.run_health import classify_exception as _classify_exception
+from shared.run_health import detect_empty_finance_output as _detect_empty_finance_output
+from shared.run_health import record_step_failure as _record_step_failure
 
 logger = logging.getLogger("pipeline")
 
@@ -1000,6 +1004,16 @@ async def _run_shared_phases(
                                 ),
                                 race_json=race_json,
                             )
+                        elif patch is None:
+                            # A truly empty patch: the sub-agent crashed, timed out, or
+                            # made no tool call at all — a genuine failure, not a
+                            # deliberate "no position found" conclusion.
+                            _record_step_failure(
+                                race_json,
+                                "issues",
+                                RunFailureReason.STEP_NO_DATA,
+                                f"{candidate_name}/{issue_name}: issue sub-agent produced no verdict",
+                            )
                         return candidate_name, issue_name, candidate_index, canonical_issue_index, patch
 
                 tasks.append(asyncio.create_task(_run_unit()))
@@ -1060,10 +1074,25 @@ async def _run_shared_phases(
                 _apply_finance_patch(race_json, finance_result, log)
             else:
                 log("warning", "  Finance/voting phase returned non-dict — skipping")
+                _record_step_failure(
+                    race_json, "finance", RunFailureReason.STEP_NO_DATA, "finance phase returned a non-dict response"
+                )
         except RunBudgetExceeded:
             raise
         except Exception as exc:
             log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
+            _record_step_failure(race_json, "finance", _classify_exception(exc), str(exc))
+        if _detect_empty_finance_output(race_json, candidate_names):
+            # The step ran (or was attempted) without a hard error, but every
+            # target candidate still has no donor_summary/voting_summary — the
+            # silent-failure pattern this exists to catch (CLAUDE.md rule 7).
+            log("warning", "  Finance/voting phase produced no donor/voting data for any candidate")
+            _record_step_failure(
+                race_json,
+                "finance",
+                RunFailureReason.STEP_NO_DATA,
+                "no candidate has donor_summary or voting_summary after the finance step",
+            )
         track("complete", "finance", duration_ms=int((time.perf_counter() - fin_t0) * 1000), race_json=race_json)
     else:
         log("info", f"{prefix} 2b: Finance & voting — SKIPPED")
@@ -1135,6 +1164,7 @@ async def _run_shared_phases(
                 raise
             except Exception as exc:
                 log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
+                _record_step_failure(race_json, "refinement", _classify_exception(exc), f"{cname}: {exc}")
             _mark_pipeline_unit_complete(race_json, unit_id)
             refinement_units.add(unit_id)
             track(
@@ -1171,6 +1201,7 @@ async def _run_shared_phases(
                 raise
             except Exception as exc:
                 log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
+                _record_step_failure(race_json, "refinement", _classify_exception(exc), f"meta: {exc}")
             _mark_pipeline_unit_complete(race_json, meta_unit_id)
             refinement_units.add(meta_unit_id)
             track(
@@ -1214,6 +1245,7 @@ async def _run_shared_phases(
             raise
         except Exception as exc:
             log("warning", f"  Polling phase failed: {exc}")
+            _record_step_failure(race_json, "polling", _classify_exception(exc), str(exc))
         track("complete", "polling", duration_ms=int((time.perf_counter() - polling_t0) * 1000), race_json=race_json)
     else:
         track("skip", "polling")
@@ -1286,6 +1318,7 @@ async def _run_shared_phases(
             raise
         except Exception as exc:
             log("warning", f"  Forecast phase failed: {exc}")
+            _record_step_failure(race_json, "forecast", _classify_exception(exc), str(exc))
         track("complete", "forecast", duration_ms=int((time.perf_counter() - forecast_t0) * 1000), race_json=race_json)
     else:
         track("skip", "forecast")
@@ -1318,6 +1351,7 @@ async def _run_shared_phases(
             raise
         except Exception as exc:
             log("warning", f"  Voter resources phase failed: {exc}")
+            _record_step_failure(race_json, "voter_resources", _classify_exception(exc), str(exc))
         track(
             "complete",
             "voter_resources",
@@ -1535,6 +1569,7 @@ async def _run_update(
                 raise
             except Exception as exc:
                 log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
+                _record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, str(exc))
 
             _sanitize_roster(race_json, log)
             await _await_with_run_budget(
@@ -1587,6 +1622,7 @@ async def _run_update(
                 raise
             except Exception as exc:
                 log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
+                _record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, str(exc))
             _mark_pipeline_unit_complete(race_json, "discovery.roster_verify")
             completed_units.add("discovery.roster_verify")
             track(
