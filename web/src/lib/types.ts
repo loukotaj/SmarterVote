@@ -420,6 +420,8 @@ export interface RunOptions {
   max_candidates?: number;
   target_no_info?: boolean;
   candidate_names?: string[];
+  runner?: "cloud_run" | "local";
+  debug_mode?: boolean;
 }
 
 export interface RunStep {

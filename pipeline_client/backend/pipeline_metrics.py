@@ -97,6 +97,8 @@ class PipelineMetricsStore:
                     completion_tokens INTEGER NOT NULL DEFAULT 0,
                     total_tokens      INTEGER NOT NULL DEFAULT 0,
                     estimated_usd     REAL NOT NULL DEFAULT 0,
+                    llm_cost_usd       REAL,
+                    search_cost_usd    REAL NOT NULL DEFAULT 0,
                     cost_usd          REAL,
                     cost_source       TEXT NOT NULL DEFAULT 'estimated',
                     model_breakdown   TEXT NOT NULL DEFAULT '{}',
@@ -114,6 +116,8 @@ class PipelineMetricsStore:
                 "candidate_count INTEGER NOT NULL DEFAULT 0",
                 "cheap_mode INTEGER NOT NULL DEFAULT 0",
                 "cost_usd REAL",
+                "llm_cost_usd REAL",
+                "search_cost_usd REAL NOT NULL DEFAULT 0",
                 "cost_source TEXT NOT NULL DEFAULT 'estimated'",
                 "serper_calls INTEGER NOT NULL DEFAULT 0",
             ]:
@@ -153,6 +157,8 @@ class PipelineMetricsStore:
             "completion_tokens": agent_metrics.get("completion_tokens", 0),
             "total_tokens": agent_metrics.get("total_tokens", 0),
             "estimated_usd": agent_metrics.get("estimated_usd", 0.0),
+            "llm_cost_usd": agent_metrics.get("llm_cost_usd"),
+            "search_cost_usd": agent_metrics.get("search_cost_usd", 0.0),
             "cost_usd": agent_metrics.get("cost_usd"),
             "cost_source": agent_metrics.get("cost_source", "estimated"),
             "model_breakdown": agent_metrics.get("model_breakdown", {}),
@@ -184,9 +190,10 @@ class PipelineMetricsStore:
                     INSERT OR REPLACE INTO pipeline_metrics
                         (run_id, race_id, timestamp, status, model,
                          prompt_tokens, completion_tokens, total_tokens,
-                         estimated_usd, cost_usd, cost_source, model_breakdown, duration_s,
+                         estimated_usd, llm_cost_usd, search_cost_usd,
+                         cost_usd, cost_source, model_breakdown, duration_s,
                          candidate_count, cheap_mode, serper_calls)
-                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                     """,
                     (
                         record["run_id"],
@@ -198,6 +205,8 @@ class PipelineMetricsStore:
                         record["completion_tokens"],
                         record["total_tokens"],
                         record["estimated_usd"],
+                        record["llm_cost_usd"],
+                        record["search_cost_usd"],
                         record["cost_usd"],
                         record["cost_source"],
                         json.dumps(record["model_breakdown"]),
@@ -243,7 +252,8 @@ class PipelineMetricsStore:
                     """
                     SELECT run_id, race_id, timestamp, status, model,
                            prompt_tokens, completion_tokens, total_tokens,
-                           estimated_usd, cost_usd, cost_source, model_breakdown, duration_s,
+                           estimated_usd, llm_cost_usd, search_cost_usd,
+                           cost_usd, cost_source, model_breakdown, duration_s,
                            candidate_count, cheap_mode, serper_calls
                     FROM pipeline_metrics
                     ORDER BY timestamp DESC
@@ -264,6 +274,8 @@ class PipelineMetricsStore:
                     completion_tokens,
                     total_tokens,
                     estimated_usd,
+                    llm_cost_usd,
+                    search_cost_usd,
                     cost_usd,
                     cost_source,
                     model_breakdown_json,
@@ -283,6 +295,8 @@ class PipelineMetricsStore:
                         "completion_tokens": completion_tokens,
                         "total_tokens": total_tokens,
                         "estimated_usd": estimated_usd,
+                        "llm_cost_usd": llm_cost_usd,
+                        "search_cost_usd": search_cost_usd,
                         "cost_usd": cost_usd,
                         "cost_source": cost_source,
                         "model_breakdown": json.loads(model_breakdown_json or "{}"),

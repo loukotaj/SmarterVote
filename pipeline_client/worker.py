@@ -32,6 +32,13 @@ from dotenv import load_dotenv
 
 load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env")
 
+# Shared backends use FIRESTORE_PROJECT for mode detection, while workstation
+# environments commonly provide only GOOGLE_CLOUD_PROJECT.
+if not os.getenv("FIRESTORE_PROJECT"):
+    _configured_project = os.getenv("PROJECT_ID") or os.getenv("GOOGLE_CLOUD_PROJECT")
+    if _configured_project:
+        os.environ["FIRESTORE_PROJECT"] = _configured_project
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 logger = logging.getLogger("pipeline_worker")
 

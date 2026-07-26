@@ -54,6 +54,8 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
             "race_id": "ar-senate-2026",
             "status": "completed",
             "estimated_usd": 0.02,
+            "llm_cost_usd": 0.01134567,
+            "search_cost_usd": 0.001,
             "cost_usd": 0.01234567,
             "cost_source": "provider",
             "candidate_count": 2,
@@ -63,6 +65,8 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
     )
 
     assert record["cost_usd"] == pytest.approx(0.01234567)
+    assert record["llm_cost_usd"] == pytest.approx(0.01134567)
+    assert record["search_cost_usd"] == pytest.approx(0.001)
     assert record["cost_source"] == "provider"
     assert _compute_metrics_summary([record])["total_usd"] == pytest.approx(0.0123)
 
@@ -154,6 +158,50 @@ async def test_pipeline_metrics_preserves_runs_when_cost_collection_fails():
 
     assert body["count"] == 1
     assert body["records"][0]["run_id"] == "run-current"
+
+
+@pytest.mark.asyncio
+async def test_pipeline_metrics_summary_unions_runs_and_cost_records():
+    from routers.pipeline import get_pipeline_metrics_summary
+
+    metric_doc = _make_existing_doc(
+        {
+            "run_id": "run-priced",
+            "timestamp": "2026-07-01T00:00:00Z",
+            "status": "completed",
+            "cost_usd": 0.25,
+        }
+    )
+    priced_run_doc = _make_existing_doc(
+        {
+            "run_id": "run-priced",
+            "started_at": "2026-07-01T00:00:00Z",
+            "status": "completed",
+        }
+    )
+    recent_run_doc = _make_existing_doc(
+        {
+            "run_id": "run-recent",
+            "started_at": "2026-07-02T00:00:00Z",
+            "status": "completed",
+            "agent_metrics": {"cost_usd": 0.10},
+        }
+    )
+    metrics_coll = MagicMock()
+    metrics_coll.order_by.return_value = metrics_coll
+    metrics_coll.limit.return_value = metrics_coll
+    metrics_coll.stream.return_value = iter([metric_doc])
+    runs_coll = MagicMock()
+    runs_coll.limit.return_value = runs_coll
+    runs_coll.stream.return_value = iter([priced_run_doc, recent_run_doc])
+    db = MagicMock()
+    db.collection.side_effect = lambda name: metrics_coll if name == "pipeline_metrics" else runs_coll
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        body = await get_pipeline_metrics_summary()
+
+    assert body["total_runs"] == 2
+    assert body["total_usd"] == pytest.approx(0.35)
 
 
 @pytest.mark.asyncio
@@ -3285,3 +3333,49 @@ async def test_race_version_hides_provider_error_details():
 
     assert exc_info.value.status_code == 502
     assert exc_info.value.detail == "Unable to read archived version"
+
+
+def test_get_run_logs_cursor_reads_only_incremental_page():
+    """Cursor polling should query only documents created after the prior page."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    def make_doc(doc_id, message):
+        doc = MagicMock()
+        doc.id = doc_id
+        doc.exists = True
+        doc.to_dict.return_value = {
+            "timestamp": f"2026-01-01T00:00:0{doc_id[-1]}Z",
+            "level": "info",
+            "message": message,
+        }
+        return doc
+
+    log_docs = [make_doc("002", "second"), make_doc("003", "third")]
+    log_query = MagicMock()
+    log_query.order_by.return_value = log_query
+    log_query.start_after.return_value = log_query
+    log_query.limit.return_value = log_query
+    log_query.stream.return_value = iter(log_docs)
+
+    run_doc_ref = MagicMock()
+    run_doc_ref.collection.return_value = log_query
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_doc_ref
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: runs_coll if name == "pipeline_runs" else MagicMock()
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        response = TestClient(app_module.app).get("/runs/run-abc/logs?cursor=001&limit=2")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert [entry["message"] for entry in body["logs"]] == ["second", "third"]
+    assert body["next_cursor"] == "003"
+    assert body["has_more"] is True
+    log_query.order_by.assert_called_once_with("__name__")
+    log_query.start_after.assert_called_once_with({"__name__": "001"})
+    log_query.limit.assert_called_once_with(2)

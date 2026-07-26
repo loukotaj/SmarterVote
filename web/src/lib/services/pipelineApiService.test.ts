@@ -241,4 +241,20 @@ describe("PipelineApiService production admin API contract", () => {
     expect(run.steps?.find((s) => s.name === "issues")?.progress_pct).toBe(37);
     expect(run.steps?.find((s) => s.name === "images")?.status).toBe("skipped");
   });
+
+  it("uses an opaque cursor for incremental run log reads", async () => {
+    fetchWithAuth.mockResolvedValueOnce(
+      jsonResponse({ logs: [], total: 4, next_cursor: "cursor-004" }),
+    );
+
+    const api = new PipelineApiService("https://api.example.test");
+    const result = await api.getRunLogs("run-1", "cursor-003");
+
+    expect(fetchWithAuth).toHaveBeenCalledWith(
+      "https://api.example.test/runs/run-1/logs?limit=1000&cursor=cursor-003",
+      {},
+      expect.any(Number),
+    );
+    expect(result.next_cursor).toBe("cursor-004");
+  });
 });

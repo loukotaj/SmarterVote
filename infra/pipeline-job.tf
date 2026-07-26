@@ -121,6 +121,6 @@ resource "google_cloud_run_v2_job_iam_member" "races_api_pipeline_job_runner" {
   project  = var.project_id
   location = var.region
   name     = google_cloud_run_v2_job.pipeline.name
-  role     = "roles/run.invoker"
+  role     = "roles/run.jobsExecutorWithOverrides"
   member   = "serviceAccount:${google_service_account.races_api.email}"
 }

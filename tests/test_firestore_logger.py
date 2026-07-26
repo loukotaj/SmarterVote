@@ -95,6 +95,7 @@ def test_update_progress_merges_run_doc(mock_db):
 def test_mark_completed(mock_db):
     """mark_completed() sets status=completed and progress=100."""
     logger = FirestoreLogger("run-004")
+    logger.coalesced_progress_count = 7
     logger.mark_completed(duration_ms=5000)
 
     run_ref = mock_db.collection.return_value.document.return_value
@@ -103,6 +104,7 @@ def test_mark_completed(mock_db):
     assert data["status"] == "completed"
     assert data["progress"] == 100
     assert data["duration_ms"] == 5000
+    assert data["log_stats"]["coalesced_progress_updates"] == 7
 
 
 def test_mark_failed(mock_db):
@@ -188,3 +190,29 @@ def test_get_db_uses_project_when_configured():
         fl._get_db()
 
     client_mock.assert_called_once_with(project="smartervote")
+
+
+def test_update_progress_coalesces_frequent_same_step_writes(mock_db, monkeypatch):
+    monkeypatch.setenv("PIPELINE_PROGRESS_WRITE_MIN_INTERVAL_SECONDS", "3")
+    logger = FirestoreLogger("run-throttle")
+
+    with patch("pipeline_client.backend.firestore_logger.time.monotonic", side_effect=[100.0, 101.0, 104.0]):
+        logger.update_progress(10, current_step="issues", current_step_progress=10)
+        logger.update_progress(11, current_step="issues", current_step_progress=11)
+        logger.update_progress(12, current_step="issues", current_step_progress=12)
+
+    run_ref = mock_db.collection.return_value.document.return_value
+    assert run_ref.set.call_count == 2
+    assert logger.coalesced_progress_count == 1
+
+
+def test_update_progress_never_coalesces_step_boundaries(mock_db, monkeypatch):
+    monkeypatch.setenv("PIPELINE_PROGRESS_WRITE_MIN_INTERVAL_SECONDS", "30")
+    logger = FirestoreLogger("run-boundary")
+
+    with patch("pipeline_client.backend.firestore_logger.time.monotonic", side_effect=[100.0, 101.0]):
+        logger.update_progress(10, current_step="issues", current_step_progress=10)
+        logger.update_progress(40, current_step="issues", current_step_progress=100)
+
+    run_ref = mock_db.collection.return_value.document.return_value
+    assert run_ref.set.call_count == 2

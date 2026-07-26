@@ -65,7 +65,7 @@ const watchedRuns = new Map<
   {
     runPollTimer: ReturnType<typeof setInterval> | null;
     logPollTimer: ReturnType<typeof setInterval> | null;
-    logsSeen: number;
+    logCursor: string | null;
   }
 >();
 
@@ -147,8 +147,10 @@ async function pollLogs(runId: string): Promise<void> {
   const watched = watchedRuns.get(runId);
   if (!watched) return;
   try {
+    const params = new URLSearchParams({ limit: "1000" });
+    if (watched.logCursor) params.set("cursor", watched.logCursor);
     const res = await fetch(
-      `${apiBase}/runs/${runId}/logs?since=${watched.logsSeen}`,
+      `${apiBase}/runs/${runId}/logs?${params.toString()}`,
       {
         headers: authHeaders(),
         signal: AbortSignal.timeout(8000),
@@ -162,9 +164,8 @@ async function pollLogs(runId: string): Promise<void> {
       timestamp?: string;
       run_id?: string;
     }[] = data.logs ?? [];
+    watched.logCursor = data.next_cursor ?? watched.logCursor;
     if (entries.length === 0) return;
-
-    watched.logsSeen += entries.length;
 
     for (const entry of entries) {
       onLog?.(
@@ -223,14 +224,14 @@ export const runPollingActions = {
     watchedRuns.set(runId, {
       runPollTimer: null,
       logPollTimer: null,
-      logsSeen: 0,
+      logCursor: null,
     });
     void pollRunStatus(runId);
     void pollLogs(runId);
     const watched = watchedRuns.get(runId);
     if (watched) {
-      watched.runPollTimer = setInterval(() => void pollRunStatus(runId), 2000);
-      watched.logPollTimer = setInterval(() => void pollLogs(runId), 3000);
+      watched.runPollTimer = setInterval(() => void pollRunStatus(runId), 5000);
+      watched.logPollTimer = setInterval(() => void pollLogs(runId), 5000);
     }
   },
 

@@ -257,6 +257,8 @@ async def process_claimed_item(
                 "is_continuation": is_continuation,
                 "options": options,
                 "runner": runner,
+                "debug_mode": bool(options.get("debug_mode")),
+                "diagnostics_schema_version": 1,
             }
         )
     else:
@@ -274,6 +276,7 @@ async def process_claimed_item(
     options["queue_item_id"] = item_id
     import time as _time
 
+    started_at = _time.perf_counter()
     lease_stop, lease_thread = _start_lease_heartbeat(db, item_ref, lease_owner)
     success = False
     error_msg = ""
@@ -338,8 +341,47 @@ async def process_claimed_item(
         _set_race_if_current(db, race_id, run_id, {"status": "cancelled", "current_run_id": None})
         return
     except Exception as exc:  # noqa: BLE001
-        error_msg = str(exc)
+        error_msg = f"{type(exc).__name__}: {exc}".rstrip()
         logger.exception("Local run %s failed: %s", run_id, exc)
+        try:
+            from pipeline_client.agent.cost import _cost_ctx, estimate_cost
+            from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
+            acc = _cost_ctx.get() or {}
+            breakdown = acc.get("model_breakdown", {})
+            estimated_usd = sum(
+                estimate_cost(model, counts.get("prompt_tokens", 0), counts.get("completion_tokens", 0))
+                for model, counts in breakdown.items()
+            )
+            search_cost_usd = int(acc.get("serper_calls", 0) or 0) * 0.001
+            llm_cost_usd = float(acc.get("provider_cost_usd", 0.0) or 0.0)
+            has_exact_cost = int(acc.get("priced_calls", 0) or 0) > 0 and int(acc.get("unpriced_calls", 0) or 0) == 0
+            failed_metrics = {
+                "model": options.get("research_model", ""),
+                "model_profile": options.get("model_profile"),
+                "prompt_tokens": int(acc.get("prompt_tokens", 0) or 0),
+                "completion_tokens": int(acc.get("completion_tokens", 0) or 0),
+                "total_tokens": int(acc.get("prompt_tokens", 0) or 0) + int(acc.get("completion_tokens", 0) or 0),
+                "llm_cost_usd": llm_cost_usd if has_exact_cost else None,
+                "search_cost_usd": search_cost_usd,
+                "cost_usd": llm_cost_usd + search_cost_usd if has_exact_cost else None,
+                "cost_source": "provider" if has_exact_cost else "estimated",
+                "estimated_usd": estimated_usd + search_cost_usd,
+                "model_breakdown": breakdown,
+                "duration_s": round(_time.perf_counter() - started_at, 1),
+                "serper_calls": int(acc.get("serper_calls", 0) or 0),
+            }
+            await get_pipeline_metrics_store().record_run(
+                run_id,
+                race_id,
+                failed_metrics,
+                "failed",
+                cheap_mode=bool(options.get("cheap_mode", True)),
+                serper_calls=failed_metrics["serper_calls"],
+            )
+            _cost_ctx.set(None)
+        except Exception:
+            logger.warning("Failed to record metrics for failed local run %s", run_id, exc_info=True)
     finally:
         lease_stop.set()
         lease_thread.join(timeout=2)

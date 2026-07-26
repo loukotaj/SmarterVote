@@ -337,7 +337,19 @@ class AgentHandler:
                         progress_message=label,
                         remaining_steps=remaining,
                     )
-                    _fs_logger.log("info", f"Step started: {label}", step=step, race_id=race_id)
+                    _fs_logger.log(
+                        "info",
+                        f"Step started: {label}",
+                        step=step,
+                        race_id=race_id,
+                        extra={
+                            "event": "step_started",
+                            "overall_progress": pct,
+                            "remaining_steps": remaining,
+                        }
+                        if debug_mode
+                        else None,
+                    )
             except (HandoffTriggered, HandoffFailed):
                 raise
             except Exception as _e:
@@ -417,6 +429,17 @@ class AgentHandler:
                         f"Step completed in {duration_ms}ms: {label}",
                         step=step,
                         race_id=race_id,
+                        extra={
+                            "event": "step_completed",
+                            "duration_ms": duration_ms,
+                            "prompt_tokens": prompt_tokens,
+                            "completion_tokens": completion_tokens,
+                            "estimated_usd": estimated_usd,
+                            "overall_progress": pct,
+                            "remaining_steps": remaining,
+                        }
+                        if debug_mode
+                        else None,
                     )
                 if _current_step == step:
                     _current_step = None
@@ -433,7 +456,13 @@ class AgentHandler:
                 if _run_manager:
                     _run_manager.update_step_status(run_id, step, RunStatus.SKIPPED)
                 if _fs_logger:
-                    _fs_logger.log("info", f"Step skipped: {step}", step=step, race_id=race_id)
+                    _fs_logger.log(
+                        "info",
+                        f"Step skipped: {step}",
+                        step=step,
+                        race_id=race_id,
+                        extra={"event": "step_skipped"} if debug_mode else None,
+                    )
                 if _current_step == step:
                     _current_step = None
             except Exception as _e:
@@ -471,6 +500,22 @@ class AgentHandler:
                         progress_message=label,
                         remaining_steps=remaining,
                     )
+                    if debug_mode:
+                        bucket = max(0, min(10, int(pct) // 10))
+                        if debug_progress_buckets.get(step) != bucket:
+                            debug_progress_buckets[step] = bucket
+                            _fs_logger.log(
+                                "debug",
+                                f"Step progress {pct}%: {label}",
+                                step=step,
+                                race_id=race_id,
+                                extra={
+                                    "event": "step_progress",
+                                    "step_progress": pct,
+                                    "overall_progress": overall,
+                                    "remaining_steps": remaining,
+                                },
+                            )
             except (HandoffTriggered, HandoffFailed):
                 raise
             except Exception as _e:
@@ -591,6 +636,9 @@ class AgentHandler:
         agent_logs: Deque[Dict[str, Any]] = deque(maxlen=retention.run_log_buffer_size)
         log_stats = {"dropped": 0, "truncated": 0}
 
+        debug_mode = bool(options.get("debug_mode"))
+        debug_progress_buckets: Dict[str, int] = {}
+
         def on_log(level: str, message: str) -> None:
             _maybe_handoff("during log callback", step=_current_step, pct=0)
             safe_message, truncated = sanitize_log_message_with_metadata(
@@ -615,7 +663,13 @@ class AgentHandler:
                     logger.debug("Failed to persist run log entry: %s", _e)
             # Also write to Firestore so frontend can use onSnapshot
             if _fs_logger:
-                _fs_logger.log(level, message, race_id=race_id)
+                _fs_logger.log(
+                    level,
+                    message,
+                    step=_current_step,
+                    race_id=race_id,
+                    extra={"event": "agent_log"} if debug_mode else None,
+                )
 
         # Run the agent
         try:

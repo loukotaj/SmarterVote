@@ -314,6 +314,36 @@ async def test_run_agent_includes_prior_continuation_metrics():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_breaks_exact_cost_into_llm_and_search_components():
+    discovery_result = {"id": "cost-components-2026", "candidates": [{"name": "Alice", "issues": {}}]}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent(
+            "cost-components-2026",
+            cheap_mode=True,
+            enabled_steps=["discovery"],
+            prior_agent_metrics={
+                "prompt_tokens": 100,
+                "completion_tokens": 20,
+                "provider_cost_usd": 0.00123,
+                "priced_calls": 2,
+                "unpriced_calls": 0,
+                "serper_calls": 3,
+                "model_breakdown": {"openai/gpt-5.4-mini": {"prompt_tokens": 100, "completion_tokens": 20}},
+            },
+        )
+
+    metrics = result["agent_metrics"]
+    assert metrics["llm_cost_usd"] == pytest.approx(0.00123)
+    assert metrics["search_cost_usd"] == pytest.approx(0.003)
+    assert metrics["cost_usd"] == pytest.approx(metrics["llm_cost_usd"] + metrics["search_cost_usd"])
+
+
+@pytest.mark.asyncio
 async def test_run_agent_removes_term_limited_incumbent_from_fresh_roster():
     """Discovery may mention a term-limited officeholder, but issues should only run for candidates."""
     discovery_result = {
@@ -1408,7 +1438,7 @@ def test_sanitize_polling_requires_exact_roster_names():
         "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
         "polling": [
             {
-                "pollster": "Example",
+                "pollster": "Reliable Research",
                 "date": "2026-06-01",
                 "matchups": [{"candidates": ["Alice", "Bob Jones"], "percentages": [48, 45]}],
             }
@@ -1425,7 +1455,7 @@ def test_sanitize_polling_keeps_source_only_polls_without_numeric_percentages():
         "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
         "polling": [
             {
-                "pollster": "Example",
+                "pollster": "Public Policy Research",
                 "date": "2026-06-01",
                 "matchups": [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": []}],
             },
@@ -1439,7 +1469,7 @@ def test_sanitize_polling_keeps_source_only_polls_without_numeric_percentages():
 
     _sanitize_polling(race_json)
 
-    assert [poll["pollster"] for poll in race_json["polling"]] == ["Example", "Valid Poll"]
+    assert [poll["pollster"] for poll in race_json["polling"]] == ["Public Policy Research", "Valid Poll"]
     assert race_json["polling"][0]["matchups"] == []
 
 
@@ -1779,7 +1809,7 @@ async def test_issue_research_uses_bounded_isolated_concurrency(monkeypatch):
                 "issue": issue,
                 "stance": f"{candidate} stance on {issue}",
                 "confidence": "low",
-                "sources": [],
+                "sources": [{"url": f"https://example.com/{candidate}/{issue}"}],
             }
         )
         active -= 1
@@ -1823,7 +1853,7 @@ async def test_candidate_batches_resume_from_durable_issue_units():
                 "issue": issue,
                 "stance": f"{candidate} stance on {issue}",
                 "confidence": "low",
-                "sources": [],
+                "sources": [{"url": f"https://example.com/{candidate}/{issue}"}],
             }
         )
         return {}
@@ -1887,7 +1917,7 @@ async def test_issue_checkpoint_progress_includes_partial_race_json():
                 "issue": issue,
                 "stance": f"{candidate} stance on {issue}",
                 "confidence": "low",
-                "sources": [],
+                "sources": [{"url": f"https://example.com/{candidate}/{issue}"}],
             }
         )
         return {}

@@ -32,6 +32,7 @@ from shared.pipeline_config import PIPELINE_STEP_IDS, REVIEW_PROVIDERS, Pipeline
 
 from .ballotpedia import default_ballotpedia_race_url
 from .cost import _cost_ctx, estimate_cost
+from .evidence import preserve_baseline_evidence
 from .handlers import _make_editing_handlers  # noqa: F401 - re-exported for tests
 from .llm import _agent_loop, _call_openrouter, _ensure_dict, _normalize_candidate  # noqa: F401 - re-exported for tests
 from .model_registry import resolve_run_models
@@ -45,6 +46,7 @@ from .phases import (  # noqa: F401 - re-exported for backward compat
     _scale_iterations,
     _select_target_candidates,
 )
+from .polling_quality import polling_semantic_problem
 from .review import build_review_change_manifest, build_semantic_review_packet, compute_validation_grade, run_reviews
 from .run_budget import RunBudget
 from .tools import (  # noqa: F401 - re-exported for tests
@@ -215,6 +217,12 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
     for poll_index, poll in enumerate(polling):
         if not isinstance(poll, dict):
             dropped_polls += 1
+            continue
+        semantic_problem = polling_semantic_problem(poll, race_json.get("polling_note"))
+        if semantic_problem:
+            dropped_polls += 1
+            if log:
+                log("warning", f"Dropping non-poll entry at polling[{poll_index}]: {semantic_problem}")
             continue
         matchups = poll.get("matchups")
         if matchups is None:
@@ -769,6 +777,10 @@ async def run_agent(
     _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
+    restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+    if restored_evidence:
+        log("warning", f"Restored {restored_evidence} baseline source citation(s) omitted by the update")
+        _normalize_schema_fields(race_json, log)
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
     review_required_steps_ran = bool(_enabled & {"issues", "refinement", "iteration"})
@@ -887,6 +899,10 @@ async def run_agent(
                     race_json["generator"] = generators
                     _sanitize_roster(race_json, log)
                     _normalize_schema_fields(race_json, log)
+                    restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+                    if restored_evidence:
+                        log("warning", f"Restored {restored_evidence} baseline source citation(s) after iteration")
+                        _normalize_schema_fields(race_json, log)
 
                     updated_packet = build_semantic_review_packet(race_json)
                     log("info", f"  Cycle {cycle}: Re-running reviews...")
@@ -963,6 +979,8 @@ async def run_agent(
         "prompt_tokens": pt,
         "completion_tokens": ct,
         "total_tokens": total_tokens,
+        "llm_cost_usd": provider_cost - serper_cost if has_exact_provider_cost else None,
+        "search_cost_usd": serper_cost,
         "cost_usd": provider_cost if has_exact_provider_cost else None,
         "cost_source": "provider" if has_exact_provider_cost else "estimated",
         "estimated_usd": round(estimated_cost, 6),

@@ -35,6 +35,7 @@ class PipelineRunOptions(BaseModel):
     target_no_info: Optional[bool] = None
     candidate_names: Optional[List[str]] = None
     runner: Optional[Literal["cloud_run", "local"]] = None
+    debug_mode: Optional[bool] = None
 
     @field_validator("enabled_steps")
     @classmethod
