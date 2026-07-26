@@ -357,6 +357,56 @@ async def check_profile_links(
     }
 
 
+def _remove_confirmed_dead_candidate_sources(race_json: Dict[str, Any], link_review: Dict[str, Any]) -> int:
+    """Remove candidate URLs that the link validator confirmed as HTTP 404/410."""
+    if not isinstance(link_review, dict):
+        return 0
+    removals: Dict[int, set[str]] = {}
+    for flag in link_review.get("flags") or []:
+        if not isinstance(flag, dict):
+            continue
+        concern = str(flag.get("concern") or "")
+        if "HTTP error 404" not in concern and "HTTP error 410" not in concern:
+            continue
+        field_match = re.match(r"candidates\[(\d+)\]", str(flag.get("field") or ""))
+        url_match = re.search(r"Cited source URL \((https?://[^)]+)\)", concern)
+        if field_match and url_match:
+            removals.setdefault(int(field_match.group(1)), set()).add(url_match.group(1))
+
+    removed = 0
+    candidates = race_json.get("candidates") or []
+    for candidate_index, urls in removals.items():
+        if candidate_index >= len(candidates) or not isinstance(candidates[candidate_index], dict):
+            continue
+        candidate = candidates[candidate_index]
+        for key in ("roster_sources", "summary_sources", "donor_sources", "voting_sources", "links"):
+            items = candidate.get(key)
+            if isinstance(items, list):
+                kept = [item for item in items if not (isinstance(item, dict) and str(item.get("url") or "").strip() in urls)]
+                removed += len(items) - len(kept)
+                candidate[key] = kept
+        for key in ("donor_source_url", "voting_source_url"):
+            if str(candidate.get(key) or "").strip() in urls:
+                candidate[key] = None
+                removed += 1
+        for issue in (candidate.get("issues") or {}).values():
+            if not isinstance(issue, dict) or not isinstance(issue.get("sources"), list):
+                continue
+            sources = issue["sources"]
+            kept = [item for item in sources if not (isinstance(item, dict) and str(item.get("url") or "").strip() in urls)]
+            removed += len(sources) - len(kept)
+            issue["sources"] = kept
+
+        pipeline_state = race_json.setdefault("pipeline_state", {})
+        tombstones = pipeline_state.setdefault("removed_source_urls", [])
+        candidate_name = str(candidate.get("name") or "").strip()
+        for url in urls:
+            tombstone = {"candidate_name": candidate_name, "url": url}
+            if tombstone not in tombstones:
+                tombstones.append(tombstone)
+    return removed
+
+
 def _is_documented_absence(stance: str) -> bool:
     normalized = stance.casefold()
     return "no public position found" in normalized or "no publicly stated position" in normalized
@@ -638,6 +688,14 @@ async def run_reviews(
     cached_deterministic = cache.get(packet_key)
     if cached_deterministic is None:
         link_review = await check_profile_links(race_json, on_log=on_log, run_budget=run_budget)
+        removed_dead_sources = _remove_confirmed_dead_candidate_sources(race_json, link_review)
+        if removed_dead_sources:
+            if on_log:
+                on_log(
+                    "warning",
+                    f"Removed {removed_dead_sources} candidate source occurrence(s) confirmed dead by HTTP status.",
+                )
+            link_review = await check_profile_links(race_json, on_log=on_log, run_budget=run_budget)
         quality_review = check_profile_quality(race_json)
         cached_deterministic = {
             "link_review": copy.deepcopy(link_review),

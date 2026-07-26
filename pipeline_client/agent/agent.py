@@ -28,7 +28,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from shared.pipeline_config import PIPELINE_STEP_IDS, REVIEW_PROVIDERS, PipelineRuntimeConfig
+from shared.pipeline_config import DEFAULT_UPDATE_PIPELINE_STEPS, PIPELINE_STEP_IDS, REVIEW_PROVIDERS, PipelineRuntimeConfig
 
 from .ballotpedia import default_ballotpedia_race_url
 from .cost import _cost_ctx, estimate_cost
@@ -651,7 +651,7 @@ async def run_agent(
 
     # Step enablement check - None means all enabled
     _all_steps = set(PIPELINE_STEP_IDS)
-    _enabled = set(enabled_steps) if enabled_steps else _all_steps
+    _enabled = set(enabled_steps) if enabled_steps else set(_all_steps)
 
     def _step_enabled(step: str) -> bool:
         return step in _enabled
@@ -691,6 +691,9 @@ async def run_agent(
     if existing_data is None:
         existing_data = _load_existing(race_id)
     baseline_existing_data = copy.deepcopy(existing_data) if isinstance(existing_data, dict) else None
+    if existing_data and enabled_steps is None:
+        _enabled = set(DEFAULT_UPDATE_PIPELINE_STEPS)
+        log("info", "Using low-cost update steps; issue research and review are opt-in")
 
     if existing_data:
         log("info", f"Update mode for {race_id} (profile={profile}, model={model}, small_model={small_model})")

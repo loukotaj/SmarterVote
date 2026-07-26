@@ -146,6 +146,7 @@ FRONTEND_ONLY_OR_OTHER_BACKEND_TYPES: Dict[str, str] = {
     "RunStatus": "Mirrors pipeline_client/backend/models.py run-status string literals used by RunInfo/RunStep; not part of shared/models.py.",
     "PipelineStepId": "Mirrors shared/pipeline_config.py:PIPELINE_STEP_IDS; checked separately by check_pipeline_step_ids().",
     "PIPELINE_STEPS": "Derived const array; checked separately by check_pipeline_step_ids().",
+    "DEFAULT_UPDATE_PIPELINE_STEP_IDS": "Derived const array mirroring shared/pipeline_config.py:DEFAULT_UPDATE_PIPELINE_STEPS; checked separately by check_pipeline_step_ids().",
     "RunStep": "Mirrors pipeline_client/backend/models.py:RunStep (pipeline run progress), not shared/models.py.",
     "RunInfo": "Mirrors pipeline_client/backend/models.py:RunInfo (pipeline run progress), not shared/models.py.",
     "Artifact": "Mirrors pipeline_client/backend/models.py artifact listing shape; not part of shared/models.py.",
@@ -625,6 +626,23 @@ def check_pipeline_step_ids(ts_source: str) -> List[str]:
         violations.append(
             f"[PIPELINE_STEPS] labels mismatch vs shared.pipeline_config.PIPELINE_STEP_LABELS: ts={ts_labels} python={pipeline_config.PIPELINE_STEP_LABELS}"
         )
+
+    update_opt_in_match = re.search(
+        r"const UPDATE_OPT_IN_STEPS[^=]*=\s*new Set<PipelineStepId>\(\s*\[(.*?)\]\s*\)",
+        ts_source,
+        re.DOTALL,
+    )
+    if not update_opt_in_match:
+        violations.append("[DEFAULT_UPDATE_PIPELINE_STEP_IDS] could not find UPDATE_OPT_IN_STEPS in types.ts")
+    else:
+        ts_opt_in = set(re.findall(r'"([^"]+)"', update_opt_in_match.group(1)))
+        expected_opt_in = set(pipeline_config.PIPELINE_STEP_IDS) - set(pipeline_config.DEFAULT_UPDATE_PIPELINE_STEPS)
+        if ts_opt_in != expected_opt_in:
+            violations.append(
+                "[DEFAULT_UPDATE_PIPELINE_STEP_IDS] opt-in steps mismatch vs "
+                f"shared.pipeline_config.DEFAULT_UPDATE_PIPELINE_STEPS: ts={sorted(ts_opt_in)} "
+                f"expected={sorted(expected_opt_in)}"
+            )
     return violations
 
 

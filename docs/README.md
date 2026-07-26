@@ -1,6 +1,6 @@
 # Documentation Map
 
-Last reviewed: 2026-07-18.
+Last reviewed: 2026-07-26.
 
 Use this page to decide which documents describe current behavior. Code, deployed GCP resources, and CI remain the final source of truth; documentation should be updated alongside behavior changes.
 
@@ -14,6 +14,7 @@ Use this page to decide which documents describe current behavior. Code, deploye
 | Authentication | [auth0-configuration.md](auth0-configuration.md) | Auth0 and admin-key behavior |
 | Infrastructure | [../infra/README.md](../infra/README.md) | Terraform components and defaults |
 | Pipeline modes | [../PIPELINE_MODES.md](../PIPELINE_MODES.md) | Local/GCP execution and storage modes |
+| Pipeline operations | [pipeline-operations.md](pipeline-operations.md) | Queueing, monitoring, quality review, publication, cost accounting, and recovery |
 | Search indexing | [indexnow.md](indexnow.md) | IndexNow setup and deployment integration |
 | Marketing design system | [../design-system/README.md](../design-system/README.md) | React export used by Claude to create branded marketing material; not production frontend code |
 
