@@ -114,7 +114,7 @@
       params.delete("state");
     }
     const query = params.toString();
-    goto(`/forecast${query ? `?${query}` : ""}`, {
+    goto(`/forecast/${query ? `?${query}` : ""}`, {
       replaceState: true,
       keepFocus: true,
       noScroll: true,
