@@ -8,7 +8,7 @@ Production uses a serialized release chain after `CI - Quality Gates` passes on 
 
 - CI builds and scans immutable `races-api` and `pipeline-worker` container artifacts.
 - `.github/workflows/terraform-deploy.yaml` promotes those exact images, packages the admin-agent Function, syncs secrets, runs Terraform, and verifies `/health` plus `/health/ready`.
-- `.github/workflows/cloudflare-deploy.yaml` starts only after the automatic infrastructure deployment succeeds, pulls published static JSON from GCS, builds the SvelteKit static site, deploys to Cloudflare Pages, verifies the public home, elections, and support pages plus their referenced JavaScript module MIME types, and optionally submits IndexNow URLs.
+- `.github/workflows/cloudflare-deploy.yaml` starts only after the automatic infrastructure deployment succeeds, pulls published static JSON from GCS, builds the SvelteKit static site with a release-specific asset namespace and a real `404.html`, deploys to Cloudflare Pages, verifies the public home, elections, and support pages plus the complete JavaScript module graph and missing-module 404 behavior, and optionally submits IndexNow URLs.
 
 Deployments are serialized per environment. Every manual apply, rollback, or web deploy requires a commit SHA with a successful `main` push CI run. GitHub environments named `dev`, `staging`, `prod`, and `production` provide deployment policy boundaries; `production` is the public Cloudflare site.
 
