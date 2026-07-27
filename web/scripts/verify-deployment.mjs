@@ -1,5 +1,5 @@
 const site = process.env.PUBLIC_SITE_URL ?? "https://smarter.vote";
-const attempts = Number(process.env.DEPLOY_VERIFY_ATTEMPTS ?? 24);
+const attempts = Number(process.env.DEPLOY_VERIFY_ATTEMPTS ?? 60);
 const delayMs = Number(process.env.DEPLOY_VERIFY_DELAY_MS ?? 5000);
 const pages = ["/", "/elections/", "/support/"];
 const modulePattern =
