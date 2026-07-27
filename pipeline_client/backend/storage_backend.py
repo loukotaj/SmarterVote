@@ -108,7 +108,7 @@ class GCPStorageBackend:
 
     def __init__(self, bucket: str, firestore_project: str | None = None) -> None:
         try:
-            from google.cloud import storage
+            storage = __import__("google.cloud.storage", fromlist=["Client"])
         except Exception as e:  # pragma: no cover - import guard
             raise RuntimeError("google-cloud-storage is required for GCP storage") from e
 

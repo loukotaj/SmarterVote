@@ -12,17 +12,28 @@
   export let onStateClick: (state: string) => void;
   export let onClearFilter: () => void;
 
+  $: stateOptions = [...activeStates].sort((a, b) => a.localeCompare(b));
+
   function handleStateClick(event: CustomEvent<string>) {
     onStateClick(event.detail);
+  }
+
+  function handleStateSelect(event: Event) {
+    const state = (event.currentTarget as HTMLSelectElement).value;
+    if (state) {
+      onStateClick(state);
+    } else {
+      onClearFilter();
+    }
   }
 </script>
 
 <!-- Map Canvas Card -->
 <div
-  class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md flex flex-col min-h-[380px] h-full"
+  class="bg-surface/60 border border-stroke rounded-2xl p-4 sm:p-6 shadow-sm backdrop-blur-md flex flex-col min-h-[380px] h-full"
 >
   <div
-    class="flex items-center justify-between border-b border-stroke/40 pb-4 mb-4"
+    class="flex flex-col items-start justify-between gap-2 border-b border-stroke/40 pb-4 mb-4 sm:flex-row sm:items-center"
   >
     <div>
       <h2 class="text-lg font-bold text-content">Electoral Map</h2>
@@ -39,6 +50,28 @@
       </button>
     {/if}
   </div>
+
+  {#if stateOptions.length > 0}
+    <div class="mb-3 sm:hidden">
+      <label
+        for="forecast-state-select"
+        class="mb-1.5 block text-xs font-semibold text-content-muted"
+      >
+        Select a state
+      </label>
+      <select
+        id="forecast-state-select"
+        value={selectedState ?? ""}
+        on:change={handleStateSelect}
+        class="w-full rounded-lg border border-stroke bg-surface px-3 py-2 text-sm text-content focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+      >
+        <option value="">All active states</option>
+        {#each stateOptions as state}
+          <option value={state}>{state} ({stateRaceCounts[state] ?? 0})</option>
+        {/each}
+      </select>
+    </div>
+  {/if}
 
   <div
     class="relative w-full py-2 flex flex-1 items-center justify-center min-h-[320px]"

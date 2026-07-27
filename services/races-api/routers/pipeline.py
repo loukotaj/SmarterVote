@@ -148,6 +148,27 @@ def _to_epoch_seconds(value: Any) -> float:
     return 0.0
 
 
+def _has_pipeline_cost_data(raw: Dict[str, Any]) -> bool:
+    """Return whether a heterogeneous run document carries usable cost data."""
+    payload = raw.get("payload") if isinstance(raw.get("payload"), dict) else {}
+    agent_metrics = raw.get("agent_metrics")
+    if not isinstance(agent_metrics, dict):
+        agent_metrics = payload.get("agent_metrics")
+    if not isinstance(agent_metrics, dict):
+        agent_metrics = {}
+    return any(
+        value is not None
+        for value in (
+            raw.get("cost_usd"),
+            raw.get("estimated_usd"),
+            raw.get("llm_cost_usd"),
+            agent_metrics.get("cost_usd"),
+            agent_metrics.get("estimated_usd"),
+            agent_metrics.get("llm_cost_usd"),
+        )
+    )
+
+
 def _compute_metrics_summary(records: list[Dict[str, Any]]) -> Dict[str, Any]:
     total_runs = len(records)
     successful_runs = 0
@@ -420,7 +441,7 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
         docs = db.collection("pipeline_runs").limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
-            if plain is None:
+            if plain is None or not _has_pipeline_cost_data(plain):
                 continue
             record = _normalize_pipeline_run(plain, doc.id)
             run_records[str(record["run_id"])] = record

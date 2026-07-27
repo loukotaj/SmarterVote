@@ -113,8 +113,7 @@ def _get_db() -> Any:
 
 def _get_gcs() -> Any:
     try:
-        from google.cloud import storage  # type: ignore
-
+        storage = __import__("google.cloud.storage", fromlist=["Client"])
         return storage.Client()
     except Exception as exc:  # noqa: BLE001
         logger.warning("GCS client init failed: %s", exc)

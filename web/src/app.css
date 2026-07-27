@@ -18,6 +18,7 @@
 /* ─── Semantic color tokens ─────────────────────────────────── */
 /* Light mode (default) */
 :root {
+  --site-header-height: 68px;
   --sv-page: 249 250 251; /* gray-50  — page background   */
   --sv-surface: 255 255 255; /* white    — cards & panels     */
   --sv-surface-alt: 243 244 246; /* gray-100 — subtle surfaces    */

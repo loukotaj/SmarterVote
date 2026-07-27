@@ -2,6 +2,7 @@
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import { onMount, tick } from "svelte";
   import type { RaceSummary } from "$lib/types";
   import { getRaceSummaries } from "$lib/api";
   import { candidateSlug } from "$lib/utils/format";
@@ -25,7 +26,24 @@
   let searchLoadError = false;
   let searchLoadPromise: Promise<void> | null = null;
   let mobileNavOpen = false;
+  let mobileSearchOpen = false;
+  let siteHeader: HTMLElement;
   const resultsId = "site-search-results";
+
+  onMount(() => {
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        "--site-header-height",
+        `${siteHeader.offsetHeight}px`,
+      );
+    };
+
+    updateHeaderHeight();
+    const resizeObserver = new ResizeObserver(updateHeaderHeight);
+    resizeObserver.observe(siteHeader);
+
+    return () => resizeObserver.disconnect();
+  });
 
   async function ensureSearchRaces() {
     if (!browser || searchLoaded || searchLoadPromise) return searchLoadPromise;
@@ -118,12 +136,14 @@
 
   function selectRace(id: string) {
     open = false;
+    mobileSearchOpen = false;
     query = "";
     goto(`/races/${id}`);
   }
 
   function selectCandidate(raceId: string, name: string) {
     open = false;
+    mobileSearchOpen = false;
     query = "";
     goto(`/races/${raceId}/${candidateSlug(name)}`);
   }
@@ -160,14 +180,31 @@
   }
 
   function handleWindowKeydown(event: KeyboardEvent) {
-    if (event.key === "Escape") mobileNavOpen = false;
+    if (event.key === "Escape") {
+      mobileNavOpen = false;
+      mobileSearchOpen = false;
+    }
     if (
       event.key === "/" &&
       !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName || "")
     ) {
       event.preventDefault();
+      mobileSearchOpen = true;
+      void tick().then(() => {
+        searchInput?.focus();
+        searchInput?.select();
+      });
+    }
+  }
+
+  async function toggleMobileSearch() {
+    mobileSearchOpen = !mobileSearchOpen;
+    mobileNavOpen = false;
+    if (mobileSearchOpen) {
+      await tick();
       searchInput?.focus();
-      searchInput?.select();
+    } else {
+      open = false;
     }
   }
 
@@ -188,17 +225,43 @@
 <svelte:window on:click={handleWindowClick} on:keydown={handleWindowKeydown} />
 
 <header
+  bind:this={siteHeader}
   class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md shadow-sm border-b border-stroke/50"
 >
   <div class="container mx-auto max-w-7xl px-4 py-3">
-    <div class="flex flex-wrap items-center gap-3 lg:flex-nowrap">
+    <div class="flex flex-wrap items-center gap-1 sm:gap-3 lg:flex-nowrap">
       <a
         href="/"
-        class="mr-auto text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-700 whitespace-nowrap"
+        class="mr-auto text-xl sm:text-2xl font-bold text-primary hover:text-primary/80 whitespace-nowrap"
         aria-label="Smarter.Vote home"
       >
         Smarter.Vote
       </a>
+
+      <button
+        type="button"
+        class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-content-muted hover:bg-surface-alt hover:text-content sm:hidden"
+        aria-label={mobileSearchOpen ? "Close search" : "Open search"}
+        aria-controls="site-search"
+        aria-expanded={mobileSearchOpen}
+        on:click={toggleMobileSearch}
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          {#if mobileSearchOpen}
+            <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
+          {:else}
+            <circle cx="11" cy="11" r="7" />
+            <path stroke-linecap="round" d="m16 16 4 4" />
+          {/if}
+        </svg>
+      </button>
 
       <button
         type="button"
@@ -208,7 +271,11 @@
           : "Open navigation menu"}
         aria-controls="primary-navigation"
         aria-expanded={mobileNavOpen}
-        on:click={() => (mobileNavOpen = !mobileNavOpen)}
+        on:click={() => {
+          mobileNavOpen = !mobileNavOpen;
+          mobileSearchOpen = false;
+          open = false;
+        }}
       >
         <span aria-hidden="true">{mobileNavOpen ? "×" : "☰"}</span>
       </button>
@@ -241,7 +308,9 @@
       </nav>
 
       <div
-        class="relative order-2 w-full sm:order-none sm:w-64 lg:w-72"
+        class="relative order-2 w-full {mobileSearchOpen
+          ? 'block'
+          : 'hidden'} sm:order-none sm:block sm:w-64 lg:w-72"
         bind:this={searchContainer}
       >
         <label class="sr-only" for="site-search"
@@ -257,7 +326,7 @@
             if (open) void ensureSearchRaces();
           }}
           on:keydown={handleKeydown}
-          class="min-h-11 w-full rounded-full border border-stroke bg-surface-alt py-2 pl-4 pr-9 text-sm text-content focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="min-h-11 w-full rounded-full border border-stroke bg-surface-alt py-2 pl-4 pr-12 text-sm text-content focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
           placeholder="Search elections or candidates"
           autocomplete="off"
           role="combobox"

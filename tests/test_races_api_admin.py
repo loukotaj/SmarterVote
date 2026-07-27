@@ -3799,3 +3799,11 @@ def test_get_run_logs_cursor_reads_only_incremental_page():
     log_query.order_by.assert_called_once_with("__name__")
     log_query.start_after.assert_called_once_with({"__name__": "001"})
     log_query.limit.assert_called_once_with(2)
+
+
+def test_pipeline_cost_data_detection_ignores_status_only_runs():
+    from routers.pipeline import _has_pipeline_cost_data
+
+    assert not _has_pipeline_cost_data({"run_id": "status-only", "status": "completed", "started_at": "2026-07-01T00:00:00Z"})
+    assert _has_pipeline_cost_data({"run_id": "priced", "agent_metrics": {"cost_usd": 0.1}})
+    assert _has_pipeline_cost_data({"run_id": "legacy", "payload": {"agent_metrics": {"estimated_usd": 0.2}}})
