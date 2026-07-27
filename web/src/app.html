@@ -31,6 +31,67 @@
       })();
     </script>
 
+    <!-- Recover even when Cloudflare activates HTML before its modules. -->
+    <script>
+      (function () {
+        let recovering = false;
+        const findUrl = (value) =>
+          String(value || "").match(/https?:\/\/[^\s)]+\.(?:js|wasm)/)?.[0] ||
+          "";
+
+        async function recover(url) {
+          if (recovering) return;
+          recovering = true;
+          if (!url) {
+            const key = "sv_module_fallback_reload";
+            const now = Date.now();
+            const last = Number(sessionStorage.getItem(key) || 0);
+            if (now - last > 60000) {
+              sessionStorage.setItem(key, String(now));
+              setTimeout(() => location.reload(), 5000);
+            }
+            return;
+          }
+          for (let attempt = 0; attempt < 120; attempt += 1) {
+            try {
+              const response = await fetch(url, { cache: "no-store" });
+              const type = response.headers.get("content-type") || "";
+              if (
+                response.ok &&
+                /javascript|ecmascript|application\/wasm/.test(type)
+              ) {
+                location.reload();
+                return;
+              }
+            } catch (error) {
+              // Retry transient edge and network failures.
+            }
+            await new Promise((resolve) => setTimeout(resolve, 5000));
+          }
+          recovering = false;
+        }
+
+        addEventListener(
+          "error",
+          (event) => {
+            const target = event.target;
+            if (target?.tagName === "SCRIPT" && target.type === "module") {
+              void recover(target.src);
+              return;
+            }
+            const message = String(event.error || event.message || "");
+            if (/module|MIME type/i.test(message))
+              void recover(findUrl(message));
+          },
+          true,
+        );
+        addEventListener("unhandledrejection", (event) => {
+          const message = String(event.reason || "");
+          if (/module/i.test(message)) void recover(findUrl(message));
+        });
+      })();
+    </script>
+
     <!-- Global SEO defaults (page-specific tags are set in each page's svelte:head) -->
     <meta name="author" content="Smarter.vote" />
 
