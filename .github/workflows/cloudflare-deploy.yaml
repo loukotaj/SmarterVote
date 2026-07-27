@@ -178,6 +178,11 @@ jobs:
           if (fs.existsSync("build/200.html")) {
             throw new Error("Unexpected catch-all 200.html would create soft 404s");
           }
+          if (!fs.existsSync("build/404.html")) {
+            throw new Error(
+              "Missing build/404.html would make Cloudflare treat the site as an SPA",
+            );
+          }
           console.log(`Verified ${summaries.length} prerendered race routes.`);
           EOF
         working-directory: web
