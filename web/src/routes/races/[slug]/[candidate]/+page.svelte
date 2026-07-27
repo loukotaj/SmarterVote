@@ -248,7 +248,7 @@
           <p class="mt-1 text-blue-700 dark:text-blue-300">
             This candidate has basic biographical information but detailed issue
             positions have not been researched yet. Want detailed data? <a
-              href="https://github.com/loukotaj/SmarterVote/issues/new/choose"
+              href="https://github.com/SmarterVote/SmarterVote/issues/new/choose"
               target="_blank"
               rel="noopener noreferrer"
               class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100"
@@ -268,25 +268,37 @@
     {/if}
     <!-- Navigation Bar -->
     <nav class="nav-bar">
-      <a
-        href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
-        class="back-link"
-      >
-        <svg
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      <div class="flex items-center gap-3">
+        <a
+          href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
+          class="back-link"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-        Back to {race.title}
-      </a>
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back to {race.title}
+        </a>
+        {#if otherCandidates.length > 0}
+          <a
+            href="/races/{slug}/compare?candidates={candidateParam},{candidateSlug(
+              otherCandidates[0].name,
+            )}{isDraftPreview ? '&draft=true' : ''}"
+            class="text-xs font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1"
+          >
+            Compare Candidates →
+          </a>
+        {/if}
+      </div>
       <div class="model-label">
         {#each race.generator ?? [] as model}
           <span class="model-tag">{formatModelName(model)}</span>

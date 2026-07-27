@@ -11,7 +11,7 @@
     { href: "/privacy/", label: "Privacy" },
     { href: "/terms/", label: "Terms" },
     {
-      href: "https://github.com/loukotaj/SmarterVote",
+      href: "https://github.com/SmarterVote/SmarterVote",
       label: "GitHub",
       external: true,
     },
