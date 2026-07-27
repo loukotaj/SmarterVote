@@ -24,6 +24,8 @@ const fixedPrerenderEntries = [
   "/partners/",
   "/privacy/",
   "/support/",
+  "/support/cancel/",
+  "/support/success/",
   "/terms/",
 ];
 
@@ -37,6 +39,9 @@ const config = {
       precompress: false,
       strict: true,
     }),
+    version: {
+      pollInterval: 60000,
+    },
     prerender: {
       crawl: !isFastBuild,
       // Production publishes every known race route so Cloudflare can return a
