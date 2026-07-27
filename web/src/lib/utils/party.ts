@@ -31,17 +31,19 @@ export function partyAbbr(party: string | undefined): string {
 /** Tailwind badge classes for a party pill (bg + text, light & dark). */
 export function partyBadgeClass(party: string | undefined): string {
   if (!party)
-    return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
+    return "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-stroke/50";
   const p = party.toLowerCase();
   if (isDem(p))
-    return "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200";
+    return "bg-blue-100 dark:bg-blue-950/70 text-blue-800 dark:text-blue-200 border border-blue-200/60 dark:border-blue-800/60";
   if (isRep(p))
-    return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200";
+    return "bg-red-100 dark:bg-red-950/70 text-red-800 dark:text-red-200 border border-red-200/60 dark:border-red-800/60";
+  if (p.includes("independent") || p === "i")
+    return "bg-purple-100 dark:bg-purple-950/70 text-purple-800 dark:text-purple-200 border border-purple-200/60 dark:border-purple-800/60";
   if (isLib(p))
-    return "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200";
+    return "bg-amber-100 dark:bg-amber-950/70 text-amber-900 dark:text-amber-200 border border-amber-200/60 dark:border-amber-800/60";
   if (isGreen(p))
-    return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
-  return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
+    return "bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-200 border border-emerald-200/60 dark:border-emerald-800/60";
+  return "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-stroke/50";
 }
 
 /** Tailwind ring color for avatar borders. */

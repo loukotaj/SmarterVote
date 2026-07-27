@@ -65,14 +65,19 @@ describe("party utilities", () => {
       expect(partyBadgeClass("r")).toContain("bg-red-100");
     });
 
-    it("returns yellow style for Libertarians", () => {
-      expect(partyBadgeClass("Libertarian")).toContain("bg-yellow-100");
-      expect(partyBadgeClass("l")).toContain("bg-yellow-100");
+    it("returns purple style for Independents", () => {
+      expect(partyBadgeClass("Independent")).toContain("bg-purple-100");
+      expect(partyBadgeClass("i")).toContain("bg-purple-100");
     });
 
-    it("returns green style for Greens", () => {
-      expect(partyBadgeClass("Green")).toContain("bg-green-100");
-      expect(partyBadgeClass("g")).toContain("bg-green-100");
+    it("returns amber style for Libertarians", () => {
+      expect(partyBadgeClass("Libertarian")).toContain("bg-amber-100");
+      expect(partyBadgeClass("l")).toContain("bg-amber-100");
+    });
+
+    it("returns emerald style for Greens", () => {
+      expect(partyBadgeClass("Green")).toContain("bg-emerald-100");
+      expect(partyBadgeClass("g")).toContain("bg-emerald-100");
     });
   });
 

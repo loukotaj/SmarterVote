@@ -12,7 +12,6 @@
     content="Use your address to find the national election guides that apply to you. Smarter.Vote does not store your address."
   />
   <link rel="canonical" href="https://smarter.vote/my-ballot/" />
-  <meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
 <div class="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-page">

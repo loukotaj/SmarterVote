@@ -568,6 +568,10 @@
   });
 </script>
 
+<svelte:window
+  on:keydown={(e) => e.key === "Escape" && selectedRunId && closeRunDrawer()}
+/>
+
 <div class="space-y-6">
   <!-- Header -->
   <div class="flex items-center justify-between">
@@ -1182,6 +1186,13 @@
 
 <!-- Logs / Details Side Drawer -->
 {#if selectedRunId}
+  <!-- Backdrop Overlay -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div
+    class="fixed inset-0 bg-black/40 backdrop-blur-xs z-40"
+    on:click={closeRunDrawer}
+  ></div>
   <div
     class="fixed inset-y-0 right-0 w-full max-w-2xl bg-surface border-l border-stroke shadow-2xl z-50 flex flex-col transition-transform duration-300"
   >

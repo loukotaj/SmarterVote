@@ -59,7 +59,7 @@
         style="left: {(threshold / totalSeats) * 100}%"
       >
         <span
-          class="absolute bottom-full left-0 ml-0.5 bg-yellow-500 dark:bg-yellow-400 text-[8px] font-black text-white dark:text-slate-950 px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
+          class="absolute bottom-full left-0 ml-0.5 bg-yellow-500 dark:bg-yellow-400 text-[8px] font-black text-slate-950 dark:text-slate-950 px-1 py-0.5 rounded shadow-sm whitespace-nowrap animate-fade-in"
         >
           Majority ({threshold})
         </span>

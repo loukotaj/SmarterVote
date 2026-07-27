@@ -333,7 +333,7 @@
             This race has basic candidate information but detailed issue
             positions have not been researched yet. Want detailed data on this
             race? <a
-              href="https://github.com/loukotaj/SmarterVote/issues/new/choose"
+              href="https://github.com/SmarterVote/SmarterVote/issues/new/choose"
               target="_blank"
               rel="noopener noreferrer"
               class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100"

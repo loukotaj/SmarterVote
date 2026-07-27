@@ -267,9 +267,17 @@
       </div>
 
       <div
-        class="sticky left-0 z-10 w-full min-w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+        class="grid"
+        style="grid-template-columns: {compact
+          ? '170px'
+          : '220px'} repeat({candidates.length}, 1fr)"
       >
-        Positions on Key Issues
+        <div
+          class="col-span-full sticky left-0 z-10 w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+          style="grid-column: 1 / -1"
+        >
+          Positions on Key Issues
+        </div>
       </div>
       {#each issueKeys as issueKey}
         <div
@@ -352,9 +360,15 @@
 
       {#if !compact}
         <div
-          class="sticky left-0 z-10 w-full min-w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+          class="grid"
+          style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
         >
-          Background & Credentials
+          <div
+            class="col-span-full sticky left-0 z-10 w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+            style="grid-column: 1 / -1"
+          >
+            Background & Credentials
+          </div>
         </div>
         <div
           class="grid"

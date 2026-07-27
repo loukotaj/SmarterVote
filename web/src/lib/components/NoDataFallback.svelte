@@ -8,7 +8,7 @@
   export let raceId: string = "";
   export let candidateName: string = "";
 
-  const GITHUB_REPO = "loukotaj/SmarterVote";
+  const GITHUB_REPO = "SmarterVote/SmarterVote";
 
   const dataTypeMessages: Record<string, string> = {
     issues: "We haven't found any issue stances for this candidate yet.",
