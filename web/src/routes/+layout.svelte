@@ -5,44 +5,12 @@
   import SiteHeader from "$lib/components/SiteHeader.svelte";
   import SiteFooter from "$lib/components/SiteFooter.svelte";
 
-  import { onNavigate } from "$app/navigation";
-  import { updated } from "$app/stores";
-
   let isAuthenticated = false;
   let darkMode = false;
   const cloudflareAnalyticsToken = import.meta.env
     .VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 
-  onNavigate((navigation) => {
-    if (navigation.to && $updated) {
-      location.href = navigation.to.url.href;
-    }
-  });
-
-  function handleChunkError(err: unknown) {
-    const msg = String(err).toLowerCase();
-    if (
-      msg.includes("failed to fetch dynamically imported module") ||
-      msg.includes("failed to load module script") ||
-      msg.includes("strict mime type checking") ||
-      msg.includes("importing a module script failed")
-    ) {
-      const lastReload = sessionStorage.getItem("sv_chunk_reload");
-      const now = Date.now();
-      if (!lastReload || now - Number(lastReload) > 10000) {
-        sessionStorage.setItem("sv_chunk_reload", String(now));
-        window.location.reload();
-      }
-    }
-  }
-
   onMount(() => {
-    const handleErr = (e: ErrorEvent) => handleChunkError(e.error || e.message);
-    const handleRej = (e: PromiseRejectionEvent) => handleChunkError(e.reason);
-
-    window.addEventListener("error", handleErr);
-    window.addEventListener("unhandledrejection", handleRej);
-
     if (cloudflareAnalyticsToken && !$page.url.pathname.startsWith("/admin")) {
       const script = document.createElement("script");
       script.defer = true;
@@ -76,11 +44,6 @@
         isAuthenticated = false;
       }
     })();
-
-    return () => {
-      window.removeEventListener("error", handleErr);
-      window.removeEventListener("unhandledrejection", handleRej);
-    };
   });
 
   function toggleDark() {
