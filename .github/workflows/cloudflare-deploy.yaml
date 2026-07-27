@@ -213,6 +213,12 @@ jobs:
             curl --fail --silent --show-error --location --max-time 30 "$PUBLIC_SITE_URL$path" > /dev/null
           done
 
+      - name: Verify public JavaScript modules
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://smarter.vote' }}
+        run: node scripts/verify-deployment.mjs
+        working-directory: web
+
       - name: Submit sitemap URLs to IndexNow
         if: ${{ env.INDEXNOW_KEY_CONFIGURED == 'true' }}
         run: npm run submit:indexnow
