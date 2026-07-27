@@ -48,8 +48,11 @@ class PipelineMetricsStore:
     _COLLECTION = "pipeline_metrics"
 
     def __init__(self) -> None:
+        explicit_db_path = os.getenv("PIPELINE_METRICS_DB_PATH")
         self._firestore_project = os.getenv("FIRESTORE_PROJECT")
-        self._db_path = os.getenv("PIPELINE_METRICS_DB_PATH", str(local_paths.metrics_db_path))
+        if not self._firestore_project and not explicit_db_path:
+            self._firestore_project = os.getenv("GOOGLE_CLOUD_PROJECT")
+        self._db_path = explicit_db_path or str(local_paths.metrics_db_path)
         self._client = None
 
         if self._firestore_project:

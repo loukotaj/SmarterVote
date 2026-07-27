@@ -9,6 +9,9 @@ test("global navigation and search stay accessible and within the viewport", asy
   const search = page.getByRole("combobox", {
     name: "Search elections and candidates",
   });
+  if ((page.viewportSize()?.width ?? 0) < 640) {
+    await page.getByRole("button", { name: "Open search" }).click();
+  }
   await expect(search).toBeVisible();
   await expect(search).toHaveAttribute("aria-autocomplete", "list");
 

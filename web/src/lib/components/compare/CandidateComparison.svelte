@@ -145,8 +145,7 @@
   <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
     <div
       class:sticky={!compact}
-      class:top-[57px]={!compact}
-      class:md:top-[65px]={!compact}
+      class:top-[var(--site-header-height)]={!compact}
       class="z-30 w-full border-b border-stroke bg-surface py-4 shadow-sm"
     >
       <div

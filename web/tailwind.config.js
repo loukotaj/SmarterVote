@@ -22,6 +22,7 @@ export default {
           faint: "rgb(var(--sv-text-faint) / <alpha-value>)",
         },
         primary: {
+          DEFAULT: "rgb(var(--sv-primary) / <alpha-value>)",
           50: "#eff6ff",
           500: "#3b82f6",
           600: "#2563eb",

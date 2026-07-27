@@ -67,4 +67,24 @@ describe("ForecastElectoralMap", () => {
 
     expect(props.onClearFilter).toHaveBeenCalledTimes(1);
   });
+
+  it("offers active states in a mobile selector and updates the filter", async () => {
+    const props = baseProps();
+    render(ForecastElectoralMap, {
+      activeTab: "house",
+      ...props,
+      activeStates: new Set(["Texas", "Delaware"]),
+      stateRaceCounts: { Texas: 3, Delaware: 1 },
+    });
+
+    const select = screen.getByLabelText("Select a state");
+    expect(screen.getByRole("option", { name: "Delaware (1)" })).toBeTruthy();
+    expect(screen.getByRole("option", { name: "Texas (3)" })).toBeTruthy();
+
+    await fireEvent.change(select, { target: { value: "Delaware" } });
+    expect(props.onStateClick).toHaveBeenCalledWith("Delaware");
+
+    await fireEvent.change(select, { target: { value: "" } });
+    expect(props.onClearFilter).toHaveBeenCalledTimes(1);
+  });
 });
