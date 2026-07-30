@@ -230,7 +230,11 @@ async def _probe_asset(client: httpx.AsyncClient, kind: str, url: str) -> Dict[s
         image_quality = None
         if kind == "image" and image_valid is False:
             image_quality = "invalid_content_type"
-        elif kind == "image" and (suspicious_thumbnail or (content_length is not None and content_length < 10_000)):
+        elif (
+            kind == "image"
+            and image_valid is True
+            and (suspicious_thumbnail or (content_length is not None and content_length < 10_000))
+        ):
             image_quality = "suspicious_small"
         elif kind == "image" and image_valid is True:
             image_quality = "content_type_valid"
