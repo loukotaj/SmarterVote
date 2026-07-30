@@ -216,10 +216,10 @@ async def _probe_asset(client: httpx.AsyncClient, kind: str, url: str) -> Dict[s
     try:
         response = await client.head(url, follow_redirects=False)
         content_type = response.headers.get("content-type", "").split(";")[0].lower()
-        reachable = response.status_code < 400 or response.status_code in {401, 403, 405}
+        reachable = response.status_code < 400 or response.status_code in {401, 403, 405, 429}
         image_valid = (
             None
-            if kind != "image" or response.status_code in {401, 403, 405} or not content_type
+            if kind != "image" or response.status_code in {401, 403, 405, 429} or not content_type
             else content_type.startswith("image/")
         )
         content_length = int(response.headers.get("content-length") or 0) or None
@@ -237,7 +237,7 @@ async def _probe_asset(client: httpx.AsyncClient, kind: str, url: str) -> Dict[s
         return {
             "kind": kind,
             "url": url,
-            "status": "reachable" if reachable else "broken",
+            "status": "rate_limited" if response.status_code == 429 else "reachable" if reachable else "broken",
             "reachable": reachable,
             "http_status": response.status_code,
             "content_type": content_type or None,
