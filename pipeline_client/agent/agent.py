@@ -674,6 +674,10 @@ async def run_agent(
         "priced_calls": int(prior_agent_metrics.get("priced_calls", 0) or 0),
         "unpriced_calls": int(prior_agent_metrics.get("unpriced_calls", 0) or 0),
         "serper_calls": int(prior_agent_metrics.get("serper_calls", 0) or 0),
+        "searlo_calls": int(prior_agent_metrics.get("searlo_calls", 0) or 0),
+        "search_budget_blocked": int(prior_agent_metrics.get("search_budget_blocked", 0) or 0),
+        "token_budget_nudges": int(prior_agent_metrics.get("token_budget_nudges", 0) or 0),
+        "prior_duration_s": float(prior_agent_metrics.get("duration_s", 0.0) or 0.0),
         "context_requests": int(prior_agent_metrics.get("context_requests", 0) or 0),
         "max_estimated_context_tokens": int(prior_agent_metrics.get("max_estimated_context_tokens", 0) or 0),
         "max_context_window_tokens": int(prior_agent_metrics.get("max_context_window_tokens", 0) or 0),
@@ -685,6 +689,10 @@ async def run_agent(
         "retry_provider_failures": int(prior_agent_metrics.get("retry_provider_failures", 0) or 0),
         "retry_deadline_exits": int(prior_agent_metrics.get("retry_deadline_exits", 0) or 0),
         "model_breakdown": copy.deepcopy(prior_agent_metrics.get("model_breakdown", {})),
+        "phase_breakdown": copy.deepcopy(prior_agent_metrics.get("phase_breakdown", {})),
+        "page_fetches": int(prior_agent_metrics.get("page_fetches", 0) or 0),
+        "fetched_chars": int(prior_agent_metrics.get("fetched_chars", 0) or 0),
+        "page_budget_blocked": int(prior_agent_metrics.get("page_budget_blocked", 0) or 0),
     }
     _ctx_token = _cost_ctx.set(_acc)
 
@@ -963,6 +971,24 @@ async def run_agent(
         _track("skip", "review")
         _track("skip", "iteration")
 
+    # Apply safe mechanical cleanup after all model-authored changes. This pass
+    # also carries explicit polling/market/finance evidence URLs into forecasts
+    # before enforcing the forecast evidence gate.
+    from shared.race_cleanup import cleanup_race_data, validate_forecast_evidence
+
+    cleanup_report = cleanup_race_data(race_json)
+    pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
+    pipeline_state["deterministic_cleanup"] = cleanup_report
+    if any(cleanup_report.values()):
+        log(
+            "info",
+            "Deterministic cleanup applied "
+            f"({cleanup_report['text_changes']} text, "
+            f"{cleanup_report['source_duplicates_removed']} duplicate sources, "
+            f"{cleanup_report['forecast_sources_added']} forecast sources)",
+        )
+    validate_forecast_evidence(race_json)
+
     # Compute aggregate validation grade from review scores
     grade = compute_validation_grade(race_json.get("reviews", [])) if race_json.get("reviews") else None
     race_json["validation_grade"] = grade
@@ -1001,6 +1027,7 @@ async def run_agent(
 
     # Add Serper costs ($0.001 per call) to both estimated and provider costs
     serper_calls = _acc.get("serper_calls", 0)
+    searlo_calls = _acc.get("searlo_calls", 0)
     serper_cost = serper_calls * 0.001
     estimated_cost += serper_cost
     if provider_cost > 0:
@@ -1019,8 +1046,23 @@ async def run_agent(
         "cost_source": "provider" if has_exact_provider_cost else "estimated",
         "estimated_usd": round(estimated_cost, 6),
         "model_breakdown": breakdown,
-        "duration_s": round(elapsed, 1),
+        "phase_breakdown": _acc.get("phase_breakdown", {}),
+        "duration_s": round(_acc.get("prior_duration_s", 0.0) + elapsed, 1),
+        "segment_duration_s": round(elapsed, 1),
         "serper_calls": serper_calls,
+        "searlo_calls": searlo_calls,
+        "search_calls": serper_calls + searlo_calls,
+        "search_budget_blocked": _acc.get("search_budget_blocked", 0),
+        "token_budget_nudges": _acc.get("token_budget_nudges", 0),
+        "page_fetches": _acc.get("page_fetches", 0),
+        "fetched_chars": _acc.get("fetched_chars", 0),
+        "page_budget_blocked": _acc.get("page_budget_blocked", 0),
+        "max_search_calls": PipelineRuntimeConfig.from_env().max_search_calls,
+        "max_total_tokens": PipelineRuntimeConfig.from_env().max_total_tokens,
+        "max_phase_search_calls": PipelineRuntimeConfig.from_env().max_phase_search_calls,
+        "max_phase_tokens": PipelineRuntimeConfig.from_env().max_phase_tokens,
+        "max_page_fetches": PipelineRuntimeConfig.from_env().max_page_fetches,
+        "max_fetched_chars": PipelineRuntimeConfig.from_env().max_fetched_chars,
         "context_requests": _acc.get("context_requests", 0),
         "max_estimated_context_tokens": _acc.get("max_estimated_context_tokens", 0),
         "max_context_window_tokens": _acc.get("max_context_window_tokens", 0),

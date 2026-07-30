@@ -10,6 +10,8 @@ from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, HttpUrl, field_validator, model_validator
 
+from shared.run_health import StepFailure
+
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
@@ -256,6 +258,15 @@ class ForecastMarketSignal(BaseModel):
     confidence: ConfidenceLevel = ConfidenceLevel.UNKNOWN
 
 
+class ForecastEvidence(BaseModel):
+    """Lineage from one forecast claim to the source that supports it."""
+
+    claim: str
+    source_url: str
+    kind: Literal["polling", "market", "finance", "race_context", "other"] = "other"
+    inferred: bool = False
+
+
 class RaceForecast(BaseModel):
     """Informational AI forecast for a race."""
 
@@ -274,6 +285,7 @@ class RaceForecast(BaseModel):
     generated_at: datetime
     model: str
     source_urls: List[str] = Field(default_factory=list)
+    evidence_lineage: Optional[List[ForecastEvidence]] = None
     market_signals: List[ForecastMarketSignal] = Field(default_factory=list)
 
     @field_validator("party_probabilities")
@@ -435,6 +447,9 @@ class PipelineState(BaseModel):
     remaining_candidates: List[str] = Field(default_factory=list)
     remaining_steps: List[str] = Field(default_factory=list)
     completed_units: List[str] = Field(default_factory=list)
+    issue_attempts: Dict[str, int] = Field(default_factory=dict)
+    step_failures: List[StepFailure] = Field(default_factory=list)
+    deterministic_cleanup: Dict[str, int] = Field(default_factory=dict)
     race_identity: Optional[RaceIdentityBrief] = None
 
 

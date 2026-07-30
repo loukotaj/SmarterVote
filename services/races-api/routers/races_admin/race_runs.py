@@ -13,9 +13,10 @@ router = APIRouter()
 
 @router.get("/api/races/{race_id}/runs", dependencies=[Depends(verify_token)])
 async def list_race_runs(race_id: str, limit: int = 20) -> Dict[str, Any]:
-    """List runs for a specific race from Firestore."""
+    """List archived and canonical runs for a specific race from Firestore."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
+    limit = max(1, min(limit, 100))
     sub_docs = (
         db.collection("races")
         .document(race_id)
@@ -24,13 +25,26 @@ async def list_race_runs(race_id: str, limit: int = 20) -> Dict[str, Any]:
         .limit(limit)
         .stream()
     )
-    runs = [firestore_helpers._doc_to_plain(d) for d in sub_docs]
-    active_docs = db.collection("pipeline_runs").where("race_id", "==", race_id).stream()
-    for d in active_docs:
+    runs_by_id: Dict[str, Dict[str, Any]] = {}
+    for d in sub_docs:
         data = firestore_helpers._doc_to_plain(d)
-        if data and data.get("status") in ("pending", "running"):
-            runs.insert(0, data)
-    runs = [r for r in runs if r is not None]
+        if data:
+            runs_by_id[str(data.get("run_id") or getattr(d, "id", ""))] = data
+
+    canonical_docs = db.collection("pipeline_runs").where("race_id", "==", race_id).stream()
+    for d in canonical_docs:
+        data = firestore_helpers._doc_to_plain(d)
+        if data:
+            runs_by_id[str(data.get("run_id") or getattr(d, "id", ""))] = data
+
+    runs = list(runs_by_id.values())
+    runs.sort(
+        key=lambda run: (
+            run.get("status") in ("pending", "running"),
+            str(run.get("started_at") or run.get("created_at") or ""),
+        ),
+        reverse=True,
+    )
     return {"runs": runs[:limit], "count": len(runs[:limit])}
 
 

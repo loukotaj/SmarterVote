@@ -9,7 +9,7 @@ The handoff logic lives inside `AgentHandler.handle()` as a nested closure
 
 import time
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import ANY, AsyncMock, MagicMock, patch
 
 import pytest
 
@@ -259,7 +259,7 @@ async def test_handoff_raised_during_step_progress_when_deadline_exceeded():
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-progress-handoff-test.json"
     assert continuation_doc["run_id"] == "run-progress-handoff-test"
     assert exc_info.value.continuation_run_id == "run-progress-handoff-test"
-    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"])
+    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"], duration_ms=ANY)
 
 
 @pytest.mark.asyncio
@@ -310,7 +310,7 @@ async def test_handoff_raised_during_log_callback_when_deadline_exceeded():
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-log-handoff-test.json"
     assert continuation_doc["run_id"] == "run-log-handoff-test"
     assert exc_info.value.continuation_run_id == "run-log-handoff-test"
-    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"])
+    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"], duration_ms=ANY)
 
 
 @pytest.mark.asyncio
@@ -365,7 +365,7 @@ async def test_handoff_writes_continuation_run_and_checkpoint_path():
     assert continuation_doc["options"]["force_fresh"] is False
     assert "existing_data_gcs_path" not in continuation_doc["options"]
     assert exc_info.value.continuation_run_id == "run-handoff-test"
-    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"])
+    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"], duration_ms=ANY)
     mock_blob.upload_from_string.assert_called_once()
 
 

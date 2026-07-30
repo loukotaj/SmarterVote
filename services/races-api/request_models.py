@@ -4,7 +4,7 @@ import re
 from typing import Any, Dict, List, Optional
 
 from fastapi import HTTPException
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 from shared.pipeline_options import PipelineRunOptions
 
@@ -28,6 +28,28 @@ class RaceQueueRequest(BaseModel):
 
 class BatchPublishRequest(BaseModel):
     race_ids: List[str]
+
+
+class RepairPlanRequest(BaseModel):
+    race_ids: List[str]
+
+    @field_validator("race_ids")
+    @classmethod
+    def validate_race_ids(cls, value: List[str]) -> List[str]:
+        normalized = list(dict.fromkeys(str(race_id).strip() for race_id in value if str(race_id).strip()))
+        if not normalized:
+            raise ValueError("race_ids cannot be empty")
+        if len(normalized) > 200:
+            raise ValueError("race_ids cannot contain more than 200 races")
+        for race_id in normalized:
+            if not _RACE_ID_RE.match(race_id):
+                raise ValueError(f"invalid race_id: {race_id}")
+        return normalized
+
+
+class AssetAuditRequest(RepairPlanRequest):
+    persist: bool = False
+    max_urls_per_race: int = Field(default=100, ge=1, le=300)
 
 
 class AdminChatMessage(BaseModel):

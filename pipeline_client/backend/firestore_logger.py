@@ -225,6 +225,9 @@ class FirestoreLogger:
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
+                from google.cloud.firestore_v1 import Increment  # type: ignore
+
+                update["logical_duration_ms"] = Increment(duration_ms)
             if run_health is not None:
                 update["run_health"] = run_health
             if self.truncated_log_count or self.dropped_log_count or self.coalesced_progress_count:
@@ -257,6 +260,9 @@ class FirestoreLogger:
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
+                from google.cloud.firestore_v1 import Increment  # type: ignore
+
+                update["logical_duration_ms"] = Increment(duration_ms)
             if run_health is not None:
                 update["run_health"] = run_health
             if self.truncated_log_count or self.dropped_log_count or self.coalesced_progress_count:
@@ -269,7 +275,7 @@ class FirestoreLogger:
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_failed failed: %s", exc)
 
-    def mark_handoff(self, continuation_item_id: str) -> None:
+    def mark_handoff(self, continuation_item_id: str, *, duration_ms: int | None = None) -> None:
         """Record an invocation handoff while keeping the logical run active."""
         self.flush()
         db = _get_db()
@@ -278,14 +284,14 @@ class FirestoreLogger:
         try:
             from google.cloud.firestore_v1 import Increment  # type: ignore
 
-            db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(
-                {
-                    "status": "running",
-                    "continuation_item_id": continuation_item_id,
-                    "continuation_count": Increment(1),
-                    "handoff_at": datetime.now(timezone.utc).isoformat(),
-                },
-                merge=True,
-            )
+            update = {
+                "status": "running",
+                "continuation_item_id": continuation_item_id,
+                "continuation_count": Increment(1),
+                "handoff_at": datetime.now(timezone.utc).isoformat(),
+            }
+            if duration_ms is not None:
+                update["logical_duration_ms"] = Increment(duration_ms)
+            db.collection(FIRESTORE_RUNS_COLLECTION).document(self.run_id).set(update, merge=True)
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_handoff failed: %s", exc)

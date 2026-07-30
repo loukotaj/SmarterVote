@@ -77,6 +77,7 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
     prompt_tokens = _as_int(raw.get("prompt_tokens"), _as_int(agent_metrics.get("prompt_tokens"), 0))
     completion_tokens = _as_int(raw.get("completion_tokens"), _as_int(agent_metrics.get("completion_tokens"), 0))
     serper_calls = _as_int(raw.get("serper_calls"), _as_int(agent_metrics.get("serper_calls"), 0))
+    searlo_calls = _as_int(raw.get("searlo_calls"), _as_int(agent_metrics.get("searlo_calls"), 0))
 
     estimated_usd = _as_float(
         raw.get("estimated_usd"),
@@ -102,7 +103,9 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
     if candidate_count <= 0 and isinstance(payload.get("candidates"), list):
         candidate_count = len(payload.get("candidates") or [])
 
-    duration_s = _as_float(raw.get("duration_s"), 0.0)
+    duration_s = _as_float(raw.get("logical_duration_ms"), 0.0) / 1000.0
+    if duration_s <= 0:
+        duration_s = _as_float(raw.get("duration_s"), 0.0)
     if duration_s <= 0:
         duration_ms = _as_float(raw.get("duration_ms"), 0.0)
         if duration_ms > 0:
@@ -124,9 +127,26 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
         "cost_source": cost_source,
         "model_breakdown": model_breakdown,
         "duration_s": duration_s,
+        "segment_duration_s": _as_float(
+            raw.get("segment_duration_s"),
+            _as_float(agent_metrics.get("segment_duration_s"), 0.0),
+        ),
+        "continuation_count": _as_int(raw.get("continuation_count"), 0),
         "candidate_count": candidate_count,
         "cheap_mode": cheap_mode,
         "serper_calls": serper_calls,
+        "searlo_calls": searlo_calls,
+        "search_calls": _as_int(
+            raw.get("search_calls"), _as_int(agent_metrics.get("search_calls"), serper_calls + searlo_calls)
+        ),
+        "search_budget_blocked": _as_int(
+            raw.get("search_budget_blocked"),
+            _as_int(agent_metrics.get("search_budget_blocked"), 0),
+        ),
+        "token_budget_nudges": _as_int(
+            raw.get("token_budget_nudges"),
+            _as_int(agent_metrics.get("token_budget_nudges"), 0),
+        ),
         "model_profile": options.get("model_profile"),
     }
 
@@ -391,6 +411,9 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
             merged["serper_calls"] = run_record["serper_calls"]
         if run_record.get("duration_s") and not merged.get("duration_s"):
             merged["duration_s"] = run_record["duration_s"]
+        for field in ("continuation_count", "search_budget_blocked", "token_budget_nudges"):
+            if run_record.get(field) and not merged.get(field):
+                merged[field] = run_record[field]
         records.append(merged)
         seen.add(run_id)
 

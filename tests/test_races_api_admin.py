@@ -58,6 +58,9 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
             "search_cost_usd": 0.001,
             "cost_usd": 0.01234567,
             "cost_source": "provider",
+            "duration_ms": 7000,
+            "logical_duration_ms": 29000,
+            "continuation_count": 2,
             "candidate_count": 2,
             "cheap_mode": True,
         },
@@ -68,6 +71,8 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
     assert record["llm_cost_usd"] == pytest.approx(0.01134567)
     assert record["search_cost_usd"] == pytest.approx(0.001)
     assert record["cost_source"] == "provider"
+    assert record["duration_s"] == 29
+    assert record["continuation_count"] == 2
     assert _compute_metrics_summary([record])["total_usd"] == pytest.approx(0.0123)
 
 
@@ -1549,6 +1554,20 @@ def test_run_options_normalize_and_validate_pipeline_controls():
         RunOptions(review_providers=[])
 
 
+def test_repair_plan_request_deduplicates_and_bounds_races():
+    from pydantic import ValidationError
+    from request_models import RepairPlanRequest
+
+    request = RepairPlanRequest(race_ids=["ca-house-01-2026", "ca-house-01-2026"])
+    assert request.race_ids == ["ca-house-01-2026"]
+
+    with pytest.raises(ValidationError):
+        RepairPlanRequest(race_ids=[])
+
+    with pytest.raises(ValidationError):
+        RepairPlanRequest(race_ids=["INVALID RACE"])
+
+
 # ---------------------------------------------------------------------------
 # /api/races/queue — invalid race_id rejected
 # ---------------------------------------------------------------------------
@@ -1729,6 +1748,73 @@ def test_list_races_normalizes_empty_status_when_catalog_shows_draft():
     assert race["status"] == "draft"
     assert race["draft_exists"] is True
     assert race["published_exists"] is False
+
+
+def test_repair_plan_endpoint_uses_latest_race_data_without_queueing():
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    race_doc = _make_existing_doc(
+        {
+            "race_id": "ca-house-05-2026",
+            "status": "published",
+            "published_at": "2026-07-01T00:00:00Z",
+            "published_updated_utc": "2026-07-01T00:00:00Z",
+            "freshness": "stale",
+        }
+    )
+    races_collection = MagicMock()
+    races_collection.document.return_value.get.return_value = race_doc
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: races_collection if name == "races" else MagicMock()
+    race_data = {
+        "id": "ca-house-05-2026",
+        "candidates": [{"name": "Alice", "issues": {}, "image_url": None}],
+    }
+
+    def get_race_json(_race_id, folder):
+        return None if folder == "drafts" else race_data
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_get_race_json", side_effect=get_race_json),
+    ):
+        response = TestClient(app_module.app).post(
+            "/api/races/repair-plan",
+            json={"race_ids": ["ca-house-05-2026"]},
+        )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["race_count"] == 1
+    assert body["repair_count"] == 1
+    assert body["plans"][0]["race_id"] == "ca-house-05-2026"
+    assert body["plans"][0]["estimate_kind"] == "static_ceiling"
+
+
+@pytest.mark.asyncio
+async def test_asset_probe_blocks_private_targets_and_validates_image_content_type():
+    from routers.races_admin.records import _probe_asset, _safe_public_asset_url
+
+    assert _safe_public_asset_url("http://127.0.0.1/private") is False
+    assert _safe_public_asset_url("http://metadata.google.internal/") is False
+
+    response = MagicMock()
+    response.status_code = 200
+    response.headers = {"content-type": "image/jpeg", "content-length": "1234"}
+    client = MagicMock()
+    client.head = AsyncMock(return_value=response)
+
+    with patch("routers.races_admin.records._host_resolves_public", AsyncMock(return_value=True)):
+        result = await _probe_asset(client, "image", "https://example.com/photo.jpg")
+
+    assert result["reachable"] is True
+    assert result["image_content_type_valid"] is True
+    assert result["content_length"] == 1234
 
 
 def test_list_races_exposes_public_and_draft_quality_separately():
@@ -3530,6 +3616,48 @@ def test_list_race_runs_merges_archived_and_active_runs():
     run_ids = [r["run_id"] for r in body["runs"]]
     assert run_ids[0] == "run-active"
     assert "run-old" in run_ids
+
+
+def test_list_race_runs_includes_completed_canonical_runs():
+    """Recent completed runs remain visible even before or without archival."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    runs_subcoll = MagicMock()
+    runs_subcoll.order_by.return_value = runs_subcoll
+    runs_subcoll.limit.return_value = runs_subcoll
+    runs_subcoll.stream.return_value = iter([])
+
+    race_ref = MagicMock()
+    race_ref.collection.return_value = runs_subcoll
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    completed_doc = _make_existing_doc(
+        {
+            "run_id": "run-completed",
+            "race_id": "ca-house-05-2026",
+            "status": "completed",
+            "started_at": "2026-07-30T00:00:00Z",
+        }
+    )
+    pipeline_runs_coll = MagicMock()
+    pipeline_runs_coll.where.return_value = pipeline_runs_coll
+    pipeline_runs_coll.stream.return_value = iter([completed_doc])
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: races_coll if name == "races" else pipeline_runs_coll
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        response = TestClient(app_module.app).get("/api/races/ca-house-05-2026/runs")
+
+    assert response.status_code == 200
+    assert response.json()["runs"][0]["run_id"] == "run-completed"
 
 
 def test_get_race_run_returns_pipeline_run_doc():

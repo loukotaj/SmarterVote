@@ -40,7 +40,16 @@ async def test_pipeline_metrics_persists_and_summarizes_provider_cost(monkeypatc
             "cost_usd": 0.01234567,
             "cost_source": "provider",
             "model_breakdown": {},
+            "phase_breakdown": {"forecast": {"provider_cost_usd": 0.01}},
+            "page_fetches": 3,
+            "fetched_chars": 1200,
+            "page_budget_blocked": 1,
             "duration_s": 1.5,
+            "segment_duration_s": 0.5,
+            "searlo_calls": 2,
+            "search_calls": 3,
+            "search_budget_blocked": 1,
+            "token_budget_nudges": 1,
         },
         candidate_count=2,
         cheap_mode=True,
@@ -53,6 +62,15 @@ async def test_pipeline_metrics_persists_and_summarizes_provider_cost(monkeypatc
     assert records[0]["llm_cost_usd"] == pytest.approx(0.01134567)
     assert records[0]["search_cost_usd"] == pytest.approx(0.001)
     assert records[0]["cost_source"] == "provider"
+    assert records[0]["segment_duration_s"] == pytest.approx(0.5)
+    assert records[0]["searlo_calls"] == 2
+    assert records[0]["search_calls"] == 3
+    assert records[0]["search_budget_blocked"] == 1
+    assert records[0]["token_budget_nudges"] == 1
+    assert records[0]["phase_breakdown"]["forecast"]["provider_cost_usd"] == pytest.approx(0.01)
+    assert records[0]["page_fetches"] == 3
+    assert records[0]["fetched_chars"] == 1200
+    assert records[0]["page_budget_blocked"] == 1
     assert summary["total_usd"] == pytest.approx(0.0123)
     assert summary["avg_cheap_usd"] == pytest.approx(0.0123)
 

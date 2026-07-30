@@ -2,10 +2,12 @@
 
 from datetime import datetime, timedelta, timezone
 
+from shared.models import CanonicalIssue
 from shared.race_catalog import (
     _coerce_datetime,
     build_agent_metrics_summary,
     build_candidate_summaries,
+    build_catalog_health,
     build_forecast_summary,
     build_race_summary_fields,
     build_versioned_catalog_fields,
@@ -137,6 +139,81 @@ def test_build_forecast_summary_defaults_missing_list_fields_to_empty():
     assert summary["based_on_poll_count"] == 0
 
 
+def test_build_catalog_health_distinguishes_discovery_partial_and_terminal_results():
+    discovery = build_catalog_health({"candidates": [{"name": "A", "issues": {}}]})
+    assert discovery["research_tier"] == "discovery_only"
+    assert discovery["missing_issue_count"] == 12
+    assert "missing_issue_research" in discovery["gaps"]
+
+    issues = {
+        issue.value: {
+            "stance": (
+                "No public position found after repeated research attempts." if index == 0 else "Supports this policy."
+            ),
+            "sources": [] if index == 0 else [{"url": "https://example.com"}],
+        }
+        for index, issue in enumerate(CanonicalIssue)
+    }
+    complete = build_catalog_health(
+        {
+            "candidates": [
+                {
+                    "name": "A",
+                    "image_url": "https://example.com/a.jpg",
+                    "roster_sources": [{"url": "https://elections.example.gov"}],
+                    "issues": issues,
+                    "donor_summary": "No federal filings yet.",
+                    "donor_source_url": "https://fec.gov",
+                }
+            ],
+            "forecast": {"rating": "tossup", "source_urls": ["https://cookpolitical.com"]},
+        }
+    )
+    assert complete["research_tier"] == "full_unreviewed"
+    assert complete["terminal_issue_count"] == 12
+    assert complete["substantive_issue_count"] == 11
+    assert complete["no_position_issue_count"] == 1
+    assert complete["sourced_issue_count"] == 11
+    assert complete["forecast_evidence_complete"] is True
+
+
+def test_build_catalog_health_marks_passing_grade_as_validated():
+    health = build_catalog_health(
+        {
+            "candidates": [{"name": "A"}],
+            "validation_grade": {"grade": "A", "passed": True},
+        }
+    )
+    assert health["research_tier"] == "validated"
+    assert health["validation_passed"] is True
+
+
+def test_catalog_health_tracks_strong_roster_evidence_and_section_freshness():
+    health = build_catalog_health(
+        {
+            "race_id": "tx-house-01-2026",
+            "candidates": [
+                {
+                    "name": "A",
+                    "roster_sources": [
+                        {
+                            "url": "https://elections.example.gov/contest",
+                            "race_id": "tx-house-01-2026",
+                            "evidence_tier": 1,
+                            "retrieval_status": "content",
+                            "last_accessed": "2026-07-28T00:00:00Z",
+                        }
+                    ],
+                    "issues": {},
+                }
+            ],
+        }
+    )
+
+    assert health["roster_strong_evidence_candidates"] == 1
+    assert health["section_freshness"]["roster"]["status"] == "recent"
+
+
 def test_build_race_summary_fields_uses_race_data_id_over_race_id_argument():
     race_data = {
         "id": "actual-id",
@@ -152,6 +229,7 @@ def test_build_race_summary_fields_uses_race_data_id_over_race_id_argument():
     assert fields["candidate_count"] == 1
     assert fields["quality_grade"] == "B"
     assert fields["freshness"] == "recent"
+    assert fields["catalog_health"]["research_tier"] == "graded_low"
 
 
 def test_build_race_summary_fields_falls_back_to_argument_race_id():
@@ -176,4 +254,5 @@ def test_build_versioned_catalog_fields_prefixes_keys():
         "draft_updated_utc": "2026-01-01T00:00:00Z",
         "draft_candidate_count": 2,
         "draft_quality_grade": "A",
+        "draft_catalog_health": build_catalog_health(race_data),
     }

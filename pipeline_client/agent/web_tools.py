@@ -15,6 +15,7 @@ from urllib.parse import urljoin, urlparse
 
 import httpx
 
+from .cost import record_fetched_chars, reserve_page_fetch, reserve_search_call
 from .run_budget import RunBudget
 
 logger = logging.getLogger("pipeline")
@@ -301,6 +302,8 @@ async def _fetch_page(url: str) -> str:
         if cached:
             logger.debug(f"Page cache HIT: {url[:60]}")
             return cached
+    if not reserve_page_fetch():
+        return "[Page fetch budget reached; use the evidence already collected.]"
 
     client = _get_fetch_client()
     failure_reasons: List[str] = []
@@ -329,6 +332,7 @@ async def _fetch_page(url: str) -> str:
             if _is_unusable_page_text(text):
                 failure_reasons.append("primary_fetch_unusable_content")
                 continue
+            record_fetched_chars(len(text))
 
             # Some anti-bot pages return HTTP 200 with short generic text. For very
             # short pages, opportunistically try the proxy and prefer richer content.
@@ -341,6 +345,7 @@ async def _fetch_page(url: str) -> str:
                     if (not _is_unusable_page_text(proxy_text)) and (len(proxy_text) > len(text) + 200):
                         if len(proxy_text) > _PAGE_MAX_CHARS:
                             proxy_text = proxy_text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
+                        record_fetched_chars(max(0, len(proxy_text) - len(text)))
                         if cache:
                             cache.set_page(url, proxy_text)
                         return proxy_text
@@ -367,6 +372,7 @@ async def _fetch_page(url: str) -> str:
                 proxy_text = proxy_text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
             if cache:
                 cache.set_page(url, proxy_text)
+            record_fetched_chars(len(proxy_text))
             return proxy_text
         failure_reasons.append("proxy_unusable_content")
     except Exception as exc:
@@ -378,6 +384,7 @@ async def _fetch_page(url: str) -> str:
     if fallback_text:
         if cache:
             cache.set_page(url, fallback_text)
+        record_fetched_chars(len(fallback_text))
         return fallback_text
 
     return f"[Failed to fetch {url}: {' | '.join(failure_reasons[:3])}]"
@@ -673,14 +680,8 @@ async def _searlo_search(
     operation = "Searlo image search" if images else "Searlo search"
     if run_budget:
         run_budget.require_call_time(2.0, operation=operation)
-    try:
-        from pipeline_client.agent.cost import _cost_ctx
-
-        acc = _cost_ctx.get()
-        if acc is not None:
-            acc["searlo_calls"] = acc.get("searlo_calls", 0) + 1
-    except Exception:
-        pass
+    if not reserve_search_call("searlo"):
+        return [{"error": "Run search budget reached; finish from cached evidence."}]
 
     timeout = run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation=operation) if run_budget else 10.0
     endpoint = "images" if images else "web"
@@ -760,14 +761,8 @@ async def _serper_search(
     for attempt in range(max(1, max_attempts)):
         if run_budget:
             run_budget.require_call_time(2.0, operation="Serper search")
-        try:
-            from pipeline_client.agent.cost import _cost_ctx
-
-            acc = _cost_ctx.get()
-            if acc is not None:
-                acc["serper_calls"] = acc.get("serper_calls", 0) + 1
-        except Exception:
-            pass
+        if not reserve_search_call("serper"):
+            return [{"error": "Run search budget reached; finish from cached evidence."}]
 
         request_timeout = (
             run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation="Serper search") if run_budget else 10.0
@@ -883,14 +878,8 @@ async def _serper_image_search(
     for attempt in range(max(1, max_attempts)):
         if run_budget:
             run_budget.require_call_time(2.0, operation="Serper image search")
-        try:
-            from pipeline_client.agent.cost import _cost_ctx
-
-            acc = _cost_ctx.get()
-            if acc is not None:
-                acc["serper_calls"] = acc.get("serper_calls", 0) + 1
-        except Exception:
-            pass
+        if not reserve_search_call("serper"):
+            return [{"error": "Run search budget reached; finish from cached evidence."}]
 
         request_timeout = (
             run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation="Serper image search") if run_budget else 10.0

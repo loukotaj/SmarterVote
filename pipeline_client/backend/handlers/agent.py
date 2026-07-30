@@ -603,6 +603,11 @@ class AgentHandler:
                         "priced_calls": cost_snapshot.get("priced_calls", 0),
                         "unpriced_calls": cost_snapshot.get("unpriced_calls", 0),
                         "serper_calls": cost_snapshot.get("serper_calls", 0),
+                        "searlo_calls": cost_snapshot.get("searlo_calls", 0),
+                        "search_budget_blocked": cost_snapshot.get("search_budget_blocked", 0),
+                        "token_budget_nudges": cost_snapshot.get("token_budget_nudges", 0),
+                        "duration_s": float((options.get("prior_agent_metrics") or {}).get("duration_s", 0.0) or 0.0)
+                        + (time.perf_counter() - t0),
                         "context_requests": cost_snapshot.get("context_requests", 0),
                         "max_estimated_context_tokens": cost_snapshot.get("max_estimated_context_tokens", 0),
                         "max_context_window_tokens": cost_snapshot.get("max_context_window_tokens", 0),
@@ -614,6 +619,10 @@ class AgentHandler:
                         "retry_provider_failures": cost_snapshot.get("retry_provider_failures", 0),
                         "retry_deadline_exits": cost_snapshot.get("retry_deadline_exits", 0),
                         "model_breakdown": cost_snapshot.get("model_breakdown", {}),
+                        "phase_breakdown": cost_snapshot.get("phase_breakdown", {}),
+                        "page_fetches": cost_snapshot.get("page_fetches", 0),
+                        "fetched_chars": cost_snapshot.get("fetched_chars", 0),
+                        "page_budget_blocked": cost_snapshot.get("page_budget_blocked", 0),
                     }
                 db.collection("pipeline_queue").document(item_id).set(
                     {
@@ -637,7 +646,7 @@ class AgentHandler:
 
             # Keep one logical run active across physical function invocations.
             if _fs_logger:
-                _fs_logger.mark_handoff(item_id)
+                _fs_logger.mark_handoff(item_id, duration_ms=int((time.perf_counter() - t0) * 1000))
 
             raise HandoffTriggered(item_id, remaining, continuation_run_id)
 

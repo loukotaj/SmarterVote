@@ -1028,6 +1028,18 @@ def _make_editing_handlers(
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "model": str(args.get("model") or ""),
             "source_urls": [str(url) for url in args.get("source_urls") or [] if str(url).strip()],
+            "evidence_lineage": [
+                {
+                    "claim": str(item.get("claim") or "").strip(),
+                    "source_url": str(item.get("source_url") or "").strip(),
+                    "kind": str(item.get("kind") or "other"),
+                    "inferred": bool(item.get("inferred", False)),
+                }
+                for item in args.get("evidence_lineage") or []
+                if isinstance(item, dict)
+                and str(item.get("claim") or "").strip()
+                and str(item.get("source_url") or "").strip()
+            ],
         }
         race_json["forecast"] = forecast
         log("info", f"    race.forecast updated ({rating})")

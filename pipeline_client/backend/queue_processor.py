@@ -392,6 +392,10 @@ async def process_claimed_item(
                 "cost_source": "provider" if has_exact_cost else "estimated",
                 "estimated_usd": estimated_usd + search_cost_usd,
                 "model_breakdown": breakdown,
+                "phase_breakdown": acc.get("phase_breakdown", {}),
+                "page_fetches": int(acc.get("page_fetches", 0) or 0),
+                "fetched_chars": int(acc.get("fetched_chars", 0) or 0),
+                "page_budget_blocked": int(acc.get("page_budget_blocked", 0) or 0),
                 "duration_s": round(_time.perf_counter() - started_at, 1),
                 "serper_calls": int(acc.get("serper_calls", 0) or 0),
             }

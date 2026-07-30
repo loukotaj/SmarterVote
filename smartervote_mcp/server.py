@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import asyncio
 import os
+import re
 from typing import Any, Dict, List, Literal, Tuple
+from urllib.parse import unquote
 
 from mcp.server.fastmcp import FastMCP
 
@@ -61,6 +64,263 @@ async def get_published_race(race_id: str) -> Dict[str, Any]:
 async def list_admin_races() -> Dict[str, Any]:
     """List admin race records, including status and storage metadata."""
     return await _client().get("/api/races")
+
+
+def _missing_image_count(race: Dict[str, Any]) -> int:
+    candidates = race.get("candidates") if isinstance(race.get("candidates"), list) else []
+    return sum(
+        1
+        for candidate in candidates
+        if isinstance(candidate, dict)
+        and (not candidate.get("image_url") or "submitphoto-150px" in str(candidate.get("image_url") or "").lower())
+    )
+
+
+def _catalog_research_tier(race: Dict[str, Any]) -> str:
+    health = race.get("catalog_health")
+    if isinstance(health, dict) and health.get("research_tier"):
+        return str(health["research_tier"])
+    grade = str(race.get("quality_grade") or "").upper()
+    if grade in {"A", "B"}:
+        return "validated"
+    if grade in {"C", "D", "F"}:
+        return "graded_low"
+    return "discovery_only"
+
+
+async def _optional_api_get(path: str, *, params: Dict[str, Any]) -> Dict[str, Any]:
+    """Return an optional analytics payload without making catalog scans brittle."""
+    try:
+        response = await _client().get(path, params=params)
+        return response if isinstance(response, dict) else {}
+    except Exception:
+        return {}
+
+
+def _race_pageviews(traffic: Dict[str, Any]) -> Dict[str, int]:
+    totals: Dict[str, int] = {}
+    for page in traffic.get("top_pages", []):
+        if not isinstance(page, dict):
+            continue
+        match = re.match(r"^/races/([^/?#]+)", str(page.get("name") or ""))
+        if not match:
+            continue
+        race_id = unquote(match.group(1))
+        try:
+            pageviews = max(0, int(page.get("pageviews") or 0))
+        except (TypeError, ValueError):
+            pageviews = 0
+        totals[race_id] = totals.get(race_id, 0) + pageviews
+    return totals
+
+
+@mcp.tool(structured_output=False)
+async def scan_catalog(
+    state: str | None = None,
+    office: str | None = None,
+    publication: Literal["all", "published", "unpublished"] = "all",
+    research_tier: Literal[
+        "all",
+        "validated",
+        "graded_low",
+        "discovery_only",
+        "partial_research",
+        "full_unreviewed",
+        "empty",
+    ] = "all",
+    missing_images_only: bool = False,
+    competitive_only: bool = False,
+    traffic_hours: int = 720,
+    limit: int = 50,
+    offset: int = 0,
+) -> Dict[str, Any]:
+    """Return a compact, ranked catalog-health scan without full RaceJSON payloads.
+
+    This is the preferred inventory tool for deciding which races merit repair.
+    It derives explicit research tiers, image gaps, competitiveness, freshness,
+    and a deterministic priority score from the admin catalog.
+    """
+    traffic_hours = max(1, min(traffic_hours, 720))
+    response, traffic, api_analytics = await asyncio.gather(
+        list_admin_races(),
+        _optional_api_get("/analytics/traffic", params={"hours": traffic_hours}),
+        _optional_api_get("/analytics/races", params={"hours": traffic_hours}),
+    )
+    races = response.get("races", []) if isinstance(response, dict) else []
+    pageviews_by_race = _race_pageviews(traffic)
+    requests_by_race = {
+        str(item.get("race_id")): int(item.get("requests_24h") or 0)
+        for item in api_analytics.get("races", [])
+        if isinstance(item, dict) and item.get("race_id")
+    }
+    rows: List[Dict[str, Any]] = []
+    competitive_ratings = {"tossup", "tilt_d", "tilt_r", "lean_d", "lean_r"}
+    state_query = str(state or "").strip().lower()
+    office_query = str(office or "").strip().lower()
+
+    for race in races:
+        if not isinstance(race, dict):
+            continue
+        published = bool(race.get("published_exists"))
+        tier = _catalog_research_tier(race)
+        health = race.get("catalog_health") if isinstance(race.get("catalog_health"), dict) else {}
+        candidates = race.get("candidates") if isinstance(race.get("candidates"), list) else []
+        candidate_count = int(health.get("candidate_count") or race.get("candidate_count") or len(candidates))
+        missing_images = int(
+            health.get("missing_image_count") if health.get("missing_image_count") is not None else _missing_image_count(race)
+        )
+        forecast = race.get("forecast") if isinstance(race.get("forecast"), dict) else {}
+        rating = str(forecast.get("rating") or "").lower()
+        competitive = rating in competitive_ratings
+        state_haystack = " ".join(
+            [
+                str(race.get("state") or ""),
+                str(race.get("jurisdiction") or ""),
+                str(race.get("race_id") or race.get("id") or ""),
+            ]
+        ).lower()
+        office_haystack = " ".join(
+            [
+                str(race.get("office") or ""),
+                str(race.get("title") or ""),
+                str(race.get("race_id") or race.get("id") or ""),
+            ]
+        ).lower()
+
+        if state_query and state_query not in state_haystack:
+            continue
+        if office_query and office_query not in office_haystack:
+            continue
+        if publication == "published" and not published:
+            continue
+        if publication == "unpublished" and published:
+            continue
+        if research_tier != "all" and tier != research_tier:
+            continue
+        if missing_images_only and missing_images == 0:
+            continue
+        if competitive_only and not competitive:
+            continue
+
+        priority_score = 0
+        reasons: List[str] = []
+        if tier == "discovery_only":
+            priority_score += 4
+            reasons.append("discovery_only")
+        elif tier == "partial_research":
+            priority_score += 5
+            reasons.append("partial_research")
+        elif tier == "full_unreviewed":
+            priority_score += 3
+            reasons.append("needs_review")
+        elif tier == "empty":
+            priority_score += 6
+            reasons.append("missing_roster")
+        elif tier == "graded_low":
+            priority_score += 3
+            reasons.append("low_grade")
+        if competitive:
+            priority_score += 3
+            reasons.append("competitive")
+        if missing_images:
+            priority_score += min(3, missing_images)
+            reasons.append("missing_images")
+        if not forecast:
+            priority_score += 3
+            reasons.append("missing_forecast")
+        freshness = str(race.get("freshness") or "").lower()
+        if freshness == "old":
+            priority_score += 3
+            reasons.append("old")
+        elif freshness == "stale":
+            priority_score += 2
+            reasons.append("stale")
+        asset_audit = race.get("asset_audit") if isinstance(race.get("asset_audit"), dict) else {}
+        if int(asset_audit.get("broken_count") or 0):
+            priority_score += min(3, int(asset_audit["broken_count"]))
+            reasons.append("broken_assets")
+        if int(asset_audit.get("invalid_image_count") or 0) or int(asset_audit.get("suspicious_image_count") or 0):
+            priority_score += 2
+            reasons.append("image_quality")
+
+        race_id = str(race.get("race_id") or race.get("id") or "")
+        pageviews = pageviews_by_race.get(race_id, 0)
+        api_requests = requests_by_race.get(race_id, 0)
+        demand = max(pageviews, api_requests)
+        if demand >= 1000:
+            priority_score += 5
+        elif demand >= 100:
+            priority_score += 4
+        elif demand >= 10:
+            priority_score += 3
+        elif demand:
+            priority_score += 2
+        if demand:
+            reasons.append("user_demand")
+
+        rows.append(
+            {
+                "race_id": race_id,
+                "title": race.get("title"),
+                "state": race.get("state"),
+                "office": race.get("office"),
+                "status": race.get("status"),
+                "published": published,
+                "research_tier": tier,
+                "quality_grade": race.get("quality_grade"),
+                "catalog_health": health or None,
+                "freshness": race.get("freshness"),
+                "candidate_count": candidate_count,
+                "missing_image_count": missing_images,
+                "asset_audited_at": race.get("asset_audited_at"),
+                "broken_asset_count": asset_audit.get("broken_count"),
+                "invalid_image_count": asset_audit.get("invalid_image_count"),
+                "suspicious_image_count": asset_audit.get("suspicious_image_count"),
+                "forecast_rating": rating or None,
+                "competitive": competitive,
+                "pageviews": pageviews,
+                "api_requests": api_requests,
+                "traffic_hours": traffic_hours,
+                "updated_utc": race.get("updated_utc"),
+                "last_run_status": race.get("last_run_status"),
+                "has_unpublished_changes": bool(race.get("has_unpublished_changes")),
+                "estimated_previous_run_usd": (race.get("agent_metrics") or {}).get("estimated_usd"),
+                "priority_score": priority_score,
+                "priority_reasons": reasons,
+            }
+        )
+
+    rows.sort(
+        key=lambda row: (
+            -int(row["priority_score"]),
+            -int(row["pageviews"]),
+            -int(row["api_requests"]),
+            str(row["race_id"] or ""),
+        )
+    )
+    offset = max(0, offset)
+    limit = max(1, min(limit, 200))
+    page = rows[offset : offset + limit]
+    return {
+        "rows": page,
+        "matched": len(rows),
+        "offset": offset,
+        "limit": limit,
+        "has_more": offset + len(page) < len(rows),
+        "summary": {
+            "validated": sum(row["research_tier"] == "validated" for row in rows),
+            "graded_low": sum(row["research_tier"] == "graded_low" for row in rows),
+            "discovery_only": sum(row["research_tier"] == "discovery_only" for row in rows),
+            "partial_research": sum(row["research_tier"] == "partial_research" for row in rows),
+            "full_unreviewed": sum(row["research_tier"] == "full_unreviewed" for row in rows),
+            "empty": sum(row["research_tier"] == "empty" for row in rows),
+            "competitive": sum(bool(row["competitive"]) for row in rows),
+            "with_missing_images": sum(int(row["missing_image_count"]) > 0 for row in rows),
+            "traffic_hours": traffic_hours,
+            "traffic_configured": bool(traffic.get("configured")),
+            "traffic_error": traffic.get("error"),
+        },
+    }
 
 
 @mcp.tool(structured_output=False)
@@ -163,6 +423,112 @@ async def audit_draft_vs_published(race_ids: List[str]) -> Dict[str, Any]:
 
 
 @mcp.tool(structured_output=False)
+async def plan_repairs(race_ids: List[str]) -> Dict[str, Any]:
+    """Return deterministic repair groups and cost ceilings without queueing work.
+
+    Queue each repair_groups item independently. The combined recommended_steps
+    and candidate_names fields are summaries and are not a safe queue payload.
+    """
+    return await _client().post("/api/races/repair-plan", json={"race_ids": race_ids})
+
+
+@mcp.tool(structured_output=False)
+async def audit_race_assets(
+    race_ids: List[str],
+    persist: bool = False,
+    max_urls_per_race: int = 100,
+) -> Dict[str, Any]:
+    """Probe source/photo reachability and image content types for selected races."""
+    return await _client().post(
+        "/api/races/asset-audit",
+        json={
+            "race_ids": race_ids,
+            "persist": persist,
+            "max_urls_per_race": max_urls_per_race,
+        },
+    )
+
+
+def _contains_placeholder(value: Any) -> bool:
+    if isinstance(value, str):
+        return value.strip().upper() in {"DRAFT", "TODO", "TBD", "PLACEHOLDER"}
+    if isinstance(value, list):
+        return any(_contains_placeholder(item) for item in value)
+    if isinstance(value, dict):
+        return any(_contains_placeholder(item) for item in value.values())
+    return False
+
+
+@mcp.tool(structured_output=False)
+async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
+    """Build a conservative batch publish plan without changing production data.
+
+    Checks draft presence, candidate roster, explicit validation pass, run health,
+    pipeline completion, literal placeholder content, and draft-vs-published roster
+    changes. A race is ``ready`` only when it has no blockers. Warnings still require
+    human review but do not claim the API would reject publication.
+    """
+    client = _client()
+    rows: List[Dict[str, Any]] = []
+    for race_id in race_ids:
+        try:
+            draft = await client.get(f"/api/races/{race_id}/data", params={"draft": True})
+        except Exception:
+            draft = None
+        try:
+            published = await client.get(f"/races/{race_id}")
+        except Exception:
+            published = None
+
+        blockers: List[str] = []
+        warnings: List[str] = []
+        names = _candidate_names(draft)
+        if not isinstance(draft, dict):
+            blockers.append("draft_missing")
+        else:
+            if not names:
+                blockers.append("candidate_roster_empty")
+            validation = draft.get("validation_grade") if isinstance(draft.get("validation_grade"), dict) else {}
+            if validation.get("passed") is not True:
+                blockers.append("validation_not_passed")
+            health = draft.get("run_health") if isinstance(draft.get("run_health"), dict) else {}
+            verdict = str(health.get("status") or health.get("verdict") or "unknown")
+            if verdict == "failed":
+                blockers.append("run_health_failed")
+            elif verdict in {"degraded", "unknown"}:
+                warnings.append(f"run_health_{verdict}")
+            pipeline_state = draft.get("pipeline_state") if isinstance(draft.get("pipeline_state"), dict) else {}
+            if not pipeline_state.get("complete"):
+                warnings.append("pipeline_not_complete")
+            if _contains_placeholder(draft):
+                blockers.append("literal_placeholder_content")
+
+        published_names = _candidate_names(published)
+        if published is None:
+            warnings.append("first_publication")
+        elif sorted(names) != sorted(published_names):
+            warnings.append("candidate_roster_changes")
+        rows.append(
+            {
+                "race_id": race_id,
+                "ready": not blockers,
+                "blockers": blockers,
+                "warnings": warnings,
+                "draft_candidates": names,
+                "published_candidates": published_names,
+                "published_exists": published is not None,
+            }
+        )
+    return {
+        "rows": rows,
+        "ready_race_ids": [row["race_id"] for row in rows if row["ready"]],
+        "blocked_race_ids": [row["race_id"] for row in rows if not row["ready"]],
+        "all_ready": all(row["ready"] for row in rows),
+        "race_count": len(rows),
+    }
+
+
+@mcp.tool(structured_output=False)
 async def queue_races(
     race_ids: List[str],
     cheap_mode: bool | None = True,
@@ -180,6 +546,7 @@ async def queue_races(
     max_candidates: int | None = None,
     candidate_names: List[str] | None = None,
     target_no_info: bool | None = None,
+    debug_mode: bool | None = None,
     note: str | None = None,
     goal: str | None = None,
     runner: str | None = "local",
@@ -211,6 +578,7 @@ async def queue_races(
         max_candidates=max_candidates,
         candidate_names=candidate_names,
         target_no_info=target_no_info,
+        debug_mode=debug_mode,
         note=note,
         goal=goal,
         runner=runner,
@@ -225,6 +593,7 @@ async def run_race(
     force_fresh: bool | None = None,
     baseline_source: Literal["latest", "published"] | None = None,
     enabled_steps: List[str] | None = None,
+    debug_mode: bool | None = None,
     note: str | None = None,
     goal: str | None = None,
     runner: str | None = "local",
@@ -243,6 +612,7 @@ async def run_race(
         force_fresh=force_fresh,
         baseline_source=baseline_source,
         enabled_steps=enabled_steps,
+        debug_mode=debug_mode,
         note=note,
         goal=goal,
         runner=runner,
@@ -252,14 +622,33 @@ async def run_race(
 
 @mcp.tool(structured_output=False)
 async def publish_race(race_id: str) -> Dict[str, Any]:
-    """Publish a draft race."""
-    return await _client().post(f"/api/races/{race_id}/publish")
+    """Publish one draft only after the conservative readiness check passes."""
+    readiness = await assess_publish_readiness([race_id])
+    if not readiness.get("all_ready"):
+        return {
+            "published": [],
+            "errors": [{"race_id": race_id, "error": "Publish-readiness blockers remain"}],
+            "readiness": readiness,
+        }
+    result = await _client().post(f"/api/races/{race_id}/publish")
+    return {**result, "readiness": readiness}
 
 
 @mcp.tool(structured_output=False)
 async def publish_races(race_ids: List[str]) -> Dict[str, Any]:
-    """Publish multiple draft races in bulk."""
-    return await _client().post("/api/races/publish", json={"race_ids": race_ids})
+    """Publish a batch only when every requested draft passes readiness checks."""
+    readiness = await assess_publish_readiness(race_ids)
+    if not readiness.get("all_ready"):
+        return {
+            "published": [],
+            "errors": [
+                {"race_id": race_id, "error": "Publish-readiness blockers remain"}
+                for race_id in readiness.get("blocked_race_ids") or []
+            ],
+            "readiness": readiness,
+        }
+    result = await _client().post("/api/races/publish", json={"race_ids": race_ids})
+    return {**result, "readiness": readiness}
 
 
 @mcp.tool(structured_output=False)
@@ -370,7 +759,7 @@ def _normalize_state(query: str) -> Tuple[str, str]:
 
 
 @mcp.tool(structured_output=False)
-async def list_races_by_state(state: str) -> List[Dict[str, Any]]:
+async def list_races_by_state(state: str, office: str | None = None) -> List[Dict[str, Any]]:
     """List admin races that belong to a given US state.
 
     Accepts state abbreviation (e.g. 'ND') or full name (e.g. 'North Dakota').
@@ -384,7 +773,17 @@ async def list_races_by_state(state: str) -> List[Dict[str, Any]]:
         race_id = str(race.get("race_id") or race.get("id") or "")
         race_state = str(race.get("state") or "")
         jurisdiction = str(race.get("jurisdiction") or "")
-        if race_id.startswith(prefix) or race_state.upper() == abbr or full_name.lower() in jurisdiction.lower():
+        state_matches = race_id.startswith(prefix) or race_state.upper() == abbr or full_name.lower() in jurisdiction.lower()
+        office_query = str(office or "").strip().lower()
+        office_haystack = " ".join(
+            [
+                race_id,
+                str(race.get("office") or ""),
+                str(race.get("title") or ""),
+                str(race.get("race_type") or ""),
+            ]
+        ).lower()
+        if state_matches and (not office_query or office_query in office_haystack):
             filtered.append(race)
     return filtered
 
@@ -449,9 +848,59 @@ async def get_run(run_id: str) -> Dict[str, Any]:
 
 
 @mcp.tool(structured_output=False)
-async def get_run_logs(run_id: str, since: int = 0) -> Dict[str, Any]:
-    """Fetch run logs, optionally after an existing log count."""
-    return await _client().get(f"/runs/{run_id}/logs", params={"since": since})
+async def get_run_logs(
+    run_id: str,
+    cursor: str | None = None,
+    limit: int = 1000,
+    since: int | None = None,
+) -> Dict[str, Any]:
+    """Fetch a bounded page of logs using the prior response's opaque cursor.
+
+    ``since`` remains available for legacy callers, but cursor polling avoids
+    repeatedly reading and billing the complete Firestore log collection.
+    """
+    params: Dict[str, Any] = {"limit": max(1, min(limit, 5000))}
+    if cursor is not None:
+        params["cursor"] = cursor
+    elif since is not None:
+        params["since"] = max(0, since)
+    return await _client().get(f"/runs/{run_id}/logs", params=params)
+
+
+@mcp.tool(structured_output=False)
+async def get_run_diagnostics(run_id: str) -> Dict[str, Any]:
+    """Return normalized diagnostics and health evidence for one pipeline run."""
+    return await _client().get(f"/runs/{run_id}/diagnostics")
+
+
+@mcp.tool(structured_output=False)
+async def list_race_runs(race_id: str) -> Dict[str, Any]:
+    """List stored run history for one race."""
+    return await _client().get(f"/api/races/{race_id}/runs")
+
+
+@mcp.tool(structured_output=False)
+async def get_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
+    """Return one race-scoped run record."""
+    return await _client().get(f"/api/races/{race_id}/runs/{run_id}")
+
+
+@mcp.tool(structured_output=False)
+async def list_race_versions(race_id: str) -> Dict[str, Any]:
+    """List restorable historical RaceJSON versions for one race."""
+    return await _client().get(f"/api/races/{race_id}/versions")
+
+
+@mcp.tool(structured_output=False)
+async def get_race_version(race_id: str, filename: str) -> Dict[str, Any]:
+    """Read one historical RaceJSON version without restoring it."""
+    return await _client().get(f"/api/races/{race_id}/versions/{filename}")
+
+
+@mcp.tool(structured_output=False)
+async def restore_race_version(race_id: str, filename: str) -> Dict[str, Any]:
+    """Restore one historical version as the current draft. This mutates draft state."""
+    return await _client().post(f"/api/races/{race_id}/versions/{filename}/restore")
 
 
 @mcp.tool(structured_output=False)
@@ -473,14 +922,18 @@ async def get_pipeline_metrics_summary() -> Dict[str, Any]:
 
 
 @mcp.tool(structured_output=False)
+async def get_gcp_pipeline_costs(days: int = 30) -> Dict[str, Any]:
+    """Return infrastructure-side GCP pipeline costs for the requested lookback."""
+    return await _client().get("/pipeline/gcp-costs", params={"days": days})
+
+
+@mcp.tool(structured_output=False)
 async def summarize_run_costs(run_ids: List[str]) -> Dict[str, Any]:
     """Aggregate cost, token, and status data across many pipeline run IDs in one call.
 
-    Fetches each run via get_run (raw Firestore pipeline_runs doc) and normalizes its
-    cost/token/model-breakdown fields, which may live at the top level or nested under
-    payload.agent_metrics depending on how/when the run was recorded. Returns one row per
-    run plus rolled-up status counts, the list of failed/active run IDs, and totals across
-    the whole batch.
+    Prefers normalized provider-backed pipeline metric records, then falls back
+    to raw run fields or nested payload.agent_metrics estimates. Returns one row
+    per run plus rolled-up status counts, failed/active IDs, and batch totals.
 
     Useful for auditing a batch of pipeline runs (e.g. tracking progress and spend across a
     multi-race repair effort) without manually calling get_run once per run and hand-
@@ -493,6 +946,17 @@ async def summarize_run_costs(run_ids: List[str]) -> Dict[str, Any]:
     total_cost = 0.0
     total_prompt_tokens = 0
     total_completion_tokens = 0
+    metric_records: Dict[str, Dict[str, Any]] = {}
+    try:
+        metrics_response = await client.get("/pipeline/metrics", params={"limit": 500})
+        if isinstance(metrics_response, dict):
+            metric_records = {
+                str(record.get("run_id")): record
+                for record in metrics_response.get("records", [])
+                if isinstance(record, dict) and record.get("run_id")
+            }
+    except Exception:
+        metric_records = {}
 
     for run_id in run_ids:
         try:
@@ -505,21 +969,33 @@ async def summarize_run_costs(run_ids: List[str]) -> Dict[str, Any]:
             status_counts["missing"] = status_counts.get("missing", 0) + 1
             continue
 
+        metric = metric_records.get(run_id, {})
         payload = raw.get("payload") if isinstance(raw.get("payload"), dict) else {}
-        agent_metrics = payload.get("agent_metrics") if isinstance(payload.get("agent_metrics"), dict) else {}
+        agent_metrics = raw.get("agent_metrics") if isinstance(raw.get("agent_metrics"), dict) else {}
+        if not agent_metrics and isinstance(payload.get("agent_metrics"), dict):
+            agent_metrics = payload["agent_metrics"]
 
         status = raw.get("status") or "unknown"
-        race_id = raw.get("race_id") or payload.get("race_id") or ""
+        race_id = raw.get("race_id") or payload.get("race_id") or metric.get("race_id") or ""
 
-        model_breakdown = raw.get("model_breakdown")
+        model_breakdown = metric.get("model_breakdown")
+        if not isinstance(model_breakdown, dict):
+            model_breakdown = raw.get("model_breakdown")
         if not isinstance(model_breakdown, dict):
             model_breakdown = agent_metrics.get("model_breakdown")
         if not isinstance(model_breakdown, dict):
             model_breakdown = {}
 
-        cost_raw = raw.get("estimated_usd")
+        exact_cost = metric.get("cost_usd")
+        if exact_cost is None:
+            exact_cost = raw.get("cost_usd")
+        if exact_cost is None:
+            exact_cost = agent_metrics.get("cost_usd")
+        cost_raw = exact_cost
         if cost_raw is None:
-            cost_raw = raw.get("cost_usd")
+            cost_raw = metric.get("estimated_usd")
+        if cost_raw is None:
+            cost_raw = raw.get("estimated_usd")
         if cost_raw is None:
             cost_raw = agent_metrics.get("estimated_usd")
         try:
@@ -527,30 +1003,75 @@ async def summarize_run_costs(run_ids: List[str]) -> Dict[str, Any]:
         except (TypeError, ValueError):
             cost = 0.0
 
-        prompt_tokens = 0
-        completion_tokens = 0
-        for model_stats in model_breakdown.values():
-            if not isinstance(model_stats, dict):
-                continue
-            try:
-                prompt_tokens += int(model_stats.get("prompt_tokens") or 0)
-            except (TypeError, ValueError):
-                pass
-            try:
-                completion_tokens += int(model_stats.get("completion_tokens") or 0)
-            except (TypeError, ValueError):
-                pass
+        prompt_raw = metric.get("prompt_tokens")
+        if prompt_raw is None:
+            prompt_raw = raw.get("prompt_tokens")
+        if prompt_raw is None:
+            prompt_raw = agent_metrics.get("prompt_tokens")
+        completion_raw = metric.get("completion_tokens")
+        if completion_raw is None:
+            completion_raw = raw.get("completion_tokens")
+        if completion_raw is None:
+            completion_raw = agent_metrics.get("completion_tokens")
+        try:
+            prompt_tokens = int(prompt_raw) if prompt_raw is not None else 0
+        except (TypeError, ValueError):
+            prompt_tokens = 0
+        try:
+            completion_tokens = int(completion_raw) if completion_raw is not None else 0
+        except (TypeError, ValueError):
+            completion_tokens = 0
+        if prompt_raw is None or completion_raw is None:
+            model_prompt_tokens = 0
+            model_completion_tokens = 0
+            for model_stats in model_breakdown.values():
+                if not isinstance(model_stats, dict):
+                    continue
+                try:
+                    model_prompt_tokens += int(model_stats.get("prompt_tokens") or 0)
+                except (TypeError, ValueError):
+                    pass
+                try:
+                    model_completion_tokens += int(model_stats.get("completion_tokens") or 0)
+                except (TypeError, ValueError):
+                    pass
+            if prompt_raw is None:
+                prompt_tokens = model_prompt_tokens
+            if completion_raw is None:
+                completion_tokens = model_completion_tokens
+
+        cost_source = metric.get("cost_source") or raw.get("cost_source") or agent_metrics.get("cost_source")
+        if not cost_source:
+            cost_source = "provider" if exact_cost is not None else "estimated"
 
         rows.append(
             {
                 "run_id": run_id,
                 "race_id": race_id,
                 "status": status,
-                "cost": round(cost, 6),
+                "cost": cost,
                 "has_cost": cost > 0,
+                "cost_source": cost_source,
                 "model_breakdown": model_breakdown,
                 "prompt_tokens": prompt_tokens,
                 "completion_tokens": completion_tokens,
+                "duration_s": metric.get("duration_s") or raw.get("duration_s") or agent_metrics.get("duration_s"),
+                "continuation_count": raw.get("continuation_count") or 0,
+                "search_calls": metric.get("search_calls")
+                or raw.get("search_calls")
+                or agent_metrics.get("search_calls")
+                or metric.get("serper_calls")
+                or raw.get("serper_calls")
+                or agent_metrics.get("serper_calls")
+                or 0,
+                "search_budget_blocked": metric.get("search_budget_blocked")
+                or raw.get("search_budget_blocked")
+                or agent_metrics.get("search_budget_blocked")
+                or 0,
+                "token_budget_nudges": metric.get("token_budget_nudges")
+                or raw.get("token_budget_nudges")
+                or agent_metrics.get("token_budget_nudges")
+                or 0,
             }
         )
         status_counts[status] = status_counts.get(status, 0) + 1
@@ -567,7 +1088,7 @@ async def summarize_run_costs(run_ids: List[str]) -> Dict[str, Any]:
         "failed_run_ids": failed_run_ids,
         "active_run_ids": active_run_ids,
         "totals": {
-            "cost": round(total_cost, 6),
+            "cost": total_cost,
             "prompt_tokens": total_prompt_tokens,
             "completion_tokens": total_completion_tokens,
             "run_count": len(run_ids),

@@ -331,6 +331,23 @@ def test_semantic_review_packet_includes_every_modeled_profile_field():
     assert packet["candidates"][0] == candidate
 
 
+def test_pipeline_state_preserves_durable_retry_failure_and_cleanup_fields():
+    from shared.models import PipelineState
+
+    state = PipelineState.model_validate(
+        {
+            "complete": False,
+            "issue_attempts": {"issues:Alice:Economy": 2},
+            "step_failures": [{"step": "forecast", "reason": "step_no_data", "detail": "missing source"}],
+            "deterministic_cleanup": {"text_changes": 1},
+        }
+    ).model_dump(mode="json")
+
+    assert state["issue_attempts"] == {"issues:Alice:Economy": 2}
+    assert state["step_failures"][0]["step"] == "forecast"
+    assert state["deterministic_cleanup"] == {"text_changes": 1}
+
+
 def test_review_change_manifest_reports_changed_paths_without_reducing_packet():
     from pipeline_client.agent.review import build_review_change_manifest
 

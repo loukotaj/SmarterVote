@@ -11,7 +11,14 @@ from typing import Any, Dict, List, Optional
 from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
 from .context import AgentContext, AgentContextBudget
-from .cost import accumulate, record_context_metrics, record_retry_metric
+from .cost import (
+    accumulate,
+    record_context_metrics,
+    record_retry_metric,
+    record_token_budget_nudge,
+    set_current_phase,
+    total_token_budget_reached,
+)
 from .errors import PermanentProviderError, RetryableProviderError
 from .model_registry import (
     CHEAP_CLAUDE_MODEL,
@@ -441,6 +448,7 @@ async def _agent_loop(
     the loop exits when the LLM stops making tool calls.  Returns ``{}``.
     """
     log = make_logger(on_log)
+    set_current_phase(phase_name)
 
     messages: List[Dict[str, Any]] = [
         {"role": "system", "content": system},
@@ -459,8 +467,23 @@ async def _agent_loop(
     _extra_handlers = extra_tool_handlers or {}
     _json_parse_failures = 0
     _MAX_JSON_RETRIES = 3
+    token_budget_nudged = False
 
     for iteration in range(max_iterations):
+        token_budget_reached = total_token_budget_reached()
+        if token_budget_reached and not token_budget_nudged:
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "The logical run token ceiling has been reached. Do not perform more web research. "
+                        "Finalize now from the evidence already collected; do not invent missing facts."
+                    ),
+                }
+            )
+            record_token_budget_nudge()
+            token_budget_nudged = True
+            log("warning", f"  [{phase_name}] token ceiling reached; forcing finalization without search tools")
         active_model = model
         if _json_parse_failures > 0:
             norm_model = normalize_model_id(model)
@@ -476,7 +499,7 @@ async def _agent_loop(
         if tools_mode:
             search_tools = (
                 [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL, IMAGE_SEARCH_TOOL]
-                if allow_search_tools and iteration < nudge_at
+                if allow_search_tools and not token_budget_reached and iteration < nudge_at
                 else []
             )
             tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
@@ -512,7 +535,7 @@ async def _agent_loop(
 
             base_tools = (
                 [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL, IMAGE_SEARCH_TOOL]
-                if allow_search_tools and iteration < nudge_at
+                if allow_search_tools and not token_budget_reached and iteration < nudge_at
                 else []
             )
             tools_for_call = (base_tools + _extra_tools) if (base_tools or _extra_tools) else None
