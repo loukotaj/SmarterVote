@@ -94,36 +94,53 @@ async def list_draft_races() -> Dict[str, Any]:
 
 
 @router.post("/api/races/recheck", dependencies=[Depends(verify_token)])
-async def recheck_all_race_statuses() -> Dict[str, Any]:
-    """Re-derive status for all race records and hydrate missing catalog metadata from storage."""
+async def recheck_all_race_statuses(cursor: str | None = None, limit: int = 50) -> Dict[str, Any]:
+    """Reconcile one bounded catalog page and return an opaque continuation cursor."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("races").limit(1000).stream()
+    docs = db.collection("races").limit(10000).stream()
     races: list[Dict[str, Any]] = []
     updated = 0
-    seen_race_ids: set[str] = set()
+    docs_by_race_id: dict[str, Any] = {}
     for doc in docs:
         race_data = firestore_helpers._doc_to_plain(doc)
         if not race_data:
             continue
-        race_id = race_data.get("race_id") or race_data.get("id") or doc.id
+        race_id = str(race_data.get("race_id") or race_data.get("id") or doc.id)
         if not race_data.get("race_id"):
             race_data["race_id"] = race_id
-        seen_race_ids.add(str(race_id))
-        latest, changed = _recheck_race_status(db, race_id, race_data)
-        if latest:
-            races.append(latest)
-        if changed:
-            updated += 1
+        docs_by_race_id[race_id] = race_data
 
     storage_ids = set(gcs_helpers._gcs_list_race_ids("races") or [])
     storage_ids.update(gcs_helpers._gcs_list_race_ids("drafts") or [])
-    for race_id in sorted(storage_ids - seen_race_ids):
-        update = _backfill_catalog_from_storage(race_id)
-        if update is None:
+    all_race_ids = sorted(set(docs_by_race_id) | {str(race_id) for race_id in storage_ids})
+    if cursor:
+        all_race_ids = [race_id for race_id in all_race_ids if race_id > cursor]
+    limit = max(1, min(int(limit), 200))
+    page_ids = all_race_ids[:limit]
+
+    for race_id in page_ids:
+        race_data = docs_by_race_id.get(race_id)
+        if race_data is not None:
+            latest, changed = _recheck_race_status(db, race_id, race_data)
+            if latest:
+                races.append(latest)
+            updated += int(changed)
             continue
-        races.append({"race_id": race_id, **update})
-        updated += 1
-    return {"message": f"Rechecked {len(races)} races", "checked": len(races), "updated": updated, "races": races}
+        update = _backfill_catalog_from_storage(race_id)
+        if update is not None:
+            races.append({"race_id": race_id, **update})
+            updated += 1
+
+    has_more = len(all_race_ids) > len(page_ids)
+    next_cursor = page_ids[-1] if has_more and page_ids else None
+    return {
+        "message": f"Rechecked {len(races)} races",
+        "checked": len(races),
+        "updated": updated,
+        "races": races,
+        "next_cursor": next_cursor,
+        "has_more": has_more,
+    }
 
 
 @router.post("/api/races/repair-plan", dependencies=[Depends(verify_token)])

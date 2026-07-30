@@ -304,6 +304,39 @@ async def test_audit_race_assets_forwards_persistence_controls(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_recheck_all_races_follows_bounded_cursor_pages(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = type(
+        "Client",
+        (),
+        {
+            "request": AsyncMock(
+                side_effect=[
+                    {"checked": 50, "updated": 10, "has_more": True, "next_cursor": "race-050"},
+                    {"checked": 8, "updated": 2, "has_more": False, "next_cursor": None},
+                ]
+            )
+        },
+    )()
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    result = await server.recheck_all_races()
+
+    assert result == {
+        "message": "Rechecked 58 races across 2 page(s)",
+        "checked": 58,
+        "updated": 12,
+        "page_count": 2,
+    }
+    assert client.request.await_count == 2
+    assert client.request.await_args_list[1].kwargs["params"]["cursor"] == "race-050"
+
+
+@pytest.mark.asyncio
 async def test_assess_publish_readiness_blocks_failed_or_placeholder_drafts(monkeypatch):
     if find_spec("mcp") is None:
         pytest.skip("MCP SDK is optional outside the local MCP environment")

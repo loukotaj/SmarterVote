@@ -179,6 +179,11 @@ uncached page fetches and fetched characters, and persist per-phase
 token/provider/search/page attribution across continuation handoffs. Defaults
 are documented in `.env.example`.
 
+The all-catalog recheck is cursor-paged because a full storage hydration can
+outlive the Cloud Run request deadline. MCP `recheck_all_races` follows all
+bounded pages automatically; direct API callers must continue with
+`next_cursor` while `has_more` is true.
+
 Example targeted update:
 
 ```json
