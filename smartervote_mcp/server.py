@@ -685,8 +685,32 @@ async def recheck_race(race_id: str) -> Dict[str, Any]:
 
 @mcp.tool(structured_output=False)
 async def recheck_all_races() -> Dict[str, Any]:
-    """Reconcile all race statuses from storage and Firestore state."""
-    return await _client().post("/api/races/recheck")
+    """Reconcile all race statuses through bounded cursor pages."""
+    client = _client()
+    cursor: str | None = None
+    checked = 0
+    updated = 0
+    page_count = 0
+    while True:
+        result = await client.request(
+            "POST",
+            "/api/races/recheck",
+            params={"limit": 50, **({"cursor": cursor} if cursor else {})},
+        )
+        page_count += 1
+        checked += int(result.get("checked") or 0)
+        updated += int(result.get("updated") or 0)
+        cursor = result.get("next_cursor")
+        if not result.get("has_more") or not cursor:
+            break
+        if page_count >= 100:
+            raise RuntimeError("Catalog recheck exceeded 100 pages; refusing an unbounded loop.")
+    return {
+        "message": f"Rechecked {checked} races across {page_count} page(s)",
+        "checked": checked,
+        "updated": updated,
+        "page_count": page_count,
+    }
 
 
 _US_STATES: Dict[str, str] = {

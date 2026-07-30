@@ -2414,6 +2414,41 @@ def test_recheck_all_clears_stale_current_run_for_inactive_race():
     mock_update.assert_called_once_with("co-senate-2026", {"current_run_id": None})
 
 
+def test_recheck_all_uses_bounded_cursor_pages():
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    docs = []
+    for race_id in ("race-a", "race-b", "race-c"):
+        doc = _make_existing_doc({"race_id": race_id, "status": "published"})
+        doc.id = race_id
+        docs.append(doc)
+    races_coll = MagicMock()
+    races_coll.limit.return_value.stream.return_value = iter(docs)
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: races_coll if name == "races" else MagicMock()
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_list_race_ids", return_value=[]),
+        patch(
+            "routers.races_admin.records._recheck_race_status",
+            side_effect=lambda _db, race_id, race: (race, race_id == "race-b"),
+        ),
+    ):
+        response = TestClient(app_module.app).post("/api/races/recheck?limit=2")
+
+    assert response.status_code == 200
+    assert response.json()["checked"] == 2
+    assert response.json()["updated"] == 1
+    assert response.json()["has_more"] is True
+    assert response.json()["next_cursor"] == "race-b"
+
+
 def test_recheck_reconciles_empty_race_to_draft_when_draft_exists():
     """Recheck should correct inactive status drift from empty to draft based on storage."""
     os.environ["SKIP_AUTH"] = "true"
