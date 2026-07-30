@@ -1816,6 +1816,14 @@ async def test_asset_probe_blocks_private_targets_and_validates_image_content_ty
     assert result["image_content_type_valid"] is True
     assert result["content_length"] == 1234
 
+    response.status_code = 429
+    response.headers = {"content-type": "text/html"}
+    with patch("routers.races_admin.records._host_resolves_public", AsyncMock(return_value=True)):
+        limited = await _probe_asset(client, "image", "https://example.com/photo.jpg")
+    assert limited["status"] == "rate_limited"
+    assert limited["reachable"] is True
+    assert limited["image_content_type_valid"] is None
+
 
 def test_list_races_exposes_public_and_draft_quality_separately():
     """Admin/MCP records should keep draft and published catalog metadata separate."""

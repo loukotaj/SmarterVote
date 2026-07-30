@@ -692,11 +692,20 @@ async def recheck_all_races() -> Dict[str, Any]:
     updated = 0
     page_count = 0
     while True:
-        result = await client.request(
-            "POST",
-            "/api/races/recheck",
-            params={"limit": 50, **({"cursor": cursor} if cursor else {})},
-        )
+        result = None
+        for attempt in range(3):
+            try:
+                result = await client.request(
+                    "POST",
+                    "/api/races/recheck",
+                    params={"limit": 10, **({"cursor": cursor} if cursor else {})},
+                )
+                break
+            except RuntimeError:
+                if attempt == 2:
+                    raise
+                await asyncio.sleep(3 * (attempt + 1))
+        assert result is not None
         page_count += 1
         checked += int(result.get("checked") or 0)
         updated += int(result.get("updated") or 0)
