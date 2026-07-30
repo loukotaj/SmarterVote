@@ -30,6 +30,12 @@ def issue_stance_is_complete(value: Any) -> bool:
     if not isinstance(value, dict):
         return False
     stance = str(value.get("stance") or "").strip()
+    # A documented no-position result is a terminal research verdict even
+    # though quality scoring correctly treats it as missing substantive policy
+    # information. Continuations must not spend another pass rediscovering the
+    # same absence.
+    if "no public position found" in stance.lower():
+        return True
     return bool(stance) and not _is_missing_stance_text(stance)
 
 

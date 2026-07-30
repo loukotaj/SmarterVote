@@ -1,5 +1,6 @@
 import os
 from importlib.util import find_spec
+from unittest.mock import AsyncMock
 
 import httpx
 import pytest
@@ -24,11 +25,15 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "list_race_summaries",
         "get_published_race",
         "list_admin_races",
+        "scan_catalog",
         "get_race_record",
         "list_draft_races",
         "list_pipeline_steps",
         "get_race_data",
         "audit_draft_vs_published",
+        "plan_repairs",
+        "audit_race_assets",
+        "assess_publish_readiness",
         "queue_races",
         "run_race",
         "publish_race",
@@ -47,9 +52,16 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "list_active_runs",
         "get_run",
         "get_run_logs",
+        "get_run_diagnostics",
+        "list_race_runs",
+        "get_race_run",
+        "list_race_versions",
+        "get_race_version",
+        "restore_race_version",
         "cancel_or_delete_run",
         "get_pipeline_metrics",
         "get_pipeline_metrics_summary",
+        "get_gcp_pipeline_costs",
         "summarize_run_costs",
         "clear_races_api_cache",
         "get_analytics_overview",
@@ -173,6 +185,222 @@ async def test_audit_draft_vs_published_reports_roster_and_grade_diffs(monkeypat
 
 
 @pytest.mark.asyncio
+async def test_scan_catalog_returns_compact_ranked_health_rows(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    monkeypatch.setattr(
+        server,
+        "list_admin_races",
+        AsyncMock(
+            return_value={
+                "races": [
+                    {
+                        "race_id": "ca-house-05-2026",
+                        "state": "California",
+                        "office": "U.S. House",
+                        "published_exists": True,
+                        "quality_grade": None,
+                        "freshness": "stale",
+                        "candidates": [{"name": "One", "image_url": None}, {"name": "Two", "image_url": "https://ok"}],
+                        "forecast": {"rating": "lean_r"},
+                    },
+                    {
+                        "race_id": "ca-house-06-2026",
+                        "state": "California",
+                        "office": "U.S. House",
+                        "published_exists": True,
+                        "quality_grade": "A",
+                        "freshness": "recent",
+                        "candidates": [{"name": "Three", "image_url": "https://ok"}],
+                        "forecast": {"rating": "safe_d"},
+                    },
+                ]
+            }
+        ),
+    )
+    monkeypatch.setattr(
+        server,
+        "_client",
+        lambda: _StubRacesClient(
+            {
+                "/analytics/traffic": {
+                    "configured": True,
+                    "top_pages": [
+                        {"name": "/races/ca-house-05-2026", "pageviews": 1000},
+                        {"name": "/races/ca-house-05-2026/candidates/one", "pageviews": 240},
+                    ],
+                },
+                "/analytics/races": {
+                    "races": [{"race_id": "ca-house-05-2026", "requests_24h": 17}],
+                },
+            }
+        ),
+    )
+
+    result = await server.scan_catalog(
+        state="California",
+        office="House",
+        publication="published",
+        research_tier="discovery_only",
+        missing_images_only=True,
+        competitive_only=True,
+    )
+
+    assert result["matched"] == 1
+    assert result["has_more"] is False
+    assert result["rows"][0]["race_id"] == "ca-house-05-2026"
+    assert result["rows"][0]["research_tier"] == "discovery_only"
+    assert result["rows"][0]["missing_image_count"] == 1
+    assert result["rows"][0]["pageviews"] == 1240
+    assert result["rows"][0]["api_requests"] == 17
+    assert result["rows"][0]["priority_reasons"] == [
+        "discovery_only",
+        "competitive",
+        "missing_images",
+        "stale",
+        "user_demand",
+    ]
+    assert result["summary"]["traffic_configured"] is True
+
+
+@pytest.mark.asyncio
+async def test_plan_repairs_forwards_bounded_read_only_request(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = type("Client", (), {"post": AsyncMock(return_value={"plans": []})})()
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    result = await server.plan_repairs(["ca-house-05-2026"])
+
+    assert result == {"plans": []}
+    client.post.assert_awaited_once_with(
+        "/api/races/repair-plan",
+        json={"race_ids": ["ca-house-05-2026"]},
+    )
+
+
+@pytest.mark.asyncio
+async def test_audit_race_assets_forwards_persistence_controls(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = type("Client", (), {"post": AsyncMock(return_value={"results": []})})()
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    await server.audit_race_assets(["ca-house-05-2026"], persist=True, max_urls_per_race=25)
+
+    client.post.assert_awaited_once_with(
+        "/api/races/asset-audit",
+        json={"race_ids": ["ca-house-05-2026"], "persist": True, "max_urls_per_race": 25},
+    )
+
+
+@pytest.mark.asyncio
+async def test_assess_publish_readiness_blocks_failed_or_placeholder_drafts(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/ca-house-01-2026/data": {
+            "candidates": [{"name": "Ready Candidate"}],
+            "validation_grade": {"passed": True},
+            "run_health": {"status": "healthy"},
+            "pipeline_state": {"complete": True},
+        },
+        "/races/ca-house-01-2026": {"candidates": [{"name": "Old Candidate"}]},
+        "/api/races/ca-house-02-2026/data": {
+            "candidates": [{"name": "DRAFT"}],
+            "validation_grade": {"passed": False},
+            "run_health": {"verdict": "failed"},
+            "pipeline_state": {"complete": False},
+        },
+        "/races/ca-house-02-2026": RuntimeError("not published"),
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.assess_publish_readiness(["ca-house-01-2026", "ca-house-02-2026"])
+
+    assert result["ready_race_ids"] == ["ca-house-01-2026"]
+    assert result["blocked_race_ids"] == ["ca-house-02-2026"]
+    assert result["rows"][0]["warnings"] == ["candidate_roster_changes"]
+    assert set(result["rows"][1]["blockers"]) == {
+        "validation_not_passed",
+        "run_health_failed",
+        "literal_placeholder_content",
+    }
+
+
+@pytest.mark.asyncio
+async def test_publish_races_never_posts_when_readiness_is_blocked(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = type("Client", (), {"post": AsyncMock()})()
+    monkeypatch.setattr(server, "_client", lambda: client)
+    monkeypatch.setattr(
+        server,
+        "assess_publish_readiness",
+        AsyncMock(
+            return_value={
+                "all_ready": False,
+                "blocked_race_ids": ["ca-house-02-2026"],
+                "ready_race_ids": ["ca-house-01-2026"],
+            }
+        ),
+    )
+
+    result = await server.publish_races(["ca-house-01-2026", "ca-house-02-2026"])
+
+    assert result["published"] == []
+    client.post.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_queue_races_and_run_race_forward_debug_mode(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = type("Client", (), {"post": AsyncMock(return_value={"added": []})})()
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    await server.queue_races(["ca-house-05-2026"], debug_mode=True)
+    await server.run_race("ca-house-05-2026", debug_mode=True)
+
+    first_call, second_call = client.post.await_args_list
+    assert first_call.kwargs["json"]["options"]["debug_mode"] is True
+    assert second_call.kwargs["json"]["debug_mode"] is True
+
+
+@pytest.mark.asyncio
+async def test_get_run_logs_forwards_opaque_cursor(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = type("Client", (), {"get": AsyncMock(return_value={"logs": [], "next_cursor": "002"})})()
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    await server.get_run_logs("run-1", cursor="001", limit=25)
+
+    client.get.assert_awaited_once_with("/runs/run-1/logs", params={"cursor": "001", "limit": 25})
+
+
+@pytest.mark.asyncio
 async def test_summarize_run_costs_normalizes_nested_and_top_level_fields(monkeypatch):
     if find_spec("mcp") is None:
         pytest.skip("MCP SDK is optional outside the local MCP environment")
@@ -185,6 +413,8 @@ async def test_summarize_run_costs_normalizes_nested_and_top_level_fields(monkey
             "race_id": "ar-governor-2026",
             "status": "completed",
             "estimated_usd": 3.6,
+            "prompt_tokens": 111,
+            "completion_tokens": 11,
             "model_breakdown": {
                 "google/gemini-2.5-flash": {"prompt_tokens": 100, "completion_tokens": 10},
             },
@@ -212,8 +442,8 @@ async def test_summarize_run_costs_normalizes_nested_and_top_level_fields(monkey
     assert result["active_run_ids"] == []
     assert result["totals"] == {
         "cost": 3.6,
-        "prompt_tokens": 300,
-        "completion_tokens": 30,
+        "prompt_tokens": 311,
+        "completion_tokens": 31,
         "run_count": 3,
     }
 
@@ -225,6 +455,44 @@ async def test_summarize_run_costs_normalizes_nested_and_top_level_fields(monkey
     assert nested_row["cost"] == 0.0
     assert nested_row["prompt_tokens"] == 200
     assert missing_row == {"run_id": "run-missing", "status": "missing"}
+
+
+@pytest.mark.asyncio
+async def test_summarize_run_costs_prefers_exact_metrics_record(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/pipeline/metrics": {
+            "records": [
+                {
+                    "run_id": "run-1",
+                    "race_id": "ca-house-05-2026",
+                    "cost_usd": 0.6037413091999998,
+                    "estimated_usd": 0.595471,
+                    "cost_source": "provider",
+                    "prompt_tokens": 2813117,
+                    "completion_tokens": 303664,
+                    "model_breakdown": {},
+                }
+            ]
+        },
+        "/runs/run-1": {
+            "run_id": "run-1",
+            "race_id": "ca-house-05-2026",
+            "status": "completed",
+        },
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.summarize_run_costs(["run-1"])
+
+    assert result["rows"][0]["cost"] == 0.6037413091999998
+    assert result["rows"][0]["cost_source"] == "provider"
+    assert result["rows"][0]["prompt_tokens"] == 2813117
+    assert result["totals"]["cost"] == 0.6037413091999998
 
 
 def test_compact_options_keeps_false_and_drops_none():

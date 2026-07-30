@@ -108,6 +108,7 @@ def _catalog_update_from_storage(race_id: str) -> Dict[str, Any] | None:
                 "published_updated_utc": None,
                 "published_candidate_count": None,
                 "published_quality_grade": None,
+                "published_catalog_health": None,
             }
         )
 
@@ -120,6 +121,7 @@ def _catalog_update_from_storage(race_id: str) -> Dict[str, Any] | None:
                 "draft_updated_utc": None,
                 "draft_candidate_count": None,
                 "draft_quality_grade": None,
+                "draft_catalog_health": None,
             }
         )
 
@@ -347,12 +349,14 @@ def _apply_catalog_view(race: Dict[str, Any]) -> Dict[str, Any]:
 
     if published_exists:
         race["quality_grade"] = race.get("published_quality_grade")
+        race["catalog_health"] = race.get("published_catalog_health") or race.get("catalog_health")
         if race.get("published_candidate_count") is not None:
             race["candidate_count"] = race.get("published_candidate_count")
         if published_updated:
             race["public_updated_utc"] = published_updated
     elif draft_exists:
         race["quality_grade"] = race.get("draft_quality_grade")
+        race["catalog_health"] = race.get("draft_catalog_health") or race.get("catalog_health")
         if race.get("draft_candidate_count") is not None:
             race["candidate_count"] = race.get("draft_candidate_count")
 

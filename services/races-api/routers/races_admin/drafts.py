@@ -45,6 +45,7 @@ async def delete_draft_race(race_id: str) -> Dict[str, Any]:
         "draft_updated_utc": None,
         "draft_candidate_count": None,
         "draft_quality_grade": None,
+        "draft_catalog_health": None,
     }
     if has_published:
         published_data = gcs_helpers._gcs_get_race_json(race_id, "races")
@@ -72,6 +73,7 @@ async def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
             "draft_updated_utc": None,
             "draft_candidate_count": None,
             "draft_quality_grade": None,
+            "draft_catalog_health": None,
         },
     )
     _clear_public_race_cache(request)
@@ -93,6 +95,7 @@ async def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
         "published_updated_utc": None,
         "published_candidate_count": None,
         "published_quality_grade": None,
+        "published_catalog_health": None,
         "draft_updated_at": datetime.now(timezone.utc).isoformat() if has_draft else None,
     }
     if has_draft:
@@ -128,6 +131,7 @@ async def batch_publish_races(request: Request, payload: BatchPublishRequest) ->
                     "draft_updated_utc": None,
                     "draft_candidate_count": None,
                     "draft_quality_grade": None,
+                    "draft_catalog_health": None,
                 },
             )
             published.append(race_id)

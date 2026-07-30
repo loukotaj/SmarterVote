@@ -147,13 +147,37 @@ changes baseline loading but does not silently change an explicit step list.
 
 Common tools:
 
+- `scan_catalog`: compact prioritized inventory with research tiers, coverage,
+  traffic, freshness, and persisted asset-audit findings
+- `plan_repairs`: non-mutating, independently queueable race/candidate repair
+  groups with calibrated-or-static cost and search ceilings
+- `audit_race_assets`: bounded source/photo URL and image-quality checks;
+  `persist=true` stores the evidence on the catalog record
 - `queue_races`: one or more races with full options
 - `run_race`: one race
 - `list_active_runs`, `get_queue`: queue/worker state
 - `get_run`, `get_run_logs`: status and cursor-based logs
 - `get_race_data(draft=true)`: inspect output
 - `publish_race`, `publish_races`: publish only after approval
+- `get_run_diagnostics`, `summarize_run_costs`: run health and exact cost
 - `get_pipeline_metrics`, `get_pipeline_metrics_summary`: cost reporting
+
+Queue each `repair_groups` item independently. The combined
+`recommended_steps` and `candidate_names` fields are summaries, not a safe
+queue payload when candidates need different work. Estimates use a 25% margin
+over compatible observed per-phase spend, with the static missing-work estimate
+as a floor.
+
+Catalog health records strong contest-matched roster evidence, terminal and
+sourced issue coverage, field-level freshness, finance/voting coverage,
+forecast evidence lineage, and pipeline/validation health. Use
+`audit_race_assets(..., persist=true)` when URL reachability, content type, or
+thumbnail quality matters; presence alone is not treated as verification.
+
+Logical runs enforce both global and phase search/token ceilings. They also cap
+uncached page fetches and fetched characters, and persist per-phase
+token/provider/search/page attribution across continuation handoffs. Defaults
+are documented in `.env.example`.
 
 Example targeted update:
 

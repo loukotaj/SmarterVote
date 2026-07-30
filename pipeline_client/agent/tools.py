@@ -872,6 +872,23 @@ SET_FORECAST_TOOL: Dict = {
                 },
                 "based_on_poll_count": {"type": "integer", "minimum": 0},
                 "source_urls": {"type": "array", "items": {"type": "string"}},
+                "evidence_lineage": {
+                    "type": "array",
+                    "description": "Claim-to-source mappings for material forecast reasons.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "claim": {"type": "string"},
+                            "source_url": {"type": "string"},
+                            "kind": {
+                                "type": "string",
+                                "enum": ["polling", "market", "finance", "race_context", "other"],
+                            },
+                            "inferred": {"type": "boolean"},
+                        },
+                        "required": ["claim", "source_url"],
+                    },
+                },
             },
             "required": [
                 "rating",
@@ -880,6 +897,7 @@ SET_FORECAST_TOOL: Dict = {
                 "based_on_poll_count",
                 "party_probabilities",
                 "source_urls",
+                "evidence_lineage",
             ],
         },
     },

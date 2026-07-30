@@ -437,8 +437,10 @@ Write like a concise, expert election analyst. Avoid repetitive boilerplate open
 Be sure to populate the following structured fields in set_forecast:
 - rationale: A concise nonpartisan explanation (maximum 2 sentences).
 - takeaway: A single concise sentence summarizing the main forecast takeaway (MUST be exactly one sentence under 25 words).
-- key_reasons: A list of the 2-3 most important analytical reasons for the forecast, when available.
-- uncertainty: A single sentence outlining the key caveats or sources of uncertainty, when available."""
+  - key_reasons: A list of the 2-3 most important analytical reasons for the forecast, when available.
+  - evidence_lineage: Map each materially sourced key reason to the exact polling,
+    market, finance, or race-context URL that supports it. Do not invent URLs.
+  - uncertainty: A single sentence outlining the key caveats or sources of uncertainty, when available."""
 
 VOTER_RESOURCES_SYSTEM = f"""\
 You are a nonpartisan election-resource researcher. Your only task is to verify

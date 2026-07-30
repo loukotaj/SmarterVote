@@ -157,7 +157,7 @@ def test_mark_failed_persists_run_health_when_provided(mock_db):
 def test_mark_handoff_keeps_logical_run_active(mock_db):
     """mark_handoff() records an invocation transition without ending the run."""
     logger = FirestoreLogger("run-006")
-    logger.mark_handoff("queue-007")
+    logger.mark_handoff("queue-007", duration_ms=2500)
 
     run_ref = mock_db.collection.return_value.document.return_value
     run_ref.set.assert_called_once()
@@ -165,6 +165,7 @@ def test_mark_handoff_keeps_logical_run_active(mock_db):
     assert data["status"] == "running"
     assert data["continuation_item_id"] == "queue-007"
     assert data["continuation_count"] is not None
+    assert data["logical_duration_ms"] is not None
 
 
 def test_get_db_falls_back_to_default_project_client():

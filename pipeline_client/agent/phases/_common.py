@@ -66,11 +66,9 @@ def _mark_pipeline_unit_complete(race_json: Dict[str, Any], unit: str) -> None:
 
 
 def _issue_stance_is_complete(value: Any) -> bool:
-    """True if *value* holds a real stance — not empty and not a placeholder.
+    """True for a substantive stance or a terminal no-position verdict.
 
-    A plain non-empty check let literal placeholder text (e.g. "To be determined
-    after review") count as "done", so a fresh issues-step pass would skip it
-    forever as already-complete rather than retry it.
+    Literal placeholders remain incomplete so a continuation retries them.
     """
     return phase_state.issue_stance_is_complete(value)
 

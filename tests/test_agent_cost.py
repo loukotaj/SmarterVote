@@ -2,7 +2,18 @@
 
 import pytest
 
-from pipeline_client.agent.cost import _cost_ctx, accumulate, estimate_cost, record_context_metrics, record_retry_metric
+from pipeline_client.agent.cost import (
+    _cost_ctx,
+    accumulate,
+    estimate_cost,
+    record_context_metrics,
+    record_fetched_chars,
+    record_retry_metric,
+    reserve_page_fetch,
+    reserve_search_call,
+    set_current_phase,
+    total_token_budget_reached,
+)
 
 
 @pytest.fixture
@@ -137,3 +148,50 @@ def test_record_retry_metric_increments_named_counter(cost_accumulator):
 
     assert cost_accumulator["retry_rate_limits"] == 2
     assert cost_accumulator["retry_provider_failures"] == 1
+
+
+def test_search_budget_reservation_blocks_calls_after_logical_run_ceiling(cost_accumulator, monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_SEARCH_CALLS", "2")
+
+    assert reserve_search_call("serper") is True
+    assert reserve_search_call("searlo") is True
+    assert reserve_search_call("serper") is False
+    assert cost_accumulator["serper_calls"] == 1
+    assert cost_accumulator["searlo_calls"] == 1
+    assert cost_accumulator["search_budget_blocked"] == 1
+
+
+def test_total_token_budget_uses_prior_logical_run_tokens(cost_accumulator, monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_TOTAL_TOKENS", "10000")
+    cost_accumulator["prompt_tokens"] = 9000
+    cost_accumulator["completion_tokens"] = 1000
+
+    assert total_token_budget_reached() is True
+
+
+def test_phase_breakdown_attributes_tokens_cost_search_and_pages(cost_accumulator):
+    set_current_phase("update-forecast")
+    accumulate(100, 20, model="gpt-4o", cost_usd=0.03)
+    assert reserve_search_call("serper") is True
+    assert reserve_page_fetch() is True
+    record_fetched_chars(250)
+
+    phase = cost_accumulator["phase_breakdown"]["forecast"]
+    assert phase["prompt_tokens"] == 100
+    assert phase["completion_tokens"] == 20
+    assert phase["provider_cost_usd"] == pytest.approx(0.03)
+    assert phase["search_calls"] == 1
+    assert phase["page_fetches"] == 1
+    assert phase["fetched_chars"] == 250
+
+
+def test_phase_search_and_page_budgets_are_enforced(cost_accumulator, monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_PHASE_SEARCH_CALLS", "1")
+    monkeypatch.setenv("PIPELINE_MAX_PAGE_FETCHES", "1")
+    set_current_phase("images-Alice")
+
+    assert reserve_search_call("serper") is True
+    assert reserve_search_call("serper") is False
+    assert reserve_page_fetch() is True
+    assert reserve_page_fetch() is False
+    assert cost_accumulator["page_budget_blocked"] == 1

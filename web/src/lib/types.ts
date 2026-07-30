@@ -155,6 +155,13 @@ export type ForecastRating =
   | "safe_r"
   | "other";
 
+export interface ForecastEvidence {
+  claim: string;
+  source_url: string;
+  kind: "polling" | "market" | "finance" | "race_context" | "other";
+  inferred: boolean;
+}
+
 export interface RaceForecast {
   predicted_winner_name?: string;
   predicted_winner_party?: string;
@@ -171,6 +178,7 @@ export interface RaceForecast {
   generated_at: string;
   model: string;
   source_urls: string[];
+  evidence_lineage?: ForecastEvidence[];
   market_signals: ForecastMarketSignal[];
 }
 
@@ -234,6 +242,9 @@ export interface PipelineState {
   remaining_candidates: string[];
   remaining_steps: string[];
   completed_units: string[];
+  issue_attempts: Record<string, number>;
+  step_failures: StepFailure[];
+  deterministic_cleanup: Record<string, number>;
   race_identity?: RaceIdentityBrief;
 }
 

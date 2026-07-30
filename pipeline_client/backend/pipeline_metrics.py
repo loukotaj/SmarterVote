@@ -105,10 +105,19 @@ class PipelineMetricsStore:
                     cost_usd          REAL,
                     cost_source       TEXT NOT NULL DEFAULT 'estimated',
                     model_breakdown   TEXT NOT NULL DEFAULT '{}',
+                    phase_breakdown   TEXT NOT NULL DEFAULT '{}',
                     duration_s        REAL NOT NULL DEFAULT 0,
                     candidate_count   INTEGER NOT NULL DEFAULT 0,
                     cheap_mode        INTEGER NOT NULL DEFAULT 0,
-                    serper_calls      INTEGER NOT NULL DEFAULT 0
+                    serper_calls      INTEGER NOT NULL DEFAULT 0,
+                    searlo_calls      INTEGER NOT NULL DEFAULT 0,
+                    search_calls      INTEGER NOT NULL DEFAULT 0,
+                    search_budget_blocked INTEGER NOT NULL DEFAULT 0,
+                    token_budget_nudges INTEGER NOT NULL DEFAULT 0,
+                    segment_duration_s REAL NOT NULL DEFAULT 0
+                    ,page_fetches INTEGER NOT NULL DEFAULT 0
+                    ,fetched_chars INTEGER NOT NULL DEFAULT 0
+                    ,page_budget_blocked INTEGER NOT NULL DEFAULT 0
                 )
                 """
             )
@@ -123,6 +132,15 @@ class PipelineMetricsStore:
                 "search_cost_usd REAL NOT NULL DEFAULT 0",
                 "cost_source TEXT NOT NULL DEFAULT 'estimated'",
                 "serper_calls INTEGER NOT NULL DEFAULT 0",
+                "searlo_calls INTEGER NOT NULL DEFAULT 0",
+                "search_calls INTEGER NOT NULL DEFAULT 0",
+                "search_budget_blocked INTEGER NOT NULL DEFAULT 0",
+                "token_budget_nudges INTEGER NOT NULL DEFAULT 0",
+                "segment_duration_s REAL NOT NULL DEFAULT 0",
+                "phase_breakdown TEXT NOT NULL DEFAULT '{}'",
+                "page_fetches INTEGER NOT NULL DEFAULT 0",
+                "fetched_chars INTEGER NOT NULL DEFAULT 0",
+                "page_budget_blocked INTEGER NOT NULL DEFAULT 0",
             ]:
                 try:
                     conn.execute(f"ALTER TABLE pipeline_metrics ADD COLUMN {col_def}")
@@ -165,10 +183,19 @@ class PipelineMetricsStore:
             "cost_usd": agent_metrics.get("cost_usd"),
             "cost_source": agent_metrics.get("cost_source", "estimated"),
             "model_breakdown": agent_metrics.get("model_breakdown", {}),
+            "phase_breakdown": agent_metrics.get("phase_breakdown", {}),
+            "page_fetches": agent_metrics.get("page_fetches", 0),
+            "fetched_chars": agent_metrics.get("fetched_chars", 0),
+            "page_budget_blocked": agent_metrics.get("page_budget_blocked", 0),
             "duration_s": agent_metrics.get("duration_s", 0.0),
             "candidate_count": candidate_count,
             "cheap_mode": cheap_mode,
             "serper_calls": serper_calls,
+            "searlo_calls": agent_metrics.get("searlo_calls", 0),
+            "search_calls": agent_metrics.get("search_calls", serper_calls),
+            "search_budget_blocked": agent_metrics.get("search_budget_blocked", 0),
+            "token_budget_nudges": agent_metrics.get("token_budget_nudges", 0),
+            "segment_duration_s": agent_metrics.get("segment_duration_s", 0.0),
         }
 
         if self._client is not None:
@@ -194,9 +221,11 @@ class PipelineMetricsStore:
                         (run_id, race_id, timestamp, status, model,
                          prompt_tokens, completion_tokens, total_tokens,
                          estimated_usd, llm_cost_usd, search_cost_usd,
-                         cost_usd, cost_source, model_breakdown, duration_s,
-                         candidate_count, cheap_mode, serper_calls)
-                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                         cost_usd, cost_source, model_breakdown, phase_breakdown, duration_s,
+                         candidate_count, cheap_mode, serper_calls, searlo_calls,
+                         search_calls, search_budget_blocked, token_budget_nudges,
+                         segment_duration_s, page_fetches, fetched_chars, page_budget_blocked)
+                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                     """,
                     (
                         record["run_id"],
@@ -213,10 +242,19 @@ class PipelineMetricsStore:
                         record["cost_usd"],
                         record["cost_source"],
                         json.dumps(record["model_breakdown"]),
+                        json.dumps(record["phase_breakdown"]),
                         record["duration_s"],
                         record.get("candidate_count", 0),
                         int(record.get("cheap_mode", True)),
                         record.get("serper_calls", 0),
+                        record.get("searlo_calls", 0),
+                        record.get("search_calls", 0),
+                        record.get("search_budget_blocked", 0),
+                        record.get("token_budget_nudges", 0),
+                        record.get("segment_duration_s", 0.0),
+                        record.get("page_fetches", 0),
+                        record.get("fetched_chars", 0),
+                        record.get("page_budget_blocked", 0),
                     ),
                 )
                 conn.commit()
@@ -256,8 +294,10 @@ class PipelineMetricsStore:
                     SELECT run_id, race_id, timestamp, status, model,
                            prompt_tokens, completion_tokens, total_tokens,
                            estimated_usd, llm_cost_usd, search_cost_usd,
-                           cost_usd, cost_source, model_breakdown, duration_s,
-                           candidate_count, cheap_mode, serper_calls
+                           cost_usd, cost_source, model_breakdown, phase_breakdown, duration_s,
+                           candidate_count, cheap_mode, serper_calls, searlo_calls,
+                           search_calls, search_budget_blocked, token_budget_nudges,
+                           segment_duration_s, page_fetches, fetched_chars, page_budget_blocked
                     FROM pipeline_metrics
                     ORDER BY timestamp DESC
                     LIMIT ?
@@ -282,10 +322,19 @@ class PipelineMetricsStore:
                     cost_usd,
                     cost_source,
                     model_breakdown_json,
+                    phase_breakdown_json,
                     duration_s,
                     candidate_count,
                     cheap_mode_int,
                     serper_calls,
+                    searlo_calls,
+                    search_calls,
+                    search_budget_blocked,
+                    token_budget_nudges,
+                    segment_duration_s,
+                    page_fetches,
+                    fetched_chars,
+                    page_budget_blocked,
                 ) = row
                 rows_list.append(
                     {
@@ -303,10 +352,19 @@ class PipelineMetricsStore:
                         "cost_usd": cost_usd,
                         "cost_source": cost_source,
                         "model_breakdown": json.loads(model_breakdown_json or "{}"),
+                        "phase_breakdown": json.loads(phase_breakdown_json or "{}"),
                         "duration_s": duration_s,
                         "candidate_count": candidate_count or 0,
                         "cheap_mode": bool(cheap_mode_int),
                         "serper_calls": serper_calls or 0,
+                        "searlo_calls": searlo_calls or 0,
+                        "search_calls": search_calls or 0,
+                        "search_budget_blocked": search_budget_blocked or 0,
+                        "token_budget_nudges": token_budget_nudges or 0,
+                        "segment_duration_s": segment_duration_s or 0.0,
+                        "page_fetches": page_fetches or 0,
+                        "fetched_chars": fetched_chars or 0,
+                        "page_budget_blocked": page_budget_blocked or 0,
                     }
                 )
             return rows_list
