@@ -1,5 +1,11 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Check the live site first
+    url: https://smarter.vote/elections
+    about: Data is refreshed continuously — confirm the gap still exists on the live page before reporting it.
+  - name: How our data is produced
+    url: https://smarter.vote/methodology
+    about: Candidate data comes from an automated research pipeline. This explains what it does and does not cover.
   - name: Contributing Guidelines
-    url: https://github.com/loukotaj/SmarterVote/blob/main/CONTRIBUTING.md
+    url: https://github.com/SmarterVote/SmarterVote/blob/main/CONTRIBUTING.md
     about: Read the issue rules before opening an issue — especially the no-duplicates policy.
