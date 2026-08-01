@@ -85,8 +85,7 @@ def _candidate_surname_token(candidate_name: str) -> Optional[str]:
 
 
 def _is_untrusted_wikimedia_match(url: str, candidate_name: str) -> bool:
-    """True if an upload.wikimedia.org URL's filename doesn't contain the
-    candidate's surname.
+    """True if an upload.wikimedia.org filename does not match the full name.
 
     Guards against the same fuzzy-match risk as Wikipedia's opensearch API
     (e.g. "Sam Mead" resolving to "Sam Mendes"), but for a URL that was
@@ -97,10 +96,10 @@ def _is_untrusted_wikimedia_match(url: str, candidate_name: str) -> bool:
     """
     if "upload.wikimedia.org" not in url:
         return False
-    surname_token = _candidate_surname_token(candidate_name)
-    if not surname_token:
+    candidate_tokens = _name_tokens(candidate_name)
+    if not candidate_tokens:
         return False
-    return surname_token not in _name_tokens(unquote(url))
+    return not candidate_tokens.issubset(_name_tokens(unquote(url)))
 
 
 # Generic Open-Graph / social-share cards served by data and reference sites
@@ -363,9 +362,10 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
     # opensearch is a fuzzy/autocomplete match, not an exact lookup — for a name
     # with no Wikipedia page (common for down-ballot candidates) it can return a
     # similarly-spelled but unrelated person (e.g. "Sam Mead" -> "Sam Mendes").
-    # Require the candidate's surname to actually appear in the matched title
-    # before trusting its image.
-    surname_token = _candidate_surname_token(candidate_name)
+    # Require the candidate's full normalized name to appear in the matched
+    # title before trusting its image. Surname-only matching accepted unrelated
+    # entities such as "Dave Matthews Band" for candidate David Matthews.
+    candidate_tokens = _name_tokens(candidate_name)
 
     try:
         async with httpx.AsyncClient(timeout=10, follow_redirects=True) as client:
@@ -385,9 +385,9 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
                 search_data = search_resp.json()
                 titles = search_data[1] if len(search_data) > 1 else []
                 for title in titles:
-                    if surname_token and surname_token not in _name_tokens(title):
+                    if candidate_tokens and not candidate_tokens.issubset(_name_tokens(title)):
                         logger.debug(
-                            "Rejected Wikipedia match %r for candidate %r — surname not present", title, candidate_name
+                            "Rejected Wikipedia match %r for candidate %r — full name not present", title, candidate_name
                         )
                         continue
                     img_resp = await client.get(
