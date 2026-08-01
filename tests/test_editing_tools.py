@@ -1323,9 +1323,30 @@ def test_set_issue_stance_rejects_placeholder_variants():
         }
     )
     assert "ERROR" not in ok
-    assert race_json["candidates"][0]["issues"]["Healthcare"]["stance"] == (
-        "No public position found after repeated research attempts."
+    assert race_json["candidates"][0]["issues"]["Healthcare"]["stance"] == "No public position found"
+
+
+def test_set_issue_stance_normalizes_review_elaboration_to_exact_absence_marker():
+    """Later review passes cannot turn the canonical marker back into prose."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "issues": {}}]}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_issue_stance"](
+        {
+            "candidate_name": "Alice",
+            "issue": "Climate/Energy",
+            "stance": "No public position found. The campaign site mentions energy only in passing.",
+            "confidence": "high",
+            "sources": [{"url": "https://example.com/platform", "title": "Campaign platform"}],
+        }
     )
+
+    assert "ERROR" not in result
+    issue = race_json["candidates"][0]["issues"]["Climate/Energy"]
+    assert issue["stance"] == "No public position found"
+    assert issue["confidence"] == "low"
 
 
 def test_is_missing_stance_text_catches_placeholder_variants_not_just_exact_markers():
@@ -1994,6 +2015,31 @@ def test_not_on_roster_allows_evidence_that_narrates_the_omission():
 
     assert "unlisted" in result
     assert "Justin Maldonado" not in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_not_on_roster_rejects_listing_that_affirmatively_names_target():
+    """A model's contradictory reason cannot turn roster proof into absence proof."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    listing = _nj_roster_listing()
+    listing["text"] = (
+        "Official candidate list for United States Senate New Jersey, 2026: Cory Booker, "
+        "Justin Maldonado, Justin Murphy, and Veronica Fernandez."
+    )
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Justin Maldonado",
+            "reason": "The official list does not include this candidate.",
+            "not_on_roster": True,
+            "sources": [listing],
+        }
+    )
+
+    assert "blocked" in result.lower()
+    assert "Justin Maldonado" in [candidate["name"] for candidate in race_json["candidates"]]
 
 
 def test_not_on_roster_still_requires_two_corroborating_roster_names():

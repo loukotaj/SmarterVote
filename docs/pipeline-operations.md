@@ -188,8 +188,11 @@ as durable evidence, infers only recognizable source classes, and still applies
 current-cycle and exact-contest checks. In production agent loops, the handler
 also cross-checks each cited URL against the loop's actual search/fetch trace;
 model-supplied retrieval metadata cannot promote a URL the run never observed,
-and completeness evidence must have been fetched as page content. A blocked/error tool result is surfaced
-to the model as a failure. After two consecutive blocked edits, roster sync
+and completeness evidence must have been fetched as page content. A refresh may
+reuse an exact URL's already-persisted tier-1/2 content evidence; it reuses the
+stored source object, never the model's new claims about an unfetched page. A
+blocked/error tool result and its bounded reason are recorded in debug logs and
+surfaced to the model as a failure. After two consecutive blocked edits, roster sync
 keeps the accumulated research but escalates subsequent synthesis to the
 stronger roster fallback and directs it to obtain higher-priority evidence
 instead of repeating the same invalid payload.
@@ -244,7 +247,9 @@ Removals have three paths, chosen by what the evidence actually supports:
 - **`not_on_roster=true`** — nothing supports the candidacy and the best roster
   listing for this exact race omits them. The listing must name at least two
   other candidates on the profile (proving it loaded and enumerates the field)
-  and must not name the candidate being removed. It cannot remove the incumbent.
+  and cannot affirmatively list the candidate being removed. Evidence may name
+  that person only when it explicitly describes the omission, withdrawal, or
+  disqualification. It cannot remove the incumbent.
 
 Absence is only evidence when it comes from a source that demonstrably has the
 roster. A page that failed to load, returned nothing, or was truncated is not
@@ -264,8 +269,12 @@ are documented in `.env.example`.
 For an issue unit, a ceiling ends further searching but does not manufacture a
 result. The last turn escalates from an economy model when a stronger configured
 fallback exists, receives the accumulated evidence, and is forced to call
-`set_issue_stance`. Its terminal result must be either a sourced factual stance
-or exactly `No public position found`. The latter is accepted only when the
+`set_issue_stance`. A documented absence is always stored as the exact marker
+`No public position found` with low confidence, including when a later review
+model tries to append its research explanation to the stance field. The
+per-issue research audit records whether the required search actually occurred.
+The terminal result must be either a sourced factual stance or that exact
+marker. The latter is accepted only when the
 durable `pipeline_state.issue_research` audit records at least two search/fetch
 actions. Retry exhaustion leaves the unit incomplete and visible to review;
 it is never converted into a no-position finding.
