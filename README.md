@@ -10,7 +10,7 @@ SmarterVote uses a multi-phase AI agent to research election races and produce s
 
 - Python 3.11+
 - Node.js 22+
-- `OPENROUTER_API_KEY` and `SERPER_API_KEY` for agent runs; `SEARLO_API_KEY` enables the search fallback when Serper credits are exhausted
+- `OPENROUTER_API_KEY` and `SERPER_API_KEY` for agent runs; `SEARLO_API_KEY` enables the search fallback when Serper credits are exhausted; `JINA_API_KEY` gives page fetches an authenticated Jina Reader quota (without it the shared anonymous quota 403s for every host once spent, leaving all evidence at snippet tier)
 
 ## Local Development
 
