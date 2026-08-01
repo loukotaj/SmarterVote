@@ -24,6 +24,7 @@ def _run_gcloud(args: list[str]) -> str:
         check=False,
         capture_output=True,
         text=True,
+        stdin=subprocess.DEVNULL,
     )
     if completed.returncode != 0:
         message = completed.stderr.strip() or completed.stdout.strip() or "gcloud command failed"

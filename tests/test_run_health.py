@@ -38,6 +38,7 @@ def test_run_failure_reason_covers_required_categories():
         "placeholder_content",
         "roster_verification_failed",
         "budget_exhausted",
+        "stale_worker_version",
         "cancelled",
         "unknown_error",
     }

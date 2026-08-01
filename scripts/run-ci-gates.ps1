@@ -73,7 +73,13 @@ try {
         Invoke-Step "Install web dependencies" {
             Push-Location "web"
             try {
-                npm ci
+                try {
+                    npm ci
+                }
+                catch {
+                    Write-Host "npm ci encountered an error (e.g. locked node_modules files). Falling back to npm install..." -ForegroundColor Yellow
+                    npm install
+                }
             }
             finally {
                 Pop-Location

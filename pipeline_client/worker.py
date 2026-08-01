@@ -180,6 +180,12 @@ async def run_worker() -> None:
         bucket or "-",
     )
 
+    from shared.run_health import check_worker_version_staleness
+
+    version_check = check_worker_version_staleness(runner=_RUNNER)
+    if version_check.get("is_stale"):
+        logger.warning("WORKER VERSION WARNING: %s", version_check.get("warning"))
+
     stop = asyncio.Event()
 
     def _request_stop(*_a: Any) -> None:

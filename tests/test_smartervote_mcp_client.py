@@ -72,6 +72,7 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "publish_chamber_forecasts",
         "review_chamber_forecast_drafts",
         "generate_chamber_forecasts",
+        "sync_kalshi_markets",
         "verify_live_forecast_page_data",
     }
 

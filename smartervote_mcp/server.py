@@ -1340,6 +1340,14 @@ def _validate_chamber_forecast_payload(data: Dict[str, Any]) -> Dict[str, Any]:
 
 
 @mcp.tool(structured_output=False)
+async def sync_kalshi_markets(dry_run: bool = False) -> Dict[str, Any]:
+    """Synchronize Kalshi election betting market catalog mapping data."""
+    from scripts.sync_kalshi_catalog import sync_kalshi_catalog
+
+    return sync_kalshi_catalog(dry_run=dry_run)
+
+
+@mcp.tool(structured_output=False)
 async def verify_live_forecast_page_data() -> Dict[str, Any]:
     """Check deployed or local live static endpoints and verify forecast bundle properties."""
     try:
