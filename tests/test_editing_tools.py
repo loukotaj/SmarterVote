@@ -3,6 +3,8 @@
 import json
 import tempfile
 
+import pytest
+
 from pipeline_client.agent.agent import _select_target_candidates
 
 # ---------------------------------------------------------------------------
@@ -50,7 +52,7 @@ def test_editing_tool_schemas_exist():
         UPDATE_RACE_FIELD_TOOL,
     )
 
-    assert len(ROSTER_TOOLS) == 5
+    assert len(ROSTER_TOOLS) == 6
     assert len(CANDIDATE_TOOLS) == 2
     assert len(ISSUE_TOOLS) == 1
     assert len(RECORD_TOOLS) == 4  # donor_summary, voting_summary, add_link, remove_candidate_source_url
@@ -80,6 +82,7 @@ def test_make_editing_handlers():
         "rename_candidate",
         "set_candidate_roster_sources",
         "set_race_identity",
+        "finalize_roster",
         "set_candidate_field",
         "set_candidate_summary",
         "set_issue_stance",
@@ -502,7 +505,7 @@ def test_add_candidate_tier3_requires_independent_sources_unless_authoritative()
 def test_roster_sources_and_race_identity_handlers():
     from pipeline_client.agent.agent import _make_editing_handlers
 
-    race_json = {"candidates": [{"name": "Alice", "party": "Democratic"}]}
+    race_json = {"id": "ga-governor-2026", "candidates": [{"name": "Alice", "party": "Democratic"}]}
     handlers = _make_editing_handlers(race_json, lambda l, m: None)
 
     identity_result = handlers["set_race_identity"](
@@ -524,6 +527,10 @@ def test_roster_sources_and_race_identity_handlers():
                     "type": "official",
                     "title": "Certified candidate list",
                     "evidence": "Alice is listed as a gubernatorial nominee.",
+                    "published_at": "2026-06-10",
+                    "race_id": "ga-governor-2026",
+                    "evidence_tier": 1,
+                    "retrieval_status": "content",
                 }
             ],
         }
@@ -535,6 +542,213 @@ def test_roster_sources_and_race_identity_handlers():
     assert "Set 1 roster source" in source_result
     assert race_json["candidates"][0]["roster_sources"][0]["type"] == "official"
     assert race_json["candidates"][0]["roster_sources"][0]["last_accessed"]
+
+
+def test_federal_house_roster_rejects_same_number_state_house_evidence():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://example.gov/alabama-house-2",
+        "type": "official",
+        "title": "Alabama House of Representatives District 2",
+        "evidence": "Rick Pressnell is a candidate for Alabama House of Representatives District 2.",
+        "published_at": "2026-01-15",
+        "race_id": "al-house-02-2026",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+
+    result = handlers["add_candidate"]({"name": "Rick Pressnell", "party": "Democratic", "roster_sources": [source]})
+
+    assert "Blocked adding" in result
+    assert race_json["candidates"] == []
+
+
+def test_federal_house_roster_accepts_official_search_result_shape_for_zero_padded_district():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://aldemocrats.org/2026-qualified-candidates",
+        "title": "2026 Primary Election - Qualified Candidates",
+        "text": "US Representative, 2nd District - Shomari C. Figures",
+        "retrieved": "2026-08-01",
+    }
+
+    result = handlers["add_candidate"]({"name": "Shomari Figures", "party": "Democratic", "roster_sources": [source]})
+
+    assert "Added" in result
+    saved = race_json["candidates"][0]["roster_sources"][0]
+    assert saved["evidence"] == source["text"]
+    assert saved["race_id"] == "al-house-02-2026"
+    assert saved["type"] == "official"
+    assert saved["evidence_tier"] == 3
+    assert saved["retrieval_status"] == "snippet"
+
+
+def test_wrong_contest_removal_requires_proof_and_physically_removes_contamination():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "state": "Alabama",
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic"},
+            {"name": "Rick Pressnell", "party": "Democratic"},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://aldemocrats.org/2026-qualified-candidates",
+        "type": "official",
+        "title": "2026 qualified candidates",
+        "evidence": "State Representative, District 2 - Rick Pressnell",
+        "published_at": "2026-01-15",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Rick Pressnell",
+            "reason": "Official list places him in Alabama State House District 2, not U.S. House District 2.",
+            "wrong_contest": True,
+            "sources": [source],
+        }
+    )
+
+    assert "wrong-contest" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures"]
+
+
+def test_wrong_contest_removal_accepts_native_official_search_evidence():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "state": "Alabama",
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic"},
+            {"name": "Ben Harrison", "party": "Republican"},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://algop.org/qualified-2026-republican-candidates/",
+        "title": "Qualified 2026 Republican Candidates",
+        "text": "Alabama House of Representatives, District 2 — Ben Harrison",
+        "retrieved": "2026-08-01",
+    }
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Ben Harrison",
+            "reason": "The official party list places him in Alabama House District 2, not U.S. House District 2.",
+            "wrong_contest": True,
+            "sources": [source],
+        }
+    )
+
+    assert "wrong-contest" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures"]
+
+
+def test_wrong_contest_removal_understands_negated_target_office():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "candidates": [{"name": "Rick Pressnell"}, {"name": "Ben Harrison"}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Rick Pressnell",
+            "wrong_contest": True,
+            "reason": "Official list places him in the state House contest.",
+            "sources": [
+                {
+                    "url": "https://aldemocrats.org/2026-primary-election-qualified-candidates",
+                    "title": "2026 Primary Election - Qualified Candidates",
+                    "type": "official",
+                    "evidence": (
+                        "Lists State Representative, District 2 - Rick Pressnell under state legislative "
+                        "candidates, confirming this is Alabama State House District 2, not U.S. House District 2"
+                    ),
+                    "retrieved": "2026-08-01",
+                }
+            ],
+        }
+    )
+
+    assert result == "Removed wrong-contest candidate 'Rick Pressnell' from the active roster."
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Ben Harrison"]
+
+
+def test_add_candidate_accepts_context_and_date_search_aliases():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    result = handlers["add_candidate"](
+        {
+            "name": "Shomari Figures",
+            "party": "Democratic",
+            "roster_sources": [
+                {
+                    "url": "https://aldemocrats.org/2026-primary-election-qualified-candidates",
+                    "title": "2026 Primary Election - Qualified Candidates",
+                    "context": "U.S. Representative, 2nd District - Shomari Figures",
+                    "retrieved": "2026-08-01",
+                    "date": "2026-02-01",
+                }
+            ],
+        }
+    )
+
+    assert result == "Added candidate 'Shomari Figures'."
+    source = race_json["candidates"][0]["roster_sources"][0]
+    assert source["evidence"] == "U.S. Representative, 2nd District - Shomari Figures"
+    assert source["published_at"] == "2026-02-01"
+
+
+def test_finalize_roster_requires_evidence_for_every_active_candidate():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
+        "candidates": [
+            {
+                "name": "Shomari Figures",
+                "party": "Democratic",
+                "roster_sources": [
+                    {
+                        "url": "https://aldemocrats.org/2026-qualified-candidates",
+                        "type": "official",
+                        "title": "2026 Qualified Candidates",
+                        "evidence": "US Representative, 2nd District - Shomari Figures",
+                        "race_id": "al-house-02-2026",
+                        "published_at": "2026-02-01",
+                        "evidence_tier": 1,
+                        "retrieval_status": "content",
+                    }
+                ],
+            },
+            {"name": "Unverified Candidate", "party": "Republican", "roster_sources": []},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    blocked = handlers["finalize_roster"]({"summary": "Official party lists"})
+    assert "Unverified Candidate" in blocked
+    race_json["candidates"].pop()
+    finalized = handlers["finalize_roster"]({"summary": "Official party list"})
+    assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():
@@ -1071,3 +1285,121 @@ def test_search_cache_list_cached_for_race():
         assert len(result["searches"]) == 1
         assert result["searches"][0]["query"] == "test query"
         assert "https://r.com" in result["searches"][0]["urls"]
+
+
+def _nj_race_json():
+    return {
+        "id": "nj-senate-2026",
+        "state": "New Jersey",
+        "candidates": [
+            {"name": "Cory Booker", "party": "Democratic"},
+            {"name": "Veronica Fernandez", "party": "Unknown"},
+        ],
+    }
+
+
+def _nj_ballotpedia_source(source_type):
+    """The exact source shape the roster agent emitted for nj-senate-2026."""
+    source = {
+        "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
+        "title": "United States Senate election in New Jersey, 2026",
+        "text": (
+            "Incumbent Cory Booker, Justin Murphy, Veronica Fernandez, and Joanne Kuniansky are "
+            "running in the general election for U.S. Senate New Jersey on November 3, 2026"
+        ),
+        "retrieved": "2026-08-01",
+    }
+    if source_type is not None:
+        source["type"] = source_type
+    return source
+
+
+@pytest.mark.parametrize("source_type", ["web", "election_authority", "encyclopedia", None])
+def test_roster_source_type_inferred_from_host_for_unrecognized_labels(source_type):
+    """An unrecognized-but-plausible type label must not strand evidence in 'other'."""
+    from pipeline_client.agent.handlers import _normalize_roster_source
+
+    normalized = _normalize_roster_source(_nj_ballotpedia_source(source_type), race_id="nj-senate-2026")
+
+    assert normalized["type"] == "ballotpedia"
+
+
+def test_set_candidate_roster_sources_accepts_single_source_for_existing_candidate():
+    """Attaching evidence to a candidate already on the roster needs no corroboration."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_race_json()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_candidate_roster_sources"](
+        {"candidate_name": "Veronica Fernandez", "sources": [_nj_ballotpedia_source("web")]}
+    )
+
+    assert "Set 1 roster source(s)" in result
+    assert race_json["candidates"][1]["roster_sources"][0]["type"] == "ballotpedia"
+
+
+def test_add_candidate_still_requires_corroboration_for_tier3_snippets():
+    """The anti-fabrication gate on *new* candidates is unchanged."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_race_json()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["add_candidate"](
+        {
+            "name": "Joanne Kuniansky",
+            "party": "Socialist Workers Party",
+            "roster_sources": [_nj_ballotpedia_source("web")],
+        }
+    )
+
+    assert "Blocked adding" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Cory Booker", "Veronica Fernandez"]
+
+
+def test_self_declared_official_type_cannot_waive_corroboration():
+    """A model must not grant itself official authority by relabelling an arbitrary host."""
+    from pipeline_client.agent.handlers import _classify_roster_source_type, _qualifying_candidate_addition_sources
+
+    assert _classify_roster_source_type("official", title="T", url="https://randomblog.com/p", host="randomblog.com") == "news"
+
+    sources = [
+        {
+            "url": "https://randomblog.com/p",
+            "type": "official",
+            "title": "Veronica Fernandez 2026",
+            "evidence": "Veronica Fernandez is running for U.S. Senate New Jersey in 2026",
+        }
+    ]
+    assert _qualifying_candidate_addition_sources(sources, candidate_name="Veronica Fernandez", race_id="nj-senate-2026") == []
+
+
+def test_blocked_roster_edit_names_the_failing_check():
+    """A generic 'need better evidence' message sends the model hunting for the wrong thing."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_race_json()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    missing_evidence = handlers["set_candidate_roster_sources"](
+        {
+            "candidate_name": "Veronica Fernandez",
+            "sources": [
+                {
+                    "url": "https://ballotpedia.org/x",
+                    "type": "ballotpedia",
+                    "title": "United States Senate election in New Jersey, 2026",
+                }
+            ],
+        }
+    )
+    assert "evidence" in missing_evidence.lower()
+
+    wrong_name = handlers["set_candidate_roster_sources"](
+        {
+            "candidate_name": "Veronica Fernandez",
+            "sources": [_nj_ballotpedia_source("web") | {"text": "Cory Booker is running in 2026"}],
+        }
+    )
+    assert "candidate name" in wrong_name.lower()

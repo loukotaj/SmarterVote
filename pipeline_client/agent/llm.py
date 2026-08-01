@@ -52,6 +52,10 @@ CHEAP_TO_DEFAULT_MODEL_FALLBACK = {
 }
 
 
+def _tool_result_is_error(result: Any) -> bool:
+    return isinstance(result, str) and result.lstrip().casefold().startswith(("error:", "blocked", "failed"))
+
+
 def _provider_usage_cost(usage: Any) -> Optional[float]:
     """Read OpenRouter's billed cost from SDK-known or extra usage fields."""
     if usage is None:
@@ -184,6 +188,7 @@ async def _call_openrouter(
     *,
     model: str,
     tools: List[Dict[str, Any]] | None = None,
+    tool_choice: Any = None,
     max_retries: int = 3,
     max_tokens: int = 16384,
     run_budget: RunBudget | None = None,
@@ -215,7 +220,7 @@ async def _call_openrouter(
         kwargs["temperature"] = 0.2
     if tools:
         kwargs["tools"] = tools
-        kwargs["tool_choice"] = "auto"
+        kwargs["tool_choice"] = tool_choice or "auto"
 
     rate_limit_wait = 0.0
     transient_wait = 0.0
@@ -440,6 +445,10 @@ async def _agent_loop(
     run_budget: RunBudget | None = None,
     max_request_retries: int = 3,
     allow_search_tools: bool = True,
+    return_tool_trace: bool = False,
+    required_final_tool_name: str | None = None,
+    required_final_instruction: str = "",
+    tool_error_escalation_model: str | None = None,
 ) -> Dict[str, Any]:
     """Run a single agent loop.
 
@@ -468,9 +477,21 @@ async def _agent_loop(
     _json_parse_failures = 0
     _MAX_JSON_RETRIES = 3
     token_budget_nudged = False
+    required_final_tool_succeeded = False
+    consecutive_tool_errors = 0
+    tool_errors_escalated = False
+    tool_trace = {
+        "search_calls": 0,
+        "page_fetches": 0,
+        "editing_calls": 0,
+        "token_budget_reached": False,
+        "max_iterations_reached": False,
+        "required_final_tool_succeeded": False,
+    }
 
     for iteration in range(max_iterations):
         token_budget_reached = total_token_budget_reached()
+        tool_trace["token_budget_reached"] = bool(tool_trace["token_budget_reached"] or token_budget_reached)
         if token_budget_reached and not token_budget_nudged:
             messages.append(
                 {
@@ -485,6 +506,8 @@ async def _agent_loop(
             token_budget_nudged = True
             log("warning", f"  [{phase_name}] token ceiling reached; forcing finalization without search tools")
         active_model = model
+        if tool_errors_escalated and tool_error_escalation_model:
+            active_model = tool_error_escalation_model
         if _json_parse_failures > 0:
             norm_model = normalize_model_id(model)
             if norm_model in CHEAP_TO_DEFAULT_MODEL_FALLBACK:
@@ -493,6 +516,23 @@ async def _agent_loop(
                     "info",
                     f"  [{phase_name}] JSON parsing failed previously — elevating model from {model} to {active_model} for retry prompt",
                 )
+
+        force_final_tool = bool(required_final_tool_name and (token_budget_reached or iteration == max_iterations - 1))
+        if force_final_tool:
+            fallback_model = (
+                CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
+                or tool_error_escalation_model
+            )
+            if fallback_model:
+                log("info", f"  [{phase_name}] escalating final evidence synthesis to {fallback_model}")
+                active_model = fallback_model
+            messages.append(
+                {
+                    "role": "user",
+                    "content": required_final_instruction
+                    or f"Finalize the evidence now by calling {required_final_tool_name}. Do not perform more research.",
+                }
+            )
 
         log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {active_model}...")
 
@@ -503,6 +543,10 @@ async def _agent_loop(
                 else []
             )
             tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
+            if force_final_tool:
+                tools_for_call = [
+                    tool for tool in _extra_tools if tool.get("function", {}).get("name") == required_final_tool_name
+                ]
 
             if iteration == nudge_at and len(messages) > 2:
                 messages.append(
@@ -555,6 +599,9 @@ async def _agent_loop(
                 prepared.messages,
                 model=active_model,
                 tools=tools_for_call,
+                tool_choice=(
+                    {"type": "function", "function": {"name": required_final_tool_name}} if force_final_tool else None
+                ),
                 max_retries=max_request_retries,
                 max_tokens=context_budget.max_output_tokens,
                 run_budget=run_budget,
@@ -590,6 +637,7 @@ async def _agent_loop(
             for tool_call in message.tool_calls:
                 fn = tool_call.function
                 if fn.name == "web_search":
+                    tool_trace["search_calls"] += 1
                     args = json.loads(fn.arguments)
                     query = args.get("query", "")
                     log("info", f"    🔍 {query}")
@@ -613,6 +661,7 @@ async def _agent_loop(
                         }
                     )
                 elif fn.name == "web_image_search":
+                    tool_trace["search_calls"] += 1
                     args = json.loads(fn.arguments)
                     query = args.get("query", "")
                     log("info", f"    🖼️ {query}")
@@ -636,6 +685,7 @@ async def _agent_loop(
                         }
                     )
                 elif fn.name == "fetch_page":
+                    tool_trace["page_fetches"] += 1
                     args = json.loads(fn.arguments)
                     url = args.get("url", "")
                     log("info", f"    📄 fetching {url[:80]}")
@@ -658,6 +708,7 @@ async def _agent_loop(
                         }
                     )
                 elif fn.name == "ballotpedia_lookup":
+                    tool_trace["search_calls"] += 1
                     args = json.loads(fn.arguments)
                     candidate_name = args.get("candidate_name", "")
                     log("info", f"    📋 Ballotpedia lookup: {candidate_name}")
@@ -677,6 +728,7 @@ async def _agent_loop(
                         }
                     )
                 elif fn.name == "ballotpedia_election_lookup":
+                    tool_trace["search_calls"] += 1
                     args = json.loads(fn.arguments)
                     election_race_id = args.get("race_id", race_id or "")
                     log("info", f"    🗳️  Ballotpedia election lookup: {election_race_id}")
@@ -697,6 +749,8 @@ async def _agent_loop(
                         }
                     )
                 elif fn.name in _extra_handlers:
+                    if fn.name != "read_profile":
+                        tool_trace["editing_calls"] += 1
                     args = json.loads(fn.arguments)
                     log("info", f"    🔧 {fn.name}({', '.join(f'{k}={v!r}' for k, v in args.items())})")
                     try:
@@ -707,9 +761,14 @@ async def _agent_loop(
                             )
                         else:
                             handler_result = _extra_handlers[fn.name](args)
-                        if isinstance(handler_result, str) and handler_result.startswith("Error:"):
+                        if fn.name == required_final_tool_name and not _tool_result_is_error(handler_result):
+                            required_final_tool_succeeded = True
+                            tool_trace["required_final_tool_succeeded"] = True
+                        if _tool_result_is_error(handler_result):
+                            consecutive_tool_errors += 1
                             log("warning", f"    🔧 {fn.name} → BLOCKED")
                         else:
+                            consecutive_tool_errors = 0
                             log("info", f"    🔧 {fn.name} → OK")
                     except Exception as exc:
                         handler_result = f"Error: {exc}"
@@ -730,12 +789,46 @@ async def _agent_loop(
                             "content": f"Error: unknown tool '{fn.name}'",
                         }
                     )
+            if consecutive_tool_errors >= 2 and tool_error_escalation_model and not tool_errors_escalated:
+                tool_errors_escalated = True
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "Multiple editing calls were blocked by evidence guards. Do not repeat those calls "
+                            "with the same sources. Review the blocked results and all research already collected, "
+                            "then pivot to higher-priority official evidence. Only retry an edit when the new "
+                            "evidence directly satisfies the guard; otherwise leave the roster unchanged."
+                        ),
+                    }
+                )
+                log(
+                    "warning",
+                    f"  [{phase_name}] repeated blocked edits; escalating subsequent synthesis to "
+                    f"{tool_error_escalation_model}",
+                )
+            if required_final_tool_succeeded:
+                return {"_tool_trace": tool_trace} if return_tool_trace else {}
             continue
 
         # No tool calls — in tools_mode this means the LLM is done editing
         if tools_mode:
+            if required_final_tool_name and not required_final_tool_succeeded:
+                messages.append(message.model_dump())
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": required_final_instruction
+                        or f"You have not completed the task. Call {required_final_tool_name} before stopping.",
+                    }
+                )
+                log(
+                    "warning",
+                    f"  [{phase_name}] model stopped before {required_final_tool_name}; requiring finalization",
+                )
+                continue
             log("info", f"  [{phase_name}] tools-mode complete (no more tool calls)")
-            return {}
+            return {"_tool_trace": tool_trace} if return_tool_trace else {}
 
         # Normal json mode — try to parse the answer
         content = message.content or ""
@@ -785,5 +878,6 @@ async def _agent_loop(
 
     if tools_mode:
         log("warning", f"  [{phase_name}] tools-mode hit max iterations — returning")
-        return {}
+        tool_trace["max_iterations_reached"] = True
+        return {"_tool_trace": tool_trace} if return_tool_trace else {}
     raise RuntimeError(f"[{phase_name}] did not produce output within {max_iterations} iterations")

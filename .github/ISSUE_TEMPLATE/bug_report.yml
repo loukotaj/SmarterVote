@@ -1,20 +1,25 @@
 name: Bug Report
-description: File a bug report
+description: Report something broken in the site, API, or pipeline
 title: "[Bug]: "
-labels: ["bug", "triage"]
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report! Please [search existing issues](https://github.com/loukotaj/SmarterVote/issues?q=label%3Abug) first to avoid duplicates.
+        Thanks for taking the time to file this. Please [search existing issues](https://github.com/SmarterVote/SmarterVote/issues?q=is%3Aissue+label%3Abug) first to avoid duplicates.
+
+        **Reporting missing or wrong candidate data?** That is not a bug — use the
+        [Missing Candidate Data](https://github.com/SmarterVote/SmarterVote/issues/new?template=missing-data.yml)
+        template instead so it routes to the research pipeline.
 
   - type: textarea
     id: what-happened
     attributes:
       label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
+      description: What did you see, and what did you expect instead?
+      placeholder: |
+        I opened the compare view for two candidates and the page stayed blank.
+        I expected a side-by-side table of their issue stances.
     validations:
       required: true
 
@@ -22,21 +27,40 @@ body:
     id: component
     attributes:
       label: Component
-      description: Which component is affected?
+      description: Which part of SmarterVote is affected? Pick "Not sure" if you cannot tell.
       options:
-        - Pipeline
-        - Web Frontend
-        - Services
-        - Infrastructure
-        - Documentation
+        - Public site (web/)
+        - Races API (services/races-api/)
+        - Research pipeline (pipeline_client/)
+        - Infrastructure / deployment (infra/)
+        - Documentation (docs/)
+        - Not sure
     validations:
       required: true
+
+  - type: input
+    id: page-url
+    attributes:
+      label: Page or endpoint
+      description: The URL where you hit this, if applicable.
+      placeholder: https://smarter.vote/races/pa-senate-2026
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps that reliably trigger the problem.
+      placeholder: |
+        1. Go to https://smarter.vote/races/pa-senate-2026
+        2. Click "Compare candidates"
+        3. Select two candidates
+        4. The table never renders
 
   - type: textarea
     id: logs
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      label: Relevant log or console output
+      description: Browser console errors, API responses, or pipeline logs. Automatically formatted as code — no backticks needed.
       render: shell
 
   - type: checkboxes
@@ -45,4 +69,6 @@ body:
       label: Before you submit
       options:
         - label: I searched existing issues and this bug hasn't been reported yet
+          required: true
+        - label: This is a defect in how the site or pipeline behaves, not missing candidate data
           required: true

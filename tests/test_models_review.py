@@ -35,6 +35,18 @@ def _valid_review_profile():
                 },
             }
         ],
+        "pipeline_state": {
+            "issue_attempts": {f"issues:Alice Example:{issue.value}": 1 for issue in CanonicalIssue},
+            "issue_research": {
+                f"issues:Alice Example:{issue.value}": {
+                    "status": "completed",
+                    "attempts": 1,
+                    "search_calls": 2,
+                    "page_fetches": 0,
+                }
+                for issue in CanonicalIssue
+            },
+        },
     }
 
 
@@ -346,6 +358,71 @@ def test_pipeline_state_preserves_durable_retry_failure_and_cleanup_fields():
     assert state["issue_attempts"] == {"issues:Alice:Economy": 2}
     assert state["step_failures"][0]["step"] == "forecast"
     assert state["deterministic_cleanup"] == {"text_changes": 1}
+
+
+def test_issue_research_effort_context_distinguishes_attempted_absence_from_omission():
+    from pipeline_client.agent.review import build_issue_research_effort_context
+
+    race = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {
+                    "Economy": {
+                        "stance": "No public position found after repeated research attempts.",
+                        "confidence": "low",
+                        "sources": [],
+                    }
+                },
+            }
+        ],
+        "pipeline_state": {
+            "issue_attempts": {"issues:Alice:Economy": 2},
+            "issue_research": {
+                "issues:Alice:Economy": {
+                    "status": "completed",
+                    "attempts": 2,
+                    "search_calls": 2,
+                    "page_fetches": 1,
+                }
+            },
+        },
+    }
+
+    context = build_issue_research_effort_context(race)
+
+    assert "1/12 terminal issue outputs" in context
+    assert "1/12 slots with recorded pipeline attempts (2 total attempts)" in context
+    assert "1/12 slots with recorded search/fetch activity" in context
+    assert "0 no-position outputs without sufficient research provenance" in context
+
+
+def test_profile_quality_rejects_no_position_marker_without_attempt_provenance():
+    from pipeline_client.agent.review import check_profile_quality
+    from shared.models import CanonicalIssue
+
+    race = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {
+                    issue.value: {
+                        "stance": "No public position found after repeated research attempts.",
+                        "confidence": "low",
+                        "sources": [],
+                    }
+                    for issue in CanonicalIssue
+                },
+            }
+        ],
+        "pipeline_state": {"issue_attempts": {}},
+    }
+
+    review = check_profile_quality(race)
+
+    provenance_flags = [flag for flag in review["flags"] if "completed audit" in flag["concern"]]
+    assert len(provenance_flags) == 12
+    assert all(flag["severity"] == "error" for flag in provenance_flags)
 
 
 def test_review_change_manifest_reports_changed_paths_without_reducing_packet():

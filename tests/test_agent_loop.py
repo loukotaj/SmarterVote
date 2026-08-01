@@ -634,6 +634,133 @@ async def test_agent_loop_nudges_model_toward_final_answer_in_json_mode():
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceiling():
+    from pipeline_client.agent.model_registry import CHEAP_MODEL, DEFAULT_MODEL
+
+    final_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_final",
+                "function": {
+                    "name": "set_issue_stance",
+                    "arguments": json.dumps({"stance": "No public position found"}),
+                },
+            }
+        ]
+    )
+    handler = MagicMock(return_value="OK")
+    final_tool = {
+        "type": "function",
+        "function": {"name": "set_issue_stance", "description": "Record result", "parameters": {"type": "object"}},
+    }
+
+    with (
+        patch("pipeline_client.agent.llm.total_token_budget_reached", return_value=True),
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock, return_value=final_response) as call,
+    ):
+        result = await _agent_loop(
+            "system",
+            "user",
+            model=CHEAP_MODEL,
+            phase_name="issue-test",
+            tools_mode=True,
+            extra_tools=[final_tool],
+            extra_tool_handlers={"set_issue_stance": handler},
+            required_final_tool_name="set_issue_stance",
+            required_final_instruction="Choose a sourced stance or the exact absence marker.",
+            return_tool_trace=True,
+        )
+
+    assert handler.call_count == 1
+    assert call.call_args.kwargs["model"] == DEFAULT_MODEL
+    assert call.call_args.kwargs["tool_choice"] == {
+        "type": "function",
+        "function": {"name": "set_issue_stance"},
+    }
+    assert result["_tool_trace"]["token_budget_reached"] is True
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_does_not_accept_early_stop_before_required_final_tool():
+    stopped = _mock_openai_response(content="Done")
+    finalized = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_final",
+                "function": {"name": "finalize_roster", "arguments": json.dumps({"summary": "Official list"})},
+            }
+        ]
+    )
+    handler = MagicMock(return_value="Roster finalized")
+    final_tool = {
+        "type": "function",
+        "function": {"name": "finalize_roster", "description": "Finalize", "parameters": {"type": "object"}},
+    }
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as call:
+        call.side_effect = [stopped, finalized]
+        result = await _agent_loop(
+            "system",
+            "user",
+            model="google/gemini-2.5-flash",
+            phase_name="roster-finalize-test",
+            tools_mode=True,
+            extra_tools=[final_tool],
+            extra_tool_handlers={"finalize_roster": handler},
+            required_final_tool_name="finalize_roster",
+            required_final_instruction="Finalize the roster before stopping.",
+            return_tool_trace=True,
+        )
+
+    assert call.call_count == 2
+    assert handler.call_count == 1
+    assert result["_tool_trace"]["required_final_tool_succeeded"] is True
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_escalates_after_repeated_blocked_edits():
+    from pipeline_client.agent.model_registry import CHEAP_MODEL, NEMOTRON_ULTRA_MODEL
+
+    blocked_calls = _mock_openai_response(
+        tool_calls=[
+            {"id": "call_1", "function": {"name": "add_candidate", "arguments": json.dumps({"name": "A"})}},
+            {"id": "call_2", "function": {"name": "add_candidate", "arguments": json.dumps({"name": "B"})}},
+        ]
+    )
+    finished = _mock_openai_response(content="Roster left unchanged.")
+    tool = {
+        "type": "function",
+        "function": {"name": "add_candidate", "description": "Add", "parameters": {"type": "object"}},
+    }
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as call:
+        call.side_effect = [blocked_calls, finished]
+        await _agent_loop(
+            "system",
+            "user",
+            model=CHEAP_MODEL,
+            phase_name="roster-test",
+            tools_mode=True,
+            extra_tools=[tool],
+            extra_tool_handlers={"add_candidate": lambda _args: "Blocked adding candidate: insufficient evidence"},
+            tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+        )
+
+    assert [entry.kwargs["model"] for entry in call.call_args_list] == [CHEAP_MODEL, NEMOTRON_ULTRA_MODEL]
+    second_messages = call.call_args_list[1].args[0]
+    assert any("pivot to higher-priority official evidence" in (message.get("content") or "") for message in second_messages)
+
+
+def test_tool_result_error_detection_handles_handler_blocking_conventions():
+    from pipeline_client.agent.llm import _tool_result_is_error
+
+    assert _tool_result_is_error("ERROR: missing evidence")
+    assert _tool_result_is_error("Blocked adding candidate")
+    assert _tool_result_is_error("Failed to update roster")
+    assert not _tool_result_is_error("Added candidate")
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_propagates_policy_violation_runtime_error():
     with patch(
         "pipeline_client.agent.llm._call_openrouter",

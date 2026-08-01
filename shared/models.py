@@ -440,6 +440,18 @@ class RunAudit(BaseModel):
     publish_attention: List[str] = Field(default_factory=list)
 
 
+class IssueResearchAudit(BaseModel):
+    """Durable proof that an issue result came from research rather than a fallback."""
+
+    status: Literal["completed", "no_verdict", "insufficient_research", "retry_limit", "blocked_policy"] = "no_verdict"
+    attempts: int = 0
+    search_calls: int = 0
+    page_fetches: int = 0
+    source_count: int = 0
+    token_budget_reached: bool = False
+    max_iterations_reached: bool = False
+
+
 class PipelineState(BaseModel):
     """Draft-only progress state for batched research runs."""
 
@@ -448,6 +460,7 @@ class PipelineState(BaseModel):
     remaining_steps: List[str] = Field(default_factory=list)
     completed_units: List[str] = Field(default_factory=list)
     issue_attempts: Dict[str, int] = Field(default_factory=dict)
+    issue_research: Dict[str, IssueResearchAudit] = Field(default_factory=dict)
     step_failures: List[StepFailure] = Field(default_factory=list)
     deterministic_cleanup: Dict[str, int] = Field(default_factory=dict)
     race_identity: Optional[RaceIdentityBrief] = None

@@ -153,6 +153,9 @@ Common tools:
   groups with calibrated-or-static cost and search ceilings
 - `audit_race_assets`: bounded source/photo URL and image-quality checks;
   `persist=true` stores the evidence on the catalog record
+- `refresh_race_core`: canonical low-cost roster/summary, image, polling,
+  forecast, and voter-resource refresh. Discovery must establish exact-contest
+  roster evidence before downstream work; debug evidence is enabled by default.
 - `queue_races`: one or more races with full options
 - `run_race`: one race
 - `list_active_runs`, `get_queue`: queue/worker state
@@ -174,10 +177,53 @@ forecast evidence lineage, and pipeline/validation health. Use
 `audit_race_assets(..., persist=true)` when URL reachability, content type, or
 thumbnail quality matters; presence alone is not treated as verification.
 
+Roster editing tools accept both normalized evidence fields and the native
+`web_search`/model result aliases (`text` or `context`, `retrieved`, and `date`). The handler preserves those
+as durable evidence, infers only recognizable source classes, and still applies
+current-cycle and exact-contest checks. A blocked/error tool result is surfaced
+to the model as a failure. After two consecutive blocked edits, roster sync
+keeps the accumulated research but escalates subsequent synthesis to the
+stronger roster fallback and directs it to obtain higher-priority evidence
+instead of repeating the same invalid payload.
+Roster sync receives the run goal and cannot end successfully until it calls
+`finalize_roster`; that gate requires a locked contest identity plus qualifying
+current-cycle exact-contest evidence for every active candidate. If the gate
+does not pass, the run stops before images, polling, and forecast work and keeps
+`discovery` visibly incomplete for a retry.
+
+Roster authority order is: official election authority/certified ballot or
+result; official party qualification list when the party administers primary
+qualification; FEC corroboration for federal candidates; then a current
+exact-race Ballotpedia page and reputable news/campaign sources. The
+`ballotpedia_election_lookup` extraction is advisory only because a page can
+contain stale-cycle, primary, or unrelated navigation tables. Its names must
+never drive an add/removal alone or override a current official source.
+
 Logical runs enforce both global and phase search/token ceilings. They also cap
 uncached page fetches and fetched characters, and persist per-phase
 token/provider/search/page attribution across continuation handoffs. Defaults
 are documented in `.env.example`.
+
+For an issue unit, a ceiling ends further searching but does not manufacture a
+result. The last turn escalates from an economy model when a stronger configured
+fallback exists, receives the accumulated evidence, and is forced to call
+`set_issue_stance`. Its terminal result must be either a sourced factual stance
+or exactly `No public position found`. The latter is accepted only when the
+durable `pipeline_state.issue_research` audit records at least two search/fetch
+actions. Retry exhaustion leaves the unit incomplete and visible to review;
+it is never converted into a no-position finding.
+
+Example core refresh:
+
+```json
+{
+  "race_ids": ["pa-house-10-2026"],
+  "baseline_source": "latest",
+  "cheap_mode": true,
+  "debug_mode": true,
+  "goal": "Verify the exact-contest roster and refresh summaries, polling, and forecast."
+}
+```
 
 The all-catalog recheck is cursor-paged because a full storage hydration can
 outlive the Cloud Run request deadline. MCP `recheck_all_races` follows all
