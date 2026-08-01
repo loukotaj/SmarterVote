@@ -159,7 +159,12 @@ ADD_CANDIDATE_TOOL: Dict = {
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "context": {
+                                "type": "string",
+                                "description": "Quoted/search-result context; alias for evidence.",
+                            },
                             "retrieved": {"type": "string", "description": "Search-result retrieval date (ISO-8601)."},
+                            "date": {"type": "string", "description": "Source publication date (ISO-8601)."},
                             "published_at": {
                                 "type": "string",
                                 "description": "Publication, filing, or update date (ISO-8601).",
@@ -202,7 +207,12 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "context": {
+                                "type": "string",
+                                "description": "Quoted/search-result context; alias for evidence.",
+                            },
                             "retrieved": {"type": "string", "description": "Search-result retrieval date (ISO-8601)."},
+                            "date": {"type": "string", "description": "Source publication date (ISO-8601)."},
                             "published_at": {"type": "string"},
                             "race_id": {"type": "string"},
                             "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
@@ -253,6 +263,13 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "context": {
+                                "type": "string",
+                                "description": "Quoted/search-result context; alias for evidence.",
+                            },
+                            "retrieved": {"type": "string", "description": "Search-result retrieval date (ISO-8601)."},
+                            "date": {"type": "string", "description": "Source publication date (ISO-8601)."},
                             "published_at": {"type": "string"},
                             "race_id": {"type": "string"},
                             "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
@@ -301,12 +318,34 @@ SET_RACE_IDENTITY_TOOL: Dict = {
     },
 }
 
+FINALIZE_ROSTER_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "finalize_roster",
+        "description": (
+            "Finish roster sync only after every active candidate has durable current-cycle exact-contest evidence. "
+            "The handler validates the roster and returns specific missing evidence to fix."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "summary": {
+                    "type": "string",
+                    "description": "Brief description of the authoritative roster and contest stage used.",
+                }
+            },
+            "required": ["summary"],
+        },
+    },
+}
+
 ROSTER_TOOLS: List[Dict] = [
     ADD_CANDIDATE_TOOL,
     REMOVE_CANDIDATE_TOOL,
     RENAME_CANDIDATE_TOOL,
     SET_CANDIDATE_ROSTER_SOURCES_TOOL,
     SET_RACE_IDENTITY_TOOL,
+    FINALIZE_ROSTER_TOOL,
 ]
 
 # ---------------------------------------------------------------------------
