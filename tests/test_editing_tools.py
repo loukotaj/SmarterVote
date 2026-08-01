@@ -1614,16 +1614,42 @@ def test_not_on_roster_rejects_a_listing_that_does_not_enumerate_the_field():
     assert "Justin Maldonado" in [candidate["name"] for candidate in race_json["candidates"]]
 
 
-def test_not_on_roster_rejects_a_listing_that_names_the_candidate():
+def test_not_on_roster_allows_evidence_that_narrates_the_omission():
+    """The natural way to describe an omission names the omitted person.
+
+    Regression guard: scanning the evidence prose for the candidate's name
+    rejected every correctly-reasoned removal, because models write things like
+    "enumerates the field without Justin Maldonado".
+    """
     from pipeline_client.agent.agent import _make_editing_handlers
 
     race_json = _nj_roster_race()
     handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
     listing = _nj_roster_listing()
-    listing["text"] = listing["text"].replace("Joanne Kuniansky", "Justin Maldonado")
+    listing["text"] += (
+        ". This enumerates the complete general election field without Justin Maldonado, "
+        "who is listed under 'Withdrawn or disqualified candidates'."
+    )
 
     result = handlers["remove_candidate"](
-        {"name": "Justin Maldonado", "reason": "No evidence.", "not_on_roster": True, "sources": [listing]}
+        {"name": "Justin Maldonado", "reason": "No evidence of candidacy.", "not_on_roster": True, "sources": [listing]}
+    )
+
+    assert "unlisted" in result
+    assert "Justin Maldonado" not in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_not_on_roster_still_requires_two_corroborating_roster_names():
+    """The structural guarantee: the listing must independently name current roster members."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    thin = _nj_roster_listing()
+    thin["text"] = "Cory Booker is running in the general election for U.S. Senate New Jersey in 2026."
+
+    result = handlers["remove_candidate"](
+        {"name": "Justin Maldonado", "reason": "No evidence.", "not_on_roster": True, "sources": [thin]}
     )
 
     assert "blocked" in result.lower()
@@ -1699,3 +1725,56 @@ def test_cited_evidence_waives_the_withdrawal_keyword_scan():
     )
 
     assert "withdrawn" in result.lower()
+
+
+def test_completeness_gate_accepts_real_secretary_of_state_list_phrasing():
+    """New Jersey publishes "Official List Candidates ..." — the certified field itself."""
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2026/2026-official-general-candidates-us-senate.pdf",
+            "title": "Official List Candidates for US Senate For GENERAL ELECTION 11/03/2026",
+            "evidence": (
+                "07/27/2026 Official List Candidates for US Senate For GENERAL ELECTION 11/03/2026: "
+                "CORY BOOKER (Democratic), JUSTIN MURPHY (Republican), VERONICA FERNANDEZ, JOANNE KUNIANSKY."
+            ),
+            "race_id": "nj-senate-2026",
+            "published_at": "2026-07-27T00:00:00Z",
+            "evidence_tier": 1,
+            "retrieval_status": "content",
+        },
+        race_id="nj-senate-2026",
+    )
+
+    assert source["type"] == "official"
+    assert (
+        _roster_completeness_source_rejection_reason(
+            source,
+            race_id="nj-senate-2026",
+            identity={"office": "U.S. Senate", "contest_stage": "post_primary_general"},
+        )
+        is None
+    )
+
+
+def test_completeness_gate_still_rejects_single_candidate_evidence():
+    """A page about one candidate proves membership, never completeness."""
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://www.nj.gov/state/elections/some-profile",
+            "title": "Cory Booker profile",
+            "evidence": "Cory Booker is the incumbent senator seeking re-election in 2026.",
+            "race_id": "nj-senate-2026",
+            "published_at": "2026-07-27T00:00:00Z",
+            "evidence_tier": 1,
+            "retrieval_status": "content",
+        },
+        race_id="nj-senate-2026",
+    )
+
+    assert _roster_completeness_source_rejection_reason(
+        source, race_id="nj-senate-2026", identity={"office": "U.S. Senate", "contest_stage": "post_primary_general"}
+    )
