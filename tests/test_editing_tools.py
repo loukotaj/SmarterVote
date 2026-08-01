@@ -1060,8 +1060,47 @@ def test_finalize_roster_atomic_submission_requires_extracted_name_match():
         }
     )
 
-    assert "source_candidate_names must exactly match" in result
+    assert "source_candidate_names must match" in result
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Old Entry"]
+
+
+def test_finalize_roster_allows_middle_initial_in_extracted_source_name():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://aldemocrats.org/2026-primary-election-qualified-candidates"
+    source = {
+        "url": source_url,
+        "title": "2026 Primary Election - Qualified Candidates",
+        "evidence": (
+            "Qualified candidate for the August 11, 2026 special primary for "
+            "U.S. House Congressional District 2: Shomari C. Figures"
+        ),
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-08-11",
+            }
+        },
+        "candidates": [],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Official qualified candidate list.",
+            "candidates": [{"name": "Shomari Figures", "party": "Democratic", "incumbent": True}],
+            "source_candidate_names": ["Shomari C. Figures"],
+            "completeness_sources": [source],
+            "_research_trace": {"researched_urls": [source_url], "fetched_urls": [source_url]},
+        }
+    )
+
+    assert result == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():

@@ -403,7 +403,8 @@ FINALIZE_ROSTER_TOOL: Dict = {
                 "source_candidate_names": {
                     "type": "array",
                     "description": (
-                        "Every candidate name extracted from the completeness evidence; must exactly match candidates."
+                        "Every candidate name extracted from the completeness evidence; must match candidates. "
+                        "Middle initials and suffixes may differ."
                     ),
                     "items": {"type": "string"},
                 },
@@ -431,7 +432,7 @@ FINALIZE_ROSTER_TOOL: Dict = {
                             "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
                             "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
                         },
-                        "required": ["url", "title"],
+                        "required": ["url", "title", "evidence"],
                     },
                 },
             },
