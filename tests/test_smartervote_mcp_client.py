@@ -35,6 +35,7 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "audit_race_assets",
         "assess_publish_readiness",
         "queue_races",
+        "refresh_race_core",
         "run_race",
         "publish_race",
         "publish_races",
@@ -300,6 +301,37 @@ async def test_audit_race_assets_forwards_persistence_controls(monkeypatch):
     client.post.assert_awaited_once_with(
         "/api/races/asset-audit",
         json={"race_ids": ["ca-house-05-2026"], "persist": True, "max_urls_per_race": 25},
+    )
+
+
+@pytest.mark.asyncio
+async def test_refresh_race_core_queues_auditable_standard_step_set(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    queued = AsyncMock(return_value={"added": [{"race_id": "al-house-02-2026"}], "errors": []})
+    monkeypatch.setattr(server, "queue_races", queued)
+
+    result = await server.refresh_race_core(["al-house-02-2026"])
+
+    assert result["mode"] == "core_refresh"
+    assert result["enabled_steps"] == ["discovery", "images", "polling", "forecast", "voter_resources"]
+    queued.assert_awaited_once_with(
+        ["al-house-02-2026"],
+        cheap_mode=True,
+        force_fresh=False,
+        baseline_source="latest",
+        save_artifact=True,
+        enabled_steps=["discovery", "images", "polling", "forecast", "voter_resources"],
+        debug_mode=True,
+        note="Pipeline-driven core refresh: roster, summaries, polling, forecast, and resources.",
+        goal=(
+            "Verify the exact office/district roster from current-cycle evidence, remove wrong-contest contamination, "
+            "refresh candidate summaries, then update polling and the evidence-backed forecast."
+        ),
+        runner="local",
     )
 
 

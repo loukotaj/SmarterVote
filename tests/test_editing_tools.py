@@ -502,7 +502,7 @@ def test_add_candidate_tier3_requires_independent_sources_unless_authoritative()
 def test_roster_sources_and_race_identity_handlers():
     from pipeline_client.agent.agent import _make_editing_handlers
 
-    race_json = {"candidates": [{"name": "Alice", "party": "Democratic"}]}
+    race_json = {"id": "ga-governor-2026", "candidates": [{"name": "Alice", "party": "Democratic"}]}
     handlers = _make_editing_handlers(race_json, lambda l, m: None)
 
     identity_result = handlers["set_race_identity"](
@@ -524,6 +524,10 @@ def test_roster_sources_and_race_identity_handlers():
                     "type": "official",
                     "title": "Certified candidate list",
                     "evidence": "Alice is listed as a gubernatorial nominee.",
+                    "published_at": "2026-06-10",
+                    "race_id": "ga-governor-2026",
+                    "evidence_tier": 1,
+                    "retrieval_status": "content",
                 }
             ],
         }
@@ -535,6 +539,63 @@ def test_roster_sources_and_race_identity_handlers():
     assert "Set 1 roster source" in source_result
     assert race_json["candidates"][0]["roster_sources"][0]["type"] == "official"
     assert race_json["candidates"][0]["roster_sources"][0]["last_accessed"]
+
+
+def test_federal_house_roster_rejects_same_number_state_house_evidence():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://example.gov/alabama-house-2",
+        "type": "official",
+        "title": "Alabama House of Representatives District 2",
+        "evidence": "Rick Pressnell is a candidate for Alabama House of Representatives District 2.",
+        "published_at": "2026-01-15",
+        "race_id": "al-house-02-2026",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+
+    result = handlers["add_candidate"]({"name": "Rick Pressnell", "party": "Democratic", "roster_sources": [source]})
+
+    assert "Blocked adding" in result
+    assert race_json["candidates"] == []
+
+
+def test_wrong_contest_removal_requires_proof_and_physically_removes_contamination():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "state": "Alabama",
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic"},
+            {"name": "Rick Pressnell", "party": "Democratic"},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://aldemocrats.org/2026-qualified-candidates",
+        "type": "official",
+        "title": "2026 qualified candidates",
+        "evidence": "State Representative, District 2 - Rick Pressnell",
+        "published_at": "2026-01-15",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Rick Pressnell",
+            "reason": "Official list places him in Alabama State House District 2, not U.S. House District 2.",
+            "wrong_contest": True,
+            "sources": [source],
+        }
+    )
+
+    assert "wrong-contest" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures"]
 
 
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():

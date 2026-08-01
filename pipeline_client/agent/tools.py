@@ -187,12 +187,33 @@ REMOVE_CANDIDATE_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "remove_candidate",
-        "description": "Remove a candidate who has dropped out or withdrawn from the race.",
+        "description": "Remove a candidate who exited this race or was proven to belong to a different contest.",
         "parameters": {
             "type": "object",
             "properties": {
                 "name": {"type": "string", "description": "Exact name of the candidate to remove."},
                 "reason": {"type": "string", "description": "Brief reason for removal (e.g. 'withdrew', 'disqualified')."},
+                "wrong_contest": {
+                    "type": "boolean",
+                    "description": "True only when current evidence proves this entry belongs to another office/district.",
+                },
+                "sources": {
+                    "type": "array",
+                    "description": "Current evidence proving a wrong-contest entry belongs to another exact contest.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string", "enum": ["official", "ballotpedia", "fec", "news", "campaign"]},
+                            "title": {"type": "string"},
+                            "evidence": {"type": "string"},
+                            "published_at": {"type": "string"},
+                            "race_id": {"type": "string"},
+                            "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                        },
+                    },
+                },
             },
             "required": ["name"],
         },
@@ -236,6 +257,10 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "published_at": {"type": "string"},
+                            "race_id": {"type": "string"},
+                            "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
                         },
                     },
                 },

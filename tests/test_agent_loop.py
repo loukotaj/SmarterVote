@@ -634,6 +634,53 @@ async def test_agent_loop_nudges_model_toward_final_answer_in_json_mode():
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceiling():
+    from pipeline_client.agent.model_registry import CHEAP_MODEL, DEFAULT_MODEL
+
+    final_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_final",
+                "function": {
+                    "name": "set_issue_stance",
+                    "arguments": json.dumps({"stance": "No public position found"}),
+                },
+            }
+        ]
+    )
+    handler = MagicMock(return_value="OK")
+    final_tool = {
+        "type": "function",
+        "function": {"name": "set_issue_stance", "description": "Record result", "parameters": {"type": "object"}},
+    }
+
+    with (
+        patch("pipeline_client.agent.llm.total_token_budget_reached", return_value=True),
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock, return_value=final_response) as call,
+    ):
+        result = await _agent_loop(
+            "system",
+            "user",
+            model=CHEAP_MODEL,
+            phase_name="issue-test",
+            tools_mode=True,
+            extra_tools=[final_tool],
+            extra_tool_handlers={"set_issue_stance": handler},
+            required_final_tool_name="set_issue_stance",
+            required_final_instruction="Choose a sourced stance or the exact absence marker.",
+            return_tool_trace=True,
+        )
+
+    assert handler.call_count == 1
+    assert call.call_args.kwargs["model"] == DEFAULT_MODEL
+    assert call.call_args.kwargs["tool_choice"] == {
+        "type": "function",
+        "function": {"name": "set_issue_stance"},
+    }
+    assert result["_tool_trace"]["token_budget_reached"] is True
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_propagates_policy_violation_runtime_error():
     with patch(
         "pipeline_client.agent.llm._call_openrouter",

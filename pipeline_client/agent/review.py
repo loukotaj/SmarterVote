@@ -103,6 +103,51 @@ def serialize_semantic_review_packet(packet: Dict[str, Any]) -> str:
     return json.dumps(packet, sort_keys=True, separators=(",", ":"), ensure_ascii=True, default=str)
 
 
+def build_issue_research_effort_context(race_json: Dict[str, Any]) -> str:
+    """Summarize durable issue attempts so reviewers can distinguish absence from omission."""
+    state = race_json.get("pipeline_state") if isinstance(race_json.get("pipeline_state"), dict) else {}
+    attempts = state.get("issue_attempts") if isinstance(state.get("issue_attempts"), dict) else {}
+    research = state.get("issue_research") if isinstance(state.get("issue_research"), dict) else {}
+    lines: List[str] = []
+    required = [issue.value for issue in CanonicalIssue]
+    for candidate in race_json.get("candidates") or []:
+        if not isinstance(candidate, dict) or not candidate.get("name"):
+            continue
+        name = str(candidate["name"])
+        issues = candidate.get("issues") if isinstance(candidate.get("issues"), dict) else {}
+        attempted_slots = sum(int(attempts.get(f"issues:{name}:{issue}", 0) or 0) > 0 for issue in required)
+        total_attempts = sum(max(0, int(attempts.get(f"issues:{name}:{issue}", 0) or 0)) for issue in required)
+        completed_slots = sum(bool(str((issues.get(issue) or {}).get("stance") or "").strip()) for issue in required)
+        no_position_slots = sum(
+            _is_documented_absence(str((issues.get(issue) or {}).get("stance") or "")) for issue in required
+        )
+        unproven_absence = sum(
+            _is_documented_absence(str((issues.get(issue) or {}).get("stance") or ""))
+            and (
+                not isinstance(research.get(f"issues:{name}:{issue}"), dict)
+                or research[f"issues:{name}:{issue}"].get("status") != "completed"
+                or int(research[f"issues:{name}:{issue}"].get("search_calls", 0) or 0)
+                + int(research[f"issues:{name}:{issue}"].get("page_fetches", 0) or 0)
+                < 2
+            )
+            for issue in required
+        )
+        researched_slots = sum(
+            isinstance(research.get(f"issues:{name}:{issue}"), dict)
+            and int(research[f"issues:{name}:{issue}"].get("search_calls", 0) or 0)
+            + int(research[f"issues:{name}:{issue}"].get("page_fetches", 0) or 0)
+            > 0
+            for issue in required
+        )
+        lines.append(
+            f"- {name}: {completed_slots}/12 terminal issue outputs; {attempted_slots}/12 slots with recorded "
+            f"pipeline attempts ({total_attempts} total attempts); {no_position_slots} documented no-position "
+            f"outputs; {researched_slots}/12 slots with recorded search/fetch activity; {unproven_absence} "
+            f"no-position outputs without sufficient research provenance."
+        )
+    return "\n".join(lines) or "- No candidate issue-research attempt evidence is present."
+
+
 def build_review_change_manifest(previous: Dict[str, Any] | None, current: Dict[str, Any]) -> str:
     """Build a deterministic changed-field manifest while always sending the full packet."""
     if previous is None:
@@ -198,6 +243,7 @@ async def _run_single_review(
     metrics_sink: Optional[Dict[str, Any]] = None,
     run_budget: RunBudget | None = None,
     race_identity_context_text: str = "",
+    research_effort_context_text: str = "",
 ) -> Optional[Dict[str, Any]]:
     """Run a single review agent role (claude, gemini, or grok)."""
     log = make_logger(on_log)
@@ -206,6 +252,7 @@ async def _run_single_review(
         profile_json=profile_json,
         change_manifest=change_manifest,
         race_identity_context=race_identity_context_text,
+        research_effort_context=research_effort_context_text,
     )
     if provider not in _REVIEW_MODELS:
         return None
@@ -547,6 +594,9 @@ def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
         )
 
     required_issues = {issue.value for issue in CanonicalIssue}
+    state = race_json.get("pipeline_state") if isinstance(race_json.get("pipeline_state"), dict) else {}
+    issue_attempts = state.get("issue_attempts") if isinstance(state.get("issue_attempts"), dict) else {}
+    issue_research = state.get("issue_research") if isinstance(state.get("issue_research"), dict) else {}
     for index, candidate in enumerate(race_json.get("candidates") or []):
         if not isinstance(candidate, dict):
             continue
@@ -597,6 +647,27 @@ def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
                 if not isinstance(issue_data, dict):
                     continue
                 stance = str(issue_data.get("stance") or "").strip()
+                attempt_key = f"issues:{candidate.get('name')}:{issue_name}"
+                audit = issue_research.get(attempt_key)
+                researched_actions = (
+                    int(audit.get("search_calls", 0) or 0) + int(audit.get("page_fetches", 0) or 0)
+                    if isinstance(audit, dict)
+                    else 0
+                )
+                if _is_documented_absence(stance) and (
+                    int(issue_attempts.get(attempt_key, 0) or 0) < 1
+                    or not isinstance(audit, dict)
+                    or audit.get("status") != "completed"
+                    or researched_actions < 2
+                ):
+                    flags.append(
+                        {
+                            "field": f"candidates[{index}].issues.{issue_name}.stance",
+                            "concern": "No-position result lacks a completed audit with at least two recorded research actions.",
+                            "suggestion": "Run the issues phase so absence is documented after an actual bounded search.",
+                            "severity": "error",
+                        }
+                    )
                 if stance and not _is_documented_absence(stance) and not issue_data.get("sources"):
                     flags.append(
                         {
@@ -653,7 +724,8 @@ async def run_reviews(
     packet = semantic_packet if semantic_packet is not None else build_semantic_review_packet(race_json)
     validate_semantic_review_packet(race_json, packet)
     profile_json = serialize_semantic_review_packet(packet)
-    packet_key = hashlib.sha256(profile_json.encode("ascii")).hexdigest()
+    research_effort_context = build_issue_research_effort_context(race_json)
+    packet_key = hashlib.sha256(f"{profile_json}\n{research_effort_context}".encode("utf-8")).hexdigest()
     if metrics_sink is not None:
         metrics_sink["whole_profile"] = True
         metrics_sink["configured_providers"] = requested_providers
@@ -678,6 +750,7 @@ async def run_reviews(
                 metrics_sink=metrics_sink,
                 run_budget=run_budget,
                 race_identity_context_text=identity_context,
+                research_effort_context_text=research_effort_context,
             )
         )
 

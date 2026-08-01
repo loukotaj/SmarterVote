@@ -11,7 +11,7 @@ import re
 from datetime import datetime, timezone
 from difflib import get_close_matches
 from typing import Any, Callable, Dict, Optional
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 # Pattern matching metadata field names (snake_case, no spaces) — clearly not human names
 _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
@@ -35,6 +35,49 @@ _CONTEST_STAGES = {
     "special",
     "unknown",
 }
+
+
+def _roster_source_text(source: Dict[str, Any]) -> str:
+    return unquote(" ".join(str(source.get(key) or "") for key in ("title", "evidence", "url"))).casefold()
+
+
+def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> bool:
+    """Reject same-number state-legislative evidence for federal House races."""
+    match = re.fullmatch(r"[a-z]{2}-house-(\d{1,2})-(?:19|20)\d{2}", race_id)
+    if not match:
+        return True
+    district = str(int(match.group(1)))
+    text = _roster_source_text(source)
+    federal_house = bool(
+        re.search(r"\b(?:u\.?s\.?|united states)\s+(?:house|representative)", text)
+        or re.search(r"\bcongress(?:ional)?\b", text)
+    )
+    exact_district = bool(
+        re.search(rf"\b0*{re.escape(district)}(?:st|nd|rd|th)?\s+(?:congressional\s+)?district\b", text)
+        or re.search(rf"\b(?:congressional\s+)?district\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b", text)
+        or re.search(rf"\bcd\s*[-#]?\s*0*{re.escape(district)}\b", text)
+    )
+    return federal_house and exact_district
+
+
+def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
+    """Return true for evidence that places a candidate in a different contest."""
+    parsed_url = urlparse(str(source.get("url") or ""))
+    if source.get("type") not in {"official", "fec", "campaign", "ballotpedia", "news"}:
+        return False
+    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+        return False
+    text = _roster_source_text(source)
+    name_words = re.findall(r"[a-z0-9]+", candidate_name.casefold())
+    if not name_words or not all(word in text for word in name_words):
+        return False
+    if re.fullmatch(r"[a-z]{2}-house-\d{1,2}-(?:19|20)\d{2}", race_id):
+        state_house = bool(
+            re.search(r"\bstate\s+(?:house|representative)", text)
+            or re.search(r"\b[a-z ]+\s+house of representatives\s+(?:district|hd)\b", text)
+        )
+        return state_house and not _source_supports_exact_contest(source, race_id=race_id)
+    return False
 
 
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
@@ -85,6 +128,8 @@ def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_nam
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
         return False
     if source.get("race_id") != race_id or not source.get("title") or not source.get("evidence"):
+        return False
+    if not _source_supports_exact_contest(source, race_id=race_id):
         return False
     name_words = re.findall(r"[a-z0-9]+", candidate_name.lower())
     evidence_text = f"{source.get('title', '')} {source.get('evidence', '')}".lower()
@@ -323,6 +368,37 @@ def _make_editing_handlers(
     def remove_candidate(args: Dict[str, Any]) -> str:
         name = args["name"]
         reason = args.get("reason", "").strip()
+        candidates = race_json.get("candidates", [])
+        if args.get("wrong_contest") is True:
+            race_id = str(race_json.get("id") or "").strip()
+            proof = [
+                source
+                for source in (_normalize_roster_source(item) for item in args.get("sources") or [])
+                if source and _source_proves_different_contest(source, candidate_name=name, race_id=race_id)
+            ]
+            if not proof:
+                return (
+                    f"ERROR: wrong-contest removal blocked for '{name}'. Provide a current source that names the "
+                    "candidate and explicitly identifies the different office/district."
+                )
+            active_after = [
+                candidate
+                for candidate in candidates
+                if isinstance(candidate, dict)
+                and candidate.get("name") != name
+                and candidate.get("name")
+                and candidate.get("withdrawn") is not True
+            ]
+            if not active_after:
+                return f"ERROR: wrong-contest removal blocked. Add the verified correct roster before removing '{name}'."
+            original_count = len(candidates)
+            race_json["candidates"] = [
+                candidate for candidate in candidates if not isinstance(candidate, dict) or candidate.get("name") != name
+            ]
+            if len(race_json["candidates"]) < original_count:
+                log("info", f"    Removed wrong-contest candidate: {name} ({reason or proof[0].get('url')})")
+                return f"Removed wrong-contest candidate '{name}' from the active roster."
+            return f"Candidate '{name}' not found - no action taken."
 
         # Guard: reject removals that are clearly data-quality fixes rather than
         # actual race withdrawals. Withdrawal reasons must mention a concrete
@@ -432,8 +508,6 @@ def _make_editing_handlers(
                 f"quality issues."
             )
 
-        candidates = race_json.get("candidates", [])
-
         if is_structural_garbage:
             # Physically delete malformed/non-human entries from the list
             orig_len = len(candidates)
@@ -482,9 +556,10 @@ def _make_editing_handlers(
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
-        sources = [src for src in (_normalize_roster_source(source) for source in args.get("sources", [])) if src]
+        race_id = str(race_json.get("id") or "").strip()
+        sources = _qualifying_candidate_addition_sources(args.get("sources"), candidate_name=name, race_id=race_id)
         if not sources:
-            return "ERROR: At least one roster source with a URL, title, or evidence note is required."
+            return "ERROR: At least one qualifying current-cycle exact-contest roster source is required."
         c["roster_sources"] = sources
         log("info", f"    Set {len(sources)} roster source(s) for {name}")
         return f"Set {len(sources)} roster source(s) for '{name}'."
@@ -573,7 +648,7 @@ def _make_editing_handlers(
             return (
                 f"ERROR: {stance_text!r} looks like a placeholder, not a real position. "
                 "If no position was found after a good-faith search, use exactly "
-                "'No public position found after repeated research attempts.' with confidence 'low'."
+                "'No public position found' with confidence 'low'."
             )
         existing_stance = c.get("issues", {}).get(issue)
         existing_sources = existing_stance.get("sources") if isinstance(existing_stance, dict) else []
@@ -586,7 +661,7 @@ def _make_editing_handlers(
             return (
                 f"ERROR: A substantive {issue} stance requires at least one supporting source. "
                 "Provide sources, or record a documented absence with "
-                "'No public position found after repeated research attempts.'"
+                "'No public position found'."
             )
         stance_data: Dict[str, Any] = {
             "stance": args["stance"],
