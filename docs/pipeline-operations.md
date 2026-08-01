@@ -103,6 +103,9 @@ Use an update when the existing race is generally good:
   when the correction goal justifies their cost
 - explicit `enabled_steps` always override the update default
 - pass `candidate_names` for candidate-specific repair
+- pass `resume_partial=true` only when `baseline_source=latest` points to a
+  trusted pipeline checkpoint or draft whose completed work-unit markers must
+  be preserved; ordinary issue refreshes deliberately research enabled units again
 - use `review` after material issue or narrative changes and `iteration` only
   when model-assisted correction is appropriate
 

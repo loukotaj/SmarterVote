@@ -715,7 +715,7 @@ class AgentHandler:
                 target_no_info=options.get("target_no_info", False),
                 candidate_names=options.get("candidate_names"),
                 goal=options.get("goal"),
-                resume_partial=bool(options.get("is_continuation")),
+                resume_partial=bool(options.get("is_continuation") or options.get("resume_partial")),
                 continue_incomplete_work=True,
                 reject_empty_candidates=True,
                 prior_agent_metrics=options.get("prior_agent_metrics"),

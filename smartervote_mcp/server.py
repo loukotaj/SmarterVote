@@ -534,6 +534,7 @@ async def queue_races(
     cheap_mode: bool | None = True,
     force_fresh: bool | None = None,
     baseline_source: Literal["latest", "published"] | None = None,
+    resume_partial: bool | None = None,
     save_artifact: bool | None = None,
     enabled_steps: List[str] | None = None,
     research_model: str | None = None,
@@ -560,12 +561,15 @@ async def queue_races(
     Expensive default/quality/custom model profiles require explicitly passing
     cheap_mode=False. Set baseline_source="published" for a targeted repair
     that must ignore any existing draft; the default "latest" behavior prefers
-    a draft and falls back to published data.
+    a draft and falls back to published data. Set resume_partial=True only when
+    the latest draft is a trusted pipeline checkpoint whose completed work-unit
+    markers should be preserved instead of deliberately refreshed.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
         force_fresh=force_fresh,
         baseline_source=baseline_source,
+        resume_partial=resume_partial,
         save_artifact=save_artifact,
         enabled_steps=enabled_steps,
         research_model=research_model,

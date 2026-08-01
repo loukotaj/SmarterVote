@@ -657,6 +657,10 @@ def test_mcp_pipeline_options_default_to_cheap_mode():
         "cheap_mode": True,
         "baseline_source": "published",
     }
+    assert _pipeline_options(resume_partial=True) == {
+        "cheap_mode": True,
+        "resume_partial": True,
+    }
 
 
 def test_mcp_pipeline_options_require_explicit_false_for_quality_profile():

@@ -18,6 +18,11 @@ from shared.pipeline_options import PipelineRunOptions, ResolvedPipelineRunOptio
 # ---------------------------------------------------------------------------
 
 
+def test_resume_partial_defaults_false_and_is_explicitly_available():
+    assert ResolvedPipelineRunOptions().resume_partial is False
+    assert ResolvedPipelineRunOptions(resume_partial=True).resume_partial is True
+
+
 def test_normalize_pipeline_steps_none_passthrough():
     assert normalize_pipeline_steps(None) is None
 
