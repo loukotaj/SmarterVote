@@ -1,13 +1,8 @@
 <script lang="ts">
   import { browser } from "$app/environment";
 
-  export let activeTab:
-    | "dashboard"
-    | "races"
-    | "runs"
-    | "forecasts"
-    | "costs"
-    | "agent" = "dashboard";
+  export let activeTab: "dashboard" | "races" | "runs" | "forecasts" | "costs" =
+    "dashboard";
 
   const tabs = [
     { id: "dashboard", label: "Dashboard" },
@@ -15,7 +10,6 @@
     { id: "runs", label: "Runs" },
     { id: "forecasts", label: "Forecasts" },
     { id: "costs", label: "Costs" },
-    { id: "agent", label: "Agent" },
   ] as const;
 
   type TabId = (typeof tabs)[number]["id"];

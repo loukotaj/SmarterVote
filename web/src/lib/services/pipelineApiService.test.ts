@@ -121,32 +121,6 @@ describe("PipelineApiService production admin API contract", () => {
     );
   });
 
-  it("parses admin chat action responses", async () => {
-    fetchWithAuth.mockResolvedValueOnce(
-      jsonResponse({
-        reply: "This race should be refreshed.",
-        action: {
-          type: "queue_run",
-          race_ids: ["az-senate-2026"],
-          options: { cheap_mode: true },
-          description: "Refresh Arizona Senate",
-        },
-        race_records: [],
-        question: null,
-        thinking_steps: ["Prepared run for 1 race(s)"],
-      }),
-    );
-
-    const api = new PipelineApiService("https://api.example.test");
-    const result = await api.adminChat([
-      { role: "user", content: "Refresh Arizona" },
-    ]);
-
-    expect(result.action?.type).toBe("queue_run");
-    expect(result.action?.race_ids).toEqual(["az-senate-2026"]);
-    expect(result.thinking_steps).toEqual(["Prepared run for 1 race(s)"]);
-  });
-
   it("loads, saves, generates, and publishes chamber forecasts", async () => {
     fetchWithAuth
       .mockResolvedValueOnce(

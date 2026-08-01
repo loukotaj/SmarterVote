@@ -32,7 +32,6 @@ body:
         - Public site (web/)
         - Races API (services/races-api/)
         - Research pipeline (pipeline_client/)
-        - Admin agent (functions/admin_agent/)
         - Infrastructure / deployment (infra/)
         - Documentation (docs/)
         - Not sure

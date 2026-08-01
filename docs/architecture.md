@@ -10,7 +10,6 @@ SmarterVote has one production API surface: `services/races-api`. The older `pip
 | Marketing design system | `design-system/`                         | React components and tokens for Claude-generated marketing assets; not deployed with the web app |
 | Production API      | `services/races-api/`                        | Public race reads, admin queue/run/draft/publish APIs, analytics |
 | Pipeline worker     | `pipeline_client/worker.py`                  | Cloud Run Job and local Docker entry point                       |
-| Admin agent         | `functions/admin_agent/`                     | Durable tool-calling admin tasks and continuations               |
 | Queue execution     | `pipeline_client/backend/queue_processor.py` | Shared leases, execution, and terminal state for both runners    |
 | Agent orchestration | `pipeline_client/backend/handlers/agent.py`  | Shared `AgentHandler` wrapper                                    |
 | Agent research      | `pipeline_client/agent/`                     | Multi-phase AI research implementation                           |
@@ -23,9 +22,6 @@ SmarterVote has one production API surface: `services/races-api`. The older `pip
 ```text
 Admin dashboard
   -> Dashboard for traffic, health, queue state, and run drilldowns
-  -> Durable Agent conversation/task API for normal administration
-  -> admin_agent_tasks Firestore trigger -> functions/admin_agent/main.py
-  -> races-api tools with approval gates for destructive operations
   -> races-api POST /api/races/queue or POST /api/races/{race_id}/run
   -> Firestore pipeline_queue document (`runner=cloud_run`)
   -> races-api starts pipeline-job with QUEUE_ITEM_ID override
@@ -104,15 +100,6 @@ The admin dashboard should target `services/races-api`.
 | GET    | `/alerts`                                                   | List operational alerts                          |
 | POST   | `/alerts/{alert_id}/acknowledge`                            | Acknowledge one alert                            |
 | POST   | `/alerts/acknowledge-all`                                   | Acknowledge all active alerts                    |
-| POST   | `/api/admin-chat`                                           | Legacy synchronous admin chat endpoint           |
-| POST   | `/api/admin-agent/conversations`                            | Create a durable admin-agent conversation        |
-| GET    | `/api/admin-agent/conversations`                            | List durable admin-agent conversations           |
-| GET    | `/api/admin-agent/conversations/{conversation_id}`          | Load messages and recent tasks                   |
-| DELETE | `/api/admin-agent/conversations/{conversation_id}`          | Delete one conversation and its messages/tasks   |
-| POST   | `/api/admin-agent/conversations/{conversation_id}/messages` | Queue an asynchronous agent task                 |
-| GET    | `/api/admin-agent/tasks/{task_id}`                          | Get agent task status                            |
-| POST   | `/api/admin-agent/tasks/{task_id}/approve`                  | Approve a protected tool call and continue       |
-| POST   | `/api/admin-agent/tasks/{task_id}/cancel`                   | Cancel queued, running, or approval-blocked work |
 | POST   | `/cache/clear`                                              | Clear the races API in-memory public data cache  |
 | GET    | `/analytics/overview`                                       | Races API request analytics summary              |
 | GET    | `/analytics/traffic`                                        | Cloudflare static-site traffic summary           |
@@ -186,9 +173,6 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 | Firestore `pipeline_queue`            | Durable work routing, leases, dispatch state, and terminal status            |
 | Firestore `pipeline_runs`             | Run status, progress, and logs                                               |
 | Firestore `races`                     | Race catalog metadata for admin listing/filtering, plus status and history   |
-| Firestore `admin_agent_conversations` | Durable deployed-agent conversation metadata                                 |
-| Firestore `admin_agent_messages`      | User, assistant, and tool-call history                                       |
-| Firestore `admin_agent_tasks`         | Asynchronous work, approval state, cancellation, and continuations           |
 | Secret Manager                        | API keys and admin secrets                                                   |
 
 ## Local Development

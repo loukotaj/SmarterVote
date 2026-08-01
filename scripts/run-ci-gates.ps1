@@ -85,7 +85,6 @@ try {
         # PYSEC-2026-1325 affects ECDSA signing. SmarterVote only verifies Auth0 RS256 tokens.
         Invoke-Expression "$python -m pip_audit --ignore-vuln PYSEC-2026-1325 -r pipeline_client/backend/requirements.txt"
         Invoke-Expression "$python -m pip_audit --ignore-vuln PYSEC-2026-1325 -r services/races-api/requirements.txt"
-        Invoke-Expression "$python -m pip_audit -r functions/admin_agent/requirements.txt"
         Push-Location "web"
         try {
             npm audit --omit=dev --audit-level=high
@@ -97,12 +96,12 @@ try {
 
     Invoke-Step "Pipeline tests" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=60"
+        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=60"
     }
 
     Invoke-Step "Python formatting" {
-        Invoke-Expression "$python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts"
-        Invoke-Expression "$python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts"
+        Invoke-Expression "$python -m black --check shared smartervote_mcp services/races-api tests pipeline_client scripts"
+        Invoke-Expression "$python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client scripts"
     }
 
     Invoke-Step "Races API tests" {

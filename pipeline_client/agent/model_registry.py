@@ -27,8 +27,6 @@ CHEAP_GEMINI_MODEL = "google/gemini-3.1-flash-lite"
 DEFAULT_GROK_MODEL = "x-ai/grok-4.20"
 CHEAP_GROK_MODEL = "x-ai/grok-4.3"
 
-DEFAULT_ADMIN_CHAT_MODEL = NEMOTRON_ULTRA_MODEL
-
 
 @dataclass(frozen=True)
 class ModelSpec:

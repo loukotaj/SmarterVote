@@ -1,22 +1,15 @@
-"""Pipeline metrics and admin-chat endpoints."""
+"""Pipeline and infrastructure cost metrics endpoints."""
 
-import json
 import logging
-import os
-import re
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
 import firestore_helpers
 import gcp_costs
-import httpx
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
-from request_models import AdminChatRequest
 
 router = APIRouter()
-
-_ADMIN_CHAT_MODEL = os.getenv("ADMIN_CHAT_MODEL", "nvidia/nemotron-3-ultra-550b-a55b")
 
 
 def _as_float(value: Any, default: float = 0.0) -> float:
@@ -246,97 +239,6 @@ def _compute_metrics_summary(records: list[Dict[str, Any]]) -> Dict[str, Any]:
     }
 
 
-def _parse_admin_chat_reply(reply_text: str) -> Dict[str, Any]:
-    """Parse optional control blocks from the admin-chat model response."""
-    question = None
-    action = None
-
-    question_match = re.search(r"\nQUESTION:(\{[^\n]+\})\s*$", reply_text)
-    if question_match:
-        try:
-            q_data = json.loads(question_match.group(1))
-            question = q_data.get("text") or None
-            reply_text = reply_text[: question_match.start()].rstrip()
-        except (json.JSONDecodeError, ValueError):
-            pass
-
-    action_match = re.search(r"\nACTION:(\{[^\n]+\})\s*$", reply_text)
-    if action_match:
-        try:
-            action = json.loads(action_match.group(1))
-            reply_text = reply_text[: action_match.start()].rstrip()
-            if isinstance(action, dict) and action.get("type") == "queue_run":
-                options = action.setdefault("options", {})
-                if isinstance(options, dict):
-                    options.setdefault("cheap_mode", True)
-        except (json.JSONDecodeError, ValueError):
-            pass
-
-    thinking_steps = []
-    if action:
-        thinking_steps.append(f"Prepared run for {len(action.get('race_ids') or [])} race(s)")
-    if question:
-        thinking_steps.append("Needs clarification before queuing")
-
-    return {
-        "reply": reply_text,
-        "action": action,
-        "race_records": [],
-        "question": question,
-        "thinking_steps": thinking_steps,
-    }
-
-
-def _compact_admin_race_context(records: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
-    """Keep only bounded, low-volume fields needed for admin chat grounding."""
-    allowed = (
-        "race_id",
-        "id",
-        "title",
-        "status",
-        "quality_grade",
-        "freshness",
-        "candidate_count",
-        "last_run_at",
-        "last_run_status",
-        "published_at",
-        "draft_updated_at",
-        "office",
-        "jurisdiction",
-        "election_date",
-    )
-    compact: list[Dict[str, Any]] = []
-    for record in records:
-        item = {key: record.get(key) for key in allowed if record.get(key) is not None}
-        if item:
-            compact.append(item)
-    return compact
-
-
-def _load_admin_race_context(limit: int = 100) -> list[Dict[str, Any]]:
-    """Load compact race records for admin-chat grounding."""
-    try:
-        docs = firestore_helpers._get_fs().collection("races").limit(limit).stream()
-        records = [firestore_helpers._doc_to_plain(doc) for doc in docs]
-        return _compact_admin_race_context([record for record in records if record is not None])
-    except Exception as exc:
-        logging.warning("Failed to load admin-chat race context: %s", exc)
-        return []
-
-
-def _race_records_for_action(action: Dict[str, Any] | None, context: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
-    """Return race records referenced by a queue_run action."""
-    if not action or action.get("type") != "queue_run":
-        return []
-    ids = set(action.get("race_ids") or [])
-    records = []
-    for record in context:
-        race_id = record.get("race_id") or record.get("id")
-        if race_id in ids:
-            records.append(record)
-    return records
-
-
 # ---------------------------------------------------------------------------
 # Pipeline metrics (token usage / cost)
 # ---------------------------------------------------------------------------
@@ -506,56 +408,3 @@ async def get_gcp_costs(days: int = 30) -> Dict[str, Any]:
     export is not yet set up or has produced no data.
     """
     return gcp_costs.get_gcp_costs(days)
-
-
-# ---------------------------------------------------------------------------
-# Admin chat proxy
-# ---------------------------------------------------------------------------
-
-
-@router.post("/api/admin-chat", dependencies=[Depends(verify_token)])
-async def admin_chat(request: AdminChatRequest) -> Dict[str, Any]:
-    """Admin-chat endpoint — forwards messages to OpenRouter with race context."""
-    api_key = os.getenv("OPENROUTER_API_KEY", "")
-    if not api_key:
-        raise HTTPException(status_code=503, detail="OPENROUTER_API_KEY not configured")
-    model = os.getenv("ADMIN_CHAT_MODEL", _ADMIN_CHAT_MODEL)
-    system_content = (
-        "You are an AI assistant embedded in the SmarterVote admin dashboard. "
-        "You help administrators review races, decide which ones need re-running, "
-        "and kick off new pipeline runs with the right settings.\n\n"
-        "When you want to queue a run, append exactly one JSON action block at the end:\n"
-        'ACTION:{"type":"queue_run","race_ids":["race-id"],"options":{"cheap_mode":true},"description":"One-line description"}\n'
-        "When you need clarification, append exactly one question block at the end:\n"
-        'QUESTION:{"text":"Your question"}\n'
-        "Do not wrap ACTION or QUESTION blocks in markdown. Use exact race IDs."
-    )
-    race_context = (
-        _compact_admin_race_context(request.race_context[:100]) if request.race_context else _load_admin_race_context()
-    )
-    if race_context:
-        system_content += f"\n\nCurrent race context (JSON):\n{json.dumps(race_context, indent=2, default=str)}"
-    messages = [{"role": "system", "content": system_content}]
-    messages += [{"role": m.role, "content": m.content} for m in request.messages]
-    try:
-        async with httpx.AsyncClient(timeout=60) as client:
-            resp = await client.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
-                    "X-Title": os.getenv("OPENROUTER_APP_TITLE", "SmarterVote"),
-                },
-                json={"model": model, "messages": messages},
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            reply = data["choices"][0]["message"]["content"]
-            parsed = _parse_admin_chat_reply(reply)
-            parsed["race_records"] = _race_records_for_action(parsed.get("action"), race_context)
-            parsed["model"] = model
-            return parsed
-    except httpx.HTTPStatusError as exc:
-        raise HTTPException(status_code=502, detail=f"OpenRouter error: {exc.response.status_code}") from exc
-    except Exception as exc:
-        raise HTTPException(status_code=503, detail=f"Chat unavailable: {exc}") from exc

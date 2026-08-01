@@ -1,7 +1,7 @@
 """Pydantic request/response models and input validation for races-api."""
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from fastapi import HTTPException
 from pydantic import BaseModel, Field, field_validator
@@ -50,27 +50,3 @@ class RepairPlanRequest(BaseModel):
 class AssetAuditRequest(RepairPlanRequest):
     persist: bool = False
     max_urls_per_race: int = Field(default=100, ge=1, le=300)
-
-
-class AdminChatMessage(BaseModel):
-    role: str
-    content: str
-
-
-class AdminChatRequest(BaseModel):
-    messages: List[AdminChatMessage]
-    race_context: Optional[List[Dict[str, Any]]] = None
-
-
-class AdminAgentMessageRequest(BaseModel):
-    content: str
-
-    @field_validator("content")
-    @classmethod
-    def validate_content(cls, value: str) -> str:
-        normalized = value.strip()
-        if not normalized:
-            raise ValueError("content cannot be empty")
-        if len(normalized) > 12000:
-            raise ValueError("content cannot exceed 12000 characters")
-        return normalized

@@ -16,13 +16,8 @@
   const API_BASE = racesApiBase();
 
   let apiService: PipelineApiService;
-  let activeTab:
-    | "dashboard"
-    | "races"
-    | "runs"
-    | "forecasts"
-    | "costs"
-    | "agent" = "dashboard";
+  let activeTab: "dashboard" | "races" | "runs" | "forecasts" | "costs" =
+    "dashboard";
   let queueItems: QueueItem[] = [];
   let runs: RunHistoryItem[] = [];
   let isRefreshingRuns = false;
@@ -38,9 +33,6 @@
   let CostsTabComponent:
     | typeof import("$lib/components/admin/CostsTab.svelte").default
     | null = null;
-  let AgentTabComponent:
-    | typeof import("$lib/components/admin/DurableAdminAgentTab.svelte").default
-    | null = null;
 
   $: if (activeTab === "forecasts" && !ForecastsTabComponent) {
     void import("$lib/components/admin/ForecastsTab.svelte").then(
@@ -52,12 +44,6 @@
       (module) => (CostsTabComponent = module.default),
     );
   }
-  $: if (activeTab === "agent" && !AgentTabComponent) {
-    void import("$lib/components/admin/DurableAdminAgentTab.svelte").then(
-      (module) => (AgentTabComponent = module.default),
-    );
-  }
-
   $: if (activeTab === "runs" && apiService) {
     void refreshRuns();
   }
@@ -136,7 +122,6 @@
     const params = new URLSearchParams(window.location.search);
     const tabParam = params.get("tab");
     if (
-      tabParam === "agent" ||
       tabParam === "races" ||
       tabParam === "runs" ||
       tabParam === "forecasts" ||
@@ -255,7 +240,7 @@
         <div>
           <h1 class="text-xl font-bold text-content">Admin Console</h1>
           <p class="text-sm text-content-subtle">
-            Operations dashboard and deployed agent
+            Race data and pipeline operations dashboard
           </p>
         </div>
         <div class="flex items-center gap-3 text-sm text-content-muted">
@@ -362,10 +347,6 @@
     {:else if activeTab === "costs"}
       {#if CostsTabComponent}
         <svelte:component this={CostsTabComponent} />
-      {/if}
-    {:else if activeTab === "agent" && apiService}
-      {#if AgentTabComponent}
-        <svelte:component this={AgentTabComponent} {apiService} />
       {/if}
     {/if}
   </div>
