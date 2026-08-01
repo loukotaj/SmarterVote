@@ -341,8 +341,14 @@ def is_race_issue(issue: dict[str, Any]) -> bool:
 
 
 def resolve_race_id(issue: dict[str, Any]) -> str:
-    """Extract and validate the Race ID field from an issue body."""
-    race_id = extract_field(issue.get("body", ""), "Race ID").strip().strip("`").lower()
+    """Extract and validate the Race ID field from an issue body.
+
+    The race-request template labels the field "Proposed Race ID" while missing-data uses
+    "Race ID"; issues filed before that split use "Race ID" for both.
+    """
+    body = issue.get("body", "")
+    raw = extract_field(body, "Race ID") or extract_field(body, "Proposed Race ID")
+    race_id = raw.strip().strip("`").lower()
     if not race_id:
         raise TriageError("no Race ID field found in the issue body")
     if not RACE_ID_PATTERN.match(race_id):

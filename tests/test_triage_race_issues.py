@@ -58,6 +58,10 @@ class TestResolveRaceId:
     def test_extracts_and_normalizes(self):
         assert triage.resolve_race_id({"body": ISSUE_BODY}) == "nj-senate-2026"
 
+    def test_accepts_race_request_proposed_label(self):
+        body = "### Proposed Race ID\n\ntx-governor-2026\n\n### Office\n\nGovernor\n"
+        assert triage.resolve_race_id({"body": body}) == "tx-governor-2026"
+
     def test_rejects_missing_race_id(self):
         with pytest.raises(triage.TriageError):
             triage.resolve_race_id({"body": "### Candidate Name\n\nJane Smith\n"})
