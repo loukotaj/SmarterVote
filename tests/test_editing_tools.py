@@ -768,10 +768,70 @@ def test_finalize_roster_requires_evidence_for_every_active_candidate():
     }
     handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
 
-    blocked = handlers["finalize_roster"]({"summary": "Official party lists"})
+    completeness_source = {
+        "url": "https://aldemocrats.org/2026-qualified-candidates",
+        "type": "official",
+        "title": "2026 Qualified Candidates",
+        "evidence": "Qualified candidates for U.S. Representative, 2nd Congressional District: Shomari Figures",
+        "race_id": "al-house-02-2026",
+        "published_at": "2026-02-01",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+
+    blocked = handlers["finalize_roster"]({"summary": "Official party lists", "completeness_sources": [completeness_source]})
     assert "Unverified Candidate" in blocked
     race_json["candidates"].pop()
-    finalized = handlers["finalize_roster"]({"summary": "Official party list"})
+    finalized = handlers["finalize_roster"]({"summary": "Official party list", "completeness_sources": [completeness_source]})
+    assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
+    assert race_json["pipeline_state"]["roster_research"]["active_candidate_count"] == 1
+
+
+def test_finalize_roster_requires_exact_special_election_completeness_source():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    candidate_source = {
+        "url": "https://algop.org/qualified-2026-republican-candidates/",
+        "type": "official",
+        "title": "Qualified 2026 Republican Candidates",
+        "evidence": "U.S. Congress Congressional District 2 Hampton Harris",
+        "race_id": "al-house-02-2026",
+        "published_at": "2026-02-01",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-08-11",
+            }
+        },
+        "candidates": [{"name": "Hampton Harris", "party": "Republican", "roster_sources": [candidate_source]}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    ordinary = handlers["finalize_roster"]({"summary": "Regular primary list", "completeness_sources": [candidate_source]})
+    assert "special election" in ordinary
+
+    special_source = dict(candidate_source)
+    special_source.update(
+        {
+            "url": "https://algop.org/special-congressional-election-qualified-candidates/",
+            "title": "Special Congressional Election Qualified Candidates",
+            "evidence": (
+                "Qualified candidates for the August 11, 2026 Special Primary Election, U.S. Congress "
+                "Congressional District 2: Hampton Harris"
+            ),
+            "published_at": "2026-05-22",
+        }
+    )
+    finalized = handlers["finalize_roster"](
+        {"summary": "August special primary list", "completeness_sources": [special_source]}
+    )
     assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 

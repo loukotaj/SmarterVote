@@ -192,9 +192,14 @@ stronger roster fallback and directs it to obtain higher-priority evidence
 instead of repeating the same invalid payload.
 Roster sync receives the run goal and cannot end successfully until it calls
 `finalize_roster`; that gate requires a locked contest identity plus qualifying
-current-cycle exact-contest evidence for every active candidate. If the gate
-does not pass, the run stops before images, polling, and forecast work and keeps
-`discovery` visibly incomplete for a retry.
+current-cycle exact-contest evidence for every active candidate. It separately
+requires retrieved completeness evidence quoting a qualified, certified, or
+official-ballot list that names every active candidate; candidate-by-candidate
+proof alone cannot establish that nobody was omitted. Special-election evidence
+must identify the special contest and its verified date. Successful finalization
+persists this audit under `pipeline_state.roster_research`. If the gate does not
+pass, the run stops before images, polling, and forecast work and keeps `discovery`
+visibly incomplete for a retry.
 
 Roster authority order is: official election authority/certified ballot or
 result; official party qualification list when the party administers primary
