@@ -72,11 +72,21 @@ def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: 
     if not name_words or not all(word in text for word in name_words):
         return False
     if re.fullmatch(r"[a-z]{2}-house-\d{1,2}-(?:19|20)\d{2}", race_id):
-        state_house = bool(
-            re.search(r"\bstate\s+(?:house|representative)", text)
-            or re.search(r"\b[a-z ]+\s+house of representatives[\s,]+(?:district|hd)\b", text)
+        candidate_pos = text.find(candidate_name.casefold())
+        candidate_context = (
+            text[max(0, candidate_pos - 180) : candidate_pos + len(candidate_name) + 80] if candidate_pos >= 0 else text
         )
-        return state_house and not _source_supports_exact_contest(source, race_id=race_id)
+        state_house = bool(
+            re.search(r"\bstate\s+(?:house|representative)", candidate_context)
+            or re.search(
+                r"\b[a-z ]+\s+house of representatives[\s,]+(?:district|hd)\b",
+                candidate_context,
+            )
+        )
+        # Candidate-specific evidence often says "state House, not U.S. House".
+        # The target-office phrase is negated there, so global keyword matching
+        # must not turn valid wrong-contest proof into exact-contest evidence.
+        return state_house
     return False
 
 
@@ -101,7 +111,7 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
         return None
     url = str(source.get("url") or "").strip() or None
     title = str(source.get("title") or "").strip() or None
-    evidence = str(source.get("evidence") or source.get("text") or "").strip() or None
+    evidence = str(source.get("evidence") or source.get("text") or source.get("context") or "").strip() or None
     host = urlparse(url or "").netloc.casefold()
     source_type = str(source.get("type") or "").strip().lower()
     if not source_type:
@@ -128,6 +138,8 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
     for key in ("published_at", "race_id", "evidence_tier", "retrieval_status"):
         if source.get(key) is not None:
             normalized[key] = source[key]
+    if source.get("date") is not None and "published_at" not in normalized:
+        normalized["published_at"] = source["date"]
     normalized.setdefault("race_id", race_id)
     if evidence and "evidence_tier" not in normalized:
         normalized["evidence_tier"] = 3

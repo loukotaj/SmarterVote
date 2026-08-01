@@ -178,7 +178,7 @@ forecast evidence lineage, and pipeline/validation health. Use
 thumbnail quality matters; presence alone is not treated as verification.
 
 Roster editing tools accept both normalized evidence fields and the native
-`web_search` result aliases (`text`, `retrieved`). The handler preserves those
+`web_search`/model result aliases (`text` or `context`, `retrieved`, and `date`). The handler preserves those
 as durable evidence, infers only recognizable source classes, and still applies
 current-cycle and exact-contest checks. A blocked/error tool result is surfaced
 to the model as a failure. After two consecutive blocked edits, roster sync
