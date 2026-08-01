@@ -716,6 +716,30 @@ def test_add_candidate_accepts_context_and_date_search_aliases():
     assert source["published_at"] == "2026-02-01"
 
 
+def test_add_candidate_accepts_native_search_snippet_alias():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    result = handlers["add_candidate"](
+        {
+            "name": "Shomari Figures",
+            "party": "Democratic",
+            "roster_sources": [
+                {
+                    "url": "https://aldemocrats.org/2026-qualified-candidates",
+                    "title": "2026 Qualified Candidates",
+                    "snippet": "US Representative, 2nd District - Shomari Figures",
+                    "retrieved": "2026-08-01",
+                }
+            ],
+        }
+    )
+
+    assert result == "Added candidate 'Shomari Figures'."
+    assert race_json["candidates"][0]["roster_sources"][0]["evidence"].startswith("US Representative")
+
+
 def test_finalize_roster_requires_evidence_for_every_active_candidate():
     from pipeline_client.agent.agent import _make_editing_handlers
 

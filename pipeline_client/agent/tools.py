@@ -159,6 +159,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
                                 "type": "string",
                                 "description": "Quoted/search-result context; alias for evidence.",
@@ -207,6 +208,7 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
                                 "type": "string",
                                 "description": "Quoted/search-result context; alias for evidence.",
@@ -264,6 +266,7 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
                                 "type": "string",
                                 "description": "Quoted/search-result context; alias for evidence.",
