@@ -3,6 +3,8 @@
 import json
 import tempfile
 
+import pytest
+
 from pipeline_client.agent.agent import _select_target_candidates
 
 # ---------------------------------------------------------------------------
@@ -1247,3 +1249,121 @@ def test_search_cache_list_cached_for_race():
         assert len(result["searches"]) == 1
         assert result["searches"][0]["query"] == "test query"
         assert "https://r.com" in result["searches"][0]["urls"]
+
+
+def _nj_race_json():
+    return {
+        "id": "nj-senate-2026",
+        "state": "New Jersey",
+        "candidates": [
+            {"name": "Cory Booker", "party": "Democratic"},
+            {"name": "Veronica Fernandez", "party": "Unknown"},
+        ],
+    }
+
+
+def _nj_ballotpedia_source(source_type):
+    """The exact source shape the roster agent emitted for nj-senate-2026."""
+    source = {
+        "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
+        "title": "United States Senate election in New Jersey, 2026",
+        "text": (
+            "Incumbent Cory Booker, Justin Murphy, Veronica Fernandez, and Joanne Kuniansky are "
+            "running in the general election for U.S. Senate New Jersey on November 3, 2026"
+        ),
+        "retrieved": "2026-08-01",
+    }
+    if source_type is not None:
+        source["type"] = source_type
+    return source
+
+
+@pytest.mark.parametrize("source_type", ["web", "election_authority", "encyclopedia", None])
+def test_roster_source_type_inferred_from_host_for_unrecognized_labels(source_type):
+    """An unrecognized-but-plausible type label must not strand evidence in 'other'."""
+    from pipeline_client.agent.handlers import _normalize_roster_source
+
+    normalized = _normalize_roster_source(_nj_ballotpedia_source(source_type), race_id="nj-senate-2026")
+
+    assert normalized["type"] == "ballotpedia"
+
+
+def test_set_candidate_roster_sources_accepts_single_source_for_existing_candidate():
+    """Attaching evidence to a candidate already on the roster needs no corroboration."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_race_json()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_candidate_roster_sources"](
+        {"candidate_name": "Veronica Fernandez", "sources": [_nj_ballotpedia_source("web")]}
+    )
+
+    assert "Set 1 roster source(s)" in result
+    assert race_json["candidates"][1]["roster_sources"][0]["type"] == "ballotpedia"
+
+
+def test_add_candidate_still_requires_corroboration_for_tier3_snippets():
+    """The anti-fabrication gate on *new* candidates is unchanged."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_race_json()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["add_candidate"](
+        {
+            "name": "Joanne Kuniansky",
+            "party": "Socialist Workers Party",
+            "roster_sources": [_nj_ballotpedia_source("web")],
+        }
+    )
+
+    assert "Blocked adding" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Cory Booker", "Veronica Fernandez"]
+
+
+def test_self_declared_official_type_cannot_waive_corroboration():
+    """A model must not grant itself official authority by relabelling an arbitrary host."""
+    from pipeline_client.agent.handlers import _classify_roster_source_type, _qualifying_candidate_addition_sources
+
+    assert _classify_roster_source_type("official", title="T", url="https://randomblog.com/p", host="randomblog.com") == "news"
+
+    sources = [
+        {
+            "url": "https://randomblog.com/p",
+            "type": "official",
+            "title": "Veronica Fernandez 2026",
+            "evidence": "Veronica Fernandez is running for U.S. Senate New Jersey in 2026",
+        }
+    ]
+    assert _qualifying_candidate_addition_sources(sources, candidate_name="Veronica Fernandez", race_id="nj-senate-2026") == []
+
+
+def test_blocked_roster_edit_names_the_failing_check():
+    """A generic 'need better evidence' message sends the model hunting for the wrong thing."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_race_json()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    missing_evidence = handlers["set_candidate_roster_sources"](
+        {
+            "candidate_name": "Veronica Fernandez",
+            "sources": [
+                {
+                    "url": "https://ballotpedia.org/x",
+                    "type": "ballotpedia",
+                    "title": "United States Senate election in New Jersey, 2026",
+                }
+            ],
+        }
+    )
+    assert "evidence" in missing_evidence.lower()
+
+    wrong_name = handlers["set_candidate_roster_sources"](
+        {
+            "candidate_name": "Veronica Fernandez",
+            "sources": [_nj_ballotpedia_source("web") | {"text": "Cory Booker is running in 2026"}],
+        }
+    )
+    assert "candidate name" in wrong_name.lower()

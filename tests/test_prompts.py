@@ -384,3 +384,35 @@ def test_forecast_prompt_formats_and_disallows_search():
     assert "Prediction market signals" in result
     assert "Do not search the web" in FORECAST_SYSTEM
     assert "Use set_forecast exactly once" in FORECAST_SYSTEM
+
+
+def test_roster_prompt_requires_current_contest_stage():
+    """A stale pre_primary keeps defeated primary candidates on general-election rosters."""
+    assert "STEP 2.6 — Record the CURRENT contest stage" in ROSTER_SYNC_USER
+    assert "not a\npermanent property of the race" in ROSTER_SYNC_USER
+    assert "post_primary_general" in ROSTER_SYNC_USER
+
+
+def test_contest_stage_is_not_presented_as_locked_identity():
+    """Contest stage advances with the calendar and must stay re-verifiable."""
+    from pipeline_client.agent.phase_state import race_identity_context
+
+    context = race_identity_context(
+        {
+            "office": "U.S. Senate",
+            "state": "New Jersey",
+            "pipeline_state": {
+                "race_identity": {
+                    "office": "U.S. Senate",
+                    "state": "New Jersey",
+                    "contest_stage": "pre_primary",
+                    "primary_status": "Primary scheduled for June 2026",
+                }
+            },
+        }
+    )
+
+    locked_block, _, status_block = context.partition("Time-sensitive status as last observed")
+    assert "pre_primary" not in locked_block
+    assert "pre_primary" in status_block
+    assert "re-verify against today's date" in context
