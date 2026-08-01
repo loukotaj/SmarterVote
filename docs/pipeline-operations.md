@@ -182,7 +182,8 @@ forecast evidence lineage, and pipeline/validation health. Use
 thumbnail quality matters; presence alone is not treated as verification.
 
 Roster editing tools accept both normalized evidence fields and the native
-`web_search`/model result aliases (`text` or `context`, `retrieved`, and `date`). The handler preserves those
+`web_search`/model result aliases (`text`, `context`, or `snippet`, plus
+`retrieved` and `date`). The handler preserves those
 as durable evidence, infers only recognizable source classes, and still applies
 current-cycle and exact-contest checks. A blocked/error tool result is surfaced
 to the model as a failure. After two consecutive blocked edits, roster sync
@@ -202,6 +203,30 @@ exact-race Ballotpedia page and reputable news/campaign sources. The
 `ballotpedia_election_lookup` extraction is advisory only because a page can
 contain stale-cycle, primary, or unrelated navigation tables. Its names must
 never drive an add/removal alone or override a current official source.
+
+Removals have three paths, chosen by what the evidence actually supports:
+
+- **Exited the race** — a reason describing the withdrawal, disqualification, or
+  dated primary loss. A cited current-cycle source naming the candidate satisfies
+  this on its own; the reason text does not also have to match a keyword.
+- **`wrong_contest=true`** — evidence placing the candidate in another
+  office/district. The handler checks the citation is a real, current-cycle
+  source naming the candidate; whether the page describes a different office is
+  the model's reading, not a keyword match, so this works for every race type.
+- **`not_on_roster=true`** — nothing supports the candidacy and the best roster
+  listing for this exact race omits them. The listing must name at least two
+  other candidates on the profile (proving it loaded and enumerates the field)
+  and must not name the candidate being removed. It cannot remove the incumbent.
+
+Absence is only evidence when it comes from a source that demonstrably has the
+roster. A page that failed to load, returned nothing, or was truncated is not
+proof of absence, which is why the two-corroborating-names rule exists.
+
+Page fetches that hit bot protection retry through the Jina Reader text proxy.
+Set `JINA_API_KEY` for the authenticated quota — the anonymous quota is shared
+and low, and once spent it answers 403 for every host, which silently strands all
+roster evidence at snippet (tier 3). A run whose proxy fetches all fail logs a
+single explicit outage warning rather than one indistinguishable error per URL.
 
 Logical runs enforce both global and phase search/token ceilings. They also cap
 uncached page fetches and fetched characters, and persist per-phase
