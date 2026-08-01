@@ -113,10 +113,12 @@ async def _run_update(
         pre_sync_names = list(candidate_names)
         if "discovery.roster_sync" not in completed_units:
             log("info", "Update Phase 0: Verifying candidate roster...")
+            roster_sync_succeeded = False
             try:
-                await _agent_loop(
+                roster_result = await _agent_loop(
                     ROSTER_SYNC_SYSTEM,
-                    ROSTER_SYNC_USER.format(
+                    (f"## Run Goal\n{goal}\n\n" if goal else "")
+                    + ROSTER_SYNC_USER.format(
                         race_id=race_id,
                         last_updated=last_updated,
                         current_date=as_of_date,
@@ -134,7 +136,14 @@ async def _run_update(
                     tools_mode=True,
                     run_budget=run_budget,
                     tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+                    required_final_tool_name="finalize_roster",
+                    required_final_instruction=(
+                        "Do not stop yet. Finish the authoritative exact-contest roster, ensure every active "
+                        "candidate has durable qualifying roster_sources, then call finalize_roster."
+                    ),
+                    return_tool_trace=True,
                 )
+                roster_sync_succeeded = bool((roster_result.get("_tool_trace") or {}).get("required_final_tool_succeeded"))
             except RunBudgetExceeded:
                 raise
             except Exception as exc:
@@ -149,6 +158,26 @@ async def _run_update(
                 operation="Ballotpedia roster sync",
             )
             _sanitize_roster(race_json, log)
+            if not roster_sync_succeeded:
+                _record_step_failure(
+                    race_json,
+                    "discovery",
+                    RunFailureReason.ROSTER_VERIFICATION_FAILED,
+                    "Roster agent did not complete evidence-backed finalization.",
+                )
+                pipeline_state = race_json.setdefault("pipeline_state", {})
+                pipeline_state["complete"] = False
+                remaining_steps = pipeline_state.setdefault("remaining_steps", [])
+                if "discovery" not in remaining_steps:
+                    remaining_steps.append("discovery")
+                track(
+                    "progress",
+                    "discovery",
+                    pct=30,
+                    message="Discovery stopped: roster finalization incomplete",
+                    race_json=race_json,
+                )
+                return race_json
             _mark_pipeline_unit_complete(race_json, "discovery.roster_sync")
             completed_units.add("discovery.roster_sync")
             track(

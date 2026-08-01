@@ -103,12 +103,8 @@ def race_identity_context(race_json: Dict[str, Any]) -> str:
         lines.append(f"- State: {state_name}")
     if district:
         lines.append(f"- District: {district}")
-    if contest_stage:
-        lines.append(f"- Contest stage: {contest_stage}")
     if election_date:
         lines.append(f"- Election date: {election_date}")
-    if primary_status:
-        lines.append(f"- Primary status: {primary_status}")
     if known_incumbent:
         lines.append(f"- Known incumbent: {known_incumbent}")
     if ineligible:
@@ -122,6 +118,20 @@ def race_identity_context(race_json: Dict[str, Any]) -> str:
         "exact office/state/district — not a different race in the same state or a "
         "different election cycle."
     )
+    # Contest stage advances with the calendar, so it is deliberately NOT part of the
+    # locked block above: presenting it as locked identity caused a stale "pre_primary"
+    # to be re-asserted run after run long after the primary had been decided.
+    if contest_stage or primary_status:
+        lines.append("")
+        lines.append("Time-sensitive status as last observed (re-verify against today's date; update it if it moved on):")
+        if contest_stage:
+            lines.append(f"- Contest stage was recorded as: {contest_stage}")
+        if primary_status:
+            lines.append(f"- Primary status was recorded as: {primary_status}")
+        lines.append(
+            "If a primary, runoff, or filing deadline has since concluded, record the current "
+            "stage with set_race_identity instead of repeating the stored value."
+        )
     return "\n".join(lines)
 
 
