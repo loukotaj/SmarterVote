@@ -464,6 +464,8 @@ class PipelineState(BaseModel):
     step_failures: List[StepFailure] = Field(default_factory=list)
     deterministic_cleanup: Dict[str, int] = Field(default_factory=dict)
     race_identity: Optional[RaceIdentityBrief] = None
+    roster_research: Optional[Dict[str, Any]] = None
+    metadata_research: Optional[Dict[str, Any]] = None
 
 
 class RaceJSON(BaseModel):

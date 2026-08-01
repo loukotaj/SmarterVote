@@ -453,6 +453,69 @@ SET_CANDIDATE_SUMMARY_TOOL: Dict = {
     },
 }
 
+FINALIZE_METADATA_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "finalize_metadata",
+        "description": (
+            "Atomically submit the race description and a sourced biographical summary for every active candidate. "
+            "Use this after research so findings cannot be lost when the phase reaches its turn limit."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A sourced, nonpartisan 3-4 sentence description of this exact race.",
+                },
+                "description_sources": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string"},
+                            "title": {"type": "string"},
+                        },
+                        "required": ["url"],
+                    },
+                },
+                "candidates": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "summary": {
+                                "type": "string",
+                                "description": "A factual, nonpartisan 2-3 sentence biography.",
+                            },
+                            "sources": {
+                                "type": "array",
+                                "minItems": 1,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {"type": "string"},
+                                        "type": {"type": "string"},
+                                        "title": {"type": "string"},
+                                    },
+                                    "required": ["url"],
+                                },
+                            },
+                        },
+                        "required": ["name", "summary", "sources"],
+                    },
+                },
+            },
+            "required": ["description", "description_sources", "candidates"],
+        },
+    },
+}
+
 CANDIDATE_TOOLS: List[Dict] = [SET_CANDIDATE_FIELD_TOOL, SET_CANDIDATE_SUMMARY_TOOL]
 
 # ---------------------------------------------------------------------------

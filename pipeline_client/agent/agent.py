@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from shared.pipeline_config import DEFAULT_UPDATE_PIPELINE_STEPS, PIPELINE_STEP_IDS, REVIEW_PROVIDERS, PipelineRuntimeConfig
+from shared.run_health import clear_step_failures
 
 from .ballotpedia import default_ballotpedia_race_url
 from .cost import _cost_ctx, estimate_cost
@@ -58,6 +59,7 @@ from .tools import (  # noqa: F401 - re-exported for tests
     BALLOTPEDIA_TOOL,
     CANDIDATE_TOOLS,
     FETCH_TOOL,
+    FINALIZE_METADATA_TOOL,
     FORECAST_TOOLS,
     ISSUE_TOOLS,
     RACE_TOOLS,
@@ -705,6 +707,11 @@ async def run_agent(
     if existing_data and enabled_steps is None:
         _enabled = set(DEFAULT_UPDATE_PIPELINE_STEPS)
         log("info", "Using low-cost update steps; issue research and review are opt-in")
+
+    if isinstance(existing_data, dict):
+        # Health is an assessment of the latest attempt. Retain unrelated failures,
+        # but let every enabled phase prove itself again from a clean slate.
+        clear_step_failures(existing_data, _enabled)
 
     if existing_data:
         log("info", f"Update mode for {race_id} (profile={profile}, model={model}, small_model={small_model})")

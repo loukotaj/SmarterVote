@@ -17,7 +17,15 @@ from ..prompts import (
 )
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations, _select_target_candidates
-from ..tools import CANDIDATE_TOOLS, DESCRIPTION_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS, REMOVE_CANDIDATE_TOOL, ROSTER_TOOLS
+from ..tools import (
+    CANDIDATE_TOOLS,
+    DESCRIPTION_TOOLS,
+    FINALIZE_METADATA_TOOL,
+    READ_PROFILE_TOOL,
+    RECORD_TOOLS,
+    REMOVE_CANDIDATE_TOOL,
+    ROSTER_TOOLS,
+)
 from ..utils import make_logger
 from ._common import (
     RunFailureReason,
@@ -282,10 +290,22 @@ async def _run_update(
                     max_iterations=meta_iters,
                     phase_name="update-meta",
                     max_tokens=16384,
-                    extra_tools=DESCRIPTION_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tools=DESCRIPTION_TOOLS
+                    + CANDIDATE_TOOLS
+                    + RECORD_TOOLS
+                    + [READ_PROFILE_TOOL, FINALIZE_METADATA_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                     run_budget=run_budget,
+                    tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+                    required_final_tool_name="finalize_metadata",
+                    required_final_instruction=(
+                        "Research is over. Synthesize the evidence already collected into a substantive race "
+                        "description and a factual 2-3 sentence biography for EVERY active candidate. Call "
+                        "finalize_metadata once with the complete candidate array and only source URLs you actually "
+                        "searched or fetched. Do not leave findings only in prose and do not perform more research."
+                    ),
+                    return_tool_trace=True,
                 )
             except RunBudgetExceeded:
                 raise
