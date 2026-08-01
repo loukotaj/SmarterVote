@@ -165,6 +165,10 @@ Common tools:
 - `get_run_diagnostics`, `summarize_run_costs`: run health and exact cost
 - `get_pipeline_metrics`, `get_pipeline_metrics_summary`: cost reporting
 
+Local-worker cancellation snapshots the live token, provider-cost, search, and
+phase accumulators before clearing the run, so `summarize_run_costs` reports
+actual partial spend instead of an unevidenced zero for future cancelled runs.
+
 Queue each `repair_groups` item independently. The combined
 `recommended_steps` and `candidate_names` fields are summaries, not a safe
 queue payload when candidates need different work. Estimates use a 25% margin
