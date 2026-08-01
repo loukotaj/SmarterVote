@@ -1199,7 +1199,9 @@ official ballot). Never assume a race is uncontested without at least one additi
 search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
-stop making tool calls. Do NOT produce any text reply or JSON — just stop.
+call finalize_roster. It will reject incomplete or weakly sourced rosters and tell
+you exactly which candidate evidence remains to fix. You may stop only after
+finalize_roster succeeds. Do NOT produce any text reply or JSON.
 Do NOT modify any other data (issues, summaries, polls, etc.)."""
 
 ROSTER_VERIFY_SYSTEM = f"""\

@@ -753,6 +753,40 @@ def _make_editing_handlers(
         log("info", f"    Locked race identity ({contest_stage})")
         return "Recorded race identity brief."
 
+    def finalize_roster(args: Dict[str, Any]) -> str:
+        race_id = str(race_json.get("id") or "").strip()
+        active_candidates = [
+            candidate
+            for candidate in race_json.get("candidates", [])
+            if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
+        ]
+        if not active_candidates:
+            return "ERROR: roster finalization blocked. Add at least one verified active candidate."
+
+        missing_evidence = []
+        for candidate in active_candidates:
+            name = str(candidate.get("name") or "").strip()
+            if not _qualifying_candidate_addition_sources(
+                candidate.get("roster_sources"),
+                candidate_name=name,
+                race_id=race_id,
+            ):
+                missing_evidence.append(name)
+        if missing_evidence:
+            return (
+                "ERROR: roster finalization blocked. These active candidates lack durable current-cycle "
+                f"exact-contest roster evidence: {', '.join(missing_evidence)}. Search/fetch authoritative "
+                "sources, then call set_candidate_roster_sources or remove proven wrong-contest entries."
+            )
+
+        identity = (race_json.get("pipeline_state") or {}).get("race_identity")
+        if not isinstance(identity, dict) or not identity.get("office") or not identity.get("contest_stage"):
+            return "ERROR: roster finalization blocked. Lock the exact office and contest stage with set_race_identity."
+
+        summary = str(args.get("summary") or "").strip()
+        log("info", f"    Finalized roster with {len(active_candidates)} active candidate(s): {summary}")
+        return f"Roster finalized with {len(active_candidates)} evidence-backed active candidate(s)."
+
     # --- Candidate field handlers ---
 
     def set_candidate_field(args: Dict[str, Any]) -> str:
@@ -1322,6 +1356,7 @@ def _make_editing_handlers(
         "rename_candidate": rename_candidate,
         "set_candidate_roster_sources": set_candidate_roster_sources,
         "set_race_identity": set_race_identity,
+        "finalize_roster": finalize_roster,
         "set_candidate_field": set_candidate_field,
         "set_candidate_summary": set_candidate_summary,
         "set_issue_stance": set_issue_stance,
