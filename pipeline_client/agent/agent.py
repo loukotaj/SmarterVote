@@ -277,12 +277,61 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
             continue
         kept_polls.append(poll)
 
-    if len(kept_polls) != len(polling):
-        race_json["polling"] = kept_polls
+    sponsor_pattern = re.compile(r"\b(?:DCCC|DSCC|NRCC|NRSC|committee|campaign)\b", re.IGNORECASE)
+    deduplicated_polls: List[Dict[str, Any]] = []
+    removed_duplicate_labels: List[str] = []
+    for poll in kept_polls:
+        duplicate_index = None
+        for index, existing in enumerate(deduplicated_polls):
+            if existing.get("matchups") != poll.get("matchups") or existing.get("sample_size") != poll.get("sample_size"):
+                continue
+            try:
+                date_gap = abs(
+                    (
+                        datetime.fromisoformat(str(existing.get("date"))).date()
+                        - datetime.fromisoformat(str(poll.get("date"))).date()
+                    ).days
+                )
+            except (TypeError, ValueError):
+                continue
+            if date_gap <= 3:
+                duplicate_index = index
+                break
+
+        if duplicate_index is None:
+            deduplicated_polls.append(poll)
+            continue
+
+        existing = deduplicated_polls[duplicate_index]
+        existing_is_sponsor = bool(sponsor_pattern.search(str(existing.get("pollster") or "")))
+        poll_is_sponsor = bool(sponsor_pattern.search(str(poll.get("pollster") or "")))
+        if existing_is_sponsor and not poll_is_sponsor:
+            removed_duplicate_labels.append(str(existing.get("pollster") or ""))
+            deduplicated_polls[duplicate_index] = poll
+        else:
+            removed_duplicate_labels.append(str(poll.get("pollster") or ""))
+
+    total_dropped = dropped_polls + len(kept_polls) - len(deduplicated_polls)
+    if removed_duplicate_labels:
+        note = str(race_json.get("polling_note") or "")
+        removed_sponsor = any(sponsor_pattern.search(label) for label in removed_duplicate_labels)
+        if any(label and label.casefold() in note.casefold() for label in removed_duplicate_labels) or (
+            removed_sponsor and sponsor_pattern.search(note)
+        ):
+            race_json["polling_note"] = None
         if log:
             log(
                 "warning",
-                f"Dropped {dropped_polls} malformed or placeholder polling entr{'y' if dropped_polls == 1 else 'ies'}",
+                "Removed equivalent near-date polling duplicate(s): " + ", ".join(removed_duplicate_labels),
+            )
+
+    if deduplicated_polls != polling:
+        race_json["polling"] = deduplicated_polls
+        if log:
+            log(
+                "warning",
+                f"Dropped {total_dropped} malformed, placeholder, or duplicate polling "
+                f"entr{'y' if total_dropped == 1 else 'ies'}",
             )
 
 
