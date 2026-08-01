@@ -187,7 +187,12 @@ REMOVE_CANDIDATE_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "remove_candidate",
-        "description": "Remove a candidate who exited this race or was proven to belong to a different contest.",
+        "description": (
+            "Remove a candidate. Three paths: (1) they exited this race — give a reason naming the "
+            "withdrawal, disqualification, or dated primary loss; (2) wrong_contest=true — evidence puts "
+            "them in a different office/district; (3) not_on_roster=true — they never were a candidate "
+            "here, evidenced by a roster listing for this race that enumerates the field without them."
+        ),
         "parameters": {
             "type": "object",
             "properties": {
@@ -197,9 +202,22 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                     "type": "boolean",
                     "description": "True only when current evidence proves this entry belongs to another office/district.",
                 },
+                "not_on_roster": {
+                    "type": "boolean",
+                    "description": (
+                        "True when no evidence supports this candidacy and the best roster listing you have for "
+                        "this exact race omits them. Cite that listing in `sources`: its evidence text must name "
+                        "at least two other candidates on this profile and must not mention the removed name. "
+                        "A page that failed to load, returned nothing, or was truncated does not qualify. "
+                        "Cannot be used on the incumbent."
+                    ),
+                },
                 "sources": {
                     "type": "array",
-                    "description": "Current evidence proving a wrong-contest entry belongs to another exact contest.",
+                    "description": (
+                        "Evidence for the removal: a wrong-contest proof, or (with not_on_roster) the roster "
+                        "listing for this race that enumerates the field without the candidate."
+                    ),
                     "items": {
                         "type": "object",
                         "properties": {
