@@ -183,13 +183,19 @@ def _source_omits_candidate_from_roster(
     if not _source_is_current_cycle(source, race_id=race_id, text=text):
         return False
 
-    # Deliberately no "the candidate must not appear in the evidence text" check.
-    # The evidence field holds the model's account of the listing, and the natural
-    # way to describe an omission names the person omitted ("enumerates the field
-    # without Justin Maldonado", "listed under withdrawn candidates"). Scanning it
-    # for the name rejects exactly the well-reasoned removals this path exists to
-    # allow. The structural guarantee comes from the corroboration count below:
-    # the listing must independently name candidates who are still on the roster.
+    # A model may mention the target while accurately narrating an omission, but
+    # a source that simply lists the target is affirmative roster evidence and
+    # must never be accepted as proof of absence. If the target appears, require
+    # explicit omission/withdrawal language tied to that account of the listing.
+    if _source_names_candidate(text, candidate_name) and not re.search(
+        r"\b(?:without|omit(?:s|ted)?|absent|not\s+(?:listed|included|named)|"
+        r"does\s+not\s+(?:list|include|name)|withdr(?:ew|awn)|disqualified)\b",
+        text,
+    ):
+        return False
+
+    # The structural guarantee below still requires the listing to independently
+    # name multiple candidates who remain on the roster.
 
     corroborating = 0
     for other in other_roster_names:
@@ -1333,14 +1339,20 @@ def _make_editing_handlers(
                 "Provide sources, or record a documented absence with "
                 "'No public position found'."
             )
+        # Keep the catalog marker machine-readable and consistent across issue
+        # research and later review/iteration passes. Models often append their
+        # search narrative to this field despite being told to use the exact
+        # marker; the research audit is the proper place for that evidence.
+        stored_stance = "No public position found" if is_documented_absence else args["stance"]
+        stored_confidence = "low" if is_documented_absence else args["confidence"]
         stance_data: Dict[str, Any] = {
-            "stance": args["stance"],
-            "confidence": args["confidence"],
+            "stance": stored_stance,
+            "confidence": stored_confidence,
             "sources": merged_sources,
         }
         c.setdefault("issues", {})[issue] = stance_data
-        log("info", f"    {name} / {issue} [{args['confidence']}]")
-        return f"Set {name}'s {issue} stance (confidence: {args['confidence']})."
+        log("info", f"    {name} / {issue} [{stored_confidence}]")
+        return f"Set {name}'s {issue} stance (confidence: {stored_confidence})."
 
     # --- Career, education, social media handlers ---
 
