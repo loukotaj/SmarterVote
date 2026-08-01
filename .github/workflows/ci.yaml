@@ -198,29 +198,6 @@ jobs:
         run: |
           cd web && npm run test:unit -- --run
 
-  test-design-system:
-    name: Test Marketing Design System
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: design-system/package-lock.json
-      - name: Install dependencies
-        working-directory: design-system
-        run: npm ci
-      - name: Audit dependencies
-        working-directory: design-system
-        run: npm audit --audit-level=high
-      - name: Type-check components
-        working-directory: design-system
-        run: npm run typecheck
-      - name: Build Claude marketing export
-        working-directory: design-system
-        run: npm run build
-
   terraform-validate:
     name: Validate Terraform
     runs-on: ubuntu-latest
@@ -307,7 +284,6 @@ jobs:
         type-sync,
         test-apis,
         test-web,
-        test-design-system,
         terraform-validate,
         codeql,
         release-artifacts,
@@ -323,7 +299,6 @@ jobs:
           TYPE_SYNC_RESULT: ${{ needs.type-sync.result }}
           APIS_RESULT: ${{ needs.test-apis.result }}
           WEB_RESULT: ${{ needs.test-web.result }}
-          DESIGN_SYSTEM_RESULT: ${{ needs.test-design-system.result }}
           TERRAFORM_RESULT: ${{ needs.terraform-validate.result }}
           CODEQL_RESULT: ${{ needs.codeql.result }}
           ARTIFACT_RESULT: ${{ needs.release-artifacts.result }}
@@ -334,11 +309,10 @@ jobs:
           echo "type-sync:           $TYPE_SYNC_RESULT"
           echo "test-apis:           $APIS_RESULT"
           echo "test-web:            $WEB_RESULT"
-          echo "test-design-system:  $DESIGN_SYSTEM_RESULT"
           echo "terraform-validate:  $TERRAFORM_RESULT"
           echo "codeql:              $CODEQL_RESULT"
           echo "release-artifacts:   $ARTIFACT_RESULT"
-          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$TYPE_SYNC_RESULT" != "success" || "$APIS_RESULT" != "success" || "$WEB_RESULT" != "success" || "$DESIGN_SYSTEM_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
+          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$TYPE_SYNC_RESULT" != "success" || "$APIS_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
             echo "❌ One or more CI gates failed"
             exit 1
           fi

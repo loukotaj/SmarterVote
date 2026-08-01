@@ -143,46 +143,41 @@ def reported_concerns(body: str) -> set[str]:
 
 
 def recommend(concerns: Iterable[str], roster_unverified: bool, has_draft: bool) -> list[dict[str, Any]]:
-    """Order remedies for the observed concerns, most important first.
-
-    Roster verification always leads when it is in doubt: paying for 12-issue-deep research on
-    an unverified candidate is the expensive way to get the wrong answer.
-    """
+    """Order remedies for the observed concerns, most important first."""
     concern_set = set(concerns)
     actions: list[dict[str, Any]] = []
 
     if roster_unverified:
         actions.append(
             {
-                "label": "re-verify the candidate roster first",
-                "steps": ["discovery"],
-                "baseline": "published",
-                "note": "Do not pass `force_fresh=true` — it wipes existing evidence and can trip the "
-                "roster safety check for candidates that were already well sourced.",
-            }
-        )
-
-    if concern_set & {"issues", "finance"}:
-        actions.append(
-            {
-                "label": "combined issues run (issues are never queued alone — unreviewed stances cannot publish)",
-                "steps": COMBINED_STEPS,
-                "baseline": "latest" if has_draft else "published",
-                "note": "Verify `donor_summary`/`voting_summary` actually populated afterwards; the finance "
-                "step can fail silently and leave everyone blank with no error surfaced.",
-            }
-        )
-    elif "roster" in concern_set and not roster_unverified:
-        actions.append(
-            {
-                "label": "roster re-verification (biographical / website gaps)",
+                "label": "re-verify candidate roster first",
                 "steps": ["discovery"],
                 "baseline": "published",
                 "note": "",
             }
         )
 
-    if "forecast" in concern_set:
+    if concern_set & {"issues", "finance"}:
+        actions.append(
+            {
+                "label": "combined issues run",
+                "steps": COMBINED_STEPS,
+                "baseline": "latest" if has_draft else "published",
+                "note": "",
+            }
+        )
+    elif "roster" in concern_set and not roster_unverified:
+        actions.append(
+            {
+                "label": "roster re-verification",
+                "steps": ["discovery"],
+                "baseline": "published",
+                "note": "",
+            }
+        )
+
+    # Forecast is already included in COMBINED_STEPS if issues or finance is queued
+    if "forecast" in concern_set and not (concern_set & {"issues", "finance"}):
         actions.append({"label": "targeted forecast re-run", "steps": ["forecast"], "baseline": "latest", "note": ""})
 
     if "images" in concern_set:
@@ -192,120 +187,48 @@ def recommend(concerns: Iterable[str], roster_unverified: bool, has_draft: bool)
 
 
 def build_triage_comment(issue: dict[str, Any], race_id: str, record: dict[str, Any] | None) -> str:
-    """Compose the one-time triage verdict comment."""
-    lines = [f"### Automated triage: `{race_id}`", ""]
+    """Compose an ultra-compact triage verdict comment without emojis."""
+    lines = [f"### Triage: `{race_id}`", ""]
 
     if record is None:
         is_request = issue["title"].startswith("[Race Request]")
-        if is_request:
-            lines += [
-                f"`{race_id}` is **not in the catalog** — consistent with a new race request.",
-                "",
-                "Adding it is a manual admin action; no pipeline run has been queued.",
-            ]
-        else:
-            lines += [
-                f"⚠️ `{race_id}` is **not in the catalog**, but this was filed as a missing-data report.",
-                "",
-                "The race ID is probably wrong, or the race needs to be created first.",
-            ]
-        lines += ["", f"{NOTIFY_HANDLE} — no spend incurred."]
+        status = "new race request" if is_request else "not in catalog"
+        lines += [f"`{race_id}` is **{status}**.", "", NOTIFY_HANDLE]
         return "\n".join(lines)
 
     health = record.get("catalog_health") or {}
     gaps = health.get("gaps") or []
     reported_name = extract_field(issue.get("body", ""), "Candidate Name")
 
-    lines += [
-        f"**{record.get('title', race_id)}** — status `{record.get('status', 'unknown')}`, "
-        f"quality grade `{record.get('quality_grade') or 'none'}`, "
-        f"{record.get('candidate_count', 0)} candidates.",
-        "",
-    ]
+    grade = record.get("quality_grade") or "none"
+    count = record.get("candidate_count", 0)
+    lines += [f"**{record.get('title', race_id)}** (Grade `{grade}`, {count} candidates)", ""]
 
     roster_needs_work = False
     if reported_name:
         candidate = find_candidate(record, reported_name)
         if candidate is None:
             roster_needs_work = True
-            lines += [
-                f"❌ **{reported_name} is not in the roster.** The roster itself needs verification "
-                "before any issue research is worth paying for.",
-                "",
-            ]
-        else:
-            details = []
-            if (candidate.get("party") or "Unknown") == "Unknown":
-                details.append("party is `Unknown`")
-            if not candidate.get("image_url"):
-                details.append("no headshot")
-            suffix = f" ({', '.join(details)})" if details else ""
-            lines += [f"✅ **{reported_name} is in the roster**{suffix}.", ""]
-            # Present but thinly sourced is still an unverified roster entry -- cheap discovery
-            # should confirm it before issue research spends ~$0.20-0.30 per candidate on it.
-            if len(details) > 1:
-                roster_needs_work = True
-                lines += [
-                    "⚠️ That is a thinly-sourced roster entry, so discovery should confirm the "
-                    "candidate before deeper research is paid for.",
-                    "",
-                ]
-
-    if health:
-        issue_slots = health.get("issue_slot_count") or 0
-        missing_issues = health.get("missing_issue_count") or 0
-        lines += [
-            "**Catalog health**",
-            "",
-            f"- Issue coverage: {issue_slots - missing_issues}/{issue_slots} slots filled " f"({missing_issues} missing)",
-            f"- Missing headshots: {health.get('missing_image_count', 0)}",
-            f"- Validation: {'passed' if health.get('validation_passed') else 'FAILED'} "
-            f"(grade `{health.get('validation_grade') or 'none'}`)",
-            f"- Gaps: {', '.join(f'`{gap}`' for gap in gaps) if gaps else 'none'}",
-            f"- Stale sections: {', '.join(health.get('stale_sections') or []) or 'none'}",
-            "",
-        ]
+            lines += [f"Candidate **{reported_name}** is not in roster.", ""]
 
     if record.get("draft_exists"):
-        draft_health = record.get("draft_catalog_health") or {}
-        state = "passing validation" if draft_health.get("validation_passed") else "not yet passing validation"
-        lines += [f"📝 An unpublished draft already exists and is **{state}**.", ""]
+        lines += ["A run has been completed and is pending review.", ""]
 
-    # Weigh what the reporter flagged, corroborated by what the catalog actually shows.
     concerns = reported_concerns(issue.get("body", ""))
     concerns |= {GAP_CONCERNS[gap] for gap in gaps if gap in GAP_CONCERNS}
     actions = recommend(concerns, roster_needs_work, bool(record.get("draft_exists")))
 
-    lines += ["**Suggested next steps**", ""]
     if not actions:
-        lines += ["No pipeline work indicated — the reported gap is not corroborated by the catalog.", ""]
-    for index, action in enumerate(actions, start=1):
-        prefix = f"{index}. " if len(actions) > 1 else ""
-        lines += [f"{prefix}{action['label']}:", ""]
-        lines += [
-            "```",
-            f'queue_races(race_ids=["{race_id}"], enabled_steps={json.dumps(action["steps"])}, '
-            f'baseline_source="{action["baseline"]}")',
-            "```",
-            "",
-        ]
-        if "issues" in action["steps"]:
-            candidate_count = record.get("candidate_count") or 0
-            low, high = 0.20 * candidate_count, 0.30 * candidate_count
-            lines += [
-                f"💰 Estimated **${low:.2f}–${high:.2f}** — ~$0.20–0.30/candidate across "
-                f"{candidate_count} candidates, economy mode.",
-                "",
-            ]
-        if action["note"]:
-            lines += [action["note"], ""]
+        lines += ["No pipeline work indicated.", ""]
+    else:
+        for action in actions:
+            cmd = (
+                f'queue_races(race_ids=["{race_id}"], enabled_steps={json.dumps(action["steps"])}, '
+                f'baseline_source="{action["baseline"]}")'
+            )
+            lines += ["```", cmd, "```", ""]
 
-    lines += [
-        "---",
-        "",
-        f"{NOTIFY_HANDLE} — **nothing has been queued and no credits were spent.** This is triage only; "
-        "run one of the commands above to act on it.",
-    ]
+    lines += [NOTIFY_HANDLE]
     return "\n".join(lines)
 
 
@@ -314,14 +237,11 @@ def build_draft_ready_comment(race_id: str, record: dict[str, Any]) -> str:
     draft_health = record.get("draft_catalog_health") or {}
     return "\n".join(
         [
-            f"### ✅ Publishable draft ready: `{race_id}`",
+            f"### Draft ready: `{race_id}`",
             "",
-            f"A draft for **{record.get('title', race_id)}** now passes validation "
-            f"(grade `{draft_health.get('validation_grade') or 'none'}`, "
+            f"A draft for **{record.get('title', race_id)}** passes validation "
+            f"(Grade `{draft_health.get('validation_grade') or 'none'}`, "
             f"{draft_health.get('candidate_count', 0)} candidates).",
-            "",
-            "Review it before publishing — spot-check for literal placeholder text and confirm "
-            "`donor_summary`/`voting_summary` actually populated, since the finance step can fail silently.",
             "",
             "```",
             f'publish_race(race_id="{race_id}")',

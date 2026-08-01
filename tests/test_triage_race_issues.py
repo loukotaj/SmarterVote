@@ -108,7 +108,6 @@ class TestRecommend:
         actions = triage.recommend({"issues"}, roster_unverified=True, has_draft=False)
         assert actions[0]["steps"] == ["discovery"]
         assert actions[0]["baseline"] == "published"
-        assert "force_fresh" in actions[0]["note"]
 
     def test_issues_never_queued_alone(self):
         actions = triage.recommend({"issues"}, roster_unverified=False, has_draft=False)
@@ -149,38 +148,29 @@ class TestBuildTriageComment:
     def test_uncatalogued_race_on_data_report_is_flagged(self):
         issue = {"title": "[Data] Missing data for: Jane Smith", "body": ISSUE_BODY}
         comment = triage.build_triage_comment(issue, "zz-senate-2026", None)
-        assert "not in the catalog" in comment
-        assert "no spend incurred" in comment
+        assert "not in catalog" in comment
+        assert "@loukotaj" in comment
 
     def test_uncatalogued_race_on_request_is_expected(self):
         issue = {"title": "[Race Request] tx-governor-2026", "body": ISSUE_BODY}
         comment = triage.build_triage_comment(issue, "tx-governor-2026", None)
-        assert "consistent with a new race request" in comment
+        assert "new race request" in comment
 
-    def test_thinly_sourced_candidate_triggers_discovery_first(self):
+    def test_candidate_in_roster_with_existing_draft(self):
         record = {
             "title": "2026 U.S. Senate Election in New Jersey",
             "status": "published",
             "quality_grade": "A",
             "candidate_count": 7,
-            "draft_exists": False,
-            "candidates": [{"name": "Veronica Fernandez", "party": "Unknown", "image_url": None}],
+            "draft_exists": True,
+            "candidates": [{"name": "Veronica Fernandez", "party": "Democratic", "image_url": "https://example.com/img.jpg"}],
             "catalog_health": {
-                "issue_slot_count": 84,
-                "missing_issue_count": 60,
-                "missing_image_count": 5,
-                "validation_passed": True,
-                "validation_grade": "A",
                 "gaps": ["missing_issue_research"],
-                "stale_sections": ["issues"],
             },
         }
         issue = {"title": "[Data] Missing data for: Veronica Fernandez", "body": ISSUE_BODY}
         comment = triage.build_triage_comment(issue, "nj-senate-2026", record)
 
-        assert "is in the roster" in comment
-        assert "thinly-sourced" in comment
-        # Discovery must be recommended before the expensive combined run.
-        assert comment.index('enabled_steps=["discovery"]') < comment.index('"issues"')
-        assert "$1.40–$2.10" in comment
-        assert "nothing has been queued and no credits were spent" in comment
+        assert "A run has been completed and is pending review." in comment
+        assert 'queue_races(race_ids=["nj-senate-2026"]' in comment
+        assert "@loukotaj" in comment
