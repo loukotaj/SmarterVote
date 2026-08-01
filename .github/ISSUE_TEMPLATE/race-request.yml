@@ -1,22 +1,32 @@
 name: Race Request
 description: Request coverage of a U.S. election race not yet listed on Smarter.vote
 title: "[Race Request] "
-labels: ["race-request"]
+labels: ["race-request", "community-contribution"]
 assignees: []
 
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for helping expand Smarter.vote's coverage! Please search [existing issues](https://github.com/loukotaj/SmarterVote/issues?q=label%3Arace-request) before submitting to avoid duplicates.
+        Thanks for helping expand Smarter.vote's coverage!
+
+        Before filing, please:
+        - Check [the elections directory](https://smarter.vote/elections) — we already cover 500+ races.
+        - [Search existing race requests](https://github.com/SmarterVote/SmarterVote/issues?q=is%3Aissue+label%3Arace-request) to avoid duplicates.
+        - Use the [Missing Candidate Data](https://github.com/SmarterVote/SmarterVote/issues/new?template=missing-data.yml) template instead if the race exists but a candidate's details are wrong or incomplete.
 
   - type: input
     id: race-id
     attributes:
-      label: Race ID
-      description: >
-        Use the format `state-office-year`. For U.S. House races include the district number.
-      placeholder: "e.g. tx-governor-2026  |  ca-house-12-2026  |  pa-senate-2026"
+      label: Proposed Race ID
+      description: |
+        Lowercase `state-office-year`, using the two-letter state abbreviation:
+
+        - Senate / Governor — `pa-senate-2026`, `tx-governor-2026`
+        - U.S. House — zero-pad the district to two digits: `al-house-01-2026`, `ca-house-12-2026`
+        - At-large House seats — omit the district: `ak-house-2026`
+        - Special elections — append `-special`: `fl-senate-2026-special`
+      placeholder: tx-governor-2026
     validations:
       required: true
 
@@ -24,7 +34,7 @@ body:
     id: office
     attributes:
       label: Office
-      description: The specific office being contested
+      description: The specific office being contested.
       placeholder: "e.g. U.S. Senate, Governor, U.S. House District 5"
     validations:
       required: true
@@ -41,7 +51,8 @@ body:
     id: election-date
     attributes:
       label: Election Date
-      placeholder: "YYYY-MM-DD or approximate (e.g. November 2026)"
+      description: Use `YYYY-MM-DD` where possible. If this is a primary, give the primary date and say so below.
+      placeholder: "2026-11-03"
     validations:
       required: true
 
@@ -49,16 +60,18 @@ body:
     id: candidates
     attributes:
       label: Known Candidates
-      description: List any confirmed candidates, one per line. Leave blank if unknown.
+      description: |
+        One per line, with party if known. Links to filing records or campaign sites are especially
+        helpful — our roster research starts from whatever evidence already exists.
       placeholder: |
-        Jane Smith (Democrat)
-        John Doe (Republican)
+        Jane Smith (Democrat) — https://janesmithforcongress.com
+        John Doe (Republican) — https://johndoe2026.com
 
   - type: textarea
     id: why
     attributes:
       label: Why does this race matter? (optional)
-      description: Any context about why this race is notable or competitive — helps with prioritization.
+      description: Context about why this race is notable or competitive — helps with prioritization.
 
   - type: checkboxes
     id: checklist
@@ -67,5 +80,7 @@ body:
       options:
         - label: I searched existing issues and this race hasn't been requested yet
           required: true
-        - label: The election date is 2025 or later
+        - label: This race is not already listed at smarter.vote/elections
+          required: true
+        - label: The election has not already happened
           required: true

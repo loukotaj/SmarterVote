@@ -73,10 +73,13 @@ CRITICAL — scope to THIS cycle's contest only:
 Use this source ladder for the roster:
 1. Official state election authority / Secretary of State candidate filing,
    certified ballot, or official primary result page.
-2. Ballotpedia election page via `ballotpedia_election_lookup`.
+2. Official state party qualified-candidate lists when the state party manages
+   qualification for its primary.
 3. FEC candidate/election pages for federal races, only to corroborate active
    federal candidates, not to infer nominees after primaries.
-4. Reputable local/state news or candidate announcements, corroborated by a
+4. A current exact-race Ballotpedia election page, only as advisory or
+   corroborating evidence and never over conflicting official sources.
+5. Reputable local/state news or candidate announcements, corroborated by a
    second source when possible.
 
 Call `ballotpedia_election_lookup` with race_id="{race_id}" early, but do not
@@ -555,6 +558,9 @@ Review this candidate profile for the race "{race_id}":
 Revision context:
 {change_manifest}
 
+Durable issue-research execution evidence:
+{research_effort_context}
+
 Complete semantic profile:
 {profile_json}
 
@@ -626,7 +632,9 @@ IMPORTANT — Missing data policy:
   genuinely obscure), do NOT penalize the score. Absence of public information
   is NOT a quality failure.
 - A "no public position found" result after a good-faith search is acceptable.
-- Treat a documented "No public position found after repeated research attempts"
+- Use the durable issue-research execution evidence in the user prompt to
+  distinguish a good-faith search from an unattempted empty/default result.
+- Treat a documented "No public position found"
   as COMPLETE coverage for that issue, not a gap. Do not deduct from the
   Coverage-effort component for correctly-recorded unavailable data.
 - Differences in how candidates are described that merely reflect differing
@@ -988,6 +996,9 @@ remove:
 - Lost a completed primary, runoff, or convention/nomination contest and is
   therefore eliminated, confirmed by an official/certified result source with a
   specific date
+- The entry was contaminated from a different exact office or district. Add the
+  verified correct roster first, then call remove_candidate with
+  wrong_contest=true and current evidence naming the candidate's actual contest.
 NEVER remove a candidate for any other reason — not to fix data quality
 issues, not to correct information, not to replace a candidate entry, not
 because you think data about them is wrong or incomplete, and not because one
@@ -1018,6 +1029,9 @@ the same state. A person
 running for U.S. Senate, Secretary of State, or another statewide office is not
 running for Governor unless a retrieved source explicitly says they filed for
 Governor.
+For a U.S. House race, reject state House/Assembly candidates even when the
+district number is identical. Evidence must explicitly say U.S./United States
+Representative, Congress, or Congressional District and the exact district.
 
 CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
 - U.S. Senate race: only candidates for the single seat up this cycle. Do NOT
@@ -1042,12 +1056,20 @@ CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
 Roster source order:
 1. Official state election authority, certified candidate list, ballot list, or
    official primary results.
-2. Ballotpedia election page, if current and accessible.
+2. Official state party qualified-candidate lists when the party manages
+   qualification for its primary.
 3. FEC pages for federal races, only as candidate corroboration.
-4. Reputable recent local/state news or official campaign announcements.
+4. A current exact-race Ballotpedia election page, only as advisory or
+   corroborating evidence.
+5. Reputable recent local/state news or official campaign announcements.
 
 If Ballotpedia is blocked, stale, or primary-focused, stop trying to repair the
 same Ballotpedia URL and pivot to official election authority/FEC/local news.
+The names returned by ballotpedia_election_lookup are untrusted extraction
+clues, not an authoritative roster. Inspect the returned URL, description, and
+cycle before using them. Never add or remove a candidate solely because that
+tool listed or omitted the name, and never let it override a current official
+candidate list or certified result.
 
 Compare the full current roster against the candidates currently in the profile.
 Treat named opponents, nominees, or declared candidates in the current race
@@ -1063,11 +1085,15 @@ STEP 2 — Make corrections using your tools:
    this race → remove_candidate
    (include reason citing a dated official/certified result source or specific
    news source confirming the exit)
+   OR whose current evidence explicitly proves they belong to a different exact
+   contest: first add the verified correct candidate(s), then call
+   remove_candidate with wrong_contest=true and include that evidence.
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
 4. For every candidate you verified and kept, use set_candidate_roster_sources
    when the profile lacks explicit roster_sources or when your current source is
-   stronger/current than the stored source. Prefer official sources, then
-   current Ballotpedia election pages, then FEC/news/campaign evidence.
+   stronger/current than the stored source. Prefer official election and party
+   qualification sources, then FEC evidence, then current exact-race
+   Ballotpedia/news/campaign evidence.
 
 CRITICAL — add_candidate anti-fabrication rules:
 - add_candidate enforces graded, persisted evidence. Tier 1 is retrieved official
@@ -1083,7 +1109,7 @@ CRITICAL — add_candidate anti-fabrication rules:
 - Confirm the candidate's PARTY from that same source — never guess the party.
 - Never invent, auto-complete, or infer a candidate's name from ambiguous search
   snippets, partial matches, or a similarly-named unrelated person. If the
-  authoritative roster (e.g. the Ballotpedia election page) failed to load or
+  official roster failed to load or
   returned nothing, do NOT reconstruct a roster from generic search results — run
   additional targeted searches and add only candidates you can confirm by name in
   a real source.
@@ -1118,6 +1144,19 @@ IMPORTANT — remove_candidate rules:
   verified runoff participants until that runoff has actually concluded.
 - Data corrections (wrong biography, bad sources, etc.) are handled in later
   pipeline phases — ignore them here.
+
+STEP 2.6 — Record the CURRENT contest stage:
+Contest stage is a statement about the calendar as of {current_date}, not a
+permanent property of the race. A stored stage is a prior observation that may
+have expired — never re-assert it without checking.
+- Determine from your research whether this contest's primary has already been
+  held as of {current_date}. If it has, the stage is post_primary_general (or
+  runoff/top_two/top_four_rcv where the state's rules apply), NOT pre_primary.
+- Call set_race_identity with the stage you actually verified, and put the
+  evidence (primary date and outcome) in primary_status.
+- Getting this wrong is costly in both directions: a stale pre_primary keeps
+  defeated primary candidates on a general-election roster, while a premature
+  post_primary_general drops candidates before the primary has decided anything.
 
 Pay special attention to third-party candidates (Libertarian, Green, Independent),
 write-in candidates who qualified, and convention nominees who may not appear in
@@ -1160,7 +1199,9 @@ official ballot). Never assume a race is uncontested without at least one additi
 search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
-stop making tool calls. Do NOT produce any text reply or JSON — just stop.
+call finalize_roster. It will reject incomplete or weakly sourced rosters and tell
+you exactly which candidate evidence remains to fix. You may stop only after
+finalize_roster succeeds. Do NOT produce any text reply or JSON.
 Do NOT modify any other data (issues, summaries, polls, etc.)."""
 
 ROSTER_VERIFY_SYSTEM = f"""\
@@ -1303,7 +1344,9 @@ UPDATE_ISSUE_SUBAGENT_SYSTEM = f"""\
 You are a nonpartisan political research agent updating ONE candidate's
 position on ONE issue. An existing stance is provided — use web_search and
 fetch_page to find newer or better-sourced information, then use your
-set_issue_stance tool ONLY if you find an improvement.
+set_issue_stance tool if you find an improvement. If the current stance is
+missing, you MUST record either a sourced position or, only after at least two
+good-faith searches, exactly "No public position found".
 
 {_SHARED_RULES}"""
 
@@ -1336,6 +1379,7 @@ Source prioritization (highest to lowest):
 Before broad web searching, check if any of the known issue/policy URLs above
 are relevant to "{issue}" — if so, fetch that URL first.
 
-Use set_issue_stance ONLY if you find genuinely new or better data than the
-current stance. If the existing stance is already accurate and well-sourced,
-reply with a short confirmation and make no tool call."""
+If the current stance is missing, always call set_issue_stance with the best
+sourced result you find, or exactly "No public position found" after at least
+two good-faith searches. If an existing stance is already accurate and
+well-sourced, reply with a short confirmation and make no tool call."""

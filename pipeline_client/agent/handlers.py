@@ -11,7 +11,7 @@ import re
 from datetime import datetime, timezone
 from difflib import get_close_matches
 from typing import Any, Callable, Dict, Optional
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 # Pattern matching metadata field names (snake_case, no spaces) — clearly not human names
 _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
@@ -25,6 +25,44 @@ from pipeline_client.agent.source_types import normalize_source_type
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
 _ROSTER_SOURCE_TYPES = {"official", "ballotpedia", "fec", "news", "campaign", "other"}
+# Source classes that can actually carry roster evidence. "other" is a parking
+# slot for unclassifiable input and never qualifies on its own.
+_QUALIFYING_ROSTER_SOURCE_TYPES = {"official", "fec", "campaign", "ballotpedia", "news"}
+# Free-form labels models emit for roster evidence, mapped onto the classes
+# above. Mirrors source_types.SOURCE_TYPE_ALIASES, which exists for the same
+# reason: models reliably invent plausible synonyms for enum values.
+_ROSTER_SOURCE_TYPE_ALIASES = {
+    "article": "news",
+    "ballot": "official",
+    "certified ballot": "official",
+    "election authority": "official",
+    "election official": "official",
+    "election results": "official",
+    "filing": "official",
+    "government": "official",
+    "gov": "official",
+    "media": "news",
+    "news article": "news",
+    "newspaper": "news",
+    "party": "official",
+    "party list": "official",
+    "press": "news",
+    "qualified candidates": "official",
+    "secretary of state": "official",
+    "sos": "official",
+    "state": "official",
+    "state election authority": "official",
+    "campaign site": "campaign",
+    "campaign website": "campaign",
+    "candidate site": "campaign",
+    "candidate website": "campaign",
+    "official campaign": "campaign",
+    "fec filing": "fec",
+    "federal election commission": "fec",
+    "encyclopedia": "ballotpedia",
+    "wiki": "ballotpedia",
+    "wikipedia": "ballotpedia",
+}
 _CONTEST_STAGES = {
     "pre_primary",
     "post_primary_general",
@@ -35,6 +73,59 @@ _CONTEST_STAGES = {
     "special",
     "unknown",
 }
+
+
+def _roster_source_text(source: Dict[str, Any]) -> str:
+    return unquote(" ".join(str(source.get(key) or "") for key in ("title", "evidence", "url"))).casefold()
+
+
+def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> bool:
+    """Reject same-number state-legislative evidence for federal House races."""
+    match = re.fullmatch(r"[a-z]{2}-house-(\d{1,2})-(?:19|20)\d{2}", race_id)
+    if not match:
+        return True
+    district = str(int(match.group(1)))
+    text = _roster_source_text(source)
+    federal_house = bool(
+        re.search(r"\b(?:u\.?s\.?|united states)\s+(?:house|representative)", text)
+        or re.search(r"\bcongress(?:ional)?\b", text)
+    )
+    exact_district = bool(
+        re.search(rf"\b0*{re.escape(district)}(?:st|nd|rd|th)?\s+(?:congressional\s+)?district\b", text)
+        or re.search(rf"\b(?:congressional\s+)?district\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b", text)
+        or re.search(rf"\bcd\s*[-#]?\s*0*{re.escape(district)}\b", text)
+    )
+    return federal_house and exact_district
+
+
+def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
+    """Return true for evidence that places a candidate in a different contest."""
+    parsed_url = urlparse(str(source.get("url") or ""))
+    if source.get("type") not in {"official", "fec", "campaign", "ballotpedia", "news"}:
+        return False
+    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+        return False
+    text = _roster_source_text(source)
+    name_words = re.findall(r"[a-z0-9]+", candidate_name.casefold())
+    if not name_words or not all(word in text for word in name_words):
+        return False
+    if re.fullmatch(r"[a-z]{2}-house-\d{1,2}-(?:19|20)\d{2}", race_id):
+        candidate_pos = text.find(candidate_name.casefold())
+        candidate_context = (
+            text[max(0, candidate_pos - 180) : candidate_pos + len(candidate_name) + 80] if candidate_pos >= 0 else text
+        )
+        state_house = bool(
+            re.search(r"\bstate\s+(?:house|representative)", candidate_context)
+            or re.search(
+                r"\b[a-z ]+\s+house of representatives[\s,]+(?:district|hd)\b",
+                candidate_context,
+            )
+        )
+        # Candidate-specific evidence often says "state House, not U.S. House".
+        # The target-office phrase is negated there, so global keyword matching
+        # must not turn valid wrong-contest proof into exact-contest evidence.
+        return state_house
+    return False
 
 
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
@@ -52,16 +143,52 @@ def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str
     return normalized
 
 
-def _normalize_roster_source(source: Any) -> Dict[str, Any] | None:
+def _classify_roster_source_type(raw_type: Any, *, title: str | None, url: str | None, host: str) -> str:
+    """Map a free-form roster source label onto a known roster source class.
+
+    Host evidence is checked first, then the model's label via the recognized set
+    and ``_ROSTER_SOURCE_TYPE_ALIASES``. Classification never depends on the label
+    being well-formed: a plausible synonym such as ``"web"`` or
+    ``"election_authority"`` used to be parked in ``"other"``, which can never
+    satisfy the roster evidence contract, so valid Ballotpedia and official
+    sources were rejected on a spelling technicality.
+    """
+    title_and_url = f"{title or ''} {url or ''}".casefold()
+
+    # Host evidence outranks the model's label. "official"/"fec" are the classes that
+    # waive the tier-3 corroboration rule, so they must be earned by the host (or a
+    # party qualified-candidate list title) rather than self-declared — otherwise any
+    # page could be relabelled to bypass that guard.
+    host_class: str | None = None
+    if host == "ballotpedia.org" or host.endswith(".ballotpedia.org"):
+        host_class = "ballotpedia"
+    elif host == "fec.gov" or host.endswith(".fec.gov"):
+        host_class = "fec"
+    elif host.endswith(".gov") or re.search(r"\bqualified\b.*\bcandidates?\b", title_and_url):
+        host_class = "official"
+    if host_class:
+        return host_class
+
+    label = str(raw_type or "").strip().lower().replace("_", " ").replace("-", " ")
+    label = re.sub(r"\s+", " ", label)
+    claimed = label if label in _ROSTER_SOURCE_TYPES and label != "other" else _ROSTER_SOURCE_TYPE_ALIASES.get(label)
+    if claimed in {"official", "fec"}:
+        # Unverifiable authority claim: keep the source usable but strip the waiver.
+        return "news"
+    if claimed:
+        return claimed
+    return "other"
+
+
+def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any] | None:
     """Normalize source evidence used only for candidate roster membership."""
     if not isinstance(source, dict):
         return None
     url = str(source.get("url") or "").strip() or None
     title = str(source.get("title") or "").strip() or None
-    evidence = str(source.get("evidence") or "").strip() or None
-    source_type = str(source.get("type") or "other").strip().lower()
-    if source_type not in _ROSTER_SOURCE_TYPES:
-        source_type = "other"
+    evidence = str(source.get("evidence") or source.get("text") or source.get("context") or "").strip() or None
+    host = urlparse(url or "").netloc.casefold()
+    source_type = _classify_roster_source_type(source.get("type"), title=title, url=url, host=host)
     if not any((url, title, evidence)):
         return None
     normalized: Dict[str, Any] = {
@@ -69,62 +196,125 @@ def _normalize_roster_source(source: Any) -> Dict[str, Any] | None:
         "type": source_type,
         "title": title,
         "evidence": evidence,
-        "last_accessed": source.get("last_accessed") or datetime.now(timezone.utc).isoformat(),
+        "last_accessed": source.get("last_accessed") or source.get("retrieved") or datetime.now(timezone.utc).isoformat(),
     }
     for key in ("published_at", "race_id", "evidence_tier", "retrieval_status"):
         if source.get(key) is not None:
             normalized[key] = source[key]
+    if source.get("date") is not None and "published_at" not in normalized:
+        normalized["published_at"] = source["date"]
+    normalized.setdefault("race_id", race_id)
+    if evidence and "evidence_tier" not in normalized:
+        normalized["evidence_tier"] = 3
+        normalized["retrieval_status"] = "snippet"
     return {key: value for key, value in normalized.items() if value is not None}
 
 
-def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
-    """Validate one persisted source against the graded roster-evidence contract."""
-    if source.get("type") not in {"official", "fec", "campaign", "ballotpedia", "news"}:
-        return False
+def _roster_source_rejection_reason(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> str | None:
+    """Return why one persisted source fails the roster-evidence contract, or None if it passes.
+
+    Callers surface the reason verbatim to the model. A generic "not enough
+    evidence" message sends it hunting for more sources when the real problem is
+    often a single malformed field, which turns one bad call into a retry loop.
+    """
+    if source.get("type") not in _QUALIFYING_ROSTER_SOURCE_TYPES:
+        return (
+            f"source type {str(source.get('type'))!r} cannot carry roster evidence; "
+            f"use one of: {', '.join(sorted(_QUALIFYING_ROSTER_SOURCE_TYPES))}"
+        )
     parsed_url = urlparse(str(source.get("url") or ""))
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
-        return False
-    if source.get("race_id") != race_id or not source.get("title") or not source.get("evidence"):
-        return False
+        return "source needs an absolute http(s) url"
+    if source.get("race_id") != race_id:
+        return f"source race_id {str(source.get('race_id'))!r} does not match this race ({race_id!r})"
+    if not source.get("title"):
+        return "source needs a title"
+    if not source.get("evidence"):
+        return "source needs an 'evidence' (or 'text') quote naming the candidate and contest"
+    if not _source_supports_exact_contest(source, race_id=race_id):
+        return "evidence does not name this exact federal contest and district"
     name_words = re.findall(r"[a-z0-9]+", candidate_name.lower())
     evidence_text = f"{source.get('title', '')} {source.get('evidence', '')}".lower()
     if not name_words or not all(word in evidence_text for word in name_words):
-        return False
+        return f"evidence text does not contain the full candidate name {candidate_name!r}"
     year_match = re.search(r"(?:19|20)\d{2}", race_id)
     try:
         published = datetime.fromisoformat(str(source.get("published_at") or "").replace("Z", "+00:00"))
     except ValueError:
-        return False
-    if year_match and published.year not in {
-        int(year_match.group()) - 2,
-        int(year_match.group()) - 1,
-        int(year_match.group()),
-    }:
-        return False
+        published = None
+    if year_match:
+        valid_years = {int(year_match.group()) - 2, int(year_match.group()) - 1, int(year_match.group())}
+        years_label = "/".join(str(year) for year in sorted(valid_years))
+        if published is not None:
+            if published.year not in valid_years:
+                return f"published_at year {published.year} is outside the current cycle ({years_label})"
+        elif not any(str(year) in evidence_text for year in valid_years):
+            return f"evidence has no current-cycle date; include a {years_label} published_at or cite the year in the text"
     tier = source.get("evidence_tier")
     status = source.get("retrieval_status")
     if tier == 1:
-        return status == "content" and source.get("type") in {"official", "fec"}
+        if status != "content" or source.get("type") not in {"official", "fec"}:
+            return "tier 1 requires retrieved page content from an official or FEC source"
+        return None
     if tier == 2:
-        return status == "content" and source.get("type") in {"campaign", "ballotpedia", "news"}
-    return tier == 3 and status == "snippet"
+        if status != "content" or source.get("type") not in {"campaign", "ballotpedia", "news"}:
+            return "tier 2 requires retrieved page content from a campaign, Ballotpedia, or news source"
+        return None
+    if tier == 3 and status == "snippet":
+        return None
+    return f"evidence_tier {tier!r}/retrieval_status {status!r} is not a recognized evidence grade"
 
 
-def _qualifying_candidate_addition_sources(sources: Any, *, candidate_name: str, race_id: str) -> list[Dict[str, Any]]:
-    """Return qualifying sources, enforcing corroboration for non-authoritative snippets."""
-    normalized = [src for src in (_normalize_roster_source(source) for source in sources or []) if src]
+def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
+    """Validate one persisted source against the graded roster-evidence contract."""
+    return _roster_source_rejection_reason(source, candidate_name=candidate_name, race_id=race_id) is None
+
+
+def _qualifying_candidate_addition_sources(
+    sources: Any,
+    *,
+    candidate_name: str,
+    race_id: str,
+    require_corroboration: bool = True,
+) -> list[Dict[str, Any]]:
+    """Return qualifying sources, enforcing corroboration for non-authoritative snippets.
+
+    ``require_corroboration`` guards *adding* a candidate to the roster, where an
+    uncorroborated snippet is the fabrication risk. Attaching evidence to a
+    candidate who is already on the roster is a different operation and does not
+    need a second independent domain.
+    """
+    normalized = [src for src in (_normalize_roster_source(source, race_id=race_id) for source in sources or []) if src]
     qualifying = [
         source
         for source in normalized
         if _source_supports_candidate_addition(source, candidate_name=candidate_name, race_id=race_id)
     ]
-    if qualifying and all(source.get("evidence_tier") == 3 for source in qualifying):
+    if require_corroboration and qualifying and all(source.get("evidence_tier") == 3 for source in qualifying):
         if any(source.get("type") in {"official", "fec"} for source in qualifying):
             return qualifying
         domains = {urlparse(str(source.get("url"))).netloc.lower() for source in qualifying}
         if len(domains) < 2:
             return []
     return qualifying
+
+
+def _roster_source_rejection_summary(sources: Any, *, candidate_name: str, race_id: str) -> str:
+    """Summarize per-source rejection reasons for a blocked roster edit."""
+    normalized = [src for src in (_normalize_roster_source(source, race_id=race_id) for source in sources or []) if src]
+    if not normalized:
+        return "no usable source objects were supplied"
+    reasons = []
+    for index, source in enumerate(normalized, start=1):
+        reason = _roster_source_rejection_reason(source, candidate_name=candidate_name, race_id=race_id)
+        if reason:
+            reasons.append(f"source {index} ({source.get('url') or 'no url'}): {reason}")
+    if not reasons:
+        return (
+            "each source is individually valid, but all of them are tier-3 snippets from a single domain; "
+            "cite a second independent domain or retrieve official/FEC page content"
+        )
+    return "; ".join(reasons)
 
 
 def _get_other_state_candidates(race_id: str, state: str | None) -> set[str]:
@@ -270,12 +460,14 @@ def _make_editing_handlers(
             args.get("roster_sources"), candidate_name=name, race_id=race_id
         )
         if not roster_sources:
-            log("warning", f"    add_candidate('{name}') BLOCKED: no qualifying current-cycle exact-contest evidence")
+            detail = _roster_source_rejection_summary(args.get("roster_sources"), candidate_name=name, race_id=race_id)
+            log("warning", f"    add_candidate('{name}') BLOCKED: {detail}")
             return (
-                f"Blocked adding '{name}': provide persisted, dated current-cycle evidence that explicitly names "
-                "the candidate and exact race. Retrieved official/FEC content is Tier 1; retrieved campaign, exact-race "
-                "Ballotpedia, or credible news content is Tier 2; blocked-page snippets are Tier 3 and require two "
-                "independent sources unless the snippet is from an official/FEC source."
+                f"Blocked adding '{name}': {detail}. "
+                "Provide persisted, dated current-cycle evidence that explicitly names the candidate and exact race. "
+                "Retrieved official/FEC content is Tier 1; retrieved campaign, exact-race Ballotpedia, or credible "
+                "news content is Tier 2; blocked-page snippets are Tier 3 and require two independent sources unless "
+                "the snippet is from an official/FEC source."
             )
         party = str(args.get("party") or "")
         party_key = "democratic" if "democrat" in party.lower() else "republican" if "republican" in party.lower() else ""
@@ -323,6 +515,37 @@ def _make_editing_handlers(
     def remove_candidate(args: Dict[str, Any]) -> str:
         name = args["name"]
         reason = args.get("reason", "").strip()
+        candidates = race_json.get("candidates", [])
+        if args.get("wrong_contest") is True:
+            race_id = str(race_json.get("id") or "").strip()
+            proof = [
+                source
+                for source in (_normalize_roster_source(item, race_id=race_id) for item in args.get("sources") or [])
+                if source and _source_proves_different_contest(source, candidate_name=name, race_id=race_id)
+            ]
+            if not proof:
+                return (
+                    f"ERROR: wrong-contest removal blocked for '{name}'. Provide a current source that names the "
+                    "candidate and explicitly identifies the different office/district."
+                )
+            active_after = [
+                candidate
+                for candidate in candidates
+                if isinstance(candidate, dict)
+                and candidate.get("name") != name
+                and candidate.get("name")
+                and candidate.get("withdrawn") is not True
+            ]
+            if not active_after:
+                return f"ERROR: wrong-contest removal blocked. Add the verified correct roster before removing '{name}'."
+            original_count = len(candidates)
+            race_json["candidates"] = [
+                candidate for candidate in candidates if not isinstance(candidate, dict) or candidate.get("name") != name
+            ]
+            if len(race_json["candidates"]) < original_count:
+                log("info", f"    Removed wrong-contest candidate: {name} ({reason or proof[0].get('url')})")
+                return f"Removed wrong-contest candidate '{name}' from the active roster."
+            return f"Candidate '{name}' not found - no action taken."
 
         # Guard: reject removals that are clearly data-quality fixes rather than
         # actual race withdrawals. Withdrawal reasons must mention a concrete
@@ -432,8 +655,6 @@ def _make_editing_handlers(
                 f"quality issues."
             )
 
-        candidates = race_json.get("candidates", [])
-
         if is_structural_garbage:
             # Physically delete malformed/non-human entries from the list
             orig_len = len(candidates)
@@ -482,9 +703,17 @@ def _make_editing_handlers(
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
-        sources = [src for src in (_normalize_roster_source(source) for source in args.get("sources", [])) if src]
+        race_id = str(race_json.get("id") or "").strip()
+        # This candidate is already on the roster, so the corroboration rule that
+        # guards *adding* one does not apply — a single valid source is enough to
+        # attach evidence to an existing entry.
+        sources = _qualifying_candidate_addition_sources(
+            args.get("sources"), candidate_name=name, race_id=race_id, require_corroboration=False
+        )
         if not sources:
-            return "ERROR: At least one roster source with a URL, title, or evidence note is required."
+            detail = _roster_source_rejection_summary(args.get("sources"), candidate_name=name, race_id=race_id)
+            log("warning", f"    set_candidate_roster_sources('{name}') BLOCKED: {detail}")
+            return f"ERROR: no usable roster source for '{name}': {detail}."
         c["roster_sources"] = sources
         log("info", f"    Set {len(sources)} roster source(s) for {name}")
         return f"Set {len(sources)} roster source(s) for '{name}'."
@@ -523,6 +752,40 @@ def _make_editing_handlers(
         pipeline_state["race_identity"] = identity
         log("info", f"    Locked race identity ({contest_stage})")
         return "Recorded race identity brief."
+
+    def finalize_roster(args: Dict[str, Any]) -> str:
+        race_id = str(race_json.get("id") or "").strip()
+        active_candidates = [
+            candidate
+            for candidate in race_json.get("candidates", [])
+            if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
+        ]
+        if not active_candidates:
+            return "ERROR: roster finalization blocked. Add at least one verified active candidate."
+
+        missing_evidence = []
+        for candidate in active_candidates:
+            name = str(candidate.get("name") or "").strip()
+            if not _qualifying_candidate_addition_sources(
+                candidate.get("roster_sources"),
+                candidate_name=name,
+                race_id=race_id,
+            ):
+                missing_evidence.append(name)
+        if missing_evidence:
+            return (
+                "ERROR: roster finalization blocked. These active candidates lack durable current-cycle "
+                f"exact-contest roster evidence: {', '.join(missing_evidence)}. Search/fetch authoritative "
+                "sources, then call set_candidate_roster_sources or remove proven wrong-contest entries."
+            )
+
+        identity = (race_json.get("pipeline_state") or {}).get("race_identity")
+        if not isinstance(identity, dict) or not identity.get("office") or not identity.get("contest_stage"):
+            return "ERROR: roster finalization blocked. Lock the exact office and contest stage with set_race_identity."
+
+        summary = str(args.get("summary") or "").strip()
+        log("info", f"    Finalized roster with {len(active_candidates)} active candidate(s): {summary}")
+        return f"Roster finalized with {len(active_candidates)} evidence-backed active candidate(s)."
 
     # --- Candidate field handlers ---
 
@@ -573,7 +836,7 @@ def _make_editing_handlers(
             return (
                 f"ERROR: {stance_text!r} looks like a placeholder, not a real position. "
                 "If no position was found after a good-faith search, use exactly "
-                "'No public position found after repeated research attempts.' with confidence 'low'."
+                "'No public position found' with confidence 'low'."
             )
         existing_stance = c.get("issues", {}).get(issue)
         existing_sources = existing_stance.get("sources") if isinstance(existing_stance, dict) else []
@@ -586,7 +849,7 @@ def _make_editing_handlers(
             return (
                 f"ERROR: A substantive {issue} stance requires at least one supporting source. "
                 "Provide sources, or record a documented absence with "
-                "'No public position found after repeated research attempts.'"
+                "'No public position found'."
             )
         stance_data: Dict[str, Any] = {
             "stance": args["stance"],
@@ -1093,6 +1356,7 @@ def _make_editing_handlers(
         "rename_candidate": rename_candidate,
         "set_candidate_roster_sources": set_candidate_roster_sources,
         "set_race_identity": set_race_identity,
+        "finalize_roster": finalize_roster,
         "set_candidate_field": set_candidate_field,
         "set_candidate_summary": set_candidate_summary,
         "set_issue_stance": set_issue_stance,

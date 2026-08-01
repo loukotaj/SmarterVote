@@ -822,7 +822,7 @@ class AgentHandler:
                 f"Refusing to save draft '{race_id}': all candidate names are placeholders: {candidate_names}. "
                 "Re-queue the race with candidate_names or inspect discovery output."
             )
-        from pipeline_client.agent.handlers import _qualifying_candidate_addition_sources
+        from pipeline_client.agent.handlers import _qualifying_candidate_addition_sources, _roster_source_rejection_summary
 
         baseline_names = {name.casefold() for name in (verified_baseline_candidate_names or set())}
         unsupported_additions: List[str] = []
@@ -830,19 +830,23 @@ class AgentHandler:
             name = _candidate_name(candidate)
             if not name or name.casefold() in baseline_names:
                 continue
+            # Newly added candidates keep the strict corroboration rule: this is the
+            # anti-fabrication boundary. Candidates already in the baseline are exempt.
+            raw_sources = candidate.get("roster_sources") if isinstance(candidate, dict) else None
             sources = _qualifying_candidate_addition_sources(
-                candidate.get("roster_sources") if isinstance(candidate, dict) else None,
+                raw_sources,
                 candidate_name=name,
                 race_id=race_id,
             )
             if not sources:
-                unsupported_additions.append(name)
+                detail = _roster_source_rejection_summary(raw_sources, candidate_name=name, race_id=race_id)
+                unsupported_additions.append(f"{name} ({detail})")
             elif isinstance(candidate, dict):
                 candidate["roster_sources"] = sources
         if unsupported_additions:
             raise ValueError(
                 f"Refusing to save draft '{race_id}': new candidate(s) lack qualifying current-cycle "
-                f"exact-contest evidence: {', '.join(unsupported_additions)}."
+                f"exact-contest evidence: {'; '.join(unsupported_additions)}."
             )
 
         json_str = json.dumps(race_json, indent=2, default=str)

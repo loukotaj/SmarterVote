@@ -94,7 +94,7 @@ async def test_run_agent_registers_placeholder_content_for_literal_junk_stance()
         )
 
     stance = result["candidates"][0]["issues"]["Economy"]["stance"]
-    assert stance == "No public position found after repeated research attempts."
+    assert stance == ""
 
     reasons = result["run_health"]["reasons"]
     assert "placeholder_content" in reasons

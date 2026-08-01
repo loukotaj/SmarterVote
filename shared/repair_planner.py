@@ -23,6 +23,16 @@ _PER_CANDIDATE_COST_USD = {
 }
 _PER_ISSUE_COST_USD = 0.05
 _CANONICAL_ISSUES = {issue.value for issue in CanonicalIssue}
+_ISSUE_RESEARCH_SAFETY_STEPS = {
+    "issues",
+    "finance",
+    "refinement",
+    "polling",
+    "forecast",
+    "voter_resources",
+    "review",
+    "iteration",
+}
 
 
 def _ordered_steps(steps: set[str]) -> List[str]:
@@ -117,8 +127,8 @@ def build_repair_plan(race_id: str, race_data: Dict[str, Any], *, freshness: str
         )
         candidate_missing_issues = max(0, len(_CANONICAL_ISSUES) - terminal_issues)
         if candidate_missing_issues:
-            steps.add("issues")
-            candidate_steps.add("issues")
+            steps.update(_ISSUE_RESEARCH_SAFETY_STEPS)
+            candidate_steps.update(_ISSUE_RESEARCH_SAFETY_STEPS)
             candidate_reasons.append(f"{candidate_missing_issues} issue slot(s) lack a terminal verdict.")
         donor_sources = candidate.get("donor_sources")
         if not candidate.get("donor_summary") or not (

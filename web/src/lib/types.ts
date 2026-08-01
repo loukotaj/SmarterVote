@@ -243,9 +243,25 @@ export interface PipelineState {
   remaining_steps: string[];
   completed_units: string[];
   issue_attempts: Record<string, number>;
+  issue_research: Record<string, IssueResearchAudit>;
   step_failures: StepFailure[];
   deterministic_cleanup: Record<string, number>;
   race_identity?: RaceIdentityBrief;
+}
+
+export interface IssueResearchAudit {
+  status:
+    | "completed"
+    | "no_verdict"
+    | "insufficient_research"
+    | "retry_limit"
+    | "blocked_policy";
+  attempts: number;
+  search_calls: number;
+  page_fetches: number;
+  source_count: number;
+  token_budget_reached: boolean;
+  max_iterations_reached: boolean;
 }
 
 export interface RaceIdentityBrief {

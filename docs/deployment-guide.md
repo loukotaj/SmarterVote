@@ -1,13 +1,13 @@
 # SmarterVote Deployment Guide
 
-This guide covers the current deployment path for infrastructure, backend services, the pipeline Cloud Run Job, the admin Cloud Function, and the static web frontend.
+This guide covers the current deployment path for infrastructure, backend services, the pipeline Cloud Run Job, and the static web frontend.
 
 ## Deployment Model
 
 Production uses a serialized release chain after `CI - Quality Gates` passes on `main`:
 
 - CI builds and scans immutable `races-api` and `pipeline-worker` container artifacts.
-- `.github/workflows/terraform-deploy.yaml` promotes those exact images, packages the admin-agent Function, syncs secrets, runs Terraform, and verifies `/health` plus `/health/ready`.
+- `.github/workflows/terraform-deploy.yaml` promotes those exact images, syncs secrets, runs Terraform, and verifies `/health` plus `/health/ready`.
 - `.github/workflows/cloudflare-deploy.yaml` starts only after the automatic infrastructure deployment succeeds, pulls published static JSON from GCS, builds the SvelteKit static site with a release-specific asset namespace and a real `404.html`, deploys to Cloudflare Pages, verifies the public home, elections, and support pages plus the complete JavaScript module graph and missing-module 404 behavior, and optionally submits IndexNow URLs.
 
 Deployments are serialized per environment. Every manual apply, rollback, or web deploy requires a commit SHA with a successful `main` push CI run. GitHub environments named `dev`, `staging`, `prod`, and `production` provide deployment policy boundaries; `production` is the public Cloudflare site.
@@ -18,13 +18,6 @@ The normal backend flow is:
 web admin -> races-api -> Firestore pipeline_queue
   -> pipeline Cloud Run Job -> shared queue processor -> AgentHandler -> GCS drafts/
   -> admin publish -> GCS races/ + races/summaries.json
-```
-
-The durable admin agent follows:
-
-```text
-web admin agent -> races-api -> Firestore admin_agent_tasks
-  -> Eventarc -> functions/admin_agent -> authenticated races-api tools
 ```
 
 The local Docker worker remains supported for `runner=local`; it is not deployed as an always-on cloud service.
@@ -80,7 +73,7 @@ terraform plan -var-file=secrets.tfvars
 terraform apply -var-file=secrets.tfvars
 ```
 
-Before manual apply, push the matching `races-api` and `pipeline-worker` image tags and build `infra/functions-admin-agent-source.zip`, or use GitHub Actions.
+Before manual apply, push the matching `races-api` and `pipeline-worker` image tags, or use GitHub Actions.
 
 ## Deploy Web
 

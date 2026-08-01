@@ -66,8 +66,7 @@ def test_sanitize_candidate_issues_normalizes_placeholder_variant():
     _sanitize_candidate_issues(race_json, log=None)
 
     stance = race_json["candidates"][0]["issues"]["Civil Rights & Equality"]
-    assert stance["stance"] == "No public position found after repeated research attempts."
-    assert stance["confidence"] == "low"
+    assert stance["stance"] == ""
 
 
 def test_sanitize_candidate_issues_removes_noncanonical_and_malformed_duplicates():
@@ -503,12 +502,13 @@ async def test_discovery_only_update_uses_update_discovery_phases():
     }
 
     with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
-        mock_loop.return_value = {}
+        mock_loop.side_effect = [{"_tool_trace": {"required_final_tool_succeeded": True}}, {}, {}]
         result = await run_agent(
             "al-senate-2026",
             cheap_mode=True,
             existing_data=existing,
             enabled_steps=["discovery"],
+            goal="Use the certified special-election roster.",
         )
 
     assert [call.kwargs["phase_name"] for call in mock_loop.call_args_list] == [
@@ -516,6 +516,34 @@ async def test_discovery_only_update_uses_update_discovery_phases():
         "roster-verify",
         "update-meta",
     ]
+    assert "Use the certified special-election roster." in mock_loop.call_args_list[0].args[1]
+
+
+@pytest.mark.asyncio
+async def test_incomplete_roster_finalization_stops_before_downstream_steps():
+    existing = {
+        "id": "al-house-02-2026",
+        "election_date": "2026-11-03",
+        "candidates": [{"name": "Wrong Contest", "party": "Unknown", "roster_sources": []}],
+        "updated_utc": "2026-01-01T00:00:00Z",
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        mock_loop.return_value = {"_tool_trace": {"required_final_tool_succeeded": False}}
+        result = await run_agent(
+            "al-house-02-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery", "images", "polling", "forecast"],
+        )
+
+    assert mock_loop.await_count == 1
+    assert result["pipeline_state"]["complete"] is False
+    assert "discovery" in result["pipeline_state"]["remaining_steps"]
+    assert result["run_health"]["status"] == "failed"
 
 
 @pytest.mark.asyncio
@@ -1025,7 +1053,7 @@ async def test_run_agent_normalizes_schema_version_legacy_issues_and_missing_sta
     assert result["schema_version"] == "0.3"
     assert "Reproductive Rights" not in issues
     assert issues["Abortion & Reproductive Health"]["stance"] == "Supports abortion access."
-    assert issues["Tech & AI"]["stance"] == "No public position found after repeated research attempts."
+    assert issues["Tech & AI"]["stance"] == ""
 
 
 @pytest.mark.asyncio
@@ -1099,7 +1127,7 @@ async def test_run_agent_update_with_candidates():
         patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
         patch("pipeline_client.agent.agent._load_existing", return_value=existing),
     ):
-        mock_loop.return_value = {}
+        mock_loop.side_effect = [{"_tool_trace": {"required_final_tool_succeeded": True}}] + [{}] * 18
 
         result = await run_agent(
             "test-2024",
@@ -1569,6 +1597,7 @@ async def test_discovery_polling_forecast_refresh_does_not_require_review():
         patch("pipeline_client.agent.phases.fetch_kalshi_market_signals", new_callable=AsyncMock, return_value=[]),
         patch("pipeline_client.agent.agent._load_existing", return_value=existing),
     ):
+        mock_loop.side_effect = [{"_tool_trace": {"required_final_tool_succeeded": True}}] + [{}] * 4
         result = await run_agent(
             "market-refresh-2026",
             existing_data=existing,
@@ -1763,8 +1792,9 @@ async def test_run_agent_continuation_caps_repeated_issue_attempts(monkeypatch):
         )
 
     assert mock_loop.call_count == 0
-    assert "repeated research attempts" in result["candidates"][0]["issues"][capped_issue]["stance"]
-    assert f"issues:Alice:{capped_issue}" in result["pipeline_state"]["completed_units"]
+    assert not result["candidates"][0]["issues"][capped_issue]["stance"]
+    assert f"issues:Alice:{capped_issue}" not in result["pipeline_state"]["completed_units"]
+    assert result["pipeline_state"]["issue_research"][f"issues:Alice:{capped_issue}"]["status"] == "retry_limit"
 
 
 @pytest.mark.asyncio

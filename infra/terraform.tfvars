@@ -7,8 +7,7 @@ environment = "dev"
 region      = "us-central1"
 
 # Development Settings
-prevent_destroy_prod        = true
-enable_admin_agent_function = true
+prevent_destroy_prod = true
 
 # CORS (explicit origins required for Auth0 credential-mode requests)
 allowed_origins = [

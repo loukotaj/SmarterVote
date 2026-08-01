@@ -259,6 +259,19 @@ def test_roster_sync_system_restricts_to_roster_tools_only():
     assert "set_candidate_roster_sources" in ROSTER_SYNC_SYSTEM
     assert "set_race_identity" in ROSTER_SYNC_SYSTEM
     assert "Do NOT call any non-roster editing tools" in ROSTER_SYNC_SYSTEM
+    assert "finalize_roster succeeds" in ROSTER_SYNC_USER
+
+
+def test_roster_prompt_treats_ballotpedia_as_advisory_below_official_sources():
+    from pipeline_client.agent.tools import BALLOTPEDIA_ELECTION_TOOL
+
+    tool_description = BALLOTPEDIA_ELECTION_TOOL["function"]["description"]
+    assert "advisory roster evidence" in tool_description
+    assert "Never add or remove candidates from this result alone" in tool_description
+    assert ROSTER_SYNC_USER.index("Official state party qualified-candidate lists") < ROSTER_SYNC_USER.index(
+        "Ballotpedia election page"
+    )
+    assert "untrusted extraction" in ROSTER_SYNC_USER
 
 
 def test_discovery_prompts_exclude_defeated_primary_candidates():
@@ -372,3 +385,35 @@ def test_forecast_prompt_formats_and_disallows_search():
     assert "Prediction market signals" in result
     assert "Do not search the web" in FORECAST_SYSTEM
     assert "Use set_forecast exactly once" in FORECAST_SYSTEM
+
+
+def test_roster_prompt_requires_current_contest_stage():
+    """A stale pre_primary keeps defeated primary candidates on general-election rosters."""
+    assert "STEP 2.6 — Record the CURRENT contest stage" in ROSTER_SYNC_USER
+    assert "not a\npermanent property of the race" in ROSTER_SYNC_USER
+    assert "post_primary_general" in ROSTER_SYNC_USER
+
+
+def test_contest_stage_is_not_presented_as_locked_identity():
+    """Contest stage advances with the calendar and must stay re-verifiable."""
+    from pipeline_client.agent.phase_state import race_identity_context
+
+    context = race_identity_context(
+        {
+            "office": "U.S. Senate",
+            "state": "New Jersey",
+            "pipeline_state": {
+                "race_identity": {
+                    "office": "U.S. Senate",
+                    "state": "New Jersey",
+                    "contest_stage": "pre_primary",
+                    "primary_status": "Primary scheduled for June 2026",
+                }
+            },
+        }
+    )
+
+    locked_block, _, status_block = context.partition("Time-sensitive status as last observed")
+    assert "pre_primary" not in locked_block
+    assert "pre_primary" in status_block
+    assert "re-verify against today's date" in context

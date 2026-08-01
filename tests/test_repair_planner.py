@@ -15,7 +15,18 @@ def test_discovery_race_plan_targets_missing_research_with_conservative_ceiling(
 
     assert plan["needs_repair"] is True
     assert plan["research_tier"] == "discovery_only"
-    assert plan["recommended_steps"] == ["discovery", "images", "issues", "finance", "forecast"]
+    assert plan["recommended_steps"] == [
+        "discovery",
+        "images",
+        "issues",
+        "finance",
+        "refinement",
+        "polling",
+        "forecast",
+        "voter_resources",
+        "review",
+        "iteration",
+    ]
     assert plan["candidate_names"] == ["Alice", "Bob"]
     assert plan["estimated_max_cost_usd"] > 1
     assert plan["estimated_max_search_calls"] >= 240
@@ -25,6 +36,9 @@ def test_discovery_race_plan_targets_missing_research_with_conservative_ceiling(
         ("Alice",),
         ("Bob",),
     }
+    for group in plan["repair_groups"][1:]:
+        assert group["enabled_steps"][-2:] == ["review", "iteration"]
+        assert "issues" in group["enabled_steps"]
 
 
 def test_validated_complete_race_needs_no_repair():

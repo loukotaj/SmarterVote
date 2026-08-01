@@ -13,11 +13,9 @@
 
 ```
 pipeline_client/worker.py        → Cloud Run Job or long-lived local Docker worker
-functions/admin_agent/main.py    → Cloud Function gen2 (durable admin agent)
 services/races-api/              → Cloud Run (admin + public FastAPI API)
 GCS bucket                       → race data: drafts/, races/, summaries.json, retired/
 Firestore                        → pipeline_queue, pipeline_runs, races catalog,
-                                   admin_agent_conversations/messages/tasks,
                                    search_cache, page_cache
 Secret Manager                   → API keys (openrouter, serper, admin, cloudflare)
 Cloudflare Pages                 → static SvelteKit frontend (web/)
@@ -37,7 +35,6 @@ Artifact Registry                → container images for Cloud Run
 | ---- | ---- | ----- |
 | Production API | `services/races-api/main.py` | All admin + public endpoints |
 | Pipeline worker | `pipeline_client/worker.py` | One-shot Cloud Run Job and continuous Docker entry point |
-| Admin agent CF | `functions/admin_agent/main.py` | Durable admin tasks |
 | Agent orchestration | `pipeline_client/backend/handlers/agent.py` | `AgentHandler` used by CFs |
 | AI research agent | `pipeline_client/agent/` | Multi-phase research engine |
 | Shared schema | `shared/models.py` | RaceJSON v0.3 — Pydantic v2 |
@@ -64,8 +61,8 @@ cd services/races-api && PYTHONPATH=../.. python -m pytest . -v
 cd services/races-api && PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
 
 # Python formatting check
-python -m black --check shared smartervote_mcp services/races-api tests pipeline_client functions scripts
-python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client functions scripts
+python -m black --check shared smartervote_mcp services/races-api tests pipeline_client scripts
+python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client scripts
 
 # Frontend (always npm ci first; CI creates minimal static JSON fixtures before build)
 cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:e2e && npm run test:unit -- --run

@@ -87,9 +87,10 @@ BALLOTPEDIA_ELECTION_TOOL: Dict = {
     "function": {
         "name": "ballotpedia_election_lookup",
         "description": (
-            "Fetch the Ballotpedia election page for this race and return the authoritative list of "
-            "candidates. This is the single most reliable source for who is officially in the race — "
-            "call this FIRST in discovery before doing any web searches. "
+            "Fetch a Ballotpedia election page as advisory roster evidence. Its extracted candidate list may "
+            "be stale, from a prior cycle or primary, or drawn from an unrelated table. Compare its page URL, "
+            "description, and election date with current official election-authority or party qualification "
+            "sources before editing the roster. Never add or remove candidates from this result alone. "
             "Returns: found (bool), page_url, candidates list [{name, party, incumbent}], "
             "and a short description paragraph."
         ),
@@ -157,6 +158,13 @@ ADD_CANDIDATE_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
+                            "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "context": {
+                                "type": "string",
+                                "description": "Quoted/search-result context; alias for evidence.",
+                            },
+                            "retrieved": {"type": "string", "description": "Search-result retrieval date (ISO-8601)."},
+                            "date": {"type": "string", "description": "Source publication date (ISO-8601)."},
                             "published_at": {
                                 "type": "string",
                                 "description": "Publication, filing, or update date (ISO-8601).",
@@ -165,16 +173,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                             "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
                             "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
                         },
-                        "required": [
-                            "url",
-                            "type",
-                            "title",
-                            "evidence",
-                            "published_at",
-                            "race_id",
-                            "evidence_tier",
-                            "retrieval_status",
-                        ],
+                        "required": ["url", "title"],
                     },
                 },
             },
@@ -187,12 +186,40 @@ REMOVE_CANDIDATE_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "remove_candidate",
-        "description": "Remove a candidate who has dropped out or withdrawn from the race.",
+        "description": "Remove a candidate who exited this race or was proven to belong to a different contest.",
         "parameters": {
             "type": "object",
             "properties": {
                 "name": {"type": "string", "description": "Exact name of the candidate to remove."},
                 "reason": {"type": "string", "description": "Brief reason for removal (e.g. 'withdrew', 'disqualified')."},
+                "wrong_contest": {
+                    "type": "boolean",
+                    "description": "True only when current evidence proves this entry belongs to another office/district.",
+                },
+                "sources": {
+                    "type": "array",
+                    "description": "Current evidence proving a wrong-contest entry belongs to another exact contest.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string", "enum": ["official", "ballotpedia", "fec", "news", "campaign"]},
+                            "title": {"type": "string"},
+                            "evidence": {"type": "string"},
+                            "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "context": {
+                                "type": "string",
+                                "description": "Quoted/search-result context; alias for evidence.",
+                            },
+                            "retrieved": {"type": "string", "description": "Search-result retrieval date (ISO-8601)."},
+                            "date": {"type": "string", "description": "Source publication date (ISO-8601)."},
+                            "published_at": {"type": "string"},
+                            "race_id": {"type": "string"},
+                            "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                        },
+                    },
+                },
             },
             "required": ["name"],
         },
@@ -236,6 +263,17 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "context": {
+                                "type": "string",
+                                "description": "Quoted/search-result context; alias for evidence.",
+                            },
+                            "retrieved": {"type": "string", "description": "Search-result retrieval date (ISO-8601)."},
+                            "date": {"type": "string", "description": "Source publication date (ISO-8601)."},
+                            "published_at": {"type": "string"},
+                            "race_id": {"type": "string"},
+                            "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
                         },
                     },
                 },
@@ -280,12 +318,34 @@ SET_RACE_IDENTITY_TOOL: Dict = {
     },
 }
 
+FINALIZE_ROSTER_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "finalize_roster",
+        "description": (
+            "Finish roster sync only after every active candidate has durable current-cycle exact-contest evidence. "
+            "The handler validates the roster and returns specific missing evidence to fix."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "summary": {
+                    "type": "string",
+                    "description": "Brief description of the authoritative roster and contest stage used.",
+                }
+            },
+            "required": ["summary"],
+        },
+    },
+}
+
 ROSTER_TOOLS: List[Dict] = [
     ADD_CANDIDATE_TOOL,
     REMOVE_CANDIDATE_TOOL,
     RENAME_CANDIDATE_TOOL,
     SET_CANDIDATE_ROSTER_SOURCES_TOOL,
     SET_RACE_IDENTITY_TOOL,
+    FINALIZE_ROSTER_TOOL,
 ]
 
 # ---------------------------------------------------------------------------

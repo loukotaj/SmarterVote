@@ -242,7 +242,7 @@ async def _research_issue_unit(
     candidate_issue_urls: List[str],
     run_budget: RunBudget | None,
     race_identity_context: str = "",
-) -> Dict[str, Any] | None:
+) -> tuple[Dict[str, Any] | None, Dict[str, Any]]:
     """Research one issue against an isolated candidate copy and return its patch."""
     from . import _agent_loop
 
@@ -295,8 +295,9 @@ async def _research_issue_unit(
             race_identity_context=identity_context,
         )
 
+    loop_result: Dict[str, Any] = {}
     try:
-        await _agent_loop(
+        loop_result = await _agent_loop(
             system_prompt,
             user_prompt,
             model=model,
@@ -308,6 +309,14 @@ async def _research_issue_unit(
             extra_tools=ISSUE_TOOLS + [READ_PROFILE_TOOL],
             extra_tool_handlers=handlers,
             tools_mode=True,
+            return_tool_trace=True,
+            required_final_tool_name="set_issue_stance",
+            required_final_instruction=(
+                "Stop searching and synthesize all evidence already collected. You MUST call set_issue_stance now. "
+                "Record a concise factual stance with every supporting source you found. If and only if the research "
+                "found no attributable position, set stance to exactly 'No public position found', confidence to "
+                "'low', and sources to []. Do not infer or invent a position."
+            ),
             run_budget=run_budget,
         )
     except RunBudgetExceeded:
@@ -318,11 +327,7 @@ async def _research_issue_unit(
         if _is_control_flow_exception(exc):
             raise
         if exc.code == "policy_violation":
-            return {
-                "stance": "No public position found (research blocked by content policy)",
-                "confidence": "low",
-                "sources": [],
-            }
+            return None, {"status": "blocked_policy", "search_calls": 0, "page_fetches": 0}
         log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
     except Exception as exc:
         if _is_control_flow_exception(exc):
@@ -331,15 +336,20 @@ async def _research_issue_unit(
 
     candidate = local_race["candidates"][0]
     result = candidate.get("issues", {}).get(issue)
+    trace = loop_result.get("_tool_trace", {}) if isinstance(loop_result, dict) else {}
     if not isinstance(result, dict):
-        return None
+        return None, trace
     if result == existing_issue_data:
         # set_issue_stance was never called this attempt (crash, timeout, ran out
         # of iterations) — this is a genuine failure, not a conclusion, so signal
         # "nothing happened" rather than echoing back stale pre-existing data
         # (which could otherwise be mistaken for a fresh verdict by the caller).
-        return None
-    return copy.deepcopy(result)
+        research_actions = int(trace.get("search_calls", 0) or 0) + int(trace.get("page_fetches", 0) or 0)
+        if is_update and research_actions > 0 and str(result.get("stance") or "").strip():
+            trace["confirmed_existing"] = True
+            return copy.deepcopy(result), trace
+        return None, trace
+    return copy.deepcopy(result), trace
 
 
 async def run_issues_phase(
@@ -374,10 +384,15 @@ async def run_issues_phase(
     iss_t0 = time.perf_counter()
     completed_units = _pipeline_completed_units(race_json)
     issue_attempts = _pipeline_issue_attempts(race_json)
+    issue_research = race_json.setdefault("pipeline_state", {}).setdefault("issue_research", {})
+    if not isinstance(issue_research, dict):
+        issue_research = {}
+        race_json["pipeline_state"]["issue_research"] = issue_research
     if not resume_partial:
         completed_units = {unit for unit in completed_units if not unit.startswith("issues:")}
         race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
         issue_attempts.clear()
+        issue_research.clear()
     else:
         candidates_by_name = {
             str(candidate.get("name")): candidate
@@ -451,23 +466,19 @@ async def run_issues_phase(
             if issue_attempts.get(unit_id, 0) >= max_issue_attempts:
                 log(
                     "warning",
-                    f"    Issue retry limit reached for {cand_name}/{issue}; " "recording a low-confidence no-position result",
+                    f"    Issue retry limit reached for {cand_name}/{issue}; leaving the unit incomplete for explicit retry",
                 )
-                candidate.setdefault("issues", {})[issue] = {
-                    "issue": issue,
-                    "stance": "No public position found after repeated research attempts.",
-                    "confidence": "low",
-                    "sources": [],
+                prior_audit = issue_research.get(unit_id)
+                issue_research[unit_id] = {
+                    **(prior_audit if isinstance(prior_audit, dict) else {}),
+                    "status": "retry_limit",
+                    "attempts": issue_attempts.get(unit_id, 0),
                 }
-                _mark_pipeline_unit_complete(race_json, unit_id)
-                completed_units.add(unit_id)
-                completed_count += 1
-                track(
-                    "progress",
+                _record_step_failure(
+                    race_json,
                     "issues",
-                    pct=int(completed_count / total_units * 100),
-                    message=(f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - " f"{issue} ({issue_idx + 1}/{n_issues})"),
-                    race_json=race_json,
+                    RunFailureReason.STEP_NO_DATA,
+                    f"{cand_name}/{issue}: retry limit reached without a research verdict",
                 )
                 continue
 
@@ -501,7 +512,7 @@ async def run_issues_phase(
                         "info",
                         f"    Issue {canonical_issue_index + 1}/{n_issues}: " f"{candidate_name} / {issue_name}",
                     )
-                    patch = await _research_issue_unit(
+                    patch, trace = await _research_issue_unit(
                         candidate_name,
                         issue_name,
                         candidate_data,
@@ -516,6 +527,38 @@ async def run_issues_phase(
                         run_budget=run_budget,
                         race_identity_context=_race_identity_context(race_json),
                     )
+                    sources = patch.get("sources", []) if isinstance(patch, dict) else []
+                    stance = str(patch.get("stance") or "") if isinstance(patch, dict) else ""
+                    prior_audit = issue_research.get(unit_id)
+                    prior_audit = prior_audit if isinstance(prior_audit, dict) else {}
+                    search_calls = int(prior_audit.get("search_calls", 0) or 0) + int(trace.get("search_calls", 0) or 0)
+                    page_fetches = int(prior_audit.get("page_fetches", 0) or 0) + int(trace.get("page_fetches", 0) or 0)
+                    research_actions = search_calls + page_fetches
+                    if "no public position found" in stance.lower() and research_actions < 2:
+                        log(
+                            "warning",
+                            f"    Rejecting unsupported no-position result for {candidate_name}/{issue_name}: "
+                            f"only {research_actions} research action(s) were recorded",
+                        )
+                        patch = None
+                        audit_status = "insufficient_research"
+                    else:
+                        audit_status = (
+                            "completed"
+                            if patch is not None
+                            else trace.get("status")
+                            if trace.get("status") == "blocked_policy"
+                            else "no_verdict"
+                        )
+                    issue_research[unit_id] = {
+                        "status": audit_status,
+                        "attempts": issue_attempts.get(unit_id, 0),
+                        "search_calls": search_calls,
+                        "page_fetches": page_fetches,
+                        "source_count": len(sources) if isinstance(sources, list) else 0,
+                        "token_budget_reached": bool(trace.get("token_budget_reached", False)),
+                        "max_iterations_reached": bool(trace.get("max_iterations_reached", False)),
+                    }
                     # A non-None patch means the sub-agent successfully called
                     # set_issue_stance — either with a real stance, or (the only
                     # other way past that handler's validation) a deliberate
@@ -570,7 +613,7 @@ async def run_issues_phase(
     pipeline_state["remaining_candidates"] = remaining_candidates
     pipeline_state["remaining_steps"] = ["issues"] if remaining_candidates else []
     pipeline_state["complete"] = not remaining_candidates
-    if remaining_candidates and continue_incomplete_work:
+    if remaining_candidates and continue_incomplete_work and tasks:
         track(
             "progress",
             "issues",
