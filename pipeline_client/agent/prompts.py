@@ -1145,6 +1145,19 @@ IMPORTANT — remove_candidate rules:
 - Data corrections (wrong biography, bad sources, etc.) are handled in later
   pipeline phases — ignore them here.
 
+STEP 2.6 — Record the CURRENT contest stage:
+Contest stage is a statement about the calendar as of {current_date}, not a
+permanent property of the race. A stored stage is a prior observation that may
+have expired — never re-assert it without checking.
+- Determine from your research whether this contest's primary has already been
+  held as of {current_date}. If it has, the stage is post_primary_general (or
+  runoff/top_two/top_four_rcv where the state's rules apply), NOT pre_primary.
+- Call set_race_identity with the stage you actually verified, and put the
+  evidence (primary date and outcome) in primary_status.
+- Getting this wrong is costly in both directions: a stale pre_primary keeps
+  defeated primary candidates on a general-election roster, while a premature
+  post_primary_general drops candidates before the primary has decided anything.
+
 Pay special attention to third-party candidates (Libertarian, Green, Independent),
 write-in candidates who qualified, and convention nominees who may not appear in
 initial profile data.
@@ -1186,7 +1199,9 @@ official ballot). Never assume a race is uncontested without at least one additi
 search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
-stop making tool calls. Do NOT produce any text reply or JSON — just stop.
+call finalize_roster. It will reject incomplete or weakly sourced rosters and tell
+you exactly which candidate evidence remains to fix. You may stop only after
+finalize_roster succeeds. Do NOT produce any text reply or JSON.
 Do NOT modify any other data (issues, summaries, polls, etc.)."""
 
 ROSTER_VERIFY_SYSTEM = f"""\
