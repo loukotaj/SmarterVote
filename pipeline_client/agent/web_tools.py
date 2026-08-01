@@ -270,6 +270,59 @@ def _get_fetch_client() -> httpx.AsyncClient:
     return client
 
 
+TEXT_PROXY_BASE = "https://r.jina.ai/"
+
+# Anonymous r.jina.ai is aggressively rate limited and answers 403/429 once the
+# shared quota is spent — which looks identical to "the site blocked us" at every
+# call site. Configure JINA_API_KEY to get the authenticated quota.
+_proxy_attempts = 0
+_proxy_failures = 0
+_proxy_outage_logged = False
+
+
+def text_proxy_url(url: str) -> str:
+    return f"{TEXT_PROXY_BASE}{url}"
+
+
+def text_proxy_headers() -> Dict[str, str]:
+    headers = {"User-Agent": _BROWSER_UA}
+    api_key = os.environ.get("JINA_API_KEY", "").strip()
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+    return headers
+
+
+def record_proxy_result(*, ok: bool) -> None:
+    """Track proxy health so a systemic outage is visible instead of silent.
+
+    Every roster/evidence path degrades to unsourced guesses when the proxy is
+    down, so a run that never lands a single proxy fetch should say so loudly
+    rather than emit one indistinguishable per-URL failure at a time.
+    """
+    global _proxy_attempts, _proxy_failures, _proxy_outage_logged
+    _proxy_attempts += 1
+    if not ok:
+        _proxy_failures += 1
+    if (
+        not _proxy_outage_logged
+        and _proxy_attempts >= 5
+        and _proxy_failures == _proxy_attempts
+        and not os.environ.get("JINA_API_KEY", "").strip()
+    ):
+        _proxy_outage_logged = True
+        logger.warning(
+            "Text proxy (%s) has failed all %d attempts this run. Anonymous quota is likely exhausted; "
+            "set JINA_API_KEY so page fetches can reach retrievable (tier 1/2) evidence instead of "
+            "falling back to search snippets.",
+            TEXT_PROXY_BASE,
+            _proxy_attempts,
+        )
+
+
+def proxy_health_snapshot() -> Dict[str, int]:
+    return {"attempts": _proxy_attempts, "failures": _proxy_failures}
+
+
 def _get_serper_client() -> httpx.AsyncClient:
     """Return a per-event-loop AsyncClient for Serper API calls."""
     loop_id = id(asyncio.get_running_loop())
@@ -338,10 +391,11 @@ async def _fetch_page(url: str) -> str:
             # short pages, opportunistically try the proxy and prefer richer content.
             if len(text.strip()) < _PAGE_PROXY_RETRY_CHARS:
                 try:
-                    proxy_url = f"https://r.jina.ai/{url}"
-                    proxy_resp = await _get_validated(client, proxy_url)
+                    proxy_url = text_proxy_url(url)
+                    proxy_resp = await _get_validated(client, proxy_url, headers=text_proxy_headers())
                     proxy_resp.raise_for_status()
                     proxy_text = proxy_resp.text.strip()
+                    record_proxy_result(ok=not _is_unusable_page_text(proxy_text))
                     if (not _is_unusable_page_text(proxy_text)) and (len(proxy_text) > len(text) + 200):
                         if len(proxy_text) > _PAGE_MAX_CHARS:
                             proxy_text = proxy_text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
@@ -350,6 +404,7 @@ async def _fetch_page(url: str) -> str:
                             cache.set_page(url, proxy_text)
                         return proxy_text
                 except Exception as exc:
+                    record_proxy_result(ok=False)
                     failure_reasons.append(f"short-page proxy probe: {exc}")
 
             if len(text) > _PAGE_MAX_CHARS:
@@ -362,11 +417,12 @@ async def _fetch_page(url: str) -> str:
             failure_reasons.append(str(exc))
 
     # Fallback: jina text proxy often succeeds when direct fetches hit bot checks.
-    proxy_url = f"https://r.jina.ai/{url}"
+    proxy_url = text_proxy_url(url)
     try:
-        proxy_resp = await _get_validated(client, proxy_url)
+        proxy_resp = await _get_validated(client, proxy_url, headers=text_proxy_headers())
         proxy_resp.raise_for_status()
         proxy_text = proxy_resp.text.strip()
+        record_proxy_result(ok=not _is_unusable_page_text(proxy_text))
         if not _is_unusable_page_text(proxy_text):
             if len(proxy_text) > _PAGE_MAX_CHARS:
                 proxy_text = proxy_text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
@@ -376,6 +432,7 @@ async def _fetch_page(url: str) -> str:
             return proxy_text
         failure_reasons.append("proxy_unusable_content")
     except Exception as exc:
+        record_proxy_result(ok=False)
         failure_reasons.append(f"proxy: {exc}")
 
     # Campaign issue pages are often blocked while other site pages remain accessible.
@@ -999,9 +1056,9 @@ async def get_homepage_policy_links(homepage_url: str) -> List[str]:
         html_content = resp.text
     except Exception as exc:
         # Fallback to Jina Reader proxy
-        proxy_url = f"https://r.jina.ai/{homepage_url}"
+        proxy_url = text_proxy_url(homepage_url)
         try:
-            proxy_resp = await _get_validated(client, proxy_url)
+            proxy_resp = await _get_validated(client, proxy_url, headers=text_proxy_headers())
             proxy_resp.raise_for_status()
             # If jina returns markdown, extract links using markdown regex [text](url)
             markdown = proxy_resp.text or ""
