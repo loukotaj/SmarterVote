@@ -680,6 +680,15 @@ async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceil
     assert result["_tool_trace"]["token_budget_reached"] is True
 
 
+def test_tool_result_error_detection_handles_handler_blocking_conventions():
+    from pipeline_client.agent.llm import _tool_result_is_error
+
+    assert _tool_result_is_error("ERROR: missing evidence")
+    assert _tool_result_is_error("Blocked adding candidate")
+    assert _tool_result_is_error("Failed to update roster")
+    assert not _tool_result_is_error("Added candidate")
+
+
 @pytest.mark.asyncio
 async def test_agent_loop_propagates_policy_violation_runtime_error():
     with patch(

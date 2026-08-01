@@ -95,14 +95,25 @@ def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str
     return normalized
 
 
-def _normalize_roster_source(source: Any) -> Dict[str, Any] | None:
+def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any] | None:
     """Normalize source evidence used only for candidate roster membership."""
     if not isinstance(source, dict):
         return None
     url = str(source.get("url") or "").strip() or None
     title = str(source.get("title") or "").strip() or None
-    evidence = str(source.get("evidence") or "").strip() or None
-    source_type = str(source.get("type") or "other").strip().lower()
+    evidence = str(source.get("evidence") or source.get("text") or "").strip() or None
+    host = urlparse(url or "").netloc.casefold()
+    source_type = str(source.get("type") or "").strip().lower()
+    if not source_type:
+        title_and_url = f"{title or ''} {url or ''}".casefold()
+        if host == "ballotpedia.org" or host.endswith(".ballotpedia.org"):
+            source_type = "ballotpedia"
+        elif host == "fec.gov" or host.endswith(".fec.gov"):
+            source_type = "fec"
+        elif host.endswith(".gov") or "qualified candidates" in title_and_url:
+            source_type = "official"
+        else:
+            source_type = "other"
     if source_type not in _ROSTER_SOURCE_TYPES:
         source_type = "other"
     if not any((url, title, evidence)):
@@ -112,11 +123,15 @@ def _normalize_roster_source(source: Any) -> Dict[str, Any] | None:
         "type": source_type,
         "title": title,
         "evidence": evidence,
-        "last_accessed": source.get("last_accessed") or datetime.now(timezone.utc).isoformat(),
+        "last_accessed": source.get("last_accessed") or source.get("retrieved") or datetime.now(timezone.utc).isoformat(),
     }
     for key in ("published_at", "race_id", "evidence_tier", "retrieval_status"):
         if source.get(key) is not None:
             normalized[key] = source[key]
+    normalized.setdefault("race_id", race_id)
+    if evidence and "evidence_tier" not in normalized:
+        normalized["evidence_tier"] = 3
+        normalized["retrieval_status"] = "snippet"
     return {key: value for key, value in normalized.items() if value is not None}
 
 
@@ -139,13 +154,14 @@ def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_nam
     try:
         published = datetime.fromisoformat(str(source.get("published_at") or "").replace("Z", "+00:00"))
     except ValueError:
-        return False
-    if year_match and published.year not in {
-        int(year_match.group()) - 2,
-        int(year_match.group()) - 1,
-        int(year_match.group()),
-    }:
-        return False
+        published = None
+    if year_match:
+        valid_years = {int(year_match.group()) - 2, int(year_match.group()) - 1, int(year_match.group())}
+        if published is not None:
+            if published.year not in valid_years:
+                return False
+        elif not any(str(year) in evidence_text for year in valid_years):
+            return False
     tier = source.get("evidence_tier")
     status = source.get("retrieval_status")
     if tier == 1:
@@ -157,7 +173,7 @@ def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_nam
 
 def _qualifying_candidate_addition_sources(sources: Any, *, candidate_name: str, race_id: str) -> list[Dict[str, Any]]:
     """Return qualifying sources, enforcing corroboration for non-authoritative snippets."""
-    normalized = [src for src in (_normalize_roster_source(source) for source in sources or []) if src]
+    normalized = [src for src in (_normalize_roster_source(source, race_id=race_id) for source in sources or []) if src]
     qualifying = [
         source
         for source in normalized

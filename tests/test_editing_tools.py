@@ -563,6 +563,29 @@ def test_federal_house_roster_rejects_same_number_state_house_evidence():
     assert race_json["candidates"] == []
 
 
+def test_federal_house_roster_accepts_official_search_result_shape_for_zero_padded_district():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://aldemocrats.org/2026-qualified-candidates",
+        "title": "2026 Primary Election - Qualified Candidates",
+        "text": "US Representative, 2nd District - Shomari C. Figures",
+        "retrieved": "2026-08-01",
+    }
+
+    result = handlers["add_candidate"]({"name": "Shomari Figures", "party": "Democratic", "roster_sources": [source]})
+
+    assert "Added" in result
+    saved = race_json["candidates"][0]["roster_sources"][0]
+    assert saved["evidence"] == source["text"]
+    assert saved["race_id"] == "al-house-02-2026"
+    assert saved["type"] == "official"
+    assert saved["evidence_tier"] == 3
+    assert saved["retrieval_status"] == "snippet"
+
+
 def test_wrong_contest_removal_requires_proof_and_physically_removes_contamination():
     from pipeline_client.agent.agent import _make_editing_handlers
 

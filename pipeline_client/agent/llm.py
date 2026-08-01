@@ -52,6 +52,10 @@ CHEAP_TO_DEFAULT_MODEL_FALLBACK = {
 }
 
 
+def _tool_result_is_error(result: Any) -> bool:
+    return isinstance(result, str) and result.lstrip().casefold().startswith(("error:", "blocked", "failed"))
+
+
 def _provider_usage_cost(usage: Any) -> Optional[float]:
     """Read OpenRouter's billed cost from SDK-known or extra usage fields."""
     if usage is None:
@@ -748,11 +752,9 @@ async def _agent_loop(
                             )
                         else:
                             handler_result = _extra_handlers[fn.name](args)
-                        if fn.name == required_final_tool_name and not (
-                            isinstance(handler_result, str) and handler_result.startswith("Error:")
-                        ):
+                        if fn.name == required_final_tool_name and not _tool_result_is_error(handler_result):
                             required_final_tool_succeeded = True
-                        if isinstance(handler_result, str) and handler_result.startswith("Error:"):
+                        if _tool_result_is_error(handler_result):
                             log("warning", f"    🔧 {fn.name} → BLOCKED")
                         else:
                             log("info", f"    🔧 {fn.name} → OK")
