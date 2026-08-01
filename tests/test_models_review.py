@@ -549,7 +549,8 @@ async def test_verify_url_still_flags_non_facebook_400():
     response = httpx.Response(400, request=httpx.Request("GET", url))
 
     with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, return_value=response):
-        assert await _verify_url(AsyncMock(), url) == "HTTP error 400"
+        # 400 is a real failure but not permanent, so it must not be auto-removed.
+        assert await _verify_url(AsyncMock(), url) == ("HTTP error 400", False)
 
 
 def test_profile_quality_flags_title_like_description():
@@ -601,3 +602,90 @@ def test_profile_quality_flags_duplicate_stale_and_unsourced_claims():
     assert any("Duplicate source URL" in concern for concern in concerns)
     assert any("more than one year old" in concern for concern in concerns)
     assert any("Substantive issue stance has no supporting sources" in concern for concern in concerns)
+
+
+@pytest.mark.asyncio
+async def test_verify_url_marks_unresolvable_host_permanent():
+    """A host that does not resolve is at least as dead as a 404."""
+    import httpx
+
+    from pipeline_client.agent.review import _verify_url
+
+    url = "https://www.ballotpedia.org/Joanne_Kuniansky"
+    exc = httpx.ConnectError("[Errno -2] Name or service not known")
+
+    with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, side_effect=exc):
+        reason, permanent = await _verify_url(AsyncMock(), url)
+
+    assert permanent is True
+    assert "Name or service not known" in reason
+
+
+@pytest.mark.asyncio
+async def test_verify_url_keeps_timeouts_transient():
+    import httpx
+
+    from pipeline_client.agent.review import _verify_url
+
+    with patch(
+        "pipeline_client.agent.review._get_validated",
+        new_callable=AsyncMock,
+        side_effect=httpx.ReadTimeout("timed out"),
+    ):
+        _reason, permanent = await _verify_url(AsyncMock(), "https://example.com/slow")
+
+    assert permanent is False
+
+
+def test_dead_source_removal_covers_unresolvable_hosts():
+    """Regression: a DNS-dead citation blocked publication across five runs."""
+    from pipeline_client.agent.review import _remove_confirmed_dead_candidate_sources
+
+    dead = "https://www.ballotpedia.org/Joanne_Kuniansky"
+    race_json = {
+        "candidates": [
+            {
+                "name": "Joanne Kuniansky",
+                "issues": {
+                    "Economy": {
+                        "stance": "Supports a public works program.",
+                        "sources": [{"url": dead}, {"url": "https://themilitant.com/2026/swp-campaign"}],
+                    }
+                },
+            }
+        ]
+    }
+    link_review = {
+        "flags": [
+            {
+                "field": "candidates[0].issues.Economy.sources[0].url",
+                "concern": f"Cited source URL ({dead}) returned a dead link: Request failed: [Errno -2] Name or service not known.",
+                "permanent_failure": True,
+            }
+        ]
+    }
+
+    removed = _remove_confirmed_dead_candidate_sources(race_json, link_review)
+
+    assert removed == 1
+    remaining = [s["url"] for s in race_json["candidates"][0]["issues"]["Economy"]["sources"]]
+    assert dead not in remaining
+    assert "https://themilitant.com/2026/swp-campaign" in remaining
+
+
+def test_dead_source_removal_leaves_transient_failures_alone():
+    from pipeline_client.agent.review import _remove_confirmed_dead_candidate_sources
+
+    url = "https://example.com/slow"
+    race_json = {"candidates": [{"name": "A", "issues": {"Economy": {"stance": "x", "sources": [{"url": url}]}}}]}
+    link_review = {
+        "flags": [
+            {
+                "field": "candidates[0].issues.Economy.sources[0].url",
+                "concern": f"Cited source URL ({url}) returned a dead link: Request failed: timed out.",
+                "permanent_failure": False,
+            }
+        ]
+    }
+
+    assert _remove_confirmed_dead_candidate_sources(race_json, link_review) == 0

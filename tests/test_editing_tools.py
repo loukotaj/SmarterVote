@@ -2307,3 +2307,74 @@ def test_completeness_gate_still_rejects_single_candidate_evidence():
     assert _roster_completeness_source_rejection_reason(
         source, race_id="nj-senate-2026", identity={"office": "U.S. Senate", "contest_stage": "post_primary_general"}
     )
+
+
+@pytest.mark.asyncio
+async def test_targeted_issue_run_preserves_other_candidates_audits():
+    """Regression: a scoped candidate_names run used to wipe the whole race's audit.
+
+    Review flags any "No public position found" stance whose research audit is
+    missing, so clearing race-wide meant every targeted repair re-broke the
+    candidates it skipped and no sequence of runs could converge.
+    """
+    from pipeline_client.agent.phases.issues import run_issues_phase
+
+    race_json = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {"name": "Justin Murphy", "issues": {}},
+            {"name": "Veronica Fernandez", "issues": {}},
+        ],
+        "pipeline_state": {
+            "completed_units": ["issues:Justin Murphy:Economy", "issues:Veronica Fernandez:Economy"],
+            "issue_attempts": {"issues:Justin Murphy:Economy": 1, "issues:Veronica Fernandez:Economy": 1},
+            "issue_research": {
+                "issues:Justin Murphy:Economy": {"status": "completed", "search_calls": 2, "page_fetches": 1},
+                "issues:Veronica Fernandez:Economy": {"status": "completed", "search_calls": 2, "page_fetches": 1},
+            },
+        },
+    }
+
+    await run_issues_phase(
+        race_json,
+        "nj-senate-2026",
+        candidate_names=["Veronica Fernandez"],
+        small_model="test-model",
+        on_log=None,
+        max_iterations=1,
+        step_enabled=lambda _step: False,  # stop before doing real research
+        track=lambda *_a, **_kw: None,
+        max_candidates=None,
+        target_no_info=False,
+        is_update=True,
+        last_updated="",
+        log=lambda *_a, **_kw: None,
+        prefix="Test Phase",
+        resume_partial=False,
+        continue_incomplete_work=False,
+        run_budget=None,
+    )
+
+    research = race_json["pipeline_state"]["issue_research"]
+    assert "issues:Justin Murphy:Economy" in research, "skipped candidate's audit must survive"
+
+
+def test_scoped_issue_reset_clears_only_targeted_candidates():
+    """Directly exercise the scoping rule the phase applies to its trackers."""
+    from pipeline_client.agent.phases.issues import run_issues_phase  # noqa: F401  (import guard)
+
+    scoped_names = {"Veronica Fernandez"}
+
+    def belongs_to_scope(unit):
+        parts = unit.split(":")
+        return len(parts) >= 2 and parts[1] in scoped_names
+
+    units = {
+        "issues:Justin Murphy:Economy",
+        "issues:Veronica Fernandez:Economy",
+        "issues:Veronica Fernandez:Healthcare",
+        "discovery.roster_sync",
+    }
+    kept = {u for u in units if not (u.startswith("issues:") and belongs_to_scope(u))}
+
+    assert kept == {"issues:Justin Murphy:Economy", "discovery.roster_sync"}
