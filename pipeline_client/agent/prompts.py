@@ -1204,8 +1204,12 @@ official ballot). Never assume a race is uncontested without at least one additi
 search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
-call finalize_roster. It will reject incomplete or weakly sourced rosters and tell
-you exactly which candidate evidence remains to fix. You may stop only after
+call finalize_roster with `completeness_sources` quoting the full qualified,
+certified, or official-ballot list for this exact contest. Candidate-specific
+sources prove that listed people belong; they do not prove nobody was omitted.
+For a special election, the completeness evidence must explicitly identify the
+special contest and its verified date. The tool will reject incomplete or weakly
+sourced rosters and tell you exactly which evidence remains to fix. You may stop only after
 finalize_roster succeeds. Do NOT produce any text reply or JSON.
 Do NOT modify any other data (issues, summaries, polls, etc.)."""
 
