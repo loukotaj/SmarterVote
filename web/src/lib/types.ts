@@ -247,6 +247,8 @@ export interface PipelineState {
   step_failures: StepFailure[];
   deterministic_cleanup: Record<string, number>;
   race_identity?: RaceIdentityBrief;
+  roster_research?: Record<string, unknown>;
+  metadata_research?: Record<string, unknown>;
 }
 
 export interface IssueResearchAudit {

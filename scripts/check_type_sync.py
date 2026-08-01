@@ -227,6 +227,10 @@ FIELD_TYPE_OVERRIDES: Dict[tuple, str] = {
     # Dict keyed by CanonicalIssue, but IssueKey (a superset including legacy
     # names) + Partial is the deliberately more tolerant TS rendering.
     ("Candidate", "issues"): "Partial<Record<IssueKey, IssueStance>>",
+    # Research audits intentionally retain provider/tool-specific JSON details;
+    # the frontend treats their values as unknown until a consumer narrows them.
+    ("PipelineState", "roster_research"): "Record<string, unknown>",
+    ("PipelineState", "metadata_research"): "Record<string, unknown>",
 }
 
 # Fields checked by a bespoke function below instead of the generic matcher
