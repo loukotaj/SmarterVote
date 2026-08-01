@@ -315,6 +315,12 @@ Search for NEW information since {last_updated}:
 2. Updated or corrected candidate summaries (keep them 2-3 sentences, nonpartisan).
 3. Updated race description (office context, why it matters, key contrasts).
 
+Completeness takes priority over recency: if any active candidate has an empty,
+placeholder, or thin summary, research and write a sourced 2-3 sentence biography
+even when the underlying facts predate {last_updated}. Your final action must be one
+finalize_metadata call containing the race description and every active candidate;
+this atomically preserves the research you found.
+
 WHAT COUNTS AS "NEW" — be precise:
 - A development is new if it appears in articles published AFTER {last_updated}:
   new endorsements, policy announcements, primary results, candidate debates,
@@ -328,8 +334,8 @@ WHAT COUNTS AS "NEW" — be precise:
   future result.
 
 WHEN TO MAKE NO CHANGES:
-- If nothing meaningful has changed since {last_updated}, reply exactly:
-  "No changes needed."
+- Existing substantive text may be retained, but it must still be included with
+  supporting sources in finalize_metadata. Do not exit with findings only in prose.
 - Do not rephrase existing summaries without a substantive new reason.
 
 When you do find improvements, use your editing tools to record them:
@@ -361,6 +367,10 @@ Find recent public polls from primary poll releases, reputable aggregators, or
 news coverage linking to the underlying poll. Add at most five useful recent
 polls. Every matchup candidate name must exactly match the roster above and the
 percentages array must align with the candidate array. If a source confirms a
+poll for a party primary, include only the candidates measured in that primary;
+it is valid and expected for that matchup to omit the other party's candidate(s)
+and any unmeasured candidates. Never remove a genuine primary poll merely because
+its matchup is a subset of the full cross-party race roster. If a source confirms a
 poll but does not name the polling organization, do not invent a placeholder
 pollster. Election returns, primary results, vote totals, and candidate vote
 shares are not opinion polls and must never be added to polling.
@@ -1204,8 +1214,12 @@ official ballot). Never assume a race is uncontested without at least one additi
 search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
-call finalize_roster with `completeness_sources` quoting the full qualified,
-certified, or official-ballot list for this exact contest. Candidate-specific
+call finalize_roster once with the entire final `candidates` array,
+`source_candidate_names` extracted from the authoritative list, and
+`completeness_sources` quoting the full qualified, certified, or official-ballot
+list for this exact contest. This is an atomic replacement: use it to apply all
+remaining additions and removals in one response instead of spending one turn
+per candidate. Candidate-specific
 sources prove that listed people belong; they do not prove nobody was omitted.
 For a special election, the completeness evidence must explicitly identify the
 special contest and its verified date. The tool will reject incomplete or weakly

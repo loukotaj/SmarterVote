@@ -347,9 +347,9 @@ FINALIZE_ROSTER_TOOL: Dict = {
     "function": {
         "name": "finalize_roster",
         "description": (
-            "Finish roster sync only after every active candidate has durable current-cycle exact-contest evidence "
-            "and retrieved authoritative evidence proves the roster itself is complete. The handler validates both "
-            "membership and completeness and returns specific evidence gaps to fix."
+            "Atomically submit and finish the complete active roster after research. Every proposed candidate must "
+            "have current-cycle exact-contest evidence, and retrieved authoritative evidence must prove the roster "
+            "itself is complete. Existing profiles are preserved by name while wrong or omitted entries are removed."
         ),
         "parameters": {
             "type": "object",
@@ -357,6 +357,55 @@ FINALIZE_ROSTER_TOOL: Dict = {
                 "summary": {
                     "type": "string",
                     "description": "Brief description of the authoritative roster and contest stage used.",
+                },
+                "candidates": {
+                    "type": "array",
+                    "description": "The complete final active roster extracted from the cited completeness sources.",
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "party": {"type": "string"},
+                            "incumbent": {"type": "boolean"},
+                            "roster_sources": {
+                                "type": "array",
+                                "description": (
+                                    "Optional additional observed sources for this candidate. A fetched completeness "
+                                    "source that names the candidate is automatically reused as membership evidence."
+                                ),
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {"type": "string"},
+                                        "type": {"type": "string"},
+                                        "title": {"type": "string"},
+                                        "evidence": {"type": "string"},
+                                        "evidence_text": {"type": "string"},
+                                        "text": {"type": "string"},
+                                        "snippet": {"type": "string"},
+                                        "context": {"type": "string"},
+                                        "retrieved": {"type": "string"},
+                                        "date": {"type": "string"},
+                                        "published_at": {"type": "string"},
+                                        "race_id": {"type": "string"},
+                                        "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                                        "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                                    },
+                                    "required": ["url", "title"],
+                                },
+                            },
+                        },
+                        "required": ["name", "party"],
+                    },
+                },
+                "source_candidate_names": {
+                    "type": "array",
+                    "description": (
+                        "Every candidate name extracted from the completeness evidence; must exactly match candidates."
+                    ),
+                    "items": {"type": "string"},
                 },
                 "completeness_sources": {
                     "type": "array",
@@ -386,7 +435,7 @@ FINALIZE_ROSTER_TOOL: Dict = {
                     },
                 },
             },
-            "required": ["summary", "completeness_sources"],
+            "required": ["summary", "candidates", "source_candidate_names", "completeness_sources"],
         },
     },
 }
@@ -449,6 +498,69 @@ SET_CANDIDATE_SUMMARY_TOOL: Dict = {
                 },
             },
             "required": ["candidate_name", "summary"],
+        },
+    },
+}
+
+FINALIZE_METADATA_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "finalize_metadata",
+        "description": (
+            "Atomically submit the race description and a sourced biographical summary for every active candidate. "
+            "Use this after research so findings cannot be lost when the phase reaches its turn limit."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A sourced, nonpartisan 3-4 sentence description of this exact race.",
+                },
+                "description_sources": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string"},
+                            "title": {"type": "string"},
+                        },
+                        "required": ["url"],
+                    },
+                },
+                "candidates": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "summary": {
+                                "type": "string",
+                                "description": "A factual, nonpartisan 2-3 sentence biography.",
+                            },
+                            "sources": {
+                                "type": "array",
+                                "minItems": 1,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {"type": "string"},
+                                        "type": {"type": "string"},
+                                        "title": {"type": "string"},
+                                    },
+                                    "required": ["url"],
+                                },
+                            },
+                        },
+                        "required": ["name", "summary", "sources"],
+                    },
+                },
+            },
+            "required": ["description", "description_sources", "candidates"],
         },
     },
 }

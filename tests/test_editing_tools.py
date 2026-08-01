@@ -34,6 +34,7 @@ def test_editing_tool_schemas_exist():
         ADD_LINK_TOOL,
         ADD_POLL_TOOL,
         CANDIDATE_TOOLS,
+        FINALIZE_METADATA_TOOL,
         ISSUE_TOOLS,
         RACE_TOOLS,
         READ_PROFILE_TOOL,
@@ -61,6 +62,7 @@ def test_editing_tool_schemas_exist():
     assert SET_CANDIDATE_ROSTER_SOURCES_TOOL["function"]["name"] == "set_candidate_roster_sources"
     assert SET_RACE_IDENTITY_TOOL["function"]["name"] == "set_race_identity"
     assert READ_PROFILE_TOOL["function"]["name"] == "read_profile"
+    assert FINALIZE_METADATA_TOOL["function"]["name"] == "finalize_metadata"
 
 
 # ---------------------------------------------------------------------------
@@ -85,6 +87,7 @@ def test_make_editing_handlers():
         "finalize_roster",
         "set_candidate_field",
         "set_candidate_summary",
+        "finalize_metadata",
         "set_issue_stance",
         "set_donor_summary",
         "set_voting_summary",
@@ -890,6 +893,103 @@ def test_finalize_roster_requires_exact_special_election_completeness_source():
     assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
+def test_finalize_roster_atomically_applies_complete_proposed_roster():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://elections.example.gov/2026-special-primary-certified-candidates"
+    completeness_source = {
+        "url": source_url,
+        "type": "official",
+        "title": "Certified Candidate List - Special Primary Election",
+        "evidence": (
+            "Certified candidates for the August 11, 2026 Special Primary Election for U.S. House "
+            "Congressional District 2: Shomari Figures and Hampton Harris"
+        ),
+        "published_at": "2026-06-04",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-08-11",
+            }
+        },
+        "candidates": [
+            {"name": "Rick Pressnell", "party": "Democratic", "summary": "Wrong contest"},
+            {"name": "Shomari Figures", "party": "Democratic", "summary": "Preserve this profile"},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Official complete special-primary list",
+            "candidates": [
+                {"name": "Shomari Figures", "party": "Democratic", "incumbent": True},
+                {"name": "Hampton Harris", "party": "Republican", "incumbent": False},
+            ],
+            "source_candidate_names": ["Shomari Figures", "Hampton Harris"],
+            "completeness_sources": [completeness_source],
+            "_research_trace": {"researched_urls": [source_url], "fetched_urls": [source_url]},
+        }
+    )
+
+    assert result == "Roster finalized with 2 evidence-backed active candidate(s)."
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures", "Hampton Harris"]
+    assert race_json["candidates"][0]["summary"] == "Preserve this profile"
+    assert all(candidate["roster_sources"][0]["retrieval_status"] == "content" for candidate in race_json["candidates"])
+
+
+def test_exact_contest_accepts_statewide_certification_table_row_wording():
+    from pipeline_client.agent.handlers import _source_supports_exact_contest
+
+    source = {
+        "title": "State Certification of Republican Candidates Congressional Districts",
+        "evidence": (
+            "Certification for the Special Primary Election for U.S. Congressional Districts lists the following "
+            "qualified candidates for District 2: Rhett Marques and Hampton Harris."
+        ),
+        "url": "https://www.sos.alabama.gov/certification.pdf",
+    }
+
+    assert _source_supports_exact_contest(source, race_id="al-house-02-2026") is True
+
+
+def test_finalize_roster_atomic_submission_requires_extracted_name_match():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://elections.example.gov/certified-candidates"
+    source = {
+        "url": source_url,
+        "type": "official",
+        "title": "Certified Candidate List",
+        "evidence": "2026 certified candidates for U.S. House Congressional District 2: Alice Example, Bob Example",
+        "published_at": "2026-06-04",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
+        "candidates": [{"name": "Old Entry", "party": "Unknown"}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Incomplete extraction",
+            "candidates": [{"name": "Alice Example", "party": "Democratic"}],
+            "source_candidate_names": ["Alice Example", "Bob Example"],
+            "completeness_sources": [source],
+            "_research_trace": {"researched_urls": [source_url], "fetched_urls": [source_url]},
+        }
+    )
+
+    assert "source_candidate_names must exactly match" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Old Entry"]
+
+
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():
     from pipeline_client.agent.agent import _make_editing_handlers
 
@@ -1278,6 +1378,98 @@ def test_remove_poll_handler():
     # Remove by pollster only
     handlers["remove_poll"]({"pollster": "Emerson", "reason": "null data"})
     assert race_json["polling"] == []
+
+
+def test_finalize_metadata_atomically_requires_complete_sourced_roster():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "description": "Old description",
+        "candidates": [
+            {"name": "Alice Example", "summary": "", "summary_sources": []},
+            {"name": "Bob Example", "summary": "", "summary_sources": []},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+    source = {"url": "https://example.com/race", "type": "news", "title": "Race guide"}
+    trace = {"researched_urls": [source["url"]], "fetched_urls": []}
+
+    incomplete = handlers["finalize_metadata"](
+        {
+            "description": "This is a substantive description of the exact election and its broader context. "
+            "It explains the office, timing, field, and major contrasts without advocating for a candidate.",
+            "description_sources": [source],
+            "candidates": [
+                {
+                    "name": "Alice Example",
+                    "summary": "Alice Example is a candidate with relevant public service and professional experience. "
+                    "Her biography describes that background in neutral language for voters.",
+                    "sources": [source],
+                }
+            ],
+            "_research_trace": trace,
+        }
+    )
+    assert incomplete.startswith("ERROR:")
+    assert race_json["description"] == "Old description"
+
+    complete = handlers["finalize_metadata"](
+        {
+            "description": "This is a substantive description of the exact election and its broader context. "
+            "It explains the office, timing, field, and major contrasts without advocating for a candidate.",
+            "description_sources": [source],
+            "candidates": [
+                {
+                    "name": "Alice Example",
+                    "summary": "Alice Example is a candidate with relevant public service and professional experience. "
+                    "Her biography describes that background in neutral language for voters.",
+                    "sources": [source],
+                },
+                {
+                    "name": "Bob Example",
+                    "summary": "Bob Example is a candidate with relevant community leadership and professional experience. "
+                    "His biography describes that background in neutral language for voters.",
+                    "sources": [source],
+                },
+            ],
+            "_research_trace": trace,
+        }
+    )
+    assert complete.startswith("Metadata finalized")
+    assert all(candidate["summary"] for candidate in race_json["candidates"])
+    assert race_json["pipeline_state"]["metadata_research"]["active_candidate_count"] == 2
+
+
+def test_remove_poll_blocks_full_roster_alignment_for_primary_matchup():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    poll = {
+        "pollster": "Peak Insights",
+        "date": "2026-06-09",
+        "matchups": [{"candidates": ["Rhett Marques", "Hampton Harris"], "percentages": [30, 4]}],
+        "source_url": "https://example.com/republican-primary-poll",
+    }
+    race_json = {
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic"},
+            {"name": "Rhett Marques", "party": "Republican"},
+            {"name": "Hampton Harris", "party": "Republican"},
+        ],
+        "polling": [poll],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["remove_poll"](
+        {
+            "pollster": "Peak Insights",
+            "date": "2026-06-09",
+            "reason": "Roster alignment: poll did not include Shomari Figures.",
+        }
+    )
+
+    assert result.startswith("ERROR: Poll removal blocked")
+    assert race_json["polling"] == [poll]
 
 
 def test_add_poll_requires_exact_roster_names():

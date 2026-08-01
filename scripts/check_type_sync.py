@@ -117,6 +117,8 @@ CHECKED_MODELS: Dict[str, Type[BaseModel]] = {
     "RunAudit": shared_models.RunAudit,
     "PipelineState": shared_models.PipelineState,
     "IssueResearchAudit": shared_models.IssueResearchAudit,
+    "RosterResearchAudit": shared_models.RosterResearchAudit,
+    "MetadataResearchAudit": shared_models.MetadataResearchAudit,
     "Race": shared_models.RaceJSON,  # renamed on the TS side
     # PipelineRunOptions is the wire-level ("caller may omit anything")
     # schema shared by the races-api and worker request models; RunOptions is
