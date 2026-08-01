@@ -177,6 +177,13 @@ forecast evidence lineage, and pipeline/validation health. Use
 `audit_race_assets(..., persist=true)` when URL reachability, content type, or
 thumbnail quality matters; presence alone is not treated as verification.
 
+Roster editing tools accept both normalized evidence fields and the native
+`web_search` result aliases (`text`, `retrieved`). The handler preserves those
+as durable evidence, infers only recognizable source classes, and still applies
+current-cycle and exact-contest checks. A blocked/error tool result is surfaced
+to the model as a failure so it can correct its next call instead of looping on
+the same invalid payload.
+
 Logical runs enforce both global and phase search/token ceilings. They also cap
 uncached page fetches and fetched characters, and persist per-phase
 token/provider/search/page attribution across continuation handoffs. Defaults
