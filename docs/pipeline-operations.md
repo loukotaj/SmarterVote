@@ -182,10 +182,13 @@ forecast evidence lineage, and pipeline/validation health. Use
 thumbnail quality matters; presence alone is not treated as verification.
 
 Roster editing tools accept both normalized evidence fields and the native
-`web_search`/model result aliases (`text`, `context`, or `snippet`, plus
+`web_search`/model result aliases (`evidence_text`, `text`, `context`, or `snippet`, plus
 `retrieved` and `date`). The handler preserves those
 as durable evidence, infers only recognizable source classes, and still applies
-current-cycle and exact-contest checks. A blocked/error tool result is surfaced
+current-cycle and exact-contest checks. In production agent loops, the handler
+also cross-checks each cited URL against the loop's actual search/fetch trace;
+model-supplied retrieval metadata cannot promote a URL the run never observed,
+and completeness evidence must have been fetched as page content. A blocked/error tool result is surfaced
 to the model as a failure. After two consecutive blocked edits, roster sync
 keeps the accumulated research but escalates subsequent synthesis to the
 stronger roster fallback and directs it to obtain higher-priority evidence

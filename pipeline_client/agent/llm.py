@@ -480,6 +480,8 @@ async def _agent_loop(
     required_final_tool_succeeded = False
     consecutive_tool_errors = 0
     tool_errors_escalated = False
+    researched_urls: set[str] = set()
+    fetched_urls: set[str] = set()
     tool_trace = {
         "search_calls": 0,
         "page_fetches": 0,
@@ -674,6 +676,11 @@ async def _agent_loop(
                         timeout_result=[],
                     )
                     log("debug", f"    🔍 got {len(search_results)} results")
+                    for search_result in search_results:
+                        if isinstance(search_result, dict):
+                            result_url = str(search_result.get("url") or search_result.get("link") or "").strip()
+                            if result_url:
+                                researched_urls.add(result_url)
                     messages.append(
                         {
                             "role": "tool",
@@ -718,6 +725,9 @@ async def _agent_loop(
                         timeout_result="[Page fetch timed out; use another source.]",
                     )
                     log("debug", f"    📄 got {len(page_text)} chars")
+                    if page_text and len(page_text) >= 100 and not page_text.lstrip().startswith("["):
+                        fetched_urls.add(url)
+                        researched_urls.add(url)
                     fetch_hint = _page_fetch_log_hint(url, page_text)
                     if fetch_hint:
                         log("warning", f"    📄 {fetch_hint}")
@@ -774,6 +784,10 @@ async def _agent_loop(
                         tool_trace["editing_calls"] += 1
                     args = json.loads(fn.arguments)
                     log("info", f"    🔧 {fn.name}({', '.join(f'{k}={v!r}' for k, v in args.items())})")
+                    args["_research_trace"] = {
+                        "researched_urls": sorted(researched_urls),
+                        "fetched_urls": sorted(fetched_urls),
+                    }
                     try:
                         if fn.name == "read_profile" and context_budget.narrow_phase and args.get("section", "full") == "full":
                             handler_result = (
