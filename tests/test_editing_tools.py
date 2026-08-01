@@ -1103,6 +1103,58 @@ def test_finalize_roster_allows_middle_initial_in_extracted_source_name():
     assert result == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
+def test_finalize_roster_reuses_persisted_content_evidence_by_url():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://www.sos.alabama.gov/2026/district-2-certified.pdf"
+    trusted_source = {
+        "url": source_url,
+        "type": "official",
+        "title": "State Certification of Candidates",
+        "evidence": (
+            "Certified and complete qualified candidate list for the August 11, 2026 Special Primary Election "
+            "for U.S. House Congressional District 2: Shomari Figures and Hampton Harris"
+        ),
+        "race_id": "al-house-02-2026",
+        "published_at": "2026-05-22",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-08-11",
+            }
+        },
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic", "roster_sources": [trusted_source]},
+            {"name": "Hampton Harris", "party": "Republican", "roster_sources": [trusted_source]},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Reused official certification from the prior verified run.",
+            "candidates": [
+                {"name": "Shomari Figures", "party": "Democratic"},
+                {"name": "Hampton Harris", "party": "Republican"},
+            ],
+            "source_candidate_names": ["Shomari Figures", "Hampton Harris"],
+            "completeness_sources": [{"url": source_url, "title": "State Certification", "evidence": "model-provided claim"}],
+            "_research_trace": {"researched_urls": [], "fetched_urls": []},
+        }
+    )
+
+    assert result == "Roster finalized with 2 evidence-backed active candidate(s)."
+    stored = race_json["pipeline_state"]["roster_research"]["completeness_sources"][0]
+    assert stored["evidence"] == trusted_source["evidence"]
+
+
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():
     from pipeline_client.agent.agent import _make_editing_handlers
 
