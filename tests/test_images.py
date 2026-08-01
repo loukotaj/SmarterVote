@@ -304,6 +304,20 @@ async def test_lookup_wikipedia_image_accepts_matching_surname(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_lookup_wikipedia_image_rejects_same_surname_unrelated_entity(monkeypatch):
+    fake_client = _FakeWikipediaClient(
+        opensearch_titles={"David Matthews": ["Dave Matthews Band"]},
+        thumbnails={"Dave Matthews Band": "https://upload.wikimedia.org/wikipedia/commons/dave_matthews_band.jpg"},
+    )
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", fake_client)
+
+    result = await _lookup_wikipedia_image("David Matthews")
+
+    assert result is None
+    assert all(call.get("action") != "query" for call in fake_client.calls)
+
+
+@pytest.mark.asyncio
 async def test_resolve_single_image_discards_stale_mismatched_wikimedia_url(monkeypatch):
     # A prior run can persist a mismatched Wikimedia URL onto image_url (e.g. from
     # the opensearch fuzzy-match bug before it was fixed). The existing-URL fast
@@ -350,4 +364,7 @@ def test_is_untrusted_wikimedia_match_ignores_non_wikimedia_urls():
     )
     assert not _is_untrusted_wikimedia_match(
         "https://upload.wikimedia.org/wikipedia/commons/f/fe/Sam_Mead_2026.jpg", "Sam Mead"
+    )
+    assert _is_untrusted_wikimedia_match(
+        "https://upload.wikimedia.org/wikipedia/commons/d/d0/Dave_Matthews_Band.jpg", "David Matthews"
     )
