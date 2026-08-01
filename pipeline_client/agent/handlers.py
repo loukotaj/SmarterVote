@@ -626,6 +626,25 @@ def _make_editing_handlers(
         "contest_stage",
     }
 
+    # Snapshot durable evidence before this loop can edit the roster. A refresh
+    # may reuse a previously retrieved official document without fetching it
+    # again; the stored object, not newly model-authored text, is authoritative.
+    persisted_roster_sources: Dict[str, Dict[str, Any]] = {}
+    for existing_candidate in race_json.get("candidates", []):
+        if not isinstance(existing_candidate, dict):
+            continue
+        for existing_source in existing_candidate.get("roster_sources") or []:
+            if not isinstance(existing_source, dict):
+                continue
+            url = str(existing_source.get("url") or "").strip()
+            if (
+                url
+                and existing_source.get("retrieval_status") == "content"
+                and existing_source.get("evidence_tier") in {1, 2}
+                and existing_source.get("evidence")
+            ):
+                persisted_roster_sources[url.rstrip("/").casefold()] = dict(existing_source)
+
     def _find_candidate(name: str) -> Optional[Dict[str, Any]]:
         for c in race_json.get("candidates", []):
             if isinstance(c, dict) and c.get("name") == name:
@@ -1052,6 +1071,15 @@ def _make_editing_handlers(
             require_fetch=True,
             infer_fetched_news=True,
         )
+        observed_urls = {str(source.get("url") or "").rstrip("/").casefold() for source in completeness_sources}
+        for submitted in args.get("completeness_sources") or []:
+            if not isinstance(submitted, dict):
+                continue
+            url_key = str(submitted.get("url") or "").strip().rstrip("/").casefold()
+            trusted = persisted_roster_sources.get(url_key)
+            if trusted and url_key not in observed_urls:
+                completeness_sources.append(dict(trusted))
+                observed_urls.add(url_key)
         completeness_rejections = [
             reason
             for source in completeness_sources
