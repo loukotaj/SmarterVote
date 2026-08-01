@@ -84,6 +84,15 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
             race_data[field] = after
             text_changes += 1
 
+    description = str(race_data.get("description") or "")
+    jurisdiction = str(race_data.get("jurisdiction") or "").strip()
+    district_match = re.search(r"\b\d+(?:st|nd|rd|th) Congressional District race\b", description, re.IGNORECASE)
+    if jurisdiction and district_match:
+        damaged_prefix = description[: district_match.start()]
+        if damaged_prefix.count("'s") >= 4 or any(ord(char) > 127 for char in damaged_prefix):
+            race_data["description"] = f"{jurisdiction} race{description[district_match.end():]}"
+            text_changes += 1
+
     for candidate in race_data.get("candidates", []):
         if not isinstance(candidate, dict):
             continue

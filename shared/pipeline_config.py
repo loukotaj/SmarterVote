@@ -96,8 +96,8 @@ class PipelineRuntimeConfig:
     iteration_min_iterations: int = 14
     quality_critical_issue_stances: int = CANONICAL_ISSUE_COUNT // 2
     quality_warning_issue_stances: int = (CANONICAL_ISSUE_COUNT * 2) // 3
-    max_search_calls: int = 240
-    max_total_tokens: int = 2_500_000
+    max_search_calls: int = 480
+    max_total_tokens: int = 5_000_000
     max_phase_search_calls: int = 120
     max_phase_tokens: int = 1_250_000
     max_page_fetches: int = 300
@@ -119,8 +119,8 @@ class PipelineRuntimeConfig:
             iteration_min_iterations=_env_int("PIPELINE_ITERATION_MIN_ITERATIONS", 14, 1, None),
             quality_critical_issue_stances=critical,
             quality_warning_issue_stances=warning,
-            max_search_calls=_env_int("PIPELINE_MAX_SEARCH_CALLS", 240, 1, 5000),
-            max_total_tokens=_env_int("PIPELINE_MAX_TOTAL_TOKENS", 2_500_000, 10_000, 50_000_000),
+            max_search_calls=_env_int("PIPELINE_MAX_SEARCH_CALLS", 480, 1, 5000),
+            max_total_tokens=_env_int("PIPELINE_MAX_TOTAL_TOKENS", 5_000_000, 10_000, 50_000_000),
             max_phase_search_calls=_env_int("PIPELINE_MAX_PHASE_SEARCH_CALLS", 120, 1, 5000),
             max_phase_tokens=_env_int("PIPELINE_MAX_PHASE_TOKENS", 1_250_000, 10_000, 50_000_000),
             max_page_fetches=_env_int("PIPELINE_MAX_PAGE_FETCHES", 300, 1, 5000),

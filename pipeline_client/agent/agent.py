@@ -721,6 +721,7 @@ async def run_agent(
 
     # Initialise a fresh cost accumulator for this run
     prior_agent_metrics = prior_agent_metrics or {}
+    prior_phase_breakdown = copy.deepcopy(prior_agent_metrics.get("phase_breakdown", {}))
     _acc: Dict[str, Any] = {
         "prompt_tokens": int(prior_agent_metrics.get("prompt_tokens", 0) or 0),
         "completion_tokens": int(prior_agent_metrics.get("completion_tokens", 0) or 0),
@@ -743,7 +744,19 @@ async def run_agent(
         "retry_provider_failures": int(prior_agent_metrics.get("retry_provider_failures", 0) or 0),
         "retry_deadline_exits": int(prior_agent_metrics.get("retry_deadline_exits", 0) or 0),
         "model_breakdown": copy.deepcopy(prior_agent_metrics.get("model_breakdown", {})),
-        "phase_breakdown": copy.deepcopy(prior_agent_metrics.get("phase_breakdown", {})),
+        "phase_breakdown": prior_phase_breakdown,
+        # Per-phase ceilings bound one physical invocation. A continuation gets
+        # a fresh phase allowance while the logical-run totals below remain
+        # cumulative, so it can finish untouched work without losing cost caps.
+        "_phase_budget_baselines": {
+            phase: {
+                "prompt_tokens": int(metrics.get("prompt_tokens", 0) or 0),
+                "completion_tokens": int(metrics.get("completion_tokens", 0) or 0),
+                "search_calls": int(metrics.get("search_calls", 0) or 0),
+            }
+            for phase, metrics in prior_phase_breakdown.items()
+            if isinstance(metrics, dict)
+        },
         "page_fetches": int(prior_agent_metrics.get("page_fetches", 0) or 0),
         "fetched_chars": int(prior_agent_metrics.get("fetched_chars", 0) or 0),
         "page_budget_blocked": int(prior_agent_metrics.get("page_budget_blocked", 0) or 0),
