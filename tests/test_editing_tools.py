@@ -653,6 +653,66 @@ def test_wrong_contest_removal_accepts_native_official_search_evidence():
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures"]
 
 
+def test_wrong_contest_removal_understands_negated_target_office():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "candidates": [{"name": "Rick Pressnell"}, {"name": "Ben Harrison"}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Rick Pressnell",
+            "wrong_contest": True,
+            "reason": "Official list places him in the state House contest.",
+            "sources": [
+                {
+                    "url": "https://aldemocrats.org/2026-primary-election-qualified-candidates",
+                    "title": "2026 Primary Election - Qualified Candidates",
+                    "type": "official",
+                    "evidence": (
+                        "Lists State Representative, District 2 - Rick Pressnell under state legislative "
+                        "candidates, confirming this is Alabama State House District 2, not U.S. House District 2"
+                    ),
+                    "retrieved": "2026-08-01",
+                }
+            ],
+        }
+    )
+
+    assert result == "Removed wrong-contest candidate 'Rick Pressnell' from the active roster."
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Ben Harrison"]
+
+
+def test_add_candidate_accepts_context_and_date_search_aliases():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    result = handlers["add_candidate"](
+        {
+            "name": "Shomari Figures",
+            "party": "Democratic",
+            "roster_sources": [
+                {
+                    "url": "https://aldemocrats.org/2026-primary-election-qualified-candidates",
+                    "title": "2026 Primary Election - Qualified Candidates",
+                    "context": "U.S. Representative, 2nd District - Shomari Figures",
+                    "retrieved": "2026-08-01",
+                    "date": "2026-02-01",
+                }
+            ],
+        }
+    )
+
+    assert result == "Added candidate 'Shomari Figures'."
+    source = race_json["candidates"][0]["roster_sources"][0]
+    assert source["evidence"] == "U.S. Representative, 2nd District - Shomari Figures"
+    assert source["published_at"] == "2026-02-01"
+
+
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():
     from pipeline_client.agent.agent import _make_editing_handlers
 
