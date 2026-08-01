@@ -44,9 +44,11 @@ def test_race_identity_context_renders_locked_brief():
     assert "Locked race identity" in result
     assert "Office: Governor" in result
     assert "State: Alabama" in result
-    assert "Contest stage: post_primary_general" in result
     assert "Election date: 2026-11-03" in result
-    assert "Primary status: Republican and Democratic nominees certified." in result
+    # Contest stage and primary status track the calendar, so they render as a
+    # re-verifiable observation rather than locked identity.
+    assert "Contest stage was recorded as: post_primary_general" in result
+    assert "Primary status was recorded as: Republican and Democratic nominees certified." in result
     assert "Known incumbent: Kay Ivey" in result
     assert "known_ineligible_or_not_running" not in result  # rendered as prose, not the raw key
     assert "Kay Ivey" in result

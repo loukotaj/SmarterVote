@@ -178,13 +178,18 @@ forecast evidence lineage, and pipeline/validation health. Use
 thumbnail quality matters; presence alone is not treated as verification.
 
 Roster editing tools accept both normalized evidence fields and the native
-`web_search` result aliases (`text`, `retrieved`). The handler preserves those
+`web_search`/model result aliases (`text` or `context`, `retrieved`, and `date`). The handler preserves those
 as durable evidence, infers only recognizable source classes, and still applies
 current-cycle and exact-contest checks. A blocked/error tool result is surfaced
 to the model as a failure. After two consecutive blocked edits, roster sync
 keeps the accumulated research but escalates subsequent synthesis to the
 stronger roster fallback and directs it to obtain higher-priority evidence
 instead of repeating the same invalid payload.
+Roster sync receives the run goal and cannot end successfully until it calls
+`finalize_roster`; that gate requires a locked contest identity plus qualifying
+current-cycle exact-contest evidence for every active candidate. If the gate
+does not pass, the run stops before images, polling, and forecast work and keeps
+`discovery` visibly incomplete for a retry.
 
 Roster authority order is: official election authority/certified ballot or
 result; official party qualification list when the party administers primary

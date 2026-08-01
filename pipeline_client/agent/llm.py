@@ -486,6 +486,7 @@ async def _agent_loop(
         "editing_calls": 0,
         "token_budget_reached": False,
         "max_iterations_reached": False,
+        "required_final_tool_succeeded": False,
     }
 
     for iteration in range(max_iterations):
@@ -518,7 +519,10 @@ async def _agent_loop(
 
         force_final_tool = bool(required_final_tool_name and (token_budget_reached or iteration == max_iterations - 1))
         if force_final_tool:
-            fallback_model = CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
+            fallback_model = (
+                CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
+                or tool_error_escalation_model
+            )
             if fallback_model:
                 log("info", f"  [{phase_name}] escalating final evidence synthesis to {fallback_model}")
                 active_model = fallback_model
@@ -759,6 +763,7 @@ async def _agent_loop(
                             handler_result = _extra_handlers[fn.name](args)
                         if fn.name == required_final_tool_name and not _tool_result_is_error(handler_result):
                             required_final_tool_succeeded = True
+                            tool_trace["required_final_tool_succeeded"] = True
                         if _tool_result_is_error(handler_result):
                             consecutive_tool_errors += 1
                             log("warning", f"    🔧 {fn.name} → BLOCKED")
@@ -808,6 +813,20 @@ async def _agent_loop(
 
         # No tool calls — in tools_mode this means the LLM is done editing
         if tools_mode:
+            if required_final_tool_name and not required_final_tool_succeeded:
+                messages.append(message.model_dump())
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": required_final_instruction
+                        or f"You have not completed the task. Call {required_final_tool_name} before stopping.",
+                    }
+                )
+                log(
+                    "warning",
+                    f"  [{phase_name}] model stopped before {required_final_tool_name}; requiring finalization",
+                )
+                continue
             log("info", f"  [{phase_name}] tools-mode complete (no more tool calls)")
             return {"_tool_trace": tool_trace} if return_tool_trace else {}
 
