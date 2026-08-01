@@ -4,8 +4,12 @@ describe("Google Places address suggestions", () => {
   beforeEach(() => {
     vi.resetModules();
     vi.unstubAllEnvs();
-    document.head.innerHTML = "";
-    delete (window as Window & { google?: unknown }).google;
+    if (typeof document !== "undefined" && document.head) {
+      document.head.innerHTML = "";
+    }
+    if (typeof window !== "undefined") {
+      delete (window as Window & { google?: unknown }).google;
+    }
   });
 
   it("does not load Google when the key is absent or input is too short", async () => {

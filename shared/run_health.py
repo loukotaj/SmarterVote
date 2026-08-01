@@ -43,6 +43,7 @@ class RunFailureReason(str, Enum):
     PLACEHOLDER_CONTENT = "placeholder_content"
     ROSTER_VERIFICATION_FAILED = "roster_verification_failed"
     BUDGET_EXHAUSTED = "budget_exhausted"
+    STALE_WORKER_VERSION = "stale_worker_version"
     CANCELLED = "cancelled"
     UNKNOWN_ERROR = "unknown_error"
 
@@ -337,3 +338,49 @@ def compute_run_health_verdict(
         summary = f"{summary}; {extra}" if summary else extra
 
     return RunHealthVerdict(status=status, reasons=reasons, step_failures=step_failures, summary=summary or None)
+
+
+def check_worker_version_staleness(
+    runner: str = "local",
+    worker_commit: Optional[str] = None,
+    repo_commit: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Check if a local worker image/process is running stale code compared to repo HEAD."""
+    if runner != "local":
+        return {"is_stale": False, "runner": runner}
+
+    import os
+    import subprocess
+
+    w_commit = worker_commit or os.getenv("WORKER_GIT_COMMIT") or os.getenv("GIT_COMMIT")
+    r_commit = repo_commit or os.getenv("REPO_GIT_COMMIT")
+
+    if not r_commit:
+        try:
+            r_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], stderr=subprocess.DEVNULL, text=True).strip()
+        except Exception:
+            r_commit = None
+
+    if not w_commit and r_commit:
+        w_commit = r_commit
+
+    if w_commit and r_commit and w_commit != r_commit:
+        warning_msg = (
+            f"Worker runner='local' is running git commit {w_commit[:7]}, "
+            f"which differs from local repo HEAD {r_commit[:7]}. "
+            "Please run 'docker compose -f docker-compose.worker.yml up -d --build'."
+        )
+        return {
+            "is_stale": True,
+            "runner": "local",
+            "worker_commit": w_commit[:7],
+            "repo_commit": r_commit[:7],
+            "warning": warning_msg,
+        }
+
+    return {
+        "is_stale": False,
+        "runner": "local",
+        "worker_commit": w_commit[:7] if w_commit else None,
+        "repo_commit": r_commit[:7] if r_commit else None,
+    }
