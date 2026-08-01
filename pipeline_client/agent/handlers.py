@@ -25,6 +25,44 @@ from pipeline_client.agent.source_types import normalize_source_type
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
 _ROSTER_SOURCE_TYPES = {"official", "ballotpedia", "fec", "news", "campaign", "other"}
+# Source classes that can actually carry roster evidence. "other" is a parking
+# slot for unclassifiable input and never qualifies on its own.
+_QUALIFYING_ROSTER_SOURCE_TYPES = {"official", "fec", "campaign", "ballotpedia", "news"}
+# Free-form labels models emit for roster evidence, mapped onto the classes
+# above. Mirrors source_types.SOURCE_TYPE_ALIASES, which exists for the same
+# reason: models reliably invent plausible synonyms for enum values.
+_ROSTER_SOURCE_TYPE_ALIASES = {
+    "article": "news",
+    "ballot": "official",
+    "certified ballot": "official",
+    "election authority": "official",
+    "election official": "official",
+    "election results": "official",
+    "filing": "official",
+    "government": "official",
+    "gov": "official",
+    "media": "news",
+    "news article": "news",
+    "newspaper": "news",
+    "party": "official",
+    "party list": "official",
+    "press": "news",
+    "qualified candidates": "official",
+    "secretary of state": "official",
+    "sos": "official",
+    "state": "official",
+    "state election authority": "official",
+    "campaign site": "campaign",
+    "campaign website": "campaign",
+    "candidate site": "campaign",
+    "candidate website": "campaign",
+    "official campaign": "campaign",
+    "fec filing": "fec",
+    "federal election commission": "fec",
+    "encyclopedia": "ballotpedia",
+    "wiki": "ballotpedia",
+    "wikipedia": "ballotpedia",
+}
 _CONTEST_STAGES = {
     "pre_primary",
     "post_primary_general",
@@ -105,6 +143,33 @@ def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str
     return normalized
 
 
+def _classify_roster_source_type(raw_type: Any, *, title: str | None, url: str | None, host: str) -> str:
+    """Map a free-form roster source label onto a known roster source class.
+
+    Mirrors ``source_types.normalize_source_type``: a recognized label wins, then
+    an alias, then host/title inference. Inference runs even when the model
+    supplied an unrecognized label — otherwise a plausible synonym such as
+    ``"web"`` or ``"election_authority"`` would be parked in ``"other"``, which
+    never satisfies the roster evidence contract.
+    """
+    label = str(raw_type or "").strip().lower().replace("_", " ").replace("-", " ")
+    label = re.sub(r"\s+", " ", label)
+    if label in _ROSTER_SOURCE_TYPES and label != "other":
+        return label
+    aliased = _ROSTER_SOURCE_TYPE_ALIASES.get(label)
+    if aliased:
+        return aliased
+
+    title_and_url = f"{title or ''} {url or ''}".casefold()
+    if host == "ballotpedia.org" or host.endswith(".ballotpedia.org"):
+        return "ballotpedia"
+    if host == "fec.gov" or host.endswith(".fec.gov"):
+        return "fec"
+    if host.endswith(".gov") or re.search(r"\bqualified\b.*\bcandidates?\b", title_and_url):
+        return "official"
+    return "other"
+
+
 def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any] | None:
     """Normalize source evidence used only for candidate roster membership."""
     if not isinstance(source, dict):
@@ -113,19 +178,7 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
     title = str(source.get("title") or "").strip() or None
     evidence = str(source.get("evidence") or source.get("text") or source.get("context") or "").strip() or None
     host = urlparse(url or "").netloc.casefold()
-    source_type = str(source.get("type") or "").strip().lower()
-    if not source_type:
-        title_and_url = f"{title or ''} {url or ''}".casefold()
-        if host == "ballotpedia.org" or host.endswith(".ballotpedia.org"):
-            source_type = "ballotpedia"
-        elif host == "fec.gov" or host.endswith(".fec.gov"):
-            source_type = "fec"
-        elif host.endswith(".gov") or re.search(r"\bqualified\b.*\bcandidates?\b", title_and_url):
-            source_type = "official"
-        else:
-            source_type = "other"
-    if source_type not in _ROSTER_SOURCE_TYPES:
-        source_type = "other"
+    source_type = _classify_roster_source_type(source.get("type"), title=title, url=url, host=host)
     if not any((url, title, evidence)):
         return None
     normalized: Dict[str, Any] = {
