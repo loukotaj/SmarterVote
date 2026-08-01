@@ -302,7 +302,11 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
 
 
 def _apply_roster_research_provenance(
-    source: Dict[str, Any], research_trace: Any, *, require_fetch: bool = False
+    source: Dict[str, Any],
+    research_trace: Any,
+    *,
+    require_fetch: bool = False,
+    infer_fetched_news: bool = False,
 ) -> Dict[str, Any] | None:
     """Grade evidence from URLs the current agent loop actually observed.
 
@@ -324,6 +328,12 @@ def _apply_roster_research_provenance(
     researched = {url_key(item) for item in research_trace.get("researched_urls") or []}
     fetched = {url_key(item) for item in research_trace.get("fetched_urls") or []}
     if url in fetched:
+        # Models sometimes omit the optional source-type label even after they
+        # successfully fetched a conventional news article. Do not discard that
+        # real content on a labeling technicality. This promotion is deliberately
+        # limited to fetched sources and never grants official/FEC authority.
+        if infer_fetched_news and source.get("type") == "other":
+            source["type"] = "news"
         source["retrieval_status"] = "content"
         source["evidence_tier"] = 1 if source.get("type") in {"official", "fec"} else 2
         return source
@@ -335,13 +345,25 @@ def _apply_roster_research_provenance(
 
 
 def _normalize_observed_roster_sources(
-    sources: Any, *, race_id: str, research_trace: Any, require_fetch: bool = False
+    sources: Any,
+    *,
+    race_id: str,
+    research_trace: Any,
+    require_fetch: bool = False,
+    infer_fetched_news: bool = False,
 ) -> list[Dict[str, Any]]:
     normalized = [source for source in (_normalize_roster_source(item, race_id=race_id) for item in sources or []) if source]
     return [
         observed
         for source in normalized
-        if (observed := _apply_roster_research_provenance(source, research_trace, require_fetch=require_fetch))
+        if (
+            observed := _apply_roster_research_provenance(
+                source,
+                research_trace,
+                require_fetch=require_fetch,
+                infer_fetched_news=infer_fetched_news,
+            )
+        )
     ]
 
 
@@ -1021,6 +1043,7 @@ def _make_editing_handlers(
             race_id=race_id,
             research_trace=args.get("_research_trace"),
             require_fetch=True,
+            infer_fetched_news=True,
         )
         completeness_rejections = [
             reason

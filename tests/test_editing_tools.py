@@ -943,6 +943,80 @@ def test_finalize_roster_atomically_applies_complete_proposed_roster():
     assert all(candidate["roster_sources"][0]["retrieval_status"] == "content" for candidate in race_json["candidates"])
 
 
+def test_finalize_roster_infers_news_for_fetched_unlabeled_completeness_source():
+    """Regression for the live AL-02 final synthesis payload."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = (
+        "https://alabamareflector.com/2026/05/22/"
+        "as-litigation-continues-21-candidates-qualify-for-august-alabama-congressional-primaries/"
+    )
+    source = {
+        "url": source_url,
+        "title": "Candidates qualify for August Alabama congressional primaries",
+        "evidence": (
+            "For the August 11, 2026 special primary in Alabama's 2nd Congressional District, "
+            "Shomari Figures qualified with Republican candidates Rhett Marques, Hampton Harris, "
+            "Christian Horn, David Matthews, Joshua McKee, and James Richardson."
+        ),
+        "published_at": "2026-05-22",
+    }
+    names = [
+        "Shomari Figures",
+        "Rhett Marques",
+        "Hampton Harris",
+        "Christian Horn",
+        "David Matthews",
+        "Joshua McKee",
+        "James Richardson",
+    ]
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-08-11",
+            }
+        },
+        "candidates": [],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Complete special-primary field reported by Alabama Reflector.",
+            "candidates": [
+                {"name": name, "party": "Democratic" if name == "Shomari Figures" else "Republican"} for name in names
+            ],
+            "source_candidate_names": names,
+            "completeness_sources": [source],
+            "_research_trace": {"researched_urls": [source_url], "fetched_urls": [source_url]},
+        }
+    )
+
+    assert result == "Roster finalized with 7 evidence-backed active candidate(s)."
+    audit_source = race_json["pipeline_state"]["roster_research"]["completeness_sources"][0]
+    assert audit_source["type"] == "news"
+    assert audit_source["retrieval_status"] == "content"
+    assert audit_source["evidence_tier"] == 2
+
+
+def test_fetched_unlabeled_candidate_source_does_not_gain_news_classification():
+    from pipeline_client.agent.handlers import _normalize_observed_roster_sources
+
+    source_url = "https://example.com/candidate-claim"
+    sources = _normalize_observed_roster_sources(
+        [{"url": source_url, "title": "Candidate claim", "evidence": "Alice Example is running in 2026."}],
+        race_id="example-race-2026",
+        research_trace={"researched_urls": [source_url], "fetched_urls": [source_url]},
+    )
+
+    assert sources[0]["type"] == "other"
+    assert sources[0]["retrieval_status"] == "content"
+
+
 def test_exact_contest_accepts_statewide_certification_table_row_wording():
     from pipeline_client.agent.handlers import _source_supports_exact_contest
 
