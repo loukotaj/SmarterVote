@@ -125,6 +125,13 @@ def _source_names_candidate(text: str, candidate_name: str) -> bool:
     return bool(name_words) and all(word in text for word in name_words)
 
 
+def _canonical_roster_name(name: str) -> str:
+    """Normalize harmless middle initials and suffixes for roster-set comparison."""
+    suffixes = {"jr", "sr", "ii", "iii", "iv"}
+    tokens = re.findall(r"[a-z0-9]+", str(name).casefold())
+    return " ".join(token for token in tokens if len(token) > 1 and token not in suffixes)
+
+
 def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
     """Validate that a wrong-contest removal cites real, current, on-topic evidence.
 
@@ -1072,14 +1079,14 @@ def _make_editing_handlers(
             proposed_names = [str(spec.get("name") or "").strip() for spec in proposed_specs if isinstance(spec, dict)]
             if len(proposed_names) != len(proposed_specs) or any(not name for name in proposed_names):
                 return "ERROR: roster finalization blocked. Every proposed candidate needs a non-empty name."
-            normalized_names = [name.casefold() for name in proposed_names]
+            normalized_names = [_canonical_roster_name(name) for name in proposed_names]
             if len(set(normalized_names)) != len(normalized_names):
                 return "ERROR: roster finalization blocked. The proposed roster contains duplicate candidate names."
             extracted_names = [str(name).strip() for name in args.get("source_candidate_names") or [] if str(name).strip()]
-            if {name.casefold() for name in extracted_names} != set(normalized_names):
+            if {_canonical_roster_name(name) for name in extracted_names} != set(normalized_names):
                 return (
-                    "ERROR: roster finalization blocked. source_candidate_names must exactly match the proposed "
-                    "candidate roster extracted from the completeness evidence."
+                    "ERROR: roster finalization blocked. source_candidate_names must match the proposed candidate "
+                    "roster extracted from the completeness evidence (middle initials and suffixes may differ)."
                 )
 
             existing_by_name = {
