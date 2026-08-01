@@ -1742,6 +1742,12 @@ def test_remove_poll_blocks_full_roster_alignment_for_primary_matchup():
     assert result.startswith("ERROR: Poll removal blocked")
     assert race_json["polling"] == [poll]
 
+    mismatch = handlers["remove_poll"](
+        {"pollster": "Peak Insights", "date": "2026-06-09", "reason": "malformed poll (roster mismatch)"}
+    )
+    assert mismatch.startswith("ERROR: Poll removal blocked")
+    assert race_json["polling"] == [poll]
+
 
 def test_add_poll_requires_exact_roster_names():
     from pipeline_client.agent.agent import _make_editing_handlers

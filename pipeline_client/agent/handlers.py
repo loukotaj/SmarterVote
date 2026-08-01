@@ -1686,7 +1686,7 @@ def _make_editing_handlers(
         date = args.get("date")
         reason = args.get("reason", "")
         if re.search(
-            r"\b(?:roster alignment|did not include|does not include|missing from (?:the )?matchup|"
+            r"\b(?:roster alignment|roster mismatch|did not include|does not include|missing from (?:the )?matchup|"
             r"subset of (?:the )?(?:full )?roster)\b",
             str(reason),
             re.IGNORECASE,

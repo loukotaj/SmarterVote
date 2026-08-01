@@ -412,7 +412,20 @@ async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Opt
                     data = img_resp.json()
                     for page in data.get("query", {}).get("pages", {}).values():
                         thumb = page.get("thumbnail", {}).get("source", "")
-                        if thumb and "upload.wikimedia.org" in thumb:
+                        resolved_title = str(page.get("title") or title)
+                        if candidate_tokens and (
+                            not candidate_tokens.issubset(_name_tokens(resolved_title))
+                            or _name_tokens(resolved_title) & _WIKIMEDIA_NON_CANDIDATE_QUALIFIERS
+                        ):
+                            logger.debug(
+                                "Rejected resolved Wikipedia title %r for candidate %r", resolved_title, candidate_name
+                            )
+                            continue
+                        if (
+                            thumb
+                            and urlparse(thumb).netloc.casefold() == "upload.wikimedia.org"
+                            and not _is_untrusted_wikimedia_match(thumb, candidate_name)
+                        ):
                             return thumb
                 return None
 
