@@ -200,9 +200,29 @@ requires retrieved completeness evidence quoting a qualified, certified, or
 official-ballot list that names every active candidate; candidate-by-candidate
 proof alone cannot establish that nobody was omitted. Special-election evidence
 must identify the special contest and its verified date. Successful finalization
-persists this audit under `pipeline_state.roster_research`. If the gate does not
+atomically applies the submitted complete roster (preserving matching candidate
+profiles), so a final synthesis turn can add or remove the whole field without
+one tool turn per name. It persists the audit under
+`pipeline_state.roster_research`. If the gate does not
 pass, the run stops before images, polling, and forecast work and keeps `discovery`
 visibly incomplete for a retry.
+
+Update discovery applies race metadata with the same end-of-phase discipline.
+Its last turn is reserved for a stronger synthesis model and forced to call
+`finalize_metadata` with the complete active roster, a substantive race
+description, and a sourced 2-3 sentence biography for every candidate. The
+handler verifies that every cited URL appeared in the run's actual search/fetch
+trace and applies the payload atomically, then records the audit under
+`pipeline_state.metadata_research`. This prevents useful research from being
+lost merely because the exploratory turns reached their limit. Missing or thin
+summaries are filled even when their biographical facts predate the prior run.
+
+Polling matchups are evaluated against their contest stage. A primary poll may
+legitimately include only candidates from one party, so `remove_poll` rejects
+attempts whose sole rationale is that the poll omits the other party or does not
+contain the full race roster. Enabled steps also clear their own prior failure
+and remaining-work markers before rerunning; failures from unrelated steps are
+preserved and any failure that recurs is recorded anew.
 
 Roster authority order is: official election authority/certified ballot or
 result; official party qualification list when the party administers primary
