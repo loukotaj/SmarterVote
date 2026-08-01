@@ -61,6 +61,21 @@ def test_forecast_evidence_gate_records_degraded_step_failure():
     ]
 
 
+def test_cleanup_repairs_pathological_repeated_district_description_prefix():
+    race = {
+        "jurisdiction": "Alabama's 2nd Congressional District",
+        "description": (
+            "Alabama's 202020202's2's2's2's2's2's2\u0d82\u0b3e's 2nd Congressional District race "
+            "is shaped by ongoing redistricting litigation."
+        ),
+    }
+
+    report = cleanup_race_data(race)
+
+    assert race["description"] == ("Alabama's 2nd Congressional District race is shaped by ongoing redistricting litigation.")
+    assert report["text_changes"] == 1
+
+
 def test_forecast_evidence_gate_requires_named_rating_source():
     race = {
         "pipeline_state": {},

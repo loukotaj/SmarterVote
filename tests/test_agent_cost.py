@@ -195,3 +195,25 @@ def test_phase_search_and_page_budgets_are_enforced(cost_accumulator, monkeypatc
     assert reserve_page_fetch() is True
     assert reserve_page_fetch() is False
     assert cost_accumulator["page_budget_blocked"] == 1
+
+
+def test_continuation_phase_budget_ignores_prior_phase_spend_but_keeps_logical_total(cost_accumulator, monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_PHASE_SEARCH_CALLS", "2")
+    monkeypatch.setenv("PIPELINE_MAX_SEARCH_CALLS", "10")
+    monkeypatch.setenv("PIPELINE_MAX_PHASE_TOKENS", "10000")
+    monkeypatch.setenv("PIPELINE_MAX_TOTAL_TOKENS", "50000")
+    set_current_phase("issues")
+    cost_accumulator.update(
+        {
+            "prompt_tokens": 12000,
+            "completion_tokens": 3000,
+            "serper_calls": 2,
+            "searlo_calls": 0,
+            "phase_breakdown": {"issues": {"prompt_tokens": 12000, "completion_tokens": 3000, "search_calls": 2}},
+            "_phase_budget_baselines": {"issues": {"prompt_tokens": 12000, "completion_tokens": 3000, "search_calls": 2}},
+        }
+    )
+
+    assert total_token_budget_reached() is False
+    assert reserve_search_call("serper") is True
+    assert cost_accumulator["serper_calls"] == 3

@@ -60,6 +60,12 @@ def _phase_entry(acc: Dict[str, Any]) -> Dict[str, Any]:
     )
 
 
+def _phase_budget_baseline(acc: Dict[str, Any]) -> Dict[str, int]:
+    """Return metrics already spent before this physical continuation pass."""
+    baseline = acc.get("_phase_budget_baselines", {}).get(_phase_ctx.get(), {})
+    return baseline if isinstance(baseline, dict) else {}
+
+
 def estimate_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
     """Return estimated USD cost for a single model call."""
     spec = MODEL_CATALOG.get(normalize_model_id(model) or model)
@@ -150,7 +156,9 @@ def reserve_search_call(provider: str) -> bool:
     config = PipelineRuntimeConfig.from_env()
     used = int(acc.get("serper_calls", 0) or 0) + int(acc.get("searlo_calls", 0) or 0)
     phase = _phase_entry(acc)
-    if used >= config.max_search_calls or int(phase.get("search_calls", 0)) >= config.max_phase_search_calls:
+    baseline = _phase_budget_baseline(acc)
+    phase_used = int(phase.get("search_calls", 0)) - int(baseline.get("search_calls", 0))
+    if used >= config.max_search_calls or phase_used >= config.max_phase_search_calls:
         acc["search_budget_blocked"] = int(acc.get("search_budget_blocked", 0) or 0) + 1
         phase["search_budget_blocked"] = int(phase.get("search_budget_blocked", 0) or 0) + 1
         return False
@@ -196,7 +204,13 @@ def total_token_budget_reached() -> bool:
     used = int(acc.get("prompt_tokens", 0) or 0) + int(acc.get("completion_tokens", 0) or 0)
     config = PipelineRuntimeConfig.from_env()
     phase = _phase_entry(acc)
-    phase_used = int(phase.get("prompt_tokens", 0) or 0) + int(phase.get("completion_tokens", 0) or 0)
+    baseline = _phase_budget_baseline(acc)
+    phase_used = (
+        int(phase.get("prompt_tokens", 0) or 0)
+        + int(phase.get("completion_tokens", 0) or 0)
+        - int(baseline.get("prompt_tokens", 0) or 0)
+        - int(baseline.get("completion_tokens", 0) or 0)
+    )
     return used >= config.max_total_tokens or phase_used >= config.max_phase_tokens
 
 
