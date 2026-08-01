@@ -1136,6 +1136,11 @@ IMPORTANT — remove_candidate rules:
   name + primary results before deciding, and keep them if uncertainty remains.
 - Do NOT infer winners or losers from an empty/stale Ballotpedia page, a missing
   candidate listing, or a generated Ballotpedia URL that fails to load.
+- If a name in the profile has no evidence of candidacy anywhere AND your best
+  roster listing for this exact race lists the other candidates without them,
+  remove them with not_on_roster=true and cite that listing. This is the correct
+  path for phantom entries — do not force it into a withdrawal reason, and do not
+  use it when the listing failed to load, came back empty, or was truncated.
 - Treat articles and candidate pages published before a completed primary as
   historical evidence, not proof that the person remains active as of
   {current_date}. Verify primary outcomes before adding anyone from an older
@@ -1199,8 +1204,12 @@ official ballot). Never assume a race is uncontested without at least one additi
 search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
-call finalize_roster. It will reject incomplete or weakly sourced rosters and tell
-you exactly which candidate evidence remains to fix. You may stop only after
+call finalize_roster with `completeness_sources` quoting the full qualified,
+certified, or official-ballot list for this exact contest. Candidate-specific
+sources prove that listed people belong; they do not prove nobody was omitted.
+For a special election, the completeness evidence must explicitly identify the
+special contest and its verified date. The tool will reject incomplete or weakly
+sourced rosters and tell you exactly which evidence remains to fix. You may stop only after
 finalize_roster succeeds. Do NOT produce any text reply or JSON.
 Do NOT modify any other data (issues, summaries, polls, etc.)."""
 

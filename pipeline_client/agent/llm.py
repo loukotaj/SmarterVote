@@ -517,7 +517,26 @@ async def _agent_loop(
                     f"  [{phase_name}] JSON parsing failed previously — elevating model from {model} to {active_model} for retry prompt",
                 )
 
+        prepare_final_tool = bool(required_final_tool_name and not token_budget_reached and iteration == max_iterations - 2)
         force_final_tool = bool(required_final_tool_name and (token_budget_reached or iteration == max_iterations - 1))
+        if prepare_final_tool:
+            fallback_model = (
+                CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
+                or tool_error_escalation_model
+            )
+            if fallback_model:
+                log("info", f"  [{phase_name}] escalating evidence application to {fallback_model}")
+                active_model = fallback_model
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "Research is complete. Do not search or fetch again. Use the editing tools now to apply all "
+                        "supported findings from the accumulated evidence. Fix every validation error already "
+                        "reported, then leave the next turn for final validation."
+                    ),
+                }
+            )
         if force_final_tool:
             fallback_model = (
                 CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
@@ -543,6 +562,8 @@ async def _agent_loop(
                 else []
             )
             tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
+            if prepare_final_tool:
+                tools_for_call = _extra_tools or None
             if force_final_tool:
                 tools_for_call = [
                     tool for tool in _extra_tools if tool.get("function", {}).get("name") == required_final_tool_name
