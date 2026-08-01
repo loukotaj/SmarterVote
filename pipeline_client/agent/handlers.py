@@ -186,7 +186,10 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
         return None
     url = str(source.get("url") or "").strip() or None
     title = str(source.get("title") or "").strip() or None
-    evidence = str(source.get("evidence") or source.get("text") or source.get("context") or "").strip() or None
+    evidence = (
+        str(source.get("evidence") or source.get("text") or source.get("context") or source.get("snippet") or "").strip()
+        or None
+    )
     host = urlparse(url or "").netloc.casefold()
     source_type = _classify_roster_source_type(source.get("type"), title=title, url=url, host=host)
     if not any((url, title, evidence)):
