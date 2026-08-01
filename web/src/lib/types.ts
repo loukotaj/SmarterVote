@@ -468,10 +468,11 @@ export interface RunOptions {
     review_grok?: string;
   };
   force_fresh?: boolean;
-  // baseline_source/runner are power-user options (set via admin tooling/MCP,
+  // baseline_source/resume_partial/runner are power-user options (set via admin tooling/MCP,
   // not the standard queue form) but are still valid wire-level fields on
   // shared.pipeline_options.PipelineRunOptions — kept here for completeness.
   baseline_source?: "latest" | "published";
+  resume_partial?: boolean;
   runner?: "cloud_run" | "local";
   research_model?: string;
   claude_model?: string;
