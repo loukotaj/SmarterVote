@@ -680,6 +680,40 @@ async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceil
     assert result["_tool_trace"]["token_budget_reached"] is True
 
 
+@pytest.mark.asyncio
+async def test_agent_loop_escalates_after_repeated_blocked_edits():
+    from pipeline_client.agent.model_registry import CHEAP_MODEL, NEMOTRON_ULTRA_MODEL
+
+    blocked_calls = _mock_openai_response(
+        tool_calls=[
+            {"id": "call_1", "function": {"name": "add_candidate", "arguments": json.dumps({"name": "A"})}},
+            {"id": "call_2", "function": {"name": "add_candidate", "arguments": json.dumps({"name": "B"})}},
+        ]
+    )
+    finished = _mock_openai_response(content="Roster left unchanged.")
+    tool = {
+        "type": "function",
+        "function": {"name": "add_candidate", "description": "Add", "parameters": {"type": "object"}},
+    }
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as call:
+        call.side_effect = [blocked_calls, finished]
+        await _agent_loop(
+            "system",
+            "user",
+            model=CHEAP_MODEL,
+            phase_name="roster-test",
+            tools_mode=True,
+            extra_tools=[tool],
+            extra_tool_handlers={"add_candidate": lambda _args: "Blocked adding candidate: insufficient evidence"},
+            tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+        )
+
+    assert [entry.kwargs["model"] for entry in call.call_args_list] == [CHEAP_MODEL, NEMOTRON_ULTRA_MODEL]
+    second_messages = call.call_args_list[1].args[0]
+    assert any("pivot to higher-priority official evidence" in (message.get("content") or "") for message in second_messages)
+
+
 def test_tool_result_error_detection_handles_handler_blocking_conventions():
     from pipeline_client.agent.llm import _tool_result_is_error
 

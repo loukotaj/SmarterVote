@@ -74,7 +74,7 @@ def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: 
     if re.fullmatch(r"[a-z]{2}-house-\d{1,2}-(?:19|20)\d{2}", race_id):
         state_house = bool(
             re.search(r"\bstate\s+(?:house|representative)", text)
-            or re.search(r"\b[a-z ]+\s+house of representatives\s+(?:district|hd)\b", text)
+            or re.search(r"\b[a-z ]+\s+house of representatives[\s,]+(?:district|hd)\b", text)
         )
         return state_house and not _source_supports_exact_contest(source, race_id=race_id)
     return False
@@ -110,7 +110,7 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
             source_type = "ballotpedia"
         elif host == "fec.gov" or host.endswith(".fec.gov"):
             source_type = "fec"
-        elif host.endswith(".gov") or "qualified candidates" in title_and_url:
+        elif host.endswith(".gov") or re.search(r"\bqualified\b.*\bcandidates?\b", title_and_url):
             source_type = "official"
         else:
             source_type = "other"
@@ -389,7 +389,7 @@ def _make_editing_handlers(
             race_id = str(race_json.get("id") or "").strip()
             proof = [
                 source
-                for source in (_normalize_roster_source(item) for item in args.get("sources") or [])
+                for source in (_normalize_roster_source(item, race_id=race_id) for item in args.get("sources") or [])
                 if source and _source_proves_different_contest(source, candidate_name=name, race_id=race_id)
             ]
             if not proof:
