@@ -344,8 +344,9 @@ FINALIZE_ROSTER_TOOL: Dict = {
     "function": {
         "name": "finalize_roster",
         "description": (
-            "Finish roster sync only after every active candidate has durable current-cycle exact-contest evidence. "
-            "The handler validates the roster and returns specific missing evidence to fix."
+            "Finish roster sync only after every active candidate has durable current-cycle exact-contest evidence "
+            "and retrieved authoritative evidence proves the roster itself is complete. The handler validates both "
+            "membership and completeness and returns specific evidence gaps to fix."
         ),
         "parameters": {
             "type": "object",
@@ -353,9 +354,35 @@ FINALIZE_ROSTER_TOOL: Dict = {
                 "summary": {
                     "type": "string",
                     "description": "Brief description of the authoritative roster and contest stage used.",
-                }
+                },
+                "completeness_sources": {
+                    "type": "array",
+                    "description": (
+                        "Retrieved official roster/ballot sources (or retrieved reputable news reports) whose evidence "
+                        "quotes the complete qualified candidate list for this exact contest and names every active candidate."
+                    ),
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string"},
+                            "title": {"type": "string"},
+                            "evidence": {"type": "string"},
+                            "text": {"type": "string"},
+                            "snippet": {"type": "string"},
+                            "context": {"type": "string"},
+                            "retrieved": {"type": "string"},
+                            "date": {"type": "string"},
+                            "published_at": {"type": "string"},
+                            "race_id": {"type": "string"},
+                            "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                        },
+                        "required": ["url", "title"],
+                    },
+                },
             },
-            "required": ["summary"],
+            "required": ["summary", "completeness_sources"],
         },
     },
 }

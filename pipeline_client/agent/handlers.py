@@ -380,6 +380,52 @@ def _roster_source_rejection_summary(sources: Any, *, candidate_name: str, race_
     return "; ".join(reasons)
 
 
+def _roster_completeness_source_rejection_reason(
+    source: Dict[str, Any], *, race_id: str, identity: Dict[str, Any]
+) -> str | None:
+    """Validate evidence that describes the roster as a whole, not one member."""
+    if source.get("type") not in {"official", "news"}:
+        return "completeness evidence must be an official roster/ballot or retrieved news report"
+    parsed_url = urlparse(str(source.get("url") or ""))
+    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+        return "source needs an absolute http(s) url"
+    if source.get("race_id") != race_id:
+        return f"source race_id {str(source.get('race_id'))!r} does not match this race ({race_id!r})"
+    if not source.get("title") or not source.get("evidence"):
+        return "source needs a title and evidence quoting the complete candidate list"
+    if not _source_supports_exact_contest(source, race_id=race_id):
+        return "evidence does not name this exact contest and district"
+    if source.get("retrieval_status") != "content" or source.get("evidence_tier") not in {1, 2}:
+        return "completeness evidence must come from retrieved page content, not a search snippet"
+
+    text = _roster_source_text(source)
+    if not re.search(r"\b(?:qualified|certified|official ballot|candidate list|candidates? running|vote for one)\b", text):
+        return "evidence does not identify itself as a qualified, certified, ballot, or complete candidate list"
+
+    primary_status = str(identity.get("primary_status") or "")
+    if "special" in primary_status.casefold():
+        if "special" not in text:
+            return "race identity is a special election, but the source does not identify the special contest"
+        election_date = str(identity.get("election_date") or "")
+        try:
+            parsed_date = datetime.fromisoformat(election_date).date()
+        except ValueError:
+            parsed_date = None
+        if parsed_date:
+            month = parsed_date.strftime("%B").casefold()
+            numeric_dates = {
+                parsed_date.isoformat(),
+                f"{parsed_date.month}/{parsed_date.day}/{parsed_date.year}",
+                f"{parsed_date.month:02d}/{parsed_date.day:02d}/{parsed_date.year}",
+            }
+            has_date = any(value in text for value in numeric_dates) or bool(
+                re.search(rf"\b{month}\s+{parsed_date.day}(?:st|nd|rd|th)?[,]?\s+{parsed_date.year}\b", text)
+            )
+            if not has_date:
+                return f"source does not identify the special-election date {parsed_date.isoformat()}"
+    return None
+
+
 def _get_other_state_candidates(race_id: str, state: str | None) -> set[str]:
     """Retrieve candidate names from other races in the same state/cycle to detect contamination."""
     other_names = set()
@@ -901,7 +947,52 @@ def _make_editing_handlers(
         if not isinstance(identity, dict) or not identity.get("office") or not identity.get("contest_stage"):
             return "ERROR: roster finalization blocked. Lock the exact office and contest stage with set_race_identity."
 
+        completeness_sources = [
+            source
+            for source in (
+                _normalize_roster_source(raw_source, race_id=race_id) for raw_source in args.get("completeness_sources") or []
+            )
+            if source
+        ]
+        completeness_rejections = [
+            reason
+            for source in completeness_sources
+            if (reason := _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity))
+        ]
+        qualifying_completeness = [
+            source
+            for source in completeness_sources
+            if _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity) is None
+        ]
+        if not qualifying_completeness:
+            detail = "; ".join(completeness_rejections) if completeness_rejections else "no sources were supplied"
+            return (
+                "ERROR: roster finalization blocked. Candidate-level evidence proves membership, not completeness. "
+                "Provide retrieved completeness_sources quoting the authoritative qualified/certified/ballot list "
+                f"for this exact contest ({detail})."
+            )
+
+        combined_evidence = " ".join(_roster_source_text(source) for source in qualifying_completeness)
+        uncovered_names = []
+        for candidate in active_candidates:
+            name = str(candidate.get("name") or "").strip()
+            name_words = re.findall(r"[a-z0-9]+", name.casefold())
+            if not name_words or not all(word in combined_evidence for word in name_words):
+                uncovered_names.append(name)
+        if uncovered_names:
+            return (
+                "ERROR: roster finalization blocked. Completeness evidence does not name every active candidate: "
+                f"{', '.join(uncovered_names)}. Quote the full authoritative list, not candidate-only excerpts."
+            )
+
         summary = str(args.get("summary") or "").strip()
+        pipeline_state = race_json.setdefault("pipeline_state", {})
+        pipeline_state["roster_research"] = {
+            "finalized_at": datetime.now(timezone.utc).isoformat(),
+            "summary": summary,
+            "active_candidate_count": len(active_candidates),
+            "completeness_sources": completeness_sources,
+        }
         log("info", f"    Finalized roster with {len(active_candidates)} active candidate(s): {summary}")
         return f"Roster finalized with {len(active_candidates)} evidence-backed active candidate(s)."
 
