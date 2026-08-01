@@ -38,6 +38,13 @@ variable "searlo_api_key" {
   default     = ""
 }
 
+variable "jina_api_key" {
+  description = "Jina Reader API key for authenticated page-fetch proxy quota"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 # Deployment and versioning variables
 variable "app_version" {
   description = "Application version for tracking updates"

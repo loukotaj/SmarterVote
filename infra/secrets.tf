@@ -41,6 +41,27 @@ resource "google_secret_manager_secret_version" "searlo_key" {
   }
 }
 
+resource "google_secret_manager_secret" "jina_key" {
+  project   = var.project_id
+  secret_id = "jina-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "jina_key" {
+  count       = var.jina_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.jina_key.id
+  secret_data = var.jina_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
 # Service accounts for the same project
 resource "google_service_account" "races_api" {
   project      = var.project_id
