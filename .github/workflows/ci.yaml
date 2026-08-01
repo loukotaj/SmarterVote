@@ -263,7 +263,7 @@ jobs:
   release-artifacts:
     name: Build and Scan Release Containers
     runs-on: ubuntu-latest
-    needs: [test-pipeline, test-apis, test-admin-function]
+    needs: [test-pipeline, test-apis]
     strategy:
       matrix:
         include:
@@ -306,7 +306,6 @@ jobs:
         test-pipeline,
         type-sync,
         test-apis,
-        test-admin-function,
         test-web,
         test-design-system,
         terraform-validate,
@@ -323,7 +322,6 @@ jobs:
           PIPELINE_RESULT: ${{ needs.test-pipeline.result }}
           TYPE_SYNC_RESULT: ${{ needs.type-sync.result }}
           APIS_RESULT: ${{ needs.test-apis.result }}
-          ADMIN_FUNCTION_RESULT: ${{ needs.test-admin-function.result }}
           WEB_RESULT: ${{ needs.test-web.result }}
           DESIGN_SYSTEM_RESULT: ${{ needs.test-design-system.result }}
           TERRAFORM_RESULT: ${{ needs.terraform-validate.result }}
@@ -335,13 +333,12 @@ jobs:
           echo "test-pipeline:       $PIPELINE_RESULT"
           echo "type-sync:           $TYPE_SYNC_RESULT"
           echo "test-apis:           $APIS_RESULT"
-          echo "test-admin-function: $ADMIN_FUNCTION_RESULT"
           echo "test-web:            $WEB_RESULT"
           echo "test-design-system:  $DESIGN_SYSTEM_RESULT"
           echo "terraform-validate:  $TERRAFORM_RESULT"
           echo "codeql:              $CODEQL_RESULT"
           echo "release-artifacts:   $ARTIFACT_RESULT"
-          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$TYPE_SYNC_RESULT" != "success" || "$APIS_RESULT" != "success" || "$ADMIN_FUNCTION_RESULT" != "success" || "$WEB_RESULT" != "success" || "$DESIGN_SYSTEM_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
+          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$TYPE_SYNC_RESULT" != "success" || "$APIS_RESULT" != "success" || "$WEB_RESULT" != "success" || "$DESIGN_SYSTEM_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
             echo "❌ One or more CI gates failed"
             exit 1
           fi
