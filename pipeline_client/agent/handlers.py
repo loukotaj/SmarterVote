@@ -106,9 +106,9 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
     source_type = str(source.get("type") or "").strip().lower()
     if not source_type:
         title_and_url = f"{title or ''} {url or ''}".casefold()
-        if "ballotpedia.org" in host:
+        if host == "ballotpedia.org" or host.endswith(".ballotpedia.org"):
             source_type = "ballotpedia"
-        elif "fec.gov" in host:
+        elif host == "fec.gov" or host.endswith(".fec.gov"):
             source_type = "fec"
         elif host.endswith(".gov") or "qualified candidates" in title_and_url:
             source_type = "official"
