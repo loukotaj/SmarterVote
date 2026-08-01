@@ -1,5 +1,5 @@
 name: Missing Candidate Data
-description: Help us improve candidate information by reporting missing or incomplete data
+description: Report missing or incomplete information for a candidate we already cover
 title: "[Data] Missing data for: "
 labels: ["data-request", "community-contribution"]
 assignees: []
@@ -8,14 +8,22 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for helping improve SmarterVote! Your contribution helps make political information more accessible.
+        Thanks for helping improve SmarterVote! Candidate data is produced by an automated research
+        pipeline, so a good report here turns directly into a targeted re-run.
+
+        Before filing, please:
+        - Confirm the gap is still visible on the live page — data refreshes continuously.
+        - [Search existing data reports](https://github.com/SmarterVote/SmarterVote/issues?q=is%3Aissue+label%3Adata-request) to avoid duplicates.
+        - Use the [Race Request](https://github.com/SmarterVote/SmarterVote/issues/new?template=race-request.yml) template instead if we don't cover the race at all.
 
   - type: input
     id: race-id
     attributes:
       label: Race ID
-      description: The race identifier (e.g., mi-senate-2026)
-      placeholder: mi-senate-2026
+      description: >
+        The last part of the race's URL — `https://smarter.vote/races/`**`pa-senate-2026`**.
+        Format is `state-office-year`; U.S. House districts are zero-padded (`al-house-01-2026`).
+      placeholder: pa-senate-2026
     validations:
       required: true
 
@@ -23,7 +31,7 @@ body:
     id: candidate-name
     attributes:
       label: Candidate Name
-      description: The name of the candidate with missing data
+      description: Spell it as it appears on the ballot or the candidate's own site.
       placeholder: Jane Smith
     validations:
       required: true
@@ -46,10 +54,13 @@ body:
     attributes:
       label: Source URL(s)
       description: |
-        Please provide links to reliable sources where we can find this information.
-        Examples: official campaign website, news articles, voting records databases, FEC filings.
+        Links to reliable sources where we can find this information. Primary sources work best:
+        the official campaign site, FEC filings, Congress.gov voting records, or established news outlets.
+
+        Please don't rely on social media posts or partisan advocacy sites as the only source.
       placeholder: |
         - https://candidatewebsite.com/issues
+        - https://www.fec.gov/data/candidate/H0PA01234/
         - https://newssite.com/article-about-candidate
     validations:
       required: true
@@ -58,8 +69,14 @@ body:
     id: additional-context
     attributes:
       label: Additional Context
-      description: Any other information that would help us find and verify this data
-      placeholder: The candidate recently spoke about healthcare policy in a town hall on March 15...
+      description: |
+        Anything that helps us find and verify this data.
+
+        Note: we track a fixed set of 12 policy issues — Healthcare, Economy, Climate/Energy,
+        Abortion & Reproductive Health, Immigration, Firearms & Second Amendment, Foreign Policy,
+        Civil Rights & Equality, Education, Tech & AI, Election Policy, and Local Issues. If the
+        stance you have in mind falls outside those, mention it here.
+      placeholder: The candidate spoke about healthcare policy at a town hall on March 15...
 
   - type: checkboxes
     id: verification
