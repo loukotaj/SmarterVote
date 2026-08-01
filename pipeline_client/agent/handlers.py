@@ -207,6 +207,23 @@ def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str
     return normalized
 
 
+def _normalize_observed_sources(sources: Any, research_trace: Any, *, default_type: str = "website") -> list[Dict[str, Any]]:
+    """Keep generic sources only when their URL was observed by this agent loop."""
+    normalized = [
+        source for source in (_normalize_source(item, default_type=default_type) for item in sources or []) if source
+    ]
+    if not isinstance(research_trace, dict):
+        return normalized
+
+    def url_key(raw_url: Any) -> str:
+        parsed = urlparse(str(raw_url or "").strip())
+        path = parsed.path.rstrip("/") or "/"
+        return f"{parsed.scheme.casefold()}://{parsed.netloc.casefold()}{path}?{parsed.query}".rstrip("?")
+
+    observed = {url_key(url) for key in ("researched_urls", "fetched_urls") for url in research_trace.get(key) or []}
+    return [source for source in normalized if url_key(source.get("url")) in observed]
+
+
 def _classify_roster_source_type(raw_type: Any, *, title: str | None, url: str | None, host: str) -> str:
     """Map a free-form roster source label onto a known roster source class.
 
@@ -1176,6 +1193,54 @@ def _make_editing_handlers(
         log("info", f"    Updated summary for {name}")
         return f"Updated summary for '{name}'."
 
+    def finalize_metadata(args: Dict[str, Any]) -> str:
+        """Apply the complete metadata payload only after all entries validate."""
+        active_candidates = [
+            candidate
+            for candidate in race_json.get("candidates", [])
+            if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
+        ]
+        proposed = args.get("candidates")
+        if not isinstance(proposed, list) or not proposed:
+            return "ERROR: metadata finalization requires every active candidate."
+        active_names = {str(candidate["name"]).strip().casefold() for candidate in active_candidates}
+        proposed_names = {str(item.get("name") or "").strip().casefold() for item in proposed if isinstance(item, dict)}
+        if len(proposed_names) != len(proposed) or proposed_names != active_names:
+            return "ERROR: metadata candidates must exactly match the complete active roster."
+
+        description = str(args.get("description") or "").strip()
+        description_sources = _normalize_observed_sources(
+            args.get("description_sources"), args.get("_research_trace"), default_type="news"
+        )
+        if len(description) < 100 or not description_sources:
+            return "ERROR: provide a substantive race description and at least one source observed during this research."
+
+        validated: Dict[str, tuple[str, list[Dict[str, Any]]]] = {}
+        for item in proposed:
+            name = str(item.get("name") or "").strip()
+            summary = str(item.get("summary") or "").strip()
+            sources = _normalize_observed_sources(item.get("sources"), args.get("_research_trace"), default_type="website")
+            if len(summary) < 80:
+                return f"ERROR: summary for '{name}' is too thin; provide a factual 2-3 sentence biography."
+            if not sources:
+                return f"ERROR: summary for '{name}' needs a source URL observed during this research."
+            validated[name.casefold()] = (summary, sources)
+
+        # Atomic application: no mutation occurs until the entire submission passes.
+        race_json["description"] = description
+        for candidate in active_candidates:
+            summary, sources = validated[str(candidate["name"]).strip().casefold()]
+            candidate["summary"] = summary
+            candidate["summary_sources"] = sources
+        race_json.setdefault("pipeline_state", {})["metadata_research"] = {
+            "finalized_at": datetime.now(timezone.utc).isoformat(),
+            "active_candidate_count": len(active_candidates),
+            "description_sources": description_sources,
+            "candidate_sources": {item["name"]: validated[item["name"].strip().casefold()][1] for item in proposed},
+        }
+        log("info", f"    Finalized description and {len(active_candidates)} candidate summaries")
+        return f"Metadata finalized for all {len(active_candidates)} active candidates."
+
     # --- Issue handler ---
 
     def set_issue_stance(args: Dict[str, Any]) -> str:
@@ -1503,6 +1568,17 @@ def _make_editing_handlers(
         pollster = args["pollster"]
         date = args.get("date")
         reason = args.get("reason", "")
+        if re.search(
+            r"\b(?:roster alignment|did not include|does not include|missing from (?:the )?matchup|"
+            r"subset of (?:the )?(?:full )?roster)\b",
+            str(reason),
+            re.IGNORECASE,
+        ):
+            return (
+                "ERROR: Poll removal blocked. A primary or partial-matchup poll is valid when every named person "
+                "belongs to the roster; it must not include every candidate or the other party. Remove only a "
+                "duplicate, malformed record, non-poll result, or poll proven to concern a different contest."
+            )
         polling = race_json.get("polling", [])
         orig_len = len(polling)
         if date:
@@ -1718,6 +1794,7 @@ def _make_editing_handlers(
         "finalize_roster": finalize_roster,
         "set_candidate_field": set_candidate_field,
         "set_candidate_summary": set_candidate_summary,
+        "finalize_metadata": finalize_metadata,
         "set_issue_stance": set_issue_stance,
         "set_donor_summary": set_donor_summary,
         "set_voting_summary": set_voting_summary,
