@@ -191,6 +191,10 @@ model-supplied retrieval metadata cannot promote a URL the run never observed,
 and completeness evidence must have been fetched as page content. A refresh may
 reuse an exact URL's already-persisted tier-1/2 content evidence; it reuses the
 stored source object, never the model's new claims about an unfetched page. A
+trusted persisted source is considered automatically during finalization, so a
+low-cost refresh does not depend on the synthesis model repeating its URL.
+For a special primary, completeness matching uses the primary date stated in
+`primary_status`, not the later general-election date stored on the profile. A
 blocked/error tool result and its bounded reason are recorded in debug logs and
 surfaced to the model as a failure. After two consecutive blocked edits, roster sync
 keeps the accumulated research but escalates subsequent synthesis to the

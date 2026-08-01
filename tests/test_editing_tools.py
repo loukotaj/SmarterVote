@@ -879,7 +879,7 @@ def test_finalize_roster_requires_exact_special_election_completeness_source():
             "_research_trace": {"researched_urls": [special_source["url"]], "fetched_urls": []},
         }
     )
-    assert "no sources were supplied" in searched_only
+    assert "roster finalization blocked" in searched_only
     finalized = handlers["finalize_roster"](
         {
             "summary": "August special primary list",
@@ -891,6 +891,41 @@ def test_finalize_roster_requires_exact_special_election_completeness_source():
         }
     )
     assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
+
+
+def test_special_primary_uses_primary_status_date_not_general_election_date():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source = {
+        "url": "https://elections.example.gov/special-primary-certified.pdf",
+        "type": "official",
+        "title": "Special Primary Certified Candidate List",
+        "evidence": (
+            "Certified candidates for the August 11, 2026 Special Primary Election for U.S. House "
+            "Congressional District 2: Hampton Harris"
+        ),
+        "race_id": "al-house-02-2026",
+        "published_at": "2026-06-03",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-11-03",
+            }
+        },
+        "candidates": [{"name": "Hampton Harris", "party": "Republican", "roster_sources": [source]}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["finalize_roster"]({"summary": "Official special-primary list", "completeness_sources": [source]})
+
+    assert result == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
 def test_finalize_roster_atomically_applies_complete_proposed_roster():
@@ -1153,6 +1188,56 @@ def test_finalize_roster_reuses_persisted_content_evidence_by_url():
     assert result == "Roster finalized with 2 evidence-backed active candidate(s)."
     stored = race_json["pipeline_state"]["roster_research"]["completeness_sources"][0]
     assert stored["evidence"] == trusted_source["evidence"]
+
+
+def test_finalize_roster_automatically_considers_persisted_completeness_evidence():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://www.sos.alabama.gov/2026/district-2-certified.pdf"
+    trusted_source = {
+        "url": source_url,
+        "type": "official",
+        "title": "State Certification of Candidates",
+        "evidence": (
+            "Certified candidate list for the August 11, 2026 Special Primary Election for U.S. House "
+            "Congressional District 2: Shomari Figures and Hampton Harris"
+        ),
+        "race_id": "al-house-02-2026",
+        "published_at": "2026-06-03",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-11-03",
+            }
+        },
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic", "roster_sources": [trusted_source]},
+            {"name": "Hampton Harris", "party": "Republican", "roster_sources": [trusted_source]},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Prior official certification remains current.",
+            "candidates": [
+                {"name": "Shomari Figures", "party": "Democratic"},
+                {"name": "Hampton Harris", "party": "Republican"},
+            ],
+            "source_candidate_names": ["Shomari Figures", "Hampton Harris"],
+            "completeness_sources": [],
+            "_research_trace": {"researched_urls": [], "fetched_urls": []},
+        }
+    )
+
+    assert result == "Roster finalized with 2 evidence-backed active candidate(s)."
 
 
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():

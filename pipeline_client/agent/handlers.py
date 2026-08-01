@@ -522,9 +522,24 @@ def _roster_completeness_source_rejection_reason(
     if "special" in primary_status.casefold():
         if "special" not in text:
             return "race identity is a special election, but the source does not identify the special contest"
-        election_date = str(identity.get("election_date") or "")
+        # The profile election_date is normally the November general election,
+        # while a roster source may certify an earlier special primary. Prefer
+        # the explicit date embedded in primary_status for this gate.
+        parsed_date = None
+        iso_match = re.search(r"\b((?:19|20)\d{2}-\d{2}-\d{2})\b", primary_status)
+        named_match = re.search(
+            r"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+"
+            r"(\d{1,2})(?:st|nd|rd|th)?[,]?\s+((?:19|20)\d{2})\b",
+            primary_status,
+            re.IGNORECASE,
+        )
         try:
-            parsed_date = datetime.fromisoformat(election_date).date()
+            if iso_match:
+                parsed_date = datetime.fromisoformat(iso_match.group(1)).date()
+            elif named_match:
+                parsed_date = datetime.strptime(" ".join(named_match.groups()), "%B %d %Y").date()
+            else:
+                parsed_date = datetime.fromisoformat(str(identity.get("election_date") or "")).date()
         except ValueError:
             parsed_date = None
         if parsed_date:
@@ -1084,6 +1099,14 @@ def _make_editing_handlers(
             url_key = str(submitted.get("url") or "").strip().rstrip("/").casefold()
             trusted = persisted_roster_sources.get(url_key)
             if trusted and url_key not in observed_urls:
+                completeness_sources.append(dict(trusted))
+                observed_urls.add(url_key)
+        # Durable tier-1/2 evidence is part of the profile's verified state and
+        # should remain available to a cheap refresh even when the final model
+        # neglects to repeat its URL. The handler evaluates the stored objects
+        # against the new proposed roster; it never trusts new unfetched claims.
+        for url_key, trusted in persisted_roster_sources.items():
+            if url_key not in observed_urls:
                 completeness_sources.append(dict(trusted))
                 observed_urls.add(url_key)
         completeness_rejections = [
