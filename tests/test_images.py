@@ -318,6 +318,19 @@ async def test_lookup_wikipedia_image_rejects_same_surname_unrelated_entity(monk
 
 
 @pytest.mark.asyncio
+async def test_lookup_wikipedia_image_rejects_exact_name_composer_thumbnail(monkeypatch):
+    fake_client = _FakeWikipediaClient(
+        opensearch_titles={"David Matthews": ["David Matthews"]},
+        thumbnails={"David Matthews": "https://upload.wikimedia.org/wikipedia/commons/9/9f/David_Matthews_composer.jpg"},
+    )
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", fake_client)
+
+    result = await _lookup_wikipedia_image("David Matthews")
+
+    assert result is None
+
+
+@pytest.mark.asyncio
 async def test_resolve_single_image_discards_stale_mismatched_wikimedia_url(monkeypatch):
     # A prior run can persist a mismatched Wikimedia URL onto image_url (e.g. from
     # the opensearch fuzzy-match bug before it was fixed). The existing-URL fast
