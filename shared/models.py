@@ -452,6 +452,24 @@ class IssueResearchAudit(BaseModel):
     max_iterations_reached: bool = False
 
 
+class RosterResearchAudit(BaseModel):
+    """Evidence used to atomically finalize the active candidate roster."""
+
+    finalized_at: datetime
+    summary: str = ""
+    active_candidate_count: int
+    completeness_sources: List[CandidateRosterSource] = Field(default_factory=list)
+
+
+class MetadataResearchAudit(BaseModel):
+    """Evidence used to atomically finalize race and candidate summaries."""
+
+    finalized_at: datetime
+    active_candidate_count: int
+    description_sources: List[Source] = Field(default_factory=list)
+    candidate_sources: Dict[str, List[Source]] = Field(default_factory=dict)
+
+
 class PipelineState(BaseModel):
     """Draft-only progress state for batched research runs."""
 
@@ -464,8 +482,8 @@ class PipelineState(BaseModel):
     step_failures: List[StepFailure] = Field(default_factory=list)
     deterministic_cleanup: Dict[str, int] = Field(default_factory=dict)
     race_identity: Optional[RaceIdentityBrief] = None
-    roster_research: Optional[Dict[str, Any]] = None
-    metadata_research: Optional[Dict[str, Any]] = None
+    roster_research: Optional[RosterResearchAudit] = None
+    metadata_research: Optional[MetadataResearchAudit] = None
 
 
 class RaceJSON(BaseModel):
