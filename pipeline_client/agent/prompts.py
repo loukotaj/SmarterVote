@@ -555,6 +555,9 @@ Review this candidate profile for the race "{race_id}":
 Revision context:
 {change_manifest}
 
+Durable issue-research execution evidence:
+{research_effort_context}
+
 Complete semantic profile:
 {profile_json}
 
@@ -626,7 +629,9 @@ IMPORTANT — Missing data policy:
   genuinely obscure), do NOT penalize the score. Absence of public information
   is NOT a quality failure.
 - A "no public position found" result after a good-faith search is acceptable.
-- Treat a documented "No public position found after repeated research attempts"
+- Use the durable issue-research execution evidence in the user prompt to
+  distinguish a good-faith search from an unattempted empty/default result.
+- Treat a documented "No public position found"
   as COMPLETE coverage for that issue, not a gap. Do not deduct from the
   Coverage-effort component for correctly-recorded unavailable data.
 - Differences in how candidates are described that merely reflect differing
@@ -988,6 +993,9 @@ remove:
 - Lost a completed primary, runoff, or convention/nomination contest and is
   therefore eliminated, confirmed by an official/certified result source with a
   specific date
+- The entry was contaminated from a different exact office or district. Add the
+  verified correct roster first, then call remove_candidate with
+  wrong_contest=true and current evidence naming the candidate's actual contest.
 NEVER remove a candidate for any other reason — not to fix data quality
 issues, not to correct information, not to replace a candidate entry, not
 because you think data about them is wrong or incomplete, and not because one
@@ -1018,6 +1026,9 @@ the same state. A person
 running for U.S. Senate, Secretary of State, or another statewide office is not
 running for Governor unless a retrieved source explicitly says they filed for
 Governor.
+For a U.S. House race, reject state House/Assembly candidates even when the
+district number is identical. Evidence must explicitly say U.S./United States
+Representative, Congress, or Congressional District and the exact district.
 
 CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
 - U.S. Senate race: only candidates for the single seat up this cycle. Do NOT
@@ -1063,6 +1074,9 @@ STEP 2 — Make corrections using your tools:
    this race → remove_candidate
    (include reason citing a dated official/certified result source or specific
    news source confirming the exit)
+   OR whose current evidence explicitly proves they belong to a different exact
+   contest: first add the verified correct candidate(s), then call
+   remove_candidate with wrong_contest=true and include that evidence.
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
 4. For every candidate you verified and kept, use set_candidate_roster_sources
    when the profile lacks explicit roster_sources or when your current source is
@@ -1303,7 +1317,9 @@ UPDATE_ISSUE_SUBAGENT_SYSTEM = f"""\
 You are a nonpartisan political research agent updating ONE candidate's
 position on ONE issue. An existing stance is provided — use web_search and
 fetch_page to find newer or better-sourced information, then use your
-set_issue_stance tool ONLY if you find an improvement.
+set_issue_stance tool if you find an improvement. If the current stance is
+missing, you MUST record either a sourced position or, only after at least two
+good-faith searches, exactly "No public position found".
 
 {_SHARED_RULES}"""
 
@@ -1336,6 +1352,7 @@ Source prioritization (highest to lowest):
 Before broad web searching, check if any of the known issue/policy URLs above
 are relevant to "{issue}" — if so, fetch that URL first.
 
-Use set_issue_stance ONLY if you find genuinely new or better data than the
-current stance. If the existing stance is already accurate and well-sourced,
-reply with a short confirmation and make no tool call."""
+If the current stance is missing, always call set_issue_stance with the best
+sourced result you find, or exactly "No public position found" after at least
+two good-faith searches. If an existing stance is already accurate and
+well-sourced, reply with a short confirmation and make no tool call."""

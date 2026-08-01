@@ -386,7 +386,7 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
                 issue["issue"] = LEGACY_ISSUE_NAMES.get(str(issue.get("issue") or key), str(issue.get("issue") or key))
                 stance = str(issue.get("stance") or "").strip()
                 if _is_missing_stance_text(stance):
-                    if _is_placeholder_junk_stance(stance):
+                    if _is_placeholder_junk_stance(stance) and "no public position found" not in stance.casefold():
                         # A literal placeholder artifact (e.g. a stance that is
                         # just the word "DRAFT") — distinct from a deliberate
                         # "no public position found" research conclusion. Register
@@ -397,9 +397,12 @@ def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None
                             RunFailureReason.PLACEHOLDER_CONTENT,
                             f"{_candidate_name(candidate)}/{key}: literal placeholder stance {stance!r}",
                         )
-                    issue["stance"] = "No public position found after repeated research attempts."
-                    issue["confidence"] = "low"
-                    issue.setdefault("sources", [])
+                    if "no public position found" in stance.casefold():
+                        issue["stance"] = "No public position found"
+                        issue["confidence"] = "low"
+                        issue.setdefault("sources", [])
+                    else:
+                        issue["stance"] = ""
                     if log:
                         log("warning", f"Normalized placeholder stance for candidates[{candidate_index}].issues.{key}")
             if key not in normalized or _issue_quality(issue) > _issue_quality(normalized[key]):

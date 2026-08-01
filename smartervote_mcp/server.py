@@ -587,6 +587,52 @@ async def queue_races(
 
 
 @mcp.tool(structured_output=False)
+async def refresh_race_core(
+    race_ids: List[str],
+    baseline_source: Literal["latest", "published"] = "latest",
+    include_images: bool = True,
+    include_voter_resources: bool = True,
+    cheap_mode: bool = True,
+    debug_mode: bool = True,
+    save_artifact: bool = True,
+    runner: str = "local",
+    note: str | None = None,
+    goal: str | None = None,
+) -> Dict[str, Any]:
+    """Queue the standard roster-and-race core refresh workflow.
+
+    This is the preferred MCP operation for correcting a suspect roster without
+    hand-editing RaceJSON. Discovery verifies the exact-contest roster and
+    refreshes candidate summaries/race metadata; optional images then run before
+    polling, forecast, and voter-resource refreshes. Debug evidence and artifacts
+    default on so roster decisions remain auditable.
+    """
+    steps = ["discovery"]
+    if include_images:
+        steps.append("images")
+    steps.extend(["polling", "forecast"])
+    if include_voter_resources:
+        steps.append("voter_resources")
+    result = await queue_races(
+        race_ids,
+        cheap_mode=cheap_mode,
+        force_fresh=False,
+        baseline_source=baseline_source,
+        save_artifact=save_artifact,
+        enabled_steps=steps,
+        debug_mode=debug_mode,
+        note=note or "Pipeline-driven core refresh: roster, summaries, polling, forecast, and resources.",
+        goal=goal
+        or (
+            "Verify the exact office/district roster from current-cycle evidence, remove wrong-contest contamination, "
+            "refresh candidate summaries, then update polling and the evidence-backed forecast."
+        ),
+        runner=runner,
+    )
+    return {**result, "mode": "core_refresh", "enabled_steps": steps}
+
+
+@mcp.tool(structured_output=False)
 async def run_race(
     race_id: str,
     cheap_mode: bool | None = True,

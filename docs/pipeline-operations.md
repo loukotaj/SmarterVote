@@ -153,6 +153,9 @@ Common tools:
   groups with calibrated-or-static cost and search ceilings
 - `audit_race_assets`: bounded source/photo URL and image-quality checks;
   `persist=true` stores the evidence on the catalog record
+- `refresh_race_core`: canonical low-cost roster/summary, image, polling,
+  forecast, and voter-resource refresh. Discovery must establish exact-contest
+  roster evidence before downstream work; debug evidence is enabled by default.
 - `queue_races`: one or more races with full options
 - `run_race`: one race
 - `list_active_runs`, `get_queue`: queue/worker state
@@ -178,6 +181,27 @@ Logical runs enforce both global and phase search/token ceilings. They also cap
 uncached page fetches and fetched characters, and persist per-phase
 token/provider/search/page attribution across continuation handoffs. Defaults
 are documented in `.env.example`.
+
+For an issue unit, a ceiling ends further searching but does not manufacture a
+result. The last turn escalates from an economy model when a stronger configured
+fallback exists, receives the accumulated evidence, and is forced to call
+`set_issue_stance`. Its terminal result must be either a sourced factual stance
+or exactly `No public position found`. The latter is accepted only when the
+durable `pipeline_state.issue_research` audit records at least two search/fetch
+actions. Retry exhaustion leaves the unit incomplete and visible to review;
+it is never converted into a no-position finding.
+
+Example core refresh:
+
+```json
+{
+  "race_ids": ["pa-house-10-2026"],
+  "baseline_source": "latest",
+  "cheap_mode": true,
+  "debug_mode": true,
+  "goal": "Verify the exact-contest roster and refresh summaries, polling, and forecast."
+}
+```
 
 The all-catalog recheck is cursor-paged because a full storage hydration can
 outlive the Cloud Run request deadline. MCP `recheck_all_races` follows all

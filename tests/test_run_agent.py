@@ -66,8 +66,7 @@ def test_sanitize_candidate_issues_normalizes_placeholder_variant():
     _sanitize_candidate_issues(race_json, log=None)
 
     stance = race_json["candidates"][0]["issues"]["Civil Rights & Equality"]
-    assert stance["stance"] == "No public position found after repeated research attempts."
-    assert stance["confidence"] == "low"
+    assert stance["stance"] == ""
 
 
 def test_sanitize_candidate_issues_removes_noncanonical_and_malformed_duplicates():
@@ -1025,7 +1024,7 @@ async def test_run_agent_normalizes_schema_version_legacy_issues_and_missing_sta
     assert result["schema_version"] == "0.3"
     assert "Reproductive Rights" not in issues
     assert issues["Abortion & Reproductive Health"]["stance"] == "Supports abortion access."
-    assert issues["Tech & AI"]["stance"] == "No public position found after repeated research attempts."
+    assert issues["Tech & AI"]["stance"] == ""
 
 
 @pytest.mark.asyncio
@@ -1763,8 +1762,9 @@ async def test_run_agent_continuation_caps_repeated_issue_attempts(monkeypatch):
         )
 
     assert mock_loop.call_count == 0
-    assert "repeated research attempts" in result["candidates"][0]["issues"][capped_issue]["stance"]
-    assert f"issues:Alice:{capped_issue}" in result["pipeline_state"]["completed_units"]
+    assert not result["candidates"][0]["issues"][capped_issue]["stance"]
+    assert f"issues:Alice:{capped_issue}" not in result["pipeline_state"]["completed_units"]
+    assert result["pipeline_state"]["issue_research"][f"issues:Alice:{capped_issue}"]["status"] == "retry_limit"
 
 
 @pytest.mark.asyncio
