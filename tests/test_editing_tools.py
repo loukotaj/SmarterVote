@@ -740,6 +740,46 @@ def test_add_candidate_accepts_native_search_snippet_alias():
     assert race_json["candidates"][0]["roster_sources"][0]["evidence"].startswith("US Representative")
 
 
+def test_add_candidate_accepts_evidence_text_but_requires_observed_url_in_agent_loop():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://algop.org/special-congressional-election-qualified-candidates/",
+        "title": "Special Congressional Election Qualified Candidates",
+        "evidence_text": "2026 U.S. Congress Congressional District 2 qualified candidate Rhett Marques",
+        "retrieved": "2026-08-01",
+    }
+
+    blocked = handlers["add_candidate"](
+        {
+            "name": "Rhett Marques",
+            "party": "Republican",
+            "roster_sources": [source],
+            "_research_trace": {"researched_urls": [], "fetched_urls": []},
+        }
+    )
+    assert "actual search/fetch trace" in blocked
+
+    added = handlers["add_candidate"](
+        {
+            "name": "Rhett Marques",
+            "party": "Republican",
+            "roster_sources": [source],
+            "_research_trace": {
+                "researched_urls": [source["url"].rstrip("/")],
+                "fetched_urls": [],
+            },
+        }
+    )
+    assert added == "Added candidate 'Rhett Marques'."
+    saved = race_json["candidates"][0]["roster_sources"][0]
+    assert saved["evidence"] == source["evidence_text"]
+    assert saved["retrieval_status"] == "snippet"
+    assert saved["evidence_tier"] == 3
+
+
 def test_finalize_roster_requires_evidence_for_every_active_candidate():
     from pipeline_client.agent.agent import _make_editing_handlers
 
@@ -829,8 +869,23 @@ def test_finalize_roster_requires_exact_special_election_completeness_source():
             "published_at": "2026-05-22",
         }
     )
+    searched_only = handlers["finalize_roster"](
+        {
+            "summary": "August special primary list",
+            "completeness_sources": [special_source],
+            "_research_trace": {"researched_urls": [special_source["url"]], "fetched_urls": []},
+        }
+    )
+    assert "no sources were supplied" in searched_only
     finalized = handlers["finalize_roster"](
-        {"summary": "August special primary list", "completeness_sources": [special_source]}
+        {
+            "summary": "August special primary list",
+            "completeness_sources": [special_source],
+            "_research_trace": {
+                "researched_urls": [special_source["url"]],
+                "fetched_urls": [special_source["url"]],
+            },
+        }
     )
     assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
 

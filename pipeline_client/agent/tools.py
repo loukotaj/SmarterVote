@@ -158,6 +158,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
                             "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
@@ -225,6 +226,7 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                             "type": {"type": "string", "enum": ["official", "ballotpedia", "fec", "news", "campaign"]},
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
                             "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
@@ -283,6 +285,7 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
                             "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
@@ -368,6 +371,7 @@ FINALIZE_ROSTER_TOOL: Dict = {
                             "type": {"type": "string"},
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
                             "text": {"type": "string"},
                             "snippet": {"type": "string"},
                             "context": {"type": "string"},

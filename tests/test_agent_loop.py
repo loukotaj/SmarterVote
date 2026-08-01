@@ -773,6 +773,51 @@ async def test_agent_loop_reserves_strong_edit_turn_before_forced_finalization()
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_injects_actual_search_and_fetch_urls_into_editing_calls():
+    source_url = "https://elections.example.gov/qualified-candidates"
+    searched = _mock_openai_response(
+        tool_calls=[{"id": "search", "function": {"name": "web_search", "arguments": json.dumps({"query": "roster"})}}]
+    )
+    fetched = _mock_openai_response(
+        tool_calls=[{"id": "fetch", "function": {"name": "fetch_page", "arguments": json.dumps({"url": source_url})}}]
+    )
+    edited = _mock_openai_response(
+        tool_calls=[{"id": "edit", "function": {"name": "set_sources", "arguments": json.dumps({"name": "Alice"})}}]
+    )
+    stopped = _mock_openai_response(content="Done")
+    handler = MagicMock(return_value="OK")
+    edit_tool = {
+        "type": "function",
+        "function": {"name": "set_sources", "description": "Set", "parameters": {"type": "object"}},
+    }
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as call,
+        patch(
+            "pipeline_client.agent.llm._serper_search",
+            new_callable=AsyncMock,
+            return_value=[{"url": source_url, "title": "Official roster"}],
+        ),
+        patch("pipeline_client.agent.llm._fetch_page", new_callable=AsyncMock, return_value="Official roster " * 20),
+    ):
+        call.side_effect = [searched, fetched, edited, stopped]
+        await _agent_loop(
+            "system",
+            "user",
+            model="google/gemini-2.5-flash",
+            phase_name="roster-provenance",
+            max_iterations=5,
+            tools_mode=True,
+            extra_tools=[edit_tool],
+            extra_tool_handlers={"set_sources": handler},
+        )
+
+    trace = handler.call_args.args[0]["_research_trace"]
+    assert trace["researched_urls"] == [source_url]
+    assert trace["fetched_urls"] == [source_url]
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_escalates_after_repeated_blocked_edits():
     from pipeline_client.agent.model_registry import CHEAP_MODEL, NEMOTRON_ULTRA_MODEL
 
