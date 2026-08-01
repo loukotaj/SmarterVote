@@ -1531,6 +1531,58 @@ def test_sanitize_polling_keeps_source_only_polls_without_numeric_percentages():
     assert race_json["polling"][0]["matchups"] == []
 
 
+def test_sanitize_polling_dedupes_sponsor_copy_and_clears_contradictory_note():
+    matchup = [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": [44, 45]}]
+    race_json = {
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling_note": "Impact Research and DCCC both show Alice 44 and Bob 45.",
+        "polling": [
+            {
+                "pollster": "Impact Research",
+                "date": "2026-07-14",
+                "sample_size": 400,
+                "matchups": copy.deepcopy(matchup),
+            },
+            {
+                "pollster": "Democratic Congressional Campaign Committee (DCCC)",
+                "date": "2026-07-13",
+                "sample_size": 400,
+                "matchups": copy.deepcopy(matchup),
+            },
+        ],
+    }
+
+    _sanitize_polling(race_json)
+
+    assert [poll["pollster"] for poll in race_json["polling"]] == ["Impact Research"]
+    assert race_json["polling_note"] is None
+
+
+def test_sanitize_polling_prefers_pollster_when_sponsor_copy_comes_first():
+    matchup = [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": [44, 45]}]
+    race_json = {
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling": [
+            {
+                "pollster": "DCCC",
+                "date": "2026-07-13",
+                "sample_size": 400,
+                "matchups": copy.deepcopy(matchup),
+            },
+            {
+                "pollster": "Impact Research",
+                "date": "2026-07-14",
+                "sample_size": 400,
+                "matchups": copy.deepcopy(matchup),
+            },
+        ],
+    }
+
+    _sanitize_polling(race_json)
+
+    assert [poll["pollster"] for poll in race_json["polling"]] == ["Impact Research"]
+
+
 @pytest.mark.asyncio
 async def test_polling_step_runs_without_issue_finance_or_refinement():
     reviews = [
