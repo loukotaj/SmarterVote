@@ -170,15 +170,13 @@ def _source_omits_candidate_from_roster(
     if not _source_is_current_cycle(source, race_id=race_id, text=text):
         return False
 
-    # The candidate must be genuinely absent. Matching on *any* name word would
-    # trip over a shared first name ("Justin Maldonado" vs. "Justin Murphy" in the
-    # same listing), so treat them as present when the full name appears or when
-    # their surname does — the discriminating token, and the conservative choice.
-    name_words = [word for word in re.findall(r"[a-z0-9]+", candidate_name.casefold()) if len(word) > 2]
-    if not name_words:
-        return False
-    if all(word in text for word in name_words) or name_words[-1] in text:
-        return False
+    # Deliberately no "the candidate must not appear in the evidence text" check.
+    # The evidence field holds the model's account of the listing, and the natural
+    # way to describe an omission names the person omitted ("enumerates the field
+    # without Justin Maldonado", "listed under withdrawn candidates"). Scanning it
+    # for the name rejects exactly the well-reasoned removals this path exists to
+    # allow. The structural guarantee comes from the corroboration count below:
+    # the listing must independently name candidates who are still on the roster.
 
     corroborating = 0
     for other in other_roster_names:
@@ -247,7 +245,14 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
     url = str(source.get("url") or "").strip() or None
     title = str(source.get("title") or "").strip() or None
     evidence = (
-        str(source.get("evidence") or source.get("text") or source.get("context") or source.get("snippet") or "").strip()
+        str(
+            source.get("evidence")
+            or source.get("evidence_text")
+            or source.get("text")
+            or source.get("context")
+            or source.get("snippet")
+            or ""
+        ).strip()
         or None
     )
     host = urlparse(url or "").netloc.casefold()
@@ -271,6 +276,50 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
         normalized["evidence_tier"] = 3
         normalized["retrieval_status"] = "snippet"
     return {key: value for key, value in normalized.items() if value is not None}
+
+
+def _apply_roster_research_provenance(
+    source: Dict[str, Any], research_trace: Any, *, require_fetch: bool = False
+) -> Dict[str, Any] | None:
+    """Grade evidence from URLs the current agent loop actually observed.
+
+    Model-provided ``retrieved`` and tier fields are claims, not provenance. The
+    loop injects its real search/fetch URL trace into editing calls so fabricated
+    citations copied from the goal cannot masquerade as retrieved evidence.
+    Direct handler callers that do not provide a trace retain legacy behavior;
+    production agent loops always provide one.
+    """
+    if not isinstance(research_trace, dict):
+        return source
+
+    def url_key(raw_url: Any) -> str:
+        parsed = urlparse(str(raw_url or "").strip())
+        path = parsed.path.rstrip("/") or "/"
+        return f"{parsed.scheme.casefold()}://{parsed.netloc.casefold()}{path}?{parsed.query}".rstrip("?")
+
+    url = url_key(source.get("url"))
+    researched = {url_key(item) for item in research_trace.get("researched_urls") or []}
+    fetched = {url_key(item) for item in research_trace.get("fetched_urls") or []}
+    if url in fetched:
+        source["retrieval_status"] = "content"
+        source["evidence_tier"] = 1 if source.get("type") in {"official", "fec"} else 2
+        return source
+    if require_fetch or url not in researched:
+        return None
+    source["retrieval_status"] = "snippet"
+    source["evidence_tier"] = 3
+    return source
+
+
+def _normalize_observed_roster_sources(
+    sources: Any, *, race_id: str, research_trace: Any, require_fetch: bool = False
+) -> list[Dict[str, Any]]:
+    normalized = [source for source in (_normalize_roster_source(item, race_id=race_id) for item in sources or []) if source]
+    return [
+        observed
+        for source in normalized
+        if (observed := _apply_roster_research_provenance(source, research_trace, require_fetch=require_fetch))
+    ]
 
 
 def _roster_source_rejection_reason(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> str | None:
@@ -399,7 +448,16 @@ def _roster_completeness_source_rejection_reason(
         return "completeness evidence must come from retrieved page content, not a search snippet"
 
     text = _roster_source_text(source)
-    if not re.search(r"\b(?:qualified|certified|official ballot|candidate list|candidates? running|vote for one)\b", text):
+    # Real election authorities do not use one fixed phrase. New Jersey publishes
+    # "Official List Candidates for US Senate For GENERAL ELECTION", which named
+    # the full certified field yet failed a pattern that only accepted "candidate
+    # list" in that word order — the authoritative source rejected by the check
+    # meant to require an authoritative source.
+    if not re.search(
+        r"\b(?:qualified|certified|official list|official ballot|candidate list|list of candidates"
+        r"|candidates? running|vote for one)\b",
+        text,
+    ):
         return "evidence does not identify itself as a qualified, certified, ballot, or complete candidate list"
 
     primary_status = str(identity.get("primary_status") or "")
@@ -565,11 +623,17 @@ def _make_editing_handlers(
                     f"another race in {state} for this election cycle. A candidate cannot run in multiple concurrent "
                     "statewide or federal contests. Verify the office, district, and candidate name."
                 )
-        roster_sources = _qualifying_candidate_addition_sources(
-            args.get("roster_sources"), candidate_name=name, race_id=race_id
+        supplied_sources = _normalize_observed_roster_sources(
+            args.get("roster_sources"),
+            race_id=race_id,
+            research_trace=args.get("_research_trace"),
         )
+        roster_sources = _qualifying_candidate_addition_sources(supplied_sources, candidate_name=name, race_id=race_id)
         if not roster_sources:
-            detail = _roster_source_rejection_summary(args.get("roster_sources"), candidate_name=name, race_id=race_id)
+            if isinstance(args.get("_research_trace"), dict) and not supplied_sources:
+                detail = "none of the cited URLs appeared in this run's actual search/fetch trace"
+            else:
+                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id)
             log("warning", f"    add_candidate('{name}') BLOCKED: {detail}")
             return (
                 f"Blocked adding '{name}': {detail}. "
@@ -628,11 +692,9 @@ def _make_editing_handlers(
         if args.get("wrong_contest") is True or args.get("not_on_roster") is True:
             race_id = str(race_json.get("id") or "").strip()
             not_on_roster = args.get("not_on_roster") is True and args.get("wrong_contest") is not True
-            normalized_sources = [
-                source
-                for source in (_normalize_roster_source(item, race_id=race_id) for item in args.get("sources") or [])
-                if source
-            ]
+            normalized_sources = _normalize_observed_roster_sources(
+                args.get("sources"), race_id=race_id, research_trace=args.get("_research_trace")
+            )
 
             if not_on_roster:
                 target = _find_candidate(name)
@@ -779,10 +841,12 @@ def _make_editing_handlers(
         # this candidate, that citation is the stronger signal — accept it and let
         # the reason text be prose rather than an incantation.
         cited_race_id = str(race_json.get("id") or "").strip()
+        observed_cited_sources = _normalize_observed_roster_sources(
+            args.get("sources"), race_id=cited_race_id, research_trace=args.get("_research_trace")
+        )
         has_cited_evidence = any(
             _source_proves_different_contest(source, candidate_name=name, race_id=cited_race_id)
-            for source in (_normalize_roster_source(item, race_id=cited_race_id) for item in args.get("sources") or [])
-            if source
+            for source in observed_cited_sources
         )
         has_withdrawal_signal = (
             has_cited_evidence
@@ -871,11 +935,17 @@ def _make_editing_handlers(
         # This candidate is already on the roster, so the corroboration rule that
         # guards *adding* one does not apply — a single valid source is enough to
         # attach evidence to an existing entry.
+        supplied_sources = _normalize_observed_roster_sources(
+            args.get("sources"), race_id=race_id, research_trace=args.get("_research_trace")
+        )
         sources = _qualifying_candidate_addition_sources(
-            args.get("sources"), candidate_name=name, race_id=race_id, require_corroboration=False
+            supplied_sources, candidate_name=name, race_id=race_id, require_corroboration=False
         )
         if not sources:
-            detail = _roster_source_rejection_summary(args.get("sources"), candidate_name=name, race_id=race_id)
+            if isinstance(args.get("_research_trace"), dict) and not supplied_sources:
+                detail = "none of the cited URLs appeared in this run's actual search/fetch trace"
+            else:
+                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id)
             log("warning", f"    set_candidate_roster_sources('{name}') BLOCKED: {detail}")
             return f"ERROR: no usable roster source for '{name}': {detail}."
         c["roster_sources"] = sources
@@ -947,13 +1017,12 @@ def _make_editing_handlers(
         if not isinstance(identity, dict) or not identity.get("office") or not identity.get("contest_stage"):
             return "ERROR: roster finalization blocked. Lock the exact office and contest stage with set_race_identity."
 
-        completeness_sources = [
-            source
-            for source in (
-                _normalize_roster_source(raw_source, race_id=race_id) for raw_source in args.get("completeness_sources") or []
-            )
-            if source
-        ]
+        completeness_sources = _normalize_observed_roster_sources(
+            args.get("completeness_sources"),
+            race_id=race_id,
+            research_trace=args.get("_research_trace"),
+            require_fetch=True,
+        )
         completeness_rejections = [
             reason
             for source in completeness_sources

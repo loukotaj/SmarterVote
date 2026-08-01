@@ -740,6 +740,46 @@ def test_add_candidate_accepts_native_search_snippet_alias():
     assert race_json["candidates"][0]["roster_sources"][0]["evidence"].startswith("US Representative")
 
 
+def test_add_candidate_accepts_evidence_text_but_requires_observed_url_in_agent_loop():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "al-house-02-2026", "state": "Alabama", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://algop.org/special-congressional-election-qualified-candidates/",
+        "title": "Special Congressional Election Qualified Candidates",
+        "evidence_text": "2026 U.S. Congress Congressional District 2 qualified candidate Rhett Marques",
+        "retrieved": "2026-08-01",
+    }
+
+    blocked = handlers["add_candidate"](
+        {
+            "name": "Rhett Marques",
+            "party": "Republican",
+            "roster_sources": [source],
+            "_research_trace": {"researched_urls": [], "fetched_urls": []},
+        }
+    )
+    assert "actual search/fetch trace" in blocked
+
+    added = handlers["add_candidate"](
+        {
+            "name": "Rhett Marques",
+            "party": "Republican",
+            "roster_sources": [source],
+            "_research_trace": {
+                "researched_urls": [source["url"].rstrip("/")],
+                "fetched_urls": [],
+            },
+        }
+    )
+    assert added == "Added candidate 'Rhett Marques'."
+    saved = race_json["candidates"][0]["roster_sources"][0]
+    assert saved["evidence"] == source["evidence_text"]
+    assert saved["retrieval_status"] == "snippet"
+    assert saved["evidence_tier"] == 3
+
+
 def test_finalize_roster_requires_evidence_for_every_active_candidate():
     from pipeline_client.agent.agent import _make_editing_handlers
 
@@ -829,8 +869,23 @@ def test_finalize_roster_requires_exact_special_election_completeness_source():
             "published_at": "2026-05-22",
         }
     )
+    searched_only = handlers["finalize_roster"](
+        {
+            "summary": "August special primary list",
+            "completeness_sources": [special_source],
+            "_research_trace": {"researched_urls": [special_source["url"]], "fetched_urls": []},
+        }
+    )
+    assert "no sources were supplied" in searched_only
     finalized = handlers["finalize_roster"](
-        {"summary": "August special primary list", "completeness_sources": [special_source]}
+        {
+            "summary": "August special primary list",
+            "completeness_sources": [special_source],
+            "_research_trace": {
+                "researched_urls": [special_source["url"]],
+                "fetched_urls": [special_source["url"]],
+            },
+        }
     )
     assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
 
@@ -1559,16 +1614,42 @@ def test_not_on_roster_rejects_a_listing_that_does_not_enumerate_the_field():
     assert "Justin Maldonado" in [candidate["name"] for candidate in race_json["candidates"]]
 
 
-def test_not_on_roster_rejects_a_listing_that_names_the_candidate():
+def test_not_on_roster_allows_evidence_that_narrates_the_omission():
+    """The natural way to describe an omission names the omitted person.
+
+    Regression guard: scanning the evidence prose for the candidate's name
+    rejected every correctly-reasoned removal, because models write things like
+    "enumerates the field without Justin Maldonado".
+    """
     from pipeline_client.agent.agent import _make_editing_handlers
 
     race_json = _nj_roster_race()
     handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
     listing = _nj_roster_listing()
-    listing["text"] = listing["text"].replace("Joanne Kuniansky", "Justin Maldonado")
+    listing["text"] += (
+        ". This enumerates the complete general election field without Justin Maldonado, "
+        "who is listed under 'Withdrawn or disqualified candidates'."
+    )
 
     result = handlers["remove_candidate"](
-        {"name": "Justin Maldonado", "reason": "No evidence.", "not_on_roster": True, "sources": [listing]}
+        {"name": "Justin Maldonado", "reason": "No evidence of candidacy.", "not_on_roster": True, "sources": [listing]}
+    )
+
+    assert "unlisted" in result
+    assert "Justin Maldonado" not in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_not_on_roster_still_requires_two_corroborating_roster_names():
+    """The structural guarantee: the listing must independently name current roster members."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    thin = _nj_roster_listing()
+    thin["text"] = "Cory Booker is running in the general election for U.S. Senate New Jersey in 2026."
+
+    result = handlers["remove_candidate"](
+        {"name": "Justin Maldonado", "reason": "No evidence.", "not_on_roster": True, "sources": [thin]}
     )
 
     assert "blocked" in result.lower()
@@ -1644,3 +1725,56 @@ def test_cited_evidence_waives_the_withdrawal_keyword_scan():
     )
 
     assert "withdrawn" in result.lower()
+
+
+def test_completeness_gate_accepts_real_secretary_of_state_list_phrasing():
+    """New Jersey publishes "Official List Candidates ..." — the certified field itself."""
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2026/2026-official-general-candidates-us-senate.pdf",
+            "title": "Official List Candidates for US Senate For GENERAL ELECTION 11/03/2026",
+            "evidence": (
+                "07/27/2026 Official List Candidates for US Senate For GENERAL ELECTION 11/03/2026: "
+                "CORY BOOKER (Democratic), JUSTIN MURPHY (Republican), VERONICA FERNANDEZ, JOANNE KUNIANSKY."
+            ),
+            "race_id": "nj-senate-2026",
+            "published_at": "2026-07-27T00:00:00Z",
+            "evidence_tier": 1,
+            "retrieval_status": "content",
+        },
+        race_id="nj-senate-2026",
+    )
+
+    assert source["type"] == "official"
+    assert (
+        _roster_completeness_source_rejection_reason(
+            source,
+            race_id="nj-senate-2026",
+            identity={"office": "U.S. Senate", "contest_stage": "post_primary_general"},
+        )
+        is None
+    )
+
+
+def test_completeness_gate_still_rejects_single_candidate_evidence():
+    """A page about one candidate proves membership, never completeness."""
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://www.nj.gov/state/elections/some-profile",
+            "title": "Cory Booker profile",
+            "evidence": "Cory Booker is the incumbent senator seeking re-election in 2026.",
+            "race_id": "nj-senate-2026",
+            "published_at": "2026-07-27T00:00:00Z",
+            "evidence_tier": 1,
+            "retrieval_status": "content",
+        },
+        race_id="nj-senate-2026",
+    )
+
+    assert _roster_completeness_source_rejection_reason(
+        source, race_id="nj-senate-2026", identity={"office": "U.S. Senate", "contest_stage": "post_primary_general"}
+    )
