@@ -84,6 +84,11 @@ def _candidate_surname_token(candidate_name: str) -> Optional[str]:
     return tokens[-1].lower() if tokens else None
 
 
+_WIKIMEDIA_NON_CANDIDATE_QUALIFIERS = frozenset(
+    {"actor", "actress", "band", "composer", "director", "footballer", "musician", "singer"}
+)
+
+
 def _is_untrusted_wikimedia_match(url: str, candidate_name: str) -> bool:
     """True if an upload.wikimedia.org filename does not match the full name.
 
@@ -99,7 +104,8 @@ def _is_untrusted_wikimedia_match(url: str, candidate_name: str) -> bool:
     candidate_tokens = _name_tokens(candidate_name)
     if not candidate_tokens:
         return False
-    return not candidate_tokens.issubset(_name_tokens(unquote(url)))
+    url_tokens = _name_tokens(unquote(url))
+    return not candidate_tokens.issubset(url_tokens) or bool(url_tokens & _WIKIMEDIA_NON_CANDIDATE_QUALIFIERS)
 
 
 # Generic Open-Graph / social-share cards served by data and reference sites

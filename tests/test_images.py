@@ -368,3 +368,6 @@ def test_is_untrusted_wikimedia_match_ignores_non_wikimedia_urls():
     assert _is_untrusted_wikimedia_match(
         "https://upload.wikimedia.org/wikipedia/commons/d/d0/Dave_Matthews_Band.jpg", "David Matthews"
     )
+    assert _is_untrusted_wikimedia_match(
+        "https://upload.wikimedia.org/wikipedia/commons/9/9f/David_Matthews_composer.jpg", "David Matthews"
+    )

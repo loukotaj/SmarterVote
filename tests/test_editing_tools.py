@@ -1814,6 +1814,41 @@ def test_add_poll_allows_source_only_poll_but_rejects_incomplete_matchups():
     assert [poll["pollster"] for poll in race_json["polling"]] == ["Example Source Only Poll"]
 
 
+def test_add_poll_dedupes_sponsor_report_and_clears_stale_no_poll_note():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    matchup = [{"candidates": ["Shomari Figures", "Rhett Marques"], "percentages": [44, 45]}]
+    race_json = {
+        "candidates": [{"name": "Shomari Figures"}, {"name": "Rhett Marques"}],
+        "polling_note": "No public polling found for this race as of 2026-08-01.",
+        "polling": [
+            {
+                "pollster": "Democratic Congressional Campaign Committee (DCCC)",
+                "date": "2026-07-13",
+                "sample_size": 400,
+                "matchups": matchup,
+                "source_url": "https://dccc.example/poll",
+            }
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["add_poll"](
+        {
+            "pollster": "Impact Research",
+            "date": "2026-07-14",
+            "sample_size": 400,
+            "matchups": matchup,
+            "source_url": "https://news.example/impact-poll",
+        }
+    )
+
+    assert "Replaced sponsor-labeled duplicate" in result
+    assert len(race_json["polling"]) == 1
+    assert race_json["polling"][0]["pollster"] == "Impact Research"
+    assert race_json["polling_note"] is None
+
+
 def test_remove_candidate_deletes_malformed_entries():
     """remove_candidate physically deletes entries whose name looks like a metadata key."""
     from pipeline_client.agent.agent import _make_editing_handlers
