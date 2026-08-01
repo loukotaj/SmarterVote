@@ -259,6 +259,7 @@ def test_roster_sync_system_restricts_to_roster_tools_only():
     assert "set_candidate_roster_sources" in ROSTER_SYNC_SYSTEM
     assert "set_race_identity" in ROSTER_SYNC_SYSTEM
     assert "Do NOT call any non-roster editing tools" in ROSTER_SYNC_SYSTEM
+    assert "finalize_roster succeeds" in ROSTER_SYNC_USER
 
 
 def test_roster_prompt_treats_ballotpedia_as_advisory_below_official_sources():

@@ -52,7 +52,7 @@ def test_editing_tool_schemas_exist():
         UPDATE_RACE_FIELD_TOOL,
     )
 
-    assert len(ROSTER_TOOLS) == 5
+    assert len(ROSTER_TOOLS) == 6
     assert len(CANDIDATE_TOOLS) == 2
     assert len(ISSUE_TOOLS) == 1
     assert len(RECORD_TOOLS) == 4  # donor_summary, voting_summary, add_link, remove_candidate_source_url
@@ -82,6 +82,7 @@ def test_make_editing_handlers():
         "rename_candidate",
         "set_candidate_roster_sources",
         "set_race_identity",
+        "finalize_roster",
         "set_candidate_field",
         "set_candidate_summary",
         "set_issue_stance",
@@ -713,6 +714,41 @@ def test_add_candidate_accepts_context_and_date_search_aliases():
     source = race_json["candidates"][0]["roster_sources"][0]
     assert source["evidence"] == "U.S. Representative, 2nd District - Shomari Figures"
     assert source["published_at"] == "2026-02-01"
+
+
+def test_finalize_roster_requires_evidence_for_every_active_candidate():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
+        "candidates": [
+            {
+                "name": "Shomari Figures",
+                "party": "Democratic",
+                "roster_sources": [
+                    {
+                        "url": "https://aldemocrats.org/2026-qualified-candidates",
+                        "type": "official",
+                        "title": "2026 Qualified Candidates",
+                        "evidence": "US Representative, 2nd District - Shomari Figures",
+                        "race_id": "al-house-02-2026",
+                        "published_at": "2026-02-01",
+                        "evidence_tier": 1,
+                        "retrieval_status": "content",
+                    }
+                ],
+            },
+            {"name": "Unverified Candidate", "party": "Republican", "roster_sources": []},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    blocked = handlers["finalize_roster"]({"summary": "Official party lists"})
+    assert "Unverified Candidate" in blocked
+    race_json["candidates"].pop()
+    finalized = handlers["finalize_roster"]({"summary": "Official party list"})
+    assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():

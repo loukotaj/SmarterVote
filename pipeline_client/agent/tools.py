@@ -318,12 +318,34 @@ SET_RACE_IDENTITY_TOOL: Dict = {
     },
 }
 
+FINALIZE_ROSTER_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "finalize_roster",
+        "description": (
+            "Finish roster sync only after every active candidate has durable current-cycle exact-contest evidence. "
+            "The handler validates the roster and returns specific missing evidence to fix."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "summary": {
+                    "type": "string",
+                    "description": "Brief description of the authoritative roster and contest stage used.",
+                }
+            },
+            "required": ["summary"],
+        },
+    },
+}
+
 ROSTER_TOOLS: List[Dict] = [
     ADD_CANDIDATE_TOOL,
     REMOVE_CANDIDATE_TOOL,
     RENAME_CANDIDATE_TOOL,
     SET_CANDIDATE_ROSTER_SOURCES_TOOL,
     SET_RACE_IDENTITY_TOOL,
+    FINALIZE_ROSTER_TOOL,
 ]
 
 # ---------------------------------------------------------------------------
