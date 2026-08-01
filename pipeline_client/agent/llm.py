@@ -480,6 +480,8 @@ async def _agent_loop(
     required_final_tool_succeeded = False
     consecutive_tool_errors = 0
     tool_errors_escalated = False
+    researched_urls: set[str] = set()
+    fetched_urls: set[str] = set()
     tool_trace = {
         "search_calls": 0,
         "page_fetches": 0,
@@ -517,7 +519,26 @@ async def _agent_loop(
                     f"  [{phase_name}] JSON parsing failed previously — elevating model from {model} to {active_model} for retry prompt",
                 )
 
+        prepare_final_tool = bool(required_final_tool_name and not token_budget_reached and iteration == max_iterations - 2)
         force_final_tool = bool(required_final_tool_name and (token_budget_reached or iteration == max_iterations - 1))
+        if prepare_final_tool:
+            fallback_model = (
+                CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
+                or tool_error_escalation_model
+            )
+            if fallback_model:
+                log("info", f"  [{phase_name}] escalating evidence application to {fallback_model}")
+                active_model = fallback_model
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "Research is complete. Do not search or fetch again. Use the editing tools now to apply all "
+                        "supported findings from the accumulated evidence. Fix every validation error already "
+                        "reported, then leave the next turn for final validation."
+                    ),
+                }
+            )
         if force_final_tool:
             fallback_model = (
                 CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
@@ -543,6 +564,8 @@ async def _agent_loop(
                 else []
             )
             tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
+            if prepare_final_tool:
+                tools_for_call = _extra_tools or None
             if force_final_tool:
                 tools_for_call = [
                     tool for tool in _extra_tools if tool.get("function", {}).get("name") == required_final_tool_name
@@ -653,6 +676,11 @@ async def _agent_loop(
                         timeout_result=[],
                     )
                     log("debug", f"    🔍 got {len(search_results)} results")
+                    for search_result in search_results:
+                        if isinstance(search_result, dict):
+                            result_url = str(search_result.get("url") or search_result.get("link") or "").strip()
+                            if result_url:
+                                researched_urls.add(result_url)
                     messages.append(
                         {
                             "role": "tool",
@@ -697,6 +725,9 @@ async def _agent_loop(
                         timeout_result="[Page fetch timed out; use another source.]",
                     )
                     log("debug", f"    📄 got {len(page_text)} chars")
+                    if page_text and len(page_text) >= 100 and not page_text.lstrip().startswith("["):
+                        fetched_urls.add(url)
+                        researched_urls.add(url)
                     fetch_hint = _page_fetch_log_hint(url, page_text)
                     if fetch_hint:
                         log("warning", f"    📄 {fetch_hint}")
@@ -753,6 +784,10 @@ async def _agent_loop(
                         tool_trace["editing_calls"] += 1
                     args = json.loads(fn.arguments)
                     log("info", f"    🔧 {fn.name}({', '.join(f'{k}={v!r}' for k, v in args.items())})")
+                    args["_research_trace"] = {
+                        "researched_urls": sorted(researched_urls),
+                        "fetched_urls": sorted(fetched_urls),
+                    }
                     try:
                         if fn.name == "read_profile" and context_budget.narrow_phase and args.get("section", "full") == "full":
                             handler_result = (

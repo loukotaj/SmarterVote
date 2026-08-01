@@ -156,6 +156,25 @@ def test_get_step_failures_empty_when_missing():
     assert get_step_failures({"pipeline_state": {"step_failures": "not-a-list"}}) == []
 
 
+def test_clear_step_failures_only_resets_steps_being_rerun():
+    from shared.run_health import clear_step_failures
+
+    race = {
+        "pipeline_state": {
+            "step_failures": [
+                {"step": "forecast", "reason": "step_no_data", "detail": None},
+                {"step": "finance", "reason": "step_no_data", "detail": None},
+            ],
+            "remaining_steps": ["forecast", "finance", "review"],
+        }
+    }
+
+    clear_step_failures(race, {"forecast"})
+
+    assert race["pipeline_state"]["step_failures"] == [{"step": "finance", "reason": "step_no_data", "detail": None}]
+    assert race["pipeline_state"]["remaining_steps"] == ["finance", "review"]
+
+
 # ---------------------------------------------------------------------------
 # Empty finance output detection (silent failure #1)
 # ---------------------------------------------------------------------------

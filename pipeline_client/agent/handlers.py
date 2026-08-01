@@ -94,38 +94,102 @@ def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> b
         re.search(rf"\b0*{re.escape(district)}(?:st|nd|rd|th)?\s+(?:congressional\s+)?district\b", text)
         or re.search(rf"\b(?:congressional\s+)?district\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b", text)
         or re.search(rf"\bcd\s*[-#]?\s*0*{re.escape(district)}\b", text)
+        # Statewide certification documents commonly title the table
+        # "Congressional Districts" and label each row only "District 2".
+        or re.search(
+            rf"\bcongressional\s+districts\b.{{0,240}}\bdistrict\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b",
+            text,
+        )
     )
     return federal_house and exact_district
 
 
+def _source_is_current_cycle(source: Dict[str, Any], *, race_id: str, text: str) -> bool:
+    """Check a source belongs to this race's cycle, by publish date or explicit year."""
+    year_match = re.search(r"(?:19|20)\d{2}", race_id)
+    if not year_match:
+        return True
+    valid_years = {int(year_match.group()) - 1, int(year_match.group())}
+    try:
+        published_year = datetime.fromisoformat(str(source.get("published_at") or "").replace("Z", "+00:00")).year
+    except ValueError:
+        published_year = None
+    if published_year is not None:
+        return published_year in valid_years
+    return any(str(year) in text for year in valid_years)
+
+
+def _source_names_candidate(text: str, candidate_name: str) -> bool:
+    """True when every word of the candidate's name appears in the source text."""
+    name_words = re.findall(r"[a-z0-9]+", candidate_name.casefold())
+    return bool(name_words) and all(word in text for word in name_words)
+
+
 def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
-    """Return true for evidence that places a candidate in a different contest."""
-    parsed_url = urlparse(str(source.get("url") or ""))
+    """Validate that a wrong-contest removal cites real, current, on-topic evidence.
+
+    Deliberately structural. Whether the cited page describes a *different* office
+    is a reading-comprehension judgment, and the model that fetched the page has
+    already made it. Re-deriving it from keyword patterns does not stop a model
+    that wants to fabricate — bogus evidence text matches an office regex just as
+    easily as honest text — it only rejects correctly-reasoned removals whose
+    wording differs, which is how this check previously failed every race that was
+    not a U.S. House contest.
+    """
     if source.get("type") not in {"official", "fec", "campaign", "ballotpedia", "news"}:
         return False
+    parsed_url = urlparse(str(source.get("url") or ""))
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
         return False
     text = _roster_source_text(source)
-    name_words = re.findall(r"[a-z0-9]+", candidate_name.casefold())
-    if not name_words or not all(word in text for word in name_words):
+    if not _source_names_candidate(text, candidate_name):
         return False
-    if re.fullmatch(r"[a-z]{2}-house-\d{1,2}-(?:19|20)\d{2}", race_id):
-        candidate_pos = text.find(candidate_name.casefold())
-        candidate_context = (
-            text[max(0, candidate_pos - 180) : candidate_pos + len(candidate_name) + 80] if candidate_pos >= 0 else text
-        )
-        state_house = bool(
-            re.search(r"\bstate\s+(?:house|representative)", candidate_context)
-            or re.search(
-                r"\b[a-z ]+\s+house of representatives[\s,]+(?:district|hd)\b",
-                candidate_context,
-            )
-        )
-        # Candidate-specific evidence often says "state House, not U.S. House".
-        # The target-office phrase is negated there, so global keyword matching
-        # must not turn valid wrong-contest proof into exact-contest evidence.
-        return state_house
-    return False
+    return _source_is_current_cycle(source, race_id=race_id, text=text)
+
+
+def _source_omits_candidate_from_roster(
+    source: Dict[str, Any],
+    *,
+    candidate_name: str,
+    race_id: str,
+    other_roster_names: list[str],
+) -> bool:
+    """Return true when a roster listing for THIS race enumerates the field and omits the candidate.
+
+    Absence of evidence is only meaningful from a source that demonstrably *has*
+    the roster, so this requires the listing to name at least two other candidates
+    currently on the profile. That is what separates a real "never in this race"
+    finding from a blocked, empty, or truncated page — the failure mode that
+    otherwise deletes real candidates.
+    """
+    if source.get("type") not in {"official", "fec", "ballotpedia", "news"}:
+        return False
+    parsed_url = urlparse(str(source.get("url") or ""))
+    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+        return False
+    if source.get("race_id") != race_id or not source.get("evidence"):
+        return False
+    if not _source_supports_exact_contest(source, race_id=race_id):
+        return False
+
+    text = _roster_source_text(source)
+    if not _source_is_current_cycle(source, race_id=race_id, text=text):
+        return False
+
+    # Deliberately no "the candidate must not appear in the evidence text" check.
+    # The evidence field holds the model's account of the listing, and the natural
+    # way to describe an omission names the person omitted ("enumerates the field
+    # without Justin Maldonado", "listed under withdrawn candidates"). Scanning it
+    # for the name rejects exactly the well-reasoned removals this path exists to
+    # allow. The structural guarantee comes from the corroboration count below:
+    # the listing must independently name candidates who are still on the roster.
+
+    corroborating = 0
+    for other in other_roster_names:
+        other_words = [word for word in re.findall(r"[a-z0-9]+", other.casefold()) if len(word) > 2]
+        if other_words and all(word in text for word in other_words):
+            corroborating += 1
+    return corroborating >= 2
 
 
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
@@ -141,6 +205,23 @@ def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str
         if source.get(key) is not None:
             normalized[key] = source[key]
     return normalized
+
+
+def _normalize_observed_sources(sources: Any, research_trace: Any, *, default_type: str = "website") -> list[Dict[str, Any]]:
+    """Keep generic sources only when their URL was observed by this agent loop."""
+    normalized = [
+        source for source in (_normalize_source(item, default_type=default_type) for item in sources or []) if source
+    ]
+    if not isinstance(research_trace, dict):
+        return normalized
+
+    def url_key(raw_url: Any) -> str:
+        parsed = urlparse(str(raw_url or "").strip())
+        path = parsed.path.rstrip("/") or "/"
+        return f"{parsed.scheme.casefold()}://{parsed.netloc.casefold()}{path}?{parsed.query}".rstrip("?")
+
+    observed = {url_key(url) for key in ("researched_urls", "fetched_urls") for url in research_trace.get(key) or []}
+    return [source for source in normalized if url_key(source.get("url")) in observed]
 
 
 def _classify_roster_source_type(raw_type: Any, *, title: str | None, url: str | None, host: str) -> str:
@@ -186,7 +267,17 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
         return None
     url = str(source.get("url") or "").strip() or None
     title = str(source.get("title") or "").strip() or None
-    evidence = str(source.get("evidence") or source.get("text") or source.get("context") or "").strip() or None
+    evidence = (
+        str(
+            source.get("evidence")
+            or source.get("evidence_text")
+            or source.get("text")
+            or source.get("context")
+            or source.get("snippet")
+            or ""
+        ).strip()
+        or None
+    )
     host = urlparse(url or "").netloc.casefold()
     source_type = _classify_roster_source_type(source.get("type"), title=title, url=url, host=host)
     if not any((url, title, evidence)):
@@ -208,6 +299,50 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
         normalized["evidence_tier"] = 3
         normalized["retrieval_status"] = "snippet"
     return {key: value for key, value in normalized.items() if value is not None}
+
+
+def _apply_roster_research_provenance(
+    source: Dict[str, Any], research_trace: Any, *, require_fetch: bool = False
+) -> Dict[str, Any] | None:
+    """Grade evidence from URLs the current agent loop actually observed.
+
+    Model-provided ``retrieved`` and tier fields are claims, not provenance. The
+    loop injects its real search/fetch URL trace into editing calls so fabricated
+    citations copied from the goal cannot masquerade as retrieved evidence.
+    Direct handler callers that do not provide a trace retain legacy behavior;
+    production agent loops always provide one.
+    """
+    if not isinstance(research_trace, dict):
+        return source
+
+    def url_key(raw_url: Any) -> str:
+        parsed = urlparse(str(raw_url or "").strip())
+        path = parsed.path.rstrip("/") or "/"
+        return f"{parsed.scheme.casefold()}://{parsed.netloc.casefold()}{path}?{parsed.query}".rstrip("?")
+
+    url = url_key(source.get("url"))
+    researched = {url_key(item) for item in research_trace.get("researched_urls") or []}
+    fetched = {url_key(item) for item in research_trace.get("fetched_urls") or []}
+    if url in fetched:
+        source["retrieval_status"] = "content"
+        source["evidence_tier"] = 1 if source.get("type") in {"official", "fec"} else 2
+        return source
+    if require_fetch or url not in researched:
+        return None
+    source["retrieval_status"] = "snippet"
+    source["evidence_tier"] = 3
+    return source
+
+
+def _normalize_observed_roster_sources(
+    sources: Any, *, race_id: str, research_trace: Any, require_fetch: bool = False
+) -> list[Dict[str, Any]]:
+    normalized = [source for source in (_normalize_roster_source(item, race_id=race_id) for item in sources or []) if source]
+    return [
+        observed
+        for source in normalized
+        if (observed := _apply_roster_research_provenance(source, research_trace, require_fetch=require_fetch))
+    ]
 
 
 def _roster_source_rejection_reason(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> str | None:
@@ -315,6 +450,61 @@ def _roster_source_rejection_summary(sources: Any, *, candidate_name: str, race_
             "cite a second independent domain or retrieve official/FEC page content"
         )
     return "; ".join(reasons)
+
+
+def _roster_completeness_source_rejection_reason(
+    source: Dict[str, Any], *, race_id: str, identity: Dict[str, Any]
+) -> str | None:
+    """Validate evidence that describes the roster as a whole, not one member."""
+    if source.get("type") not in {"official", "news"}:
+        return "completeness evidence must be an official roster/ballot or retrieved news report"
+    parsed_url = urlparse(str(source.get("url") or ""))
+    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+        return "source needs an absolute http(s) url"
+    if source.get("race_id") != race_id:
+        return f"source race_id {str(source.get('race_id'))!r} does not match this race ({race_id!r})"
+    if not source.get("title") or not source.get("evidence"):
+        return "source needs a title and evidence quoting the complete candidate list"
+    if not _source_supports_exact_contest(source, race_id=race_id):
+        return "evidence does not name this exact contest and district"
+    if source.get("retrieval_status") != "content" or source.get("evidence_tier") not in {1, 2}:
+        return "completeness evidence must come from retrieved page content, not a search snippet"
+
+    text = _roster_source_text(source)
+    # Real election authorities do not use one fixed phrase. New Jersey publishes
+    # "Official List Candidates for US Senate For GENERAL ELECTION", which named
+    # the full certified field yet failed a pattern that only accepted "candidate
+    # list" in that word order — the authoritative source rejected by the check
+    # meant to require an authoritative source.
+    if not re.search(
+        r"\b(?:qualified|certified|official list|official ballot|candidate list|list of candidates"
+        r"|candidates? running|vote for one)\b",
+        text,
+    ):
+        return "evidence does not identify itself as a qualified, certified, ballot, or complete candidate list"
+
+    primary_status = str(identity.get("primary_status") or "")
+    if "special" in primary_status.casefold():
+        if "special" not in text:
+            return "race identity is a special election, but the source does not identify the special contest"
+        election_date = str(identity.get("election_date") or "")
+        try:
+            parsed_date = datetime.fromisoformat(election_date).date()
+        except ValueError:
+            parsed_date = None
+        if parsed_date:
+            month = parsed_date.strftime("%B").casefold()
+            numeric_dates = {
+                parsed_date.isoformat(),
+                f"{parsed_date.month}/{parsed_date.day}/{parsed_date.year}",
+                f"{parsed_date.month:02d}/{parsed_date.day:02d}/{parsed_date.year}",
+            }
+            has_date = any(value in text for value in numeric_dates) or bool(
+                re.search(rf"\b{month}\s+{parsed_date.day}(?:st|nd|rd|th)?[,]?\s+{parsed_date.year}\b", text)
+            )
+            if not has_date:
+                return f"source does not identify the special-election date {parsed_date.isoformat()}"
+    return None
 
 
 def _get_other_state_candidates(race_id: str, state: str | None) -> set[str]:
@@ -456,11 +646,17 @@ def _make_editing_handlers(
                     f"another race in {state} for this election cycle. A candidate cannot run in multiple concurrent "
                     "statewide or federal contests. Verify the office, district, and candidate name."
                 )
-        roster_sources = _qualifying_candidate_addition_sources(
-            args.get("roster_sources"), candidate_name=name, race_id=race_id
+        supplied_sources = _normalize_observed_roster_sources(
+            args.get("roster_sources"),
+            race_id=race_id,
+            research_trace=args.get("_research_trace"),
         )
+        roster_sources = _qualifying_candidate_addition_sources(supplied_sources, candidate_name=name, race_id=race_id)
         if not roster_sources:
-            detail = _roster_source_rejection_summary(args.get("roster_sources"), candidate_name=name, race_id=race_id)
+            if isinstance(args.get("_research_trace"), dict) and not supplied_sources:
+                detail = "none of the cited URLs appeared in this run's actual search/fetch trace"
+            else:
+                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id)
             log("warning", f"    add_candidate('{name}') BLOCKED: {detail}")
             return (
                 f"Blocked adding '{name}': {detail}. "
@@ -516,18 +712,58 @@ def _make_editing_handlers(
         name = args["name"]
         reason = args.get("reason", "").strip()
         candidates = race_json.get("candidates", [])
-        if args.get("wrong_contest") is True:
+        if args.get("wrong_contest") is True or args.get("not_on_roster") is True:
             race_id = str(race_json.get("id") or "").strip()
-            proof = [
-                source
-                for source in (_normalize_roster_source(item, race_id=race_id) for item in args.get("sources") or [])
-                if source and _source_proves_different_contest(source, candidate_name=name, race_id=race_id)
-            ]
-            if not proof:
-                return (
-                    f"ERROR: wrong-contest removal blocked for '{name}'. Provide a current source that names the "
-                    "candidate and explicitly identifies the different office/district."
-                )
+            not_on_roster = args.get("not_on_roster") is True and args.get("wrong_contest") is not True
+            normalized_sources = _normalize_observed_roster_sources(
+                args.get("sources"), race_id=race_id, research_trace=args.get("_research_trace")
+            )
+
+            if not_on_roster:
+                target = _find_candidate(name)
+                if isinstance(target, dict) and target.get("incumbent") is True:
+                    return (
+                        f"ERROR: roster-absence removal blocked for '{name}': they are recorded as the incumbent. "
+                        "An incumbent missing from one listing is far more likely a bad snippet than a phantom "
+                        "candidate. Use a withdrawal/retirement reason with a dated source instead."
+                    )
+                other_roster_names = [
+                    str(candidate.get("name") or "")
+                    for candidate in candidates
+                    if isinstance(candidate, dict) and candidate.get("name") and candidate.get("name") != name
+                ]
+                proof = [
+                    source
+                    for source in normalized_sources
+                    if _source_omits_candidate_from_roster(
+                        source,
+                        candidate_name=name,
+                        race_id=race_id,
+                        other_roster_names=other_roster_names,
+                    )
+                ]
+                if not proof:
+                    return (
+                        f"ERROR: roster-absence removal blocked for '{name}'. Cite the best roster listing you have "
+                        "for this exact race and cycle — an official/certified candidate list, or the current "
+                        "Ballotpedia election page. Its evidence text must name at least two other candidates who "
+                        "are on this profile (proving the listing actually loaded and enumerates the field) and "
+                        f"must not mention '{name}'. A blocked, empty, or truncated page is not evidence of absence."
+                    )
+                label = "unlisted"
+            else:
+                proof = [
+                    source
+                    for source in normalized_sources
+                    if _source_proves_different_contest(source, candidate_name=name, race_id=race_id)
+                ]
+                if not proof:
+                    return (
+                        f"ERROR: wrong-contest removal blocked for '{name}'. Provide a current source that names the "
+                        "candidate and explicitly identifies the different office/district."
+                    )
+                label = "wrong-contest"
+
             active_after = [
                 candidate
                 for candidate in candidates
@@ -537,14 +773,14 @@ def _make_editing_handlers(
                 and candidate.get("withdrawn") is not True
             ]
             if not active_after:
-                return f"ERROR: wrong-contest removal blocked. Add the verified correct roster before removing '{name}'."
+                return f"ERROR: {label} removal blocked. Add the verified correct roster before removing '{name}'."
             original_count = len(candidates)
             race_json["candidates"] = [
                 candidate for candidate in candidates if not isinstance(candidate, dict) or candidate.get("name") != name
             ]
             if len(race_json["candidates"]) < original_count:
-                log("info", f"    Removed wrong-contest candidate: {name} ({reason or proof[0].get('url')})")
-                return f"Removed wrong-contest candidate '{name}' from the active roster."
+                log("info", f"    Removed {label} candidate: {name} ({reason or proof[0].get('url')})")
+                return f"Removed {label} candidate '{name}' from the active roster."
             return f"Candidate '{name}' not found - no action taken."
 
         # Guard: reject removals that are clearly data-quality fixes rather than
@@ -622,8 +858,22 @@ def _make_editing_handlers(
             )
         )
         has_former_officeholder_signal = has_former_status_signal and has_not_current_signal
+        # Evidence outranks phrasing. The keyword scans below grade English prose,
+        # which reliably rejects correct removals that happen to be worded
+        # differently. When the caller cites a real, current-cycle source that names
+        # this candidate, that citation is the stronger signal — accept it and let
+        # the reason text be prose rather than an incantation.
+        cited_race_id = str(race_json.get("id") or "").strip()
+        observed_cited_sources = _normalize_observed_roster_sources(
+            args.get("sources"), race_id=cited_race_id, research_trace=args.get("_research_trace")
+        )
+        has_cited_evidence = any(
+            _source_proves_different_contest(source, candidate_name=name, race_id=cited_race_id)
+            for source in observed_cited_sources
+        )
         has_withdrawal_signal = (
-            has_exit_signal
+            has_cited_evidence
+            or has_exit_signal
             or has_former_officeholder_signal
             # A specific date *or* an explicit official-result citation is enough
             # corroboration for a primary loss; requiring both rejected reasons like
@@ -651,8 +901,9 @@ def _make_editing_handlers(
                 f"contest with an official result source and date, OR is a former officeholder / "
                 f"prior-cycle candidate who is not a candidate this cycle — state that explicitly "
                 f"(e.g. 'former U.S. Representative who left office in 2023 and is not a candidate "
-                f"in 2026'). Do NOT use this tool because a page has no listing or to fix data "
-                f"quality issues."
+                f"in 2026'). If instead you found no evidence this person was ever a candidate here, "
+                f"call remove_candidate with not_on_roster=true and cite the roster listing for this "
+                f"race that enumerates the field without them. Do NOT use this tool to fix data quality issues."
             )
 
         if is_structural_garbage:
@@ -707,11 +958,17 @@ def _make_editing_handlers(
         # This candidate is already on the roster, so the corroboration rule that
         # guards *adding* one does not apply — a single valid source is enough to
         # attach evidence to an existing entry.
+        supplied_sources = _normalize_observed_roster_sources(
+            args.get("sources"), race_id=race_id, research_trace=args.get("_research_trace")
+        )
         sources = _qualifying_candidate_addition_sources(
-            args.get("sources"), candidate_name=name, race_id=race_id, require_corroboration=False
+            supplied_sources, candidate_name=name, race_id=race_id, require_corroboration=False
         )
         if not sources:
-            detail = _roster_source_rejection_summary(args.get("sources"), candidate_name=name, race_id=race_id)
+            if isinstance(args.get("_research_trace"), dict) and not supplied_sources:
+                detail = "none of the cited URLs appeared in this run's actual search/fetch trace"
+            else:
+                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id)
             log("warning", f"    set_candidate_roster_sources('{name}') BLOCKED: {detail}")
             return f"ERROR: no usable roster source for '{name}': {detail}."
         c["roster_sources"] = sources
@@ -755,35 +1012,154 @@ def _make_editing_handlers(
 
     def finalize_roster(args: Dict[str, Any]) -> str:
         race_id = str(race_json.get("id") or "").strip()
-        active_candidates = [
-            candidate
-            for candidate in race_json.get("candidates", [])
-            if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
-        ]
-        if not active_candidates:
-            return "ERROR: roster finalization blocked. Add at least one verified active candidate."
-
-        missing_evidence = []
-        for candidate in active_candidates:
-            name = str(candidate.get("name") or "").strip()
-            if not _qualifying_candidate_addition_sources(
-                candidate.get("roster_sources"),
-                candidate_name=name,
-                race_id=race_id,
-            ):
-                missing_evidence.append(name)
-        if missing_evidence:
-            return (
-                "ERROR: roster finalization blocked. These active candidates lack durable current-cycle "
-                f"exact-contest roster evidence: {', '.join(missing_evidence)}. Search/fetch authoritative "
-                "sources, then call set_candidate_roster_sources or remove proven wrong-contest entries."
-            )
-
         identity = (race_json.get("pipeline_state") or {}).get("race_identity")
         if not isinstance(identity, dict) or not identity.get("office") or not identity.get("contest_stage"):
             return "ERROR: roster finalization blocked. Lock the exact office and contest stage with set_race_identity."
 
+        completeness_sources = _normalize_observed_roster_sources(
+            args.get("completeness_sources"),
+            race_id=race_id,
+            research_trace=args.get("_research_trace"),
+            require_fetch=True,
+        )
+        completeness_rejections = [
+            reason
+            for source in completeness_sources
+            if (reason := _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity))
+        ]
+        qualifying_completeness = [
+            source
+            for source in completeness_sources
+            if _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity) is None
+        ]
+        if not qualifying_completeness:
+            detail = "; ".join(completeness_rejections) if completeness_rejections else "no sources were supplied"
+            return (
+                "ERROR: roster finalization blocked. Candidate-level evidence proves membership, not completeness. "
+                "Provide retrieved completeness_sources quoting the authoritative qualified/certified/ballot list "
+                f"for this exact contest ({detail})."
+            )
+
+        proposed_specs = args.get("candidates")
+        if proposed_specs is not None:
+            if not isinstance(proposed_specs, list) or not proposed_specs:
+                return "ERROR: roster finalization blocked. The proposed candidates list must not be empty."
+            if len(proposed_specs) > 8:
+                return "ERROR: roster finalization blocked. The active roster exceeds the eight-candidate cap."
+            proposed_names = [str(spec.get("name") or "").strip() for spec in proposed_specs if isinstance(spec, dict)]
+            if len(proposed_names) != len(proposed_specs) or any(not name for name in proposed_names):
+                return "ERROR: roster finalization blocked. Every proposed candidate needs a non-empty name."
+            normalized_names = [name.casefold() for name in proposed_names]
+            if len(set(normalized_names)) != len(normalized_names):
+                return "ERROR: roster finalization blocked. The proposed roster contains duplicate candidate names."
+            extracted_names = [str(name).strip() for name in args.get("source_candidate_names") or [] if str(name).strip()]
+            if {name.casefold() for name in extracted_names} != set(normalized_names):
+                return (
+                    "ERROR: roster finalization blocked. source_candidate_names must exactly match the proposed "
+                    "candidate roster extracted from the completeness evidence."
+                )
+
+            existing_by_name = {
+                str(candidate.get("name") or "").strip().casefold(): candidate
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict) and candidate.get("name")
+            }
+            active_candidates = []
+            missing_evidence = []
+            for spec in proposed_specs:
+                name = str(spec.get("name") or "").strip()
+                supplied_sources = _normalize_observed_roster_sources(
+                    spec.get("roster_sources"),
+                    race_id=race_id,
+                    research_trace=args.get("_research_trace"),
+                )
+                candidate_sources = _qualifying_candidate_addition_sources(
+                    supplied_sources + qualifying_completeness,
+                    candidate_name=name,
+                    race_id=race_id,
+                    require_corroboration=False,
+                )
+                if not candidate_sources:
+                    missing_evidence.append(name)
+                    continue
+                candidate = dict(existing_by_name.get(name.casefold()) or {})
+                candidate.update(
+                    {
+                        "name": name,
+                        "party": str(spec.get("party") or "Unknown"),
+                        "incumbent": bool(spec.get("incumbent", candidate.get("incumbent", False))),
+                        "roster_sources": candidate_sources,
+                        "withdrawn": False,
+                        "withdrawal_reason": None,
+                    }
+                )
+                candidate.setdefault("summary", "")
+                candidate.setdefault("summary_sources", [])
+                candidate.setdefault("image_url", None)
+                candidate.setdefault("website", None)
+                candidate.setdefault("social_media", {})
+                candidate.setdefault("career_history", [])
+                candidate.setdefault("education", [])
+                candidate.setdefault("donor_summary", None)
+                candidate.setdefault("donor_source_url", None)
+                candidate.setdefault("voting_summary", None)
+                candidate.setdefault("voting_source_url", None)
+                candidate.setdefault("links", [])
+                candidate.setdefault("issues", {})
+                active_candidates.append(candidate)
+            if missing_evidence:
+                return (
+                    "ERROR: roster finalization blocked. These proposed candidates lack observed current-cycle "
+                    f"exact-contest evidence: {', '.join(missing_evidence)}. Fetch or search sources that name them."
+                )
+        else:
+            active_candidates = [
+                candidate
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
+            ]
+            if not active_candidates:
+                return "ERROR: roster finalization blocked. Add at least one verified active candidate."
+            missing_evidence = []
+            for candidate in active_candidates:
+                name = str(candidate.get("name") or "").strip()
+                if not _qualifying_candidate_addition_sources(
+                    candidate.get("roster_sources"),
+                    candidate_name=name,
+                    race_id=race_id,
+                ):
+                    missing_evidence.append(name)
+            if missing_evidence:
+                return (
+                    "ERROR: roster finalization blocked. These active candidates lack durable current-cycle "
+                    f"exact-contest roster evidence: {', '.join(missing_evidence)}. Search/fetch authoritative "
+                    "sources, then call set_candidate_roster_sources or remove proven wrong-contest entries."
+                )
+
+        combined_evidence = " ".join(_roster_source_text(source) for source in qualifying_completeness)
+        uncovered_names = []
+        for candidate in active_candidates:
+            name = str(candidate.get("name") or "").strip()
+            name_words = re.findall(r"[a-z0-9]+", name.casefold())
+            if not name_words or not all(word in combined_evidence for word in name_words):
+                uncovered_names.append(name)
+        if uncovered_names:
+            return (
+                "ERROR: roster finalization blocked. Completeness evidence does not name every active candidate: "
+                f"{', '.join(uncovered_names)}. Quote the full authoritative list, not candidate-only excerpts."
+            )
+
+        if proposed_specs is not None:
+            race_json["candidates"] = active_candidates
+
         summary = str(args.get("summary") or "").strip()
+        pipeline_state = race_json.setdefault("pipeline_state", {})
+        pipeline_state["roster_research"] = {
+            "finalized_at": datetime.now(timezone.utc).isoformat(),
+            "summary": summary,
+            "active_candidate_count": len(active_candidates),
+            "completeness_sources": completeness_sources,
+        }
         log("info", f"    Finalized roster with {len(active_candidates)} active candidate(s): {summary}")
         return f"Roster finalized with {len(active_candidates)} evidence-backed active candidate(s)."
 
@@ -816,6 +1192,54 @@ def _make_editing_handlers(
             c["summary_sources"] = merge_source_lists(new_sources, c.get("summary_sources"))
         log("info", f"    Updated summary for {name}")
         return f"Updated summary for '{name}'."
+
+    def finalize_metadata(args: Dict[str, Any]) -> str:
+        """Apply the complete metadata payload only after all entries validate."""
+        active_candidates = [
+            candidate
+            for candidate in race_json.get("candidates", [])
+            if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
+        ]
+        proposed = args.get("candidates")
+        if not isinstance(proposed, list) or not proposed:
+            return "ERROR: metadata finalization requires every active candidate."
+        active_names = {str(candidate["name"]).strip().casefold() for candidate in active_candidates}
+        proposed_names = {str(item.get("name") or "").strip().casefold() for item in proposed if isinstance(item, dict)}
+        if len(proposed_names) != len(proposed) or proposed_names != active_names:
+            return "ERROR: metadata candidates must exactly match the complete active roster."
+
+        description = str(args.get("description") or "").strip()
+        description_sources = _normalize_observed_sources(
+            args.get("description_sources"), args.get("_research_trace"), default_type="news"
+        )
+        if len(description) < 100 or not description_sources:
+            return "ERROR: provide a substantive race description and at least one source observed during this research."
+
+        validated: Dict[str, tuple[str, list[Dict[str, Any]]]] = {}
+        for item in proposed:
+            name = str(item.get("name") or "").strip()
+            summary = str(item.get("summary") or "").strip()
+            sources = _normalize_observed_sources(item.get("sources"), args.get("_research_trace"), default_type="website")
+            if len(summary) < 80:
+                return f"ERROR: summary for '{name}' is too thin; provide a factual 2-3 sentence biography."
+            if not sources:
+                return f"ERROR: summary for '{name}' needs a source URL observed during this research."
+            validated[name.casefold()] = (summary, sources)
+
+        # Atomic application: no mutation occurs until the entire submission passes.
+        race_json["description"] = description
+        for candidate in active_candidates:
+            summary, sources = validated[str(candidate["name"]).strip().casefold()]
+            candidate["summary"] = summary
+            candidate["summary_sources"] = sources
+        race_json.setdefault("pipeline_state", {})["metadata_research"] = {
+            "finalized_at": datetime.now(timezone.utc).isoformat(),
+            "active_candidate_count": len(active_candidates),
+            "description_sources": description_sources,
+            "candidate_sources": {item["name"]: validated[item["name"].strip().casefold()][1] for item in proposed},
+        }
+        log("info", f"    Finalized description and {len(active_candidates)} candidate summaries")
+        return f"Metadata finalized for all {len(active_candidates)} active candidates."
 
     # --- Issue handler ---
 
@@ -1144,6 +1568,17 @@ def _make_editing_handlers(
         pollster = args["pollster"]
         date = args.get("date")
         reason = args.get("reason", "")
+        if re.search(
+            r"\b(?:roster alignment|did not include|does not include|missing from (?:the )?matchup|"
+            r"subset of (?:the )?(?:full )?roster)\b",
+            str(reason),
+            re.IGNORECASE,
+        ):
+            return (
+                "ERROR: Poll removal blocked. A primary or partial-matchup poll is valid when every named person "
+                "belongs to the roster; it must not include every candidate or the other party. Remove only a "
+                "duplicate, malformed record, non-poll result, or poll proven to concern a different contest."
+            )
         polling = race_json.get("polling", [])
         orig_len = len(polling)
         if date:
@@ -1359,6 +1794,7 @@ def _make_editing_handlers(
         "finalize_roster": finalize_roster,
         "set_candidate_field": set_candidate_field,
         "set_candidate_summary": set_candidate_summary,
+        "finalize_metadata": finalize_metadata,
         "set_issue_stance": set_issue_stance,
         "set_donor_summary": set_donor_summary,
         "set_voting_summary": set_voting_summary,

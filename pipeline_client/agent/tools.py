@@ -158,7 +158,9 @@ ADD_CANDIDATE_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
                                 "type": "string",
                                 "description": "Quoted/search-result context; alias for evidence.",
@@ -186,7 +188,12 @@ REMOVE_CANDIDATE_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "remove_candidate",
-        "description": "Remove a candidate who exited this race or was proven to belong to a different contest.",
+        "description": (
+            "Remove a candidate. Three paths: (1) they exited this race — give a reason naming the "
+            "withdrawal, disqualification, or dated primary loss; (2) wrong_contest=true — evidence puts "
+            "them in a different office/district; (3) not_on_roster=true — they never were a candidate "
+            "here, evidenced by a roster listing for this race that enumerates the field without them."
+        ),
         "parameters": {
             "type": "object",
             "properties": {
@@ -196,9 +203,22 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                     "type": "boolean",
                     "description": "True only when current evidence proves this entry belongs to another office/district.",
                 },
+                "not_on_roster": {
+                    "type": "boolean",
+                    "description": (
+                        "True when no evidence supports this candidacy and the best roster listing you have for "
+                        "this exact race omits them. Cite that listing in `sources`: its evidence text must name "
+                        "at least two other candidates on this profile and must not mention the removed name. "
+                        "A page that failed to load, returned nothing, or was truncated does not qualify. "
+                        "Cannot be used on the incumbent."
+                    ),
+                },
                 "sources": {
                     "type": "array",
-                    "description": "Current evidence proving a wrong-contest entry belongs to another exact contest.",
+                    "description": (
+                        "Evidence for the removal: a wrong-contest proof, or (with not_on_roster) the roster "
+                        "listing for this race that enumerates the field without the candidate."
+                    ),
                     "items": {
                         "type": "object",
                         "properties": {
@@ -206,7 +226,9 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                             "type": {"type": "string", "enum": ["official", "ballotpedia", "fec", "news", "campaign"]},
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
                                 "type": "string",
                                 "description": "Quoted/search-result context; alias for evidence.",
@@ -263,7 +285,9 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
                             "text": {"type": "string", "description": "Search-result evidence text; alias for evidence."},
+                            "snippet": {"type": "string", "description": "Search-result snippet; alias for evidence."},
                             "context": {
                                 "type": "string",
                                 "description": "Quoted/search-result context; alias for evidence.",
@@ -323,8 +347,9 @@ FINALIZE_ROSTER_TOOL: Dict = {
     "function": {
         "name": "finalize_roster",
         "description": (
-            "Finish roster sync only after every active candidate has durable current-cycle exact-contest evidence. "
-            "The handler validates the roster and returns specific missing evidence to fix."
+            "Atomically submit and finish the complete active roster after research. Every proposed candidate must "
+            "have current-cycle exact-contest evidence, and retrieved authoritative evidence must prove the roster "
+            "itself is complete. Existing profiles are preserved by name while wrong or omitted entries are removed."
         ),
         "parameters": {
             "type": "object",
@@ -332,9 +357,85 @@ FINALIZE_ROSTER_TOOL: Dict = {
                 "summary": {
                     "type": "string",
                     "description": "Brief description of the authoritative roster and contest stage used.",
-                }
+                },
+                "candidates": {
+                    "type": "array",
+                    "description": "The complete final active roster extracted from the cited completeness sources.",
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "party": {"type": "string"},
+                            "incumbent": {"type": "boolean"},
+                            "roster_sources": {
+                                "type": "array",
+                                "description": (
+                                    "Optional additional observed sources for this candidate. A fetched completeness "
+                                    "source that names the candidate is automatically reused as membership evidence."
+                                ),
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {"type": "string"},
+                                        "type": {"type": "string"},
+                                        "title": {"type": "string"},
+                                        "evidence": {"type": "string"},
+                                        "evidence_text": {"type": "string"},
+                                        "text": {"type": "string"},
+                                        "snippet": {"type": "string"},
+                                        "context": {"type": "string"},
+                                        "retrieved": {"type": "string"},
+                                        "date": {"type": "string"},
+                                        "published_at": {"type": "string"},
+                                        "race_id": {"type": "string"},
+                                        "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                                        "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                                    },
+                                    "required": ["url", "title"],
+                                },
+                            },
+                        },
+                        "required": ["name", "party"],
+                    },
+                },
+                "source_candidate_names": {
+                    "type": "array",
+                    "description": (
+                        "Every candidate name extracted from the completeness evidence; must exactly match candidates."
+                    ),
+                    "items": {"type": "string"},
+                },
+                "completeness_sources": {
+                    "type": "array",
+                    "description": (
+                        "Retrieved official roster/ballot sources (or retrieved reputable news reports) whose evidence "
+                        "quotes the complete qualified candidate list for this exact contest and names every active candidate."
+                    ),
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string"},
+                            "title": {"type": "string"},
+                            "evidence": {"type": "string"},
+                            "evidence_text": {"type": "string", "description": "Alias for evidence."},
+                            "text": {"type": "string"},
+                            "snippet": {"type": "string"},
+                            "context": {"type": "string"},
+                            "retrieved": {"type": "string"},
+                            "date": {"type": "string"},
+                            "published_at": {"type": "string"},
+                            "race_id": {"type": "string"},
+                            "evidence_tier": {"type": "integer", "enum": [1, 2, 3]},
+                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                        },
+                        "required": ["url", "title"],
+                    },
+                },
             },
-            "required": ["summary"],
+            "required": ["summary", "candidates", "source_candidate_names", "completeness_sources"],
         },
     },
 }
@@ -397,6 +498,69 @@ SET_CANDIDATE_SUMMARY_TOOL: Dict = {
                 },
             },
             "required": ["candidate_name", "summary"],
+        },
+    },
+}
+
+FINALIZE_METADATA_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "finalize_metadata",
+        "description": (
+            "Atomically submit the race description and a sourced biographical summary for every active candidate. "
+            "Use this after research so findings cannot be lost when the phase reaches its turn limit."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A sourced, nonpartisan 3-4 sentence description of this exact race.",
+                },
+                "description_sources": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string"},
+                            "title": {"type": "string"},
+                        },
+                        "required": ["url"],
+                    },
+                },
+                "candidates": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "summary": {
+                                "type": "string",
+                                "description": "A factual, nonpartisan 2-3 sentence biography.",
+                            },
+                            "sources": {
+                                "type": "array",
+                                "minItems": 1,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {"type": "string"},
+                                        "type": {"type": "string"},
+                                        "title": {"type": "string"},
+                                    },
+                                    "required": ["url"],
+                                },
+                            },
+                        },
+                        "required": ["name", "summary", "sources"],
+                    },
+                },
+            },
+            "required": ["description", "description_sources", "candidates"],
         },
     },
 }

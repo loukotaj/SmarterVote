@@ -2,5 +2,5 @@
 #
 # Keep this separate from the main app requirements because current MCP SDK
 # releases advance ASGI/Pydantic support faster than the pinned races-api stack.
-mcp>=1.28.1,<2.0.0
+mcp>=2.0.0,<3.0.0
 httpx>=0.28.1,<1.0.0

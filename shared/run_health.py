@@ -173,6 +173,28 @@ def record_step_failure(
     failures.append(entry)
 
 
+def clear_step_failures(race_json: Dict[str, Any], steps: Iterable[str]) -> None:
+    """Clear stale failure and remaining-work markers for steps being rerun.
+
+    A rerun starts a fresh health assessment for its enabled steps. Any failure
+    encountered again is recorded by that step, while unrelated failures remain.
+    """
+    if not isinstance(race_json, dict):
+        return
+    pipeline_state = race_json.get("pipeline_state")
+    if not isinstance(pipeline_state, dict):
+        return
+    selected = {str(step) for step in steps}
+    failures = pipeline_state.get("step_failures")
+    if isinstance(failures, list):
+        pipeline_state["step_failures"] = [
+            entry for entry in failures if not isinstance(entry, dict) or str(entry.get("step")) not in selected
+        ]
+    remaining = pipeline_state.get("remaining_steps")
+    if isinstance(remaining, list):
+        pipeline_state["remaining_steps"] = [step for step in remaining if str(step) not in selected]
+
+
 def get_step_failures(race_json: Dict[str, Any]) -> List[StepFailure]:
     """Parse the raw step-failure dicts back into typed models, tolerating garbage entries."""
     if not isinstance(race_json, dict):

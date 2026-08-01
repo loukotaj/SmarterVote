@@ -17,6 +17,8 @@ from urllib.parse import quote, quote_plus
 
 import httpx
 
+from pipeline_client.agent.web_tools import text_proxy_headers, text_proxy_url
+
 logger = logging.getLogger("pipeline")
 
 _BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
@@ -150,8 +152,8 @@ async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
             html = resp.text
             if _is_unusable_ballotpedia_html(html):
                 proxy_resp = await client.get(
-                    f"https://r.jina.ai/{page_url}",
-                    headers={"User-Agent": _BROWSER_UA},
+                    text_proxy_url(page_url),
+                    headers=text_proxy_headers(),
                 )
                 if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
                     html = proxy_resp.text
@@ -740,8 +742,8 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
                     resp.status_code,
                 )
                 proxy_resp = await client.get(
-                    f"https://r.jina.ai/{page_url}",
-                    headers={"User-Agent": _BROWSER_UA},
+                    text_proxy_url(page_url),
+                    headers=text_proxy_headers(),
                     timeout=15,
                 )
                 if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):

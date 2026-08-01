@@ -247,6 +247,22 @@ export interface PipelineState {
   step_failures: StepFailure[];
   deterministic_cleanup: Record<string, number>;
   race_identity?: RaceIdentityBrief;
+  roster_research?: RosterResearchAudit;
+  metadata_research?: MetadataResearchAudit;
+}
+
+export interface RosterResearchAudit {
+  finalized_at: string;
+  summary: string;
+  active_candidate_count: number;
+  completeness_sources: CandidateRosterSource[];
+}
+
+export interface MetadataResearchAudit {
+  finalized_at: string;
+  active_candidate_count: number;
+  description_sources: Source[];
+  candidate_sources: Record<string, Source[]>;
 }
 
 export interface IssueResearchAudit {

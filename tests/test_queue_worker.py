@@ -1,7 +1,7 @@
 """Tests for the local-worker queue processor (no-handoff execution)."""
 
 import time
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
@@ -207,6 +207,51 @@ async def test_process_marks_cancelled_run_health_on_agent_cancelled():
     cancelled_updates = [u for u in run_updates if u.get("status") == "cancelled"]
     assert cancelled_updates
     assert cancelled_updates[-1]["run_health"]["reasons"] == ["cancelled"]
+
+
+@pytest.mark.asyncio
+async def test_process_records_live_provider_cost_when_cancelled():
+    from pipeline_client.agent.cost import _cost_ctx
+    from pipeline_client.backend import queue_processor as qp
+    from pipeline_client.backend.handlers.agent import AgentCancelled
+
+    item = {
+        "race_id": "ca-house-01-2026",
+        "run_id": "run-cost-cancelled",
+        "options": {"cheap_mode": True, "research_model": "test/model"},
+    }
+    db, _item_ref, _run_ref, _race_ref = _fs_mock(item)
+    metrics_store = MagicMock()
+    metrics_store.record_run = AsyncMock()
+
+    async def cancelled(*_args):
+        _cost_ctx.set(
+            {
+                "prompt_tokens": 1200,
+                "completion_tokens": 300,
+                "provider_cost_usd": 0.012,
+                "priced_calls": 2,
+                "unpriced_calls": 0,
+                "serper_calls": 2,
+                "model_breakdown": {"test/model": {"prompt_tokens": 1200, "completion_tokens": 300}},
+                "phase_breakdown": {"discovery": {"prompt_tokens": 1200, "completion_tokens": 300}},
+            }
+        )
+        raise AgentCancelled("cancelled by admin")
+
+    with (
+        patch.object(qp, "_run_agent", side_effect=cancelled),
+        patch("pipeline_client.backend.pipeline_metrics.get_pipeline_metrics_store", return_value=metrics_store),
+    ):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-cost", item, "owner-cost")
+
+    metrics_store.record_run.assert_awaited_once()
+    args = metrics_store.record_run.await_args.args
+    assert args[:4] == ("run-cost-cancelled", "ca-house-01-2026", args[2], "cancelled")
+    assert args[2]["prompt_tokens"] == 1200
+    assert args[2]["completion_tokens"] == 300
+    assert args[2]["cost_usd"] == pytest.approx(0.014)
+    assert args[2]["cost_source"] == "provider"
 
 
 def test_claim_local_item_claims_pending_local():
