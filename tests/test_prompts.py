@@ -261,6 +261,18 @@ def test_roster_sync_system_restricts_to_roster_tools_only():
     assert "Do NOT call any non-roster editing tools" in ROSTER_SYNC_SYSTEM
 
 
+def test_roster_prompt_treats_ballotpedia_as_advisory_below_official_sources():
+    from pipeline_client.agent.tools import BALLOTPEDIA_ELECTION_TOOL
+
+    tool_description = BALLOTPEDIA_ELECTION_TOOL["function"]["description"]
+    assert "advisory roster evidence" in tool_description
+    assert "Never add or remove candidates from this result alone" in tool_description
+    assert ROSTER_SYNC_USER.index("Official state party qualified-candidate lists") < ROSTER_SYNC_USER.index(
+        "Ballotpedia election page"
+    )
+    assert "untrusted extraction" in ROSTER_SYNC_USER
+
+
 def test_discovery_prompts_exclude_defeated_primary_candidates():
     """General-election rosters must remove candidates who lost completed primaries."""
     assert "Do NOT include defeated primary candidates" in DISCOVERY_USER

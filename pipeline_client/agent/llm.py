@@ -448,6 +448,7 @@ async def _agent_loop(
     return_tool_trace: bool = False,
     required_final_tool_name: str | None = None,
     required_final_instruction: str = "",
+    tool_error_escalation_model: str | None = None,
 ) -> Dict[str, Any]:
     """Run a single agent loop.
 
@@ -477,6 +478,8 @@ async def _agent_loop(
     _MAX_JSON_RETRIES = 3
     token_budget_nudged = False
     required_final_tool_succeeded = False
+    consecutive_tool_errors = 0
+    tool_errors_escalated = False
     tool_trace = {
         "search_calls": 0,
         "page_fetches": 0,
@@ -502,6 +505,8 @@ async def _agent_loop(
             token_budget_nudged = True
             log("warning", f"  [{phase_name}] token ceiling reached; forcing finalization without search tools")
         active_model = model
+        if tool_errors_escalated and tool_error_escalation_model:
+            active_model = tool_error_escalation_model
         if _json_parse_failures > 0:
             norm_model = normalize_model_id(model)
             if norm_model in CHEAP_TO_DEFAULT_MODEL_FALLBACK:
@@ -755,8 +760,10 @@ async def _agent_loop(
                         if fn.name == required_final_tool_name and not _tool_result_is_error(handler_result):
                             required_final_tool_succeeded = True
                         if _tool_result_is_error(handler_result):
+                            consecutive_tool_errors += 1
                             log("warning", f"    🔧 {fn.name} → BLOCKED")
                         else:
+                            consecutive_tool_errors = 0
                             log("info", f"    🔧 {fn.name} → OK")
                     except Exception as exc:
                         handler_result = f"Error: {exc}"
@@ -777,6 +784,24 @@ async def _agent_loop(
                             "content": f"Error: unknown tool '{fn.name}'",
                         }
                     )
+            if consecutive_tool_errors >= 2 and tool_error_escalation_model and not tool_errors_escalated:
+                tool_errors_escalated = True
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "Multiple editing calls were blocked by evidence guards. Do not repeat those calls "
+                            "with the same sources. Review the blocked results and all research already collected, "
+                            "then pivot to higher-priority official evidence. Only retry an edit when the new "
+                            "evidence directly satisfies the guard; otherwise leave the roster unchanged."
+                        ),
+                    }
+                )
+                log(
+                    "warning",
+                    f"  [{phase_name}] repeated blocked edits; escalating subsequent synthesis to "
+                    f"{tool_error_escalation_model}",
+                )
             if required_final_tool_succeeded:
                 return {"_tool_trace": tool_trace} if return_tool_trace else {}
             continue

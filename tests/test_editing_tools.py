@@ -621,6 +621,38 @@ def test_wrong_contest_removal_requires_proof_and_physically_removes_contaminati
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures"]
 
 
+def test_wrong_contest_removal_accepts_native_official_search_evidence():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "al-house-02-2026",
+        "state": "Alabama",
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic"},
+            {"name": "Ben Harrison", "party": "Republican"},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    source = {
+        "url": "https://algop.org/qualified-2026-republican-candidates/",
+        "title": "Qualified 2026 Republican Candidates",
+        "text": "Alabama House of Representatives, District 2 — Ben Harrison",
+        "retrieved": "2026-08-01",
+    }
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Ben Harrison",
+            "reason": "The official party list places him in Alabama House District 2, not U.S. House District 2.",
+            "wrong_contest": True,
+            "sources": [source],
+        }
+    )
+
+    assert "wrong-contest" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures"]
+
+
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():
     from pipeline_client.agent.agent import _make_editing_handlers
 

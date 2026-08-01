@@ -87,9 +87,10 @@ BALLOTPEDIA_ELECTION_TOOL: Dict = {
     "function": {
         "name": "ballotpedia_election_lookup",
         "description": (
-            "Fetch the Ballotpedia election page for this race and return the authoritative list of "
-            "candidates. This is the single most reliable source for who is officially in the race — "
-            "call this FIRST in discovery before doing any web searches. "
+            "Fetch a Ballotpedia election page as advisory roster evidence. Its extracted candidate list may "
+            "be stale, from a prior cycle or primary, or drawn from an unrelated table. Compare its page URL, "
+            "description, and election date with current official election-authority or party qualification "
+            "sources before editing the roster. Never add or remove candidates from this result alone. "
             "Returns: found (bool), page_url, candidates list [{name, party, incumbent}], "
             "and a short description paragraph."
         ),

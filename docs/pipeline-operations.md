@@ -181,8 +181,18 @@ Roster editing tools accept both normalized evidence fields and the native
 `web_search` result aliases (`text`, `retrieved`). The handler preserves those
 as durable evidence, infers only recognizable source classes, and still applies
 current-cycle and exact-contest checks. A blocked/error tool result is surfaced
-to the model as a failure so it can correct its next call instead of looping on
-the same invalid payload.
+to the model as a failure. After two consecutive blocked edits, roster sync
+keeps the accumulated research but escalates subsequent synthesis to the
+stronger roster fallback and directs it to obtain higher-priority evidence
+instead of repeating the same invalid payload.
+
+Roster authority order is: official election authority/certified ballot or
+result; official party qualification list when the party administers primary
+qualification; FEC corroboration for federal candidates; then a current
+exact-race Ballotpedia page and reputable news/campaign sources. The
+`ballotpedia_election_lookup` extraction is advisory only because a page can
+contain stale-cycle, primary, or unrelated navigation tables. Its names must
+never drive an add/removal alone or override a current official source.
 
 Logical runs enforce both global and phase search/token ceilings. They also cap
 uncached page fetches and fetched characters, and persist per-phase

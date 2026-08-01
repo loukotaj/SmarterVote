@@ -73,10 +73,13 @@ CRITICAL — scope to THIS cycle's contest only:
 Use this source ladder for the roster:
 1. Official state election authority / Secretary of State candidate filing,
    certified ballot, or official primary result page.
-2. Ballotpedia election page via `ballotpedia_election_lookup`.
+2. Official state party qualified-candidate lists when the state party manages
+   qualification for its primary.
 3. FEC candidate/election pages for federal races, only to corroborate active
    federal candidates, not to infer nominees after primaries.
-4. Reputable local/state news or candidate announcements, corroborated by a
+4. A current exact-race Ballotpedia election page, only as advisory or
+   corroborating evidence and never over conflicting official sources.
+5. Reputable local/state news or candidate announcements, corroborated by a
    second source when possible.
 
 Call `ballotpedia_election_lookup` with race_id="{race_id}" early, but do not
@@ -1053,12 +1056,20 @@ CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
 Roster source order:
 1. Official state election authority, certified candidate list, ballot list, or
    official primary results.
-2. Ballotpedia election page, if current and accessible.
+2. Official state party qualified-candidate lists when the party manages
+   qualification for its primary.
 3. FEC pages for federal races, only as candidate corroboration.
-4. Reputable recent local/state news or official campaign announcements.
+4. A current exact-race Ballotpedia election page, only as advisory or
+   corroborating evidence.
+5. Reputable recent local/state news or official campaign announcements.
 
 If Ballotpedia is blocked, stale, or primary-focused, stop trying to repair the
 same Ballotpedia URL and pivot to official election authority/FEC/local news.
+The names returned by ballotpedia_election_lookup are untrusted extraction
+clues, not an authoritative roster. Inspect the returned URL, description, and
+cycle before using them. Never add or remove a candidate solely because that
+tool listed or omitted the name, and never let it override a current official
+candidate list or certified result.
 
 Compare the full current roster against the candidates currently in the profile.
 Treat named opponents, nominees, or declared candidates in the current race
@@ -1080,8 +1091,9 @@ STEP 2 — Make corrections using your tools:
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
 4. For every candidate you verified and kept, use set_candidate_roster_sources
    when the profile lacks explicit roster_sources or when your current source is
-   stronger/current than the stored source. Prefer official sources, then
-   current Ballotpedia election pages, then FEC/news/campaign evidence.
+   stronger/current than the stored source. Prefer official election and party
+   qualification sources, then FEC evidence, then current exact-race
+   Ballotpedia/news/campaign evidence.
 
 CRITICAL — add_candidate anti-fabrication rules:
 - add_candidate enforces graded, persisted evidence. Tier 1 is retrieved official
@@ -1097,7 +1109,7 @@ CRITICAL — add_candidate anti-fabrication rules:
 - Confirm the candidate's PARTY from that same source — never guess the party.
 - Never invent, auto-complete, or infer a candidate's name from ambiguous search
   snippets, partial matches, or a similarly-named unrelated person. If the
-  authoritative roster (e.g. the Ballotpedia election page) failed to load or
+  official roster failed to load or
   returned nothing, do NOT reconstruct a roster from generic search results — run
   additional targeted searches and add only candidates you can confirm by name in
   a real source.
