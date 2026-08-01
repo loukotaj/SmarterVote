@@ -227,7 +227,9 @@ summaries are filled even when their biographical facts predate the prior run.
 Polling matchups are evaluated against their contest stage. A primary poll may
 legitimately include only candidates from one party, so `remove_poll` rejects
 attempts whose sole rationale is that the poll omits the other party or does not
-contain the full race roster. Enabled steps also clear their own prior failure
+contain the full race roster. Reports of the same sample/topline under a sponsor
+and pollster name within three days collapse to one poll, and adding a real poll
+clears any stale `No public polling found` note. Enabled steps also clear their own prior failure
 and remaining-work markers before rerunning; failures from unrelated steps are
 preserved and any failure that recurs is recorded anew.
 

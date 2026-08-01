@@ -1653,7 +1653,31 @@ def _make_editing_handlers(
         for existing in race_json.get("polling", []):
             if existing.get("pollster") == args["pollster"] and existing.get("date") == args["date"]:
                 return f"Poll from {args['pollster']} ({args['date']}) already exists — skipping duplicate."
+        for existing in race_json.get("polling", []):
+            same_topline = existing.get("matchups") == poll.get("matchups") and existing.get("sample_size") == poll.get(
+                "sample_size"
+            )
+            try:
+                date_gap = abs(
+                    (
+                        datetime.fromisoformat(str(existing.get("date"))).date() - datetime.fromisoformat(args["date"]).date()
+                    ).days
+                )
+            except (TypeError, ValueError):
+                date_gap = 999
+            if same_topline and date_gap <= 3:
+                sponsor_pattern = re.compile(r"\b(?:DCCC|DSCC|NRCC|NRSC|committee|campaign)\b", re.IGNORECASE)
+                if sponsor_pattern.search(str(existing.get("pollster") or "")) and not sponsor_pattern.search(
+                    str(args["pollster"])
+                ):
+                    existing.update(poll)
+                    if re.search(r"\bno public poll(?:ing|s)?\b", str(race_json.get("polling_note") or ""), re.I):
+                        race_json["polling_note"] = None
+                    return f"Replaced sponsor-labeled duplicate with pollster {args['pollster']} ({args['date']})."
+                return f"Equivalent poll topline already exists near {args['date']} - skipping duplicate."
         race_json.setdefault("polling", []).insert(0, poll)
+        if re.search(r"\bno public poll(?:ing|s)?\b", str(race_json.get("polling_note") or ""), re.IGNORECASE):
+            race_json["polling_note"] = None
         log("info", f"    📊 Added poll: {args['pollster']} ({args['date']})")
         return f"Added poll from {args['pollster']} ({args['date']})."
 
