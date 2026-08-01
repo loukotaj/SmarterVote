@@ -81,6 +81,10 @@ class TestNoStaleRepoUrls:
 class TestMissingDataContract:
     """Pins what NoDataFallback.svelte and the triage script depend on."""
 
+    @staticmethod
+    def template() -> dict:
+        return load("missing-data.yml")
+
     def test_title_prefix_matches_triage_matcher(self):
         title = load("missing-data.yml")["title"]
         assert title.startswith("[Data]")
@@ -88,7 +92,7 @@ class TestMissingDataContract:
 
     def test_prefilled_field_ids_exist(self):
         # NoDataFallback.svelte sends ?race-id=...&candidate-name=...
-        assert {"race-id", "candidate-name"} <= set(fields(self.template()))
+        assert {"race-id", "candidate-name"} <= set(fields(load("missing-data.yml")))
 
     def test_svelte_component_still_targets_this_template(self):
         component = (REPO_ROOT / "web" / "src" / "lib" / "components" / "NoDataFallback.svelte").read_text(encoding="utf-8")
@@ -97,7 +101,7 @@ class TestMissingDataContract:
         assert '"candidate-name": candidateName' in component
 
     def test_checkbox_labels_match_triage_concern_map(self):
-        options = fields(self.template())["data-type"]["attributes"]["options"]
+        options = fields(load("missing-data.yml"))["data-type"]["attributes"]["options"]
         labels = {option["label"].strip().lower() for option in options}
         unmapped = labels - set(triage.REPORTED_TYPE_CONCERNS) - {"other"}
         assert not unmapped, f"triage script has no concern mapping for: {sorted(unmapped)}"
