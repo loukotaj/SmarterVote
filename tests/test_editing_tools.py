@@ -890,6 +890,103 @@ def test_finalize_roster_requires_exact_special_election_completeness_source():
     assert finalized == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
+def test_finalize_roster_atomically_applies_complete_proposed_roster():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://elections.example.gov/2026-special-primary-certified-candidates"
+    completeness_source = {
+        "url": source_url,
+        "type": "official",
+        "title": "Certified Candidate List - Special Primary Election",
+        "evidence": (
+            "Certified candidates for the August 11, 2026 Special Primary Election for U.S. House "
+            "Congressional District 2: Shomari Figures and Hampton Harris"
+        ),
+        "published_at": "2026-06-04",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House",
+                "contest_stage": "pre_primary",
+                "primary_status": "Special Primary Election on August 11, 2026",
+                "election_date": "2026-08-11",
+            }
+        },
+        "candidates": [
+            {"name": "Rick Pressnell", "party": "Democratic", "summary": "Wrong contest"},
+            {"name": "Shomari Figures", "party": "Democratic", "summary": "Preserve this profile"},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Official complete special-primary list",
+            "candidates": [
+                {"name": "Shomari Figures", "party": "Democratic", "incumbent": True},
+                {"name": "Hampton Harris", "party": "Republican", "incumbent": False},
+            ],
+            "source_candidate_names": ["Shomari Figures", "Hampton Harris"],
+            "completeness_sources": [completeness_source],
+            "_research_trace": {"researched_urls": [source_url], "fetched_urls": [source_url]},
+        }
+    )
+
+    assert result == "Roster finalized with 2 evidence-backed active candidate(s)."
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Shomari Figures", "Hampton Harris"]
+    assert race_json["candidates"][0]["summary"] == "Preserve this profile"
+    assert all(candidate["roster_sources"][0]["retrieval_status"] == "content" for candidate in race_json["candidates"])
+
+
+def test_exact_contest_accepts_statewide_certification_table_row_wording():
+    from pipeline_client.agent.handlers import _source_supports_exact_contest
+
+    source = {
+        "title": "State Certification of Republican Candidates Congressional Districts",
+        "evidence": (
+            "Certification for the Special Primary Election for U.S. Congressional Districts lists the following "
+            "qualified candidates for District 2: Rhett Marques and Hampton Harris."
+        ),
+        "url": "https://www.sos.alabama.gov/certification.pdf",
+    }
+
+    assert _source_supports_exact_contest(source, race_id="al-house-02-2026") is True
+
+
+def test_finalize_roster_atomic_submission_requires_extracted_name_match():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://elections.example.gov/certified-candidates"
+    source = {
+        "url": source_url,
+        "type": "official",
+        "title": "Certified Candidate List",
+        "evidence": "2026 certified candidates for U.S. House Congressional District 2: Alice Example, Bob Example",
+        "published_at": "2026-06-04",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
+        "candidates": [{"name": "Old Entry", "party": "Unknown"}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Incomplete extraction",
+            "candidates": [{"name": "Alice Example", "party": "Democratic"}],
+            "source_candidate_names": ["Alice Example", "Bob Example"],
+            "completeness_sources": [source],
+            "_research_trace": {"researched_urls": [source_url], "fetched_urls": [source_url]},
+        }
+    )
+
+    assert "source_candidate_names must exactly match" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Old Entry"]
+
+
 def test_add_candidate_blocks_primary_loser_after_nominee_is_known():
     from pipeline_client.agent.agent import _make_editing_handlers
 

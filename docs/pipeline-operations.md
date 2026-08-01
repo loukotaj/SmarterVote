@@ -200,7 +200,10 @@ requires retrieved completeness evidence quoting a qualified, certified, or
 official-ballot list that names every active candidate; candidate-by-candidate
 proof alone cannot establish that nobody was omitted. Special-election evidence
 must identify the special contest and its verified date. Successful finalization
-persists this audit under `pipeline_state.roster_research`. If the gate does not
+atomically applies the submitted complete roster (preserving matching candidate
+profiles), so a final synthesis turn can add or remove the whole field without
+one tool turn per name. It persists the audit under
+`pipeline_state.roster_research`. If the gate does not
 pass, the run stops before images, polling, and forecast work and keeps `discovery`
 visibly incomplete for a retry.
 

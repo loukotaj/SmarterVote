@@ -1204,8 +1204,12 @@ official ballot). Never assume a race is uncontested without at least one additi
 search verifying the other party's candidate status.
 
 When you have made all necessary corrections (or confirmed no changes are needed),
-call finalize_roster with `completeness_sources` quoting the full qualified,
-certified, or official-ballot list for this exact contest. Candidate-specific
+call finalize_roster once with the entire final `candidates` array,
+`source_candidate_names` extracted from the authoritative list, and
+`completeness_sources` quoting the full qualified, certified, or official-ballot
+list for this exact contest. This is an atomic replacement: use it to apply all
+remaining additions and removals in one response instead of spending one turn
+per candidate. Candidate-specific
 sources prove that listed people belong; they do not prove nobody was omitted.
 For a special election, the completeness evidence must explicitly identify the
 special contest and its verified date. The tool will reject incomplete or weakly

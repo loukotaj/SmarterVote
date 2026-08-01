@@ -94,6 +94,12 @@ def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> b
         re.search(rf"\b0*{re.escape(district)}(?:st|nd|rd|th)?\s+(?:congressional\s+)?district\b", text)
         or re.search(rf"\b(?:congressional\s+)?district\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b", text)
         or re.search(rf"\bcd\s*[-#]?\s*0*{re.escape(district)}\b", text)
+        # Statewide certification documents commonly title the table
+        # "Congressional Districts" and label each row only "District 2".
+        or re.search(
+            rf"\bcongressional\s+districts\b.{{0,240}}\bdistrict\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b",
+            text,
+        )
     )
     return federal_house and exact_district
 
@@ -989,30 +995,6 @@ def _make_editing_handlers(
 
     def finalize_roster(args: Dict[str, Any]) -> str:
         race_id = str(race_json.get("id") or "").strip()
-        active_candidates = [
-            candidate
-            for candidate in race_json.get("candidates", [])
-            if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
-        ]
-        if not active_candidates:
-            return "ERROR: roster finalization blocked. Add at least one verified active candidate."
-
-        missing_evidence = []
-        for candidate in active_candidates:
-            name = str(candidate.get("name") or "").strip()
-            if not _qualifying_candidate_addition_sources(
-                candidate.get("roster_sources"),
-                candidate_name=name,
-                race_id=race_id,
-            ):
-                missing_evidence.append(name)
-        if missing_evidence:
-            return (
-                "ERROR: roster finalization blocked. These active candidates lack durable current-cycle "
-                f"exact-contest roster evidence: {', '.join(missing_evidence)}. Search/fetch authoritative "
-                "sources, then call set_candidate_roster_sources or remove proven wrong-contest entries."
-            )
-
         identity = (race_json.get("pipeline_state") or {}).get("race_identity")
         if not isinstance(identity, dict) or not identity.get("office") or not identity.get("contest_stage"):
             return "ERROR: roster finalization blocked. Lock the exact office and contest stage with set_race_identity."
@@ -1041,6 +1023,102 @@ def _make_editing_handlers(
                 f"for this exact contest ({detail})."
             )
 
+        proposed_specs = args.get("candidates")
+        if proposed_specs is not None:
+            if not isinstance(proposed_specs, list) or not proposed_specs:
+                return "ERROR: roster finalization blocked. The proposed candidates list must not be empty."
+            if len(proposed_specs) > 8:
+                return "ERROR: roster finalization blocked. The active roster exceeds the eight-candidate cap."
+            proposed_names = [str(spec.get("name") or "").strip() for spec in proposed_specs if isinstance(spec, dict)]
+            if len(proposed_names) != len(proposed_specs) or any(not name for name in proposed_names):
+                return "ERROR: roster finalization blocked. Every proposed candidate needs a non-empty name."
+            normalized_names = [name.casefold() for name in proposed_names]
+            if len(set(normalized_names)) != len(normalized_names):
+                return "ERROR: roster finalization blocked. The proposed roster contains duplicate candidate names."
+            extracted_names = [str(name).strip() for name in args.get("source_candidate_names") or [] if str(name).strip()]
+            if {name.casefold() for name in extracted_names} != set(normalized_names):
+                return (
+                    "ERROR: roster finalization blocked. source_candidate_names must exactly match the proposed "
+                    "candidate roster extracted from the completeness evidence."
+                )
+
+            existing_by_name = {
+                str(candidate.get("name") or "").strip().casefold(): candidate
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict) and candidate.get("name")
+            }
+            active_candidates = []
+            missing_evidence = []
+            for spec in proposed_specs:
+                name = str(spec.get("name") or "").strip()
+                supplied_sources = _normalize_observed_roster_sources(
+                    spec.get("roster_sources"),
+                    race_id=race_id,
+                    research_trace=args.get("_research_trace"),
+                )
+                candidate_sources = _qualifying_candidate_addition_sources(
+                    supplied_sources + qualifying_completeness,
+                    candidate_name=name,
+                    race_id=race_id,
+                    require_corroboration=False,
+                )
+                if not candidate_sources:
+                    missing_evidence.append(name)
+                    continue
+                candidate = dict(existing_by_name.get(name.casefold()) or {})
+                candidate.update(
+                    {
+                        "name": name,
+                        "party": str(spec.get("party") or "Unknown"),
+                        "incumbent": bool(spec.get("incumbent", candidate.get("incumbent", False))),
+                        "roster_sources": candidate_sources,
+                        "withdrawn": False,
+                        "withdrawal_reason": None,
+                    }
+                )
+                candidate.setdefault("summary", "")
+                candidate.setdefault("summary_sources", [])
+                candidate.setdefault("image_url", None)
+                candidate.setdefault("website", None)
+                candidate.setdefault("social_media", {})
+                candidate.setdefault("career_history", [])
+                candidate.setdefault("education", [])
+                candidate.setdefault("donor_summary", None)
+                candidate.setdefault("donor_source_url", None)
+                candidate.setdefault("voting_summary", None)
+                candidate.setdefault("voting_source_url", None)
+                candidate.setdefault("links", [])
+                candidate.setdefault("issues", {})
+                active_candidates.append(candidate)
+            if missing_evidence:
+                return (
+                    "ERROR: roster finalization blocked. These proposed candidates lack observed current-cycle "
+                    f"exact-contest evidence: {', '.join(missing_evidence)}. Fetch or search sources that name them."
+                )
+        else:
+            active_candidates = [
+                candidate
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict) and candidate.get("name") and candidate.get("withdrawn") is not True
+            ]
+            if not active_candidates:
+                return "ERROR: roster finalization blocked. Add at least one verified active candidate."
+            missing_evidence = []
+            for candidate in active_candidates:
+                name = str(candidate.get("name") or "").strip()
+                if not _qualifying_candidate_addition_sources(
+                    candidate.get("roster_sources"),
+                    candidate_name=name,
+                    race_id=race_id,
+                ):
+                    missing_evidence.append(name)
+            if missing_evidence:
+                return (
+                    "ERROR: roster finalization blocked. These active candidates lack durable current-cycle "
+                    f"exact-contest roster evidence: {', '.join(missing_evidence)}. Search/fetch authoritative "
+                    "sources, then call set_candidate_roster_sources or remove proven wrong-contest entries."
+                )
+
         combined_evidence = " ".join(_roster_source_text(source) for source in qualifying_completeness)
         uncovered_names = []
         for candidate in active_candidates:
@@ -1053,6 +1131,9 @@ def _make_editing_handlers(
                 "ERROR: roster finalization blocked. Completeness evidence does not name every active candidate: "
                 f"{', '.join(uncovered_names)}. Quote the full authoritative list, not candidate-only excerpts."
             )
+
+        if proposed_specs is not None:
+            race_json["candidates"] = active_candidates
 
         summary = str(args.get("summary") or "").strip()
         pipeline_state = race_json.setdefault("pipeline_state", {})
