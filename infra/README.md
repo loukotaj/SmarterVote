@@ -13,9 +13,6 @@ web admin -> races-api -> Firestore pipeline_queue
   -> Cloud Run Job execution -> shared queue processor -> AgentHandler
   -> GCS drafts/ -> admin publish -> GCS races/ (with GCS-side summaries.json updated by races-api)
 
-web admin agent -> races-api -> Firestore admin_agent_tasks
-  -> Eventarc -> durable admin-agent Cloud Function
-  -> authenticated races-api tools -> messages/tasks persisted in Firestore
 ```
 
 The local Docker worker remains permanently supported and claims only queue items explicitly tagged `runner=local`.
@@ -39,12 +36,11 @@ serper_api_key     = "your-serper-key"
 searlo_api_key     = "your-searlo-key"
 admin_api_key      = "long-random-admin-key"
 
-enable_admin_agent_function = true
 ```
 
 ### 2. Build Runtime Artifacts
 
-CI builds and scans the `races-api` and `pipeline-worker` containers. The deployment workflow promotes those immutable artifacts by commit SHA. It also packages `functions/admin_agent/` into `infra/functions-admin-agent-source.zip` for the separate durable admin agent.
+CI builds and scans the `races-api` and `pipeline-worker` containers. The deployment workflow promotes those immutable artifacts by commit SHA.
 
 ### 3. Deploy
 
@@ -68,7 +64,6 @@ Queue a race through the admin UI or `races-api`; the queue document should rece
 | -------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | races-api                  | enabled  | Public race API and admin queue/draft/publish API                                                                                                                            |
 | Pipeline Cloud Run Job     | enabled  | One isolated, scale-to-zero execution per queued race                                                                                                                        |
-| Admin Agent Cloud Function | enabled  | Processes durable `admin_agent_tasks` with tool calling and continuation                                                                                                     |
 | Firestore                  | enabled  | Queue items, run records, logs, race metadata                                                                                                                                |
 | GCS bucket                 | enabled  | Private drafts, published build inputs, checkpoints, and retired versions; the web deployment copies published JSON into Cloudflare Pages                            |
 | Secret Manager             | enabled  | API keys and admin secrets                                                                                                                                                   |
@@ -83,8 +78,6 @@ All alert policies below (`infra/monitoring.tf`) are created only when `alert_em
 | `races_api_errors`                    | Cloud Run `run.googleapis.com/request_count` (5xx)                                                              | races-api only                                                                                            |
 | `races_api_no_traffic`                | Absence of `run.googleapis.com/request_count`                                                                   | races-api only                                                                                            |
 | `races_api_latency`                   | Cloud Run `run.googleapis.com/request_latencies` p95                                                            | races-api only                                                                                            |
-| `admin_agent_errors`                  | Cloud Function `cloudfunctions.googleapis.com/function/execution_count` (`status != "ok"`)                      | Also requires `enable_admin_agent_function = true`                                                        |
-| `admin_agent_execution_failures`      | Same metric, `status` = `crash` or `timeout`                                                                     | Hard infra failures, not just agent-reported errors; also requires `enable_admin_agent_function = true`   |
 | `pipeline_job_failures`               | Cloud Run Job `run.googleapis.com/job/completed_task_attempt_count` (`result = "failed"`)                       | Only the one-shot `runner="cloud_run"` path — does not cover the local worker                             |
 | `queue_backlog_elevated`              | Log-based metric `pipeline_queue_pending_depth`, parsed from a `pipeline_queue_depth pending=N running=M` line races-api logs on every `GET /api/queue` | A `google_cloud_scheduler_job` polls that endpoint every 5 minutes so the signal keeps flowing even when no admin has the dashboard open; requires `admin_api_key` to be set (used as the scheduler's `X-Admin-Key` auth) |
 | `local_worker_stale`                  | Log-based metric `pipeline_worker_heartbeat`, parsed from a heartbeat log line the long-lived local Docker worker (`pipeline_client/worker.py`) writes directly to Cloud Logging every `WORKER_HEARTBEAT_SECONDS` (default 300s) | Requires the workstation's `gcloud auth application-default login` identity to hold `roles/logging.logWriter` — this is **not** granted by Terraform, since the local worker deliberately has no service account (see `docker-compose.worker.yml`). Proves only that the worker process is up, not that it's running current code. |
@@ -101,7 +94,6 @@ infra/
   bucket.tf               GCS storage
   races-api.tf            Cloud Run races API
   pipeline-job.tf        one-shot race-processing Cloud Run Job
-  admin-agent-function.tf durable admin-agent Cloud Function + Eventarc trigger
   monitoring.tf           Firestore and monitoring resources
   secrets.tf              Secret Manager and IAM
   secrets.tfvars.example  Example local variable file

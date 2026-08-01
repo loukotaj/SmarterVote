@@ -74,12 +74,6 @@ variable "allowed_origins" {
   ]
 }
 
-variable "enable_admin_agent_function" {
-  description = "Enable the durable Firestore-triggered deployed admin agent"
-  type        = bool
-  default     = true
-}
-
 # Monitoring / alerting
 variable "alert_email" {
   description = "Email address to receive GCP monitoring alerts. Leave empty to disable alert policies."

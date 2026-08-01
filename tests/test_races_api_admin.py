@@ -2919,47 +2919,6 @@ def test_unpublish_without_draft_does_not_create_phantom_draft():
     assert update["draft_updated_at"] is None
 
 
-def test_admin_chat_reply_parser_extracts_action():
-    """Production admin chat should return the action shape consumed by the frontend."""
-    from routers.pipeline import _parse_admin_chat_reply
-
-    parsed = _parse_admin_chat_reply(
-        'Queue this race.\nACTION:{"type":"queue_run","race_ids":["az-senate-2026"],"options":{},"description":"Refresh Arizona"}'
-    )
-
-    assert parsed["reply"] == "Queue this race."
-    assert parsed["action"]["type"] == "queue_run"
-    assert parsed["action"]["options"]["cheap_mode"] is True
-    assert parsed["question"] is None
-    assert parsed["thinking_steps"]
-
-
-def test_admin_chat_action_race_records_from_context():
-    """Admin chat responses should include record details for proposed race actions."""
-    from routers.pipeline import _race_records_for_action
-
-    action = {"type": "queue_run", "race_ids": ["az-senate-2026"]}
-    context = [
-        {"race_id": "az-senate-2026", "title": "Arizona Senate 2026", "status": "draft"},
-        {"race_id": "ga-governor-2026", "title": "Georgia Governor 2026", "status": "published"},
-    ]
-
-    records = _race_records_for_action(action, context)
-
-    assert records == [{"race_id": "az-senate-2026", "title": "Arizona Senate 2026", "status": "draft"}]
-
-
-def test_admin_chat_reply_parser_extracts_question():
-    """Production admin chat should support clarification questions."""
-    from routers.pipeline import _parse_admin_chat_reply
-
-    parsed = _parse_admin_chat_reply('Need detail.\nQUESTION:{"text":"Which race?"}')
-
-    assert parsed["reply"] == "Need detail."
-    assert parsed["question"] == "Which race?"
-    assert parsed["action"] is None
-
-
 # ---------------------------------------------------------------------------
 # /runs/{run_id}/logs — returns sliced entries
 # ---------------------------------------------------------------------------

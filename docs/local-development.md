@@ -50,16 +50,6 @@ For deployed dashboard traffic reporting, configure the races API with:
 Without all three values, `/analytics/traffic` returns `configured: false` so the dashboard does not mistake missing
 configuration for zero traffic.
 
-The deployed Agent tab uses durable Firestore records rather than browser session history:
-
-- `admin_agent_conversations` stores conversation metadata.
-- `admin_agent_messages` stores user, assistant, and tool messages.
-- `admin_agent_tasks` triggers `functions/admin_agent/main.py`.
-
-The worker calls the canonical races API with `ADMIN_API_KEY`, pauses protected operations for browser approval, and
-creates continuation tasks before its Cloud Function deadline. Local API-only testing can exercise the conversation
-endpoints, but asynchronous execution requires the Eventarc function or a locally invoked worker.
-
 ## One-command Start
 
 ```powershell

@@ -11,7 +11,7 @@ Admin endpoints are split into routers:
                                chamber forecasts (further split by concern; see
                                that package's docstring)
     routers/race_versions.py - archived race-version read/restore
-    routers/pipeline.py      - metrics, admin chat
+    routers/pipeline.py      - pipeline and infrastructure cost metrics
 """
 
 import logging
@@ -45,7 +45,6 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Res
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from rate_limit import limiter
-from routers import admin_agent as admin_agent_router_module
 from routers import payments as payments_router_module
 from routers import pipeline as pipeline_router_module
 from routers import queue as queue_router_module
@@ -135,7 +134,6 @@ app.include_router(runs_router_module.router)
 app.include_router(races_admin_router_module.router)
 app.include_router(race_versions_router_module.router)
 app.include_router(pipeline_router_module.router)
-app.include_router(admin_agent_router_module.router)
 
 # ---------------------------------------------------------------------------
 # Payment routers (public checkout + webhook)

@@ -293,15 +293,6 @@ jobs:
             --filter="bindings.members:$ACTIVE" \
             --format="table(bindings.role)"
 
-      - name: Build Admin Agent Function source zip
-        run: |
-          STAGING=$(mktemp -d)
-          cp functions/admin_agent/main.py "$STAGING/"
-          cp functions/admin_agent/requirements.txt "$STAGING/"
-          (cd "$STAGING" && zip -qr "$GITHUB_WORKSPACE/infra/functions-admin-agent-source.zip" .)
-          rm -rf "$STAGING"
-          echo "Admin agent function source zip built"
-
       - name: Terraform Init
         run: |
           cd infra
