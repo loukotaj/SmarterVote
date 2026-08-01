@@ -250,7 +250,12 @@ export interface PipelineState {
 }
 
 export interface IssueResearchAudit {
-  status: "completed" | "no_verdict" | "insufficient_research" | "retry_limit" | "blocked_policy";
+  status:
+    | "completed"
+    | "no_verdict"
+    | "insufficient_research"
+    | "retry_limit"
+    | "blocked_policy";
   attempts: number;
   search_calls: number;
   page_fetches: number;
