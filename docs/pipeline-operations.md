@@ -165,6 +165,10 @@ Common tools:
 - `get_run_diagnostics`, `summarize_run_costs`: run health and exact cost
 - `get_pipeline_metrics`, `get_pipeline_metrics_summary`: cost reporting
 
+Local-worker cancellation snapshots the live token, provider-cost, search, and
+phase accumulators before clearing the run, so `summarize_run_costs` reports
+actual partial spend instead of an unevidenced zero for future cancelled runs.
+
 Queue each `repair_groups` item independently. The combined
 `recommended_steps` and `candidate_names` fields are summaries, not a safe
 queue payload when candidates need different work. Estimates use a 25% margin
@@ -178,18 +182,27 @@ forecast evidence lineage, and pipeline/validation health. Use
 thumbnail quality matters; presence alone is not treated as verification.
 
 Roster editing tools accept both normalized evidence fields and the native
-`web_search`/model result aliases (`text` or `context`, `retrieved`, and `date`). The handler preserves those
+`web_search`/model result aliases (`evidence_text`, `text`, `context`, or `snippet`, plus
+`retrieved` and `date`). The handler preserves those
 as durable evidence, infers only recognizable source classes, and still applies
-current-cycle and exact-contest checks. A blocked/error tool result is surfaced
+current-cycle and exact-contest checks. In production agent loops, the handler
+also cross-checks each cited URL against the loop's actual search/fetch trace;
+model-supplied retrieval metadata cannot promote a URL the run never observed,
+and completeness evidence must have been fetched as page content. A blocked/error tool result is surfaced
 to the model as a failure. After two consecutive blocked edits, roster sync
 keeps the accumulated research but escalates subsequent synthesis to the
 stronger roster fallback and directs it to obtain higher-priority evidence
 instead of repeating the same invalid payload.
 Roster sync receives the run goal and cannot end successfully until it calls
 `finalize_roster`; that gate requires a locked contest identity plus qualifying
-current-cycle exact-contest evidence for every active candidate. If the gate
-does not pass, the run stops before images, polling, and forecast work and keeps
-`discovery` visibly incomplete for a retry.
+current-cycle exact-contest evidence for every active candidate. It separately
+requires retrieved completeness evidence quoting a qualified, certified, or
+official-ballot list that names every active candidate; candidate-by-candidate
+proof alone cannot establish that nobody was omitted. Special-election evidence
+must identify the special contest and its verified date. Successful finalization
+persists this audit under `pipeline_state.roster_research`. If the gate does not
+pass, the run stops before images, polling, and forecast work and keeps `discovery`
+visibly incomplete for a retry.
 
 Roster authority order is: official election authority/certified ballot or
 result; official party qualification list when the party administers primary
@@ -198,6 +211,30 @@ exact-race Ballotpedia page and reputable news/campaign sources. The
 `ballotpedia_election_lookup` extraction is advisory only because a page can
 contain stale-cycle, primary, or unrelated navigation tables. Its names must
 never drive an add/removal alone or override a current official source.
+
+Removals have three paths, chosen by what the evidence actually supports:
+
+- **Exited the race** — a reason describing the withdrawal, disqualification, or
+  dated primary loss. A cited current-cycle source naming the candidate satisfies
+  this on its own; the reason text does not also have to match a keyword.
+- **`wrong_contest=true`** — evidence placing the candidate in another
+  office/district. The handler checks the citation is a real, current-cycle
+  source naming the candidate; whether the page describes a different office is
+  the model's reading, not a keyword match, so this works for every race type.
+- **`not_on_roster=true`** — nothing supports the candidacy and the best roster
+  listing for this exact race omits them. The listing must name at least two
+  other candidates on the profile (proving it loaded and enumerates the field)
+  and must not name the candidate being removed. It cannot remove the incumbent.
+
+Absence is only evidence when it comes from a source that demonstrably has the
+roster. A page that failed to load, returned nothing, or was truncated is not
+proof of absence, which is why the two-corroborating-names rule exists.
+
+Page fetches that hit bot protection retry through the Jina Reader text proxy.
+Set `JINA_API_KEY` for the authenticated quota — the anonymous quota is shared
+and low, and once spent it answers 403 for every host, which silently strands all
+roster evidence at snippet (tier 3). A run whose proxy fetches all fail logs a
+single explicit outage warning rather than one indistinguishable error per URL.
 
 Logical runs enforce both global and phase search/token ceilings. They also cap
 uncached page fetches and fetched characters, and persist per-phase
