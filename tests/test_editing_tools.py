@@ -1427,3 +1427,160 @@ def test_blocked_roster_edit_names_the_failing_check():
         }
     )
     assert "candidate name" in wrong_name.lower()
+
+
+# ---------------------------------------------------------------------------
+# Roster-absence removal ("never was a candidate here")
+# ---------------------------------------------------------------------------
+
+
+def _nj_roster_race():
+    return {
+        "id": "nj-senate-2026",
+        "state": "New Jersey",
+        "office": "U.S. Senate",
+        "candidates": [
+            {"name": "Cory Booker", "party": "Democratic", "incumbent": True},
+            {"name": "Justin Murphy", "party": "Republican"},
+            {"name": "Veronica Fernandez", "party": "Independent"},
+            {"name": "Justin Maldonado", "party": "Unknown"},
+        ],
+    }
+
+
+def _nj_roster_listing():
+    """A real Ballotpedia race-page snippet that enumerates the field."""
+    return {
+        "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
+        "type": "ballotpedia",
+        "title": "United States Senate election in New Jersey, 2026",
+        "text": (
+            "Incumbent Cory Booker, Justin Murphy, Veronica Fernandez, and Joanne Kuniansky are "
+            "running in the general election for U.S. Senate New Jersey on November 3, 2026"
+        ),
+        "retrieved": "2026-08-01",
+    }
+
+
+def test_not_on_roster_removes_phantom_candidate_with_roster_listing():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Justin Maldonado",
+            "reason": "No evidence of candidacy; absent from the race roster listing.",
+            "not_on_roster": True,
+            "sources": [_nj_roster_listing()],
+        }
+    )
+
+    assert "unlisted" in result
+    assert "Justin Maldonado" not in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_not_on_roster_rejects_a_listing_that_does_not_enumerate_the_field():
+    """A blocked or truncated page must not read as proof of absence."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    empty_page = _nj_roster_listing() | {
+        "text": "United States Senate election in New Jersey, 2026. Please enable JavaScript."
+    }
+
+    result = handlers["remove_candidate"](
+        {"name": "Justin Maldonado", "reason": "Not found anywhere.", "not_on_roster": True, "sources": [empty_page]}
+    )
+
+    assert "blocked" in result.lower()
+    assert "Justin Maldonado" in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_not_on_roster_rejects_a_listing_that_names_the_candidate():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    listing = _nj_roster_listing()
+    listing["text"] = listing["text"].replace("Joanne Kuniansky", "Justin Maldonado")
+
+    result = handlers["remove_candidate"](
+        {"name": "Justin Maldonado", "reason": "No evidence.", "not_on_roster": True, "sources": [listing]}
+    )
+
+    assert "blocked" in result.lower()
+    assert "Justin Maldonado" in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_not_on_roster_refuses_to_remove_the_incumbent():
+    """An incumbent missing from one snippet is a bad snippet, not a phantom."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    listing = _nj_roster_listing()
+    listing["text"] = "Justin Murphy, Veronica Fernandez, and Joanne Kuniansky are running in 2026"
+
+    result = handlers["remove_candidate"](
+        {"name": "Cory Booker", "reason": "Absent from listing.", "not_on_roster": True, "sources": [listing]}
+    )
+
+    assert "incumbent" in result.lower()
+    assert "Cory Booker" in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_wrong_contest_removal_works_for_non_house_races():
+    """Wrong-contest proof was previously impossible for anything but a U.S. House race."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Justin Maldonado",
+            "reason": "Official filing list places him in the New Jersey General Assembly race, not U.S. Senate.",
+            "wrong_contest": True,
+            "sources": [
+                {
+                    "url": "https://www.nj.gov/state/elections/2026-candidates.html",
+                    "title": "2026 Certified Candidates",
+                    "text": "General Assembly District 24 - Justin Maldonado",
+                    "published_at": "2026-06-10",
+                }
+            ],
+        }
+    )
+
+    assert "wrong-contest" in result
+    assert "Justin Maldonado" not in [candidate["name"] for candidate in race_json["candidates"]]
+
+
+def test_cited_evidence_waives_the_withdrawal_keyword_scan():
+    """A real current-cycle source naming the candidate beats prose phrasing."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = _nj_roster_race()
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Justin Maldonado",
+            # Deliberately avoids every _EXIT_KEYWORDS phrase.
+            "reason": "His campaign ended before the filing deadline.",
+            "sources": [
+                {
+                    "url": "https://newjerseyglobe.com/congress/maldonado-ends-bid/",
+                    "type": "news",
+                    "title": "Justin Maldonado ends U.S. Senate bid",
+                    "text": "Justin Maldonado will not appear on the 2026 ballot.",
+                    "published_at": "2026-06-10",
+                }
+            ],
+        }
+    )
+
+    assert "withdrawn" in result.lower()

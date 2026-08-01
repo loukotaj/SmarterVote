@@ -631,3 +631,59 @@ async def test_fetch_page_sitemap_blocked_falls_back_to_homepage_crawl():
     assert "Recovered issue-related content" in result
     assert "healthcare" in result.lower()
     assert "economy" in result.lower()
+
+
+def test_text_proxy_headers_include_api_key_when_configured(monkeypatch):
+    """Anonymous r.jina.ai quota exhaustion looks identical to a site block at every call site."""
+    from pipeline_client.agent import web_tools
+
+    monkeypatch.delenv("JINA_API_KEY", raising=False)
+    assert "Authorization" not in web_tools.text_proxy_headers()
+
+    monkeypatch.setenv("JINA_API_KEY", "test-key")
+    assert web_tools.text_proxy_headers()["Authorization"] == "Bearer test-key"
+
+
+def test_text_proxy_url_is_unchanged():
+    from pipeline_client.agent import web_tools
+
+    assert web_tools.text_proxy_url("https://ballotpedia.org/X") == "https://r.jina.ai/https://ballotpedia.org/X"
+
+
+def test_total_proxy_failure_is_logged_once(monkeypatch, caplog):
+    """A run where every proxy fetch fails must say so, not emit N look-alike per-URL errors."""
+    import logging
+
+    from pipeline_client.agent import web_tools
+
+    monkeypatch.delenv("JINA_API_KEY", raising=False)
+    monkeypatch.setattr(web_tools, "_proxy_attempts", 0)
+    monkeypatch.setattr(web_tools, "_proxy_failures", 0)
+    monkeypatch.setattr(web_tools, "_proxy_outage_logged", False)
+
+    with caplog.at_level(logging.WARNING, logger=web_tools.logger.name):
+        for _ in range(8):
+            web_tools.record_proxy_result(ok=False)
+
+    outage_warnings = [record for record in caplog.records if "has failed all" in record.getMessage()]
+    assert len(outage_warnings) == 1
+    assert "JINA_API_KEY" in outage_warnings[0].getMessage()
+    assert web_tools.proxy_health_snapshot() == {"attempts": 8, "failures": 8}
+
+
+def test_proxy_success_prevents_outage_warning(monkeypatch, caplog):
+    import logging
+
+    from pipeline_client.agent import web_tools
+
+    monkeypatch.delenv("JINA_API_KEY", raising=False)
+    monkeypatch.setattr(web_tools, "_proxy_attempts", 0)
+    monkeypatch.setattr(web_tools, "_proxy_failures", 0)
+    monkeypatch.setattr(web_tools, "_proxy_outage_logged", False)
+
+    with caplog.at_level(logging.WARNING, logger=web_tools.logger.name):
+        web_tools.record_proxy_result(ok=True)
+        for _ in range(8):
+            web_tools.record_proxy_result(ok=False)
+
+    assert not [record for record in caplog.records if "has failed all" in record.getMessage()]
