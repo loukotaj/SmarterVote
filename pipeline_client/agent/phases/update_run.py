@@ -139,7 +139,9 @@ async def _run_update(
                     required_final_tool_name="finalize_roster",
                     required_final_instruction=(
                         "Do not stop yet. Finish the authoritative exact-contest roster, ensure every active "
-                        "candidate has durable qualifying roster_sources, then call finalize_roster."
+                        "candidate has durable qualifying roster_sources, and provide retrieved completeness_sources "
+                        "that quote the full qualified/certified/ballot list (including the exact date for a special "
+                        "election), then call finalize_roster."
                     ),
                     return_tool_trace=True,
                 )
