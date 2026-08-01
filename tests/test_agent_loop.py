@@ -718,6 +718,61 @@ async def test_agent_loop_does_not_accept_early_stop_before_required_final_tool(
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_reserves_strong_edit_turn_before_forced_finalization():
+    from pipeline_client.agent.model_registry import DEFAULT_MODEL, NEMOTRON_ULTRA_MODEL
+
+    searched = _mock_openai_response(
+        tool_calls=[
+            {"id": "search", "function": {"name": "web_search", "arguments": json.dumps({"query": "official roster"})}}
+        ]
+    )
+    edited = _mock_openai_response(
+        tool_calls=[{"id": "edit", "function": {"name": "set_sources", "arguments": json.dumps({"name": "Alice"})}}]
+    )
+    finalized = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "final",
+                "function": {"name": "finalize_roster", "arguments": json.dumps({"summary": "Official roster"})},
+            }
+        ]
+    )
+    edit_tool = {
+        "type": "function",
+        "function": {"name": "set_sources", "description": "Set", "parameters": {"type": "object"}},
+    }
+    final_tool = {
+        "type": "function",
+        "function": {"name": "finalize_roster", "description": "Finalize", "parameters": {"type": "object"}},
+    }
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as call,
+        patch("pipeline_client.agent.llm._serper_search", new_callable=AsyncMock, return_value=[]),
+    ):
+        call.side_effect = [searched, edited, finalized]
+        result = await _agent_loop(
+            "system",
+            "user",
+            model=DEFAULT_MODEL,
+            phase_name="roster-final-turns",
+            max_iterations=3,
+            tools_mode=True,
+            extra_tools=[edit_tool, final_tool],
+            extra_tool_handlers={"set_sources": lambda _args: "OK", "finalize_roster": lambda _args: "OK"},
+            required_final_tool_name="finalize_roster",
+            tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+            return_tool_trace=True,
+        )
+
+    assert result["_tool_trace"]["required_final_tool_succeeded"] is True
+    assert call.call_args_list[1].kwargs["model"] == NEMOTRON_ULTRA_MODEL
+    prep_tool_names = {tool["function"]["name"] for tool in call.call_args_list[1].kwargs["tools"]}
+    assert prep_tool_names == {"set_sources", "finalize_roster"}
+    assert call.call_args_list[2].kwargs["tool_choice"]["function"]["name"] == "finalize_roster"
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_escalates_after_repeated_blocked_edits():
     from pipeline_client.agent.model_registry import CHEAP_MODEL, NEMOTRON_ULTRA_MODEL
 
