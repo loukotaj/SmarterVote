@@ -156,6 +156,7 @@ jobs:
       TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
       TF_VAR_serper_api_key: ${{ secrets.SERPER_API_KEY }}
       TF_VAR_searlo_api_key: ${{ secrets.SEARLO_API_KEY }}
+      TF_VAR_jina_api_key: ${{ secrets.JINA_API_KEY }}
       TF_VAR_admin_api_key: ${{ secrets.ADMIN_API_KEY }}
       TF_VAR_stripe_secret_key: ${{ secrets.STRIPE_SECRET_KEY }}
       TF_VAR_stripe_webhook_secret: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
@@ -237,6 +238,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
           SEARLO_API_KEY: ${{ secrets.SEARLO_API_KEY }}
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
           ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
@@ -265,6 +267,7 @@ jobs:
           sync_secret "openrouter-api-key-${{ env.ENVIRONMENT }}" "$OPENROUTER_API_KEY"
           sync_secret "serper-api-key-${{ env.ENVIRONMENT }}"   "$SERPER_API_KEY"
           sync_secret "searlo-api-key-${{ env.ENVIRONMENT }}"   "$SEARLO_API_KEY"
+          sync_secret "jina-api-key-${{ env.ENVIRONMENT }}"     "$JINA_API_KEY"
           sync_secret "races-api-admin-key-${{ env.ENVIRONMENT }}" "$ADMIN_API_KEY"
           sync_secret "stripe-secret-key-${{ env.ENVIRONMENT }}" "$STRIPE_SECRET_KEY"
           sync_secret "stripe-webhook-secret-${{ env.ENVIRONMENT }}" "$STRIPE_WEBHOOK_SECRET"
