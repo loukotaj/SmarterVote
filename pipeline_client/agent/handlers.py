@@ -183,13 +183,19 @@ def _source_omits_candidate_from_roster(
     if not _source_is_current_cycle(source, race_id=race_id, text=text):
         return False
 
-    # Deliberately no "the candidate must not appear in the evidence text" check.
-    # The evidence field holds the model's account of the listing, and the natural
-    # way to describe an omission names the person omitted ("enumerates the field
-    # without Justin Maldonado", "listed under withdrawn candidates"). Scanning it
-    # for the name rejects exactly the well-reasoned removals this path exists to
-    # allow. The structural guarantee comes from the corroboration count below:
-    # the listing must independently name candidates who are still on the roster.
+    # A model may mention the target while accurately narrating an omission, but
+    # a source that simply lists the target is affirmative roster evidence and
+    # must never be accepted as proof of absence. If the target appears, require
+    # explicit omission/withdrawal language tied to that account of the listing.
+    if _source_names_candidate(text, candidate_name) and not re.search(
+        r"\b(?:without|omit(?:s|ted)?|absent|not\s+(?:listed|included|named)|"
+        r"does\s+not\s+(?:list|include|name)|withdr(?:ew|awn)|disqualified)\b",
+        text,
+    ):
+        return False
+
+    # The structural guarantee below still requires the listing to independently
+    # name multiple candidates who remain on the roster.
 
     corroborating = 0
     for other in other_roster_names:
@@ -626,6 +632,25 @@ def _make_editing_handlers(
         "contest_stage",
     }
 
+    # Snapshot durable evidence before this loop can edit the roster. A refresh
+    # may reuse a previously retrieved official document without fetching it
+    # again; the stored object, not newly model-authored text, is authoritative.
+    persisted_roster_sources: Dict[str, Dict[str, Any]] = {}
+    for existing_candidate in race_json.get("candidates", []):
+        if not isinstance(existing_candidate, dict):
+            continue
+        for existing_source in existing_candidate.get("roster_sources") or []:
+            if not isinstance(existing_source, dict):
+                continue
+            url = str(existing_source.get("url") or "").strip()
+            if (
+                url
+                and existing_source.get("retrieval_status") == "content"
+                and existing_source.get("evidence_tier") in {1, 2}
+                and existing_source.get("evidence")
+            ):
+                persisted_roster_sources[url.rstrip("/").casefold()] = dict(existing_source)
+
     def _find_candidate(name: str) -> Optional[Dict[str, Any]]:
         for c in race_json.get("candidates", []):
             if isinstance(c, dict) and c.get("name") == name:
@@ -1052,6 +1077,15 @@ def _make_editing_handlers(
             require_fetch=True,
             infer_fetched_news=True,
         )
+        observed_urls = {str(source.get("url") or "").rstrip("/").casefold() for source in completeness_sources}
+        for submitted in args.get("completeness_sources") or []:
+            if not isinstance(submitted, dict):
+                continue
+            url_key = str(submitted.get("url") or "").strip().rstrip("/").casefold()
+            trusted = persisted_roster_sources.get(url_key)
+            if trusted and url_key not in observed_urls:
+                completeness_sources.append(dict(trusted))
+                observed_urls.add(url_key)
         completeness_rejections = [
             reason
             for source in completeness_sources

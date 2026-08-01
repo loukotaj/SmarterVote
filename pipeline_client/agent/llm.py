@@ -801,7 +801,8 @@ async def _agent_loop(
                             tool_trace["required_final_tool_succeeded"] = True
                         if _tool_result_is_error(handler_result):
                             consecutive_tool_errors += 1
-                            log("warning", f"    🔧 {fn.name} → BLOCKED")
+                            blocked_detail = " ".join(str(handler_result).split())[:1200]
+                            log("warning", f"    🔧 {fn.name} → BLOCKED: {blocked_detail}")
                         else:
                             consecutive_tool_errors = 0
                             log("info", f"    🔧 {fn.name} → OK")
