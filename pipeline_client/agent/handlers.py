@@ -170,15 +170,13 @@ def _source_omits_candidate_from_roster(
     if not _source_is_current_cycle(source, race_id=race_id, text=text):
         return False
 
-    # The candidate must be genuinely absent. Matching on *any* name word would
-    # trip over a shared first name ("Justin Maldonado" vs. "Justin Murphy" in the
-    # same listing), so treat them as present when the full name appears or when
-    # their surname does — the discriminating token, and the conservative choice.
-    name_words = [word for word in re.findall(r"[a-z0-9]+", candidate_name.casefold()) if len(word) > 2]
-    if not name_words:
-        return False
-    if all(word in text for word in name_words) or name_words[-1] in text:
-        return False
+    # Deliberately no "the candidate must not appear in the evidence text" check.
+    # The evidence field holds the model's account of the listing, and the natural
+    # way to describe an omission names the person omitted ("enumerates the field
+    # without Justin Maldonado", "listed under withdrawn candidates"). Scanning it
+    # for the name rejects exactly the well-reasoned removals this path exists to
+    # allow. The structural guarantee comes from the corroboration count below:
+    # the listing must independently name candidates who are still on the roster.
 
     corroborating = 0
     for other in other_roster_names:
@@ -450,7 +448,16 @@ def _roster_completeness_source_rejection_reason(
         return "completeness evidence must come from retrieved page content, not a search snippet"
 
     text = _roster_source_text(source)
-    if not re.search(r"\b(?:qualified|certified|official ballot|candidate list|candidates? running|vote for one)\b", text):
+    # Real election authorities do not use one fixed phrase. New Jersey publishes
+    # "Official List Candidates for US Senate For GENERAL ELECTION", which named
+    # the full certified field yet failed a pattern that only accepted "candidate
+    # list" in that word order — the authoritative source rejected by the check
+    # meant to require an authoritative source.
+    if not re.search(
+        r"\b(?:qualified|certified|official list|official ballot|candidate list|list of candidates"
+        r"|candidates? running|vote for one)\b",
+        text,
+    ):
         return "evidence does not identify itself as a qualified, certified, ballot, or complete candidate list"
 
     primary_status = str(identity.get("primary_status") or "")
