@@ -1,0 +1,48 @@
+name: Race Issue Triage
+
+# Hourly, read-only triage of community race issues. Reads the admin race record for each
+# reported race and comments once with a verdict, then once more if a publishable draft
+# appears. It never queues a pipeline run, so it costs no LLM or search credits -- only
+# Actions minutes (free for public repos).
+
+on:
+  schedule:
+    # 23 past the hour: off the :00 stampede that every "hourly" cron lands on.
+    - cron: "23 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print comments instead of posting them"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: race-issue-triage
+  cancel-in-progress: false
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.11"
+
+      - name: Triage open race issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+          SMARTERVOTE_RACES_API_URL: https://races-api-dev-ddsvfazica-uc.a.run.app
+          TRIAGE_REPO: ${{ github.repository }}
+          TRIAGE_NOTIFY_HANDLE: "@loukotaj"
+        run: |
+          python scripts/triage_race_issues.py ${{ inputs.dry_run && '--dry-run' || '' }}
