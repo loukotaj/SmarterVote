@@ -27,9 +27,15 @@
 
   function scrollToActivePill() {
     if (!scrollContainer) return;
-    const activeBtn = scrollContainer.querySelector<HTMLElement>('[aria-pressed="true"]');
+    const activeBtn = scrollContainer.querySelector<HTMLElement>(
+      '[aria-pressed="true"]',
+    );
     if (activeBtn && typeof activeBtn.scrollIntoView === "function") {
-      activeBtn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      activeBtn.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
     }
   }
 
@@ -70,7 +76,10 @@
 
   function handleWheel(e: WheelEvent) {
     if (!scrollContainer) return;
-    if (e.deltaY !== 0 && scrollContainer.scrollWidth > scrollContainer.clientWidth) {
+    if (
+      e.deltaY !== 0 &&
+      scrollContainer.scrollWidth > scrollContainer.clientWidth
+    ) {
       e.preventDefault();
       scrollContainer.scrollLeft += e.deltaY * 0.8;
     }
