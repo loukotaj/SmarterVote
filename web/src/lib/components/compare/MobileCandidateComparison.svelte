@@ -62,7 +62,7 @@
 >
   {#if showQuality && race.validation_grade}
     <div
-      class="flex items-center gap-3 border-b border-stroke bg-emerald-50/40 px-5 py-3 dark:bg-emerald-950/10"
+      class="flex items-start gap-3 border-b border-stroke bg-emerald-50/40 px-5 py-3 dark:bg-emerald-950/10"
     >
       <span
         class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-200 bg-white font-extrabold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
