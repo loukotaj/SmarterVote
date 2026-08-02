@@ -2378,3 +2378,31 @@ def test_scoped_issue_reset_clears_only_targeted_candidates():
     kept = {u for u in units if not (u.startswith("issues:") and belongs_to_scope(u))}
 
     assert kept == {"issues:Justin Murphy:Economy", "discovery.roster_sync"}
+
+
+def test_blank_url_field_is_stored_as_null():
+    """A blank string fails RaceJSON's HttpUrl validation and blocks the whole race."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "nj-senate-2026", "candidates": [{"name": "Joanne Kuniansky"}]}
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    handlers["set_candidate_field"]({"candidate_name": "Joanne Kuniansky", "field": "website", "value": "   "})
+
+    assert race_json["candidates"][0]["website"] is None
+
+
+def test_roster_sanitizer_repairs_existing_blank_urls():
+    """Drafts already damaged must self-heal rather than need a model to fix them."""
+    from pipeline_client.agent.roster import normalize_candidate_entries
+
+    race_json = {
+        "candidates": [
+            {"name": "Joanne Kuniansky", "website": "", "image_url": "https://example.com/a.jpg"},
+        ]
+    }
+
+    normalize_candidate_entries(race_json)
+
+    assert race_json["candidates"][0]["website"] is None
+    assert race_json["candidates"][0]["image_url"] == "https://example.com/a.jpg"

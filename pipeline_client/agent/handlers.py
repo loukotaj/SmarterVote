@@ -1259,6 +1259,11 @@ def _make_editing_handlers(
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
+        # A blank string carries no information and is not a valid URL, so several
+        # of these fields (website, image_url) fail RaceJSON validation when one is
+        # stored. Clearing a field means null, not "".
+        if isinstance(value, str) and not value.strip():
+            value = None
         if field == "image_url" and value is not None and not _is_valid_image_url(value):
             log("warning", f"    Rejected non-image URL for {name}: {value!r}")
             return f"ERROR: {value!r} is not a direct image URL. " "Use a URL for an image file or set image_url to null."
