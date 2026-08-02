@@ -277,6 +277,75 @@ async def adjudicate(
     return verdict
 
 
+#: Which tool arguments carry evidence, and what claim each is offered in support of.
+#: ``subject_key`` names the arg holding the candidate the claim is about; when it is
+#: None the claim is about the race as a whole.
+_TOOL_EVIDENCE_SPECS: Dict[str, tuple] = {
+    # (args_key, claim, subject_key, condition_key)
+    "add_candidate": (("roster_sources", Claim.MEMBERSHIP, "name", None),),
+    "set_candidate_roster_sources": (("roster_sources", Claim.MEMBERSHIP, "candidate_name", None),),
+    "remove_candidate": (
+        ("sources", Claim.OMISSION, "name", "not_on_roster"),
+        ("sources", Claim.WRONG_CONTEST, "name", "wrong_contest"),
+    ),
+    "finalize_roster": (("completeness_sources", Claim.COMPLETENESS, None, None),),
+}
+
+
+async def collect_roster_adjudications(
+    *,
+    tool_name: str,
+    args: Mapping[str, Any],
+    race_id: str,
+    run_budget: Any = None,
+) -> Dict[str, Dict[str, Dict[str, Any]]]:
+    """Resolve every evidence judgment a roster tool call will need.
+
+    Returns ``{claim: {url: verdict_record}}``. Called from the async agent loop
+    so the synchronous editing handlers receive finished verdicts rather than
+    having to make a network call themselves.
+
+    Returns empty for tools that carry no evidence, so non-roster tools cost
+    nothing. ``remove_candidate`` without ``not_on_roster``/``wrong_contest`` is
+    an ordinary withdrawal and is judged on its reason text, not its sources.
+    """
+    specs = _TOOL_EVIDENCE_SPECS.get(tool_name)
+    results: Dict[str, Dict[str, Dict[str, Any]]] = {}
+    if specs:
+        for args_key, claim, subject_key, condition_key in specs:
+            if condition_key and args.get(condition_key) is not True:
+                continue
+            sources = args.get(args_key)
+            if not isinstance(sources, list) or not sources:
+                continue
+            subject = str(args.get(subject_key) or "") if subject_key else ""
+            verdicts = await adjudicate_sources(
+                claim=claim,
+                subject=subject,
+                contest=race_id,
+                sources=[source for source in sources if isinstance(source, dict)],
+                run_budget=run_budget,
+            )
+            if verdicts:
+                results[claim] = verdicts
+
+    # A withdrawal is argued in prose, not with a source object, so it is judged
+    # from the reason text rather than from an evidence list.
+    if tool_name == "remove_candidate" and args.get("not_on_roster") is not True and args.get("wrong_contest") is not True:
+        reason = str(args.get("reason") or "").strip()
+        if reason:
+            verdict = await adjudicate(
+                claim=Claim.WITHDRAWAL,
+                subject=str(args.get("name") or ""),
+                contest=race_id,
+                source={"evidence": reason},
+                run_budget=run_budget,
+            )
+            results[Claim.WITHDRAWAL] = {"": verdict.to_record()}
+
+    return results
+
+
 async def adjudicate_sources(
     *,
     claim: str,

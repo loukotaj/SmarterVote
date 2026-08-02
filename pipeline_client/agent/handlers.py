@@ -109,9 +109,64 @@ def _source_is_current_cycle(source: Dict[str, Any], *, race_id: str, text: str)
 
 
 def _source_names_candidate(text: str, candidate_name: str) -> bool:
-    """True when every word of the candidate's name appears in the source text."""
+    """True when every word of the candidate's name appears in the source text.
+
+    A cheap prefilter, not a decision. Unordered substring matching over a
+    concatenated blob, so "Justin Maldonado" is satisfied by a page mentioning a
+    different Justin and a different Maldonado. Confirming a source is really
+    about this person is the adjudicator's job; this only avoids paying for a
+    model call on evidence that plainly does not mention them.
+    """
     name_words = re.findall(r"[a-z0-9]+", candidate_name.casefold())
     return bool(name_words) and all(word in text for word in name_words)
+
+
+def _verdict_for(args: Dict[str, Any], claim: str, url: Any = "") -> Dict[str, Any] | None:
+    """Look up the adjudicator's verdict for one claim about one source.
+
+    The agent loop resolves these before dispatch and injects them under
+    ``_adjudications`` (see ``roster_adjudicator.collect_roster_adjudications``).
+    A missing verdict is not an approval — callers must treat absence as a block,
+    which is what keeps a direct handler call or an unreachable adjudicator from
+    opening the gate.
+    """
+    adjudications = args.get("_adjudications")
+    if not isinstance(adjudications, dict):
+        return None
+    by_url = adjudications.get(claim)
+    if not isinstance(by_url, dict):
+        return None
+    verdict = by_url.get(str(url or "").strip())
+    return verdict if isinstance(verdict, dict) else None
+
+
+def _adjudicator_supports(args: Dict[str, Any], claim: str, url: Any = "") -> bool:
+    """True only on an explicit supporting verdict. Absence and failure both block."""
+    verdict = _verdict_for(args, claim, url)
+    return bool(verdict and verdict.get("supports") is True)
+
+
+def _adjudicator_reason(args: Dict[str, Any], claim: str, url: Any = "") -> str:
+    """The adjudicator's own words, surfaced verbatim to the calling model.
+
+    Generic rejections are what sent models hunting for more sources when a
+    single field was wrong, so the specific reason has to survive to the caller.
+    """
+    verdict = _verdict_for(args, claim, url)
+    if not verdict:
+        return "no adjudication was recorded for this source"
+    return str(verdict.get("reason") or "no reason given")
+
+
+def _record_verdict_on_source(source: Dict[str, Any], args: Dict[str, Any], claim: str) -> None:
+    """Persist the verdict onto the stored source so the decision outlives the run.
+
+    Without this a rejection is a flaky gate nobody can debug after the fact;
+    with it, a published draft carries why each source was accepted.
+    """
+    verdict = _verdict_for(args, claim, source.get("url"))
+    if verdict:
+        source["adjudication"] = dict(verdict)
 
 
 def _canonical_roster_name(name: str) -> str:

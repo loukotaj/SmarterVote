@@ -34,6 +34,7 @@ from .model_registry import (
     NEMOTRON_ULTRA_MODEL,
     normalize_model_id,
 )
+from .roster_adjudicator import collect_roster_adjudications
 from .run_budget import RunBudget, RunBudgetExceeded
 from .source_types import normalize_source_type
 from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, IMAGE_SEARCH_TOOL, SEARCH_TOOL
@@ -793,6 +794,18 @@ async def _agent_loop(
                         "researched_urls": sorted(researched_urls),
                         "fetched_urls": sorted(fetched_urls),
                     }
+                    # Reading-comprehension judgments about roster evidence need a
+                    # network call, and the editing handlers are synchronous. Resolve
+                    # them here — where we are already async — and hand the handler
+                    # finished verdicts, exactly as the research trace is handed over.
+                    adjudications = await collect_roster_adjudications(
+                        tool_name=fn.name,
+                        args=args,
+                        race_id=race_id or "",
+                        run_budget=run_budget,
+                    )
+                    if adjudications:
+                        args["_adjudications"] = adjudications
                     try:
                         if fn.name == "read_profile" and context_budget.narrow_phase and args.get("section", "full") == "full":
                             handler_result = (
