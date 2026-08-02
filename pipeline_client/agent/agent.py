@@ -471,13 +471,13 @@ def _sanitize_roster_sources(race_json: Dict[str, Any], log: Any | None = None) 
 
     Discovery writes roster_sources directly into the race JSON blob rather
     than through the ``set_candidate_roster_sources`` tool (which already
-    clamps invalid types via ``_ROSTER_SOURCE_TYPES``), so an out-of-enum
-    value like "website" can reach here unnormalized. Left unclamped, the
-    subsequent ``RaceJSON.model_validate`` call below raises, its exception is
-    swallowed, and the *raw* unmigrated document — with the invalid value
-    still in it — is what persists instead of the normalized one.
+    clamps invalid types via the roster contract), so an out-of-enum value like
+    "website" can reach here unnormalized. Left unclamped, the subsequent
+    ``RaceJSON.model_validate`` call below raises, its exception is swallowed,
+    and the *raw* unmigrated document — with the invalid value still in it — is
+    what persists instead of the normalized one.
     """
-    from pipeline_client.agent.handlers import _ROSTER_SOURCE_TYPES
+    from pipeline_client.agent.roster_contract import SOURCE_CLASSES as _ROSTER_SOURCE_TYPES
 
     for candidate_index, candidate in enumerate(race_json.get("candidates") or []):
         if not isinstance(candidate, dict):

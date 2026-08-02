@@ -192,6 +192,7 @@ async def _call_openrouter(
     max_retries: int = 3,
     max_tokens: int = 16384,
     run_budget: RunBudget | None = None,
+    temperature: float | None = None,
 ):
     """Call OpenRouter's OpenAI-compatible Chat Completions API with retry.
 
@@ -202,6 +203,10 @@ async def _call_openrouter(
 
     Policy violation errors (400 with "policy" in message) are attempted once
     more with simplified messaging; if still rejected, fail with clear error.
+
+    *temperature* overrides the default for callers that need reproducibility
+    rather than the usual light sampling — the roster adjudicator gates
+    publication, so it asks for 0. Ignored for models that reject the parameter.
 
     Returns an ``openai.types.chat.ChatCompletion`` object.
     """
@@ -217,7 +222,7 @@ async def _call_openrouter(
         "max_tokens": max_tokens,
     }
     if _supports_temperature:
-        kwargs["temperature"] = 0.2
+        kwargs["temperature"] = 0.2 if temperature is None else temperature
     if tools:
         kwargs["tools"] = tools
         kwargs["tool_choice"] = tool_choice or "auto"

@@ -10,6 +10,8 @@ Optionally followed by OpenRouter-backed multi-model **review**.
 
 from shared.models import CanonicalIssue
 
+from .roster_contract import render_completeness_rules, render_membership_rules, render_roster_cap_rules
+
 CANONICAL_ISSUES = [e.value for e in CanonicalIssue]
 
 # ------------------------------------------------------------------
@@ -1105,26 +1107,7 @@ STEP 2 — Make corrections using your tools:
    qualification sources, then FEC evidence, then current exact-race
    Ballotpedia/news/campaign evidence.
 
-CRITICAL — add_candidate anti-fabrication rules:
-- add_candidate enforces graded, persisted evidence. Tier 1 is retrieved official
-  election/FEC content. Tier 2 is retrieved dated campaign, exact-election
-  Ballotpedia, or credible news content. Tier 3 is a search result for a blocked
-  page and requires two independent domains unless the result is official/FEC.
-- Every qualifying source must have a stable URL/title, current-cycle publication,
-  filing, or update date, retrieval status, exact race_id, and evidence text that
-  explicitly names the candidate and exact contest. Generic bios, Wikipedia alone,
-  historical tables, vague or undated pages, and wrong-cycle material do not qualify.
-- A Tier 3 snippet must contain enough candidate-and-contest context itself; a bare
-  title or ambiguous snippet does not qualify.
-- Confirm the candidate's PARTY from that same source — never guess the party.
-- Never invent, auto-complete, or infer a candidate's name from ambiguous search
-  snippets, partial matches, or a similarly-named unrelated person. If the
-  official roster failed to load or
-  returned nothing, do NOT reconstruct a roster from generic search results — run
-  additional targeted searches and add only candidates you can confirm by name in
-  a real source.
-- If you cannot confirm a specific candidate actually exists in this race, do not
-  add them. A missing minor-party candidate is far better than a fabricated one.
+@@MEMBERSHIP_EVIDENCE_RULES@@
 
 IMPORTANT — remove_candidate rules:
 - ONLY call remove_candidate when you have a specific, verifiable source showing
@@ -1178,22 +1161,7 @@ write-in candidates who qualified, and convention nominees who may not appear in
 initial profile data.
 
 STEP 2.5 — Keep the roster to ACTIVE, MAJOR candidates (cap the size):
-The authoritative source (Ballotpedia/Wikipedia) may list dozens of declared,
-minor, perennial, or historical candidates. Do NOT add them all. Keep the roster
-to at most 8 candidates, balanced across the major parties where possible (up to
-4 Democratic and 4 Republican), plus a clearly notable third-party nominee.
-- NEVER add a candidate who is not actively running in THIS race for THIS cycle:
-  exclude term-limited or not-seeking-re-election incumbents, FORMER officeholders
-  who already left office and have not filed to run again this cycle (e.g. a
-  retired or previously-defeated U.S. Representative/Senator/Governor), candidates
-  whose candidacy was for a prior election cycle or a past recall,
-  withdrawn/eliminated candidates, and long-shot/perennial filers when the field
-  is already large.
-- Prefer nominees and the most prominent declared candidates (sitting
-  officeholders, well-funded or widely-covered contenders) over minor filers.
-- If the roster already contains the major candidates, do NOT pad it with minor
-  names just because a source lists them. A tight, accurate roster of the real
-  contenders is the goal — not an exhaustive ballot dump.
+@@ROSTER_CAP_RULES@@
 
 STEP 3 — Verify both major parties are represented:
 After completing the roster corrections, check whether the candidate list includes
@@ -1219,18 +1187,28 @@ call finalize_roster once with the entire final `candidates` array,
 `completeness_sources` quoting the full qualified, certified, or official-ballot
 list for this exact contest. This is an atomic replacement: use it to apply all
 remaining additions and removals in one response instead of spending one turn
-per candidate. Candidate-specific
-sources prove that listed people belong; they do not prove nobody was omitted.
-Completeness evidence must come from a page you actually FETCHED this run — a
-search snippet is rejected. An official ballot/qualified list, the Ballotpedia
-page for this exact race, or a news report enumerating the full field all
-qualify; a state election-authority landing page that never names this district
-does not. When nothing else lists the full field, fetch the Ballotpedia race page.
-For a special election, the completeness evidence must explicitly identify the
-special contest and its verified date. The tool will reject incomplete or weakly
-sourced rosters and tell you exactly which evidence remains to fix. You may stop only after
+per candidate.
+
+@@COMPLETENESS_EVIDENCE_RULES@@
+
+The tool will reject incomplete or weakly sourced rosters and tell you exactly
+which evidence remains to fix. You may stop only after
 finalize_roster succeeds. Do NOT produce any text reply or JSON.
 Do NOT modify any other data (issues, summaries, polls, etc.)."""
+
+# The roster-evidence rules are rendered from roster_contract, which is also what
+# handlers validates against — so the prompt cannot promise the model something
+# the tool rejects. Substituted with @@TOKEN@@ rather than str.format so the
+# runtime {race_id}/{current_date} placeholders survive for the caller.
+for _token, _rendered in (
+    ("@@MEMBERSHIP_EVIDENCE_RULES@@", render_membership_rules()),
+    ("@@COMPLETENESS_EVIDENCE_RULES@@", render_completeness_rules()),
+    ("@@ROSTER_CAP_RULES@@", render_roster_cap_rules()),
+):
+    if _token not in ROSTER_SYNC_USER:  # pragma: no cover - guards against silent drift
+        raise RuntimeError(f"ROSTER_SYNC_USER is missing the {_token} slot")
+    ROSTER_SYNC_USER = ROSTER_SYNC_USER.replace(_token, _rendered)
+del _token, _rendered
 
 ROSTER_VERIFY_SYSTEM = f"""\
 You are a nonpartisan political fact-checker. Your ONLY task is to audit the

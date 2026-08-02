@@ -136,7 +136,12 @@ async def _run_update(
                     model=roster_model or model,
                     on_log=on_log,
                     race_id=race_id,
-                    max_iterations=min(max_iterations, 12),
+                    # Roster sync spends iterations per candidate: identity, a
+                    # fetch or two, one set_candidate_roster_sources per name,
+                    # then finalize. Twelve ran out mid-roster on a three-way
+                    # race and the run failed having already gathered the
+                    # evidence it needed, so scale the ceiling with the roster.
+                    max_iterations=min(max_iterations, max(12, 8 + 2 * len(candidate_names))),
                     phase_name="roster-sync",
                     max_tokens=8192,
                     extra_tools=ROSTER_TOOLS + [READ_PROFILE_TOOL],

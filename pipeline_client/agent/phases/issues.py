@@ -476,21 +476,50 @@ async def run_issues_phase(
                 continue
 
             if issue_attempts.get(unit_id, 0) >= max_issue_attempts:
-                log(
-                    "warning",
-                    f"    Issue retry limit reached for {cand_name}/{issue}; leaving the unit incomplete for explicit retry",
-                )
                 prior_audit = issue_research.get(unit_id)
-                issue_research[unit_id] = {
-                    **(prior_audit if isinstance(prior_audit, dict) else {}),
+                prior_audit = prior_audit if isinstance(prior_audit, dict) else {}
+                searched = int(prior_audit.get("search_calls", 0) or 0) + int(prior_audit.get("page_fetches", 0) or 0)
+                audit = {
+                    **prior_audit,
                     "status": "retry_limit",
                     "attempts": issue_attempts.get(unit_id, 0),
                 }
+                # A unit that actually researched and simply never committed a
+                # verdict has still documented the absence, and leaving the slot
+                # empty made the whole race unpublishable over one issue that no
+                # amount of rerunning would fill. Record the absence with the
+                # research that genuinely happened. Below the evidence bar we
+                # still leave it open rather than assert an unearned finding.
+                if searched >= 2:
+                    candidate = candidates_by_name[cand_name]
+                    candidate.setdefault("issues", {})[issue] = {
+                        "issue": issue,
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [],
+                        "research_audit": {**audit, "status": "completed"},
+                    }
+                    issue_research[unit_id] = {**audit, "status": "completed"}
+                    _mark_pipeline_unit_complete(race_json, unit_id)
+                    completed_units.add(unit_id)
+                    log(
+                        "warning",
+                        f"    Issue retry limit reached for {cand_name}/{issue} after {searched} research "
+                        f"action(s); recording a documented no-position result",
+                    )
+                    continue
+
+                log(
+                    "warning",
+                    f"    Issue retry limit reached for {cand_name}/{issue} with only {searched} research "
+                    f"action(s); leaving the unit incomplete rather than asserting an undocumented absence",
+                )
+                issue_research[unit_id] = audit
                 _record_step_failure(
                     race_json,
                     "issues",
                     RunFailureReason.STEP_NO_DATA,
-                    f"{cand_name}/{issue}: retry limit reached without a research verdict",
+                    f"{cand_name}/{issue}: retry limit reached after only {searched} research action(s)",
                 )
                 continue
 

@@ -1,0 +1,331 @@
+{
+  "description": "Nebraska SoS certified filing list (.xlsx) \u2014 payloads captured from run cdf66c76",
+  "cases": [
+    {
+      "name": "bare-year published_at on official spreadsheet row",
+      "tool": "set_candidate_roster_sources",
+      "expect_accepted": true,
+      "race_json": {
+        "id": "ne-house-02-2026",
+        "state": "Nebraska",
+        "office": "U.S. House",
+        "district": "2",
+        "pipeline_state": {
+          "race_identity": {
+            "office": "U.S. House",
+            "state": "Nebraska",
+            "district": "2",
+            "contest_stage": "post_primary_general",
+            "official_roster_source_url": "https://sos.nebraska.gov/elections"
+          }
+        },
+        "candidates": [
+          {
+            "name": "Denise Powell",
+            "party": "Democratic"
+          },
+          {
+            "name": "Brinker Harding",
+            "party": "Republican"
+          },
+          {
+            "name": "Eric Michael Foreman",
+            "party": "Libertarian"
+          }
+        ]
+      },
+      "args": {
+        "candidate_name": "Brinker Harding",
+        "sources": [
+          {
+            "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+            "title": "Statewide Candidate Filing List",
+            "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Republican | Brinker Harding | Omaha | Nonincumbent | PO Box 540007 Omaha NE 68154 | (402) 214-4448 brinker@brinkerharding.com",
+            "retrieved": "2026-08-02",
+            "published_at": "2026"
+          }
+        ]
+      }
+    },
+    {
+      "name": "same row, ISO published_at",
+      "tool": "set_candidate_roster_sources",
+      "expect_accepted": true,
+      "race_json": {
+        "id": "ne-house-02-2026",
+        "state": "Nebraska",
+        "office": "U.S. House",
+        "district": "2",
+        "pipeline_state": {
+          "race_identity": {
+            "office": "U.S. House",
+            "state": "Nebraska",
+            "district": "2",
+            "contest_stage": "post_primary_general",
+            "official_roster_source_url": "https://sos.nebraska.gov/elections"
+          }
+        },
+        "candidates": [
+          {
+            "name": "Denise Powell",
+            "party": "Democratic"
+          },
+          {
+            "name": "Brinker Harding",
+            "party": "Republican"
+          },
+          {
+            "name": "Eric Michael Foreman",
+            "party": "Libertarian"
+          }
+        ]
+      },
+      "args": {
+        "candidate_name": "Denise Powell",
+        "sources": [
+          {
+            "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+            "title": "Statewide Candidate Filing List",
+            "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Democratic | Denise Powell | Omaha | Nonincumbent | PO Box 6039 Omaha NE 68106 | (402) 214-4997 denise@deniseforcongress.org",
+            "retrieved": "2026-08-02",
+            "published_at": "2026-04-02"
+          }
+        ]
+      }
+    },
+    {
+      "name": "prior-cycle year must still be rejected",
+      "tool": "set_candidate_roster_sources",
+      "expect_accepted": false,
+      "race_json": {
+        "id": "ne-house-02-2026",
+        "state": "Nebraska",
+        "office": "U.S. House",
+        "district": "2",
+        "pipeline_state": {
+          "race_identity": {
+            "office": "U.S. House",
+            "state": "Nebraska",
+            "district": "2",
+            "contest_stage": "post_primary_general",
+            "official_roster_source_url": "https://sos.nebraska.gov/elections"
+          }
+        },
+        "candidates": [
+          {
+            "name": "Denise Powell",
+            "party": "Democratic"
+          },
+          {
+            "name": "Brinker Harding",
+            "party": "Republican"
+          },
+          {
+            "name": "Eric Michael Foreman",
+            "party": "Libertarian"
+          }
+        ]
+      },
+      "args": {
+        "candidate_name": "Denise Powell",
+        "sources": [
+          {
+            "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+            "title": "Statewide Candidate Filing List",
+            "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Democratic | Denise Powell | Omaha | Nonincumbent | PO Box 6039 Omaha NE 68106 | (402) 214-4997 denise@deniseforcongress.org",
+            "retrieved": "2026-08-02",
+            "published_at": "2018"
+          }
+        ]
+      }
+    },
+    {
+      "name": "finalize_roster with certified list covering the field",
+      "tool": "finalize_roster",
+      "expect_accepted": true,
+      "race_json": {
+        "id": "ne-house-02-2026",
+        "state": "Nebraska",
+        "office": "U.S. House",
+        "district": "2",
+        "pipeline_state": {
+          "race_identity": {
+            "office": "U.S. House",
+            "state": "Nebraska",
+            "district": "2",
+            "contest_stage": "post_primary_general",
+            "official_roster_source_url": "https://sos.nebraska.gov/elections"
+          }
+        },
+        "candidates": [
+          {
+            "name": "Denise Powell",
+            "party": "Democratic"
+          },
+          {
+            "name": "Brinker Harding",
+            "party": "Republican"
+          },
+          {
+            "name": "Eric Michael Foreman",
+            "party": "Libertarian"
+          }
+        ]
+      },
+      "args": {
+        "summary": "Nebraska SoS certified filing list shows three District 02 candidates: Denise Powell (D), Brinker Harding (R), Eric Michael Foreman (L).",
+        "source_candidate_names": [
+          "Denise Powell",
+          "Brinker Harding",
+          "Eric Michael Foreman"
+        ],
+        "completeness_sources": [
+          {
+            "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+            "title": "Statewide Candidate Filing List",
+            "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Republican | Brinker Harding | Omaha | Nonincumbent | PO Box 540007 Omaha NE 68154 | (402) 214-4448 brinker@brinkerharding.com\nFor Representative in Congress | District 02 | 2 | 1 | Democratic | Denise Powell | Omaha | Nonincumbent | PO Box 6039 Omaha NE 68106 | (402) 214-4997 denise@deniseforcongress.org\nFor Representative in Congress | District 02 | 2 | 1 | Libertarian | Eric Michael Foreman | Omaha | Nonincumbent | | (402) 216-9627",
+            "retrieved": "2026-08-02",
+            "published_at": "2026",
+            "evidence_tier": 1,
+            "retrieval_status": "content"
+          }
+        ],
+        "candidates": [
+          {
+            "name": "Denise Powell",
+            "party": "Democratic",
+            "roster_sources": [
+              {
+                "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+                "title": "Statewide Candidate Filing List",
+                "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Democratic | Denise Powell | Omaha | Nonincumbent | PO Box 6039 Omaha NE 68106 | (402) 214-4997 denise@deniseforcongress.org",
+                "retrieved": "2026-08-02",
+                "published_at": "2026"
+              }
+            ]
+          },
+          {
+            "name": "Brinker Harding",
+            "party": "Republican",
+            "roster_sources": [
+              {
+                "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+                "title": "Statewide Candidate Filing List",
+                "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Republican | Brinker Harding | Omaha | Nonincumbent | PO Box 540007 Omaha NE 68154 | (402) 214-4448 brinker@brinkerharding.com",
+                "retrieved": "2026-08-02",
+                "published_at": "2026"
+              }
+            ]
+          },
+          {
+            "name": "Eric Michael Foreman",
+            "party": "Libertarian",
+            "roster_sources": [
+              {
+                "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+                "title": "Statewide Candidate Filing List",
+                "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Libertarian | Eric Michael Foreman | Omaha | Nonincumbent | | (402) 216-9627",
+                "retrieved": "2026-08-02",
+                "published_at": "2026"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "finalize_roster rejected when evidence omits a proposed candidate",
+      "tool": "finalize_roster",
+      "expect_accepted": false,
+      "race_json": {
+        "id": "ne-house-02-2026",
+        "state": "Nebraska",
+        "office": "U.S. House",
+        "district": "2",
+        "pipeline_state": {
+          "race_identity": {
+            "office": "U.S. House",
+            "state": "Nebraska",
+            "district": "2",
+            "contest_stage": "post_primary_general",
+            "official_roster_source_url": "https://sos.nebraska.gov/elections"
+          }
+        },
+        "candidates": [
+          {
+            "name": "Denise Powell",
+            "party": "Democratic"
+          },
+          {
+            "name": "Brinker Harding",
+            "party": "Republican"
+          },
+          {
+            "name": "Eric Michael Foreman",
+            "party": "Libertarian"
+          }
+        ]
+      },
+      "args": {
+        "summary": "Partial list.",
+        "source_candidate_names": [
+          "Denise Powell",
+          "Brinker Harding",
+          "Eric Michael Foreman"
+        ],
+        "completeness_sources": [
+          {
+            "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+            "title": "Statewide Candidate Filing List",
+            "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Democratic | Denise Powell | Omaha | Nonincumbent | PO Box 6039 Omaha NE 68106 | (402) 214-4997 denise@deniseforcongress.org",
+            "retrieved": "2026-08-02",
+            "published_at": "2026",
+            "evidence_tier": 1,
+            "retrieval_status": "content"
+          }
+        ],
+        "candidates": [
+          {
+            "name": "Denise Powell",
+            "party": "Democratic",
+            "roster_sources": [
+              {
+                "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+                "title": "Statewide Candidate Filing List",
+                "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Democratic | Denise Powell | Omaha | Nonincumbent | PO Box 6039 Omaha NE 68106 | (402) 214-4997 denise@deniseforcongress.org",
+                "retrieved": "2026-08-02",
+                "published_at": "2026"
+              }
+            ]
+          },
+          {
+            "name": "Brinker Harding",
+            "party": "Republican",
+            "roster_sources": [
+              {
+                "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+                "title": "Statewide Candidate Filing List",
+                "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Republican | Brinker Harding | Omaha | Nonincumbent | PO Box 540007 Omaha NE 68154 | (402) 214-4448 brinker@brinkerharding.com",
+                "retrieved": "2026-08-02",
+                "published_at": "2026"
+              }
+            ]
+          },
+          {
+            "name": "Eric Michael Foreman",
+            "party": "Libertarian",
+            "roster_sources": [
+              {
+                "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Statewide_Candidate_Filing_List.xlsx",
+                "title": "Statewide Candidate Filing List",
+                "evidence_text": "For Representative in Congress | District 02 | 2 | 1 | Libertarian | Eric Michael Foreman | Omaha | Nonincumbent | | (402) 216-9627",
+                "retrieved": "2026-08-02",
+                "published_at": "2026"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
