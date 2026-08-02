@@ -687,3 +687,48 @@ def test_proxy_success_prevents_outage_warning(monkeypatch, caplog):
             web_tools.record_proxy_result(ok=False)
 
     assert not [record for record in caplog.records if "has failed all" in record.getMessage()]
+
+
+def test_spreadsheet_urls_are_detected_as_tabular():
+    from pipeline_client.agent.web_tools import is_tabular_document
+
+    assert is_tabular_document("https://sos.nebraska.gov/x/Statewide_Candidate_Filing_List.xlsx")
+    assert is_tabular_document("https://example.gov/list.csv")
+    assert not is_tabular_document("https://ballotpedia.org/Some_Race,_2026")
+    assert not is_tabular_document("https://example.gov/list.pdf")
+
+
+def test_xlsx_extraction_reads_rows_without_a_spreadsheet_dependency():
+    """Several states publish the certified candidate list as .xlsx.
+
+    The text proxy answers 422 for those even though the file downloads fine, so
+    the authoritative roster source was unreadable and finalization deadlocked.
+    """
+    import io
+    import zipfile
+
+    from pipeline_client.agent.web_tools import _xlsx_to_text
+
+    ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+    shared = (
+        f'<sst xmlns="{ns}">'
+        "<si><t>For Representative in Congress</t></si>"
+        "<si><t>District 02</t></si>"
+        "<si><t>Denise Powell</t></si>"
+        "</sst>"
+    )
+    sheet = (
+        f'<worksheet xmlns="{ns}"><sheetData>'
+        '<row><c t="s"><v>0</v></c><c t="s"><v>1</v></c><c t="s"><v>2</v></c></row>'
+        "<row><c><v>2026</v></c></row>"
+        "</sheetData></worksheet>"
+    )
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w") as archive:
+        archive.writestr("xl/sharedStrings.xml", shared)
+        archive.writestr("xl/worksheets/sheet1.xml", sheet)
+
+    text = _xlsx_to_text(buffer.getvalue())
+
+    assert "For Representative in Congress | District 02 | Denise Powell" in text
+    assert "2026" in text

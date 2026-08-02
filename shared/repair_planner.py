@@ -23,15 +23,32 @@ _PER_CANDIDATE_COST_USD = {
 }
 _PER_ISSUE_COST_USD = 0.05
 _CANONICAL_ISSUES = {issue.value for issue in CanonicalIssue}
-_ISSUE_RESEARCH_SAFETY_STEPS = {
+# Raw issue stances are unvalidated until review/iteration run, so a plan that
+# researches issues must always finish with them. That invariant belongs to the
+# plan as a whole, not to each candidate: folding the race-wide tail into every
+# candidate group made a three-candidate repair run review and iteration three
+# times, each pass grading a race the later passes had not finished yet.
+_ISSUE_RESEARCH_CANDIDATE_STEPS = {
     "issues",
     "finance",
     "refinement",
+}
+_ISSUE_RESEARCH_FINALIZATION_STEPS = {
     "polling",
     "forecast",
     "voter_resources",
     "review",
     "iteration",
+}
+_ISSUE_RESEARCH_SAFETY_STEPS = _ISSUE_RESEARCH_CANDIDATE_STEPS | _ISSUE_RESEARCH_FINALIZATION_STEPS
+# Work that only ever makes sense once, for the whole race, after per-candidate
+# research has landed.
+_FINALIZATION_STEPS = _ISSUE_RESEARCH_FINALIZATION_STEPS
+# Reasons that belong to the roster group rather than the validation tail.
+_PREP_ONLY_REASONS = {
+    "Roster is empty.",
+    "One or more candidates lack roster evidence.",
+    "Roster evidence is stale.",
 }
 
 
@@ -104,6 +121,7 @@ def build_repair_plan(race_id: str, race_data: Dict[str, Any], *, freshness: str
     candidate_groups: List[Dict[str, Any]] = []
     race_steps: set[str] = set()
     race_reasons: List[str] = []
+    issue_research_planned = False
 
     if health["candidate_count"] == 0:
         race_steps.add("discovery")
@@ -128,7 +146,11 @@ def build_repair_plan(race_id: str, race_data: Dict[str, Any], *, freshness: str
         candidate_missing_issues = max(0, len(_CANONICAL_ISSUES) - terminal_issues)
         if candidate_missing_issues:
             steps.update(_ISSUE_RESEARCH_SAFETY_STEPS)
-            candidate_steps.update(_ISSUE_RESEARCH_SAFETY_STEPS)
+            # The candidate group carries only candidate-scoped work; the
+            # validation tail is added once, to the finalization group.
+            candidate_steps.update(_ISSUE_RESEARCH_CANDIDATE_STEPS)
+            race_steps.update(_ISSUE_RESEARCH_FINALIZATION_STEPS)
+            issue_research_planned = True
             candidate_reasons.append(f"{candidate_missing_issues} issue slot(s) lack a terminal verdict.")
         donor_sources = candidate.get("donor_sources")
         if not candidate.get("donor_summary") or not (
@@ -234,18 +256,38 @@ def build_repair_plan(race_id: str, race_data: Dict[str, Any], *, freshness: str
     steps.update(race_steps)
     ordered_steps = _ordered_steps(steps)
     target_names = list(dict.fromkeys(target_names))
-    repair_groups = candidate_groups
-    if race_steps:
-        repair_groups.insert(
-            0,
+
+    # Groups are returned in the order they must be queued. Roster work has to
+    # settle before anyone is researched, and the validation tail only means
+    # anything once every candidate group has landed.
+    phase_breakdown = (race_data.get("agent_metrics") or {}).get("phase_breakdown")
+    prep_steps = race_steps - _FINALIZATION_STEPS
+    finalization_steps = race_steps & _FINALIZATION_STEPS
+    finalization_reasons = [reason for reason in race_reasons if reason not in _PREP_ONLY_REASONS]
+    if issue_research_planned:
+        finalization_reasons.append("Issue research is unvalidated until review and iteration run for the whole race.")
+
+    repair_groups: List[Dict[str, Any]] = []
+    if prep_steps:
+        repair_groups.append(
             {
-                **_estimate_group(
-                    race_steps,
-                    phase_breakdown=(race_data.get("agent_metrics") or {}).get("phase_breakdown"),
-                ),
+                **_estimate_group(prep_steps, phase_breakdown=phase_breakdown),
                 "candidate_names": None,
-                "reasons": race_reasons,
-            },
+                "stage": "roster",
+                "reasons": [reason for reason in race_reasons if reason in _PREP_ONLY_REASONS] or race_reasons,
+            }
+        )
+    for group in candidate_groups:
+        group["stage"] = "candidate"
+    repair_groups.extend(candidate_groups)
+    if finalization_steps:
+        repair_groups.append(
+            {
+                **_estimate_group(finalization_steps, phase_breakdown=phase_breakdown),
+                "candidate_names": None,
+                "stage": "finalization",
+                "reasons": finalization_reasons or race_reasons,
+            }
         )
     estimated_cost = sum(float(group["estimated_max_cost_usd"]) for group in repair_groups)
     estimated_search_demand = sum(int(group["estimated_search_demand"]) for group in repair_groups)

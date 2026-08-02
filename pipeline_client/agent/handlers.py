@@ -488,11 +488,25 @@ def _roster_source_rejection_summary(sources: Any, *, candidate_name: str, race_
 
 
 def _roster_completeness_source_rejection_reason(
-    source: Dict[str, Any], *, race_id: str, identity: Dict[str, Any]
+    source: Dict[str, Any],
+    *,
+    race_id: str,
+    identity: Dict[str, Any],
+    roster_names: list[str] | None = None,
 ) -> str | None:
     """Validate evidence that describes the roster as a whole, not one member."""
-    if source.get("type") not in {"official", "news"}:
-        return "completeness evidence must be an official roster/ballot or retrieved news report"
+    # Ballotpedia belongs here for the same reason it is already accepted as
+    # candidate-level roster evidence: its per-race election pages publish the
+    # full qualified field, and RaceJSON treats `ballotpedia_url` as the
+    # canonical roster pointer. Excluding it stranded rosters that had no other
+    # retrievable full list — a state SoS landing page rarely enumerates one
+    # district's candidates, so the roster never finalized and the race stayed
+    # at its stale published roster (observed live on ne-house-02-2026).
+    # The real teeth are below and unchanged: retrieved page content only,
+    # exact contest and district, list-identifying phrasing, and coverage of
+    # every active candidate.
+    if source.get("type") not in {"official", "news", "ballotpedia"}:
+        return "completeness evidence must be an official roster/ballot, Ballotpedia race page, or retrieved news report"
     parsed_url = urlparse(str(source.get("url") or ""))
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
         return "source needs an absolute http(s) url"
@@ -511,12 +525,21 @@ def _roster_completeness_source_rejection_reason(
     # the full certified field yet failed a pattern that only accepted "candidate
     # list" in that word order — the authoritative source rejected by the check
     # meant to require an authoritative source.
-    if not re.search(
+    # A source that names every candidate on the proposed roster has demonstrated
+    # completeness directly; demanding it also *say* "certified" is prose matching
+    # of the kind that rejected New Jersey's own certified list and Ballotpedia's
+    # standard full-field sentence. Phrasing stays a valid alternative for lists
+    # that assert completeness without enumerating inline.
+    enumerates_full_roster = bool(roster_names) and all(_source_names_candidate(text, name) for name in roster_names)
+    if not enumerates_full_roster and not re.search(
         r"\b(?:qualified|certified|official list|official ballot|candidate list|list of candidates"
         r"|candidates? running|vote for one)\b",
         text,
     ):
-        return "evidence does not identify itself as a qualified, certified, ballot, or complete candidate list"
+        return (
+            "evidence neither names every candidate on the proposed roster nor identifies itself as a "
+            "qualified, certified, ballot, or complete candidate list"
+        )
 
     primary_status = str(identity.get("primary_status") or "")
     if "special" in primary_status.casefold():
@@ -1109,15 +1132,26 @@ def _make_editing_handlers(
             if url_key not in observed_urls:
                 completeness_sources.append(dict(trusted))
                 observed_urls.add(url_key)
+        # The names the model says it extracted from the completeness evidence.
+        # A source that demonstrably lists all of them has proven completeness
+        # without needing to also describe itself as a certified list.
+        claimed_roster_names = [str(name).strip() for name in args.get("source_candidate_names") or [] if str(name).strip()]
         completeness_rejections = [
             reason
             for source in completeness_sources
-            if (reason := _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity))
+            if (
+                reason := _roster_completeness_source_rejection_reason(
+                    source, race_id=race_id, identity=identity, roster_names=claimed_roster_names
+                )
+            )
         ]
         qualifying_completeness = [
             source
             for source in completeness_sources
-            if _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity) is None
+            if _roster_completeness_source_rejection_reason(
+                source, race_id=race_id, identity=identity, roster_names=claimed_roster_names
+            )
+            is None
         ]
         if not qualifying_completeness:
             detail = "; ".join(completeness_rejections) if completeness_rejections else "no sources were supplied"

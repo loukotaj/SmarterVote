@@ -426,8 +426,15 @@ async def audit_draft_vs_published(race_ids: List[str]) -> Dict[str, Any]:
 async def plan_repairs(race_ids: List[str]) -> Dict[str, Any]:
     """Return deterministic repair groups and cost ceilings without queueing work.
 
-    Queue each repair_groups item independently. The combined recommended_steps
-    and candidate_names fields are summaries and are not a safe queue payload.
+    repair_groups are returned in the order they must be queued, tagged by
+    ``stage``: ``roster`` settles the candidate list first, ``candidate`` groups
+    research one candidate each and may run in any order among themselves, and
+    ``finalization`` runs the race-wide validation tail once, last. Queue each
+    group as its own run and let it finish before starting the next stage.
+
+    The combined recommended_steps and candidate_names fields are summaries and
+    are not a safe queue payload. estimated_max_cost_usd is a ceiling, not an
+    expectation, unless estimate_kind reports observed calibration.
     """
     return await _client().post("/api/races/repair-plan", json={"race_ids": race_ids})
 
@@ -488,9 +495,25 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
         else:
             if not names:
                 blockers.append("candidate_roster_empty")
-            validation = draft.get("validation_grade") if isinstance(draft.get("validation_grade"), dict) else {}
-            if validation.get("passed") is not True:
+            # Mirror the races-api gate (gcs_helpers._assert_publishable_race): a
+            # *failed* grade blocks, but an absent one does not. A run that never
+            # enabled `review` — discovery/polling/forecast maintenance work — can
+            # never produce a grade, so treating absence as a blocker made every
+            # such draft look unpublishable when the API would accept it.
+            validation = draft.get("validation_grade") if isinstance(draft.get("validation_grade"), dict) else None
+            if validation is None:
+                warnings.append("validation_absent_unreviewed")
+            elif validation.get("passed") is not True:
                 blockers.append("validation_not_passed")
+            blocking_flags = [
+                flag
+                for review in draft.get("reviews") or []
+                if isinstance(review, dict)
+                for flag in review.get("flags") or []
+                if isinstance(flag, dict) and flag.get("severity") in {"warning", "error"}
+            ]
+            if blocking_flags:
+                blockers.append("unresolved_review_flags")
             health = draft.get("run_health") if isinstance(draft.get("run_health"), dict) else {}
             verdict = str(health.get("status") or health.get("verdict") or "unknown")
             if verdict == "failed":
@@ -499,7 +522,13 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
                 warnings.append(f"run_health_{verdict}")
             pipeline_state = draft.get("pipeline_state") if isinstance(draft.get("pipeline_state"), dict) else {}
             if not pipeline_state.get("complete"):
-                warnings.append("pipeline_not_complete")
+                # The API allows an incomplete pipeline only when nothing but
+                # `review` is outstanding; anything else is a hard rejection.
+                remaining = {str(step) for step in pipeline_state.get("remaining_steps") or []}
+                if remaining - {"review"}:
+                    blockers.append("pipeline_incomplete_beyond_review")
+                else:
+                    warnings.append("pipeline_not_complete")
             if _contains_placeholder(draft):
                 blockers.append("literal_placeholder_content")
 
