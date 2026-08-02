@@ -185,8 +185,8 @@ def test_phase_breakdown_attributes_tokens_cost_search_and_pages(cost_accumulato
     assert phase["fetched_chars"] == 250
 
 
-def test_phase_search_and_page_budgets_are_enforced(cost_accumulator, monkeypatch):
-    monkeypatch.setenv("PIPELINE_MAX_PHASE_SEARCH_CALLS", "1")
+def test_unit_search_and_page_budgets_are_enforced(cost_accumulator, monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_UNIT_SEARCH_CALLS", "1")
     monkeypatch.setenv("PIPELINE_MAX_PAGE_FETCHES", "1")
     set_current_phase("images-Alice")
 
@@ -197,10 +197,64 @@ def test_phase_search_and_page_budgets_are_enforced(cost_accumulator, monkeypatc
     assert cost_accumulator["page_budget_blocked"] == 1
 
 
-def test_continuation_phase_budget_ignores_prior_phase_spend_but_keeps_logical_total(cost_accumulator, monkeypatch):
-    monkeypatch.setenv("PIPELINE_MAX_PHASE_SEARCH_CALLS", "2")
+def test_one_exhausted_unit_does_not_starve_the_next(cost_accumulator, monkeypatch):
+    """The whole point: a fan-out phase must not spend one shared allowance.
+
+    Budgeting by phase family gave every candidate/issue pair in a race one
+    pooled ceiling, so whichever candidate the fan-out reached last was denied
+    every search and produced empty verdicts.
+    """
+    monkeypatch.setenv("PIPELINE_MAX_UNIT_SEARCH_CALLS", "2")
+    monkeypatch.setenv("PIPELINE_MAX_SEARCH_CALLS", "100")
+
+    set_current_phase("issue-Alice Example-Healthcare")
+    assert reserve_search_call("serper") is True
+    assert reserve_search_call("serper") is True
+    assert reserve_search_call("serper") is False, "unit ceiling should bind"
+
+    # A different candidate/issue pair in the same phase family starts fresh.
+    set_current_phase("issue-Bob Example-Healthcare")
+    assert reserve_search_call("serper") is True
+    assert reserve_search_call("serper") is True
+
+    # Attribution still rolls up to the family.
+    assert cost_accumulator["phase_breakdown"]["issues"]["search_calls"] == 4
+
+
+def test_run_wide_search_ceiling_still_bounds_runaway(cost_accumulator, monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_UNIT_SEARCH_CALLS", "50")
+    monkeypatch.setenv("PIPELINE_MAX_SEARCH_CALLS", "3")
+
+    for index in range(3):
+        set_current_phase(f"issue-Candidate {index}-Healthcare")
+        assert reserve_search_call("serper") is True
+
+    set_current_phase("issue-Candidate 9-Healthcare")
+    assert reserve_search_call("serper") is False
+
+
+def test_unit_token_ceiling_is_scoped_per_unit(cost_accumulator, monkeypatch):
+    # 10_000 is the configured floor for this ceiling.
+    monkeypatch.setenv("PIPELINE_MAX_UNIT_TOKENS", "10000")
+    monkeypatch.setenv("PIPELINE_MAX_TOTAL_TOKENS", "500000")
+
+    set_current_phase("issue-Alice Example-Economy")
+    accumulate(9_000, 2_000, "test-model")
+    assert total_token_budget_reached() is True
+
+    set_current_phase("issue-Bob Example-Economy")
+    assert total_token_budget_reached() is False
+
+
+def test_continuation_starts_units_fresh_but_keeps_logical_total(cost_accumulator, monkeypatch):
+    """A resumed unit gets its own allowance; run-wide totals stay cumulative.
+
+    Per-unit budgets replace the continuation baseline that used to exempt a
+    phase from spend carried over by an earlier physical pass.
+    """
+    monkeypatch.setenv("PIPELINE_MAX_UNIT_SEARCH_CALLS", "2")
     monkeypatch.setenv("PIPELINE_MAX_SEARCH_CALLS", "10")
-    monkeypatch.setenv("PIPELINE_MAX_PHASE_TOKENS", "10000")
+    monkeypatch.setenv("PIPELINE_MAX_UNIT_TOKENS", "10000")
     monkeypatch.setenv("PIPELINE_MAX_TOTAL_TOKENS", "50000")
     set_current_phase("issues")
     cost_accumulator.update(
@@ -210,7 +264,6 @@ def test_continuation_phase_budget_ignores_prior_phase_spend_but_keeps_logical_t
             "serper_calls": 2,
             "searlo_calls": 0,
             "phase_breakdown": {"issues": {"prompt_tokens": 12000, "completion_tokens": 3000, "search_calls": 2}},
-            "_phase_budget_baselines": {"issues": {"prompt_tokens": 12000, "completion_tokens": 3000, "search_calls": 2}},
         }
     )
 
