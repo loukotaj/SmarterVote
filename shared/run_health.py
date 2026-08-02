@@ -361,8 +361,22 @@ def check_worker_version_staleness(
         except Exception:
             r_commit = None
 
-    if not w_commit and r_commit:
-        w_commit = r_commit
+    if not w_commit:
+        # Never assume an unknown build matches HEAD. That default made this
+        # check unable to fire at all: nothing stamped WORKER_GIT_COMMIT into the
+        # image, so every worker looked current and a container built before
+        # several merged fixes ran for hours, silently writing bad data.
+        return {
+            "is_stale": None,
+            "runner": "local",
+            "worker_commit": None,
+            "repo_commit": r_commit[:7] if r_commit else None,
+            "warning": (
+                "Worker runner='local' did not report the commit it was built from, so it cannot be "
+                "checked against the repo. Rebuild with 'docker compose -f docker-compose.worker.yml "
+                "up -d --build' to stamp it; until then assume the image may predate recent fixes."
+            ),
+        }
 
     if w_commit and r_commit and w_commit != r_commit:
         warning_msg = (

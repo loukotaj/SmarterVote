@@ -17,6 +17,11 @@ services:
     build:
       context: .
       dockerfile: pipeline_client/Dockerfile.worker
+      args:
+        # Stamps the image with the commit it was built from so the worker can
+        # report whether it predates merged fixes. Set WORKER_GIT_COMMIT in the
+        # environment (or .env) to the output of `git rev-parse HEAD`.
+        WORKER_GIT_COMMIT: ${WORKER_GIT_COMMIT:-}
     env_file:
       - .env
     environment:
