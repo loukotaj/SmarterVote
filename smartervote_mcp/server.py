@@ -1311,7 +1311,9 @@ async def review_chamber_forecast_drafts() -> Dict[str, Any]:
 
 @mcp.tool(structured_output=False)
 async def generate_chamber_forecasts(
-    model: str = "google/gemini-3.5-flash",
+    # Must match DEFAULT_CHAMBER_FORECAST_MODEL in
+    # services/races-api/routers/races_admin/forecasts.py.
+    model: str = "google/gemini-3.6-flash",
 ) -> Dict[str, Any]:
     """Automatically generate chamber-level forecast narratives using an LLM on the remote races-api backend."""
     client = _client()

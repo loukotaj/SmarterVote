@@ -31,10 +31,20 @@ NEMOTRON_ULTRA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b"
 DEFAULT_CLAUDE_MODEL = "anthropic/claude-sonnet-5"
 CHEAP_CLAUDE_MODEL = "anthropic/claude-haiku-4.5"
 
-DEFAULT_GEMINI_MODEL = "google/gemini-3.1-pro-preview"
+# Gemini 3.6 Flash (2026-07-21) replaced Gemini 3.1 Pro Preview (2026-02-19) as
+# the quality-tier reviewer. It is five months newer, cheaper on output
+# ($7.50 against $12.00), and — unlike the model it replaced — not a preview
+# build. There is no 3.6 Pro; Flash is the newest Gemini OpenRouter serves, and
+# it reasons (188 reasoning tokens on the probe that Flash Lite answers with 0).
+DEFAULT_GEMINI_MODEL = "google/gemini-3.6-flash"
 CHEAP_GEMINI_MODEL = "google/gemini-3.1-flash-lite"
 
-DEFAULT_GROK_MODEL = "x-ai/grok-4.20"
+# Grok version strings sort by decimal, not by integer: 4.20 (2026-03-31) is
+# *older* than 4.3 (2026-04-30), which is older than 4.5 (2026-07-08). Reading
+# them as "four-point-twenty > four-point-three" is how the quality profile ended
+# up reviewing with an older model than economy did. Release dates, not string
+# order, decide which of these is the default.
+DEFAULT_GROK_MODEL = "x-ai/grok-4.5"
 CHEAP_GROK_MODEL = "x-ai/grok-4.3"
 
 
@@ -69,8 +79,13 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     "google/gemini-3-flash-preview": ModelSpec(
         "google/gemini-3-flash-preview", "Gemini 3 Flash Preview", 0.50, 3.00, 1_048_576, 65_536
     ),
+    "google/gemini-3.6-flash": ModelSpec("google/gemini-3.6-flash", "Gemini 3.6 Flash", 1.50, 7.50, 1_048_576, 65_536),
+    "google/gemini-3.5-flash-lite": ModelSpec(
+        "google/gemini-3.5-flash-lite", "Gemini 3.5 Flash Lite", 0.30, 2.50, 1_048_576, 65_536
+    ),
     "x-ai/grok-4.20": ModelSpec("x-ai/grok-4.20", "Grok 4.20", 1.25, 2.50, 2_000_000),
     "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50, 1_000_000),
+    "x-ai/grok-4.5": ModelSpec("x-ai/grok-4.5", "Grok 4.5", 2.00, 6.00, 500_000),
     "deepseek/deepseek-v4-flash": ModelSpec("deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.14, 0.28, 1_048_576, 65_536),
     "deepseek/deepseek-v4-flash-0731": ModelSpec(
         "deepseek/deepseek-v4-flash-0731", "DeepSeek V4 Flash (07-31)", 0.09, 0.18, 1_048_576, 65_536
@@ -112,6 +127,7 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "gemini-3.1-flash-lite-preview": "google/gemini-3.1-flash-lite",
     "gemini-3-flash-preview": "google/gemini-3-flash-preview",
     "grok-4.20-0309-reasoning": "x-ai/grok-4.20",
+    "grok-4.5": "x-ai/grok-4.5",
     "grok-4-1-fast-non-reasoning": "x-ai/grok-4.3",
     "grok-3-mini": "x-ai/grok-4.3",
     "deepseek-v4-flash": "deepseek/deepseek-v4-flash",
@@ -121,6 +137,8 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "deepseek-v3-0324": "deepseek/deepseek-chat-v3-0324",
     "gemini-2.5-flash": "google/gemini-2.5-flash",
     "gemini-3.1-flash-lite": "google/gemini-3.1-flash-lite",
+    "gemini-3.6-flash": "google/gemini-3.6-flash",
+    "gemini-3.5-flash-lite": "google/gemini-3.5-flash-lite",
     "gemini-3.5-flash": "google/gemini-3.5-flash",
 }
 
@@ -130,7 +148,12 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
 # race, so a stronger instruction-follower here is cheap insurance. Flash Lite
 # replaced Gemini 2.5 Flash: two generations newer and cheaper on both input and
 # output ($0.25/$1.50 against $0.30/$2.50).
-ROSTER_MODEL = CHEAP_GEMINI_MODEL
+# Deliberately not CHEAP_GEMINI_MODEL. Flash Lite 3.5 (2026-07-21) is a
+# generation newer than the 3.1 build the cheap roles share, and costs about 25%
+# more per call once its shorter completions are counted ($0.30/$2.50 against
+# $0.25/$1.50). At one or two calls per race that premium is rounding error,
+# which is not true of the per-candidate roles CHEAP_GEMINI_MODEL still feeds.
+ROSTER_MODEL = "google/gemini-3.5-flash-lite"
 
 # Every role in every profile sits on a current-generation model. Prices are per
 # million tokens, verified against OpenRouter's live model list rather than
@@ -164,8 +187,8 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
         "small": CHEAP_MODEL,  # $0.10/$0.60 — sub-agent work does not need the mid tier
         "roster": MID_MODEL,
         "review_claude": DEFAULT_CLAUDE_MODEL,  # Sonnet 5, $2.00/$10.00
-        "review_gemini": DEFAULT_GEMINI_MODEL,  # Gemini 3.1 Pro, $2.00/$12.00
-        "review_grok": DEFAULT_GROK_MODEL,  # Grok 4.20, $1.25/$2.50
+        "review_gemini": DEFAULT_GEMINI_MODEL,  # Gemini 3.6 Flash, $1.50/$7.50
+        "review_grok": DEFAULT_GROK_MODEL,  # Grok 4.5, $2.00/$6.00
     },
 }
 

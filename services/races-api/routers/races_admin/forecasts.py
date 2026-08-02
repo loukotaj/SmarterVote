@@ -10,7 +10,12 @@ from pydantic import BaseModel, Field
 
 router = APIRouter()
 
-DEFAULT_CHAMBER_FORECAST_MODEL = "google/gemini-3.5-flash"
+# Chamber forecasts are the one model choice outside the agent's profile system,
+# so nothing sweeps them forward when the profiles move. Keep this in step with
+# `pipeline_client/agent/model_registry.py` by hand. Gemini 3.6 Flash replaced
+# 3.5 Flash: two months newer, same input price, and cheaper on output
+# ($7.50 against $9.00). The MCP `generate_chamber_forecasts` default must match.
+DEFAULT_CHAMBER_FORECAST_MODEL = "google/gemini-3.6-flash"
 
 
 class GenerateForecastsRequest(BaseModel):
