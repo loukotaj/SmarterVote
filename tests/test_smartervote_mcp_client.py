@@ -404,6 +404,74 @@ async def test_assess_publish_readiness_blocks_failed_or_placeholder_drafts(monk
         "run_health_failed",
         "literal_placeholder_content",
     }
+    assert "pipeline_not_complete" in result["rows"][1]["warnings"]
+
+
+@pytest.mark.asyncio
+async def test_assess_publish_readiness_allows_unreviewed_maintenance_draft(monkeypatch):
+    """A discovery/polling/forecast draft has no grade and the races-api still publishes it.
+
+    ``gcs_helpers._assert_publishable_race`` only rejects ``passed is False`` and
+    tolerates ``remaining_steps == ["review"]``, so treating a missing grade as a
+    blocker made this tool contradict the endpoint it is supposed to predict.
+    """
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/ne-house-02-2026/data": {
+            "candidates": [{"name": "Denise Powell"}, {"name": "Brinker Harding"}],
+            "validation_grade": None,
+            "reviews": [],
+            "pipeline_state": {"complete": False, "remaining_steps": ["review"]},
+        },
+        "/races/ne-house-02-2026": {"candidates": [{"name": "Denise Powell"}]},
+        "/api/races/ne-house-03-2026/data": {
+            "candidates": [{"name": "Adrian Smith"}],
+            "validation_grade": None,
+            "pipeline_state": {"complete": False, "remaining_steps": ["issues", "review"]},
+        },
+        "/races/ne-house-03-2026": {"candidates": [{"name": "Adrian Smith"}]},
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.assess_publish_readiness(["ne-house-02-2026", "ne-house-03-2026"])
+
+    assert result["ready_race_ids"] == ["ne-house-02-2026"]
+    assert set(result["rows"][0]["warnings"]) == {
+        "validation_absent_unreviewed",
+        "run_health_unknown",
+        "pipeline_not_complete",
+        "candidate_roster_changes",
+    }
+    # Work outstanding beyond `review` is a hard rejection at the API, not a warning.
+    assert result["rows"][1]["blockers"] == ["pipeline_incomplete_beyond_review"]
+
+
+@pytest.mark.asyncio
+async def test_assess_publish_readiness_blocks_unresolved_review_flags(monkeypatch):
+    """The API rejects warning-or-higher review flags even with a passing grade."""
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/nh-senate-2026/data": {
+            "candidates": [{"name": "Alice Example"}],
+            "validation_grade": {"passed": True, "grade": "A"},
+            "reviews": [{"flags": [{"severity": "warning", "concern": "Summary has no sources."}]}],
+            "pipeline_state": {"complete": True},
+        },
+        "/races/nh-senate-2026": {"candidates": [{"name": "Alice Example"}]},
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.assess_publish_readiness(["nh-senate-2026"])
+
+    assert result["rows"][0]["blockers"] == ["unresolved_review_flags"]
 
 
 @pytest.mark.asyncio
