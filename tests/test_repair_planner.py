@@ -31,14 +31,18 @@ def test_discovery_race_plan_targets_missing_research_with_conservative_ceiling(
     assert plan["estimated_max_cost_usd"] > 1
     assert plan["estimated_max_search_calls"] >= 240
     assert plan["estimate_kind"] == "static_ceiling"
+    stages = [group["stage"] for group in plan["repair_groups"]]
+    assert stages == ["roster", "candidate", "candidate", "finalization"]
     assert plan["repair_groups"][0]["candidate_names"] is None
-    assert {tuple(group["candidate_names"] or []) for group in plan["repair_groups"][1:]} == {
+    assert {tuple(group["candidate_names"] or []) for group in plan["repair_groups"] if group["stage"] == "candidate"} == {
         ("Alice",),
         ("Bob",),
     }
-    for group in plan["repair_groups"][1:]:
-        assert group["enabled_steps"][-2:] == ["review", "iteration"]
-        assert "issues" in group["enabled_steps"]
+    # The validation tail is guaranteed for the plan, not repeated per group.
+    assert plan["repair_groups"][-1]["enabled_steps"][-2:] == ["review", "iteration"]
+    for group in plan["repair_groups"]:
+        if group["stage"] == "candidate":
+            assert "issues" in group["enabled_steps"]
 
 
 def test_validated_complete_race_needs_no_repair():
@@ -102,3 +106,56 @@ def test_summarize_repair_plans_rolls_up_ceilings():
         "estimated_max_cost_usd": 1.25,
         "estimated_max_search_calls": 20,
     }
+
+
+def test_validation_tail_is_planned_once_not_per_candidate():
+    """Regression: every candidate group used to carry the race-wide tail.
+
+    A three-candidate repair therefore ran review and iteration three times,
+    each pass grading a race the later passes had not finished, and the cost
+    ceiling multiplied accordingly.
+    """
+    race = {
+        "candidates": [
+            {"name": "Alice", "issues": {}},
+            {"name": "Bob", "issues": {}},
+            {"name": "Carla", "issues": {}},
+        ],
+        "forecast": None,
+    }
+
+    plan = build_repair_plan("ne-house-02-2026", race, freshness="stale")
+
+    tail = {"review", "iteration", "polling", "forecast", "voter_resources"}
+    candidate_groups = [group for group in plan["repair_groups"] if group["stage"] == "candidate"]
+    assert len(candidate_groups) == 3
+    for group in candidate_groups:
+        assert not tail & set(group["enabled_steps"]), f"candidate group leaked race-wide steps: {group['enabled_steps']}"
+
+    finalization = [group for group in plan["repair_groups"] if group["stage"] == "finalization"]
+    assert len(finalization) == 1
+    assert "review" in finalization[0]["enabled_steps"]
+    assert "iteration" in finalization[0]["enabled_steps"]
+
+
+def test_repair_groups_are_returned_in_queue_order():
+    race = {
+        "candidates": [{"name": "Alice", "issues": {}}],
+        "forecast": None,
+    }
+
+    plan = build_repair_plan("ne-house-02-2026", race, freshness="stale")
+    stages = [group["stage"] for group in plan["repair_groups"]]
+
+    assert stages.index("roster") < stages.index("candidate") < stages.index("finalization")
+
+
+def test_issue_research_still_guarantees_a_validation_tail():
+    """The 'never queue issues alone' invariant must survive the split."""
+    race = {"candidates": [{"name": "Alice", "issues": {}}], "forecast": None}
+
+    plan = build_repair_plan("ne-house-02-2026", race)
+
+    assert "issues" in plan["recommended_steps"]
+    all_steps = {step for group in plan["repair_groups"] for step in group["enabled_steps"]}
+    assert {"review", "iteration"} <= all_steps

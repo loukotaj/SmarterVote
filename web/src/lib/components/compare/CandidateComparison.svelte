@@ -140,304 +140,226 @@
 
 <div
   data-desktop-candidate-comparison
-  class="hidden isolate overflow-x-auto rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
+  class="hidden isolate overflow-hidden rounded-2xl border border-stroke bg-surface shadow-sm lg:block"
 >
-  <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
+  {#if showQuality && race.validation_grade}
     <div
-      class:sticky={!compact}
-      class:top-[var(--site-header-height)]={!compact}
-      class="z-30 w-full border-b border-stroke bg-surface py-4 shadow-sm"
+      class="flex items-start gap-3 border-b border-stroke bg-emerald-50 px-5 py-3.5 dark:bg-emerald-950/30"
     >
-      <div
-        class="grid items-center"
-        style="grid-template-columns: {compact
-          ? '170px'
-          : '220px'} repeat({candidates.length}, 1fr)"
+      <span
+        class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-200 bg-white text-lg font-extrabold text-emerald-800 shadow-sm dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
+        >{race.validation_grade.grade}</span
       >
-        <div
-          class="sticky left-0 z-40 flex self-stretch items-center border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+      <div class="min-w-0 text-sm leading-6 text-content-muted">
+        <span
+          class="mr-1.5 text-[10px] font-bold uppercase tracking-wider text-content-subtle"
+          >Research review</span
         >
-          {compact ? "Compare" : "Compare Directory"}
-        </div>
-        {#each candidates as candidate}
-          <div
-            class="flex items-center gap-3 border-r border-stroke px-5 last:border-none"
-          >
-            {#if candidate.image_url && !failedImages[candidate.name]}
-              <img
-                src={candidate.image_url}
-                alt=""
-                class="h-12 w-12 flex-shrink-0 rounded-full border-2 border-stroke object-cover"
-                on:error={() => markImageFailed(candidate)}
-              />
-            {:else}
-              <div
-                class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
-              >
-                {initials(candidate.name)}
-              </div>
-            {/if}
-            <div class="min-w-0">
-              <a
-                href="/races/{race.id}/{candidateSlug(
-                  candidate.name,
-                )}{isDraftPreview ? '?draft=true' : ''}"
-                class="block truncate text-sm font-extrabold text-content hover:text-blue-600"
-                >{candidate.name}</a
-              >
-              <div class="mt-0.5 flex items-center gap-1.5">
-                {#if candidate.party}<span
-                    class="rounded border border-stroke bg-surface-alt px-1.5 py-0.5 text-[10px] font-bold leading-none text-content-muted"
-                    >{partyAbbr(candidate.party)}</span
-                  >{/if}
-                {#if candidate.incumbent}<span
-                    class="rounded border border-green-200 bg-green-50 px-1.5 py-0.5 text-[10px] font-bold leading-none text-green-700 dark:border-green-800 dark:bg-green-950/20 dark:text-green-300"
-                    >Incumbent</span
-                  >{/if}
-              </div>
-            </div>
-          </div>
-        {/each}
+        <strong class="text-content">{race.validation_grade.score}/100</strong>
+        — methodology, sourcing, and bias checks passed the AI review.<ReviewScoreInfo
+          panelId={`desktop-review-score-info-${race.id}`}
+        />
       </div>
     </div>
+  {/if}
 
-    <div class="divide-y divide-stroke">
-      {#if showQuality && race.validation_grade}
+  <div class="overflow-x-auto">
+    <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
+      <div
+        class:sticky={!compact}
+        class:top-[var(--site-header-height)]={!compact}
+        class="z-30 w-full border-b border-stroke bg-surface py-4 shadow-sm"
+      >
         <div
-          class="grid"
+          class="grid items-center"
           style="grid-template-columns: {compact
             ? '170px'
             : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
-            class="sticky left-0 z-10 border-r border-stroke bg-emerald-50 p-5 text-sm font-bold text-content dark:bg-emerald-950"
+            class="sticky left-0 z-40 flex self-stretch items-center border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
           >
-            Research review
-            <span
-              class="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-content-subtle"
-              >Independent checks</span
-            >
-          </div>
-          <div
-            class="col-span-full flex items-start gap-3 bg-emerald-50/30 p-5 text-sm text-content-muted dark:bg-emerald-950/10"
-            style="grid-column: 2 / -1"
-          >
-            <span
-              class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-200 bg-white text-lg font-extrabold text-emerald-800 shadow-sm dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
-              >{race.validation_grade.grade}</span
-            >
-            <div>
-              <strong class="text-content"
-                >{race.validation_grade.score}/100 review score.</strong
-              ><ReviewScoreInfo
-                panelId={`desktop-review-score-info-${race.id}`}
-              />
-              Methodology, sourcing, and bias checks passed the AI review.
-            </div>
-          </div>
-        </div>
-      {/if}
-      <div
-        class="grid"
-        style="grid-template-columns: {compact
-          ? '170px'
-          : '220px'} repeat({candidates.length}, 1fr)"
-      >
-        <div
-          class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
-        >
-          Biography & Summary
-        </div>
-        {#each candidates as candidate}
-          <div
-            class="border-r border-stroke p-6 text-sm leading-relaxed text-content-muted last:border-none"
-          >
-            {candidate.summary}
-            {#if !compact && isExternalUrl(candidate.website)}<div class="mt-3">
-                <a
-                  href={candidate.website.trim()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
-                  >Visit Campaign Website ↗</a
-                >
-              </div>{/if}
-          </div>
-        {/each}
-      </div>
-
-      <div
-        class="grid"
-        style="grid-template-columns: {compact
-          ? '170px'
-          : '220px'} repeat({candidates.length}, 1fr)"
-      >
-        <div
-          class="col-span-full sticky left-0 z-10 w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
-          style="grid-column: 1 / -1"
-        >
-          Positions on Key Issues
-        </div>
-      </div>
-      {#each issueKeys as issueKey}
-        <div
-          class="grid"
-          style="grid-template-columns: {compact
-            ? '170px'
-            : '220px'} repeat({candidates.length}, 1fr)"
-        >
-          <div
-            class="sticky left-0 z-10 flex flex-col justify-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
-          >
-            {getIssueDisplayName(issueKey)}
+            {compact ? "Compare" : "Compare Directory"}
           </div>
           {#each candidates as candidate}
-            {@const stance = candidate.issues?.[issueKey]}
-            {@const preview = stance
-              ? stancePreview(stance.stance, 320, 220)
-              : ""}
-            {@const isStanceExpanded =
-              expandedStances[stanceKey(issueKey, candidate)] ?? false}
             <div
-              class="flex flex-col gap-3 border-r border-stroke p-6 last:border-none"
+              class="flex items-center gap-3 border-r border-stroke px-5 last:border-none"
             >
-              {#if stance}
-                <div>
-                  <p
-                    class="whitespace-normal text-sm leading-relaxed text-content-muted"
-                  >
-                    {isStanceExpanded ? stance.stance : preview}
-                  </p>
-                  {#if preview !== stance.stance.trim()}
-                    <button
-                      type="button"
-                      aria-expanded={isStanceExpanded}
-                      on:click={() => toggleStance(issueKey, candidate)}
-                      class="inline-flex min-h-11 items-start pt-1 text-sm font-bold leading-5 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                    >
-                      {isStanceExpanded ? "Show less" : "Show more"}
-                      <span class="sr-only"> for {candidate.name}</span>
-                    </button>
-                  {/if}
+              {#if candidate.image_url && !failedImages[candidate.name]}
+                <img
+                  src={candidate.image_url}
+                  alt=""
+                  class="h-12 w-12 flex-shrink-0 rounded-full border-2 border-stroke object-cover"
+                  on:error={() => markImageFailed(candidate)}
+                />
+              {:else}
+                <div
+                  class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
+                >
+                  {initials(candidate.name)}
                 </div>
-                <div class="flex items-center gap-2 pt-1">
-                  <span
-                    class="text-[10px] font-medium uppercase tracking-wide text-content-subtle"
-                    >Confidence</span
-                  ><ConfidenceIndicator confidence={stance.confidence} />
+              {/if}
+              <div class="min-w-0">
+                <a
+                  href="/races/{race.id}/{candidateSlug(
+                    candidate.name,
+                  )}{isDraftPreview ? '?draft=true' : ''}"
+                  class="block truncate text-sm font-extrabold text-content hover:text-blue-600"
+                  >{candidate.name}</a
+                >
+                <div class="mt-0.5 flex items-center gap-1.5">
+                  {#if candidate.party}<span
+                      class="rounded border border-stroke bg-surface-alt px-1.5 py-0.5 text-[10px] font-bold leading-none text-content-muted"
+                      >{partyAbbr(candidate.party)}</span
+                    >{/if}
+                  {#if candidate.incumbent}<span
+                      class="rounded border border-green-200 bg-green-50 px-1.5 py-0.5 text-[10px] font-bold leading-none text-green-700 dark:border-green-800 dark:bg-green-950/20 dark:text-green-300"
+                      >Incumbent</span
+                    >{/if}
                 </div>
-                {#if stance.sources?.length}
-                  {@const areSourcesExpanded =
-                    expandedSources[sourcesKey(issueKey, candidate)] ?? false}
-                  <div class="border-t border-stroke/40 pt-2">
-                    <div class="flex flex-col items-start gap-2">
-                      {#each areSourcesExpanded ? stance.sources : stance.sources.slice(0, 1) as source}
-                        <SourceLink {source} />
-                      {/each}
-                    </div>
-                    {#if stance.sources.length > 1}
-                      <button
-                        type="button"
-                        aria-expanded={areSourcesExpanded}
-                        on:click={() => toggleSources(issueKey, candidate)}
-                        class="mt-1 inline-flex min-h-11 items-center text-xs font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                      >
-                        {areSourcesExpanded
-                          ? "Show fewer sources"
-                          : `Show ${stance.sources.length - 1} more ${stance.sources.length === 2 ? "source" : "sources"}`}
-                        <span class="sr-only"> for {candidate.name}</span>
-                      </button>
-                    {/if}
-                  </div>
-                {/if}
-              {:else}<span class="select-none text-xs italic text-content-faint"
-                  >No stance researched yet.</span
-                >{/if}
+              </div>
             </div>
           {/each}
         </div>
-      {/each}
+      </div>
 
-      {#if !compact}
+      <div class="divide-y divide-stroke">
         <div
           class="grid"
-          style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
+          style="grid-template-columns: {compact
+            ? '170px'
+            : '220px'} repeat({candidates.length}, 1fr)"
+        >
+          <div
+            class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
+          >
+            Biography & Summary
+          </div>
+          {#each candidates as candidate}
+            <div
+              class="border-r border-stroke p-6 text-sm leading-relaxed text-content-muted last:border-none"
+            >
+              {candidate.summary}
+              {#if !compact && isExternalUrl(candidate.website)}<div
+                  class="mt-3"
+                >
+                  <a
+                    href={candidate.website.trim()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                    >Visit Campaign Website ↗</a
+                  >
+                </div>{/if}
+            </div>
+          {/each}
+        </div>
+
+        <div
+          class="grid"
+          style="grid-template-columns: {compact
+            ? '170px'
+            : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
             class="col-span-full sticky left-0 z-10 w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
             style="grid-column: 1 / -1"
           >
-            Background & Credentials
+            Positions on Key Issues
           </div>
         </div>
-        <div
-          class="grid"
-          style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
-        >
+        {#each issueKeys as issueKey}
           <div
-            class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
+            class="grid"
+            style="grid-template-columns: {compact
+              ? '170px'
+              : '220px'} repeat({candidates.length}, 1fr)"
           >
-            Career Timeline
-          </div>
-          {#each candidates as candidate}<div
-              class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
+            <div
+              class="sticky left-0 z-10 flex flex-col justify-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
             >
-              {#if candidate.career_history?.length}<div class="space-y-4">
-                  {#each candidate.career_history as entry}<div
-                      class="border-l-2 border-blue-500/50 py-0.5 pl-3"
+              {getIssueDisplayName(issueKey)}
+            </div>
+            {#each candidates as candidate}
+              {@const stance = candidate.issues?.[issueKey]}
+              {@const preview = stance
+                ? stancePreview(stance.stance, 320, 220)
+                : ""}
+              {@const isStanceExpanded =
+                expandedStances[stanceKey(issueKey, candidate)] ?? false}
+              <div
+                class="flex flex-col gap-3 border-r border-stroke p-6 last:border-none"
+              >
+                {#if stance}
+                  <div>
+                    <p
+                      class="whitespace-normal text-sm leading-relaxed text-content-muted"
                     >
-                      <div
-                        class="flex flex-wrap items-baseline justify-between gap-2"
+                      {isStanceExpanded ? stance.stance : preview}
+                    </p>
+                    {#if preview !== stance.stance.trim()}
+                      <button
+                        type="button"
+                        aria-expanded={isStanceExpanded}
+                        on:click={() => toggleStance(issueKey, candidate)}
+                        class="inline-flex min-h-11 items-start pt-1 text-sm font-bold leading-5 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                       >
-                        <span class="text-xs font-semibold text-content"
-                          >{entry.title}</span
-                        >{#if entry.start_year}<span
-                            class="text-[10px] text-content-subtle"
-                            >{entry.start_year}{entry.end_year
-                              ? ` – ${entry.end_year}`
-                              : " – Present"}</span
-                          >{/if}
+                        {isStanceExpanded ? "Show less" : "Show more"}
+                        <span class="sr-only"> for {candidate.name}</span>
+                      </button>
+                    {/if}
+                  </div>
+                  <div class="flex items-center gap-2 pt-1">
+                    <span
+                      class="text-[10px] font-medium uppercase tracking-wide text-content-subtle"
+                      >Confidence</span
+                    ><ConfidenceIndicator confidence={stance.confidence} />
+                  </div>
+                  {#if stance.sources?.length}
+                    {@const areSourcesExpanded =
+                      expandedSources[sourcesKey(issueKey, candidate)] ?? false}
+                    <div class="border-t border-stroke/40 pt-2">
+                      <div class="flex flex-col items-start gap-2">
+                        {#each areSourcesExpanded ? stance.sources : stance.sources.slice(0, 1) as source}
+                          <SourceLink {source} />
+                        {/each}
                       </div>
-                      {#if entry.organization}<span
-                          class="block text-xs text-content-subtle"
-                          >{entry.organization}</span
-                        >{/if}
-                    </div>{/each}
-                </div>{:else}<span class="text-xs italic text-content-faint"
-                  >No career records.</span
-                >{/if}
-            </div>{/each}
-        </div>
-        <div
-          class="grid"
-          style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
-        >
-          <div
-            class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
-          >
-            Education
+                      {#if stance.sources.length > 1}
+                        <button
+                          type="button"
+                          aria-expanded={areSourcesExpanded}
+                          on:click={() => toggleSources(issueKey, candidate)}
+                          class="mt-1 inline-flex min-h-11 items-center text-xs font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                        >
+                          {areSourcesExpanded
+                            ? "Show fewer sources"
+                            : `Show ${stance.sources.length - 1} more ${stance.sources.length === 2 ? "source" : "sources"}`}
+                          <span class="sr-only"> for {candidate.name}</span>
+                        </button>
+                      {/if}
+                    </div>
+                  {/if}
+                {:else}<span
+                    class="select-none text-xs italic text-content-faint"
+                    >No stance researched yet.</span
+                  >{/if}
+              </div>
+            {/each}
           </div>
-          {#each candidates as candidate}<div
-              class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
+        {/each}
+
+        {#if !compact}
+          <div
+            class="grid"
+            style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
+          >
+            <div
+              class="col-span-full sticky left-0 z-10 w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
+              style="grid-column: 1 / -1"
             >
-              {#if candidate.education?.length}<div class="space-y-3">
-                  {#each candidate.education as edu}<div>
-                      <span class="block text-xs font-semibold text-content"
-                        >{edu.institution}</span
-                      >{#if edu.degree || edu.field}<span
-                          class="text-[11px] text-content-subtle"
-                          >{[edu.degree, edu.field]
-                            .filter(Boolean)
-                            .join(" in ")}{#if edu.year}
-                            ({edu.year}){/if}</span
-                        >{/if}
-                    </div>{/each}
-                </div>{:else}<span class="text-xs italic text-content-faint"
-                  >No education records.</span
-                >{/if}
-            </div>{/each}
-        </div>
-        {#each backgroundRows as row}
+              Background & Credentials
+            </div>
+          </div>
           <div
             class="grid"
             style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
@@ -445,68 +367,140 @@
             <div
               class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
             >
-              {row.label}
+              Career Timeline
             </div>
-            {#each candidates as candidate}{@const summary =
-                candidate[row.summary]}{@const sourceUrl = candidate[row.url]}
-              <div
+            {#each candidates as candidate}<div
                 class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
               >
-                {#if summary}<p class="mb-3 text-xs leading-relaxed">
-                    {summary}
-                  </p>
-                  {#if sourceUrl && isExternalUrl(sourceUrl)}<a
-                      href={sourceUrl.trim()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
-                      >{row.link} ↗</a
-                    >{/if}{:else}<span class="text-xs italic text-content-faint"
-                    >No records available.</span
+                {#if candidate.career_history?.length}<div class="space-y-4">
+                    {#each candidate.career_history as entry}<div
+                        class="border-l-2 border-blue-500/50 py-0.5 pl-3"
+                      >
+                        <div
+                          class="flex flex-wrap items-baseline justify-between gap-2"
+                        >
+                          <span class="text-xs font-semibold text-content"
+                            >{entry.title}</span
+                          >{#if entry.start_year}<span
+                              class="text-[10px] text-content-subtle"
+                              >{entry.start_year}{entry.end_year
+                                ? ` – ${entry.end_year}`
+                                : " – Present"}</span
+                            >{/if}
+                        </div>
+                        {#if entry.organization}<span
+                            class="block text-xs text-content-subtle"
+                            >{entry.organization}</span
+                          >{/if}
+                      </div>{/each}
+                  </div>{:else}<span class="text-xs italic text-content-faint"
+                    >No career records.</span
                   >{/if}
               </div>{/each}
           </div>
-        {/each}
-      {/if}
-
-      {#if race.forecast}
-        <div
-          class="grid"
-          style="grid-template-columns: {compact
-            ? '170px'
-            : '220px'} repeat({candidates.length}, 1fr)"
-        >
           <div
-            class="sticky left-0 z-10 border-r border-stroke bg-blue-50 p-5 text-sm font-bold text-content dark:bg-blue-950/20"
+            class="grid"
+            style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
           >
-            Forecast
-            <span
-              class="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-content-subtle"
-              >Model estimate</span
-            >
-          </div>
-          {#each candidates as candidate}
-            {@const probability = forecastProbability(candidate)}
             <div
-              class="border-r border-stroke bg-blue-50/40 p-5 last:border-none dark:bg-blue-950/10"
+              class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
             >
-              {#if probability !== undefined}
-                <div class="text-2xl font-extrabold text-content">
-                  {Math.round(probability * 100)}%
-                </div>
-                <p class="mt-1 text-xs text-content-muted">
-                  estimated win probability
-                </p>
-              {:else}
-                <p class="text-sm font-semibold capitalize text-content">
-                  {race.forecast.rating.replaceAll("_", " ")}
-                </p>
-                <p class="mt-1 text-xs text-content-muted">race-level rating</p>
-              {/if}
+              Education
+            </div>
+            {#each candidates as candidate}<div
+                class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
+              >
+                {#if candidate.education?.length}<div class="space-y-3">
+                    {#each candidate.education as edu}<div>
+                        <span class="block text-xs font-semibold text-content"
+                          >{edu.institution}</span
+                        >{#if edu.degree || edu.field}<span
+                            class="text-[11px] text-content-subtle"
+                            >{[edu.degree, edu.field]
+                              .filter(Boolean)
+                              .join(" in ")}{#if edu.year}
+                              ({edu.year}){/if}</span
+                          >{/if}
+                      </div>{/each}
+                  </div>{:else}<span class="text-xs italic text-content-faint"
+                    >No education records.</span
+                  >{/if}
+              </div>{/each}
+          </div>
+          {#each backgroundRows as row}
+            <div
+              class="grid"
+              style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
+            >
+              <div
+                class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
+              >
+                {row.label}
+              </div>
+              {#each candidates as candidate}{@const summary =
+                  candidate[row.summary]}{@const sourceUrl = candidate[row.url]}
+                <div
+                  class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
+                >
+                  {#if summary}<p class="mb-3 text-xs leading-relaxed">
+                      {summary}
+                    </p>
+                    {#if sourceUrl && isExternalUrl(sourceUrl)}<a
+                        href={sourceUrl.trim()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                        >{row.link} ↗</a
+                      >{/if}{:else}<span
+                      class="text-xs italic text-content-faint"
+                      >No records available.</span
+                    >{/if}
+                </div>{/each}
             </div>
           {/each}
-        </div>
-      {/if}
+        {/if}
+
+        {#if race.forecast}
+          <div
+            class="grid"
+            style="grid-template-columns: {compact
+              ? '170px'
+              : '220px'} repeat({candidates.length}, 1fr)"
+          >
+            <div
+              class="sticky left-0 z-10 border-r border-stroke bg-blue-50 p-5 text-sm font-bold text-content dark:bg-blue-950/20"
+            >
+              Forecast
+              <span
+                class="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-content-subtle"
+                >Model estimate</span
+              >
+            </div>
+            {#each candidates as candidate}
+              {@const probability = forecastProbability(candidate)}
+              <div
+                class="border-r border-stroke bg-blue-50/40 p-5 last:border-none dark:bg-blue-950/10"
+              >
+                {#if probability !== undefined}
+                  <div class="text-2xl font-extrabold text-content">
+                    {Math.round(probability * 100)}%
+                  </div>
+                  <p class="mt-1 text-xs text-content-muted">
+                    estimated win probability
+                  </p>
+                {:else}
+                  <p class="text-sm font-semibold capitalize text-content">
+                    {race.forecast.rating.replaceAll("_", " ")}
+                  </p>
+                  <p class="mt-1 text-xs text-content-muted">
+                    race-level rating
+                  </p>
+                {/if}
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 </div>

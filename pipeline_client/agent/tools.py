@@ -411,8 +411,9 @@ FINALIZE_ROSTER_TOOL: Dict = {
                 "completeness_sources": {
                     "type": "array",
                     "description": (
-                        "Retrieved official roster/ballot sources (or retrieved reputable news reports) whose evidence "
-                        "quotes the complete qualified candidate list for this exact contest and names every active candidate."
+                        "Retrieved official roster/ballot sources, the Ballotpedia race page, or retrieved reputable "
+                        "news reports whose evidence quotes the complete qualified candidate list for this exact "
+                        "contest and names every active candidate. Fetch the page first — search snippets are rejected."
                     ),
                     "items": {
                         "type": "object",

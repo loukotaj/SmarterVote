@@ -90,9 +90,31 @@ describe("CandidateComparison", () => {
 
     expect(desktop.getByText("Compare").classList).toContain("bg-surface");
     expect(desktop.getByText("Compare").classList).toContain("self-stretch");
-    expect(desktop.getByText("Research review").classList).toContain(
-      "bg-emerald-50",
-    );
+  });
+
+  it("shows the review summary as a banner outside the horizontal scroller", () => {
+    const reviewedRace: Race = {
+      ...race,
+      validation_grade: {
+        grade: "A",
+        score: 95,
+        passed: true,
+        summary: "Publication checks passed.",
+      },
+    };
+    const { container } = render(CandidateComparison, {
+      race: reviewedRace,
+      candidates: [candidate],
+      compact: true,
+      showQuality: true,
+    });
+    const desktop = container.querySelector<HTMLElement>(
+      "[data-desktop-candidate-comparison]",
+    )!;
+
+    const label = within(desktop).getByText("Research review");
+    expect(label.closest(".overflow-x-auto")).toBeNull();
+    expect(within(desktop).getByText("95/100")).toBeTruthy();
   });
 
   it("explains the limits of the AI review score", async () => {

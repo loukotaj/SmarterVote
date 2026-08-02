@@ -323,6 +323,71 @@ def proxy_health_snapshot() -> Dict[str, int]:
     return {"attempts": _proxy_attempts, "failures": _proxy_failures}
 
 
+_TABULAR_EXTENSIONS = (".xlsx", ".xlsm", ".csv", ".tsv")
+
+
+def is_tabular_document(url: str) -> bool:
+    """True for spreadsheet/CSV URLs the text proxy cannot render.
+
+    Several states publish their certified candidate list as a spreadsheet.
+    r.jina.ai answers 422 for those even though the file downloads fine, so the
+    authoritative roster source was simply unreadable and roster finalization
+    deadlocked with no way forward.
+    """
+    path = urlparse(url or "").path.lower()
+    return path.endswith(_TABULAR_EXTENSIONS)
+
+
+def _xlsx_to_text(payload: bytes) -> str:
+    """Extract readable rows from an .xlsx without a spreadsheet dependency.
+
+    An .xlsx is a zip of XML. Shared strings plus the first worksheet is enough
+    to make a candidate filing list legible to the agent, and avoids adding a
+    parser to the worker image for one file format.
+    """
+    import io as _io
+    import zipfile
+    from xml.etree import ElementTree
+
+    ns = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+    with zipfile.ZipFile(_io.BytesIO(payload)) as archive:
+        shared: List[str] = []
+        if "xl/sharedStrings.xml" in archive.namelist():
+            root = ElementTree.fromstring(archive.read("xl/sharedStrings.xml"))
+            for item in root.findall(f"{ns}si"):
+                shared.append("".join(node.text or "" for node in item.iter(f"{ns}t")))
+        sheets = [name for name in archive.namelist() if name.startswith("xl/worksheets/sheet")]
+        if not sheets:
+            return ""
+        root = ElementTree.fromstring(archive.read(sorted(sheets)[0]))
+        lines: List[str] = []
+        for row in root.iter(f"{ns}row"):
+            cells: List[str] = []
+            for cell in row.findall(f"{ns}c"):
+                value = cell.find(f"{ns}v")
+                if value is None or value.text is None:
+                    continue
+                if cell.get("t") == "s":
+                    index = int(value.text)
+                    cells.append(shared[index] if 0 <= index < len(shared) else "")
+                else:
+                    cells.append(value.text)
+            if any(cell.strip() for cell in cells):
+                lines.append(" | ".join(cells))
+        return "\n".join(lines)
+
+
+async def _fetch_tabular_document(client: httpx.AsyncClient, url: str) -> Optional[str]:
+    """Download and flatten a spreadsheet/CSV directly, bypassing the text proxy."""
+    resp = await _get_validated(client, url)
+    resp.raise_for_status()
+    path = urlparse(url).path.lower()
+    if path.endswith((".xlsx", ".xlsm")):
+        return _xlsx_to_text(resp.content)
+    # CSV/TSV are already text; httpx decodes using the response charset.
+    return resp.text
+
+
 def _get_serper_client() -> httpx.AsyncClient:
     """Return a per-event-loop AsyncClient for Serper API calls."""
     loop_id = id(asyncio.get_running_loop())
@@ -360,6 +425,23 @@ async def _fetch_page(url: str) -> str:
 
     client = _get_fetch_client()
     failure_reasons: List[str] = []
+
+    # Spreadsheets download fine but the text proxy rejects them, so fetch and
+    # flatten them here rather than letting an authoritative candidate list come
+    # back as an unusable error.
+    if is_tabular_document(url):
+        try:
+            tabular_text = await _fetch_tabular_document(client, url)
+            if tabular_text and tabular_text.strip():
+                if len(tabular_text) > _PAGE_MAX_CHARS:
+                    tabular_text = tabular_text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
+                record_fetched_chars(len(tabular_text))
+                if cache:
+                    cache.set_page(url, tabular_text)
+                return tabular_text
+            failure_reasons.append("tabular document contained no readable rows")
+        except Exception as exc:
+            failure_reasons.append(f"tabular fetch: {exc}")
 
     # Some campaign sites block one header/profile but allow another.
     header_profiles = [

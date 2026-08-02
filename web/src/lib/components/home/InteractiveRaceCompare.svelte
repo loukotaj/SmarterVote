@@ -4,15 +4,31 @@
 
   export let races: Race[] = [];
   let selectedId = races[0]?.id ?? "";
+  let pillList: HTMLDivElement | undefined;
   $: if (races.length && !races.some((race) => race.id === selectedId))
     selectedId = races[0].id;
-  $: selectedRace = races.find((race) => race.id === selectedId) ?? races[0];
+  $: selectedIndex = races.findIndex((race) => race.id === selectedId);
+  $: selectedRace = races[selectedIndex] ?? races[0];
   $: candidates =
     selectedRace?.candidates.filter((candidate) => !candidate.withdrawn) ?? [];
+  // Keep the active pill visible when the selection changes from either the
+  // arrow buttons or a pill click.
+  $: centerPill(selectedIndex);
+
+  function centerPill(index: number) {
+    const pill = pillList?.children[index] as HTMLElement | undefined;
+    if (!pill || !pillList || typeof pillList.scrollTo !== "function") return;
+    pillList.scrollTo({
+      left: Math.max(
+        0,
+        pill.offsetLeft - (pillList.clientWidth - pill.offsetWidth) / 2,
+      ),
+      behavior: "smooth",
+    });
+  }
 
   function moveRace(direction: number) {
-    const current = races.findIndex((race) => race.id === selectedId);
-    const next = (current + direction + races.length) % races.length;
+    const next = (selectedIndex + direction + races.length) % races.length;
     selectedId = races[next]?.id ?? selectedId;
   }
 </script>
@@ -55,6 +71,7 @@
           aria-label="Previous featured race">←</button
         >
         <div
+          bind:this={pillList}
           class="hide-scrollbar flex min-w-0 flex-1 gap-2 overflow-x-auto py-1"
         >
           {#each races as race, index}

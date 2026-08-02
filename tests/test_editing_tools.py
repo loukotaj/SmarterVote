@@ -2309,6 +2309,92 @@ def test_completeness_gate_still_rejects_single_candidate_evidence():
     )
 
 
+def test_completeness_gate_accepts_fetched_ballotpedia_race_page():
+    """Regression for the live ne-house-02-2026 roster-sync block.
+
+    The agent fetched the Ballotpedia race page, which named the exact contest
+    and enumerated the full general-election field, and the gate rejected it
+    purely on source type. That left the state SoS landing page as the only
+    candidate completeness source, it failed the exact-district check, and the
+    roster never finalized.
+    """
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://ballotpedia.org/Nebraska%27s_2nd_Congressional_District_election,_2026",
+            "title": "Nebraska's 2nd Congressional District election, 2026",
+            "evidence": (
+                "Denise Powell, Brinker Harding, and Eric Michael Foreman are the candidates running "
+                "in the general election for U.S. House Nebraska District 2 on November 3, 2026."
+            ),
+            "race_id": "ne-house-02-2026",
+            "evidence_tier": 2,
+            "retrieval_status": "content",
+        },
+        race_id="ne-house-02-2026",
+    )
+
+    assert source["type"] == "ballotpedia"
+    assert (
+        _roster_completeness_source_rejection_reason(
+            source,
+            race_id="ne-house-02-2026",
+            identity={"office": "U.S. House", "contest_stage": "post_primary_general"},
+        )
+        is None
+    )
+
+
+def test_completeness_gate_still_rejects_unfetched_ballotpedia_snippet():
+    """Widening the source type must not weaken the retrieved-content requirement."""
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://ballotpedia.org/Nebraska%27s_2nd_Congressional_District_election,_2026",
+            "title": "Nebraska's 2nd Congressional District election, 2026",
+            "evidence": (
+                "Denise Powell, Brinker Harding, and Eric Michael Foreman are the candidates running "
+                "in the general election for U.S. House Nebraska District 2 on November 3, 2026."
+            ),
+            "race_id": "ne-house-02-2026",
+        },
+        race_id="ne-house-02-2026",
+    )
+
+    assert source["retrieval_status"] == "snippet"
+    assert "retrieved page content" in _roster_completeness_source_rejection_reason(
+        source,
+        race_id="ne-house-02-2026",
+        identity={"office": "U.S. House", "contest_stage": "post_primary_general"},
+    )
+
+
+def test_completeness_gate_still_rejects_generic_state_elections_landing_page():
+    """The other half of the ne-house-02-2026 failure: an official page naming no district."""
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://sos.nebraska.gov/elections",
+            "title": "2026 Elections - Nebraska Secretary of State",
+            "evidence": "General Election: November 3, 2026",
+            "race_id": "ne-house-02-2026",
+            "evidence_tier": 1,
+            "retrieval_status": "content",
+        },
+        race_id="ne-house-02-2026",
+    )
+
+    assert source["type"] == "official"
+    assert "exact contest" in _roster_completeness_source_rejection_reason(
+        source,
+        race_id="ne-house-02-2026",
+        identity={"office": "U.S. House", "contest_stage": "post_primary_general"},
+    )
+
+
 @pytest.mark.asyncio
 async def test_targeted_issue_run_preserves_other_candidates_audits():
     """Regression: a scoped candidate_names run used to wipe the whole race's audit.
@@ -2406,3 +2492,71 @@ def test_roster_sanitizer_repairs_existing_blank_urls():
 
     assert race_json["candidates"][0]["website"] is None
     assert race_json["candidates"][0]["image_url"] == "https://example.com/a.jpg"
+
+
+def test_completeness_evidence_naming_full_roster_needs_no_certified_wording():
+    """Regression: the gate demanded list-identifying phrasing on top of coverage.
+
+    Ballotpedia's standard full-field sentence and New Jersey's own certified
+    list both name every candidate but never say "certified", so a source that
+    had already proven completeness was rejected for its wording.
+    """
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://ballotpedia.org/Nebraska%27s_2nd_Congressional_District_election,_2026",
+            "title": "Nebraska's 2nd Congressional District election, 2026",
+            "evidence": (
+                "Denise Powell, Brinker Harding, and Eric Michael Foreman are running in the general "
+                "election for U.S. House Nebraska District 2 on November 3, 2026."
+            ),
+            "published_at": "2026-08-01T00:00:00Z",
+            "evidence_tier": 2,
+            "retrieval_status": "content",
+        },
+        race_id="ne-house-02-2026",
+    )
+    identity = {"office": "U.S. House", "contest_stage": "post_primary_general"}
+    roster = ["Denise Powell", "Brinker Harding", "Eric Michael Foreman"]
+
+    assert (
+        _roster_completeness_source_rejection_reason(
+            source, race_id="ne-house-02-2026", identity=identity, roster_names=roster
+        )
+        is None
+    )
+
+    # Coverage must be genuine: a roster the evidence does not fully name still fails.
+    assert _roster_completeness_source_rejection_reason(
+        source,
+        race_id="ne-house-02-2026",
+        identity=identity,
+        roster_names=["Denise Powell", "Someone Not Listed"],
+    )
+
+
+def test_completeness_still_refuses_search_snippets():
+    """Coverage does not excuse a snippet — completeness needs retrieved content."""
+    from pipeline_client.agent.handlers import _normalize_roster_source, _roster_completeness_source_rejection_reason
+
+    source = _normalize_roster_source(
+        {
+            "url": "https://ballotpedia.org/Nebraska%27s_2nd_Congressional_District_election,_2026",
+            "title": "Nebraska's 2nd Congressional District election, 2026",
+            "evidence": (
+                "Denise Powell, Brinker Harding, and Eric Michael Foreman are running in the general "
+                "election for U.S. House Nebraska District 2 on November 3, 2026."
+            ),
+        },
+        race_id="ne-house-02-2026",
+    )
+
+    reason = _roster_completeness_source_rejection_reason(
+        source,
+        race_id="ne-house-02-2026",
+        identity={"office": "U.S. House", "contest_stage": "post_primary_general"},
+        roster_names=["Denise Powell", "Brinker Harding", "Eric Michael Foreman"],
+    )
+
+    assert reason and "retrieved page content" in reason

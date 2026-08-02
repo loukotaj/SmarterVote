@@ -1221,6 +1221,11 @@ list for this exact contest. This is an atomic replacement: use it to apply all
 remaining additions and removals in one response instead of spending one turn
 per candidate. Candidate-specific
 sources prove that listed people belong; they do not prove nobody was omitted.
+Completeness evidence must come from a page you actually FETCHED this run — a
+search snippet is rejected. An official ballot/qualified list, the Ballotpedia
+page for this exact race, or a news report enumerating the full field all
+qualify; a state election-authority landing page that never names this district
+does not. When nothing else lists the full field, fetch the Ballotpedia race page.
 For a special election, the completeness evidence must explicitly identify the
 special contest and its verified date. The tool will reject incomplete or weakly
 sourced rosters and tell you exactly which evidence remains to fix. You may stop only after
