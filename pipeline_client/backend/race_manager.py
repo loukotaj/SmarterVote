@@ -361,9 +361,9 @@ class RaceManager:
 
             gcs_bucket = settings.gcs_bucket
             if gcs_bucket:
-                from pipeline_client.backend.main import _get_gcs_client
+                from pipeline_client.backend.gcs_client import get_gcs_client
 
-                client = _get_gcs_client()
+                client = get_gcs_client()
                 if client is not None:
                     bucket = client.bucket(gcs_bucket)
                     has_gcs_draft = bucket.blob(f"drafts/{race_id}.json").exists()
@@ -661,9 +661,9 @@ class RaceManager:
         now = _now_iso()
 
         try:
-            from pipeline_client.backend.main import _get_gcs_client
+            from pipeline_client.backend.gcs_client import get_gcs_client
 
-            client = _get_gcs_client()
+            client = get_gcs_client()
             if client is None:
                 logger.warning("google-cloud-storage not available; skipping GCS hydration")
                 return 0

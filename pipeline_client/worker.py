@@ -112,12 +112,9 @@ def _get_db() -> Any:
 
 
 def _get_gcs() -> Any:
-    try:
-        storage = __import__("google.cloud.storage", fromlist=["Client"])
-        return storage.Client()
-    except Exception as exc:  # noqa: BLE001
-        logger.warning("GCS client init failed: %s", exc)
-        return None
+    from pipeline_client.backend.gcs_client import get_gcs_client
+
+    return get_gcs_client()
 
 
 def _bucket_name() -> str:

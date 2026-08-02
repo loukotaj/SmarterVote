@@ -50,20 +50,27 @@ def test_get_db_falls_back_to_new_firestore_client_when_shared_db_is_none(monkey
 # ---------------------------------------------------------------------------
 
 
-def test_get_gcs_returns_client_on_success(monkeypatch):
+def test_get_gcs_delegates_to_the_shared_factory(monkeypatch):
+    """The worker no longer builds its own client.
+
+    Construction and its failure modes (missing library, bad credentials,
+    build-once memoization) are covered in tests/test_gcs_client.py, which is
+    where that code now lives. What matters here is that the worker asks the
+    shared factory instead of constructing a sixth independent client.
+    """
+    from pipeline_client.backend import gcs_client
+
     fake_client = MagicMock()
-    fake_storage_module = types.SimpleNamespace(Client=lambda: fake_client)
-    monkeypatch.setitem(__import__("sys").modules, "google.cloud.storage", fake_storage_module)
+    monkeypatch.setattr(gcs_client, "get_gcs_client", lambda: fake_client)
 
     assert worker._get_gcs() is fake_client
 
 
-def test_get_gcs_returns_none_and_logs_warning_on_exception(monkeypatch):
-    def exploding_client():
-        raise RuntimeError("no credentials")
+def test_get_gcs_propagates_factory_unavailability(monkeypatch):
+    """A None from the factory must reach the caller — every call site branches on it."""
+    from pipeline_client.backend import gcs_client
 
-    fake_storage_module = types.SimpleNamespace(Client=exploding_client)
-    monkeypatch.setitem(__import__("sys").modules, "google.cloud.storage", fake_storage_module)
+    monkeypatch.setattr(gcs_client, "get_gcs_client", lambda: None)
 
     assert worker._get_gcs() is None
 

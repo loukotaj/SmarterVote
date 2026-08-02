@@ -101,12 +101,9 @@ class AgentHandler:
 
     def _get_storage_client(self):
         """Return a GCS storage client without importing FastAPI app modules."""
-        try:
-            from google.cloud import storage  # type: ignore
+        from pipeline_client.backend.gcs_client import get_gcs_client
 
-            return storage.Client()
-        except Exception:
-            return None
+        return get_gcs_client()
 
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
         """Run the agent for a race_id and publish the result.

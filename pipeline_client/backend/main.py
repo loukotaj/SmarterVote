@@ -29,7 +29,6 @@ from .step_registry import REGISTRY
 load_dotenv(dotenv_path=Path(__file__).resolve().parents[2] / ".env")
 
 _RACE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,99}$")
-_gcs_client = None
 http_bearer = HTTPBearer(auto_error=False)
 
 
@@ -40,18 +39,15 @@ def _validate_race_id(race_id: str) -> None:
 
 
 def _get_gcs_client():
-    """Return a lazily initialized GCS client, or None if the library is missing."""
-    global _gcs_client
-    if _gcs_client is not None:
-        return _gcs_client
-    try:
-        from google.cloud import storage as gcs  # type: ignore
+    """Return a lazily initialized GCS client, or None if unavailable.
 
-        _gcs_client = gcs.Client()
-        return _gcs_client
-    except ImportError:
-        logging.warning("google-cloud-storage not installed")
-        return None
+    Kept as a thin alias so this debug app's own routes keep working. The client
+    itself now lives in ``backend.gcs_client``; production code must import it
+    from there rather than from this module, which is local-debug only.
+    """
+    from pipeline_client.backend.gcs_client import get_gcs_client
+
+    return get_gcs_client()
 
 
 @asynccontextmanager
