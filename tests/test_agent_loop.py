@@ -10,6 +10,7 @@ from openai import APIConnectionError
 from pipeline_client.agent.agent import _agent_loop
 from pipeline_client.agent.errors import RetryableProviderError
 from pipeline_client.agent.llm import _await_with_run_budget, _call_openrouter, _provider_usage_cost
+from pipeline_client.agent.model_registry import CHEAP_GEMINI_MODEL, DEFAULT_MODEL
 
 FAKE_RACE_JSON = {
     "id": "mo-senate-2024",
@@ -702,7 +703,7 @@ async def test_agent_loop_does_not_accept_early_stop_before_required_final_tool(
         result = await _agent_loop(
             "system",
             "user",
-            model="google/gemini-2.5-flash",
+            model=CHEAP_GEMINI_MODEL,
             phase_name="roster-finalize-test",
             tools_mode=True,
             extra_tools=[final_tool],
@@ -804,7 +805,7 @@ async def test_agent_loop_injects_actual_search_and_fetch_urls_into_editing_call
         await _agent_loop(
             "system",
             "user",
-            model="google/gemini-2.5-flash",
+            model=DEFAULT_MODEL,
             phase_name="roster-provenance",
             max_iterations=5,
             tools_mode=True,
