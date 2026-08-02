@@ -571,8 +571,8 @@ def test_generate_chamber_forecasts_defaults_to_gemini_35_flash(client, monkeypa
 
     assert resp.status_code == 200
     body = resp.json()
-    assert body["model"] == "google/gemini-3.5-flash"
-    assert seen_models == ["google/gemini-3.5-flash"] * 3
+    assert body["model"] == "google/gemini-3.6-flash"
+    assert seen_models == ["google/gemini-3.6-flash"] * 3
 
 
 def test_generate_chamber_forecasts_fails_without_saving_when_llm_fails(client, monkeypatch):
