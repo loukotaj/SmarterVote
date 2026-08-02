@@ -563,9 +563,29 @@ def test_federal_house_roster_rejects_same_number_state_house_evidence():
         "retrieval_status": "content",
     }
 
-    result = handlers["add_candidate"]({"name": "Rick Pressnell", "party": "Democratic", "roster_sources": [source]})
+    # The office/district collision is a reading judgment now, not a regex over
+    # the evidence text. The live case lives in test_roster_adjudicator_live as
+    # "state-house-district-number-collision"; here we assert the handler honours
+    # a blocking verdict and surfaces its reason.
+    result = handlers["add_candidate"](
+        {
+            "name": "Rick Pressnell",
+            "party": "Democratic",
+            "roster_sources": [source],
+            "_adjudications": {
+                "membership": {
+                    source["url"]: {
+                        "supports": False,
+                        "reason": "names the Alabama House of Representatives, not the U.S. House",
+                        "model": "test-stub",
+                    }
+                }
+            },
+        }
+    )
 
     assert "Blocked adding" in result
+    assert "Alabama House of Representatives, not the U.S. House" in result
     assert race_json["candidates"] == []
 
 
@@ -1323,9 +1343,26 @@ def test_remove_candidate_blocks_generic_primary_loss_without_official_result():
     race_json = {"candidates": [{"name": "Alice", "party": "D"}, {"name": "Bob", "party": "R"}]}
     handlers = _make_editing_handlers(race_json, lambda l, m: None)
 
-    result = handlers["remove_candidate"]({"name": "Alice", "reason": "Lost primary election"})
+    # An unsupported "lost primary" claim is now rejected by the adjudicator
+    # reading the reason, not by a keyword scan demanding the word "official".
+    result = handlers["remove_candidate"](
+        {
+            "name": "Alice",
+            "reason": "Lost primary election",
+            "_adjudications": {
+                "withdrawal": {
+                    "": {
+                        "supports": False,
+                        "reason": "states a primary loss with no date or result source to support it",
+                        "model": "test-stub",
+                    }
+                }
+            },
+        }
+    )
 
     assert "blocked" in result.lower()
+    assert "no date or result source" in result
     assert race_json["candidates"][0].get("withdrawn") is not True
 
 
@@ -2304,9 +2341,25 @@ def test_completeness_gate_still_rejects_single_candidate_evidence():
         race_id="nj-senate-2026",
     )
 
-    assert _roster_completeness_source_rejection_reason(
-        source, race_id="nj-senate-2026", identity={"office": "U.S. Senate", "contest_stage": "post_primary_general"}
+    # Whether a page presents the whole field or profiles one person is a
+    # reading judgment now. The same case runs against the real model in
+    # test_roster_adjudicator_live as "single-candidate-profile-is-not-a-field".
+    blocking = {
+        "completeness": {
+            source["url"]: {
+                "supports": False,
+                "reason": "profiles one incumbent and never lists the field for this contest",
+                "model": "test-stub",
+            }
+        }
+    }
+    reason = _roster_completeness_source_rejection_reason(
+        source,
+        race_id="nj-senate-2026",
+        identity={"office": "U.S. Senate", "contest_stage": "post_primary_general"},
+        args={"_adjudications": blocking},
     )
+    assert reason and "never lists the field" in reason
 
 
 def test_completeness_gate_accepts_fetched_ballotpedia_race_page():

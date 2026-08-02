@@ -83,6 +83,13 @@ GA_DIFFERENT_OFFICE = {
     "published_at": "2026-03-10",
 }
 
+SINGLE_CANDIDATE_PROFILE = {
+    "url": "https://www.nj.gov/state/elections/some-profile",
+    "title": "Cory Booker profile",
+    "evidence": "Cory Booker is the incumbent senator seeking re-election in 2026.",
+    "published_at": "2026-07-27",
+}
+
 NE_CONTEST = "ne-house-02-2026 (U.S. House, Nebraska District 2, 2026)"
 
 CASES = [
@@ -115,6 +122,14 @@ CASES = [
         False,
     ),
     ("blocked-page-as-omission-proof", Claim.OMISSION, "Don Bacon", NE_CONTEST, BLOCKED_PAGE, False),
+    (
+        "single-candidate-profile-is-not-a-field",
+        Claim.COMPLETENESS,
+        "Cory Booker",
+        "nj-senate-2026 (U.S. Senate, New Jersey, 2026)",
+        SINGLE_CANDIDATE_PROFILE,
+        False,
+    ),
     ("prior-cycle-as-current-membership", Claim.MEMBERSHIP, "Don Bacon", NE_CONTEST, PRIOR_CYCLE_ARTICLE, False),
     (
         "absence-of-evidence-as-withdrawal",

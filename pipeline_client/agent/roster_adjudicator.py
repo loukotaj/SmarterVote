@@ -291,7 +291,9 @@ async def adjudicate(
 _TOOL_EVIDENCE_SPECS: Dict[str, tuple] = {
     # (args_key, claim, subject_key, condition_key)
     "add_candidate": (("roster_sources", Claim.MEMBERSHIP, "name", None),),
-    "set_candidate_roster_sources": (("roster_sources", Claim.MEMBERSHIP, "candidate_name", None),),
+    # This tool's argument is "sources", not "roster_sources" — the two roster
+    # tools disagree, and reading the wrong key here silently adjudicated nothing.
+    "set_candidate_roster_sources": (("sources", Claim.MEMBERSHIP, "candidate_name", None),),
     "remove_candidate": (
         ("sources", Claim.OMISSION, "name", "not_on_roster"),
         ("sources", Claim.WRONG_CONTEST, "name", "wrong_contest"),
