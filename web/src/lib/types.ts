@@ -74,6 +74,7 @@ export interface IssueStance {
   stance: string;
   confidence: ConfidenceLevel;
   sources: Source[];
+  research_audit?: IssueResearchAudit;
 }
 
 export interface CandidateLink {

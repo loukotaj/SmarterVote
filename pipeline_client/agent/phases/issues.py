@@ -582,6 +582,13 @@ async def run_issues_phase(
                     # all) is a genuine failure worth retrying.
                     if patch is not None and str(patch.get("stance") or "").strip():
                         candidate = candidates_by_name[candidate_name]
+                        # Attach the audit to the stance itself. pipeline_state is
+                        # rebuilt per logical run, so an audit that lives only there
+                        # disappears for every candidate a later targeted run does
+                        # not re-research — and review then rejects their documented
+                        # absences. Stored on the stance, the evidence travels with
+                        # the data across runs, handoffs, and checkpoint restores.
+                        patch["research_audit"] = dict(issue_research[unit_id])
                         candidate.setdefault("issues", {})[issue_name] = patch
                         _mark_pipeline_unit_complete(race_json, unit_id)
                         completed_units.add(unit_id)
