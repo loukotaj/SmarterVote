@@ -294,3 +294,86 @@ def test_verdict_record_is_persistable():
     record = adj.Verdict(supports=False, reason="wrong district").to_record()
     assert json.loads(json.dumps(record)) == record
     assert record["reason"] == "wrong district"
+
+
+# --- what the agent loop collects per tool call --------------------------------
+
+
+def _collect(monkeypatch, tool_name, args, verdict='{"supports": true, "reason": "ok"}'):
+    calls = []
+
+    async def _reply_with(messages, **kwargs):
+        calls.append(messages[1]["content"])
+        return _reply(verdict)
+
+    monkeypatch.setattr("pipeline_client.agent.llm._call_openrouter", _reply_with)
+    result = _run(adj.collect_roster_adjudications(tool_name=tool_name, args=args, race_id="ne-house-02-2026"))
+    return result, calls
+
+
+def test_non_roster_tools_cost_nothing(monkeypatch):
+    """Every editing call passes through the collector; only roster ones may spend."""
+    result, calls = _collect(monkeypatch, "set_issue_stance", {"candidate_name": "X", "stance": "..."})
+    assert result == {}
+    assert calls == []
+
+
+def test_add_candidate_adjudicates_membership(monkeypatch):
+    result, calls = _collect(monkeypatch, "add_candidate", {"name": "Jane Roe", "roster_sources": [_source()]})
+    assert set(result) == {adj.Claim.MEMBERSHIP}
+    assert result[adj.Claim.MEMBERSHIP][_source()["url"]]["supports"] is True
+    assert len(calls) == 1
+
+
+def test_finalize_roster_adjudicates_completeness(monkeypatch):
+    result, _ = _collect(monkeypatch, "finalize_roster", {"completeness_sources": [_source()]})
+    assert set(result) == {adj.Claim.COMPLETENESS}
+
+
+def test_remove_candidate_claim_follows_the_flag(monkeypatch):
+    """The same sources argue a different claim depending on why removal was requested."""
+    omission, _ = _collect(monkeypatch, "remove_candidate", {"name": "X", "not_on_roster": True, "sources": [_source()]})
+    assert set(omission) == {adj.Claim.OMISSION}
+
+    wrong, _ = _collect(monkeypatch, "remove_candidate", {"name": "X", "wrong_contest": True, "sources": [_source()]})
+    assert set(wrong) == {adj.Claim.WRONG_CONTEST}
+
+
+def test_plain_removal_is_judged_on_its_reason_not_its_sources(monkeypatch):
+    """A withdrawal is argued in prose; there is no source object to grade."""
+    result, calls = _collect(monkeypatch, "remove_candidate", {"name": "X", "reason": "Withdrew on June 2, 2026."})
+    assert set(result) == {adj.Claim.WITHDRAWAL}
+    assert result[adj.Claim.WITHDRAWAL][""]["supports"] is True
+    assert "Withdrew on June 2, 2026." in calls[0]
+
+
+def test_removal_with_no_reason_asks_nothing(monkeypatch):
+    result, calls = _collect(monkeypatch, "remove_candidate", {"name": "X"})
+    assert result == {}
+    assert calls == []
+
+
+def test_empty_source_list_asks_nothing(monkeypatch):
+    """Structural gates already reject this; no reason to pay a model to agree."""
+    result, calls = _collect(monkeypatch, "add_candidate", {"name": "X", "roster_sources": []})
+    assert result == {}
+    assert calls == []
+
+
+def test_provider_failure_yields_blocking_verdicts_not_absence(monkeypatch):
+    """Fail-closed must produce a recorded refusal the handler can surface, not silence."""
+
+    async def _boom(*args, **kwargs):
+        raise RuntimeError("quota exhausted")
+
+    monkeypatch.setattr("pipeline_client.agent.llm._call_openrouter", _boom)
+    result = _run(
+        adj.collect_roster_adjudications(
+            tool_name="add_candidate",
+            args={"name": "Jane Roe", "roster_sources": [_source()]},
+            race_id="ne-house-02-2026",
+        )
+    )
+    record = result[adj.Claim.MEMBERSHIP][_source()["url"]]
+    assert record["supports"] is False
+    assert record["unavailable"] is True
