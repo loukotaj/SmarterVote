@@ -689,3 +689,134 @@ def test_dead_source_removal_leaves_transient_failures_alone():
     }
 
     assert _remove_confirmed_dead_candidate_sources(race_json, link_review) == 0
+
+
+def test_stance_level_audit_survives_missing_pipeline_state():
+    """Regression: audits stored only in pipeline_state vanished for candidates a
+    later targeted run did not re-research, so review rejected their documented
+    absences and no sequence of runs could converge."""
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {
+                "name": "Justin Murphy",
+                "issues": {
+                    "Tech & AI": {
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [],
+                        "research_audit": {
+                            "status": "completed",
+                            "attempts": 1,
+                            "search_calls": 2,
+                            "page_fetches": 1,
+                        },
+                    }
+                },
+            }
+        ],
+        # Deliberately empty: this run researched somebody else.
+        "pipeline_state": {"issue_attempts": {}, "issue_research": {}},
+    }
+
+    result = check_profile_quality(profile)
+    audit_flags = [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
+
+    assert audit_flags == []
+
+
+def test_unaudited_absence_is_still_flagged():
+    """The guard must still catch an absence nothing ever researched."""
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {
+                "name": "Justin Murphy",
+                "issues": {
+                    "Tech & AI": {"stance": "No public position found", "confidence": "low", "sources": []},
+                },
+            }
+        ],
+        "pipeline_state": {"issue_attempts": {}, "issue_research": {}},
+    }
+
+    result = check_profile_quality(profile)
+    audit_flags = [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
+
+    assert len(audit_flags) == 1
+
+
+def test_research_audit_survives_schema_roundtrip():
+    """An undeclared field would be stripped by RaceJSON validation."""
+    from shared.models import IssueStance
+
+    stance = IssueStance.model_validate(
+        {
+            "stance": "No public position found",
+            "confidence": "low",
+            "sources": [],
+            "research_audit": {"status": "completed", "attempts": 1, "search_calls": 2, "page_fetches": 1},
+        }
+    )
+
+    assert stance.research_audit is not None
+    assert stance.model_dump()["research_audit"]["search_calls"] == 2
+
+
+def test_dead_source_removal_handles_urls_containing_parentheses():
+    """Ballotpedia/Wikipedia disambiguation URLs contain parentheses.
+
+    Regression: the URL was recovered from the flag's prose with a regex that
+    stopped at the first ')', producing a truncated address that never matched
+    the stored citation, so those dead links could never be auto-removed.
+    """
+    from pipeline_client.agent.review import _remove_confirmed_dead_candidate_sources
+
+    dead = "https://www.ballotpedia.org/Alabama%27s_2nd_Congressional_District_election,_2026_(August_11_Republican_primary)"
+    race_json = {
+        "candidates": [
+            {
+                "name": "David Matthews",
+                "issues": {
+                    "Election Policy": {
+                        "stance": "Supports voter ID.",
+                        "sources": [{"url": dead}, {"url": "https://al.com/politics/story"}],
+                    }
+                },
+            }
+        ]
+    }
+    link_review = {
+        "flags": [
+            {
+                "field": "candidates[0].issues.Election Policy.sources[0].url",
+                "concern": f"Cited source URL ({dead}) returned a dead link: Request failed: [Errno -2] Name or service not known.",
+                "permanent_failure": True,
+                "url": dead,
+            }
+        ]
+    }
+
+    assert _remove_confirmed_dead_candidate_sources(race_json, link_review) == 1
+    remaining = [s["url"] for s in race_json["candidates"][0]["issues"]["Election Policy"]["sources"]]
+    assert dead not in remaining
+    assert "https://al.com/politics/story" in remaining
+
+
+@pytest.mark.asyncio
+async def test_verify_url_marks_tls_failure_permanent():
+    """A host whose certificate will not validate is not a usable citation."""
+    import httpx
+
+    from pipeline_client.agent.review import _verify_url
+
+    exc = httpx.ConnectError("[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer")
+
+    with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, side_effect=exc):
+        _reason, permanent = await _verify_url(AsyncMock(), "https://www.sos.alabama.gov/doc.pdf")
+
+    assert permanent is True

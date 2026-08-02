@@ -326,7 +326,12 @@ def _is_permanent_link_failure(exc: Exception) -> bool:
     if isinstance(exc, ValueError):
         return True  # malformed / disallowed URL
     text = str(exc).casefold()
-    return any(marker in text for marker in _PERMANENT_DNS_FAILURE_MARKERS)
+    if any(marker in text for marker in _PERMANENT_DNS_FAILURE_MARKERS):
+        return True
+    # A certificate that does not validate makes the address unusable as a
+    # citation until someone fixes the host, which is not something a rerun can
+    # resolve. Common on "www." variants of state election sites.
+    return "certificate_verify_failed" in text or "certificate verify failed" in text
 
 
 async def _verify_url(client: httpx.AsyncClient, url: str) -> Optional[tuple[str, bool]]:
@@ -412,8 +417,12 @@ async def check_profile_links(
                     "suggestion": "Verify the URL, find a replacement source, and update the stance.",
                     "severity": "warning",
                     # Machine-readable so deterministic cleanup does not have to
-                    # parse this sentence back out of prose.
+                    # parse these back out of prose. Recovering the URL by regex
+                    # truncated any address containing parentheses — which covers
+                    # every Ballotpedia/Wikipedia disambiguation link — so those
+                    # citations could never be matched and removed.
                     "permanent_failure": permanent,
+                    "url": url,
                 }
             )
 
@@ -452,9 +461,16 @@ def _remove_confirmed_dead_candidate_sources(race_json: Dict[str, Any], link_rev
         if not permanent:
             continue
         field_match = re.match(r"candidates\[(\d+)\]", str(flag.get("field") or ""))
-        url_match = re.search(r"Cited source URL \((https?://[^)]+)\)", concern)
-        if field_match and url_match:
-            removals.setdefault(int(field_match.group(1)), set()).add(url_match.group(1))
+        if not field_match:
+            continue
+        url = str(flag.get("url") or "").strip()
+        if not url:
+            # Reviews stored before the flag carried its URL. The regex truncates
+            # any address containing parentheses, so it is a fallback only.
+            url_match = re.search(r"Cited source URL \((https?://[^)]+)\)", concern)
+            url = url_match.group(1) if url_match else ""
+        if url:
+            removals.setdefault(int(field_match.group(1)), set()).add(url)
 
     removed = 0
     candidates = race_json.get("candidates") or []
@@ -684,17 +700,23 @@ def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
                     continue
                 stance = str(issue_data.get("stance") or "").strip()
                 attempt_key = f"issues:{candidate.get('name')}:{issue_name}"
-                audit = issue_research.get(attempt_key)
+                # The stance-level audit is durable; pipeline_state is rebuilt per
+                # logical run and only describes the candidates that run touched.
+                audit = issue_data.get("research_audit")
+                if not isinstance(audit, dict):
+                    audit = issue_research.get(attempt_key)
                 researched_actions = (
                     int(audit.get("search_calls", 0) or 0) + int(audit.get("page_fetches", 0) or 0)
                     if isinstance(audit, dict)
                     else 0
                 )
+                # Attempt count comes from the same record as the rest of the audit,
+                # so a durable stance-level audit is not defeated by run-scoped state.
+                attempts = int(issue_attempts.get(attempt_key, 0) or 0)
+                if isinstance(audit, dict) and audit.get("attempts") is not None:
+                    attempts = max(attempts, int(audit.get("attempts") or 0))
                 if _is_documented_absence(stance) and (
-                    int(issue_attempts.get(attempt_key, 0) or 0) < 1
-                    or not isinstance(audit, dict)
-                    or audit.get("status") != "completed"
-                    or researched_actions < 2
+                    attempts < 1 or not isinstance(audit, dict) or audit.get("status") != "completed" or researched_actions < 2
                 ):
                     flags.append(
                         {
