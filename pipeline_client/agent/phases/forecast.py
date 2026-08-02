@@ -10,23 +10,22 @@ from ..prompts import FORECAST_SYSTEM, FORECAST_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import FORECAST_TOOLS, READ_PROFILE_TOOL
 from ._common import _await_with_run_budget, _classify_exception, _race_identity_context, _record_step_failure
+from .context import PhaseContext
 
 
-async def run_forecast_phase(
-    race_json: Dict[str, Any],
-    race_id: str,
-    *,
-    model: str,
-    on_log: Any,
-    max_iterations: int,
-    step_enabled: Any,
-    track: Any,
-    is_update: bool,
-    log: Any,
-    prefix: str,
-    run_budget: RunBudget | None,
-) -> None:
+async def run_forecast_phase(ctx: PhaseContext) -> None:
     """Generate a race forecast, incorporating Kalshi market signals when available."""
+    race_json = ctx.race_json
+    race_id = ctx.race_id
+    model = ctx.model
+    on_log = ctx.on_log
+    max_iterations = ctx.max_iterations
+    step_enabled = ctx.step_enabled
+    track = ctx.track
+    is_update = ctx.is_update
+    log = ctx.log
+    prefix = ctx.prefix
+    run_budget = ctx.run_budget
     from . import _agent_loop, fetch_kalshi_market_signals
 
     if not step_enabled("forecast"):

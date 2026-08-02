@@ -35,6 +35,7 @@ from ._common import (
     _pipeline_completed_units,
     _record_step_failure,
 )
+from .context import PhaseContext
 from .discovery import _backfill_source_timestamps, _sanitize_roster
 from .fresh_run import _run_fresh
 from .shared_runner import _run_shared_phases
@@ -332,25 +333,27 @@ async def _run_update(
         n = len(candidate_names)
 
     await _run_shared_phases(
-        race_json,
-        race_id,
-        candidate_names=candidate_names,
-        selected_name_set=selected_name_set,
-        model=model,
-        small_model=small_model,
-        on_log=on_log,
-        max_iterations=max_iterations,
-        step_enabled=step_enabled,
-        track=track,
-        max_candidates=max_candidates,
-        target_no_info=target_no_info,
-        is_update=True,
-        last_updated=last_updated,
-        refine_iters=refine_iters,
-        log=log,
-        resume_partial=resume_partial,
-        continue_incomplete_work=continue_incomplete_work,
-        run_budget=run_budget,
+        PhaseContext(
+            race_json=race_json,
+            race_id=race_id,
+            model=model,
+            small_model=small_model,
+            on_log=on_log,
+            log=log,
+            max_iterations=max_iterations,
+            step_enabled=step_enabled,
+            track=track,
+            run_budget=run_budget,
+            is_update=True,
+            candidate_names=candidate_names,
+            selected_name_set=selected_name_set,
+            last_updated=last_updated,
+            max_candidates=max_candidates,
+            target_no_info=target_no_info,
+            refine_iters=refine_iters,
+            resume_partial=resume_partial,
+            continue_incomplete_work=continue_incomplete_work,
+        )
     )
     _sanitize_roster(race_json, log)
 

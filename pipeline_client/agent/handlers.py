@@ -22,6 +22,7 @@ from pipeline_client.agent.images import _is_valid_image_url
 from pipeline_client.agent.polling_quality import polling_semantic_problem
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.agent.roster import ROSTER_CAP
+from pipeline_client.agent.roster_adjudicator import Claim as _Claim
 from pipeline_client.agent.roster_contract import (
     COMPLETENESS_SOURCE_CLASSES,
     COMPLETENESS_TIERS,
@@ -37,6 +38,12 @@ from pipeline_client.agent.roster_contract import (
 from pipeline_client.agent.source_types import normalize_source_type
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
+
+ADJ_MEMBERSHIP = _Claim.MEMBERSHIP
+ADJ_OMISSION = _Claim.OMISSION
+ADJ_WRONG_CONTEST = _Claim.WRONG_CONTEST
+ADJ_COMPLETENESS = _Claim.COMPLETENESS
+ADJ_WITHDRAWAL = _Claim.WITHDRAWAL
 
 # The roster-evidence contract lives in roster_contract so that the prompt text
 # the model reads and the checks enforced here cannot drift apart. Do not
@@ -193,9 +200,7 @@ def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: 
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
         return False
     text = _roster_source_text(source)
-    if not _source_names_candidate(text, candidate_name):
-        return False
-    return _source_is_current_cycle(source, race_id=race_id, text=text)
+    return _source_names_candidate(text, candidate_name)
 
 
 def _source_omits_candidate_from_roster(
@@ -413,8 +418,6 @@ def _roster_source_rejection_reason(source: Dict[str, Any], *, candidate_name: s
         return "source needs a title"
     if not source.get("evidence"):
         return "source needs an 'evidence' (or 'text') quote naming the candidate and contest"
-    if not _source_supports_exact_contest(source, race_id=race_id):
-        return "evidence does not name this exact federal contest and district"
     name_words = re.findall(r"[a-z0-9]+", candidate_name.lower())
     evidence_text = f"{source.get('title', '')} {source.get('evidence', '')}".lower()
     if not name_words or not all(word in evidence_text for word in name_words):
@@ -444,6 +447,8 @@ def _qualifying_candidate_addition_sources(
     candidate_name: str,
     race_id: str,
     require_corroboration: bool = True,
+    args: Dict[str, Any] | None = None,
+    claim: str = ADJ_MEMBERSHIP,
 ) -> list[Dict[str, Any]]:
     """Return qualifying sources, enforcing corroboration for non-authoritative snippets.
 
@@ -458,19 +463,40 @@ def _qualifying_candidate_addition_sources(
         for source in normalized
         if _source_supports_candidate_addition(source, candidate_name=candidate_name, race_id=race_id)
     ]
+    # Structure is settled above; whether the text actually names this candidate
+    # in this exact contest is a reading judgment. ``args`` is None only for
+    # direct callers outside the agent loop.
+    if args is not None:
+        qualifying = [source for source in qualifying if _adjudicator_supports(args, claim, source.get("url"))]
     if require_corroboration and lacks_tier3_corroboration(qualifying):
         return []
     return qualifying
 
 
-def _roster_source_rejection_summary(sources: Any, *, candidate_name: str, race_id: str) -> str:
-    """Summarize per-source rejection reasons for a blocked roster edit."""
+def _roster_source_rejection_summary(
+    sources: Any,
+    *,
+    candidate_name: str,
+    race_id: str,
+    args: Dict[str, Any] | None = None,
+    claim: str = ADJ_MEMBERSHIP,
+) -> str:
+    """Summarize per-source rejection reasons for a blocked roster edit.
+
+    Adjudicator refusals are reported alongside structural ones. Without that a
+    source that is structurally perfect but semantically wrong falls through to
+    the generic tier-3 corroboration message, which sends the model hunting for
+    a second domain when the real problem was that its evidence described a
+    different office.
+    """
     normalized = [src for src in (_normalize_roster_source(source, race_id=race_id) for source in sources or []) if src]
     if not normalized:
         return "no usable source objects were supplied"
     reasons = []
     for index, source in enumerate(normalized, start=1):
         reason = _roster_source_rejection_reason(source, candidate_name=candidate_name, race_id=race_id)
+        if reason is None and args is not None and not _adjudicator_supports(args, claim, source.get("url")):
+            reason = _adjudicator_reason(args, claim, source.get("url"))
         if reason:
             reasons.append(f"source {index} ({source.get('url') or 'no url'}): {reason}")
     if not reasons:
@@ -487,6 +513,7 @@ def _roster_completeness_source_rejection_reason(
     race_id: str,
     identity: Dict[str, Any],
     roster_names: list[str] | None = None,
+    args: Dict[str, Any] | None = None,
 ) -> str | None:
     """Validate evidence that describes the roster as a whole, not one member.
 
@@ -507,6 +534,24 @@ def _roster_completeness_source_rejection_reason(
         return "evidence does not name this exact contest and district"
     if source.get("retrieval_status") != "content" or source.get("evidence_tier") not in COMPLETENESS_TIERS:
         return "completeness evidence must come from retrieved page content, not a search snippet"
+    # Whether the page presents the whole field, rather than mentioning a couple
+    # of names in passing, is a reading judgment. The phrase match this replaced
+    # rejected New Jersey's own certified list for not saying "candidate list".
+    if args is not None and not _adjudicator_supports(args, ADJ_COMPLETENESS, source.get("url")):
+        return _adjudicator_reason(args, ADJ_COMPLETENESS, source.get("url"))
+
+    # Structural cross-check, kept deliberately. The prose half of the old gate —
+    # demanding the page call itself "certified"/"candidate list" — is gone,
+    # because it rejected New Jersey's own certified list for wording. This half
+    # is different: it asks whether the evidence actually mentions every
+    # candidate being proposed, which is a containment test over supplied names
+    # rather than a judgment about the page, and it is what stops a real but
+    # partial listing from ratifying a roster it never covered.
+    if roster_names:
+        text = _roster_source_text(source)
+        missing = [name for name in roster_names if not _source_names_candidate(text, name)]
+        if missing:
+            return f"completeness evidence does not name every proposed candidate; missing: {', '.join(missing)}"
 
     text = _roster_source_text(source)
     # Real election authorities do not use one fixed phrase. New Jersey publishes
@@ -519,16 +564,6 @@ def _roster_completeness_source_rejection_reason(
     # of the kind that rejected New Jersey's own certified list and Ballotpedia's
     # standard full-field sentence. Phrasing stays a valid alternative for lists
     # that assert completeness without enumerating inline.
-    enumerates_full_roster = bool(roster_names) and all(_source_names_candidate(text, name) for name in roster_names)
-    if not enumerates_full_roster and not re.search(
-        r"\b(?:qualified|certified|official list|official ballot|candidate list|list of candidates"
-        r"|candidates? running|vote for one)\b",
-        text,
-    ):
-        return (
-            "evidence neither names every candidate on the proposed roster nor identifies itself as a "
-            "qualified, certified, ballot, or complete candidate list"
-        )
 
     primary_status = str(identity.get("primary_status") or "")
     if "special" in primary_status.casefold():
@@ -732,12 +767,16 @@ def _make_editing_handlers(
             race_id=race_id,
             research_trace=args.get("_research_trace"),
         )
-        roster_sources = _qualifying_candidate_addition_sources(supplied_sources, candidate_name=name, race_id=race_id)
+        roster_sources = _qualifying_candidate_addition_sources(
+            supplied_sources, candidate_name=name, race_id=race_id, args=args
+        )
+        for source in roster_sources:
+            _record_verdict_on_source(source, args, ADJ_MEMBERSHIP)
         if not roster_sources:
             if isinstance(args.get("_research_trace"), dict) and not supplied_sources:
                 detail = "none of the cited URLs appeared in this run's actual search/fetch trace"
             else:
-                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id)
+                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id, args=args)
             log("warning", f"    add_candidate('{name}') BLOCKED: {detail}")
             return (
                 f"Blocked adding '{name}': {detail}. "
@@ -822,6 +861,11 @@ def _make_editing_handlers(
                         race_id=race_id,
                         other_roster_names=other_roster_names,
                     )
+                    # Structural check above proves the listing is real and current;
+                    # the adjudicator reads whether it actually enumerates this field
+                    # without the candidate. A blocked or truncated page reads as
+                    # absence to a regex and as nothing to a reader.
+                    and _adjudicator_supports(args, ADJ_OMISSION, source.get("url"))
                 ]
                 if not proof:
                     return (
@@ -837,6 +881,7 @@ def _make_editing_handlers(
                     source
                     for source in normalized_sources
                     if _source_proves_different_contest(source, candidate_name=name, race_id=race_id)
+                    and _adjudicator_supports(args, ADJ_WRONG_CONTEST, source.get("url"))
                 ]
                 if not proof:
                     return (
@@ -864,127 +909,35 @@ def _make_editing_handlers(
                 return f"Removed {label} candidate '{name}' from the active roster."
             return f"Candidate '{name}' not found - no action taken."
 
-        # Guard: reject removals that are clearly data-quality fixes rather than
-        # actual race withdrawals. Withdrawal reasons must mention a concrete
-        # race exit, not merely absence from a page or a generic "lost primary"
-        # phrase that models frequently hallucinate during roster repair.
-        _EXIT_KEYWORDS = {
-            "withdrew",
-            "withdrawal",
-            "dropped out",
-            "drop out",
-            "suspended",
-            "disqualified",
-            "disqualification",
-            "ended campaign",
-            "exited race",
-            "no longer running",
-            "not running",
-            "retired from race",
-        }
-        reason_lower = reason.lower()
-        has_exit_signal = any(kw in reason_lower for kw in _EXIT_KEYWORDS)
-        has_primary_loss_signal = bool(
-            re.search(
-                r"\b(lost|defeated|eliminated|did not advance)\b.{0,80}\b(primary|runoff|convention)\b",
-                reason_lower,
-            )
-            or re.search(
-                r"\b(primary|runoff|convention)\b.{0,80}\b(lost|defeated|eliminated|did not advance)\b",
-                reason_lower,
-            )
-        )
-        has_specific_date = bool(
-            re.search(
-                r"\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|"
-                r"aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+\d{1,2},\s+\d{4}\b",
-                reason_lower,
-            )
-            or re.search(r"\b20\d{2}-\d{2}-\d{2}\b", reason_lower)
-        )
-        has_official_result_signal = bool(
-            re.search(
-                r"\b(official|certified|results?|election authority|secretary of state|board of elections)\b",
-                reason_lower,
-            )
-        )
-        # A retired/departed former officeholder or an explicit prior-cycle
-        # candidate who is not running THIS cycle is a legitimate removal even
-        # without a withdrawal event — they never entered this race. Require a
-        # positive "former"/"prior-cycle" statement AND a "not a current
-        # candidate" signal, so this does not reopen the "merely absent from a
-        # page" hole the guard exists to close.
-        has_former_status_signal = bool(
-            re.search(
-                r"\bformer\s+(u\.?s\.?\s+)?"
-                r"(representative|congress\w*|senator|governor|lieutenant governor|"
-                r"officeholder|member of congress|incumbent)\b",
-                reason_lower,
-            )
-            or re.search(r"\bleft office\b", reason_lower)
-            or re.search(r"\bretired\b.{0,40}\b(20\d{2}|congress|office|house|senate)\b", reason_lower)
-            or re.search(r"\b(prior|previous)[- ]cycle\b", reason_lower)
-        )
-        has_not_current_signal = any(
-            token in reason_lower
-            for token in (
-                "not a candidate",
-                "not a current candidate",
-                "not running",
-                "not seeking",
-                "did not file",
-                "has not filed",
-                "no longer",
-                "not on the ballot",
-            )
-        )
-        has_former_officeholder_signal = has_former_status_signal and has_not_current_signal
-        # Evidence outranks phrasing. The keyword scans below grade English prose,
-        # which reliably rejects correct removals that happen to be worded
-        # differently. When the caller cites a real, current-cycle source that names
-        # this candidate, that citation is the stronger signal — accept it and let
-        # the reason text be prose rather than an incantation.
-        cited_race_id = str(race_json.get("id") or "").strip()
-        observed_cited_sources = _normalize_observed_roster_sources(
-            args.get("sources"), race_id=cited_race_id, research_trace=args.get("_research_trace")
-        )
-        has_cited_evidence = any(
-            _source_proves_different_contest(source, candidate_name=name, race_id=cited_race_id)
-            for source in observed_cited_sources
-        )
-        has_withdrawal_signal = (
-            has_cited_evidence
-            or has_exit_signal
-            or has_former_officeholder_signal
-            # A specific date *or* an explicit official-result citation is enough
-            # corroboration for a primary loss; requiring both rejected reasons like
-            # "Lost the Democratic primary on June 30, 2026." — a specific dated
-            # primary result — just because it didn't also say the word "official".
-            or (has_primary_loss_signal and (has_specific_date or has_official_result_signal))
-        )
+        # Whether a stated reason describes an actual race exit is reading
+        # comprehension. This used to be a keyword scan over the prose — an
+        # _EXIT_KEYWORDS set plus regexes for primary losses, specific dates,
+        # official-result language, and former-officeholder phrasing — and it
+        # reliably rejected correct removals whose wording differed while doing
+        # nothing to stop a model that wanted to fabricate one. The adjudicator
+        # judges the same sentence and reports why in its own words.
+        withdrawal_ok = _adjudicator_supports(args, ADJ_WITHDRAWAL)
 
-        # Special case: structurally invalid entries (e.g. a metadata key like
-        # "updated_utc" accidentally stored as a candidate name) should be
-        # physically deleted rather than marked withdrawn.
+        # Structurally invalid entries (e.g. a metadata key like "updated_utc"
+        # stored as a candidate name) are a data-shape problem, not a claim about
+        # the race, so they are deleted outright without consulting a model.
         is_structural_garbage = bool(_METADATA_KEY_RE.match(name))
 
-        if not has_withdrawal_signal and not is_structural_garbage:
+        if not withdrawal_ok and not is_structural_garbage:
+            detail = _adjudicator_reason(args, ADJ_WITHDRAWAL)
             log(
                 "warning",
-                f"    ⚠️ remove_candidate('{name}') BLOCKED — reason does not confirm "
-                f"a race withdrawal: {reason!r}. Use this tool only when a candidate "
-                f"has officially left the race.",
+                f"    ⚠️ remove_candidate('{name}') BLOCKED — {detail} (reason given: {reason!r})",
             )
             return (
-                f"ERROR: remove_candidate blocked. The reason '{reason}' does not indicate "
-                f"that '{name}' has left the race. Only call remove_candidate when a candidate "
-                f"has officially withdrawn, dropped out, been disqualified, lost a completed "
-                f"contest with an official result source and date, OR is a former officeholder / "
-                f"prior-cycle candidate who is not a candidate this cycle — state that explicitly "
-                f"(e.g. 'former U.S. Representative who left office in 2023 and is not a candidate "
-                f"in 2026'). If instead you found no evidence this person was ever a candidate here, "
-                f"call remove_candidate with not_on_roster=true and cite the roster listing for this "
-                f"race that enumerates the field without them. Do NOT use this tool to fix data quality issues."
+                f"ERROR: remove_candidate blocked for '{name}'. {detail} "
+                "Use this tool only when the candidate has actually left the race — withdrew, "
+                "was disqualified, lost a completed primary or convention, or is a former "
+                "officeholder who is not a candidate this cycle — and say so plainly in the "
+                "reason. If instead you found no evidence this person was ever a candidate here, "
+                "call remove_candidate with not_on_roster=true and cite the roster listing for "
+                "this race that enumerates the field without them. Do NOT use this tool to fix "
+                "data quality issues."
             )
 
         if is_structural_garbage:
@@ -1049,9 +1002,11 @@ def _make_editing_handlers(
             if isinstance(args.get("_research_trace"), dict) and not supplied_sources:
                 detail = "none of the cited URLs appeared in this run's actual search/fetch trace"
             else:
-                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id)
+                detail = _roster_source_rejection_summary(supplied_sources, candidate_name=name, race_id=race_id, args=args)
             log("warning", f"    set_candidate_roster_sources('{name}') BLOCKED: {detail}")
             return f"ERROR: no usable roster source for '{name}': {detail}."
+        for source in sources:
+            _record_verdict_on_source(source, args, ADJ_MEMBERSHIP)
         c["roster_sources"] = sources
         log("info", f"    Set {len(sources)} roster source(s) for {name}")
         return f"Set {len(sources)} roster source(s) for '{name}'."
@@ -1130,7 +1085,7 @@ def _make_editing_handlers(
             for source in completeness_sources
             if (
                 reason := _roster_completeness_source_rejection_reason(
-                    source, race_id=race_id, identity=identity, roster_names=claimed_roster_names
+                    source, race_id=race_id, identity=identity, roster_names=claimed_roster_names, args=args
                 )
             )
         ]
@@ -1138,10 +1093,12 @@ def _make_editing_handlers(
             source
             for source in completeness_sources
             if _roster_completeness_source_rejection_reason(
-                source, race_id=race_id, identity=identity, roster_names=claimed_roster_names
+                source, race_id=race_id, identity=identity, roster_names=claimed_roster_names, args=args
             )
             is None
         ]
+        for source in qualifying_completeness:
+            _record_verdict_on_source(source, args, ADJ_COMPLETENESS)
         if not qualifying_completeness:
             detail = "; ".join(completeness_rejections) if completeness_rejections else "no sources were supplied"
             return (

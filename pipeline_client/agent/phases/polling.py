@@ -10,24 +10,23 @@ from ..prompts import POLLING_SYSTEM, POLLING_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import POLLING_TOOLS, READ_PROFILE_TOOL
 from ._common import _classify_exception, _race_identity_context, _record_step_failure
+from .context import PhaseContext
 
 
-async def run_polling_phase(
-    race_json: Dict[str, Any],
-    race_id: str,
-    *,
-    candidate_names: List[str],
-    small_model: str,
-    on_log: Any,
-    max_iterations: int,
-    step_enabled: Any,
-    track: Any,
-    is_update: bool,
-    log: Any,
-    prefix: str,
-    run_budget: RunBudget | None,
-) -> None:
+async def run_polling_phase(ctx: PhaseContext) -> None:
     """Refresh available polling data for the race."""
+    race_json = ctx.race_json
+    race_id = ctx.race_id
+    candidate_names = ctx.candidate_names
+    small_model = ctx.small_model
+    on_log = ctx.on_log
+    max_iterations = ctx.max_iterations
+    step_enabled = ctx.step_enabled
+    track = ctx.track
+    is_update = ctx.is_update
+    log = ctx.log
+    prefix = ctx.prefix
+    run_budget = ctx.run_budget
     from . import _agent_loop
 
     if not step_enabled("polling"):
