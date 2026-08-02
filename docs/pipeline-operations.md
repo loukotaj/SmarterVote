@@ -103,9 +103,6 @@ Use an update when the existing race is generally good:
   when the correction goal justifies their cost
 - explicit `enabled_steps` always override the update default
 - pass `candidate_names` for candidate-specific repair
-- pass `resume_partial=true` only when `baseline_source=latest` points to a
-  trusted pipeline checkpoint or draft whose completed work-unit markers must
-  be preserved; ordinary issue refreshes deliberately research enabled units again
 - use `review` after material issue or narrative changes and `iteration` only
   when model-assisted correction is appropriate
 
@@ -272,9 +269,14 @@ and low, and once spent it answers 403 for every host, which silently strands al
 roster evidence at snippet (tier 3). A run whose proxy fetches all fail logs a
 single explicit outage warning rather than one indistinguishable error per URL.
 
-Logical runs enforce both global and phase search/token ceilings. They also cap
-uncached page fetches and fetched characters, and persist per-phase
-token/provider/search/page attribution across continuation handoffs. Defaults
+Budget ceilings bind per unit of work — one candidate/issue pair, one roster
+sync, one review pass — not per phase. A phase-wide allowance is shared by every
+unit in a fan-out, so a large roster exhausted it partway and whichever candidate
+was researched last recorded empty verdicts that then failed review as
+undocumented absences. Run-wide search/token ceilings remain as runaway guards.
+Runs also cap uncached page fetches and fetched characters, and persist per-phase
+token/provider/search/page attribution across continuation handoffs. Cost
+attribution still rolls up by phase family; only budgeting is per unit. Defaults
 are documented in `.env.example`.
 
 For an issue unit, a ceiling ends further searching but does not manufacture a

@@ -96,10 +96,14 @@ class PipelineRuntimeConfig:
     iteration_min_iterations: int = 14
     quality_critical_issue_stances: int = CANONICAL_ISSUE_COUNT // 2
     quality_warning_issue_stances: int = (CANONICAL_ISSUE_COUNT * 2) // 3
-    max_search_calls: int = 480
-    max_total_tokens: int = 5_000_000
-    max_phase_search_calls: int = 120
-    max_phase_tokens: int = 1_250_000
+    # Run-wide ceilings are runaway guards, not the working budget. The binding
+    # constraint is per unit of work (one candidate/issue pair, one roster sync,
+    # one review pass), so a large roster cannot starve whichever candidate the
+    # fan-out happens to research last.
+    max_search_calls: int = 2_400
+    max_total_tokens: int = 20_000_000
+    max_unit_search_calls: int = 40
+    max_unit_tokens: int = 400_000
     max_page_fetches: int = 300
     max_fetched_chars: int = 3_000_000
 
@@ -119,10 +123,10 @@ class PipelineRuntimeConfig:
             iteration_min_iterations=_env_int("PIPELINE_ITERATION_MIN_ITERATIONS", 14, 1, None),
             quality_critical_issue_stances=critical,
             quality_warning_issue_stances=warning,
-            max_search_calls=_env_int("PIPELINE_MAX_SEARCH_CALLS", 480, 1, 5000),
-            max_total_tokens=_env_int("PIPELINE_MAX_TOTAL_TOKENS", 5_000_000, 10_000, 50_000_000),
-            max_phase_search_calls=_env_int("PIPELINE_MAX_PHASE_SEARCH_CALLS", 120, 1, 5000),
-            max_phase_tokens=_env_int("PIPELINE_MAX_PHASE_TOKENS", 1_250_000, 10_000, 50_000_000),
+            max_search_calls=_env_int("PIPELINE_MAX_SEARCH_CALLS", 2_400, 1, 20_000),
+            max_total_tokens=_env_int("PIPELINE_MAX_TOTAL_TOKENS", 20_000_000, 10_000, 200_000_000),
+            max_unit_search_calls=_env_int("PIPELINE_MAX_UNIT_SEARCH_CALLS", 40, 1, 1000),
+            max_unit_tokens=_env_int("PIPELINE_MAX_UNIT_TOKENS", 400_000, 10_000, 20_000_000),
             max_page_fetches=_env_int("PIPELINE_MAX_PAGE_FETCHES", 300, 1, 5000),
             max_fetched_chars=_env_int("PIPELINE_MAX_FETCHED_CHARS", 3_000_000, 10_000, 100_000_000),
         )

@@ -55,8 +55,8 @@ def test_runtime_config_bounds_search_and_token_ceilings(monkeypatch):
 
     config = PipelineRuntimeConfig.from_env()
 
-    assert config.max_search_calls == 5000
-    assert config.max_total_tokens == 50_000_000
+    assert config.max_search_calls == 20_000
+    assert config.max_total_tokens == 200_000_000
 
 
 def test_review_providers_cannot_be_empty():

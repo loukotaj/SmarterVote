@@ -14,6 +14,12 @@ from .model_registry import MODEL_CATALOG, normalize_model_id
 #          "model_breakdown": {model: {"prompt_tokens": int, "completion_tokens": int}}}
 _cost_ctx: ContextVar[Optional[Dict[str, Any]]] = ContextVar("_cost_ctx", default=None)
 _phase_ctx: ContextVar[str] = ContextVar("_phase_ctx", default="unattributed")
+# Cost *attribution* buckets by phase family; cost *budgeting* keys on the
+# unabbreviated label, which is unique per unit of work. Each issue unit runs in
+# its own asyncio task, so the ContextVar copy is already unit-scoped — budgeting
+# by family made all 84 candidate/issue pairs in a large House race share one
+# allowance, and whichever candidate ran last was starved into empty verdicts.
+_unit_ctx: ContextVar[str] = ContextVar("_unit_ctx", default="unattributed")
 
 _DEFAULT_INPUT_PER_M = 2.50
 _DEFAULT_OUTPUT_PER_M = 10.00
@@ -43,6 +49,15 @@ def phase_family(phase: str) -> str:
 
 def set_current_phase(phase: str) -> None:
     _phase_ctx.set(phase_family(phase))
+    _unit_ctx.set(str(phase or "unattributed").strip().lower() or "unattributed")
+
+
+def _unit_entry(acc: Dict[str, Any]) -> Dict[str, int]:
+    """Return the budget counters for the current unit of work."""
+    return acc.setdefault("unit_budget", {}).setdefault(
+        _unit_ctx.get(),
+        {"search_calls": 0, "prompt_tokens": 0, "completion_tokens": 0},
+    )
 
 
 def _phase_entry(acc: Dict[str, Any]) -> Dict[str, Any]:
@@ -58,12 +73,6 @@ def _phase_entry(acc: Dict[str, Any]) -> Dict[str, Any]:
             "fetched_chars": 0,
         },
     )
-
-
-def _phase_budget_baseline(acc: Dict[str, Any]) -> Dict[str, int]:
-    """Return metrics already spent before this physical continuation pass."""
-    baseline = acc.get("_phase_budget_baselines", {}).get(_phase_ctx.get(), {})
-    return baseline if isinstance(baseline, dict) else {}
 
 
 def estimate_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
@@ -86,11 +95,14 @@ def accumulate(
     if acc is None:
         return
     phase = _phase_entry(acc)
+    unit = _unit_entry(acc)
     acc["prompt_tokens"] += prompt_tokens
     acc["completion_tokens"] += completion_tokens
     phase["prompt_tokens"] += prompt_tokens
     phase["completion_tokens"] += completion_tokens
     phase["llm_calls"] += 1
+    unit["prompt_tokens"] = int(unit.get("prompt_tokens", 0)) + prompt_tokens
+    unit["completion_tokens"] = int(unit.get("completion_tokens", 0)) + completion_tokens
     if cost_usd is None:
         acc["unpriced_calls"] = acc.get("unpriced_calls", 0) + 1
     else:
@@ -156,15 +168,15 @@ def reserve_search_call(provider: str) -> bool:
     config = PipelineRuntimeConfig.from_env()
     used = int(acc.get("serper_calls", 0) or 0) + int(acc.get("searlo_calls", 0) or 0)
     phase = _phase_entry(acc)
-    baseline = _phase_budget_baseline(acc)
-    phase_used = int(phase.get("search_calls", 0)) - int(baseline.get("search_calls", 0))
-    if used >= config.max_search_calls or phase_used >= config.max_phase_search_calls:
+    unit = _unit_entry(acc)
+    if used >= config.max_search_calls or int(unit["search_calls"]) >= config.max_unit_search_calls:
         acc["search_budget_blocked"] = int(acc.get("search_budget_blocked", 0) or 0) + 1
         phase["search_budget_blocked"] = int(phase.get("search_budget_blocked", 0) or 0) + 1
         return False
     key = f"{provider}_calls"
     acc[key] = int(acc.get(key, 0) or 0) + 1
     phase["search_calls"] += 1
+    unit["search_calls"] = int(unit["search_calls"]) + 1
     return True
 
 
@@ -203,15 +215,9 @@ def total_token_budget_reached() -> bool:
         return False
     used = int(acc.get("prompt_tokens", 0) or 0) + int(acc.get("completion_tokens", 0) or 0)
     config = PipelineRuntimeConfig.from_env()
-    phase = _phase_entry(acc)
-    baseline = _phase_budget_baseline(acc)
-    phase_used = (
-        int(phase.get("prompt_tokens", 0) or 0)
-        + int(phase.get("completion_tokens", 0) or 0)
-        - int(baseline.get("prompt_tokens", 0) or 0)
-        - int(baseline.get("completion_tokens", 0) or 0)
-    )
-    return used >= config.max_total_tokens or phase_used >= config.max_phase_tokens
+    unit = _unit_entry(acc)
+    unit_used = int(unit.get("prompt_tokens", 0) or 0) + int(unit.get("completion_tokens", 0) or 0)
+    return used >= config.max_total_tokens or unit_used >= config.max_unit_tokens
 
 
 def record_token_budget_nudge() -> None:
