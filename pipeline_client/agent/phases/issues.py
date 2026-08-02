@@ -389,10 +389,22 @@ async def run_issues_phase(
         issue_research = {}
         race_json["pipeline_state"]["issue_research"] = issue_research
     if not resume_partial:
-        completed_units = {unit for unit in completed_units if not unit.startswith("issues:")}
+        # Reset only the candidates this run will actually research. Clearing
+        # race-wide destroyed the research audit for everyone else, and review
+        # flags a "No public position found" stance whose audit is missing — so a
+        # targeted candidate_names repair re-broke every candidate it skipped and
+        # no sequence of targeted runs could ever converge.
+        scoped_names = {str(name) for name in candidate_names}
+
+        def _belongs_to_scope(unit: str) -> bool:
+            parts = unit.split(":")
+            return len(parts) >= 2 and parts[1] in scoped_names
+
+        completed_units = {unit for unit in completed_units if not (unit.startswith("issues:") and _belongs_to_scope(unit))}
         race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
-        issue_attempts.clear()
-        issue_research.clear()
+        for tracker in (issue_attempts, issue_research):
+            for unit_id in [key for key in tracker if key.startswith("issues:") and _belongs_to_scope(key)]:
+                del tracker[unit_id]
     else:
         candidates_by_name = {
             str(candidate.get("name")): candidate

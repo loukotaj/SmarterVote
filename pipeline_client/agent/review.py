@@ -309,8 +309,31 @@ async def _run_single_review(
         return None
 
 
-async def _verify_url(client: httpx.AsyncClient, url: str) -> Optional[str]:
-    """Check whether a URL is reachable through the SSRF-safe fetch path."""
+# Failures that will not resolve themselves on a retry, so the citation can be
+# dropped deterministically instead of being handed back to a model. A host that
+# does not resolve is at least as dead as a 404.
+_PERMANENT_DNS_FAILURE_MARKERS = (
+    "name or service not known",
+    "nodename nor servname provided",
+    "getaddrinfo failed",
+    "no address associated with hostname",
+    "name does not resolve",
+)
+
+
+def _is_permanent_link_failure(exc: Exception) -> bool:
+    """True when a fetch failure means the URL is gone, not merely unreachable now."""
+    if isinstance(exc, ValueError):
+        return True  # malformed / disallowed URL
+    text = str(exc).casefold()
+    return any(marker in text for marker in _PERMANENT_DNS_FAILURE_MARKERS)
+
+
+async def _verify_url(client: httpx.AsyncClient, url: str) -> Optional[tuple[str, bool]]:
+    """Check a URL through the SSRF-safe fetch path.
+
+    Returns ``None`` when healthy, otherwise ``(reason, permanent)``.
+    """
     try:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
@@ -319,12 +342,12 @@ async def _verify_url(client: httpx.AsyncClient, url: str) -> Optional[str]:
         if _is_access_restricted_response(url, resp.status_code):
             return None
         if resp.status_code >= 400:
-            return f"HTTP error {resp.status_code}"
+            return f"HTTP error {resp.status_code}", resp.status_code in {404, 410}
         return None
     except (httpx.HTTPError, ValueError) as exc:
-        return f"Request failed: {exc}"
+        return f"Request failed: {exc}", _is_permanent_link_failure(exc)
     except Exception as exc:
-        return f"Error: {exc}"
+        return f"Error: {exc}", False
 
 
 async def check_profile_links(
@@ -381,12 +404,16 @@ async def check_profile_links(
     flags = []
     for url, path, err in check_results:
         if err:
+            reason, permanent = err
             flags.append(
                 {
                     "field": path,
-                    "concern": f"Cited source URL ({url}) returned a dead link: {err}.",
+                    "concern": f"Cited source URL ({url}) returned a dead link: {reason}.",
                     "suggestion": "Verify the URL, find a replacement source, and update the stance.",
                     "severity": "warning",
+                    # Machine-readable so deterministic cleanup does not have to
+                    # parse this sentence back out of prose.
+                    "permanent_failure": permanent,
                 }
             )
 
@@ -405,7 +432,12 @@ async def check_profile_links(
 
 
 def _remove_confirmed_dead_candidate_sources(race_json: Dict[str, Any], link_review: Dict[str, Any]) -> int:
-    """Remove candidate URLs that the link validator confirmed as HTTP 404/410."""
+    """Remove candidate URLs the link validator confirmed are permanently gone.
+
+    Covers HTTP 404/410 and unresolvable hosts. A DNS failure used to fall through
+    to the model, which then had to remove the citation by hand — in practice it
+    never did, and the unfixable flag blocked publication indefinitely.
+    """
     if not isinstance(link_review, dict):
         return 0
     removals: Dict[int, set[str]] = {}
@@ -413,7 +445,11 @@ def _remove_confirmed_dead_candidate_sources(race_json: Dict[str, Any], link_rev
         if not isinstance(flag, dict):
             continue
         concern = str(flag.get("concern") or "")
-        if "HTTP error 404" not in concern and "HTTP error 410" not in concern:
+        permanent = flag.get("permanent_failure")
+        if permanent is None:
+            # Reviews stored before permanent_failure existed.
+            permanent = "HTTP error 404" in concern or "HTTP error 410" in concern
+        if not permanent:
             continue
         field_match = re.match(r"candidates\[(\d+)\]", str(flag.get("field") or ""))
         url_match = re.search(r"Cited source URL \((https?://[^)]+)\)", concern)
