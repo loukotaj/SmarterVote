@@ -765,3 +765,58 @@ def test_research_audit_survives_schema_roundtrip():
 
     assert stance.research_audit is not None
     assert stance.model_dump()["research_audit"]["search_calls"] == 2
+
+
+def test_dead_source_removal_handles_urls_containing_parentheses():
+    """Ballotpedia/Wikipedia disambiguation URLs contain parentheses.
+
+    Regression: the URL was recovered from the flag's prose with a regex that
+    stopped at the first ')', producing a truncated address that never matched
+    the stored citation, so those dead links could never be auto-removed.
+    """
+    from pipeline_client.agent.review import _remove_confirmed_dead_candidate_sources
+
+    dead = "https://www.ballotpedia.org/Alabama%27s_2nd_Congressional_District_election,_2026_(August_11_Republican_primary)"
+    race_json = {
+        "candidates": [
+            {
+                "name": "David Matthews",
+                "issues": {
+                    "Election Policy": {
+                        "stance": "Supports voter ID.",
+                        "sources": [{"url": dead}, {"url": "https://al.com/politics/story"}],
+                    }
+                },
+            }
+        ]
+    }
+    link_review = {
+        "flags": [
+            {
+                "field": "candidates[0].issues.Election Policy.sources[0].url",
+                "concern": f"Cited source URL ({dead}) returned a dead link: Request failed: [Errno -2] Name or service not known.",
+                "permanent_failure": True,
+                "url": dead,
+            }
+        ]
+    }
+
+    assert _remove_confirmed_dead_candidate_sources(race_json, link_review) == 1
+    remaining = [s["url"] for s in race_json["candidates"][0]["issues"]["Election Policy"]["sources"]]
+    assert dead not in remaining
+    assert "https://al.com/politics/story" in remaining
+
+
+@pytest.mark.asyncio
+async def test_verify_url_marks_tls_failure_permanent():
+    """A host whose certificate will not validate is not a usable citation."""
+    import httpx
+
+    from pipeline_client.agent.review import _verify_url
+
+    exc = httpx.ConnectError("[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer")
+
+    with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, side_effect=exc):
+        _reason, permanent = await _verify_url(AsyncMock(), "https://www.sos.alabama.gov/doc.pdf")
+
+    assert permanent is True
