@@ -155,10 +155,8 @@
           class="mr-1.5 text-[10px] font-bold uppercase tracking-wider text-content-subtle"
           >Research review</span
         >
-        <strong class="text-content">{race.validation_grade.score}/100</strong>
-        — methodology, sourcing, and bias checks passed the AI review.<ReviewScoreInfo
-          panelId={`desktop-review-score-info-${race.id}`}
-        />
+        <strong class="text-content">{race.validation_grade.score}/100</strong
+        ><ReviewScoreInfo panelId={`desktop-review-score-info-${race.id}`} />
       </div>
     </div>
   {/if}

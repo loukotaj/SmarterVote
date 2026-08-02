@@ -72,7 +72,7 @@
         <strong class="text-content">Research review:</strong>
         {race.validation_grade.score}/100<ReviewScoreInfo
           panelId={`mobile-review-score-info-${race.id}`}
-        /> after methodology, sourcing, and bias checks.
+        />
       </div>
     </div>
   {/if}
