@@ -7,18 +7,28 @@ from typing import Any, Dict, Mapping, Optional
 
 from shared.pipeline_config import MODEL_PROFILES, MODEL_ROLES
 
-DEFAULT_MODEL = "google/gemini-2.5-flash"
-CHEAP_MODEL = "openai/gpt-5.4-mini"
+# GPT-5.6 Luna. Replaced gpt-5.4-mini ($0.75/$4.50), which it beats on every
+# axis: newer generation, 1.05M context instead of 400K, and 7.5x cheaper.
+CHEAP_MODEL = "openai/gpt-5.6-luna"
+MID_MODEL = "openai/gpt-5.6-terra"
+# Escalation target when a cheap model stalls (see CHEAP_TO_DEFAULT_MODEL_FALLBACK).
+# It must be genuinely stronger than CHEAP_MODEL or escalation buys nothing —
+# pointing it at another economy-tier model would make the fallback a lateral
+# move. Same family as CHEAP_MODEL so prompt behaviour stays consistent.
+DEFAULT_MODEL = MID_MODEL
+# Retained for explicit opt-in only. gpt-5-nano spends ~384 reasoning tokens
+# before emitting any content — measured, not estimated — so a small task costs
+# ~409 output tokens against Luna's ~48 for the same answer. At $0.40/M versus
+# Luna's $0.60/M that makes nano roughly 5.7x *more* expensive in practice, and
+# under a tight max_tokens it returns finish_reason="length" with empty content.
 NANO_MODEL = "openai/gpt-5-nano"
-DEEPSEEK_FLASH_MODEL = "deepseek/deepseek-v4-flash"
+DEEPSEEK_FLASH_MODEL = "deepseek/deepseek-v4-flash-0731"
 DEEPSEEK_PRO_MODEL = "deepseek/deepseek-v4-pro"
 
 NEMOTRON_SUPER_MODEL = "nvidia/nemotron-3-super-120b-a12b"
 NEMOTRON_ULTRA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b"
-LLAMA_3_3_70B_MODEL = "meta-llama/llama-3.3-70b-instruct"
-DEEPSEEK_R1_MODEL = "deepseek/deepseek-r1"
 
-DEFAULT_CLAUDE_MODEL = "anthropic/claude-sonnet-4.6"
+DEFAULT_CLAUDE_MODEL = "anthropic/claude-sonnet-5"
 CHEAP_CLAUDE_MODEL = "anthropic/claude-haiku-4.5"
 
 DEFAULT_GEMINI_MODEL = "google/gemini-3.1-pro-preview"
@@ -42,6 +52,10 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     "openai/gpt-5.4": ModelSpec("openai/gpt-5.4", "GPT-5.4", 2.50, 15.00, 1_050_000, 128_000),
     "openai/gpt-5.4-mini": ModelSpec("openai/gpt-5.4-mini", "GPT-5.4 Mini", 0.75, 4.50, 400_000, 128_000),
     "openai/gpt-5-nano": ModelSpec("openai/gpt-5-nano", "GPT-5 Nano", 0.05, 0.40, 400_000),
+    "openai/gpt-5.6-luna": ModelSpec("openai/gpt-5.6-luna", "GPT-5.6 Luna", 0.10, 0.60, 1_050_000, 128_000),
+    "openai/gpt-5.6-terra": ModelSpec("openai/gpt-5.6-terra", "GPT-5.6 Terra", 1.00, 6.00, 1_050_000, 128_000),
+    "openai/gpt-5.6-sol": ModelSpec("openai/gpt-5.6-sol", "GPT-5.6 Sol", 5.00, 30.00, 1_050_000, 128_000),
+    "anthropic/claude-sonnet-5": ModelSpec("anthropic/claude-sonnet-5", "Claude Sonnet 5", 2.00, 10.00, 1_000_000, 128_000),
     "anthropic/claude-sonnet-4.6": ModelSpec(
         "anthropic/claude-sonnet-4.6", "Claude Sonnet 4.6", 3.00, 15.00, 1_000_000, 128_000
     ),
@@ -57,20 +71,17 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     ),
     "x-ai/grok-4.20": ModelSpec("x-ai/grok-4.20", "Grok 4.20", 1.25, 2.50, 2_000_000),
     "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50, 1_000_000),
-    "deepseek/deepseek-v4-flash": ModelSpec(
-        "deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.077, 0.154, 1_048_576, 65_536
+    "deepseek/deepseek-v4-flash": ModelSpec("deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.14, 0.28, 1_048_576, 65_536),
+    "deepseek/deepseek-v4-flash-0731": ModelSpec(
+        "deepseek/deepseek-v4-flash-0731", "DeepSeek V4 Flash (07-31)", 0.09, 0.18, 1_048_576, 65_536
     ),
     "deepseek/deepseek-v4-pro": ModelSpec("deepseek/deepseek-v4-pro", "DeepSeek V4 Pro", 0.435, 0.87, 1_048_576, 65_536),
     "nvidia/nemotron-3-super-120b-a12b": ModelSpec(
-        "nvidia/nemotron-3-super-120b-a12b", "Nemotron 3 Super", 0.09, 0.45, 1_000_000
+        "nvidia/nemotron-3-super-120b-a12b", "Nemotron 3 Super", 0.085, 0.40, 1_000_000
     ),
     "nvidia/nemotron-3-ultra-550b-a55b": ModelSpec(
-        "nvidia/nemotron-3-ultra-550b-a55b", "Nemotron 3 Ultra", 0.50, 2.20, 1_000_000, 16_384
+        "nvidia/nemotron-3-ultra-550b-a55b", "Nemotron 3 Ultra", 0.60, 3.60, 512_288, 16_384
     ),
-    "meta-llama/llama-3.3-70b-instruct": ModelSpec(
-        "meta-llama/llama-3.3-70b-instruct", "Llama 3.3 70B Instruct", 0.10, 0.32, 131_072, 16_384
-    ),
-    "deepseek/deepseek-r1": ModelSpec("deepseek/deepseek-r1", "DeepSeek R1", 0.70, 2.50, 163_840, 16_000),
     # --- Additional confirmed models ---
     "deepseek/deepseek-chat-v3-0324": ModelSpec(
         "deepseek/deepseek-chat-v3-0324", "DeepSeek V3 0324", 0.20, 0.77, 163_840, 65_536
@@ -88,6 +99,11 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "gpt-5.4": "openai/gpt-5.4",
     "gpt-5.4-mini": "openai/gpt-5.4-mini",
     "gpt-5-nano": "openai/gpt-5-nano",
+    "gpt-5.6-luna": "openai/gpt-5.6-luna",
+    "gpt-5.6-terra": "openai/gpt-5.6-terra",
+    "gpt-5.6-sol": "openai/gpt-5.6-sol",
+    "claude-sonnet-5": "anthropic/claude-sonnet-5",
+    "deepseek-v4-flash-0731": "deepseek/deepseek-v4-flash-0731",
     "claude-sonnet-4-6": "anthropic/claude-sonnet-4.6",
     "claude-haiku-4-5-20251001": "anthropic/claude-haiku-4.5",
     "claude-3-5-sonnet-20241022": "anthropic/claude-sonnet-4.6",
@@ -102,44 +118,54 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "deepseek-v4-pro": "deepseek/deepseek-v4-pro",
     "nemotron-3-super": "nvidia/nemotron-3-super-120b-a12b",
     "nemotron-3-ultra": "nvidia/nemotron-3-ultra-550b-a55b",
-    "llama-3.3-70b": "meta-llama/llama-3.3-70b-instruct",
     "deepseek-v3-0324": "deepseek/deepseek-chat-v3-0324",
     "gemini-2.5-flash": "google/gemini-2.5-flash",
     "gemini-3.1-flash-lite": "google/gemini-3.1-flash-lite",
     "gemini-3.5-flash": "google/gemini-3.5-flash",
-    "deepseek-r1": "deepseek/deepseek-r1",
 }
 
 # Roster sync/verify decides which people are current candidates — a reasoning
 # task where the economy primary (DeepSeek Flash) has under-performed (kept
 # retired ex-incumbents / prior-cycle candidates). These are only ~1-2 calls per
-# race, so a stronger instruction-follower here is cheap insurance.
-ROSTER_MODEL = "google/gemini-2.5-flash"
+# race, so a stronger instruction-follower here is cheap insurance. Flash Lite
+# replaced Gemini 2.5 Flash: two generations newer and cheaper on both input and
+# output ($0.25/$1.50 against $0.30/$2.50).
+ROSTER_MODEL = CHEAP_GEMINI_MODEL
 
+# Every role in every profile sits on a current-generation model. Prices are per
+# million tokens, verified against OpenRouter's live model list rather than
+# recalled, since Luna alone repriced twice in July.
 PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
+    # The default for MCP queueing (cheap_mode=True). Cheapest capable model at
+    # each step, not cheapest headline price — see NANO_MODEL on why the nominally
+    # cheaper option costs more once reasoning tokens are counted.
     "economy": {
-        "primary": DEEPSEEK_FLASH_MODEL,
-        "small": NANO_MODEL,
-        "roster": ROSTER_MODEL,
-        "review_claude": CHEAP_CLAUDE_MODEL,
-        "review_gemini": CHEAP_GEMINI_MODEL,
-        "review_grok": CHEAP_GROK_MODEL,
+        "primary": DEEPSEEK_FLASH_MODEL,  # $0.09/$0.18, 1M ctx
+        "small": CHEAP_MODEL,  # $0.10/$0.60 — replaced nano, ~5.7x cheaper in practice
+        "roster": ROSTER_MODEL,  # $0.25/$1.50
+        "review_claude": CHEAP_CLAUDE_MODEL,  # $1.00/$5.00
+        "review_gemini": CHEAP_GEMINI_MODEL,  # $0.25/$1.50
+        "review_grok": CHEAP_GROK_MODEL,  # $1.25/$2.50
     },
     "balanced": {
-        "primary": "google/gemini-2.5-flash",
-        "small": DEEPSEEK_FLASH_MODEL,
+        "primary": CHEAP_GEMINI_MODEL,  # $0.25/$1.50
+        "small": CHEAP_MODEL,  # $0.10/$0.60
         "roster": ROSTER_MODEL,
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,
     },
+    # High quality. Research and roster move to the current mid tier, and the
+    # three reviewers to their current flagships — review is where quality is
+    # actually decided, and it runs a handful of times per race rather than once
+    # per candidate/issue pair.
     "quality": {
-        "primary": DEEPSEEK_PRO_MODEL,
-        "small": DEEPSEEK_PRO_MODEL,
-        "roster": DEEPSEEK_PRO_MODEL,
-        "review_claude": DEFAULT_CLAUDE_MODEL,
-        "review_gemini": DEFAULT_GEMINI_MODEL,
-        "review_grok": DEFAULT_GROK_MODEL,
+        "primary": MID_MODEL,  # $1.00/$6.00, 1.05M ctx
+        "small": CHEAP_MODEL,  # $0.10/$0.60 — sub-agent work does not need the mid tier
+        "roster": MID_MODEL,
+        "review_claude": DEFAULT_CLAUDE_MODEL,  # Sonnet 5, $2.00/$10.00
+        "review_gemini": DEFAULT_GEMINI_MODEL,  # Gemini 3.1 Pro, $2.00/$12.00
+        "review_grok": DEFAULT_GROK_MODEL,  # Grok 4.20, $1.25/$2.50
     },
 }
 

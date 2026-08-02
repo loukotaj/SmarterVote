@@ -1,3 +1,5 @@
+from pipeline_client.agent.model_registry import CHEAP_GEMINI_MODEL, CHEAP_MODEL, DEEPSEEK_FLASH_MODEL, MID_MODEL
+
 """Tests for run_agent orchestration and _load_existing helper."""
 
 import asyncio
@@ -240,7 +242,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"]
+    assert result["generator"] == [DEEPSEEK_FLASH_MODEL, CHEAP_MODEL]
     # discovery + image + 12 issue sub-agents + finance + refine + meta refine = 17
     assert mock_loop.call_count == 17
 
@@ -612,7 +614,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"]
+    assert result["generator"] == [DEEPSEEK_FLASH_MODEL, CHEAP_MODEL]
     assert result["contest_stage"] == "unknown"
     assert result["run_audit"]["contest_stage"] == "unknown"
     assert "No roster membership changes detected." in result["run_audit"]["candidate_changes"]
@@ -714,9 +716,9 @@ async def test_run_agent_model_selection():
     discovery_result = {"id": "m-2024", "candidates": []}
 
     cases = [
-        (True, "deepseek/deepseek-v4-flash"),
-        (False, "deepseek/deepseek-v4-pro"),
-        (None, "google/gemini-2.5-flash"),
+        (True, DEEPSEEK_FLASH_MODEL),
+        (False, MID_MODEL),
+        (None, CHEAP_GEMINI_MODEL),
     ]
 
     for cheap_mode, expected_model in cases:
@@ -744,7 +746,7 @@ async def test_run_agent_custom_profile_preserved():
         mock_loop.return_value = discovery_result
         result = await run_agent("custom-2024", model_profile="custom", existing_data={})
 
-    assert mock_loop.call_args_list[0].kwargs["model"] == "google/gemini-2.5-flash"
+    assert mock_loop.call_args_list[0].kwargs["model"] == CHEAP_GEMINI_MODEL
     assert result["agent_metrics"]["model_profile"] == "custom"
 
 
@@ -770,8 +772,8 @@ async def test_run_agent_respects_review_provider_selection():
         )
 
     assert result["generator"] == [
-        "deepseek/deepseek-v4-flash",
-        "openai/gpt-5-nano",
+        DEEPSEEK_FLASH_MODEL,
+        CHEAP_MODEL,
         "anthropic/claude-haiku-4.5",
     ]
     assert mock_reviews.call_args.kwargs["review_providers"] == ["claude"]

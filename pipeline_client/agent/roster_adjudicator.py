@@ -50,7 +50,15 @@ logger = logging.getLogger("pipeline")
 #: Pinned deliberately. This model sits in front of publication; a floating
 #: alias would let a provider-side upgrade change the gate with no commit.
 #: Must be a tier that accepts ``temperature`` — see the module docstring.
-ADJUDICATOR_MODEL = "openai/gpt-5.4-mini"
+#:
+#: GPT-5.6 Luna, verified against the live API before adoption: it accepts
+#: ``temperature=0``, returns well-formed JSON, and calls tools correctly. It
+#: replaced gpt-5.4-mini, which it beats on every axis — newer generation, 1.05M
+#: context instead of 400K, and 7.5x cheaper ($0.10/$0.60 against $0.75/$4.50).
+#: The nano tier remains unsuitable: it spends ~384 reasoning tokens before any
+#: content and returns an empty message under a tight token budget, which on a
+#: fail-closed gate would silently reject valid evidence.
+ADJUDICATOR_MODEL = "openai/gpt-5.6-luna"
 
 ADJUDICATOR_TEMPERATURE = 0.0
 ADJUDICATOR_MAX_TOKENS = 400
