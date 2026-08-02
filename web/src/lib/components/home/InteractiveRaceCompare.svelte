@@ -10,10 +10,79 @@
   $: candidates =
     selectedRace?.candidates.filter((candidate) => !candidate.withdrawn) ?? [];
 
+  let scrollContainer: HTMLDivElement | null = null;
+  let isMouseDown = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+  let hasDragged = false;
+
   function moveRace(direction: number) {
     const current = races.findIndex((race) => race.id === selectedId);
     const next = (current + direction + races.length) % races.length;
     selectedId = races[next]?.id ?? selectedId;
+    if (scrollContainer && typeof scrollContainer.scrollBy === "function") {
+      scrollContainer.scrollBy({ left: direction * 180, behavior: "smooth" });
+    }
+  }
+
+  function scrollToActivePill() {
+    if (!scrollContainer) return;
+    const activeBtn = scrollContainer.querySelector<HTMLElement>(
+      '[aria-pressed="true"]',
+    );
+    if (activeBtn && typeof activeBtn.scrollIntoView === "function") {
+      activeBtn.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }
+
+  $: if (selectedId && scrollContainer) {
+    setTimeout(scrollToActivePill, 20);
+  }
+
+  function handleMouseDown(e: MouseEvent) {
+    if (!scrollContainer) return;
+    isMouseDown = true;
+    hasDragged = false;
+    startX = e.pageX - scrollContainer.offsetLeft;
+    startScrollLeft = scrollContainer.scrollLeft;
+  }
+
+  function handleMouseMove(e: MouseEvent) {
+    if (!isMouseDown || !scrollContainer) return;
+    const x = e.pageX - scrollContainer.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 5) {
+      hasDragged = true;
+    }
+    scrollContainer.scrollLeft = startScrollLeft - walk;
+  }
+
+  function handleMouseUp() {
+    isMouseDown = false;
+  }
+
+  function handlePillClick(e: MouseEvent, raceId: string) {
+    if (hasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    selectedId = raceId;
+  }
+
+  function handleWheel(e: WheelEvent) {
+    if (!scrollContainer) return;
+    if (
+      e.deltaY !== 0 &&
+      scrollContainer.scrollWidth > scrollContainer.clientWidth
+    ) {
+      e.preventDefault();
+      scrollContainer.scrollLeft += e.deltaY * 0.8;
+    }
   }
 </script>
 
@@ -55,12 +124,20 @@
           aria-label="Previous featured race">←</button
         >
         <div
-          class="hide-scrollbar flex min-w-0 flex-1 gap-2 overflow-x-auto py-1"
+          bind:this={scrollContainer}
+          on:mousedown={handleMouseDown}
+          on:mousemove={handleMouseMove}
+          on:mouseup={handleMouseUp}
+          on:mouseleave={handleMouseUp}
+          on:wheel={handleWheel}
+          role="region"
+          aria-label="Featured races scroll list"
+          class="hide-scrollbar flex min-w-0 flex-1 cursor-grab select-none gap-2 overflow-x-auto py-1 active:cursor-grabbing"
         >
           {#each races as race, index}
             <button
               type="button"
-              on:click={() => (selectedId = race.id)}
+              on:click={(e) => handlePillClick(e, race.id)}
               aria-pressed={selectedId === race.id}
               class="min-h-11 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition {selectedId ===
               race.id

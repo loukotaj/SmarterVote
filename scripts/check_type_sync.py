@@ -132,6 +132,7 @@ CHECKED_MODELS: Dict[str, Type[BaseModel]] = {
     "RunHealthVerdict": shared_run_health.RunHealthVerdict,
 }
 MODEL_TO_TS_NAME: Dict[Type[BaseModel], str] = {cls: name for name, cls in CHECKED_MODELS.items()}
+MODEL_TO_TS_NAME_BY_NAME: Dict[str, str] = {cls.__name__: name for name, cls in CHECKED_MODELS.items()}
 
 # ---------------------------------------------------------------------------
 # Every other `export interface` / `export type` in types.ts must be listed
@@ -406,7 +407,7 @@ def expected_ts_type(annotation: Any) -> Optional[str]:
     if isinstance(annotation, type) and issubclass(annotation, Enum):
         return ENUM_TO_TS_NAME.get(annotation)
     if isinstance(annotation, type) and issubclass(annotation, BaseModel):
-        return MODEL_TO_TS_NAME.get(annotation)
+        return MODEL_TO_TS_NAME.get(annotation) or MODEL_TO_TS_NAME_BY_NAME.get(annotation.__name__)
 
     origin = get_origin(annotation)
     if origin is Literal:

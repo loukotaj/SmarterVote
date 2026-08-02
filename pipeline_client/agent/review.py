@@ -684,17 +684,23 @@ def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
                     continue
                 stance = str(issue_data.get("stance") or "").strip()
                 attempt_key = f"issues:{candidate.get('name')}:{issue_name}"
-                audit = issue_research.get(attempt_key)
+                # The stance-level audit is durable; pipeline_state is rebuilt per
+                # logical run and only describes the candidates that run touched.
+                audit = issue_data.get("research_audit")
+                if not isinstance(audit, dict):
+                    audit = issue_research.get(attempt_key)
                 researched_actions = (
                     int(audit.get("search_calls", 0) or 0) + int(audit.get("page_fetches", 0) or 0)
                     if isinstance(audit, dict)
                     else 0
                 )
+                # Attempt count comes from the same record as the rest of the audit,
+                # so a durable stance-level audit is not defeated by run-scoped state.
+                attempts = int(issue_attempts.get(attempt_key, 0) or 0)
+                if isinstance(audit, dict) and audit.get("attempts") is not None:
+                    attempts = max(attempts, int(audit.get("attempts") or 0))
                 if _is_documented_absence(stance) and (
-                    int(issue_attempts.get(attempt_key, 0) or 0) < 1
-                    or not isinstance(audit, dict)
-                    or audit.get("status") != "completed"
-                    or researched_actions < 2
+                    attempts < 1 or not isinstance(audit, dict) or audit.get("status") != "completed" or researched_actions < 2
                 ):
                     flags.append(
                         {

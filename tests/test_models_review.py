@@ -689,3 +689,79 @@ def test_dead_source_removal_leaves_transient_failures_alone():
     }
 
     assert _remove_confirmed_dead_candidate_sources(race_json, link_review) == 0
+
+
+def test_stance_level_audit_survives_missing_pipeline_state():
+    """Regression: audits stored only in pipeline_state vanished for candidates a
+    later targeted run did not re-research, so review rejected their documented
+    absences and no sequence of runs could converge."""
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {
+                "name": "Justin Murphy",
+                "issues": {
+                    "Tech & AI": {
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [],
+                        "research_audit": {
+                            "status": "completed",
+                            "attempts": 1,
+                            "search_calls": 2,
+                            "page_fetches": 1,
+                        },
+                    }
+                },
+            }
+        ],
+        # Deliberately empty: this run researched somebody else.
+        "pipeline_state": {"issue_attempts": {}, "issue_research": {}},
+    }
+
+    result = check_profile_quality(profile)
+    audit_flags = [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
+
+    assert audit_flags == []
+
+
+def test_unaudited_absence_is_still_flagged():
+    """The guard must still catch an absence nothing ever researched."""
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {
+                "name": "Justin Murphy",
+                "issues": {
+                    "Tech & AI": {"stance": "No public position found", "confidence": "low", "sources": []},
+                },
+            }
+        ],
+        "pipeline_state": {"issue_attempts": {}, "issue_research": {}},
+    }
+
+    result = check_profile_quality(profile)
+    audit_flags = [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
+
+    assert len(audit_flags) == 1
+
+
+def test_research_audit_survives_schema_roundtrip():
+    """An undeclared field would be stripped by RaceJSON validation."""
+    from shared.models import IssueStance
+
+    stance = IssueStance.model_validate(
+        {
+            "stance": "No public position found",
+            "confidence": "low",
+            "sources": [],
+            "research_audit": {"status": "completed", "attempts": 1, "search_calls": 2, "page_fetches": 1},
+        }
+    )
+
+    assert stance.research_audit is not None
+    assert stance.model_dump()["research_audit"]["search_calls"] == 2
