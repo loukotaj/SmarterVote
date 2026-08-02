@@ -219,11 +219,11 @@
             >
           </div>
           <div
-            class="col-span-full flex items-center gap-3 bg-emerald-50/30 p-5 text-sm text-content-muted dark:bg-emerald-950/10"
+            class="col-span-full flex items-start gap-3 bg-emerald-50/30 p-5 text-sm text-content-muted dark:bg-emerald-950/10"
             style="grid-column: 2 / -1"
           >
             <span
-              class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-200 bg-white text-lg font-extrabold text-emerald-800 shadow-sm dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
+              class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-200 bg-white text-lg font-extrabold text-emerald-800 shadow-sm dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
               >{race.validation_grade.grade}</span
             >
             <div>
