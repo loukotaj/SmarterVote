@@ -21,58 +21,29 @@ from pipeline_client.agent.evidence import merge_source_lists
 from pipeline_client.agent.images import _is_valid_image_url
 from pipeline_client.agent.polling_quality import polling_semantic_problem
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
+from pipeline_client.agent.roster import ROSTER_CAP
+from pipeline_client.agent.roster_contract import (
+    COMPLETENESS_SOURCE_CLASSES,
+    COMPLETENESS_TIERS,
+    CONTEST_STAGES,
+    CYCLE_LOOKBACK_YEARS,
+    QUALIFYING_SOURCE_CLASSES,
+    ROSTER_LISTING_SOURCE_CLASSES,
+    SOURCE_CLASSES,
+    classify_source_class,
+    lacks_tier3_corroboration,
+    tier_rejection_reason,
+)
 from pipeline_client.agent.source_types import normalize_source_type
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
-_ROSTER_SOURCE_TYPES = {"official", "ballotpedia", "fec", "news", "campaign", "other"}
-# Source classes that can actually carry roster evidence. "other" is a parking
-# slot for unclassifiable input and never qualifies on its own.
-_QUALIFYING_ROSTER_SOURCE_TYPES = {"official", "fec", "campaign", "ballotpedia", "news"}
-# Free-form labels models emit for roster evidence, mapped onto the classes
-# above. Mirrors source_types.SOURCE_TYPE_ALIASES, which exists for the same
-# reason: models reliably invent plausible synonyms for enum values.
-_ROSTER_SOURCE_TYPE_ALIASES = {
-    "article": "news",
-    "ballot": "official",
-    "certified ballot": "official",
-    "election authority": "official",
-    "election official": "official",
-    "election results": "official",
-    "filing": "official",
-    "government": "official",
-    "gov": "official",
-    "media": "news",
-    "news article": "news",
-    "newspaper": "news",
-    "party": "official",
-    "party list": "official",
-    "press": "news",
-    "qualified candidates": "official",
-    "secretary of state": "official",
-    "sos": "official",
-    "state": "official",
-    "state election authority": "official",
-    "campaign site": "campaign",
-    "campaign website": "campaign",
-    "candidate site": "campaign",
-    "candidate website": "campaign",
-    "official campaign": "campaign",
-    "fec filing": "fec",
-    "federal election commission": "fec",
-    "encyclopedia": "ballotpedia",
-    "wiki": "ballotpedia",
-    "wikipedia": "ballotpedia",
-}
-_CONTEST_STAGES = {
-    "pre_primary",
-    "post_primary_general",
-    "runoff",
-    "top_two",
-    "top_four_rcv",
-    "uncontested",
-    "special",
-    "unknown",
-}
+
+# The roster-evidence contract lives in roster_contract so that the prompt text
+# the model reads and the checks enforced here cannot drift apart. Do not
+# redefine any of these locally — tests/test_roster_contract.py asserts identity.
+_ROSTER_SOURCE_TYPES = SOURCE_CLASSES
+_QUALIFYING_ROSTER_SOURCE_TYPES = QUALIFYING_SOURCE_CLASSES
+_CONTEST_STAGES = CONTEST_STAGES
 
 
 def _roster_source_text(source: Dict[str, Any]) -> str:
@@ -104,16 +75,34 @@ def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> b
     return federal_house and exact_district
 
 
+def _published_year(value: Any) -> int | None:
+    """Return the publication year from any reasonable date the model supplies.
+
+    Election authorities date documents in many shapes, and a model reading one
+    reports what it saw — "2026" from a filing list, "2026-08" from a header, an
+    ISO timestamp from a news page. Parsing only full ISO dates treated a bare
+    year as no date at all, and Nebraska's certified filing list was rejected as
+    undated while naming every candidate in the contest.
+    """
+    text = str(value or "").strip().replace("Z", "+00:00")
+    if not text:
+        return None
+    try:
+        return datetime.fromisoformat(text).year
+    except ValueError:
+        pass
+    # "2026", "2026-08", "08/02/2026", "August 2, 2026" all carry the year plainly.
+    match = re.search(r"(?:19|20)\d{2}", text)
+    return int(match.group()) if match else None
+
+
 def _source_is_current_cycle(source: Dict[str, Any], *, race_id: str, text: str) -> bool:
     """Check a source belongs to this race's cycle, by publish date or explicit year."""
     year_match = re.search(r"(?:19|20)\d{2}", race_id)
     if not year_match:
         return True
     valid_years = {int(year_match.group()) - 1, int(year_match.group())}
-    try:
-        published_year = datetime.fromisoformat(str(source.get("published_at") or "").replace("Z", "+00:00")).year
-    except ValueError:
-        published_year = None
+    published_year = _published_year(source.get("published_at"))
     if published_year is not None:
         return published_year in valid_years
     return any(str(year) in text for year in valid_years)
@@ -143,7 +132,7 @@ def _source_proves_different_contest(source: Dict[str, Any], *, candidate_name: 
     wording differs, which is how this check previously failed every race that was
     not a U.S. House contest.
     """
-    if source.get("type") not in {"official", "fec", "campaign", "ballotpedia", "news"}:
+    if source.get("type") not in QUALIFYING_SOURCE_CLASSES:
         return False
     parsed_url = urlparse(str(source.get("url") or ""))
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
@@ -169,7 +158,7 @@ def _source_omits_candidate_from_roster(
     finding from a blocked, empty, or truncated page — the failure mode that
     otherwise deletes real candidates.
     """
-    if source.get("type") not in {"official", "fec", "ballotpedia", "news"}:
+    if source.get("type") not in ROSTER_LISTING_SOURCE_CLASSES:
         return False
     parsed_url = urlparse(str(source.get("url") or ""))
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
@@ -238,40 +227,8 @@ def _normalize_observed_sources(sources: Any, research_trace: Any, *, default_ty
 
 
 def _classify_roster_source_type(raw_type: Any, *, title: str | None, url: str | None, host: str) -> str:
-    """Map a free-form roster source label onto a known roster source class.
-
-    Host evidence is checked first, then the model's label via the recognized set
-    and ``_ROSTER_SOURCE_TYPE_ALIASES``. Classification never depends on the label
-    being well-formed: a plausible synonym such as ``"web"`` or
-    ``"election_authority"`` used to be parked in ``"other"``, which can never
-    satisfy the roster evidence contract, so valid Ballotpedia and official
-    sources were rejected on a spelling technicality.
-    """
-    title_and_url = f"{title or ''} {url or ''}".casefold()
-
-    # Host evidence outranks the model's label. "official"/"fec" are the classes that
-    # waive the tier-3 corroboration rule, so they must be earned by the host (or a
-    # party qualified-candidate list title) rather than self-declared — otherwise any
-    # page could be relabelled to bypass that guard.
-    host_class: str | None = None
-    if host == "ballotpedia.org" or host.endswith(".ballotpedia.org"):
-        host_class = "ballotpedia"
-    elif host == "fec.gov" or host.endswith(".fec.gov"):
-        host_class = "fec"
-    elif host.endswith(".gov") or re.search(r"\bqualified\b.*\bcandidates?\b", title_and_url):
-        host_class = "official"
-    if host_class:
-        return host_class
-
-    label = str(raw_type or "").strip().lower().replace("_", " ").replace("-", " ")
-    label = re.sub(r"\s+", " ", label)
-    claimed = label if label in _ROSTER_SOURCE_TYPES and label != "other" else _ROSTER_SOURCE_TYPE_ALIASES.get(label)
-    if claimed in {"official", "fec"}:
-        # Unverifiable authority claim: keep the source usable but strip the waiver.
-        return "news"
-    if claimed:
-        return claimed
-    return "other"
+    """Map a free-form roster source label onto a known roster source class."""
+    return classify_source_class(raw_type, title=title, url=url, host=host)
 
 
 def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any] | None:
@@ -408,31 +365,17 @@ def _roster_source_rejection_reason(source: Dict[str, Any], *, candidate_name: s
     if not name_words or not all(word in evidence_text for word in name_words):
         return f"evidence text does not contain the full candidate name {candidate_name!r}"
     year_match = re.search(r"(?:19|20)\d{2}", race_id)
-    try:
-        published = datetime.fromisoformat(str(source.get("published_at") or "").replace("Z", "+00:00"))
-    except ValueError:
-        published = None
+    published_year = _published_year(source.get("published_at"))
     if year_match:
-        valid_years = {int(year_match.group()) - 2, int(year_match.group()) - 1, int(year_match.group())}
+        race_year = int(year_match.group())
+        valid_years = {race_year - offset for offset in range(CYCLE_LOOKBACK_YEARS + 1)}
         years_label = "/".join(str(year) for year in sorted(valid_years))
-        if published is not None:
-            if published.year not in valid_years:
-                return f"published_at year {published.year} is outside the current cycle ({years_label})"
+        if published_year is not None:
+            if published_year not in valid_years:
+                return f"published_at year {published_year} is outside the current cycle ({years_label})"
         elif not any(str(year) in evidence_text for year in valid_years):
             return f"evidence has no current-cycle date; include a {years_label} published_at or cite the year in the text"
-    tier = source.get("evidence_tier")
-    status = source.get("retrieval_status")
-    if tier == 1:
-        if status != "content" or source.get("type") not in {"official", "fec"}:
-            return "tier 1 requires retrieved page content from an official or FEC source"
-        return None
-    if tier == 2:
-        if status != "content" or source.get("type") not in {"campaign", "ballotpedia", "news"}:
-            return "tier 2 requires retrieved page content from a campaign, Ballotpedia, or news source"
-        return None
-    if tier == 3 and status == "snippet":
-        return None
-    return f"evidence_tier {tier!r}/retrieval_status {status!r} is not a recognized evidence grade"
+    return tier_rejection_reason(source)
 
 
 def _source_supports_candidate_addition(source: Dict[str, Any], *, candidate_name: str, race_id: str) -> bool:
@@ -460,12 +403,8 @@ def _qualifying_candidate_addition_sources(
         for source in normalized
         if _source_supports_candidate_addition(source, candidate_name=candidate_name, race_id=race_id)
     ]
-    if require_corroboration and qualifying and all(source.get("evidence_tier") == 3 for source in qualifying):
-        if any(source.get("type") in {"official", "fec"} for source in qualifying):
-            return qualifying
-        domains = {urlparse(str(source.get("url"))).netloc.lower() for source in qualifying}
-        if len(domains) < 2:
-            return []
+    if require_corroboration and lacks_tier3_corroboration(qualifying):
+        return []
     return qualifying
 
 
@@ -494,18 +433,13 @@ def _roster_completeness_source_rejection_reason(
     identity: Dict[str, Any],
     roster_names: list[str] | None = None,
 ) -> str | None:
-    """Validate evidence that describes the roster as a whole, not one member."""
-    # Ballotpedia belongs here for the same reason it is already accepted as
-    # candidate-level roster evidence: its per-race election pages publish the
-    # full qualified field, and RaceJSON treats `ballotpedia_url` as the
-    # canonical roster pointer. Excluding it stranded rosters that had no other
-    # retrievable full list — a state SoS landing page rarely enumerates one
-    # district's candidates, so the roster never finalized and the race stayed
-    # at its stale published roster (observed live on ne-house-02-2026).
-    # The real teeth are below and unchanged: retrieved page content only,
-    # exact contest and district, list-identifying phrasing, and coverage of
-    # every active candidate.
-    if source.get("type") not in {"official", "news", "ballotpedia"}:
+    """Validate evidence that describes the roster as a whole, not one member.
+
+    Accepted classes and tiers come from ``roster_contract`` so the prompt cannot
+    promise the model a source class this rejects — the drift that stranded
+    ne-house-02-2026 on a stale roster while its model burned every iteration.
+    """
+    if source.get("type") not in COMPLETENESS_SOURCE_CLASSES:
         return "completeness evidence must be an official roster/ballot, Ballotpedia race page, or retrieved news report"
     parsed_url = urlparse(str(source.get("url") or ""))
     if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
@@ -516,7 +450,7 @@ def _roster_completeness_source_rejection_reason(
         return "source needs a title and evidence quoting the complete candidate list"
     if not _source_supports_exact_contest(source, race_id=race_id):
         return "evidence does not name this exact contest and district"
-    if source.get("retrieval_status") != "content" or source.get("evidence_tier") not in {1, 2}:
+    if source.get("retrieval_status") != "content" or source.get("evidence_tier") not in COMPLETENESS_TIERS:
         return "completeness evidence must come from retrieved page content, not a search snippet"
 
     text = _roster_source_text(source)
@@ -1165,8 +1099,8 @@ def _make_editing_handlers(
         if proposed_specs is not None:
             if not isinstance(proposed_specs, list) or not proposed_specs:
                 return "ERROR: roster finalization blocked. The proposed candidates list must not be empty."
-            if len(proposed_specs) > 8:
-                return "ERROR: roster finalization blocked. The active roster exceeds the eight-candidate cap."
+            if len(proposed_specs) > ROSTER_CAP:
+                return f"ERROR: roster finalization blocked. The active roster exceeds the {ROSTER_CAP}-candidate cap."
             proposed_names = [str(spec.get("name") or "").strip() for spec in proposed_specs if isinstance(spec, dict)]
             if len(proposed_names) != len(proposed_specs) or any(not name for name in proposed_names):
                 return "ERROR: roster finalization blocked. Every proposed candidate needs a non-empty name."
