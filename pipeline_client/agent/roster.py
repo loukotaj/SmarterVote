@@ -30,6 +30,13 @@ def normalize_candidate_entries(race_json: Dict[str, Any], log: Any | None = Non
             dropped += 1
             continue
         candidate["name"] = name
+        # A blank string is not a valid URL. One stored in website/image_url fails
+        # RaceJSON validation for the whole race, so a single cleared field blocks
+        # publication of an otherwise complete profile. Clearing means null.
+        for url_field in ("website", "image_url", "voting_source_url", "donor_source_url"):
+            value = candidate.get(url_field)
+            if isinstance(value, str) and not value.strip():
+                candidate[url_field] = None
         kept.append(candidate)
     if dropped:
         race_json["candidates"] = kept
