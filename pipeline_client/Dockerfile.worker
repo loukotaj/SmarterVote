@@ -21,5 +21,12 @@ USER app
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
+# Build provenance. Without this the staleness check has nothing to compare and
+# a container built before a fix silently keeps claiming work. docker-compose
+# passes the current commit; a bare `docker build` leaves it unset, which the
+# worker reports as unknown rather than assuming it is current.
+ARG WORKER_GIT_COMMIT=""
+ENV WORKER_GIT_COMMIT=${WORKER_GIT_COMMIT}
+
 # Long-lived poller by default; Cloud Run Jobs override env with WORKER_ONCE=true.
 ENTRYPOINT ["python", "-m", "pipeline_client.worker"]

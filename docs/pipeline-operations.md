@@ -35,6 +35,14 @@ The worker reads credentials and configuration from the compose environment.
 Confirm `ADMIN_API_KEY`, OpenRouter/search keys, GCP project/storage settings,
 and application-default GCP credentials before assuming a pending item is stuck.
 
+Build with `WORKER_GIT_COMMIT=$(git rev-parse HEAD)` set so the image is stamped
+with its source commit. The worker logs that commit at startup and warns when it
+cannot report one — an unstamped image is treated as suspect rather than current,
+because a container built before a merged fix keeps claiming work and writes bad
+data with no error. Check the startup line before trusting a "did the fix work"
+test, and remove stale containers rather than leaving them stopped: a `docker
+start` on one silently returns old code to the queue.
+
 ### Cloud Run Job
 
 The production-shaped path is:

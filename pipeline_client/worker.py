@@ -183,8 +183,13 @@ async def run_worker() -> None:
     from shared.run_health import check_worker_version_staleness
 
     version_check = check_worker_version_staleness(runner=_RUNNER)
-    if version_check.get("is_stale"):
+    # is_stale is None when the image did not report its build commit, which is
+    # just as actionable as a confirmed mismatch — a worker whose provenance is
+    # unknown may predate merged fixes and will corrupt data silently.
+    if version_check.get("is_stale") is not False and version_check.get("warning"):
         logger.warning("WORKER VERSION WARNING: %s", version_check.get("warning"))
+    elif version_check.get("worker_commit"):
+        logger.info("Worker built from commit %s", version_check["worker_commit"])
 
     stop = asyncio.Event()
 
