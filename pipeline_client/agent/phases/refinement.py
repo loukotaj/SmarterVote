@@ -15,26 +15,25 @@ from ._common import (
     _pipeline_completed_units,
     _record_step_failure,
 )
+from .context import PhaseContext
 
 
-async def run_refinement_phase(
-    race_json: Dict[str, Any],
-    race_id: str,
-    *,
-    selected_name_set: Set[str],
-    model: str,
-    on_log: Any,
-    max_iterations: int,
-    step_enabled: Any,
-    track: Any,
-    is_update: bool,
-    refine_iters: int,
-    log: Any,
-    prefix: str,
-    resume_partial: bool,
-    run_budget: RunBudget | None,
-) -> None:
+async def run_refinement_phase(ctx: PhaseContext) -> None:
     """Refine each selected candidate one at a time, then refine race metadata."""
+    race_json = ctx.race_json
+    race_id = ctx.race_id
+    selected_name_set = ctx.selected_name_set
+    model = ctx.model
+    on_log = ctx.on_log
+    max_iterations = ctx.max_iterations
+    step_enabled = ctx.step_enabled
+    track = ctx.track
+    is_update = ctx.is_update
+    refine_iters = ctx.refine_iters
+    log = ctx.log
+    prefix = ctx.prefix
+    resume_partial = ctx.resume_partial
+    run_budget = ctx.run_budget
     from . import _agent_loop, _candidate_source_hints
 
     if not step_enabled("refinement"):

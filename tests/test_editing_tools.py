@@ -2456,6 +2456,7 @@ async def test_targeted_issue_run_preserves_other_candidates_audits():
     missing, so clearing race-wide meant every targeted repair re-broke the
     candidates it skipped and no sequence of runs could converge.
     """
+    from pipeline_client.agent.phases.context import PhaseContext
     from pipeline_client.agent.phases.issues import run_issues_phase
 
     race_json = {
@@ -2475,23 +2476,26 @@ async def test_targeted_issue_run_preserves_other_candidates_audits():
     }
 
     await run_issues_phase(
-        race_json,
-        "nj-senate-2026",
-        candidate_names=["Veronica Fernandez"],
-        small_model="test-model",
-        on_log=None,
-        max_iterations=1,
-        step_enabled=lambda _step: False,  # stop before doing real research
-        track=lambda *_a, **_kw: None,
-        max_candidates=None,
-        target_no_info=False,
-        is_update=True,
-        last_updated="",
-        log=lambda *_a, **_kw: None,
-        prefix="Test Phase",
-        resume_partial=False,
-        continue_incomplete_work=False,
-        run_budget=None,
+        PhaseContext(
+            race_json=race_json,
+            race_id="nj-senate-2026",
+            model="test-model",
+            small_model="test-model",
+            on_log=None,
+            log=lambda *_a, **_kw: None,
+            max_iterations=1,
+            step_enabled=lambda _step: False,  # stop before doing real research
+            track=lambda *_a, **_kw: None,
+            run_budget=None,
+            is_update=True,
+            candidate_names=["Veronica Fernandez"],
+            selected_name_set={"Veronica Fernandez"},
+            last_updated="",
+            max_candidates=None,
+            target_no_info=False,
+            resume_partial=False,
+            continue_incomplete_work=False,
+        )
     )
 
     research = race_json["pipeline_state"]["issue_research"]

@@ -8,23 +8,22 @@ from ..prompts import VOTER_RESOURCES_SYSTEM, VOTER_RESOURCES_USER
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..tools import READ_PROFILE_TOOL, VOTER_RESOURCE_TOOLS
 from ._common import _classify_exception, _record_step_failure
+from .context import PhaseContext
 
 
-async def run_voter_resources_phase(
-    race_json: Dict[str, Any],
-    race_id: str,
-    *,
-    small_model: str,
-    on_log: Any,
-    max_iterations: int,
-    step_enabled: Any,
-    track: Any,
-    is_update: bool,
-    log: Any,
-    prefix: str,
-    run_budget: RunBudget | None,
-) -> None:
+async def run_voter_resources_phase(ctx: PhaseContext) -> None:
     """Verify local registration and voting info for the race's jurisdiction."""
+    race_json = ctx.race_json
+    race_id = ctx.race_id
+    small_model = ctx.small_model
+    on_log = ctx.on_log
+    max_iterations = ctx.max_iterations
+    step_enabled = ctx.step_enabled
+    track = ctx.track
+    is_update = ctx.is_update
+    log = ctx.log
+    prefix = ctx.prefix
+    run_budget = ctx.run_budget
     from . import _agent_loop
 
     if not step_enabled("voter_resources"):

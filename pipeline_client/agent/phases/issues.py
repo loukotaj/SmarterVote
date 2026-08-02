@@ -42,6 +42,7 @@ from ._common import (
     _record_step_failure,
     logger,
 )
+from .context import PhaseContext
 
 
 async def _run_issue_research_for_candidate(
@@ -352,27 +353,25 @@ async def _research_issue_unit(
     return copy.deepcopy(result), trace
 
 
-async def run_issues_phase(
-    race_json: Dict[str, Any],
-    race_id: str,
-    *,
-    candidate_names: List[str],
-    small_model: str,
-    on_log: Any,
-    max_iterations: int,
-    step_enabled: Any,
-    track: Any,
-    max_candidates: Optional[int],
-    target_no_info: bool,
-    is_update: bool,
-    last_updated: str,
-    log: Any,
-    prefix: str,
-    resume_partial: bool,
-    continue_incomplete_work: bool,
-    run_budget: RunBudget | None,
-) -> None:
+async def run_issues_phase(ctx: PhaseContext) -> None:
     """Phase 2: per-candidate, per-issue research (tools mode). Mutates race_json."""
+    race_json = ctx.race_json
+    race_id = ctx.race_id
+    candidate_names = ctx.candidate_names
+    small_model = ctx.small_model
+    on_log = ctx.on_log
+    max_iterations = ctx.max_iterations
+    step_enabled = ctx.step_enabled
+    track = ctx.track
+    max_candidates = ctx.max_candidates
+    target_no_info = ctx.target_no_info
+    is_update = ctx.is_update
+    last_updated = ctx.last_updated
+    log = ctx.log
+    prefix = ctx.prefix
+    resume_partial = ctx.resume_partial
+    continue_incomplete_work = ctx.continue_incomplete_work
+    run_budget = ctx.run_budget
     from . import _candidate_source_hints
 
     if not step_enabled("issues"):
