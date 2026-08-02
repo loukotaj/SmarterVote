@@ -109,6 +109,18 @@ class Source(BaseModel):
     is_official_campaign: Optional[bool] = None
 
 
+class IssueResearchAudit(BaseModel):
+    """Durable proof that an issue result came from research rather than a fallback."""
+
+    status: Literal["completed", "no_verdict", "insufficient_research", "retry_limit", "blocked_policy"] = "no_verdict"
+    attempts: int = 0
+    search_calls: int = 0
+    page_fetches: int = 0
+    source_count: int = 0
+    token_budget_reached: bool = False
+    max_iterations_reached: bool = False
+
+
 class IssueStance(BaseModel):
     """Candidate's stance on a canonical issue."""
 
@@ -116,6 +128,7 @@ class IssueStance(BaseModel):
     stance: str
     confidence: ConfidenceLevel
     sources: List[Source] = Field(default_factory=list)
+    research_audit: Optional[IssueResearchAudit] = None
 
     @field_validator("issue", mode="before")
     @classmethod
@@ -438,18 +451,6 @@ class RunAudit(BaseModel):
     forecast_changes: List[str] = Field(default_factory=list)
     remaining_uncertainty: List[str] = Field(default_factory=list)
     publish_attention: List[str] = Field(default_factory=list)
-
-
-class IssueResearchAudit(BaseModel):
-    """Durable proof that an issue result came from research rather than a fallback."""
-
-    status: Literal["completed", "no_verdict", "insufficient_research", "retry_limit", "blocked_policy"] = "no_verdict"
-    attempts: int = 0
-    search_calls: int = 0
-    page_fetches: int = 0
-    source_count: int = 0
-    token_budget_reached: bool = False
-    max_iterations_reached: bool = False
 
 
 class RosterResearchAudit(BaseModel):
