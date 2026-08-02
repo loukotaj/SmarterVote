@@ -97,21 +97,14 @@ def _remove_inactive_candidates(race_json: Dict[str, Any], log: Any | None = Non
             log("warning", "Removed inactive candidates from discovery roster: " + ", ".join(removed))
 
 
-def _norm_name_for_match(name: str) -> str:
-    return roster.normalize_name(name)
+def _candidate_matches_any(name: str, candidates: List[Dict[str, Any]]) -> bool:
+    """True when *name* matches any candidate in *candidates*.
 
-
-def _names_likely_same(left: str, right: str) -> bool:
-    return roster.names_likely_same(left, right)
-
-
-def _candidate_matches_any(name: str, roster: List[Dict[str, Any]]) -> bool:
-    return any(_names_likely_same(name, str(candidate.get("name") or "")) for candidate in roster)
-
-
-def _party_tag(party: Any) -> str:
-    """Normalize a party value to a simple tag for balance checks."""
-    return roster.party_tag(party)
+    The parameter was previously called ``roster``, which shadowed the imported
+    ``roster`` module inside this function — harmless only because the body did
+    not need the module.
+    """
+    return any(roster.names_likely_same(name, str(candidate.get("name") or "")) for candidate in candidates)
 
 
 def _reconcile_candidates_with_authoritative_roster(
@@ -132,7 +125,7 @@ def _reconcile_candidates_with_authoritative_roster(
         return
 
     # Collect the set of party tags present in the Ballotpedia roster.
-    authoritative_party_tags: set = {_party_tag(c.get("party")) for c in authoritative_candidates if isinstance(c, dict)}
+    authoritative_party_tags: set = {roster.party_tag(c.get("party")) for c in authoritative_candidates if isinstance(c, dict)}
 
     kept: List[Any] = []
     removed: List[str] = []
@@ -149,7 +142,7 @@ def _reconcile_candidates_with_authoritative_roster(
         # page is likely a single-party primary page, not the full general election
         # roster.  Keep candidates of the missing party to avoid stripping the other
         # side of the ballot.
-        tag = _party_tag(candidate.get("party"))
+        tag = roster.party_tag(candidate.get("party"))
         if tag not in authoritative_party_tags:
             if log:
                 log(
