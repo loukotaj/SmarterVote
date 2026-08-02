@@ -123,6 +123,7 @@
           class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-stroke bg-surface text-lg text-content transition hover:border-blue-400 hover:text-blue-600"
           aria-label="Previous featured race">←</button
         >
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
         <div
           bind:this={scrollContainer}
           on:mousedown={handleMouseDown}
