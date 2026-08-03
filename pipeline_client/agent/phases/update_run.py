@@ -15,6 +15,7 @@ from ..prompts import (
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
 )
+from ..roster_adjudicator import format_contest_label
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations, _select_target_candidates
 from ..tools import (
@@ -137,6 +138,7 @@ async def _run_update(
                     model=roster_model or model,
                     on_log=on_log,
                     race_id=race_id,
+                    contest_label=format_contest_label(race_json, race_id),
                     # Roster sync spends iterations per candidate: identity, a
                     # fetch or two, one set_candidate_roster_sources per name,
                     # then finalize. Twelve ran out mid-roster on a three-way
@@ -225,6 +227,7 @@ async def _run_update(
                     model=roster_model or model,
                     on_log=on_log,
                     race_id=race_id,
+                    contest_label=format_contest_label(race_json, race_id),
                     max_iterations=8,
                     phase_name="roster-verify",
                     max_tokens=4096,

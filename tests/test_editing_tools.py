@@ -65,6 +65,49 @@ def test_editing_tool_schemas_exist():
     assert FINALIZE_METADATA_TOOL["function"]["name"] == "finalize_metadata"
 
 
+def _all_tool_schemas():
+    """Every tool schema the agent can send to a provider, with its list name."""
+    from pipeline_client.agent import tools as tools_module
+
+    for list_name in [name for name in dir(tools_module) if name.endswith("_TOOLS")]:
+        for tool in getattr(tools_module, list_name):
+            yield list_name, tool["function"]["name"], tool["function"]["parameters"]
+
+
+def _walk_schemas(schema, path):
+    """Yield (path, subschema) for the schema and every nested object/array schema."""
+    yield path, schema
+    for prop_name, prop in (schema.get("properties") or {}).items():
+        yield from _walk_schemas(prop, f"{path}.properties[{prop_name}]")
+    if isinstance(schema.get("items"), dict):
+        yield from _walk_schemas(schema["items"], f"{path}.items")
+
+
+def test_tool_schemas_only_enum_on_strings():
+    """Gemini rejects `enum` on non-string types, silently dropping the whole
+    sibling `properties` map and then failing `required` validation with a 400
+    that halts the step. Keep every enum string-typed."""
+    offenders = [
+        f"{list_name}/{tool_name}{path}"
+        for list_name, tool_name, params in _all_tool_schemas()
+        for path, schema in _walk_schemas(params, "")
+        if "enum" in schema and schema.get("type") != "string"
+    ]
+    assert offenders == []
+
+
+def test_tool_schemas_require_only_defined_properties():
+    """Every name in a `required` list must exist in the sibling `properties`."""
+    offenders = [
+        f"{list_name}/{tool_name}{path}: {name}"
+        for list_name, tool_name, params in _all_tool_schemas()
+        for path, schema in _walk_schemas(params, "")
+        for name in schema.get("required") or []
+        if name not in (schema.get("properties") or {})
+    ]
+    assert offenders == []
+
+
 # ---------------------------------------------------------------------------
 # Editing handlers
 # ---------------------------------------------------------------------------

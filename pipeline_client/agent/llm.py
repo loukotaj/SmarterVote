@@ -442,6 +442,7 @@ async def _agent_loop(
     model: str,
     on_log: Any | None = None,
     race_id: Optional[str] = None,
+    contest_label: Optional[str] = None,
     max_iterations: int = 15,
     phase_name: str = "",
     max_tokens: int = 16384,
@@ -802,6 +803,7 @@ async def _agent_loop(
                         tool_name=fn.name,
                         args=args,
                         race_id=race_id or "",
+                        contest_label=contest_label,
                         run_budget=run_budget,
                     )
                     if adjudications:

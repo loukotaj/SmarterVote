@@ -377,3 +377,53 @@ def test_provider_failure_yields_blocking_verdicts_not_absence(monkeypatch):
     record = result[adj.Claim.MEMBERSHIP][_source()["url"]]
     assert record["supports"] is False
     assert record["unavailable"] is True
+
+
+# ---------------------------------------------------------------------------
+# Contest labelling
+# ---------------------------------------------------------------------------
+
+
+def test_contest_label_names_the_office_not_just_the_slug():
+    """`az-house-07-2026` reads as a *state* House seat to a model given nothing
+    else, so the adjudicator rejected valid congressional evidence and discovery
+    could never finalize. The label must state the office outright."""
+    label = adj.format_contest_label(
+        {
+            "office": "United States House of Representatives",
+            "jurisdiction": "Arizona's 7th Congressional District",
+            "election_date": "2026-11-03",
+        },
+        "az-house-07-2026",
+    )
+    assert "United States House of Representatives" in label
+    assert "Arizona's 7th Congressional District" in label
+    assert "2026" in label
+    assert "az-house-07-2026" in label
+
+
+@pytest.mark.parametrize("race_json", [None, {}, {"office": "", "jurisdiction": ""}, "not-a-mapping"])
+def test_contest_label_falls_back_to_race_id(race_json):
+    """A profile missing office/jurisdiction must degrade to the old behaviour."""
+    assert adj.format_contest_label(race_json, "ak-governor-2026") == "ak-governor-2026"
+
+
+def test_contest_label_reaches_the_adjudicator(monkeypatch):
+    """The label is worthless if it does not land in the prompt the judge sees."""
+    seen = {}
+
+    async def _capture(*args, **kwargs):
+        seen["messages"] = kwargs.get("messages") or (args[0] if args else None)
+        return _reply('{"supports": true, "reason": "ok"}')
+
+    monkeypatch.setattr("pipeline_client.agent.llm._call_openrouter", _capture)
+    _run(
+        adj.collect_roster_adjudications(
+            tool_name="add_candidate",
+            args={"name": "Jane Roe", "roster_sources": [_source()]},
+            race_id="az-house-07-2026",
+            contest_label="United States House of Representatives — Arizona's 7th (race_id az-house-07-2026)",
+        )
+    )
+    prompt = str(seen["messages"])
+    assert "United States House of Representatives" in prompt
