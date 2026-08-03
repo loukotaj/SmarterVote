@@ -171,6 +171,30 @@ def _unavailable(detail: str) -> Verdict:
     )
 
 
+def format_contest_label(race_json: Mapping[str, Any] | None, race_id: str) -> str:
+    """Describe the contest in words rather than handing over the bare race_id.
+
+    A slug is ambiguous to a judge that has nothing else to go on:
+    ``az-house-07-2026`` reads as naturally as Arizona's *state* House district
+    7 as it does the U.S. House seat it actually is. The adjudicator then
+    rejects perfectly good congressional evidence for describing the "wrong"
+    contest, discovery never finalizes, and every ``<state>-house-<n>`` race
+    stalls. The profile already knows its own office and jurisdiction, so say
+    them and keep the id only as a trailing hint.
+    """
+    if not isinstance(race_json, Mapping):
+        return race_id
+    parts = [str(race_json.get(key) or "").strip() for key in ("office", "jurisdiction")]
+    parts = [part for part in parts if part]
+    if not parts:
+        return race_id
+    label = " — ".join(parts)
+    year = str(race_json.get("election_date") or "")[:4]
+    if year.isdigit():
+        label = f"{label}, {year} election"
+    return f"{label} (race_id {race_id})"
+
+
 def _cache_key(claim: str, subject: str, contest: str, evidence: str) -> tuple:
     return (claim, subject.casefold(), contest.casefold(), evidence.strip().casefold())
 
@@ -307,6 +331,7 @@ async def collect_roster_adjudications(
     tool_name: str,
     args: Mapping[str, Any],
     race_id: str,
+    contest_label: str | None = None,
     run_budget: Any = None,
 ) -> Dict[str, Dict[str, Dict[str, Any]]]:
     """Resolve every evidence judgment a roster tool call will need.
@@ -319,6 +344,7 @@ async def collect_roster_adjudications(
     nothing. ``remove_candidate`` without ``not_on_roster``/``wrong_contest`` is
     an ordinary withdrawal and is judged on its reason text, not its sources.
     """
+    contest = contest_label or race_id
     specs = _TOOL_EVIDENCE_SPECS.get(tool_name)
     results: Dict[str, Dict[str, Dict[str, Any]]] = {}
     if specs:
@@ -332,7 +358,7 @@ async def collect_roster_adjudications(
             verdicts = await adjudicate_sources(
                 claim=claim,
                 subject=subject,
-                contest=race_id,
+                contest=contest,
                 sources=[source for source in sources if isinstance(source, dict)],
                 run_budget=run_budget,
             )
@@ -347,7 +373,7 @@ async def collect_roster_adjudications(
             verdict = await adjudicate(
                 claim=Claim.WITHDRAWAL,
                 subject=str(args.get("name") or ""),
-                contest=race_id,
+                contest=contest,
                 source={"evidence": reason},
                 run_budget=run_budget,
             )
