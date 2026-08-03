@@ -26,11 +26,11 @@ Determinism: pinned model, temperature 0, and an in-process cache keyed by
 :data:`ADJUDICATOR_MODEL` is pinned to an explicit version rather than a floating
 alias — a silent upgrade would move a publish gate with no commit to point at.
 
-Note the model choice is deliberate: the nano tier is cheaper, but OpenRouter
-rejects a ``temperature`` parameter for it, so a nano adjudicator could not be
-pinned to 0 and its run-to-run variance would land directly on a publish gate.
-The mini tier costs slightly more per call and there are only a handful of calls
-per run, which is the right trade for a gate.
+The tier choice is deliberate and is explained at :data:`ADJUDICATOR_MODEL`.
+The short version: the nano tier is unusable here because OpenRouter rejects a
+``temperature`` parameter for it, so the gate could not be pinned to 0, and it
+returns empty content under a tight token budget — which on a fail-closed gate
+reads as a rejection of valid evidence.
 
 Availability: this gate **fails closed**. If the provider is unreachable, out of
 quota, or returns something unparseable, the claim is rejected with a reason

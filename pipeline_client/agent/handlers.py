@@ -33,6 +33,7 @@ from pipeline_client.agent.roster_contract import (
     SOURCE_CLASSES,
     classify_source_class,
     lacks_tier3_corroboration,
+    removal_grounds_sentence,
     tier_rejection_reason,
 )
 from pipeline_client.agent.source_types import normalize_source_type
@@ -931,13 +932,14 @@ def _make_editing_handlers(
             )
             return (
                 f"ERROR: remove_candidate blocked for '{name}'. {detail} "
-                "Use this tool only when the candidate has actually left the race — withdrew, "
-                "was disqualified, lost a completed primary or convention, or is a former "
-                "officeholder who is not a candidate this cycle — and say so plainly in the "
-                "reason. If instead you found no evidence this person was ever a candidate here, "
-                "call remove_candidate with not_on_roster=true and cite the roster listing for "
-                "this race that enumerates the field without them. Do NOT use this tool to fix "
-                "data quality issues."
+                # Same grounds the prompt states and the adjudicator is asked about,
+                # from one definition — restating them here is how the prompt and
+                # the handler drifted apart before.
+                f"Use this tool only when the candidate has actually left the race: {removal_grounds_sentence()}. "
+                "Say which, plainly, in the reason. If instead you found no evidence this person "
+                "was ever a candidate here, call remove_candidate with not_on_roster=true and cite "
+                "the roster listing for this race that enumerates the field without them. Do NOT "
+                "use this tool to fix data quality issues."
             )
 
         if is_structural_garbage:
