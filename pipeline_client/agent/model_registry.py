@@ -99,7 +99,7 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     ),
     # --- Additional confirmed models ---
     "deepseek/deepseek-chat-v3-0324": ModelSpec(
-        "deepseek/deepseek-chat-v3-0324", "DeepSeek V3 0324", 0.20, 0.77, 163_840, 65_536
+        "deepseek/deepseek-chat-v3-0324", "DeepSeek V3 0324", 0.27, 1.12, 163_840, 65_536
     ),
     "google/gemini-2.5-flash": ModelSpec("google/gemini-2.5-flash", "Gemini 2.5 Flash", 0.30, 2.50, 1_048_576, 65_536),
     # GA version of Flash Lite (non-preview)

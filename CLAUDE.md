@@ -73,6 +73,21 @@ cd infra && terraform fmt -check -recursive && terraform init -backend=false && 
 
 For the full local gate sequence: `.\scripts\run-ci-gates.ps1`
 
+**Before changing any model choice**, run the catalog guard. It is not a CI gate
+because it needs live network and `OPENROUTER_API_KEY`, which `tests/conftest.py`
+deliberately mocks away:
+
+```bash
+python scripts/check_model_catalog.py
+```
+
+It verifies catalog prices and context windows against OpenRouter's live list,
+that every profile role and escalation target is still served, that escalations
+move *up* a tier, that `quality` is never worse than `economy`, and that the two
+hardcoded chamber-forecast literals still agree. Prices and version orderings
+have both drifted silently into shipped bugs before — model IDs do not sort the
+way they read (`grok-4.20` predates `grok-4.3`), so trust release dates, not names.
+
 ## Python Conventions
 
 - **Black** (line-length 127, py311) + **isort** (profile "black") — config in `pyproject.toml`
