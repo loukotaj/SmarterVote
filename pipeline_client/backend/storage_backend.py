@@ -107,6 +107,13 @@ class GCPStorageBackend:
     """GCP storage using GCS for all data (artifacts, race JSON, and web content)."""
 
     def __init__(self, bucket: str, firestore_project: str | None = None) -> None:
+        # Deliberately not backend/gcs_client.get_gcs_client(). That helper
+        # memoizes one process-global client and returns None when GCS is
+        # unavailable; this class is constructed once per process as a module-level
+        # singleton (see step_registry) and must fail loudly instead. Routing it
+        # through the shared helper would save at most one connection pool for the
+        # life of the process while coupling an explicitly-configured backend to
+        # global state and breaking the injected-module seam its tests rely on.
         try:
             storage = __import__("google.cloud.storage", fromlist=["Client"])
         except Exception as e:  # pragma: no cover - import guard
