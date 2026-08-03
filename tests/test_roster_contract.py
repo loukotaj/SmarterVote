@@ -160,3 +160,36 @@ def test_completeness_tiers_exclude_snippets():
     """A snippet of a list page is indistinguishable from a truncated one."""
     snippet_tiers = {tier.tier for tier in MEMBERSHIP_TIERS if tier.retrieval_status == "snippet"}
     assert not (COMPLETENESS_TIERS & snippet_tiers)
+
+
+# --- removal grounds: stated once, asserted in three places -------------------
+
+
+def test_prompt_and_handler_state_the_same_removal_grounds():
+    """The prompt instructs, the tool refuses, and the adjudicator judges — all
+    from REMOVAL_GROUNDS. Three hand-written copies is how they drifted before."""
+    from pipeline_client.agent.roster_contract import REMOVAL_GROUNDS, removal_grounds_sentence
+
+    rendered = ROSTER_SYNC_USER.casefold()
+    for ground in REMOVAL_GROUNDS:
+        assert ground.casefold() in rendered, f"prompt omits removal ground: {ground!r}"
+
+    sentence = removal_grounds_sentence().casefold()
+    for ground in REMOVAL_GROUNDS:
+        assert ground.casefold() in sentence
+
+
+def test_removal_grounds_are_not_empty():
+    """Guards against the assertions above passing vacuously."""
+    from pipeline_client.agent.roster_contract import REMOVAL_GROUNDS
+
+    assert len(REMOVAL_GROUNDS) >= 3
+
+
+def test_adjudicator_withdrawal_question_covers_the_same_grounds():
+    """The judge must be asked about the grounds the caller was told to cite."""
+    from pipeline_client.agent.roster_adjudicator import _CLAIM_QUESTIONS, Claim
+
+    question = _CLAIM_QUESTIONS[Claim.WITHDRAWAL].casefold()
+    for keyword in ("withdraw", "disqualified", "primary", "former officeholder"):
+        assert keyword in question, f"withdrawal question omits {keyword!r}"

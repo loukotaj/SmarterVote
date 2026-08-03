@@ -297,6 +297,47 @@ page cannot be distinguished from a truncated one.
 - When nothing else lists the full field, fetch the Ballotpedia race page."""
 
 
+#: What counts as a candidate genuinely leaving the race. Stated once because it
+#: is asserted in three places — the prompt that instructs the model, the error
+#: the tool returns when it refuses, and the question the adjudicator is asked.
+#: Three hand-written copies is how the prompt and the handler drifted apart in
+#: the first place.
+REMOVAL_GROUNDS: tuple[str, ...] = (
+    "withdrew or dropped out",
+    "was disqualified",
+    "lost a completed primary, runoff, or convention",
+    "is a former officeholder who is not a candidate this cycle",
+)
+
+
+def removal_grounds_sentence() -> str:
+    """The grounds as one clause, for embedding in an error or a prompt line."""
+    return ", ".join(REMOVAL_GROUNDS[:-1]) + f", or {REMOVAL_GROUNDS[-1]}"
+
+
+def render_removal_rules() -> str:
+    """Render the rules for taking a candidate off the roster."""
+    grounds = "\n".join(f"  - {ground}" for ground in REMOVAL_GROUNDS)
+    return f"""\
+IMPORTANT — remove_candidate rules:
+- Call remove_candidate only when the candidate has actually left this race:
+{grounds}
+  State which one plainly in the reason. The tool judges the reason you give, so
+  write what happened rather than a formula — it is read, not pattern-matched.
+- Do NOT use remove_candidate to fix data quality issues, biography errors, or
+  anything else about the candidate's profile. Those are handled in later phases.
+- Absence from a page is not an exit. If you found no evidence this person was
+  ever a candidate here, call remove_candidate with not_on_roster=true and cite
+  the roster listing for this exact race that enumerates the field without them.
+  Do not force that into a withdrawal reason.
+- Do NOT infer a result from an empty or stale page, a missing listing, or a
+  generated URL that failed to load, and never infer the result of an election
+  scheduled after the current date.
+- If you are unsure whether someone was eliminated, search their name plus the
+  primary result before deciding, and keep them if uncertainty remains. A stale
+  candidate is a smaller error than a deleted real one."""
+
+
 def render_roster_cap_rules() -> str:
     """Render the roster size cap, sourced from the same constant that enforces it."""
     per_major_party = ROSTER_CAP // 2

@@ -10,7 +10,7 @@ Optionally followed by OpenRouter-backed multi-model **review**.
 
 from shared.models import CanonicalIssue
 
-from .roster_contract import render_completeness_rules, render_membership_rules, render_roster_cap_rules
+from .roster_contract import render_completeness_rules, render_membership_rules, render_removal_rules, render_roster_cap_rules
 
 CANONICAL_ISSUES = [e.value for e in CanonicalIssue]
 
@@ -1109,39 +1109,13 @@ STEP 2 — Make corrections using your tools:
 
 @@MEMBERSHIP_EVIDENCE_RULES@@
 
-IMPORTANT — remove_candidate rules:
-- ONLY call remove_candidate when you have a specific, verifiable source showing
-  the candidate is no longer actively competing: they withdrew, were disqualified,
-  or were eliminated in a completed primary or convention.
-- Do NOT use remove_candidate to fix data quality issues, biography errors,
-  incorrect facts, or anything else related to the candidate's profile data.
-- Do NOT remove a candidate without a credible source (news article, official
-  election results, Ballotpedia page) confirming they are no longer competing.
-- For primary/runoff/convention outcomes, search for "[state] [party] primary
-  results" with the election year from {current_date}, then verify any removal
-  against official/certified results or multiple credible dated sources. If the
-  result is uncertain or only inferred from an incomplete page, keep the
-  candidate.
-- After a party primary has officially concluded, include only that party's
-  nominee(s) who advanced. Remove other candidates from that party only when you
-  can cite a dated source showing they lost or did not advance.
-- If you're unsure whether someone was eliminated, search specifically for their
-  name + primary results before deciding, and keep them if uncertainty remains.
-- Do NOT infer winners or losers from an empty/stale Ballotpedia page, a missing
-  candidate listing, or a generated Ballotpedia URL that fails to load.
-- If a name in the profile has no evidence of candidacy anywhere AND your best
-  roster listing for this exact race lists the other candidates without them,
-  remove them with not_on_roster=true and cite that listing. This is the correct
-  path for phantom entries — do not force it into a withdrawal reason, and do not
-  use it when the listing failed to load, came back empty, or was truncated.
+@@REMOVAL_RULES@@
 - Treat articles and candidate pages published before a completed primary as
   historical evidence, not proof that the person remains active as of
   {current_date}. Verify primary outcomes before adding anyone from an older
   candidate list.
-- Never infer the result of an election scheduled after {current_date}. Keep all
-  verified runoff participants until that runoff has actually concluded.
-- Data corrections (wrong biography, bad sources, etc.) are handled in later
-  pipeline phases — ignore them here.
+- Keep all verified runoff participants until that runoff has actually concluded
+  as of {current_date}.
 
 STEP 2.6 — Record the CURRENT contest stage:
 Contest stage is a statement about the calendar as of {current_date}, not a
@@ -1204,6 +1178,7 @@ for _token, _rendered in (
     ("@@MEMBERSHIP_EVIDENCE_RULES@@", render_membership_rules()),
     ("@@COMPLETENESS_EVIDENCE_RULES@@", render_completeness_rules()),
     ("@@ROSTER_CAP_RULES@@", render_roster_cap_rules()),
+    ("@@REMOVAL_RULES@@", render_removal_rules()),
 ):
     if _token not in ROSTER_SYNC_USER:  # pragma: no cover - guards against silent drift
         raise RuntimeError(f"ROSTER_SYNC_USER is missing the {_token} slot")
