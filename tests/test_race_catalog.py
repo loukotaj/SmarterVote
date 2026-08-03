@@ -214,6 +214,49 @@ def test_catalog_health_tracks_strong_roster_evidence_and_section_freshness():
     assert health["section_freshness"]["roster"]["status"] == "recent"
 
 
+def _race_with_roster_source(**source_extra):
+    """A RaceJSON-shaped race — slug under "id", which is what production serves."""
+    return {
+        "id": "tx-house-01-2026",
+        "candidates": [
+            {
+                "name": "A",
+                "roster_sources": [
+                    {
+                        "url": "https://elections.example.gov/contest",
+                        "evidence_tier": 1,
+                        "retrieval_status": "content",
+                        **source_extra,
+                    }
+                ],
+                "issues": {},
+            }
+        ],
+    }
+
+
+def test_strong_roster_evidence_reads_racejson_id_not_race_id():
+    """RaceJSON stores the slug as "id"; only admin records use "race_id". Reading
+    the wrong key made the comparison race id None, so every source that named its
+    own race_id was disqualified and this counter was structurally always 0."""
+    health = build_catalog_health(_race_with_roster_source(race_id="tx-house-01-2026"))
+    assert health["roster_strong_evidence_candidates"] == 1
+
+
+def test_naming_the_race_id_never_weakens_a_roster_source():
+    """The inversion that hid the bug: stripping race_id used to *promote* a source
+    to strong. Better-formed evidence must never score worse than vaguer evidence."""
+    with_id = build_catalog_health(_race_with_roster_source(race_id="tx-house-01-2026"))
+    without_id = build_catalog_health(_race_with_roster_source())
+    assert with_id["roster_strong_evidence_candidates"] >= without_id["roster_strong_evidence_candidates"]
+
+
+def test_strong_roster_evidence_still_rejects_a_different_contest():
+    """The race-id check must keep doing its actual job."""
+    health = build_catalog_health(_race_with_roster_source(race_id="tx-house-99-2026"))
+    assert health["roster_strong_evidence_candidates"] == 0
+
+
 def test_build_race_summary_fields_uses_race_data_id_over_race_id_argument():
     race_data = {
         "id": "actual-id",

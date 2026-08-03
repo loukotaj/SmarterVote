@@ -174,9 +174,14 @@ def build_catalog_health(race_data: Dict[str, Any]) -> Dict[str, Any]:
         missing_images += int(_is_missing_image(candidate.get("image_url")))
         roster_sources = candidate.get("roster_sources")
         roster_verified_candidates += int(isinstance(roster_sources, list) and bool(roster_sources))
-        strong_roster_source = any(
-            _strong_roster_source(source, race_data.get("race_id")) for source in (roster_sources or [])
-        )
+        # RaceJSON carries its slug as "id"; only admin catalog records call it
+        # "race_id". Reading the wrong key yielded None, so every roster source
+        # that names its own race_id — the well-formed ones the roster tools ask
+        # for — failed the match and no candidate ever counted as strongly
+        # evidenced. Stripping race_id from a source made it "strong", exactly
+        # backwards. Accept either shape.
+        source_race_id = race_data.get("id") or race_data.get("race_id")
+        strong_roster_source = any(_strong_roster_source(source, source_race_id) for source in (roster_sources or []))
         roster_strong_evidence_candidates += int(strong_roster_source)
         issues = candidate.get("issues") if isinstance(candidate.get("issues"), dict) else {}
         for issue_name, issue in issues.items():
