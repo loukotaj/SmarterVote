@@ -37,11 +37,21 @@ def test_run_failure_reason_covers_required_categories():
         "validation_failed",
         "placeholder_content",
         "roster_verification_failed",
+        "roster_completeness_unproven",
         "budget_exhausted",
         "stale_worker_version",
         "cancelled",
         "unknown_error",
     }
+
+
+def test_unproven_completeness_degrades_rather_than_fails():
+    """ "We could not prove the field is complete" is an honest partial result, not a
+    broken run — it must not carry the same severity as verification failing."""
+    from shared.run_health import _HARD_FAILURE_REASONS
+
+    assert RunFailureReason.ROSTER_VERIFICATION_FAILED in _HARD_FAILURE_REASONS
+    assert RunFailureReason.ROSTER_COMPLETENESS_UNPROVEN not in _HARD_FAILURE_REASONS
 
 
 def test_run_health_status_values():

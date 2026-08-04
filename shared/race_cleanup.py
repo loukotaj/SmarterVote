@@ -226,12 +226,22 @@ def forecast_evidence_gaps(race_data: Dict[str, Any]) -> List[str]:
     return gaps
 
 
+#: Having no forecast sources at all is not a run-health problem. When search
+#: turns up nothing usable, incumbency plus partisan lean is the honest basis for
+#: a prediction, and saying so is the correct outcome rather than a degraded run.
+#: It stays in ``forecast_evidence_gaps`` as an informational coverage signal.
+#: The remaining gaps are different in kind: those fire only when the forecast
+#: *names* a specific authority (Cook, Inside Elections) or claims polling it
+#: never cites, which is an unsupported attribution worth degrading on.
+_NON_DEGRADING_FORECAST_GAPS = frozenset({"missing_explicit_sources"})
+
+
 def validate_forecast_evidence(race_data: Dict[str, Any]) -> bool:
     """Register a degraded run-health finding for deterministic evidence gaps."""
     forecast = race_data.get("forecast")
     if not isinstance(forecast, dict):
         return True
-    gaps = forecast_evidence_gaps(race_data)
+    gaps = [gap for gap in forecast_evidence_gaps(race_data) if gap not in _NON_DEGRADING_FORECAST_GAPS]
     if gaps:
         record_step_failure(
             race_data,

@@ -42,6 +42,13 @@ class RunFailureReason(str, Enum):
     VALIDATION_FAILED = "validation_failed"
     PLACEHOLDER_CONTENT = "placeholder_content"
     ROSTER_VERIFICATION_FAILED = "roster_verification_failed"
+    #: The roster we hold is plausible and evidenced per candidate, but no
+    #: authoritative source proved it is the COMPLETE field. Distinct from
+    #: ROSTER_VERIFICATION_FAILED, which means verification itself broke. This
+    #: is an honest "we don't know yet" — common before a primary, when no
+    #: qualified-candidate list has been published — so it degrades a run
+    #: rather than failing it, and the rest of the pipeline still runs.
+    ROSTER_COMPLETENESS_UNPROVEN = "roster_completeness_unproven"
     BUDGET_EXHAUSTED = "budget_exhausted"
     STALE_WORKER_VERSION = "stale_worker_version"
     CANCELLED = "cancelled"

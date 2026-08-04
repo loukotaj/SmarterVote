@@ -820,6 +820,7 @@ class AgentHandler:
                 "Re-queue the race with candidate_names or inspect discovery output."
             )
         from pipeline_client.agent.handlers import _qualifying_candidate_addition_sources, _roster_source_rejection_summary
+        from shared.run_health import RunFailureReason, record_step_failure
 
         baseline_names = {name.casefold() for name in (verified_baseline_candidate_names or set())}
         unsupported_additions: List[str] = []
@@ -841,10 +842,29 @@ class AgentHandler:
             elif isinstance(candidate, dict):
                 candidate["roster_sources"] = sources
         if unsupported_additions:
-            raise ValueError(
-                f"Refusing to save draft '{race_id}': new candidate(s) lack qualifying current-cycle "
-                f"exact-contest evidence: {'; '.join(unsupported_additions)}."
-            )
+            # Drop the unevidenced additions rather than aborting the save. The
+            # anti-fabrication boundary is "never persist a candidate without
+            # qualifying evidence", and dropping them honors that exactly. Raising
+            # honored it too, but at the cost of discarding the whole run — on
+            # fl-house-09-2026 a single unsupported name threw away 163s of
+            # completed discovery, images, polling and forecast work, and the run
+            # recorded $0 spent because nothing was persisted to attribute it to.
+            # The failure is recorded so run_health still reports the run as
+            # unhealthy and it is not mistaken for a clean result.
+            dropped = {name.split(" (")[0] for name in unsupported_additions}
+            kept = [candidate for candidate in candidates if _candidate_name(candidate) not in dropped]
+            detail = f"dropped unevidenced new candidate(s): {'; '.join(unsupported_additions)}"
+            if not kept:
+                # Everything new and nothing verified left — there is no partial
+                # result worth keeping, so fall back to refusing the save.
+                raise ValueError(
+                    f"Refusing to save draft '{race_id}': new candidate(s) lack qualifying current-cycle "
+                    f"exact-contest evidence: {'; '.join(unsupported_additions)}."
+                )
+            race_json["candidates"] = kept
+            candidates = kept
+            logger.warning("Draft '%s': %s", race_id, detail)
+            record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, detail)
 
         json_str = json.dumps(race_json, indent=2, default=str)
 

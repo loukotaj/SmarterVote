@@ -893,6 +893,42 @@ def test_finalize_roster_requires_evidence_for_every_active_candidate():
     assert race_json["pipeline_state"]["roster_research"]["active_candidate_count"] == 1
 
 
+def test_finalize_roster_says_sources_were_unfetched_rather_than_absent():
+    """A source the model never fetched is discarded before it can be judged, so
+    there is no rejection reason and the block used to read "no sources were
+    supplied". On co-governor-2026 that sent the model hunting for more URLs for
+    eight iterations when it simply needed to fetch the one it had already cited.
+    """
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "co-governor-2026",
+        "pipeline_state": {"race_identity": {"office": "Governor", "contest_stage": "post_primary_general"}},
+        "candidates": [{"name": "Phil Weiser", "party": "Democratic", "roster_sources": []}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    blocked = handlers["finalize_roster"](
+        {
+            "summary": "Nominees after the primary",
+            "completeness_sources": [
+                {
+                    "url": "https://philforcolorado.com/statement-on-the-nominee/",
+                    "type": "news",
+                    "title": "Statement on the nominee",
+                    "evidence": "Phil Weiser and Victor Marx are the major party nominees.",
+                }
+            ],
+            # The loop searched, but never fetched the page it went on to cite.
+            "_research_trace": {"researched_urls": ["https://ballotpedia.org/something_else"], "fetched_urls": []},
+        }
+    )
+
+    assert "no sources were supplied" not in blocked
+    assert "never" in blocked and "retrieved" in blocked
+    assert "fetch_page" in blocked
+
+
 def test_finalize_roster_requires_exact_special_election_completeness_source():
     from pipeline_client.agent.agent import _make_editing_handlers
 
@@ -2620,20 +2656,8 @@ def test_completeness_evidence_naming_full_roster_needs_no_certified_wording():
     identity = {"office": "U.S. House", "contest_stage": "post_primary_general"}
     roster = ["Denise Powell", "Brinker Harding", "Eric Michael Foreman"]
 
-    assert (
-        _roster_completeness_source_rejection_reason(
-            source, race_id="ne-house-02-2026", identity=identity, roster_names=roster
-        )
-        is None
-    )
-
-    # Coverage must be genuine: a roster the evidence does not fully name still fails.
-    assert _roster_completeness_source_rejection_reason(
-        source,
-        race_id="ne-house-02-2026",
-        identity=identity,
-        roster_names=["Denise Powell", "Someone Not Listed"],
-    )
+    assert _roster_completeness_source_rejection_reason(source, race_id="ne-house-02-2026", identity=identity) is None
+    assert roster  # the roster this evidence covers; coverage itself is adjudicated, see below
 
 
 def test_completeness_still_refuses_search_snippets():
@@ -2656,7 +2680,124 @@ def test_completeness_still_refuses_search_snippets():
         source,
         race_id="ne-house-02-2026",
         identity={"office": "U.S. House", "contest_stage": "post_primary_general"},
-        roster_names=["Denise Powell", "Brinker Harding", "Eric Michael Foreman"],
     )
 
     assert reason and "retrieved page content" in reason
+
+
+def _ma_party_list(url, title, evidence):
+    return {
+        "url": url,
+        "type": "official",
+        "title": title,
+        "evidence": evidence,
+        "race_id": "ma-house-02-2026",
+        "published_at": "2026-06-02",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+
+
+def test_finalize_roster_accepts_party_lists_that_compose_into_the_field():
+    """Massachusetts publishes one qualified-candidate list per party. MA-02 is
+    uncontested: the Democratic list names McGovern, the Republican list reads
+    "No Nominations" for the same district, and together they prove the field is
+    exactly one person. Requiring each source to name every candidate made that
+    unprovable, because no single-party list ever names a rival party's nominee."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "ma-house-02-2026",
+        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
+        "candidates": [{"name": "James P. McGovern", "party": "Democratic", "roster_sources": []}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    dem_list = _ma_party_list(
+        "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
+        "2026 Democratic State Primary Candidates",
+        "Representative in Congress, Second District: James P. McGovern, Worcester.",
+    )
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Uncontested: Democratic list names McGovern; Republicans made no nomination.",
+            "source_candidate_names": ["James P. McGovern"],
+            "candidates": [
+                {"name": "James P. McGovern", "party": "Democratic", "incumbent": True, "roster_sources": [dem_list]}
+            ],
+            "_research_trace": {
+                "researched_urls": [],
+                "fetched_urls": [
+                    "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
+                    "https://www.sec.state.ma.us/rep-state-primary-candidates2026.htm",
+                ],
+            },
+            "completeness_sources": [
+                _ma_party_list(
+                    "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
+                    "2026 Democratic State Primary Candidates",
+                    "Representative in Congress, Second District: James P. McGovern, Worcester.",
+                ),
+                _ma_party_list(
+                    "https://www.sec.state.ma.us/rep-state-primary-candidates2026.htm",
+                    "2026 Republican State Primary Candidates",
+                    "Representative in Congress, Second District: No Nominations.",
+                ),
+            ],
+        }
+    )
+
+    assert not result.startswith("ERROR"), result
+
+
+def test_completeness_adjudication_is_asked_about_the_whole_proposed_roster():
+    """The "does this evidence cover these people" judgment moved out of the handler
+    and into the adjudicator, because no string matcher survives real naming —
+    MD-01's own primary result says "Andrew Harris" where the roster says "Andy
+    Harris". The guarantee only holds if the roster actually reaches the judge, so
+    assert it lands in the prompt rather than being silently dropped."""
+    import asyncio
+
+    from pipeline_client.agent import roster_adjudicator as adj
+
+    seen = {}
+
+    async def _capture(*args, **kwargs):
+        seen["messages"] = kwargs.get("messages") or (args[0] if args else None)
+
+        class _Msg:
+            content = '{"supports": true, "reason": "ok"}'
+
+        class _Choice:
+            message = _Msg()
+
+        class _Reply:
+            choices = [_Choice()]
+            usage = None
+
+        return _Reply()
+
+    adj.clear_cache()
+    original = adj.llm._call_openrouter if hasattr(adj, "llm") else None
+    import pipeline_client.agent.llm as llm_module
+
+    llm_module._call_openrouter = _capture
+    try:
+        asyncio.run(
+            adj.collect_roster_adjudications(
+                tool_name="finalize_roster",
+                args={
+                    "source_candidate_names": ["Andy Harris", "Dan Schwartz", "Edward Shlikas"],
+                    "completeness_sources": [{"url": "https://ballotpedia.org/x", "evidence": "primary results"}],
+                },
+                race_id="md-house-01-2026",
+            )
+        )
+    finally:
+        if original is not None:
+            llm_module._call_openrouter = original
+        adj.clear_cache()
+
+    prompt = str(seen.get("messages"))
+    for name in ("Andy Harris", "Dan Schwartz", "Edward Shlikas"):
+        assert name in prompt, f"{name} missing from adjudicator prompt"

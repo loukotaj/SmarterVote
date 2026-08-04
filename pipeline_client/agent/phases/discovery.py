@@ -317,3 +317,59 @@ def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
     _remove_known_ineligible_candidates(race_json, log)
     _cap_roster(race_json, log)
     race_json.pop("candidate_limit_note", None)
+
+
+def _record_provisional_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Mark the roster as evidenced-but-possibly-incomplete, and say why.
+
+    Reached when roster-sync could not prove the field is complete. That is
+    routine before a primary: no qualified-candidate list has been published, so
+    the only available sources name individual candidates. Refusing to record
+    anything left the race stale and silent about the reason. Recording an
+    honest "this may be incomplete, here is what we found and when it should
+    firm up" is more useful to a reader than either a stale roster or a
+    confident wrong one.
+    """
+    from shared.run_health import RunFailureReason, record_step_failure
+
+    identity = (race_json.get("pipeline_state") or {}).get("race_identity") or {}
+    primary_status = str(identity.get("primary_status") or "").strip()
+    contest_stage = str(identity.get("contest_stage") or "").strip()
+
+    links: List[str] = []
+    for candidate_url in (identity.get("official_roster_source_url"), race_json.get("ballotpedia_url")):
+        url = str(candidate_url or "").strip()
+        if url and url not in links:
+            links.append(url)
+
+    names = [_candidate_name(candidate) for candidate in race_json.get("candidates") or []]
+    names = [name for name in names if name]
+
+    note_parts = [
+        f"We could not confirm the complete candidate field for this contest. "
+        f"The {len(names)} candidate(s) listed are each supported by their own sources, "
+        f"but no authoritative qualified, certified, or ballot list was retrievable, "
+        f"so others may be missing."
+    ]
+    if primary_status:
+        note_parts.append(primary_status)
+    if contest_stage == "pre_primary":
+        note_parts.append("Expect this to firm up once the filing deadline passes and an official list is published.")
+    else:
+        note_parts.append("This should be updated as official sources become available.")
+    if links:
+        note_parts.append("Sources consulted: " + "; ".join(links))
+    # Model-supplied text like primary_status rarely ends in punctuation, which
+    # ran sentences together ("...September 1, 2026 Expect this to firm up...").
+    note = " ".join(part if part.rstrip().endswith((".", "!", "?")) else f"{part.rstrip()}." for part in note_parts)
+
+    roster_research = race_json.setdefault("pipeline_state", {}).setdefault("roster_research", {})
+    if isinstance(roster_research, dict):
+        roster_research["completeness_status"] = "unproven"
+        roster_research["completeness_note"] = note
+        roster_research["completeness_reference_urls"] = links
+        roster_research["active_candidate_count"] = len(names)
+
+    record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_COMPLETENESS_UNPROVEN, note)
+    if log:
+        log("warning", f"    Roster kept as provisional: complete field unconfirmed ({len(names)} candidate(s))")

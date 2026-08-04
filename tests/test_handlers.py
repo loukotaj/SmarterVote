@@ -365,7 +365,7 @@ async def test_save_draft_rejects_placeholder_only_candidates():
 
 
 @pytest.mark.asyncio
-async def test_save_draft_preserves_baseline_candidate_but_rejects_unverified_update_addition():
+async def test_save_draft_drops_unverified_addition_but_keeps_the_rest(tmp_path):
     handler = AgentHandler()
     race_json = {
         "id": "ga-house-01-2026",
@@ -375,14 +375,27 @@ async def test_save_draft_preserves_baseline_candidate_but_rejects_unverified_up
         ],
     }
 
-    with pytest.raises(ValueError, match="New Candidate"):
-        await handler._save_draft(
+    with (
+        patch("pipeline_client.backend.handlers.agent.local_paths", MagicMock(drafts_dir=tmp_path)),
+        patch.object(handler, "_archive_gcs_version", new_callable=AsyncMock),
+        patch.object(handler, "_upload_to_gcs", new_callable=AsyncMock),
+    ):
+        output = await handler._save_draft(
             "ga-house-01-2026",
             race_json,
             verified_baseline_candidate_names={"existing candidate"},
         )
 
+    # The unevidenced addition must not be persisted — that is the
+    # anti-fabrication boundary — but the rest of the run survives. Raising here
+    # used to discard a whole run's discovery, images, polling and forecast work
+    # over one bad name.
+    assert output.exists()
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Existing Candidate"]
     assert race_json["candidates"][0]["summary"] == "Previously researched."
+    failures = race_json["pipeline_state"]["step_failures"]
+    assert failures[0]["reason"] == "roster_verification_failed"
+    assert "New Candidate" in failures[0]["detail"]
 
 
 @pytest.mark.asyncio

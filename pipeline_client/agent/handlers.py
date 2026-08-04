@@ -58,12 +58,58 @@ def _roster_source_text(source: Dict[str, Any]) -> str:
     return unquote(" ".join(str(source.get(key) or "") for key in ("title", "evidence", "url"))).casefold()
 
 
+_ONES_ORDINALS = (
+    "",
+    "first",
+    "second",
+    "third",
+    "fourth",
+    "fifth",
+    "sixth",
+    "seventh",
+    "eighth",
+    "ninth",
+    "tenth",
+    "eleventh",
+    "twelfth",
+    "thirteenth",
+    "fourteenth",
+    "fifteenth",
+    "sixteenth",
+    "seventeenth",
+    "eighteenth",
+    "nineteenth",
+)
+_TENS_ORDINALS = {20: "twentieth", 30: "thirtieth", 40: "fortieth", 50: "fiftieth"}
+_TENS_CARDINALS = {20: "twenty", 30: "thirty", 40: "forty", 50: "fifty"}
+
+
+def _ordinal_word(number: int) -> str:
+    """Spell a district number the way an election authority writes it.
+
+    Massachusetts titles its qualified-candidate sections "Second District", not
+    "2nd District" or "District 2". Matching only numerals rejected the state's
+    own official list as not naming the contest, which is what left MA-02
+    unprovable even though the evidence was sitting right there.
+    """
+    if number < len(_ONES_ORDINALS):
+        return _ONES_ORDINALS[number]
+    tens, ones = divmod(number, 10)
+    base = tens * 10
+    if base not in _TENS_CARDINALS:
+        return ""
+    if ones == 0:
+        return _TENS_ORDINALS[base]
+    return f"{_TENS_CARDINALS[base]}-{_ONES_ORDINALS[ones]}"
+
+
 def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> bool:
     """Reject same-number state-legislative evidence for federal House races."""
     match = re.fullmatch(r"[a-z]{2}-house-(\d{1,2})-(?:19|20)\d{2}", race_id)
     if not match:
         return True
     district = str(int(match.group(1)))
+    ordinal = _ordinal_word(int(match.group(1)))
     text = _roster_source_text(source)
     federal_house = bool(
         re.search(r"\b(?:u\.?s\.?|united states)\s+(?:house|representative)", text)
@@ -79,6 +125,8 @@ def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> b
             rf"\bcongressional\s+districts\b.{{0,240}}\bdistrict\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b",
             text,
         )
+        # Spelled-out ordinals, e.g. Massachusetts' "Second District".
+        or bool(ordinal and re.search(rf"\b{re.escape(ordinal)}\s+(?:congressional\s+)?district\b", text))
     )
     return federal_house and exact_district
 
@@ -513,7 +561,6 @@ def _roster_completeness_source_rejection_reason(
     *,
     race_id: str,
     identity: Dict[str, Any],
-    roster_names: list[str] | None = None,
     args: Dict[str, Any] | None = None,
 ) -> str | None:
     """Validate evidence that describes the roster as a whole, not one member.
@@ -541,19 +588,11 @@ def _roster_completeness_source_rejection_reason(
     if args is not None and not _adjudicator_supports(args, ADJ_COMPLETENESS, source.get("url")):
         return _adjudicator_reason(args, ADJ_COMPLETENESS, source.get("url"))
 
-    # Structural cross-check, kept deliberately. The prose half of the old gate —
-    # demanding the page call itself "certified"/"candidate list" — is gone,
-    # because it rejected New Jersey's own certified list for wording. This half
-    # is different: it asks whether the evidence actually mentions every
-    # candidate being proposed, which is a containment test over supplied names
-    # rather than a judgment about the page, and it is what stops a real but
-    # partial listing from ratifying a roster it never covered.
-    if roster_names:
-        text = _roster_source_text(source)
-        missing = [name for name in roster_names if not _source_names_candidate(text, name)]
-        if missing:
-            return f"completeness evidence does not name every proposed candidate; missing: {', '.join(missing)}"
-
+    # Whether the evidence accounts for the proposed roster is now the
+    # adjudicator's call (it is given the roster as its subject and told to match
+    # people by identity). The name-containment test that used to live here could
+    # not tell "Andrew Harris" from "Andy Harris" and blocked MD-01 on the source
+    # announcing his own primary win.
     text = _roster_source_text(source)
     # Real election authorities do not use one fixed phrase. New Jersey publishes
     # "Official List Candidates for US Senate For GENERAL ELECTION", which named
@@ -1078,31 +1117,41 @@ def _make_editing_handlers(
             if url_key not in observed_urls:
                 completeness_sources.append(dict(trusted))
                 observed_urls.add(url_key)
-        # The names the model says it extracted from the completeness evidence.
-        # A source that demonstrably lists all of them has proven completeness
-        # without needing to also describe itself as a certified list.
-        claimed_roster_names = [str(name).strip() for name in args.get("source_candidate_names") or [] if str(name).strip()]
-        completeness_rejections = [
-            reason
+        # Whether the evidence actually accounts for the proposed roster is a
+        # reading judgment, so the adjudicator makes it — it receives the roster as
+        # its subject and is told to match people by identity. String-matching every
+        # name here could not survive ordinary naming: MD-01's own primary result
+        # reads "Andrew Harris" while the roster says "Andy Harris", and Harris was
+        # reported missing from the source announcing his win. Nicknames, initials,
+        # married names and surname-only references are unbounded, so no matcher
+        # closes that gap; a model reading the page does. The structural checks that
+        # remain are the ones that are genuinely deterministic — source class, tier,
+        # retrieval status, exact contest, and current cycle.
+        source_rejections = [
+            _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity, args=args)
             for source in completeness_sources
-            if (
-                reason := _roster_completeness_source_rejection_reason(
-                    source, race_id=race_id, identity=identity, roster_names=claimed_roster_names, args=args
-                )
-            )
         ]
-        qualifying_completeness = [
-            source
-            for source in completeness_sources
-            if _roster_completeness_source_rejection_reason(
-                source, race_id=race_id, identity=identity, roster_names=claimed_roster_names, args=args
-            )
-            is None
-        ]
+        completeness_rejections = [reason for reason in source_rejections if reason]
+        qualifying_completeness = [source for source, reason in zip(completeness_sources, source_rejections) if reason is None]
         for source in qualifying_completeness:
             _record_verdict_on_source(source, args, ADJ_COMPLETENESS)
         if not qualifying_completeness:
-            detail = "; ".join(completeness_rejections) if completeness_rejections else "no sources were supplied"
+            if completeness_rejections:
+                detail = "; ".join(completeness_rejections)
+            elif args.get("completeness_sources"):
+                # Sources were supplied but `require_fetch` discarded every one
+                # before it could be judged, so there is no rejection reason to
+                # report. Saying "no sources were supplied" sends the model off
+                # hunting for more URLs when the actual problem is that it cited
+                # a page it never retrieved — it then burns its whole iteration
+                # budget searching instead of calling fetch_page once.
+                submitted_count = len([source for source in args["completeness_sources"] if isinstance(source, dict)])
+                detail = (
+                    f"{submitted_count} source(s) were supplied but discarded because they were never "
+                    "retrieved in this run — call fetch_page on the roster URL first, then cite it"
+                )
+            else:
+                detail = "no sources were supplied"
             return (
                 "ERROR: roster finalization blocked. Candidate-level evidence proves membership, not completeness. "
                 "Provide retrieved completeness_sources quoting the authoritative qualified/certified/ballot list "

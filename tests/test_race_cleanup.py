@@ -1,4 +1,4 @@
-from shared.race_cleanup import cleanup_race_data, validate_forecast_evidence
+from shared.race_cleanup import cleanup_race_data, forecast_evidence_gaps, validate_forecast_evidence
 
 
 def test_cleanup_fixes_known_text_artifact_deduplicates_sources_and_seeds_forecast_evidence():
@@ -42,23 +42,32 @@ def test_cleanup_fixes_known_text_artifact_deduplicates_sources_and_seeds_foreca
     assert validate_forecast_evidence(race) is True
 
 
-def test_forecast_evidence_gate_records_degraded_step_failure():
+def test_forecast_with_no_sources_at_all_is_not_a_health_failure():
+    """When search turns up nothing usable, incumbency plus partisan lean is the
+    honest basis for a prediction. Saying so should not degrade the run — roughly
+    a quarter of lightweight refreshes were being marked degraded for it."""
     race = {
         "pipeline_state": {},
         "forecast": {
-            "rationale": "Candidate is favored by race ratings.",
+            "rationale": "Candidate is favored by the district's partisan lean and incumbency.",
             "source_urls": [],
         },
     }
 
-    assert validate_forecast_evidence(race) is False
-    assert race["pipeline_state"]["step_failures"] == [
-        {
-            "step": "forecast",
-            "reason": "step_no_data",
-            "detail": "Forecast evidence gaps: missing_explicit_sources",
-        }
-    ]
+    assert validate_forecast_evidence(race) is True
+    assert race["pipeline_state"].get("step_failures") in (None, [])
+
+
+def test_missing_explicit_sources_still_reported_as_a_coverage_gap():
+    """It stops degrading health but must stay visible as a coverage signal."""
+    race = {
+        "forecast": {
+            "rationale": "Candidate is favored by the district's partisan lean.",
+            "source_urls": [],
+        },
+    }
+
+    assert "missing_explicit_sources" in forecast_evidence_gaps(race)
 
 
 def test_cleanup_repairs_pathological_repeated_district_description_prefix():

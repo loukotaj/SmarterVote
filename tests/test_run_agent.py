@@ -522,7 +522,7 @@ async def test_discovery_only_update_uses_update_discovery_phases():
 
 
 @pytest.mark.asyncio
-async def test_incomplete_roster_finalization_stops_before_downstream_steps():
+async def test_unproven_roster_completeness_keeps_going_and_says_so():
     existing = {
         "id": "al-house-02-2026",
         "election_date": "2026-11-03",
@@ -542,10 +542,18 @@ async def test_incomplete_roster_finalization_stops_before_downstream_steps():
             enabled_steps=["discovery", "images", "polling", "forecast"],
         )
 
-    assert mock_loop.await_count == 1
+    # Unproven completeness is an honest partial, not a broken run: the roster we
+    # hold is kept and flagged, downstream steps still run (bailing here left the
+    # race stale AND silent about why), and health degrades rather than fails.
+    assert mock_loop.await_count > 1
     assert result["pipeline_state"]["complete"] is False
     assert "discovery" in result["pipeline_state"]["remaining_steps"]
-    assert result["run_health"]["status"] == "failed"
+    assert result["run_health"]["status"] == "degraded"
+    roster_research = result["pipeline_state"]["roster_research"]
+    assert roster_research["completeness_status"] == "unproven"
+    assert "could not confirm the complete candidate field" in roster_research["completeness_note"].lower()
+    reasons = result["run_health"]["reasons"]
+    assert "roster_completeness_unproven" in reasons
 
 
 @pytest.mark.asyncio
