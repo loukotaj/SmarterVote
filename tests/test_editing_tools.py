@@ -893,6 +893,42 @@ def test_finalize_roster_requires_evidence_for_every_active_candidate():
     assert race_json["pipeline_state"]["roster_research"]["active_candidate_count"] == 1
 
 
+def test_finalize_roster_says_sources_were_unfetched_rather_than_absent():
+    """A source the model never fetched is discarded before it can be judged, so
+    there is no rejection reason and the block used to read "no sources were
+    supplied". On co-governor-2026 that sent the model hunting for more URLs for
+    eight iterations when it simply needed to fetch the one it had already cited.
+    """
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "co-governor-2026",
+        "pipeline_state": {"race_identity": {"office": "Governor", "contest_stage": "post_primary_general"}},
+        "candidates": [{"name": "Phil Weiser", "party": "Democratic", "roster_sources": []}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    blocked = handlers["finalize_roster"](
+        {
+            "summary": "Nominees after the primary",
+            "completeness_sources": [
+                {
+                    "url": "https://philforcolorado.com/statement-on-the-nominee/",
+                    "type": "news",
+                    "title": "Statement on the nominee",
+                    "evidence": "Phil Weiser and Victor Marx are the major party nominees.",
+                }
+            ],
+            # The loop searched, but never fetched the page it went on to cite.
+            "_research_trace": {"researched_urls": ["https://ballotpedia.org/something_else"], "fetched_urls": []},
+        }
+    )
+
+    assert "no sources were supplied" not in blocked
+    assert "never" in blocked and "retrieved" in blocked
+    assert "fetch_page" in blocked
+
+
 def test_finalize_roster_requires_exact_special_election_completeness_source():
     from pipeline_client.agent.agent import _make_editing_handlers
 

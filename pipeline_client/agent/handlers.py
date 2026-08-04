@@ -1102,7 +1102,22 @@ def _make_editing_handlers(
         for source in qualifying_completeness:
             _record_verdict_on_source(source, args, ADJ_COMPLETENESS)
         if not qualifying_completeness:
-            detail = "; ".join(completeness_rejections) if completeness_rejections else "no sources were supplied"
+            if completeness_rejections:
+                detail = "; ".join(completeness_rejections)
+            elif args.get("completeness_sources"):
+                # Sources were supplied but `require_fetch` discarded every one
+                # before it could be judged, so there is no rejection reason to
+                # report. Saying "no sources were supplied" sends the model off
+                # hunting for more URLs when the actual problem is that it cited
+                # a page it never retrieved — it then burns its whole iteration
+                # budget searching instead of calling fetch_page once.
+                submitted_count = len([source for source in args["completeness_sources"] if isinstance(source, dict)])
+                detail = (
+                    f"{submitted_count} source(s) were supplied but discarded because they were never "
+                    "retrieved in this run — call fetch_page on the roster URL first, then cite it"
+                )
+            else:
+                detail = "no sources were supplied"
             return (
                 "ERROR: roster finalization blocked. Candidate-level evidence proves membership, not completeness. "
                 "Provide retrieved completeness_sources quoting the authoritative qualified/certified/ballot list "
