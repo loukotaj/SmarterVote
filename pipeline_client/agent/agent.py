@@ -919,6 +919,7 @@ async def run_agent(
                 metrics_sink=review_metrics,
                 review_cache=review_cache,
                 run_budget=run_budget,
+                issues_step_ran=_step_enabled("issues"),
             )
             race_json["reviews"] = reviews
             # Log review results to live logs
@@ -1006,6 +1007,7 @@ async def run_agent(
                         metrics_sink=review_metrics,
                         review_cache=review_cache,
                         run_budget=run_budget,
+                        issues_step_ran=_step_enabled("issues"),
                     )
                     reviewed_packet = updated_packet
                     race_json["reviews"] = reviews

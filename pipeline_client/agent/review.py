@@ -549,8 +549,17 @@ def _implausible_incumbency_claim(race_json: Dict[str, Any]) -> Optional[str]:
     return None
 
 
-def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
-    """Run deterministic checks for important quality failures reviewers may miss."""
+def check_profile_quality(race_json: Dict[str, Any], *, issues_step_ran: bool = True) -> Dict[str, Any]:
+    """Run deterministic checks for important quality failures reviewers may miss.
+
+    ``issues_step_ran`` says whether issue research was in scope for this run. A
+    lightweight refresh deliberately skips it, and grading such a run on stances
+    it was never asked to collect measures the wrong thing: md-house-01-2026 was
+    approved by 3/3 reviewers at an average of 93 and still landed on grade C,
+    because the absent stances capped the score at 79 and blocked publication.
+    The gap is still reported — it is real, and the race does need issue research
+    eventually — but as ``info`` so it does not fail a run that was never trying.
+    """
     flags = []
     try:
         RaceJSON.model_validate(race_json)
@@ -660,8 +669,10 @@ def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
                 {
                     "field": f"candidates[{index}].issues",
                     "concern": f"Candidate is missing canonical issues: {', '.join(missing_issues)}.",
-                    "suggestion": "Complete all canonical issue stances before final review.",
-                    "severity": "error",
+                    "suggestion": "Complete all canonical issue stances before final review."
+                    if issues_step_ran
+                    else "Issue research was not part of this run; queue the issues step when depth is wanted.",
+                    "severity": "error" if issues_step_ran else "info",
                 }
             )
         summary = candidate.get("summary")
@@ -763,6 +774,7 @@ async def run_reviews(
     metrics_sink: Optional[Dict[str, Any]] = None,
     review_cache: Optional[Dict[str, Any]] = None,
     run_budget: RunBudget | None = None,
+    issues_step_ran: bool = True,
 ) -> List[Dict[str, Any]]:
     """Run review roles in parallel through OpenRouter."""
     import os
@@ -827,7 +839,7 @@ async def run_reviews(
                     f"Removed {removed_dead_sources} candidate source occurrence(s) confirmed dead by HTTP status.",
                 )
             link_review = await check_profile_links(race_json, on_log=on_log, run_budget=run_budget)
-        quality_review = check_profile_quality(race_json)
+        quality_review = check_profile_quality(race_json, issues_step_ran=issues_step_ran)
         cached_deterministic = {
             "link_review": copy.deepcopy(link_review),
             "quality_review": copy.deepcopy(quality_review),
