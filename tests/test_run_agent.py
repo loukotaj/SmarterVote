@@ -547,7 +547,10 @@ async def test_unproven_roster_completeness_keeps_going_and_says_so():
     # race stale AND silent about why), and health degrades rather than fails.
     assert mock_loop.await_count > 1
     assert result["pipeline_state"]["complete"] is False
-    assert "discovery" in result["pipeline_state"]["remaining_steps"]
+    # Discovery ran and reached a conclusion, so it is not "still to do". Saying
+    # otherwise blocked publication of races whose rosters were correct — the
+    # publish gate tolerates a pending review and nothing else.
+    assert "discovery" not in (result["pipeline_state"].get("remaining_steps") or [])
     assert result["run_health"]["status"] == "degraded"
     roster_research = result["pipeline_state"]["roster_research"]
     assert roster_research["completeness_status"] == "unproven"

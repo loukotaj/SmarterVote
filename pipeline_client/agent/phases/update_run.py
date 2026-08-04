@@ -185,12 +185,18 @@ async def _run_update(
                 # about why. Keep the per-candidate-evidenced roster we hold,
                 # say plainly that it may be incomplete, point at the sources we
                 # did find, and let the rest of the refresh run.
+                # Deliberately does NOT re-queue discovery in remaining_steps.
+                # Discovery ran, reached a defensible conclusion, and recorded it;
+                # "still to do" would be a lie about what happened. Leaving it
+                # there also made the race unpublishable — the publish gate allows
+                # a pending `review` but nothing else, so fl-house-10-2026 (a
+                # decided, uncontested race whose roster is correct) was blocked
+                # by bookkeeping rather than by any doubt about its data. The
+                # provisional status is already recorded on roster_research and as
+                # a step failure, and every refresh re-runs discovery anyway.
                 _record_provisional_roster(race_json, log)
                 pipeline_state = race_json.setdefault("pipeline_state", {})
                 pipeline_state["complete"] = False
-                remaining_steps = pipeline_state.setdefault("remaining_steps", [])
-                if "discovery" not in remaining_steps:
-                    remaining_steps.append("discovery")
                 track(
                     "progress",
                     "discovery",
