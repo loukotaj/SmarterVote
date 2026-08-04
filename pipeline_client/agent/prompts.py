@@ -436,8 +436,14 @@ Set a forecast using these rating bands:
 
 Use party_probabilities with normalized party labels such as "Democratic",
 "Republican", "Independent", or "Other". Keep probabilities between 0 and 1.
-Use source_urls from existing polling source_url values only. If no numeric
+Use source_urls from existing polling source_url values. If no numeric
 polls exist, source_urls may be empty and based_on_poll_count should be 0.
+If your rationale, takeaway, or key_reasons NAME a rating outfit
+(Cook Political Report, Inside Elections, Sabato's Crystal Ball) you must also
+put that outfit's own URL in source_urls. Naming a rating you cannot cite is
+what gets a forecast rejected, so if you do not have the URL, describe the
+district's lean in your own words instead of attributing it. An unsourced
+judgement about partisan lean is fine; an unsourced attribution is not.
 Set predicted_winner_name only when the likely winner is an exact candidate
 name from the roster above. If the nominee is unresolved or only a party is
 favored, leave predicted_winner_name empty/null and use predicted_winner_party. If the race is a toss-up and neither party is favored, set predicted_winner_party to "Toss-up".

@@ -417,3 +417,41 @@ def test_contest_stage_is_not_presented_as_locked_identity():
     assert "pre_primary" not in locked_block
     assert "pre_primary" in status_block
     assert "re-verify against today's date" in context
+
+
+def test_forecast_prompt_and_evidence_gate_agree_on_named_rating_sources():
+    """`forecast_evidence_gaps` rejects a forecast that names Cook Political Report
+    without citing cookpolitical.com. The prompt used to say source_urls were for
+    polling "only", so the model followed it, cited "D+13 Cook PVI" in prose, and
+    was degraded for it on race after race — the same prompt-vs-gate drift this
+    file exists to catch."""
+    from pipeline_client.agent.prompts import FORECAST_USER
+    from shared.race_cleanup import forecast_evidence_gaps
+
+    assert "Cook Political Report" in FORECAST_USER
+    assert "source_urls" in FORECAST_USER
+    assert "polling source_url values only" not in FORECAST_USER
+
+    named_without_citation = {
+        "forecast": {
+            "rationale": "Cook Political Report rates this race Solid R.",
+            "source_urls": ["https://www.fec.gov/data/candidate/H0MD01000/"],
+        }
+    }
+    assert "missing_cook_source" in forecast_evidence_gaps(named_without_citation)
+
+    named_with_citation = {
+        "forecast": {
+            "rationale": "Cook Political Report rates this race Solid R.",
+            "source_urls": ["https://www.cookpolitical.com/ratings/house-race-ratings"],
+        }
+    }
+    assert "missing_cook_source" not in forecast_evidence_gaps(named_with_citation)
+
+    unattributed_lean = {
+        "forecast": {
+            "rationale": "The district has voted Republican by double digits in recent cycles.",
+            "source_urls": [],
+        }
+    }
+    assert forecast_evidence_gaps(unattributed_lean) == ["missing_explicit_sources"]
