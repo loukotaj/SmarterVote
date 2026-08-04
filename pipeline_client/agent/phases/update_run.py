@@ -37,7 +37,7 @@ from ._common import (
     _record_step_failure,
 )
 from .context import PhaseContext
-from .discovery import _backfill_source_timestamps, _sanitize_roster
+from .discovery import _backfill_source_timestamps, _record_provisional_roster, _sanitize_roster
 from .fresh_run import _run_fresh
 from .shared_runner import _run_shared_phases
 
@@ -178,12 +178,14 @@ async def _run_update(
             )
             _sanitize_roster(race_json, log)
             if not roster_sync_succeeded:
-                _record_step_failure(
-                    race_json,
-                    "discovery",
-                    RunFailureReason.ROSTER_VERIFICATION_FAILED,
-                    "Roster agent did not complete evidence-backed finalization.",
-                )
+                # Completeness could not be proven — routinely because no
+                # qualified-candidate list exists yet for a pre-primary contest.
+                # Bailing out here used to skip images, polling, forecast and
+                # voter resources too, so the race stayed stale AND said nothing
+                # about why. Keep the per-candidate-evidenced roster we hold,
+                # say plainly that it may be incomplete, point at the sources we
+                # did find, and let the rest of the refresh run.
+                _record_provisional_roster(race_json, log)
                 pipeline_state = race_json.setdefault("pipeline_state", {})
                 pipeline_state["complete"] = False
                 remaining_steps = pipeline_state.setdefault("remaining_steps", [])
@@ -193,10 +195,9 @@ async def _run_update(
                     "progress",
                     "discovery",
                     pct=30,
-                    message="Discovery stopped: roster finalization incomplete",
+                    message="Discovery: roster kept as provisional (complete field unconfirmed)",
                     race_json=race_json,
                 )
-                return race_json
             _mark_pipeline_unit_complete(race_json, "discovery.roster_sync")
             completed_units.add("discovery.roster_sync")
             track(

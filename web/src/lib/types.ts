@@ -498,6 +498,7 @@ export type RunFailureReason =
   | "validation_failed"
   | "placeholder_content"
   | "roster_verification_failed"
+  | "roster_completeness_unproven"
   | "budget_exhausted"
   | "stale_worker_version"
   | "cancelled"
