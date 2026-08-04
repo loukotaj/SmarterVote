@@ -290,6 +290,11 @@ page cannot be distinguished from a truncated one.
 - The source must either name every candidate on your proposed roster, or
   identify itself as a qualified, certified, official-ballot, or otherwise
   complete candidate list.
+- Quote the page's own field-listing sentence VERBATIM in `evidence`. Do not
+  paraphrase it. A paraphrase that hedges — "candidates include A and B",
+  "among the candidates are A and B" — asserts a partial list and is rejected,
+  even when the page you fetched did state the full field. Copy the sentence as
+  written, e.g. "A and B are running in the general election for <contest>".
 - It must name this exact contest and district. A state election-authority
   landing page that never names this district does not qualify.
 - For a special election, it must explicitly identify the special contest and
