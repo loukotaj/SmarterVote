@@ -2656,20 +2656,8 @@ def test_completeness_evidence_naming_full_roster_needs_no_certified_wording():
     identity = {"office": "U.S. House", "contest_stage": "post_primary_general"}
     roster = ["Denise Powell", "Brinker Harding", "Eric Michael Foreman"]
 
-    assert (
-        _roster_completeness_source_rejection_reason(
-            source, race_id="ne-house-02-2026", identity=identity, roster_names=roster
-        )
-        is None
-    )
-
-    # Coverage must be genuine: a roster the evidence does not fully name still fails.
-    assert _roster_completeness_source_rejection_reason(
-        source,
-        race_id="ne-house-02-2026",
-        identity=identity,
-        roster_names=["Denise Powell", "Someone Not Listed"],
-    )
+    assert _roster_completeness_source_rejection_reason(source, race_id="ne-house-02-2026", identity=identity) is None
+    assert roster  # the roster this evidence covers; coverage itself is adjudicated, see below
 
 
 def test_completeness_still_refuses_search_snippets():
@@ -2692,7 +2680,6 @@ def test_completeness_still_refuses_search_snippets():
         source,
         race_id="ne-house-02-2026",
         identity={"office": "U.S. House", "contest_stage": "post_primary_general"},
-        roster_names=["Denise Powell", "Brinker Harding", "Eric Michael Foreman"],
     )
 
     assert reason and "retrieved page content" in reason
@@ -2763,30 +2750,54 @@ def test_finalize_roster_accepts_party_lists_that_compose_into_the_field():
     assert not result.startswith("ERROR"), result
 
 
-def test_finalize_roster_still_rejects_a_candidate_no_source_names():
-    """Union containment must not become a rubber stamp: a proposed candidate that
-    appears in none of the qualifying sources is still unratified."""
-    from pipeline_client.agent.agent import _make_editing_handlers
+def test_completeness_adjudication_is_asked_about_the_whole_proposed_roster():
+    """The "does this evidence cover these people" judgment moved out of the handler
+    and into the adjudicator, because no string matcher survives real naming —
+    MD-01's own primary result says "Andrew Harris" where the roster says "Andy
+    Harris". The guarantee only holds if the roster actually reaches the judge, so
+    assert it lands in the prompt rather than being silently dropped."""
+    import asyncio
 
-    race_json = {
-        "id": "ma-house-02-2026",
-        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
-        "candidates": [{"name": "James P. McGovern", "party": "Democratic", "roster_sources": []}],
-    }
-    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+    from pipeline_client.agent import roster_adjudicator as adj
 
-    result = handlers["finalize_roster"](
-        {
-            "summary": "Claims an extra candidate no list mentions.",
-            "source_candidate_names": ["James P. McGovern", "Ghost Candidate"],
-            "completeness_sources": [
-                _ma_party_list(
-                    "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
-                    "2026 Democratic State Primary Candidates",
-                    "Representative in Congress, Second District: James P. McGovern, Worcester.",
-                ),
-            ],
-        }
-    )
+    seen = {}
 
-    assert "Ghost Candidate" in result
+    async def _capture(*args, **kwargs):
+        seen["messages"] = kwargs.get("messages") or (args[0] if args else None)
+
+        class _Msg:
+            content = '{"supports": true, "reason": "ok"}'
+
+        class _Choice:
+            message = _Msg()
+
+        class _Reply:
+            choices = [_Choice()]
+            usage = None
+
+        return _Reply()
+
+    adj.clear_cache()
+    original = adj.llm._call_openrouter if hasattr(adj, "llm") else None
+    import pipeline_client.agent.llm as llm_module
+
+    llm_module._call_openrouter = _capture
+    try:
+        asyncio.run(
+            adj.collect_roster_adjudications(
+                tool_name="finalize_roster",
+                args={
+                    "source_candidate_names": ["Andy Harris", "Dan Schwartz", "Edward Shlikas"],
+                    "completeness_sources": [{"url": "https://ballotpedia.org/x", "evidence": "primary results"}],
+                },
+                race_id="md-house-01-2026",
+            )
+        )
+    finally:
+        if original is not None:
+            llm_module._call_openrouter = original
+        adj.clear_cache()
+
+    prompt = str(seen.get("messages"))
+    for name in ("Andy Harris", "Dan Schwartz", "Edward Shlikas"):
+        assert name in prompt, f"{name} missing from adjudicator prompt"

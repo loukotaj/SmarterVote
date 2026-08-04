@@ -561,7 +561,6 @@ def _roster_completeness_source_rejection_reason(
     *,
     race_id: str,
     identity: Dict[str, Any],
-    roster_names: list[str] | None = None,
     args: Dict[str, Any] | None = None,
 ) -> str | None:
     """Validate evidence that describes the roster as a whole, not one member.
@@ -589,19 +588,11 @@ def _roster_completeness_source_rejection_reason(
     if args is not None and not _adjudicator_supports(args, ADJ_COMPLETENESS, source.get("url")):
         return _adjudicator_reason(args, ADJ_COMPLETENESS, source.get("url"))
 
-    # Structural cross-check, kept deliberately. The prose half of the old gate —
-    # demanding the page call itself "certified"/"candidate list" — is gone,
-    # because it rejected New Jersey's own certified list for wording. This half
-    # is different: it asks whether the evidence actually mentions every
-    # candidate being proposed, which is a containment test over supplied names
-    # rather than a judgment about the page, and it is what stops a real but
-    # partial listing from ratifying a roster it never covered.
-    if roster_names:
-        text = _roster_source_text(source)
-        missing = [name for name in roster_names if not _source_names_candidate(text, name)]
-        if missing:
-            return f"completeness evidence does not name every proposed candidate; missing: {', '.join(missing)}"
-
+    # Whether the evidence accounts for the proposed roster is now the
+    # adjudicator's call (it is given the roster as its subject and told to match
+    # people by identity). The name-containment test that used to live here could
+    # not tell "Andrew Harris" from "Andy Harris" and blocked MD-01 on the source
+    # announcing his own primary win.
     text = _roster_source_text(source)
     # Real election authorities do not use one fixed phrase. New Jersey publishes
     # "Official List Candidates for US Senate For GENERAL ELECTION", which named
@@ -1126,38 +1117,22 @@ def _make_editing_handlers(
             if url_key not in observed_urls:
                 completeness_sources.append(dict(trusted))
                 observed_urls.add(url_key)
-        # The names the model says it extracted from the completeness evidence.
-        # A source that demonstrably lists all of them has proven completeness
-        # without needing to also describe itself as a certified list.
-        claimed_roster_names = [str(name).strip() for name in args.get("source_candidate_names") or [] if str(name).strip()]
-        # Judge each source on its own merits first, WITHOUT the name-containment
-        # test. Several states publish one qualified-candidate list per party, so
-        # completeness is established by the set together: Massachusetts' Democratic
-        # list names McGovern for MA-02 while its Republican list says "No
-        # Nominations" for the same district, and between them the field is proven
-        # to be exactly one person. Requiring each source to name every candidate
-        # individually made that unprovable — no single-party list can ever name a
-        # rival party's nominee — so uncontested and split-party races could never
-        # finalize no matter how authoritative their sources.
+        # Whether the evidence actually accounts for the proposed roster is a
+        # reading judgment, so the adjudicator makes it — it receives the roster as
+        # its subject and is told to match people by identity. String-matching every
+        # name here could not survive ordinary naming: MD-01's own primary result
+        # reads "Andrew Harris" while the roster says "Andy Harris", and Harris was
+        # reported missing from the source announcing his win. Nicknames, initials,
+        # married names and surname-only references are unbounded, so no matcher
+        # closes that gap; a model reading the page does. The structural checks that
+        # remain are the ones that are genuinely deterministic — source class, tier,
+        # retrieval status, exact contest, and current cycle.
         source_rejections = [
-            _roster_completeness_source_rejection_reason(
-                source, race_id=race_id, identity=identity, roster_names=None, args=args
-            )
+            _roster_completeness_source_rejection_reason(source, race_id=race_id, identity=identity, args=args)
             for source in completeness_sources
         ]
         completeness_rejections = [reason for reason in source_rejections if reason]
         qualifying_completeness = [source for source, reason in zip(completeness_sources, source_rejections) if reason is None]
-        # Containment now applies to the union of qualifying evidence. A candidate
-        # named by no qualifying source is still unratified, which is the check
-        # that stops a partial listing from rubber-stamping a roster it never covered.
-        if qualifying_completeness and claimed_roster_names:
-            union_text = " \n".join(_roster_source_text(source) for source in qualifying_completeness)
-            missing = [name for name in claimed_roster_names if not _source_names_candidate(union_text, name)]
-            if missing:
-                completeness_rejections.append(
-                    f"completeness evidence does not name every proposed candidate; missing: {', '.join(missing)}"
-                )
-                qualifying_completeness = []
         for source in qualifying_completeness:
             _record_verdict_on_source(source, args, ADJ_COMPLETENESS)
         if not qualifying_completeness:

@@ -118,6 +118,13 @@ _CLAIM_QUESTIONS: Dict[str, str] = {
         "entry for that district reads 'No Nominations', 'none', or is otherwise explicitly empty "
         "— an authoritative statement that a party fielded nobody is real evidence about the "
         "field, not an absence of evidence. "
+        "The roster being ratified is: {subject}. Judge whether this source is consistent with "
+        "that field — accounting for the people it does cover — by IDENTITY, not string equality. "
+        "The same person is routinely written differently across sources: 'Andrew Harris' and "
+        "'Andy Harris', 'James P. McGovern' and 'Jim McGovern', 'Incumbent Harris', initials, "
+        "maiden or married names, or a surname alone once introduced. Treat those as the same "
+        "person. Answer false only if the source contradicts the roster or covers a different "
+        "contest — not merely because a name is spelled or shortened differently. "
         "Answer false if it is a page about a single candidate, an evidently partial or truncated "
         "list, a blocked or empty page, a list for a different contest, or a landing page that "
         "never names this specific contest."
@@ -328,7 +335,12 @@ _TOOL_EVIDENCE_SPECS: Dict[str, tuple] = {
         ("sources", Claim.OMISSION, "name", "not_on_roster"),
         ("sources", Claim.WRONG_CONTEST, "name", "wrong_contest"),
     ),
-    "finalize_roster": (("completeness_sources", Claim.COMPLETENESS, None, None),),
+    # The roster being ratified is the subject of a completeness judgment: the
+    # question is whether this evidence is consistent with THAT field. Deciding
+    # it by string-matching names in the handler blocked MD-01 because its
+    # evidence says "Andrew Harris" and the roster says "Andy Harris" — a class
+    # of mismatch (nicknames, initials, surname-only) no matcher can enumerate.
+    "finalize_roster": (("completeness_sources", Claim.COMPLETENESS, "source_candidate_names", None),),
 }
 
 
@@ -360,7 +372,12 @@ async def collect_roster_adjudications(
             sources = args.get(args_key)
             if not isinstance(sources, list) or not sources:
                 continue
-            subject = str(args.get(subject_key) or "") if subject_key else ""
+            subject_value = args.get(subject_key) if subject_key else None
+            if isinstance(subject_value, list):
+                # finalize_roster's subject is the whole proposed roster.
+                subject = ", ".join(str(name).strip() for name in subject_value if str(name).strip())
+            else:
+                subject = str(subject_value or "")
             verdicts = await adjudicate_sources(
                 claim=claim,
                 subject=subject,
