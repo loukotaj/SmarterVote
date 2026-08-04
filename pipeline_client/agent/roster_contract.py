@@ -287,9 +287,15 @@ completeness_sources, graded {tier_labels} — meaning content you actually
 FETCHED this run. A search snippet is rejected, because partial text from a list
 page cannot be distinguished from a truncated one.
 - Accepted classes: {_class_list(COMPLETENESS_SOURCE_CLASSES)}.
-- The source must either name every candidate on your proposed roster, or
-  identify itself as a qualified, certified, official-ballot, or otherwise
-  complete candidate list.
+- The sources must TOGETHER name every candidate on your proposed roster, or
+  identify themselves as qualified, certified, official-ballot, or otherwise
+  complete candidate lists. No single source has to name everyone.
+- Many states publish one qualified-candidate list PER PARTY. Supply each
+  party's list and they compose into the whole field. An entry reading "No
+  Nominations", "none", or an explicitly empty district on such a list is
+  positive evidence that the party fielded nobody — use it. That is how an
+  uncontested race is proven: one party's list names the sole candidate and the
+  other party's list shows no nomination for the same district.
 - Quote the page's own field-listing sentence VERBATIM in `evidence`. Do not
   paraphrase it. A paraphrase that hedges — "candidates include A and B",
   "among the candidates are A and B" — asserts a partial list and is rejected,

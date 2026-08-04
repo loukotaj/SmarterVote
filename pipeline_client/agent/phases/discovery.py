@@ -359,7 +359,9 @@ def _record_provisional_roster(race_json: Dict[str, Any], log: Any | None = None
         note_parts.append("This should be updated as official sources become available.")
     if links:
         note_parts.append("Sources consulted: " + "; ".join(links))
-    note = " ".join(note_parts)
+    # Model-supplied text like primary_status rarely ends in punctuation, which
+    # ran sentences together ("...September 1, 2026 Expect this to firm up...").
+    note = " ".join(part if part.rstrip().endswith((".", "!", "?")) else f"{part.rstrip()}." for part in note_parts)
 
     roster_research = race_json.setdefault("pipeline_state", {}).setdefault("roster_research", {})
     if isinstance(roster_research, dict):

@@ -2696,3 +2696,97 @@ def test_completeness_still_refuses_search_snippets():
     )
 
     assert reason and "retrieved page content" in reason
+
+
+def _ma_party_list(url, title, evidence):
+    return {
+        "url": url,
+        "type": "official",
+        "title": title,
+        "evidence": evidence,
+        "race_id": "ma-house-02-2026",
+        "published_at": "2026-06-02",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+
+
+def test_finalize_roster_accepts_party_lists_that_compose_into_the_field():
+    """Massachusetts publishes one qualified-candidate list per party. MA-02 is
+    uncontested: the Democratic list names McGovern, the Republican list reads
+    "No Nominations" for the same district, and together they prove the field is
+    exactly one person. Requiring each source to name every candidate made that
+    unprovable, because no single-party list ever names a rival party's nominee."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "ma-house-02-2026",
+        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
+        "candidates": [{"name": "James P. McGovern", "party": "Democratic", "roster_sources": []}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    dem_list = _ma_party_list(
+        "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
+        "2026 Democratic State Primary Candidates",
+        "Representative in Congress, Second District: James P. McGovern, Worcester.",
+    )
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Uncontested: Democratic list names McGovern; Republicans made no nomination.",
+            "source_candidate_names": ["James P. McGovern"],
+            "candidates": [
+                {"name": "James P. McGovern", "party": "Democratic", "incumbent": True, "roster_sources": [dem_list]}
+            ],
+            "_research_trace": {
+                "researched_urls": [],
+                "fetched_urls": [
+                    "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
+                    "https://www.sec.state.ma.us/rep-state-primary-candidates2026.htm",
+                ],
+            },
+            "completeness_sources": [
+                _ma_party_list(
+                    "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
+                    "2026 Democratic State Primary Candidates",
+                    "Representative in Congress, Second District: James P. McGovern, Worcester.",
+                ),
+                _ma_party_list(
+                    "https://www.sec.state.ma.us/rep-state-primary-candidates2026.htm",
+                    "2026 Republican State Primary Candidates",
+                    "Representative in Congress, Second District: No Nominations.",
+                ),
+            ],
+        }
+    )
+
+    assert not result.startswith("ERROR"), result
+
+
+def test_finalize_roster_still_rejects_a_candidate_no_source_names():
+    """Union containment must not become a rubber stamp: a proposed candidate that
+    appears in none of the qualifying sources is still unratified."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "ma-house-02-2026",
+        "pipeline_state": {"race_identity": {"office": "U.S. House", "contest_stage": "pre_primary"}},
+        "candidates": [{"name": "James P. McGovern", "party": "Democratic", "roster_sources": []}],
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Claims an extra candidate no list mentions.",
+            "source_candidate_names": ["James P. McGovern", "Ghost Candidate"],
+            "completeness_sources": [
+                _ma_party_list(
+                    "https://www.sec.state.ma.us/dem-state-primary-candidates2026.htm",
+                    "2026 Democratic State Primary Candidates",
+                    "Representative in Congress, Second District: James P. McGovern, Worcester.",
+                ),
+            ],
+        }
+    )
+
+    assert "Ghost Candidate" in result

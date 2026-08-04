@@ -58,12 +58,58 @@ def _roster_source_text(source: Dict[str, Any]) -> str:
     return unquote(" ".join(str(source.get(key) or "") for key in ("title", "evidence", "url"))).casefold()
 
 
+_ONES_ORDINALS = (
+    "",
+    "first",
+    "second",
+    "third",
+    "fourth",
+    "fifth",
+    "sixth",
+    "seventh",
+    "eighth",
+    "ninth",
+    "tenth",
+    "eleventh",
+    "twelfth",
+    "thirteenth",
+    "fourteenth",
+    "fifteenth",
+    "sixteenth",
+    "seventeenth",
+    "eighteenth",
+    "nineteenth",
+)
+_TENS_ORDINALS = {20: "twentieth", 30: "thirtieth", 40: "fortieth", 50: "fiftieth"}
+_TENS_CARDINALS = {20: "twenty", 30: "thirty", 40: "forty", 50: "fifty"}
+
+
+def _ordinal_word(number: int) -> str:
+    """Spell a district number the way an election authority writes it.
+
+    Massachusetts titles its qualified-candidate sections "Second District", not
+    "2nd District" or "District 2". Matching only numerals rejected the state's
+    own official list as not naming the contest, which is what left MA-02
+    unprovable even though the evidence was sitting right there.
+    """
+    if number < len(_ONES_ORDINALS):
+        return _ONES_ORDINALS[number]
+    tens, ones = divmod(number, 10)
+    base = tens * 10
+    if base not in _TENS_CARDINALS:
+        return ""
+    if ones == 0:
+        return _TENS_ORDINALS[base]
+    return f"{_TENS_CARDINALS[base]}-{_ONES_ORDINALS[ones]}"
+
+
 def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> bool:
     """Reject same-number state-legislative evidence for federal House races."""
     match = re.fullmatch(r"[a-z]{2}-house-(\d{1,2})-(?:19|20)\d{2}", race_id)
     if not match:
         return True
     district = str(int(match.group(1)))
+    ordinal = _ordinal_word(int(match.group(1)))
     text = _roster_source_text(source)
     federal_house = bool(
         re.search(r"\b(?:u\.?s\.?|united states)\s+(?:house|representative)", text)
@@ -79,6 +125,8 @@ def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> b
             rf"\bcongressional\s+districts\b.{{0,240}}\bdistrict\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b",
             text,
         )
+        # Spelled-out ordinals, e.g. Massachusetts' "Second District".
+        or bool(ordinal and re.search(rf"\b{re.escape(ordinal)}\s+(?:congressional\s+)?district\b", text))
     )
     return federal_house and exact_district
 
@@ -1082,23 +1130,34 @@ def _make_editing_handlers(
         # A source that demonstrably lists all of them has proven completeness
         # without needing to also describe itself as a certified list.
         claimed_roster_names = [str(name).strip() for name in args.get("source_candidate_names") or [] if str(name).strip()]
-        completeness_rejections = [
-            reason
+        # Judge each source on its own merits first, WITHOUT the name-containment
+        # test. Several states publish one qualified-candidate list per party, so
+        # completeness is established by the set together: Massachusetts' Democratic
+        # list names McGovern for MA-02 while its Republican list says "No
+        # Nominations" for the same district, and between them the field is proven
+        # to be exactly one person. Requiring each source to name every candidate
+        # individually made that unprovable — no single-party list can ever name a
+        # rival party's nominee — so uncontested and split-party races could never
+        # finalize no matter how authoritative their sources.
+        source_rejections = [
+            _roster_completeness_source_rejection_reason(
+                source, race_id=race_id, identity=identity, roster_names=None, args=args
+            )
             for source in completeness_sources
-            if (
-                reason := _roster_completeness_source_rejection_reason(
-                    source, race_id=race_id, identity=identity, roster_names=claimed_roster_names, args=args
+        ]
+        completeness_rejections = [reason for reason in source_rejections if reason]
+        qualifying_completeness = [source for source, reason in zip(completeness_sources, source_rejections) if reason is None]
+        # Containment now applies to the union of qualifying evidence. A candidate
+        # named by no qualifying source is still unratified, which is the check
+        # that stops a partial listing from rubber-stamping a roster it never covered.
+        if qualifying_completeness and claimed_roster_names:
+            union_text = " \n".join(_roster_source_text(source) for source in qualifying_completeness)
+            missing = [name for name in claimed_roster_names if not _source_names_candidate(union_text, name)]
+            if missing:
+                completeness_rejections.append(
+                    f"completeness evidence does not name every proposed candidate; missing: {', '.join(missing)}"
                 )
-            )
-        ]
-        qualifying_completeness = [
-            source
-            for source in completeness_sources
-            if _roster_completeness_source_rejection_reason(
-                source, race_id=race_id, identity=identity, roster_names=claimed_roster_names, args=args
-            )
-            is None
-        ]
+                qualifying_completeness = []
         for source in qualifying_completeness:
             _record_verdict_on_source(source, args, ADJ_COMPLETENESS)
         if not qualifying_completeness:
