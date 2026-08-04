@@ -820,3 +820,37 @@ async def test_verify_url_marks_tls_failure_permanent():
         _reason, permanent = await _verify_url(AsyncMock(), "https://www.sos.alabama.gov/doc.pdf")
 
     assert permanent is True
+
+
+def test_missing_issues_does_not_fail_a_run_that_skipped_issue_research():
+    """A lightweight refresh does not collect issue stances, so grading it on their
+    absence measures the wrong thing. md-house-01-2026 was approved by 3/3
+    reviewers at an average of 93 and still graded C, because the missing stances
+    capped the score at 79 and blocked publication. The gap is still reported, as
+    info, because the race does eventually need issue research."""
+    from pipeline_client.agent.review import check_profile_quality, compute_validation_grade
+
+    profile = _valid_review_profile()
+    for candidate in profile["candidates"]:
+        candidate["issues"] = {}
+
+    scoped_out = check_profile_quality(profile, issues_step_ran=False)
+    missing = [f for f in scoped_out["flags"] if f["field"].endswith(".issues")]
+    assert missing, "the gap must still be reported"
+    assert all(f["severity"] == "info" for f in missing)
+
+    in_scope = check_profile_quality(profile, issues_step_ran=True)
+    assert any(f["severity"] == "error" for f in in_scope["flags"] if f["field"].endswith(".issues"))
+
+    approvals = [
+        {"model": "anthropic/claude-haiku-4.5", "verdict": "approved", "score": 92, "flags": []},
+        {"model": "google/gemini-3.1-flash-lite", "verdict": "approved", "score": 96, "flags": []},
+        {"model": "x-ai/grok-4.3", "verdict": "approved", "score": 92, "flags": []},
+    ]
+    refreshed = compute_validation_grade(approvals + [scoped_out])
+    assert refreshed["passed"] is True, refreshed["summary"]
+    assert refreshed["grade"] in {"A", "B"}
+
+    researched = compute_validation_grade(approvals + [in_scope])
+    assert researched["passed"] is False
+    assert researched["score"] == 79
