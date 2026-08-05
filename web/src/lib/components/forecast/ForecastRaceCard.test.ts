@@ -103,7 +103,7 @@ describe("ForecastRaceCard", () => {
     expect(screen.getByText(/example\.com/)).toBeTruthy();
   });
 
-  it("renders evidence lineage in the drawer, distinguishing inferred claims", () => {
+  it("renders only the stated claims of the evidence lineage in the drawer", () => {
     render(ForecastRaceCard, {
       race: withLineage,
       isExpanded: true,
@@ -111,21 +111,12 @@ describe("ForecastRaceCard", () => {
     });
 
     expect(screen.getByTestId("evidence-lineage")).toBeTruthy();
-    expect(screen.getByText("2 claims - 1 inferred")).toBeTruthy();
     expect(
       screen.getByText(
         "Prediction markets imply roughly an 87% Democratic win probability in NV-3",
       ),
     ).toBeTruthy();
-    expect(screen.getByText("Finance input used by the forecast")).toBeTruthy();
-
-    const stated = screen.getByText("Stated in source");
-    const inferred = screen.getByText("Inferred");
-    expect(stated.className).toContain("emerald");
-    expect(inferred.className).toContain("amber");
-    expect(stated.closest("li")?.className).not.toBe(
-      inferred.closest("li")?.className,
-    );
+    expect(screen.queryByText("Finance input used by the forecast")).toBeNull();
 
     const link = screen.getByText(/kalshi\.com/).closest("a");
     expect(link?.getAttribute("rel")).toBe("noopener noreferrer");
@@ -144,6 +135,27 @@ describe("ForecastRaceCard", () => {
 
     render(ForecastRaceCard, {
       race: { ...race, forecast: { ...race.forecast, evidence_lineage: [] } },
+      isExpanded: true,
+      onToggleExpand: vi.fn(),
+    });
+    expect(screen.queryByTestId("evidence-lineage")).toBeNull();
+    cleanup();
+
+    render(ForecastRaceCard, {
+      race: {
+        ...race,
+        forecast: {
+          ...race.forecast,
+          evidence_lineage: [
+            {
+              claim: "Finance input used by the forecast",
+              source_url: "https://www.fec.gov/data/candidate/H6NV03204/",
+              kind: "finance",
+              inferred: true,
+            },
+          ],
+        },
+      },
       isExpanded: true,
       onToggleExpand: vi.fn(),
     });

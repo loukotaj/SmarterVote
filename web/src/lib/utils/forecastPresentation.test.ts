@@ -1,12 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { ForecastEvidence, RaceSummary } from "$lib/types";
+import type { RaceSummary } from "$lib/types";
 import {
   buildSeatOutcomeChart,
   buildStateMapData,
-  countInferredEvidence,
-  evidenceKindLabel,
   getHostname,
-  groupEvidenceByKind,
   marketAsOf,
   marketSignalTarget,
   marketSpread,
@@ -160,69 +157,5 @@ describe("forecast presentation utilities", () => {
     const { colors, tooltips } = buildStateMapData(races, "house");
     expect(colors.California).toBe("var(--color-tossup)");
     expect(tooltips.California.badge).toBe("0/1 Forecasted");
-  });
-
-  it("groups forecast evidence by kind and counts inferred entries", () => {
-    const lineage: ForecastEvidence[] = [
-      {
-        claim: "Market claim",
-        source_url: "https://kalshi.com/markets/HOUSENV3-26-D",
-        kind: "market",
-        inferred: false,
-      },
-      {
-        claim: "Finance claim",
-        source_url: "https://www.fec.gov/data/candidate/H6NV03204/",
-        kind: "finance",
-        inferred: true,
-      },
-      {
-        claim: "Polling claim",
-        source_url: "https://example.com/poll",
-        kind: "polling",
-        inferred: false,
-      },
-      {
-        claim: "Second market claim",
-        source_url: "https://kalshi.com/markets/other",
-        kind: "market",
-        inferred: true,
-      },
-    ];
-
-    const groups = groupEvidenceByKind(lineage);
-    // Ordered polling -> market -> finance, regardless of input order.
-    expect(groups.map((group) => group.kind)).toEqual([
-      "polling",
-      "market",
-      "finance",
-    ]);
-    expect(groups[1].label).toBe("Prediction Markets");
-    expect(groups[1].entries.map((entry) => entry.claim)).toEqual([
-      "Market claim",
-      "Second market claim",
-    ]);
-    expect(countInferredEvidence(lineage)).toBe(2);
-  });
-
-  it("treats missing, empty and unrecognized evidence defensively", () => {
-    expect(groupEvidenceByKind(undefined)).toEqual([]);
-    expect(groupEvidenceByKind(null)).toEqual([]);
-    expect(groupEvidenceByKind([])).toEqual([]);
-    expect(countInferredEvidence(undefined)).toBe(0);
-    expect(countInferredEvidence([])).toBe(0);
-
-    const unknown = groupEvidenceByKind([
-      {
-        claim: "Unknown kind claim",
-        source_url: "https://example.com/x",
-        kind: "surprise" as ForecastEvidence["kind"],
-        inferred: false,
-      },
-    ]);
-    expect(unknown).toHaveLength(1);
-    expect(unknown[0].kind).toBe("other");
-    expect(unknown[0].label).toBe("Other Evidence");
-    expect(evidenceKindLabel("race_context")).toBe("Race Context");
   });
 });

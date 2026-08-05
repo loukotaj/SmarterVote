@@ -22,20 +22,16 @@ const entries: ForecastEvidence[] = [
 describe("ForecastEvidenceLineage", () => {
   afterEach(cleanup);
 
-  it("renders each claim grouped by kind with a safe external source link", () => {
+  it("renders stated claims with a safe external source link", () => {
     render(ForecastEvidenceLineage, { entries });
 
     expect(screen.getByTestId("evidence-lineage")).toBeTruthy();
     expect(screen.getByText("Evidence Lineage")).toBeTruthy();
-    expect(screen.getByText("2 claims - 1 inferred")).toBeTruthy();
-    expect(screen.getByText("Prediction Markets")).toBeTruthy();
-    expect(screen.getByText("Campaign Finance")).toBeTruthy();
     expect(
       screen.getByText(
         "Prediction markets imply roughly an 87% Democratic win probability in NV-3",
       ),
     ).toBeTruthy();
-    expect(screen.getByText("Finance input used by the forecast")).toBeTruthy();
 
     const link = screen.getByText(/kalshi\.com/).closest("a");
     expect(link?.getAttribute("href")).toBe(
@@ -45,36 +41,41 @@ describe("ForecastEvidenceLineage", () => {
     expect(link?.getAttribute("rel")).toBe("noopener noreferrer");
   });
 
-  it("visually distinguishes inferred entries from directly stated ones", () => {
-    render(ForecastEvidenceLineage, { entries });
+  it("omits inferred filler entries entirely", () => {
+    const { container } = render(ForecastEvidenceLineage, { entries });
 
-    const stated = screen.getByText("Stated in source");
-    const inferred = screen.getByText("Inferred");
-
-    // Distinct badge labels and distinct color treatments.
-    expect(stated.className).toContain("emerald");
-    expect(inferred.className).toContain("amber");
-    expect(stated.className).not.toBe(inferred.className);
-
-    // The row itself is also differentiated, not just the badge.
-    const statedRow = stated.closest("li");
-    const inferredRow = inferred.closest("li");
-    expect(statedRow?.className).toContain("border-l-emerald-500");
-    expect(inferredRow?.className).toContain("border-dashed");
-
-    // The distinction is explained in plain language when inferred rows exist.
-    expect(screen.getByText(/does not state the claim outright/)).toBeTruthy();
+    expect(screen.queryByText("Finance input used by the forecast")).toBeNull();
+    expect(container.querySelectorAll("li")).toHaveLength(1);
+    expect(screen.queryByText("Inferred")).toBeNull();
+    expect(screen.queryByText("Stated in source")).toBeNull();
+    expect(screen.queryByText("Campaign Finance")).toBeNull();
+    expect(screen.queryByText("Prediction Markets")).toBeNull();
   });
 
-  it("omits the inferred footnote when every claim is directly stated", () => {
-    render(ForecastEvidenceLineage, {
-      entries: [{ ...entries[0] }],
+  it("renders a non-http source as plain text rather than a link", () => {
+    const { container } = render(ForecastEvidenceLineage, {
+      entries: [
+        {
+          claim: "Internal model note",
+          source_url: "javascript:alert(1)",
+          kind: "other",
+          inferred: false,
+        },
+      ],
     });
 
-    expect(screen.getByText("1 claim")).toBeTruthy();
-    expect(screen.getByText("Stated in source")).toBeTruthy();
-    expect(screen.queryByText("Inferred")).toBeNull();
-    expect(screen.queryByText(/does not state the claim outright/)).toBeNull();
+    expect(screen.getByText("Internal model note")).toBeTruthy();
+    expect(screen.getByText("javascript:alert(1)")).toBeTruthy();
+    expect(container.querySelector("a")).toBeNull();
+  });
+
+  it("renders nothing when every entry is inferred", () => {
+    const { container } = render(ForecastEvidenceLineage, {
+      entries: [entries[1]],
+    });
+
+    expect(container.textContent?.trim()).toBe("");
+    expect(screen.queryByTestId("evidence-lineage")).toBeNull();
   });
 
   it("renders nothing when lineage is undefined, null or empty", () => {

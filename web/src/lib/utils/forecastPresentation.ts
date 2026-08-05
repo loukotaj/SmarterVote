@@ -1,4 +1,4 @@
-import type { ForecastEvidence, ForecastRating, RaceSummary } from "$lib/types";
+import type { ForecastRating, RaceSummary } from "$lib/types";
 import {
   formatRating,
   getRaceState,
@@ -215,82 +215,6 @@ export function buildSeatOutcomeChart(
     maxProbability,
     svgData: { fillPath, strokePath, points, tieX, minD, maxD },
   };
-}
-
-type ForecastEvidenceKind = ForecastEvidence["kind"];
-
-/** Display order for evidence-lineage groups; mirrors the `kind` union in shared/models.py. */
-export const FORECAST_EVIDENCE_KIND_ORDER: ForecastEvidenceKind[] = [
-  "polling",
-  "market",
-  "finance",
-  "race_context",
-  "other",
-];
-
-const FORECAST_EVIDENCE_KIND_LABELS: Record<ForecastEvidenceKind, string> = {
-  polling: "Polling",
-  market: "Prediction Markets",
-  finance: "Campaign Finance",
-  race_context: "Race Context",
-  other: "Other Evidence",
-};
-
-/** Human label for an evidence kind. Unrecognized kinds fall back to the "other" bucket. */
-export function evidenceKindLabel(kind: string): string {
-  return (
-    FORECAST_EVIDENCE_KIND_LABELS[kind as ForecastEvidenceKind] ??
-    FORECAST_EVIDENCE_KIND_LABELS.other
-  );
-}
-
-export interface ForecastEvidenceGroup {
-  kind: ForecastEvidenceKind;
-  label: string;
-  entries: ForecastEvidence[];
-}
-
-/**
- * Buckets forecast evidence by `kind` in a stable display order, preserving the
- * original entry order inside each bucket. Returns an empty array for missing or
- * empty lineage so callers can skip rendering the section entirely.
- */
-export function groupEvidenceByKind(
-  entries?: ForecastEvidence[] | null,
-): ForecastEvidenceGroup[] {
-  if (!entries || entries.length === 0) return [];
-
-  const buckets = new Map<ForecastEvidenceKind, ForecastEvidence[]>();
-  for (const entry of entries) {
-    if (!entry) continue;
-    const kind: ForecastEvidenceKind = FORECAST_EVIDENCE_KIND_ORDER.includes(
-      entry.kind,
-    )
-      ? entry.kind
-      : "other";
-    const bucket = buckets.get(kind);
-    if (bucket) {
-      bucket.push(entry);
-    } else {
-      buckets.set(kind, [entry]);
-    }
-  }
-
-  return FORECAST_EVIDENCE_KIND_ORDER.filter((kind) => buckets.has(kind)).map(
-    (kind) => ({
-      kind,
-      label: evidenceKindLabel(kind),
-      entries: buckets.get(kind) as ForecastEvidence[],
-    }),
-  );
-}
-
-/** Number of lineage entries whose source does not state the claim outright. */
-export function countInferredEvidence(
-  entries?: ForecastEvidence[] | null,
-): number {
-  if (!entries || entries.length === 0) return 0;
-  return entries.filter((entry) => entry?.inferred).length;
 }
 
 /** Returns a URL's hostname (without a leading "www.") for compact source display. */
