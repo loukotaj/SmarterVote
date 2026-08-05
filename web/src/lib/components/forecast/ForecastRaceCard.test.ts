@@ -31,6 +31,28 @@ const race: ForecastRace = {
   },
 };
 
+const withLineage: ForecastRace = {
+  ...race,
+  forecast: {
+    ...race.forecast,
+    evidence_lineage: [
+      {
+        claim:
+          "Prediction markets imply roughly an 87% Democratic win probability in NV-3",
+        source_url: "https://kalshi.com/markets/HOUSENV3-26-D",
+        kind: "market",
+        inferred: false,
+      },
+      {
+        claim: "Finance input used by the forecast",
+        source_url: "https://www.fec.gov/data/candidate/H6NV03204/",
+        kind: "finance",
+        inferred: true,
+      },
+    ],
+  },
+};
+
 describe("ForecastRaceCard", () => {
   afterEach(cleanup);
 
@@ -79,5 +101,74 @@ describe("ForecastRaceCard", () => {
       screen.getByText("Late undecideds could tighten the race."),
     ).toBeTruthy();
     expect(screen.getByText(/example\.com/)).toBeTruthy();
+  });
+
+  it("renders only the stated claims of the evidence lineage in the drawer", () => {
+    render(ForecastRaceCard, {
+      race: withLineage,
+      isExpanded: true,
+      onToggleExpand: vi.fn(),
+    });
+
+    expect(screen.getByTestId("evidence-lineage")).toBeTruthy();
+    expect(
+      screen.getByText(
+        "Prediction markets imply roughly an 87% Democratic win probability in NV-3",
+      ),
+    ).toBeTruthy();
+    expect(screen.queryByText("Finance input used by the forecast")).toBeNull();
+
+    const link = screen.getByText(/kalshi\.com/).closest("a");
+    expect(link?.getAttribute("rel")).toBe("noopener noreferrer");
+    expect(link?.getAttribute("target")).toBe("_blank");
+  });
+
+  it("omits the lineage section when the forecast has none", () => {
+    render(ForecastRaceCard, {
+      race,
+      isExpanded: true,
+      onToggleExpand: vi.fn(),
+    });
+    expect(screen.queryByTestId("evidence-lineage")).toBeNull();
+    expect(screen.queryByText("Evidence Lineage")).toBeNull();
+    cleanup();
+
+    render(ForecastRaceCard, {
+      race: { ...race, forecast: { ...race.forecast, evidence_lineage: [] } },
+      isExpanded: true,
+      onToggleExpand: vi.fn(),
+    });
+    expect(screen.queryByTestId("evidence-lineage")).toBeNull();
+    cleanup();
+
+    render(ForecastRaceCard, {
+      race: {
+        ...race,
+        forecast: {
+          ...race.forecast,
+          evidence_lineage: [
+            {
+              claim: "Finance input used by the forecast",
+              source_url: "https://www.fec.gov/data/candidate/H6NV03204/",
+              kind: "finance",
+              inferred: true,
+            },
+          ],
+        },
+      },
+      isExpanded: true,
+      onToggleExpand: vi.fn(),
+    });
+    expect(screen.queryByTestId("evidence-lineage")).toBeNull();
+  });
+
+  it("keeps evidence lineage hidden until the drawer is expanded", () => {
+    render(ForecastRaceCard, {
+      race: withLineage,
+      isExpanded: false,
+      onToggleExpand: vi.fn(),
+    });
+
+    expect(screen.queryByTestId("evidence-lineage")).toBeNull();
   });
 });
