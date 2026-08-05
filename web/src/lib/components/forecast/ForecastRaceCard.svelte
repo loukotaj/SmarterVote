@@ -17,6 +17,7 @@
     probabilityOneDecimal,
     ratingClass,
   } from "$lib/utils/forecastPresentation";
+  import ForecastEvidenceLineage from "./ForecastEvidenceLineage.svelte";
 
   export let race: ForecastRace;
   export let isExpanded: boolean;
@@ -280,6 +281,9 @@
             </div>
           </div>
         {/if}
+
+        <!-- Per-claim Evidence Attribution -->
+        <ForecastEvidenceLineage entries={race.forecast.evidence_lineage} />
 
         <!-- Source Links -->
         {#if race.forecast.source_urls && race.forecast.source_urls.length > 0}
