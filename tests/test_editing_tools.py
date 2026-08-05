@@ -2801,3 +2801,23 @@ def test_completeness_adjudication_is_asked_about_the_whole_proposed_roster():
     prompt = str(seen.get("messages"))
     for name in ("Andy Harris", "Dan Schwartz", "Edward Shlikas"):
         assert name in prompt, f"{name} missing from adjudicator prompt"
+
+
+def test_cd_shorthand_establishes_both_office_and_district():
+    """ "CD5" is congressional-district shorthand, so it names the office and the
+    district at once. Counting it only toward the district meant a source also had
+    to spell out "Congress" — which headlines do not. az-house-05-2026 was blocked
+    on "Mark Lamb wins Republican primary, Elizabeth Lee wins Democratic primary in
+    Arizona CD5" and published missing the Democratic nominee."""
+    from pipeline_client.agent.handlers import _source_supports_exact_contest
+
+    headline = {
+        "title": "",
+        "evidence": "Mark Lamb wins Republican primary, Elizabeth Lee wins Democratic primary in Arizona CD5",
+    }
+    assert _source_supports_exact_contest(headline, race_id="az-house-05-2026") is True
+
+    # The guards that make this check worth having must survive.
+    assert _source_supports_exact_contest(headline, race_id="az-house-07-2026") is False
+    state_leg = {"title": "", "evidence": "Arizona House District 5 state legislature race"}
+    assert _source_supports_exact_contest(state_leg, race_id="az-house-05-2026") is False

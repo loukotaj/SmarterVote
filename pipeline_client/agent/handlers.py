@@ -111,14 +111,22 @@ def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> b
     district = str(int(match.group(1)))
     ordinal = _ordinal_word(int(match.group(1)))
     text = _roster_source_text(source)
+    # "CD5" / "CD-5" is congressional-district shorthand, so it establishes the
+    # office and the district at once. Counting it only toward the district half
+    # meant a source had to *also* spell out "Congress" somewhere, and headlines
+    # do not: az-house-05-2026 was blocked on "Mark Lamb wins Republican primary,
+    # Elizabeth Lee wins Democratic primary in Arizona CD5" — correct evidence for
+    # a correct two-nominee roster — and shipped missing the Democratic nominee.
+    cd_shorthand = bool(re.search(rf"\bcd\s*[-#]?\s*0*{re.escape(district)}\b", text))
     federal_house = bool(
-        re.search(r"\b(?:u\.?s\.?|united states)\s+(?:house|representative)", text)
+        cd_shorthand
+        or re.search(r"\b(?:u\.?s\.?|united states)\s+(?:house|representative)", text)
         or re.search(r"\bcongress(?:ional)?\b", text)
     )
     exact_district = bool(
-        re.search(rf"\b0*{re.escape(district)}(?:st|nd|rd|th)?\s+(?:congressional\s+)?district\b", text)
+        cd_shorthand
+        or re.search(rf"\b0*{re.escape(district)}(?:st|nd|rd|th)?\s+(?:congressional\s+)?district\b", text)
         or re.search(rf"\b(?:congressional\s+)?district\s*(?:no\.?\s*)?#?0*{re.escape(district)}\b", text)
-        or re.search(rf"\bcd\s*[-#]?\s*0*{re.escape(district)}\b", text)
         # Statewide certification documents commonly title the table
         # "Congressional Districts" and label each row only "District 2".
         or re.search(
