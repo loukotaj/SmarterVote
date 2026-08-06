@@ -357,6 +357,23 @@ def _candidate_names(data: Any) -> List[str]:
     return [c.get("name") for c in candidates if isinstance(c, dict) and c.get("name")]
 
 
+def _roster_completeness_unproven(data: Any) -> bool:
+    """Report whether the run said outright that it could not establish the full field.
+
+    Discovery records ``roster_completeness_unproven`` when no authoritative ballot or
+    qualified-candidate list was retrievable. The run is still useful — the candidates
+    it did evidence are real — but it has disclaimed knowing who else belongs.
+    """
+    if not isinstance(data, dict):
+        return False
+    health = data.get("run_health") if isinstance(data.get("run_health"), dict) else {}
+    if "roster_completeness_unproven" in {str(r) for r in health.get("reasons") or []}:
+        return True
+    roster = data.get("pipeline_state", {}) if isinstance(data.get("pipeline_state"), dict) else {}
+    research = roster.get("roster_research") if isinstance(roster.get("roster_research"), dict) else {}
+    return research.get("completeness_status") == "unproven"
+
+
 @mcp.tool(structured_output=False)
 async def audit_draft_vs_published(race_ids: List[str]) -> Dict[str, Any]:
     """Compare draft vs. published candidate rosters and validation grade for many races at once.
@@ -472,8 +489,10 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
 
     Checks draft presence, candidate roster, explicit validation pass, run health,
     pipeline completion, literal placeholder content, and draft-vs-published roster
-    changes. A race is ``ready`` only when it has no blockers. Warnings still require
-    human review but do not claim the API would reject publication.
+    changes — including blocking a draft that drops a published candidate without
+    being able to evidence the roster it kept. A race is ``ready`` only when it has
+    no blockers. Warnings still require human review but do not claim the API would
+    reject publication.
     """
     client = _client()
     rows: List[Dict[str, Any]] = []
@@ -537,6 +556,13 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
             warnings.append("first_publication")
         elif sorted(names) != sorted(published_names):
             warnings.append("candidate_roster_changes")
+            # Dropping a published candidate asserts they are not in this contest.
+            # A run that reported it could not establish the complete field has
+            # disclaimed exactly the knowledge that assertion needs, so let it add
+            # candidates but never quietly delete one. fl-house-11-2026 halved its
+            # roster to a single candidate on an unproven field and still read ready.
+            if set(published_names) - set(names) and _roster_completeness_unproven(draft):
+                blockers.append("roster_removal_on_unproven_field")
         rows.append(
             {
                 "race_id": race_id,
