@@ -408,6 +408,82 @@ async def test_assess_publish_readiness_blocks_failed_or_placeholder_drafts(monk
 
 
 @pytest.mark.asyncio
+async def test_assess_publish_readiness_blocks_roster_removal_on_unproven_field(monkeypatch):
+    """A run that could not confirm the field must not be trusted to shrink it.
+
+    fl-house-11-2026 refreshed from two published candidates down to one, on a run
+    whose own ``run_health`` said no authoritative ballot list was retrievable — and
+    still reported ready, because a roster change was only ever a warning.
+    """
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    unproven_health = {"status": "degraded", "reasons": ["roster_completeness_unproven"]}
+    responses = {
+        # Drops Shawn Bettis on a field the run admits it could not establish.
+        "/api/races/fl-house-11-2026/data": {
+            "candidates": [{"name": "Carey Baker"}],
+            "validation_grade": None,
+            "run_health": unproven_health,
+            "pipeline_state": {"complete": False, "remaining_steps": ["review"]},
+        },
+        "/races/fl-house-11-2026": {"candidates": [{"name": "Carey Baker"}, {"name": "Shawn Bettis"}]},
+        # Same unproven field, but only *adds* — nothing is being asserted away.
+        "/api/races/fl-house-12-2026/data": {
+            "candidates": [{"name": "Gus Bilirakis"}, {"name": "Newly Found"}],
+            "validation_grade": None,
+            "run_health": unproven_health,
+            "pipeline_state": {"complete": False, "remaining_steps": ["review"]},
+        },
+        "/races/fl-house-12-2026": {"candidates": [{"name": "Gus Bilirakis"}]},
+        # A removal is fine when the run actually established the field.
+        "/api/races/il-house-04-2026/data": {
+            "candidates": [{"name": "Patty Garcia"}, {"name": "Chris Getty"}],
+            "validation_grade": None,
+            "run_health": {"status": "healthy", "reasons": []},
+            "pipeline_state": {"complete": False, "remaining_steps": ["review"]},
+        },
+        "/races/il-house-04-2026": {"candidates": [{"name": "Patty Garcia"}, {"name": "Byron Sigcho-Lopez"}]},
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.assess_publish_readiness(["fl-house-11-2026", "fl-house-12-2026", "il-house-04-2026"])
+
+    assert result["blocked_race_ids"] == ["fl-house-11-2026"]
+    assert "roster_removal_on_unproven_field" in result["rows"][0]["blockers"]
+    assert result["ready_race_ids"] == ["fl-house-12-2026", "il-house-04-2026"]
+
+
+@pytest.mark.asyncio
+async def test_assess_publish_readiness_reads_unproven_field_from_roster_research(monkeypatch):
+    """The flag also lives in ``pipeline_state.roster_research`` on older drafts."""
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/fl-house-11-2026/data": {
+            "candidates": [{"name": "Carey Baker"}],
+            "validation_grade": None,
+            "pipeline_state": {
+                "complete": False,
+                "remaining_steps": ["review"],
+                "roster_research": {"completeness_status": "unproven"},
+            },
+        },
+        "/races/fl-house-11-2026": {"candidates": [{"name": "Carey Baker"}, {"name": "Shawn Bettis"}]},
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.assess_publish_readiness(["fl-house-11-2026"])
+
+    assert "roster_removal_on_unproven_field" in result["rows"][0]["blockers"]
+
+
+@pytest.mark.asyncio
 async def test_assess_publish_readiness_allows_unreviewed_maintenance_draft(monkeypatch):
     """A discovery/polling/forecast draft has no grade and the races-api still publishes it.
 
