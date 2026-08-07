@@ -256,6 +256,16 @@ _AUTH_CODES = {"auth_failure", "quota_exceeded", "unauthorized", "forbidden"}
 _RATE_LIMIT_CODES = {"rate_limited", "rate_limit"}
 _TIMEOUT_CODES = {"provider_unavailable", "connection_failed", "timeout", "request_timeout"}
 
+#: Control-flow exceptions matched by class name, because this module must not
+#: import pipeline_client (see the module docstring).
+#:
+#: Named rather than inlined so a test can hold them against the real classes.
+#: A rename on the pipeline side would otherwise be invisible here: the match
+#: simply stops hitting and the run is filed as UNKNOWN_ERROR, which is exactly
+#: the verdict the taxonomy exists to avoid.
+BUDGET_EXCEPTION_NAMES = frozenset({"RunBudgetExceeded"})
+CANCELLED_EXCEPTION_NAMES = frozenset({"AgentCancelled"})
+
 
 def classify_exception(exc: BaseException) -> RunFailureReason:
     """Map an arbitrary exception to a taxonomy reason.
@@ -265,9 +275,9 @@ def classify_exception(exc: BaseException) -> RunFailureReason:
     names, so this module never needs to import pipeline_client directly.
     """
     class_name = exc.__class__.__name__
-    if class_name in {"RunBudgetExceeded"}:
+    if class_name in BUDGET_EXCEPTION_NAMES:
         return RunFailureReason.BUDGET_EXHAUSTED
-    if class_name in {"AgentCancelled"}:
+    if class_name in CANCELLED_EXCEPTION_NAMES:
         return RunFailureReason.CANCELLED
 
     code = getattr(exc, "code", None)
