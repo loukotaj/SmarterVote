@@ -86,10 +86,14 @@ def test_chamber_forecast_counts_senate_tie_in_republican_probability():
             "title": f"{state} Senate",
             "office": "United States Senate",
             "state": state,
+            # Tuned so the seat distribution actually peaks at 18 Republican race
+            # wins, which lands on 50-50 once the 32 Republican holdovers are added.
+            # projected_seats reports that peak, so a fixture that merely gives
+            # Republicans more favored races is not enough to produce the tie.
             "forecast": {
-                "predicted_winner_party": "Democratic" if index < 15 else "Republican",
+                "predicted_winner_party": "Democratic" if index < 13 else "Republican",
                 "win_probability": 0.65,
-                "rating": "lean_d" if index < 15 else "lean_r",
+                "rating": "lean_d" if index < 13 else "lean_r",
             },
         }
         for index, state in enumerate(active_states)
@@ -101,6 +105,9 @@ def test_chamber_forecast_counts_senate_tie_in_republican_probability():
     assert senate["projected_seats"]["Democratic"] + senate["projected_seats"]["Republican"] == 100
     assert senate["projected_seats"]["Democratic"] == 50
     assert senate["projected_seats"]["Republican"] == 50
+    # The point of the fixture: an exact 50-50 is Republican control via the VP.
+    assert senate["control_party"] == "Republican"
+    assert senate["vp_tiebreak_party"] == "Republican"
     assert senate["outcome_probabilities"]["Republican"] >= senate["outcome_probabilities"]["tie_50_50"]
     assert "50-50 Senate" in senate["narrative"]
     assert senate["competitive_race_count"] >= len(senate["competitive_races"])
@@ -163,7 +170,15 @@ def test_chamber_forecast_control_party_tracks_control_probability():
 
     senate = build_chamber_forecasts(summaries)["chambers"]["senate"]
 
-    assert senate["projected_seats"] == {"Democratic": 49, "Republican": 51, "Other": 0}
+    # Republicans are favored in 19 of the 33 races to the Democrats' 14, so a
+    # per-race tally would project 51R-49D. The joint distribution peaks the other
+    # way, because winning 19 near-coin-flips is far less likely than the tally
+    # implies, and projected_seats reports that peak.
+    assert senate["projected_seats"] == {"Democratic": 51, "Republican": 49, "Other": 0}
+    mode_key = max(senate["seat_distribution"], key=senate["seat_distribution"].get)
+    assert mode_key == "51D-49R"
+    # control_party is still derived from control probability, never from the
+    # projected split.
     assert senate["outcome_probabilities"]["Democratic"] > senate["outcome_probabilities"]["Republican"]
     assert senate["control_party"] == "Democratic"
     assert senate["control_probability"] == senate["outcome_probabilities"]["Democratic"]
@@ -253,6 +268,34 @@ def test_default_chamber_story_names_competitive_races():
     assert "Georgia Senate" in senate["narrative"]
     assert "Texas Senate" in senate["opposing_party_path"]
     assert "competitive races to reach" not in senate["opposing_party_path"]
+
+
+def test_projected_seats_falls_back_to_tally_when_seats_are_unaccounted():
+    """A partial race set must not hand every unrepresented seat to one party.
+
+    projected_seats derives the non-Republican side by subtracting from the
+    chamber total, which is only sound when holdovers plus races cover every
+    seat. With a single governor race on the books, subtraction would report ~42
+    Democratic seats; the per-race tally reports only what it actually saw.
+    """
+    summaries = [
+        {
+            "id": "ga-governor-2026",
+            "office": "Governor",
+            "state": "Georgia",
+            "forecast": {
+                "predicted_winner_party": "Democratic",
+                "win_probability": 0.60,
+                "rating": "lean_d",
+                "party_probabilities": {"Democratic": 0.60, "Republican": 0.40},
+            },
+        }
+    ]
+
+    governors = build_chamber_forecasts(summaries)["chambers"]["governors"]
+
+    assert sum(governors["projected_seats"].values()) < 50
+    assert governors["projected_seats"]["Democratic"] < 42
 
 
 def test_governor_forecast_other_party_resolves_from_party_probabilities():
