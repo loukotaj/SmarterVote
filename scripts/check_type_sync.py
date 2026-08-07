@@ -148,7 +148,7 @@ FRONTEND_ONLY_OR_OTHER_BACKEND_TYPES: Dict[str, str] = {
     "RENAMED_ISSUE_NOTES": "Frontend-only user-facing copy (tooltip text) for renamed issues; has no backend equivalent.",
     "CandidateSummary": "Mirrors services/races-api/schemas.py:CandidateSummary (search/listing projection), not shared/models.py:Candidate.",
     "RaceSummary": "Mirrors services/races-api/schemas.py:RaceSummary, not shared/models.py:RaceJSON.",
-    "RunStatus": "Mirrors pipeline_client/backend/models.py run-status string literals used by RunInfo/RunStep; not part of shared/models.py.",
+    "RunStatus": "Mirrors pipeline_client/backend/models.py:RunStatus, not shared/models.py; checked separately by check_run_status().",
     "PipelineStepId": "Mirrors shared/pipeline_config.py:PIPELINE_STEP_IDS; checked separately by check_pipeline_step_ids().",
     "PIPELINE_STEPS": "Derived const array; checked separately by check_pipeline_step_ids().",
     "DEFAULT_UPDATE_PIPELINE_STEP_IDS": "Derived const array mirroring shared/pipeline_config.py:DEFAULT_UPDATE_PIPELINE_STEPS; checked separately by check_pipeline_step_ids().",
@@ -604,6 +604,32 @@ def check_model(ts_name: str, model_cls: Type[BaseModel], ts_interfaces: Dict[st
     return violations
 
 
+def check_run_status(ts_source: str) -> List[str]:
+    """Bonus check: RunStatus in types.ts vs pipeline_client's RunStatus enum.
+
+    RunStatus is excluded from `check_enums` because it lives in
+    pipeline_client/backend/models.py rather than shared/models.py, and that
+    exclusion left it with no check at all — unlike PipelineStepId, which is
+    excluded for the same reason and then checked here. Both sides serialize
+    the same run documents, so a value added on one side and not the other
+    gives the admin UI a status it will not render.
+    """
+    from pipeline_client.backend.models import RunStatus
+
+    violations = []
+    unions = parse_ts_type_unions(ts_source)
+    if "RunStatus" not in unions:
+        return ["[RunStatus] TS union type not found in types.ts"]
+    ts_values = _quoted_string_literals(unions["RunStatus"])
+    py_values = {status.value for status in RunStatus}
+    if ts_values != py_values:
+        violations.append(
+            f"[RunStatus] mismatch vs pipeline_client.backend.models.RunStatus: "
+            f"ts={sorted(ts_values)} python={sorted(py_values)}"
+        )
+    return violations
+
+
 def check_pipeline_step_ids(ts_source: str) -> List[str]:
     """Bonus check: PipelineStepId / PIPELINE_STEPS in types.ts vs the
     canonical step order + weights in shared/pipeline_config.py."""
@@ -670,6 +696,7 @@ def run_checks(types_ts_path: Path = DEFAULT_TYPES_TS_PATH) -> List[str]:
     violations += check_legacy_issue_names(ts_source)
     violations += check_model_overrides_shape(ts_interfaces)
     violations += check_pipeline_step_ids(ts_source)
+    violations += check_run_status(ts_source)
 
     for ts_name, model_cls in CHECKED_MODELS.items():
         violations += check_model(ts_name, model_cls, ts_interfaces)
