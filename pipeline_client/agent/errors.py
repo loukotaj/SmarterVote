@@ -27,7 +27,3 @@ class RetryableProviderError(ProviderError):
 
 class PermanentProviderError(ProviderError):
     """Request or policy failure that retrying unchanged will not fix."""
-
-
-def is_retryable_provider_error(exc: BaseException) -> bool:
-    return isinstance(exc, RetryableProviderError)
