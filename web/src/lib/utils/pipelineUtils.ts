@@ -163,22 +163,6 @@ export function downloadAsJson(data: unknown, filename?: string): boolean {
 }
 
 /**
- * Validate JSON string
- */
-export function validateJson(jsonString: string): {
-  valid: boolean;
-  error?: string;
-  data?: unknown;
-} {
-  try {
-    const data = JSON.parse(jsonString);
-    return { valid: true, data };
-  } catch (error) {
-    return { valid: false, error: String(error) };
-  }
-}
-
-/**
  * Debounce function for API calls
  */
 export function debounce<T extends (...args: unknown[]) => unknown>(
@@ -190,23 +174,5 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
   return (...args: Parameters<T>) => {
     if (timeoutId) clearTimeout(timeoutId);
     timeoutId = setTimeout(() => func(...args), wait);
-  };
-}
-
-/**
- * Throttle function for frequent updates
- */
-export function throttle<T extends (...args: unknown[]) => unknown>(
-  func: T,
-  limit: number,
-): (...args: Parameters<T>) => void {
-  let inThrottle = false;
-
-  return (...args: Parameters<T>) => {
-    if (!inThrottle) {
-      func(...args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
   };
 }

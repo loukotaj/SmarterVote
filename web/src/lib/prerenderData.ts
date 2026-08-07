@@ -8,10 +8,6 @@ import {
 let summariesCache: Promise<RaceSummary[]> | null = null;
 const raceCache = new Map<string, Promise<Race>>();
 
-export function publicApiBase(): string {
-  return racesApiBase();
-}
-
 function publicDataBase(): string | undefined {
   return configuredPublicDataBase();
 }
